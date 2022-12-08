@@ -34,7 +34,9 @@ class PoolCandidateFactory extends Factory
                                                             $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
                                                             ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
-            'pool_id' => Pool::factory(),
+            'pool_id' => Pool::factory([
+                'published_at' => config('constants.past_date'),
+            ]),
             'notes' => $this->faker->paragraphs(3, true),
             'submitted_at' => null,
             'signature' => null,

@@ -52,6 +52,8 @@ query selectedUsers($ids: [ID]!) {
     acceptedOperationalRequirements
     isWoman
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     hasDisability
     citizenship

@@ -9,7 +9,7 @@ fragment classification on Classification {
   minSalary
   maxSalary
 }
-query getClassification($id: ID!) {
+query getClassification($id: UUID!) {
   classification(id: $id) {
     ...classification
   }

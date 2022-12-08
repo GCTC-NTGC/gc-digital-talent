@@ -82,15 +82,15 @@ fragment poolAdvertisementSkills on Skill {
   }
 }
 
-query getAllApplicantExperiences($id: ID!) {
+query getAllApplicantExperiences($id: UUID!) {
   applicant(id: $id) {
     ...applicantExperiences
   }
 }
 
 query getAllApplicantExperiencesAndPoolSkills(
-  $applicantId: ID!
-  $poolAdvertisementId: ID!
+  $applicantId: UUID!
+  $poolAdvertisementId: UUID!
 ) {
   applicant(id: $applicantId) {
     ...applicantExperiences
@@ -105,7 +105,7 @@ query getAllApplicantExperiencesAndPoolSkills(
   }
 }
 
-query GetApplicationDetails($id: ID!) {
+query GetApplicationDetails($id: UUID!) {
   poolCandidate(id: $id) {
     poolAdvertisement {
       id

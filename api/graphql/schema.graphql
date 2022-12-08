@@ -17,6 +17,9 @@ scalar KeyString
 "Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 
+"128 bit universally unique identifier (UUID)"
+scalar UUID @scalar(class: "UUID")
+
 type LocalizedString {
   en: String
   fr: String
@@ -75,8 +78,14 @@ type User {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
+  isIndigenous: Boolean
+    @rename(attribute: "is_indigenous")
+    @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [IndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -91,7 +100,7 @@ type User {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
@@ -177,6 +186,15 @@ enum PositionDuration {
   PERMANENT
 }
 
+enum IndigenousCommunity {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
+}
+
 type Applicant {
   id: ID!
 
@@ -216,8 +234,14 @@ type Applicant {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
+  isIndigenous: Boolean
+    @rename(attribute: "is_indigenous")
+    @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [IndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -234,7 +258,7 @@ type Applicant {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Experiences
   experiences: [Experience]
@@ -263,8 +287,8 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
-  assetCriteria: [CmoAsset] @belongsToMany
-  essentialCriteria: [CmoAsset] @belongsToMany
+  assetCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
+  essentialCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
@@ -363,6 +387,7 @@ enum PoolAdvertisementLanguage {
 
 enum PublishingGroup {
   IT_JOBS
+  IT_JOBS_ONGOING
   EXECUTIVE_JOBS
   OTHER
 }
@@ -390,7 +415,7 @@ type PoolCandidate {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -491,6 +516,7 @@ enum PoolCandidateSearchStatus {
   DONE
 }
 
+# equity selections goes with the pool/applicant filters and not user model
 type EquitySelections {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
@@ -501,14 +527,14 @@ type EquitySelections {
 input EquitySelectionsInput {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  isIndigenous: Boolean @rename(attribute: "is_indigenous")
 }
 
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -805,7 +831,7 @@ type CandidateSearchPoolResult {
 
 type Query {
   me: User @auth
-  user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
+  user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
   users: [User]! @all @guard @can(ability: "viewAny")
   usersPaginated(
     where: UserFilterInput
@@ -815,7 +841,7 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000)
     @guard
     @can(ability: "viewAny")
-  applicant(id: ID! @eq): Applicant
+  applicant(id: UUID! @eq): Applicant
     @find(model: "User")
     @guard
     @can(ability: "viewApplicant", query: true, model: "User")
@@ -826,8 +852,8 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
-  pool(id: ID! @eq): Pool @find @can(ability: "view", query: true)
-  poolAdvertisement(id: ID! @eq): PoolAdvertisement
+  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
+  poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
     @can(ability: "viewAdvertisement", model: "Pool", query: true)
   poolAdvertisements: [PoolAdvertisement]!
@@ -837,7 +863,7 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]! @all @can(ability: "viewAny")
-  poolCandidate(id: ID! @eq): PoolCandidate
+  poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
     @can(ability: "view", query: true)
@@ -886,13 +912,13 @@ type Query {
   countPoolCandidatesByPool(
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
-  classification(id: ID! @eq): Classification @find
+  classification(id: UUID! @eq): Classification @find
   classifications: [Classification]! @all
-  cmoAsset(id: ID! @eq): CmoAsset @find
-  cmoAssets: [CmoAsset]! @all
-  department(id: ID! @eq): Department @find
+  cmoAsset(id: UUID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills")
+  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills")
+  department(id: UUID! @eq): Department @find
   departments: [Department]! @all
-  poolCandidateFilter(id: ID! @eq): PoolCandidateFilter
+  poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
     @find
     @guard
     @can(ability: "view", query: true)
@@ -924,11 +950,11 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
-  skillFamily(id: ID! @eq): SkillFamily @find
+  skillFamily(id: UUID! @eq): SkillFamily @find
   skillFamilies: [SkillFamily]! @all
-  skill(id: ID! @eq): Skill @find
+  skill(id: UUID! @eq): Skill @find
   skills: [Skill]! @all
-  genericJobTitle(id: ID! @eq): GenericJobTitle @find
+  genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
 }
 input ClassificationBelongsTo {
@@ -989,8 +1015,11 @@ input CreateUserInput {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [IndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1057,8 +1086,11 @@ input UpdateUserAsAdminInput
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [IndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1121,8 +1153,11 @@ input UpdateUserAsUserInput
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+  indigenousCommunities: [IndigenousCommunity]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1555,14 +1590,17 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
+    @deprecated(reason: "replaced by skills")
   updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset
     @update
     @guard
     @can(ability: "update", find: "id")
+    @deprecated(reason: "replaced by skills")
   deleteCmoAsset(id: ID!): CmoAsset
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+    @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard

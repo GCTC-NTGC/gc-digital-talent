@@ -119,8 +119,8 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => false,
                 'has_disability' => false,
-                'is_indigenous' => false,
                 'is_visible_minority' => false,
+                'indigenous_communities' => null,
             ])
         ]);
 
@@ -132,7 +132,7 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => false,
-                'is_indigenous' => false,
+                'indigenous_communities' => [ApiEnums::INDIGENOUS_OTHER], // will not be filtered for
                 'is_visible_minority' => false,
             ])
         ]);
@@ -145,7 +145,7 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => true,
-                'is_indigenous' => false,
+                'indigenous_communities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS], // will be filtered for
                 'is_visible_minority' => false,
             ])
         ]);
@@ -220,6 +220,30 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 2
+            ]
+        ]);
+
+        // Assert query will correctly filter for LEGACY_IS_INDIGENOUS
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ],
+                    'equity' => [
+                        'isIndigenous' => true,
+                    ],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 1
             ]
         ]);
     }
@@ -993,7 +1017,7 @@ class ApplicantTest extends TestCase
 
         // Assert candidate one returns 10
         $this->graphQL(/** @lang Graphql */ '
-            query applicant($id: ID!) {
+            query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1010,7 +1034,7 @@ class ApplicantTest extends TestCase
 
         // Assert candidate two returns 20
         $this->graphQL(/** @lang Graphql */ '
-            query applicant($id: ID!) {
+            query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1027,7 +1051,7 @@ class ApplicantTest extends TestCase
 
         // Assert candidate three returns 30
         $this->graphQL(/** @lang Graphql */ '
-            query applicant($id: ID!) {
+            query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1044,7 +1068,7 @@ class ApplicantTest extends TestCase
 
         // Assert candidate four returns 40
         $this->graphQL(/** @lang Graphql */ '
-            query applicant($id: ID!) {
+            query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1174,7 +1198,7 @@ class ApplicantTest extends TestCase
 
         // Assert candidate one DRAFT is 10
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1192,7 +1216,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate two DRAFT_EXPIRED is 20
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1210,7 +1234,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate three NEW APPLICATION is 30
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1228,7 +1252,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate four APPLICATION REVIEW is 40
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1246,7 +1270,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate five SCREENED IN is 50
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1264,7 +1288,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate six SCREENED OUT APPLICATION is 60
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1282,7 +1306,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate seven UNDER ASSESSMENT is 70
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1300,7 +1324,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate eight SCREENED OUT ASSESSMENT is 80
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1318,7 +1342,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate nine QUALIFIED AVAILABLE is 90
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1336,7 +1360,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate ten QUALIFIED UNAVAILABLE is 100
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1354,7 +1378,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate eleven QUALIFIED WITHDREW is 110
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1372,7 +1396,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate twelve PLACED CASUAL is 120
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1390,7 +1414,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate thirteen PLACED TERM is 130
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1408,7 +1432,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate fourteen PLACED INDETERMINATE is 140
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status
@@ -1426,7 +1450,7 @@ class ApplicantTest extends TestCase
         ]);
         // Assert candidate fifteen EXPIRED is 150
         $this->graphQL(/** @lang Graphql */ '
-            query poolCandidate($id: ID!) {
+            query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
                     status

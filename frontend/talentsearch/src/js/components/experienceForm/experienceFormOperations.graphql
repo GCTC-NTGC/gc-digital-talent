@@ -4,7 +4,7 @@ query getUserId {
   }
 }
 
-query getApplication($id: ID!) {
+query getApplication($id: UUID!) {
   poolCandidate(id: $id) {
     id
     user {

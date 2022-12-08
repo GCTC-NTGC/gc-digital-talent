@@ -33,8 +33,10 @@ type Applicant {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
@@ -45,7 +47,7 @@ type Applicant {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -374,8 +376,9 @@ input CreateUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -474,8 +477,8 @@ type EquitySelections {
 input EquitySelectionsInput {
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  isIndigenous: Boolean
 }
 
 enum EstimatedLanguageAbility {
@@ -534,6 +537,15 @@ enum GovEmployeeType {
 
 input IdInput {
   id: ID!
+}
+
+enum IndigenousCommunity {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
 }
 
 """
@@ -596,9 +608,9 @@ type Mutation {
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
-  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
-  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
-  deleteCmoAsset(id: ID!): CmoAsset
+  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
+  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
+  deleteCmoAsset(id: ID!): CmoAsset @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
@@ -775,8 +787,8 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification]
-  assetCriteria: [CmoAsset]
-  essentialCriteria: [CmoAsset]
+  assetCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
+  essentialCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
@@ -843,7 +855,7 @@ type PoolCandidate {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   status: PoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -856,7 +868,7 @@ type PoolCandidate {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
@@ -976,46 +988,47 @@ enum ProvinceOrTerritory {
 
 enum PublishingGroup {
   IT_JOBS
+  IT_JOBS_ONGOING
   EXECUTIVE_JOBS
   OTHER
 }
 
 type Query {
   me: User
-  user(id: ID!): User
+  user(id: UUID!): User
   users: [User]!
-  applicant(id: ID!): Applicant
+  applicant(id: UUID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
-  pool(id: ID!): Pool
-  poolAdvertisement(id: ID!): PoolAdvertisement
+  pool(id: UUID!): Pool
+  poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
   publishedPoolAdvertisements: [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
-  poolCandidate(id: ID!): PoolCandidate
+  poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
-  classification(id: ID!): Classification
+  classification(id: UUID!): Classification
   classifications: [Classification]!
-  cmoAsset(id: ID!): CmoAsset
-  cmoAssets: [CmoAsset]!
-  department(id: ID!): Department
+  cmoAsset(id: UUID!): CmoAsset @deprecated(reason: "replaced by skills")
+  cmoAssets: [CmoAsset]! @deprecated(reason: "replaced by skills")
+  department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: ID!): PoolCandidateFilter
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter
   poolCandidateFilters: [PoolCandidateFilter]!
   applicantFilter(id: ID!): ApplicantFilter
   applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
-  skillFamily(id: ID!): SkillFamily
+  skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
-  skill(id: ID!): Skill
+  skill(id: UUID!): Skill
   skills: [Skill]!
-  genericJobTitle(id: ID!): GenericJobTitle
+  genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterInput
@@ -1235,6 +1248,9 @@ enum Trashed {
   WITHOUT
 }
 
+"""128 bit universally unique identifier (UUID)"""
+scalar UUID
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1357,8 +1373,9 @@ input UpdateUserAsAdminInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1404,8 +1421,9 @@ input UpdateUserAsUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1453,8 +1471,10 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1464,7 +1484,7 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]

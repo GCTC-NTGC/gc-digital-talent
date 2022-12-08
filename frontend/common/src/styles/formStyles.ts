@@ -13,6 +13,5 @@ export const fieldStateStyles: Record<FieldState, Record<string, string>> = {
   },
   dirty: {
     "data-h2-border": "base(all, 2px, solid, dark.tm-blue)",
-    "data-h2-background-color": "base(lightest.tm-blue)",
   },
 };

@@ -303,9 +303,8 @@ RAWSQL2;
                 ->whereColumn('users.id', 'pool_candidates.user_id')
                 ->where(function ($query) use ($equityVars) {
                     foreach ($equityVars as $index => $equityInstance) {
-                        if ($index === 0) {
-                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where($equityVars[$index], true);
+                        if ($equityInstance === "is_indigenous") {
+                            $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
                         } else {
                             $query->orWhere($equityVars[$index], true);
                         }

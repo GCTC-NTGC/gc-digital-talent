@@ -45,7 +45,6 @@ use Illuminate\Support\Facades\DB;
  * @property string $armed_forces_status
  * @property boolean $is_woman
  * @property boolean $has_disability
- * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
  * @property string $language_ability
@@ -58,6 +57,8 @@ use Illuminate\Support\Facades\DB;
  * @property int $priority_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property string $indigenous_declaration_signature
+ * @property array $indigenous_communities
  */
 
 class User extends Model implements Authenticatable
@@ -74,6 +75,7 @@ class User extends Model implements Authenticatable
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
+        'indigenous_communities' => 'array',
     ];
 
     public function pools(): HasMany
@@ -560,12 +562,11 @@ RAWSQL2;
             array_push($equityVars, "is_visible_minority");
         };
 
-        // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
+        // 3 fields are booleans, one is a jsonb field, isIndigenous = LEGACY_IS_INDIGENOUS
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                    $query->where($equityVars[$index], true);
+                if ($equityInstance === "is_indigenous") {
+                    $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
@@ -650,5 +651,20 @@ RAWSQL2;
         }
 
         return null; // catch all other cases, like null variable or empty array
+    }
+
+    /* accessor to maintain functionality of to be deprecated isIndigenous field */
+    public function getIsIndigenousAttribute() {
+        $indigenousCommunities = $this->indigenous_communities;
+
+        if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
+            return true;
+        }
+
+        if (gettype($indigenousCommunities) == "array") {
+            return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
+        }
+
+        return null; // if indigenousCommunities is null then so is isIndigenous
     }
 }

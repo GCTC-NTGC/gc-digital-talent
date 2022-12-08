@@ -1,5 +1,5 @@
 # query to populated the edit pool page
-query getEditPoolData($poolId: ID!) {
+query getEditPoolData($poolId: UUID!) {
   # the existing data of the pool to edit
   poolAdvertisement(id: $poolId) {
     id

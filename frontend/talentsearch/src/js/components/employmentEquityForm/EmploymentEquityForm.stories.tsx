@@ -2,7 +2,11 @@ import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
-import type { InputMaybe, UpdateUserAsUserInput } from "../../api/generated";
+import {
+  IndigenousCommunity,
+  InputMaybe,
+  UpdateUserAsUserInput,
+} from "../../api/generated";
 import {
   EmploymentEquityForm,
   type EmploymentEquityFormProps,
@@ -40,8 +44,12 @@ const TemplateDiversityEquityInclusionForm: Story<
   };
 
   const handleUpdate = (data: UpdateUserAsUserInput) => {
-    const { isWoman, isIndigenous, isVisibleMinority, hasDisability } = data;
+    const { isWoman, indigenousCommunities, isVisibleMinority, hasDisability } =
+      data;
 
+    const isIndigenous = indigenousCommunities?.includes(
+      IndigenousCommunity.LegacyIsIndigenous,
+    );
     const newUser = {
       ...dataToUpdateUser("isWoman", isWoman),
       ...dataToUpdateUser("isIndigenous", isIndigenous),
