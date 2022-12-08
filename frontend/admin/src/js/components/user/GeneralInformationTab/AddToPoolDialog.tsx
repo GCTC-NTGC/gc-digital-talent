@@ -153,7 +153,8 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
                   .filter(
                     (pool) =>
                       pool.advertisementStatus ===
-                      AdvertisementStatus.Published,
+                        AdvertisementStatus.Published ||
+                      pool.advertisementStatus === AdvertisementStatus.Expired,
                   )
                   .map((pool) => {
                     return {
