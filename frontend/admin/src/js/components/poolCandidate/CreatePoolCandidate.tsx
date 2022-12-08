@@ -57,18 +57,7 @@ type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<
   PoolCandidate,
-  | "cmoIdentifier"
-  | "expiryDate"
-  | "hasDiploma"
-  | "hasDisability"
-  | "isIndigenous"
-  | "isVisibleMinority"
-  | "isWoman"
-  | "languageAbility"
-  | "expectedSalary"
-  | "locationPreferences"
-  | "acceptedOperationalRequirements"
-  | "status"
+  "cmoIdentifier" | "expiryDate" | "status"
 > &
   Pick<User, "firstName" | "lastName" | "preferredLang" | "telephone"> & {
     email: string; // email is Maybe<string> in User definition, but is required in the form.
@@ -283,23 +272,8 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
     }
 
     return {
-      acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-      cmoAssets: {
-        sync: values.cmoAssets,
-      },
       cmoIdentifier: values.cmoIdentifier,
-      expectedClassifications: {
-        sync: values.expectedClassifications,
-      },
-      expectedSalary: values.expectedSalary,
       expiryDate: values.expiryDate,
-      hasDiploma: values.hasDiploma,
-      hasDisability: values.hasDisability,
-      isIndigenous: values.isIndigenous,
-      isVisibleMinority: values.isVisibleMinority,
-      isWoman: values.isWoman,
-      languageAbility: values.languageAbility,
-      locationPreferences: values.locationPreferences,
       status: values.status,
       pool: { connect: values.pool },
       user: userObject, // connect or create mutation
