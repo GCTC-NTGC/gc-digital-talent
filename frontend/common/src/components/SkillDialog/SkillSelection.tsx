@@ -32,15 +32,6 @@ const SkillSelection = ({
     [skills],
   );
 
-  const filteredFamilies = React.useMemo(() => {
-    if (!category) {
-      return allSkillFamilies;
-    }
-    return allSkillFamilies.filter(
-      (skillFamily) => skillFamily.category === category,
-    );
-  }, [allSkillFamilies, category]);
-
   const filteredSkills = React.useMemo(() => {
     if (family) {
       // We only care about family if it is set
@@ -74,9 +65,6 @@ const SkillSelection = ({
   }, [onSelectSkill, selectedSkill]);
 
   React.useEffect(() => {
-    if (!category) {
-      resetField("family");
-    }
     resetField("skill");
   }, [category, family, resetField]);
 
@@ -145,20 +133,20 @@ const SkillSelection = ({
             name="family"
             trackUnsaved={false}
             label={intl.formatMessage({
-              defaultMessage: "Filter skills by specialty",
-              id: "TOph7l",
+              defaultMessage: "Filter skills by role",
+              id: "syr9Ti",
               description: "Label for the skill family filter field",
             })}
             options={[
               {
                 value: "",
                 label: intl.formatMessage({
-                  defaultMessage: "All specialties",
-                  id: "ZPV1m5",
+                  defaultMessage: "All roles",
+                  id: "Y3HD10",
                   description: "Label for removing the skill family filter",
                 }),
               },
-              ...filteredFamilies.map((skillFamily) => ({
+              ...allSkillFamilies.map((skillFamily) => ({
                 value: skillFamily.id,
                 label: getLocalizedName(skillFamily.name, intl),
               })),
