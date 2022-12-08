@@ -86,8 +86,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
             </Heading>
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(content)">
-            <UserProfilePrintButton userId={user.id}>
-              {/* TODO: Change this to pass in the whole user */}
+            <UserProfilePrintButton applicant={user}>
               <span>
                 <PrinterIcon style={{ width: "1rem" }} />{" "}
                 {intl.formatMessage({
