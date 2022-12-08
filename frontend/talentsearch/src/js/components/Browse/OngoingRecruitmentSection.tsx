@@ -9,6 +9,7 @@ import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
 import { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 
+// the shape of the data model to populate this component
 interface DataModel {
   streams: {
     key: PoolStream;
@@ -23,28 +24,31 @@ interface DataModel {
   }[];
 }
 
-// predicate for if a pool advertisement is associated with a classification group and level
+// choose a pool advertisement from a collection of pools for association with a stream, classification group, and classification level
 const selectPoolIdForSection = (
   pools: PoolAdvertisement[],
   stream: PoolStream,
   group: string,
   level: number,
 ): PoolAdvertisement["id"] | undefined => {
-  return pools
-    .sort((p1, p2) =>
-      (p1.expiryDate ?? FAR_FUTURE_DATE) < (p2.expiryDate ?? FAR_FUTURE_DATE)
-        ? 1
-        : -1,
-    )
-    .find(
-      (p) =>
-        // must match section stream
-        p.stream === stream &&
-        // must include section classification group and level
-        !!p.classifications?.find(
-          (c) => c?.group === group && c.level === level,
-        ),
-    )?.id;
+  return (
+    pools
+      // last expiry date first to be selected
+      .sort((p1, p2) =>
+        (p1.expiryDate ?? FAR_FUTURE_DATE) < (p2.expiryDate ?? FAR_FUTURE_DATE)
+          ? 1
+          : -1,
+      )
+      .find(
+        (p) =>
+          // must match section stream
+          p.stream === stream &&
+          // must include section classification group and level
+          !!p.classifications?.find(
+            (c) => c?.group === group && c.level === level,
+          ),
+      )?.id
+  );
 };
 
 export interface OngoingRecruitmentSectionProps {
@@ -1086,7 +1090,7 @@ export const OngoingRecruitmentSection = ({
         level="h2"
         Icon={CpuChipIcon}
         color="purple"
-        data-h2-margin="base(0, 0, x0.5, 0)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Apply to ongoing recruitment",
@@ -1094,7 +1098,7 @@ export const OngoingRecruitmentSection = ({
           description: "title for section with ongoing pool advertisements",
         })}
       </Heading>
-      <p data-h2-margin="base(x1, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">
         {intl.formatMessage({
           id: "2czUAZ",
           defaultMessage:
@@ -1142,7 +1146,7 @@ export const OngoingRecruitmentSection = ({
                   >
                     {stream.classifications
                       .filter(
-                        // filter classifications with no pool ID to apply to
+                        // filter to only classifications with a pool ID that can be applied to
                         (classification) => classification.poolAdvertisementId,
                       )
                       .map((classification) => (
