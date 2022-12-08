@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Helpers\ApiEnums;
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,7 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 /**
  * Class User
@@ -235,7 +239,7 @@ class User extends Model implements Authenticatable
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('statuses', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                                     ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
@@ -278,8 +282,9 @@ class User extends Model implements Authenticatable
         foreach ($poolIds as $index => $poolId) {
             $poolFilters[$index] = [
                 'poolId' => $poolId,
-                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
+                // TODO: Will need to create new scopes in User for these fields below.
+                // 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                // 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
         return self::filterByPools($query, $poolFilters);
@@ -666,5 +671,17 @@ RAWSQL2;
         }
 
         return null; // if indigenousCommunities is null then so is isIndigenous
+    }
+
+    // Failed attempt at paginate builder for poolCandidatesFromApplicants query.
+    public function poolCandidatesPaginated($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
+    {
+        // Find all applicants who meet the requirements of the filters.
+        $filters = $args["where"];
+        $queryBuilder = $this->query();
+
+        // Somehow return list of poolCandidates?
+
+        return $queryBuilder;
     }
 }
