@@ -14,11 +14,7 @@ import {
 } from "@common/components/form";
 import Heading from "@common/components/Heading/Heading";
 import { notEmpty } from "@common/helpers/util";
-import {
-  unpackIds,
-  unpackMaybes,
-  enumToOptions,
-} from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -54,26 +50,13 @@ type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<
   PoolCandidate,
-  | "cmoIdentifier"
-  | "expiryDate"
-  | "hasDiploma"
-  | "hasDisability"
-  | "isIndigenous"
-  | "isVisibleMinority"
-  | "isWoman"
-  | "languageAbility"
-  | "expectedSalary"
-  | "locationPreferences"
-  | "acceptedOperationalRequirements"
-  | "status"
+  "cmoIdentifier" | "expiryDate" | "status"
 > &
   Pick<
     User,
     "email" | "firstName" | "lastName" | "telephone" | "preferredLang"
   > & {
     userId: User["id"]; // can't use pick since we need a new name
-    cmoAssets: string[] | undefined;
-    expectedClassifications: string[] | undefined;
   };
 
 interface UpdatePoolCandidateProps {
@@ -100,13 +83,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
     ...data,
-    acceptedOperationalRequirements: unpackMaybes(
-      data?.acceptedOperationalRequirements,
-    ),
-    cmoAssets: unpackIds(data?.cmoAssets),
-    expectedClassifications: unpackIds(data?.expectedClassifications),
-    expectedSalary: unpackMaybes(data?.expectedSalary),
-    locationPreferences: unpackMaybes(data?.locationPreferences),
     userId: data?.user?.id ?? "",
     email: data?.user?.email ?? "",
     firstName: data?.user?.firstName,
@@ -119,12 +95,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
     values: FormValues,
   ): UpdatePoolCandidateAsAdminInput => ({
     ...values,
-    expectedClassifications: {
-      sync: values.expectedClassifications,
-    },
-    cmoAssets: {
-      sync: values.cmoAssets,
-    },
   });
 
   const methods = useForm<FormValues>({
