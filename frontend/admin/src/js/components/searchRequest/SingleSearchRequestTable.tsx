@@ -103,8 +103,8 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table classifications column.",
         }),
-        accessor: ({ expectedClassifications }) =>
-          expectedClassifications?.map((classification) => {
+        accessor: ({ user }) =>
+          user.expectedClassifications?.map((classification) => {
             return (
               <Pill
                 key={`${classification?.group}-${classification?.level}`}
@@ -123,22 +123,28 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
-        accessor: ({ acceptedOperationalRequirements }) =>
-          acceptedOperationalRequirements?.map((operationalRequirement) => {
-            return (
-              <Pill key={operationalRequirement} color="primary" mode="outline">
-                {intl.formatMessage(
-                  operationalRequirement
-                    ? getOperationalRequirement(operationalRequirement)
-                    : {
-                        defaultMessage: "Error: Name not found.",
-                        description:
-                          "Error message displayed on the single search request table operational requirements column.",
-                      },
-                )}
-              </Pill>
-            );
-          }),
+        accessor: ({ user }) =>
+          user.acceptedOperationalRequirements?.map(
+            (operationalRequirement) => {
+              return (
+                <Pill
+                  key={operationalRequirement}
+                  color="primary"
+                  mode="outline"
+                >
+                  {intl.formatMessage(
+                    operationalRequirement
+                      ? getOperationalRequirement(operationalRequirement)
+                      : {
+                          defaultMessage: "Error: Name not found.",
+                          description:
+                            "Error message displayed on the single search request table operational requirements column.",
+                        },
+                  )}
+                </Pill>
+              );
+            },
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -147,14 +153,9 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table employment equity column.",
         }),
-        accessor: ({
-          isIndigenous,
-          isVisibleMinority,
-          isWoman,
-          hasDisability,
-        }) => {
+        accessor: ({ user }) => {
           const employmentEquity = [
-            ...(isWoman
+            ...(user.isWoman
               ? [
                   intl.formatMessage({
                     defaultMessage: "Woman",
@@ -164,7 +165,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(isVisibleMinority
+            ...(user.isVisibleMinority
               ? [
                   intl.formatMessage({
                     defaultMessage: "Visible Minority",
@@ -174,7 +175,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(isIndigenous
+            ...(user.isIndigenous
               ? [
                   intl.formatMessage({
                     defaultMessage: "Indigenous",
@@ -184,7 +185,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(hasDisability
+            ...(user.hasDisability
               ? [
                   intl.formatMessage({
                     defaultMessage: "Disability",
@@ -217,8 +218,8 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table skills column.",
         }),
-        accessor: ({ cmoAssets }) =>
-          cmoAssets?.map((cmoAsset) => {
+        accessor: ({ user }) =>
+          user.cmoAssets?.map((cmoAsset) => {
             return (
               <Pill key={cmoAsset?.key} color="primary" mode="outline">
                 {cmoAsset?.name?.[locale] ||

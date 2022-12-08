@@ -6,6 +6,22 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
       email
       firstName
       lastName
+      expectedClassifications {
+        group
+        level
+      }
+      acceptedOperationalRequirements
+      isWoman
+      hasDisability
+      isVisibleMinority
+      isIndigenous
+      cmoAssets {
+        key
+        name {
+          en
+          fr
+        }
+      }
     }
     pool {
       id
