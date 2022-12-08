@@ -106,28 +106,6 @@ fragment poolCandidateForm on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
 }
 
@@ -278,32 +256,6 @@ fragment selectedPoolCandidates on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    name {
-      en
-      fr
-    }
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
   submittedAt
   notes
@@ -437,21 +389,6 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
     }
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }
@@ -463,21 +400,6 @@ mutation updatePoolCandidate(
   updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }
