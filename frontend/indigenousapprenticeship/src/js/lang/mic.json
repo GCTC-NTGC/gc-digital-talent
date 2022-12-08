@@ -330,5 +330,41 @@
   "Hu04cP": {
     "defaultMessage": "IT Apprenticeship Program wjit Mjuinu’k l’nuwultijik",
     "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "pBJzgi": {
+    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey. ",
+    "description": "Detailed message saying the page was not found."
+  },
+  "404R1N": {
+    "defaultMessage": "“Ula program na kisi piluwa’toq mimajuwaqn wjit wen kutey ni’n aqq ni’n nemitu wjit <b>atelk eliaq me’ elmiaq wutawti</b>.",
+    "description": "testimonial number one"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Ikanteske’n wjit elien ikant",
+    "description": "Assistive technology skip link"
+  },
+  "TFeQL2": {
+    "defaultMessage": "Wikuwow",
+    "description": "Link to the homepage for indigenous apprenticeship program."
+  },
+  "gKyog2": {
+    "defaultMessage": "Oops, teltek kutey  ki’l kisi ika’tu’n ula wi’katikn ki’l ewikasik ta’n teluwek mu sama’tasin tujiw ankaptasin.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Meskeyi, mu ki’l asite’tasiwun ankaptmin ula ta’n ewikasik.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "Oh1/Gc": {
+    "defaultMessage": " Suwa’te’n nike’ wjit poqjilukwatn ki’l It career wutawti.",
+    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+  },
+  "C5tUG2": {
+    "defaultMessage": "L’nu’k Apprenticeship Prgram ewikasik",
+    "description": "Title tag for Indigenous Apprenticeship Program site"
   }
 }
