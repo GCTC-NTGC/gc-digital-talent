@@ -203,19 +203,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
 
-    // employment duration - fail
-    cy.findByRole("radio", {
-      name: /Term duration/i,
-    }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-    searchRejectsMySingleCandidate();
-
-    // employment duration - pass
-    cy.findByRole("radio", {
-      name: /Indeterminate duration/i,
-    }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-    searchFindsMySingleCandidate();
+    // employment duration moved to last change of page to avoid "dom detached" errors on request button
 
     // employment equity, no negation possible
     cy.findByRole("checkbox", {
@@ -240,6 +228,20 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
 
+    // employment duration - fail
+    cy.findByRole("radio", {
+      name: /Term duration/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchRejectsMySingleCandidate();
+
+    // employment duration - pass
+    cy.findByRole("radio", {
+      name: /Indeterminate duration/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
+
     // check total user count
     // no way to know what the exact number should be without resetting the database, so just check it's not zero
     cy.findByRole("heading", {
@@ -249,6 +251,8 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("article", {
       name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
     }).within(() => {
+      // Finding this button is sensitive to "dom detached" errors.
+      // Must not try to click it unless we know there are no inflight searches.
       cy.findByRole("button", { name: /Request Candidates/i }).click();
     });
 
