@@ -17,7 +17,7 @@ See `../infrastructure/README.md` for instructions for running this service, alo
 
 Note that you will still need to copy .env.example to .env and add an APP_KEY.
 
-To initialize the database from inside the container, run `docker-compose exec -w /var/www/html/api php sh -c "php artisan migrate --seed"`.
+To initialize the database from inside the container, run `docker-compose exec -w /home/site/wwwroot/api webserver sh -c "php artisan migrate --seed"`.
 
 ## Local Development
 
