@@ -21,7 +21,7 @@ import {
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
-import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
+import GeneralInfoTab from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
@@ -114,8 +114,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
           ))}
         </Tabs.List>
         <Tabs.Content value="0">
-          <GeneralInfoTabApi userId={user.id} />
-          {/* TODO: Change this to pass in the whole user */}
+          <GeneralInfoTab user={user} pools={pools} />
         </Tabs.Content>
         <Tabs.Content value="1">
           <UserProfileApi applicant={user} />

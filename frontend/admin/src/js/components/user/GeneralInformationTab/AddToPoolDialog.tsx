@@ -12,11 +12,11 @@ import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import {
   AdvertisementStatus,
+  Applicant,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
   useCreatePoolCandidateMutation,
-  User,
 } from "../../../api/generated";
 
 type FormValues = {
@@ -25,7 +25,7 @@ type FormValues = {
 };
 
 export interface AddToPoolDialogProps {
-  user: User;
+  user: Applicant;
   pools: Pool[];
 }
 
