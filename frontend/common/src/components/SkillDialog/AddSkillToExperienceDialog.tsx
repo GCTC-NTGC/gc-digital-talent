@@ -28,9 +28,14 @@ const defaultFormValues: FormValues = {
 export interface SkillDialogProps {
   skills: Skill[];
   onSave: (values: FormValues) => Promise<void>;
+  isApplication?: boolean;
 }
 
-const AddSkillToExperienceDialog = ({ skills, onSave }: SkillDialogProps) => {
+const AddSkillToExperienceDialog = ({
+  skills,
+  onSave,
+  isApplication = false,
+}: SkillDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
@@ -76,7 +81,10 @@ const AddSkillToExperienceDialog = ({ skills, onSave }: SkillDialogProps) => {
           <form onSubmit={handleSubmit(handleAddSkill)}>
             <Dialog.Header color="blue">{title}</Dialog.Header>
             <SkillSelection skills={skills} onSelectSkill={setSelectedSkill} />
-            <ExperienceDetails selectedSkill={selectedSkill} />
+            <ExperienceDetails
+              required={isApplication}
+              selectedSkill={selectedSkill}
+            />
             <Dialog.Footer
               data-h2-justify-content="base(flex-start)"
               data-h2-align-items="base(flex-start)"

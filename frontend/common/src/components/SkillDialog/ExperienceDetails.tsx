@@ -10,9 +10,13 @@ import DetailsTextArea from "./DetailsTextArea";
 
 interface AddExperiencesProps {
   selectedSkill: Skill | null;
+  required?: boolean;
 }
 
-const ExperienceDetails = ({ selectedSkill }: AddExperiencesProps) => {
+const ExperienceDetails = ({
+  selectedSkill,
+  required = false,
+}: AddExperiencesProps) => {
   const intl = useIntl();
 
   if (!selectedSkill) {
@@ -36,7 +40,12 @@ const ExperienceDetails = ({ selectedSkill }: AddExperiencesProps) => {
         )}
       </Heading>
       <ExperienceHelpMessage />
-      <DetailsTextArea id="details" name="details" skillName={skillName} />
+      <DetailsTextArea
+        id="details"
+        name="details"
+        skillName={skillName}
+        required={required}
+      />
     </>
   );
 };

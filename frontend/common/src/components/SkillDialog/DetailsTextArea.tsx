@@ -2,20 +2,31 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import TextArea from "../form/TextArea";
+import { errorMessages } from "../../messages";
 
 interface DetailsTextAreaProps {
   id: string;
   name: string;
   skillName: string;
+  required?: boolean;
 }
 
-const DetailsTextArea = ({ skillName, ...rest }: DetailsTextAreaProps) => {
+const DetailsTextArea = ({
+  skillName,
+  required = false,
+  ...rest
+}: DetailsTextAreaProps) => {
   const intl = useIntl();
 
   return (
     <TextArea
       {...rest}
       trackUnsaved={false}
+      rules={{
+        required: required
+          ? intl.formatMessage(errorMessages.required)
+          : undefined,
+      }}
       label={intl.formatMessage(
         {
           defaultMessage: 'Describe how you applied "{skillName}"',
