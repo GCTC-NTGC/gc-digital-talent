@@ -9,6 +9,7 @@ import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
+import UserProfile from "@common/components/UserProfile";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useParams } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
@@ -20,9 +21,9 @@ import {
   useGetViewUserDataQuery,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import UserProfileApi from "./UserProfile";
 import GeneralInfoTab from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
+import AdminAboutSection from "./AdminAboutSection";
 
 interface ViewUserPageProps {
   user: Applicant;
@@ -117,7 +118,23 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
           <GeneralInfoTab user={user} pools={pools} />
         </Tabs.Content>
         <Tabs.Content value="1">
-          <UserProfileApi applicant={user} />
+          <UserProfile
+            applicant={user}
+            headingLevel="h3"
+            sections={{
+              about: {
+                isVisible: true,
+                override: <AdminAboutSection applicant={user} />,
+              },
+              language: { isVisible: true },
+              government: { isVisible: true },
+              workLocation: { isVisible: true },
+              workPreferences: { isVisible: true },
+              employmentEquity: { isVisible: true },
+              roleSalary: { isVisible: true },
+              skillsExperience: { isVisible: true },
+            }}
+          />
         </Tabs.Content>
       </Tabs.Root>
     </>
