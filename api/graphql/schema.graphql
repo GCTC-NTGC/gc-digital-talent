@@ -829,9 +829,9 @@ type CandidateSearchPoolResult {
 }
 
 type Query {
-  me: User @auth
-  user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
-  users: [User]! @all @guard @can(ability: "viewAny")
+  me: User @auth @throttle(name: "graphql")
+  user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true) @throttle(name: "graphql")
+  users: [User]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -840,36 +840,45 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000)
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   applicant(id: UUID! @eq): Applicant
     @find(model: "User")
     @guard
     @can(ability: "viewApplicant", query: true, model: "User")
+    @throttle(name: "graphql")
   applicants(includeIds: [ID]! @in(key: "id")): [Applicant]!
     @all(model: "User")
     @guard
     @can(ability: "viewAnyApplicants", model: "User")
+    @throttle(name: "graphql")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
-  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
+    @throttle(name: "graphql")
+  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true) @throttle(name: "graphql")
   poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
     @can(ability: "viewAdvertisement", model: "Pool", query: true)
+    @throttle(name: "graphql")
   poolAdvertisements: [PoolAdvertisement]!
     @all(model: "Pool")
     @can(ability: "viewAny", model: "Pool")
+    @throttle(name: "graphql")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
-  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all @can(ability: "viewAny")
+    @throttle(name: "graphql")
+  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true) @throttle(name: "graphql")
+  pools: [Pool]! @all @can(ability: "viewAny") @throttle(name: "graphql")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
     @can(ability: "view", query: true)
+    @throttle(name: "graphql")
   poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
     @all
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   poolCandidatesPaginated(
     where: PoolCandidateFilterInput
     orderBy: _
@@ -892,10 +901,12 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
     @deprecated(reason: "Replaced by countApplicants")
     @count(model: "PoolCandidate", scopes: ["expiryFilter", "available"])
+    @throttle(name: "graphql")
   # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
   searchPoolCandidates(
     where: PoolCandidateFilterInput
@@ -906,39 +917,45 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
     where: ApplicantFilterInput
-  ): [CandidateSearchPoolResult!]!
-  classification(id: UUID! @eq): Classification @find
-  classifications: [Classification]! @all
-  cmoAsset(id: UUID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills")
-  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills")
-  department(id: UUID! @eq): Department @find
-  departments: [Department]! @all
+  ): [CandidateSearchPoolResult!]! @throttle(name: "graphql")
+  classification(id: UUID! @eq): Classification @find @throttle(name: "graphql")
+  classifications: [Classification]! @all @throttle(name: "graphql")
+  cmoAsset(id: UUID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills") @throttle(name: "graphql")
+  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills") @throttle(name: "graphql")
+  department(id: UUID! @eq): Department @find @throttle(name: "graphql")
+  departments: [Department]! @all @throttle(name: "graphql")
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
     @find
     @guard
     @can(ability: "view", query: true)
+    @throttle(name: "graphql")
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
     @can(ability: "view", query: true)
-  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
+    @throttle(name: "graphql")
+  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
     @can(ability: "view", query: true)
+    @throttle(name: "graphql")
   poolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]!
     @all
     @guard
     @can(ability: "viewAny")
     @orderBy(column: "created_at", direction: DESC)
+    @throttle(name: "graphql")
   latestPoolCandidateSearchRequests(
     limit: Int @limit
   ): [PoolCandidateSearchRequest]!
@@ -949,12 +966,13 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
-  skillFamily(id: UUID! @eq): SkillFamily @find
-  skillFamilies: [SkillFamily]! @all
-  skill(id: UUID! @eq): Skill @find
-  skills: [Skill]! @all
-  genericJobTitle(id: UUID! @eq): GenericJobTitle @find
-  genericJobTitles: [GenericJobTitle]! @all
+    @throttle(name: "graphql")
+  skillFamily(id: UUID! @eq): SkillFamily @find @throttle(name: "graphql")
+  skillFamilies: [SkillFamily]! @all @throttle(name: "graphql")
+  skill(id: UUID! @eq): Skill @find @throttle(name: "graphql")
+  skills: [Skill]! @all @throttle(name: "graphql")
+  genericJobTitle(id: UUID! @eq): GenericJobTitle @find @throttle(name: "graphql")
+  genericJobTitles: [GenericJobTitle]! @all @throttle(name: "graphql")
 }
 input ClassificationBelongsTo {
   connect: ID
