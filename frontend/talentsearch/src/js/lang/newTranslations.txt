@@ -1,0 +1,143 @@
+{
+  "2czUAZ": {
+    "defaultMessage": "Vous ne voyez pas de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.
+",
+    "description": "summary for section with ongoing pool advertisements"
+  },
+  "4CT5zI": {
+    "defaultMessage": "Solutions logicielles de la TI »,
+
+    "description": "Title for the 'software solutions' IT work stream"
+  },
+  "5qkqv9": {
+    "defaultMessage": "Niveau 4 (gestionnaire/conseiller) »,
+
+    "description": "Title for the 'IT-04 Manager' classification"
+  },
+  "6dPu0e": {
+    "defaultMessage": "Niveau 2 (analyste) »,
+
+    "description": "Title for the 'IT-02 Analyst' classification"
+  },
+  "7KJGSu": {
+    "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.
+",
+    "description": "Title for the 'software solutions' IT work stream"
+  },
+  "BWvfeG": {
+    "defaultMessage": "Nous proposons également des lots de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir.
+Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu.
+N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.
+",
+    "description": "instructions for section with ongoing pool advertisements"
+  },
+  "BxJSsB": {
+    "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.
+",
+    "description": "Title for the 'database management' IT work stream"
+  },
+  "C2iUvf": {
+    "defaultMessage": "Architecture intégrée de la TI »,
+
+    "description": "Title for the 'enterprise architecture' IT work stream"
+  },
+  "DVkO+D": {
+    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture TI du ministère, la collaboration avec d’autres volets de TI et la recherche sur les technologies émergentes.
+",
+    "description": "Title for the 'enterprise architecture' IT work stream"
+  },
+  "EOO6S0": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI »,
+
+    "description": "Title for the 'business line advisory services' IT work stream"
+  },
+  "ElfiAv": {
+    "defaultMessage": "Opérations d’infrastructure de la TI »,
+
+    "description": "Title for the 'infrastructure operations' IT work stream"
+  },
+  "MzhP1T": {
+    "defaultMessage": "Niveau 3 (chef/conseiller)",
+    "description": "Title for the 'IT-03 Advisor' classification"
+  },
+  "QN/1MR": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en TI qui soutiennent les opérations du GC.
+",
+    "description": "Title for the 'business line advisory services' IT work stream"
+  },
+  "RBsGRp": {
+    "defaultMessage": "Postulez au recrutement en cours »,
+
+    "description": "title for section with ongoing pool advertisements"
+  },
+  "T0gN76": {
+    "defaultMessage": "Les techniciens (IT-01) fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.
+",
+    "description": "Description for the 'IT-01 Technician' classification"
+  },
+  "UBf9lv": {
+    "defaultMessage": "Niveau 1 (technicien) »,
+
+    "description": "Title for the 'IT-01 Technician' classification"
+  },
+  "VX2+ET": {
+    "defaultMessage": "Planification et établissement de rapports en matière de TI »,
+
+    "description": "Title for the 'planning and reporting' IT work stream"
+  },
+  "aL5y0G": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la TI »,
+
+    "description": "Title for the 'project portfolio management' IT work stream"
+  },
+  "bz6geU": {
+    "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.
+",
+    "description": "Title for the 'security' IT work stream"
+  },
+  "crqgGQ": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la TI et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la TI et des processus de gouvernance.
+",
+    "description": "Title for the 'planning and reporting' IT work stream"
+  },
+  "h5CY+u": {
+    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.
+",
+    "description": "Title for the 'project portfolio management' IT work stream"
+  },
+  "oKc30q": {
+    "defaultMessage": "Présenter sa candidature au niveau{number} »,
+
+    "description": "Invitation to apply at a certain level number"
+  },
+  "pffFnd": {
+    "defaultMessage": "Gestion de bases de données de la TI »,
+
+    "description": "Title for the 'database management' IT work stream"
+  },
+  "rLmOMp": {
+    "defaultMessage": "Les conseillers techniques en TI (IT-03) fournissent des conseils, des recommandations et un soutien techniques spécialisés sur les solutions et les services dans leur domaine d’expertise à l’appui de la fourniture de services.
+",
+    "description": "Description for the 'IT-03 Advisor' classification"
+  },
+  "svCFrY": {
+    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la TI et les relations avec les clients et fournisseurs.
+",
+    "description": "Title for the 'infrastructure operations' IT work stream"
+  },
+  "uxlNWH": {
+    "defaultMessage": "Sécurité de la TI »,
+
+    "description": "Title for the 'security' IT work stream"
+  },
+  "v0/leo": {
+    "defaultMessage": "Les responsables de la TI (IT-04) sont chargés de gérer le développement et la fourniture de services ou d’opérations de TI par le biais de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.
+",
+    "description": "Description for the 'IT-04 Manager' classification"
+  },
+  "zZQGWR": {
+    "defaultMessage": "Les analystes (IT-02) fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.
+",
+    "description": "Description for the 'IT-02 Analyst' classification"
+  }
+}
