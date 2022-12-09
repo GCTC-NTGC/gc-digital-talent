@@ -1,3 +1,4 @@
+
 # enable rewrite logging for debugging
 error_log /var/log/nginx/error.log notice;
 # rewrite_log on;
@@ -78,6 +79,11 @@ server {
         fastcgi_busy_buffers_size 64k;
     }
     location = /refresh {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    location ~ "^/api(/(.*))?$" {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;

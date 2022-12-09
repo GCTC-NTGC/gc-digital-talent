@@ -1,7 +1,6 @@
 import { getFeatureFlags } from "../helpers/runtimeVariable";
 
 export type FeatureFlags = {
-  applicantSearch: boolean;
   ongoingRecruitments: boolean;
 };
 

@@ -121,7 +121,6 @@ const SkillPicker = ({
       <InputLabel
         required={false}
         inputId="query"
-        trackUnsaved={false}
         label={intl.formatMessage({
           defaultMessage: "Search skills by keyword",
           id: "ARqO1j",

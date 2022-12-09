@@ -25,6 +25,7 @@ export const InputWrapperWithTextInput = TemplateInputWrapper.bind({});
 
 InputWrapperWithTextInput.args = {
   inputId: "firstName",
+  inputName: "firstName",
   label: "First Name",
   required: true,
   error: "This input is required",

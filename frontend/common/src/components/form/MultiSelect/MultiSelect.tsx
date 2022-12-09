@@ -58,6 +58,7 @@ const MultiSelect = ({
       <InputWrapper
         {...{ label, context, error }}
         inputId={id}
+        inputName={name}
         required={isRequired}
       >
         <div style={{ width: "100%" }}>

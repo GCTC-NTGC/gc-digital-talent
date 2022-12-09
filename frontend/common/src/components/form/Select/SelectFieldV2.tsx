@@ -12,7 +12,7 @@ import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
 import camelCase from "lodash/camelCase";
 import flatMap from "lodash/flatMap";
 import { useIntl } from "react-intl";
-import { useFieldStateStyles } from "../../../helpers/formUtils";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
@@ -193,6 +193,8 @@ const SelectFieldV2 = ({
   } = useFormContext();
 
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+  const fieldState = useFieldState(name, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
@@ -206,6 +208,7 @@ const SelectFieldV2 = ({
       <InputWrapper
         {...{ label, context, error }}
         inputId={name}
+        inputName={name}
         required={isRequired}
         trackUnsaved={trackUnsaved}
       >
@@ -292,7 +295,9 @@ const SelectFieldV2 = ({
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
-                  ariaDescription={error ? `${id}-error` : undefined}
+                  ariaDescription={
+                    error || isUnsaved ? `${id}-error` : undefined
+                  }
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({
