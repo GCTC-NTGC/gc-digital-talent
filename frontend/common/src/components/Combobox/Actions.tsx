@@ -6,10 +6,15 @@ import Separator from "../Separator";
 
 const buttonStyles = {
   "data-h2-background-color": "base(transparent) base:hover(dt-gray.lightest)",
+  "data-h2-border":
+    "base(all, 2px, solid, transparent) base:focus-visible(all, 2px, solid, tm-blue)",
+  "data-h2-display": "base(flex)",
+  "data-h2-align-items": "base(center)",
   "data-h2-flex-shrink": "base(0)",
-  "data-h2-padding": "base(x.25)",
+  "data-h2-padding": "base(0, x.25)",
   "data-h2-radius": "base(input)",
   "data-h2-cursor": "base(pointer)",
+  "data-h2-outline": "base(none)",
 };
 
 const iconStyles = {

@@ -116,7 +116,6 @@ const Combobox = ({
       data-h2-position="base(relative)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-align-items="base(flex-start)"
       nullable
     >
       <div data-h2-position="base(relative)" data-h2-width="base(100%)">
