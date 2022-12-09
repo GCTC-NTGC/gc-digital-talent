@@ -57,14 +57,14 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(100)->by(optional($request->user())->id ?: $request->ip())->response(function () {
+            return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip())->response(function () {
                 return response([
                     'message' => 'Rate Limit Reached for API'
                 ], 429);
             });
         });
         RateLimiter::for('graphql', function (Request $request) {
-            return Limit::perMinute(100)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip());
         });
     }
 }
