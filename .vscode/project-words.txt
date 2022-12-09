@@ -1,6 +1,5 @@
 alertdialog
 Analyser
-APPLICANTSEARCH
 Assertable
 atag
 Authenticatable
@@ -20,7 +19,6 @@ darkpurple
 datetime
 DCMO
 dedup
-DIRECTINTAKE
 freshdesk
 Freshdesk
 FRESHDESK
