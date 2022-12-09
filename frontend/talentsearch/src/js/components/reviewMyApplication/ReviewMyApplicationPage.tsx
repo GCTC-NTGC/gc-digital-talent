@@ -13,7 +13,7 @@ import { navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getMissingSkills } from "@common/helpers/skillUtils";
+import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
@@ -23,6 +23,7 @@ import {
   Applicant,
   PoolAdvertisement,
   Scalars,
+  SkillCategory,
   useGetReviewMyApplicationPageDataQuery,
 } from "../../api/generated";
 
@@ -43,12 +44,15 @@ export const ReviewMyApplication: React.FunctionComponent<
     requiredSkills: poolAdvertisement.essentialSkills?.filter(notEmpty),
     optionalSkills: poolAdvertisement.nonessentialSkills?.filter(notEmpty),
   };
+  const technicalRequiredSkills = categorizeSkill(missingSkills.requiredSkills)[
+    SkillCategory.Technical
+  ];
   const hasExperiences = notEmpty(applicant.experiences);
   const { isProfileComplete } = applicant;
   const isApplicationComplete =
     isProfileComplete === true &&
     getMissingSkills(
-      missingSkills.requiredSkills || [],
+      technicalRequiredSkills || [],
       hasExperiences ? flattenExperienceSkills(experiences) : [],
     ).length === 0;
   const jobTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
