@@ -3,11 +3,12 @@ import { useIntl } from "react-intl";
 
 import {
   ExclamationTriangleIcon,
+  InformationCircleIcon,
   LightBulbIcon,
 } from "@heroicons/react/24/solid";
 import Chip, { Chips } from "../Chip";
 
-import { getMissingSkills } from "../../helpers/skillUtils";
+import { categorizeSkill, getMissingSkills } from "../../helpers/skillUtils";
 import { getLocale } from "../../helpers/localize";
 import type { Maybe, Skill } from "../../api/generated";
 import { PillColor, PillMode } from "../Pill";
@@ -80,12 +81,22 @@ const MissingSkills = ({
     return 0;
   };
 
+  const categorizedRequiredSkills = categorizeSkill(requiredSkills);
+  const categorizedOptionalSkills = categorizeSkill(optionalSkills);
+
   const missingRequiredSkills = getMissingSkills(
-    requiredSkills || [],
+    categorizedRequiredSkills.TECHNICAL || [],
+    addedSkills,
+  ).sort(byLocalizedName);
+  const missingTransferableSkills = getMissingSkills(
+    [
+      ...(categorizedRequiredSkills.BEHAVIOURAL || []),
+      ...(categorizedOptionalSkills.BEHAVIOURAL || []),
+    ] || [],
     addedSkills,
   ).sort(byLocalizedName);
   const missingOptionalSkills = getMissingSkills(
-    optionalSkills || [],
+    categorizedOptionalSkills.TECHNICAL || [],
     addedSkills,
   ).sort(byLocalizedName);
 
@@ -111,6 +122,28 @@ const MissingSkills = ({
           })}
           icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
           missingSkills={missingRequiredSkills}
+        />
+      ) : null}
+      {missingTransferableSkills.length ? (
+        <MissingSkillsBlock
+          data-h2-background-color="base(light.dt-primary.10)"
+          data-h2-margin="base(0, 0, x.5, 0)"
+          pillType={{ color: "primary", mode: "outline" }}
+          title={intl.formatMessage({
+            defaultMessage: "Required transferable skills",
+            id: "4+Q/Zt",
+            description:
+              "Title that appears when a user is missing required skills on their profile.",
+          })}
+          blurb={intl.formatMessage({
+            defaultMessage:
+              "These skills will be assessed after you submit your application:",
+            id: "Y7/6u6",
+            description:
+              "Text that appears when a user is missing transferable skills on their profile.",
+          })}
+          icon={<InformationCircleIcon style={{ width: "1.2rem" }} />}
+          missingSkills={missingTransferableSkills}
         />
       ) : null}
       {missingOptionalSkills.length ? (
