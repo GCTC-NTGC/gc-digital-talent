@@ -92,7 +92,6 @@ const Combobox = ({
   }, [selectedOption, setValue, resetField, name]);
 
   const getDisplayValue = (value: Scalars["ID"]): string => {
-    console.log(value);
     if (value) {
       const selected = options.find((option) => option.value === value);
       if (selected) {
@@ -102,8 +101,6 @@ const Combobox = ({
 
     return ``;
   };
-
-  console.log(inputProps);
 
   return (
     <ComboboxPrimitive
