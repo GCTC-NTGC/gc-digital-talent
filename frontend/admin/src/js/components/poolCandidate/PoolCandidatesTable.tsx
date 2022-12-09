@@ -552,15 +552,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             value: "email",
           },
         ]}
-        addBtn={{
-          label: intl.formatMessage({
-            defaultMessage: "Create Pool Candidate",
-            id: "Ox+Gj/",
-            description:
-              "Text label for link to create new pool candidate on admin table",
-          }),
-          path: adminRoutes.userCreate(),
-        }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(
             allColumnIds,
