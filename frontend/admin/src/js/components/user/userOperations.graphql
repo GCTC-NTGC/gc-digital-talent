@@ -1,3 +1,167 @@
+query GetViewUserData($id: UUID!) {
+  applicant(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    citizenship
+    armedForcesStatus
+    preferredLang
+    currentProvince
+    currentCity
+    jobLookingStatus
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
+    hasDisability
+    isVisibleMinority
+    isWoman
+    expectedSalary
+    poolCandidates {
+      id
+      status
+      expiryDate
+      notes
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      applicant {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+    advertisementStatus
+  }
+}
+
 query AllUsersPaginated(
   $where: UserFilterInput
   $first: Int
