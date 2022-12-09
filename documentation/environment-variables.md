@@ -20,4 +20,3 @@ For deployment in production, there needs to be a way to change variables in the
 
 To check what variables have been set in the app, open the console of your browser and enter:
 `window.__SERVER_CONFIG__`
-

@@ -4,7 +4,6 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -29,10 +28,9 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(user.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {
     // isIndigenous has been removed from inputs, indigenousCommunities functions as a replacement
@@ -108,7 +106,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       cancelLink={{
         href: returnRoute,
         children: intl.formatMessage(
-          application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          application
             ? navigationMessages.backToApplication
             : navigationMessages.backToProfile,
         ),
@@ -214,7 +212,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         cancelLink={{
           href: returnRoute,
           children: intl.formatMessage(
-            application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            application
               ? navigationMessages.backToApplication
               : navigationMessages.backToProfile,
           ),
