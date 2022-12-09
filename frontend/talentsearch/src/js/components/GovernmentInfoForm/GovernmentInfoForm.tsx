@@ -13,7 +13,6 @@ import {
   objectsToSortedOptions,
 } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { toast } from "@common/components/Toast";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
@@ -522,10 +521,9 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(initialData.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 

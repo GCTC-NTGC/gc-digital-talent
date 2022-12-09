@@ -17,9 +17,6 @@ module.exports = defineConfig({
   videoCompression: 15,
   chromeWebSecurity: true,
   authServerRoot: 'http://localhost:8000/oxauth',
-  env: {
-    CY_FEATURE_APPLICANTSEARCH: true,
-  },
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
