@@ -37,6 +37,9 @@ return [
 
             // Logs every incoming GraphQL query.
             App\Http\Middleware\AuditQueryMiddleware::class,
+
+            // Throttles based on RateLimiter in RouteServiceProvider.
+            'throttle:graphql',
         ],
 
         /*
