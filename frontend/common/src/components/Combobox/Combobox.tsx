@@ -44,6 +44,7 @@ const Combobox = ({
   options,
 }: ComboboxProps) => {
   const intl = useIntl();
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const [selectedOption, setSelectedOption] = React.useState<
     Scalars["ID"] | null
   >(null);
@@ -81,6 +82,10 @@ const Combobox = ({
 
   const handleClear = () => {
     setSelectedOption(null);
+    setQuery("");
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   React.useEffect(() => {
@@ -132,6 +137,7 @@ const Combobox = ({
             onChange={handleChange}
             onBlur={inputProps.onBlur}
             displayValue={getDisplayValue}
+            ref={inputRef}
             {...stateStyles}
             data-h2-padding="base(x.25, x1.25, x.25, x.5)"
             data-h2-radius="base(input)"
@@ -141,7 +147,7 @@ const Combobox = ({
             })}
           />
           <Actions
-            showClear={!!selectedOption}
+            showClear={!!selectedOption || query !== ""}
             onClear={handleClear}
             clearLabel={intl
               .formatMessage(
