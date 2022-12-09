@@ -1541,6 +1541,7 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
+    @throttle(maxAttempts: 100)
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
