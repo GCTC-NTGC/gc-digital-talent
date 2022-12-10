@@ -47,7 +47,6 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $has_disability
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
- * @property string $language_ability
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $expected_salary
@@ -284,20 +283,27 @@ class User extends Model implements Authenticatable
         }
         return self::filterByPools($query, $poolFilters);
     }
+
     public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
         }
-        // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function ($query) use ($languageAbility) {
-            $query->where('language_ability', $languageAbility);
-            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-            }
-        });
+
+        // $languageAbility comes from enum LanguageAbility
+        // filtering on fields looking_for_<english/french/bilingual>
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH) {
+            $query->where('looking_for_english', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+            $query->where('looking_for_french', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
+            $query->where('looking_for_bilingual', true);
+        }
         return $query;
     }
+
     public static function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
