@@ -238,27 +238,22 @@ RAWSQL2;
         });
         return $query;
     }
+
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
         }
 
-        // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->whereExists(function ($query) use ($languageAbility) {
-            $query->select('id')
-            ->from('users')
-            ->whereColumn('users.id', 'pool_candidates.user_id')
-            ->where(function ($query) use ($languageAbility) {
-                $query->where('language_ability', $languageAbility);
-                if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                    $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-                }
+        // point at filter on User
+        $query->where(function ($query) use ($languageAbility) {
+            $query->whereHas('user', function ($query) use ($languageAbility) {
+                User::filterByLanguageAbility($query, $languageAbility);
             });
-
         });
         return $query;
     }
+
     public static function filterByPools(Builder $query, ?array $pools): Builder
     {
         if (empty($pools)) {
