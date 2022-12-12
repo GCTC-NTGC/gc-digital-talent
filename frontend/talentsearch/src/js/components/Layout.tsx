@@ -9,7 +9,6 @@ import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
-import useFeatureFlags from "@common/hooks/useFeatureFlags";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import Footer from "@common/components/Footer";
@@ -45,7 +44,6 @@ const Layout = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const featureFlags = useFeatureFlags();
   const { loggedInUser } = useAuthorizationContext();
   const { loggedIn } = useAuth();
 
@@ -77,38 +75,26 @@ const Layout = () => {
         description: "Label displayed on the Search menu item.",
       })}
     </MenuLink>,
+    <MenuLink key="browseOpportunities" to={paths.allPools()}>
+      {intl.formatMessage({
+        defaultMessage: "Browse opportunities",
+        id: "SXvOXV",
+        description: "Label displayed on the browse pools menu item.",
+      })}
+    </MenuLink>,
   ];
-
-  if (featureFlags.directIntake) {
-    menuItems = [
-      ...menuItems,
-      <MenuLink key="browseOpportunities" to={paths.allPools()}>
-        {intl.formatMessage({
-          defaultMessage: "Browse opportunities",
-          id: "SXvOXV",
-          description: "Label displayed on the browse pools menu item.",
-        })}
-      </MenuLink>,
-    ];
-
-    if (featureFlags.directIntake && loggedIn && loggedInUser?.id) {
-      menuItems = [
-        ...menuItems,
-        <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
-          {intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "ioghLh",
-            description:
-              "Label displayed on the users pool applications menu item.",
-          })}
-        </MenuLink>,
-      ];
-    }
-  }
 
   if (loggedIn && loggedInUser?.id) {
     menuItems = [
       ...menuItems,
+      <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
+        {intl.formatMessage({
+          defaultMessage: "My applications",
+          id: "ioghLh",
+          description:
+            "Label displayed on the users pool applications menu item.",
+        })}
+      </MenuLink>,
       <MenuLink key="myProfile" to={paths.profile(loggedInUser.id)}>
         {intl.formatMessage({
           defaultMessage: "My profile",

@@ -10,6 +10,10 @@ type ValidationExtension = {
   category: string;
 };
 
+type RateLimitExtension = {
+  category: string;
+};
+
 // type guard to ensure the error extension looks like our ValidationExtension type
 export function isValidationExtension(
   extension: GraphQLErrorExtensions,
@@ -17,6 +21,16 @@ export function isValidationExtension(
   return (
     (extension as ValidationExtension) !== undefined &&
     extension.category === "validation"
+  );
+}
+
+// type guard to ensure the error extension looks like our RateLimitExtension type
+export function isRateLimitExtension(
+  extension: GraphQLErrorExtensions,
+): extension is RateLimitExtension {
+  return (
+    (extension as RateLimitExtension) !== undefined &&
+    extension.category === "rate-limit"
   );
 }
 
@@ -34,6 +48,15 @@ export const extractValidationErrorMessages = (combinedError: CombinedError) =>
     })
     // Each rule has an array for possibly multiple error messages
     .flatMap((messageArrays) => messageArrays);
+
+// Accepts a CombinedError object and finds the rate limit error messages
+export const extractRateLimitErrorMessages = (combinedError: CombinedError) =>
+  combinedError.graphQLErrors
+    .filter((graphQLError) => isRateLimitExtension(graphQLError.extensions))
+    .flatMap((graphQLError) => {
+      const rateLimitExtension = graphQLError.extensions as RateLimitExtension;
+      return Object.keys(rateLimitExtension).map(() => "RATE_LIMIT"); // see apiMessages.ts for reference.
+    });
 
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
 export const buildValidationErrorMessageNode = (
@@ -61,6 +84,27 @@ export const buildValidationErrorMessageNode = (
 
   // if just 1, toast by itself
   if (localizedMessages.length === 1) {
+    return <span>{localizedMessages[0]}</span>;
+  }
+
+  // no messages, no returned node
+  return null;
+};
+
+export const buildRateLimitErrorMessageNode = (
+  errorMessages: Array<string>,
+  intl: IntlShape,
+): React.ReactNode => {
+  const localizedMessages = errorMessages.map((errorMessage) => {
+    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
+    if (localizedMessageDescriptor) {
+      return intl.formatMessage(localizedMessageDescriptor);
+    }
+    return errorMessage;
+  });
+
+  // if 1 or more than 1, return one toast since message is the same for all.
+  if (localizedMessages.length >= 1) {
     return <span>{localizedMessages[0]}</span>;
   }
 
