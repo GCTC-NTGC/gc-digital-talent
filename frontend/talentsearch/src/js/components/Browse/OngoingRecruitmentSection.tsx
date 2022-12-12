@@ -2,9 +2,9 @@ import React from "react";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import Heading from "@common/components/Heading";
-import { PoolStream } from "@common/api/generated";
+import { PoolStream, Skill } from "@common/api/generated";
 import Accordion from "@common/components/Accordion";
-import { Link } from "@common/components";
+import { Link, Pill } from "@common/components";
 import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
 import { Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
@@ -15,27 +15,25 @@ import useRoutes from "../../hooks/useRoutes";
 import messages from "./messages";
 
 // the shape of the data model to populate this component
-interface DataModel {
-  streams: {
-    key: PoolStream;
+interface StreamViewModel {
+  key: PoolStream;
+  title: string;
+  summary: string;
+  classifications: {
     title: string;
-    summary: string;
-    classifications: {
-      title: string;
-      description: string;
-      poolAdvertisementId: PoolAdvertisement["id"] | undefined;
-      applyMessage: string;
-    }[];
+    description: string;
+    poolAdvertisement: PoolAdvertisement | undefined;
+    applyMessage: string;
   }[];
 }
 
 // choose a pool advertisement from a collection of pools for association with a stream, classification group, and classification level
-const selectPoolIdForSection = (
+const selectPoolForSection = (
   pools: PoolAdvertisement[],
   stream: PoolStream,
   group: string,
   level: number,
-): PoolAdvertisement["id"] | undefined => {
+): PoolAdvertisement | undefined => {
   return (
     pools
       // last expiry date first to be selected
@@ -52,13 +50,25 @@ const selectPoolIdForSection = (
           !!p.classifications?.find(
             (c) => c?.group === group && c.level === level,
           ),
-      )?.id
+      )
   );
 };
 
 type FormValues = {
   quickFilter: PoolStream | undefined;
 };
+
+// Stream is recommended if any of the classifications match condition.
+// Every essential skill in the classification is present in the user's skills.
+const streamIsRecommended = (
+  stream: StreamViewModel,
+  userSkillIds: Skill["id"][],
+): boolean =>
+  stream.classifications.some((classification) =>
+    classification.poolAdvertisement?.essentialSkills?.every((skill) =>
+      userSkillIds.includes(skill.id),
+    ),
+  );
 
 export interface OngoingRecruitmentSectionProps {
   pools: PoolAdvertisement[];
@@ -75,549 +85,538 @@ export const OngoingRecruitmentSection = ({
 
   const quickFilterStream = methods.watch("quickFilter");
   const { loggedInUser, isLoaded } = React.useContext(AuthorizationContext);
-  const [{ data: skillsData, fetching: fetchingSkills, error: skillsError }] =
-    useMySkillsQuery({
-      pause: !isLoaded || !loggedInUser,
-    });
+  const [{ data: skillsData }] = useMySkillsQuery({
+    pause: !isLoaded || !loggedInUser,
+  });
 
-  const flattenedSkillIds = skillsData?.me?.experiences
+  const mySkillIdsWithDuplicates = skillsData?.me?.experiences
     ?.flatMap((e) => e?.skills)
     .filter(notEmpty)
     .map(getId);
-  const skillIds = uniqueItems(flattenedSkillIds ?? []);
+  const mySkillIds = uniqueItems(mySkillIdsWithDuplicates ?? []);
 
   // this great big object is all the data to populate the accordions
-  const dataModel: DataModel = {
-    streams: [
-      // IT business line advisory services bucket
-      {
-        key: PoolStream.BusinessAdvisoryServices,
-        title: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-        summary: intl.formatMessage(messages.businessAdvisoryServicesSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.BusinessAdvisoryServices,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.BusinessAdvisoryServices,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.BusinessAdvisoryServices,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.BusinessAdvisoryServices,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-            }),
-          },
-        ],
-      },
-      // IT database management
-      {
-        key: PoolStream.DatabaseManagement,
-        title: intl.formatMessage(messages.databaseManagementTitle),
-        summary: intl.formatMessage(messages.databaseManagementSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.DatabaseManagement,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.databaseManagementTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.DatabaseManagement,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.databaseManagementTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.DatabaseManagement,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.databaseManagementTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.DatabaseManagement,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.databaseManagementTitle),
-            }),
-          },
-        ],
-      },
-      // IT enterprise architecture
-      {
-        key: PoolStream.EnterpriseArchitecture,
-        title: intl.formatMessage(messages.enterpriseArchitectureTitle),
-        summary: intl.formatMessage(messages.enterpriseArchitectureSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.EnterpriseArchitecture,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.EnterpriseArchitecture,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.EnterpriseArchitecture,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.EnterpriseArchitecture,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-            }),
-          },
-        ],
-      },
-      // IT infrastructure operations
-      {
-        key: PoolStream.InfrastructureOperations,
-        title: intl.formatMessage(messages.infrastructureOperationsTitle),
-        summary: intl.formatMessage(messages.infrastructureOperationsSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.InfrastructureOperations,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.infrastructureOperationsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.InfrastructureOperations,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.infrastructureOperationsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.InfrastructureOperations,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.infrastructureOperationsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.InfrastructureOperations,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.infrastructureOperationsTitle),
-            }),
-          },
-        ],
-      },
-      // IT planning and reporting
-      {
-        key: PoolStream.PlanningAndReporting,
-        title: intl.formatMessage(messages.planningAndReportingTitle),
-        summary: intl.formatMessage(messages.planningAndReportingSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.PlanningAndReporting,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.planningAndReportingTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.PlanningAndReporting,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.planningAndReportingTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.PlanningAndReporting,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.planningAndReportingTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.PlanningAndReporting,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.planningAndReportingTitle),
-            }),
-          },
-        ],
-      },
-      // IT project portfolio management
-      {
-        key: PoolStream.ProjectPortfolioManagement,
-        title: intl.formatMessage(messages.projectPortfolioManagementTitle),
-        summary: intl.formatMessage(messages.projectPortfolioSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.ProjectPortfolioManagement,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(
-                messages.projectPortfolioManagementTitle,
-              ),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.ProjectPortfolioManagement,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(
-                messages.projectPortfolioManagementTitle,
-              ),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.ProjectPortfolioManagement,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(
-                messages.projectPortfolioManagementTitle,
-              ),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.ProjectPortfolioManagement,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(
-                messages.projectPortfolioManagementTitle,
-              ),
-            }),
-          },
-        ],
-      },
-      // IT security
-      {
-        key: PoolStream.Security,
-        title: intl.formatMessage(messages.securityTitle),
-        summary: intl.formatMessage(messages.securitySummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.Security,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.securityTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.Security,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.securityTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.Security,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.securityTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.Security,
-              "IT",
-              4,
-            ),
+  const streams: StreamViewModel[] = [
+    // IT business line advisory services bucket
+    {
+      key: PoolStream.BusinessAdvisoryServices,
+      title: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+      summary: intl.formatMessage(messages.businessAdvisoryServicesSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.BusinessAdvisoryServices,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.BusinessAdvisoryServices,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.BusinessAdvisoryServices,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.BusinessAdvisoryServices,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+          }),
+        },
+      ],
+    },
+    // IT database management
+    {
+      key: PoolStream.DatabaseManagement,
+      title: intl.formatMessage(messages.databaseManagementTitle),
+      summary: intl.formatMessage(messages.databaseManagementSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.DatabaseManagement,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.databaseManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.DatabaseManagement,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.databaseManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.DatabaseManagement,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.databaseManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.DatabaseManagement,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.databaseManagementTitle),
+          }),
+        },
+      ],
+    },
+    // IT enterprise architecture
+    {
+      key: PoolStream.EnterpriseArchitecture,
+      title: intl.formatMessage(messages.enterpriseArchitectureTitle),
+      summary: intl.formatMessage(messages.enterpriseArchitectureSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.EnterpriseArchitecture,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.EnterpriseArchitecture,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.EnterpriseArchitecture,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.EnterpriseArchitecture,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+          }),
+        },
+      ],
+    },
+    // IT infrastructure operations
+    {
+      key: PoolStream.InfrastructureOperations,
+      title: intl.formatMessage(messages.infrastructureOperationsTitle),
+      summary: intl.formatMessage(messages.infrastructureOperationsSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.InfrastructureOperations,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.InfrastructureOperations,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.InfrastructureOperations,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.InfrastructureOperations,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+          }),
+        },
+      ],
+    },
+    // IT planning and reporting
+    {
+      key: PoolStream.PlanningAndReporting,
+      title: intl.formatMessage(messages.planningAndReportingTitle),
+      summary: intl.formatMessage(messages.planningAndReportingSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.PlanningAndReporting,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.planningAndReportingTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.PlanningAndReporting,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.planningAndReportingTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.PlanningAndReporting,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.planningAndReportingTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.PlanningAndReporting,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.planningAndReportingTitle),
+          }),
+        },
+      ],
+    },
+    // IT project portfolio management
+    {
+      key: PoolStream.ProjectPortfolioManagement,
+      title: intl.formatMessage(messages.projectPortfolioManagementTitle),
+      summary: intl.formatMessage(messages.projectPortfolioSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.ProjectPortfolioManagement,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.ProjectPortfolioManagement,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.ProjectPortfolioManagement,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.ProjectPortfolioManagement,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+          }),
+        },
+      ],
+    },
+    // IT security
+    {
+      key: PoolStream.Security,
+      title: intl.formatMessage(messages.securityTitle),
+      summary: intl.formatMessage(messages.securitySummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.Security,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.securityTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.Security,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.securityTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.Security,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.securityTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.Security,
+            "IT",
+            4,
+          ),
 
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.securityTitle),
-            }),
-          },
-        ],
-      },
-      // IT software solutions
-      {
-        key: PoolStream.SoftwareSolutions,
-        title: intl.formatMessage(messages.softwareSolutionsTitle),
-        summary: intl.formatMessage(messages.softwareSolutionsSummary),
-        classifications: [
-          {
-            title: intl.formatMessage(messages.it01Title),
-            description: intl.formatMessage(messages.it01Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.SoftwareSolutions,
-              "IT",
-              1,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 1,
-              name: intl.formatMessage(messages.softwareSolutionsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it02Title),
-            description: intl.formatMessage(messages.it02Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.SoftwareSolutions,
-              "IT",
-              2,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 2,
-              name: intl.formatMessage(messages.softwareSolutionsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it03Title),
-            description: intl.formatMessage(messages.it03Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.SoftwareSolutions,
-              "IT",
-              3,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 3,
-              name: intl.formatMessage(messages.softwareSolutionsTitle),
-            }),
-          },
-          {
-            title: intl.formatMessage(messages.it04Title),
-            description: intl.formatMessage(messages.it04Description),
-            poolAdvertisementId: selectPoolIdForSection(
-              pools,
-              PoolStream.SoftwareSolutions,
-              "IT",
-              4,
-            ),
-            applyMessage: intl.formatMessage(messages.apply, {
-              levelNumber: 4,
-              name: intl.formatMessage(messages.softwareSolutionsTitle),
-            }),
-          },
-        ],
-      },
-    ],
-  };
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.securityTitle),
+          }),
+        },
+      ],
+    },
+    // IT software solutions
+    {
+      key: PoolStream.SoftwareSolutions,
+      title: intl.formatMessage(messages.softwareSolutionsTitle),
+      summary: intl.formatMessage(messages.softwareSolutionsSummary),
+      classifications: [
+        {
+          title: intl.formatMessage(messages.it01Title),
+          description: intl.formatMessage(messages.it01Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.SoftwareSolutions,
+            "IT",
+            1,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 1,
+            name: intl.formatMessage(messages.softwareSolutionsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it02Title),
+          description: intl.formatMessage(messages.it02Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.SoftwareSolutions,
+            "IT",
+            2,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 2,
+            name: intl.formatMessage(messages.softwareSolutionsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it03Title),
+          description: intl.formatMessage(messages.it03Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.SoftwareSolutions,
+            "IT",
+            3,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 3,
+            name: intl.formatMessage(messages.softwareSolutionsTitle),
+          }),
+        },
+        {
+          title: intl.formatMessage(messages.it04Title),
+          description: intl.formatMessage(messages.it04Description),
+          poolAdvertisement: selectPoolForSection(
+            pools,
+            PoolStream.SoftwareSolutions,
+            "IT",
+            4,
+          ),
+          applyMessage: intl.formatMessage(messages.apply, {
+            levelNumber: 4,
+            name: intl.formatMessage(messages.softwareSolutionsTitle),
+          }),
+        },
+      ],
+    },
+  ];
 
   // filter to only streams with classifications with a pool ID to apply to
-  const streamsWithAvailablePools = dataModel.streams.filter(
+  const streamsWithAvailablePools = streams.filter(
     (stream) =>
       !!stream.classifications.find(
-        (classification) => classification.poolAdvertisementId,
+        (classification) => classification.poolAdvertisement?.id,
       ),
   );
 
@@ -626,9 +625,15 @@ export const OngoingRecruitmentSection = ({
     ? streamsWithAvailablePools.filter((s) => s.key === quickFilterStream)
     : streamsWithAvailablePools;
 
+  // sort list so that recommended streams come first
+  streamsToShow.sort((s1, s2) =>
+    !streamIsRecommended(s1, mySkillIds) && streamIsRecommended(s2, mySkillIds)
+      ? 1
+      : 0,
+  );
+
   return (
     <>
-      {JSON.stringify(skillIds)}
       <Heading
         level="h2"
         Icon={CpuChipIcon}
@@ -700,9 +705,8 @@ export const OngoingRecruitmentSection = ({
                   "Announcement that the job stream filter is active.",
               },
               {
-                jobStream: dataModel.streams.find(
-                  (s) => s.key === quickFilterStream,
-                )?.title,
+                jobStream: streams.find((s) => s.key === quickFilterStream)
+                  ?.title,
               },
             )
           : intl.formatMessage({
@@ -725,6 +729,20 @@ export const OngoingRecruitmentSection = ({
                 subtitle={stream.summary}
                 data-h2-font-size="base(h4)"
                 headerAs="h3"
+                context={
+                  streamIsRecommended(stream, mySkillIds) ? (
+                    <Pill color="green" mode="outline">
+                      <span data-h2-color="base:(black)">
+                        {intl.formatMessage({
+                          defaultMessage: "Recommended based on your skills",
+                          id: "LFYdXR",
+                          description:
+                            "Tip that your skills match this section well and so it is recommended",
+                        })}
+                      </span>
+                    </Pill>
+                  ) : undefined
+                }
               >
                 {stream.title}
               </Accordion.Trigger>
@@ -738,7 +756,7 @@ export const OngoingRecruitmentSection = ({
                   {stream.classifications
                     .filter(
                       // filter to only classifications with a pool ID that can be applied to
-                      (classification) => classification.poolAdvertisementId,
+                      (classification) => classification.poolAdvertisement?.id,
                     )
                     .map((classification) => (
                       <div
@@ -755,10 +773,10 @@ export const OngoingRecruitmentSection = ({
                         <p data-h2-padding="base(0,0,x0.75, 0)">
                           {classification.description}
                         </p>
-                        {classification.poolAdvertisementId && (
+                        {classification.poolAdvertisement?.id && (
                           <Link
                             href={paths.pool(
-                              classification.poolAdvertisementId,
+                              classification.poolAdvertisement.id,
                             )}
                             color="blue"
                             type="button"
