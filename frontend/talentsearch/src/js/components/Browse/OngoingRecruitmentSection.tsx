@@ -8,6 +8,7 @@ import { Link } from "@common/components";
 import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
 import { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
+import messages from "./messages";
 
 // the shape of the data model to populate this component
 interface DataModel {
@@ -66,877 +67,446 @@ export const OngoingRecruitmentSection = ({
       // IT business line advisory services bucket
       {
         key: PoolStream.BusinessAdvisoryServices,
-        title: intl.formatMessage({
-          defaultMessage: "IT business line advisory services",
-          id: "EOO6S0",
-          description:
-            "Title for the 'business line advisory services' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes providing specialized IT guidance as well as working with clients and/or suppliers to acquire and sustain IT resources that support Government operation.",
-          id: "QN/1MR",
-          description:
-            "Title for the 'business line advisory services' IT work stream",
-        }),
+        title: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+        summary: intl.formatMessage(messages.businessAdvisoryServicesSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.BusinessAdvisoryServices,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.BusinessAdvisoryServices,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.BusinessAdvisoryServices,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.BusinessAdvisoryServices,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            }),
           },
         ],
       },
       // IT database management
       {
         key: PoolStream.DatabaseManagement,
-        title: intl.formatMessage({
-          defaultMessage: "IT database management",
-          id: "pffFnd",
-          description: "Title for the 'database management' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes developing and maintaining data models, database design, capacity planning, performance management, and ensuring data integrity.",
-          id: "BxJSsB",
-          description: "Title for the 'database management' IT work stream",
-        }),
+        title: intl.formatMessage(messages.databaseManagementTitle),
+        summary: intl.formatMessage(messages.databaseManagementSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.DatabaseManagement,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.databaseManagementTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.DatabaseManagement,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.databaseManagementTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.DatabaseManagement,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.databaseManagementTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.DatabaseManagement,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.databaseManagementTitle),
+            }),
           },
         ],
       },
       // IT enterprise architecture
       {
         key: PoolStream.EnterpriseArchitecture,
-        title: intl.formatMessage({
-          defaultMessage: "IT enterprise architecture",
-          id: "C2iUvf",
-          description: "Title for the 'enterprise architecture' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes working with the departmental IT architecture direction, collaborating with other IT streams, and conducting research into emerging technologies.",
-          id: "DVkO+D",
-          description: "Title for the 'enterprise architecture' IT work stream",
-        }),
+        title: intl.formatMessage(messages.enterpriseArchitectureTitle),
+        summary: intl.formatMessage(messages.enterpriseArchitectureSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.EnterpriseArchitecture,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.EnterpriseArchitecture,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.EnterpriseArchitecture,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.EnterpriseArchitecture,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            }),
           },
         ],
       },
       // IT infrastructure operations
       {
         key: PoolStream.InfrastructureOperations,
-        title: intl.formatMessage({
-          defaultMessage: "IT infrastructure operations",
-          id: "ElfiAv",
-          description:
-            "Title for the 'infrastructure operations' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes infrastructure management of networks, mainframes, servers, and storage, providing IT support, and client/supplier relationships.",
-          id: "svCFrY",
-          description:
-            "Title for the 'infrastructure operations' IT work stream",
-        }),
+        title: intl.formatMessage(messages.infrastructureOperationsTitle),
+        summary: intl.formatMessage(messages.infrastructureOperationsSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.InfrastructureOperations,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.InfrastructureOperations,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.InfrastructureOperations,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.InfrastructureOperations,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            }),
           },
         ],
       },
       // IT planning and reporting
       {
         key: PoolStream.PlanningAndReporting,
-        title: intl.formatMessage({
-          defaultMessage: "IT planning and reporting",
-          id: "VX2+ET",
-          description: "Title for the 'planning and reporting' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes providing specialized IT planning guidance, and the collaborative creation of deliverables that include strategic plans, IT policies and standards, and governance processes.",
-          id: "crqgGQ",
-          description: "Title for the 'planning and reporting' IT work stream",
-        }),
+        title: intl.formatMessage(messages.planningAndReportingTitle),
+        summary: intl.formatMessage(messages.planningAndReportingSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.PlanningAndReporting,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.planningAndReportingTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.PlanningAndReporting,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.planningAndReportingTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.PlanningAndReporting,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.planningAndReportingTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.PlanningAndReporting,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.planningAndReportingTitle),
+            }),
           },
         ],
       },
       // IT project portfolio management
       {
         key: PoolStream.ProjectPortfolioManagement,
-        title: intl.formatMessage({
-          defaultMessage: "IT project portfolio management",
-          id: "aL5y0G",
-          description:
-            "Title for the 'project portfolio management' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This bucket includes working full-time on large, formal projects that require the sharing of and application of rigorous application of IT project management skills and knowledge.",
-          id: "h5CY+u",
-          description:
-            "Title for the 'project portfolio management' IT work stream",
-        }),
+        title: intl.formatMessage(messages.projectPortfolioManagementTitle),
+        summary: intl.formatMessage(messages.projectPortfolioSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.ProjectPortfolioManagement,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(
+                messages.projectPortfolioManagementTitle,
+              ),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.ProjectPortfolioManagement,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(
+                messages.projectPortfolioManagementTitle,
+              ),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.ProjectPortfolioManagement,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(
+                messages.projectPortfolioManagementTitle,
+              ),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.ProjectPortfolioManagement,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(
+                messages.projectPortfolioManagementTitle,
+              ),
+            }),
           },
         ],
       },
       // IT security
       {
         key: PoolStream.Security,
-        title: intl.formatMessage({
-          defaultMessage: "IT security",
-          id: "uxlNWH",
-          description: "Title for the 'security' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes specialized security skills that focus in programming, infrastructure, business applications, and data.",
-          id: "bz6geU",
-          description: "Title for the 'security' IT work stream",
-        }),
+        title: intl.formatMessage(messages.securityTitle),
+        summary: intl.formatMessage(messages.securitySummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.Security,
               "IT",
               1,
             ),
-
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.securityTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.Security,
               "IT",
               2,
             ),
-
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.securityTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.Security,
               "IT",
               3,
             ),
-
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.securityTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.Security,
@@ -944,140 +514,74 @@ export const OngoingRecruitmentSection = ({
               4,
             ),
 
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.securityTitle),
+            }),
           },
         ],
       },
       // IT software solutions
       {
         key: PoolStream.SoftwareSolutions,
-        title: intl.formatMessage({
-          defaultMessage: "IT software solutions",
-          id: "4CT5zI",
-          description: "Title for the 'software solutions' IT work stream",
-        }),
-        summary: intl.formatMessage({
-          defaultMessage:
-            "This stream includes programming, systems design and development, business analysis, configuration, testing, and implementation.",
-          id: "7KJGSu",
-          description: "Title for the 'software solutions' IT work stream",
-        }),
+        title: intl.formatMessage(messages.softwareSolutionsTitle),
+        summary: intl.formatMessage(messages.softwareSolutionsSummary),
         classifications: [
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 1 (Technician)",
-              id: "UBf9lv",
-              description: "Title for the 'IT-01 Technician' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-              id: "T0gN76",
-              description:
-                "Description for the 'IT-01 Technician' classification",
-            }),
+            title: intl.formatMessage(messages.it01Title),
+            description: intl.formatMessage(messages.it01Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.SoftwareSolutions,
               "IT",
               1,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 1 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 1,
+              name: intl.formatMessage(messages.softwareSolutionsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 2 (Analyst)",
-              id: "6dPu0e",
-              description: "Title for the 'IT-02 Analyst' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-              id: "zZQGWR",
-              description: "Description for the 'IT-02 Analyst' classification",
-            }),
+            title: intl.formatMessage(messages.it02Title),
+            description: intl.formatMessage(messages.it02Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.SoftwareSolutions,
               "IT",
               2,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 2 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 2,
+              name: intl.formatMessage(messages.softwareSolutionsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 3 (Lead/Advisor)",
-              id: "MzhP1T",
-              description: "Title for the 'IT-03 Advisor' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-              id: "rLmOMp",
-              description: "Description for the 'IT-03 Advisor' classification",
-            }),
+            title: intl.formatMessage(messages.it03Title),
+            description: intl.formatMessage(messages.it03Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.SoftwareSolutions,
               "IT",
               3,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 3 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 3,
+              name: intl.formatMessage(messages.softwareSolutionsTitle),
+            }),
           },
           {
-            title: intl.formatMessage({
-              defaultMessage: "Level 4 (Manager/Advisor)",
-              id: "5qkqv9",
-              description: "Title for the 'IT-04 Manager' classification",
-            }),
-            description: intl.formatMessage({
-              defaultMessage:
-                "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-              id: "v0/leo",
-              description: "Description for the 'IT-04 Manager' classification",
-            }),
+            title: intl.formatMessage(messages.it04Title),
+            description: intl.formatMessage(messages.it04Description),
             poolAdvertisementId: selectPoolIdForSection(
               pools,
               PoolStream.SoftwareSolutions,
               "IT",
               4,
             ),
-            applyMessage: intl.formatMessage(
-              {
-                defaultMessage: "Apply to level {number}",
-                id: "oKc30q",
-                description: "Invitation to apply at a certain level number",
-              },
-              { number: 4 },
-            ),
+            applyMessage: intl.formatMessage(messages.apply, {
+              levelNumber: 4,
+              name: intl.formatMessage(messages.softwareSolutionsTitle),
+            }),
           },
         ],
       },
