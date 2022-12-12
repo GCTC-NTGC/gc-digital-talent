@@ -1900,6 +1900,10 @@
     "defaultMessage": "Talent numérique du GC",
     "description": "Default title for the site"
   },
+  "SUYPIt": {
+    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
+    "description": "Message displayed when number of user attempts exceeds rate limit"
+  },
   "1YuZjR": {
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"

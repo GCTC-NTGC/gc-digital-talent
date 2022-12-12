@@ -17,7 +17,6 @@ import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
@@ -165,10 +164,9 @@ export const ExperienceAndSkills: React.FunctionComponent<
     ];
   }
 
-  const returnRoute =
-    applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(applicationId)
-      : paths.profile(applicantId);
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
+    : paths.profile(applicantId);
 
   return (
     <ProfileFormWrapper
@@ -190,7 +188,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       cancelLink={{
         href: returnRoute,
         children: intl.formatMessage(
-          applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          applicationId
             ? navigationMessages.backToApplication
             : navigationMessages.backToProfile,
         ),
@@ -274,7 +272,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         cancelLink={{
           href: returnRoute,
           children: intl.formatMessage(
-            applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            applicationId
               ? navigationMessages.backToApplication
               : navigationMessages.backToProfile,
           ),
