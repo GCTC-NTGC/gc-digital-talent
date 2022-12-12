@@ -54,7 +54,9 @@ type User {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
+  languageAbility: LanguageAbility
+    @rename(attribute: "language_ability")
+    @deprecated(reason: "obsolete field")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -218,7 +220,9 @@ type Applicant {
   priorityNumber: String @rename(attribute: "priority_number")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
+  languageAbility: LanguageAbility
+    @rename(attribute: "language_ability")
+    @deprecated(reason: "obsolete field")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -991,7 +995,6 @@ input CreateUserInput {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -1062,7 +1065,6 @@ input UpdateUserAsAdminInput
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -1129,7 +1131,6 @@ input UpdateUserAsUserInput
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")

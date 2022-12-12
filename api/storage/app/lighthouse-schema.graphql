@@ -22,7 +22,7 @@ type Applicant {
   department: Department
   hasPriorityEntitlement: Boolean
   priorityNumber: String
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "obsolete field")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -359,7 +359,6 @@ input CreateUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1356,7 +1355,6 @@ input UpdateUserAsAdminInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1404,7 +1402,6 @@ input UpdateUserAsUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1454,7 +1451,7 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "obsolete field")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
