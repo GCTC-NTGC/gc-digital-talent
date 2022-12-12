@@ -70,6 +70,7 @@ class RouteServiceProvider extends ServiceProvider
                 ], 429);
             });
         });
+        // This limiter is for the throttle directive which can be set independently of the route-based limiters and can raise graphql-style error messages.
         RateLimiter::for('graphql', function (Request $request) {
             return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip());
         });

@@ -62,7 +62,7 @@ return [
     | Application Rate Limit
     |--------------------------------------------------------------------------
     |
-    | This value is the number of requests allowed before rate limiting is started.
+    | This value is the number of requests per minute allowed before rate limiting is started.
     |
     */
 
