@@ -261,6 +261,7 @@ fragment selectedPoolCandidates on PoolCandidate {
   notes
   archivedAt
 }
+
 query getPoolCandidate($id: UUID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
@@ -310,72 +311,6 @@ query getPoolCandidatesByPool($id: UUID!) {
     poolCandidates {
       ...poolCandidateTable
     }
-  }
-}
-
-query getCreatePoolCandidateData {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  users {
-    id
-    firstName
-    lastName
-    email
-    preferredLang
-    telephone
-  }
-}
-
-query getUpdatePoolCandidateData($id: UUID!) {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  poolCandidate(id: $id) {
-    # to allow simultaneous editing of the associated user entity
-    user {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      preferredLang
-    }
-    ...poolCandidateForm
   }
 }
 
