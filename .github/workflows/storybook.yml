@@ -46,6 +46,10 @@ jobs:
           npm run h2-build --workspace common
           npm run codegen --workspaces
           npm run intl-compile --workspaces
+          npm run intl-compile-crg --workspace=indigenousapprenticeship
+          npm run intl-compile-crk --workspace=indigenousapprenticeship
+          npm run intl-compile-ojw --workspace=indigenousapprenticeship
+          npm run intl-compile-mic --workspace=indigenousapprenticeship
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1

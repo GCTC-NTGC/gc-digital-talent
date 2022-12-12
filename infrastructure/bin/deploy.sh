@@ -65,6 +65,10 @@ npm run production
 cd $ROOT_DIR/frontend/indigenousapprenticeship
 npm run codegen
 npm run intl-compile
+npm run intl-compile-crg
+npm run intl-compile-crk
+npm run intl-compile-ojw
+npm run intl-compile-mic
 npm run production
 
 ### Cleanup /frontend npm dependencies
