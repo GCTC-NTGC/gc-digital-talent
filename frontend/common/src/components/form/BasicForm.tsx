@@ -43,6 +43,8 @@ export function BasicForm<TFieldValues extends FieldValues>({
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
   const errorSummaryRef = React.useRef<HTMLDivElement>(null);
+  const [showUnsavedChanges, setShowUnsavedChanges] =
+    React.useState<boolean>(false);
   const methods = useForm({
     mode: "onChange",
     shouldFocusError: false,
@@ -108,6 +110,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
             }
           }
         });
+        setShowUnsavedChanges(true);
       }
     }
   }, [cacheKey, options, methods]);
@@ -116,7 +119,11 @@ export function BasicForm<TFieldValues extends FieldValues>({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         {errors && <ErrorSummary ref={errorSummaryRef} labels={labels} />}
-        {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
+        <UnsavedChanges
+          labels={labels}
+          show={!!(cacheKey && isDirty && showUnsavedChanges)}
+          onDismiss={() => setShowUnsavedChanges(false)}
+        />
         {children}
       </form>
     </FormProvider>
