@@ -8,7 +8,9 @@ import { Link } from "@common/components";
 import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
 import { Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
-import { PoolAdvertisement } from "../../api/generated";
+import { AuthorizationContext } from "@common/components/Auth";
+import { getId, notEmpty, uniqueItems } from "@common/helpers/util";
+import { PoolAdvertisement, useMySkillsQuery } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import messages from "./messages";
 
@@ -72,6 +74,17 @@ export const OngoingRecruitmentSection = ({
   });
 
   const quickFilterStream = methods.watch("quickFilter");
+  const { loggedInUser, isLoaded } = React.useContext(AuthorizationContext);
+  const [{ data: skillsData, fetching: fetchingSkills, error: skillsError }] =
+    useMySkillsQuery({
+      pause: !isLoaded || !loggedInUser,
+    });
+
+  const flattenedSkillIds = skillsData?.me?.experiences
+    ?.flatMap((e) => e?.skills)
+    .filter(notEmpty)
+    .map(getId);
+  const skillIds = uniqueItems(flattenedSkillIds ?? []);
 
   // this great big object is all the data to populate the accordions
   const dataModel: DataModel = {
@@ -615,6 +628,7 @@ export const OngoingRecruitmentSection = ({
 
   return (
     <>
+      {JSON.stringify(skillIds)}
       <Heading
         level="h2"
         Icon={CpuChipIcon}
