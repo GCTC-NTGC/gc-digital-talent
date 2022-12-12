@@ -8,6 +8,7 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -56,6 +57,17 @@ export function BasicForm<TFieldValues extends FieldValues>({
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
 
+  const cachedValues = React.useMemo(() => {
+    if (cacheKey) {
+      return getFromSessionStorage(
+        cacheKey,
+        options?.defaultValues,
+      ) as TFieldValues;
+    }
+
+    return options?.defaultValues;
+  }, [cacheKey, options]);
+
   const {
     reset,
     formState: { isDirty, errors, isSubmitting },
@@ -83,11 +95,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   React.useEffect(() => {
     if (cacheKey) {
-      const cachedValues = getFromSessionStorage(
-        cacheKey,
-        options?.defaultValues,
-      ) as TFieldValues;
-
       if (cachedValues) {
         /**
          * Iterates through all cached values touching and dirtying the fields
@@ -110,10 +117,15 @@ export function BasicForm<TFieldValues extends FieldValues>({
             }
           }
         });
-        setShowUnsavedChanges(true);
       }
     }
-  }, [cacheKey, options, methods]);
+  }, [cacheKey, options, methods, cachedValues]);
+
+  React.useEffect(() => {
+    if (!isEqual(cachedValues, options?.defaultValues)) {
+      setShowUnsavedChanges(true);
+    }
+  }, [cachedValues, options]);
 
   return (
     <FormProvider {...methods}>
