@@ -24,7 +24,9 @@ import { toast } from "../Toast";
 
 import { AuthenticationContext } from "../Auth";
 import {
+  buildRateLimitErrorMessageNode,
   buildValidationErrorMessageNode,
+  extractRateLimitErrorMessages,
   extractValidationErrorMessages,
 } from "../../helpers/errorUtils";
 
@@ -160,6 +162,17 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
                 buildValidationErrorMessageNode(validationErrorMessages, intl);
               if (validationErrorMessageNode)
                 toast.error(validationErrorMessageNode);
+
+              const rateLimitErrorMessages =
+                extractRateLimitErrorMessages(error);
+              const rateLimitErrorMessageNode = buildRateLimitErrorMessageNode(
+                rateLimitErrorMessages,
+                intl,
+              );
+              if (rateLimitErrorMessageNode)
+                toast.error(rateLimitErrorMessageNode, {
+                  toastId: "rate-limit", // limits toasts for rate limit to one.
+                });
 
               // eslint-disable-next-line no-console
               console.error(error);

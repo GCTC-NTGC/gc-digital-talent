@@ -14,6 +14,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -292,32 +293,41 @@ export const UpdateSkill = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {lookupData?.skill ? (
-          <UpdateSkillForm
-            initialSkill={lookupData?.skill}
-            families={families}
-            handleUpdateSkill={handleUpdateSkill}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Skill {skillId} not found.",
-                  id: "953EAy",
-                  description: "Message displayed for skill not found.",
-                },
-                { skillId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Edit skill",
+          id: "0VlOQq",
+          description: "Page title for the edit skill page.",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {lookupData?.skill ? (
+            <UpdateSkillForm
+              initialSkill={lookupData?.skill}
+              families={families}
+              handleUpdateSkill={handleUpdateSkill}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Skill {skillId} not found.",
+                    id: "953EAy",
+                    description: "Message displayed for skill not found.",
+                  },
+                  { skillId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

@@ -20,37 +20,30 @@ import {
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
 import { Button, Link } from "@common/components";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { commonMessages } from "@common/messages";
 import { BasicForm, TextArea } from "@common/components/form";
-import { unpackMaybes } from "@common/helpers/formUtils";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import { useAdminRoutes } from "admin/src/js/adminRoutes";
+import { useAdminRoutes } from "../../../adminRoutes";
 import { ChangeDateDialog } from "./ChangeDateDialog";
 import { AddToPoolDialog } from "./AddToPoolDialog";
 import { ChangeStatusDialog } from "./ChangeStatusDialog";
 import {
-  User,
   JobLookingStatus,
-  useGetGeneralInfoQuery,
   Pool,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateAsAdminInput,
+  Applicant,
 } from "../../../api/generated";
 
 interface BasicSectionProps {
-  user: User;
+  user: Applicant;
 }
 
 interface SectionWithPoolsProps {
-  user: User;
+  user: Applicant;
   pools: Pool[];
 }
-
-// accessible button for modals - generate clickable inline elements resembling <a>
 
 const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
@@ -616,35 +609,4 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
   );
 };
 
-const GeneralInfoTabApi: React.FC<{
-  userId: string;
-}> = ({ userId }) => {
-  const intl = useIntl();
-
-  const [{ data, fetching, error }] = useGetGeneralInfoQuery({
-    variables: { id: userId },
-  });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.user && data?.pools ? (
-        <GeneralInformationTab
-          user={data.user}
-          pools={unpackMaybes(data.pools)}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Failed fetching data for tab.",
-              id: "jI4Mpn",
-              description: "Message displayed for failed fetching data.",
-            })}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default GeneralInfoTabApi;
+export default GeneralInformationTab;
