@@ -42,6 +42,8 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
+  const [showErrorSummary, setShowErrorSummary] =
+    React.useState<boolean>(false);
   const errorSummaryRef = React.useRef<HTMLDivElement>(null);
   const methods = useForm({
     mode: "onChange",
@@ -61,10 +63,16 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   React.useEffect(() => {
     // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting && errorSummaryRef.current) {
+    if (errors && isSubmitting) {
+      setShowErrorSummary(true);
+    }
+  }, [isSubmitting, errors]);
+
+  React.useEffect(() => {
+    if (errorSummaryRef.current) {
       errorSummaryRef.current.focus();
     }
-  }, [isSubmitting, errors, errorSummaryRef]);
+  }, [showErrorSummary, errorSummaryRef]);
 
   const handleSubmit = (data: TFieldValues) => {
     // Reset form to clear dirty values
@@ -115,7 +123,11 @@ export function BasicForm<TFieldValues extends FieldValues>({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        {errors && <ErrorSummary ref={errorSummaryRef} labels={labels} />}
+        <ErrorSummary
+          ref={errorSummaryRef}
+          labels={labels}
+          show={errors && showErrorSummary}
+        />
         {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
         {children}
       </form>
