@@ -393,7 +393,6 @@ class ApplicantFilterTest extends TestCase
             'user_id' => User::factory()->activelyLooking()->withExpectedGenericJobTitles()->withSkills(10)
         ]);
 
-
         // Generate a filter that matches at least one candidate
         $candidate = $candidates->random();
         $filter = ApplicantFilter::factory()->create(
@@ -404,7 +403,7 @@ class ApplicantFilterTest extends TestCase
                 'is_visible_minority' => $candidate->user->is_visible_minority,
                 'is_woman' => $candidate->user->is_woman,
                 'position_duration' => $candidate->user->position_duration,
-                'language_ability' => $candidate->user->language_ability,
+                'language_ability' => null, // user->language_ability is a computed field
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->operational_requirements,
             ]
