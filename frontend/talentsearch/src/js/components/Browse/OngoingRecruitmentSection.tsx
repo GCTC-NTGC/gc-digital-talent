@@ -1134,6 +1134,7 @@ export const OngoingRecruitmentSection = ({
                 <Accordion.Trigger
                   subtitle={stream.summary}
                   data-h2-font-size="base(h4)"
+                  headerAs="h3"
                 >
                   {stream.title}
                 </Accordion.Trigger>
@@ -1154,13 +1155,13 @@ export const OngoingRecruitmentSection = ({
                           key={classification.title}
                           data-h2-padding="base(0,0,x1, 0)"
                         >
-                          <h3
+                          <h4
                             data-h2-font-size="base(h6)"
                             data-h2-font-weight="base(700)"
                             data-h2-padding="base(0,0,x0.75, 0)"
                           >
                             {classification.title}
-                          </h3>
+                          </h4>
                           <p data-h2-padding="base(0,0,x0.75, 0)">
                             {classification.description}
                           </p>
@@ -1177,7 +1178,6 @@ export const OngoingRecruitmentSection = ({
                               {classification.applyMessage}
                             </Link>
                           )}
-                          <p data-h2-padding="base(0,0,x0.75, 0)" />
                         </div>
                       ))}
                   </div>
