@@ -79,50 +79,13 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        // mirroring functionality of the classification scope on the User model
+        // pointing to the classification scope on the User model
+        // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
         $query->where(function ($query) use ($classifications) {
             $query->whereHas('user', function ($query) use ($classifications) {
-                $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                    foreach ($classifications as $index => $classification) {
-                        if ($index === 0) {
-                            // First iteration must use where instead of orWhere
-                            $query->where(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        } else {
-                            $query->orWhere(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        }
-                    }
-                });
-                $query->orWhere(function ($query) use ($classifications) {
-                    $this->filterByClassificationToSalary($query, $classifications);
-                });
+                User::scopeClassifications($query, $classifications);
             });
         });
-
-        return $query;
-    }
-
-    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
-    {
-        // When managers search for a classification, also return any users whose expected salary
-        // ranges overlap with the min/max salaries of any of those classifications.
-        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
-        // numeric values and compare them to specified classifications
-
-        // This subquery only works for a non-zero number of filter classifications.
-        // If passed zero classifications then return same query builder unchanged.
-        if (count($classifications) == 0) {
-            return $query;
-        }
-
-        // point at the filter on User.php
-        // this is run from scopeClassifications nested within a whereHas('user'...) block
-        User::scopeClassifications($query, $classifications);
         return $query;
     }
 
