@@ -123,7 +123,8 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
        * @returns null
        */
       const logoutNullState = () => {
-        logout();
+        const currentLocation = window.location.pathname; // Can't use react-router hooks because we may not be inside the Router context.
+        logout(currentLocation); // After logging out, try to return to the page the user was on.
         return null;
       };
 

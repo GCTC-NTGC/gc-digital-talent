@@ -10,7 +10,7 @@ export interface AuthenticationState {
   accessToken: string | null;
   refreshToken: string | null;
   idToken: string | null;
-  logout: () => void;
+  logout: (postLogoutUri?: string) => void;
   refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
@@ -37,6 +37,7 @@ export const AuthenticationContext =
 const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
+  postLogoutUri?: string,
 ): void => {
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -46,6 +47,17 @@ const logoutAndRefreshPage = (
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
+
+  if (postLogoutUri) {
+    if (!postLogoutUri.startsWith("/")) {
+      console.warn(
+        "Tried to set an unsafe uri as postLogoutUri:",
+        postLogoutUri,
+      );
+    } else {
+      localStorage.setItem("POST_LOGOUT_URI", postLogoutUri);
+    }
+  }
 
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
@@ -171,7 +183,8 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
       refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
-        ? () => logoutAndRefreshPage(logoutUri, logoutRedirectUri)
+        ? (postLogoutUri) =>
+            logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },

@@ -1,5 +1,9 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 
 import lazyRetry from "@common/helpers/lazyRetry";
 import Loading from "@common/components/Pending/Loading";
@@ -255,6 +259,20 @@ const router = createBrowserRouter([
           },
           {
             path: "logged-out",
+            loader: async () => {
+              const redirectUri = localStorage.getItem("POST_LOGOUT_URI");
+              if (redirectUri) {
+                localStorage.removeItem("POST_LOGOUT_URI");
+                if (redirectUri.startsWith("/")) {
+                  return redirect(redirectUri);
+                }
+                console.warn(
+                  "Retrieved an unsafe uri from POST_LOGOUT_URI:",
+                  redirectUri,
+                );
+              }
+              return null;
+            },
             element: <LoggedOutPage />,
           },
           {
