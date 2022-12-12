@@ -104,7 +104,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table classifications column.",
         }),
         accessor: ({ user }) =>
-          user.expectedClassifications?.map((classification) => {
+          user?.expectedClassifications?.map((classification) => {
             return (
               <Pill
                 key={`${classification?.group}-${classification?.level}`}
@@ -124,7 +124,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table operational requirements column.",
         }),
         accessor: ({ user }) =>
-          user.acceptedOperationalRequirements?.map(
+          user?.acceptedOperationalRequirements?.map(
             (operationalRequirement) => {
               return (
                 <Pill
@@ -155,7 +155,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
         }),
         accessor: ({ user }) => {
           const employmentEquity = [
-            ...(user.isWoman
+            ...(user?.isWoman
               ? [
                   intl.formatMessage({
                     defaultMessage: "Woman",
@@ -165,7 +165,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(user.isVisibleMinority
+            ...(user?.isVisibleMinority
               ? [
                   intl.formatMessage({
                     defaultMessage: "Visible Minority",
@@ -175,7 +175,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(user.isIndigenous
+            ...(user?.isIndigenous
               ? [
                   intl.formatMessage({
                     defaultMessage: "Indigenous",
@@ -185,7 +185,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(user.hasDisability
+            ...(user?.hasDisability
               ? [
                   intl.formatMessage({
                     defaultMessage: "Disability",
@@ -219,7 +219,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table skills column.",
         }),
         accessor: ({ user }) =>
-          user.cmoAssets?.map((cmoAsset) => {
+          user?.cmoAssets?.map((cmoAsset) => {
             return (
               <Pill key={cmoAsset?.key} color="primary" mode="outline">
                 {cmoAsset?.name?.[locale] ||
@@ -244,7 +244,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           tableEditButtonAccessor(
             id,
             pool?.id,
-            getFullNameLabel(user.firstName, user.lastName, intl),
+            getFullNameLabel(user?.firstName, user?.lastName, intl),
           ),
       },
     ],
