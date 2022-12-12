@@ -35,6 +35,10 @@
     "codegen": "graphql-codegen",
     "intl-extract": "formatjs extract './src/js/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./src/js/lang/fr.json --ast --out-file ./src/js/lang/frCompiled.json",
+    "intl-compile-crg": "formatjs compile ./src/js/lang/crg.json --ast --out-file ./src/js/lang/crgCompiled.json",
+    "intl-compile-crk": "formatjs compile ./src/js/lang/crk.json --ast --out-file ./src/js/lang/crkCompiled.json",
+    "intl-compile-ojw": "formatjs compile ./src/js/lang/ojw.json --ast --out-file ./src/js/lang/ojwCompiled.json",
+    "intl-compile-mic": "formatjs compile ./src/js/lang/mic.json --ast --out-file ./src/js/lang/micCompiled.json",
     "test": "jest",
     "test:watch": "jest --watch"
   },
