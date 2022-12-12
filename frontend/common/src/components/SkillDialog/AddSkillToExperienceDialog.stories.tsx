@@ -36,7 +36,7 @@ Default.args = {
 };
 
 export const WithinApplication = Template.bind({});
-Default.args = {
+WithinApplication.args = {
   skills: mockSkills,
   isApplication: true,
 };
