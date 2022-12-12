@@ -162,6 +162,12 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Message displayed when user attempts to apply to an unpublished pool",
   },
+  RATE_LIMIT: {
+    defaultMessage: "Too many requests, please wait a minute and try again.",
+    id: "SUYPIt",
+    description:
+      "Message displayed when number of user attempts exceeds rate limit",
+  },
 });
 
 export const tryFindMessageDescriptor = (
