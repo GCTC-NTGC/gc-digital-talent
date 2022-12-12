@@ -11,24 +11,17 @@ import DashboardContentContainer from "../DashboardContentContainer";
 export const SkillFamilyPage: React.FC = () => {
   const intl = useIntl();
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Skill families",
+    id: "hUIqiV",
+    description: "Page title for the skill family index page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Skill families",
-          id: "hUIqiV",
-          description: "Page title for the skill family index page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <DashboardContentContainer>
-        <PageHeader icon={UserGroupIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Skill Families",
-            id: "w73KdO",
-            description:
-              "Heading displayed above the Skill Family Table component.",
-          })}
-        </PageHeader>
+        <PageHeader icon={UserGroupIcon}>{pageTitle}</PageHeader>
         <SkillFamilyTableApi />
       </DashboardContentContainer>
     </>

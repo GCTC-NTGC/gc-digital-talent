@@ -10,23 +10,18 @@ import { PoolTableApi } from "./PoolTable";
 
 export const PoolPage: React.FC = () => {
   const intl = useIntl();
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Pools",
+    id: "SnytBx",
+    description: "Page title for the pools index page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Pools",
-          id: "SnytBx",
-          description: "Page title for the pools index page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <DashboardContentContainer>
-        <PageHeader icon={Squares2X2Icon}>
-          {intl.formatMessage({
-            defaultMessage: "Pools",
-            id: "qL43Gw",
-            description: "Heading displayed above the Pool Table component.",
-          })}
-        </PageHeader>
+        <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
         <PoolTableApi />
       </DashboardContentContainer>
     </>

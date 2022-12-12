@@ -11,24 +11,17 @@ import DashboardContentContainer from "../DashboardContentContainer";
 export const ClassificationPage: React.FC = () => {
   const intl = useIntl();
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Classifications",
+    id: "xJm72U",
+    description: "Page title for the classification index page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Classifications",
-          id: "xJm72U",
-          description: "Page title for the classification index page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <DashboardContentContainer>
-        <PageHeader icon={TagIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Classifications",
-            id: "hnyrdl",
-            description:
-              "Heading displayed above the Classification Table component.",
-          })}
-        </PageHeader>
+        <PageHeader icon={TagIcon}>{pageTitle}</PageHeader>
         <ClassificationTableApi />
       </DashboardContentContainer>
     </>

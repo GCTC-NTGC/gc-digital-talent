@@ -10,23 +10,18 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 export const UserPage: React.FC = () => {
   const intl = useIntl();
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Users",
+    id: "Kr9mHX",
+    description: "Page title for the user index page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Users",
-          id: "Kr9mHX",
-          description: "Page title for the user index page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <DashboardContentContainer>
-        <PageHeader icon={UserIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Users",
-            id: "8c/kP1",
-            description: "Title for users page on the admin portal.",
-          })}
-        </PageHeader>
+        <PageHeader icon={UserIcon}>{pageTitle}</PageHeader>
         <p>
           {intl.formatMessage({
             defaultMessage:
