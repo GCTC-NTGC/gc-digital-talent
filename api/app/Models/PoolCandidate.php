@@ -431,17 +431,9 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
         // mirroring the logic of scopeClassifications to access a pivot thru USER
-        $query->where(function ($query) use ($cmoAssets) {
-            $query->whereHas('user', function ($query) use ($cmoAssets) {
-                $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
-                    foreach ($cmoAssets as $cmoAsset) {
-                        $query->where('key', $cmoAsset['key']);
-                    }
-                });
-            });
+        $query->whereHas('user', function ($query) use ($cmoAssets) {
+            User::filterByCmoAssets($query, $cmoAssets);
         });
         return $query;
     }

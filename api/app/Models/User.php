@@ -386,6 +386,26 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
+
+    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
+    public static function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
+    {
+        if (empty($cmoAssets)) {
+            return $query;
+        }
+
+        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
+        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
+        $query->where(function ($query) use ($cmoAssets) {
+            $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
+                foreach ($cmoAssets as $cmoAsset) {
+                    $query->where('key', $cmoAsset['key']);
+                }
+            });
+        });
+        return $query;
+    }
+
     public static function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
