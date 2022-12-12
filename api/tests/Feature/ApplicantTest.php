@@ -260,7 +260,9 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -270,7 +272,9 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
+                'looking_for_english' => false,
+                'looking_for_french' => true,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
@@ -280,12 +284,14 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
+                'looking_for_english' => false,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => true,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
-        // Assert query with english filter will return proper count, including the bilingual candidates
+        // Assert query with english filter will return proper count
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -303,11 +309,11 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 5
+                'countApplicants' => 1
             ]
         ]);
 
-        // Assert query with french filter will return proper count, including the bilingual candidates
+        // Assert query with french filter will return proper count
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -325,7 +331,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 6
+                'countApplicants' => 2
             ]
         ]);
 
