@@ -6,9 +6,6 @@
     "defaultMessage": "S’il n’y a aucun candidat qui répond à vos critères <a>Communiquez avec nous! </a>",
     "description": "Message for helping user if no candidates matched the filters chosen."
   },
-  "/DbKFl": {
-    "defaultMessage": "Filtres de compétences ({cmoAssetFilterCount})"
-  },
   "09x+E7": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
@@ -149,10 +146,6 @@
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
   },
-  "kAieVP": {
-    "defaultMessage": "Filtres de compétences",
-    "description": "Heading for skill filters section of the search form."
-  },
   "laGCzG": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Heading for operational requirements section of the search form."
@@ -191,10 +184,6 @@
   "o+a0IN": {
     "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
-  },
-  "1EyeE7": {
-    "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués pour des compétences non techniques.",
-    "description": "Message describing the skill filter in the search form."
   },
   "RGzfes": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
@@ -1232,10 +1221,6 @@
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
   },
-  "3nKkyo": {
-    "defaultMessage": "Compétences organisées par volet",
-    "description": "Legend for Skills filter checklist"
-  },
   "6danS7": {
     "defaultMessage": "Cette catégorie comprend les personnes dont le genre déclaré est féminin. Elle comprend les femmes cisgenres (cis) et les femmes transgenres (trans).",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
@@ -1428,10 +1413,6 @@
     "defaultMessage": "Contact et mesures d’adaptation",
     "description": "Title for contact information on pool advertisement"
   },
-  "WbDLlc": {
-    "defaultMessage": "Erreur : nom de ministère non trouvé.",
-    "description": "Error message when department name is not found on request page."
-  },
   "WkX8Ge": {
     "defaultMessage": "Requis",
     "description": "Title for the required skills section of a pool advertisement"
@@ -1575,10 +1556,6 @@
   "SXvOXV": {
     "defaultMessage": "Parcourez les opportunités",
     "description": "Label displayed on the browse pools menu item."
-  },
-  "8fXduS": {
-    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</span>",
-    "description": "Total estimated candidates message in summary of filters"
   },
   "og5vUB": {
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
@@ -2616,7 +2593,7 @@
     "defaultMessage": "Soumettre un profil de demande",
     "description": "Page title for pool application sign and submit page"
   },
-   "lPWUoO": {
+  "lPWUoO": {
     "defaultMessage": "Créer un compte",
     "description": "Page title for the account creation page"
   },
