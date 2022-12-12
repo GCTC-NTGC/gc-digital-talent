@@ -47,7 +47,7 @@ const Actions = ({ showClear, onClear, clearLabel }: ActionsProps) => (
       </button>
     )}
     <Separator
-      data-h2-background-color="base(lightest.dt-gray)"
+      data-h2-background-color="base(dt-gray)"
       orientation="vertical"
       decorative
     />
