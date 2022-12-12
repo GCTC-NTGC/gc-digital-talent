@@ -2564,8 +2564,8 @@
     "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
-  "oKc30q": {
-    "defaultMessage": "Présenter sa candidature au niveau {number}",
+  "T+IwWT": {
+    "defaultMessage": "Présenter sa candidature au niveau {levelNumber}<hidden> {name}</hidden>",
     "description": "Invitation to apply at a certain level number"
   },
   "pffFnd": {
