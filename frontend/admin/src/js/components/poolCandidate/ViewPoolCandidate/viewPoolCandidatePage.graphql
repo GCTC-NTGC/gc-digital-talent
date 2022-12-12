@@ -1,4 +1,4 @@
-query getPoolCandidateSnapshot($poolCandidateId: ID!) {
+query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
   poolCandidate(id: $poolCandidateId) {
     id
     user {

@@ -1393,7 +1393,7 @@
     "description": "declaring one to be a Canadian citizen"
   },
   "92hwzj": {
-    "defaultMessage": "Statut de citoyenneté:",
+    "defaultMessage": "Statut de citoyenneté :",
     "description": "Citizenship status label"
   },
   "CX/qKY": {
@@ -1416,12 +1416,12 @@
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
   },
-  "HWRZ/z": {
-    "defaultMessage": "Décerné à:",
+  "3JL02L": {
+    "defaultMessage": "Décerné à :",
     "description": "The award was given to"
   },
-  "IfsigK": {
-    "defaultMessage": "Portée:",
+  "FAOzjP": {
+    "defaultMessage": "Portée :",
     "description": "The scope of the award given"
   },
   "JHgARn": {
@@ -1816,8 +1816,8 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
-  "rsrNSC": {
-    "defaultMessage": "Modifications non sauvegardées",
+  "9u6ULg": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Displayed next to form inputs when they have been changed but not saved."
   },
   "DdOEWx": {
@@ -1883,5 +1883,17 @@
   "Tw90Pi": {
     "defaultMessage": "Enregistrement...",
     "description": "Submitting text for save button."
+  },
+  "/78DsY": {
+    "defaultMessage": "Vous n’avez sélectionné aucune compétence.",
+    "description": "Text that appears after skill picker when no skills are selected"
+  },
+  "pg1S01": {
+    "defaultMessage": "Sauter la liste des compétences.",
+    "description": "Link text to skip the list of add skill links"
+  },
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
+    "description": "The publishing group called IT Jobs for ongoing recruitments"
   }
 }

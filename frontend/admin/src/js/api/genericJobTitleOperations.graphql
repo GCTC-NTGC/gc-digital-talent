@@ -18,7 +18,7 @@ fragment genericJobTitle on GenericJobTitle {
   }
 }
 
-query getGenericJobTitle($id: ID!) {
+query getGenericJobTitle($id: UUID!) {
   genericJobTitle(id: $id) {
     ...genericJobTitle
   }

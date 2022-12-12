@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import lazyRetry from "@common/helpers/lazyRetry";
 import Loading from "@common/components/Pending/Loading";
 import RequireAuth from "@common/components/RequireAuth/RequireAuth";
-import useFeatureFlags, { FeatureFlags } from "@common/hooks/useFeatureFlags";
 
 import Layout from "./Layout";
 
@@ -77,32 +76,6 @@ const UpdateClassification = React.lazy(() =>
   ),
 );
 
-/** CMO Assets */
-const CmoAssetPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCmoAssetsPage" */ "./cmoAsset/CmoAssetPage"
-      ),
-  ),
-);
-const CreateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateCmoAsset" */ "./cmoAsset/CreateCmoAsset"
-      ),
-  ),
-);
-const UpdateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateCmoAsset" */ "./cmoAsset/UpdateCmoAsset"
-      ),
-  ),
-);
-
 /** Pool Candidates */
 const PoolCandidatePage = React.lazy(() =>
   lazyRetry(
@@ -159,30 +132,6 @@ const EditPool = React.lazy(() =>
 const ViewPool = React.lazy(() =>
   lazyRetry(
     () => import(/* webpackChunkName: "adminViewPool" */ "./pool/ViewPool"),
-  ),
-);
-const DeprecatedViewPool = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminDeprecatedViewPool" */ "./pool/deprecated/ViewPool"
-      ),
-  ),
-);
-const DeprecatedUpdatePool = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminDeprecatedUpdatePool" */ "./pool/deprecated/UpdatePool"
-      ),
-  ),
-);
-const DeprecatedCreatePool = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminDeprecatedCreatePool" */ "./pool/deprecated/CreatePool"
-      ),
   ),
 );
 
@@ -275,389 +224,334 @@ const SingleSearchRequestPage = React.lazy(() =>
   ),
 );
 
-interface CreateRouterArgs {
-  featureFlags: FeatureFlags;
-}
+const router = createBrowserRouter([
+  {
+    path: "/:locale",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "admin",
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: "dashboard",
+            element: (
+              <RequireAuth roles={[Role.Admin]}>
+                <DashboardPage />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: "users",
+            children: [
+              {
+                index: true,
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <UserPage />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: "create",
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <CreateUser />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: ":userId",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <ViewUser />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "edit",
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <UpdateUser />
+                      </RequireAuth>
+                    ),
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "pools",
+            children: [
+              {
+                index: true,
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <PoolPage />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: "create",
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <CreatePool />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: ":poolId",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <ViewPool />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "edit",
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <EditPool />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "pool-candidates",
+                    children: [
+                      {
+                        index: true,
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <PoolCandidatePage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "create",
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <CreatePoolCandidate />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: ":poolCandidateId",
+                        children: [
+                          {
+                            index: true,
+                            element: (
+                              <RequireAuth roles={[Role.Admin]}>
+                                <ViewPoolCandidatePage />
+                              </RequireAuth>
+                            ),
+                          },
+                          {
+                            path: "edit",
+                            element: (
+                              <RequireAuth roles={[Role.Admin]}>
+                                <UpdatePoolCandidate />
+                              </RequireAuth>
+                            ),
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "candidates/:poolCandidateId/application",
+            element: (
+              <RequireAuth roles={[Role.Admin]}>
+                <ViewPoolCandidatePage />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: "talent-requests",
+            children: [
+              {
+                index: true,
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <SearchRequestPage />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: ":searchRequestId",
+                element: (
+                  <RequireAuth roles={[Role.Admin]}>
+                    <SingleSearchRequestPage />
+                  </RequireAuth>
+                ),
+              },
+            ],
+          },
+          {
+            path: "settings",
+            children: [
+              {
+                path: "classifications",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <ClassificationPage />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "create",
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <CreateClassification />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: ":classificationId",
+                    children: [
+                      {
+                        path: "edit",
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <UpdateClassification />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: "departments",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <DepartmentPage />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "create",
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <CreateDepartment />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: ":departmentId",
+                    children: [
+                      {
+                        path: "edit",
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <UpdateDepartment />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: "skills",
+                children: [
+                  {
+                    index: true,
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <SkillPage />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: "create",
+                    element: (
+                      <RequireAuth roles={[Role.Admin]}>
+                        <CreateSkill />
+                      </RequireAuth>
+                    ),
+                  },
+                  {
+                    path: ":skillId",
+                    children: [
+                      {
+                        path: "edit",
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <UpdateSkill />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                  {
+                    path: "families",
+                    children: [
+                      {
+                        index: true,
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <SkillFamilyPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "create",
+                        element: (
+                          <RequireAuth roles={[Role.Admin]}>
+                            <CreateSkillFamily />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: ":skillFamilyId",
+                        children: [
+                          {
+                            path: "edit",
+                            element: (
+                              <RequireAuth roles={[Role.Admin]}>
+                                <UpdateSkillFamily />
+                              </RequireAuth>
+                            ),
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]);
 
-const createRouter = ({ featureFlags }: CreateRouterArgs) =>
-  createBrowserRouter([
-    {
-      path: "/:locale",
-      element: <Layout />,
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: "admin",
-          errorElement: <ErrorPage />,
-          children: [
-            {
-              index: true,
-              element: <HomePage />,
-            },
-            {
-              path: "dashboard",
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <DashboardPage />
-                </RequireAuth>
-              ),
-            },
-            {
-              path: "users",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <UserPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateUser />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":userId",
-                  children: [
-                    {
-                      index: true,
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <ViewUser />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateUser />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "cmo-assets",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CmoAssetPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateCmoAsset />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":cmoAssetId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateCmoAsset />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "pools",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <PoolPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      {featureFlags.directIntake ? (
-                        <CreatePool />
-                      ) : (
-                        <DeprecatedCreatePool />
-                      )}
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":poolId",
-                  children: [
-                    {
-                      index: true,
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          {featureFlags.directIntake ? (
-                            <ViewPool />
-                          ) : (
-                            <DeprecatedViewPool />
-                          )}
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          {featureFlags.directIntake ? (
-                            <EditPool />
-                          ) : (
-                            <DeprecatedUpdatePool />
-                          )}
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "pool-candidates",
-                      children: [
-                        {
-                          index: true,
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <PoolCandidatePage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "create",
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <CreatePoolCandidate />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: ":poolCandidateId",
-                          children: [
-                            {
-                              index: true,
-                              element: (
-                                <RequireAuth roles={[Role.Admin]}>
-                                  <ViewPoolCandidatePage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "edit",
-                              element: (
-                                <RequireAuth roles={[Role.Admin]}>
-                                  <UpdatePoolCandidate />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "candidates/:poolCandidateId/application",
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <ViewPoolCandidatePage />
-                </RequireAuth>
-              ),
-            },
-            {
-              path: "talent-requests",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <SearchRequestPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":searchRequestId",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <SingleSearchRequestPage />
-                    </RequireAuth>
-                  ),
-                },
-              ],
-            },
-            {
-              path: "settings",
-              children: [
-                {
-                  path: "classifications",
-                  children: [
-                    {
-                      index: true,
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <ClassificationPage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "create",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <CreateClassification />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: ":classificationId",
-                      children: [
-                        {
-                          path: "edit",
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <UpdateClassification />
-                            </RequireAuth>
-                          ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "departments",
-                  children: [
-                    {
-                      index: true,
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <DepartmentPage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "create",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <CreateDepartment />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: ":departmentId",
-                      children: [
-                        {
-                          path: "edit",
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <UpdateDepartment />
-                            </RequireAuth>
-                          ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "skills",
-                  children: [
-                    {
-                      index: true,
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <SkillPage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "create",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <CreateSkill />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: ":skillId",
-                      children: [
-                        {
-                          path: "edit",
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <UpdateSkill />
-                            </RequireAuth>
-                          ),
-                        },
-                      ],
-                    },
-                    {
-                      path: "families",
-                      children: [
-                        {
-                          index: true,
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <SkillFamilyPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "create",
-                          element: (
-                            <RequireAuth roles={[Role.Admin]}>
-                              <CreateSkillFamily />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: ":skillFamilyId",
-                          children: [
-                            {
-                              path: "edit",
-                              element: (
-                                <RequireAuth roles={[Role.Admin]}>
-                                  <UpdateSkillFamily />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ]);
-
-const Router = () => {
-  const featureFlags = useFeatureFlags();
-  const router = createRouter({ featureFlags });
-  return (
-    <React.Suspense fallback={<Loading />}>
-      <RouterProvider router={router} fallbackElement={<Loading />} />
-    </React.Suspense>
-  );
-};
+const Router = () => (
+  <React.Suspense fallback={<Loading />}>
+    <RouterProvider router={router} fallbackElement={<Loading />} />
+  </React.Suspense>
+);
 
 export default Router;

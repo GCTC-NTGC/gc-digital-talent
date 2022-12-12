@@ -7,7 +7,6 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
@@ -44,10 +43,9 @@ export const WorkLocationPreferenceForm: React.FC<
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(initialData.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(initialData.id);
 
   const labels = {
     locationPreferences: intl.formatMessage({

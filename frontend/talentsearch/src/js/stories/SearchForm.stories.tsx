@@ -13,10 +13,6 @@ import {
   SearchContainer,
   SearchContainerProps,
 } from "../components/search/SearchContainer";
-import {
-  SearchContainer as SearchContainerDeprecated,
-  SearchContainerProps as SearchContainerDeprecatedProps,
-} from "../components/search/deprecated/SearchContainer";
 
 export default {
   component: SearchContainer,
@@ -35,15 +31,8 @@ export default {
   },
 } as Meta;
 
-const TemplateSearchForm: Story<SearchContainerProps> = (args) => {
+const Template: Story<SearchContainerProps> = (args) => {
   return <SearchContainer {...args} />;
 };
 
-const TemplateSearchFormDeprecated: Story<SearchContainerDeprecatedProps> = (
-  args,
-) => {
-  return <SearchContainerDeprecated {...args} />;
-};
-
-export const Form = TemplateSearchForm.bind({});
-export const FormDeprecated = TemplateSearchFormDeprecated.bind({});
+export const Default = Template.bind({});

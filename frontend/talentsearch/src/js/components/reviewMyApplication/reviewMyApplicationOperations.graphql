@@ -1,4 +1,4 @@
-query getReviewMyApplicationPageData($id: ID!) {
+query getReviewMyApplicationPageData($id: UUID!) {
   poolCandidate(id: $id) {
     id
     user {
@@ -53,6 +53,8 @@ query getReviewMyApplicationPageData($id: ID!) {
       isWoman
       hasDisability
       isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
       isVisibleMinority
       jobLookingStatus
       hasDiploma

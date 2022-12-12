@@ -6,9 +6,7 @@ import compact from "lodash/compact";
 import omit from "lodash/omit";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { toast } from "@common/components/Toast";
-
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
@@ -103,10 +101,9 @@ export const LanguageInformationForm: React.FunctionComponent<{
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(initialData.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(initialData.id);
 
   const labels = {
     consideredPositionLanguages: intl.formatMessage({

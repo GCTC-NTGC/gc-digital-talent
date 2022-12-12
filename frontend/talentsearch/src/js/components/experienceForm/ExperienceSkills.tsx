@@ -122,7 +122,11 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 decorative
               />
               {poolAdvertisement.essentialSkills.map((skill, index: number) => (
-                <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
+                <div
+                  key={skill.id}
+                  role="list"
+                  data-h2-padding="base(x0, x0, x0, x.5)"
+                >
                   <SkillBlock
                     skill={skill}
                     isAdded={
@@ -164,7 +168,11 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
               />
               {poolAdvertisement.nonessentialSkills.map(
                 (skill, index: number) => (
-                  <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
+                  <div
+                    key={skill.id}
+                    role="list"
+                    data-h2-padding="base(x0, x0, x0, x.5)"
+                  >
                     <SkillBlock
                       skill={skill}
                       isAdded={
@@ -194,6 +202,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
           skills={skills || []}
           onUpdateSelectedSkills={handleChange}
           selectedSkills={addedSkills || []}
+          headingLevel="h3"
         />
       )}
       {poolAdvertisement && (

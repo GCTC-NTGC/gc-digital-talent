@@ -94,7 +94,7 @@ query browsePoolAdvertisements {
   }
 }
 
-query browsePool($id: ID!) {
+query browsePool($id: UUID!) {
   pool(id: $id) {
     id
     name {
