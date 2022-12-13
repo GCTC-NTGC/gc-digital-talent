@@ -7,27 +7,42 @@ import {
 } from "@heroicons/react/24/solid";
 import Chip, { Chips } from "../Chip";
 
-import { getMissingSkills } from "../../helpers/skillUtils";
+import {
+  differentiateMissingSkills,
+  getMissingSkills,
+} from "../../helpers/skillUtils";
 import { getLocale } from "../../helpers/localize";
 import type { Maybe, Skill } from "../../api/generated";
 import { PillColor, PillMode } from "../Pill";
 
+interface MissingSkillsBlockProps {
+  pillType: { color: PillColor; mode: PillMode };
+  title: React.ReactNode;
+  skillsBlurb: React.ReactNode;
+  detailsBlurb: React.ReactNode;
+  icon: React.ReactNode;
+  missingSkills: Skill[];
+  addedSkills?: Skill[];
+}
+
 const MissingSkillsBlock = ({
   pillType,
   title,
-  blurb,
+  skillsBlurb,
+  detailsBlurb,
   icon,
   missingSkills,
+  addedSkills,
   ...rest
-}: {
-  pillType: { color: PillColor; mode: PillMode };
-  title: React.ReactNode;
-  blurb: React.ReactNode;
-  icon: React.ReactNode;
-  missingSkills: Skill[];
-}) => {
+}: MissingSkillsBlockProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const [skills, details] = differentiateMissingSkills(
+    missingSkills,
+    addedSkills,
+  );
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -40,18 +55,36 @@ const MissingSkillsBlock = ({
         <p data-h2-margin="base(0, 0, x.5, 0)">
           <strong>{title}</strong>
         </p>
-        <p data-h2-margin="base(0, 0, x.25, 0)">{blurb}</p>
-        <Chips>
-          {missingSkills.map((skill: Skill) => (
-            <Chip
-              key={skill.id}
-              color={pillType.color}
-              mode={pillType.mode}
-              label={skill.name[locale] ?? ""}
-              data-h2-margin="base(x.25, x.25, 0, 0)"
-            />
-          ))}
-        </Chips>
+        {skills.length ? (
+          <>
+            <p data-h2-margin="base(x.5, 0, x.25, 0)">{skillsBlurb}</p>
+            <Chips>
+              {skills.map((skill: Skill) => (
+                <Chip
+                  key={skill.id}
+                  color={pillType.color}
+                  mode={pillType.mode}
+                  label={skill.name[locale] ?? ""}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        {details.length ? (
+          <>
+            <p data-h2-margin="base(x.5, 0, x.25, 0)">{detailsBlurb}</p>
+            <Chips>
+              {details.map((skill: Skill) => (
+                <Chip
+                  key={skill.id}
+                  color={pillType.color}
+                  mode={pillType.mode}
+                  label={skill.name[locale] ?? ""}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -102,15 +135,22 @@ const MissingSkills = ({
             description:
               "Title that appears when a user is missing required skills on their profile.",
           })}
-          blurb={intl.formatMessage({
+          skillsBlurb={intl.formatMessage({
             defaultMessage:
               "These required skills are missing from your profile:",
             id: "AhQ6xv",
             description:
               "Text that appears when a user is missing required skills on their profile.",
           })}
+          detailsBlurb={intl.formatMessage({
+            defaultMessage: "These required skills are missing information:",
+            id: "w6jDaJ",
+            description:
+              "Text that appears when a user is missing required skills on their profile.",
+          })}
           icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
           missingSkills={missingRequiredSkills}
+          addedSkills={addedSkills}
         />
       ) : null}
       {missingOptionalSkills.length ? (
@@ -123,15 +163,23 @@ const MissingSkills = ({
             description:
               "Title that appears when a user is missing optional skills on their profile.",
           })}
-          blurb={intl.formatMessage({
+          skillsBlurb={intl.formatMessage({
             defaultMessage:
               "Consider adding these asset skills to your profile:",
             id: "V3ReC1",
             description:
               "Text that appears when a user is missing optional skills on their profile",
           })}
+          detailsBlurb={intl.formatMessage({
+            defaultMessage:
+              "Consider adding information to these asset skills:",
+            id: "FckGRB",
+            description:
+              "Text that appears when a user is missing optional skills on their profile",
+          })}
           icon={<LightBulbIcon style={{ width: "1.2rem" }} />}
           missingSkills={missingOptionalSkills}
+          addedSkills={addedSkills}
         />
       ) : null}
     </>
