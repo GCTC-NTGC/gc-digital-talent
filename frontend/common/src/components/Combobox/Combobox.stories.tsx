@@ -2,7 +2,7 @@ import React from "react";
 import type { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { Maybe } from "../../api/generated";
+import { slice } from "lodash";
 import { getStaticSkills } from "../../fakeData";
 
 import Combobox, { Option, ComboboxProps } from "./Combobox";
@@ -32,7 +32,8 @@ export default {
 const Template: Story<ComboboxType> = (args) => {
   const { mockSearch, options, ...rest } = args;
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
-  const [filteredOptions, setFilteredOptions] = React.useState<Option[]>([]);
+  const [filteredOptions, setFilteredOptions] =
+    React.useState<Option[]>(options);
 
   const handleSearch = React.useMemo(() => {
     return mockSearch
@@ -77,6 +78,7 @@ Loading.args = {
 export const APIDriven = Template.bind({});
 APIDriven.args = {
   ...defaultArgs,
+  isControlled: true,
   mockSearch: async (term): Promise<Option[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {

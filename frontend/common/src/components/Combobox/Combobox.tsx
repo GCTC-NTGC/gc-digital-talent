@@ -10,6 +10,9 @@ import { Scalars } from "../../api/generated";
 
 import Actions from "./Actions";
 import Label from "./Label";
+import NoOptions from "./NoOptions";
+
+import "./combobox.css";
 
 import { InputError } from "../inputPartials";
 
@@ -33,7 +36,7 @@ export interface ComboboxProps
   options: Option[];
   fetching?: boolean;
   onSearch?: (term: string) => void;
-  multiple?: boolean;
+  isControlled?: boolean; // If we control search externally (API)
 }
 
 const Combobox = ({
@@ -46,6 +49,7 @@ const Combobox = ({
   trackUnsaved = true,
   onSearch,
   fetching = false,
+  isControlled = false,
   options,
 }: ComboboxProps) => {
   const intl = useIntl();
@@ -66,11 +70,10 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
-  const debouncedOnSearch = onSearch ? debounce(onSearch, 300) : undefined;
 
   // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
-    if (query === "" || onSearch) {
+    if (query === "" || isControlled) {
       return options;
     }
 
@@ -80,21 +83,35 @@ const Combobox = ({
         .toLowerCase()
         .includes(query.toLowerCase()),
     );
-  }, [query, onSearch, options]);
+  }, [query, isControlled, options]);
 
-  const noOptions = filteredOptions.length === 0;
+  const noOptions = fetching || filteredOptions.length === 0;
 
   const helpId = `${id}-error`;
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setQuery(value);
-    if (debouncedOnSearch) {
-      debouncedOnSearch(value);
-    }
-  };
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const {
+        target: { value },
+      } = e;
+      setQuery(value);
+      if (onSearch) {
+        onSearch(value);
+      }
+    },
+    [onSearch],
+  );
+
+  const debouncedChangeHandler = React.useMemo(
+    () => debounce(handleChange, 300),
+    [handleChange],
+  );
+
+  React.useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+  }, [debouncedChangeHandler]);
 
   const handleClear = () => {
     setSelectedOption(null);
@@ -104,6 +121,8 @@ const Combobox = ({
     }
   };
 
+  // This does not play well with react-hook-form so
+  // we need to manually set the value here
   React.useEffect(() => {
     if (selectedOption !== "") {
       setValue(name, selectedOption);
@@ -149,7 +168,7 @@ const Combobox = ({
             aria-describedby={error || isUnsaved ? helpId : undefined}
             aria-required={rules.required ? "true" : undefined}
             aria-invalid={error ? "true" : "false"}
-            onChange={handleChange}
+            onChange={debouncedChangeHandler}
             onBlur={inputProps.onBlur}
             displayValue={getDisplayValue}
             ref={inputRef}
@@ -189,50 +208,37 @@ const Combobox = ({
           data-h2-overflow="base(inherit, auto)"
           as={noOptions ? "div" : "ul"}
         >
-          {noOptions && (
-            <p
-              data-h2-cursor="base(pointer)"
-              data-h2-radius="base(input)"
-              data-h2-padding="base(x.25, x.5)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(x.25, 0)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "No results found.",
-                id: "IRCKBP",
-                description:
-                  "Message displayed when combobox has no options available",
-              })}
-            </p>
+          {noOptions ? (
+            <NoOptions fetching={fetching} />
+          ) : (
+            filteredOptions.map((option) => (
+              <ComboboxPrimitive.Option
+                key={option.value}
+                value={option.value}
+                as={React.Fragment}
+              >
+                {({ active }) => (
+                  <li
+                    data-h2-cursor="base(pointer)"
+                    data-h2-radius="base(input)"
+                    data-h2-padding="base(x.25, x.5)"
+                    data-h2-display="base(flex)"
+                    data-h2-align-items="base(center)"
+                    data-h2-gap="base(x.25, 0)"
+                    {...(active
+                      ? {
+                          "data-h2-background-color": "base(light.dt-gray)",
+                        }
+                      : {
+                          "data-h2-background-color": "base(white)",
+                        })}
+                  >
+                    <span>{option.label}</span>
+                  </li>
+                )}
+              </ComboboxPrimitive.Option>
+            ))
           )}
-          {filteredOptions.map((option) => (
-            <ComboboxPrimitive.Option
-              key={option.value}
-              value={option.value}
-              as={React.Fragment}
-            >
-              {({ active }) => (
-                <li
-                  data-h2-cursor="base(pointer)"
-                  data-h2-radius="base(input)"
-                  data-h2-padding="base(x.25, x.5)"
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(center)"
-                  data-h2-gap="base(x.25, 0)"
-                  {...(active
-                    ? {
-                        "data-h2-background-color": "base(light.dt-gray)",
-                      }
-                    : {
-                        "data-h2-background-color": "base(white)",
-                      })}
-                >
-                  <span>{option.label}</span>
-                </li>
-              )}
-            </ComboboxPrimitive.Option>
-          ))}
         </ComboboxPrimitive.Options>
       </div>
       <InputUnsaved isVisible={isUnsaved} id={helpId} />

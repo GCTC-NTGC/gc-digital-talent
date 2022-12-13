@@ -8,8 +8,6 @@ import {
 import { useIntl } from "react-intl";
 import Separator from "../Separator";
 
-import "./spin.css";
-
 const layoutStyles = {
   "data-h2-display": "base(flex)",
   "data-h2-align-items": "base(center)",
