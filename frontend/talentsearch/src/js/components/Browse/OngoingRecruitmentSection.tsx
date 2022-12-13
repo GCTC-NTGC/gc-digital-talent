@@ -6,6 +6,8 @@ import { PoolStream } from "@common/api/generated";
 import Accordion from "@common/components/Accordion";
 import { Link } from "@common/components";
 import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
+import { Select } from "@common/components/form";
+import { FormProvider, useForm } from "react-hook-form";
 import { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import messages from "./messages";
@@ -52,6 +54,10 @@ const selectPoolIdForSection = (
   );
 };
 
+type FormValues = {
+  quickFilter: PoolStream | undefined;
+};
+
 export interface OngoingRecruitmentSectionProps {
   pools: PoolAdvertisement[];
 }
@@ -61,6 +67,12 @@ export const OngoingRecruitmentSection = ({
 }: OngoingRecruitmentSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const methods = useForm<FormValues>({
+    mode: "onChange",
+  });
+
+  const quickFilterStream = methods.watch("quickFilter");
+
   // this great big object is all the data to populate the accordions
   const dataModel: DataModel = {
     streams: [
@@ -588,6 +600,19 @@ export const OngoingRecruitmentSection = ({
     ],
   };
 
+  // filter to only streams with classifications with a pool ID to apply to
+  const streamsWithAvailablePools = dataModel.streams.filter(
+    (stream) =>
+      !!stream.classifications.find(
+        (classification) => classification.poolAdvertisementId,
+      ),
+  );
+
+  // if a quick filter is selected, only show the filtered stream
+  const streamsToShow = quickFilterStream
+    ? streamsWithAvailablePools.filter((s) => s.key === quickFilterStream)
+    : streamsWithAvailablePools;
+
   return (
     <>
       <Heading
@@ -619,75 +644,122 @@ export const OngoingRecruitmentSection = ({
             "instructions for section with ongoing pool advertisements",
         })}
       </p>
-      <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+      <div data-h2-display="base(flex)">
+        <FormProvider {...methods}>
+          <Select
+            id="quickFilter"
+            name="quickFilter"
+            label={intl.formatMessage({
+              defaultMessage: "Quick filter",
+              id: "8NB+Ay",
+              description: "A label for a quick filter input.",
+            })}
+            options={[
+              {
+                value: "",
+                disabled: true,
+                label: intl.formatMessage({
+                  defaultMessage: "Select a job stream...",
+                  id: "cmFeXj",
+                  description:
+                    "Placeholder for stream filter in browse opportunities form.",
+                }),
+              },
+              ...streamsWithAvailablePools.map((stream) => ({
+                value: stream.key,
+                label: stream.title,
+              })),
+            ]}
+            trackUnsaved={false}
+          />
+        </FormProvider>
+      </div>
+
+      <p aria-live="polite" data-h2-visibility="base(invisible)">
+        {quickFilterStream
+          ? intl.formatMessage(
+              {
+                defaultMessage:
+                  "The list is filtered to the {jobStream} job stream.",
+                id: "SypvZP",
+                description:
+                  "Announcement that the job stream filter is active.",
+              },
+              {
+                jobStream: dataModel.streams.find(
+                  (s) => s.key === quickFilterStream,
+                )?.title,
+              },
+            )
+          : intl.formatMessage({
+              defaultMessage: "The list is not filtered.",
+              id: "0lDq3P",
+              description:
+                "Announcement that the job stream filter is not active.",
+            })}
+      </p>
+
+      <div>
         <Accordion.Root
           data-h2-margin="base(0)"
           data-h2-padding="base(0)"
           type="multiple"
         >
-          {dataModel.streams
-            .filter(
-              // filter streams with no classifications with a pool ID to apply to
-              (stream) =>
-                !!stream.classifications.find(
-                  (classification) => classification.poolAdvertisementId,
-                ),
-            )
-            .map((stream) => (
-              <Accordion.Item value={stream.key} key={stream.key}>
-                <Accordion.Trigger
-                  subtitle={stream.summary}
-                  data-h2-font-size="base(h4)"
-                  headerAs="h3"
+          {streamsToShow.map((stream) => (
+            <Accordion.Item value={stream.key} key={stream.key}>
+              <Accordion.Trigger
+                subtitle={stream.summary}
+                data-h2-font-size="base(h4)"
+                headerAs="h3"
+              >
+                {stream.title}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
+                  data-h2-gap="base(x.5) p-tablet(x2)"
+                  data-h2-align-items="base(center)"
                 >
-                  {stream.title}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
-                    data-h2-gap="base(x.5) p-tablet(x2)"
-                    data-h2-align-items="base(center)"
-                  >
-                    {stream.classifications
-                      .filter(
-                        // filter to only classifications with a pool ID that can be applied to
-                        (classification) => classification.poolAdvertisementId,
-                      )
-                      .map((classification) => (
-                        <div
-                          key={classification.title}
-                          data-h2-padding="base(0,0,x1, 0)"
+                  {stream.classifications
+                    .filter(
+                      // filter to only classifications with a pool ID that can be applied to
+                      (classification) => classification.poolAdvertisementId,
+                    )
+                    .map((classification) => (
+                      <div
+                        key={classification.title}
+                        data-h2-padding="base(0,0,x1, 0)"
+                      >
+                        <h4
+                          data-h2-font-size="base(h6)"
+                          data-h2-font-weight="base(700)"
+                          data-h2-padding="base(0,0,x0.75, 0)"
                         >
-                          <h4
-                            data-h2-font-size="base(h6)"
+                          {classification.title}
+                        </h4>
+                        <p data-h2-padding="base(0,0,x0.75, 0)">
+                          {classification.description}
+                        </p>
+                        {classification.poolAdvertisementId && (
+                          <Link
+                            href={paths.pool(
+                              classification.poolAdvertisementId,
+                            )}
+                            color="blue"
+                            type="button"
+                            mode="solid"
                             data-h2-font-weight="base(700)"
-                            data-h2-padding="base(0,0,x0.75, 0)"
                           >
-                            {classification.title}
-                          </h4>
-                          <p data-h2-padding="base(0,0,x0.75, 0)">
-                            {classification.description}
-                          </p>
-                          {classification.poolAdvertisementId && (
-                            <Link
-                              href={paths.pool(
-                                classification.poolAdvertisementId,
-                              )}
-                              color="blue"
-                              type="button"
-                              mode="solid"
-                              data-h2-font-weight="base(700)"
-                            >
-                              {classification.applyMessage}
-                            </Link>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                </Accordion.Content>
-              </Accordion.Item>
-            ))}
+                            {classification.applyMessage}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
         </Accordion.Root>
       </div>
     </>

@@ -2569,6 +2569,22 @@
     "defaultMessage": "Les analystes (IT-02) fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-02 Analyst' classification"
   },
+  "cmFeXj": {
+    "defaultMessage": "Sélectionnez un volet...",
+    "description": "Placeholder for stream filter in browse opportunities form."
+  },
+  "0lDq3P": {
+    "defaultMessage": "La liste n’est pas filtrée. ",
+    "description": "Announcement that the job stream filter is not active."
+  },
+  "8NB+Ay": {
+    "defaultMessage": "Filtre rapide. ",
+    "description": "A label for a quick filter input."
+  },
+  "SypvZP": {
+    "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
+    "description": "Announcement that the job stream filter is active."
+  },
   "4I6WIU": {
     "defaultMessage": "Bienvenue",
     "description": "Title for the homepage"
