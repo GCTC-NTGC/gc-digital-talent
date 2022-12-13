@@ -142,11 +142,13 @@ mutation updatePoolAdvertisement(
 
 mutation publishPoolAdvertisement($id: ID!) {
   publishPoolAdvertisement(id: $id) {
+    id
     publishedAt
   }
 }
 mutation closePoolAdvertisement($id: ID!) {
   closePoolAdvertisement(id: $id) {
+    id
     expiryDate
   }
 }
