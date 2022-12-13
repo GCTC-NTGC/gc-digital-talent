@@ -4,7 +4,7 @@ import {
   XMarkIcon,
   ChevronDownIcon,
   ArrowPathIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
 import Separator from "../Separator";
@@ -28,7 +28,8 @@ const buttonStyles = {
 const iconStyles = {
   "data-h2-height": "base(1em)",
   "data-h2-width": "base(1em)",
-  "data-h2-color": "base(dt-gray)",
+  "data-h2-color": "base(dark.dt-gray)",
+  "data-h2-stroke-width": "base(2)",
 };
 
 interface ActionsProps {
