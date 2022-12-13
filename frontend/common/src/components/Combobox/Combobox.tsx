@@ -215,10 +215,11 @@ const Combobox = ({
           data-h2-shadow="base(l)"
           data-h2-padding="base(x.5)"
           data-h2-radius="base(input)"
-          data-h2-max-height="base(24rem)"
+          data-h2-max-height="base(18rem)"
           data-h2-position="base(absolute)"
           data-h2-offset="base(100%, 0, auto, 0)"
           data-h2-overflow="base(inherit, auto)"
+          data-h2-z-index="base(99999)"
           as={noOptions ? "div" : "ul"}
         >
           {noOptions ? (
