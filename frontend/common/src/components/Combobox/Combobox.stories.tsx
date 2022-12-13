@@ -77,7 +77,7 @@ Loading.args = {
 export const APIDriven = Template.bind({});
 APIDriven.args = {
   ...defaultArgs,
-  isControlled: true,
+  isExternalSearch: true,
   mockSearch: async (term): Promise<Option[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {

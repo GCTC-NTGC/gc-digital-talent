@@ -35,7 +35,7 @@ export interface ComboboxProps
   options: Option[];
   fetching?: boolean;
   onSearch?: (term: string) => void;
-  isControlled?: boolean; // If we control search externally (API)
+  isExternalSearch?: boolean; // If we control search externally (API)
 }
 
 const Combobox = ({
@@ -48,7 +48,7 @@ const Combobox = ({
   trackUnsaved = true,
   onSearch,
   fetching = false,
-  isControlled = false,
+  isExternalSearch = false,
   options,
 }: ComboboxProps) => {
   const intl = useIntl();
@@ -72,7 +72,7 @@ const Combobox = ({
 
   // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
-    if (query === "" || isControlled) {
+    if (query === "" || isExternalSearch) {
       return options;
     }
 
@@ -82,7 +82,7 @@ const Combobox = ({
         .toLowerCase()
         .includes(query.toLowerCase()),
     );
-  }, [query, isControlled, options]);
+  }, [query, isExternalSearch, options]);
 
   const noOptions = fetching || filteredOptions.length === 0;
 
