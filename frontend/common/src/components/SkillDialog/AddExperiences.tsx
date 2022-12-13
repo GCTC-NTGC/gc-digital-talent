@@ -7,6 +7,7 @@ import {
   getExperienceTitle,
   AnyExperienceType,
 } from "../../helpers/experienceUtils";
+import errorMessages from "../../messages/errorMessages";
 import { getLocalizedName } from "../../helpers/localize";
 import Button from "../Button";
 import Heading from "../Heading/Heading";
@@ -56,7 +57,7 @@ const AddExperiences = ({
         {fields.map((field, index) => (
           <div
             key={field.id}
-            data-h2-border="base(left, x1, solid, tm-purple)"
+            data-h2-border="base(left, x.25, solid, tm-purple)"
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(0, 0, 0, x1)"
           >
@@ -64,6 +65,7 @@ const AddExperiences = ({
               name={`experienceSkills.${index}.experience`}
               id={`experienceSkills.${index}.experience`}
               trackUnsaved={false}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
               label={intl.formatMessage({
                 defaultMessage: "Select the experience to link",
                 id: "n8SPx3",
@@ -78,6 +80,7 @@ const AddExperiences = ({
             <DetailsTextArea
               name={`experienceSkills.${index}.details`}
               id={`experienceSkills.${index}.details`}
+              required
               skillName={skillName}
             />
             <Button
