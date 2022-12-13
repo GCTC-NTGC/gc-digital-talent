@@ -3,8 +3,8 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import Heading from "../Heading/Heading";
+import Combobox from "../Combobox/Combobox";
 import Select from "../form/Select/Select";
-import SelectFieldV2 from "../form/Select/SelectFieldV2";
 
 import { Skill, SkillCategory } from "../../api/generated";
 import { invertSkillSkillFamilyTree } from "../../helpers/skillUtils";
@@ -155,7 +155,7 @@ const SkillSelection = ({
         </div>
       </div>
       <div data-h2-margin="base(x1, 0)">
-        <SelectFieldV2
+        <Combobox
           id="skill"
           name="skill"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
