@@ -675,7 +675,12 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
-    public function getLanguageAbilityAttribute() {
+    public function getLanguageAbilityAttribute($languageAbility = null) {
+        // if the field exists, say for migration purposes, must stop accessor overriding
+        if($languageAbility !== null){
+            return $languageAbility;
+        }
+
         $lookingForEnglish = $this->looking_for_english;
         $lookingForFrench = $this->looking_for_french;
         $lookingForBilingual = $this->looking_for_bilingual;
