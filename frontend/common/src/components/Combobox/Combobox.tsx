@@ -180,6 +180,7 @@ const Combobox = ({
             aria-describedby={error || isUnsaved ? helpId : undefined}
             aria-required={rules.required ? "true" : undefined}
             aria-invalid={error ? "true" : "false"}
+            autoComplete="off"
             onChange={debouncedChangeHandler}
             onBlur={inputProps.onBlur}
             displayValue={getDisplayValue}
