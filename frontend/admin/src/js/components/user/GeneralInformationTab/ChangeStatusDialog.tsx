@@ -11,10 +11,10 @@ import { Select } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
+  Applicant,
   PoolCandidate,
   PoolCandidateStatus,
   UpdatePoolCandidateAsAdminInput,
-  User,
   useUpdatePoolCandidateMutation,
 } from "../../../api/generated";
 
@@ -24,7 +24,7 @@ type FormValues = {
 
 export interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
-  user: User;
+  user: Applicant;
 }
 
 export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({

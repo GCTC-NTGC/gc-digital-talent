@@ -10,7 +10,6 @@ use Nuwave\Lighthouse\Support\Utils;
 
 final class PluckDirective extends BaseDirective implements ArgDirectiveForArray, ArgTransformerDirective
 {
-    // TODO implement the directive https://lighthouse-php.com/master/custom-directives/getting-started.html
 
     public static function definition(): string
     {

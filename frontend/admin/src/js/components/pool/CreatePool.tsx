@@ -15,6 +15,7 @@ import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
 import Link from "@common/components/Link/Link";
+import SEO from "@common/components/SEO/SEO";
 import { getLocalizedName } from "@common/helpers/localize";
 
 import { useAdminRoutes } from "../../adminRoutes";
@@ -218,6 +219,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 };
 
 const CreatePool: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -261,16 +263,25 @@ const CreatePool: React.FunctionComponent = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        <CreatePoolForm
-          userId={userIdQuery}
-          genericJobTitles={jobTitlesMapped}
-          classificationsArray={classificationsData}
-          handleCreatePool={handleCreatePool}
-        />
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Create pool",
+          id: "zwYuly",
+          description: "Page title for the pool creation page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          <CreatePoolForm
+            userId={userIdQuery}
+            genericJobTitles={jobTitlesMapped}
+            classificationsArray={classificationsData}
+            handleCreatePool={handleCreatePool}
+          />
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

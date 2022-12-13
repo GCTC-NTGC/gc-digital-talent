@@ -9,20 +9,29 @@ import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
+import UserProfile from "@common/components/UserProfile";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useParams } from "react-router-dom";
+import SEO from "@common/components/SEO/SEO";
+import { notEmpty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
-import { Scalars, User, useUserQuery } from "../../api/generated";
+import {
+  Applicant,
+  Pool,
+  Scalars,
+  useGetViewUserDataQuery,
+} from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import UserProfileApi from "./UserProfile";
-import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
+import GeneralInfoTab from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
+import AdminAboutSection from "./AdminAboutSection";
 
 interface ViewUserPageProps {
-  user: User;
+  user: Applicant;
+  pools: Pool[];
 }
 
-export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
+export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
   const intl = useIntl();
   const adminPaths = useAdminRoutes();
 
@@ -79,7 +88,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             </Heading>
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(content)">
-            <UserProfilePrintButton userId={user.id}>
+            <UserProfilePrintButton applicant={user}>
               <span>
                 <PrinterIcon style={{ width: "1rem" }} />{" "}
                 {intl.formatMessage({
@@ -107,10 +116,26 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           ))}
         </Tabs.List>
         <Tabs.Content value="0">
-          <GeneralInfoTabApi userId={user.id} />
+          <GeneralInfoTab user={user} pools={pools} />
         </Tabs.Content>
         <Tabs.Content value="1">
-          <UserProfileApi userId={user.id} />
+          <UserProfile
+            applicant={user}
+            headingLevel="h3"
+            sections={{
+              about: {
+                isVisible: true,
+                override: <AdminAboutSection applicant={user} />,
+              },
+              language: { isVisible: true },
+              government: { isVisible: true },
+              workLocation: { isVisible: true },
+              workPreferences: { isVisible: true },
+              employmentEquity: { isVisible: true },
+              roleSalary: { isVisible: true },
+              skillsExperience: { isVisible: true },
+            }}
+          />
         </Tabs.Content>
       </Tabs.Root>
     </>
@@ -124,33 +149,45 @@ type RouteParams = {
 const ViewUser = () => {
   const { userId } = useParams<RouteParams>();
   const intl = useIntl();
-  const [{ data, fetching, error }] = useUserQuery({
+  const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId || "" },
   });
 
+  const user = lookupData?.applicant;
+  const pools = lookupData?.pools.filter(notEmpty);
+
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {data?.user ? (
-          <ViewUserPage user={data.user} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "User {userId} not found.",
-                  id: "0SoKjt",
-                  description: "Message displayed for user not found.",
-                },
-                { userId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Candidate details",
+          id: "dj8GiH",
+          description: "Page title for the individual user page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {user && pools ? (
+            <ViewUserPage user={user} pools={pools} />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "User {userId} not found.",
+                    id: "0SoKjt",
+                    description: "Message displayed for user not found.",
+                  },
+                  { userId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

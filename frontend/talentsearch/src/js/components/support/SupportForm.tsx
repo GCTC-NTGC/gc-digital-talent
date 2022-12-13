@@ -9,6 +9,7 @@ import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
+import { messages as apiMessages } from "@common/messages/apiMessages";
 import { useGetMeQuery, User } from "../../api/generated";
 import {
   API_SUPPORT_ENDPOINT,
@@ -243,6 +244,12 @@ const SupportFormApi = () => {
           }),
         );
         return Promise.resolve(response.status);
+      }
+      if (response.status === 429) {
+        toast.error(<>{intl.formatMessage(apiMessages.RATE_LIMIT)}</>, {
+          autoClose: 20000,
+        });
+        return Promise.reject(response.status);
       }
       toast.error(
         <>
