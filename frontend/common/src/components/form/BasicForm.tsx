@@ -8,6 +8,7 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -45,6 +46,8 @@ export function BasicForm<TFieldValues extends FieldValues>({
   const [showErrorSummary, setShowErrorSummary] =
     React.useState<boolean>(false);
   const errorSummaryRef = React.useRef<HTMLDivElement>(null);
+  const [showUnsavedChanges, setShowUnsavedChanges] =
+    React.useState<boolean>(false);
   const methods = useForm({
     mode: "onChange",
     shouldFocusError: false,
@@ -55,6 +58,17 @@ export function BasicForm<TFieldValues extends FieldValues>({
     // Whenever form values change, update cache.
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
+
+  const cachedValues = React.useMemo(() => {
+    if (cacheKey) {
+      return getFromSessionStorage(
+        cacheKey,
+        options?.defaultValues,
+      ) as TFieldValues;
+    }
+
+    return options?.defaultValues;
+  }, [cacheKey, options]);
 
   const {
     reset,
@@ -89,11 +103,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   React.useEffect(() => {
     if (cacheKey) {
-      const cachedValues = getFromSessionStorage(
-        cacheKey,
-        options?.defaultValues,
-      ) as TFieldValues;
-
       if (cachedValues) {
         /**
          * Iterates through all cached values touching and dirtying the fields
@@ -118,7 +127,13 @@ export function BasicForm<TFieldValues extends FieldValues>({
         });
       }
     }
-  }, [cacheKey, options, methods]);
+  }, [cacheKey, options, methods, cachedValues]);
+
+  React.useEffect(() => {
+    if (!isEqual(cachedValues, options?.defaultValues)) {
+      setShowUnsavedChanges(true);
+    }
+  }, [cachedValues, options]);
 
   return (
     <FormProvider {...methods}>
@@ -128,7 +143,11 @@ export function BasicForm<TFieldValues extends FieldValues>({
           labels={labels}
           show={errors && showErrorSummary}
         />
-        {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
+        <UnsavedChanges
+          labels={labels}
+          show={!!(cacheKey && isDirty && showUnsavedChanges)}
+          onDismiss={() => setShowUnsavedChanges(false)}
+        />
         {children}
       </form>
     </FormProvider>

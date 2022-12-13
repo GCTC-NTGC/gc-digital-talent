@@ -926,11 +926,12 @@ type Query {
     @all
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
     @can(ability: "view", query: true)
-  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
+  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -1540,6 +1541,7 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
+    @throttle(maxAttempts: 100)
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard

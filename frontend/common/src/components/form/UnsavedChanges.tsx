@@ -10,14 +10,16 @@ import { notEmpty } from "../../helpers/util";
 
 interface UnsavedChangesProps {
   labels?: FieldLabels;
+  show: boolean;
+  onDismiss: () => void;
 }
 
-const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
+const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
   const intl = useIntl();
   const { isDirty, dirtyFields, errors } = useFormState();
 
   // Don't show if the form is clean
-  if (!isDirty) return null;
+  if (!isDirty || !show) return null;
 
   const unsavedFields = Object.keys(dirtyFields)
     .map((field) => {
@@ -44,7 +46,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
     .filter(notEmpty);
 
   return unsavedFields.length > 0 ? (
-    <Alert.Root type="info">
+    <Alert.Root type="info" dismissible onDismiss={onDismiss}>
       <Alert.Title>
         {intl.formatMessage({
           defaultMessage: "You have unsaved changes",

@@ -49,6 +49,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+skillset
 subcomponents
 subquery
 TALENTSEARCH
