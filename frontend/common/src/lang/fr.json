@@ -1907,5 +1907,17 @@
   "1YuZjR": {
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "b3ar1X": {
+    "defaultMessage": "Rétablir {label}",
+    "description": "Button text to reset the combobox input"
+  },
+  "IRCKBP": {
+    "defaultMessage": "Aucun résultat n’a été trouvé.",
+    "description": "Message displayed when combobox has no options available"
+  },
+  "4l+gBD": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is being done."
   }
 }
