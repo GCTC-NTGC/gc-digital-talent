@@ -646,42 +646,36 @@ export const OngoingRecruitmentSection = ({
       </p>
       <div data-h2-display="base(flex)">
         <FormProvider {...methods}>
-          <form>
-            <Select
-              id="quickFilter"
-              name="quickFilter"
-              label={intl.formatMessage({
-                defaultMessage: "Quick filter",
-                id: "8NB+Ay",
-                description: "A label for a quick filter input.",
-              })}
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a job stream...",
-                    id: "cmFeXj",
-                    description:
-                      "Placeholder for stream filter in browse opportunities form.",
-                  }),
-                },
-                ...streamsWithAvailablePools.map((stream) => ({
-                  value: stream.key,
-                  label: stream.title,
-                })),
-              ]}
-              trackUnsaved={false}
-            />
-          </form>
+          <Select
+            id="quickFilter"
+            name="quickFilter"
+            label={intl.formatMessage({
+              defaultMessage: "Quick filter",
+              id: "8NB+Ay",
+              description: "A label for a quick filter input.",
+            })}
+            options={[
+              {
+                value: "",
+                disabled: true,
+                label: intl.formatMessage({
+                  defaultMessage: "Select a job stream...",
+                  id: "cmFeXj",
+                  description:
+                    "Placeholder for stream filter in browse opportunities form.",
+                }),
+              },
+              ...streamsWithAvailablePools.map((stream) => ({
+                value: stream.key,
+                label: stream.title,
+              })),
+            ]}
+            trackUnsaved={false}
+          />
         </FormProvider>
       </div>
 
-      <p
-        aria-live="polite"
-        aria-atomic="true"
-        data-h2-visibility="base(invisible)"
-      >
+      <p aria-live="polite" data-h2-visibility="base(invisible)">
         {quickFilterStream
           ? intl.formatMessage(
               {
