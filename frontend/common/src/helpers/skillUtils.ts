@@ -143,4 +143,24 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
       });
 };
 
+export const differentiateMissingSkills = (
+  missingSkills: Skill[],
+  addedSkills?: Skill[],
+) => {
+  const skills: Skill[] = [];
+  const details: Skill[] = [];
+
+  missingSkills.forEach((skill) => {
+    const addedSkill = addedSkills?.find((added) => added.id === skill.id);
+
+    if (addedSkill && !addedSkill.experienceSkillRecord?.details) {
+      details.push(skill);
+    } else {
+      skills.push(skill);
+    }
+  });
+
+  return [skills, details];
+};
+
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };
