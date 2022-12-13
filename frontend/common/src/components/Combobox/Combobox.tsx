@@ -16,7 +16,9 @@ import NoOptions from "./NoOptions";
 import "./combobox.css";
 
 export interface Option {
+  /** The data used on form submission  */
   value: string;
+  /** Text to display in the list of options */
   label: React.ReactNode;
 }
 
@@ -25,17 +27,28 @@ export interface ComboboxProps
     React.HTMLProps<HTMLInputElement>,
     "capture" | "type" | "label"
   > {
+  /** HTML id used to identify the element. */
   id: string;
+  /** A string specifying a name for the input control. */
   name: string;
+  /** Holds text for the label associated with the input element */
   label: React.ReactNode;
+  /** Optional context which user can view by toggling a button. */
   context?: string;
+  /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
+  /** If input is not required, hide the 'Optional' label */
   hideOptional?: boolean;
+  /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Array of available options */
   options: Option[];
+  /** Optional: Set if the options are being fetched */
   fetching?: boolean;
+  /** Optional: Callback ran when the user types in the input */
   onSearch?: (term: string) => void;
-  isExternalSearch?: boolean; // If we control search externally (API)
+  /** Optional: Control the options through external search (API, etc.) */
+  isExternalSearch?: boolean;
 }
 
 const Combobox = ({
