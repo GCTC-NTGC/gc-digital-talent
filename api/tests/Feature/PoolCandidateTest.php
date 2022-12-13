@@ -102,6 +102,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->count(5)->create([
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+      'user_id' => User::factory(),
     ]);
 
     // Create new cmoAsset and attach to two new pool candidates.
@@ -111,6 +112,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->count(2)->create([
       'expiry_date' => config('constants.far_future_date'),
        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+       'user_id' => User::factory(),
        ])->each(function($candidate) use ($cmoAsset) {
 
       $candidate->user->cmoAssets()->save($cmoAsset);
