@@ -199,8 +199,8 @@ const Combobox = ({
               data-h2-gap="base(x.25, 0)"
             >
               {intl.formatMessage({
-                defaultMessage: "No results found",
-                id: "sfk6tg",
+                defaultMessage: "No results found.",
+                id: "IRCKBP",
                 description:
                   "Message displayed when combobox has no options available",
               })}
