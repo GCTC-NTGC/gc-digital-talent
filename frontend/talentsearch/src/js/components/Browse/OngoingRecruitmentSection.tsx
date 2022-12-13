@@ -626,11 +626,11 @@ export const OngoingRecruitmentSection = ({
     : streamsWithAvailablePools;
 
   // sort list so that recommended streams come first
-  streamsToShow.sort((s1, s2) =>
-    !streamIsRecommended(s1, mySkillIds) && streamIsRecommended(s2, mySkillIds)
-      ? 1
-      : 0,
-  );
+  streamsToShow.sort((s1, s2) => {
+    const a = streamIsRecommended(s1, mySkillIds) ? 1 : 0;
+    const b = streamIsRecommended(s2, mySkillIds) ? 1 : 0;
+    return b - a;
+  });
 
   return (
     <>
