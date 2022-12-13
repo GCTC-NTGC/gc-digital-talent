@@ -81,11 +81,9 @@ class PoolCandidate extends Model
 
         // pointing to the classification scope on the User model
         // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
-        $query->where(function ($query) use ($classifications) {
-            $query->whereHas('user', function ($query) use ($classifications) {
+        $query->whereHas('user', function ($query) use ($classifications) {
                 User::scopeClassifications($query, $classifications);
             });
-        });
         return $query;
     }
 

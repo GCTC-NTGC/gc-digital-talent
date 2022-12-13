@@ -396,13 +396,11 @@ class User extends Model implements Authenticatable
 
         // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
         // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        $query->where(function ($query) use ($cmoAssets) {
-            $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
+        $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
                 foreach ($cmoAssets as $cmoAsset) {
                     $query->where('key', $cmoAsset['key']);
                 }
             });
-        });
         return $query;
     }
 
