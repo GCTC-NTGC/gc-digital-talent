@@ -1,10 +1,12 @@
 const { defineConfig } = require('cypress')
 
+const extendedTimeout = 60000;
+
 module.exports = defineConfig({
-  defaultCommandTimeout: 8000,
-  pageLoadTimeout: 60000,
-  requestTimeout: 5000,
-  responseTimeout: 30000,
+  defaultCommandTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 8000,
+  pageLoadTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 60000,
+  requestTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 5000,
+  responseTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 30000,
   retries: {
     runMode: 3,
   },
@@ -17,9 +19,6 @@ module.exports = defineConfig({
   videoCompression: 15,
   chromeWebSecurity: true,
   authServerRoot: 'http://localhost:8000/oxauth',
-  env: {
-    CY_FEATURE_APPLICANTSEARCH: true,
-  },
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.

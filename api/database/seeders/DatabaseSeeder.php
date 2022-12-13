@@ -22,6 +22,7 @@ use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
 use Database\Helpers\ApiEnums;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -46,7 +47,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
+        // Seed random pools
         Pool::factory()->count(10)->create();
+        // Seed some expected values
+        $this->seedPools();
 
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
@@ -59,9 +63,10 @@ class DatabaseSeeder extends Seeder
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
-                // pick a pool in which to place this user
+                // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
-                $randomPool = Pool::inRandomOrder()->limit(1)->first();
+                // digital careers is always published and strictly defined in PoolSeeder
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
                 $digitalTalentPool = Pool::where('key', "digital_careers")->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
@@ -91,7 +96,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $applicant = User::where('email', 'applicant@test.com')->first();
-        $pool = Pool::inRandomOrder()->first();
+        $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 
         // add experiences to all the users
@@ -195,5 +200,37 @@ class DatabaseSeeder extends Seeder
                 $candidate->createSnapshot();
             }
         })->create();
+    }
+
+    private function seedPools()
+    {
+        $faker = Faker\Factory::create();
+
+        $publishingGroups = [
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING
+        ];
+        $dates = [
+            'FAR_PAST' => Carbon::create(1992, 10, 24),
+            'FAR_FUTURE' => Carbon::create(2999, 10, 24)
+        ];
+
+        $classifications = Classification::where('group', 'IT')
+            ->where('level', '<', 5)
+            ->get();
+
+        foreach ($classifications as $classification) {
+            foreach ($publishingGroups as $publishingGroup) {
+                foreach ($dates as $date) {
+                    Pool::factory()->afterCreating(function ($pool) use ($classification, $faker) {
+                        $pool->classifications()->sync([$classification->id]);
+                    })->create([
+                        'expiry_date' => $date,
+                        'publishing_group' => $publishingGroup,
+                        'published_at' => $faker->dateTimeBetween('-1 year', 'now')
+                    ]);
+                }
+            }
+        }
     }
 }

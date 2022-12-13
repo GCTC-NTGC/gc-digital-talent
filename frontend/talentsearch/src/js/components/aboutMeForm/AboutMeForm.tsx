@@ -14,7 +14,6 @@ import {
   getCitizenshipStatusesProfile,
   getArmedForcesStatusesProfile,
 } from "@common/constants/localizedConstants";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { emptyToNull } from "@common/helpers/util";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -64,10 +63,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(initialUser.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(initialUser.id);
 
   const labelMap = {
     preferredLang: intl.formatMessage({

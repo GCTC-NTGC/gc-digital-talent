@@ -8,6 +8,7 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -42,7 +43,11 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
+  const [showErrorSummary, setShowErrorSummary] =
+    React.useState<boolean>(false);
   const errorSummaryRef = React.useRef<HTMLDivElement>(null);
+  const [showUnsavedChanges, setShowUnsavedChanges] =
+    React.useState<boolean>(false);
   const methods = useForm({
     mode: "onChange",
     shouldFocusError: false,
@@ -54,6 +59,17 @@ export function BasicForm<TFieldValues extends FieldValues>({
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
 
+  const cachedValues = React.useMemo(() => {
+    if (cacheKey) {
+      return getFromSessionStorage(
+        cacheKey,
+        options?.defaultValues,
+      ) as TFieldValues;
+    }
+
+    return options?.defaultValues;
+  }, [cacheKey, options]);
+
   const {
     reset,
     formState: { isDirty, errors, isSubmitting },
@@ -61,10 +77,16 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   React.useEffect(() => {
     // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting && errorSummaryRef.current) {
+    if (errors && isSubmitting) {
+      setShowErrorSummary(true);
+    }
+  }, [isSubmitting, errors]);
+
+  React.useEffect(() => {
+    if (errorSummaryRef.current) {
       errorSummaryRef.current.focus();
     }
-  }, [isSubmitting, errors, errorSummaryRef]);
+  }, [showErrorSummary, errorSummaryRef]);
 
   const handleSubmit = (data: TFieldValues) => {
     // Reset form to clear dirty values
@@ -81,11 +103,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   React.useEffect(() => {
     if (cacheKey) {
-      const cachedValues = getFromSessionStorage(
-        cacheKey,
-        options?.defaultValues,
-      ) as TFieldValues;
-
       if (cachedValues) {
         /**
          * Iterates through all cached values touching and dirtying the fields
@@ -110,13 +127,27 @@ export function BasicForm<TFieldValues extends FieldValues>({
         });
       }
     }
-  }, [cacheKey, options, methods]);
+  }, [cacheKey, options, methods, cachedValues]);
+
+  React.useEffect(() => {
+    if (!isEqual(cachedValues, options?.defaultValues)) {
+      setShowUnsavedChanges(true);
+    }
+  }, [cachedValues, options]);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        {errors && <ErrorSummary ref={errorSummaryRef} labels={labels} />}
-        {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
+        <ErrorSummary
+          ref={errorSummaryRef}
+          labels={labels}
+          show={errors && showErrorSummary}
+        />
+        <UnsavedChanges
+          labels={labels}
+          show={!!(cacheKey && isDirty && showUnsavedChanges)}
+          onDismiss={() => setShowUnsavedChanges(false)}
+        />
         {children}
       </form>
     </FormProvider>

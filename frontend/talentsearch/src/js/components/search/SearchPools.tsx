@@ -32,8 +32,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
     pool.classifications as SimpleClassification[];
 
   return (
-    <div data-h2-padding="base(x1)">
-      <p data-h2-font-weight="base(700)">
+    <article
+      data-h2-padding="base(x1)"
+      aria-labelledby={`search_pool_${pool.id}`}
+    >
+      <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
         {getFullPoolAdvertisementTitle(intl, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
@@ -90,7 +93,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             "Button link message on search page that takes user to the request form.",
         })}
       </Button>
-    </div>
+    </article>
   );
 };
 
