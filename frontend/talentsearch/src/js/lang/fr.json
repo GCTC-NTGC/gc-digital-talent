@@ -2616,5 +2616,9 @@
   "u3eefq": {
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
     "description": "Page title for the request candidates form page"
+  },
+  "LFYdXR": {
+    "defaultMessage": "Recommandé selon vos compétences",
+    "description": "Tip that your skills match this section well and so it is recommended"
   }
 }
