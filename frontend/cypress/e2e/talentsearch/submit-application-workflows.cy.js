@@ -34,7 +34,9 @@ describe("Submit Application Workflow Tests", () => {
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       cy.wrap([allGenericJobTitles[0].id]).as("testGenericJobTitleIds"); // take the first ID for testing
-      cy.wrap(allGenericJobTitles[0].classification.id).as("testClassificationId"); // take the first ID for testing
+      cy.wrap(allGenericJobTitles[0].classification.id).as(
+        "testClassificationId",
+      ); // take the first ID for testing
     });
   });
 
@@ -42,51 +44,50 @@ describe("Submit Application Workflow Tests", () => {
     const uniqueTestId = Date.now().valueOf();
     cy.log(`Test run ${uniqueTestId}`);
 
-    cy.loginByRole("admin").then(() => {
-      cy.get("@testGenericJobTitleIds").then((testGenericJobTitleIds) => {
-        cy.get("@testSkillIds")
-          .then((testSkillIds) => {
-            // This user must have the entire profile completed to be able to apply to a pool
-            cy.createUser({
-              email: `cypress.user.${uniqueTestId}@example.org`,
-              sub: `cypress.sub.${uniqueTestId}`,
-              roles: ["APPLICANT"],
-              currentProvince: ProvinceOrTerritory.Ontario,
-              currentCity: "Test City",
-              telephone: "+10123456789",
-              armedForcesStatus: ArmedForcesStatus.NonCaf,
-              citizenship: CitizenshipStatus.Citizen,
-              lookingForEnglish: true,
-              isGovEmployee: false,
-              hasPriorityEntitlement: false,
-              locationPreferences: WorkRegion.Ontario,
-              positionDuration: PositionDuration.Permanent,
-              expectedGenericJobTitles: {
-                sync: testGenericJobTitleIds,
-              },
-              personalExperiences: {
-                create: [
-                  {
-                    description: "Test Experience Description",
-                    details: "A Cypress test personal experience",
-                    skills: {
-                      sync: testSkillIds.map((skillId) => {
-                        return {
-                          details: `Test Skill ${skillId}`,
-                          id: skillId,
-                        };
-                      }),
-                    },
-                    startDate: FAR_PAST_DATE,
-                    title: "Test Experience",
+    cy.loginByRole("admin");
+    cy.get("@testGenericJobTitleIds").then((testGenericJobTitleIds) => {
+      cy.get("@testSkillIds")
+        .then((testSkillIds) => {
+          // This user must have the entire profile completed to be able to apply to a pool
+          cy.createUser({
+            email: `cypress.user.${uniqueTestId}@example.org`,
+            sub: `cypress.sub.${uniqueTestId}`,
+            roles: ["APPLICANT"],
+            currentProvince: ProvinceOrTerritory.Ontario,
+            currentCity: "Test City",
+            telephone: "+10123456789",
+            armedForcesStatus: ArmedForcesStatus.NonCaf,
+            citizenship: CitizenshipStatus.Citizen,
+            lookingForEnglish: true,
+            isGovEmployee: false,
+            hasPriorityEntitlement: false,
+            locationPreferences: WorkRegion.Ontario,
+            positionDuration: PositionDuration.Permanent,
+            expectedGenericJobTitles: {
+              sync: testGenericJobTitleIds,
+            },
+            personalExperiences: {
+              create: [
+                {
+                  description: "Test Experience Description",
+                  details: "A Cypress test personal experience",
+                  skills: {
+                    sync: testSkillIds.map((skillId) => {
+                      return {
+                        details: `Test Skill ${skillId}`,
+                        id: skillId,
+                      };
+                    }),
                   },
-                ],
-              },
-            });
-          })
-          .its("sub")
-          .as("testUserSub");
-      });
+                  startDate: FAR_PAST_DATE,
+                  title: "Test Experience",
+                },
+              ],
+            },
+          });
+        })
+        .its("sub")
+        .as("testUserSub");
     });
 
     cy.getMe()
@@ -118,9 +119,8 @@ describe("Submit Application Workflow Tests", () => {
                   },
                   isRemote: true,
                   publishingGroup: PublishingGroup.ItJobs,
-                }).then(() => {
-                  cy.publishPoolAdvertisement(testPoolAdvertisementId);
                 });
+                cy.publishPoolAdvertisement(testPoolAdvertisementId);
               });
             });
         });

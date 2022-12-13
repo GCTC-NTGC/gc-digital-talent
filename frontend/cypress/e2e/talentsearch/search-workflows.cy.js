@@ -57,61 +57,54 @@ describe("Talent Search Workflow Tests", () => {
     };
 
     // create a test user to attach test candidates to
-    cy.loginByRole("admin").then(() => {
-      cy.getMe()
-        .its("id")
-        .then((adminUserId) => {
-          cy.get("@testGenericJobTitle1").then((genericJobTitle) => {
-            cy.get("@testSkill").then((skill) => {
-              // This user must have the entire profile completed to be able to apply to a pool
-              createApplicant({
-                email: `cypress.user.${uniqueTestId}@example.org`,
-                sub: `cypress.sub.${uniqueTestId}`,
-                skill,
-                genericJobTitle,
-                userAlias: "testUser",
-              });
+    cy.loginByRole("admin");
+    cy.getMe()
+      .its("id")
+      .then((adminUserId) => {
+        cy.get("@testGenericJobTitle1").then((genericJobTitle) => {
+          cy.get("@testSkill").then((skill) => {
+            // This user must have the entire profile completed to be able to apply to a pool
+            createApplicant({
+              email: `cypress.user.${uniqueTestId}@example.org`,
+              sub: `cypress.sub.${uniqueTestId}`,
+              skill,
+              genericJobTitle,
+              userAlias: "testUser",
+            });
 
-              // create, update, and publish a new pool advertisement for testing matching
-              cy.get("@testClassification1").then((classification) => {
-                createAndPublishPoolAdvertisement({
-                  adminUserId,
-                  englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
-                  classification,
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
-                });
+            // create, update, and publish a new pool advertisement for testing matching
+            cy.get("@testClassification1").then((classification) => {
+              createAndPublishPoolAdvertisement({
+                adminUserId,
+                englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                classification,
+                poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
               });
+            });
 
-              // create, update, and publish a new pool advertisement for testing rejection
-              cy.get("@testClassification2").then((classification) => {
-                createAndPublishPoolAdvertisement({
-                  adminUserId,
-                  englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
-                  classification,
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
-                });
+            // create, update, and publish a new pool advertisement for testing rejection
+            cy.get("@testClassification2").then((classification) => {
+              createAndPublishPoolAdvertisement({
+                adminUserId,
+                englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                classification,
+                poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
               });
             });
           });
         });
-    });
+      });
 
     // use new test user to submit an application
     cy.get("@testUser").then((testUser) => {
-      cy.loginBySubject(testUser.sub).then(() => {
-        cy.getMe().then((testUser) => {
-          cy.get("@publishedTestPoolAdvertisement1").then(
-            (poolAdvertisement) => {
-              cy.createApplication(testUser.id, poolAdvertisement.id).then(
-                (poolCandidate) => {
-                  cy.submitApplication(
-                    poolCandidate.id,
-                    uniqueTestId.toString(),
-                  )
-                    .its("id")
-                    .as("poolCandidateId");
-                },
-              );
+      cy.loginBySubject(testUser.sub);
+      cy.getMe().then((testUser) => {
+        cy.get("@publishedTestPoolAdvertisement1").then((poolAdvertisement) => {
+          cy.createApplication(testUser.id, poolAdvertisement.id).then(
+            (poolCandidate) => {
+              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+                .its("id")
+                .as("poolCandidateId");
             },
           );
         });
@@ -119,11 +112,10 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // admin approve the application
-    cy.loginByRole("admin").then(() => {
-      cy.get("@poolCandidateId").then((poolCandidateId) => {
-        cy.updatePoolCandidateAsAdmin(poolCandidateId, {
-          status: PoolCandidateStatus.QualifiedAvailable,
-        });
+    cy.loginByRole("admin");
+    cy.get("@poolCandidateId").then((poolCandidateId) => {
+      cy.updatePoolCandidateAsAdmin(poolCandidateId, {
+        status: PoolCandidateStatus.QualifiedAvailable,
       });
     });
 
