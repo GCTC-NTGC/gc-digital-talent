@@ -2,7 +2,6 @@ import React from "react";
 import type { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { slice } from "lodash";
 import { getStaticSkills } from "../../fakeData";
 
 import Combobox, { Option, ComboboxProps } from "./Combobox";

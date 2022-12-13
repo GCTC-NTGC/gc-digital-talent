@@ -6,6 +6,7 @@ import {
   ArrowPathIcon,
 } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
+
 import Separator from "../Separator";
 
 const layoutStyles = {

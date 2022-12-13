@@ -1,10 +1,11 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 
-import { useIntl } from "react-intl";
 import InputUnsaved from "../inputPartials/InputUnsaved/InputUnsaved";
+import InputError from "../inputPartials/InputError/InputError";
 import { useFieldState, useFieldStateStyles } from "../../helpers/formUtils";
 import { Scalars } from "../../api/generated";
 
@@ -13,8 +14,6 @@ import Label from "./Label";
 import NoOptions from "./NoOptions";
 
 import "./combobox.css";
-
-import { InputError } from "../inputPartials";
 
 export interface Option {
   value: string;

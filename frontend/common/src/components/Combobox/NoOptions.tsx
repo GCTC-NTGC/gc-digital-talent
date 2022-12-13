@@ -1,6 +1,6 @@
 import React from "react";
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 interface NoOptionsProps {
   fetching?: boolean;
