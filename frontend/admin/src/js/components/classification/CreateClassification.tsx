@@ -7,6 +7,7 @@ import { Input, Select, Submit } from "@common/components/form";
 import { toast } from "@common/components/Toast";
 import { errorMessages } from "@common/messages";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -193,6 +194,7 @@ export const CreateClassificationForm: React.FunctionComponent<
 };
 
 const CreateClassification: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [, executeMutation] = useCreateClassificationMutation();
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
@@ -203,11 +205,20 @@ const CreateClassification: React.FunctionComponent = () => {
     });
 
   return (
-    <DashboardContentContainer>
-      <CreateClassificationForm
-        handleCreateClassification={handleCreateClassification}
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Create classification",
+          id: "fYyK2p",
+          description: "Page title for the classification creation page",
+        })}
       />
-    </DashboardContentContainer>
+      <DashboardContentContainer>
+        <CreateClassificationForm
+          handleCreateClassification={handleCreateClassification}
+        />
+      </DashboardContentContainer>
+    </>
   );
 };
 

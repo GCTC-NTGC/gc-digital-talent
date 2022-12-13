@@ -1892,6 +1892,14 @@
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
   },
+  "jRmRd+": {
+    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "description": "Meta tag description for Talent Search site"
+  },
+  "vD6Uia": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Default title for the site"
+  },
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
