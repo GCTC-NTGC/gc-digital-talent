@@ -1,6 +1,7 @@
 import React from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
+import debounce from "lodash/debounce";
 
 import { useIntl } from "react-intl";
 import InputUnsaved from "../inputPartials/InputUnsaved/InputUnsaved";
@@ -12,7 +13,7 @@ import Label from "./Label";
 
 import { InputError } from "../inputPartials";
 
-interface Option {
+export interface Option {
   value: string;
   label: React.ReactNode;
 }
@@ -30,6 +31,8 @@ export interface ComboboxProps
   hideOptional?: boolean;
   trackUnsaved?: boolean;
   options: Option[];
+  fetching?: boolean;
+  onSearch?: (term: string) => void;
   multiple?: boolean;
 }
 
@@ -41,6 +44,8 @@ const Combobox = ({
   readOnly,
   hideOptional,
   trackUnsaved = true,
+  onSearch,
+  fetching = false,
   options,
 }: ComboboxProps) => {
   const intl = useIntl();
@@ -61,23 +66,34 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
+  const debouncedOnSearch = onSearch ? debounce(onSearch, 300) : undefined;
 
   // TODO: Make this filter much smarter, possibly fuse.js
-  const filteredOptions =
-    query === ""
-      ? options
-      : options.filter((option) =>
-          option.label
-            ?.toLocaleString()
-            .toLowerCase()
-            .includes(query.toLowerCase()),
-        );
-  const noOptions = query !== "" && filteredOptions.length === 0;
+  const filteredOptions = React.useMemo(() => {
+    if (query === "" || onSearch) {
+      return options;
+    }
+
+    return options.filter((option) =>
+      option.label
+        ?.toLocaleString()
+        .toLowerCase()
+        .includes(query.toLowerCase()),
+    );
+  }, [query, onSearch, options]);
+
+  const noOptions = filteredOptions.length === 0;
 
   const helpId = `${id}-error`;
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setQuery(e.currentTarget.value);
+    const {
+      currentTarget: { value },
+    } = e;
+    setQuery(value);
+    if (debouncedOnSearch) {
+      debouncedOnSearch(value);
+    }
   };
 
   const handleClear = () => {
@@ -148,6 +164,7 @@ const Combobox = ({
           <Actions
             showClear={!!selectedOption || query !== ""}
             onClear={handleClear}
+            fetching={fetching}
             clearLabel={intl
               .formatMessage(
                 {
