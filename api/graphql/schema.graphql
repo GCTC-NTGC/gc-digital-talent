@@ -56,7 +56,7 @@ type User {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "obsolete field")
+    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -222,7 +222,7 @@ type Applicant {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "obsolete field")
+    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")

@@ -22,7 +22,7 @@ type Applicant {
   department: Department
   hasPriorityEntitlement: Boolean
   priorityNumber: String
-  languageAbility: LanguageAbility @deprecated(reason: "obsolete field")
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1451,7 +1451,7 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "obsolete field")
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean

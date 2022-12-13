@@ -246,10 +246,8 @@ RAWSQL2;
         }
 
         // point at filter on User
-        $query->where(function ($query) use ($languageAbility) {
-            $query->whereHas('user', function ($query) use ($languageAbility) {
-                User::filterByLanguageAbility($query, $languageAbility);
-            });
+        $query->whereHas('user', function ($query) use ($languageAbility) {
+            User::filterByLanguageAbility($query, $languageAbility);
         });
         return $query;
     }
