@@ -172,9 +172,17 @@ const SkillSelection = ({
         />
       </div>
       {selectedSkill && (
-        <p data-h2-margin="bases(x1, 0)">
-          {getLocalizedName(selectedSkill.description, intl)}
-        </p>
+        <>
+          <Heading level="h3" size="h6" data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "How this skill is defined",
+              description: "Heading for a specific skills definition",
+            })}
+          </Heading>
+          <p data-h2-margin="bases(x1, 0)">
+            {getLocalizedName(selectedSkill.description, intl)}
+          </p>
+        </>
       )}
     </>
   );
