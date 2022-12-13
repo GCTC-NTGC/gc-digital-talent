@@ -3,6 +3,9 @@ import { useIntl } from "react-intl";
 import type { CombinedError } from "urql";
 import ErrorMessage from "./ErrorMessage";
 
+import { commonMessages } from "../../messages";
+import { isUuidError } from "../../helpers/errorUtils";
+
 import Loading, { type LoadingProps } from "./Loading";
 
 import "./pending.css";
@@ -26,6 +29,13 @@ const Pending = ({
   }
 
   if (error) {
+    if (isUuidError(error)) {
+      throw new Response("", {
+        status: 404,
+        statusText: intl.formatMessage(commonMessages.notFound),
+      });
+    }
+
     return <ErrorMessage error={error} />;
   }
 

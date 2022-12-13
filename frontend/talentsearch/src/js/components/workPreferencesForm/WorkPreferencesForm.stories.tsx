@@ -2,14 +2,18 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
-import { UpdateUserAsUserInput, User } from "../../api/generated";
+import {
+  PositionDuration,
+  UpdateUserAsUserInput,
+  User,
+} from "../../api/generated";
 
 import { WorkPreferencesForm } from "./WorkPreferencesForm";
 
 const mockUser: User = {
   __typename: "User",
   id: "11",
-  wouldAcceptTemporary: true,
+  positionDuration: [PositionDuration.Permanent, PositionDuration.Temporary],
   acceptedOperationalRequirements: [OperationalRequirementV2[0]],
 };
 

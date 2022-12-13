@@ -642,7 +642,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'The given data was invalid.',
+                'message' => 'profile is not complete',
             ]]
         ]);
 
@@ -737,7 +737,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'The given data was invalid.',
+                'message' => 'signature field must be filled',
             ]]
         ]);
 
@@ -837,7 +837,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'The given data was invalid.',
+                'message' => 'a required pool skill is missing from application',
             ]]
         ]);
 
@@ -947,7 +947,7 @@ class PoolApplicationTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -985,7 +985,7 @@ class PoolApplicationTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }

@@ -55,6 +55,8 @@ fragment poolCandidateTable on PoolCandidate {
     isIndigenous
     isVisibleMinority
     hasDisability
+    indigenousCommunities
+    indigenousDeclarationSignature
 
     # Applicant info
     jobLookingStatus
@@ -72,7 +74,7 @@ fragment poolCandidateTable on PoolCandidate {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     priorityWeight
   }
   cmoIdentifier
@@ -170,10 +172,12 @@ fragment selectedPoolCandidates on PoolCandidate {
     priorityWeight
     locationPreferences
     locationExemptions
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isWoman
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     hasDisability
     citizenship
@@ -305,7 +309,7 @@ fragment selectedPoolCandidates on PoolCandidate {
   notes
   archivedAt
 }
-query getPoolCandidate($id: ID!) {
+query getPoolCandidate($id: UUID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
   }
@@ -349,7 +353,7 @@ query GetPoolCandidatesPaginated(
   }
 }
 
-query getPoolCandidatesByPool($id: ID!) {
+query getPoolCandidatesByPool($id: UUID!) {
   pool(id: $id) {
     poolCandidates {
       ...poolCandidateTable
@@ -388,7 +392,7 @@ query getCreatePoolCandidateData {
   }
 }
 
-query getUpdatePoolCandidateData($id: ID!) {
+query getUpdatePoolCandidateData($id: UUID!) {
   classifications {
     id
     group
@@ -484,7 +488,7 @@ mutation deletePoolCandidate($id: ID!) {
   }
 }
 
-query getCandidateProfile($id: ID!) {
+query getCandidateProfile($id: UUID!) {
   poolCandidate(id: $id) {
     user {
       id
@@ -507,10 +511,12 @@ query getCandidateProfile($id: ID!) {
       priorityNumber
       locationPreferences
       locationExemptions
-      wouldAcceptTemporary
+      positionDuration
       acceptedOperationalRequirements
       isWoman
       isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
       isVisibleMinority
       hasDisability
       expectedSalary
@@ -595,149 +601,6 @@ query getCandidateProfile($id: ID!) {
           endDate
         }
       }
-    }
-  }
-}
-query getUserProfile($id: ID!) {
-  applicant(id: $id) {
-    id
-    email
-    firstName
-    lastName
-    telephone
-    citizenship
-    armedForcesStatus
-    preferredLang
-    lookingForEnglish
-    lookingForFrench
-    lookingForBilingual
-    bilingualEvaluation
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
-    isGovEmployee
-    govEmployeeType
-    hasPriorityEntitlement
-    priorityNumber
-    locationPreferences
-    locationExemptions
-    wouldAcceptTemporary
-    acceptedOperationalRequirements
-    isWoman
-    isIndigenous
-    isVisibleMinority
-    hasDisability
-    expectedSalary
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    department {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
-    currentClassification {
-      id
-      group
-      level
-      name {
-        en
-        fr
-      }
-    }
-    experiences {
-      id
-      __typename
-      applicant {
-        id
-        email
-      }
-      details
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-      }
-    }
-    poolCandidates {
-      status
-      expiryDate
-      user {
-        id
-      }
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        stream
-        classifications {
-          id
-          group
-          level
-        }
-      }
-      id
     }
   }
 }

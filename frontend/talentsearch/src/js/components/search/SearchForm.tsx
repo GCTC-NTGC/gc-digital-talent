@@ -27,6 +27,7 @@ import {
   UserPoolFilterInput,
   PoolStream,
   Skill,
+  PositionDuration,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
@@ -105,6 +106,18 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+const durationSelectionToEnum = (
+  selection: string | null,
+): PositionDuration[] | null => {
+  if (selection && selection === EmploymentDuration.Term) {
+    return [PositionDuration.Temporary];
+  }
+  if (selection && selection === EmploymentDuration.Indeterminate) {
+    return [PositionDuration.Permanent];
+  }
+  return null;
+};
+
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
@@ -173,8 +186,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ...(values.languageAbility !== NullSelection
             ? { languageAbility: values.languageAbility as LanguageAbility }
             : {}), // Ensure null in FormValues is converted to undefined
-          wouldAcceptTemporary:
-            values.employmentDuration === "true" ? true : null,
+          positionDuration: values.employmentDuration
+            ? durationSelectionToEnum(values.employmentDuration)
+            : null,
           locationPreferences: values.locationPreferences || [],
           pools: pools
             ? pools
@@ -482,13 +496,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 {
-                  value: "true",
+                  value: EmploymentDuration.Term,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Term),
                   ),
                 },
                 {
-                  value: "nothing",
+                  value: EmploymentDuration.Indeterminate,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Indeterminate),
                   ),

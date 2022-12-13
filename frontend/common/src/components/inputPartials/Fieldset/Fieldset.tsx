@@ -5,6 +5,7 @@ import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError, { type InputFieldError } from "../InputError/InputError";
+import InputUnsaved from "../InputUnsaved/InputUnsaved";
 
 export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
@@ -98,15 +99,6 @@ const Fieldset: React.FC<FieldsetProps> = ({
               </span>
             )
           }
-          {fieldState === "dirty" && trackUnsaved && (
-            <span
-              data-h2-font-size="base(caption)"
-              data-h2-margin="base(0, 0, 0, x.125)"
-              data-h2-color="base(darkest.tm-yellow)"
-            >
-              {intl.formatMessage(commonMessages.unSaved)}
-            </span>
-          )}
           {context && (
             <button
               type="button"
@@ -146,6 +138,10 @@ const Fieldset: React.FC<FieldsetProps> = ({
       >
         {children}
       </div>
+      <InputUnsaved
+        id={ariaDescription}
+        isVisible={fieldState === "dirty" && trackUnsaved}
+      />
       {error && (
         <div
           data-h2-display="base(block)"

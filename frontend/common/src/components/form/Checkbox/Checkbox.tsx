@@ -54,6 +54,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
       {!boundingBox ? (
         <InputWrapper
           inputId={id}
+          inputName={name}
           label={label}
           labelSize="copy"
           required={!!rules.required}
@@ -78,6 +79,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
       ) : (
         <InputWrapper
           inputId={id}
+          inputName={name}
           label={boundingBoxLabel}
           required={!!rules.required}
           context={context}

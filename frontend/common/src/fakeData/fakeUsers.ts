@@ -26,6 +26,7 @@ import {
   CitizenshipStatus,
   ArmedForcesStatus,
   GenericJobTitle,
+  PositionDuration,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -137,7 +138,9 @@ const generateUser = (
     ),
     expectedClassifications:
       faker.helpers.arrayElements<Classification>(classifications),
-    wouldAcceptTemporary: faker.datatype.boolean(),
+    positionDuration: faker.datatype.boolean()
+      ? [PositionDuration.Permanent]
+      : [PositionDuration.Permanent, PositionDuration.Temporary],
     cmoAssets: faker.helpers.arrayElements<CmoAsset>(cmoAssets),
     expectedGenericJobTitles:
       faker.helpers.arrayElements<GenericJobTitle>(genericJobTitles),

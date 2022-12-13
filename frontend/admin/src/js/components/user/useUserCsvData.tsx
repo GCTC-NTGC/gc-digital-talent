@@ -17,7 +17,7 @@ import {
   getLanguageProficiency,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
-import { Applicant } from "../../api/generated";
+import { Applicant, PositionDuration } from "../../api/generated";
 
 const useUserCsvData = (applicants: Applicant[]) => {
   const intl = useIntl();
@@ -257,7 +257,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         currentClassification,
         locationPreferences,
         locationExemptions,
-        wouldAcceptTemporary,
+        positionDuration,
         acceptedOperationalRequirements,
         isWoman,
         isIndigenous,
@@ -301,7 +301,10 @@ const useUserCsvData = (applicants: Applicant[]) => {
           : "",
         locationPreferences: getLocationPreference(locationPreferences, intl),
         locationExemptions: locationExemptions || "",
-        wouldAcceptTemporary: yesOrNo(wouldAcceptTemporary, intl),
+        wouldAcceptTemporary: yesOrNo(
+          positionDuration?.includes(PositionDuration.Temporary),
+          intl,
+        ),
         acceptedOperationalRequirements: getOperationalRequirements(
           acceptedOperationalRequirements,
           intl,

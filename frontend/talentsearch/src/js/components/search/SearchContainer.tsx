@@ -186,7 +186,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     applicantFilter?.locationPreferences?.length ?? 0;
   const educationSelection = applicantFilter?.hasDiploma;
   const workingLanguage = applicantFilter?.languageAbility;
-  const employmentDuration = applicantFilter?.wouldAcceptTemporary;
+  const employmentDuration = applicantFilter?.positionDuration;
 
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
@@ -339,10 +339,12 @@ const SearchContainerApi = () => {
 
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
-    if (searchFormData?.pools) {
-      setApplicantFilter({ pools: searchFormData?.pools });
+    if (searchFormData?.publishedPoolAdvertisements) {
+      setApplicantFilter({
+        pools: searchFormData?.publishedPoolAdvertisements,
+      });
     }
-  }, [searchFormData?.pools]);
+  }, [searchFormData?.publishedPoolAdvertisements]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
@@ -386,7 +388,9 @@ const SearchContainerApi = () => {
   };
 
   const skills = unpackMaybes<Skill>(searchFormData?.skills);
-  const pools = unpackMaybes<SimplePool>(searchFormData?.pools);
+  const pools = unpackMaybes<SimplePool>(
+    searchFormData?.publishedPoolAdvertisements,
+  );
 
   const availableClassifications = pools
     ?.flatMap((pool) => pool?.classifications)

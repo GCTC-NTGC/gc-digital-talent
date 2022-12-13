@@ -15,7 +15,6 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
-import { getFeatureFlags } from "@common/helpers/runtimeVariable";
 import {
   InputMaybe,
   JobLookingStatus,
@@ -136,22 +135,6 @@ const viewAccessor = (
   adminRoutes: AdminRoutes,
   intl: IntlShape,
 ) => {
-  if (!getFeatureFlags().applicantSearch) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {tableViewItemButtonAccessor(
-          adminRoutes.poolCandidateUpdate(candidate.pool.id, candidate.id),
-          intl.formatMessage({
-            defaultMessage: "Edit",
-            id: "aGEisH",
-            description:
-              "Title displayed for the Pool Candidates table Edit column.",
-          }),
-        )}
-      </span>
-    );
-  }
-
   const isQualified =
     candidate.status !== PoolCandidateStatus.NewApplication &&
     candidate.status !== PoolCandidateStatus.ApplicationReview &&
@@ -569,17 +552,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             value: "email",
           },
         ]}
-        addBtn={{
-          label: intl.formatMessage({
-            defaultMessage: "Create Pool Candidate",
-            id: "Ox+Gj/",
-            description:
-              "Text label for link to create new pool candidate on admin table",
-          }),
-          path: getFeatureFlags().applicantSearch
-            ? adminRoutes.userCreate()
-            : adminRoutes.poolCandidateCreate(poolId),
-        }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(
             allColumnIds,

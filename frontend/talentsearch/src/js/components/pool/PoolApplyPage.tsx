@@ -9,11 +9,10 @@ import Pending from "@common/components/Pending";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import useRoutes from "../../hooks/useRoutes";
-import { useGetPoolQuery } from "../../api/generated";
-import type { Pool } from "../../api/generated";
+import { PoolAdvertisement, useGetPoolQuery } from "../../api/generated";
 
 interface PoolApplyProps {
-  pool: Pool;
+  pool: PoolAdvertisement;
 }
 
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
@@ -68,8 +67,8 @@ const PoolApplyPage: React.FC<PoolApplyPageProps> = ({ id }) => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.pool ? (
-        <PoolApply pool={data?.pool} />
+      {data?.poolAdvertisement ? (
+        <PoolApply pool={data?.poolAdvertisement} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage({

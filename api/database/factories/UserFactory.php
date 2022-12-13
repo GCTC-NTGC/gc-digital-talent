@@ -45,6 +45,7 @@ class UserFactory extends Factory
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
         $hasBeenEvaluated = $this->faker->boolean();
+        $isDeclared = $this->faker->boolean();
 
         return [
             'first_name' => $this->faker->firstName(),
@@ -102,7 +103,6 @@ class UserFactory extends Factory
             'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
-            'is_indigenous' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
             'has_diploma' => $this->faker->boolean(90), // temporary fix for Cypress workflows
             'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
@@ -131,13 +131,18 @@ class UserFactory extends Factory
                 ],
                 3
             ),
-            'would_accept_temporary' => $this->faker->boolean(),
+            'position_duration' => $this->faker->boolean() ?
+                [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
+                : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement? $this->faker->word() : null,
+            'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
+            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
+            // mirroring migration where isIndigenous = false maps to []
         ];
     }
 

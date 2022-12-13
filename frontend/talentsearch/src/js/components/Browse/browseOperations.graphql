@@ -94,12 +94,22 @@ query browsePoolAdvertisements {
   }
 }
 
-query browsePool($id: ID!) {
+query browsePool($id: UUID!) {
   pool(id: $id) {
     id
     name {
       en
       fr
+    }
+  }
+}
+query mySkills {
+  me {
+    experiences {
+      id
+      skills {
+        id
+      }
     }
   }
 }

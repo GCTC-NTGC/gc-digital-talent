@@ -37,6 +37,25 @@ class PoolPolicy
     }
 
     /**
+     * Determine whether the user can view a poolAdvertisement. All except DRAFT are viewable to all
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Pool  $pool
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAdvertisement(User $user = null, Pool $pool)
+    {
+        if ($pool->advertisement_status != ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
+            return true;
+        }
+        // check if a user is logged in or anonymous, anonymous may never look at DRAFT
+        if ($user) {
+            return $user->isAdmin();
+        }
+        return false;
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user

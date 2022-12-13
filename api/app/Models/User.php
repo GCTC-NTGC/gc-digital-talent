@@ -45,19 +45,20 @@ use Illuminate\Support\Facades\DB;
  * @property string $armed_forces_status
  * @property boolean $is_woman
  * @property boolean $has_disability
- * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
  * @property string $language_ability
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $expected_salary
- * @property boolean $would_accept_temporary
+ * @property array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
  * @property int $priority_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property string $indigenous_declaration_signature
+ * @property array $indigenous_communities
  */
 
 class User extends Model implements Authenticatable
@@ -73,6 +74,8 @@ class User extends Model implements Authenticatable
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
+        'position_duration' => 'array',
+        'indigenous_communities' => 'array',
     ];
 
     public function pools(): HasMany
@@ -160,7 +163,7 @@ class User extends Model implements Authenticatable
             is_null($this->attributes['has_priority_entitlement']) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
-            is_null($this->attributes['would_accept_temporary']) or
+            empty($this->attributes['position_duration'])  or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status']) or
             $this->expectedGenericJobTitles->isEmpty()
@@ -189,7 +192,7 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('has_priority_entitlement');
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
-            $query->whereNotNull('would_accept_temporary');
+            $query->whereJsonLength('position_duration', '>', 0);
             $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
             $query->whereNotNull('armed_forces_status');
@@ -522,14 +525,20 @@ RAWSQL2;
         }
         return $query;
     }
-    public static function scopeWouldAcceptTemporary(Builder $query, ?bool $wouldAcceptTemporary): Builder
+
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
     {
-        if ($wouldAcceptTemporary) {
-            $query->where('would_accept_temporary', true);
+        if (empty($positionDuration)) {
+            return $query;
         }
+
+        $query->where(function ($query) use ($positionDuration) {
+            foreach ($positionDuration as $index => $duration) {
+                $query->orWhereJsonContains('position_duration', $duration);
+            }
+        });
         return $query;
     }
-
 
     public static function filterByEquity(Builder $query, ?array $equity): Builder
     {
@@ -553,12 +562,11 @@ RAWSQL2;
             array_push($equityVars, "is_visible_minority");
         };
 
-        // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
+        // 3 fields are booleans, one is a jsonb field, isIndigenous = LEGACY_IS_INDIGENOUS
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                    $query->where($equityVars[$index], true);
+                if ($equityInstance === "is_indigenous") {
+                    $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
@@ -628,5 +636,35 @@ RAWSQL2;
     {
         $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
+    }
+
+    /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
+    public function getWouldAcceptTemporaryAttribute() {
+        $positionDuration = $this->position_duration;
+
+        if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
+            return true;
+        }
+
+        if ($positionDuration && count($positionDuration) >= 1) {
+            return false;
+        }
+
+        return null; // catch all other cases, like null variable or empty array
+    }
+
+    /* accessor to maintain functionality of to be deprecated isIndigenous field */
+    public function getIsIndigenousAttribute() {
+        $indigenousCommunities = $this->indigenous_communities;
+
+        if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
+            return true;
+        }
+
+        if (gettype($indigenousCommunities) == "array") {
+            return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
+        }
+
+        return null; // if indigenousCommunities is null then so is isIndigenous
     }
 }

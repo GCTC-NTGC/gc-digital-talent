@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Pool;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -17,6 +18,12 @@ class PoolTest extends TestCase
   {
     parent::setUp();
     $this->bootClearsSchemaCache();
+
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
   }
 
   public function testPoolAdvertisementAccessor(): void

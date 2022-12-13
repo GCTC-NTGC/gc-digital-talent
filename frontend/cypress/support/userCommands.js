@@ -1,10 +1,13 @@
-import { CreateUserDocument, MeDocument } from "../../admin/src/js/api/generated"
+import {
+  CreateUserDocument,
+  MeDocument,
+} from "../../admin/src/js/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;
 }
 
-Cypress.Commands.add('createUser', (user) => {
+Cypress.Commands.add("createUser", (user) => {
   const defaultUser = {
     // required
     firstName: "Cypress",
@@ -42,46 +45,27 @@ Cypress.Commands.add('createUser', (user) => {
     acceptedOperationalRequirements: undefined,
     expectedSalary: undefined,
     expectedClassifications: [],
-    wouldAcceptTemporary: undefined,
-  }
-  cy.request({
-    method: 'POST',
-    url: '/graphql',
-    auth: {
-      bearer: window.localStorage.getItem('access_token'),
-    },
-    body: {
-      operationName: 'CreateUser',
-      query: getGqlString(CreateUserDocument),
-      variables: {
-        user: {
-          ...defaultUser,
-          ...user,
-        },
+    positionDuration: undefined,
+  };
+  cy.graphqlRequest({
+    operationName: "CreateUser",
+    query: getGqlString(CreateUserDocument),
+    variables: {
+      user: {
+        ...defaultUser,
+        ...user,
       },
     },
-  })
-  .then((resp) => {
-    if (resp.body.errors) throw new Error("Errors: " + JSON.stringify(resp.body.errors))
-    cy.wrap(resp.body.data.createUser);
-  });
-})
+  }).then((data) => cy.wrap(data.createUser));
+});
 
-Cypress.Commands.add('getMe', () => {
-  cy.request({
-    method: 'POST',
-    url: '/graphql',
-    auth: {
-      bearer: window.localStorage.getItem('access_token'),
-    },
-    body: {
-      operationName: 'me',
+Cypress.Commands.add("getMe", () => {
+  cy.graphqlRequest({
+      operationName: "me",
       query: getGqlString(MeDocument),
-      variables: { },
-    },
-  })
-  .then((resp) => {
-    if (resp.body.errors) throw new Error("Errors: " + JSON.stringify(resp.body.errors))
-    cy.wrap(resp.body.data.me);
+      variables: {},
+    }
+  ).then((data) => {
+    cy.wrap(data.me);
   });
 });

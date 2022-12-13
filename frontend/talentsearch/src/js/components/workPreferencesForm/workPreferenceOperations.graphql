@@ -1,7 +1,7 @@
 query getWorkPreferences {
   me {
     id
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isProfileComplete
   }
@@ -10,7 +10,7 @@ query getWorkPreferences {
 mutation UpdateWorkPreferences($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isProfileComplete
   }

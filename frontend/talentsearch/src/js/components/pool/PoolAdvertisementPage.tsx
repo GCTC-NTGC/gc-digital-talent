@@ -37,6 +37,7 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
+import SEO from "@common/components/SEO/SEO";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
@@ -267,6 +268,7 @@ export const PoolAdvertisementPoster = ({
 
   return (
     <>
+      <SEO title={fullTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -847,10 +849,6 @@ const PoolAdvertisementPage = () => {
     variables: { id: poolId || "" },
   });
 
-  if (error) {
-    return <PoolNotFound />;
-  }
-
   const isVisible = isAdvertisementVisible(
     auth?.loggedInUserRoles?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
@@ -858,7 +856,8 @@ const PoolAdvertisementPage = () => {
 
   // Attempt to find an application for this user+pool combination
   const application = data?.me?.poolCandidates?.find(
-    (candidate) => candidate?.pool.id === data.poolAdvertisement?.id,
+    (candidate) =>
+      candidate?.poolAdvertisement?.id === data.poolAdvertisement?.id,
   );
 
   return (

@@ -1,7 +1,6 @@
 import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import React, {
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -20,11 +19,16 @@ import {
   Operation,
   makeOperation,
 } from "urql";
-import { GraphQLErrorExtensions } from "graphql";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { toast } from "../Toast";
-import { tryFindMessageDescriptor } from "../../messages/apiMessages";
+
 import { AuthenticationContext } from "../Auth";
+import {
+  buildRateLimitErrorMessageNode,
+  buildValidationErrorMessageNode,
+  extractRateLimitErrorMessages,
+  extractValidationErrorMessages,
+} from "../../helpers/errorUtils";
 
 // generate nonce somewhere here?
 // const nonce = ...
@@ -84,70 +88,6 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   if (tokenIsKnownToBeExpired) return true;
 
   return false;
-};
-
-// this is what the validation error extension looks like from our GraphQL server
-type ValidationExtension = {
-  validation: { [key: string]: [string] };
-  category: string;
-};
-
-// type guard to ensure the error extension looks like our ValidationExtension type
-function isValidationExtension(
-  extension: GraphQLErrorExtensions,
-): extension is ValidationExtension {
-  return (
-    (extension as ValidationExtension) !== undefined &&
-    extension.category === "validation"
-  );
-}
-
-// Accepts a CombinedError object and finds the validation error messages
-const extractValidationErrorMessages = (combinedError: CombinedError) =>
-  combinedError.graphQLErrors
-    .filter((graphQLError) => isValidationExtension(graphQLError.extensions))
-    .flatMap((graphQLError) => {
-      const validationExtension =
-        graphQLError.extensions as ValidationExtension;
-      return Object.keys(validationExtension.validation).map(
-        // one key per validation rule like "user.sub" or "user.email"
-        (key) => validationExtension.validation[key],
-      );
-    })
-    // Each rule has an array for possibly multiple error messages
-    .flatMap((messageArrays) => messageArrays);
-
-// Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
-const buildValidationErrorMessageNode = (
-  errorMessages: Array<string>,
-  intl: IntlShape,
-): ReactNode => {
-  const localizedMessages = errorMessages.map((errorMessage) => {
-    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
-    if (localizedMessageDescriptor) {
-      return intl.formatMessage(localizedMessageDescriptor);
-    }
-    return errorMessage;
-  });
-
-  // if more than 1, toast a list
-  if (localizedMessages.length > 1) {
-    return (
-      <ul>
-        {localizedMessages.map((message) => (
-          <li key={message}>{message}</li>
-        ))}
-      </ul>
-    );
-  }
-
-  // if just 1, toast by itself
-  if (localizedMessages.length === 1) {
-    return <span>{localizedMessages[0]}</span>;
-  }
-
-  // no messages, no returned node
-  return null;
 };
 
 const ClientProvider: React.FC<{ client?: Client }> = ({
@@ -222,6 +162,17 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
                 buildValidationErrorMessageNode(validationErrorMessages, intl);
               if (validationErrorMessageNode)
                 toast.error(validationErrorMessageNode);
+
+              const rateLimitErrorMessages =
+                extractRateLimitErrorMessages(error);
+              const rateLimitErrorMessageNode = buildRateLimitErrorMessageNode(
+                rateLimitErrorMessages,
+                intl,
+              );
+              if (rateLimitErrorMessageNode)
+                toast.error(rateLimitErrorMessageNode, {
+                  toastId: "rate-limit", // limits toasts for rate limit to one.
+                });
 
               // eslint-disable-next-line no-console
               console.error(error);

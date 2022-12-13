@@ -69,9 +69,9 @@ final class CountPoolCandidatesByPool
                 User::filterByLocationPreferences($userQuery, $filters['locationPreferences']);
             }
 
-            // wouldAcceptTemporary
-            if (array_key_exists('wouldAcceptTemporary', $filters)) {
-                User::scopeWouldAcceptTemporary($userQuery, $filters['wouldAcceptTemporary']);
+            // positionDuration
+            if (array_key_exists('positionDuration', $filters)) {
+                User::scopePositionDuration($userQuery, $filters['positionDuration']);
             }
 
             // expectedClassifications

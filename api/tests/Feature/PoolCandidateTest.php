@@ -389,7 +389,7 @@ class PoolCandidateTest extends TestCase
      PoolCandidate::factory()->count(5)->create([
       'user_id' => User::factory([
         'has_disability' => false,
-        'is_indigenous' => false,
+        'indigenous_communities' => null,
         'is_visible_minority' => false,
         'is_woman' => false,
       ]),
@@ -401,7 +401,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
         'has_disability' => true,
-        'is_indigenous' => false,
+        'indigenous_communities' => null,
         'is_visible_minority' => false,
         'is_woman' => false,
       ]),
@@ -411,7 +411,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
         'has_disability' => false,
-        'is_indigenous' => true,
+        'indigenous_communities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
         'is_visible_minority' => false,
         'is_woman' => false,
       ]),
@@ -421,7 +421,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
         'has_disability' => false,
-        'is_indigenous' => false,
+        'indigenous_communities' => null,
         'is_visible_minority' => true,
         'is_woman' => false,
       ]),
@@ -431,7 +431,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
         'has_disability' => false,
-        'is_indigenous' => false,
+        'indigenous_communities' => null,
         'is_visible_minority' => false,
         'is_woman' => true,
       ]),
@@ -452,7 +452,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with isIndigenous filter will return correct candidate count
+    // Assert query with indigenous communities filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -649,7 +649,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'isIndigenous' => null,
+          'isIndigenous' => false,
           'isWoman' => null,
         ],
       ]
@@ -1325,7 +1325,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -1359,7 +1359,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 5 is NEW_APPLICATION as it was set
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -1376,7 +1376,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 6 is APPLICATION_REVIEW as it was set
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }

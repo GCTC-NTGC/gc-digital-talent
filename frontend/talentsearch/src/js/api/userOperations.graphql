@@ -53,6 +53,10 @@ query getMe {
     isWoman
     hasDisability
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     jobLookingStatus
     hasDiploma
@@ -69,7 +73,7 @@ query getMe {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     cmoAssets {
       id
       name {

@@ -1,5 +1,5 @@
-query getPool($id: ID!) {
-  pool(id: $id) {
+query getPool($id: UUID!) {
+  poolAdvertisement (id: $id) {
     id
     name {
       en
@@ -14,12 +14,12 @@ query getPool($id: ID!) {
   }
 }
 
-query getPoolAdvertisement($id: ID!) {
+query getPoolAdvertisement($id: UUID!) {
   me {
     id
     poolCandidates {
       id
-      pool {
+      poolAdvertisement {
         id
       }
       submittedAt

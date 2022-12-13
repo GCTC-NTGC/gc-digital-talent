@@ -58,7 +58,7 @@ class ApplicantFilterTest extends TestCase
             'languageAbility' => $filter->language_ability,
             'operationalRequirements' => $filter->operational_requirements,
             'locationPreferences' => $filter->location_preferences,
-            'wouldAcceptTemporary' => $filter->would_accept_temporary,
+            'positionDuration' => $filter->position_duration,
             'expectedClassifications' => $filter->classifications->map(function ($classification) {
                 return [
                     'group' => $classification->group,
@@ -111,7 +111,7 @@ class ApplicantFilterTest extends TestCase
                     languageAbility
                     operationalRequirements
                     locationPreferences
-                    wouldAcceptTemporary
+                    positionDuration
                 }
             }
         '
@@ -131,7 +131,7 @@ class ApplicantFilterTest extends TestCase
                         'languageAbility' => $filters[0]->language_ability,
                         'operationalRequirements' => $filters[0]->operational_requirements,
                         'locationPreferences' => $filters[0]->location_preferences,
-                        'wouldAcceptTemporary' => $filters[0]->would_accept_temporary,
+                        'positionDuration' => $filters[0]->position_duration,
                     ],
                     [
                         'id' => $filters[1]->id,
@@ -145,7 +145,7 @@ class ApplicantFilterTest extends TestCase
                         'languageAbility' => $filters[1]->language_ability,
                         'operationalRequirements' => $filters[1]->operational_requirements,
                         'locationPreferences' => $filters[1]->location_preferences,
-                        'wouldAcceptTemporary' => $filters[1]->would_accept_temporary,
+                        'positionDuration' => $filters[1]->position_duration,
                     ],
                 ],
             ],
@@ -177,7 +177,7 @@ class ApplicantFilterTest extends TestCase
                     languageAbility
                     operationalRequirements
                     locationPreferences
-                    wouldAcceptTemporary
+                    positionDuration
                 }
             }
         ',
@@ -199,7 +199,7 @@ class ApplicantFilterTest extends TestCase
                     'languageAbility' => $filters[1]->language_ability,
                     'operationalRequirements' => $filters[1]->operational_requirements,
                     'locationPreferences' => $filters[1]->location_preferences,
-                    'wouldAcceptTemporary' => $filters[1]->would_accept_temporary,
+                    'positionDuration' => $filters[1]->position_duration,
                 ],
             ],
         ]);
@@ -403,7 +403,7 @@ class ApplicantFilterTest extends TestCase
                 'is_indigenous' => $candidate->user->is_indigenous,
                 'is_visible_minority' => $candidate->user->is_visible_minority,
                 'is_woman' => $candidate->user->is_woman,
-                'would_accept_temporary' => $candidate->user->would_accept_temporary,
+                'position_duration' => $candidate->user->position_duration,
                 'language_ability' => $candidate->user->language_ability,
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->operational_requirements,
@@ -477,7 +477,7 @@ class ApplicantFilterTest extends TestCase
                         }
                         languageAbility
                         operationalRequirements
-                        wouldAcceptTemporary
+                        positionDuration
                         expectedClassifications {
                             group
                             level

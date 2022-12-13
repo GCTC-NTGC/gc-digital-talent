@@ -3,24 +3,28 @@ import { useIntl } from "react-intl";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
+import SEO from "@common/components/SEO/SEO";
 
 import DashboardContentContainer from "../DashboardContentContainer";
 import { PoolTableApi } from "./PoolTable";
 
 export const PoolPage: React.FC = () => {
   const intl = useIntl();
-  return (
-    <DashboardContentContainer>
-      <PageHeader icon={Squares2X2Icon}>
-        {intl.formatMessage({
-          defaultMessage: "Pools",
-          id: "qL43Gw",
-          description: "Heading displayed above the Pool Table component.",
-        })}
-      </PageHeader>
 
-      <PoolTableApi />
-    </DashboardContentContainer>
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Pools",
+    id: "SnytBx",
+    description: "Page title for the pools index page",
+  });
+
+  return (
+    <>
+      <SEO title={pageTitle} />
+      <DashboardContentContainer>
+        <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
+        <PoolTableApi />
+      </DashboardContentContainer>
+    </>
   );
 };
 
