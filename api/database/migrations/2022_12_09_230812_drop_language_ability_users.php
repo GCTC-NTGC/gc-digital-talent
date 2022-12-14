@@ -26,26 +26,10 @@ return new class extends Migration
                 if ($user->looking_for_english == null) {
                     // play it safe, ENGLISH and BILINGUAL map to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH | $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_english = true
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_english' => true]);
                     }
                     else {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_english = false
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_english' => false]);
                     }
                 }
 
@@ -53,26 +37,10 @@ return new class extends Migration
                 if ($user->looking_for_french == null) {
                     // play it safe, FRENCH and BILINGUAL map to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH | $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_french = true
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_french' => true]);
                     }
                     else {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_french = false
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_french' => false]);
                     }
                 }
 
@@ -80,26 +48,10 @@ return new class extends Migration
                 if ($user->looking_for_bilingual == null) {
                     // only BILINGUAL maps to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_bilingual = true
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_bilingual' => true]);
                     }
                     else {
-                        DB::statement(
-                            <<<SQL
-                                UPDATE users
-                                SET looking_for_bilingual = false
-                                WHERE id = :userId
-                            SQL, [
-                                'userId' => $userId,
-                            ]
-                        );
+                        DB::table('users')->where('id', $userId)->update(['looking_for_bilingual' => false]);
                     }
                 }
             }
@@ -131,45 +83,18 @@ return new class extends Migration
 
             // only english case
             if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
-                DB::statement(
-                    <<<SQL
-                        UPDATE users
-                        SET language_ability = :english
-                        WHERE id = :userId
-                    SQL, [
-                        'english' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
-                        'userId' => $userId,
-                    ]
-                );
+                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH]);
             }
 
             // only french case
             if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
-                DB::statement(
-                    <<<SQL
-                        UPDATE users
-                        SET language_ability = :french
-                        WHERE id = :userId
-                    SQL, [
-                        'french' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
-                        'userId' => $userId,
-                    ]
-                );
+                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH]);
             }
 
             // bilingual case just depends on the one field being true
             // or ignore the field if english and french are both true
             if (($lookingForBilingual) | ($lookingForEnglish && $lookingForFrench)) {
-                DB::statement(
-                    <<<SQL
-                        UPDATE users
-                        SET language_ability = :bilingual
-                        WHERE id = :userId
-                    SQL, [
-                        'bilingual' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
-                        'userId' => $userId,
-                    ]
-                );
+                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL]);
             }
 
             // in all other cases the field stays null, so cases where all fields tested are false/null for instance
