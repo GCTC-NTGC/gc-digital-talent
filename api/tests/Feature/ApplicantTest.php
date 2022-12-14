@@ -385,7 +385,7 @@ class ApplicantTest extends TestCase
                 'min_salary' => 50000,
                 'max_salary' => 69000,
             ]);
-            $candidate->expectedClassifications()->sync($classificationLvl1);
+            $candidate->user->expectedClassifications()->sync($classificationLvl1);
         })->create();
 
         PoolCandidate::factory()->count(4)->sequence(fn () => [
@@ -397,7 +397,7 @@ class ApplicantTest extends TestCase
                 'expected_salary' => ['_60_69K', '_80_89K'],
             ])
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->expectedClassifications()->delete();
+            $candidate->user->expectedClassifications()->delete();
         })->create();
 
         PoolCandidate::factory()->count(11)->sequence(fn () => [
@@ -409,7 +409,7 @@ class ApplicantTest extends TestCase
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ])
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->expectedClassifications()->delete();
+            $candidate->user->expectedClassifications()->delete();
         })->create();
 
         // Assert query with just pool filter

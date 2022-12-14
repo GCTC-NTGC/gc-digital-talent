@@ -31,7 +31,9 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
-      'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+      'user_id' => User::factory([
+        'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+      ]),
       'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure availability doesn't effect test
     ]);
@@ -97,15 +99,21 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     CmoAsset::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,]);
+    PoolCandidate::factory()->count(5)->create([
+      'expiry_date' => config('constants.far_future_date'),
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+    ]);
 
     // Create new cmoAsset and attach to two new pool candidates.
     $cmoAsset = CmoAsset::factory()->create([
       'key' => 'new_cmo_asset'
     ]);
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,])->each(function($candidate) use ($cmoAsset) {
+    PoolCandidate::factory()->count(2)->create([
+      'expiry_date' => config('constants.far_future_date'),
+       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+       ])->each(function($candidate) use ($cmoAsset) {
 
-      $candidate->cmoAssets()->save($cmoAsset);
+      $candidate->user->cmoAssets()->save($cmoAsset);
     });
 
     // Assert query with no cmoAssets filter will return all candidates
@@ -866,7 +874,9 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
-      'expected_salary' => [],
+      'user_id' => User::factory([
+        'expected_salary' => [],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -881,7 +891,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidates that are in the expected salary range.
     $poolCandidate1 = PoolCandidate::factory()->create([
-      'expected_salary' => ['_50_59K', '_70_79K'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_50_59K', '_70_79K'],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -890,7 +902,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidates that overlap the expected salary range.
     $poolCandidate2 = PoolCandidate::factory()->create([
-      'expected_salary' => ['_60_69K', '_80_89K'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_60_69K', '_80_89K'],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -898,7 +912,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
-      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -967,7 +983,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool with the desired classification
     $poolCandidate1 = PoolCandidate::factory()->create([
-      'expected_salary' => [],
+      'user_id' => User::factory([
+        'expected_salary' => [],
+      ]),
       'pool_id' => $myPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -977,7 +995,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level).
     $poolCandidate2 = PoolCandidate::factory()->create([
-      'expected_salary' => ['_60_69K'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_60_69K'],
+      ]),
       'pool_id' => $myPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -986,7 +1006,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).
     $poolCandidate3 = PoolCandidate::factory()->create([
-      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      ]),
       'pool_id' => $myPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -997,7 +1019,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool with the desired classification WRONG POOL
     $poolCandidate1WrongPool = PoolCandidate::factory()->create([
-      'expected_salary' => [],
+      'user_id' => User::factory([
+        'expected_salary' => [],
+      ]),
       'pool_id' => $otherPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -1007,7 +1031,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool that overlaps the expected salary range. WRONG POOL
     $poolCandidate2WrongPool = PoolCandidate::factory()->create([
-      'expected_salary' => ['_60_69K'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_60_69K'],
+      ]),
       'pool_id' => $otherPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -1016,7 +1042,9 @@ class PoolCandidateTest extends TestCase
 
     // Attach new candidate in the pool that is over the expected salary range.  WRONG POOL
     $poolCandidate3WrongPool = PoolCandidate::factory()->create([
-      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'user_id' => User::factory([
+        'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      ]),
       'pool_id' => $otherPool->id,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,

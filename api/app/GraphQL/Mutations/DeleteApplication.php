@@ -23,11 +23,6 @@ final class DeleteApplication
             throw new ValidationException($validator->errors()->first(), $validator);
         }
 
-        // clear connected tables
-        $application->cmoAssets()->sync([]);
-        $application->expectedClassifications()->sync([]);
-        $application->save();
-
         // execute hard delete and verify model was deleted by checking again by id returns null
         $application->forceDelete();
         $application = PoolCandidate::find($args['id']);
