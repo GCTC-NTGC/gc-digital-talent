@@ -11,6 +11,7 @@ import { getMissingSkills } from "../../helpers/skillUtils";
 import { getLocale } from "../../helpers/localize";
 import type { Maybe, Skill } from "../../api/generated";
 import { PillColor, PillMode } from "../Pill";
+import Heading, { HeadingLevel } from "../Heading/Heading";
 
 const MissingSkillsBlock = ({
   pillType,
@@ -18,6 +19,7 @@ const MissingSkillsBlock = ({
   blurb,
   icon,
   missingSkills,
+  headingLevel = "h2",
   ...rest
 }: {
   pillType: { color: PillColor; mode: PillMode };
@@ -25,6 +27,7 @@ const MissingSkillsBlock = ({
   blurb: React.ReactNode;
   icon: React.ReactNode;
   missingSkills: Skill[];
+  headingLevel?: HeadingLevel;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -37,9 +40,13 @@ const MissingSkillsBlock = ({
     >
       <span data-h2-margin="base(0, x1, 0, 0)">{icon}</span>
       <div>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          <strong>{title}</strong>
-        </p>
+        <Heading
+          level={headingLevel}
+          size="h6"
+          data-h2-margin="base(0, 0, x.5, 0)"
+        >
+          {title}
+        </Heading>
         <p data-h2-margin="base(0, 0, x.25, 0)">{blurb}</p>
         <Chips>
           {missingSkills.map((skill: Skill) => (
@@ -61,12 +68,14 @@ export interface MissingSkillsProps {
   requiredSkills?: Skill[];
   optionalSkills?: Skill[];
   addedSkills?: Skill[];
+  headingLevel?: HeadingLevel;
 }
 
 const MissingSkills = ({
   requiredSkills,
   optionalSkills,
   addedSkills,
+  headingLevel = "h2",
 }: MissingSkillsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -96,6 +105,7 @@ const MissingSkills = ({
           data-h2-background-color="base(light.dt-error.05)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "error", mode: "outline" }}
+          headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required application skills",
             id: "B89Ihf",
@@ -117,6 +127,7 @@ const MissingSkills = ({
         <MissingSkillsBlock
           data-h2-background-color="base(light.dt-primary.10)"
           pillType={{ color: "primary", mode: "outline" }}
+          headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Nice to have skills",
             id: "CJy0kS",
