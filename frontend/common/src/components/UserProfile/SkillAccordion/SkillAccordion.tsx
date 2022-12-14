@@ -302,6 +302,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   return (
     <Accordion.Item value={skill.id}>
       <Accordion.Trigger
+        headerAs="h3"
         context={
           experiences?.length === 1
             ? intl.formatMessage({

@@ -69,6 +69,7 @@ const CommunityAccordion = ({ editUrl, ...rest }: CommunityAccordionProps) => {
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
+        headerAs="h3"
         subtitle={getDateRange({ endDate, startDate, intl })}
         Icon={UserGroupIcon}
         context={

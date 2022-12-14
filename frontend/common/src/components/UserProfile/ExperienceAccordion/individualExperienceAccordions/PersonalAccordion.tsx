@@ -58,6 +58,7 @@ const PersonalAccordion = ({ editUrl, ...rest }: PersonalAccordionProps) => {
     <Accordion.Item value={id}>
       <Accordion.Trigger
         subtitle={getDateRange({ endDate, startDate, intl })}
+        headerAs="h3"
         context={
           skills?.length === 1
             ? intl.formatMessage({

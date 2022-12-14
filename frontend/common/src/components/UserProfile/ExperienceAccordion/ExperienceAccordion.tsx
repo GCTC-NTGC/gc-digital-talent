@@ -83,7 +83,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   // not one of the 5 experience types
   return (
     <Accordion.Item value="none">
-      <Accordion.Trigger>
+      <Accordion.Trigger headerAs="h3">
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",

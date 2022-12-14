@@ -93,6 +93,7 @@ const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
           startDate: awardedDate,
           intl,
         })}
+        headerAs="h3"
         context={
           skills?.length === 1
             ? intl.formatMessage({
