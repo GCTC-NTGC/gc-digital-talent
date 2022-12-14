@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
 import {
   ExclamationTriangleIcon,
   LightBulbIcon,
 } from "@heroicons/react/24/solid";
+
 import Chip, { Chips } from "../Chip";
 
 import {
@@ -14,7 +14,7 @@ import {
 import { getLocale } from "../../helpers/localize";
 import type { Maybe, Skill } from "../../api/generated";
 import { PillColor, PillMode } from "../Pill";
-import { HeadingLevel } from "../Heading";
+import Heading, { HeadingLevel } from "../Heading";
 
 interface MissingSkillsBlockProps {
   pillType: { color: PillColor; mode: PillMode };
