@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
+use App\Models\SkillFamily;
 use Database\Helpers\ApiEnums;
 
 final class SubmitApplication
@@ -41,9 +42,13 @@ final class SubmitApplication
             throw ValidationException::withMessages(['profile is not complete']);
         }
 
-        // grab the pool the application belongs to and then grab the essential skills off the pool in the form of an array of Ids
+        // grab the pool the application belongs to and then grab the (technical) essential skills off the pool in the form of an array of Ids
         $pool = $application->pool;
-        $poolEssentialSkills = $pool->essentialSkills()->get()->pluck('id')->toArray();
+        $poolEssentialSkills = $pool
+            ->essentialSkills()
+            ->whereHas('families', function($query) {
+                SkillFamily::scopeTechnical($query);
+            })->get()->pluck('id')->toArray();
 
         // grab the AWARD experiences attached to the user, formed into an array of ids, then form an array of skills that are attached to them
         $candidateExperiencesAward = $user->awardExperiences()->pluck('id')->toArray();
