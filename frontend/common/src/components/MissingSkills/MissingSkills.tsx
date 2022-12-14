@@ -190,16 +190,16 @@ const MissingSkills = ({
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required transferable skills",
-            id: "4+Q/Zt",
+            id: "obD2sw",
             description:
-              "Title that appears when a user is missing required skills on their profile.",
+              "Title that appears in transferable skills section on their profile.",
           })}
           skillsBlurb={intl.formatMessage({
             defaultMessage:
               "These skills will be assessed after you submit your application:",
-            id: "Y7/6u6",
+            id: "LZ0Poh",
             description:
-              "Text that appears when a user is missing transferable skills on their profile.",
+              "Text that appears in transferable skills section on their profile.",
           })}
           detailsBlurb="" // No details blurb needed for transferable skills.
           icon={<InformationCircleIcon style={{ width: "1.2rem" }} />}

@@ -1927,5 +1927,13 @@
   "4l+gBD": {
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is being done."
+  },
+  "obD2sw": {
+    "defaultMessage": "Compétences transférables requises",
+    "description": "Title that appears in transferable skills section on their profile."
+  },
+  "LZ0Poh": {
+    "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
+    "description": "Text that appears in transferable skills section on their profile."
   }
 }
