@@ -23,7 +23,7 @@ return new class extends Migration
             if ($languageAbility !== null) {
 
                 // only override looking_for_english if it is null
-                if ($user->looking_for_english == null) {
+                if ($user->looking_for_english === null) {
                     // play it safe, ENGLISH and BILINGUAL map to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH | $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
                         DB::table('users')->where('id', $userId)->update(['looking_for_english' => true]);
@@ -34,7 +34,7 @@ return new class extends Migration
                 }
 
                 // only override looking_for_french if it is null
-                if ($user->looking_for_french == null) {
+                if ($user->looking_for_french === null) {
                     // play it safe, FRENCH and BILINGUAL map to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH | $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
                         DB::table('users')->where('id', $userId)->update(['looking_for_french' => true]);
@@ -45,7 +45,7 @@ return new class extends Migration
                 }
 
                 // only override looking_for_bilingual if it is null
-                if ($user->looking_for_bilingual == null) {
+                if ($user->looking_for_bilingual === null) {
                     // only BILINGUAL maps to true
                     if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
                         DB::table('users')->where('id', $userId)->update(['looking_for_bilingual' => true]);
