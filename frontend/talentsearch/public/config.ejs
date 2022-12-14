@@ -17,6 +17,10 @@ const data = new Map([
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],
+
+    // Logging levels
+    ["LOG_CONSOLE_LEVEL", filterUnusable("$LOG_CONSOLE_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_CONSOLE_LEVEL %>"],
+    ["LOG_COLORED_CONSOLE_LEVEL", filterUnusable("$LOG_COLORED_CONSOLE_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_COLORED_CONSOLE_LEVEL %>"],
 ]);
 
 window.__SERVER_CONFIG__ = data;
