@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,5 +41,14 @@ class SkillFamily extends Model
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class);
+    }
+
+
+    public static function scopeTechnical (Builder $query) {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
+    }
+
+    public static function scopeBehavioural (Builder $query) {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
     }
 }

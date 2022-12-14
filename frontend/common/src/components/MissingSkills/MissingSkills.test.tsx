@@ -4,11 +4,11 @@
 
 import React from "react";
 import { axeTest, render, within } from "../../helpers/testUtils";
-import { fakeSkills } from "../../fakeData";
+import { fakeSkillFamilies, fakeSkills } from "../../fakeData";
 
 import MissingSkills, { type MissingSkillsProps } from "./MissingSkills";
 
-const skills = fakeSkills();
+const skills = fakeSkills(10, fakeSkillFamilies(2));
 
 const fakeRequiredSkills = skills.splice(0, skills.length / 2);
 const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);

@@ -2,12 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import {
   ExclamationTriangleIcon,
+  InformationCircleIcon,
   LightBulbIcon,
 } from "@heroicons/react/24/solid";
 
 import Chip, { Chips } from "../Chip";
-
 import {
+  categorizeSkill,
   differentiateMissingSkills,
   getMissingSkills,
 } from "../../helpers/skillUtils";
@@ -130,12 +131,22 @@ const MissingSkills = ({
     return 0;
   };
 
+  const categorizedRequiredSkills = categorizeSkill(requiredSkills);
+  const categorizedOptionalSkills = categorizeSkill(optionalSkills);
+
   const missingRequiredSkills = getMissingSkills(
-    requiredSkills || [],
+    categorizedRequiredSkills.TECHNICAL || [],
+    addedSkills,
+  ).sort(byLocalizedName);
+  const missingTransferableSkills = getMissingSkills(
+    [
+      ...(categorizedRequiredSkills.BEHAVIOURAL || []),
+      ...(categorizedOptionalSkills.BEHAVIOURAL || []),
+    ] || [],
     addedSkills,
   ).sort(byLocalizedName);
   const missingOptionalSkills = getMissingSkills(
-    optionalSkills || [],
+    categorizedOptionalSkills.TECHNICAL || [],
     addedSkills,
   ).sort(byLocalizedName);
 
@@ -169,6 +180,30 @@ const MissingSkills = ({
           icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
           missingSkills={missingRequiredSkills}
           addedSkills={addedSkills}
+        />
+      ) : null}
+      {missingTransferableSkills.length ? (
+        <MissingSkillsBlock
+          data-h2-background-color="base(light.dt-primary.10)"
+          data-h2-margin="base(0, 0, x.5, 0)"
+          pillType={{ color: "primary", mode: "outline" }}
+          headingLevel={headingLevel}
+          title={intl.formatMessage({
+            defaultMessage: "Required transferable skills",
+            id: "obD2sw",
+            description:
+              "Title that appears in transferable skills section on their profile.",
+          })}
+          skillsBlurb={intl.formatMessage({
+            defaultMessage:
+              "These skills will be assessed after you submit your application:",
+            id: "LZ0Poh",
+            description:
+              "Text that appears in transferable skills section on their profile.",
+          })}
+          detailsBlurb="" // No details blurb needed for transferable skills.
+          icon={<InformationCircleIcon style={{ width: "1.2rem" }} />}
+          missingSkills={missingTransferableSkills}
         />
       ) : null}
       {missingOptionalSkills.length ? (

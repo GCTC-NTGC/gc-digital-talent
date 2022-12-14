@@ -430,4 +430,18 @@ class ApiEnums
             self::INDIGENOUS_LEGACY_IS_INDIGENOUS,
         ];
     }
+
+    /**
+     * Skill Category
+     */
+    const SKILL_CATEGORY_TECHNICAL = 'TECHNICAL';
+    const SKILL_CATEGORY_BEHAVIOURAL = 'BEHAVIOURAL';
+
+    public static function skillCategories(): array
+    {
+        return [
+            self::SKILL_CATEGORY_TECHNICAL,
+            self::SKILL_CATEGORY_BEHAVIOURAL,
+        ];
+    }
 }
