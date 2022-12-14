@@ -9,6 +9,7 @@ import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   GetPoolsQuery,
   Maybe,
@@ -148,6 +149,22 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
             d.name ? d.name[locale] : "",
           ), // callback extracted to separate function to stabilize memoized component
       },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Created",
+          id: "zAqJMe",
+          description: "Title displayed on the Pool table Date Created column",
+        }),
+        accessor: "createdDate",
+        Cell: ({ value }) =>
+          value
+            ? formatDate({
+                date: parseDateTimeUtc(value),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+      },
     ],
     [editUrlRoot, intl, paths, locale],
   );
@@ -158,7 +175,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
     <Table
       data={data}
       columns={columns}
-      hiddenCols={["id", "description"]}
+      hiddenCols={["id", "description", "createdDate"]}
       search={false}
       addBtn={{
         path: paths.poolCreate(),
@@ -168,6 +185,12 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Heading displayed above the Create Pool form.",
         }),
       }}
+      sortBy={[
+        {
+          id: "createdDate",
+          desc: true,
+        },
+      ]}
     />
   );
 };
