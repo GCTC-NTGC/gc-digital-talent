@@ -17,11 +17,17 @@ import { PillColor, PillMode } from "../Pill";
 
 interface MissingSkillsBlockProps {
   pillType: { color: PillColor; mode: PillMode };
+  /** Title for the block */
   title: React.ReactNode;
+  /** Message displayed before skills that are missing from application */
   skillsBlurb: React.ReactNode;
+  /** Message displayed before skills that are present but missing details */
   detailsBlurb: React.ReactNode;
+  /** Icon displayed next to the title */
   icon: React.ReactNode;
+  /** Skills missing from the application */
   missingSkills: Skill[];
+  /** Skills the user as already added */
   addedSkills?: Skill[];
 }
 
@@ -38,6 +44,7 @@ const MissingSkillsBlock = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  /** Determine which skills are missing vs present but missing details */
   const [skills, details] = differentiateMissingSkills(
     missingSkills,
     addedSkills,
