@@ -265,6 +265,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         <ExperienceSection
           experiences={experiences}
           experienceEditPaths={experienceEditPaths}
+          headingLevel="h2"
         />
       )}
       <ProfileFormFooter

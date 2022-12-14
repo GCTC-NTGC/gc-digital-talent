@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { HeadingLevel } from "../../Heading";
 import { getLocale } from "../../../helpers/localize";
 import Accordion from "../../Accordion";
 import {
@@ -29,10 +30,12 @@ import {
 
 export interface SkillAccordionProps {
   skill: Skill;
+  headingLevel?: HeadingLevel;
 }
 
 const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   skill,
+  headingLevel = "h2",
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -302,6 +305,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   return (
     <Accordion.Item value={skill.id}>
       <Accordion.Trigger
+        headerAs={headingLevel}
         context={
           experiences?.length === 1
             ? intl.formatMessage({
