@@ -1907,5 +1907,33 @@
   "1YuZjR": {
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "FckGRB": {
+    "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "w6jDaJ": {
+    "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
+    "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "b3ar1X": {
+    "defaultMessage": "Rétablir {label}",
+    "description": "Button text to reset the combobox input"
+  },
+  "IRCKBP": {
+    "defaultMessage": "Aucun résultat n’a été trouvé.",
+    "description": "Message displayed when combobox has no options available"
+  },
+  "4l+gBD": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is being done."
+  },
+  "obD2sw": {
+    "defaultMessage": "Compétences transférables requises",
+    "description": "Title that appears in transferable skills section on their profile."
+  },
+  "LZ0Poh": {
+    "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
+    "description": "Text that appears in transferable skills section on their profile."
   }
 }

@@ -143,4 +143,36 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
       });
 };
 
+/**
+ * Differentiate Missing Skills
+ *
+ * Determines if a skill is missing or present but
+ * simply missing details
+ *
+ * @param missingSkills Skill[] Array of skills that are missing from the application
+ * @param addedSkills Skill[] Array of skills added to a users profile
+ * @returns [skills: Skill[], details: Skill[]] Tuple where first index is the skills
+ *          That are completely missing and second index are the skills that are present
+ *          but missing details
+ */
+export const differentiateMissingSkills = (
+  missingSkills: Skill[],
+  addedSkills?: Skill[],
+) => {
+  const skills: Skill[] = [];
+  const details: Skill[] = [];
+
+  missingSkills.forEach((skill) => {
+    const addedSkill = addedSkills?.find((added) => added.id === skill.id);
+
+    if (addedSkill && !addedSkill.experienceSkillRecord?.details) {
+      details.push(skill);
+    } else {
+      skills.push(skill);
+    }
+  });
+
+  return [skills, details];
+};
+
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

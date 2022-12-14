@@ -85,22 +85,6 @@ const PoolCandidatePage = React.lazy(() =>
       ),
   ),
 );
-const CreatePoolCandidate = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreatePoolCandidate" */ "./poolCandidate/CreatePoolCandidate"
-      ),
-  ),
-);
-const UpdatePoolCandidate = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdatePoolCandidate" */ "./poolCandidate/UpdatePoolCandidate"
-      ),
-  ),
-);
 const ViewPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -338,14 +322,6 @@ const router = createBrowserRouter([
                         ),
                       },
                       {
-                        path: "create",
-                        element: (
-                          <RequireAuth roles={[Role.Admin]}>
-                            <CreatePoolCandidate />
-                          </RequireAuth>
-                        ),
-                      },
-                      {
                         path: ":poolCandidateId",
                         children: [
                           {
@@ -353,14 +329,6 @@ const router = createBrowserRouter([
                             element: (
                               <RequireAuth roles={[Role.Admin]}>
                                 <ViewPoolCandidatePage />
-                              </RequireAuth>
-                            ),
-                          },
-                          {
-                            path: "edit",
-                            element: (
-                              <RequireAuth roles={[Role.Admin]}>
-                                <UpdatePoolCandidate />
                               </RequireAuth>
                             ),
                           },

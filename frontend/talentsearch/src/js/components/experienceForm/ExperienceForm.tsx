@@ -15,6 +15,8 @@ import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { categorizeSkill } from "@common/helpers/skillUtils";
+import { SkillCategory } from "@common/api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
@@ -474,7 +476,11 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           }
           experience={experience as ExperienceQueryData}
           experienceType={experienceType || "personal"}
-          skills={skillsData.skills as Skill[]}
+          skills={
+            categorizeSkill(skillsData.skills as Skill[])[
+              SkillCategory.Technical
+            ] ?? []
+          } // Only grab technical skills (hard skills).
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
           cacheKey={cacheKey}

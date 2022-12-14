@@ -18,7 +18,7 @@ import SEO from "@common/components/SEO/SEO";
 import TableOfContents from "@common/components/TableOfContents";
 import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
-import { getMissingSkills } from "@common/helpers/skillUtils";
+import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -27,6 +27,7 @@ import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWra
 import {
   PoolAdvertisement,
   Scalars,
+  SkillCategory,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -400,11 +401,14 @@ const SignAndSubmitPage = () => {
   const isProfileComplete = data?.poolCandidate?.user.isProfileComplete;
   const experiences = data?.poolCandidate?.user.experiences?.filter(notEmpty);
   const hasExperiences = notEmpty(experiences);
+  const technicalRequiredSkills = categorizeSkill(
+    data?.poolCandidate?.poolAdvertisement?.essentialSkills,
+  )[SkillCategory.Technical];
 
   const isApplicationComplete =
     isProfileComplete === true &&
     getMissingSkills(
-      data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
+      technicalRequiredSkills || [],
       hasExperiences
         ? flattenExperienceSkills(experiences).filter(notEmpty)
         : [],
