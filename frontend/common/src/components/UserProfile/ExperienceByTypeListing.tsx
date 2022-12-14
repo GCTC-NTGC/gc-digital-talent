@@ -20,13 +20,21 @@ import {
 } from "../../types/ExperienceUtils";
 import { AwardExperience, Experience } from "../../api/generated";
 import Accordion from "../Accordion";
+import { HeadingLevel } from "../Heading";
 
 const ExperienceByType: React.FunctionComponent<{
   title: string;
+  headingLevel?: HeadingLevel;
   icon: React.ReactNode;
   experiences: Experience[];
   experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
-}> = ({ title, icon, experiences, experienceEditPaths }) => {
+}> = ({
+  title,
+  headingLevel = "h2",
+  icon,
+  experiences,
+  experienceEditPaths,
+}) => {
   return (
     <div className="experience-category">
       <div
@@ -44,6 +52,7 @@ const ExperienceByType: React.FunctionComponent<{
               key={experience.id}
               experience={experience}
               editPaths={experienceEditPaths}
+              headingLevel={headingLevel}
             />
           ))}
         </Accordion.Root>
@@ -53,12 +62,13 @@ const ExperienceByType: React.FunctionComponent<{
 };
 export interface ExperienceSectionProps {
   experiences?: Experience[];
+  headingLevel?: HeadingLevel;
   editPaths?: ExperiencePaths;
 }
 
 const ExperienceByTypeListing: React.FunctionComponent<
   ExperienceSectionProps
-> = ({ experiences, editPaths }) => {
+> = ({ experiences, editPaths, headingLevel = "h2" }) => {
   const intl = useIntl();
 
   const awardExperiences =
@@ -93,6 +103,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
               "Heading for personal experiences in experience by type listing",
           })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
+          headingLevel={headingLevel}
           experiences={personalExperiences}
           experienceEditPaths={editPaths}
         />
@@ -106,6 +117,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
               description:
                 "Heading for community experiences in experience by type listing",
             })}
+            headingLevel={headingLevel}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             experiences={communityExperiences}
             experienceEditPaths={editPaths}
@@ -121,6 +133,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
               description:
                 "Heading for personal experiences in experience by type listing",
             })}
+            headingLevel={headingLevel}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             experiences={workExperiences}
             experienceEditPaths={editPaths}
@@ -136,6 +149,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
               description:
                 "Heading for education experiences in experience by type listing",
             })}
+            headingLevel={headingLevel}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             experiences={educationExperiences}
             experienceEditPaths={editPaths}
@@ -151,6 +165,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
               description:
                 "Heading for award experiences in experience by type listing",
             })}
+            headingLevel={headingLevel}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             experiences={awardExperiences}
             experienceEditPaths={editPaths}

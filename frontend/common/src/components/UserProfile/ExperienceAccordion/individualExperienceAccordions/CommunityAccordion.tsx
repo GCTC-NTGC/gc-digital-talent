@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import Accordion from "../../../Accordion";
+import { HeadingLevel } from "../../../Heading";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
 import { getDateRange } from "../../accordionUtils";
@@ -59,17 +60,22 @@ export const CommunityContent = ({
 };
 
 type CommunityAccordionProps = CommunityExperience & {
+  headingLevel?: HeadingLevel;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
-const CommunityAccordion = ({ editUrl, ...rest }: CommunityAccordionProps) => {
+const CommunityAccordion = ({
+  editUrl,
+  headingLevel = "h2",
+  ...rest
+}: CommunityAccordionProps) => {
   const intl = useIntl();
   const { id, endDate, startDate, skills, title, organization } = rest;
 
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
-        headerAs="h3"
+        headerAs={headingLevel}
         subtitle={getDateRange({ endDate, startDate, intl })}
         Icon={UserGroupIcon}
         context={

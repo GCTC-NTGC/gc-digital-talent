@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import Accordion from "../../../Accordion";
+import { HeadingLevel } from "../../../Heading";
 import { Link } from "../../..";
 import { getDateRange } from "../../accordionUtils";
 import { PersonalExperience } from "../../../../api/generated";
@@ -47,10 +48,15 @@ export const PersonalContent = ({
 };
 
 type PersonalAccordionProps = PersonalExperience & {
+  headingLevel?: HeadingLevel;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
-const PersonalAccordion = ({ editUrl, ...rest }: PersonalAccordionProps) => {
+const PersonalAccordion = ({
+  editUrl,
+  headingLevel = "h2",
+  ...rest
+}: PersonalAccordionProps) => {
   const intl = useIntl();
   const { id, title, startDate, endDate, skills } = rest;
 
@@ -58,7 +64,7 @@ const PersonalAccordion = ({ editUrl, ...rest }: PersonalAccordionProps) => {
     <Accordion.Item value={id}>
       <Accordion.Trigger
         subtitle={getDateRange({ endDate, startDate, intl })}
-        headerAs="h3"
+        headerAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({

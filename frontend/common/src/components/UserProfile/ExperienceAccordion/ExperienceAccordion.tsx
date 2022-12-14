@@ -2,6 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from "react";
 import { useIntl } from "react-intl";
+import { HeadingLevel } from "../../Heading";
 import Accordion from "../../Accordion";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";
@@ -28,11 +29,13 @@ export interface ExperiencePaths {
 export interface AccordionProps {
   experience: AnyExperience;
   editPaths?: ExperiencePaths;
+  headingLevel?: HeadingLevel;
 }
 
 const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   experience,
   editPaths,
+  headingLevel = "h2",
 }) => {
   const intl = useIntl();
 
@@ -43,6 +46,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return AwardAccordion({
       ...experience,
       editUrl,
+      headingLevel,
     });
   }
   if (isCommunityExperience(experience)) {
@@ -52,6 +56,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return CommunityAccordion({
       ...experience,
       editUrl,
+      headingLevel,
     });
   }
   if (isEducationExperience(experience)) {
@@ -61,6 +66,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return EducationAccordion({
       ...experience,
       editUrl,
+      headingLevel,
     });
   }
   if (isPersonalExperience(experience)) {
@@ -70,6 +76,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return PersonalAccordion({
       ...experience,
       editUrl,
+      headingLevel,
     });
   }
   if (isWorkExperience(experience)) {
@@ -77,13 +84,14 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return WorkAccordion({
       ...experience,
       editUrl,
+      headingLevel,
     });
   }
 
   // not one of the 5 experience types
   return (
     <Accordion.Item value="none">
-      <Accordion.Trigger headerAs="h3">
+      <Accordion.Trigger headerAs={headingLevel}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",
