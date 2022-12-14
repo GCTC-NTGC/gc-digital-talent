@@ -159,6 +159,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                   <div data-h2-margin="base(0, 0, x1, 0)">
                     {missingSkills && (
                       <MissingSkills
+                        headingLevel="h3"
                         addedSkills={
                           hasExperiences
                             ? flattenExperienceSkills(experiences)

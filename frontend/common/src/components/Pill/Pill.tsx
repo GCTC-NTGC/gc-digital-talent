@@ -1,7 +1,13 @@
 import React from "react";
 
 export type PillSize = "sm" | "md" | "lg";
-export type PillColor = "primary" | "secondary" | "neutral" | "blue" | "error";
+export type PillColor =
+  | "primary"
+  | "secondary"
+  | "neutral"
+  | "blue"
+  | "green"
+  | "error";
 export type PillMode = "solid" | "outline";
 
 export interface PillProps
@@ -53,6 +59,18 @@ const colorMap: Record<
       "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
       "data-h2-background-color": "base(light.tm-blue.10)",
       "data-h2-color": "base(dark.tm-blue)",
+    },
+  },
+  green: {
+    solid: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-green)",
+      "data-h2-background-color": "base(light.tm-green)",
+      "data-h2-color": "base(dt-white)",
+    },
+    outline: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-green)",
+      "data-h2-background-color": "base(light.tm-green.10)",
+      "data-h2-color": "base(dark.tm-green)",
     },
   },
   neutral: {

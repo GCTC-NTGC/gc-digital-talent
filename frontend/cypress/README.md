@@ -39,6 +39,11 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
       browser state was active at the time.
     - The **"stop" button** allows stopping a local test mid-run.
     - Use the browser **after test failure** and see what went wrong.
+- When you are hitting timeouts from a slow local workstation:
+  - Prepend your cypress launch command with `CYPRESS_EXTEND_TIMEOUTS=1`
+  - This will extend all timeouts to 60 seconds, to give plenty of time, even
+    if your local workstation or just Docker is running slowly.
+  - e.g., `CYPRESS_EXTEND_TIMEOUTS=1 npm run e2e:run`
 
 ## Plugins and Helpers
 

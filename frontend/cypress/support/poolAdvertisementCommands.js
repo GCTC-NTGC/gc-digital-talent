@@ -10,70 +10,43 @@ function getGqlString(doc) {
 
 Cypress.Commands.add("createPoolAdvertisement", (userId, classificationIds) => {
   // there are no optional fields on the variables for this mutation
-  cy.request({
-    method: "POST",
-    url: "/graphql",
-    auth: {
-      bearer: window.localStorage.getItem("access_token"),
-    },
-    body: {
-      operationName: "createPoolAdvertisement",
-      query: getGqlString(CreatePoolAdvertisementDocument),
-      variables: {
-        userId: userId,
-        poolAdvertisement: {
-          classifications: {
-            sync: classificationIds,
-          },
+  cy.graphqlRequest({
+    operationName: "createPoolAdvertisement",
+    query: getGqlString(CreatePoolAdvertisementDocument),
+    variables: {
+      userId: userId,
+      poolAdvertisement: {
+        classifications: {
+          sync: classificationIds,
         },
       },
     },
-  }).then((resp) => {
-    if (resp.body.errors)
-      throw new Error("Errors: " + JSON.stringify(resp.body.errors));
-    cy.wrap(resp.body.data.createPoolAdvertisement);
+  }).then((data) => {
+    cy.wrap(data.createPoolAdvertisement);
   });
 });
 
 Cypress.Commands.add("updatePoolAdvertisement", (id, poolAdvertisement) => {
-  cy.request({
-    method: "POST",
-    url: "/graphql",
-    auth: {
-      bearer: window.localStorage.getItem("access_token"),
+  cy.graphqlRequest({
+    operationName: "updatePoolAdvertisement",
+    query: getGqlString(UpdatePoolAdvertisementDocument),
+    variables: {
+      id: id,
+      poolAdvertisement: poolAdvertisement,
     },
-    body: {
-      operationName: "updatePoolAdvertisement",
-      query: getGqlString(UpdatePoolAdvertisementDocument),
-      variables: {
-        id: id,
-        poolAdvertisement: poolAdvertisement,
-      },
-    },
-  }).then((resp) => {
-    if (resp.body.errors)
-      throw new Error("Errors: " + JSON.stringify(resp.body.errors));
-    cy.wrap(resp.body.data.updatePoolAdvertisement);
+  }).then((data) => {
+    cy.wrap(data.updatePoolAdvertisement);
   });
 });
 
 Cypress.Commands.add("publishPoolAdvertisement", (id) => {
-  cy.request({
-    method: "POST",
-    url: "/graphql",
-    auth: {
-      bearer: window.localStorage.getItem("access_token"),
+  cy.graphqlRequest({
+    operationName: "publishPoolAdvertisement",
+    query: getGqlString(PublishPoolAdvertisementDocument),
+    variables: {
+      id: id,
     },
-    body: {
-      operationName: "publishPoolAdvertisement",
-      query: getGqlString(PublishPoolAdvertisementDocument),
-      variables: {
-        id: id,
-      },
-    },
-  }).then((resp) => {
-    if (resp.body.errors)
-      throw new Error("Errors: " + JSON.stringify(resp.body.errors));
-    cy.wrap(resp.body.data.publishPoolAdvertisement);
+  }).then((data) => {
+    cy.wrap(data.publishPoolAdvertisement);
   });
 });

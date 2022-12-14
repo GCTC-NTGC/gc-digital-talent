@@ -21,6 +21,7 @@ const InputError: React.FC<InputErrorProps> = ({
 }) => {
   return isVisible ? (
     <span
+      role="alert"
       data-h2-display="base(block)"
       data-h2-margin="base(x.25, 0, 0, 0)"
       data-h2-border="base(all, 1px, solid, dt-error.light)"

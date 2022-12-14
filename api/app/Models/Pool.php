@@ -121,13 +121,13 @@ class Pool extends Model
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");
         if ($expiryDate != null) {
-            $isExpired = $currentTime > $expiryDate ? true : false;
+            $isExpired = $currentTime >= $expiryDate ? true : false;
         }
         else {
             $isExpired = false;
         }
         if ($publishedDate != null) {
-            $isPublished = $currentTime > $publishedDate ? true : false;
+            $isPublished = $currentTime >= $publishedDate ? true : false;
         }
         else {
             $isPublished = false;

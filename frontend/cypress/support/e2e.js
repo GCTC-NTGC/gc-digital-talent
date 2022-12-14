@@ -20,6 +20,7 @@ import './poolAdvertisementCommands'
 import './classificationCommands'
 import './skillCommands'
 import './genericJobTitleCommands'
+import './applicationCommands'
 
 before(() => {
   cy.log('Need to run something before each test file? Add it to `cypress/support/index.js`')
