@@ -1,7 +1,9 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+
 import Checkbox from "../Checkbox";
+import { useFieldState } from "../../../helpers/formUtils";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Checkbox = {
@@ -55,6 +57,8 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
+  const fieldState = useFieldState(name, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
   return (
     <Fieldset
@@ -66,7 +70,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       trackUnsaved={trackUnsaved}
-      aria-describedby={error ? `${name}-error` : undefined}
+      aria-describedby={error || isUnsaved ? `${name}-error` : undefined}
       {...rest}
     >
       {items.map(({ value, label }) => {

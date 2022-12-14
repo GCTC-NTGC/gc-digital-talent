@@ -103,3 +103,13 @@ query browsePool($id: UUID!) {
     }
   }
 }
+query mySkills {
+  me {
+    experiences {
+      id
+      skills {
+        id
+      }
+    }
+  }
+}

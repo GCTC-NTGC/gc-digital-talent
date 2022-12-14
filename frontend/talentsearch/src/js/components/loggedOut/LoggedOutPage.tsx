@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import TileLink from "@common/components/TileLink";
 import imageUrl from "@common/helpers/imageUrl";
 import AlertDialog from "@common/components/AlertDialog";
+import SEO from "@common/components/SEO/SEO";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
@@ -17,8 +18,15 @@ const LoggedOutPage: React.FC = () => {
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const paths = useRoutes();
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "See you next time!",
+    id: "cZmuts",
+    description: "Title for the page users land on after successful logout.",
+  });
+
   return (
     <>
+      <SEO title={pageTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -33,14 +41,7 @@ const LoggedOutPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="base(x2, 0)">
-          {intl.formatMessage({
-            defaultMessage: "See you next time!",
-            id: "cZmuts",
-            description:
-              "Title for the page users land on after successful logout.",
-          })}
-        </h1>
+        <h1 data-h2-margin="base(x2, 0)">{pageTitle}</h1>
       </div>
       <div
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"

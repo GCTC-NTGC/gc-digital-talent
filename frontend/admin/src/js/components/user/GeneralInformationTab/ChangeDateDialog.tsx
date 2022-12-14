@@ -10,9 +10,9 @@ import { Input } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import {
+  Applicant,
   PoolCandidate,
   UpdatePoolCandidateAsAdminInput,
-  User,
   useUpdatePoolCandidateMutation,
 } from "../../../api/generated";
 
@@ -22,7 +22,7 @@ type FormValues = {
 
 export interface ChangeDateDialogProps {
   selectedCandidate: PoolCandidate;
-  user: User;
+  user: Applicant;
 }
 
 export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({

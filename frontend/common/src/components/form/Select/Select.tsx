@@ -2,7 +2,7 @@ import React from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
-import { useFieldStateStyles } from "../../../helpers/formUtils";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface Option {
   value: string | number;
@@ -46,12 +46,15 @@ const Select: React.FunctionComponent<SelectProps> = ({
     formState: { errors },
   } = useFormContext();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-
   const error = get(errors, name)?.message as FieldError;
+  const fieldState = useFieldState(id, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         inputId={id}
+        inputName={name}
         label={label}
         required={!!rules?.required}
         context={context}
@@ -67,7 +70,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           aria-required={rules?.required ? "true" : undefined}
-          aria-describedby={error ? `${id}-error` : undefined}
+          aria-describedby={error || isUnsaved ? `${id}-error` : undefined}
           {...rest}
           defaultValue=""
         >

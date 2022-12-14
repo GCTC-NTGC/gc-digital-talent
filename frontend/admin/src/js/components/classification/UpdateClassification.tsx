@@ -11,6 +11,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -240,34 +241,43 @@ const UpdateClassification = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {classificationData?.classification ? (
-          <UpdateClassificationForm
-            initialClassification={classificationData?.classification}
-            handleUpdateClassification={handleUpdateClassification}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            {" "}
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Classification {classificationId} not found.",
-                  id: "b3VnhM",
-                  description:
-                    "Message displayed for classification not found.",
-                },
-                { classificationId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Update classification",
+          id: "OCmMDP",
+          description: "Page title for the edit classification page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {classificationData?.classification ? (
+            <UpdateClassificationForm
+              initialClassification={classificationData?.classification}
+              handleUpdateClassification={handleUpdateClassification}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              {" "}
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Classification {classificationId} not found.",
+                    id: "b3VnhM",
+                    description:
+                      "Message displayed for classification not found.",
+                  },
+                  { classificationId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

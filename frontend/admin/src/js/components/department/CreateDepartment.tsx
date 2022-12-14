@@ -7,6 +7,7 @@ import { toast } from "@common/components/Toast";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -124,6 +125,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
 };
 
 const CreateDepartment: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [, executeMutation] = useCreateDepartmentMutation();
   const handleCreateDepartment = (data: CreateDepartmentInput) =>
     executeMutation({ department: data }).then((result) => {
@@ -134,9 +136,18 @@ const CreateDepartment: React.FunctionComponent = () => {
     });
 
   return (
-    <DashboardContentContainer>
-      <CreateDepartmentForm handleCreateDepartment={handleCreateDepartment} />
-    </DashboardContentContainer>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Create department",
+          id: "PRrRRN",
+          description: "Page title for the department creation page",
+        })}
+      />
+      <DashboardContentContainer>
+        <CreateDepartmentForm handleCreateDepartment={handleCreateDepartment} />
+      </DashboardContentContainer>
+    </>
   );
 };
 

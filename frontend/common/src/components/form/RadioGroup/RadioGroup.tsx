@@ -1,6 +1,7 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { useFieldState } from "../../../helpers/formUtils";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Radio = { value: string | number; label: string | React.ReactNode };
@@ -60,6 +61,8 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
+  const fieldState = useFieldState(name, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
   let columnValue = { "data-h2-flex-item": "base(1of1)" };
   if (columns === 2) {
@@ -77,7 +80,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       hideOptional={hideOptional}
       hideLegend={hideLegend}
       trackUnsaved={trackUnsaved}
-      aria-describedby={error ? `${name}-error` : undefined}
+      aria-describedby={error || isUnsaved ? `${name}-error` : undefined}
       {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">

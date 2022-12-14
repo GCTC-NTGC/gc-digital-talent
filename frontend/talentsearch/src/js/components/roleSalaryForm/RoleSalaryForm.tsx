@@ -12,7 +12,6 @@ import { errorMessages, navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { toast } from "@common/components/Toast";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
@@ -87,10 +86,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.myProfile();
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.myProfile();
 
   const labels = {
     expectedGenericJobTitles: intl.formatMessage({

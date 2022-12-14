@@ -12,6 +12,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
 import { useParams } from "react-router-dom";
+import SEO from "@common/components/SEO/SEO";
 import {
   PoolAdvertisement,
   Scalars,
@@ -196,7 +197,14 @@ export const EditPoolForm = ({
   };
 
   return (
-    <div>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Edit pool",
+          id: "dc5TeX",
+          description: "Page title for the edit pool page",
+        })}
+      />
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
@@ -300,7 +308,7 @@ export const EditPoolForm = ({
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { ThrowNotFound } from "@common/components/NotFound";
+import SEO from "@common/components/SEO/SEO";
 import Pending from "@common/components/Pending";
 import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
@@ -36,8 +37,15 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
     return 0;
   });
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "My Applications",
+    id: "Boze7x",
+    description: "Title for page that displays current users applications.",
+  });
+
   return (
     <>
+      <SEO title={pageTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -60,12 +68,7 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
             textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
           }}
         >
-          {intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "Boze7x",
-            description:
-              "Title for page that displays current users applications.",
-          })}
+          {pageTitle}
         </h1>
       </div>
       <div data-h2-padding="base(x3, 0, x3, 0)">

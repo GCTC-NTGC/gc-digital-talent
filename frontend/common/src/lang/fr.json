@@ -1816,8 +1816,8 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
-  "rsrNSC": {
-    "defaultMessage": "Modifications non sauvegardées",
+  "9u6ULg": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Displayed next to form inputs when they have been changed but not saved."
   },
   "DdOEWx": {
@@ -1891,5 +1891,33 @@
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
+  },
+  "jRmRd+": {
+    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "description": "Meta tag description for Talent Search site"
+  },
+  "vD6Uia": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Default title for the site"
+  },
+  "SUYPIt": {
+    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
+    "description": "Message displayed when number of user attempts exceeds rate limit"
+  },
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
+    "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "b3ar1X": {
+    "defaultMessage": "Rétablir {label}",
+    "description": "Button text to reset the combobox input"
+  },
+  "IRCKBP": {
+    "defaultMessage": "Aucun résultat n’a été trouvé.",
+    "description": "Message displayed when combobox has no options available"
+  },
+  "4l+gBD": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is being done."
   }
 }

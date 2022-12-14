@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import SEO from "@common/components/SEO/SEO";
 import { Input, Select, Submit, TextArea } from "@common/components/form";
 import { Link } from "@common/components";
 import { errorMessages } from "@common/messages";
@@ -419,6 +420,7 @@ export const CreateRequest: React.FunctionComponent<{
   searchFormInitialValues,
   selectedClassifications,
 }) => {
+  const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -440,19 +442,28 @@ export const CreateRequest: React.FunctionComponent<{
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <RequestForm
-        classifications={classifications}
-        departments={departments}
-        skills={skills}
-        applicantFilter={applicantFilter}
-        candidateCount={candidateCount}
-        searchFormInitialValues={searchFormInitialValues}
-        selectedClassifications={selectedClassifications}
-        handleCreatePoolCandidateSearchRequest={
-          handleCreatePoolCandidateSearchRequest
-        }
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Request pool candidates",
+          id: "u3eefq",
+          description: "Page title for the request candidates form page",
+        })}
       />
-    </Pending>
+      <Pending fetching={fetching} error={error}>
+        <RequestForm
+          classifications={classifications}
+          departments={departments}
+          skills={skills}
+          applicantFilter={applicantFilter}
+          candidateCount={candidateCount}
+          searchFormInitialValues={searchFormInitialValues}
+          selectedClassifications={selectedClassifications}
+          handleCreatePoolCandidateSearchRequest={
+            handleCreatePoolCandidateSearchRequest
+          }
+        />
+      </Pending>
+    </>
   );
 };
