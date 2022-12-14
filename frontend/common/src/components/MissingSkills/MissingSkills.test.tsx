@@ -126,15 +126,23 @@ describe("MissingSkills", () => {
     });
 
     const lists = element.getAllByRole("list");
-    expect(lists.length).toEqual(2);
+    expect(lists.length).toEqual(4);
 
-    const requiredListItems = within(lists[0]).queryAllByRole("listitem");
-    expect(requiredListItems.length).toEqual(
+    const requiredSkillsListItems = within(lists[0]).queryAllByRole("listitem");
+    const requiredDetailsListItems = within(lists[1]).queryAllByRole(
+      "listitem",
+    );
+    expect(
+      requiredSkillsListItems.length + requiredDetailsListItems.length,
+    ).toEqual(
       defaultProps.requiredSkills.length, // Check that we are not missing any items
     );
 
-    const optionalListItems = within(lists[1]).queryAllByRole("listitem");
-    expect(optionalListItems.length).toEqual(
+    const optionSkillsListItems = within(lists[2]).queryAllByRole("listitem");
+    const optionDetailsListItems = within(lists[3]).queryAllByRole("listitem");
+    expect(
+      optionSkillsListItems.length + optionDetailsListItems.length,
+    ).toEqual(
       defaultProps.optionalSkills.length, // Check that we are not missing any items
     );
   });
