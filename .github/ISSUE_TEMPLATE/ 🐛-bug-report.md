@@ -38,5 +38,5 @@ Add a screenshot if possible
 
 A set of assumptions which, when tested, verify that the bug was addressed.
 
-- [ ] Criteria
+- [ ] Criteria 1
 - [ ] Criteria 2
