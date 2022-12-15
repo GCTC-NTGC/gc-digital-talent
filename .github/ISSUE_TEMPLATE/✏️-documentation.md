@@ -8,7 +8,7 @@ assignees: ''
 
 ## ✏️ Documentation
 
-Describe the update/addition that you are proposing
+Describe the update/addition that you are proposing.
 
 ## 🕵️ Details
 
