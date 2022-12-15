@@ -8,7 +8,7 @@ assignees: ''
 
 ## 👋 Introduction
 
-Describe that this PR is solving.
+Describe what this PR is solving.
 
 ## 🕵️ Details
 
