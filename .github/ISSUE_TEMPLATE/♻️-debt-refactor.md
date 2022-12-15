@@ -8,7 +8,7 @@ assignees: ''
 
 ## ♻️ Debt/Refactor
 
-Describe the problem with the existing implementation
+Describe the problem with the existing implementation.
 
 ## 🕵️ Details
 
