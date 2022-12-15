@@ -1,6 +1,6 @@
 ---
 name: "🧪 Tests"
-about: Updates/additons to the existing tests (Unit,e2e,etc.)
+about: Updates/additions to the existing tests (Unit, e2e, etc.)
 title: "🧪 Tests"
 labels: tests
 assignees: ''
