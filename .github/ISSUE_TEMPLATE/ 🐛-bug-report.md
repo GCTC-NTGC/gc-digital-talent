@@ -30,6 +30,10 @@ Add any additional details that could assist with troubleshooting/fixing the iss
 
 Add a screenshot if possible
 
+## 🙋‍♀️ Proposed Solution
+
+(optional) Do you have a proposed solution?
+
 ## ✅ Acceptance Criteria
 
 A set of assumptions which, when tested, verify that the bug was addressed.

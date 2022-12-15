@@ -22,6 +22,10 @@ Include a link to the design file (if it exists)
 
 Add a screenshot of the new feature (if possible)
 
+## 🙋‍♀️ Proposed Implementation
+
+(optional) Do you have a proposed implementation?
+
 ## ✅ Acceptance Criteria
 
 A set of assumptions which, when tested, verify that the feature was properly implemented.
