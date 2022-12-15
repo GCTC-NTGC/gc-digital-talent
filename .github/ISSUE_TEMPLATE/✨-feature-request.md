@@ -26,6 +26,10 @@ Add a screenshot of the new feature (if possible)
 
 (optional) Do you have a proposed implementation?
 
+## 🌎 Localization
+
+(optional) Provide any new copy along with translations available.
+
 ## ✅ Acceptance Criteria
 
 A set of assumptions which, when tested, verify that the feature was properly implemented.

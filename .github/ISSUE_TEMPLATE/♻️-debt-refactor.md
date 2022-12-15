@@ -18,6 +18,10 @@ Add any additional details that could assist with the development of the new fea
 
 (optional) Do you have a proposed solution?
 
+## 🌎 Localization
+
+(optional) Provide any new copy along with translations available.
+
 ## ✅ Acceptance Criteria
 
 A set of assumptions which, when tested, verify that the debt was addressed and expected functionality has not been affected.
