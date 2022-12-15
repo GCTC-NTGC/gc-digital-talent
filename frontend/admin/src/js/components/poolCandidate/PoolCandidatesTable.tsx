@@ -17,6 +17,7 @@ import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
 import {
   ApplicantFilterInput,
+  PoolCandidateSearchInput,
   InputMaybe,
   JobLookingStatus,
   Language,
@@ -27,8 +28,8 @@ import {
   ProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   SortOrder,
+  useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
-  usePoolCandidatesFromApplicantsQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
@@ -181,14 +182,14 @@ const provinceAccessor = (
     : "";
 
 const PoolCandidatesTable: React.FC<{
-  initialFilterInput?: ApplicantFilterInput;
+  initialFilterInput?: PoolCandidateSearchInput;
 }> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
   const initialStateFilterInput = initialFilterInput ?? {};
   const [applicantFilterInput, setApplicantFilterInput] =
-    useState<ApplicantFilterInput>(initialStateFilterInput);
+    useState<PoolCandidateSearchInput>(initialStateFilterInput);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
@@ -239,10 +240,10 @@ const PoolCandidatesTable: React.FC<{
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: ApplicantFilterInput | undefined,
+    fancyFilterState: PoolCandidateSearchInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
-  ): InputMaybe<ApplicantFilterInput> => {
+  ): InputMaybe<PoolCandidateSearchInput> => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&
@@ -258,50 +259,46 @@ const PoolCandidatesTable: React.FC<{
       name: searchType === "name" ? searchBarTerm : undefined,
 
       // from fancy filter
-      pools: fancyFilterState?.pools,
-      languageAbility: fancyFilterState?.languageAbility,
-      expectedClassifications: fancyFilterState?.expectedClassifications,
-      operationalRequirements: fancyFilterState?.operationalRequirements,
-      locationPreferences: fancyFilterState?.locationPreferences,
-      hasDiploma: fancyFilterState?.hasDiploma,
-      equity: fancyFilterState?.equity,
-      // status: fancyFilterState?.status,
-      // priorityWeight: fancyFilterState?.priorityWeight,
+      applicantFilter: fancyFilterState?.applicantFilter,
+      status: fancyFilterState?.status,
+      priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
     setApplicantFilterInput({
-      languageAbility: data.languageAbility[0]
-        ? stringToEnumLanguage(data.languageAbility[0])
-        : undefined,
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
-          return stringToEnumOperational(requirement);
-        },
-      ),
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      hasDiploma: data.hasDiploma[0] ? true : undefined,
-      equity: {
-        ...(data.equity.includes("isWoman") && { isWoman: true }),
-        ...(data.equity.includes("hasDisability") && { hasDisability: true }),
-        ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
-        ...(data.equity.includes("isVisibleMinority") && {
-          isVisibleMinority: true,
+      applicantFilter: {
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
         }),
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        hasDiploma: data.hasDiploma[0] ? true : undefined,
+        equity: {
+          ...(data.equity.includes("isWoman") && { isWoman: true }),
+          ...(data.equity.includes("hasDisability") && { hasDisability: true }),
+          ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+          ...(data.equity.includes("isVisibleMinority") && {
+            isVisibleMinority: true,
+          }),
+        },
       },
-      // status: data.status.map((status) => {
-      //   return stringToEnumPoolCandidateStatus(status);
-      // }),
-      // priorityWeight: data.priorityWeight.map((priority) => {
-      //   return Number(priority);
-      // }),
+      status: data.status.map((status) => {
+        return stringToEnumPoolCandidateStatus(status);
+      }),
+      priorityWeight: data.priorityWeight.map((priority) => {
+        return Number(priority);
+      }),
     });
   };
 
@@ -309,7 +306,7 @@ const PoolCandidatesTable: React.FC<{
     setSelectedRows([]);
   }, [currentPage, pageSize, searchState, sortingRule]);
 
-  const [result] = usePoolCandidatesFromApplicantsQuery({
+  const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
       where: addSearchToPoolCandidateFilterInput(
         applicantFilterInput,
@@ -318,15 +315,14 @@ const PoolCandidatesTable: React.FC<{
       ),
       page: currentPage,
       first: pageSize,
+      sortingInput: sortOrder,
     },
   });
 
   const { data, fetching, error } = result;
 
-  const candidateData = data?.poolCandidatesFromApplicants?.data ?? [];
-  const filteredData = candidateData
-    .flatMap((cd) => cd.poolCandidates)
-    .filter(notEmpty);
+  const candidateData = data?.poolCandidatesPaginated?.data ?? [];
+  const filteredData = candidateData.filter(notEmpty);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -578,7 +574,7 @@ const PoolCandidatesTable: React.FC<{
           />
         </Pending>
         <TableFooter
-          paginatorInfo={data?.poolCandidatesFromApplicants?.paginatorInfo}
+          paginatorInfo={data?.poolCandidatesPaginated?.paginatorInfo}
           onCurrentPageChange={setCurrentPage}
           onPageSizeChange={setPageSize}
           hasSelection

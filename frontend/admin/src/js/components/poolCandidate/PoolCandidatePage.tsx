@@ -96,7 +96,9 @@ export const PoolCandidatePage = () => {
           })}
         </p>
         <PoolCandidatesTable
-          initialFilterInput={{ pools: [{ id: poolId || "" }] }}
+          initialFilterInput={{
+            applicantFilter: { pools: [{ id: poolId || "" }] },
+          }}
         />
       </DashboardContentContainer>
     </Pending>

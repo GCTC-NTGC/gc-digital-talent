@@ -322,7 +322,7 @@ query GetSelectedPoolCandidates($ids: [ID]) {
 }
 
 query GetPoolCandidatesPaginated(
-  $where: PoolCandidateFilterInput
+  $where: PoolCandidateSearchInput
   $first: Int
   $page: Int
   $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
@@ -339,34 +339,6 @@ query GetPoolCandidatesPaginated(
   ) {
     data {
       ...poolCandidateTable
-    }
-    paginatorInfo {
-      count
-      currentPage
-      firstItem
-      hasMorePages
-      lastItem
-      lastPage
-      perPage
-      total
-    }
-  }
-}
-
-query poolCandidatesFromApplicants(
-  $where: ApplicantFilterInput
-  $first: Int
-  $page: Int
-) {
-  poolCandidatesFromApplicants(
-    where: $where
-    first: $first
-    page: $page
-  ) {
-    data {
-      poolCandidates {
-        ...poolCandidateTable
-      }
     }
     paginatorInfo {
       count

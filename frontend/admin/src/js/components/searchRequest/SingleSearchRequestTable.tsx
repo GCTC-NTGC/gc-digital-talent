@@ -21,6 +21,7 @@ import {
   Classification,
   ClassificationFilterInput,
   JobLookingStatus,
+  PoolCandidateSearchInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -339,9 +340,9 @@ type MappingType = {
   >]: (x: ApplicantFilter[Property]) => ApplicantFilterInput[Property];
 };
 
-const transformApplicantFilterToFilterInput = (
+const transformApplicantFilterToPoolCandidateSearchInput = (
   applicantFilter: ApplicantFilter,
-): ApplicantFilterInput => {
+): PoolCandidateSearchInput => {
   // GraphQL will error if an input object includes any unexpected attributes.
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
@@ -359,40 +360,25 @@ const transformApplicantFilterToFilterInput = (
 
   const emptyFilter: ApplicantFilterInput = {};
 
-  return Object.entries(mapping).reduce((applicantFilterInput, filterEntry) => {
-    const [key, transform] = filterEntry;
-    const typedKey = key as keyof MappingType;
-
-    // There should be way to get the types to work without using "any", but I'm having trouble.
-    // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
-
-    // eslint-disable-next-line no-param-reassign
-    applicantFilterInput[typedKey] = transform(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      applicantFilter[typedKey] as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ) as any;
-    return applicantFilterInput;
-  }, emptyFilter);
-};
-
-const transformApplicantFilterToUserFilterInput = (
-  applicantFilter: ApplicantFilter,
-): UserFilterInput => {
-  const applicantFilterInput =
-    transformApplicantFilterToFilterInput(applicantFilter);
   return {
-    applicantFilter: applicantFilterInput,
-    // The user table makes use of the UserFilterInput.poolFilters field INSTEAD OF the applicantFilterInput.pools field.
-    poolFilters: applicantFilterInput.pools?.filter(notEmpty).map((pool) => ({
-      poolId: pool.id,
-    })),
-    // The following fields can be changed in the UserTable filter, but we initialize them to reasonable defaults.
-    jobLookingStatus: [
-      JobLookingStatus.ActivelyLooking,
-      JobLookingStatus.OpenToOpportunities,
-    ],
-    isProfileComplete: true,
+    applicantFilter: Object.entries(mapping).reduce(
+      (applicantFilterInput, filterEntry) => {
+        const [key, transform] = filterEntry;
+        const typedKey = key as keyof MappingType;
+
+        // There should be way to get the types to work without using "any", but I'm having trouble.
+        // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
+
+        // eslint-disable-next-line no-param-reassign
+        applicantFilterInput[typedKey] = transform(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          applicantFilter[typedKey] as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ) as any;
+        return applicantFilterInput;
+      },
+      emptyFilter,
+    ),
   };
 };
 
@@ -409,7 +395,7 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
     pause: !isLegacyFilter,
   });
   const applicantFilterInput = !isLegacyFilter
-    ? transformApplicantFilterToFilterInput(filter)
+    ? transformApplicantFilterToPoolCandidateSearchInput(filter)
     : undefined;
 
   return isLegacyFilter ? (
