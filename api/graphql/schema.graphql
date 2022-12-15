@@ -766,7 +766,7 @@ input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
   email: String @scope
     @scope(name: "classifications")
   generalSearch: String @scope
