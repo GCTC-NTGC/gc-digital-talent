@@ -8,7 +8,7 @@ assignees: ''
 
 ## 🐛 Bug
 
-Describe the issue you encountered
+Describe the issue you encountered.
 
 ## 🦋 Expected Behaviour
 
