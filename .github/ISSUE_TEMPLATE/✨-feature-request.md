@@ -34,5 +34,5 @@ Add a screenshot of the new feature (if possible)
 
 A set of assumptions which, when tested, verify that the feature was properly implemented.
 
-- [ ] Criteria
+- [ ] Criteria 1
 - [ ] Criteria 2
