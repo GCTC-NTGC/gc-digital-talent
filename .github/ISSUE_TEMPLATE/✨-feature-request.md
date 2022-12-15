@@ -16,7 +16,7 @@ Add any additional details that could assist with the development of the new fea
 
 ## 🎨 Design File
 
-Include a link to the design file (if it exists)
+Include a link to the design file (if it exists).
 
 ## 📸 Screenshot
 
