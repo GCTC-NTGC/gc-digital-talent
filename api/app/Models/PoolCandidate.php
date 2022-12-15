@@ -197,7 +197,7 @@ RAWSQL2;
         return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
+    public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($operationalRequirements)) {
@@ -214,7 +214,7 @@ RAWSQL2;
 
         return $query;
     }
-    public function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
+    public function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
             return $query;
@@ -238,7 +238,7 @@ RAWSQL2;
         });
         return $query;
     }
-    public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    public function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
@@ -259,22 +259,18 @@ RAWSQL2;
         });
         return $query;
     }
-    public static function filterByPools(Builder $query, ?array $pools): Builder
+    public static function scopePools(Builder $query, ?array $poolIds): Builder
     {
-        if (empty($pools)) {
+        if (empty($poolIds)) {
             return $query;
         }
 
         // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
-        $poolIds = [];
-        foreach ($pools as $pool) {
-            array_push($poolIds, $pool['id']);
-        }
         $query->whereIn('pool_id', $poolIds);
         return $query;
     }
 
-    public function filterByEquity(Builder $query, ?array $equity): Builder
+    public function scopeEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -314,7 +310,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    public function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
         // used App\\Models\\User@filterByPools as reference
         if ($search) {
@@ -333,7 +329,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByName(Builder $query, ?string $name): Builder
+    public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
             $splitName = explode(" ", $name);
@@ -509,6 +505,37 @@ RAWSQL2;
                 $query->where('key', $cmoAsset['key']);
             });
         }
+        return $query;
+    }
+
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    {
+        if ($positionDuration) {
+            $query->whereExists(function ($query) use ($positionDuration) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($positionDuration) {
+                        foreach ($positionDuration as $index => $duration) {
+                            $query->orWhereJsonContains('position_duration', $duration);
+                        }
+                    });
+                });
+        }
+        return $query;
+    }
+
+    public function scopeSkills(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
+        // call the skillFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
+            User::scopeSkills($userQuery, $skills);
+        });
+
         return $query;
     }
 }

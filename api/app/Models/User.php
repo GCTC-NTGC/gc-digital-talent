@@ -273,7 +273,7 @@ class User extends Model implements Authenticatable
      * @param array $poolIds
      * @return Builder
      */
-    public static function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
+    public static function scopePools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -282,14 +282,13 @@ class User extends Model implements Authenticatable
         foreach ($poolIds as $index => $poolId) {
             $poolFilters[$index] = [
                 'poolId' => $poolId,
-                // TODO: Will need to create new scopes in User for these fields below.
-                // 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                // 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
+                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
         return self::filterByPools($query, $poolFilters);
     }
-    public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    public static function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
@@ -303,7 +302,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
+    public static function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($operationalRequirements)) {
@@ -314,7 +313,7 @@ class User extends Model implements Authenticatable
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
-    public static function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
+    public static function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
             return $query;
@@ -350,7 +349,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterBySkills(Builder $query, ?array $skills): Builder
+    public static function scopeSkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -545,7 +544,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByEquity(Builder $query, ?array $equity): Builder
+    public static function scopeEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -580,7 +579,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
             $query->where(function ($query) use ($search) {
@@ -593,7 +592,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByName(Builder $query, ?string $name): Builder
+    public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
             $splitName = explode(" ", $name);

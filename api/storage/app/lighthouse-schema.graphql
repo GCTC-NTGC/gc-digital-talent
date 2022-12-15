@@ -78,27 +78,15 @@ input ApplicantFilterBelongsTo {
 }
 
 input ApplicantFilterInput {
-  hasDiploma: Boolean
   equity: EquitySelectionsInput
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  locationPreferences: [WorkRegion]
-  positionDuration: [PositionDuration]
   expectedClassifications: [ClassificationFilterInput]
-  skills: [IdInput]
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
   pools: [IdInput]
-  email: String
-  name: String
-  generalSearch: String
-}
-
-"""A paginated list of Applicant items."""
-type ApplicantPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Applicant items."""
-  data: [Applicant!]!
+  skills: [IdInput]
 }
 
 enum ArmedForcesStatus {
@@ -897,12 +885,12 @@ input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
   equity: EquitySelectionsInput
   expectedClassifications: [ClassificationFilterInput]
-  generalSearch: String
   email: String
-  name: String
+  generalSearch: String
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  name: String
   operationalRequirements: [OperationalRequirement]
   pools: [IdInput]
   priorityWeight: [Int]
@@ -916,6 +904,15 @@ type PoolCandidatePaginator {
 
   """A list of PoolCandidate items."""
   data: [PoolCandidate!]!
+}
+
+input PoolCandidateSearchInput {
+  applicantFilter: ApplicantFilterInput
+  email: String
+  generalSearch: String
+  name: String
+  priorityWeight: [Int]
+  status: [PoolCandidateStatus]
 }
 
 type PoolCandidateSearchRequest {
@@ -1052,17 +1049,8 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): UserPaginator
-  poolCandidatesFromApplicants(
-    where: ApplicantFilterInput
-
-    """Limits number of fetched items. Maximum allowed value: 1000."""
-    first: Int = 10
-
-    """The offset from which items are returned."""
-    page: Int
-  ): ApplicantPaginator
   poolCandidatesPaginated(
-    where: PoolCandidateFilterInput
+    where: PoolCandidateSearchInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
