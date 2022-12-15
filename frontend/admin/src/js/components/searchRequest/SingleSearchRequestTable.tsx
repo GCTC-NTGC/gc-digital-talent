@@ -16,16 +16,13 @@ import {
   ApplicantFilterInput,
   PoolCandidateFilter,
   ApplicantFilter,
-  UserFilterInput,
   IdInput,
   Classification,
   ClassificationFilterInput,
-  JobLookingStatus,
   PoolCandidateSearchInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
-import UserTable from "../user/UserTable";
 import PoolCandidatesTable from "../poolCandidate/PoolCandidatesTable";
 
 type Data = NonNullable<
