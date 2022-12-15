@@ -210,12 +210,12 @@ const SingleSearchRequestPage = React.lazy(() =>
 
 const router = createBrowserRouter([
   {
-    path: "/:locale",
+    path: `/`,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "admin",
+        path: ":locale/admin",
         errorElement: <ErrorPage />,
         children: [
           {
@@ -509,6 +509,12 @@ const router = createBrowserRouter([
                 ],
               },
             ],
+          },
+          {
+            path: "*",
+            loader: () => {
+              throw new Response("Not Found", { status: 404 });
+            },
           },
         ],
       },
