@@ -26,5 +26,5 @@ Add any additional details that could assist with the development of the new fea
 
 A set of assumptions which, when tested, verify that the debt was addressed and expected functionality has not been affected.
 
-- [ ] Criteria
+- [ ] Criteria 1
 - [ ] Criteria 2
