@@ -28,7 +28,7 @@ Add any additional details that could assist with troubleshooting/fixing the iss
 
 ## 📸 Screenshot
 
-Add a screenshot if possible
+Add a screenshot (if possible).
 
 ## 🙋‍♀️ Proposed Solution
 
