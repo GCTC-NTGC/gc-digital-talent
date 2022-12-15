@@ -18,7 +18,7 @@ What should be happening?
 
 Add any additional details that could assist with troubleshooting/fixing the issue.
 
-- **Operating System**: 
+- **Operating System**: Name and version (if possible).
 - **Browser**: 
 
 ## 📋 Steps to Reproduce
