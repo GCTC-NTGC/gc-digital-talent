@@ -471,11 +471,13 @@ const router = createBrowserRouter([
               </RequireAuth>
             ),
           },
+          {
+            path: "*",
+            loader: () => {
+              throw new Response("Not Found", { status: 404 });
+            },
+          },
         ],
-      },
-      {
-        path: "*",
-        element: <ErrorPage />,
       },
     ],
   },
