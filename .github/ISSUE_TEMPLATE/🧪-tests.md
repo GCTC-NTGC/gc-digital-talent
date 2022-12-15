@@ -22,5 +22,5 @@ Add any additional details that could assist with the changes/additions being ma
 
 A set of assumptions which, when tested, verify that the debt tests were properly updated and remains functional/passing.
 
-- [ ] Criteria
+- [ ] Criteria 1
 - [ ] Criteria 2
