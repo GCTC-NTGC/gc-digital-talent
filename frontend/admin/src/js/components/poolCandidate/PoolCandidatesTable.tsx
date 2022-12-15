@@ -16,7 +16,6 @@ import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
 import {
-  ApplicantFilterInput,
   PoolCandidateSearchInput,
   InputMaybe,
   JobLookingStatus,
@@ -56,6 +55,41 @@ import {
 } from "../user/util";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
+
+function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+): FormValues {
+  return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility
+      ? [input?.applicantFilter?.languageAbility]
+      : [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    hasDiploma: input?.applicantFilter?.hasDiploma ? ["true"] : [],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    status: input?.status?.filter(notEmpty) ?? [],
+  };
+}
 
 // callbacks extracted to separate function to stabilize memoized component
 const preferredLanguageAccessor = (
@@ -508,6 +542,11 @@ const PoolCandidatesTable: React.FC<{
 
   const csv = usePoolCandidateCsvData(selectedCandidates);
 
+  const initialFilters = useMemo(
+    () => transformPoolCandidateSearchInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -522,6 +561,7 @@ const PoolCandidatesTable: React.FC<{
         filterComponent={
           <PoolCandidateTableFilterDialog
             onSubmit={handlePoolCandidateFilterSubmit}
+            initialFilters={initialFilters}
           />
         }
         onSearchChange={(

@@ -218,17 +218,21 @@ export type PoolCandidateTableFiltersProps = Pick<
   "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
+  initialFilters?: FormValues;
 };
 
 const PoolCandidateTableFilters = ({
   onSubmit,
   isOpenDefault = false,
   enableEducationType,
+  initialFilters,
   ...rest
 }: PoolCandidateTableFiltersProps) => {
   const { emptyFormValues } = useFilterOptions(enableEducationType);
-  const [activeFilters, setActiveFilters] =
-    useState<FormValues>(emptyFormValues);
+  const initialStateActiveFilters = initialFilters ?? emptyFormValues;
+  const [activeFilters, setActiveFilters] = useState<FormValues>(
+    initialStateActiveFilters,
+  );
   const [isOpen, setIsOpen] = useState(isOpenDefault);
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
@@ -239,7 +243,7 @@ const PoolCandidateTableFilters = ({
 
   return (
     <PoolCandidateTableFilterDialog
-      {...{ isOpen, activeFilters, enableEducationType }}
+      {...{ isOpen, isOpenDefault, activeFilters, enableEducationType }}
       {...rest}
       onOpenChange={setIsOpen}
       onSubmit={handleSubmit}
