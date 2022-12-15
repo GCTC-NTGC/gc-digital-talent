@@ -18,5 +18,5 @@ Add any additional details that could assist with answering the question posed.
 
 (optional) A set of assumptions which, when tested, verify that the question has been properly answered.
 
-- [ ] Criteria
+- [ ] Criteria 1
 - [ ] Criteria 2
