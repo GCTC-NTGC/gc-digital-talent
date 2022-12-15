@@ -16,7 +16,7 @@ Add any additional details that could assist with the implementation of the new 
 
 ## 🙋‍♀️ Proposed Copy
 
-(optional) Do you have any copy you'd like to propose?
+(optional) Do you have any copy that you would like to propose?
 
 ## ✅ Acceptance Criteria
 
