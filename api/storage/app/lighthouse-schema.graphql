@@ -786,6 +786,7 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  createdDate: DateTime
 }
 
 type PoolAdvertisement {

@@ -166,6 +166,7 @@ query getPools {
     advertisementStatus
     stream
     processNumber
+    createdDate
   }
 }
 
