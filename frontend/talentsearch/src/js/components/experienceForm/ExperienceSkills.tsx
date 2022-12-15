@@ -6,7 +6,8 @@ import SkillPicker from "@common/components/SkillPicker";
 import { notEmpty } from "@common/helpers/util";
 import SkillBlock from "@common/components/SkillPicker/SkillBlock";
 import Separator from "@common/components/Separator";
-import type { PoolAdvertisement, Skill } from "../../api/generated";
+import { categorizeSkill } from "@common/helpers/skillUtils";
+import { PoolAdvertisement, Skill, SkillCategory } from "../../api/generated";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "./types";
@@ -81,6 +82,14 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
     }
   };
 
+  // Only grab technical skills (hard skills).
+  const technicalEssentialSkills = categorizeSkill(
+    poolAdvertisement?.essentialSkills,
+  )[SkillCategory.Technical];
+  const technicalNonessentialSkills = categorizeSkill(
+    poolAdvertisement?.nonessentialSkills,
+  )[SkillCategory.Technical];
+
   return (
     <>
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
@@ -100,7 +109,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
       </p>
       {poolAdvertisement ? (
         <>
-          {poolAdvertisement.essentialSkills && (
+          {technicalEssentialSkills && (
             <div
               data-h2-radius="base(rounded)"
               data-h2-shadow="base(s)"
@@ -121,7 +130,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 orientation="horizontal"
                 decorative
               />
-              {poolAdvertisement.essentialSkills.map((skill, index: number) => (
+              {technicalEssentialSkills.map((skill, index: number) => (
                 <div
                   key={skill.id}
                   role="list"
@@ -135,7 +144,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                     onAddSkill={handleAddSkill}
                     onRemoveSkill={handleRemoveSkill}
                   />
-                  {index + 1 !== poolAdvertisement?.essentialSkills?.length ? (
+                  {index + 1 !== technicalEssentialSkills?.length ? (
                     <Separator
                       data-h2-background-color="base(dt-gray.50)"
                       data-h2-margin="base(x.5, 0)"
@@ -146,7 +155,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
               ))}
             </div>
           )}
-          {poolAdvertisement.nonessentialSkills && (
+          {technicalNonessentialSkills && (
             <div
               data-h2-radius="base(rounded)"
               data-h2-shadow="base(s)"
@@ -166,34 +175,29 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 orientation="horizontal"
                 decorative
               />
-              {poolAdvertisement.nonessentialSkills.map(
-                (skill, index: number) => (
-                  <div
-                    key={skill.id}
-                    role="list"
-                    data-h2-padding="base(x0, x0, x0, x.5)"
-                  >
-                    <SkillBlock
-                      skill={skill}
-                      isAdded={
-                        !!addedSkills.find(
-                          (selected) => selected.id === skill.id,
-                        )
-                      }
-                      onAddSkill={handleAddSkill}
-                      onRemoveSkill={handleRemoveSkill}
+              {technicalNonessentialSkills.map((skill, index: number) => (
+                <div
+                  key={skill.id}
+                  role="list"
+                  data-h2-padding="base(x0, x0, x0, x.5)"
+                >
+                  <SkillBlock
+                    skill={skill}
+                    isAdded={
+                      !!addedSkills.find((selected) => selected.id === skill.id)
+                    }
+                    onAddSkill={handleAddSkill}
+                    onRemoveSkill={handleRemoveSkill}
+                  />
+                  {index + 1 !== technicalNonessentialSkills?.length ? (
+                    <Separator
+                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-margin="base(x.5, 0)"
+                      orientation="horizontal"
                     />
-                    {index + 1 !==
-                    poolAdvertisement?.nonessentialSkills?.length ? (
-                      <Separator
-                        data-h2-background-color="base(dt-gray.50)"
-                        data-h2-margin="base(x.5, 0)"
-                        orientation="horizontal"
-                      />
-                    ) : null}
-                  </div>
-                ),
-              )}
+                  ) : null}
+                </div>
+              ))}
             </div>
           )}
         </>

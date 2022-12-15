@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 
@@ -17,22 +16,13 @@ use App\Http\Resources\UserResource;
  * @property int $id
  * @property string $cmo_identifier
  * @property Illuminate\Support\Carbon $expiry_date
- * @property boolean $is_woman
- * @property boolean $has_disability
- * @property boolean $is_indigenous
- * @property boolean $is_visible_minority
- * @property boolean $has_diploma
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
- * @property string $language_ability
  * @property string $signature
- * @property array $location_preferences
- * @property array $expected_salary
  * @property string $pool_candidate_status
  * @property int $status_weight
  * @property int $pool_id
  * @property int $user_id
- * @property array $accepted_operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -54,9 +44,6 @@ class PoolCandidate extends Model
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
-        'location_preferences' => 'array',
-        'expected_salary' => 'array',
-        'accepted_operational_requirements' => 'array',
         'profile_snapshot' => 'json'
     ];
 
@@ -84,15 +71,6 @@ class PoolCandidate extends Model
     {
         return $this->belongsTo(Pool::class);
     }
-    public function expectedClassifications(): BelongsToMany
-    {
-        return $this->belongsToMany(Classification::class, 'classification_pool_candidate');
-    }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class);
-    }
-
 
     public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -101,100 +79,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        // mirroring functionality of the classification scope on the User model
-        $query->where(function ($query) use ($classifications) {
-            $query->whereHas('user', function ($query) use ($classifications) {
-                $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                    foreach ($classifications as $index => $classification) {
-                        if ($index === 0) {
-                            // First iteration must use where instead of orWhere
-                            $query->where(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        } else {
-                            $query->orWhere(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        }
-                    }
-                });
-                $query->orWhere(function ($query) use ($classifications) {
-                    $this->filterByClassificationToSalary($query, $classifications);
-                });
+        // pointing to the classification scope on the User model
+        // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
+        $query->whereHas('user', function ($query) use ($classifications) {
+                User::scopeClassifications($query, $classifications);
             });
-        });
-
         return $query;
-    }
-
-    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
-    {
-        // When managers search for a classification, also return any users whose expected salary
-        // ranges overlap with the min/max salaries of any of those classifications.
-        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
-        // numeric values and compare them to specified classifications
-
-        // This subquery only works for a non-zero number of filter classifications.
-        // If passed zero classifications then return same query builder unchanged.
-        if (count($classifications) == 0)
-            return $query;
-
-        $parameters = [];
-        $sql = <<<RAWSQL1
-
-SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
-  FROM (
-    SELECT    -- convert salary ranges to numeric min/max values
-      t.candidate_id,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 50000
-        WHEN '_60_69K' THEN 60000
-        WHEN '_70_79K' THEN 70000
-        WHEN '_80_89K' THEN 80000
-        WHEN '_90_99K' THEN 90000
-        WHEN '_100K_PLUS' THEN 100000
-      END min_salary,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 59999
-        WHEN '_60_69K' THEN 69999
-        WHEN '_70_79K' THEN 79999
-        WHEN '_80_89K' THEN 89999
-        WHEN '_90_99K' THEN 99999
-        WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary
-    FROM (
-      SELECT    -- find all salary ranges for each candidate
-        pc.id candidate_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id
-      FROM pool_candidates pc
-    ) t
-  ) u
-  JOIN classifications c ON
-    c.max_salary >= u.min_salary
-    AND c.min_salary <= u.max_salary
-  WHERE (
-
-RAWSQL1;
-
-        foreach ($classifications as $index => $classification) {
-            if ($index === 0) {
-                // First iteration must use where instead of orWhere
-                $sql .= '(c.group = ? AND c.level = ?)';
-            } else {
-                $sql .= ' OR (c.group = ? AND c.level = ?)';
-            }
-            array_push($parameters, [$classification['group'], $classification['level']]);
-        }
-
-        $sql .= <<<RAWSQL2
-  )
-  AND u.candidate_id = "pool_candidates".id
-
-RAWSQL2;
-
-        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
@@ -244,18 +134,9 @@ RAWSQL2;
             return $query;
         }
 
-        // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->whereExists(function ($query) use ($languageAbility) {
-            $query->select('id')
-            ->from('users')
-            ->whereColumn('users.id', 'pool_candidates.user_id')
-            ->where(function ($query) use ($languageAbility) {
-                $query->where('language_ability', $languageAbility);
-                if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                    $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-                }
-            });
-
+        // point at filter on User
+        $query->whereHas('user', function ($query) use ($languageAbility) {
+            User::scopeLanguageAbility($query, $languageAbility);
         });
         return $query;
     }
@@ -491,20 +372,17 @@ RAWSQL2;
         return $query;
     }
 
-    // TODO: Deprecate CMO Assets filter after FEATURE_APPLICANTSEARCH flag is turned on.
+    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
     public function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
     {
         if (empty($cmoAssets)) {
             return $query;
         }
 
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        foreach ($cmoAssets as $cmoAsset) {
-            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
-                $query->where('key', $cmoAsset['key']);
-            });
-        }
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($cmoAssets) {
+            User::filterByCmoAssets($query, $cmoAssets);
+        });
         return $query;
     }
 

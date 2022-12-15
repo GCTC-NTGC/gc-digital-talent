@@ -2432,5 +2432,9 @@
   "zwYuly": {
     "defaultMessage": "Créer un bassin",
     "description": "Page title for the pool creation page"
+  },
+  "zAqJMe": {
+    "defaultMessage": "Créé",
+    "description": "Title displayed on the Pool table Date Created column"
   }
 }

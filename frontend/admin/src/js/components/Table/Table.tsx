@@ -37,6 +37,7 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
+  initialSortBy?: Array<{ id: string; desc: boolean }>;
 }
 
 const IndeterminateCheckbox: React.FC<
@@ -137,6 +138,7 @@ function Table<T extends Record<string, unknown>>({
   search = true,
   pagination = true,
   hiddenCols = [],
+  initialSortBy = [],
 }: TableProps<T>): ReactElement {
   const {
     getTableProps,
@@ -157,6 +159,7 @@ function Table<T extends Record<string, unknown>>({
       data,
       initialState: {
         hiddenColumns: hiddenCols,
+        sortBy: initialSortBy,
       },
     },
     useGlobalFilter,

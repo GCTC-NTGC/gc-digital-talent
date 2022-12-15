@@ -22,7 +22,7 @@ type Applicant {
   department: Department
   hasPriorityEntitlement: Boolean
   priorityNumber: String
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -279,17 +279,6 @@ input CreatePoolCandidateAsAdminInput {
   user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
 }
@@ -359,7 +348,6 @@ input CreateUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -797,6 +785,7 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  createdDate: DateTime
 }
 
 type PoolAdvertisement {
@@ -845,17 +834,6 @@ type PoolCandidate {
   user: Applicant!
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: [Classification]
-  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   status: PoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -1302,17 +1280,6 @@ input UpdatePoolAdvertisementInput {
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
   notes: String
 }
@@ -1365,7 +1332,6 @@ input UpdateUserAsAdminInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1413,7 +1379,6 @@ input UpdateUserAsUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1463,7 +1428,7 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean

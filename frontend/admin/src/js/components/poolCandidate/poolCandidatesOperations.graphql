@@ -106,28 +106,6 @@ fragment poolCandidateForm on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
 }
 
@@ -278,37 +256,12 @@ fragment selectedPoolCandidates on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    name {
-      en
-      fr
-    }
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
   submittedAt
   notes
   archivedAt
 }
+
 query getPoolCandidate($id: UUID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
@@ -361,72 +314,6 @@ query getPoolCandidatesByPool($id: UUID!) {
   }
 }
 
-query getCreatePoolCandidateData {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  users {
-    id
-    firstName
-    lastName
-    email
-    preferredLang
-    telephone
-  }
-}
-
-query getUpdatePoolCandidateData($id: UUID!) {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  poolCandidate(id: $id) {
-    # to allow simultaneous editing of the associated user entity
-    user {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      preferredLang
-    }
-    ...poolCandidateForm
-  }
-}
-
 mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
   createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
     pool {
@@ -437,21 +324,6 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
     }
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }
@@ -463,21 +335,6 @@ mutation updatePoolCandidate(
   updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }

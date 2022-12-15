@@ -51,7 +51,6 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
  * @property boolean $has_disability
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
- * @property string $language_ability
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $expected_salary
@@ -293,13 +292,18 @@ class User extends Model implements Authenticatable
         if (empty($languageAbility)) {
             return $query;
         }
-        // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function ($query) use ($languageAbility) {
-            $query->where('language_ability', $languageAbility);
-            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-            }
-        });
+
+        // $languageAbility comes from enum LanguageAbility
+        // filtering on fields looking_for_<english/french/bilingual>
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH) {
+            $query->where('looking_for_english', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+            $query->where('looking_for_french', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
+            $query->where('looking_for_bilingual', true);
+        }
         return $query;
     }
     public static function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
@@ -390,6 +394,24 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
+
+    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
+    public static function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
+    {
+        if (empty($cmoAssets)) {
+            return $query;
+        }
+
+        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
+        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
+        $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
+                foreach ($cmoAssets as $cmoAsset) {
+                    $query->where('key', $cmoAsset['key']);
+                }
+            });
+        return $query;
+    }
+
     public static function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
@@ -672,15 +694,33 @@ RAWSQL2;
         return null; // if indigenousCommunities is null then so is isIndigenous
     }
 
-    // Failed attempt at paginate builder for poolCandidatesFromApplicants query.
-    public function poolCandidatesPaginated($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
-    {
-        // Find all applicants who meet the requirements of the filters.
-        $filters = $args["where"];
-        $queryBuilder = $this->query();
+    /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
+    public function getLanguageAbilityAttribute($languageAbility = null) {
+        // if the field exists, say for migration purposes, must stop accessor overriding
+        if($languageAbility !== null){
+            return $languageAbility;
+        }
 
-        // Somehow return list of poolCandidates?
+        $lookingForEnglish = $this->looking_for_english;
+        $lookingForFrench = $this->looking_for_french;
+        $lookingForBilingual = $this->looking_for_bilingual;
 
-        return $queryBuilder;
+            // only english case
+            if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+                return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            }
+
+            // only french case
+            if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+               return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            }
+
+            // bilingual case just depends on the one field being true
+            // or ignore the field if english and french are both true
+            if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
+                return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            }
+
+            // in all other cases the field stays null, so cases where all fields tested are false/null for instance
     }
 }

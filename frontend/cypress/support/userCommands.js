@@ -20,7 +20,6 @@ Cypress.Commands.add("createUser", (user) => {
     roles: [],
     currentProvince: undefined,
     currentCity: undefined,
-    languageAbility: undefined,
     lookingForEnglish: undefined,
     lookingForFrench: undefined,
     lookingForBilingual: undefined,

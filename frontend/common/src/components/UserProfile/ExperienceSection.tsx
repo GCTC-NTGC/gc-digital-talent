@@ -18,17 +18,20 @@ import {
 } from "../../types/ExperienceUtils";
 import { AwardExperience, Experience } from "../../api/generated";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
+import { HeadingLevel } from "../Heading";
 
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   experienceEditPaths?: ExperiencePaths; //  If experienceEditPaths is not defined, links to edit experiences will not appear.
   editPath?: string;
+  headingLevel?: HeadingLevel;
 }
 
 const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   experiences,
   experienceEditPaths,
   editPath,
+  headingLevel = "h3",
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -140,6 +143,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
         <Accordion.Root type="single" collapsible>
           {sortedByDate.map((experience) => (
             <ExperienceAccordion
+              headingLevel={headingLevel}
               key={experience.id}
               experience={experience}
               editPaths={experienceEditPaths}
@@ -149,6 +153,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       </Tabs.Content>
       <Tabs.Content value="1">
         <ExperienceByTypeListing
+          headingLevel={headingLevel}
           experiences={experiences}
           editPaths={experienceEditPaths}
         />
@@ -156,7 +161,11 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       <Tabs.Content value="2">
         <Accordion.Root type="multiple">
           {sortedBySkills.map((skill) => (
-            <SkillAccordion key={skill.id} skill={skill} />
+            <SkillAccordion
+              key={skill.id}
+              skill={skill}
+              headingLevel={headingLevel}
+            />
           ))}
         </Accordion.Root>
       </Tabs.Content>
