@@ -14,6 +14,13 @@ Describe the issue you encountered
 
 What should be happening?
 
+## 🕵️ Details
+
+Add any additional details that could assist with troubleshooting/fixing the issue.
+
+- **Operating System**: 
+- **Browser**: 
+
 ## 📋 Steps to Reproduce
 
 1. ...
@@ -22,13 +29,6 @@ What should be happening?
 ## 📸 Screenshot
 
 Add a screenshot if possible
-
-## 🕵️ Details
-
-Add any additional details that could assist with troubleshooting/fixing the issue.
-
-- **Operating System**: 
-- **Browser**: 
 
 ## ✅ Acceptance Criteria
 
