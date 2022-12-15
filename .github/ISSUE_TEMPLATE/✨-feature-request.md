@@ -20,7 +20,7 @@ Include a link to the design file (if it exists).
 
 ## 📸 Screenshot
 
-Add a screenshot of the new feature (if possible)
+Add a screenshot of the new feature (if possible).
 
 ## 🙋‍♀️ Proposed Implementation
 
