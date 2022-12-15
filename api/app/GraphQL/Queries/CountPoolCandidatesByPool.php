@@ -28,7 +28,7 @@ final class CountPoolCandidatesByPool
             $pools = array_map(function ($id) {
                 return ['id' => $id];
             }, $filters['pools']);
-            PoolCandidate::filterByPools($queryBuilder, $pools);
+            PoolCandidate::scopePools($queryBuilder, $pools);
         }
 
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
@@ -51,22 +51,22 @@ final class CountPoolCandidatesByPool
 
             // equity
             if (array_key_exists('equity', $filters)) {
-                User::filterByEquity($userQuery, $filters['equity']);
+                User::scopeEquity($userQuery, $filters['equity']);
             }
 
             // languageAbility
             if (array_key_exists('languageAbility', $filters)) {
-                User::filterByLanguageAbility($userQuery, $filters['languageAbility']);
+                User::scopeLanguageAbility($userQuery, $filters['languageAbility']);
             }
 
             // operationalRequirements
             if (array_key_exists('operationalRequirements', $filters)) {
-                User::filterByOperationalRequirements($userQuery, $filters['operationalRequirements']);
+                User::scopeOperationalRequirements($userQuery, $filters['operationalRequirements']);
             }
 
             // locationPreferences
             if (array_key_exists('locationPreferences', $filters)) {
-                User::filterByLocationPreferences($userQuery, $filters['locationPreferences']);
+                User::scopeLocationPreferences($userQuery, $filters['locationPreferences']);
             }
 
             // positionDuration
@@ -81,7 +81,7 @@ final class CountPoolCandidatesByPool
 
             // skills
             if (array_key_exists('skills', $filters)) {
-                User::filterBySkills($userQuery, $filters['skills']);
+                User::scopeSkills($userQuery, $filters['skills']);
             }
         });
 
