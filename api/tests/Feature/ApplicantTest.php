@@ -1622,7 +1622,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1647,7 +1647,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1657,17 +1657,21 @@ class ApplicantTest extends TestCase
         ',
             [
                 'where' => [
-                    'cmoAssets' => null,
-                    'equity' => null,
-                    'expectedClassifications' => null,
+                    'applicantFilter' => [
+                        'equity' => null,
+                        'expectedClassifications' => null,
+                        'hasDiploma' => null,
+                        'languageAbility' => null,
+                        'locationPreferences' => null,
+                        'operationalRequirements' => null,
+                        'pools' => null,
+                    ],
                     'generalSearch' => null,
-                    'hasDiploma' => null,
-                    'languageAbility' => null,
-                    'locationPreferences' => null,
-                    'operationalRequirements' => null,
-                    'pools' => null,
+                    'name' => null,
+                    'email' => null,
                     'priorityWeight' => null,
                     'status' => null,
+
                 ]
             ]
         )->assertJson([
