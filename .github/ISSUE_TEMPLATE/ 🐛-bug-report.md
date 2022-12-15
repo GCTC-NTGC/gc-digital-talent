@@ -19,7 +19,7 @@ What should be happening?
 Add any additional details that could assist with troubleshooting/fixing the issue.
 
 - **Operating System**: Name and version (if possible).
-- **Browser**: 
+- **Browser**: Name and version (if possible).
 
 ## 📋 Steps to Reproduce
 
