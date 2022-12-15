@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import { SeverityLevel } from "@common/helpers/loggingUtils";
-import { getLoggingLevel } from "@common/helpers/runtimeVariable";
+import { SeverityLevel, levelIncludes } from "../helpers/loggingUtils";
+import { getLoggingLevel } from "../helpers/runtimeVariable";
 
 export interface Logger {
   emergency: (message: string) => void;
@@ -17,12 +17,6 @@ export interface Logger {
 // a no-op function for when messages won't be logged
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
-
-// figure out if the message should be logged given the logger level
-const levelIncludes = (
-  cutoffLevel: SeverityLevel | undefined,
-  messageLevel: SeverityLevel,
-) => cutoffLevel && messageLevel <= cutoffLevel;
 
 const consoleLoggerLevel = getLoggingLevel("LOG_CONSOLE_LEVEL");
 const consoleLogger: Logger = {
@@ -84,24 +78,17 @@ const coloredConsoleLogger: Logger = {
 const childLoggers: Logger[] = [consoleLogger, coloredConsoleLogger];
 const stackLogger: Logger = {
   emergency: (message: string) =>
-    childLoggers.forEach((logger) => logger.emergency(message)),
-  alert: (message: string) =>
-    childLoggers.forEach((logger) => logger.alert(message)),
+    childLoggers.forEach((l) => l.emergency(message)),
+  alert: (message: string) => childLoggers.forEach((l) => l.alert(message)),
   critical: (message: string) =>
-    childLoggers.forEach((logger) => logger.critical(message)),
-  error: (message: string) =>
-    childLoggers.forEach((logger) => logger.error(message)),
-  warning: (message: string) =>
-    childLoggers.forEach((logger) => logger.warning(message)),
-  notice: (message: string) =>
-    childLoggers.forEach((logger) => logger.notice(message)),
-  info: (message: string) =>
-    childLoggers.forEach((logger) => logger.info(message)),
-  debug: (message: string) =>
-    childLoggers.forEach((logger) => logger.debug(message)),
+    childLoggers.forEach((l) => l.critical(message)),
+  error: (message: string) => childLoggers.forEach((l) => l.error(message)),
+  warning: (message: string) => childLoggers.forEach((l) => l.warning(message)),
+  notice: (message: string) => childLoggers.forEach((l) => l.notice(message)),
+  info: (message: string) => childLoggers.forEach((l) => l.info(message)),
+  debug: (message: string) => childLoggers.forEach((l) => l.debug(message)),
 };
-
-export default consoleLogger;
+export { stackLogger as defaultLogger };
 
 /**
  * A hook version of logger.

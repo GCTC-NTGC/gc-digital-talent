@@ -33,3 +33,10 @@ export const tryParseSeverityLevelString = (
   if (ciEquals(s, "Debug")) return SeverityLevel.Debug;
   return undefined;
 };
+
+// Figure out if the message should be logged given the logger cutoff level.
+// More severe levels are lower numerically.
+export const levelIncludes = (
+  cutoffLevel: SeverityLevel | undefined,
+  messageLevel: SeverityLevel,
+) => cutoffLevel && messageLevel <= cutoffLevel;
