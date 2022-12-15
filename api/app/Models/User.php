@@ -715,7 +715,7 @@ RAWSQL2;
 
             // bilingual case just depends on the one field being true
             // or ignore the field if english and french are both true
-            if (($lookingForBilingual) | ($lookingForEnglish && $lookingForFrench)) {
+            if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
                 return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
             }
 
