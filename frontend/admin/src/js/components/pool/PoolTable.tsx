@@ -185,7 +185,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Heading displayed above the Create Pool form.",
         }),
       }}
-      sortBy={[
+      initialSortBy={[
         {
           id: "createdDate",
           desc: true,
