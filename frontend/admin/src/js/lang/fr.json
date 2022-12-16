@@ -946,10 +946,6 @@
     "defaultMessage": "Gérer les demandes",
     "description": "Text label for link to requests page on admin dashboard"
   },
-  "C8Ltjj": {
-    "defaultMessage": "Retirer du bassin",
-    "description": "Button to remove a user from a pool - located in the table on view-user page"
-  },
   "CSDdh/": {
     "defaultMessage": "Notes",
     "description": "Title for a pool candidates notes field"
@@ -1176,10 +1172,6 @@
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
-  },
-  "jWNEdi": {
-    "defaultMessage": "Mesures",
-    "description": "Title of the 'Actions' column for the table on view-user page"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
