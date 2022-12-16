@@ -6,9 +6,11 @@ on:
     paths:
       - .github/workflows/translations.yml
       - frontend/**
+      - apps/**
   pull_request:
     paths:
       - .github/workflows/translations.yml
+      - apps/**
       - frontend/**
 
 jobs:
@@ -23,23 +25,23 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: 'frontend/.nvmrc'
+          node-version-file: './.nvmrc'
           cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          cache-dependency-path: './package-lock.json'
 
       - name: Upgrade npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Install dependencies: workspace"
-        working-directory: frontend
+        working-directory: ./
         run: npm install
 
       - name: "Extract English files: all workspaces"
-        working-directory: frontend
+        working-directory: ./
         run: npm run intl-extract --workspaces
 
       - name: "Generate untranslated files: all workspaces"
-        working-directory: frontend
+        working-directory: ./
         run: |
           npm run check-intl-admin --workspace=common
           npm run check-intl-common --workspace=common
@@ -100,6 +102,7 @@ jobs:
         with:
           name: untranslated
           path: |
+            apps/**/lang/untranslated.json
             frontend/**/lang/untranslated.json
             !frontend/node_modules/**
           if-no-files-found: ignore
