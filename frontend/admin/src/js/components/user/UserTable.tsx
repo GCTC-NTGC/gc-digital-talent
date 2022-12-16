@@ -4,7 +4,10 @@ import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
-import { getLanguage } from "@common/constants/localizedConstants";
+import {
+  getJobLookingStatus,
+  getLanguage,
+} from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
@@ -268,6 +271,21 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           getFullNameHtml(user.firstName, user.lastName, intl),
         id: "candidateName",
         sortColumnName: "first_name",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Status",
+          id: "Ag+0A4",
+          description: "Title displayed for the User table Status column",
+        }),
+        accessor: (user) =>
+          user.jobLookingStatus
+            ? intl.formatMessage(
+                getJobLookingStatus(user.jobLookingStatus as string, "short"),
+              )
+            : "",
+        id: "jobLookingStatus",
+        sortColumnName: "job_looking_status",
       },
       {
         label: intl.formatMessage({

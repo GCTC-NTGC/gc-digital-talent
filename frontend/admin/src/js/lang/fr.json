@@ -2436,5 +2436,9 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
+  },
+  "Ag+0A4": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed for the User table Status column"
   }
 }
