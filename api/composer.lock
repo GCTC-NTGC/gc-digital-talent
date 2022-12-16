@@ -3012,16 +3012,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.68.1",
+            "version": "v5.69.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "2b86311058c0b635f1aa484afe5a353877727e32"
+                "reference": "6991ddcda6c2f3187301bac56a29a43f5861df07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/2b86311058c0b635f1aa484afe5a353877727e32",
-                "reference": "2b86311058c0b635f1aa484afe5a353877727e32",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/6991ddcda6c2f3187301bac56a29a43f5861df07",
+                "reference": "6991ddcda6c2f3187301bac56a29a43f5861df07",
                 "shasum": ""
             },
             "require": {
@@ -3136,7 +3136,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-12-07T16:42:28+00:00"
+            "time": "2022-12-14T13:55:53+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
