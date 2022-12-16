@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
 
-final class ChangePoolExpiryDate
+final class ChangePoolClosingDate
 {
     /**
      * Extends the pool advertisements closing date.
@@ -14,7 +14,7 @@ final class ChangePoolExpiryDate
     public function __invoke($_, array $args)
     {
         $poolAdvertisement = Pool::find($args['id']);
-        $poolAdvertisement->update(['expiry_date' => $args['new_expiry_date']]);
+        $poolAdvertisement->update(['closing_date' => $args['new_closing_date']]);
         return $poolAdvertisement;
     }
 }

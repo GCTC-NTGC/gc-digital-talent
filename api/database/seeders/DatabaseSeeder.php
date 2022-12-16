@@ -225,7 +225,7 @@ class DatabaseSeeder extends Seeder
                     Pool::factory()->afterCreating(function ($pool) use ($classification, $faker) {
                         $pool->classifications()->sync([$classification->id]);
                     })->create([
-                        'expiry_date' => $date,
+                        'closing_date' => $date,
                         'publishing_group' => $publishingGroup,
                         'published_at' => $faker->dateTimeBetween('-1 year', 'now')
                     ]);
