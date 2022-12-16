@@ -171,7 +171,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([
+    "telephone",
+  ]);
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
     term: string | undefined;
