@@ -74,7 +74,7 @@ jobs:
 
       - name: "Verify no untranslated file: web"
         if: always()
-        working-directory: apps/web/src/js/lang
+        working-directory: apps/web/src/lang
         run: >
           if test -f ".untranslated.json"; then
             echo ":x: Web has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
