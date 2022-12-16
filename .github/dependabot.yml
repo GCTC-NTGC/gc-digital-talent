@@ -11,6 +11,7 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 15
 
   # This ignores all updates to tc-report, since it's now served as a static website.
@@ -40,6 +41,7 @@ updates:
     directory: "/api"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 15
 
   # DOCKER image updates
@@ -48,18 +50,21 @@ updates:
     package-ecosystem: "docker"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 0
 
   - directory: "/infrastructure/php-container"
     package-ecosystem: "docker"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 0
 
   - directory: "/infrastructure/maintenance-container"
     package-ecosystem: "docker"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 0
 
   # GITHUB ACTIONS external action updates
@@ -70,4 +75,5 @@ updates:
     package-ecosystem: "github-actions"
     schedule:
       interval: "weekly"
+      day: "thursday"
     open-pull-requests-limit: 0

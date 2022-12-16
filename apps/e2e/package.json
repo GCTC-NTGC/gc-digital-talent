@@ -18,7 +18,7 @@
     "cy-verify-downloads": "^0.1.11",
     "cypress": "^10.11.0",
     "cypress-multi-reporters": "^1.6.2",
-    "cypress-terminal-report": "^3.5.2",
+    "cypress-terminal-report": "^5.0.0",
     "eslint-plugin-cypress": "^2.12.1",
     "prettier": "^2.8.1"
   }

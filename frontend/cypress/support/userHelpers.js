@@ -7,7 +7,6 @@ import {
 import { FAR_PAST_DATE } from "../../common/src/helpers/dateUtils";
 import {
   JobLookingStatus,
-  LanguageAbility,
   OperationalRequirement,
   PositionDuration,
   Role,
@@ -30,7 +29,6 @@ export function createApplicant({
     armedForcesStatus: ArmedForcesStatus.NonCaf,
     citizenship: CitizenshipStatus.Citizen,
     lookingForEnglish: true,
-    languageAbility: LanguageAbility.English,
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,

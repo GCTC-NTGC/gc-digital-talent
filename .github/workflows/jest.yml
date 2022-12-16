@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     name: Unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       NPM_VERSION: "8.3.0"
 

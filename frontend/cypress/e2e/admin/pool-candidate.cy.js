@@ -28,15 +28,11 @@ describe("Pool Candidates", () => {
   it("should update pool candidate status", () => {
     cy.wait("@gqlgetPoolsQuery");
 
-    cy.findAllByRole("link", { name: /view candidates/i })
-      .eq(0)
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.findByRole("link", {
+      name: /view candidates for cmo digital careers/i,
+    }).click();
 
     cy.findAllByRole("link", { name: /view application/i })
       .eq(0)
@@ -65,15 +61,11 @@ describe("Pool Candidates", () => {
   it("should update pool candidate status with optional fields", () => {
     cy.wait("@gqlgetPoolsQuery");
 
-    cy.findAllByRole("link", { name: /view candidates/i })
-      .eq(0)
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.findByRole("link", {
+      name: /view candidates for cmo digital careers/i,
+    }).click();
 
     cy.findAllByRole("link", { name: /view application/i })
       .eq(0)
@@ -98,5 +90,4 @@ describe("Pool Candidates", () => {
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });
-
 });

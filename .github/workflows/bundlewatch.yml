@@ -24,7 +24,7 @@ on:
 
 jobs:
   runner:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       NPM_VERSION: '8.3.0'
       # Used to write status check on PRs within upstream repo.
