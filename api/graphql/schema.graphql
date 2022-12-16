@@ -41,6 +41,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime @rename(attribute: "created_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
