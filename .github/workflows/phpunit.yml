@@ -7,7 +7,7 @@ on:
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container:
       image: kirschbaumdevelopment/laravel-test-runner:7.3
 
