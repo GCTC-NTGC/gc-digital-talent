@@ -6,6 +6,7 @@
     "node": "16.16.0",
     "npm": ">=8.0.0"
   },
+  "packageManager": "npm@8.0.0",
   "workspaces": [
     "apps/*",
     "frontend/admin",
@@ -14,18 +15,25 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "codegen": "turbo run codegen",
-    "dev": "turbo run dev --parallel",
+    "build:all": "turbo run build",
+    "build": "turbo run build --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "codegen": "turbo run codegen --filter='./apps/*' --filter='./frontend/*'",
+    "intl-extract": "turbo run intl-extract --filter='./apps/*' --filter='./frontend/*'",
+    "intl-compile": "turbo run intl-compile --filter='./apps/*' --filter='./frontend/*'",
+    "dev": "turbo run dev --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
     "lint": "turbo run lint",
-    "storybook": "turbo run storybook",
+    "storybook": "",
     "test": "turbo run test",
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
-    "e2e": "turbo run e2e --filter=@gc-digital-talent/e2e"
+    "e2e": "turbo run e2e --filter=@gc-digital-talent/e2e",
+    "e2e:open": "turbo run e2e:open --filter=@gc-digital-talent/e2e",
+    "e2e:run:all": "turbo run e2e:run:all --filter=@gc-digital-talent/e2e",
+    "e2e:run:inspect": "turbo run e2e:run:inspect --filter=@gc-digital-talent/e2e",
+    "tsc": "turbo run tsc"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "prettier": "^2.8.1",
+    "turbo": "^1.6.3"
   }
 }

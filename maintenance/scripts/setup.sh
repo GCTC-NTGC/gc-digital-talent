@@ -16,18 +16,18 @@ chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
 # setup frontend workspace
-cd /var/www/html/frontend
+cd /var/www/html
 npm install
 
 # copy out new .env files
 cd /var/www/html/frontend
 cp ./talentsearch/.env.example ./talentsearch/.env --preserve=all
-cp ./indigenousapprenticeship/.env.example ./indigenousapprenticeship/.env --preserve=all
 cp ./admin/.env.example ./admin/.env --preserve=all
 
-# build projects
-cd /var/www/html/frontend
-npm run codegen --workspaces
-npm run intl-compile --workspaces
-npm run dev --workspaces --if-present # common workspace does not have dev script
+cd /var/www/html
+cp ./apps/web/.env.example ./apps/web/.env --preserve=all
 
+# build projects
+cd /var/www/html
+npm i
+npm run build

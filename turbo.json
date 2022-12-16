@@ -1,25 +1,24 @@
 {
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "^intl-compile", "^codegen"],
+      "dependsOn": ["intl-compile", "codegen"],
       "outputs": ["./dist/**"]
     },
     "codegen": {
       "outputs": ["./src/api/**"]
     },
     "dev": {
-      "dependsOn": ["^dev", "^intl-compile", "^codegen"],
-      "cache": false
+      "dependsOn": ["intl-compile", "codegen"],
+      "outputs": ["./dist/**"]
     },
     "watch": {
-      "dependsOn": ["^watch", "^intl-compile", "^codegen"],
-      "cache": false
+      "dependsOn": ["intl-compile", "codegen"],
+      "outputs": ["./dist/**"]
     },
     "intl-extract": {
       "outputs": ["./src/lang/en.json"]
     },
     "intl-compile": {
-      "dependsOn": ["^intl-extract"],
       "outputs": ["./src/lang/*{Compiled}.json"]
     },
     "storybook": {
@@ -29,10 +28,15 @@
       "outputs": ["dist/**", "storybook-static/**"]
     },
     "test": {
+      "dependsOn": ["build"],
       "outputs": []
     },
-    "e2e": {
-      "cache": false
-    }
+    "e2e": {},
+    "e2e:open": {},
+    "e2e:run": {},
+    "e2e:run:all": {},
+    "e2e:run:inspect": {},
+    "lint": {},
+    "tsc": {}
   }
 }
