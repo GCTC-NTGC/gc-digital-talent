@@ -233,7 +233,7 @@ export interface SignAndSubmitFormProps {
   applicationId: string;
   poolAdvertisementId: string;
   userId: string;
-  closingDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   jobTitle: string;
   isApplicationComplete: boolean;
   handleSubmitApplication: (
@@ -430,7 +430,7 @@ const SignAndSubmitPage = () => {
           applicationId={data.poolCandidate.id}
           poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
           userId={data.poolCandidate.user.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
+          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
           jobTitle={jobTitle}
           isApplicationComplete={isApplicationComplete}
           handleSubmitApplication={handleSubmitApplication}

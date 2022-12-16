@@ -32,7 +32,7 @@ interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
   applicationId: string;
-  closingDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
 }
 
 export const ReviewMyApplication: React.FunctionComponent<
@@ -269,7 +269,7 @@ const ReviewMyApplicationPage = () => {
           poolAdvertisement={data.poolCandidate.poolAdvertisement}
           applicant={data.poolCandidate.user as Applicant}
           applicationId={data.poolCandidate.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
+          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
         />
       ) : (
         <ApplicationNotFound />
