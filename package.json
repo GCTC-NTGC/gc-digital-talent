@@ -1,3 +1,31 @@
 {
-  "note": "Workaround. Bundlewatch CLI needs package.json in root."
+  "private": true,
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": "16.16.0",
+    "npm": ">=8.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "frontend/admin",
+    "frontend/common",
+    "frontend/talentsearch",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "codegen": "turbo run codegen",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "storybook": "turbo run storybook",
+    "test": "turbo run test",
+    "watch": "turbo run watch --filter=@gc-digital-talent/web",
+    "e2e": "turbo run e2e --filter=@gc-digital-talent/e2e"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
+  }
 }

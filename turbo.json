@@ -1,0 +1,38 @@
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build", "^intl-compile", "^codegen"],
+      "outputs": ["./dist/**"]
+    },
+    "codegen": {
+      "outputs": ["./src/api/**"]
+    },
+    "dev": {
+      "dependsOn": ["^dev", "^intl-compile", "^codegen"],
+      "cache": false
+    },
+    "watch": {
+      "dependsOn": ["^watch", "^intl-compile", "^codegen"],
+      "cache": false
+    },
+    "intl-extract": {
+      "outputs": ["./src/lang/en.json"]
+    },
+    "intl-compile": {
+      "dependsOn": ["^intl-extract"],
+      "outputs": ["./src/lang/*{Compiled}.json"]
+    },
+    "storybook": {
+      "outputs": []
+    },
+    "build-storybook": {
+      "outputs": ["dist/**", "storybook-static/**"]
+    },
+    "test": {
+      "outputs": []
+    },
+    "e2e": {
+      "cache": false
+    }
+  }
+}

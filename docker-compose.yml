@@ -56,6 +56,7 @@ services:
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
       - ./frontend:/var/www/html/frontend
+      - ./apps:/var/www/html/apps
       - ./tc-report:/var/www/html/tc-report
 
   # We proxy the auth server through apache, so it's at localhost.

@@ -192,21 +192,21 @@ server {
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
     location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/indigenousapprenticeship/dist/$1 break;
+        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "apprenti-autochtonne-ti" to indigenousapprenticeship index.html
     location ~ "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" {
         add_header Cache-Control no-cache;
         expires 0;
-        rewrite "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
+        rewrite "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to indigenousapprenticeship index.html
     location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
         add_header Cache-Control no-cache;
         expires 0;
-        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
+        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite tc-report static files to "tc-report/_site"
