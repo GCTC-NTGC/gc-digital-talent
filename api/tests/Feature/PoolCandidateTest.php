@@ -674,7 +674,9 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
       'user_id' => User::factory([
-        'language_ability' => 'TEST',
+        'looking_for_english' => false,
+        'looking_for_french' => false,
+        'looking_for_bilingual' => false,
       ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -683,21 +685,27 @@ class PoolCandidateTest extends TestCase
     // Create new LanguageAbility and attach to 3 new pool candidates.
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
-        'language_ability' => 'FRENCH',
+        'looking_for_english' => false,
+        'looking_for_french' => true,
+        'looking_for_bilingual' => false,
       ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
-        'language_ability' => 'ENGLISH',
+        'looking_for_english' => true,
+        'looking_for_french' => false,
+        'looking_for_bilingual' => false,
       ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
       'user_id' => User::factory([
-        'language_ability' => 'BILINGUAL',
+        'looking_for_english' => false,
+        'looking_for_french' => false,
+        'looking_for_bilingual' => true,
       ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -727,7 +735,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->assertJson([
       'data' => [
-        'countPoolCandidates' => 2
+        'countPoolCandidates' => 1
       ]
     ]);
     // Assert query with LanguageAbility filter will return correct candidate count
@@ -741,7 +749,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->assertJson([
       'data' => [
-        'countPoolCandidates' => 2
+        'countPoolCandidates' => 1
       ]
     ]);
     // Assert query with LanguageAbility filter will return correct candidate count
