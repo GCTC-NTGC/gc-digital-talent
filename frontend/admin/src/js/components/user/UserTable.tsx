@@ -9,6 +9,7 @@ import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -173,6 +174,8 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([
     "telephone",
+    "createdDate",
+    "updatedDate",
   ]);
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
@@ -325,6 +328,40 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             getFullNameLabel(user.firstName, user.lastName, intl),
           ),
         id: "view",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Created",
+          id: "+pgXHm",
+          description: "Title displayed for the User table Date Created column",
+        }),
+        accessor: (user) =>
+          user.createdDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.createdDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "createdDate",
+        sortColumnName: "created_at",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        accessor: (user) =>
+          user.updatedDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.updatedDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "updatedDate",
+        sortColumnName: "updated_at",
       },
     ],
     [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
