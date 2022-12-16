@@ -1,4 +1,4 @@
-name: Php Unit Tests
+name: PHP Unit Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   phpunit:
     runs-on: ubuntu-22.04
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:7.3
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
 
     services:
       postgres:

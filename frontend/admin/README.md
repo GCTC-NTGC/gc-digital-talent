@@ -1,6 +1,6 @@
 # Getting Started
 
-1. Ensure PHP (PHP >= 7.3) and Composer are installed
+1. Ensure PHP (Version 8.1) and Composer are installed
 2. Ensure the following extensions are enabled:
     * OpenSSL PHP Extension
     * PDO PHP Extension
