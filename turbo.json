@@ -28,8 +28,7 @@
       "outputs": ["dist/**", "storybook-static/**"]
     },
     "test": {
-      "dependsOn": ["build"],
-      "outputs": []
+      "cache": false
     },
     "e2e": {},
     "e2e:open": {},

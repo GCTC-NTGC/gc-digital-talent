@@ -27,13 +27,13 @@ module.exports = {
   "staticDirs": [
     { from: '../public', to: '/admin' },
     { from: '../../talentsearch/public', to: '/talent' },
-    { from: '../../indigenousapprenticeship/public', to: '/indigenous-it-apprentice' }
+    { from: '../../../apps/web/public', to: '/web' }
   ],
   "stories": [
     `${ isMerged ? '../../admin/src/'        : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
     `${ isMerged ? '../../talentsearch/src/' : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
     `${ isMerged ? '../../common/src/'       : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../indigenousapprenticeship/src/' : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
+    `${ isMerged ? '../../../apps/web/src/' : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
   ],
   "addons": [
     "@storybook/addon-links",

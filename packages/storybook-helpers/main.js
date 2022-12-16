@@ -27,7 +27,7 @@ module.exports = (basePath) => {
     "staticDirs": [
       { from: path.resolve(basePath, '../../../frontend/talentsearch/src'), to: '/talent' },
       { from: path.resolve(basePath, '../../../frontend/admin/src'), to: '/admin' },
-      { from: path.resolve(basePath, '../../src'), to: '/indigenousapprenticeship' }
+      { from: path.resolve(basePath, '../../src'), to: '/public' }
     ],
 
     "stories": [
