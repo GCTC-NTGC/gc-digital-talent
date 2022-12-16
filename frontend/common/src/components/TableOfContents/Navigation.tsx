@@ -11,7 +11,7 @@ const Navigation: React.FC = ({ children, ...rest }) => {
   return (
     <Sidebar>
       <div data-h2-text-align="base(left) l-tablet(right)" {...rest}>
-        <p
+        <h2
           id={`toc-heading-${id}`}
           data-h2-font-size="base(h5, 1)"
           data-h2-font-weight="base(700)"
@@ -22,7 +22,7 @@ const Navigation: React.FC = ({ children, ...rest }) => {
             id: "3Nd6dv",
             description: "Title for  pages table of contents.",
           })}
-        </p>
+        </h2>
         <nav
           aria-labelledby={`toc-heading-${id}`}
           data-h2-display="base(flex)"
