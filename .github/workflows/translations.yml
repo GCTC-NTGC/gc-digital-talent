@@ -43,10 +43,10 @@ jobs:
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
-          npm run check-intl-admin --workspace=common
-          npm run check-intl-common --workspace=common
-          npm run check-intl-indigenousapprenticeship --workspace=common
-          npm run check-intl-talentsearch --workspace=common
+          npm run check-intl-admin --workspace=frontend/common
+          npm run check-intl-common --workspace=frontend/common
+          npm run check-intl-indigenousapprenticeship --workspace=frontend/common
+          npm run check-intl-talentsearch --workspace=frontend/common
 
       - name: "Verify no untranslated file: admin"
         if: always()
