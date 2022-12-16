@@ -27,7 +27,7 @@ module.exports = {
         // Build Hydrogen
         // Run on the environment hook to catch the initial compile and non-watch compiles
         compiler.hooks.environment.tap('environment', () => {
-          shell.cd('..');
+          shell.cd('../..');
           shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
         })
         // Build Hydrogen and manipulate it's modified time
