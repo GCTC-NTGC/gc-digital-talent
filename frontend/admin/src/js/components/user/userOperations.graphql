@@ -176,6 +176,8 @@ query AllUsersPaginated(
       lastName
       telephone
       preferredLang
+      createdDate
+      updatedDate
     }
     paginatorInfo {
       count
