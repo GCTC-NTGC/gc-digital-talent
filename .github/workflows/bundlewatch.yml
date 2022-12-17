@@ -53,27 +53,6 @@ jobs:
         run: |
           npm install
 
-      - name: "Build: common"
-        working-directory: frontend/common
-        run: |
-          npm run h2-build
-          npm run codegen
-          npm run intl-compile
-
-      - name: "Build: admin"
-        working-directory: frontend/admin
-        run: |
-          npm run codegen
-          npm run intl-compile
-          npm run production
-
-      - name: "Build: talentsearch"
-        working-directory: frontend/talentsearch
-        run: |
-          npm run codegen
-          npm run intl-compile
-          npm run production
-
       - name: "Build: web"
         working-directory: ./
         run: |
