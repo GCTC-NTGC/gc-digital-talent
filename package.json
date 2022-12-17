@@ -24,7 +24,7 @@
     "dev": "turbo run dev --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
-    "storybook:app": "npm run storybook",
+    "storybook:project": "npm run storybook",
     "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=admin",
     "test": "turbo run test",
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
