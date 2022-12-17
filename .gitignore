@@ -3,10 +3,6 @@ node_modules
 frontend/*/package-lock.json
 
 # Cypress artifacts
-frontend/cypress/screenshots
-frontend/cypress/videos
-frontend/cypress/reporters
-frontend/cypress/downloads
 apps/e2e/cypress/screenshots
 apps/e2e/cypress/videos
 apps/e2e/cypress/reporters

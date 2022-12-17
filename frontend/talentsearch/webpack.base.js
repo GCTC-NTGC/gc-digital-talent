@@ -13,7 +13,7 @@ module.exports = {
   entry: {
     app: [
       "./src/js/main.tsx",
-      "../common/src/css/hydrogen.css",
+      path.resolve(__dirname, "../common/src/css/hydrogen.css"),
       "../common/src/css/common.css",
       "./src/css/app.css",
     ],
