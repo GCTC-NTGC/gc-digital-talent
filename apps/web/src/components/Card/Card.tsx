@@ -1,6 +1,6 @@
 import React from "react";
 
-import Heading from "../Heading/Heading";
+import Heading from "~/components/Heading/Heading";
 
 interface CardProps {
   Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;

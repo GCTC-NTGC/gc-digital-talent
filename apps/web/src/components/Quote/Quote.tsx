@@ -1,9 +1,9 @@
 import React from "react";
 
-import CloseQuote from "../Svg/CloseQuote";
-import OpenQuote from "../Svg/OpenQuote";
+import CloseQuote from "~/components/Svg/CloseQuote";
+import OpenQuote from "~/components/Svg/OpenQuote";
 
-import type { Quote as QuoteProps } from "../../hooks/useQuote";
+import type { Quote as QuoteProps } from "~/hooks/useQuote";
 
 const Quote: React.FC<QuoteProps> = ({ content, author }) => (
   <figure data-h2-padding="base(x2, 0, x1, 0) p-tablet(x3, 0)">

@@ -12,7 +12,8 @@
     "frontend/common/src/styles",
     "frontend/admin/src/js/components",
     "frontend/talentsearch/src/js/components",
-    "apps/web/src/components"
+    "apps/web/src/components",
+    "apps/web/src/pages"
   ],
   "output": "frontend/common/src/css",
   "modes": {

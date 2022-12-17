@@ -3,10 +3,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales } from "@common/helpers/localize";
 import Loading from "@common/components/Pending/Loading";
-
 import useLocale from "@common/hooks/useLocale";
-import Home from "./Home/Home";
-import Layout from "./Layout";
+import lazyRetry from "@common/helpers/lazyRetry";
+
+import Layout from "~/components/Layout";
+
+/** IAP Home Page */
+const IAPHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(/* webpackChunkName: "iapHomePage" */ "../pages/IAPHomePage/Home"),
+  ),
+);
 
 const createRoute = (locale: Locales) =>
   createBrowserRouter([
@@ -19,7 +27,7 @@ const createRoute = (locale: Locales) =>
           children: [
             {
               index: true,
-              element: <Home />,
+              element: <IAPHomePage />,
             },
           ],
         },

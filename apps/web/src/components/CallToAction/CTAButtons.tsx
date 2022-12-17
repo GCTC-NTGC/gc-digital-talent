@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ApplyDialog, LearnDialog } from "../Dialog";
+import { ApplyDialog, LearnDialog } from "~/components/Dialog";
 
 const CTAButtons = () => (
   <div data-h2-display="p-tablet(flex)">
