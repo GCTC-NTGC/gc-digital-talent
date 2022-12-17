@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/storybook.yml
+      - frontend/**
       - apps/**
 
 jobs:
@@ -44,9 +45,7 @@ jobs:
       - name: "Build: all workspaces"
         working-directory: ./
         run: |
-          npm run h2-build --workspace common
-          npm run codegen
-          npm run intl-compile
+          npm run build
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1

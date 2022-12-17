@@ -24,11 +24,7 @@ const reactIntlTransformRule = {
 
 module.exports = (basePath) => {
   return {
-    "staticDirs": [
-      { from: path.resolve(basePath, '../../../frontend/talentsearch/src'), to: '/talent' },
-      { from: path.resolve(basePath, '../../../frontend/admin/src'), to: '/admin' },
-      { from: path.resolve(basePath, '../../src'), to: '/public' }
-    ],
+    "staticDirs": [ { from: '../public', to: '/indigenous-it-apprentice' } ],
 
     "stories": [
       "../src/**/*.stories.mdx",
@@ -40,7 +36,12 @@ module.exports = (basePath) => {
       "storybook-addon-intl"
     ],
     "core": {
-      "builder": "webpack5"
+      builder: {
+        name: 'webpack5',
+        options: {
+          lazyCompilation: true,
+        },
+      },
     },
     webpackFinal: async (config, { configType }) => {
       // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -49,6 +50,7 @@ module.exports = (basePath) => {
 
       config.resolve.alias = {
         ...config.resolve.alias,
+        "@common": path.resolve(basePath, '../../frontend/common/src'),
       }
 
       config.module.rules = [
@@ -65,12 +67,12 @@ module.exports = (basePath) => {
             // Run on the environment hook to catch the initial compile and non-watch compiles
             compiler.hooks.environment.tap('environment', () => {
               shell.cd('..');
-              shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
+              shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
             })
             // Build Hydrogen and manipulate it's modified time
             // Run on the invalid hook so that the file time is updated before the next compile
             compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
-              shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
+              shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
               var f = path.resolve('common/src/css/hydrogen.css')
               var now = Date.now() / 1000
               var then = now - 100
