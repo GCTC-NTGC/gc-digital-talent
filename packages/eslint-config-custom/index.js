@@ -30,6 +30,8 @@ module.exports = {
     ".eslintrc.js",
     "generated.ts",
     "webpack.*.js",
+    "tsconfig.json",
+    "CssStub.js"
   ],
   plugins: [
     "prettier",
