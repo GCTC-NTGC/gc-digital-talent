@@ -15,8 +15,9 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "h2-build && turbo run build --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
     "build:all": "turbo run build",
-    "build": "turbo run build --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "build:css": "h2-build",
     "build:project": "turbo run build",
     "codegen": "turbo run codegen --filter='./apps/*' --filter='./frontend/*'",
     "intl-extract": "turbo run intl-extract --filter='./apps/*' --filter='./frontend/*'",
@@ -35,6 +36,7 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
+    "@hydrogen-css/hydrogen": "2.0.0-beta.33",
     "eslint-config-custom": "*",
     "prettier": "^2.8.1",
     "turbo": "^1.6.3"

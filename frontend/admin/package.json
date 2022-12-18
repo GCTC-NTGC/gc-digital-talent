@@ -30,6 +30,7 @@
     "watch-poll": "webpack watch --config webpack.dev.js --watch-options-poll=1000",
     "hot": "webpack watch --hot --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "build:css": "npx h2-build",
     "production": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

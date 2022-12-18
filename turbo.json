@@ -8,7 +8,7 @@
       "outputs": ["./src/api/**"]
     },
     "dev": {
-      "dependsOn": ["intl-compile", "codegen"],
+      "dependsOn": ["build:css", "intl-compile", "codegen"],
       "outputs": ["./dist/**"]
     },
     "watch": {
@@ -26,6 +26,9 @@
     },
     "build-storybook": {
       "outputs": ["dist/**", "storybook-static/**"]
+    },
+    "build:css": {
+      "outputs": ["src/assets/css/hydrogen.css"]
     },
     "test": {
       "cache": false
