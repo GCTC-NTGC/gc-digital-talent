@@ -1919,5 +1919,21 @@
   "LZ0Poh": {
     "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
     "description": "Text that appears in transferable skills section on their profile."
+  },
+  "qmEyxS": {
+    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
+    "description": "Error message that the pool closing date isn't in the future."
+  },
+  "8WC+Ty": {
+    "defaultMessage": "La date limite des candidatures est passée.",
+    "description": "Message displayed when a closing date has passed."
+  },
+  "/UBSoB": {
+    "defaultMessage": "Fermée",
+    "description": "Closed pool advertisement status"
+  },
+  "csLjMi": {
+    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
+    "description": "Error message that the given skill closing date must be after today."
   }
 }
