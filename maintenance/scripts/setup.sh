@@ -15,10 +15,6 @@ php artisan config:clear
 chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
-# setup frontend workspace
-cd /var/www/html
-npm install
-
 # copy out new .env files
 cd /var/www/html/frontend
 cp ./talentsearch/.env.example ./talentsearch/.env --preserve=all
@@ -29,5 +25,5 @@ cp ./apps/web/.env.example ./apps/web/.env --preserve=all
 
 # build projects
 cd /var/www/html
-npm i
+npm ci
 npm run build
