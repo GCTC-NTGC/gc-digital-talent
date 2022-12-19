@@ -62,9 +62,6 @@ jobs:
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
-      - name: Install dependencies
-        run: npm install
-
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v4.2.0
         with:
