@@ -874,7 +874,7 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft", "availableForOpportunities", "expiryFilter"])
     @guard
     @can(ability: "viewAny")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
