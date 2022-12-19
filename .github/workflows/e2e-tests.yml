@@ -58,6 +58,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
+          cache-dependency-path: |
+            ./package-lock.json
 
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
@@ -65,6 +67,7 @@ jobs:
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v4.2.0
         with:
+          working-directory: ./apps/e2e
           spec: "**/*.cy.js"
           browser: chrome
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
