@@ -10,6 +10,13 @@ use GraphQL\Experimental\Executor\Collector;
 
 class UserResource extends JsonResource
 {
+    protected $poolSkillIds;
+
+    public function poolSkillIds($value){
+        $this->poolSkillIds = $value;
+        return $this;
+    }
+
     /**
      * Transform the resource into an array.
      *
