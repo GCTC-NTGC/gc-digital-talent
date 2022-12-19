@@ -2,21 +2,13 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import {
-  ReactPlugin,
-  withAITracking,
-} from "@microsoft/applicationinsights-react-js";
 
 import MenuLink from "@common/components/Link/MenuLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 
-import {
-  AppInsightsContextProvider,
-  useAppInsightsContext,
-} from "@common/components/AppInsights/AppInsightsContext";
+import { AppInsightsContextProvider } from "@common/components/AppInsights/AppInsightsContext";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 
 import Footer from "@common/components/Footer";
