@@ -51,6 +51,13 @@ jobs:
         # Need to include --build as we're caching layers.
         run: docker-compose up --detach --build
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh
 
@@ -58,14 +65,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
-
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/Cypress
-            node_modules
-          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npm i cypress
 
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
