@@ -56,22 +56,9 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version-file: './.nvmrc'
+          node-version-file: '.nvmrc'
           cache: npm
-          cache-dependency-path: |
-            ./package-lock.json
-
-      - name: Upgrade to latest npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
-
-      - uses: actions/cache@v2
-        with:
-           path: |
-            ~/.cache/Cypress
-            node_modules
-           key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npm i cypress
-
+          cache-dependency-path: '**/package-lock.json'
 
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v5
@@ -82,7 +69,6 @@ jobs:
           browser: chrome
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"
-          install: false
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
