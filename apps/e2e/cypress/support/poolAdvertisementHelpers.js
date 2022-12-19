@@ -6,7 +6,7 @@ import {
 } from "talentsearch/src/js/api/generated";
 import {
   FAR_FUTURE_DATE,
-} from "common/src/helpers/dateUtils";
+} from "@gc-digital-talent/common/src/helpers/dateUtils";
 
 export function createAndPublishPoolAdvertisement({
   adminUserId,

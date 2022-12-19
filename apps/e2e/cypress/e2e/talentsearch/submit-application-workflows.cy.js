@@ -8,11 +8,11 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
-} from "../../../talentsearch/src/js/api/generated";
+} from "talentsearch/src/js/api/generated";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
-} from "../../../common/src/helpers/dateUtils";
+} from "@gc-digital-talent/common/src/helpers/dateUtils";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application Workflow Tests", () => {
