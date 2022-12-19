@@ -30,7 +30,7 @@ export function createApplicant({
     armedForcesStatus: ArmedForcesStatus.NonCaf,
     citizenship: CitizenshipStatus.Citizen,
     lookingForEnglish: true,
-    languageAbility: LanguageAbility.English,
+    //languageAbility: LanguageAbility.English,
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,
