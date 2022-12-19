@@ -20,6 +20,7 @@ import {
   Classification,
   ClassificationFilterInput,
   PoolCandidateSearchInput,
+  PoolCandidateStatus,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -377,6 +378,10 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       },
       emptyFilter,
     ),
+    status: [
+      PoolCandidateStatus.QualifiedAvailable,
+      PoolCandidateStatus.PlacedCasual,
+    ],
   };
 };
 
