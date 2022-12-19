@@ -15,6 +15,7 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
+import { IdInput } from "@common/api/generated";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
@@ -86,6 +87,10 @@ function transformPoolCandidateSearchInputToFormValues(
         ]
       : [],
     hasDiploma: input?.applicantFilter?.hasDiploma ? ["true"] : [],
+    pools:
+      input?.applicantFilter?.pools
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     status: input?.status?.filter(notEmpty) ?? [],
   };
@@ -217,7 +222,8 @@ const provinceAccessor = (
 
 const PoolCandidatesTable: React.FC<{
   initialFilterInput?: PoolCandidateSearchInput;
-}> = ({ initialFilterInput }) => {
+  selectedPools?: InputMaybe<IdInput>[];
+}> = ({ initialFilterInput, selectedPools }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
@@ -326,6 +332,7 @@ const PoolCandidatesTable: React.FC<{
             isVisibleMinority: true,
           }),
         },
+        pools: selectedPools || [],
       },
       status: data.status.map((status) => {
         return stringToEnumPoolCandidateStatus(status);

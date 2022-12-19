@@ -23,6 +23,7 @@ export type FormValues = {
   equity: Option["value"][];
   status: Option["value"][];
   priorityWeight: Option["value"][];
+  pools: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -120,6 +121,18 @@ const PoolCandidateTableFilterDialog = ({
           }}
         >
           <div data-h2-flex-grid="base(flex-start, x1, x.5)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+              <MultiSelectFieldV2
+                id="pools"
+                label={formatMessage({
+                  defaultMessage: "Pools",
+                  id: "mjyHeP",
+                })}
+                options={optionsData.pools}
+                isLoading={rawGraphqlResults.pools.fetching}
+                isDisabled
+              />
+            </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
               <SelectFieldV2
                 forceArrayFormValue
