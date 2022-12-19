@@ -2465,12 +2465,12 @@
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "5qkqv9": {
-    "defaultMessage": "Niveau 4 (gestionnaire/conseiller)",
+  "eB5hGA": {
+    "defaultMessage": "Gestionnaire/Conseiller (IT-04)",
     "description": "Title for the 'IT-04 Manager' classification"
   },
-  "6dPu0e": {
-    "defaultMessage": "Niveau 2 (analyste)",
+  "+ywDV8": {
+    "defaultMessage": "Analyste (IT-02)",
     "description": "Title for the 'IT-02 Analyst' classification"
   },
   "7KJGSu": {
@@ -2501,8 +2501,8 @@
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
-  "MzhP1T": {
-    "defaultMessage": "Niveau 3 (chef/conseiller)",
+  "DE5cLX": {
+    "defaultMessage": "Chef/Conseiller (IT-03)",
     "description": "Title for the 'IT-03 Advisor' classification"
   },
   "QN/1MR": {
@@ -2513,12 +2513,12 @@
     "defaultMessage": "Postulez au recrutement en cours",
     "description": "title for section with ongoing pool advertisements"
   },
-  "T0gN76": {
-    "defaultMessage": "Les techniciens (IT-01) fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
+  "bF/ZqD": {
+    "defaultMessage": "Les techniciens fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-01 Technician' classification"
   },
-  "UBf9lv": {
-    "defaultMessage": "Niveau 1 (technicien)",
+  "MiBPoz": {
+    "defaultMessage": "Technicien (IT-01)",
     "description": "Title for the 'IT-01 Technician' classification"
   },
   "VX2+ET": {
@@ -2541,16 +2541,28 @@
     "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
-  "T+IwWT": {
-    "defaultMessage": "Présenter sa candidature au niveau {levelNumber}<hidden> {name}</hidden>",
-    "description": "Invitation to apply at a certain level number"
+  "tN4qb/": {
+    "defaultMessage": "Présenter sa candidature pour les opportunités de techniciens.",
+    "description": "Invitation to apply for the 'IT-01 Technician' classification"
+  },
+  "p9Gxcw": {
+    "defaultMessage": "Présenter sa candidature pour les opportunités d’analystes.",
+    "description": "Invitation to apply for the 'IT-02 Analyst' classification"
+  },
+  "Aa/mAt": {
+    "defaultMessage": "Présenter sa candidature pour les opportunités de conseillers techniques en TI",
+    "description": "Invitation to apply for the 'IT-03 Advisor' classification"
+  },
+  "513Imu": {
+    "defaultMessage": "Présenter sa candidature pour les opportunités de responsables de la TI",
+    "description": "Invitation to apply for the 'IT-04 Manager' classification"
   },
   "pffFnd": {
     "defaultMessage": "Gestion de bases de données de la TI",
     "description": "Title for the 'database management' IT work stream"
   },
-  "rLmOMp": {
-    "defaultMessage": "Les conseillers techniques en TI (IT-03) fournissent des conseils, des recommandations et un soutien techniques spécialisés sur les solutions et les services dans leur domaine d’expertise à l’appui de la fourniture de services.",
+  "Cknr9t": {
+    "defaultMessage": "Les conseillers techniques en TI fournissent des conseils, des recommandations et un soutien techniques spécialisés sur les solutions et les services dans leur domaine d’expertise à l’appui de la fourniture de services.",
     "description": "Description for the 'IT-03 Advisor' classification"
   },
   "svCFrY": {
@@ -2561,12 +2573,12 @@
     "defaultMessage": "Sécurité de la TI",
     "description": "Title for the 'security' IT work stream"
   },
-  "v0/leo": {
-    "defaultMessage": "Les responsables de la TI (IT-04) sont chargés de gérer le développement et la fourniture de services ou d’opérations de TI par le biais de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
+  "2/cFsp": {
+    "defaultMessage": "Les responsables de la TI sont chargés de gérer le développement et la fourniture de services ou d’opérations de TI par le biais de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification"
   },
-  "zZQGWR": {
-    "defaultMessage": "Les analystes (IT-02) fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
+  "pPVkYX": {
+    "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-02 Analyst' classification"
   },
   "cmFeXj": {
