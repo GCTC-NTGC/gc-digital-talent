@@ -238,7 +238,7 @@ class User extends Model implements Authenticatable
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if (array_key_exists('statuses', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                                     ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
