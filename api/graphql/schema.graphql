@@ -759,7 +759,6 @@ input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
   email: String @scope
-    @scope(name: "classifications")
   generalSearch: String @scope
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
