@@ -12,7 +12,7 @@ const aiConnectionString = getRuntimeVariable(
 const reactPlugin = new ReactPlugin();
 const ai = new ApplicationInsights({
   config: {
-    instrumentationKey: aiConnectionString,
+    connectionString: aiConnectionString,
     extensions: [reactPlugin],
     enableAutoRouteTracking: true,
     autoTrackPageVisitTime: true,
