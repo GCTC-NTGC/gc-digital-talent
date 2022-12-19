@@ -2440,5 +2440,13 @@
   "Ag+0A4": {
     "defaultMessage": "Statut",
     "description": "Title displayed for the User table Status column"
+  },
+  "+pgXHm": {
+    "defaultMessage": "Créé",
+    "description": "Title displayed for the User table Date Created column"
+  },
+  "R2sSy9": {
+    "defaultMessage": "Révisé",
+    "description": "Title displayed for the User table Date Updated column"
   }
 }
