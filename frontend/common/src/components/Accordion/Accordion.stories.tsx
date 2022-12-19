@@ -2,6 +2,7 @@ import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 
+import { faker } from "@faker-js/faker";
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from ".";
 
@@ -39,15 +40,7 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
   );
 };
 
-const Text = () => (
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate urna
-    quam, id lacinia mauris condimentum molestie. Interdum et malesuada fames ac
-    ante ipsum primis in faucibus. Sed porttitor, elit vel consequat efficitur,
-    est sapien rhoncus mi, nec maximus libero augue a nisi. Vivamus et turpis
-    non magna tincidunt vulputate non tristique libero.
-  </p>
-);
+const Text = () => <p>{faker.lorem.sentences(5)}</p>;
 
 export const Default = Template.bind({});
 Default.args = {

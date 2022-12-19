@@ -5,6 +5,7 @@ import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
 
+import { faker } from "@faker-js/faker";
 import { render, axeTest } from "../../helpers/testUtils";
 
 import Dialog from ".";
@@ -22,11 +23,7 @@ const DefaultChildren = () => (
       <Dialog.Header color="ia-primary" subtitle="Dialog Subtitle">
         Dialog Title
       </Dialog.Header>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur
-        leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor
-        pellentesque rhoncus.
-      </p>
+      <p>{faker.lorem.sentences(3)}</p>
       <Dialog.Footer>
         <Dialog.Close>
           <Button color="cta">Close Action</Button>
