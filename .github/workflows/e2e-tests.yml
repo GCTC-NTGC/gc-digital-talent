@@ -54,6 +54,9 @@ jobs:
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh
 
+      - name: "Run: Remove node_modules"
+        run: rm ./node_modules
+
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
