@@ -3,14 +3,22 @@ import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import {
+  ReactPlugin,
+  withAITracking,
+} from "@microsoft/applicationinsights-react-js";
 
 import MenuLink from "@common/components/Link/MenuLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 
+import {
+  AppInsightsContextProvider,
+  useAppInsightsContext,
+} from "@common/components/AppInsights/AppInsightsContext";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+
 import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";
@@ -46,19 +54,6 @@ const Layout = () => {
 
   const { loggedInUser } = useAuthorizationContext();
   const { loggedIn } = useAuth();
-
-  const aiConnectionString = getRuntimeVariable(
-    "APPLICATIONINSIGHTS_CONNECTION_STRING",
-  );
-  if (aiConnectionString) {
-    const appInsights = new ApplicationInsights({
-      config: {
-        connectionString: aiConnectionString,
-      },
-    });
-    appInsights.loadAppInsights();
-    appInsights.trackPageView();
-  }
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>
@@ -137,61 +132,63 @@ const Layout = () => {
   }
 
   return (
-    <>
-      <Helmet>
-        <html lang={locale} />
-        <title>
+    <AppInsightsContextProvider>
+      <>
+        <Helmet>
+          <html lang={locale} />
+          <title>
+            {intl.formatMessage({
+              defaultMessage: "GC Digital Talent",
+              id: "Mz+gUV",
+              description: "Title tag for Talent Search site",
+            })}
+          </title>
+          <meta
+            name="description"
+            content={intl.formatMessage({
+              defaultMessage:
+                "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
+              id: "jRmRd+",
+              description: "Meta tag description for Talent Search site",
+            })}
+          />
+        </Helmet>
+        <a
+          href="#main"
+          data-h2-visibility="base(invisible) base:focus-visible(visible)"
+        >
           {intl.formatMessage({
-            defaultMessage: "GC Digital Talent",
-            id: "Mz+gUV",
-            description: "Title tag for Talent Search site",
+            defaultMessage: "Skip to main content",
+            id: "Srs7a4",
+            description: "Assistive technology skip link",
           })}
-        </title>
-        <meta
-          name="description"
-          content={intl.formatMessage({
-            defaultMessage:
-              "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
-            id: "jRmRd+",
-            description: "Meta tag description for Talent Search site",
-          })}
+        </a>
+        <div
+          className="container"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-height="base(100vh)"
+          data-h2-margin="base(0)"
+          data-h2-color="base(black) base:dark(white)"
+        >
+          <div>
+            <Header />
+            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+          </div>
+          <main id="main">
+            <Outlet />
+          </main>
+          <div style={{ marginTop: "auto" }}>
+            <Footer />
+          </div>
+        </div>
+        <ScrollRestoration
+          getKey={(location) => {
+            return location.pathname;
+          }}
         />
-      </Helmet>
-      <a
-        href="#main"
-        data-h2-visibility="base(invisible) base:focus-visible(visible)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Skip to main content",
-          id: "Srs7a4",
-          description: "Assistive technology skip link",
-        })}
-      </a>
-      <div
-        className="container"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-height="base(100vh)"
-        data-h2-margin="base(0)"
-        data-h2-color="base(black) base:dark(white)"
-      >
-        <div>
-          <Header />
-          <NavMenu mainItems={menuItems} utilityItems={authLinks} />
-        </div>
-        <main id="main">
-          <Outlet />
-        </main>
-        <div style={{ marginTop: "auto" }}>
-          <Footer />
-        </div>
-      </div>
-      <ScrollRestoration
-        getKey={(location) => {
-          return location.pathname;
-        }}
-      />
-    </>
+      </>
+    </AppInsightsContextProvider>
   );
 };
 
