@@ -55,7 +55,7 @@ jobs:
         run: docker-compose run --rm maintenance bash setup.sh
 
       - name: "Run: Remove node_modules"
-        run: rm ./node_modules
+        run: rmdir ./node_modules
 
       - uses: actions/setup-node@v3
         with:
