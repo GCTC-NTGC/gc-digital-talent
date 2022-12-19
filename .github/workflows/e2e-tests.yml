@@ -79,7 +79,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: frontend/cypress/screenshots
+          path: apps/e2e/cypress/screenshots
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Save video artifacts
@@ -87,7 +87,7 @@ jobs:
         if: always()
         with:
           name: cypress-videos
-          path: frontend/cypress/videos
+          path: apps/e2e/cypress/videos
 
       - name: Check status of containers
         if: failure()
