@@ -1,5 +1,6 @@
 {
   "name": "@gc-digital-talent/e2e",
+  "version": "0.0.1",
   "scripts": {
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open --e2e",

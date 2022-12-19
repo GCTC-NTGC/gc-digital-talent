@@ -56,21 +56,18 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version-file: './.nvmrc'
+          node-version-file: '.nvmrc'
           cache: npm
-          cache-dependency-path: |
-            ./package-lock.json
 
       - name: Upgrade to latest npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }} --unsafe-perm=true --allow-root
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v5
-        env:
-          DEBUG: '@cypress/github-action'
+        uses: cypress-io/github-action@v4.2.0
         with:
           spec: "**/*.cy.js"
           browser: chrome
+          config-file: apps/e2e/cypress.config.js
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"
 
@@ -81,7 +78,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: apps/e2e/cypress/screenshots
+          path: frontend/cypress/screenshots
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Save video artifacts
@@ -89,7 +86,7 @@ jobs:
         if: always()
         with:
           name: cypress-videos
-          path: apps/e2e/cypress/videos
+          path: frontend/cypress/videos
 
       - name: Check status of containers
         if: failure()
