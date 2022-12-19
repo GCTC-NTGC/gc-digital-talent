@@ -29,6 +29,9 @@ jobs:
   run-cypress:
     # Platform recommended in cypress-io/github-action docs.
     runs-on: ubuntu-20.04
+    container:
+      image: cypress/browsers:node16.16.0-chrome107-ff107-edge
+      options: --user 1001
     env:
       # Use native docker command within docker-compose
       COMPOSE_DOCKER_CLI_BUILD: 1
