@@ -58,8 +58,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
-          cache-dependency-path: |
-            ./package-lock.json
 
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
@@ -67,12 +65,10 @@ jobs:
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v4.2.0
         with:
-          working-directory: ./
           spec: "**/*.cy.js"
           browser: chrome
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"
-          install: sudo npm ci
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
@@ -81,7 +77,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: apps/web/e2e/screenshots
+          path: frontend/cypress/screenshots
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Save video artifacts
