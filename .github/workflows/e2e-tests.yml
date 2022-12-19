@@ -65,12 +65,15 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }} --unsafe-perm=true --allow-root
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v5
+        env:
+          DEBUG: '@cypress/github-action'
         with:
           spec: "**/*.cy.js"
           browser: chrome
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"
+          install: false # Everything is already installed
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
