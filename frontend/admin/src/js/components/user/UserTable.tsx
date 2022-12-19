@@ -174,7 +174,15 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
+    {
+      column: {
+        id: "createdDate",
+        sortColumnName: "created_at",
+      },
+      desc: false,
+    },
+  );
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([
     "telephone",
     "createdDate",
