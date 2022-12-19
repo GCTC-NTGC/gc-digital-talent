@@ -59,6 +59,13 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
