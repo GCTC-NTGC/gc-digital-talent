@@ -112,10 +112,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -126,10 +123,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -140,10 +134,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -154,10 +145,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -176,10 +164,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.databaseManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -190,10 +175,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.databaseManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -204,10 +186,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.databaseManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -218,10 +197,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.databaseManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -240,10 +216,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -254,10 +227,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -268,10 +238,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -282,10 +249,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -304,10 +268,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -318,10 +279,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -332,10 +290,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -346,10 +301,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -368,10 +320,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.planningAndReportingTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -382,10 +331,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.planningAndReportingTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -396,10 +342,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.planningAndReportingTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -410,10 +353,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.planningAndReportingTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -432,10 +372,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -446,10 +383,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -460,10 +394,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -474,10 +405,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -496,10 +424,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.securityTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -510,10 +435,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.securityTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -524,10 +446,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.securityTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -539,10 +458,7 @@ export const OngoingRecruitmentSection = ({
             4,
           ),
 
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.securityTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },
@@ -561,10 +477,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it02Title),
@@ -575,10 +488,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it03Title),
@@ -589,10 +499,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage),
         },
         {
           title: intl.formatMessage(messages.it04Title),
@@ -603,10 +510,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
-          }),
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage),
         },
       ],
     },

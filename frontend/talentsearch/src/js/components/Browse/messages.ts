@@ -1,13 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  // message that shows on the button with the level and the stream name hidden
-  apply: {
-    defaultMessage: "Apply to level {levelNumber}<hidden> {name}</hidden>",
-    id: "T+IwWT",
-    description: "Invitation to apply at a certain level number",
-  },
-
   // title and summary for each stream
   businessAdvisoryServicesTitle: {
     defaultMessage: "IT business line advisory services",
@@ -102,48 +95,69 @@ const messages = defineMessages({
 
   // title and description for each it level
   it01Title: {
-    defaultMessage: "Level 1 (Technician)",
-    id: "UBf9lv",
+    defaultMessage: "Technician (IT-01)",
+    id: "MiBPoz",
     description: "Title for the 'IT-01 Technician' classification",
   },
   it01Description: {
     defaultMessage:
-      "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
-    id: "T0gN76",
+      "Technicians provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders.",
+    id: "bF/ZqD",
     description: "Description for the 'IT-01 Technician' classification",
   },
+  it01ApplyMessage: {
+    defaultMessage: "Apply for technician opportunities",
+    id: "tN4qb/",
+    description:
+      "Invitation to apply for the 'IT-01 Technician' classification",
+  },
   it02Title: {
-    defaultMessage: "Level 2 (Analyst)",
-    id: "6dPu0e",
+    defaultMessage: "Analyst (IT-02)",
+    id: "+ywDV8",
     description: "Title for the 'IT-02 Analyst' classification",
   },
   it02Description: {
     defaultMessage:
-      "Analysts (IT-02) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
-    id: "zZQGWR",
+      "Analysts provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders.",
+    id: "pPVkYX",
     description: "Description for the 'IT-02 Analyst' classification",
   },
+  it02ApplyMessage: {
+    defaultMessage: "Apply for analyst opportunities",
+    id: "p9Gxcw",
+    description: "Invitation to apply for the 'IT-02 Analyst' classification",
+  },
   it03Title: {
-    defaultMessage: "Level 3 (Lead/Advisor)",
-    id: "MzhP1T",
+    defaultMessage: "Lead/Advisor (IT-03)",
+    id: "DE5cLX",
     description: "Title for the 'IT-03 Advisor' classification",
   },
   it03Description: {
     defaultMessage:
-      "IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-    id: "rLmOMp",
+      "IT Technical Advisors provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
+    id: "Cknr9t",
     description: "Description for the 'IT-03 Advisor' classification",
   },
+  it03ApplyMessage: {
+    defaultMessage: "Apply for advisor opportunities",
+    id: "Aa/mAt",
+    description: "Invitation to apply for the 'IT-03 Advisor' classification",
+  },
   it04Title: {
-    defaultMessage: "Level 4 (Manager/Advisor)",
-    id: "5qkqv9",
+    defaultMessage: "Manager/Advisor (IT-04)",
+    id: "eB5hGA",
     description: "Title for the 'IT-04 Manager' classification",
   },
   it04Description: {
     defaultMessage:
-      "IT Managers (IT-04) are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-    id: "v0/leo",
+      "IT Managers are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
+    id: "2/cFsp",
     description: "Description for the 'IT-04 Manager' classification",
+  },
+  it04ApplyMessage: {
+    defaultMessage: "Apply for manager opportunities",
+    id: "513Imu",
+    description: "Invitation to apply for the 'IT-04 Manager' classification",
   },
 });
 
