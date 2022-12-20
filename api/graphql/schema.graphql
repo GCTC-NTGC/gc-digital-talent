@@ -765,8 +765,8 @@ input PoolCandidateFilterInput {
   locationPreferences: [WorkRegion] @scope
   name: String @scope
   operationalRequirements: [OperationalRequirement] @scope
-  pools: [IdInput] @scope
-  priorityWeight: [Int] @scope(name: "priorityWeight")
+  pools: [IdInput] @scope(name: "availableInPools")
+  priorityWeight: [Int] @scope
   status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
@@ -794,7 +794,7 @@ input ApplicantFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   positionDuration: [PositionDuration] @scope
-  pools: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
