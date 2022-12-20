@@ -218,7 +218,7 @@ class User extends Model implements Authenticatable
      * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
      * @return Builder
      */
-    public static function filterByPools(Builder $query, ?array $poolFilters): Builder
+    public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
         if (empty($poolFilters)) {
             return $query;
@@ -268,7 +268,7 @@ class User extends Model implements Authenticatable
      * @param array $poolIds
      * @return Builder
      */
-    public static function scopePools(Builder $query, ?array $poolIds): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -281,7 +281,7 @@ class User extends Model implements Authenticatable
                 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
-        return self::filterByPools($query, $poolFilters);
+        return self::scopePoolFilters($query, $poolFilters);
     }
     public static function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
