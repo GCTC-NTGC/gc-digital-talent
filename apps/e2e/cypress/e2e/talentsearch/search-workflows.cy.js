@@ -122,7 +122,9 @@ describe("Talent Search Workflow Tests", () => {
     cy.visit("/en/search");
 
     // first request is without any filters
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery", {
+      timeout: 20000
+    });
     searchFindsMySingleCandidate();
 
     // classification filter - fail
