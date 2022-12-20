@@ -30,7 +30,7 @@ class PoolSeeder extends Seeder
                     'fr' => 'Profitez d\'une carrière numérique significative à la fonction publique du Canada ! Joignez-vous à nous pour vous épanouir dans votre carrière numérique avec des emplois et des possibilités d\'avancement professionnel dans un large éventail de spécialisations, partout au Canada et à l\'étranger. Vous aurez accès à un apprentissage continu grâce à l\'orientation, à la formation en cours d\'emploi, au coaching, au mentorat, à des occasions de mobilité interministérielles et à bien plus ! Profitez d\'une culture de travail collaborative et horizontale facilitée par les outils de collaboration numérique du gouvernement.'
                 ],
                 'published_at' => config('constants.past_date'),
-                'expiry_date' => config('constants.far_future_date'),
+                'closing_date' => config('constants.far_future_date'),
                 'pool_status' => ApiEnums::POOL_STATUS_TAKING_APPLICATIONS,
                 'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
             ],

@@ -1124,10 +1124,6 @@
     "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
   },
-  "PzyMeM": {
-    "defaultMessage": "La date limite des candidatures est passée.",
-    "description": "Message displayed when a date has expired."
-  },
   "QZpZQh": {
     "defaultMessage": "Personne handicapée",
     "description": "Group for when someone indicates they have a disability"
@@ -1183,10 +1179,6 @@
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
-  },
-  "gfzfP6": {
-    "defaultMessage": "Expirée",
-    "description": "Expired pool advertisement status"
   },
   "gz2VrQ": {
     "defaultMessage": "Intermédiaire",
@@ -1588,10 +1580,6 @@
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
   },
-  "sfr5Pa": {
-    "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui.",
-    "description": "Error message that the given skill expiry date must be after today."
-  },
   "swTjNd": {
     "defaultMessage": "Citoyen canadien",
     "description": "user is a Canadian citizen"
@@ -1772,10 +1760,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
     "description": "Error message that Work Tasks in French must be filled"
   },
-  "gU/2O6": {
-    "defaultMessage": "Le bassin doit avoir une date d’expiration postérieure à aujourd’hui.",
-    "description": "Error message that pool expiry isn't in the future."
-  },
   "juklNA": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
     "description": "Error message that Your Impact in English must be filled"
@@ -1935,5 +1919,21 @@
   "LZ0Poh": {
     "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
     "description": "Text that appears in transferable skills section on their profile."
+  },
+  "qmEyxS": {
+    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
+    "description": "Error message that the pool closing date isn't in the future."
+  },
+  "8WC+Ty": {
+    "defaultMessage": "La date limite des candidatures est passée.",
+    "description": "Message displayed when a closing date has passed."
+  },
+  "/UBSoB": {
+    "defaultMessage": "Fermée",
+    "description": "Closed pool advertisement status"
+  },
+  "csLjMi": {
+    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
+    "description": "Error message that the given skill closing date must be after today."
   }
 }

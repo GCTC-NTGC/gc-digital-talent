@@ -56,7 +56,6 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testAcceptsGoodTokenAndReturnsCorrectSub()
     {
-        $this->markTestSkipped('must be revisited.');
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoyMTQ3NDgzNjQ3LCJpYXQiOjB9.qiOmlGVi-7K0B8eeZNYY21yZnXDn5pZWFMSLM6UH2uHUQ8mdcN0Ocd36Sq1vKvWeOgTvEm_MCl5GGCert16huUoEiILnlmf9F4i7L7wa1HIgPZnXKxKFbShbUUFMSn-6WxEQxF5g-s6cr77Lu6H_y2_osD39MFcpxTy5k5zJE8EXwQ2FGxmYhW4_qpNF3WQcMge5dfhaPaLpxH1lSrYHkCqnfGJkcTMRg3TPkQe1KWV4VUf2uGl06FleWCXuPgO__LSWeA2YHsyCV7tMPVDlOIOtiyZA1Pk4G_p2ur8a403NyIjdcXOscwIHd55vw--GOdMGSurLMS_rHfz0FD6bRSzW_6AWfBa4KQJVkoM_U6aUZ5yBEbzbsNh2u1H-OyEVBgu4R5XoyXfcn8-Z8nq_ciER8UyvVXTj9WnU--ELEZ_0Qxn4ovKqjXdL7eGwwQ5YercEh-iGiaHikEi2pD1YpfbpXE_uS3Wl2Acd8f_4sIzyQfbBfGoqIZb_cPKIm-gRhJlJn-dRdO_Hzy0rCkDngbSEg_VAeQQv-JAvOlQimI73scyWyLGLzuyOZV33Sy0NAsdOJ0xiM0C5HT_-Wc-ZFHW3uYWzixu60c0yRiJ2vV0-o-VTvpkALYPmy5n8SXSKKP59psvGzSydiX4dq5bk2XGq8wTsUGBOObTVZEN_j9E';
         /** analyze token at https://jwt.io/
         {
@@ -194,7 +193,6 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testAcceptsExpiredTokenWithinAllowableSkew()
     {
-        $this->markTestSkipped('must be revisited.');
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoxNTc3ODM2ODYwLCJpYXQiOjB9.zI4EHjfWyZP3G8DFRAMJXF9mZrA65RizQMrnQGVuKFYm0cwMusBToaH5k4feB0b2WPfBkl3-gHOJ5qKoNcR50RI_t5LEZbBVZrGhCDfpCDVlO5ZnwABhQo48NUi2ZbMb1ZoDTa_802hifvpjhOtEE0V9_zCsDZ1pcA9G4rsqEv5T3N35JV_xwgD_PqToZrxCMNuJOG5k8suoIKazzN5eJm3adKi7UsOqh-DJTni7-z88A95UycS0ONw5APFYU-IE3kL5UL1K6OwvXEgpD0md06qB3GUmkkjXeGumDefokT8RouAIbX8p37cfvxeuctJ1WtKZJ3IrJx0E4y-15JCLaPQ3tmv4XQ7lfHf9Yblith7Sw4T4upO7wtynogg2Y_Oget7zLksvaza77SRkXLf8Si3lGJ9ydqSlkLKqo8aX5nQJAkUnRY72eIz5jEEdBBrkpTQdQRG4g2-R9xXd9rGCscdAt2S3COJEFhO2FrgwUiD0piHah-PlMVN5fw3wr2ISN9OYfd5_e15UxLgo0Qw99_mKaakXBf20umTkk2TGi8YmMZLvbOS6yI7eS1wo3rFPzdTOPT7WoW6iPl_kW0FdGZYQQb1GxI2RrjFl6Ud4axKqJbtv1dV9ml1Z9PPawBcIP2B702uLwc9RZrX8b3S3Cnq72-7iCWJVvET9IQr1ess';
         /** analyze token at https://jwt.io/
         {

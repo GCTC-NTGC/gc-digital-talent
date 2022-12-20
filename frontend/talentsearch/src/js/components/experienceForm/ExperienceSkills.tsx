@@ -209,12 +209,11 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
           headingLevel="h3"
         />
       )}
-      {poolAdvertisement && (
-        <SkillsInDetail
-          skills={fields as FormSkills}
-          onDelete={handleRemoveSkill}
-        />
-      )}
+      <SkillsInDetail
+        skills={fields as FormSkills}
+        required={!!poolAdvertisement}
+        onDelete={handleRemoveSkill}
+      />
     </>
   );
 };

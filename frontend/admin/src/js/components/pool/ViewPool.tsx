@@ -30,7 +30,7 @@ import {
 } from "@common/constants/localizedConstants";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import SEO from "@common/components/SEO/SEO";
@@ -146,14 +146,14 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
 
   let closingStringLocal;
   let closingStringPacific;
-  if (pool.expiryDate) {
-    const expiryDateObject = parseDateTimeUtc(pool.expiryDate);
-    closingStringLocal = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+  if (pool.closingDate) {
+    const closingDateObject = parseDateTimeUtc(pool.closingDate);
+    closingStringLocal = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
     });
-    closingStringPacific = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+    closingStringPacific = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
       timeZone: "Canada/Pacific",
     });

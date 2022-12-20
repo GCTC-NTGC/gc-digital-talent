@@ -331,7 +331,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
-  expiryDate: DateTime @rename(attribute: "expiry_date")
+  closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
   description: LocalizedString
@@ -356,7 +356,7 @@ type PoolAdvertisement {
 enum AdvertisementStatus {
   DRAFT
   PUBLISHED
-  EXPIRED
+  CLOSED
   ARCHIVED
 }
 
@@ -1479,11 +1479,11 @@ input UpdatePoolAdvertisementInput {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
-  expiryDate: DateTime
-    @rename(attribute: "expiry_date")
+  closingDate: DateTime
+    @rename(attribute: "closing_date")
     @rules(
       apply: ["after:today"]
-      messages: [{ rule: "after", message: "UpdatePoolExpiryDate" }]
+      messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
     )
   # Your impact
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
@@ -1686,17 +1686,17 @@ type Mutation {
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "publish", find: "id", model: "Pool")
-  changePoolExpiryDate(
+  changePoolClosingDate(
     id: ID!
-    newExpiryDate: DateTime!
-      @rename(attribute: "new_expiry_date")
+    newClosingDate: DateTime!
+      @rename(attribute: "new_closing_date")
       @rules(
         apply: ["after:today"]
-        messages: [{ rule: "after", message: "UpdatePoolExpiryDate" }]
+        messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
       )
   ): PoolAdvertisement
     @guard
-    @can(ability: "changePoolExpiryDate", find: "id", model: "Pool")
+    @can(ability: "changePoolClosingDate", find: "id", model: "Pool")
   closePoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")

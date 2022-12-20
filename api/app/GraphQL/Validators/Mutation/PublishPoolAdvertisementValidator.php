@@ -25,8 +25,8 @@ final class PublishPoolAdvertisementValidator extends Validator
             'classifications.*.id' => ['required', 'uuid', 'exists:classifications,id'],
             'stream' => ['required', 'string'],
 
-            // Closing date (Note: Form should return unzoned datetime.)
-            'expiry_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay], // TODO: Fix date_format validation
+            // Closing date
+            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay],
 
             // Your Impact and Work tasks
             'your_impact.en' => ['required', 'string'],
@@ -55,7 +55,7 @@ final class PublishPoolAdvertisementValidator extends Validator
         return  [
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
-            'expiry_date.after' => 'Expiry Date must be after today.',
+            'closing_date.after' => 'Closing date must be after today.',
             'advertisement_location.*.required_if' => 'AdvertisementLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',

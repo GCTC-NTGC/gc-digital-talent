@@ -1,7 +1,7 @@
 enum AdvertisementStatus {
   DRAFT
   PUBLISHED
-  EXPIRED
+  CLOSED
   ARCHIVED
 }
 
@@ -626,7 +626,7 @@ type Mutation {
   createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
-  changePoolExpiryDate(id: ID!, newExpiryDate: DateTime!): PoolAdvertisement
+  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
@@ -792,7 +792,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
-  expiryDate: DateTime
+  closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
   description: LocalizedString
@@ -1256,7 +1256,7 @@ input UpdatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
   stream: PoolStream
   processNumber: String
-  expiryDate: DateTime
+  closingDate: DateTime
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   essentialSkills: SkillBelongsToMany

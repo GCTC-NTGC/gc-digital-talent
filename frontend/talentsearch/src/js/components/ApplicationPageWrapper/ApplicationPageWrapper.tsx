@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import imageUrl from "@common/helpers/imageUrl";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 
 import { CalendarIcon } from "@heroicons/react/24/outline";
@@ -19,7 +19,7 @@ export interface ApplicationPageWrapperProps {
   subtitle?: string;
   crumbs?: BreadcrumbsProps["links"];
   navigation?: ApplicationNavigationProps;
-  closingDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   children: React.ReactNode;
 }
 
@@ -113,8 +113,8 @@ const ApplicationPageWrapper = ({
                 })}
                 <br />
                 {closingDate
-                  ? relativeExpiryDate({
-                      expiryDate: parseDateTimeUtc(closingDate),
+                  ? relativeClosingDate({
+                      closingDate: parseDateTimeUtc(closingDate),
                       intl,
                     })
                   : ""}
