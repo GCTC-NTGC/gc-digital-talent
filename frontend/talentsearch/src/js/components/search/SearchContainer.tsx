@@ -7,6 +7,9 @@ import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
 import { notEmpty } from "@common/helpers/util";
+import useAppInsightsContext from "@common/hooks/useAppInsightsContext";
+import useCustomEvent from "@common/hooks/useCustomEvent";
+
 import {
   CountApplicantsQueryVariables,
   Maybe,
@@ -203,6 +206,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const searchRef = useRef<SearchFormRef>(null);
 
+  const reactPlugin = useAppInsightsContext();
+
+  const trackCandidateRequest = useCustomEvent(
+    reactPlugin,
+    "Candidate Request Submitted",
+    {},
+  );
   // This seems to lead to unexpected behavior with submit button re-rendering
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
@@ -216,6 +226,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
+      trackCandidateRequest({});
       onSubmit(candidateCount, poolId, selectedClassifications);
     }
   };
