@@ -2,6 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { fakePools, fakeUsers } from "@common/fakeData";
 import { PoolCandidateStatus } from "@common/api/generated";
+import { faker } from "@faker-js/faker";
 import { GeneralInformationTab } from "./GeneralInformationTab";
 
 const baseUser = fakeUsers(1)[0];
@@ -48,8 +49,7 @@ InPools.args = {
         pool: basePools[1],
         status: PoolCandidateStatus.PlacedCasual,
         expiryDate: "2024-03-01",
-        notes:
-          "Minima sed impedit ea ex voluptatem voluptatum quo. Iure sint quibusdam est expedita quia qui. In et quidem fugiat aut repellat. Odio quae ea esse qui corporis.\n\nSoluta et necessitatibus quod dolores error necessitatibus. Aliquam est quas est corporis. Veniam omnis et molestias aut voluptatum. Repellat vero enim autem placeat expedita.\n\nReprehenderit corrupti molestiae et tempore. Praesentium omnis consequatur facere minus beatae provident numquam. Fugit est labore libero consectetur vitae voluptas accusamus. Voluptatem architecto sunt impedit exercitationem odio corporis cupiditate nobis. Minima quo fugit consectetur qui.",
+        notes: faker.lorem.sentences(20),
       },
     ],
   },
