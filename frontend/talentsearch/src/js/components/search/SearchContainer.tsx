@@ -226,7 +226,11 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
-      trackCandidateRequest({});
+      trackCandidateRequest({
+        candidateCount,
+        poolId,
+        selectedClassifications,
+      });
       onSubmit(candidateCount, poolId, selectedClassifications);
     }
   };
