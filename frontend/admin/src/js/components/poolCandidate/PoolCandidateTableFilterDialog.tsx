@@ -130,7 +130,6 @@ const PoolCandidateTableFilterDialog = ({
                 })}
                 options={optionsData.pools}
                 isLoading={rawGraphqlResults.pools.fetching}
-                isDisabled
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
