@@ -48,10 +48,15 @@ module.exports = {
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
 
+    config.resolve.extensions = [
+      ...config.resolve.extensions,
+      ".tsx", ".ts", ".js"
+    ];
+
     config.resolve.alias = {
         ...config.resolve.alias,
-        "~": path.resolve("../../apps/web/src"),
-        "@common": path.resolve('../common/src'),
+        "~": path.resolve("../../apps/web/src/"),
+        "@common": path.resolve('../common/src/'),
     }
 
     config.module.rules = [
