@@ -92,7 +92,7 @@ function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
-    status: input?.status?.filter(notEmpty) ?? [],
+    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
   };
 }
 
@@ -300,7 +300,7 @@ const PoolCandidatesTable: React.FC<{
 
       // from fancy filter
       applicantFilter: fancyFilterState?.applicantFilter,
-      status: fancyFilterState?.status,
+      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
@@ -334,7 +334,7 @@ const PoolCandidatesTable: React.FC<{
         },
         pools: selectedPools || [],
       },
-      status: data.status.map((status) => {
+      poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);
       }),
       priorityWeight: data.priorityWeight.map((priority) => {

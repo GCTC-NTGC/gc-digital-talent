@@ -872,7 +872,7 @@ input PoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement]
   pools: [IdInput]
   priorityWeight: [Int]
-  status: [PoolCandidateStatus]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
@@ -890,7 +890,7 @@ input PoolCandidateSearchInput {
   generalSearch: String
   name: String
   priorityWeight: [Int]
-  status: [PoolCandidateStatus]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 type PoolCandidateSearchRequest {

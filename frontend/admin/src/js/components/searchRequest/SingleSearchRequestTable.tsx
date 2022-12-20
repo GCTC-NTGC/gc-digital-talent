@@ -378,7 +378,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       },
       emptyFilter,
     ),
-    status: [
+    poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,
     ],

@@ -767,7 +767,7 @@ input PoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   pools: [IdInput] @scope(name: "availableInPools")
   priorityWeight: [Int] @scope
-  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
@@ -804,7 +804,7 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope
   name: String @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
-  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 type CandidateSearchPoolResult {

@@ -21,7 +21,7 @@ export type FormValues = {
   workRegion: Option["value"][];
   hasDiploma: Option["value"][];
   equity: Option["value"][];
-  status: Option["value"][];
+  poolCandidateStatus: Option["value"][];
   priorityWeight: Option["value"][];
   pools: Option["value"][];
 };
@@ -198,12 +198,12 @@ const PoolCandidateTableFilterDialog = ({
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
               <MultiSelectFieldV2
-                id="status"
+                id="poolCandidateStatus"
                 label={formatMessage({
                   defaultMessage: "Status",
                   id: "tzMNF3",
                 })}
-                options={optionsData.status}
+                options={optionsData.poolCandidateStatus}
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
