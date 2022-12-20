@@ -774,10 +774,8 @@ input PoolCandidateFilterInput {
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput]
-    @builder(method: "App\\Models\\User@filterByPools")
-  jobLookingStatus: [JobLookingStatus]
-    @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobLookingStatus: [JobLookingStatus] @scope
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope

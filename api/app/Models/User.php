@@ -331,7 +331,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
+    public static function scopeJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
         if (empty($statuses)) {
             return $query;
