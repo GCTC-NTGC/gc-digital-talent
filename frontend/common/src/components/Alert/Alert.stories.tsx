@@ -2,6 +2,7 @@ import React from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 import Alert, { AlertType } from "./Alert";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
@@ -10,8 +11,7 @@ export default {
   component: Alert.Root,
   title: "Components/Alert",
   args: {
-    children:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum eligendi dolore vel optio! Amet non adipisci blanditiis accusantium? Laborum nobis facilis vel dolore numquam libero velit aspernatur, ut consectetur neque.",
+    children: faker.lorem.sentences(3),
     icon: BellIcon,
   },
 } as ComponentMeta<typeof Alert.Root>;

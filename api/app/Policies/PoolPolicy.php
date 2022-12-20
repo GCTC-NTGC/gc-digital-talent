@@ -101,13 +101,13 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can change the pool's expiry date.
+     * Determine whether the user can change the pool's closing date.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function changePoolExpiryDate(User $user)
+    public function changePoolClosingDate(User $user)
     {
         return $user->isAdmin();
     }

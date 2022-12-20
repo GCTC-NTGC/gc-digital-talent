@@ -50,7 +50,7 @@ PublishedAdvertisement.args = {
     ...poolAdvertisement,
     publishedAt: FAR_PAST_DATE,
     advertisementStatus: AdvertisementStatus.Published,
-    expiryDate: FAR_FUTURE_DATE,
+    closingDate: FAR_FUTURE_DATE,
   },
 };
 
@@ -59,7 +59,7 @@ ExpiredAdvertisement.args = {
   poolAdvertisement: {
     ...poolAdvertisement,
     publishedAt: FAR_PAST_DATE,
-    advertisementStatus: AdvertisementStatus.Expired,
-    expiryDate: FAR_PAST_DATE,
+    advertisementStatus: AdvertisementStatus.Closed,
+    closingDate: FAR_PAST_DATE,
   },
 };

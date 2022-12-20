@@ -10,6 +10,7 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { Select } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
+import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import {
   Applicant,
   PoolCandidate,
@@ -145,7 +146,12 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                options={enumToOptions(PoolCandidateStatus)}
+                options={enumToOptions(PoolCandidateStatus).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getPoolCandidateStatus(value)),
+                  }),
+                )}
               />
             </div>
             <Dialog.Footer>

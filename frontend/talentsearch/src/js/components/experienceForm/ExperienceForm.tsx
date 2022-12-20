@@ -213,31 +213,23 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           skills={skills}
           poolAdvertisement={poolAdvertisement}
         />
-        {poolAdvertisement && (
-          <>
-            <h2
-              data-h2-font-size="base(h3, 1)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "4. Additional information for this experience",
-                id: "Rgh/Qb",
-                description:
-                  "Title for addition information on Experience form",
-              })}
-            </h2>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Anything else about this experience you would like to share.",
-                id: "h1wsiL",
-                description:
-                  "Description blurb for additional information on Experience form",
-              })}
-            </p>
-            <TextArea id="details" label={labels.details} name="details" />
-          </>
-        )}
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
+          {intl.formatMessage({
+            defaultMessage: "4. Additional information for this experience",
+            id: "Rgh/Qb",
+            description: "Title for addition information on Experience form",
+          })}
+        </h2>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Anything else about this experience you would like to share.",
+            id: "h1wsiL",
+            description:
+              "Description blurb for additional information on Experience form",
+          })}
+        </p>
+        <TextArea id="details" label={labels.details} name="details" />
         {edit && (
           <AlertDialog.Root>
             <AlertDialog.Trigger>
