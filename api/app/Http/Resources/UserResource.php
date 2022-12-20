@@ -25,8 +25,8 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $poolSkillIds = $this->poolSkillIds; // passed in from StoreApplicationSnapshot, an array of skill ids attached to a pool
 
-        // pass $this->poolSkillIds into the collection instances
         $awardExperiences = AwardExperienceResource::collection($this->awardExperiences);
         $communityExperiences = CommunityExperienceResource::collection($this->communityExperiences);
         $educationExperiences = EducationExperienceResource::collection($this->educationExperiences);
@@ -39,6 +39,17 @@ class UserResource extends JsonResource
         $collection = $collection->merge($educationExperiences);
         $collection = $collection->merge($personalExperiences);
         $collection = $collection->merge($workExperiences);
+
+        // if poolSkillIds is valid, filter out skills that are not in the id array by stepping through each item in $collection
+        if ($poolSkillIds && count($poolSkillIds) > 0) {
+            $collection->each(function ($experience) use ($poolSkillIds) {
+                $skills = $experience->skills;
+                $skillsFiltered = $skills->filter(function ($skill) use ($poolSkillIds) {
+                    return in_array($skill->id, $poolSkillIds);
+                });
+                $experience->skills = $skillsFiltered;
+            });
+        }
 
         return [
             'id' => $this->id,
