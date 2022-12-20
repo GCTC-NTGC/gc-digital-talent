@@ -4,7 +4,9 @@ import { AuthenticationContainer } from "../Auth";
 import { useApiRoutes } from "../../hooks/useApiRoutes";
 import { getRuntimeVariableNotNull } from "../../helpers/runtimeVariable";
 
-const AuthenticationProvider: React.FC = ({ children }) => {
+const AuthenticationProvider: React.FC<{
+  children?: React.ReactNode;
+}> = ({ children }) => {
   const apiPaths = useApiRoutes();
   const refreshTokenSetPath = apiPaths.refreshAccessToken();
 

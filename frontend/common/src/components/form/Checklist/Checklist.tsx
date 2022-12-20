@@ -53,7 +53,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<any>();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;

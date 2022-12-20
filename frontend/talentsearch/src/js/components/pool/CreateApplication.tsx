@@ -9,6 +9,7 @@ import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import { AuthorizationContext } from "@common/components/Auth";
 
+import { commonMessages, errorMessages } from "@common/messages";
 import useRoutes from "../../hooks/useRoutes";
 import { Scalars, useCreateApplicationMutation } from "../../api/generated";
 
@@ -107,11 +108,23 @@ const CreateApplication = () => {
                 }),
               );
             } else {
-              const message = tryFindMessageDescriptor(result.error.message);
+              const messageDescriptor = tryFindMessageDescriptor(
+                result.error.message,
+              );
+              const message = intl.formatMessage(
+                messageDescriptor ??
+                  errorMessages.unknownErrorRequestErrorTitle,
+              );
               handleError(message, newPath);
             }
           } else if (result.error?.message) {
-            handleError(tryFindMessageDescriptor(result.error.message));
+            const messageDescriptor = tryFindMessageDescriptor(
+              result.error.message,
+            );
+            const message = intl.formatMessage(
+              messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
+            );
+            handleError(message);
           } else {
             // Fallback to generic message
             handleError();

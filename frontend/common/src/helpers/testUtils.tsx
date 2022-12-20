@@ -6,7 +6,7 @@ import IntlProvider from "react-intl/src/components/provider";
 import { BrowserRouter } from "react-router-dom";
 import defaultRichTextElements from "./format";
 
-const Providers: React.FC = ({ children }) => {
+const Providers: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   window.history.pushState({}, "Test page", "/");
 
   return (
