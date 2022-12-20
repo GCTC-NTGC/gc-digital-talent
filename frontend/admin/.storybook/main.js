@@ -50,6 +50,7 @@ module.exports = {
 
     config.resolve.alias = {
         ...config.resolve.alias,
+        "~": path.resolve("../../apps/web/src"),
         "@common": path.resolve('../common/src'),
     }
 
