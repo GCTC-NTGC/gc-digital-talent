@@ -6,7 +6,7 @@ export default function useCustomEvent(
   reactPlugin: ReactPlugin,
   eventName: string,
   eventData: ICustomProperties,
-  skipFirstRun = true,
+  skipFirstRun = true, // skip the first run as we don't want to track the initial pass while the component is still mounting
 ) {
   const [data, setData] = useState(eventData);
   const firstRun = useRef(skipFirstRun);
