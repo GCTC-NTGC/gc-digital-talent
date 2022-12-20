@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 
 import { notEmpty } from "@common/helpers/util";
@@ -97,10 +97,10 @@ export const ApplicationCard = ({
                 data-h2-font-weight="base(800)"
                 data-h2-color="base(dt-primary)"
               >
-                {application.poolAdvertisement.expiryDate
-                  ? relativeExpiryDate({
-                      expiryDate: parseDateTimeUtc(
-                        application.poolAdvertisement.expiryDate,
+                {application.poolAdvertisement.closingDate
+                  ? relativeClosingDate({
+                      closingDate: parseDateTimeUtc(
+                        application.poolAdvertisement.closingDate,
                       ),
                       intl,
                     })

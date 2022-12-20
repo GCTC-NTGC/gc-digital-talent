@@ -36,9 +36,10 @@ const selectPoolForSection = (
 ): PoolAdvertisement | undefined => {
   return (
     pools
-      // last expiry date first to be selected
+      // last closing date first to be selected
       .sort((p1, p2) =>
-        (p1.expiryDate ?? FAR_FUTURE_DATE) < (p2.expiryDate ?? FAR_FUTURE_DATE)
+        (p1.closingDate ?? FAR_FUTURE_DATE) <
+        (p2.closingDate ?? FAR_FUTURE_DATE)
           ? 1
           : -1,
       )

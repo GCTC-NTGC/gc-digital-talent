@@ -302,7 +302,7 @@ export const PoolAdvertisementPoster = ({
           >
             <div>
               <PoolInfoCard
-                closingDate={poolAdvertisement.expiryDate}
+                closingDate={poolAdvertisement.closingDate}
                 classification={classificationSuffix}
                 salary={{
                   min: classification?.minSalary,
