@@ -1604,7 +1604,8 @@ class ApplicantTest extends TestCase
             'user_id' => $owner['id'],
         ]);
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
+            'roles' => [ApiEnums::ROLE_APPLICANT],
+            'job_looking_status' => 'ACTIVELY_LOOKING',
         ])
             ->count(60)
             ->afterCreating(function (User $user) use ($pool) {
@@ -1664,13 +1665,15 @@ class ApplicantTest extends TestCase
                         'languageAbility' => null,
                         'locationPreferences' => null,
                         'operationalRequirements' => null,
+                        'positionDuration' => null,
                         'pools' => null,
+                        'skills' => null,
                     ],
                     'generalSearch' => null,
                     'name' => null,
                     'email' => null,
                     'priorityWeight' => null,
-                    'status' => null,
+                    'poolCandidateStatus' => null,
 
                 ]
             ]
