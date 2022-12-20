@@ -3,6 +3,8 @@ const TsTransformer = require("@formatjs/ts-transformer");
 const transform = TsTransformer.transform;
 const shell = require("shelljs");
 const fs = require("fs");
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 // This uses ts-loader to inject generated ids into react-intl messages.
 const reactIntlTransformRule = {
   test: /\.tsx?$/,
@@ -53,15 +55,22 @@ module.exports = {
       ".tsx", ".ts", ".js"
     ];
 
-    config.resolve.alias = {
-        ...config.resolve.alias,
-        "~": path.resolve("../../apps/web/src/"),
-        "@common": path.resolve('../common/src/'),
-    }
+    // config.resolve.alias = {
+    //     ...config.resolve.alias,
+    //     "~": path.resolve(__dirname, "../../../apps/web/src/"),
+    //     "@common": path.resolve(__dirname, '../../common/src/'),
+    // }
 
     config.module.rules = [
       ...config.module.rules,
       reactIntlTransformRule,
+    ];
+
+    config.resolve.plugins = [
+      ...(config.resolve.plugins || []),
+      new TsconfigPathsPlugin({
+        extensions: config.resolve.extensions,
+      }),
     ];
 
     // Run Hydrogen on Webpack's compiler hooks
