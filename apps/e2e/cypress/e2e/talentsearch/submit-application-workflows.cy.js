@@ -105,7 +105,7 @@ describe("Submit Application Workflow Tests", () => {
                     fr: "Cypress Test Pool FR",
                   },
                   stream: PoolStream.BusinessAdvisoryServices,
-                  expiryDate: `${FAR_FUTURE_DATE} 00:00:00`,
+                  closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
                   yourImpact: { en: "test impact EN", fr: "test impact FR" },
                   keyTasks: { en: "key task EN", fr: "key task FR" },
                   essentialSkills: {

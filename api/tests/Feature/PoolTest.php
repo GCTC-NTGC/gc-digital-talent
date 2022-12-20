@@ -32,22 +32,22 @@ class PoolTest extends TestCase
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'published_at' => config('constants.past_date'),
-        'expiry_date' => config('constants.far_future_date'),
+        'closing_date' => config('constants.far_future_date'),
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         'published_at' => config('constants.past_date'),
-        'expiry_date' => config('constants.past_date'),
+        'closing_date' => config('constants.past_date'),
     ]);
     $pool3 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
         'published_at' => null,
-        'expiry_date' => config('constants.far_future_date'),
+        'closing_date' => config('constants.far_future_date'),
     ]);
     $pool4 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
         'published_at' => null,
-        'expiry_date' => config('constants.past_date'),
+        'closing_date' => config('constants.past_date'),
     ]);
 
     // Assert query with pool 1 will return accessor as published
@@ -65,7 +65,7 @@ class PoolTest extends TestCase
         ]
     ]);
 
-    // Assert query with pool 2 will return accessor as expired
+    // Assert query with pool 2 will return accessor as closed
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
@@ -75,7 +75,7 @@ class PoolTest extends TestCase
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-                "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
+                "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
             ]
         ]
     ]);
@@ -120,12 +120,12 @@ class PoolTest extends TestCase
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'published_at' => config('constants.past_date'),
-        'expiry_date' => $expireInHour,
+        'closing_date' => $expireInHour,
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         'published_at' => config('constants.past_date'),
-        'expiry_date' => $expiredLastHour,
+        'closing_date' => $expiredLastHour,
     ]);
 
     // Assert query with pool 1 will still be published
@@ -143,7 +143,7 @@ class PoolTest extends TestCase
         ]
     ]);
 
-    // Assert query with pool 2 will return as expired
+    // Assert query with pool 2 will return as closed
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
@@ -153,7 +153,7 @@ class PoolTest extends TestCase
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-               "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
+               "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
             ]
         ]
     ]);

@@ -8,7 +8,7 @@ query MyApplications {
       archivedAt
       poolAdvertisement {
         id
-        expiryDate
+        closingDate
         name {
           en
           fr
