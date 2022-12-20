@@ -29,10 +29,10 @@
     "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=admin",
     "test": "turbo run test",
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
-    "e2e": "turbo run e2e --filter=@gc-digital-talent/e2e",
-    "e2e:open": "turbo run e2e:open --filter=@gc-digital-talent/e2e",
-    "e2e:run:all": "turbo run e2e:run:all --filter=@gc-digital-talent/e2e",
-    "e2e:run:inspect": "turbo run e2e:run:inspect --filter=@gc-digital-talent/e2e",
+    "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
+    "e2e:open": "npm run e2e:open",
+    "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
+    "e2e:run:inspect": "npm run e2e:run:inspect --workspace=@gc-digital-talent/e2e",
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
