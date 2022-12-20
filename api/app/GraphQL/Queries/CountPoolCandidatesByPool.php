@@ -28,7 +28,7 @@ final class CountPoolCandidatesByPool
             $pools = array_map(function ($id) {
                 return ['id' => $id];
             }, $filters['pools']);
-            PoolCandidate::scopePools($queryBuilder, $pools);
+            PoolCandidate::scopeAvailableInPools($queryBuilder, $pools);
         }
 
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)

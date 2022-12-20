@@ -89,17 +89,13 @@ class PoolCandidate extends Model
 
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
-        // if no filters provided then return query unchanged
-        if (empty($operationalRequirements)) {
+        if (empty($workRegions)) {
             return $query;
         }
 
-        // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
-        $query->whereExists(function ($query) use ($operationalRequirements) {
-            $query->select('id')
-            ->from('users')
-            ->whereColumn('users.id', 'pool_candidates.user_id')
-            ->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        // point at filter on User
+        $query->whereHas('user', function ($query) use ($workRegions) {
+            User::scopeLocationPreferences($query, $workRegions);
         });
 
         return $query;
@@ -110,22 +106,11 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // WorkRegion acts as an OR filter. The query should return candidates willing to work in ANY of the regions.
-        $query->whereExists(function ($query) use ($workRegions) {
-            $query->select('id')
-            ->from('users')
-            ->whereColumn('users.id', 'pool_candidates.user_id')
-            ->where(function ($query) use ($workRegions) {
-                foreach ($workRegions as $index => $region) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->whereJsonContains('location_preferences', $region);
-                    } else {
-                        $query->orWhereJsonContains('location_preferences', $region);
-                    }
-                }
-            });
+        // point at filter on User
+        $query->whereHas('user', function ($query) use ($workRegions) {
+            User::scopeLocationPreferences($query, $workRegions);
         });
+
         return $query;
     }
     public function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
@@ -138,9 +123,10 @@ class PoolCandidate extends Model
         $query->whereHas('user', function ($query) use ($languageAbility) {
             User::scopeLanguageAbility($query, $languageAbility);
         });
+
         return $query;
     }
-    public static function scopePools(Builder $query, ?array $poolIds): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -157,90 +143,53 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // OR filter - first find out how many booleans are true, create array of all true equity bools
-        // equity object has 4 keys with associated bools
-        $equityVars = [];
-        if (array_key_exists("is_woman", $equity) && $equity["is_woman"]) {
-            array_push($equityVars, "is_woman");
-        };
-        if (array_key_exists("has_disability", $equity) && $equity["has_disability"]) {
-            array_push($equityVars, "has_disability");
-        };
-        if (array_key_exists("is_indigenous", $equity) && $equity["is_indigenous"]) {
-            array_push($equityVars, "is_indigenous");
-        };
-        if (array_key_exists("is_visible_minority", $equity) && $equity["is_visible_minority"]) {
-            array_push($equityVars, "is_visible_minority");
-        };
-
-        // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
-        $query->whereExists(function ($query) use ($equityVars) {
-            $query->select('id')
-                ->from('users')
-                ->whereColumn('users.id', 'pool_candidates.user_id')
-                ->where(function ($query) use ($equityVars) {
-                    foreach ($equityVars as $index => $equityInstance) {
-                        if ($equityInstance === "is_indigenous") {
-                            $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
-                        } else {
-                            $query->orWhere($equityVars[$index], true);
-                        }
-                    }
-                });
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($equity) {
+            User::scopeEquity($query, $equity);
         });
+
         return $query;
     }
 
     public function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
-        // used App\\Models\\User@filterByPools as reference
-        if ($search) {
-            $query->whereExists(function ($query) use ($search) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) use ($search) {
-                        $query->where('users.first_name', "ilike", "%{$search}%")
-                            ->orWhere('users.last_name', "ilike", "%{$search}%")
-                            ->orWhere('users.email', "ilike", "%{$search}%");
-                    });
-            });
+        if (empty($search)) {
+            return $query;
         }
+
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($search) {
+            User::scopeGeneralSearch($query, $search);
+        });
 
         return $query;
     }
 
     public static function scopeName(Builder $query, ?string $name): Builder
     {
-        if ($name) {
-            $splitName = explode(" ", $name);
-            $query->whereExists(function ($query) use ($splitName) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) use ($splitName) {
-                        foreach ($splitName as $index => $value) {
-                            $query->where('first_name', "ilike", "%{$value}%")
-                                ->orWhere('last_name', "ilike", "%{$value}%");
-                        }
-                    });
-            });
+        if (empty($name)) {
+            return $query;
         }
+
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($name) {
+            User::scopeName($query, $name);
+        });
+
         return $query;
     }
 
     public static function scopeEmail(Builder $query, ?string $email): Builder
     {
-        if ($email) {
-            $query->whereExists(function ($query) use ($email) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) use ($email) {
-                        $query->where('email', 'ilike', "%{$email}%");
-                    });
-            });
+        if (empty($email)) {
+            return $query;
         }
+
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($email) {
+            User::scopeEmail($query, $email);
+        });
+
         return $query;
     }
 
@@ -262,16 +211,14 @@ class PoolCandidate extends Model
 
     public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
-        if ($hasDiploma) {
-            $query->whereExists(function ($query) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) {
-                        $query->where('has_diploma', true);
-                    });
-                });
+        if (empty($hasDiploma)) {
+            return $query;
         }
+
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->whereHas('user', function ($query) use ($hasDiploma) {
+            User::scopeHasDiploma($query, $hasDiploma);
+        });
         return $query;
     }
 
@@ -388,18 +335,16 @@ class PoolCandidate extends Model
 
     public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
     {
-        if ($positionDuration) {
-            $query->whereExists(function ($query) use ($positionDuration) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) use ($positionDuration) {
-                        foreach ($positionDuration as $index => $duration) {
-                            $query->orWhereJsonContains('position_duration', $duration);
-                        }
-                    });
-                });
+
+        if (empty($positionDuration)) {
+            return $query;
         }
+
+        // call the positionDurationFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($positionDuration) {
+            User::scopePositionDuration($userQuery, $positionDuration);
+        });
+
         return $query;
     }
 
