@@ -16,6 +16,7 @@ const ai = new ApplicationInsights({
     extensions: [reactPlugin],
     enableAutoRouteTracking: true,
     autoTrackPageVisitTime: true,
+    disableFetchTracking: false,
   },
 });
 if (aiConnectionString) {
