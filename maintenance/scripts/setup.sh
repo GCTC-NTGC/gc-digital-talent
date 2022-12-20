@@ -26,6 +26,5 @@ cp ./apps/web/.env.example ./apps/web/.env --preserve=all
 # build projects
 cd /var/www/html
 npm i
-./node_modules/.bin/cypress install
 npm run build
 chmod -R a+r,a+w node_modules
