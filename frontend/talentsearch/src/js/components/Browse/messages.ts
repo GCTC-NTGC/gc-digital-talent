@@ -106,8 +106,9 @@ const messages = defineMessages({
     description: "Description for the 'IT-01 Technician' classification",
   },
   it01ApplyMessage: {
-    defaultMessage: "Apply for technician opportunities",
-    id: "tN4qb/",
+    defaultMessage:
+      "Apply for technician opportunities<hidden> {name}</hidden>",
+    id: "Jdo3br",
     description:
       "Invitation to apply for the 'IT-01 Technician' classification",
   },
@@ -123,40 +124,72 @@ const messages = defineMessages({
     description: "Description for the 'IT-02 Analyst' classification",
   },
   it02ApplyMessage: {
-    defaultMessage: "Apply for analyst opportunities",
-    id: "p9Gxcw",
+    defaultMessage: "Apply for analyst opportunities<hidden> {name}</hidden>",
+    id: "je6zFF",
     description: "Invitation to apply for the 'IT-02 Analyst' classification",
   },
   it03Title: {
-    defaultMessage: "Lead/Advisor (IT-03)",
-    id: "DE5cLX",
+    defaultMessage: "Team Leads and Technical Advisors (IT-03)",
+    id: "TkLuqv",
     description: "Title for the 'IT-03 Advisor' classification",
   },
-  it03Description: {
+  it03Description1: {
     defaultMessage:
-      "IT Technical Advisors provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery.",
-    id: "Cknr9t",
-    description: "Description for the 'IT-03 Advisor' classification",
+      "There are two types of IT-03 employees: those following a management path, and individual contributors.",
+    id: "I4FSCw",
+    description:
+      "Description for the 'IT-03 Advisor' classification, paragraph 1",
+  },
+  it03Description2: {
+    defaultMessage:
+      "Team Leads are responsible for supervising work and project teams for IT services and operations in their field of expertise to support service delivery to clients and stakeholders.",
+    id: "36UDiI",
+    description:
+      "Description for the 'IT-03 Advisor' classification, paragraph 2",
+  },
+  it03Description3: {
+    defaultMessage:
+      "Technical Advisors (individual contributors) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery to clients and stakeholders.",
+    id: "G7PoqV",
+    description:
+      "Description for the 'IT-03 Advisor' classification, paragraph 3",
   },
   it03ApplyMessage: {
-    defaultMessage: "Apply for advisor opportunities",
-    id: "Aa/mAt",
+    defaultMessage:
+      "Apply for lead and advisor opportunities<hidden> {name}</hidden>",
+    id: "ftyyhv",
     description: "Invitation to apply for the 'IT-03 Advisor' classification",
   },
   it04Title: {
-    defaultMessage: "Manager/Advisor (IT-04)",
-    id: "eB5hGA",
+    defaultMessage: "Managers and Senior Advisors (IT-04)",
+    id: "fJ6NTg",
     description: "Title for the 'IT-04 Manager' classification",
   },
-  it04Description: {
+  it04Description1: {
     defaultMessage:
-      "IT Managers are responsible for managing development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-    id: "2/cFsp",
-    description: "Description for the 'IT-04 Manager' classification",
+      "There are two types of IT-04 employees: those following a management path, and individual contributors.",
+    id: "E1wnll",
+    description:
+      "Description for the 'IT-04 Manager' classification, paragraph 1",
+  },
+  it04Description2: {
+    defaultMessage:
+      "Managers are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams, for service delivery to clients and stakeholders.",
+    id: "Ua5wXf",
+    description:
+      "Description for the 'IT-04 Manager' classification, paragraph 2",
+  },
+  it04Description3: {
+    defaultMessage:
+      "Senior Advisors (individual contributors) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders.",
+    id: "Wi2b+K",
+    description:
+      "Description for the 'IT-04 Manager' classification, paragraph 3",
   },
   it04ApplyMessage: {
-    defaultMessage: "Apply for manager opportunities",
-    id: "513Imu",
+    defaultMessage:
+      "Apply for manager and advisor opportunities<hidden> {name}</hidden>",
+    id: "yBlzbT",
     description: "Invitation to apply for the 'IT-04 Manager' classification",
   },
 });
