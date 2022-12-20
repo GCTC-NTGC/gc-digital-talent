@@ -20,7 +20,7 @@ export function createAndPublishPoolAdvertisement({
         cy.log(skill);
         cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
           name: {
-            en: englishName ? `Cypress Test Pool EN ${Date.now().valueOf()}` : null,
+            en: englishName ? englishName : `Cypress Test Pool EN ${Date.now().valueOf()}`,
             fr: `Cypress Test Pool FR ${Date.now().valueOf()}`,
           },
           stream: PoolStream.BusinessAdvisoryServices,
