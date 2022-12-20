@@ -4,11 +4,15 @@ import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
-import { getLanguage } from "@common/constants/localizedConstants";
+import {
+  getJobLookingStatus,
+  getLanguage,
+} from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -170,8 +174,20 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
+    {
+      column: {
+        id: "createdDate",
+        sortColumnName: "created_at",
+      },
+      desc: false,
+    },
+  );
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([
+    "telephone",
+    "createdDate",
+    "updatedDate",
+  ]);
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
     term: string | undefined;
@@ -266,6 +282,21 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
       },
       {
         label: intl.formatMessage({
+          defaultMessage: "Status",
+          id: "Ag+0A4",
+          description: "Title displayed for the User table Status column",
+        }),
+        accessor: (user) =>
+          user.jobLookingStatus
+            ? intl.formatMessage(
+                getJobLookingStatus(user.jobLookingStatus as string, "short"),
+              )
+            : "",
+        id: "jobLookingStatus",
+        sortColumnName: "job_looking_status",
+      },
+      {
+        label: intl.formatMessage({
           defaultMessage: "Email",
           id: "0+g2jN",
           description: "Title displayed for the User table Email column.",
@@ -323,6 +354,40 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             getFullNameLabel(user.firstName, user.lastName, intl),
           ),
         id: "view",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Created",
+          id: "+pgXHm",
+          description: "Title displayed for the User table Date Created column",
+        }),
+        accessor: (user) =>
+          user.createdDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.createdDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "createdDate",
+        sortColumnName: "created_at",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        accessor: (user) =>
+          user.updatedDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.updatedDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "updatedDate",
+        sortColumnName: "updated_at",
       },
     ],
     [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],

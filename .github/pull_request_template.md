@@ -1,10 +1,4 @@
----
-name: "🌱 Pull Request"
-about: Submit a PR
-title: "{label} - {issue #} - {title}"
-labels:
-assignees: ''
----
+🤖 Resolves {issue #}
 
 ## 👋 Introduction
 
@@ -26,6 +20,3 @@ Assist reviewers with steps they can take to test that the PR does what it says 
 Add a screenshot (if possible).
 
 
-## 🤖 Robot Stuff
-
-Resolves {issue #}

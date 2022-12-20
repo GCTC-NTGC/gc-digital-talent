@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
+import { faker } from "@faker-js/faker";
 import TableOfContents from ".";
 
 export default {
@@ -10,20 +11,20 @@ export default {
 
 const items = [
   {
-    id: "lorem",
-    title: "Lorem",
+    id: "item-1",
+    title: faker.lorem.word(5),
   },
   {
-    id: "ipsum",
-    title: "Ipsum",
+    id: "item-2",
+    title: faker.lorem.words(1),
   },
   {
-    id: "dolor",
-    title: "Dolor",
+    id: "item-3",
+    title: faker.lorem.words(2),
   },
   {
-    id: "amet",
-    title: "Amet",
+    id: "item-4",
+    title: faker.lorem.words(3),
   },
 ];
 

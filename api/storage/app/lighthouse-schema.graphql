@@ -1410,6 +1410,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime
+  updatedDate: DateTime
   firstName: String
   lastName: String
   email: Email

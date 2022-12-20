@@ -2281,6 +2281,18 @@
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
   },
+  "Ag+0A4": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed for the User table Status column"
+  },
+  "+pgXHm": {
+    "defaultMessage": "Créé",
+    "description": "Title displayed for the User table Date Created column"
+  },
+  "R2sSy9": {
+    "defaultMessage": "Révisé",
+    "description": "Title displayed for the User table Date Updated column"
+  },
   "3AmNSJ": {
     "defaultMessage": "Ce bassin est annoncé, mais n'accepte plus de candidatures.",
     "description": "Status description of a pool in CLOSED status"

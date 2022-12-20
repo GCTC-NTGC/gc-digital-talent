@@ -1,6 +1,7 @@
 import React from "react";
 import type { Story, Meta } from "@storybook/react";
 
+import { faker } from "@faker-js/faker";
 import Toast, { toast } from "./Toast";
 
 interface StoryArgs {
@@ -13,8 +14,7 @@ export default {
   title: "Components/Toast",
   args: {
     text: "Toast text",
-    longText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a laoreet tortor, a vulputate augue. Integer nec felis posuere, hendrerit nulla et, luctus neque.",
+    longText: faker.lorem.sentences(3),
   },
 } as Meta;
 
