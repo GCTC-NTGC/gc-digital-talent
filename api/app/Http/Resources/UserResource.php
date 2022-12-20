@@ -26,6 +26,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
 
+        // pass $this->poolSkillIds into the collection instances
         $awardExperiences = AwardExperienceResource::collection($this->awardExperiences);
         $communityExperiences = CommunityExperienceResource::collection($this->communityExperiences);
         $educationExperiences = EducationExperienceResource::collection($this->educationExperiences);

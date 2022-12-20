@@ -58,4 +58,3 @@ class StoreApplicationSnapshot
         $poolCandidate->save();
     }
 }
-// php artisan test --filter snapshottest

@@ -14,6 +14,9 @@ class AwardExperienceResource extends JsonResource
      */
     public function toArray($request)
     {
+        // having $poolSkillIds passed in
+        // $skills = SkillResource::collection($this->skills)
+        // $skillsFiltered = $skills->whereIn('id', $poolSkillIds)
         return [
             'id' => $this->id,
             '__typename' => 'AwardExperience',
@@ -24,6 +27,7 @@ class AwardExperienceResource extends JsonResource
             'awardedScope' => $this->awarded_scope,
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills)
+            // 'skills' => $skillsFiltered
         ];
     }
 }
