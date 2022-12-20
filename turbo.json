@@ -5,6 +5,7 @@
       "outputs": ["./dist/**"]
     },
     "codegen": {
+      "dependsOn": ["^codegen"],
       "outputs": ["./src/api/**"]
     },
     "dev": {
@@ -19,6 +20,7 @@
       "outputs": ["./src/lang/en.json"]
     },
     "intl-compile": {
+      "dependsOn": ["^intl-compile", "intl-extract"],
       "outputs": ["./src/lang/*{Compiled}.json"]
     },
     "storybook": {

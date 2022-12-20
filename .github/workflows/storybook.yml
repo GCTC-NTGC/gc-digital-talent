@@ -42,6 +42,12 @@ jobs:
         run: |
           npm install
 
+      - name: "Setup: all workspaces"
+        working-directory: ./
+        run: |
+          npm run codegen
+          npm run intl-compile
+
       - name: "Build: all workspaces"
         working-directory: ./
         run: |
