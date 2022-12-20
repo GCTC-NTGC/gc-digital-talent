@@ -89,13 +89,13 @@ class PoolCandidate extends Model
 
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
-        if (empty($workRegions)) {
+        if (empty($operationalRequirements)) {
             return $query;
         }
 
         // point at filter on User
-        $query->whereHas('user', function ($query) use ($workRegions) {
-            User::scopeLocationPreferences($query, $workRegions);
+        $query->whereHas('user', function ($query) use ($operationalRequirements) {
+            User::scopeOperationalRequirements($query, $operationalRequirements);
         });
 
         return $query;
