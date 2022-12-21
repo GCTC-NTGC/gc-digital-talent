@@ -101,7 +101,7 @@ const Layout = () => {
             <main
               id="main"
               data-h2-flex-grow="base(1)"
-              data-h2-background-color="base(dt-gray.10)"
+              data-h2-background-color="base(dt-gray.15)"
             >
               <Outlet />
             </main>
