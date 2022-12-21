@@ -16,7 +16,6 @@ export function createApplicant({
   email,
   sub,
   skill,
-  genericJobTitle,
   userAlias,
 }) {
   cy.createUser({
