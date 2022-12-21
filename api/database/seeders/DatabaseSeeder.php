@@ -60,9 +60,6 @@ class DatabaseSeeder extends Seeder
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
 
-                $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
-                $user->expectedGenericJobTitles()->sync($genericJobTitles);
-
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
@@ -73,21 +70,12 @@ class DatabaseSeeder extends Seeder
                 // are they a government user?
                 if (rand(0, 1)) {
                     // government users have a current classification and expected classifications but no salary
-                    $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
-                    $user->expectedClassifications()->sync($classification);
-                    $user->expected_salary = [];
+                    $user->expected_salary = null;
                     $user->save();
-
-                    $user->expectedClassifications()->sync(
-                        $pool->classifications()->pluck('classifications.id')->toArray()
-                    );
                 } else {
                     // non-government users have no current classification or expected classifications but have salary
                     $user->current_classification = null;
-                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 2);
                     $user->save();
-
-                    $user->expectedClassifications()->sync([]);
                 }
 
                 // create a pool candidate in the pool
