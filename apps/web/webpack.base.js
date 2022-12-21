@@ -9,7 +9,7 @@ module.exports = merge(base(basePath), {
   entry: {
     app: [
       "./src/main.tsx",
-      "../../frontend/common/src/css/hydrogen.css",
+      path.resolve(__dirname, "../../frontend/common/src/css/hydrogen.css"),
       "../../frontend/common/src/css/common.css",
       "./src/assets/css/app.css",
     ],
