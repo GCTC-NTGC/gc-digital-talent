@@ -767,14 +767,14 @@ input PoolCandidateFilterInput {
   locationPreferences: [WorkRegion] @scope
   name: String @scope
   operationalRequirements: [OperationalRequirement] @scope
-  pools: [IdInput] @scope(name: "availableInPools")
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
   priorityWeight: [Int] @scope
   poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
   jobLookingStatus: [JobLookingStatus] @scope
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope

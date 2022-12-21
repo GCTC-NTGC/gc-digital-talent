@@ -126,18 +126,12 @@ class PoolCandidate extends Model
 
         return $query;
     }
-    public static function scopeAvailableInPools(Builder $query, ?array $pools): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
-        if (empty($pools)) {
+        if (empty($poolIds)) {
             return $query;
         }
 
-        $poolIds = [];
-        foreach ($pools as $pool) {
-            array_push($poolIds, $pool['id']);
-        }
-
-        // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
         $query->whereIn('pool_id', $poolIds);
         return $query;
     }
