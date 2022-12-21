@@ -64,6 +64,7 @@
     "babel-plugin-formatjs": "^10.3.35",
     "eslint": "^8.29.0",
     "eslint-config-custom": "*",
+    "hydrogen-webpack-plugin": "*",
     "jest": "^29.3.1",
     "jest-axe": "^7.0.0",
     "jest-environment-jsdom": "^29.3.1",

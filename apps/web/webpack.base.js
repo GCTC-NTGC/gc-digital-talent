@@ -13,6 +13,10 @@ module.exports = merge(base(basePath), {
       "./src/assets/css/app.css",
     ],
   },
+  plugins: [
+    // Run Hydrogen on Webpack's compiler hooks
+    new HydrogenPlugin({ outputFile: path.resolve(__dirname, "../../frontend/common/src/css/hydrogen.css") }),
+  ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {

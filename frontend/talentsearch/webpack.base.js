@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+const HydrogenPlugin  = require("hydrogen-webpack-plugin");
 require('dotenv').config({ path: './.env' });
 const shell = require("shelljs");
 const fs = require("fs");
@@ -19,6 +20,9 @@ module.exports = {
     ],
   },
   plugins: [
+
+    // Run Hydrogen on Webpack's compiler hooks
+    new HydrogenPlugin({ outputFile: path.resolve(__dirname, "../common/src/css/hydrogen.css") }),
 
     // process and copy CSS files
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),

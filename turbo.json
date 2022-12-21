@@ -13,7 +13,7 @@
       "outputs": ["./dist/**"]
     },
     "watch": {
-      "dependsOn": ["intl-compile", "codegen"],
+      "dependsOn": ["build:css", "intl-compile", "codegen"],
       "outputs": ["./dist/**"]
     },
     "intl-extract": {
@@ -30,7 +30,7 @@
       "outputs": ["dist/**", "storybook-static/**"]
     },
     "build:css": {
-      "outputs": ["src/assets/css/hydrogen.css"]
+      "outputs": ["src/css/hydrogen.css"]
     },
     "test": {
       "outputs": []
