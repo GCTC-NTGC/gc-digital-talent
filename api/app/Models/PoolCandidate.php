@@ -290,6 +290,18 @@ class PoolCandidate extends Model
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
+        // collect skills attached to the Pool to pass into resource collection
+        $pool = Pool::with([
+            'essentialSkills',
+            'nonessentialSkills'
+        ])->findOrFail($this->pool_id);
+        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
+        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
+        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+
+        $profile = new UserResource($user);
+        $profile = $profile->poolSkillIds($poolSkillIds);
+
         $this->profile_snapshot = $profile;
         $this->save();
     }
