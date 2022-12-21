@@ -55,6 +55,14 @@ function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
   );
 }
 
+// wrap something in a React element for rendering
+const wrapInAReactElement = (
+  value: string | JSX.Element[] | null | undefined,
+) => {
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{value}</>;
+};
+
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
@@ -157,13 +165,15 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         }),
         accessor: "createdDate",
         Cell: ({ value }) =>
-          value
-            ? formatDate({
-                date: parseDateTimeUtc(value),
-                formatString: "PPP p",
-                intl,
-              })
-            : null,
+          wrapInAReactElement(
+            value
+              ? formatDate({
+                  date: parseDateTimeUtc(value),
+                  formatString: "PPP p",
+                  intl,
+                })
+              : null,
+          ),
       },
     ],
     [editUrlRoot, intl, paths, locale],
