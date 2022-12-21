@@ -98,26 +98,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "MmFgbF",
-          description:
-            "Title displayed on the single search request table classifications column.",
-        }),
-        accessor: ({ user }) =>
-          user.expectedClassifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="secondary"
-                mode="outline"
-              >
-                {`${classification?.group}-${classification?.level}`}
-              </Pill>
-            );
-          }),
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Operational Requirements",
           id: "gN/+W2",
           description:
@@ -274,18 +254,6 @@ const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
-    expectedClassifications: [
-      ...(inputFilter?.classifications
-        ? inputFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
-              return {
-                group,
-                level,
-              };
-            })
-        : []),
-    ],
     cmoAssets: [
       ...(inputFilter?.cmoAssets
         ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
@@ -345,8 +313,6 @@ const transformApplicantFilterToFilterInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
-    expectedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,

@@ -257,7 +257,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       // from fancy filter
       pools: [{ id: poolId }],
       languageAbility: fancyFilterState?.languageAbility,
-      expectedClassifications: fancyFilterState?.expectedClassifications,
       operationalRequirements: fancyFilterState?.operationalRequirements,
       locationPreferences: fancyFilterState?.locationPreferences,
       hasDiploma: fancyFilterState?.hasDiploma,
@@ -272,10 +271,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       operationalRequirements: data.operationalRequirement.map(
         (requirement) => {
           return stringToEnumOperational(requirement);

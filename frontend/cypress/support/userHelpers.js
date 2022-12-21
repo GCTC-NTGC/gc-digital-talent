@@ -39,9 +39,6 @@ export function createApplicant({
       OperationalRequirement.OvertimeOccasional,
     ],
     positionDuration: [PositionDuration.Permanent],
-    expectedGenericJobTitles: {
-      sync: [genericJobTitle.id],
-    },
     personalExperiences: {
       create: [
         {

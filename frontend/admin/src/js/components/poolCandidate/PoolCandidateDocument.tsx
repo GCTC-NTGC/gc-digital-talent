@@ -15,7 +15,6 @@ import GovernmentInformationSection from "@common/components/UserProfile/Profile
 import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
 import { notEmpty } from "@common/helpers/util";
 import PrintExperienceByType from "@common/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { PoolCandidate } from "../../api/generated";
@@ -227,22 +226,6 @@ export const PoolCandidateDocument = React.forwardRef<
                     <DiversityEquityInclusionSection
                       applicant={candidate.user}
                     />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={CurrencyDollarIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Role and salary expectations",
-                          id: "uMzeiF",
-                          description:
-                            "Title of the Role and salary expectations section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <RoleSalarySection applicant={candidate.user} />
                   </div>
                   <HeadingWrapper>
                     <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
