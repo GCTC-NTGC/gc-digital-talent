@@ -33,7 +33,7 @@
       "outputs": ["src/assets/css/hydrogen.css"]
     },
     "test": {
-      "cache": false
+      "outputs": []
     },
     "e2e": {},
     "e2e:open": {},
