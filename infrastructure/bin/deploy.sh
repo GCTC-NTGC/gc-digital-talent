@@ -71,6 +71,6 @@ npm run build
 
 ### Cleanup /frontend npm dependencies
 cd $ROOT_DIR
-npm run prune --production
+npm prune --production
 cd $ROOT_DIR/frontend
 npm prune --production
