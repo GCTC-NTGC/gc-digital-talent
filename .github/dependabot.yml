@@ -7,6 +7,7 @@ version: 2
 updates:
   # JAVASCRIPT package.json updates
 
+  # TODO: Remove as final step of #5065
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
