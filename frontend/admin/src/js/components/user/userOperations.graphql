@@ -167,6 +167,9 @@ query AllUsersPaginated(
       lastName
       telephone
       preferredLang
+      jobLookingStatus
+      createdDate
+      updatedDate
     }
     paginatorInfo {
       count

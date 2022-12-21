@@ -101,6 +101,11 @@ describe("Admin Workflow Tests", () => {
     cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
+    // show hidden telephone column
+    cy.findByRole("button", { name: /Columns/i }).click();
+    cy.findByRole("checkbox", { name: /Telephone/i }).click();
+    cy.findByRole("button", { ariaLabel: /Close dialog/i }).type('{esc}');
+
     // check that the expected new phone number shows
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })

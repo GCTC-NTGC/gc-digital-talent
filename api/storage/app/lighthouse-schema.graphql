@@ -77,14 +77,14 @@ input ApplicantFilterBelongsTo {
 }
 
 input ApplicantFilterInput {
-  hasDiploma: Boolean
   equity: EquitySelectionsInput
+  hasDiploma: Boolean
   languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  skills: [IdInput]
   pools: [IdInput]
+  skills: [IdInput]
 }
 
 enum ArmedForcesStatus {
@@ -856,16 +856,16 @@ input PoolCandidateFilterBelongsTo {
 input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
   equity: EquitySelectionsInput
-  generalSearch: String
   email: String
-  name: String
+  generalSearch: String
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  name: String
   operationalRequirements: [OperationalRequirement]
   pools: [IdInput]
   priorityWeight: [Int]
-  status: [PoolCandidateStatus]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
@@ -875,6 +875,15 @@ type PoolCandidatePaginator {
 
   """A list of PoolCandidate items."""
   data: [PoolCandidate!]!
+}
+
+input PoolCandidateSearchInput {
+  applicantFilter: ApplicantFilterInput
+  email: String
+  generalSearch: String
+  name: String
+  priorityWeight: [Int]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 type PoolCandidateSearchRequest {
@@ -1012,7 +1021,7 @@ type Query {
     page: Int
   ): UserPaginator
   poolCandidatesPaginated(
-    where: PoolCandidateFilterInput
+    where: PoolCandidateSearchInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
@@ -1397,6 +1406,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime
+  updatedDate: DateTime
   firstName: String
   lastName: String
   email: Email

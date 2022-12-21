@@ -16,12 +16,12 @@ import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
 import {
+  PoolCandidateSearchInput,
   InputMaybe,
   JobLookingStatus,
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
-  PoolCandidateFilterInput,
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
@@ -55,6 +55,47 @@ import {
 } from "../user/util";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
+
+function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+): FormValues {
+  return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility
+      ? [input?.applicantFilter?.languageAbility]
+      : [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    hasDiploma: input?.applicantFilter?.hasDiploma ? ["true"] : [],
+    pools:
+      input?.applicantFilter?.pools
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.id) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
+  };
+}
 
 // callbacks extracted to separate function to stabilize memoized component
 const preferredLanguageAccessor = (
@@ -180,12 +221,15 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
-const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
+const PoolCandidatesTable: React.FC<{
+  initialFilterInput?: PoolCandidateSearchInput;
+}> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
-  const [poolCandidateFilterInput, setPoolCandidateFilterInput] =
-    useState<PoolCandidateFilterInput>({ pools: [{ id: poolId }] });
+  const initialStateFilterInput = initialFilterInput ?? {};
+  const [applicantFilterInput, setApplicantFilterInput] =
+    useState<PoolCandidateSearchInput>(initialStateFilterInput);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
@@ -236,10 +280,10 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: PoolCandidateFilterInput | undefined,
+    fancyFilterState: PoolCandidateSearchInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
-  ): InputMaybe<PoolCandidateFilterInput> => {
+  ): InputMaybe<PoolCandidateSearchInput> => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&
@@ -255,40 +299,43 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       name: searchType === "name" ? searchBarTerm : undefined,
 
       // from fancy filter
-      pools: [{ id: poolId }],
-      languageAbility: fancyFilterState?.languageAbility,
-      operationalRequirements: fancyFilterState?.operationalRequirements,
-      locationPreferences: fancyFilterState?.locationPreferences,
-      hasDiploma: fancyFilterState?.hasDiploma,
-      equity: fancyFilterState?.equity,
-      status: fancyFilterState?.status,
+      applicantFilter: fancyFilterState?.applicantFilter,
+      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    setPoolCandidateFilterInput({
-      languageAbility: data.languageAbility[0]
-        ? stringToEnumLanguage(data.languageAbility[0])
-        : undefined,
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
-          return stringToEnumOperational(requirement);
+    setApplicantFilterInput({
+      applicantFilter: {
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        hasDiploma: data.hasDiploma[0] ? true : undefined,
+        equity: {
+          ...(data.equity.includes("isWoman") && { isWoman: true }),
+          ...(data.equity.includes("hasDisability") && { hasDisability: true }),
+          ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+          ...(data.equity.includes("isVisibleMinority") && {
+            isVisibleMinority: true,
+          }),
         },
-      ),
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      hasDiploma: data.hasDiploma[0] ? true : undefined,
-      equity: {
-        ...(data.equity.includes("isWoman") && { isWoman: true }),
-        ...(data.equity.includes("hasDisability") && { hasDisability: true }),
-        ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
-        ...(data.equity.includes("isVisibleMinority") && {
-          isVisibleMinority: true,
+        pools: data.pools.map((id) => {
+          return { id };
+        }),
+        skills: data.skills.map((id) => {
+          return { id };
         }),
       },
-      status: data.status.map((status) => {
+      poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);
       }),
       priorityWeight: data.priorityWeight.map((priority) => {
@@ -304,7 +351,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
       where: addSearchToPoolCandidateFilterInput(
-        poolCandidateFilterInput,
+        applicantFilterInput,
         searchState?.term,
         searchState?.type,
       ),
@@ -503,6 +550,11 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
 
   const csv = usePoolCandidateCsvData(selectedCandidates);
 
+  const initialFilters = useMemo(
+    () => transformPoolCandidateSearchInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -517,6 +569,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         filterComponent={
           <PoolCandidateTableFilterDialog
             onSubmit={handlePoolCandidateFilterSubmit}
+            initialFilters={initialFilters}
           />
         }
         onSearchChange={(

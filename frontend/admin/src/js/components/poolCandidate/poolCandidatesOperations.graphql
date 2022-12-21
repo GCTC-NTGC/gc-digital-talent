@@ -256,7 +256,7 @@ query GetSelectedPoolCandidates($ids: [ID]) {
 }
 
 query GetPoolCandidatesPaginated(
-  $where: PoolCandidateFilterInput
+  $where: PoolCandidateSearchInput
   $first: Int
   $page: Int
   $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!

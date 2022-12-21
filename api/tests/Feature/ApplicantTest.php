@@ -1500,7 +1500,8 @@ class ApplicantTest extends TestCase
             'user_id' => $owner['id'],
         ]);
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
+            'roles' => [ApiEnums::ROLE_APPLICANT],
+            'job_looking_status' => 'ACTIVELY_LOOKING',
         ])
             ->count(60)
             ->afterCreating(function (User $user) use ($pool) {
@@ -1518,7 +1519,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1543,7 +1544,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1553,16 +1554,22 @@ class ApplicantTest extends TestCase
         ',
             [
                 'where' => [
-                    'cmoAssets' => null,
-                    'equity' => null,
+                    'applicantFilter' => [
+                        'equity' => null,
+                            'hasDiploma' => null,
+                        'languageAbility' => null,
+                        'locationPreferences' => null,
+                        'operationalRequirements' => null,
+                        'positionDuration' => null,
+                        'pools' => null,
+                        'skills' => null,
+                    ],
                     'generalSearch' => null,
-                    'hasDiploma' => null,
-                    'languageAbility' => null,
-                    'locationPreferences' => null,
-                    'operationalRequirements' => null,
-                    'pools' => null,
+                    'name' => null,
+                    'email' => null,
                     'priorityWeight' => null,
-                    'status' => null,
+                    'poolCandidateStatus' => null,
+
                 ]
             ]
         )->assertJson([

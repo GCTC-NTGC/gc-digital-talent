@@ -206,7 +206,7 @@ class User extends Model implements Authenticatable
      * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
      * @return Builder
      */
-    public static function filterByPools(Builder $query, ?array $poolFilters): Builder
+    public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
         if (empty($poolFilters)) {
             return $query;
@@ -222,7 +222,7 @@ class User extends Model implements Authenticatable
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                                     ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
@@ -256,7 +256,7 @@ class User extends Model implements Authenticatable
      * @param array $poolIds
      * @return Builder
      */
-    public static function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -269,10 +269,9 @@ class User extends Model implements Authenticatable
                 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
-        return self::filterByPools($query, $poolFilters);
+        return self::scopePoolFilters($query, $poolFilters);
     }
-
-    public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    public static function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
@@ -291,8 +290,7 @@ class User extends Model implements Authenticatable
         }
         return $query;
     }
-
-    public static function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
+    public static function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($operationalRequirements)) {
@@ -303,7 +301,7 @@ class User extends Model implements Authenticatable
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
-    public static function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
+    public static function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
             return $query;
@@ -321,7 +319,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
+    public static function scopeJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
         if (empty($statuses)) {
             return $query;
@@ -339,7 +337,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterBySkills(Builder $query, ?array $skills): Builder
+    public static function scopeSkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -420,7 +418,7 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-    public static function filterByEquity(Builder $query, ?array $equity): Builder
+    public static function scopeEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -455,7 +453,7 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-    public static function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
             $query->where(function ($query) use ($search) {
@@ -468,7 +466,7 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-    public static function filterByName(Builder $query, ?string $name): Builder
+    public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
             $splitName = explode(" ", $name);

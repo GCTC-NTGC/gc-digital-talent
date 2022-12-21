@@ -41,6 +41,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime @rename(attribute: "created_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
@@ -754,59 +756,50 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
-  equity: EquitySelectionsInput
-    @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
-  generalSearch: String
-    @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  equity: EquitySelectionsInput @scope
   email: String @scope
-  name: String @builder(method: "App\\Models\\PoolCandidate@filterByName")
+  generalSearch: String @scope
   hasDiploma: Boolean @scope
-  languageAbility: LanguageAbility
-    @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
-  locationPreferences: [WorkRegion]
-    @builder(method: "App\\Models\\PoolCandidate@filterByLocationPreferences")
-  operationalRequirements: [OperationalRequirement]
-    @builder(
-      method: "App\\Models\\PoolCandidate@filterByOperationalRequirements"
-    )
-  pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-  priorityWeight: [Int] @scope(name: "priorityWeight")
-  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  languageAbility: LanguageAbility @scope
+  locationPreferences: [WorkRegion] @scope
+  name: String @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  priorityWeight: [Int] @scope
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput]
-    @builder(method: "App\\Models\\User@filterByPools")
-  jobLookingStatus: [JobLookingStatus]
-    @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobLookingStatus: [JobLookingStatus] @scope
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
-  name: String @builder(method: "App\\Models\\User@filterByName")
-  generalSearch: String
-    @builder(method: "App\\Models\\User@filterByGeneralSearch")
+  name: String @scope
+  generalSearch: String @scope
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
+  equity: EquitySelectionsInput @scope
   hasDiploma: Boolean @scope
-  equity: EquitySelectionsInput
-    @builder(method: "App\\Models\\User@filterByEquity")
-  languageAbility: LanguageAbility
-    @builder(method: "App\\Models\\User@filterByLanguageAbility")
-  operationalRequirements: [OperationalRequirement]
-    @builder(method: "App\\Models\\User@filterByOperationalRequirements")
-  locationPreferences: [WorkRegion]
-    @builder(method: "App\\Models\\User@filterByLocationPreferences")
+  languageAbility: LanguageAbility @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
   positionDuration: [PositionDuration] @scope
-  skills: [IdInput]
-    @pluck(key: "id")
-    @builder(method: "App\\Models\\User@filterBySkills") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  pools: [IdInput]
-    @pluck(key: "id")
-    @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+}
+
+input PoolCandidateSearchInput {
+  applicantFilter: ApplicantFilterInput @spread
+  email: String @scope
+  generalSearch: String @scope
+  name: String @scope
+  priorityWeight: [Int] @scope(name: "priorityWeight")
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 type CandidateSearchPoolResult {
@@ -857,7 +850,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
   poolCandidatesPaginated(
-    where: PoolCandidateFilterInput
+    where: PoolCandidateSearchInput
     orderBy: _
       @orderBy(
         relations: [
@@ -875,7 +868,7 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft", "availableForOpportunities", "expiryFilter"])
     @guard
     @can(ability: "viewAny")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.

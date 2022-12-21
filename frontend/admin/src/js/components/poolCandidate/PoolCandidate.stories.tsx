@@ -20,7 +20,11 @@ const stories = storiesOf("Pool Candidates", module);
 
 stories.add(
   "Pool Candidates Table",
-  () => <PoolCandidatesTable poolId="123" />,
+  () => (
+    <PoolCandidatesTable
+      initialFilterInput={{ applicantFilter: { pools: [{ id: "123" }] } }}
+    />
+  ),
   {
     apiResponses: {
       GetPoolCandidatesPaginated: {
