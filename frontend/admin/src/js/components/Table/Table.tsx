@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement } from "react";
@@ -238,14 +237,12 @@ function Table<T extends Record<string, unknown>>({
                                 data-h2-margin="base(x.125, 0)"
                               >
                                 <label htmlFor={column.Header?.toString()}>
-                                  <>
-                                    <input
-                                      id={column.Header?.toString()}
-                                      type="checkbox"
-                                      {...column.getToggleHiddenProps()}
-                                    />{" "}
-                                    {column.Header}
-                                  </>
+                                  <input
+                                    id={column.Header?.toString()}
+                                    type="checkbox"
+                                    {...column.getToggleHiddenProps()}
+                                  />{" "}
+                                  {column.Header}
                                 </label>
                               </div>
                             ))}

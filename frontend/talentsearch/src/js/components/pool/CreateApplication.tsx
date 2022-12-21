@@ -9,7 +9,7 @@ import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import { AuthorizationContext } from "@common/components/Auth";
 
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import useRoutes from "../../hooks/useRoutes";
 import { Scalars, useCreateApplicationMutation } from "../../api/generated";
 

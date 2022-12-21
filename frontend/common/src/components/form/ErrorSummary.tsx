@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
@@ -78,11 +77,8 @@ const ErrorSummary = React.forwardRef<
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {invalidFields.map((field) => (
           <li key={field.name}>
-            <>
-              {/* complains about needing to have a single child */}
-              <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
-              {locale === "fr" && " "}: {field.message}
-            </>
+            <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
+            {locale === "fr" && " "}: {field.message}
           </li>
         ))}
       </ul>

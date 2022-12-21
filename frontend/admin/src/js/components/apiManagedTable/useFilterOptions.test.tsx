@@ -1,12 +1,13 @@
 /**
  * @jest-environment jsdom
  */
+import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
-import { waitFor, renderHook } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 

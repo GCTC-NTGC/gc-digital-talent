@@ -33,7 +33,7 @@ const InputError: React.FC<InputErrorProps> = ({
       aria-live="polite"
       {...rest}
     >
-      {error as unknown as string}
+      {error}
     </span>
   ) : null;
 };

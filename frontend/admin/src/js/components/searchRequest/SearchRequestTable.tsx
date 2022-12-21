@@ -33,14 +33,6 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
-// wrap something in a React element for rendering
-const wrapInAReactElement = (
-  value: string | JSX.Element[] | null | undefined,
-) => {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{value}</>;
-};
-
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
 }
@@ -100,18 +92,16 @@ export const SearchRequestTable = ({
           const pools =
             original?.applicantFilter?.pools ??
             original?.poolCandidateFilter?.pools;
-          return wrapInAReactElement(
-            pools?.filter(notEmpty).map(
-              (pool, index) =>
-                pool && (
-                  <React.Fragment key={pool.id}>
-                    <a href={paths.poolCandidateTable(pool.id)}>
-                      {localizedTransformPoolToPosterTitle(pool)}
-                    </a>
-                    {index > 0 && ", "}
-                  </React.Fragment>
-                ),
-            ),
+          return pools?.filter(notEmpty).map(
+            (pool, index) =>
+              pool && (
+                <React.Fragment key={pool.id}>
+                  <a href={paths.poolCandidateTable(pool.id)}>
+                    {localizedTransformPoolToPosterTitle(pool)}
+                  </a>
+                  {index > 0 && ", "}
+                </React.Fragment>
+              ),
           );
         },
       },
@@ -132,15 +122,13 @@ export const SearchRequestTable = ({
         }),
         accessor: "requestedDate",
         Cell: ({ value }) =>
-          wrapInAReactElement(
-            value
-              ? formatDate({
-                  date: parseDateTimeUtc(value),
-                  formatString: "PPP p",
-                  intl,
-                })
-              : null,
-          ),
+          value
+            ? formatDate({
+                date: parseDateTimeUtc(value),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
       },
       {
         Header: intl.formatMessage({
