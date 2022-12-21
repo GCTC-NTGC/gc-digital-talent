@@ -339,8 +339,6 @@ class PoolCandidate extends Model
         $user = User::with([
             'department',
             'currentClassification',
-            'expectedClassifications',
-            'expectedGenericJobTitles',
             'cmoAssets',
             'awardExperiences',
             'communityExperiences',
