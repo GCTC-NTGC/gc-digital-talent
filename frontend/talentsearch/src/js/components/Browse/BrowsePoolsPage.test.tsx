@@ -21,7 +21,7 @@ const publishedItJobsPool: PoolAdvertisement = {
 const expiredItJobsPool: PoolAdvertisement = {
   id: "expiredItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
-  advertisementStatus: AdvertisementStatus.Expired,
+  advertisementStatus: AdvertisementStatus.Closed,
 };
 
 const archivedItJobsPool: PoolAdvertisement = {

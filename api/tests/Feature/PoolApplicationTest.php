@@ -42,7 +42,7 @@ class PoolApplicationTest extends TestCase
         Pool::factory()->create([
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'published_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            'closing_date' => config('constants.far_future_date'),
         ]);
 
         // Assert creating a pool application succeeds
@@ -127,7 +127,7 @@ class PoolApplicationTest extends TestCase
         Pool::factory()->create([
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
-            'expiry_date' => config('constants.far_future_date'),
+            'closing_date' => config('constants.far_future_date'),
         ]);
 
         $this->graphQL(
@@ -167,7 +167,7 @@ class PoolApplicationTest extends TestCase
         Pool::factory()->create([
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
-            'expiry_date' => config('constants.far_past_date'),
+            'closing_date' => config('constants.far_past_date'),
         ]);
 
         $this->graphQL(

@@ -198,9 +198,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                 description: "Label for the pool expiry date",
               })}
             >
-              {pool.expiryDate
+              {pool.closingDate
                 ? formatDate({
-                    date: parseDateTimeUtc(pool.expiryDate),
+                    date: parseDateTimeUtc(pool.closingDate),
                     formatString: "PPP p",
                     intl,
                   })

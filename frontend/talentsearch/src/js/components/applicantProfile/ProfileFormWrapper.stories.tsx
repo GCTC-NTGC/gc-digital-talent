@@ -2,6 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Story, Meta } from "@storybook/react";
 import { BasicForm, Input } from "@common/components/form";
+import { faker } from "@faker-js/faker";
 import ProfileFormWrapper, {
   ProfileFormWrapperProps,
 } from "./ProfileFormWrapper";
@@ -46,22 +47,19 @@ export const BothButtons = TemplateProfileFormWrapper.bind({});
 CancelButton.args = {
   crumbs: [{ title: "About Me" }],
   title: "About me",
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+  description: faker.lorem.sentences(4),
 };
 
 SaveButton.args = {
   crumbs: [{ title: "About Me" }],
   title: "About me",
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+  description: faker.lorem.sentences(4),
   mode: "saveButton",
 };
 
 BothButtons.args = {
   crumbs: [{ title: "About Me" }],
   title: "About me",
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+  description: faker.lorem.sentences(4),
   mode: "bothButtons",
 };

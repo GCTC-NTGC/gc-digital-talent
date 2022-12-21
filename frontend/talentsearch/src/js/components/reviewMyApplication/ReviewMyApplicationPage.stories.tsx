@@ -22,7 +22,7 @@ export default {
     poolAdvertisement,
     applicant,
     applicationId: poolCandidate.id,
-    closingDate: poolCandidate.poolAdvertisement?.expiryDate,
+    closingDate: poolCandidate.poolAdvertisement?.closingDate,
   },
 } as ComponentMeta<typeof ReviewMyApplication>;
 

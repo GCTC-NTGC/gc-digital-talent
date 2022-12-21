@@ -67,18 +67,19 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description: "Error message that the application cannot be deleted.",
   },
 
-  "validator:expiry_date.after": {
-    defaultMessage: "Expiry Date must be after today.",
-    id: "sfr5Pa",
+  "validator:closing_date.after": {
+    defaultMessage: "Closing date must be after today.",
+    id: "csLjMi",
     description:
-      "Error message that the given skill expiry date must be after today.",
+      "Error message that the given skill closing date must be after today.",
   },
 
   // pool updating
-  UpdatePoolExpiryDate: {
-    defaultMessage: "The pool must have an expiry date after today.",
-    id: "gU/2O6",
-    description: "Error message that pool expiry isn't in the future.",
+  UpdatePoolClosingDate: {
+    defaultMessage: "The pool must have a closing date after today.",
+    id: "qmEyxS",
+    description:
+      "Error message that the pool closing date isn't in the future.",
   },
 
   // pool publishing validation

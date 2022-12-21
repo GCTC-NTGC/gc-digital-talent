@@ -1426,10 +1426,10 @@ export const advertisementStatus = defineMessages({
     id: "RQGy+0",
     description: "Published pool advertisement status",
   },
-  [AdvertisementStatus.Expired]: {
-    defaultMessage: "Expired",
-    id: "gfzfP6",
-    description: "Expired pool advertisement status",
+  [AdvertisementStatus.Closed]: {
+    defaultMessage: "Closed",
+    id: "/UBSoB",
+    description: "Closed pool advertisement status",
   },
 });
 

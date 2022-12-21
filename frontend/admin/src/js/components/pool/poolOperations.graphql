@@ -62,7 +62,7 @@ query getPoolAdvertisement($id: UUID!) {
       en
       fr
     }
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance
