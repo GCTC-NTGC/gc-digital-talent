@@ -36,7 +36,7 @@ const emptyFormValues = {
   workRegion: [],
   equity: [],
   hasDiploma: [],
-  status: [],
+  poolCandidateStatus: [],
   priorityWeight: [],
 };
 

@@ -95,7 +95,11 @@ export const PoolCandidatePage = () => {
               "Descriptive text about the list of pool candidates in the admin portal.",
           })}
         </p>
-        <PoolCandidatesTable poolId={poolId || ""} />
+        <PoolCandidatesTable
+          initialFilterInput={{
+            applicantFilter: { pools: [{ id: poolId || "" }] },
+          }}
+        />
       </DashboardContentContainer>
     </Pending>
   );
