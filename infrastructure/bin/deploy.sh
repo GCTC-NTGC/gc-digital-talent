@@ -62,12 +62,15 @@ npm run production
 
 ### Indigenous Apprenticeship
 
-cd $ROOT_DIR/frontend/indigenousapprenticeship
+cd $ROOT_DIR
+npm install
 npm run codegen
 npm run intl-compile
-npm run production
+npm run build
+
 
 ### Cleanup /frontend npm dependencies
-
+cd $ROOT_DIR
+npm run prune --production
 cd $ROOT_DIR/frontend
 npm prune --production

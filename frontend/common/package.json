@@ -27,7 +27,7 @@
     "check-intl-talentsearch-merge": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.yml --merge-fr ../talentsearch/src/js/lang/newTranslations.json",
     "check-intl-web": "node ./src/tooling/checkIntl.js --en ../../apps/web/src/lang/en.json --fr ../../apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ../../apps/web/src/lang/untranslated.json --whitelist ../../apps/web/src/lang/whitelist.yml",
     "check-intl-web-merge": "node ./src/tooling/checkIntl.js --en ../../apps/web/src/lang/src/lang/en.json --fr ../../apps/web/src/lang/src/lang/fr.json --rm-orphaned --output-untranslated ../../apps/web/src/lang/untranslated.json --whitelist ../../apps/web/src/lang/whitelist.yml --merge-fr ../../apps/web/src/lang/newTranslations.json",
-    "check-integrity": "node ./src/tooling/checkIntegrity.js --lock-file ../package-lock.json --allow common admin talentsearch indigenousapprenticeship"
+    "check-integrity": "node ./src/tooling/checkIntegrity.js --lock-file ../package-lock.json --allow common admin talentsearch"
   },
   "repository": {
     "type": "git",

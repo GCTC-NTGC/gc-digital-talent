@@ -89,11 +89,11 @@
       "group": "build"
     },
     {
-      "label": "Refresh Indigenous Apprenticeship",
+      "label": "Refresh Web",
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_indigenousapprenticeship.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "refresh_frontend.sh"],
 
       "presentation": {
         "echo": true,
