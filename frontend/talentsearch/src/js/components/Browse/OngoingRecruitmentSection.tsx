@@ -139,7 +139,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -162,7 +161,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -219,7 +217,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -242,7 +239,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -299,7 +295,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -322,7 +317,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -379,7 +373,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -402,7 +395,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -459,7 +451,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -482,7 +473,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -539,7 +529,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -562,7 +551,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -619,7 +607,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -642,7 +629,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -700,7 +686,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it03Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it03Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(
@@ -723,7 +708,6 @@ export const OngoingRecruitmentSection = ({
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
               </p>
-              <p>{intl.formatMessage(messages.it04Description3)}</p>
             </>
           ),
           poolAdvertisement: selectPoolForSection(

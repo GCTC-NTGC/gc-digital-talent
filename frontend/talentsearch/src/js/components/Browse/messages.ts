@@ -129,30 +129,23 @@ const messages = defineMessages({
     description: "Invitation to apply for the 'IT-02 Analyst' classification",
   },
   it03Title: {
-    defaultMessage: "Team Leads and Technical Advisors (IT-03)",
-    id: "TkLuqv",
+    defaultMessage: "Team Lead and Technical Advisor (IT-03)",
+    id: "xtIE4i",
     description: "Title for the 'IT-03 Advisor' classification",
   },
   it03Description1: {
     defaultMessage:
-      "There are two types of IT-03 employees: those following a management path, and individual contributors.",
-    id: "I4FSCw",
+      "Team Leads are responsible for supervising work and project teams to support service delivery to clients and stakeholders.",
+    id: "86rJAg",
     description:
       "Description for the 'IT-03 Advisor' classification, paragraph 1",
   },
   it03Description2: {
     defaultMessage:
-      "Team Leads are responsible for supervising work and project teams for IT services and operations in their field of expertise to support service delivery to clients and stakeholders.",
-    id: "36UDiI",
+      "Technical Advisors are individual contributors that provide specialized technical advice and recommendations in support of service delivery.",
+    id: "doatZI",
     description:
       "Description for the 'IT-03 Advisor' classification, paragraph 2",
-  },
-  it03Description3: {
-    defaultMessage:
-      "Technical Advisors (individual contributors) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery to clients and stakeholders.",
-    id: "G7PoqV",
-    description:
-      "Description for the 'IT-03 Advisor' classification, paragraph 3",
   },
   it03ApplyMessage: {
     defaultMessage:
@@ -161,30 +154,23 @@ const messages = defineMessages({
     description: "Invitation to apply for the 'IT-03 Advisor' classification",
   },
   it04Title: {
-    defaultMessage: "Managers and Senior Advisors (IT-04)",
-    id: "fJ6NTg",
+    defaultMessage: "Manager and Senior Advisor (IT-04)",
+    id: "Jwj3YC",
     description: "Title for the 'IT-04 Manager' classification",
   },
   it04Description1: {
     defaultMessage:
-      "There are two types of IT-04 employees: those following a management path, and individual contributors.",
-    id: "E1wnll",
+      "Managers are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
+    id: "d4OJ5V",
     description:
       "Description for the 'IT-04 Manager' classification, paragraph 1",
   },
   it04Description2: {
     defaultMessage:
-      "Managers are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams, for service delivery to clients and stakeholders.",
-    id: "Ua5wXf",
+      "Senior Advisors are individual contributors that provide expert technical advice and strategic direction in the provision of solutions and services.",
+    id: "tDetPq",
     description:
       "Description for the 'IT-04 Manager' classification, paragraph 2",
-  },
-  it04Description3: {
-    defaultMessage:
-      "Senior Advisors (individual contributors) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders.",
-    id: "Wi2b+K",
-    description:
-      "Description for the 'IT-04 Manager' classification, paragraph 3",
   },
   it04ApplyMessage: {
     defaultMessage:
