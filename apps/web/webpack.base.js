@@ -1,5 +1,6 @@
 const path = require("path");
 const { merge } = require('webpack-merge');
+const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const base = require('@gc-digital-talent/webpack-config/webpack.base.js');
 
 const basePath = path.resolve(__dirname);
