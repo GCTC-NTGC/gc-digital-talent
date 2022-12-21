@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from "react";
 import {
   ChatBubbleLeftRightIcon,
-  CurrencyDollarIcon,
   InformationCircleIcon,
   BuildingLibraryIcon,
   LightBulbIcon,

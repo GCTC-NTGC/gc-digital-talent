@@ -18,8 +18,6 @@ import {
   ApplicantFilter,
   UserFilterInput,
   IdInput,
-  Classification,
-  ClassificationFilterInput,
   JobLookingStatus,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
@@ -293,10 +291,6 @@ function omitIdAndTypename<T extends object | null | undefined>(
 
 function pickId<T extends IdInput>(x: T): IdInput {
   return pick(x, ["id"]);
-}
-
-function classificationToInput(c: Classification): ClassificationFilterInput {
-  return pick(c, ["group", "level"]);
 }
 
 // Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.

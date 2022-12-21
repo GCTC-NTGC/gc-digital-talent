@@ -72,8 +72,7 @@ const PoolCandidateTableFilterDialog = ({
   enableEducationType = false,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData, rawGraphqlResults } =
-    useFilterOptions(enableEducationType);
+  const { optionsData } = useFilterOptions(enableEducationType);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>

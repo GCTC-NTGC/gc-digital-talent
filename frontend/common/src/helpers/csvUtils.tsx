@@ -1,7 +1,6 @@
 import { Maybe } from "graphql/jsutils/Maybe";
 import { IntlShape } from "react-intl";
 import {
-  getGenericJobTitles,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,

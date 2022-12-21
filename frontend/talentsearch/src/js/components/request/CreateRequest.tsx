@@ -79,7 +79,6 @@ export interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   skills,
-  classifications,
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
