@@ -41,7 +41,7 @@ class UserResource extends JsonResource
         $collection = $collection->merge($workExperiences);
 
         // if poolSkillIds is valid, filter out skills that are not in the id array by stepping through each item in $collection
-        if ($poolSkillIds && count($poolSkillIds) > 0) {
+        if (!empty($poolSkillIds)) {
             $collection->each(function ($experience) use ($poolSkillIds) {
                 $skills = $experience->skills;
                 $skillsFiltered = $skills->filter(function ($skill) use ($poolSkillIds) {
