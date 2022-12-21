@@ -222,8 +222,7 @@ const provinceAccessor = (
 
 const PoolCandidatesTable: React.FC<{
   initialFilterInput?: PoolCandidateSearchInput;
-  selectedPools?: InputMaybe<IdInput>[];
-}> = ({ initialFilterInput, selectedPools }) => {
+}> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
@@ -332,7 +331,9 @@ const PoolCandidatesTable: React.FC<{
             isVisibleMinority: true,
           }),
         },
-        pools: selectedPools || [],
+        pools: data.pools.map((id) => {
+          return { id };
+        }),
       },
       poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);

@@ -408,9 +408,6 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
       />
     </Pending>
   ) : (
-    <PoolCandidatesTable
-      initialFilterInput={applicantFilterInput}
-      selectedPools={applicantFilterInput?.applicantFilter?.pools || undefined}
-    />
+    <PoolCandidatesTable initialFilterInput={applicantFilterInput} />
   );
 };
