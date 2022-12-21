@@ -90,6 +90,8 @@ function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.pools
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.id) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
   };
@@ -331,6 +333,9 @@ const PoolCandidatesTable: React.FC<{
           }),
         },
         pools: data.pools.map((id) => {
+          return { id };
+        }),
+        skills: data.skills.map((id) => {
           return { id };
         }),
       },

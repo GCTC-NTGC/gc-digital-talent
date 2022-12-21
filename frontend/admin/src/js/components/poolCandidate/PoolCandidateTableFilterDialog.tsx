@@ -24,6 +24,7 @@ export type FormValues = {
   poolCandidateStatus: Option["value"][];
   priorityWeight: Option["value"][];
   pools: Option["value"][];
+  skills: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -213,6 +214,17 @@ const PoolCandidateTableFilterDialog = ({
                   id: "8lCjAM",
                 })}
                 options={optionsData.priorityWeight}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+              <MultiSelectFieldV2
+                id="skills"
+                label={formatMessage({
+                  defaultMessage: "Skill Filter",
+                  id: "GGaxMx",
+                })}
+                options={optionsData.skills}
+                isLoading={rawGraphqlResults.skills.fetching}
               />
             </div>
           </div>
