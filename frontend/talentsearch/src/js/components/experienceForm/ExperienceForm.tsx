@@ -16,7 +16,7 @@ import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import { SkillCategory } from "@common/api/generated";
+import { Maybe, SkillCategory } from "@common/api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
@@ -81,19 +81,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const applicationId = searchParams.get("applicationId");
   const paths = useRoutes();
 
-  const defaultValues = experience
-    ? queryResultToDefaultValues(experienceType, experience)
-    : undefined;
   const returnPath = `${paths.skillsAndExperiences(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
-
-  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
-    formValues,
-  ) => {
-    const data = formValuesToSubmitData(experienceType, formValues);
-    await onUpdateExperience(data);
-  };
 
   let crumbs = [
     {
@@ -119,6 +109,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     },
   ] as BreadcrumbsProps["links"];
 
+  let irrelevantSkills: Maybe<Skill[]> = [];
+
   if (poolAdvertisement) {
     const advertisementTitle = getFullPoolAdvertisementTitle(
       intl,
@@ -140,7 +132,42 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       },
       ...crumbs,
     ];
+
+    if (experience) {
+      irrelevantSkills = experience?.skills?.filter((skill) => {
+        return (
+          !poolAdvertisement.essentialSkills?.find(
+            (essentialSkill) => essentialSkill.id === skill.id,
+          ) &&
+          !poolAdvertisement.nonessentialSkills?.find(
+            (assetSkill) => assetSkill.id === skill.id,
+          )
+        );
+      });
+      // eslint-disable-next-line no-param-reassign
+      experience.skills = experience?.skills?.filter(
+        (skill) =>
+          !irrelevantSkills?.find(
+            (irrelevantSkill) => irrelevantSkill.id === skill.id,
+          ),
+      );
+    }
   }
+
+  const defaultValues = experience
+    ? queryResultToDefaultValues(experienceType, experience)
+    : undefined;
+
+  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
+    formValues,
+  ) => {
+    const data = formValuesToSubmitData(
+      experienceType,
+      formValues,
+      irrelevantSkills,
+    );
+    await onUpdateExperience(data);
+  };
 
   const labels = getExperienceFormLabels(intl, experienceType);
 
