@@ -4,7 +4,7 @@
     "description": "Heading displayed above the Create Pool form."
   },
   "/YiBdv": {
-    "defaultMessage": "No de ministère",
+    "defaultMessage": "Numéro de ministère",
     "description": "Label displayed on the create a department form department number field."
   },
   "/uqLeF": {
@@ -200,7 +200,7 @@
     "description": "Label displayed on the Global Filter form Search field."
   },
   "QOvS1b": {
-    "defaultMessage": "No de ministère",
+    "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
   },
   "QftM3f": {
