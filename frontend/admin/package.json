@@ -119,7 +119,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "~7.38.0",
     "react-intl": "^6.2.5",
-    "react-router-dom": "^6.4.5",
+    "react-router-dom": "^6.6.0",
     "react-select": "^5.7.0",
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.10",
