@@ -2,26 +2,26 @@
   "pipeline": {
     "build": {
       "dependsOn": ["intl-compile", "codegen"],
-      "outputs": ["./dist/**"]
+      "outputs": ["dist/**"]
     },
     "codegen": {
       "dependsOn": ["^codegen"],
-      "outputs": ["./src/api/**"]
+      "outputs": ["src/api/**"]
     },
     "dev": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "outputs": ["./dist/**"]
+      "outputs": ["dist/**"]
     },
     "watch": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "outputs": ["./dist/**"]
+      "outputs": ["dist/**"]
     },
     "intl-extract": {
-      "outputs": ["./src/lang/en.json"]
+      "outputs": ["src/lang/en.json"]
     },
     "intl-compile": {
       "dependsOn": ["^intl-compile", "intl-extract"],
-      "outputs": ["./src/lang/*{Compiled}.json"]
+      "outputs": ["src/lang/*{Compiled}.json"]
     },
     "storybook": {
       "outputs": []
