@@ -5,8 +5,7 @@
       "outputs": ["dist/**"]
     },
     "codegen": {
-      "dependsOn": ["^codegen"],
-      "outputs": ["src/api/**"]
+      "outputs": ["src/api/generated.ts", "src/js/api/generated.ts"]
     },
     "dev": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
