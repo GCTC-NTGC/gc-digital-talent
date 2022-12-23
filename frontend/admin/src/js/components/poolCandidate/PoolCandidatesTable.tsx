@@ -270,13 +270,14 @@ const PoolCandidatesTable: React.FC<{
         },
       };
     }
+    // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
+    // default tertiary sort is submitted_at,
     return {
-      column: "status_weight",
+      column: "submitted_at",
       order: SortOrder.Asc,
       user: undefined,
     };
   }, [sortingRule]);
-  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
