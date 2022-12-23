@@ -3,6 +3,8 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
+import { Provider as GraphqlProvider } from "urql";
+import { fromValue } from "wonka";
 import { screen, act, fireEvent } from "@testing-library/react";
 import { axeTest, render } from "@common/helpers/testUtils";
 import {
@@ -24,8 +26,22 @@ const publishedPool: PoolAdvertisement = {
   classifications: [{ id: "it-01", group: "IT", level: 1 }],
 };
 
-const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) =>
-  render(<OngoingRecruitmentSection pools={pools} />);
+const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) => {
+  const mockClient = {
+    executeQuery: () =>
+      fromValue({
+        data: {
+          me: undefined,
+        },
+      }),
+  } as never; // Satisfy type for mocking
+
+  return render(
+    <GraphqlProvider value={mockClient}>
+      <OngoingRecruitmentSection pools={pools} />
+    </GraphqlProvider>,
+  );
+};
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
@@ -68,7 +84,7 @@ describe("BrowsePoolsPage", () => {
 
       // find the rendered links
       const links = await screen.queryAllByRole("link", {
-        name: /Apply to level 1/i,
+        name: /apply for technician opportunities/i,
       });
 
       // ensure there are the right number and in the right order
