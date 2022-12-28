@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
@@ -47,6 +47,10 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "./util";
+import {
+  getCommonTableParams,
+  setCommonTableParams,
+} from "../apiManagedTable/utils";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -167,15 +171,22 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    currentPage: initialPage,
+    pageSize: initialPageSize,
+    hiddenColumnIds: initialHiddenColumns,
+    sortBy: initialSortBy,
+  } = getCommonTableParams(searchParams);
 
   const initialStateFilterInput = initialFilterInput ?? {};
   const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
     initialStateFilterInput,
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(initialPage || 1);
+  const [pageSize, setPageSize] = useState(initialPageSize || 10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
-    {
+    initialSortBy || {
       column: {
         id: "createdDate",
         sortColumnName: "created_at",
@@ -183,16 +194,46 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
       desc: false,
     },
   );
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([
-    "telephone",
-    "createdDate",
-    "updatedDate",
-  ]);
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
+    initialHiddenColumns || ["telephone", "createdDate", "updatedDate"],
+  );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
     term: string | undefined;
     type: string | undefined;
   }>();
+
+  useEffect(() => {
+    const newSearchParams = setCommonTableParams(
+      new URLSearchParams(searchParams),
+      {
+        currentPage,
+        pageSize,
+        hiddenColumnIds,
+        sortBy: sortingRule
+          ? {
+              column: {
+                id: sortingRule.column.id,
+                sortColumnName: sortingRule.column.sortColumnName,
+              },
+              desc: sortingRule.desc,
+            }
+          : undefined,
+      },
+    );
+
+    setSearchParams(newSearchParams);
+  }, [
+    currentPage,
+    pageSize,
+    hiddenColumnIds,
+    searchParams,
+    setSearchParams,
+    sortingRule,
+    sortingRule?.desc,
+    sortingRule?.column?.id,
+    sortingRule?.column?.sortColumnName,
+  ]);
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
