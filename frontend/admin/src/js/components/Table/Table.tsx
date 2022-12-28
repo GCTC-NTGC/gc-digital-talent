@@ -17,6 +17,7 @@ import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 
@@ -140,6 +141,15 @@ function Table<T extends Record<string, unknown>>({
   hiddenCols = [],
   initialSortBy = [],
 }: TableProps<T>): ReactElement {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPageIndex = searchParams.get("pageIndex");
+  const initialPageSize = searchParams.get("pageSize");
+  const initialHiddenColumns = searchParams.get("hiddenColumns");
+  const initialSortByEncoded = searchParams.get("sortBy");
+  const initialSortByDecoded = initialSortByEncoded
+    ? JSON.parse(decodeURIComponent(initialSortByEncoded))
+    : initialSortBy;
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -149,7 +159,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, hiddenColumns, sortBy },
     gotoPage,
     setPageSize,
     page,
@@ -158,8 +168,12 @@ function Table<T extends Record<string, unknown>>({
       columns,
       data,
       initialState: {
-        hiddenColumns: hiddenCols,
-        sortBy: initialSortBy,
+        hiddenColumns: initialHiddenColumns
+          ? initialHiddenColumns.split(",")
+          : hiddenCols,
+        sortBy: initialSortByDecoded,
+        pageIndex: initialPageIndex ? parseInt(initialPageIndex, 10) : 0,
+        pageSize: initialPageSize ? parseInt(initialPageSize, 10) : 10,
       },
     },
     useGlobalFilter,
@@ -169,6 +183,28 @@ function Table<T extends Record<string, unknown>>({
 
   const intl = useIntl();
   const methods = useForm();
+
+  React.useEffect(() => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("pageSize", `${pageSize}`);
+    newSearchParams.set("pageIndex", `${pageIndex}`);
+    if (sortBy) {
+      const newSortBy = JSON.stringify(sortBy);
+      newSearchParams.set("sortBy", encodeURIComponent(newSortBy));
+    }
+    if (hiddenColumns) {
+      newSearchParams.set("hiddenColumns", hiddenColumns.join(","));
+    }
+
+    setSearchParams(newSearchParams);
+  }, [
+    pageSize,
+    pageIndex,
+    hiddenColumns,
+    sortBy,
+    searchParams,
+    setSearchParams,
+  ]);
 
   return (
     <div>
