@@ -89,8 +89,8 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Browse opportunities",
-          id: "KJxmlD",
-          description: "Title for the brows pools page",
+          id: "1To4Kg",
+          description: "Title for the browse pools page",
         })}
       />
       <Hero
