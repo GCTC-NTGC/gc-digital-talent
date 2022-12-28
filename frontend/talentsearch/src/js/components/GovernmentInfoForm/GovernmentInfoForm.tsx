@@ -42,10 +42,7 @@ type FormValues = {
   priorityEntitlementNumber?: string;
 };
 
-const priorityEntitlementLink = (
-  locale: string,
-  chunks: React.ReactNode,
-): React.ReactNode => {
+const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
@@ -452,7 +449,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 "Sentence asking whether the user possesses priority entitlement",
             },
             {
-              priorityEntitlementLink: (chunks) =>
+              priorityEntitlementLink: (chunks: React.ReactNode) =>
                 priorityEntitlementLink(locale, chunks),
             },
           )}

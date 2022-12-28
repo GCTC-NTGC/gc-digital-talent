@@ -3,8 +3,9 @@ import React from "react";
 import Heading from "../Heading/Heading";
 
 interface CardProps {
-  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
   title: string;
+  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
+  children?: React.ReactNode;
 }
 
 const Card: React.FC<CardProps> = ({ title, Icon, children }) => (

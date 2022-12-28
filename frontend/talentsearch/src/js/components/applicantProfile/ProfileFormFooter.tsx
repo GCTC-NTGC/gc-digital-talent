@@ -4,6 +4,7 @@ import SaveButton from "./SaveButton";
 
 export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
+  children?: React.ReactNode;
   cancelLink?: CancelButtonProps;
 }
 

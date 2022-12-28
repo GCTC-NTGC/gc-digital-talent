@@ -4,7 +4,9 @@ import { useIntl } from "react-intl";
 
 import Sidebar from "./Sidebar";
 
-const Navigation: React.FC = ({ children, ...rest }) => {
+const Navigation: React.FC<{
+  children?: React.ReactNode;
+}> = ({ children, ...rest }) => {
   const intl = useIntl();
   const id = uniqueId();
 

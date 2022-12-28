@@ -5,6 +5,7 @@ interface HeadingProps {
   color?: "pink" | "white";
   className?: string;
   light?: boolean;
+  children?: React.ReactNode;
 }
 
 const Heading: React.FC<HeadingProps> = ({

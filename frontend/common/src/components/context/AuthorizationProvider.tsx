@@ -4,7 +4,9 @@ import { AuthorizationContainer } from "../Auth";
 import { useGetMeQuery } from "../../api/generated";
 import Pending from "../Pending";
 
-const AuthorizationProvider: React.FC = ({ children }) => {
+const AuthorizationProvider: React.FC<{
+  children?: React.ReactNode;
+}> = ({ children }) => {
   const [{ data, fetching, stale }] = useGetMeQuery();
   const isLoaded = !fetching && !stale;
 

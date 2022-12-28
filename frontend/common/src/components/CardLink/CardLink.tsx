@@ -14,6 +14,7 @@ export interface CardLinkProps {
   icon?: React.FC<{ className: string }>;
   className?: string;
   external?: boolean;
+  children?: React.ReactNode;
 }
 
 export const colorMap: Record<Color, Record<string, string>> = {

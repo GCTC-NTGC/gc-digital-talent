@@ -3,10 +3,7 @@ import { useIntl } from "react-intl";
 
 import { ExternalLink } from "@common/components/Link";
 
-const statCanLink = (
-  href: string,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const statCanLink = (href: string, chunks: React.ReactNode) => (
   <ExternalLink newTab href={href}>
     {chunks}
   </ExternalLink>
@@ -30,7 +27,7 @@ const Definition: React.FC<DefinitionProps> = ({ url }) => {
             "Link to Statistics Canada's employment equity definitions",
         },
         {
-          link: (chunks) => statCanLink(url, chunks),
+          link: (chunks: React.ReactNode) => statCanLink(url, chunks),
         },
       )}
     </p>
