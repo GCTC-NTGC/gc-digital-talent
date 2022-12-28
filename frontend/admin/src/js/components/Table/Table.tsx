@@ -20,6 +20,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
+import useInitialTableState from "./useInitialTableState";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -142,13 +143,7 @@ function Table<T extends Record<string, unknown>>({
   initialSortBy = [],
 }: TableProps<T>): ReactElement {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialPageIndex = searchParams.get("pageIndex");
-  const initialPageSize = searchParams.get("pageSize");
-  const initialHiddenColumns = searchParams.get("hiddenColumns");
-  const initialSortByEncoded = searchParams.get("sortBy");
-  const initialSortByDecoded = initialSortByEncoded
-    ? JSON.parse(decodeURIComponent(initialSortByEncoded))
-    : initialSortBy;
+  const initialState = useInitialTableState(searchParams);
 
   const {
     getTableProps,
@@ -168,12 +163,10 @@ function Table<T extends Record<string, unknown>>({
       columns,
       data,
       initialState: {
-        hiddenColumns: initialHiddenColumns
-          ? initialHiddenColumns.split(",")
-          : hiddenCols,
-        sortBy: initialSortByDecoded,
-        pageIndex: initialPageIndex ? parseInt(initialPageIndex, 10) : 0,
-        pageSize: initialPageSize ? parseInt(initialPageSize, 10) : 10,
+        hiddenColumns: initialState.hiddenColumns || hiddenCols,
+        sortBy: initialState.sortBy || initialSortBy,
+        pageSize: initialState.pageSize || 10,
+        pageIndex: initialState.pageIndex || 0,
       },
     },
     useGlobalFilter,
@@ -185,26 +178,20 @@ function Table<T extends Record<string, unknown>>({
   const methods = useForm();
 
   React.useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("pageSize", `${pageSize}`);
-    newSearchParams.set("pageIndex", `${pageIndex}`);
-    if (sortBy) {
-      const newSortBy = JSON.stringify(sortBy);
-      newSearchParams.set("sortBy", encodeURIComponent(newSortBy));
-    }
-    if (hiddenColumns) {
-      newSearchParams.set("hiddenColumns", hiddenColumns.join(","));
-    }
+    setSearchParams((previous) => {
+      previous.set("pageSize", `${pageSize}`);
+      previous.set("pageIndex", `${pageIndex}`);
+      if (sortBy) {
+        const newSortBy = JSON.stringify(sortBy);
+        previous.set("sortBy", encodeURIComponent(newSortBy));
+      }
+      if (hiddenColumns) {
+        previous.set("hiddenColumns", hiddenColumns.join(","));
+      }
 
-    setSearchParams(newSearchParams);
-  }, [
-    pageSize,
-    pageIndex,
-    hiddenColumns,
-    sortBy,
-    searchParams,
-    setSearchParams,
-  ]);
+      return previous;
+    });
+  }, [pageSize, pageIndex, hiddenColumns, sortBy, setSearchParams]);
 
   return (
     <div>
