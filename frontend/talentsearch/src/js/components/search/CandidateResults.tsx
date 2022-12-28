@@ -6,7 +6,7 @@ import SearchPools, { type SearchPoolsProps } from "./SearchPools";
 
 type CandidateResultsProps = SearchPoolsProps;
 
-const mailLink = (chunks: React.ReactNode): React.ReactNode => (
+const mailLink = (chunks: React.ReactNode) => (
   <a
     href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
     data-h2-font-weight="base(700)"

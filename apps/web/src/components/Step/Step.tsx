@@ -5,6 +5,7 @@ import Heading from "~/components/Heading/Heading";
 interface StepProps {
   position: string;
   title: string;
+  children?: React.ReactNode;
 }
 
 const Step: React.FC<StepProps> = ({ position, title, children }) => (

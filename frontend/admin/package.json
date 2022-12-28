@@ -42,6 +42,12 @@
     "test:watch": "jest --watch"
   },
   "sideEffects": false,
+  "resolutions": {
+    "@storybook/react/webpack": "^5.75.0"
+  },
+  "overrides": {
+    "webpack": "^5.75.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
@@ -54,13 +60,13 @@
     "@graphql-codegen/typescript-operations": "^2.5.10",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.0-beta.33",
-    "@storybook/addon-actions": "^6.5.13",
-    "@storybook/addon-essentials": "^6.5.15",
-    "@storybook/addon-links": "^6.5.15",
-    "@storybook/addon-viewport": "^6.5.14",
-    "@storybook/builder-webpack5": "^6.5.15",
-    "@storybook/manager-webpack5": "^6.5.15",
-    "@storybook/react": "^6.5.15",
+    "@storybook/addon-actions": "6.5.14",
+    "@storybook/addon-essentials": "6.5.14",
+    "@storybook/addon-links": "6.5.14",
+    "@storybook/addon-viewport": "6.5.14",
+    "@storybook/builder-webpack5": "6.5.14",
+    "@storybook/manager-webpack5": "6.5.14",
+    "@storybook/react": "6.5.14",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.4",
     "@types/jest": "^29.2.4",
@@ -110,7 +116,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "@types/react-select": "^5.0.1",
-    "@urql/exchange-auth": "^0.1.7",
+    "@urql/exchange-auth": "^1.0.0",
     "core-js": "^3.26.1",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",

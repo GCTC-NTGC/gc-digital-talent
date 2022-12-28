@@ -19,8 +19,8 @@ import { useAdminRoutes } from "../../adminRoutes";
 
 interface IRow {
   original: {
-    poolCandidateFilter?: PoolCandidateFilter;
-    applicantFilter?: ApplicantFilter;
+    poolCandidateFilter?: Maybe<PoolCandidateFilter>;
+    applicantFilter?: Maybe<ApplicantFilter>;
   };
 }
 

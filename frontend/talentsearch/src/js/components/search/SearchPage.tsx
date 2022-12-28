@@ -14,8 +14,8 @@ const SearchPage = () => {
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Search pools",
-          id: "WPkc5j",
-          description: "Page title for page",
+          id: "E2HkVa",
+          description: "Page title for the search page",
         })}
       />
       <section data-h2-background-color="base(dt-gray.15)">

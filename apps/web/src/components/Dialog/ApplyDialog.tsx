@@ -7,7 +7,7 @@ import CloseButton from "./CloseButton";
 
 import { BasicDialogProps } from "./types";
 
-const mailAccessor = (chunks: React.ReactNode): React.ReactNode => (
+const mailAccessor = (chunks: React.ReactNode) => (
   <a
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
     data-h2-color="base(ia-primary) base:hover(dark.ia-primary)"

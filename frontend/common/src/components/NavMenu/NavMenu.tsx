@@ -6,7 +6,7 @@ export interface NavMenuProps {
   utilityItems?: ReactElement[];
 }
 
-const ListItem: React.FC = ({ children }) => (
+const ListItem: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
   <li data-h2-flex-item="base(content)">
     <span
       data-h2-display="base(block)"
