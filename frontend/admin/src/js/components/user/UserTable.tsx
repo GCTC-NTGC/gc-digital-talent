@@ -179,9 +179,14 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     searchState: initialSearchState,
   } = getCommonTableParams(searchParams);
 
+  const initialFiltersEncoded = searchParams.get("filters");
+  const initialFiltersDecoded = initialFiltersEncoded
+    ? JSON.parse(decodeURIComponent(initialFiltersEncoded))
+    : undefined;
+
   const initialStateFilterInput = initialFilterInput ?? {};
   const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    initialStateFilterInput,
+    initialFiltersDecoded || initialStateFilterInput,
   );
   const [currentPage, setCurrentPage] = useState(initialPage || 1);
   const [pageSize, setPageSize] = useState(initialPageSize || 10);
@@ -272,8 +277,16 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setUserFilterInput(transformFormValuesToUserFilterInput(data));
+    setUserFilterInput(transformedData);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set(
+      "filters",
+      encodeURIComponent(JSON.stringify(transformedData)),
+    );
+
+    setSearchParams(newSearchParams);
   };
 
   useEffect(() => {
