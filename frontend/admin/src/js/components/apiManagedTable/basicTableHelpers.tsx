@@ -108,6 +108,11 @@ export function handleRowSelectedChange<T>(
   }
 }
 
+export interface SearchState {
+  term: string;
+  type: string;
+}
+
 // Information about the sorting order of a table
 export interface SortingRule<T> {
   column: {
@@ -185,4 +190,75 @@ export function useDebounce<T>(value: T, delay: number): T {
     [value, delay], // Only re-call effect if value or delay changes
   );
   return debouncedValue;
+}
+
+interface CommonTableParams<T> {
+  currentPage?: number;
+  pageSize?: number;
+  hiddenColumnIds?: Array<string>;
+  sortBy?: SortingRule<T>;
+  searchState?: SearchState;
+}
+
+export function getCommonTableParams<T>(
+  searchParams: URLSearchParams,
+): CommonTableParams<T> {
+  const initialPage = searchParams.get("currentPage");
+  const initialPageSize = searchParams.get("pageSize");
+  const initialHiddenColumns = searchParams.get("hiddenColumnIds");
+  const initialSortByEncoded = searchParams.get("sortBy");
+  const initialSortByDecoded = initialSortByEncoded
+    ? JSON.parse(decodeURIComponent(initialSortByEncoded))
+    : undefined;
+  const initialSearchTerm = searchParams.get("searchTerm");
+  const initialSearchBy = searchParams.get("searchBy");
+
+  return {
+    currentPage: initialPage ? parseInt(initialPage, 10) : undefined,
+    pageSize: initialPageSize ? parseInt(initialPageSize, 10) : undefined,
+    hiddenColumnIds: initialHiddenColumns
+      ? initialHiddenColumns.split(",")
+      : undefined,
+    sortBy: initialSortByDecoded,
+    searchState: {
+      term: initialSearchTerm || "",
+      type: initialSearchBy || "",
+    },
+  };
+}
+
+export function setCommonTableParams<T>(
+  currentParams: URLSearchParams,
+  {
+    pageSize,
+    currentPage,
+    hiddenColumnIds,
+    sortBy,
+    searchState,
+  }: CommonTableParams<T>,
+) {
+  if (pageSize) {
+    currentParams.set("pageSize", `${pageSize}`);
+  }
+  if (currentPage) {
+    currentParams.set("currentPage", `${currentPage}`);
+  }
+  if (hiddenColumnIds) {
+    currentParams.set("hiddenColumnIds", hiddenColumnIds.join(","));
+  }
+
+  if (sortBy) {
+    const newSortBy = JSON.stringify(sortBy);
+    currentParams.set("sortBy", encodeURIComponent(newSortBy));
+  }
+
+  if (searchState?.term) {
+    currentParams.set("searchTerm", encodeURIComponent(searchState.term));
+  }
+
+  if (searchState?.type) {
+    currentParams.set("searchBy", encodeURIComponent(searchState.type));
+  }
+
+  return currentParams;
 }

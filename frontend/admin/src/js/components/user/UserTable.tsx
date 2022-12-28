@@ -33,6 +33,9 @@ import {
   handleColumnHiddenChange,
   rowSelectionColumn,
   handleRowSelectedChange,
+  getCommonTableParams,
+  setCommonTableParams,
+  SearchState,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor, tableViewItemButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -47,10 +50,6 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "./util";
-import {
-  getCommonTableParams,
-  setCommonTableParams,
-} from "../apiManagedTable/utils";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -177,6 +176,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     pageSize: initialPageSize,
     hiddenColumnIds: initialHiddenColumns,
     sortBy: initialSortBy,
+    searchState: initialSearchState,
   } = getCommonTableParams(searchParams);
 
   const initialStateFilterInput = initialFilterInput ?? {};
@@ -198,10 +198,12 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     initialHiddenColumns || ["telephone", "createdDate", "updatedDate"],
   );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    type: string | undefined;
-  }>();
+  const [searchState, setSearchState] = useState<SearchState>(
+    initialSearchState || {
+      term: "",
+      type: "",
+    },
+  );
 
   useEffect(() => {
     const newSearchParams = setCommonTableParams(
@@ -210,6 +212,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
         currentPage,
         pageSize,
         hiddenColumnIds,
+        searchState,
         sortBy: sortingRule
           ? {
               column: {
@@ -233,6 +236,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     sortingRule?.desc,
     sortingRule?.column?.id,
     sortingRule?.column?.sortColumnName,
+    searchState,
+    searchState.term,
+    searchState.type,
   ]);
 
   // merge search bar input with fancy filter state
@@ -485,10 +491,11 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
         ) => {
           setCurrentPage(1);
           setSearchState({
-            term,
-            type,
+            term: term ?? "",
+            type: type ?? "",
           });
         }}
+        initialSearchState={searchState}
         columns={columns}
         searchBy={[
           {
