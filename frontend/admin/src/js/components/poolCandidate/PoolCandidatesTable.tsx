@@ -15,6 +15,7 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
@@ -34,9 +35,12 @@ import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
 import {
   ColumnsOf,
+  getCommonTableParams,
   handleColumnHiddenChange,
   handleRowSelectedChange,
   rowSelectionColumn,
+  SearchState,
+  setCommonTableParams,
   SortingRule,
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
@@ -226,19 +230,40 @@ const PoolCandidatesTable: React.FC<{
 }> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    currentPage: initialPage,
+    pageSize: initialPageSize,
+    hiddenColumnIds: initialHiddenColumns,
+    sortBy: initialSortBy,
+    searchState: initialSearchState,
+  } = getCommonTableParams(searchParams);
+
+  const initialFiltersEncoded = searchParams.get("filters");
+  const initialFiltersDecoded = initialFiltersEncoded
+    ? JSON.parse(decodeURIComponent(initialFiltersEncoded))
+    : undefined;
 
   const initialStateFilterInput = initialFilterInput ?? {};
   const [applicantFilterInput, setApplicantFilterInput] =
-    useState<PoolCandidateSearchInput>(initialStateFilterInput);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+    useState<PoolCandidateSearchInput>(
+      initialFiltersDecoded || initialStateFilterInput,
+    );
+  const [currentPage, setCurrentPage] = useState(initialPage || 1);
+  const [pageSize, setPageSize] = useState(initialPageSize || 10);
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
+    initialHiddenColumns || [],
+  );
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    type: string | undefined;
-  }>();
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
+    initialSortBy,
+  );
+  const [searchState, setSearchState] = useState<SearchState>(
+    initialSearchState || {
+      term: "",
+      type: "",
+    },
+  );
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -279,6 +304,42 @@ const PoolCandidatesTable: React.FC<{
     };
   }, [sortingRule]);
 
+  useEffect(() => {
+    const newSearchParams = setCommonTableParams(
+      new URLSearchParams(searchParams),
+      {
+        currentPage,
+        pageSize,
+        hiddenColumnIds,
+        searchState,
+        sortBy: sortingRule
+          ? {
+              column: {
+                id: sortingRule.column.id,
+                sortColumnName: sortingRule.column.sortColumnName,
+              },
+              desc: sortingRule.desc,
+            }
+          : undefined,
+      },
+    );
+
+    setSearchParams(newSearchParams);
+  }, [
+    currentPage,
+    pageSize,
+    hiddenColumnIds,
+    searchParams,
+    setSearchParams,
+    sortingRule,
+    sortingRule?.desc,
+    sortingRule?.column?.id,
+    sortingRule?.column?.sortColumnName,
+    searchState,
+    searchState.term,
+    searchState.type,
+  ]);
+
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
     fancyFilterState: PoolCandidateSearchInput | undefined,
@@ -307,7 +368,7 @@ const PoolCandidatesTable: React.FC<{
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    setApplicantFilterInput({
+    const transformedData = {
       applicantFilter: {
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
@@ -346,7 +407,17 @@ const PoolCandidatesTable: React.FC<{
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);
       }),
-    });
+    };
+
+    setApplicantFilterInput(transformedData);
+
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set(
+      "filters",
+      encodeURIComponent(JSON.stringify(transformedData)),
+    );
+
+    setSearchParams(newSearchParams);
   };
 
   useEffect(() => {
@@ -583,10 +654,11 @@ const PoolCandidatesTable: React.FC<{
         ) => {
           setCurrentPage(1);
           setSearchState({
-            term,
-            type,
+            term: term ?? "",
+            type: type ?? "",
           });
         }}
+        initialSearchState={searchState}
         searchBy={[
           {
             label: intl.formatMessage({
