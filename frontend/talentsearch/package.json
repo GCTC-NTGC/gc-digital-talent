@@ -78,7 +78,7 @@
     "@types/react-dom": "^17.0.14",
     "@types/react-helmet": "^6.1.6",
     "@types/react-select": "^5.0.1",
-    "@types/react-table": "^7.7.12",
+    "@types/react-table": "^7.7.13",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.46.1",
     "babel-loader": "^9.1.0",
