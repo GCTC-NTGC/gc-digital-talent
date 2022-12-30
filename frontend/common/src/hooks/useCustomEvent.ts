@@ -1,21 +1,14 @@
-import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
 import { ICustomProperties } from "@microsoft/applicationinsights-web";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import useAppInsightsContext from "./useAppInsightsContext";
 
 export default function useCustomEvent(
-  reactPlugin: ReactPlugin,
   eventName: string,
   eventData: ICustomProperties,
-  skipFirstRun = true, // skip the first run as we don't want to track the initial pass while the component is still mounting
 ) {
+  const reactPlugin = useAppInsightsContext();
   const [data, setData] = useState(eventData);
-  const firstRun = useRef(skipFirstRun);
-
   useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return;
-    }
     reactPlugin.trackEvent({ name: eventName }, data);
   }, [reactPlugin, data, eventName]);
 
