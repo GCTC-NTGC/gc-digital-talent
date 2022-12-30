@@ -70,7 +70,7 @@
     "@radix-ui/react-tabs": "^1.0.0",
     "@radix-ui/react-toggle-group": "^1.0.1",
     "@reach/alert-dialog": "^0.18.0",
-    "@reach/dialog": "^0.16.0",
+    "@reach/dialog": "^0.18.0",
     "@reach/menu-button": "^0.16.0",
     "@reach/tabs": "^0.18.0",
     "@testing-library/react-hooks": "^8.0.1",
