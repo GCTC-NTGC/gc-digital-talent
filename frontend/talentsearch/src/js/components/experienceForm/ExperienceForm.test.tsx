@@ -84,7 +84,7 @@ describe("ExperienceForm", () => {
   it("should render award fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "award",
@@ -113,7 +113,7 @@ describe("ExperienceForm", () => {
   it("should render community fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "community",
@@ -138,7 +138,7 @@ describe("ExperienceForm", () => {
   it("should render education fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "education",
@@ -171,7 +171,7 @@ describe("ExperienceForm", () => {
   it("should render personal fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "personal",
@@ -201,7 +201,7 @@ describe("ExperienceForm", () => {
   it("should render work fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "work",
@@ -229,7 +229,7 @@ describe("ExperienceForm", () => {
   it("should render work fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "work", // Type of form shouldn't matter here
@@ -247,7 +247,7 @@ describe("ExperienceForm", () => {
   it("should render additional information", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "work", // Type of form shouldn't matter here
@@ -261,7 +261,7 @@ describe("ExperienceForm", () => {
   it("should not submit award with empty fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "award",
@@ -293,7 +293,7 @@ describe("ExperienceForm", () => {
         .toLowerCase() as ExperienceType;
     }
 
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType,
@@ -316,7 +316,7 @@ describe("ExperienceForm", () => {
   it("should add skill", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    await act(async () => {
+    await act(() => {
       renderExperienceForm({
         userId: mockUserId,
         experienceType: "award",
@@ -336,7 +336,7 @@ describe("ExperienceForm", () => {
 it("delete should not render when edit is false", async () => {
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
-  await act(async () => {
+  await act(() => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
@@ -353,7 +353,7 @@ it("delete should not render when edit is false", async () => {
 it("delete should render when edit is true and be called properly", async () => {
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
-  await act(async () => {
+  await act(() => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
