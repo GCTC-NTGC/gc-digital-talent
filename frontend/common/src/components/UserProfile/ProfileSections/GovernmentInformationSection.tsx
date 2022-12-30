@@ -54,8 +54,9 @@ const GovernmentInformationSection: React.FunctionComponent<{
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Department:",
-                  id: "nV57as",
-                  description: "Label for applicants department",
+                  id: "ny/ddo",
+                  description:
+                    "Label for applicant's Government of Canada department",
                 })}
                 <br />
                 <span data-h2-font-weight="base(700)">
