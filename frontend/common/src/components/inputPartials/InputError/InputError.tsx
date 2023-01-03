@@ -10,8 +10,8 @@ export type InputFieldError =
   | undefined;
 
 export interface InputErrorProps extends React.HTMLProps<HTMLSpanElement> {
-  isVisible: boolean;
   error: InputFieldError;
+  isVisible: boolean;
 }
 
 const InputError: React.FC<InputErrorProps> = ({

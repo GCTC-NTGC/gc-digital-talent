@@ -70,7 +70,7 @@ const applicantFilterToQueryArgs = (
   return {};
 };
 
-function a(chunks: React.ReactNode): React.ReactNode {
+function a(chunks: React.ReactNode) {
   return (
     <a
       href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
@@ -162,7 +162,7 @@ export interface SearchContainerProps {
   ) => Promise<void>;
 }
 
-const testId = (chunks: React.ReactNode): React.ReactNode => (
+const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 

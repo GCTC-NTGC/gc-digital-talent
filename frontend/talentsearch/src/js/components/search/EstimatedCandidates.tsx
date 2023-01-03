@@ -10,7 +10,7 @@ interface EstimatedCandidatesProps {
   updatePending?: boolean;
 }
 
-const testId = (chunks: React.ReactNode): React.ReactNode => (
+const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 

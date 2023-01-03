@@ -4,6 +4,7 @@ interface FilterBlockProps {
   id: string;
   title: string | React.ReactNode;
   text: string;
+  children?: React.ReactNode;
 }
 
 const FilterBlock: React.FC<FilterBlockProps> = ({

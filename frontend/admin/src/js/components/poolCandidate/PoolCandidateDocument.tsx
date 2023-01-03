@@ -22,7 +22,9 @@ import { PoolCandidate } from "../../api/generated";
 import AdminAboutSection from "../user/AdminAboutSection";
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 
-const HeadingWrapper: React.FC = ({ children }) => {
+const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
   );

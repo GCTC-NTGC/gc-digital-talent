@@ -34,7 +34,7 @@ interface SupportFormSuccessProps {
   onFormToggle: (show: boolean) => void;
 }
 
-const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
+const anchorTag = (chunks: React.ReactNode) => (
   <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
 );
 

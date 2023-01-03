@@ -3,7 +3,7 @@ import { render, RenderOptions } from "@testing-library/react";
 import { axe } from "jest-axe";
 import IntlProvider from "react-intl/src/components/provider";
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return <IntlProvider locale="en">{children}</IntlProvider>;
 };
 

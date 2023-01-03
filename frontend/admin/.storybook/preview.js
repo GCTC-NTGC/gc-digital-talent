@@ -5,7 +5,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
 import TalentFrench from "../../talentsearch/src/js/lang/frCompiled.json";
-import IndigenousFrench from "../../indigenousapprenticeship/src/js/lang/frCompiled.json";
+import IndigenousFrench from "../../../apps/web/src/lang/frCompiled.json";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
@@ -14,7 +14,7 @@ import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
 import "../../talentsearch/src/css/app.css";
-import "../../indigenousapprenticeship/src/css/app.css";
+import "../../../apps/web/src/assets/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
