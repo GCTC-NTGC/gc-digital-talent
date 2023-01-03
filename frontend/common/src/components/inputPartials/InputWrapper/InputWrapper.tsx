@@ -16,6 +16,7 @@ export interface InputWrapperProps {
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;
+  children?: React.ReactNode;
   hideBottomMargin?: boolean;
   fillLabel?: boolean;
   trackUnsaved?: boolean;

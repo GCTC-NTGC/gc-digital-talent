@@ -51,7 +51,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     );
   };
 
-  const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
+  const selfAssessmentLink = (msg: React.ReactNode) => {
     return (
       <ExternalLink
         newTab

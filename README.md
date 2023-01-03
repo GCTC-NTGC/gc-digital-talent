@@ -4,17 +4,18 @@
 
 The GC Digital Talent app is divided into multiple services, each treated as its own sub-project:
 - `/api`, the API service
+- `/apps`, (new) location for frontend applications
 - `/frontend`, an npm project for frontend client code containing multiple [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces):
   - `/admin`, a CRUD-style admin dashboard
   - `/common`, code shared by multiple other workspaces
   - `/cypress`, e2e testing with [`Cypress`](/frontend/cypress/README.md)
-  - `/indigenousapprenticeship`, pages related to the Indigenous Apprenticeship Program
   - `/talentsearch`, pages related to searching and requesting talent from pools
   
 - `/tc-report`, containing static content generated with Jekyll, mostly the Talent Cloud report. This used to be maintained in a [separate repo](https://github.com/GCTC-NTGC/tc-report), but now the entire project has been imported into this repo. See [`/tc-report/README.md`](/tc-report/README.md) for instructions on how to run Jekyll and re-generate the site content.
 - `/infrastructure`, support files for the docker infrastructure to run the project
   - this includes a mock oauth2 server (only used for local development envs)
 - `/maintenance`, additional scripts which run inside the docker containers for setup and updates
+- `/packages`, npm packages used by the `/apps`
 
 The api, and frontend projects are designed to each run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how docker infrastructure works.
 

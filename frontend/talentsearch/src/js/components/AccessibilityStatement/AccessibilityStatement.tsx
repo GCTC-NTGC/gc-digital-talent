@@ -11,10 +11,7 @@ import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
-const digitalStandardsLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -45,7 +42,7 @@ const fableLink = (chunks: React.ReactNode) => (
   </ExternalLink>
 );
 
-const acaLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
+const acaLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -71,10 +68,7 @@ const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
   </ExternalLink>
 );
 
-const complaintsLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const complaintsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -87,10 +81,7 @@ const complaintsLink = (
   </ExternalLink>
 );
 
-const crtcLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const crtcLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -103,10 +94,7 @@ const crtcLink = (
   </ExternalLink>
 );
 
-const crtcActLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const crtcActLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -119,10 +107,7 @@ const crtcActLink = (
   </ExternalLink>
 );
 
-const chrcLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const chrcLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -135,10 +120,7 @@ const chrcLink = (
   </ExternalLink>
 );
 
-const chraLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const chraLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -151,7 +133,7 @@ const chraLink = (
   </ExternalLink>
 );
 
-const ctaLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
+const ctaLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -164,10 +146,7 @@ const ctaLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
   </ExternalLink>
 );
 
-const relationsLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const relationsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -180,10 +159,7 @@ const relationsLink = (
   </ExternalLink>
 );
 
-const relayServiceLink = (
-  locale: Locales,
-  chunks: React.ReactNode,
-): React.ReactNode => (
+const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
     href={
@@ -274,7 +250,7 @@ const AccessibilityStatement = () => {
                 description: "Paragraph describing accessibility standards",
               },
               {
-                digitalStandardsLink: (chunks) =>
+                digitalStandardsLink: (chunks: React.ReactNode) =>
                   digitalStandardsLink(locale, chunks),
               },
             )}
@@ -461,9 +437,10 @@ const AccessibilityStatement = () => {
                 description: "Text describing accessibility commissioner",
               },
               {
-                acaLink: (chunks) => acaLink(locale, chunks),
-                acrLink: (chunks) => acrLink(locale, chunks),
-                complaintsLink: (chunks) => complaintsLink(locale, chunks),
+                acaLink: (chunks: React.ReactNode) => acaLink(locale, chunks),
+                acrLink: (chunks: React.ReactNode) => acrLink(locale, chunks),
+                complaintsLink: (chunks: React.ReactNode) =>
+                  complaintsLink(locale, chunks),
               },
             )}
           </p>
@@ -487,8 +464,10 @@ const AccessibilityStatement = () => {
                     "Description of complaints to the Canadian Radio-television and Telecommunications Commission",
                 },
                 {
-                  crtcLink: (chunks) => crtcLink(locale, chunks),
-                  crtcActLink: (chunks) => crtcActLink(locale, chunks),
+                  crtcLink: (chunks: React.ReactNode) =>
+                    crtcLink(locale, chunks),
+                  crtcActLink: (chunks: React.ReactNode) =>
+                    crtcActLink(locale, chunks),
                 },
               )}
             </li>
@@ -502,8 +481,10 @@ const AccessibilityStatement = () => {
                     "Description of complaints to the Canadian Human Rights Commission",
                 },
                 {
-                  chrcLink: (chunks) => chrcLink(locale, chunks),
-                  chraLink: (chunks) => chraLink(locale, chunks),
+                  chrcLink: (chunks: React.ReactNode) =>
+                    chrcLink(locale, chunks),
+                  chraLink: (chunks: React.ReactNode) =>
+                    chraLink(locale, chunks),
                 },
               )}
             </li>
@@ -517,7 +498,7 @@ const AccessibilityStatement = () => {
                     "Description of complaints to the Canadian Transportation Agency",
                 },
                 {
-                  ctaLink: (chunks) => ctaLink(locale, chunks),
+                  ctaLink: (chunks: React.ReactNode) => ctaLink(locale, chunks),
                 },
               )}
             </li>
@@ -530,7 +511,10 @@ const AccessibilityStatement = () => {
                   description:
                     "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<",
                 },
-                { relationsLink: (chunks) => relationsLink(locale, chunks) },
+                {
+                  relationsLink: (chunks: React.ReactNode) =>
+                    relationsLink(locale, chunks),
+                },
               )}
             </li>
           </ul>
@@ -582,7 +566,7 @@ const AccessibilityStatement = () => {
                   description: "VRS contact info",
                 },
                 {
-                  relayServiceLink: (chunks) =>
+                  relayServiceLink: (chunks: React.ReactNode) =>
                     relayServiceLink(locale, chunks),
                 },
               )}

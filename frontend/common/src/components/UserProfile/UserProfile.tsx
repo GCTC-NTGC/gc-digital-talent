@@ -52,7 +52,10 @@ export interface UserProfileProps {
   headingLevel?: HeadingLevel;
 }
 
-const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
+const HeadingWrapper: React.FC<{
+  children?: React.ReactNode;
+  show: boolean;
+}> = ({ children, show }) => {
   if (!show && children) {
     return (
       <div data-h2-padding="base(x1, 0, x1, 0)">
