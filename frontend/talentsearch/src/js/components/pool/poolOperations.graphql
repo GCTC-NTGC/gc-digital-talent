@@ -51,7 +51,7 @@ query getPoolAdvertisement($id: UUID!) {
       maxSalary
     }
     stream
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance

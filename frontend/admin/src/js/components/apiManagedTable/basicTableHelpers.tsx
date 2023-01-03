@@ -110,7 +110,10 @@ export function handleRowSelectedChange<T>(
 
 // Information about the sorting order of a table
 export interface SortingRule<T> {
-  column: Column<T>;
+  column: {
+    id: IdType<T>;
+    sortColumnName?: string;
+  };
   desc?: boolean | undefined;
 }
 

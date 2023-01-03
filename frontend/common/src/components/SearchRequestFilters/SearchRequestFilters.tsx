@@ -26,6 +26,7 @@ export type SimpleClassification = Pick<Classification, "group" | "level">;
 export interface FilterBlockProps {
   title: string;
   content?: Maybe<string> | Maybe<string[]>;
+  children?: React.ReactNode;
 }
 
 const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({

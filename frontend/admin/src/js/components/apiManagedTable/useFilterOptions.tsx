@@ -108,10 +108,12 @@ export default function useFilterOptions(enableEducationType = false) {
       equityOption("isIndigenous", getEmploymentEquityGroup("indigenous")),
       equityOption("isVisibleMinority", getEmploymentEquityGroup("minority")),
     ],
-    status: enumToOptions(PoolCandidateStatus).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getPoolCandidateStatus(value)),
-    })),
+    poolCandidateStatus: enumToOptions(PoolCandidateStatus).map(
+      ({ value }) => ({
+        value,
+        label: intl.formatMessage(getPoolCandidateStatus(value)),
+      }),
+    ),
     priorityWeight: Object.keys(poolCandidatePriorities).map((key) => ({
       value: Number(key),
       label: intl.formatMessage(

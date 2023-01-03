@@ -336,15 +336,21 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $pool = Pool::factory()->create();
         $user1 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => true,
         ]);
         $user2 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            'looking_for_english' => true,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
         $user3 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+            'looking_for_english' => false,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => false,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -370,7 +376,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
+                        'candidateCount' => 1
                     ]
                 ]
             ]

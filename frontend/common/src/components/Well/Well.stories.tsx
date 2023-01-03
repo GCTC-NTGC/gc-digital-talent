@@ -1,5 +1,6 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 import Well from "./Well";
 
 type ComponentType = typeof Well;
@@ -10,8 +11,7 @@ export default {
   component: Well,
   title: "Components/Well",
   args: {
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget condimentum nunc.",
+    content: faker.lorem.sentences(2),
   },
 } as Meta;
 

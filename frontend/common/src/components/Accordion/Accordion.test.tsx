@@ -4,6 +4,7 @@
 
 import React from "react";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
+import { faker } from "@faker-js/faker";
 import { render, axeTest, screen, fireEvent } from "../../helpers/testUtils";
 
 import Accordion from ".";
@@ -19,15 +20,7 @@ function renderAccordion({
   return render(<Accordion.Root {...rest}>{children}</Accordion.Root>);
 }
 
-const Text = () => (
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate urna
-    quam, id lacinia mauris condimentum molestie. Interdum et malesuada fames ac
-    ante ipsum primis in faucibus. Sed porttitor, elit vel consequat efficitur,
-    est sapien rhoncus mi, nec maximus libero augue a nisi. Vivamus et turpis
-    non magna tincidunt vulputate non tristique libero.
-  </p>
-);
+const Text = () => <p>{faker.lorem.sentences(5)}</p>;
 
 const DefaultChildren = () => (
   <>

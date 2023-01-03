@@ -134,7 +134,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
-const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
+const anchorTag = (chunks: React.ReactNode) => (
   <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
 );
 
@@ -302,7 +302,7 @@ export const PoolAdvertisementPoster = ({
           >
             <div>
               <PoolInfoCard
-                closingDate={poolAdvertisement.expiryDate}
+                closingDate={poolAdvertisement.closingDate}
                 classification={classificationSuffix}
                 salary={{
                   min: classification?.minSalary,

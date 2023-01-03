@@ -31,7 +31,7 @@ class PoolPublished implements Rule
 
         return !in_array($pool->advertisement_status, [
             ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-            ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED
+            ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED
         ]);
     }
 

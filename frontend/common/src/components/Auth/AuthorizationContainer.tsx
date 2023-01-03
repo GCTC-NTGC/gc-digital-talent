@@ -24,6 +24,7 @@ interface AuthorizationContainerProps {
   email?: MaybeEmail;
   currentUser?: PossibleUser;
   isLoaded: boolean;
+  children?: React.ReactNode;
 }
 
 const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({

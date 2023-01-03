@@ -89,7 +89,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.operationalRequirement).toHaveLength(7);
       expect(result.current.optionsData.workRegion).toHaveLength(8);
       expect(result.current.optionsData.equity).toHaveLength(4);
-      expect(result.current.optionsData.status).toHaveLength(15);
+      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(15);
       expect(result.current.optionsData.priorityWeight).toHaveLength(4);
 
       // Boolean filters

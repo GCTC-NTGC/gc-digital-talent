@@ -90,10 +90,10 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   return false;
 };
 
-const ClientProvider: React.FC<{ client?: Client }> = ({
-  client,
-  children,
-}) => {
+const ClientProvider: React.FC<{
+  client?: Client;
+  children?: React.ReactNode;
+}> = ({ client, children }) => {
   const intl = useIntl();
   const authContext = useContext(AuthenticationContext);
   // Create a mutable object to hold the auth state
@@ -103,8 +103,10 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
     authRef.current = authContext;
   }, [authContext]);
 
-  const getAuth = useCallback(
-    async ({ authState: existingAuthState }): Promise<AuthState | null> => {
+  const getAuth: (params: {
+    authState: AuthState | null;
+  }) => Promise<AuthState | null> = useCallback(
+    async ({ authState: existingAuthState }) => {
       // getAuth could be called for the first request or as the result of an error
 
       // At runtime, get the current auth state

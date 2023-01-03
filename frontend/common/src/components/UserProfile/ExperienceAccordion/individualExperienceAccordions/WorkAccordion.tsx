@@ -2,6 +2,7 @@ import React from "react";
 import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../Accordion";
+import { HeadingLevel } from "../../../Heading";
 import { Link } from "../../..";
 import { getDateRange } from "../../accordionUtils";
 import { WorkExperience } from "../../../../api/generated";
@@ -59,11 +60,13 @@ export const WorkContent = ({
 };
 
 type WorkAccordionProps = WorkExperience & {
+  headingLevel?: HeadingLevel;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
 const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
   editUrl,
+  headingLevel,
   ...rest
 }) => {
   const intl = useIntl();
@@ -73,6 +76,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
     <Accordion.Item value={id}>
       <Accordion.Trigger
         subtitle={getDateRange({ endDate, startDate, intl })}
+        headerAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({

@@ -51,7 +51,7 @@ query getApplicationData($id: UUID!) {
         group
         level
       }
-      expiryDate
+      closingDate
       essentialSkills {
         ...poolAdvertisementSkills
       }
