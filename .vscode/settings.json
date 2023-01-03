@@ -16,9 +16,9 @@
     "source.fixAll.eslint": true
   },
   "eslint.workingDirectories": [
+    "apps",
     "frontend/admin",
     "frontend/common",
-    "frontend/indigenousapprenticeship",
     "frontend/talentsearch"
   ],
   "[typescriptreact]": {
