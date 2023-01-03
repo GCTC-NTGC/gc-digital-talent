@@ -1,8 +1,8 @@
 import React from "react";
 
-export const DashboardContentContainer: React.FC = ({
-  children,
-}): React.ReactElement => {
+export const DashboardContentContainer: React.FC<{
+  children?: React.ReactNode;
+}> = ({ children }): React.ReactElement => {
   return (
     <div data-h2-min-height="base(100%)">
       <div data-h2-container="base(center, full, x2)">

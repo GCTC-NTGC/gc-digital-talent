@@ -2,6 +2,7 @@ import React from "react";
 import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../Accordion";
+import { HeadingLevel } from "../../../Heading";
 import { Link } from "../../..";
 import { EducationExperience } from "../../../../api/generated";
 import {
@@ -80,10 +81,15 @@ export const EducationContent = ({
 };
 
 type EducationAccordionProps = EducationExperience & {
+  headingLevel?: HeadingLevel;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
-const EducationAccordion = ({ editUrl, ...rest }: EducationAccordionProps) => {
+const EducationAccordion = ({
+  editUrl,
+  headingLevel = "h2",
+  ...rest
+}: EducationAccordionProps) => {
   const intl = useIntl();
   const { id, areaOfStudy, institution, startDate, endDate, skills } = rest;
 
@@ -91,6 +97,7 @@ const EducationAccordion = ({ editUrl, ...rest }: EducationAccordionProps) => {
     <Accordion.Item value={id}>
       <Accordion.Trigger
         subtitle={getDateRange({ endDate, startDate, intl })}
+        headerAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({

@@ -11,18 +11,21 @@ import { convertDateTimeZone } from "@common/helpers/dateUtils";
 import { type UpdatePoolAdvertisementInput } from "../../../api/generated";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["expiryDate"];
+  endDate?: PoolAdvertisement["closingDate"];
 };
 
-export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
+export type ExtendSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "closingDate"
+>;
 
 type ExtendDialogProps = {
-  expiryDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   onExtend: (submitData: ExtendSubmitData) => Promise<void>;
 };
 
 const ExtendDialog = ({
-  expiryDate,
+  closingDate,
   onExtend,
 }: ExtendDialogProps): JSX.Element => {
   const intl = useIntl();
@@ -30,7 +33,7 @@ const ExtendDialog = ({
 
   const handleExtend = useCallback(
     async (formValues: FormValues) => {
-      const expiryDateInUtc = formValues.endDate
+      const closingDateInUtc = formValues.endDate
         ? convertDateTimeZone(
             `${formValues.endDate} 23:59:59`,
             "Canada/Pacific",
@@ -39,7 +42,7 @@ const ExtendDialog = ({
         : null;
 
       await onExtend({
-        expiryDate: expiryDateInUtc,
+        closingDate: closingDateInUtc,
       }).then(() => setOpen(false));
     },
     [onExtend],
@@ -47,8 +50,8 @@ const ExtendDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      endDate: expiryDate
-        ? new Date(expiryDate).toISOString().split("T")[0]
+      endDate: closingDate
+        ? new Date(closingDate).toISOString().split("T")[0]
         : "",
     },
   });

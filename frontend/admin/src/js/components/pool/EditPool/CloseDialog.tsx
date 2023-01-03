@@ -8,12 +8,12 @@ import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
 
 type CloseDialogProps = {
-  expiryDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   onClose: () => void;
 };
 
 const CloseDialog = ({
-  expiryDate,
+  closingDate,
   onClose,
 }: CloseDialogProps): JSX.Element => {
   const intl = useIntl();
@@ -99,9 +99,9 @@ const CloseDialog = ({
               data-h2-padding="base(x.25)"
               data-h2-radius="base(s)"
             >
-              {expiryDate
+              {closingDate
                 ? formatDate({
-                    date: parseDateTimeUtc(expiryDate),
+                    date: parseDateTimeUtc(closingDate),
                     formatString: "PPP",
                     intl,
                     timeZone: "Canada/Pacific",

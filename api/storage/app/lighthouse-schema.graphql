@@ -1,7 +1,7 @@
 enum AdvertisementStatus {
   DRAFT
   PUBLISHED
-  EXPIRED
+  CLOSED
   ARCHIVED
 }
 
@@ -22,7 +22,7 @@ type Applicant {
   department: Department
   hasPriorityEntitlement: Boolean
   priorityNumber: String
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -78,15 +78,15 @@ input ApplicantFilterBelongsTo {
 }
 
 input ApplicantFilterInput {
-  hasDiploma: Boolean
   equity: EquitySelectionsInput
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  locationPreferences: [WorkRegion]
-  positionDuration: [PositionDuration]
   expectedClassifications: [ClassificationFilterInput]
-  skills: [IdInput]
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
   pools: [IdInput]
+  skills: [IdInput]
 }
 
 enum ArmedForcesStatus {
@@ -279,17 +279,6 @@ input CreatePoolCandidateAsAdminInput {
   user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
 }
@@ -359,7 +348,6 @@ input CreateUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -638,7 +626,7 @@ type Mutation {
   createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
-  changePoolExpiryDate(id: ID!, newExpiryDate: DateTime!): PoolAdvertisement
+  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
@@ -797,13 +785,14 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  createdDate: DateTime
 }
 
 type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
-  expiryDate: DateTime
+  closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
   description: LocalizedString
@@ -845,17 +834,6 @@ type PoolCandidate {
   user: Applicant!
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: [Classification]
-  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   status: PoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -885,16 +863,16 @@ input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
   equity: EquitySelectionsInput
   expectedClassifications: [ClassificationFilterInput]
-  generalSearch: String
   email: String
-  name: String
+  generalSearch: String
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  name: String
   operationalRequirements: [OperationalRequirement]
   pools: [IdInput]
   priorityWeight: [Int]
-  status: [PoolCandidateStatus]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
@@ -904,6 +882,15 @@ type PoolCandidatePaginator {
 
   """A list of PoolCandidate items."""
   data: [PoolCandidate!]!
+}
+
+input PoolCandidateSearchInput {
+  applicantFilter: ApplicantFilterInput
+  email: String
+  generalSearch: String
+  name: String
+  priorityWeight: [Int]
+  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 type PoolCandidateSearchRequest {
@@ -1041,7 +1028,7 @@ type Query {
     page: Int
   ): UserPaginator
   poolCandidatesPaginated(
-    where: PoolCandidateFilterInput
+    where: PoolCandidateSearchInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
@@ -1278,7 +1265,7 @@ input UpdatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
   stream: PoolStream
   processNumber: String
-  expiryDate: DateTime
+  closingDate: DateTime
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   essentialSkills: SkillBelongsToMany
@@ -1293,17 +1280,6 @@ input UpdatePoolAdvertisementInput {
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
   notes: String
 }
@@ -1356,7 +1332,6 @@ input UpdateUserAsAdminInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1404,7 +1379,6 @@ input UpdateUserAsUserInput {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1445,6 +1419,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime
+  updatedDate: DateTime
   firstName: String
   lastName: String
   email: Email
@@ -1454,7 +1430,7 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility
+  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean

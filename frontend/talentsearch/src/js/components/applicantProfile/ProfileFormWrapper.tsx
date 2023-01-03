@@ -16,6 +16,7 @@ export interface ProfileFormWrapperProps {
   title: string;
   metaTitle?: string; // Used to override <head><title /></head>
   cancelLink?: CancelButtonProps;
+  children?: React.ReactNode;
   prefixBreadcrumbs?: boolean;
 }
 

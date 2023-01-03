@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
   to: string;
+  children?: React.ReactNode;
 }
 
 const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {

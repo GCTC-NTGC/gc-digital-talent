@@ -8,10 +8,10 @@ import {
   convertDateTimeToDate,
   convertDateTimeZone,
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "./dateUtils";
 
-describe("relativeExpiryDate tests", () => {
+describe("relativeClosingDate tests", () => {
   const intlCache = createIntlCache();
   const intl = createIntl(
     {
@@ -19,11 +19,11 @@ describe("relativeExpiryDate tests", () => {
     },
     intlCache,
   );
-  const f = relativeExpiryDate;
+  const f = relativeClosingDate;
 
   test("expired", () => {
     const s = f({
-      expiryDate: new Date("2021-12-31"),
+      closingDate: new Date("2021-12-31"),
       now: new Date("2022-01-01"),
       intl,
     });
@@ -32,7 +32,7 @@ describe("relativeExpiryDate tests", () => {
 
   test("today", () => {
     const s = f({
-      expiryDate: new Date("2021-12-31 23:59:59"),
+      closingDate: new Date("2021-12-31 23:59:59"),
       now: new Date("2021-12-31 23:00:00"),
       intl,
     });
@@ -42,7 +42,7 @@ describe("relativeExpiryDate tests", () => {
   // tomorrow might not be 24 hours away
   test("tomorrow", () => {
     const s = f({
-      expiryDate: new Date("2021-12-31 00:59:59"),
+      closingDate: new Date("2021-12-31 00:59:59"),
       now: new Date("2021-12-30 23:59:59"),
       intl,
     });
@@ -51,7 +51,7 @@ describe("relativeExpiryDate tests", () => {
 
   test("future days", () => {
     const s = f({
-      expiryDate: new Date("2021-12-31 00:59:59"),
+      closingDate: new Date("2021-12-31 00:59:59"),
       now: new Date("2021-12-01"),
       intl,
     });
@@ -61,7 +61,9 @@ describe("relativeExpiryDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("today in a different time zone", () => {
     const s = f({
-      expiryDate: toDate("2021-12-31 23:59:59", { timeZone: "Canada/Pacific" }),
+      closingDate: toDate("2021-12-31 23:59:59", {
+        timeZone: "Canada/Pacific",
+      }),
       now: toDate("2022-01-01 1:00:00", { timeZone: "Canada/Eastern" }),
       intl,
       timeZone: "Canada/Pacific",
@@ -72,7 +74,9 @@ describe("relativeExpiryDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("tomorrow in a different time zone", () => {
     const s = f({
-      expiryDate: toDate("2021-12-31 23:59:59", { timeZone: "Canada/Pacific" }),
+      closingDate: toDate("2021-12-31 23:59:59", {
+        timeZone: "Canada/Pacific",
+      }),
       now: toDate("2021-12-31 00:00:00", { timeZone: "Canada/Eastern" }),
       intl,
       timeZone: "Canada/Pacific",
@@ -83,7 +87,9 @@ describe("relativeExpiryDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("future days in a different time zone", () => {
     const s = f({
-      expiryDate: toDate("2021-12-31 23:59:59", { timeZone: "Canada/Pacific" }),
+      closingDate: toDate("2021-12-31 23:59:59", {
+        timeZone: "Canada/Pacific",
+      }),
       now: toDate("2021-12-01", { timeZone: "Canada/Eastern" }),
       intl,
       timeZone: "Canada/Pacific",

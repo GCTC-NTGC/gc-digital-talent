@@ -34,7 +34,9 @@ export const IndeterminateCheckbox: React.FC<
   );
 };
 
-export const Spacer: React.FC = ({ children }) => (
+export const Spacer: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => (
   <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
     {children}
   </div>

@@ -127,6 +127,7 @@ interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
   logoutRedirectUri: string;
+  children?: React.ReactNode;
 }
 
 const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({

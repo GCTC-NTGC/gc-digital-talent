@@ -2,6 +2,7 @@ import React from "react";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../Accordion";
+import { HeadingLevel } from "../../../Heading";
 import { Link } from "../../..";
 import SkillList from "../SkillList";
 import {
@@ -78,10 +79,15 @@ export const AwardContent = ({
 };
 
 interface AwardAccordionProps extends AwardExperience {
+  headingLevel?: HeadingLevel;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 }
 
-const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
+const AwardAccordion = ({
+  editUrl,
+  headingLevel = "h2",
+  ...rest
+}: AwardAccordionProps) => {
   const intl = useIntl();
   const { id, title, awardedDate, issuedBy, skills } = rest;
 
@@ -93,6 +99,7 @@ const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
           startDate: awardedDate,
           intl,
         })}
+        headerAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({

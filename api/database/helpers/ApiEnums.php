@@ -247,13 +247,13 @@ class ApiEnums
      */
     const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
     const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
-    const POOL_ADVERTISEMENT_IS_EXPIRED = 'EXPIRED';
+    const POOL_ADVERTISEMENT_IS_CLOSED = 'CLOSED';
     public static function poolAdvertisementStatuses(): array
     {
         return [
             self::POOL_ADVERTISEMENT_IS_DRAFT,
             self::POOL_ADVERTISEMENT_IS_PUBLISHED,
-            self::POOL_ADVERTISEMENT_IS_EXPIRED,
+            self::POOL_ADVERTISEMENT_IS_CLOSED,
         ];
     }
 
@@ -428,6 +428,20 @@ class ApiEnums
             self::INDIGENOUS_METIS,
             self::INDIGENOUS_OTHER,
             self::INDIGENOUS_LEGACY_IS_INDIGENOUS,
+        ];
+    }
+
+    /**
+     * Skill Category
+     */
+    const SKILL_CATEGORY_TECHNICAL = 'TECHNICAL';
+    const SKILL_CATEGORY_BEHAVIOURAL = 'BEHAVIOURAL';
+
+    public static function skillCategories(): array
+    {
+        return [
+            self::SKILL_CATEGORY_TECHNICAL,
+            self::SKILL_CATEGORY_BEHAVIOURAL,
         ];
     }
 }

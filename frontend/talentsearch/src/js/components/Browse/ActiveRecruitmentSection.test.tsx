@@ -39,11 +39,11 @@ describe("BrowsePoolsPage", () => {
   it("should properly sort jobs", async () => {
     await act(async () => {
       // should appear first: it expires first even though it was published later
-      const expiresFirst = {
+      const closesFirst = {
         ...publishedPool,
-        id: "expiresFirst",
+        id: "closesFirst",
         publishedAt: "2000-02-01 00:00:00",
-        expiryDate: "2999-01-01 00:00:00",
+        closingDate: "2999-01-01 00:00:00",
       };
 
       // should appear second: tie for expiring second, has first publish date
@@ -51,7 +51,7 @@ describe("BrowsePoolsPage", () => {
         ...publishedPool,
         id: "publishedFirst",
         publishedAt: "2000-01-01 00:00:00",
-        expiryDate: "2999-02-01 00:00:00",
+        closingDate: "2999-02-01 00:00:00",
       };
 
       // should appear third: tie for expiring second, has second publish date
@@ -59,12 +59,12 @@ describe("BrowsePoolsPage", () => {
         ...publishedPool,
         id: "publishedSecond",
         publishedAt: "2000-01-02 00:00:00",
-        expiryDate: "2999-02-01 00:00:00",
+        closingDate: "2999-02-01 00:00:00",
       };
 
       renderBrowsePoolsPage({
         // pass data to the page in an intentionally reversed order
-        pools: [publishedSecond, publishedFirst, expiresFirst],
+        pools: [publishedSecond, publishedFirst, closesFirst],
       });
 
       // find the rendered links
@@ -76,7 +76,7 @@ describe("BrowsePoolsPage", () => {
       expect(links).toHaveLength(3);
       expect(links[0]).toHaveAttribute(
         "href",
-        expect.stringContaining(expiresFirst.id),
+        expect.stringContaining(closesFirst.id),
       );
       expect(links[1]).toHaveAttribute(
         "href",

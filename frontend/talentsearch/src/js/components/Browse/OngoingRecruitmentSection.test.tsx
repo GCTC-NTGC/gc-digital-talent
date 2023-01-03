@@ -3,6 +3,8 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
+import { Provider as GraphqlProvider } from "urql";
+import { fromValue } from "wonka";
 import { screen, act, fireEvent } from "@testing-library/react";
 import { axeTest, render } from "@common/helpers/testUtils";
 import {
@@ -24,8 +26,22 @@ const publishedPool: PoolAdvertisement = {
   classifications: [{ id: "it-01", group: "IT", level: 1 }],
 };
 
-const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) =>
-  render(<OngoingRecruitmentSection pools={pools} />);
+const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) => {
+  const mockClient = {
+    executeQuery: () =>
+      fromValue({
+        data: {
+          me: undefined,
+        },
+      }),
+  } as never; // Satisfy type for mocking
+
+  return render(
+    <GraphqlProvider value={mockClient}>
+      <OngoingRecruitmentSection pools={pools} />
+    </GraphqlProvider>,
+  );
+};
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
@@ -42,22 +58,22 @@ describe("BrowsePoolsPage", () => {
   it("should properly sort jobs", async () => {
     await act(async () => {
       // should appear first: it expires first even though it was published later
-      const expiresFirst = {
+      const closesFirst = {
         ...publishedPool,
-        id: "expiresFirst",
-        expiryDate: "2999-01-01 00:00:00",
+        id: "closesFirst",
+        closingDate: "2999-01-01 00:00:00",
       };
 
       // should appear second: tie for expiring second, has first publish date
-      const expiresSecond = {
+      const closesSecond = {
         ...publishedPool,
-        id: "expiresSecond",
-        expiryDate: "2999-02-01 00:00:00",
+        id: "closesSecond",
+        closingDate: "2999-02-01 00:00:00",
       };
 
       renderBrowsePoolsPage({
         // pass data to the page in an intentionally reversed order
-        pools: [expiresSecond, expiresFirst],
+        pools: [closesSecond, closesFirst],
       });
 
       fireEvent.click(
@@ -68,14 +84,14 @@ describe("BrowsePoolsPage", () => {
 
       // find the rendered links
       const links = await screen.queryAllByRole("link", {
-        name: /Apply to level 1/i,
+        name: /apply for technician opportunities/i,
       });
 
       // ensure there are the right number and in the right order
       expect(links).toHaveLength(1);
       expect(links[0]).toHaveAttribute(
         "href",
-        expect.stringContaining(expiresSecond.id),
+        expect.stringContaining(closesSecond.id),
       );
     });
   });

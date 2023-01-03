@@ -92,14 +92,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                 "Title of the 'Expiry date' column for the table on view-user page",
             })}
           </th>
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-            {intl.formatMessage({
-              defaultMessage: "Actions",
-              id: "jWNEdi",
-              description:
-                "Title of the 'Actions' column for the table on view-user page",
-            })}
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -138,19 +130,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   data-h2-padding="base(x.25, 0)"
                 >
                   <ChangeDateDialog selectedCandidate={candidate} user={user} />
-                </td>
-                <td
-                  data-h2-text-decoration="base(underline)"
-                  data-h2-background-color="base(light.dt-gray)"
-                  data-h2-color="base(dark.dt-gray)"
-                  data-h2-padding="base(x.25, 0)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Remove from pool",
-                    id: "C8Ltjj",
-                    description:
-                      "Button to remove a user from a pool - located in the table on view-user page",
-                  })}
                 </td>
               </tr>
             );

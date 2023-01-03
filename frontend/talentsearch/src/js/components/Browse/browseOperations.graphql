@@ -9,7 +9,7 @@ query browsePoolAdvertisements {
       en
       fr
     }
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance

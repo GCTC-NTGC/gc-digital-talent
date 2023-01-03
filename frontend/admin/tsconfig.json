@@ -3,5 +3,12 @@
   "include": [
     "src/js/**/*",
     "**/*.config.js"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["../../apps/web/src/*"], // HACK: path for storybook
+      "@common/*": ["../common/src/*"]
+    }
+  }
 }
