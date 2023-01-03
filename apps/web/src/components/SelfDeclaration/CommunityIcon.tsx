@@ -1,8 +1,8 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useFormContext } from "react-hook-form";
 
 import imageUrl from "@common/helpers/imageUrl";
-import { useFormContext } from "react-hook-form";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 import { partOfCommunity } from "./utils";
 
