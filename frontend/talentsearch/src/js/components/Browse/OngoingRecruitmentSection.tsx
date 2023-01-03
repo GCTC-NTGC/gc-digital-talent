@@ -21,7 +21,7 @@ interface StreamViewModel {
   summary: string;
   classifications: {
     title: string;
-    description: string;
+    description: React.ReactNode;
     poolAdvertisement: PoolAdvertisement | undefined;
     applyMessage: string;
   }[];
@@ -36,9 +36,10 @@ const selectPoolForSection = (
 ): PoolAdvertisement | undefined => {
   return (
     pools
-      // last expiry date first to be selected
+      // last closing date first to be selected
       .sort((p1, p2) =>
-        (p1.expiryDate ?? FAR_FUTURE_DATE) < (p2.expiryDate ?? FAR_FUTURE_DATE)
+        (p1.closingDate ?? FAR_FUTURE_DATE) <
+        (p2.closingDate ?? FAR_FUTURE_DATE)
           ? 1
           : -1,
       )
@@ -112,8 +113,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
           }),
         },
@@ -126,36 +126,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
           }),
         },
@@ -176,8 +191,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.databaseManagementTitle),
           }),
         },
@@ -190,36 +204,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.databaseManagementTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.databaseManagementTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.databaseManagementTitle),
           }),
         },
@@ -240,8 +269,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.enterpriseArchitectureTitle),
           }),
         },
@@ -254,36 +282,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.enterpriseArchitectureTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.enterpriseArchitectureTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.enterpriseArchitectureTitle),
           }),
         },
@@ -304,8 +347,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.infrastructureOperationsTitle),
           }),
         },
@@ -318,36 +360,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.infrastructureOperationsTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.infrastructureOperationsTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.infrastructureOperationsTitle),
           }),
         },
@@ -368,8 +425,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.planningAndReportingTitle),
           }),
         },
@@ -382,36 +438,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.planningAndReportingTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.planningAndReportingTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.planningAndReportingTitle),
           }),
         },
@@ -432,8 +503,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.projectPortfolioManagementTitle),
           }),
         },
@@ -446,36 +516,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.projectPortfolioManagementTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.projectPortfolioManagementTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.projectPortfolioManagementTitle),
           }),
         },
@@ -496,8 +581,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle),
           }),
         },
@@ -510,28 +594,44 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.Security,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.Security,
@@ -539,8 +639,7 @@ export const OngoingRecruitmentSection = ({
             4,
           ),
 
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle),
           }),
         },
@@ -561,8 +660,7 @@ export const OngoingRecruitmentSection = ({
             "IT",
             1,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 1,
+          applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.softwareSolutionsTitle),
           }),
         },
@@ -575,36 +673,51 @@ export const OngoingRecruitmentSection = ({
             "IT",
             2,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 2,
+          applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.softwareSolutionsTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it03Title),
-          description: intl.formatMessage(messages.it03Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it03Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
             3,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 3,
+          applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.softwareSolutionsTitle),
           }),
         },
         {
           title: intl.formatMessage(messages.it04Title),
-          description: intl.formatMessage(messages.it04Description),
+          description: (
+            <>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description1)}
+              </p>
+              <p data-h2-margin="base(0, 0, x0.75, 0)">
+                {intl.formatMessage(messages.it04Description2)}
+              </p>
+            </>
+          ),
           poolAdvertisement: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
             4,
           ),
-          applyMessage: intl.formatMessage(messages.apply, {
-            levelNumber: 4,
+          applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.softwareSolutionsTitle),
           }),
         },
@@ -751,7 +864,6 @@ export const OngoingRecruitmentSection = ({
                   data-h2-display="base(grid)"
                   data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
                   data-h2-gap="base(x.5) p-tablet(x2)"
-                  data-h2-align-items="base(center)"
                 >
                   {stream.classifications
                     .filter(
@@ -770,9 +882,9 @@ export const OngoingRecruitmentSection = ({
                         >
                           {classification.title}
                         </h4>
-                        <p data-h2-padding="base(0,0,x0.75, 0)">
+                        <div data-h2-padding="base(0,0,x0.75, 0)">
                           {classification.description}
-                        </p>
+                        </div>
                         {classification.poolAdvertisement?.id && (
                           <Link
                             href={paths.pool(

@@ -156,7 +156,7 @@ query getReviewMyApplicationPageData($id: UUID!) {
         fr
       }
       stream
-      expiryDate
+      closingDate
       classifications {
         id
         group

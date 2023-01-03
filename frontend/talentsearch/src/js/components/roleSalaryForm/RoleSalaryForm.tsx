@@ -121,7 +121,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   };
 
   // intl styling functions section
-  function link(chunks: React.ReactNode, url: string): React.ReactNode {
+  function link(chunks: React.ReactNode, url: string) {
     return (
       <ExternalLink newTab href={url}>
         {chunks}
@@ -320,7 +320,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 description: "Link to learn more about classifications",
               },
               {
-                link: (chunks: React.ReactNode): React.ReactNode =>
+                link: (chunks: React.ReactNode) =>
                   link(
                     chunks,
                     intl.locale === "en"

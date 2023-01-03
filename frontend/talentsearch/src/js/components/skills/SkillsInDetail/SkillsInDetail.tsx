@@ -19,11 +19,13 @@ type FormValues = {
 
 export interface SkillsInDetailProps {
   skills: FormSkills;
+  required?: boolean;
   onDelete: (id: string) => void;
 }
 
 const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   skills,
+  required,
   onDelete,
 }) => {
   const intl = useIntl();
@@ -153,7 +155,9 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   })}
                   name={`skills.${index}.details`}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: required
+                      ? intl.formatMessage(errorMessages.required)
+                      : undefined,
                     validate: {
                       wordCount: (value: string) =>
                         countNumberOfWords(value) <= MAX_WORDS ||

@@ -583,18 +583,26 @@ class UserTest extends TestCase
     public function testFilterByLanguageAbility(): void
     {
         User::factory()->count(5)->create([
-            'language_ability' => 'TEST'
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
 
         // Create new LanguageAbility and attach to 3 new pool users.
         User::factory()->create([
-            'language_ability' => 'FRENCH'
+            'looking_for_english' => false,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => false,
         ]);
         User::factory()->create([
-            'language_ability' => 'ENGLISH'
+            'looking_for_english' => true,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
         User::factory()->create([
-            'language_ability' => 'BILINGUAL'
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => true,
         ]);
 
         // Assert query with no LanguageAbility filter will return all users
@@ -645,7 +653,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
+                        'total' => 1
                     ]
                 ]
             ]
@@ -674,7 +682,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
+                        'total' => 1
                     ]
                 ]
             ]
@@ -2397,7 +2405,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2406,7 +2416,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
+                'looking_for_english' => false,
+                'looking_for_french' => true,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
@@ -2416,7 +2428,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2426,7 +2440,9 @@ class UserTest extends TestCase
             'expiry_date' => '2000-01-01',
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2436,7 +2452,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
@@ -2446,7 +2464,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_INACTIVE
             ])
         ]);

@@ -96,7 +96,7 @@ export const StatusSection = ({
               </div>
             </div>
             <PublishDialog
-              expiryDate={poolAdvertisement.expiryDate}
+              closingDate={poolAdvertisement.closingDate}
               onPublish={onPublish}
             />
             <DeleteDialog onDelete={onDelete} />
@@ -147,19 +147,19 @@ export const StatusSection = ({
               </div>
             </div>
             <CloseDialog
-              expiryDate={poolAdvertisement.expiryDate}
+              closingDate={poolAdvertisement.closingDate}
               onClose={onClose}
             />
             <ExtendDialog
-              expiryDate={poolAdvertisement.expiryDate}
+              closingDate={poolAdvertisement.closingDate}
               onExtend={onExtend}
             />
           </>
         ) : undefined}
 
-        {/* Expired status */}
+        {/* Closed status */}
         {poolAdvertisement.advertisementStatus ===
-        AdvertisementStatus.Expired ? (
+        AdvertisementStatus.Closed ? (
           <>
             <div
               data-h2-background-color="base(dt-gray.light)"
@@ -182,9 +182,9 @@ export const StatusSection = ({
                 <span>
                   {intl.formatMessage(
                     {
-                      defaultMessage: "<heavyPrimary>Expired</heavyPrimary>",
-                      id: "uBA5mM",
-                      description: "Status name of a pool in EXPIRED status",
+                      defaultMessage: "<heavyPrimary>Closed</heavyPrimary>",
+                      id: "VCl+IZ",
+                      description: "Status name of a pool in CLOSED status",
                     },
                     { heavyPrimary },
                   )}
@@ -193,15 +193,15 @@ export const StatusSection = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "This pool is being advertised but no longer accepting applications.",
-                    id: "dG1EJO",
+                    id: "3AmNSJ",
                     description:
-                      "Status description of a pool in EXPIRED status",
+                      "Status description of a pool in CLOSED status",
                   })}
                 </span>
               </div>
             </div>
             <ExtendDialog
-              expiryDate={poolAdvertisement.expiryDate}
+              closingDate={poolAdvertisement.closingDate}
               onExtend={onExtend}
             />
             <ArchiveDialog onArchive={onArchive} />

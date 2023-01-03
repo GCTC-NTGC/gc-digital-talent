@@ -52,6 +52,8 @@ export interface SelectFieldV2Props {
   rules?: RegisterOptions;
   /** Default message shown on select input. */
   placeholder?: string;
+  /** Whether field is disabled. */
+  isDisabled?: boolean;
   /** Whether field allows multiple selections. */
   isMulti?: boolean;
   /** Whether to force all form values into array, even single Select. */
@@ -169,6 +171,7 @@ const SelectFieldV2 = ({
   options = [],
   rules,
   placeholder,
+  isDisabled = false,
   isMulti = false,
   forceArrayFormValue = false,
   isLoading = false,
@@ -277,6 +280,7 @@ const SelectFieldV2 = ({
 
               return (
                 <ReactSelect
+                  isDisabled={isDisabled}
                   isClearable={isMulti || !isRequired}
                   placeholder={placeholder || defaultPlaceholder}
                   components={{
@@ -318,7 +322,7 @@ const SelectFieldV2 = ({
                     }),
                     control: (provided) => ({
                       ...provided,
-                      backgroundColor: "inherit",
+                      backgroundColor: isDisabled ? "lightgrey" : "inherit",
                       border: "none",
                       boxShadow: "none",
                     }),

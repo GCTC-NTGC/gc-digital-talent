@@ -109,7 +109,7 @@ describe("SkillAccordion", () => {
       new RegExp(experience.division || "", "i"),
     );
     expect(detail).toHaveTextContent(
-      new RegExp(`${dateRange}`.replaceAll("   ", " ") || "", "i"),
+      new RegExp(`${dateRange}`.replace(/ {3}/g, " ") || "", "i"),
     );
     expect(detail).toHaveTextContent(
       new RegExp(experience.organization || "", "i"),
@@ -161,7 +161,7 @@ describe("SkillAccordion", () => {
     expect(detail).toHaveTextContent(experience.institution || "");
     expect(detail).toHaveTextContent(experience.areaOfStudy || "");
     expect(detail).toHaveTextContent(experience.thesisTitle || "");
-    expect(detail).toHaveTextContent(`${dateRange}`.replaceAll("   ", " "));
+    expect(detail).toHaveTextContent(`${dateRange}`.replace(/ {3}/g, " "));
   });
 
   it("renders proper context and detail when a personal experience is provided", async () => {

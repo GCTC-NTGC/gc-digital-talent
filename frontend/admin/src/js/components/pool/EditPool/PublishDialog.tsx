@@ -6,17 +6,17 @@ import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 import { FormProvider, useForm } from "react-hook-form";
 
 type PublishDialogProps = {
-  expiryDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   onPublish: () => void;
 };
 
 const PublishDialog = ({
-  expiryDate,
+  closingDate,
   onPublish,
 }: PublishDialogProps): JSX.Element => {
   const intl = useIntl();
@@ -60,14 +60,14 @@ const PublishDialog = ({
 
   let closingStringLocal;
   let closingStringPacific;
-  if (expiryDate) {
-    const expiryDateObject = parseDateTimeUtc(expiryDate);
-    closingStringLocal = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+  if (closingDate) {
+    const closingDateObject = parseDateTimeUtc(closingDate);
+    closingStringLocal = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
     });
-    closingStringPacific = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+    closingStringPacific = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
       timeZone: "Canada/Pacific",
     });

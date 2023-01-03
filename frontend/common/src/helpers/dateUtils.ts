@@ -40,9 +40,9 @@ export const formatDate = ({
   return result;
 };
 
-// parameters for the relativeExpiryDate function
-export type relativeExpiryDateOptions = {
-  expiryDate: Date;
+// parameters for the relativeClosingDate function
+export type relativeClosingDateOptions = {
+  closingDate: Date;
   now?: Date;
   intl: IntlShape;
   timeZone?: string;
@@ -52,12 +52,12 @@ export type relativeExpiryDateOptions = {
  * Calculate a friendly date/time string, optionally in a different time zone
  * @returns string of formatted date
  */
-export const relativeExpiryDate = ({
-  expiryDate,
+export const relativeClosingDate = ({
+  closingDate,
   now = new Date(),
   intl,
   timeZone,
-}: relativeExpiryDateOptions): string => {
+}: relativeClosingDateOptions): string => {
   // A date formatting function that can use time zones optionally
   const myFormatFunc = timeZone
     ? (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
@@ -67,24 +67,24 @@ export const relativeExpiryDate = ({
 
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const time = myFormatFunc(expiryDate, `pp`, {
+  const time = myFormatFunc(closingDate, `pp`, {
     locale,
   });
-  const dateTime = myFormatFunc(expiryDate, `PPP p`, {
+  const dateTime = myFormatFunc(closingDate, `PPP p`, {
     locale,
   });
 
-  if (now > expiryDate) {
+  if (now > closingDate) {
     return intl.formatMessage({
       defaultMessage: "The deadline for submission has passed.",
-      id: "PzyMeM",
-      description: "Message displayed when a date has expired.",
+      id: "8WC+Ty",
+      description: "Message displayed when a closing date has passed.",
     });
   }
 
   if (
     myFormatFunc(now, DATE_FORMAT_STRING) ===
-    myFormatFunc(expiryDate, DATE_FORMAT_STRING)
+    myFormatFunc(closingDate, DATE_FORMAT_STRING)
   ) {
     return intl.formatMessage(
       {
@@ -100,7 +100,7 @@ export const relativeExpiryDate = ({
 
   if (
     myFormatFunc(add(now, { days: 1 }), DATE_FORMAT_STRING) ===
-    myFormatFunc(expiryDate, DATE_FORMAT_STRING)
+    myFormatFunc(closingDate, DATE_FORMAT_STRING)
   ) {
     return intl.formatMessage(
       {

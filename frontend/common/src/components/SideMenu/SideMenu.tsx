@@ -15,6 +15,7 @@ export interface SideMenuProps {
   onDismiss?: () => void;
   header?: React.ReactNode;
   footer?: JSX.Element;
+  children?: React.ReactNode;
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({
