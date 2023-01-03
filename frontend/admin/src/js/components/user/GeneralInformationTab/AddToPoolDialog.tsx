@@ -7,7 +7,8 @@ import Button from "@common/components/Button";
 import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import { Input, Select } from "@common/components/form";
+import { Input } from "@common/components/form";
+import MultiSelectV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import {
@@ -20,7 +21,7 @@ import {
 } from "../../../api/generated";
 
 type FormValues = {
-  poolId: Pool["id"];
+  pools: Array<Pool["id"]>;
   expiryDate: PoolCandidate["expiryDate"];
 };
 
@@ -57,15 +58,22 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    await requestMutation({
-      pool: {
-        connect: formValues.poolId,
-      },
-      user: {
-        connect: user.id,
-      },
-      expiryDate: formValues.expiryDate,
-    })
+    const promises: Array<ReturnType<typeof requestMutation>> = [];
+    await formValues.pools.forEach(async (poolId) => {
+      promises.push(
+        requestMutation({
+          pool: {
+            connect: poolId,
+          },
+          user: {
+            connect: user.id,
+          },
+          expiryDate: formValues.expiryDate,
+        }),
+      );
+    });
+
+    Promise.allSettled(promises)
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -130,16 +138,16 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
             <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <Select
-                id="addToPoolDialog-poolId"
-                name="poolId"
+              <MultiSelectV2
+                id="addToPoolDialog-pools"
+                name="pools"
                 label={intl.formatMessage({
                   defaultMessage: "Pools",
                   id: "aJVlIF",
                   description:
                     "Label displayed on the pools field of the add user to pool dialog",
                 })}
-                nullSelection={intl.formatMessage({
+                placeholder={intl.formatMessage({
                   defaultMessage: "Select a pool...",
                   id: "X198m3",
                   description:
