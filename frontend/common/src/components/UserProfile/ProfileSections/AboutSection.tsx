@@ -83,7 +83,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 description: "Phone label and colon",
               })}
               <br />
-              <span data-h2-font-weight="base(700)">{telephone}</span>
+              {telephone ? (
+                <a
+                  href={`tel:${telephone}`}
+                  aria-label={telephone.replace(/.{1}/g, "$& ")}
+                >
+                  <span data-h2-font-weight="base(700)">{telephone}</span>
+                </a>
+              ) : (
+                ""
+              )}
             </p>
           </div>
         )}
