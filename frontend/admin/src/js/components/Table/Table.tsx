@@ -182,11 +182,16 @@ function Table<T extends Record<string, unknown>>({
       previous.set("pageSize", `${pageSize}`);
       previous.set("pageIndex", `${pageIndex}`);
       if (sortBy) {
-        const newSortBy = JSON.stringify(sortBy);
-        previous.set("sortBy", encodeURIComponent(newSortBy));
+        const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
+        if (previous.get("sortBy") !== newSortBy) {
+          previous.set("sortBy", newSortBy);
+        }
       }
       if (hiddenColumns) {
-        previous.set("hiddenColumns", hiddenColumns.join(","));
+        const newHiddenColumns = hiddenColumns.join(",");
+        if (previous.get("hiddenColumns") !== newHiddenColumns) {
+          previous.set("hiddenColumns", newHiddenColumns);
+        }
       }
 
       return previous;
