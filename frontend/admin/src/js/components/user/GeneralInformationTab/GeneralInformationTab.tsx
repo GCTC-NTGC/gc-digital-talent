@@ -194,7 +194,18 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
               description: "Display text for the phone number field on users",
             })}
           </p>
-          <p>{user.telephone}</p>
+          <p>
+            {user.telephone ? (
+              <a
+                href={`tel:${user.telephone}`}
+                aria-label={user.telephone.replace(/.{1}/g, "$& ")}
+              >
+                {user.telephone}
+              </a>
+            ) : (
+              ""
+            )}
+          </p>
         </div>
         {/* Current location */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
