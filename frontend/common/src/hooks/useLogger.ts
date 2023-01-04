@@ -2,6 +2,7 @@
 
 import { SeverityLevel, levelIncludes } from "../helpers/loggingUtils";
 import { getLoggingLevel } from "../helpers/runtimeVariable";
+import useCustomEvent from "./useCustomEvent";
 
 export interface Logger {
   emergency: (message: string) => void;
@@ -18,6 +19,9 @@ export interface Logger {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
+// A simple logger for logging to the browser console.
+// Mostly useful during development.
+// Controlled by setting the LOG_CONSOLE_LEVEL environment variable.
 const consoleLoggerLevel = getLoggingLevel("LOG_CONSOLE_LEVEL");
 const consoleLogger: Logger = {
   emergency: levelIncludes(consoleLoggerLevel, SeverityLevel.Emergency)
@@ -46,36 +50,38 @@ const consoleLogger: Logger = {
     : noop,
 };
 
-const coloredConsoleLoggerLevel = getLoggingLevel("LOG_COLORED_CONSOLE_LEVEL");
-const coloredConsoleStyles = "background: #222; color: #bada55";
-const coloredConsoleLogger: Logger = {
-  emergency: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Emergency)
-    ? (message: string) => console.error(`%c${message}`, coloredConsoleStyles)
+// A logger for logging to the Azure Application Insights custom events.
+// Only useful when deployed on an Azure server.
+// Controlled by setting the LOG_APPLICATIONINSIGHTS_LEVEL environment variable.
+const aiLoggerLevel = getLoggingLevel("LOG_APPLICATIONINSIGHTS_LEVEL");
+const aiLogger: Logger = {
+  emergency: levelIncludes(aiLoggerLevel, SeverityLevel.Emergency)
+    ? (message: string) => useCustomEvent("EMERGENCY", { message })
     : noop,
-  alert: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Alert)
-    ? (message: string) => console.error(`%c${message}`, coloredConsoleStyles)
+  alert: levelIncludes(aiLoggerLevel, SeverityLevel.Alert)
+    ? (message: string) => useCustomEvent("ALERT", { message })
     : noop,
-  critical: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Critical)
-    ? (message: string) => console.error(`%c${message}`, coloredConsoleStyles)
+  critical: levelIncludes(aiLoggerLevel, SeverityLevel.Critical)
+    ? (message: string) => useCustomEvent("CRITICAL", { message })
     : noop,
-  error: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Error)
-    ? (message: string) => console.error(`%c${message}`, coloredConsoleStyles)
+  error: levelIncludes(aiLoggerLevel, SeverityLevel.Error)
+    ? (message: string) => useCustomEvent("ERROR", { message })
     : noop,
-  warning: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Warning)
-    ? (message: string) => console.warn(`%c${message}`, coloredConsoleStyles)
+  warning: levelIncludes(aiLoggerLevel, SeverityLevel.Warning)
+    ? (message: string) => useCustomEvent("WARNING", { message })
     : noop,
-  notice: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Notice)
-    ? (message: string) => console.info(`%c${message}`, coloredConsoleStyles)
+  notice: levelIncludes(aiLoggerLevel, SeverityLevel.Notice)
+    ? (message: string) => useCustomEvent("NOTICE", { message })
     : noop,
-  info: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Info)
-    ? (message: string) => console.info(`%c${message}`, coloredConsoleStyles)
+  info: levelIncludes(aiLoggerLevel, SeverityLevel.Info)
+    ? (message: string) => useCustomEvent("INFO", { message })
     : noop,
-  debug: levelIncludes(coloredConsoleLoggerLevel, SeverityLevel.Debug)
-    ? (message: string) => console.debug(`%c${message}`, coloredConsoleStyles)
+  debug: levelIncludes(aiLoggerLevel, SeverityLevel.Debug)
+    ? (message: string) => useCustomEvent("DEBUG", { message })
     : noop,
 };
 
-const childLoggers: Logger[] = [consoleLogger, coloredConsoleLogger];
+const childLoggers: Logger[] = [consoleLogger, aiLogger];
 const stackLogger: Logger = {
   emergency: (message: string) =>
     childLoggers.forEach((l) => l.emergency(message)),

@@ -20,7 +20,7 @@ const data = new Map([
 
     // Logging levels
     ["LOG_CONSOLE_LEVEL", filterUnusable("$LOG_CONSOLE_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_CONSOLE_LEVEL %>"],
-    ["LOG_COLORED_CONSOLE_LEVEL", filterUnusable("$LOG_COLORED_CONSOLE_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_COLORED_CONSOLE_LEVEL %>"],
+    ["LOG_APPLICATIONINSIGHTS_LEVEL", filterUnusable("$LOG_APPLICATIONINSIGHTS_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_APPLICATIONINSIGHTS_LEVEL %>"],
 ]);
 
 window.__SERVER_CONFIG__ = data;
