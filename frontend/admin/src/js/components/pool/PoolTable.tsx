@@ -170,12 +170,23 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
+  const { hiddenCols, initialSortBy } = useMemo(() => {
+    return {
+      hiddenCols: ["id", "description", "createdDate"],
+      initialSortBy: [
+        {
+          id: "createdDate",
+          desc: true,
+        },
+      ],
+    };
+  }, []);
 
   return (
     <Table
       data={data}
       columns={columns}
-      hiddenCols={["id", "description", "createdDate"]}
+      hiddenCols={hiddenCols}
       search={false}
       addBtn={{
         path: paths.poolCreate(),
@@ -185,12 +196,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Heading displayed above the Create Pool form.",
         }),
       }}
-      initialSortBy={[
-        {
-          id: "createdDate",
-          desc: true,
-        },
-      ]}
+      initialSortBy={initialSortBy}
     />
   );
 };
