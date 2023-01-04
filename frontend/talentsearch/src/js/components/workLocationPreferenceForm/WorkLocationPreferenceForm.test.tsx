@@ -4,14 +4,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { fakeUsers } from "@common/fakeData";
-import {
-  render,
-  screen,
-  fireEvent,
-  act,
-  waitFor,
-  axeTest,
-} from "@common/helpers/testUtils";
+import { render, screen, act, axeTest } from "@common/helpers/testUtils";
 import { User, WorkRegion } from "../../api/generated";
 import {
   WorkLocationPreferenceForm,
@@ -112,33 +105,30 @@ describe("WorkLocationPreferenceForm", () => {
   it("Can't submit unless form is valid (at least one location selected)", async () => {
     const onClick = jest.fn();
 
-    await act(async () => {
-      renderWorkLocationPreferenceForm({
-        initialData: { ...mockInitialEmptyData },
-        handleWorkLocationPreference: onClick,
-      });
+    renderWorkLocationPreferenceForm({
+      initialData: { ...mockInitialEmptyData },
+      handleWorkLocationPreference: onClick,
     });
 
-    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    await waitFor(() => {
-      expect(onClick).not.toHaveBeenCalled();
+    await act(() => {
+      screen.getByRole("button", { name: /save/i }).click();
     });
+
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it("Should submit successfully with required fields", async () => {
     const onClick = jest.fn(() => Promise.resolve(mockUser));
 
-    await act(async () => {
-      renderWorkLocationPreferenceForm({
-        initialData: { ...mockInitialData },
-        handleWorkLocationPreference: onClick,
-      });
+    renderWorkLocationPreferenceForm({
+      initialData: { ...mockInitialData },
+      handleWorkLocationPreference: onClick,
     });
 
-    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-
-    await waitFor(() => {
-      expect(onClick).toHaveBeenCalled();
+    await act(() => {
+      screen.getByRole("button", { name: /save/i }).click();
     });
+
+    expect(onClick).toHaveBeenCalled();
   });
 });
