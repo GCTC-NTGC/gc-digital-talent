@@ -247,7 +247,6 @@ export const skillKeyAndJustifications = (
   skills: Skill[],
   intl: IntlShape,
 ) => {
-
   // Iterate through experiences.
   // If the experience has a skill that's in the pool's essential and asset skills, then add it to the collection.
   const skillJustifications = experiences
@@ -256,9 +255,7 @@ export const skillKeyAndJustifications = (
       const getExperienceSkillsFromSkills = experience.skills
         ?.filter(notEmpty)
         .filter((experienceSkill) =>
-          skills.find(
-            (skill) => skill.id === experienceSkill.id,
-          ),
+          skills.find((skill) => skill.id === experienceSkill.id),
         );
       return getExperienceSkillsFromSkills?.reduce(
         (
@@ -333,21 +330,15 @@ export const skillKeyAndJustifications = (
     })
     .flatMap((justification) => justification);
 
-  const skillKeyAndJustifications = skills.reduce(
-    (accumulator, currentValue) => {
-      const { key, id: skillId } = currentValue;
-      const justifications = skillJustifications
-        ?.filter(notEmpty)
-        .filter((esj) => esj.id === skillId)
-        .map((j) => j.justification);
-      return {
-        ...accumulator,
-        [key]: newLineListOrEmptyString(justifications),
-      };
-    },
-    {},
-  );
-
-  console.log(skillKeyAndJustifications);
-  return skillKeyAndJustifications;
+  return skills.reduce((accumulator, currentValue) => {
+    const { key, id: skillId } = currentValue;
+    const justifications = skillJustifications
+      ?.filter(notEmpty)
+      .filter((esj) => esj.id === skillId)
+      .map((j) => j.justification);
+    return {
+      ...accumulator,
+      [key]: newLineListOrEmptyString(justifications),
+    };
+  }, {});
 };
