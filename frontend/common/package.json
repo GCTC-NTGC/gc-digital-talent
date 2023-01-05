@@ -1,7 +1,7 @@
 {
   "name": "@gc-digital-talent/common",
   "version": "1.0.11",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "description": "Shared components and utilities for GC Digital Talent apps",
   "scripts": {
     "tsc": "tsc --project tsconfig.json --noEmit",
