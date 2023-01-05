@@ -1935,5 +1935,9 @@
   "csLjMi": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
+  },
+  "NNFXCN": {
+    "defaultMessage": "Retiré",
+    "description": "The pool candidate's status is Removed."
   }
 }
