@@ -36,6 +36,7 @@ import {
   getCommonTableParams,
   setCommonTableParams,
   SearchState,
+  TABLE_DEFAULTS,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor, tableViewItemButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -200,12 +201,16 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
 
   const initialStateFilterInput = initialFilterInput ?? {};
   const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    initialFiltersDecoded || initialStateFilterInput,
+    initialFiltersDecoded ?? initialStateFilterInput,
   );
-  const [currentPage, setCurrentPage] = useState(initialPage || 1);
-  const [pageSize, setPageSize] = useState(initialPageSize || 10);
+  const [currentPage, setCurrentPage] = useState(
+    initialPage || TABLE_DEFAULTS.currentPage,
+  );
+  const [pageSize, setPageSize] = useState(
+    initialPageSize || TABLE_DEFAULTS.pageSize,
+  );
   const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
-    initialSortBy || {
+    initialSortBy ?? {
       column: {
         id: "createdDate",
         sortColumnName: "created_at",
@@ -214,37 +219,33 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     },
   );
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
-    initialHiddenColumns || ["telephone", "createdDate", "updatedDate"],
+    initialHiddenColumns ?? ["telephone", "createdDate", "updatedDate"],
   );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<SearchState>(
-    initialSearchState || {
-      term: "",
-      type: "",
-    },
+    initialSearchState ?? TABLE_DEFAULTS.searchState,
   );
 
   useEffect(() => {
-    const newSearchParams = setCommonTableParams(
-      new URLSearchParams(searchParams),
-      {
-        currentPage,
-        pageSize,
-        hiddenColumnIds,
-        searchState,
-        sortBy: sortingRule
-          ? {
-              column: {
-                id: sortingRule.column.id,
-                sortColumnName: sortingRule.column.sortColumnName,
-              },
-              desc: sortingRule.desc,
-            }
-          : undefined,
-      },
-    );
+    const newSearchParams = setCommonTableParams(searchParams, {
+      currentPage,
+      pageSize,
+      hiddenColumnIds,
+      searchState,
+      sortBy: sortingRule
+        ? {
+            column: {
+              id: sortingRule.column.id,
+              sortColumnName: sortingRule.column.sortColumnName,
+            },
+            desc: sortingRule.desc,
+          }
+        : undefined,
+    });
 
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, {
+      replace: true,
+    });
   }, [
     currentPage,
     pageSize,
@@ -300,7 +301,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
       encodeURIComponent(JSON.stringify(transformedData)),
     );
 
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
