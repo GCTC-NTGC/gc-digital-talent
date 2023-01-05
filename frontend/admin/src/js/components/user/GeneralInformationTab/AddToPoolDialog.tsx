@@ -196,7 +196,9 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
             description: "First section of text on the add user to pool dialog",
           })}
         </p>
-        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-font-weight="base(800)">
+          - {getFullNameHtml(user.firstName, user.lastName, intl)}
+        </p>
         <p data-h2-margin="base(x1, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage: "Choose pool:",
