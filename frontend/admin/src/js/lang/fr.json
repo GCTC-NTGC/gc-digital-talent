@@ -2300,5 +2300,13 @@
   "VCl+IZ": {
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
+  },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essentielles)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Utiles)",
+    "description": "CSV Header, Asset skill column."
   }
 }
