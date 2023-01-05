@@ -11,6 +11,7 @@ import { Input } from "@common/components/form";
 import MultiSelectV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
+import { notEmpty } from "@common/helpers/util";
 import {
   AdvertisementStatus,
   Applicant,
@@ -18,6 +19,7 @@ import {
   Pool,
   PoolCandidate,
   useCreatePoolCandidateMutation,
+  Scalars,
 } from "../../../api/generated";
 
 type FormValues = {
@@ -69,20 +71,74 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
             connect: user.id,
           },
           expiryDate: formValues.expiryDate,
+        }).catch((err) => {
+          throw err;
         }),
       );
     });
 
     Promise.allSettled(promises)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User added successfully",
-            id: "O8U5Sz",
-            description:
-              "Toast for successful add user to pool on view-user page",
-          }),
-        );
+      .then((responses) => {
+        const poolsFailed: Array<Scalars["ID"]> = [];
+        responses.forEach((res, index) => {
+          if (res.status === "rejected") {
+            const poolId = formValues.pools[index];
+            if (poolId) {
+              poolsFailed.push(poolId);
+            }
+          }
+        });
+        if (poolsFailed.length) {
+          const poolNames = poolsFailed
+            .map((id) => {
+              const pool = pools.find((p) => p.id === id);
+              if (pool) {
+                return getFullPoolAdvertisementTitle(intl, pool);
+              }
+              return undefined;
+            })
+            .filter(notEmpty);
+
+          if (poolNames.length) {
+            toast.error(
+              <>
+                {intl.formatMessage({
+                  defaultMessage: "Failed to add user to the following pools:",
+                  id: "6Y6hy9",
+                  description:
+                    "Error message displayed when an attempt to add users to known pools",
+                })}
+                <ul>
+                  {poolNames.map((poolName) => (
+                    <li key={poolName}>{poolName}</li>
+                  ))}
+                </ul>
+              </>,
+            );
+          } else {
+            toast.error(
+              intl.formatMessage({
+                defaultMessage: "Failed to add user to one or more pools",
+                id: "49Vkag",
+                description:
+                  "Error message displayed when an attempt to add users to unkown pools",
+              }),
+            );
+          }
+        }
+        // If failed is same length, we can assume
+        // none of the additions succeeded to do not
+        // show the success message
+        if (poolsFailed.length !== promises.length) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "User added successfully",
+              id: "O8U5Sz",
+              description:
+                "Toast for successful add user to pool on view-user page",
+            }),
+          );
+        }
         setOpen(false);
       })
       .catch(() => {
@@ -96,6 +152,20 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
       });
   };
   const { handleSubmit } = methods;
+
+  const poolOptions = pools
+    .filter((pool) => !currentPools.includes(pool.id))
+    .filter(
+      (pool) =>
+        pool.advertisementStatus === AdvertisementStatus.Published ||
+        pool.advertisementStatus === AdvertisementStatus.Closed,
+    )
+    .map((pool) => {
+      return {
+        value: pool.id,
+        label: getFullPoolAdvertisementTitle(intl, pool),
+      };
+    });
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -156,20 +226,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                options={pools
-                  .filter((pool) => !currentPools.includes(pool.id))
-                  .filter(
-                    (pool) =>
-                      pool.advertisementStatus ===
-                        AdvertisementStatus.Published ||
-                      pool.advertisementStatus === AdvertisementStatus.Closed,
-                  )
-                  .map((pool) => {
-                    return {
-                      value: pool.id,
-                      label: getFullPoolAdvertisementTitle(intl, pool),
-                    };
-                  })}
+                options={poolOptions}
               />
             </div>
             <p data-h2-margin="base(x1, 0, 0, 0)">
