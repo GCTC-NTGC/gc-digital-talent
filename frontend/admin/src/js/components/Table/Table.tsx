@@ -130,6 +130,11 @@ const HeaderWrapper = <T extends object>({
   );
 };
 
+const TABLE_DEFAULTS = {
+  pageSize: 10,
+  pageIndex: 0,
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
@@ -165,8 +170,8 @@ function Table<T extends Record<string, unknown>>({
       initialState: {
         hiddenColumns: initialState.hiddenColumns ?? hiddenCols,
         sortBy: initialState.sortBy ?? initialSortBy,
-        pageSize: initialState.pageSize ?? 10,
-        pageIndex: initialState.pageIndex ?? 0,
+        pageSize: initialState.pageSize ?? TABLE_DEFAULTS.pageSize,
+        pageIndex: initialState.pageIndex ?? TABLE_DEFAULTS.pageIndex,
       },
     },
     useGlobalFilter,
@@ -178,24 +183,50 @@ function Table<T extends Record<string, unknown>>({
   const methods = useForm();
 
   React.useEffect(() => {
-    setSearchParams((previous) => {
-      previous.set("pageSize", `${pageSize}`);
-      previous.set("pageIndex", `${pageIndex}`);
-      if (sortBy) {
-        const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
-        if (previous.get("sortBy") !== newSortBy) {
-          previous.set("sortBy", newSortBy);
+    setSearchParams(
+      (previous) => {
+        if (pageSize && pageSize !== TABLE_DEFAULTS.pageSize) {
+          const newPageSize = pageSize.toString();
+          if (newPageSize !== previous.get("pageSize")) {
+            previous.set("pageSize", newPageSize);
+          }
+        } else {
+          previous.delete("pageSize");
         }
-      }
-      if (hiddenColumns) {
-        const newHiddenColumns = hiddenColumns.join(",");
-        if (previous.get("hiddenColumns") !== newHiddenColumns) {
-          previous.set("hiddenColumns", newHiddenColumns);
-        }
-      }
 
-      return previous;
-    });
+        if (pageIndex && pageIndex !== TABLE_DEFAULTS.pageIndex) {
+          const newPageIndex = pageIndex.toString();
+          if (newPageIndex !== previous.get("pageIndex")) {
+            previous.set("pageIndex", newPageIndex);
+          }
+        } else {
+          previous.delete("pageIndex");
+        }
+
+        if (sortBy) {
+          const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
+          if (previous.get("sortBy") !== newSortBy) {
+            previous.set("sortBy", newSortBy);
+          }
+        } else {
+          previous.delete("sortBy");
+        }
+
+        if (hiddenColumns && hiddenColumns.length) {
+          const newHiddenColumns = hiddenColumns.join(",");
+          if (previous.get("hiddenColumns") !== newHiddenColumns) {
+            previous.set("hiddenColumns", newHiddenColumns);
+          }
+        } else {
+          previous.delete("hiddenColumns");
+        }
+
+        return previous;
+      },
+      {
+        replace: true,
+      },
+    );
   }, [pageSize, pageIndex, hiddenColumns, sortBy, setSearchParams]);
 
   return (
