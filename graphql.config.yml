@@ -5,4 +5,6 @@ projects:
       - "api/graphql/schema.graphql"
       - "api/schema-directives.graphql"
       - "api/programmatic-types.graphql"
-    documents: "frontend/**/js/**/*.graphql"
+    documents:
+      - "frontend/**/js/**/*.graphql"
+      - "apps/web/**/*.graphql"

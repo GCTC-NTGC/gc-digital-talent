@@ -35,9 +35,9 @@ To set up a local development environment, run these commands from anywhere in r
 To refresh each sub-project after they have been setup run one of the refresh scripts:
 
 - `docker-compose run --rm maintenance bash refresh_api.sh`
+- `docker-compose run --rm maintenance bash refresh_frontend.sh`
 - `docker-compose run --rm maintenance bash refresh_common.sh`
 - `docker-compose run --rm maintenance bash refresh_talentsearch.sh`
-- `docker-compose run --rm maintenance bash refresh_indigenousapprenticeship.sh`
 - `docker-compose run --rm maintenance bash refresh_admin.sh`
 
 Or refresh all of them in order:

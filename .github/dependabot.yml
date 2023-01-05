@@ -7,8 +7,16 @@ version: 2
 updates:
   # JAVASCRIPT package.json updates
 
+  # TODO: Remove as final step of #5065
   - package-ecosystem: "npm"
     directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 15
+
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "weekly"
       day: "thursday"

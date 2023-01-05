@@ -1,0 +1,22 @@
+{
+  "name": "storybook-helpers",
+  "main": "index.ts",
+  "version": "0.0.0",
+  "files": [
+    "main.js"
+  ],
+  "dependencies": {
+    "@storybook/addons": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/react": "^6.5.14",
+    "chromatic": "^6.13.1",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
+    "storybook-addon-intl": "^2.4.1",
+    "urql": "^3.0.3",
+    "wonka": "^6.1.2"
+  }
+}

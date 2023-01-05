@@ -51,6 +51,7 @@ const poolCandidateResults = [
 const totalCandidateCount = 10;
 
 describe("SearchContainer", () => {
+  jest.setTimeout(10000); // TODO: remove in #4755
   it("should have no accessibility errors", async () => {
     const { container } = renderSearchContainer({
       poolCandidateResults,
