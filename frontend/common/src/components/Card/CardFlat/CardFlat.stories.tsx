@@ -8,7 +8,11 @@ export default {
   title: "Components/Card Flat",
 } as Meta;
 
-const Spacer: React.FC = ({ children }) => (
+interface SpacerProps {
+  children: React.ReactNode;
+}
+
+const Spacer = ({ children }: SpacerProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"

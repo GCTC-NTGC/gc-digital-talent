@@ -2,9 +2,8 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import React from "react";
-
 import { render, axeTest } from "../../helpers/testUtils";
 
 import DropdownMenu from ".";
@@ -78,19 +77,25 @@ describe("DropdownMenu", () => {
     }));
 
   it("should not have accessibility errors when closed", async () => {
-    const { container } = renderDropdownMenu({});
-    await axeTest(container);
+    await act(async () => {
+      const { container } = renderDropdownMenu({});
+      await axeTest(container);
+    });
   });
 
   it("should not have accessibility errors when open", async () => {
-    const { container } = renderDropdownMenu({
-      defaultOpen: true,
+    await act(async () => {
+      const { container } = renderDropdownMenu({
+        defaultOpen: true,
+      });
+      await axeTest(container);
     });
-    await axeTest(container);
   });
 
-  it("should not render when closed", () => {
-    renderDropdownMenu({});
+  it("should not render when closed", async () => {
+    await act(() => {
+      renderDropdownMenu({});
+    });
 
     expect(
       screen.queryByRole("menu", { name: /dropdown menu/i }),
@@ -98,8 +103,10 @@ describe("DropdownMenu", () => {
   });
 
   it("should render when opened", async () => {
-    renderDropdownMenu({
-      defaultOpen: true,
+    await act(() => {
+      renderDropdownMenu({
+        defaultOpen: true,
+      });
     });
 
     expect(
@@ -108,8 +115,10 @@ describe("DropdownMenu", () => {
   });
 
   it("change value when selected", async () => {
-    renderDropdownMenu({
-      defaultOpen: true,
+    await act(() => {
+      renderDropdownMenu({
+        defaultOpen: true,
+      });
     });
 
     const radioItemTwo = await screen.findByRole("menuitemradio", {
