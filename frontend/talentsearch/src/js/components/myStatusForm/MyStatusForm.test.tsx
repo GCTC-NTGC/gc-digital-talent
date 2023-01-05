@@ -3,14 +3,7 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  axeTest,
-  act,
-} from "@common/helpers/testUtils";
+import { render, screen, axeTest, act } from "@common/helpers/testUtils";
 import { GetMyStatusQuery } from "../../api/generated";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
 import { MyStatusFormActive, MyStatusFormNull } from "./MyStatusForm.stories";
@@ -34,6 +27,7 @@ const mockEmptyData: GetMyStatusQuery | undefined = {
     __typename: "User",
     id: "11",
     jobLookingStatus: undefined,
+    isProfileComplete: true, // can't change status unless profile is complete
   },
 };
 
@@ -131,31 +125,36 @@ describe("MyStatusForm tests", () => {
     ).not.toBeInTheDocument();
   });
   test("Submit handler called whenever radio selection changes", async () => {
-    const OnClick = jest.fn();
-    await act(async () => {
-      renderMyStatusForm({
-        initialData: mockEmptyData,
-        handleMyStatus: OnClick,
-      });
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockEmptyData,
+      handleMyStatus: onClick,
     });
+    await act(() => {
+      screen
+        .getByRole("radio", {
+          name: /Actively looking -/i,
+        })
+        .click();
+    });
+    expect(onClick).toHaveBeenCalledTimes(1);
 
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /Actively looking -/i,
-      }),
-    );
-    await waitFor(() => expect(OnClick).toHaveBeenCalled());
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /Open to opportunities - /i,
-      }),
-    );
-    await waitFor(() => expect(OnClick).toHaveBeenCalled());
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /Inactive - I /i,
-      }),
-    );
-    await waitFor(() => expect(OnClick).toHaveBeenCalled());
+    await act(() => {
+      screen
+        .getByRole("radio", {
+          name: /Open to opportunities - /i,
+        })
+        .click();
+    });
+    expect(onClick).toHaveBeenCalledTimes(2);
+
+    await act(() => {
+      screen
+        .getByRole("radio", {
+          name: /Inactive - I /i,
+        })
+        .click();
+    });
+    expect(onClick).toHaveBeenCalledTimes(3);
   });
 });
