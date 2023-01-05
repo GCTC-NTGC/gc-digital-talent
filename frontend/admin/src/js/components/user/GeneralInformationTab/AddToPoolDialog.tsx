@@ -126,9 +126,9 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
             );
           }
         }
-        // If failed is same length, we can assume
-        // none of the additions succeeded to do not
-        // show the success message
+        // If failed is same length as the promises,
+        // we can assume none of the additions succeeded
+        // so, do not show the success toast
         if (poolsFailed.length !== promises.length) {
           toast.success(
             intl.formatMessage({
