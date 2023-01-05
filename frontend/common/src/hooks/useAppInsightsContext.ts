@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AppInsightsContext } from "../components/AppInsights/AppInsightsContext";
+import { AppInsightsContext } from "../components/context/AppInsightsContextProvider";
 
 const useAppInsightsContext = () => {
   const context = useContext(AppInsightsContext);

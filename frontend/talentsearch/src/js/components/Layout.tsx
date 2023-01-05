@@ -8,7 +8,7 @@ import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 
-import { AppInsightsContextProvider } from "@common/components/AppInsights/AppInsightsContext";
+import { AppInsightsContextProvider } from "@common/components/context/AppInsightsContextProvider";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 
 import Footer from "@common/components/Footer";
