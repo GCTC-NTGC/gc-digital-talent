@@ -227,6 +227,15 @@ export function getCommonTableParams<T>(
   };
 }
 
+export const TABLE_DEFAULTS = {
+  pageSize: 10,
+  currentPage: 1,
+  searchState: {
+    term: "",
+    type: "",
+  },
+};
+
 export function setCommonTableParams<T>(
   currentParams: URLSearchParams,
   {
@@ -237,27 +246,64 @@ export function setCommonTableParams<T>(
     searchState,
   }: CommonTableParams<T>,
 ) {
-  if (pageSize) {
-    currentParams.set("pageSize", `${pageSize}`);
+  if (pageSize && pageSize !== TABLE_DEFAULTS.pageSize) {
+    const newPageSize = pageSize.toString();
+    if (newPageSize !== currentParams.get("pageSize")) {
+      currentParams.set("pageSize", newPageSize);
+    }
+  } else {
+    currentParams.delete("pageSize");
   }
-  if (currentPage) {
-    currentParams.set("currentPage", `${currentPage}`);
+
+  if (currentPage && currentPage !== TABLE_DEFAULTS.currentPage) {
+    const newPage = currentPage.toString();
+    if (newPage !== currentParams.get("currentPage")) {
+      currentParams.set("currentPage", newPage);
+    }
+  } else {
+    currentParams.delete("currentPage");
   }
+
   if (hiddenColumnIds) {
-    currentParams.set("hiddenColumnIds", hiddenColumnIds.join(","));
+    const newHiddenColumns = hiddenColumnIds.join(",");
+    if (newHiddenColumns !== currentParams.get("hiddenColumnIds")) {
+      currentParams.set("hiddenColumnIds", newHiddenColumns);
+    }
+  } else {
+    currentParams.delete("hiddenColumnIds");
   }
 
   if (sortBy) {
-    const newSortBy = JSON.stringify(sortBy);
-    currentParams.set("sortBy", encodeURIComponent(newSortBy));
+    const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
+    if (newSortBy !== currentParams.get("sortBy")) {
+      currentParams.set("sortBy", newSortBy);
+    }
+  } else {
+    currentParams.delete("sortBy");
   }
 
-  if (searchState?.term) {
-    currentParams.set("searchTerm", encodeURIComponent(searchState.term));
+  if (
+    searchState?.term &&
+    searchState?.term !== TABLE_DEFAULTS.searchState.term
+  ) {
+    const newSearchTerm = encodeURIComponent(searchState.term);
+    if (newSearchTerm !== currentParams.get("searchTerm")) {
+      currentParams.set("searchTerm", newSearchTerm);
+    }
+  } else {
+    currentParams.delete("searchTerm");
   }
 
-  if (searchState?.type) {
-    currentParams.set("searchBy", encodeURIComponent(searchState.type));
+  if (
+    searchState?.type &&
+    searchState?.type !== TABLE_DEFAULTS.searchState.type
+  ) {
+    const newSearchBy = encodeURIComponent(searchState.type);
+    if (newSearchBy !== currentParams.get("searchBy")) {
+      currentParams.set("searchBy", newSearchBy);
+    }
+  } else {
+    currentParams.delete("searchBy");
   }
 
   return currentParams;
