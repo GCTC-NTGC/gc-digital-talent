@@ -3,7 +3,6 @@
 use App\Models\User;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Classification;
 use App\Models\Skill;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
@@ -28,7 +27,7 @@ class ApplicantTest extends TestCase
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
+        $newUser = new User();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
@@ -986,7 +985,8 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testStatusWeight(): void {
+    public function testStatusWeight(): void
+    {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
 
         // create candidates for each status
@@ -1492,8 +1492,8 @@ class ApplicantTest extends TestCase
             ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
 
-    public function testNullFilterEqualsUndefinedPoolCandidate() {
-
+    public function testNullFilterEqualsUndefinedPoolCandidate()
+    {
         // setup
         $owner = User::where('sub', 'ilike', 'admin@test.com')->sole();
         $pool = Pool::factory()->create([
@@ -1556,7 +1556,7 @@ class ApplicantTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'equity' => null,
-                            'hasDiploma' => null,
+                        'hasDiploma' => null,
                         'languageAbility' => null,
                         'locationPreferences' => null,
                         'operationalRequirements' => null,
