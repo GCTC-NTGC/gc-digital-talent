@@ -65,7 +65,8 @@ export const ApplicationStatusForm = ({
       return (
         value !== PoolCandidateStatus.Draft &&
         value !== PoolCandidateStatus.DraftExpired &&
-        value !== PoolCandidateStatus.Expired
+        value !== PoolCandidateStatus.Expired &&
+        value !== PoolCandidateStatus.Removed
       );
     },
   );
