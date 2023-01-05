@@ -42,12 +42,13 @@ const LanguageInformationSection: React.FunctionComponent<{
         {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Interested in:",
-                id: "TmCffZ",
-                description: "Interested in label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Interested in:",
+                  id: "TmCffZ",
+                  description: "Interested in label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "English positions",
@@ -61,12 +62,13 @@ const LanguageInformationSection: React.FunctionComponent<{
         {!lookingForEnglish && lookingForFrench && !lookingForBilingual && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Interested in:",
-                id: "TmCffZ",
-                description: "Interested in label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Interested in:",
+                  id: "TmCffZ",
+                  description: "Interested in label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "French positions",
@@ -80,12 +82,13 @@ const LanguageInformationSection: React.FunctionComponent<{
         {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Interested in:",
-                id: "TmCffZ",
-                description: "Interested in label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Interested in:",
+                  id: "TmCffZ",
+                  description: "Interested in label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "English or French positions",
@@ -99,12 +102,13 @@ const LanguageInformationSection: React.FunctionComponent<{
         {lookingForBilingual && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Interested in:",
-                id: "TmCffZ",
-                description: "Interested in label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Interested in:",
+                  id: "TmCffZ",
+                  description: "Interested in label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "Bilingual positions (English and French)",
@@ -118,13 +122,14 @@ const LanguageInformationSection: React.FunctionComponent<{
         {bilingualEvaluation && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Completed an official GoC evaluation:",
-                id: "shPV27",
-                description:
-                  "Completed a government of canada abbreviation evaluation label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Completed an official GoC evaluation:",
+                  id: "shPV27",
+                  description:
+                    "Completed a government of canada abbreviation evaluation label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(
                   getBilingualEvaluation(bilingualEvaluation),
@@ -137,14 +142,15 @@ const LanguageInformationSection: React.FunctionComponent<{
           bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Second language level (Comprehension, Written, Verbal):",
-                id: "D7Qb41",
-                description:
-                  "Evaluation results for second language, results in that order followed by a colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Second language level (Comprehension, Written, Verbal):",
+                  id: "D7Qb41",
+                  description:
+                    "Evaluation results for second language, results in that order followed by a colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {comprehensionLevel}, {writtenLevel}, {verbalLevel}
               </span>
@@ -155,13 +161,14 @@ const LanguageInformationSection: React.FunctionComponent<{
           !!estimatedLanguageAbility && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {intl.formatMessage({
-                  defaultMessage: "Second language level:",
-                  id: "q3Gl23",
-                  description:
-                    "Estimated skill in second language, followed by a colon",
-                })}
-                <br />
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Second language level:",
+                    id: "q3Gl23",
+                    description:
+                      "Estimated skill in second language, followed by a colon",
+                  })}
+                </span>
                 <span data-h2-font-weight="base(700)">
                   {estimatedLanguageAbility
                     ? intl.formatMessage(
