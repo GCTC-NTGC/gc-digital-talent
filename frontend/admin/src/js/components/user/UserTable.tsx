@@ -138,6 +138,20 @@ const languageAccessor = (
   </span>
 );
 
+const phoneAccessor = (telephone: string | null | undefined) => {
+  if (telephone) {
+    return (
+      <a
+        href={`tel:${telephone}`}
+        aria-label={telephone.replace(/.{1}/g, "$& ")}
+      >
+        {telephone}
+      </a>
+    );
+  }
+  return "";
+};
+
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
@@ -372,7 +386,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           id: "fXMsoK",
           description: "Title displayed for the User table Telephone column.",
         }),
-        accessor: (user) => user.telephone,
+        accessor: (user) => phoneAccessor(user.telephone),
         id: "telephone",
         sortColumnName: "telephone",
       },

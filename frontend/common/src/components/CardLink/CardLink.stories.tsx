@@ -20,7 +20,11 @@ const ExternalLink: React.FC = (props) => (
   </svg>
 );
 
-const Spacer: React.FC = ({ children }) => (
+interface SpacerProps {
+  children: React.ReactNode;
+}
+
+const Spacer = ({ children }: SpacerProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"

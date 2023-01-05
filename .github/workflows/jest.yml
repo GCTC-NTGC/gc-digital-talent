@@ -5,10 +5,12 @@ on:
     branches: [ main ]
     paths:
       - .github/workflows/*jest*.yml
+      - apps/**
       - frontend/**
   pull_request:
     paths:
       - .github/workflows/*jest*.yml
+      - apps/**
       - frontend/**
 
 jobs:
@@ -27,24 +29,24 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: 'frontend/.nvmrc'
+          node-version-file: './.nvmrc'
           cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          cache-dependency-path: './package-lock.json'
 
       - name: Upgrade npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Install dependencies: workspace"
-        working-directory: frontend
+        working-directory: ./
         run: npm install
 
 
       - name: "Setup: all workspaces"
-        working-directory: frontend
+        working-directory: ./
         run: |
-          npm run codegen --workspaces --if-present
-          npm run intl-compile --workspaces --if-present
+          npm run codegen
+          npm run intl-compile
 
       - name: "Run Unit Tests: all workspaces"
-        working-directory: frontend
-        run: npm run test --workspaces --if-present -- --max-workers ${{ steps.cpu-cores.outputs.count }}
+        working-directory: ./
+        run: npm run test
