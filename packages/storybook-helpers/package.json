@@ -1,5 +1,6 @@
 {
   "name": "storybook-helpers",
+  "license": "AGPL-3.0",
   "main": "index.ts",
   "version": "0.0.0",
   "files": [

@@ -2,7 +2,7 @@
   "name": "gc-digital-talent",
   "private": true,
   "author": "",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "engines": {
     "node": "16.16.0",
     "npm": ">=8.0.0"
