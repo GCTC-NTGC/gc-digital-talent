@@ -183,6 +183,11 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => null,
         ]);
+        PoolCandidate::factory()->count(1)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
+        ]);
 
         // Assert query with no pool filter will return all users, including unavailable
         $this->graphQL(
@@ -203,7 +208,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 15
+                        'total' => 16
                     ]
                 ]
             ]
@@ -234,7 +239,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
+                        'total' => 13
                     ]
                 ]
             ]
@@ -272,7 +277,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool filter, expired + available statuses
+        // Assert query with pool filter, only removed status
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -289,7 +294,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_REMOVED],
                         ]
                     ]
                 ]
@@ -298,7 +303,39 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 9
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool filter, expired + removed + available statuses
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED, ApiEnums::CANDIDATE_STATUS_REMOVED],
+                        ]
+                    ]
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
                     ]
                 ]
             ]
@@ -330,7 +367,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
+                        'total' => 13
                     ]
                 ]
             ]

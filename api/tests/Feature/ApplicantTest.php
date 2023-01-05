@@ -1202,6 +1202,14 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
         ]);
 
+        $candidateSixteen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a26',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
+        ]);
+
         // Assert candidate one DRAFT is 10
         $this->graphQL(/** @lang Graphql */ '
             query poolCandidate($id: UUID!) {
@@ -1469,6 +1477,24 @@ class ApplicantTest extends TestCase
                 "poolCandidate" => [
                     "statusWeight" => 150,
                     "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+                ]
+            ]
+        ]);
+        // Assert candidate sixteen REMOVED is 160
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateSixteen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 160,
+                    "status" => ApiEnums::CANDIDATE_STATUS_REMOVED,
                 ]
             ]
         ]);
