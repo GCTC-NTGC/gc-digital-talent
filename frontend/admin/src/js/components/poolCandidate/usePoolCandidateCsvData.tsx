@@ -27,6 +27,39 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  const essentialSkillHeaders =
+  poolAdvertisement?.essentialSkills
+      ? poolAdvertisement.essentialSkills.map((skill) => {
+          return {
+            key: skill.key,
+            label: intl.formatMessage(
+              {
+                defaultMessage: "{skillName} (Essential)",
+                id: "70z5C4",
+                description: "CSV Header, Essential skill column",
+              },
+              { skillName: skill.name[locale] },
+            ),
+          };
+        })
+      : [];
+  const nonEssentialSkillHeaders =
+  poolAdvertisement?.nonessentialSkills
+      ? poolAdvertisement.nonessentialSkills.map((skill) => {
+          return {
+            key: skill.key,
+            label: intl.formatMessage(
+              {
+                defaultMessage: "{skillName} (Asset)",
+                id: "70z5C4",
+                description: "CSV Header, Asset skill column",
+              },
+              { skillName: skill.name[locale] },
+            ),
+          };
+        })
+      : [];
+
   const headers: DownloadCsvProps["headers"] = [
     {
       key: "status",
@@ -316,6 +349,8 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
         description: "CSV Header, Skills column",
       }),
     },
+    ...essentialSkillHeaders,
+    ...nonEssentialSkillHeaders,
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
