@@ -29,6 +29,8 @@ import {
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
+  PoolAdvertisement,
+  Maybe,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
@@ -223,7 +225,10 @@ const provinceAccessor = (
 
 const PoolCandidatesTable: React.FC<{
   initialFilterInput?: PoolCandidateSearchInput;
-}> = ({ initialFilterInput }) => {
+  currentPool?: Maybe<
+    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+  >;
+}> = ({ initialFilterInput, currentPool }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
@@ -553,7 +558,7 @@ const PoolCandidatesTable: React.FC<{
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
-  const csv = usePoolCandidateCsvData(selectedCandidates);
+  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
 
   const initialFilters = useMemo(
     () => transformPoolCandidateSearchInputToFormValues(initialFilterInput),
