@@ -923,6 +923,75 @@ class PoolApplicationTest extends TestCase
         ]);
     }
 
+    public function testApplicationSubmitClosingDate(): void
+    {
+        // re-make complete user, attach pool candidate
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+
+        $newUser = User::factory()->create();
+        $newUser->email = 'admin@test.com';
+        $newUser->sub = 'admin@test.com';
+        $newUser->roles = ['ADMIN'];
+        $newUser->save();
+
+        //Closed Pool
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->subDays(1)
+        ]);
+        $newPool->essentialSkills()->sync([]);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $newUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+
+        $graphDoc = /** @lang Graphql */ '
+            mutation submitTest($id: ID!, $sig: String!) {
+                submitApplication(id: $id, signature: $sig) {
+                    submittedAt
+                }
+            }
+        ';
+
+        // assert status
+        $this->graphQL(
+            $graphDoc,
+            [
+                'id' => $newPoolCandidate->id,
+                'sig' => 'sign',
+            ]
+        )->assertJson([
+            'errors' => [[
+                'message' => ApiEnums::POOL_CANDIDATE_POOL_CLOSED,
+            ]]
+        ]);
+
+        $newPool->closing_date = Carbon::now()->addDays(1);
+        $newPool->save();
+
+        $this->graphQL(
+            $graphDoc,
+            [
+                'id' => $newPoolCandidate->id,
+                'sig' => 'sign',
+            ]
+        )->assertJson(
+            fn (AssertableJson $json) =>
+            $json->has(
+                'data',
+                fn ($json) =>
+                $json->has(
+                    'submitApplication',
+                    fn ($json) =>
+                    $json->whereType('submittedAt', 'string')
+                )
+            )
+        );
+
+    }
+
     public function testApplicationDeletion(): void
     {
         // re-make complete user, attach pool candidate
