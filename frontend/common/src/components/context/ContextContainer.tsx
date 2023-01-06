@@ -23,9 +23,9 @@ const ContextContainer: React.FC<ContextContainerProps> = ({
       <LanguageProvider messages={messages}>
         {/* <ThemeProvider> */}
         <ClientProvider>
-        <AppInsightsContextProvider>
+          <AppInsightsContextProvider>
             <AuthorizationProvider>{children}</AuthorizationProvider>
-        </AppInsightsContextProvider>
+          </AppInsightsContextProvider>
         </ClientProvider>
         {/* </ThemeProvider> */}
       </LanguageProvider>

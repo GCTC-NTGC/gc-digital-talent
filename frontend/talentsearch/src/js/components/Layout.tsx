@@ -123,61 +123,61 @@ const Layout = () => {
   }
 
   return (
-      <>
-        <Helmet>
-          <html lang={locale} />
-          <title>
-            {intl.formatMessage({
-              defaultMessage: "GC Digital Talent",
-              id: "Mz+gUV",
-              description: "Title tag for Talent Search site",
-            })}
-          </title>
-          <meta
-            name="description"
-            content={intl.formatMessage({
-              defaultMessage:
-                "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
-              id: "jRmRd+",
-              description: "Meta tag description for Talent Search site",
-            })}
-          />
-        </Helmet>
-        <a
-          href="#main"
-          data-h2-visibility="base(invisible) base:focus-visible(visible)"
-        >
+    <>
+      <Helmet>
+        <html lang={locale} />
+        <title>
           {intl.formatMessage({
-            defaultMessage: "Skip to main content",
-            id: "Srs7a4",
-            description: "Assistive technology skip link",
+            defaultMessage: "GC Digital Talent",
+            id: "Mz+gUV",
+            description: "Title tag for Talent Search site",
           })}
-        </a>
-        <div
-          className="container"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-height="base(100vh)"
-          data-h2-margin="base(0)"
-          data-h2-color="base(black) base:dark(white)"
-        >
-          <div>
-            <Header />
-            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
-          </div>
-          <main id="main">
-            <Outlet />
-          </main>
-          <div style={{ marginTop: "auto" }}>
-            <Footer />
-          </div>
-        </div>
-        <ScrollRestoration
-          getKey={(location) => {
-            return location.pathname;
-          }}
+        </title>
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            defaultMessage:
+              "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
+            id: "jRmRd+",
+            description: "Meta tag description for Talent Search site",
+          })}
         />
-      </>
+      </Helmet>
+      <a
+        href="#main"
+        data-h2-visibility="base(invisible) base:focus-visible(visible)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          id: "Srs7a4",
+          description: "Assistive technology skip link",
+        })}
+      </a>
+      <div
+        className="container"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-height="base(100vh)"
+        data-h2-margin="base(0)"
+        data-h2-color="base(black) base:dark(white)"
+      >
+        <div>
+          <Header />
+          <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+        </div>
+        <main id="main">
+          <Outlet />
+        </main>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
+      </div>
+      <ScrollRestoration
+        getKey={(location) => {
+          return location.pathname;
+        }}
+      />
+    </>
   );
 };
 
