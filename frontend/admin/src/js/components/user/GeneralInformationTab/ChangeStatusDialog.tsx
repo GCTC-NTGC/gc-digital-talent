@@ -13,6 +13,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { notEmpty } from "@common/helpers/util";
+import zipWith from "lodash/zipWith";
 import {
   AdvertisementStatus,
   Applicant,
@@ -45,23 +46,14 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
 
   const [{ fetching }, executeMutation] = useUpdatePoolCandidateMutation();
 
-  // get a list of the user's pool candidates and filter out all the nulls and maybes
+  // an array of the user's pool candidates and filter out all the nulls and maybes
   const userPoolCandidatesSafe = user.poolCandidates
     ? user.poolCandidates.filter(notEmpty).map((poolCandidate) => {
         return poolCandidate;
       })
     : [];
 
-  const userPoolCandidates = new Map(
-    userPoolCandidatesSafe.map((poolCandidate) => [
-      poolCandidate.id,
-      {
-        poolCandidate,
-        pool: poolCandidate.pool,
-      },
-    ]),
-  );
-
+  // all the user's pools by pool ID
   const userPools = new Map(
     userPoolCandidatesSafe.map((poolCandidate) => [
       poolCandidate.pool.id,
@@ -72,6 +64,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
     ]),
   );
 
+  // all the user's pool IDs
   const userPoolIds = userPoolCandidatesSafe.map(
     (poolCandidate) => poolCandidate.pool.id,
   );
@@ -90,30 +83,40 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const poolCandidateIdsToUpdate = [
-      selectedCandidate.id,
+    // we need to update the original pool candidate, and possibly additional ones from other pools
+    const poolCandidatesToUpdate = [
+      selectedCandidate,
       ...(formValues.additionalPools ?? []).map(
-        (poolId) => userPools.get(poolId)?.poolCandidate.id,
+        (poolId) => userPools.get(poolId)?.poolCandidate,
       ),
     ].filter(notEmpty);
-    const promises: Array<Promise<unknown>> = [];
-    const successfullyUpdatedPoolCandidateIds: Array<PoolCandidate["id"]> = [];
-    poolCandidateIdsToUpdate.forEach(async (poolCandidateId) => {
-      promises.push(
-        requestMutation(poolCandidateId, {
-          status: formValues.status,
-        }).then((result) =>
-          successfullyUpdatedPoolCandidateIds.push(result.id),
-        ),
-      );
+
+    // fire off all the mutations
+    const promises = poolCandidatesToUpdate.map((poolCandidate) => {
+      return requestMutation(poolCandidate.id, {
+        status: formValues.status,
+      });
     });
 
+    // wait for all the mutations to finish
     Promise.allSettled(promises)
-      .then(() => {
-        if (
-          successfullyUpdatedPoolCandidateIds.length ===
-          poolCandidateIdsToUpdate.length
-        ) {
+      .then((settledResults) => {
+        // attach the promise results to the original pool candidates that were mutated
+        const requestsWithResults = zipWith(
+          poolCandidatesToUpdate,
+          settledResults,
+          (poolCandidate, settledResult) => {
+            return {
+              poolCandidate,
+              settledResult,
+            };
+          },
+        );
+
+        const rejectedRequests = requestsWithResults.filter(
+          (r) => r.settledResult.status === "rejected",
+        );
+        if (!rejectedRequests.length) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Status updated successfully",
@@ -123,10 +126,6 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
             }),
           );
         } else {
-          const failedPoolCandidateIds = poolCandidateIdsToUpdate.filter(
-            (idToUpdate) =>
-              !successfullyUpdatedPoolCandidateIds.includes(idToUpdate),
-          );
           toast.error(
             <>
               {intl.formatMessage({
@@ -135,13 +134,11 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
                 description: "Toast for failed status update on view-user page",
               })}
               <ul>
-                {failedPoolCandidateIds.map((poolCandidateId) => (
-                  <li key={poolCandidateId}>
-                    {getFullPoolAdvertisementTitle(
-                      intl,
-                      userPoolCandidates.get(poolCandidateId)?.pool,
-                      { defaultTitle: poolCandidateId },
-                    )}
+                {rejectedRequests.map((r) => (
+                  <li key={r.poolCandidate.id}>
+                    {getFullPoolAdvertisementTitle(intl, r.poolCandidate.pool, {
+                      defaultTitle: r.poolCandidate.id,
+                    })}
                   </li>
                 ))}
               </ul>
