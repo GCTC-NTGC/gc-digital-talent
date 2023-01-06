@@ -144,13 +144,15 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       );
     });
   }
-  const newExperience = { ...experience };
-  newExperience.skills = experience?.skills?.filter(
-    (skill) =>
-      !irrelevantSkills?.find(
-        (irrelevantSkill) => irrelevantSkill.id === skill.id,
-      ),
-  );
+  const newExperience = {
+    ...experience,
+    skills: experience?.skills?.filter(
+      (skill) =>
+        !irrelevantSkills?.find(
+          (irrelevantSkill) => irrelevantSkill.id === skill.id,
+        ),
+    ),
+  };
 
   const defaultValues = newExperience
     ? queryResultToDefaultValues(experienceType, newExperience)
