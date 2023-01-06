@@ -17,7 +17,6 @@ export function createApplicant({
   email,
   sub,
   skill,
-  genericJobTitle,
   userAlias,
 }) {
   cy.createUser({
@@ -41,9 +40,6 @@ export function createApplicant({
       OperationalRequirement.OvertimeOccasional,
     ],
     positionDuration: [PositionDuration.Permanent],
-    expectedGenericJobTitles: {
-      sync: [genericJobTitle.id],
-    },
     personalExperiences: {
       create: [
         {
