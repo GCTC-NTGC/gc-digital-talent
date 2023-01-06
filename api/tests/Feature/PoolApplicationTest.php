@@ -712,7 +712,9 @@ class PoolApplicationTest extends TestCase
         $newUser->roles = ['ADMIN'];
         $newUser->save();
 
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
