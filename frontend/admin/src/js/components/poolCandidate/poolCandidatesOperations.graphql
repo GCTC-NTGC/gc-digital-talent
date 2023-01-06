@@ -333,7 +333,6 @@ mutation updatePoolCandidate(
   $poolCandidate: UpdatePoolCandidateAsAdminInput!
 ) {
   updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
-    id
     cmoIdentifier
     expiryDate
     status
