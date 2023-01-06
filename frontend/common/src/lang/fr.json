@@ -428,10 +428,6 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
-  "95OYVk": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations link section"
-  },
   "9WxeNz": {
     "defaultMessage": "Lieu de travail",
     "description": "Title of the Work Location link section"
@@ -451,10 +447,6 @@
   "B9x0ZV": {
     "defaultMessage": "Informations linguistiques ",
     "description": "Title of the Language Information link section"
-  },
-  "CEzDTC": {
-    "defaultMessage": "Modifier le rôle et le salaire",
-    "description": "Text on link to update a users role and salary expectations."
   },
   "CPRJ61": {
     "defaultMessage": "ID :",
@@ -791,10 +783,6 @@
   "tXze8h": {
     "defaultMessage": "Québec",
     "description": "Quebec selection for province or territory input"
-  },
-  "uMzeiF": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations section"
   },
   "ufSiRU": {
     "defaultMessage": "Introuvable",

@@ -50,55 +50,51 @@ describe("BrowsePoolsPage", () => {
   });
 
   it("should only show published jobs", async () => {
-    await act(async () => {
-      renderBrowsePoolsPage({
-        poolAdvertisements: [
-          // draft pools can not be returned by API query
-          publishedItJobsPool,
-          expiredItJobsPool,
-          archivedItJobsPool,
-        ],
-      });
-
-      const links = await screen.queryAllByRole("link", {
-        name: /Apply to this recruitment/i,
-      });
-
-      expect(links).toHaveLength(1);
-      expect(links[0]).toHaveAttribute(
-        "href",
-        expect.stringContaining(publishedItJobsPool.id),
-      );
-      expect(links[0]).not.toHaveAttribute(
-        "href",
-        expect.stringContaining(expiredItJobsPool.id),
-      );
-      expect(links[0]).not.toHaveAttribute(
-        "href",
-        expect.stringContaining(archivedItJobsPool.id),
-      );
+    renderBrowsePoolsPage({
+      poolAdvertisements: [
+        // draft pools can not be returned by API query
+        publishedItJobsPool,
+        expiredItJobsPool,
+        archivedItJobsPool,
+      ],
     });
+
+    const links = await screen.queryAllByRole("link", {
+      name: /Apply to this recruitment/i,
+    });
+
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining(publishedItJobsPool.id),
+    );
+    expect(links[0]).not.toHaveAttribute(
+      "href",
+      expect.stringContaining(expiredItJobsPool.id),
+    );
+    expect(links[0]).not.toHaveAttribute(
+      "href",
+      expect.stringContaining(archivedItJobsPool.id),
+    );
   });
 
   it("should only show IT jobs", async () => {
-    await act(async () => {
-      renderBrowsePoolsPage({
-        poolAdvertisements: [publishedItJobsPool, publishedExecJobsPool],
-      });
-
-      const links = await screen.queryAllByRole("link", {
-        name: /Apply to this recruitment/i,
-      });
-
-      expect(links).toHaveLength(1);
-      expect(links[0]).toHaveAttribute(
-        "href",
-        expect.stringContaining(publishedItJobsPool.id),
-      );
-      expect(links[0]).not.toHaveAttribute(
-        "href",
-        expect.stringContaining(publishedExecJobsPool.id),
-      );
+    renderBrowsePoolsPage({
+      poolAdvertisements: [publishedItJobsPool, publishedExecJobsPool],
     });
+
+    const links = await screen.queryAllByRole("link", {
+      name: /Apply to this recruitment/i,
+    });
+
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining(publishedItJobsPool.id),
+    );
+    expect(links[0]).not.toHaveAttribute(
+      "href",
+      expect.stringContaining(publishedExecJobsPool.id),
+    );
   });
 });

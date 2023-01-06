@@ -14,11 +14,7 @@ export interface InputErrorProps extends React.HTMLProps<HTMLSpanElement> {
   isVisible: boolean;
 }
 
-const InputError: React.FC<InputErrorProps> = ({
-  error,
-  isVisible,
-  ...rest
-}) => {
+const InputError = ({ error, isVisible, ...rest }: InputErrorProps) => {
   return isVisible ? (
     <span
       role="alert"
@@ -33,7 +29,7 @@ const InputError: React.FC<InputErrorProps> = ({
       aria-live="polite"
       {...rest}
     >
-      {error}
+      {error?.toString()}
     </span>
   ) : null;
 };

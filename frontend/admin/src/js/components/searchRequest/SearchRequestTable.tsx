@@ -33,6 +33,44 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
+function dateAccessor(value: Maybe<string>, intl: IntlShape) {
+  return value ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(value),
+        formatString: "PPP p",
+        intl,
+      })}
+    </span>
+  ) : null;
+}
+
+function poolsAccessor(
+  row: IRow,
+  paths: ReturnType<typeof useAdminRoutes>,
+  intl: IntlShape,
+) {
+  const pools =
+    row.original?.applicantFilter?.pools ??
+    row.original?.poolCandidateFilter?.pools;
+  const filteredPools = pools?.filter(notEmpty);
+  return filteredPools?.length ? (
+    <span>
+      {filteredPools.map(
+        (pool, index) =>
+          pool && (
+            <React.Fragment key={pool.id}>
+              <a href={paths.poolCandidateTable(pool.id)}>
+                {getFullPoolAdvertisementTitle(intl, pool)}
+              </a>
+              {index > 0 && ", "}
+            </React.Fragment>
+          ),
+      )}
+    </span>
+  ) : null;
+}
+
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
 }
@@ -88,22 +126,7 @@ export const SearchRequestTable = ({
                 .join(", ")
             : null;
         },
-        Cell: ({ row: { original } }: { row: IRow }) => {
-          const pools =
-            original?.applicantFilter?.pools ??
-            original?.poolCandidateFilter?.pools;
-          return pools?.filter(notEmpty).map(
-            (pool, index) =>
-              pool && (
-                <React.Fragment key={pool.id}>
-                  <a href={paths.poolCandidateTable(pool.id)}>
-                    {localizedTransformPoolToPosterTitle(pool)}
-                  </a>
-                  {index > 0 && ", "}
-                </React.Fragment>
-              ),
-          );
-        },
+        Cell: ({ row }: { row: IRow }) => poolsAccessor(row, paths, intl),
       },
       {
         Header: intl.formatMessage({
@@ -121,14 +144,7 @@ export const SearchRequestTable = ({
             "Title displayed on the search request table requested date column.",
         }),
         accessor: "requestedDate",
-        Cell: ({ value }) =>
-          value
-            ? formatDate({
-                date: parseDateTimeUtc(value),
-                formatString: "PPP p",
-                intl,
-              })
-            : null,
+        Cell: ({ value }) => dateAccessor(value, intl),
       },
       {
         Header: intl.formatMessage({
