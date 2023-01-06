@@ -373,15 +373,18 @@ class ApiEnums
     const POOL_CANDIDATE_EXISTS = 'APPLICATION_EXISTS';
     const POOL_CANDIDATE_POOL_NOT_PUBLISHED = 'POOL_NOT_PUBLISHED';
     const POOL_CANDIDATE_POOL_CLOSED = 'POOL_CLOSED';
+    const POOL_CANDIDATE_PROFILE_INCOMPLETE = 'PROFILE_INCOMPLETE';
 
     public static function poolCandidateErrors(): array
     {
         return [
             self::POOL_CANDIDATE_EXISTS,
             self::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
-            self::POOL_CANDIDATE_POOL_CLOSED
+            self::POOL_CANDIDATE_POOL_CLOSED,
+            self::POOL_CANDIDATE_PROFILE_INCOMPLETE
         ];
     }
+
 
     /**
      * Pool Candidate Request Statuses

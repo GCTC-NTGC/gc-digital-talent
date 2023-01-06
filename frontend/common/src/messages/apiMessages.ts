@@ -169,6 +169,12 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Message displayed when user attempts to apply to a closed pool",
   },
+  PROFILE_INCOMPLETE: {
+    defaultMessage: "Profile is incomplete",
+    id: "C/tnCE",
+    description:
+      "Message displayed when user attempts to apply to a pool with an incomplete profile",
+  },
   RATE_LIMIT: {
     defaultMessage: "Too many requests, please wait a minute and try again.",
     id: "SUYPIt",

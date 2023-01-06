@@ -37,10 +37,6 @@ final class SubmitApplication
         // grab the user that the application belongs to
         // then get the completeness method off the user model and do a throw validation
         $user = $application->user;
-        $isUserComplete = $user->getIsProfileCompleteAttribute();
-        if (!$isUserComplete) {
-            throw ValidationException::withMessages(['profile is not complete']);
-        }
 
         // grab the pool the application belongs to and then grab the (technical) essential skills off the pool in the form of an array of Ids
         $pool = $application->pool;

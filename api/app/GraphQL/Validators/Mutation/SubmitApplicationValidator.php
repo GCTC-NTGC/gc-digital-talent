@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 use Nuwave\Lighthouse\Validation\Validator;
 use App\Rules\PoolClosed;
+use App\Rules\UserProfileComplete;
 
 final class SubmitApplicationValidator extends Validator
 {
@@ -15,6 +16,7 @@ final class SubmitApplicationValidator extends Validator
     {
         return [
             //
+            'user_id' => [new UserProfileComplete],
             'pool_id' => [new PoolClosed],
             'submitted_at' => ['prohibited', 'nullable'],
         ];
