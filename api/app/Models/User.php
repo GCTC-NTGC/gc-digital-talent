@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -122,6 +123,7 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(WorkExperience::class);
     }
+
     public function getExperiencesAttribute()
     {
         $collection = collect();
