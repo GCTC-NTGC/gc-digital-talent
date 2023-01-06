@@ -40,6 +40,6 @@ class PoolClosed implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED;
+        return ApiEnums::POOL_CANDIDATE_POOL_CLOSED;
     }
 }
