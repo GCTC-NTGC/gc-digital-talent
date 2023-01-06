@@ -133,29 +133,27 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       ...crumbs,
     ];
 
-    if (experience) {
-      irrelevantSkills = experience?.skills?.filter((skill) => {
-        return (
-          !poolAdvertisement.essentialSkills?.find(
-            (essentialSkill) => essentialSkill.id === skill.id,
-          ) &&
-          !poolAdvertisement.nonessentialSkills?.find(
-            (assetSkill) => assetSkill.id === skill.id,
-          )
-        );
-      });
-      // eslint-disable-next-line no-param-reassign
-      experience.skills = experience?.skills?.filter(
-        (skill) =>
-          !irrelevantSkills?.find(
-            (irrelevantSkill) => irrelevantSkill.id === skill.id,
-          ),
+    irrelevantSkills = experience?.skills?.filter((skill) => {
+      return (
+        !poolAdvertisement.essentialSkills?.find(
+          (essentialSkill) => essentialSkill.id === skill.id,
+        ) &&
+        !poolAdvertisement.nonessentialSkills?.find(
+          (assetSkill) => assetSkill.id === skill.id,
+        )
       );
-    }
+    });
   }
+  const newExperience = { ...experience };
+  newExperience.skills = experience?.skills?.filter(
+    (skill) =>
+      !irrelevantSkills?.find(
+        (irrelevantSkill) => irrelevantSkill.id === skill.id,
+      ),
+  );
 
-  const defaultValues = experience
-    ? queryResultToDefaultValues(experienceType, experience)
+  const defaultValues = newExperience
+    ? queryResultToDefaultValues(experienceType, newExperience)
     : undefined;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
