@@ -38,11 +38,15 @@ class HasEssentialSkills implements Rule
                 SkillFamily::scopeTechnical($query);
             })->get()->pluck('id')->toArray();
 
+        if(!count($poolEssentialSkills)) {
+            return true;
+        }
+
         $userSkills = [];
         $experiences = $this->collectExperiences($value);
 
         foreach($experiences as $experience) {
-            array_merge($userSkills, $experience->skills()->pluck('skills.id')->toArray());
+            $userSkills = array_merge($userSkills, $experience->skills()->pluck('skills.id')->toArray());
         }
 
         if(!count($userSkills)) {

@@ -4,7 +4,6 @@ use App\Models\AwardExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\GenericJobTitle;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -14,6 +13,7 @@ use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Carbon\Carbon;
 
 class PoolApplicationTest extends TestCase
 {
@@ -615,7 +615,9 @@ class PoolApplicationTest extends TestCase
         $newUser->save();
 
         // pool with no essential skills
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -641,7 +643,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'profile is not complete',
+                'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
             ]]
         ]);
 
@@ -735,7 +737,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'signature field must be filled',
+                'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
             ]]
         ]);
 
@@ -796,8 +798,11 @@ class PoolApplicationTest extends TestCase
         $this->seed(SkillSeeder::class);
 
         // create a pool, attach one essential skill to it
-        $newPool = Pool::factory()->create();
-        $newPool->essentialSkills()->sync([Skill::all()->first()->id]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
+        $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
+        $newPool->essentialSkills()->sync($essentialSkills);
 
         // create complete user
         $newUser = User::factory()->create();
@@ -834,7 +839,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'a required pool skill is missing from application',
+                'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
             ]]
         ]);
 
@@ -842,7 +847,7 @@ class PoolApplicationTest extends TestCase
         $secondExperience = AwardExperience::factory()->create([
             'user_id' => $newUser->id,
         ]);
-        $secondExperience->skills()->sync($newPool->essentialSkills()->pluck('pools_essential_skills.skill_id')->toArray());
+        $secondExperience->skills()->sync($essentialSkills);
 
         // assert user can now submit application as the essential skill is present
         $this->graphQL(
@@ -884,7 +889,9 @@ class PoolApplicationTest extends TestCase
         $newUser->roles = ['ADMIN'];
         $newUser->save();
 
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
