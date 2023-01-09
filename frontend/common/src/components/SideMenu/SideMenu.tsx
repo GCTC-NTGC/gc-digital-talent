@@ -60,7 +60,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
         >
           <RemoveScroll
             enabled={isSmallScreen && isOpen}
-            data-h2-background-color="base(light.dt-secondary)"
+            data-h2-background-color="base(dt-secondary.light)"
             data-h2-overflow="base(auto)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"

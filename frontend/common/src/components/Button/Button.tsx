@@ -34,7 +34,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(all, 1px, solid, dt-primary)",
       "data-h2-background-color":
-        "base(dt-primary) base:hover(dark.dt-primary)",
+        "base(dt-primary) base:hover(dt-primary.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
@@ -45,8 +45,8 @@ export const colorMap: Record<
     inline: {
       "data-h2-border": "base(all, 1px, solid, transparent)",
       "data-h2-background-color":
-        "base(transparent) base:focus-visible(light.dt-primary.15)",
-      "data-h2-color": "base(dt-primary) base:focus-visible(dark.dt-primary)",
+        "base(transparent) base:focus-visible(dt-primary.light.15)",
+      "data-h2-color": "base(dt-primary) base:focus-visible(dt-primary.dark)",
     },
     tableHeader: {},
   },
@@ -77,19 +77,19 @@ export const colorMap: Record<
   },
   cta: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-accent)",
-      "data-h2-background-color": "base(dark.dt-accent)",
+      "data-h2-border": "base(all, 1px, solid, dt-accent.dark)",
+      "data-h2-background-color": "base(dt-accent.dark)",
       "data-h2-color": "base(dt-black)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-accent)",
-      "data-h2-background-color": "base(light.dt-accent.10)",
-      "data-h2-color": "base(dark.dt-accent)",
+      "data-h2-border": "base(all, 1px, solid, dt-accent.dark)",
+      "data-h2-background-color": "base(dt-accent.light.10)",
+      "data-h2-color": "base(dt-accent.dark)",
     },
     inline: {
       "data-h2-border": "base(all, 1px, solid, transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dark.dt-accent)",
+      "data-h2-color": "base(dt-accent.dark)",
     },
     tableHeader: {},
   },
@@ -137,7 +137,7 @@ export const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, ia-primary)",
-      "data-h2-background-color": "base(light.ia-primary.10)",
+      "data-h2-background-color": "base(ia-primary.light.10)",
       "data-h2-color": "base(ia-primary)",
     },
     inline: {
@@ -155,7 +155,7 @@ export const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, ia-secondary)",
-      "data-h2-background-color": "base(light.ia-secondary.10)",
+      "data-h2-background-color": "base(ia-secondary.light.10)",
       "data-h2-color": "base(ia-secondary)",
     },
     inline: {

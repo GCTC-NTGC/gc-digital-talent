@@ -190,7 +190,7 @@ const Combobox = ({
             data-h2-radius="base(input)"
             data-h2-width="base(100%)"
             {...(readOnly && {
-              "data-h2-background-color": "base(light.dt-gray)",
+              "data-h2-background-color": "base(dt-gray.light)",
             })}
           />
           <Actions
@@ -240,7 +240,7 @@ const Combobox = ({
                     data-h2-gap="base(x.25, 0)"
                     {...(active
                       ? {
-                          "data-h2-background-color": "base(light.dt-gray)",
+                          "data-h2-background-color": "base(dt-gray.light)",
                         }
                       : {
                           "data-h2-background-color": "base(white)",

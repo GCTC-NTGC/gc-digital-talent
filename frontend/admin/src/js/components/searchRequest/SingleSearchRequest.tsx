@@ -50,7 +50,7 @@ const ManagerInfo: React.FunctionComponent<{
             "Heading for the manager info section of the single search request view.",
         })}
       </Heading>
-      <div data-h2-background-color="base(lightest.dt-gray)">
+      <div data-h2-background-color="base(dt-gray.lightest)">
         <div data-h2-padding="base(x1)">
           <div
             data-h2-flex-grid="base(stretch, x1, 0)"
@@ -257,7 +257,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         </Heading>
         <div
           data-h2-padding="base(x1)"
-          data-h2-background-color="base(lightest.dt-gray)"
+          data-h2-background-color="base(dt-gray.lightest)"
         >
           <SearchRequestFilters filters={abstractFilter} />
           <div

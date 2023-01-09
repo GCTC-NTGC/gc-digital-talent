@@ -13,7 +13,7 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-border": "base(left, .5rem, solid, dt-secondary)",
   },
   cta: {
-    "data-h2-border": "base(left, .5rem, solid, dark.dt-accent)",
+    "data-h2-border": "base(left, .5rem, solid, dt-accent.dark)",
   },
   white: {
     "data-h2-border": "base(left, .5rem, solid, dt-white)",
