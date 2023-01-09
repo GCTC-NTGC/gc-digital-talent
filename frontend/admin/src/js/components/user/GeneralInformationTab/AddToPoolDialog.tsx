@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import zipWith from "lodash/zipWith";
 
 import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
@@ -19,7 +20,6 @@ import {
   Pool,
   PoolCandidate,
   useCreatePoolCandidateMutation,
-  Scalars,
 } from "../../../api/generated";
 
 type FormValues = {
@@ -49,6 +49,9 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
     }
   });
 
+  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
+
   const requestMutation = async (values: CreatePoolCandidateAsAdminInput) => {
     const result = await executeMutation({ poolCandidate: values });
     if (result.data?.createPoolCandidateAsAdmin) {
@@ -60,76 +63,41 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const promises: Array<ReturnType<typeof requestMutation>> = [];
-    await formValues.pools.forEach(async (poolId) => {
-      promises.push(
-        requestMutation({
-          pool: {
-            connect: poolId,
-          },
-          user: {
-            connect: user.id,
-          },
-          expiryDate: formValues.expiryDate,
-        }).catch((err) => {
-          throw err;
-        }),
-      );
+    const poolsToUpdate = formValues.pools
+      .map((poolId) => poolMap.get(poolId))
+      .filter(notEmpty);
+
+    const promises = poolsToUpdate.map((pool) => {
+      return requestMutation({
+        pool: {
+          connect: pool?.id,
+        },
+        user: {
+          connect: user.id,
+        },
+        expiryDate: formValues.expiryDate,
+      }).catch((err) => {
+        throw err;
+      });
     });
 
     Promise.allSettled(promises)
-      .then((responses) => {
-        const poolsFailed: Array<Scalars["ID"]> = [];
-        responses.forEach((res, index) => {
-          if (res.status === "rejected") {
-            const poolId = formValues.pools[index];
-            if (poolId) {
-              poolsFailed.push(poolId);
-            }
-          }
-        });
-        if (poolsFailed.length) {
-          const poolNames = poolsFailed
-            .map((id) => {
-              const pool = pools.find((p) => p.id === id);
-              if (pool) {
-                return getFullPoolAdvertisementTitle(intl, pool);
-              }
-              return undefined;
-            })
-            .filter(notEmpty);
+      .then((settledResults) => {
+        const requestsWithResults = zipWith(
+          poolsToUpdate,
+          settledResults,
+          (pool, settledResult) => {
+            return {
+              pool,
+              settledResult,
+            };
+          },
+        );
+        const rejectedRequests = requestsWithResults.filter(
+          (r) => r.settledResult.status === "rejected",
+        );
 
-          if (poolNames.length) {
-            toast.error(
-              <>
-                {intl.formatMessage({
-                  defaultMessage: "Failed to add user to the following pools:",
-                  id: "6Y6hy9",
-                  description:
-                    "Error message displayed when an attempt to add users to known pools",
-                })}
-                <ul>
-                  {poolNames.map((poolName) => (
-                    <li key={poolName}>{poolName}</li>
-                  ))}
-                </ul>
-              </>,
-            );
-          } else {
-            toast.error(
-              intl.formatMessage({
-                defaultMessage: "Failed to add user to one or more pools",
-                id: "49Vkag",
-                description:
-                  "Error message displayed when an attempt to add users to unkown pools",
-              }),
-            );
-          }
-        }
-        // If failed is same length as the promises,
-        // we can assume none of the additions succeeded
-        // so, do not show the success toast
-        if (poolsFailed.length !== promises.length) {
+        if (!rejectedRequests.length) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "User added successfully",
@@ -137,6 +105,24 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
               description:
                 "Toast for successful add user to pool on view-user page",
             }),
+          );
+        } else {
+          toast.error(
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Failed to add user to the following pools:",
+                id: "6Y6hy9",
+                description:
+                  "Error message displayed when an attempt to add users to known pools",
+              })}
+              <ul>
+                {rejectedRequests.map((rejected) => (
+                  <li key={rejected.pool.id}>
+                    {getFullPoolAdvertisementTitle(intl, rejected.pool)}
+                  </li>
+                ))}
+              </ul>
+            </>,
           );
         }
         setOpen(false);
@@ -154,7 +140,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const { handleSubmit } = methods;
 
   const poolOptions = pools
-    .filter((pool) => !currentPools.includes(pool.id))
+    // .filter((pool) => !currentPools.includes(pool.id))
     .filter(
       (pool) =>
         pool.advertisementStatus === AdvertisementStatus.Published ||
