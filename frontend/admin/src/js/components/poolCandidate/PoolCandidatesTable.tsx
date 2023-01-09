@@ -320,7 +320,9 @@ const PoolCandidatesTable: React.FC<{
       },
     );
 
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, {
+      replace: true,
+    });
   }, [
     currentPage,
     pageSize,
@@ -409,7 +411,9 @@ const PoolCandidatesTable: React.FC<{
       encodeURIComponent(JSON.stringify(transformedData)),
     );
 
-    setSearchParams(newSearchParams);
+    setSearchParams(newSearchParams, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
