@@ -218,7 +218,7 @@ const Combobox = ({
           data-h2-max-height="base(24rem)"
           data-h2-position="base(absolute)"
           data-h2-location="base(100%, 0, auto, 0)"
-          data-h2-overflow="base(inherit auto)"
+          data-h2-overflow="base(visible auto)"
           as={noOptions ? "div" : "ul"}
         >
           {noOptions ? (
