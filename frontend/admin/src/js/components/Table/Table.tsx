@@ -228,7 +228,15 @@ function Table<T extends Record<string, unknown>>({
         replace: true,
       },
     );
-  }, [pageSize, pageIndex, hiddenColumns, sortBy, setSearchParams]);
+  }, [
+    pageSize,
+    pageIndex,
+    hiddenColumns,
+    sortBy,
+    setSearchParams,
+    initialSortBy,
+    hiddenCols,
+  ]);
 
   return (
     <div>
