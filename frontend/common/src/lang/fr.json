@@ -1924,6 +1924,10 @@
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
   },
+  "NNFXCN": {
+    "defaultMessage": "Retiré",
+    "description": "The pool candidate's status is Removed."
+  },
   "z3QvIv": {
     "defaultMessage": "Outres compétences",
     "description": "Title that appears for skills not in one of the other categories on the users profile."

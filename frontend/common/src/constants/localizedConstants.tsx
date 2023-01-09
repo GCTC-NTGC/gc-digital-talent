@@ -575,6 +575,11 @@ export const poolCandidateStatuses = defineMessages({
     id: "XTw9Me",
     description: "The pool candidate's status is Expired.",
   },
+  [PoolCandidateStatus.Removed]: {
+    defaultMessage: "Removed",
+    id: "NNFXCN",
+    description: "The pool candidate's status is Removed.",
+  },
 });
 
 export const getPoolCandidateStatus = (
