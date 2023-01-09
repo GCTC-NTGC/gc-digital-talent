@@ -55,6 +55,18 @@ function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
   );
 }
 
+function dateAccessor(value: Maybe<string>, intl: IntlShape) {
+  return value ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(value),
+        formatString: "PPP p",
+        intl,
+      })}
+    </span>
+  ) : null;
+}
+
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
@@ -156,14 +168,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed on the Pool table Date Created column",
         }),
         accessor: "createdDate",
-        Cell: ({ value }) =>
-          value
-            ? formatDate({
-                date: parseDateTimeUtc(value),
-                formatString: "PPP p",
-                intl,
-              })
-            : null,
+        Cell: ({ value }) => dateAccessor(value, intl),
       },
     ],
     [editUrlRoot, intl, paths, locale],

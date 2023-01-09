@@ -6,10 +6,6 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
       email
       firstName
       lastName
-      expectedClassifications {
-        group
-        level
-      }
       acceptedOperationalRequirements
       isWoman
       hasDisability

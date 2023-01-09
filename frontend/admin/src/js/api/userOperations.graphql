@@ -80,18 +80,6 @@ mutation CreateUser($user: CreateUserInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }
@@ -152,18 +140,6 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }
@@ -226,18 +202,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }

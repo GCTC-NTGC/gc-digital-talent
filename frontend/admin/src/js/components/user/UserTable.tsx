@@ -55,10 +55,6 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -95,10 +91,6 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    classifications:
-      input?.applicantFilter?.expectedClassifications
-        ?.filter(notEmpty)
-        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -134,6 +126,20 @@ const languageAccessor = (
     {language ? intl.formatMessage(getLanguage(language as string)) : ""}
   </span>
 );
+
+const phoneAccessor = (telephone: string | null | undefined) => {
+  if (telephone) {
+    return (
+      <a
+        href={`tel:${telephone}`}
+        aria-label={telephone.replace(/.{1}/g, "$& ")}
+      >
+        {telephone}
+      </a>
+    );
+  }
+  return "";
+};
 
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
@@ -312,7 +318,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           id: "fXMsoK",
           description: "Title displayed for the User table Telephone column.",
         }),
-        accessor: (user) => user.telephone,
+        accessor: (user) => phoneAccessor(user.telephone),
         id: "telephone",
         sortColumnName: "telephone",
       },
