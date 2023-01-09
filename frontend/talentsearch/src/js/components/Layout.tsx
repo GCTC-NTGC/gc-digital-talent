@@ -159,7 +159,7 @@ const Layout = () => {
       </Helmet>
       <a
         href="#main"
-        data-h2-visibility="base(invisible) base:focus-visible(visible)"
+        data-h2-visibility="base(invisible) base:focus-visible(revealed)"
       >
         {intl.formatMessage({
           defaultMessage: "Skip to main content",
