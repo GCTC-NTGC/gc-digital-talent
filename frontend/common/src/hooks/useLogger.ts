@@ -2,7 +2,7 @@
 
 import { SeverityLevel, levelIncludes } from "../helpers/loggingUtils";
 import { getLoggingLevel } from "../helpers/runtimeVariable";
-import useCustomEvent from "./useCustomEvent";
+import useAppInsightsCustomEvent from "./useAppInsightsCustomEvent";
 
 export interface Logger {
   emergency: (message: string) => void;
@@ -56,28 +56,28 @@ const consoleLogger: Logger = {
 const aiLoggerLevel = getLoggingLevel("LOG_APPLICATIONINSIGHTS_LEVEL");
 const aiLogger: Logger = {
   emergency: levelIncludes(aiLoggerLevel, SeverityLevel.Emergency)
-    ? (message: string) => useCustomEvent("EMERGENCY", { message })
+    ? (message: string) => useAppInsightsCustomEvent("EMERGENCY", { message })
     : noop,
   alert: levelIncludes(aiLoggerLevel, SeverityLevel.Alert)
-    ? (message: string) => useCustomEvent("ALERT", { message })
+    ? (message: string) => useAppInsightsCustomEvent("ALERT", { message })
     : noop,
   critical: levelIncludes(aiLoggerLevel, SeverityLevel.Critical)
-    ? (message: string) => useCustomEvent("CRITICAL", { message })
+    ? (message: string) => useAppInsightsCustomEvent("CRITICAL", { message })
     : noop,
   error: levelIncludes(aiLoggerLevel, SeverityLevel.Error)
-    ? (message: string) => useCustomEvent("ERROR", { message })
+    ? (message: string) => useAppInsightsCustomEvent("ERROR", { message })
     : noop,
   warning: levelIncludes(aiLoggerLevel, SeverityLevel.Warning)
-    ? (message: string) => useCustomEvent("WARNING", { message })
+    ? (message: string) => useAppInsightsCustomEvent("WARNING", { message })
     : noop,
   notice: levelIncludes(aiLoggerLevel, SeverityLevel.Notice)
-    ? (message: string) => useCustomEvent("NOTICE", { message })
+    ? (message: string) => useAppInsightsCustomEvent("NOTICE", { message })
     : noop,
   info: levelIncludes(aiLoggerLevel, SeverityLevel.Info)
-    ? (message: string) => useCustomEvent("INFO", { message })
+    ? (message: string) => useAppInsightsCustomEvent("INFO", { message })
     : noop,
   debug: levelIncludes(aiLoggerLevel, SeverityLevel.Debug)
-    ? (message: string) => useCustomEvent("DEBUG", { message })
+    ? (message: string) => useAppInsightsCustomEvent("DEBUG", { message })
     : noop,
 };
 
