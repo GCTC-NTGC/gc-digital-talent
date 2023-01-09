@@ -132,7 +132,7 @@ type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "base(dt-linear)",
+    "data-h2-background": "base(dt-linear)",
     "data-h2-color": "base(dt-white)",
   },
   "ts-secondary": {
@@ -140,11 +140,11 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-linear-secondary)",
+    "data-h2-background": "base(ia-linear-secondary)",
     "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "base(ia-secondary)",
+    "data-h2-background": "base(ia-secondary)",
     "data-h2-color": "base(ia-white)",
   },
 };
