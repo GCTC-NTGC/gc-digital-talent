@@ -274,7 +274,7 @@ export const CreateAccountForm: React.FunctionComponent<
               <div
                 data-h2-margin="base(x2, 0)"
                 data-h2-padding="base(x2, 0)"
-                data-h2-border="base(top, 1px, solid, light.dt-gray)"
+                data-h2-border="base(top, 1px, solid, dt-gray.light)"
                 data-h2-display="base(flex)"
                 data-h2-justify-content="base(flex-end)"
               >

@@ -188,7 +188,7 @@ export const WorkLocationPreferenceForm: React.FC<
                     "Explanation text for Location exemptions field in work location preference form",
                 })}
               </p>
-              <p data-h2-color="base(dark.dt-gray)">
+              <p data-h2-color="base(dt-gray.dark)">
                 {intl.formatMessage({
                   defaultMessage:
                     "E.g.: You want to be considered for the Quebec region, but not for Montréal.",

@@ -56,7 +56,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
       <ul
         data-h2-margin="base(x.5, 0, x1, 0)"
         data-h2-padding="base(0, 0, 0, x1)"
-        data-h2-color="base(dark.dt-gray)"
+        data-h2-color="base(dt-gray.dark)"
         data-h2-font-style="base(italic)"
       >
         <li>
