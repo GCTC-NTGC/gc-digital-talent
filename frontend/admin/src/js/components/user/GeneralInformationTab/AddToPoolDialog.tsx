@@ -140,7 +140,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const { handleSubmit } = methods;
 
   const poolOptions = pools
-    // .filter((pool) => !currentPools.includes(pool.id))
+    .filter((pool) => !currentPools.includes(pool.id))
     .filter(
       (pool) =>
         pool.advertisementStatus === AdvertisementStatus.Published ||
