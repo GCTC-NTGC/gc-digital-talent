@@ -320,7 +320,7 @@ const Home: React.FunctionComponent = () => {
                       "First paragraph what will you learn at the program",
                   })}
                 </p>
-                <div data-h2-visibility="base(visible) l-tablet(invisible)">
+                <div data-h2-visibility="base(revealed) l-tablet(invisible)">
                   <CTAButtons />
                 </div>
               </div>

@@ -19,6 +19,7 @@
   "modes": {
     "dark": {
       "automatic": true,
+      "automatic_modifiers": true,
       "method": "toggle"
     }
   },
@@ -30,8 +31,8 @@
   },
   "logging": {
     "logs": false,
-    "timers": false,
-    "verbose": false
+    "timers": true,
+    "verbose": true
   },
   "media": {
     "base_key": "base",
