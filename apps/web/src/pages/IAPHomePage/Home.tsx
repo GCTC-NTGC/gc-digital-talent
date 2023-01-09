@@ -41,7 +41,7 @@ const Home: React.FunctionComponent = () => {
    */
   return (
     <motion.div
-      data-h2-overflow="base(hidden, visible)"
+      data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

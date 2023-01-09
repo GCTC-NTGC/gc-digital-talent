@@ -15,7 +15,7 @@ const StyledOverlay = React.forwardRef<
     data-h2-position="base(fixed)"
     data-h2-background-color="base(black.85)"
     data-h2-location="base(0)"
-    data-h2-overflow="base(inherit, auto)"
+    data-h2-overflow="base(inherit auto)"
     style={{ placeItems: "center", zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
