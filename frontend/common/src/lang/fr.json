@@ -1927,5 +1927,13 @@
   "NNFXCN": {
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
+  },
+  "z3QvIv": {
+    "defaultMessage": "Outres compétences",
+    "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "00lloL": {
+    "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
+    "description": "Text that appears during an application to explain skills appearing missing from their profile."
   }
 }
