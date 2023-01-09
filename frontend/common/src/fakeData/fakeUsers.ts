@@ -13,7 +13,6 @@ import {
   Pool,
   PoolCandidate,
   WorkRegion,
-  SalaryRange,
   CmoAsset,
   AwardExperience,
   CommunityExperience,
@@ -133,17 +132,10 @@ const generateUser = (
       faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       ),
-    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
-      Object.values(SalaryRange),
-    ),
-    expectedClassifications:
-      faker.helpers.arrayElements<Classification>(classifications),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
     cmoAssets: faker.helpers.arrayElements<CmoAsset>(cmoAssets),
-    expectedGenericJobTitles:
-      faker.helpers.arrayElements<GenericJobTitle>(genericJobTitles),
     poolCandidates,
 
     experiences: [
