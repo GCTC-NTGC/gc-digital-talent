@@ -58,7 +58,7 @@ jobs:
         env:
           MERGE_STORYBOOKS: true
         with:
-          projectToken: 87148152bdff
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.
           # We use this setting because we're not relying on UI Tests at the
           # moment, and want the GitHub status check in PRs (for "UI Tests") to
