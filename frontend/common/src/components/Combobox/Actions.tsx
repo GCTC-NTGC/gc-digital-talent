@@ -19,7 +19,7 @@ const layoutStyles = {
 const buttonStyles = {
   "data-h2-background-color": "base(transparent) base:hover(dt-gray.lightest)",
   "data-h2-border":
-    "base(all, 2px, solid, transparent) base:focus-visible(all, 2px, solid, tm-blue)",
+    "base(2px solid transparent) base:focus-visible(2px solid tm-blue)",
   "data-h2-radius": "base(input)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-outline": "base(none)",

@@ -91,7 +91,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
         {!isFormActive && (
           <div
             data-h2-color="base(dt-primary)"
-            data-h2-border="base(all, 1px, solid, dt-primary.light)"
+            data-h2-border="base(1px solid dt-primary.light)"
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(input)"

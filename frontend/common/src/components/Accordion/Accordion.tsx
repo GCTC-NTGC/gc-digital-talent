@@ -26,9 +26,9 @@ const Item = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
-    data-h2-border="
-      base(left, x.5, solid, dt-secondary)
-      base:selectors[[data-state='open']](left, x.5, solid, dt-primary)"
+    data-h2-border-left="
+      base(x.5 solid dt-secondary)
+      base:selectors[[data-state='open']](x.5 solid dt-primary)"
     data-h2-margin="base(x.25, 0)"
     data-h2-shadow="base(l)"
     data-h2-radius="base(0px, s, s, 0px)"

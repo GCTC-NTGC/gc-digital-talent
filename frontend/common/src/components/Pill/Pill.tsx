@@ -27,48 +27,48 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-primary.dark)",
+      "data-h2-border": "base(1px solid dt-primary.dark)",
       "data-h2-background-color": "base(dt-primary)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-primary.dark)",
+      "data-h2-border": "base(1px solid dt-primary.dark)",
       "data-h2-background-color": "base(dt-primary.light.10)",
       "data-h2-color": "base(dt-primary.dark)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary.dark)",
+      "data-h2-border": "base(1px solid dt-secondary.dark)",
       "data-h2-background-color": "base(dt-secondary.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary.dark)",
+      "data-h2-border": "base(1px solid dt-secondary.dark)",
       "data-h2-background-color": "base(dt-secondary.light.10)",
       "data-h2-color": "base(dt-secondary.dark)",
     },
   },
   blue: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, tm-blue.dark)",
+      "data-h2-border": "base(1px solid tm-blue.dark)",
       "data-h2-background-color": "base(tm-blue.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, tm-blue.dark)",
+      "data-h2-border": "base(1px solid tm-blue.dark)",
       "data-h2-background-color": "base(tm-blue.light.10)",
       "data-h2-color": "base(tm-blue.dark)",
     },
   },
   green: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, tm-green.dark)",
+      "data-h2-border": "base(1px solid tm-green.dark)",
       "data-h2-background-color": "base(tm-green.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, tm-green.dark)",
+      "data-h2-border": "base(1px solid tm-green.dark)",
       "data-h2-background-color": "base(tm-green.light.10)",
       "data-h2-color": "base(tm-green.dark)",
     },
@@ -76,24 +76,24 @@ const colorMap: Record<
   neutral: {
     solid: {
       /* not very visible - should probably be fixed before using */
-      "data-h2-border": "base(all, 1px, solid, dt-gray.dark)",
+      "data-h2-border": "base(1px solid dt-gray.dark)",
       "data-h2-background-color": "base(dt-gray.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-gray.dark)",
+      "data-h2-border": "base(1px solid dt-gray.dark)",
       "data-h2-background-color": "base(dt-gray.10)",
       "data-h2-color": "base(dt-gray.dark)",
     },
   },
   error: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-error.dark)",
+      "data-h2-border": "base(1px solid dt-error.dark)",
       "data-h2-background-color": "base(dt-error.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-error.dark)",
+      "data-h2-border": "base(1px solid dt-error.dark)",
       "data-h2-background-color": "base(dt-error.light.10)",
       "data-h2-color": "base(dt-black.dark)",
     },

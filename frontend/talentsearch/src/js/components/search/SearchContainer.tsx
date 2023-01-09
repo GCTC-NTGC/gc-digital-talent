@@ -115,7 +115,7 @@ const ResultsDisplay = ({
       data-h2-shadow="base(m)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border="base(left, x1, solid, dt-gray.dark)"
+      data-h2-border-left="base(x1 solid dt-gray.dark)"
     >
       <p>
         {intl.formatMessage({

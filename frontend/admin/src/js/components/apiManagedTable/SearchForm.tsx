@@ -114,7 +114,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="base(all, 1px, solid, dt-secondary)"
+        data-h2-border="base(1px solid dt-secondary)"
         data-h2-background-color="base(dt-white)"
         data-h2-padding="base(x.25, x.5)"
         data-h2-margin-left="base(0)"

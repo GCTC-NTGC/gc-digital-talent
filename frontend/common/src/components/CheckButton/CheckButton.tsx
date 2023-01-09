@@ -6,10 +6,10 @@ import "./check-button.css";
 
 const borderMap = {
   black: {
-    "data-h2-border": "base(all, 1px, solid, dt-black)",
+    "data-h2-border": "base(1px solid dt-black)",
   },
   white: {
-    "data-h2-border": "base(all, 1px, solid, dt-gray.light)",
+    "data-h2-border": "base(1px solid dt-gray.light)",
   },
 };
 

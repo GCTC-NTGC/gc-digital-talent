@@ -9,7 +9,7 @@ const commonStyles = {
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
-  "data-h2-border": "base(bottom, 1px, solid, dt-white.10)",
+  "data-h2-border-bottom": "base(1px solid dt-white.10)",
   "data-h2-color": "base(dt-white)",
   "data-h2-width": "base(100%)",
   "data-h2-text-align": "base(left)",

@@ -58,7 +58,7 @@ const ManagerInfo: React.FunctionComponent<{
           >
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -86,7 +86,7 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -114,7 +114,7 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -262,7 +262,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border="base(top, 1px, solid, dt-gray)"
+            data-h2-border-top="base(1px solid dt-gray)"
             data-h2-margin="base(x1, 0, 0, 0)"
           >
             <FilterBlock

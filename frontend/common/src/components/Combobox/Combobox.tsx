@@ -211,7 +211,7 @@ const Combobox = ({
         </div>
         <ComboboxPrimitive.Options
           data-h2-background-color="base(white)"
-          data-h2-border="base(all, 2px, solid, dt-gray)"
+          data-h2-border="base(2px solid dt-gray)"
           data-h2-shadow="base(l)"
           data-h2-padding="base(x.5)"
           data-h2-radius="base(input)"
