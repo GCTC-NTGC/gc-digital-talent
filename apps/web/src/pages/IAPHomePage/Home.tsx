@@ -56,7 +56,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-flex-direction="base(column)"
       >
         <div
-          data-h2-background-color="base(ia-primary-dark-to-transparent)"
+          data-h2-background="base(ia-primary-dark-to-transparent)"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
