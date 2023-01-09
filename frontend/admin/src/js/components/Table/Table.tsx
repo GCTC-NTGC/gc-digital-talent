@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement } from "react";
+import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 
 import {
@@ -203,7 +204,7 @@ function Table<T extends Record<string, unknown>>({
           previous.delete("pageIndex");
         }
 
-        if (sortBy) {
+        if (sortBy && !isEqual(sortBy, initialSortBy)) {
           const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
           if (previous.get("sortBy") !== newSortBy) {
             previous.set("sortBy", newSortBy);
@@ -212,7 +213,7 @@ function Table<T extends Record<string, unknown>>({
           previous.delete("sortBy");
         }
 
-        if (hiddenColumns && hiddenColumns.length) {
+        if (hiddenColumns && !isEqual(hiddenCols, hiddenColumns)) {
           const newHiddenColumns = hiddenColumns.join(",");
           if (previous.get("hiddenColumns") !== newHiddenColumns) {
             previous.set("hiddenColumns", newHiddenColumns);
