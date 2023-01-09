@@ -17,10 +17,10 @@ const ai = new ApplicationInsights({
     enableAutoRouteTracking: true,
     autoTrackPageVisitTime: true,
     disableFetchTracking: false,
+    connectionString: aiConnectionString,
   },
 });
 if (aiConnectionString) {
-  ai.config.connectionString = aiConnectionString;
   ai.loadAppInsights();
 }
 export default (Component: ComponentType<unknown>) =>
