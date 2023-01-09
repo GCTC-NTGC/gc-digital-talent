@@ -59,7 +59,7 @@ const RequestPage = () => {
             data-h2-shadow="base(m)"
             data-h2-padding="base(x1) p-tablet(x2)"
             data-h2-position="base(relative)"
-            data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
+            data-h2-location="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
           >
             <CreateRequest
               applicantFilter={applicantFilter as ApplicantFilterInput}

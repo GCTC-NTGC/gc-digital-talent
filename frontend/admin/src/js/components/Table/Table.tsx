@@ -112,7 +112,7 @@ const HeaderWrapper = <T extends object>({
         title: undefined, // Title is unnecessary
       })}
       type="button"
-      data-h2-offset="base(0)"
+      data-h2-location="base(0)"
       data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
       data-h2-color="base(dt-white)"
       data-h2-display="base(flex)"

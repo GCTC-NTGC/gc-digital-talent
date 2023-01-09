@@ -50,7 +50,7 @@ const Actions = ({
       data-h2-display="base(flex)"
       data-h2-gap="base(x.1, 0)"
       data-h2-position="base(absolute)"
-      data-h2-offset="base(x.25, x.25, x.25, auto)"
+      data-h2-location="base(x.25, x.25, x.25, auto)"
     >
       {fetching && (
         <span aria-live="polite" {...layoutStyles}>

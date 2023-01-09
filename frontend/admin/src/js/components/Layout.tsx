@@ -25,7 +25,7 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   <div
     data-h2-visibility="base(visible) l-tablet(hidden)"
     data-h2-position="base(fixed)"
-    data-h2-offset="base(auto, x.25, x.25, auto)"
+    data-h2-location="base(auto, x.25, x.25, auto)"
     style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
