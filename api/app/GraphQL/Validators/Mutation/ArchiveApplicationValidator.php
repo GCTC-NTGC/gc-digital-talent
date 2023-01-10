@@ -16,11 +16,12 @@ final class ArchiveApplicationValidator extends Validator
     {
         return [
             // application status check, must be one of these to be archived see issue #3660
-            'pool_candidate_status' => [ Rule::in([
+            'pool_candidate_status' => [Rule::in([
                 ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
                 ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
                 ApiEnums::CANDIDATE_STATUS_EXPIRED,
-                ]) ],
+                ApiEnums::CANDIDATE_STATUS_REMOVED,
+            ])],
             'archived_at' => ['prohibited', 'nullable'],
         ];
     }

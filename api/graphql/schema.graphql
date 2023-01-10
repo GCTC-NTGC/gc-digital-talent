@@ -380,6 +380,7 @@ enum PoolCandidateStatus {
   PLACED_TERM
   PLACED_INDETERMINATE
   EXPIRED
+  REMOVED
 }
 
 enum SecurityStatus {

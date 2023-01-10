@@ -45,7 +45,7 @@ interface SectionWithPoolsProps {
   pools: Pool[];
 }
 
-const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
+const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
   const intl = useIntl();
   const routes = useAdminRoutes();
 
@@ -122,6 +122,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   <ChangeStatusDialog
                     selectedCandidate={candidate}
                     user={user}
+                    pools={pools}
                   />
                 </td>
                 <td
@@ -316,7 +317,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             "Title of the 'Pool status' section of the view-user page",
         })}
       </Heading>
-      <PoolStatusTable user={user} />
+      <PoolStatusTable user={user} pools={pools} />
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Add user to pool",
