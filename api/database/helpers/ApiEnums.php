@@ -136,6 +136,7 @@ class ApiEnums
     const CANDIDATE_STATUS_PLACED_TERM = 'PLACED_TERM';
     const CANDIDATE_STATUS_PLACED_INDETERMINATE = 'PLACED_INDETERMINATE';
     const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
+    const CANDIDATE_STATUS_REMOVED = 'REMOVED';
 
     public static function candidateStatuses(): array
     {
@@ -155,6 +156,7 @@ class ApiEnums
             self::CANDIDATE_STATUS_PLACED_TERM,
             self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
             self::CANDIDATE_STATUS_EXPIRED,
+            self::CANDIDATE_STATUS_REMOVED,
         ];
     }
 

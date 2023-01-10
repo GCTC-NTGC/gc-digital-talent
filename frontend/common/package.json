@@ -57,6 +57,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
+    "@microsoft/applicationinsights-react-js": "^3.4.0",
+    "@microsoft/applicationinsights-web": "^2.8.9",
     "@radix-ui/react-accordion": "^1.0.1",
     "@radix-ui/react-alert-dialog": "^1.0.2",
     "@radix-ui/react-collapsible": "^1.0.1",

@@ -10,6 +10,7 @@ export const canBeArchived = (
 ): boolean => {
   return status
     ? [
+        PoolCandidateStatus.Removed,
         PoolCandidateStatus.Expired,
         PoolCandidateStatus.ScreenedOutApplication,
         PoolCandidateStatus.ScreenedOutAssessment,

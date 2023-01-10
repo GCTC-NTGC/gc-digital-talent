@@ -37,6 +37,7 @@ export const borderKeyMap: Record<PoolCandidateStatus, BorderMapKey> = {
   [PoolCandidateStatus.ScreenedOutApplication]: "dt-gray",
   [PoolCandidateStatus.ScreenedOutAssessment]: "dt-gray",
   [PoolCandidateStatus.Expired]: "dt-gray",
+  [PoolCandidateStatus.Removed]: "dt-gray",
 };
 
 export const statusSortMap: Record<PoolCandidateStatus, number> = {
@@ -55,4 +56,5 @@ export const statusSortMap: Record<PoolCandidateStatus, number> = {
   [PoolCandidateStatus.ScreenedOutApplication]: 13,
   [PoolCandidateStatus.ScreenedOutAssessment]: 14,
   [PoolCandidateStatus.Expired]: 15,
+  [PoolCandidateStatus.Removed]: 16,
 };

@@ -209,6 +209,7 @@ const MissingSkills = ({
       {missingOptionalSkills.length ? (
         <MissingSkillsBlock
           data-h2-background-color="base(dt-primary.light.10)"
+          data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "primary", mode: "outline" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
@@ -236,6 +237,39 @@ const MissingSkills = ({
           addedSkills={addedSkills}
         />
       ) : null}
+      <div
+        data-h2-display="base(flex)"
+        data-h2-padding="base(x1)"
+        data-h2-radius="base(rounded)"
+        data-h2-background-color="base(dt-primary.light.10)"
+      >
+        <span data-h2-margin="base(0, x1, 0, 0)">
+          <InformationCircleIcon style={{ width: "1.2rem" }} />
+        </span>
+        <div>
+          <Heading
+            level={headingLevel}
+            size="h6"
+            data-h2-margin="base(0, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Other skills",
+              id: "z3QvIv",
+              description:
+                "Title that appears for skills not in one of the other categories on the users profile.",
+            })}
+          </Heading>
+          <p data-h2-margin="base(x.5, 0, x.25, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Skills unrelated to this application will be hidden during the initial assessment of your application but will always be visible on your profile.",
+              id: "00lloL",
+              description:
+                "Text that appears during an application to explain skills appearing missing from their profile.",
+            })}
+          </p>
+        </div>
+      </div>
     </>
   );
 };
