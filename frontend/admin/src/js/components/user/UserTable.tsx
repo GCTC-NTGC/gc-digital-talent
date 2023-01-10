@@ -34,8 +34,6 @@ import {
   handleColumnHiddenChange,
   rowSelectionColumn,
   handleRowSelectedChange,
-  getCommonTableParams,
-  setCommonTableParams,
   SearchState,
   TABLE_DEFAULTS,
 } from "../apiManagedTable/basicTableHelpers";
@@ -175,10 +173,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
 const defaultState = {
   currentPage: TABLE_DEFAULTS.currentPage,
   pageSize: TABLE_DEFAULTS.pageSize,
-  searchState: {
-    term: "",
-    type: "",
-  },
+  searchState: TABLE_DEFAULTS.searchState,
   hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
   sortBy: {
     column: {
@@ -217,26 +212,34 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     ...defaultState,
     filters: initialStateFilterInput,
   });
+  const {
+    pageSize,
+    currentPage,
+    sortBy: sortingRule,
+    hiddenColumnIds,
+    searchState,
+    filters: userFilterInput,
+  } = tableState;
 
-  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    tableState.filters ?? initialStateFilterInput,
-  );
-  const [currentPage, setCurrentPage] = useState(
-    tableState.currentPage || defaultState.currentPage,
-  );
-  const [pageSize, setPageSize] = useState(
-    tableState.currentPage || defaultState.pageSize,
-  );
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
-    tableState.sortBy ?? defaultState.sortBy,
-  );
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
-    tableState.hiddenColumnIds ?? defaultState.hiddenColumnIds,
-  );
+  // const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
+  //   tableState.filters ?? initialStateFilterInput,
+  // );
+  // const [currentPage, setCurrentPage] = useState(
+  //   tableState.currentPage || defaultState.currentPage,
+  // );
+  // const [pageSize, setPageSize] = useState(
+  //   tableState.currentPage || defaultState.pageSize,
+  // );
+  // const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
+  //   tableState.sortBy ?? defaultState.sortBy,
+  // );
+  // const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
+  //   tableState.hiddenColumnIds ?? defaultState.hiddenColumnIds,
+  // );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
-  const [searchState, setSearchState] = useState<SearchState>(
-    tableState.searchState ?? defaultState.searchState,
-  );
+  // const [searchState, setSearchState] = useState<SearchState>(
+  //   tableState.searchState ?? defaultState.searchState,
+  // );
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
@@ -271,7 +274,6 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setUserFilterInput(transformedData);
     setTableState({
       ...tableState,
       filters: transformedData,
@@ -478,17 +480,11 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   );
 
   const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setTableState({
-      ...tableState,
-      pageSize: newPageSize,
-    });
+    setTableState({ pageSize: newPageSize });
   };
 
   const handleCurrentPageChange = (newCurrentPage: number) => {
-    setCurrentPage(newCurrentPage);
     setTableState({
-      ...tableState,
       currentPage: newCurrentPage,
     });
   };
@@ -496,9 +492,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const handleSortingRuleChange = (
     newSortingRule: SortingRule<Date> | undefined,
   ) => {
-    setSortingRule(newSortingRule);
     setTableState({
-      ...tableState,
       sortBy: newSortingRule,
     });
   };
@@ -510,15 +504,12 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     term: string | undefined;
     type: string | undefined;
   }) => {
-    const newSearchState = {
-      term: term ?? "",
-      type: type ?? "",
-    };
-    setCurrentPage(1);
-    setSearchState(newSearchState);
     setTableState({
-      ...tableState,
-      searchState: newSearchState,
+      currentPage: 1,
+      searchState: {
+        term: term ?? defaultState.searchState.term,
+        type: type ?? defaultState.searchState.type,
+      },
     });
   };
 
@@ -541,7 +532,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             type,
           });
         }}
-        initialSearchState={searchState}
+        initialSearchState={searchState ?? defaultState.searchState}
         columns={columns}
         searchBy={[
           {
@@ -570,18 +561,23 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           },
         ]}
         onColumnHiddenChange={(event) => {
+          const setHiddenColumnIds = (newCols: string[]) => {
+            setTableState({
+              hiddenColumnIds: newCols,
+            });
+          };
+
           const newHiddenColumnIds = handleColumnHiddenChange(
             allColumnIds,
-            hiddenColumnIds,
+            hiddenColumnIds ?? [],
             setHiddenColumnIds,
             event,
           );
           setTableState({
-            ...tableState,
             hiddenColumnIds: newHiddenColumnIds,
           });
         }}
-        hiddenColumnIds={hiddenColumnIds}
+        hiddenColumnIds={hiddenColumnIds ?? []}
         filterComponent={
           <UserTableFilterDialog
             onSubmit={handleFilterSubmit}
@@ -597,7 +593,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             columns={columns}
             onSortingRuleChange={handleSortingRuleChange}
             sortingRule={sortingRule}
-            hiddenColumnIds={hiddenColumnIds}
+            hiddenColumnIds={hiddenColumnIds ?? []}
           />
         </Pending>
         <TableFooter

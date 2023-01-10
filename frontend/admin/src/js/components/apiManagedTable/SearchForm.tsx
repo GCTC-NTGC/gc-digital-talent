@@ -27,10 +27,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
       : undefined;
 
   const [column, setColumn] = React.useState<SearchColumn | undefined>(
-    initialColumn || undefined,
+    initialColumn,
   );
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    initialData?.term || undefined,
+    initialData?.term,
   );
   const showDropdown = searchBy && searchBy.length;
 
@@ -52,12 +52,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
     setColumn(searchBy?.find((item) => item.value === col));
     onChange(searchTerm, col);
   };
-
-  React.useEffect(() => {
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-  }, [debouncedChangeHandler]);
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",

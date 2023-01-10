@@ -109,8 +109,8 @@ export function handleRowSelectedChange<T>(
 }
 
 export interface SearchState {
-  term: string;
-  type: string;
+  term?: string;
+  type?: string;
 }
 
 // Information about the sorting order of a table

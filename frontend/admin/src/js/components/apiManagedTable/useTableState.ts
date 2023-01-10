@@ -13,7 +13,7 @@ export interface CommonTableState<T> {
 }
 
 interface TableState<T, F> extends CommonTableState<T> {
-  filters: F;
+  filters?: F;
 }
 
 type DefaultState<T, F> = Partial<TableState<T, F>>;
@@ -63,6 +63,14 @@ const setString = (
   defaultValue?: string,
 ) => {
   const prevValue = params.get(key);
+
+  console.log({
+    newValue,
+    defaultValue,
+    prevValue,
+    preNotEquals: prevValue !== newValue,
+    defaultNotEquals: newValue !== defaultValue,
+  });
 
   if (!prevValue || prevValue !== newValue) {
     if (newValue && newValue !== defaultValue) {
@@ -115,7 +123,41 @@ const useTableState = <T, F>(
     ? JSON.parse(decodeURIComponent(filtersEncoded))
     : undefined;
 
-  const setTableState = (newState: TableState<T, F>) => {
+  const tableState = useMemo(
+    () => ({
+      currentPage: currentPageParam
+        ? parseInt(currentPageParam, 10)
+        : defaultState.currentPage,
+      pageSize: pageSizeParam
+        ? parseInt(pageSizeParam, 10)
+        : defaultState.pageSize,
+      hiddenColumnIds: hiddenColumnsParam
+        ? hiddenColumnsParam.split(",")
+        : defaultState.hiddenColumnIds,
+      sortBy: sortByParam ?? defaultState.sortBy,
+      searchState: {
+        term: searchTermParam ?? defaultState.searchState?.term,
+        type: searchByParam ?? defaultState.searchState?.type,
+      },
+      filters: filtersParam ?? defaultState.filters,
+    }),
+    [
+      currentPageParam,
+      filtersParam,
+      hiddenColumnsParam,
+      pageSizeParam,
+      searchByParam,
+      searchTermParam,
+      sortByParam,
+      defaultState,
+    ],
+  );
+
+  const setTableState = (newState: DefaultState<T, F>) => {
+    const mergedState = {
+      ...tableState,
+      ...newState,
+    };
     const {
       pageSize,
       currentPage,
@@ -123,7 +165,7 @@ const useTableState = <T, F>(
       searchState,
       filters,
       sortBy,
-    } = newState;
+    } = mergedState;
     setSearchParams(
       (previous) => {
         let newParams = new URLSearchParams(previous);
@@ -176,33 +218,6 @@ const useTableState = <T, F>(
       },
     );
   };
-
-  const tableState = useMemo(
-    () => ({
-      currentPage: currentPageParam
-        ? parseInt(currentPageParam, 10)
-        : undefined,
-      pageSize: pageSizeParam ? parseInt(pageSizeParam, 10) : undefined,
-      hiddenColumnIds: hiddenColumnsParam
-        ? hiddenColumnsParam.split(",")
-        : undefined,
-      sortBy: sortByParam,
-      searchState: {
-        term: searchTermParam || "",
-        type: searchByParam || "",
-      },
-      filters: filtersParam,
-    }),
-    [
-      currentPageParam,
-      filtersParam,
-      hiddenColumnsParam,
-      pageSizeParam,
-      searchByParam,
-      searchTermParam,
-      sortByParam,
-    ],
-  );
 
   return [tableState, setTableState];
 };
