@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.3",
-    "@hydrogen-css/hydrogen": "2.0.0-beta.36",
+    "@hydrogen-css/hydrogen": "2.0.0-beta.37",
     "eslint-config-custom": "*",
     "prettier": "^2.8.1",
     "turbo": "^1.6.3"
