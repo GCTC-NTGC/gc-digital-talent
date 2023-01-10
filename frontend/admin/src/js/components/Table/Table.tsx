@@ -145,8 +145,8 @@ function Table<T extends Record<string, unknown>>({
   filterColumns = true,
   search = true,
   pagination = true,
-  hiddenCols = [],
-  initialSortBy = [],
+  hiddenCols,
+  initialSortBy,
 }: TableProps<T>): ReactElement {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialState = useInitialTableState(searchParams);
@@ -169,8 +169,8 @@ function Table<T extends Record<string, unknown>>({
       columns,
       data,
       initialState: {
-        hiddenColumns: initialState.hiddenColumns ?? hiddenCols,
-        sortBy: initialState.sortBy ?? initialSortBy,
+        hiddenColumns: initialState.hiddenColumns ?? hiddenCols ?? [],
+        sortBy: initialState.sortBy ?? initialSortBy ?? [],
         pageSize: initialState.pageSize ?? TABLE_DEFAULTS.pageSize,
         pageIndex: initialState.pageIndex ?? TABLE_DEFAULTS.pageIndex,
       },
