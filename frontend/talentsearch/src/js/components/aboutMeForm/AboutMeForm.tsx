@@ -34,6 +34,8 @@ import profileMessages from "../profile/profileMessages";
 export type FormValues = Pick<
   User,
   | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
   | "currentProvince"
   | "currentCity"
   | "telephone"
@@ -73,6 +75,18 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       id: "D8IMp7",
       description:
         "Legend text for required language preference in About Me form",
+    }),
+    preferredLanguageForInterview: intl.formatMessage({
+      defaultMessage: "Language preference for interviews",
+      id: "D8IMp7",
+      description:
+        "Legend text for required language preference for interviews in About Me form",
+    }),
+    preferredLanguageForExam: intl.formatMessage({
+      defaultMessage: "Language preference for exams",
+      id: "D8IMp7",
+      description:
+        "Legend text for required language preference for exams in About Me form",
     }),
     currentProvince: intl.formatMessage({
       defaultMessage: "Current province or territory",
@@ -121,6 +135,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
+    preferredLanguageForInterview: data?.preferredLanguageForInterview,
+    preferredLanguageForExam: data?.preferredLanguageForExam,
     currentProvince: data?.currentProvince,
     currentCity: data?.currentCity,
     telephone: data?.telephone,
@@ -255,6 +271,28 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               idPrefix="required-lang-preferences"
               legend={labelMap.preferredLang}
               name="preferredLang"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+             <RadioGroup
+              id="preferredLanguageForInterview"
+              idPrefix="required-lang-preferences"
+              legend={labelMap.preferredLanguageForInterview}
+              name="preferredLanguageForInterview"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+             <RadioGroup
+              id="preferredLanguageForExam"
+              idPrefix="required-lang-preferences"
+              legend={labelMap.preferredLanguageForExam}
+              name="preferredLanguageForExam"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={enumToOptions(Language).map(({ value }) => ({
                 value,

@@ -8,6 +8,8 @@ query GetViewUserData($id: UUID!) {
     citizenship
     armedForcesStatus
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     currentProvince
     currentCity
     jobLookingStatus

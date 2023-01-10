@@ -12,6 +12,8 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -341,6 +343,8 @@ input CreateUserInput {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -1322,6 +1326,8 @@ input UpdateUserAsAdminInput {
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -1366,6 +1372,8 @@ input UpdateUserAsUserInput {
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -1414,6 +1422,8 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus

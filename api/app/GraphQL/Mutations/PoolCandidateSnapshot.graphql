@@ -10,7 +10,8 @@ query getProfile($userId: ID!) {
     email
     telephone
     preferredLang
-    currentProvince
+    preferredLanguageForInterview
+    preferredLanguageForExam
     currentCity
     citizenship
     armedForcesStatus
