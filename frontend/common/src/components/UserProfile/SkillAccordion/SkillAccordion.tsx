@@ -36,7 +36,7 @@ export interface SkillAccordionProps {
 /**
  * @param skillsArray - array of skills attached to experience
  * @param accordionSkill - single skill that is the focus of a skill accordion
- * @returns justification for the skill that matches the accordion skill
+ * @returns justification for the skill that matches the accordion skill or return an empty string
  */
 const grabSkillJustification = (
   skillsArray: Skill[],
@@ -46,9 +46,13 @@ const grabSkillJustification = (
   const specificSkill = skillsArray.filter(
     (skillIterator) => skillIterator.id === accordionSkill.id,
   );
-  const justification = specificSkill[0].experienceSkillRecord?.details
-    ? specificSkill[0].experienceSkillRecord.details
-    : "";
+  // guarding against possible undefined
+  const justification =
+    specificSkill[0] &&
+    specificSkill[0]?.experienceSkillRecord &&
+    specificSkill[0].experienceSkillRecord?.details
+      ? specificSkill[0].experienceSkillRecord.details
+      : "";
   return justification;
 };
 
