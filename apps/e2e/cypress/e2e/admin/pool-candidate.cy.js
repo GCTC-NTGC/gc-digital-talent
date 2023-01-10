@@ -123,12 +123,60 @@ describe("Pool Candidates", () => {
   });
 
   it("should update pool candidate status with optional fields", () => {
+    // have a unique ID to track the test objects with
+    const uniqueTestId = Date.now().valueOf();
+    cy.log(`Test run ${uniqueTestId}`);
+
+    // create a test user to attach test candidates to
+    cy.loginByRole("admin");
+    cy.getMe()
+      .its("id")
+      .then((adminUserId) => {
+        cy.get("@testGenericJobTitle").then((genericJobTitle) => {
+          cy.get("@testSkill").then((skill) => {
+            // This user must have the entire profile completed to be able to apply to a pool
+            createApplicant({
+              email: `cypress.user.${uniqueTestId}@example.org`,
+              sub: `cypress.sub.${uniqueTestId}`,
+              skill,
+              genericJobTitle,
+              userAlias: "testUser",
+            });
+
+            // create, update, and publish a new pool advertisement for testing matching
+            cy.get("@testClassification").then((classification) => {
+              createAndPublishPoolAdvertisement({
+                adminUserId,
+                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                classification,
+                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+              });
+            });
+          });
+        });
+      });
+
+    // use new test user to submit an application
+    cy.get("@testUser").then((testUser) => {
+      cy.loginBySubject(testUser.sub);
+      cy.getMe().then((testUser) => {
+        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
+          cy.createApplication(testUser.id, poolAdvertisement.id).then(
+            (poolCandidate) => {
+              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+                .its("id")
+                .as("poolCandidateId");
+            },
+          );
+        });
+      });
+    });
+
     loginAndGoToPoolsPage();
 
     cy.wait("@gqlgetPoolsQuery");
 
-    cy.findAllByRole("link", { name: /view candidates/i })
-      .eq(0)
+    cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
