@@ -152,23 +152,27 @@ export function handleColumnHiddenChange<T>(
   hiddenColumnIds: IdType<T>[],
   setHiddenColumnIds: (ids: IdType<T>[]) => void,
   { columnId, setHidden }: ColumnHiddenEvent<T>,
-): void {
+): IdType<T>[] {
+  let newHiddenColumnIds: IdType<T>[] = [];
   if (columnId && setHidden) {
     // column ID is provided, add column to hidden list
-    setHiddenColumnIds([...hiddenColumnIds, columnId]);
+    newHiddenColumnIds = [...hiddenColumnIds, columnId];
   }
   if (columnId && !setHidden) {
     // column ID is provided, remove column from hidden list
-    setHiddenColumnIds(hiddenColumnIds.filter((id) => id !== columnId));
+    newHiddenColumnIds = hiddenColumnIds.filter((id) => id !== columnId);
   }
   if (!columnId && setHidden) {
     // column ID not provided, add all columns to hidden list
-    setHiddenColumnIds([...allColumnIds]);
+    newHiddenColumnIds = [...allColumnIds];
   }
   if (!columnId && !setHidden) {
     // column ID not provided, remove all columns from hidden list
-    setHiddenColumnIds([]);
+    newHiddenColumnIds = [];
   }
+
+  setHiddenColumnIds(newHiddenColumnIds);
+  return newHiddenColumnIds;
 }
 
 export function useDebounce<T>(value: T, delay: number): T {

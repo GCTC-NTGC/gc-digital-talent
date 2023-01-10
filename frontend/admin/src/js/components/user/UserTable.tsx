@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
@@ -25,6 +25,7 @@ import {
   useSelectedUsersQuery,
 } from "../../api/generated";
 import BasicTable from "../apiManagedTable/BasicTable";
+import useTableState from "../apiManagedTable/useTableState";
 import {
   ColumnsOf,
   SortingRule,
@@ -170,88 +171,58 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
     </span>
   );
 };
+
+const defaultState = {
+  currentPage: TABLE_DEFAULTS.currentPage,
+  pageSize: TABLE_DEFAULTS.pageSize,
+  searchState: {
+    term: "",
+    type: "",
+  },
+  hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
+  sortBy: {
+    column: {
+      id: "createdDate",
+      sortColumnName: "created_at",
+    },
+    desc: false,
+  },
+  filters: {},
+};
+
 type UserTableProps = {
   initialFilterInput?: UserFilterInput;
 };
+
 export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const {
-    currentPage: initialPage,
-    pageSize: initialPageSize,
-    hiddenColumnIds: initialHiddenColumns,
-    sortBy: initialSortBy,
-    searchState: initialSearchState,
-  } = getCommonTableParams(searchParams);
+  const initialStateFilterInput = initialFilterInput ?? defaultState.filters;
+  const [tableState, setTableState] = useTableState({
+    ...defaultState,
+    filters: initialStateFilterInput,
+  });
 
-  const initialFiltersEncoded = searchParams.get("filters");
-  const initialFiltersDecoded = initialFiltersEncoded
-    ? JSON.parse(decodeURIComponent(initialFiltersEncoded))
-    : undefined;
-
-  const initialStateFilterInput = initialFilterInput ?? {};
   const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    initialFiltersDecoded ?? initialStateFilterInput,
+    tableState.filters ?? initialStateFilterInput,
   );
   const [currentPage, setCurrentPage] = useState(
-    initialPage || TABLE_DEFAULTS.currentPage,
+    tableState.currentPage || defaultState.currentPage,
   );
   const [pageSize, setPageSize] = useState(
-    initialPageSize || TABLE_DEFAULTS.pageSize,
+    tableState.currentPage || defaultState.pageSize,
   );
   const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
-    initialSortBy ?? {
-      column: {
-        id: "createdDate",
-        sortColumnName: "created_at",
-      },
-      desc: false,
-    },
+    tableState.sortBy ?? defaultState.sortBy,
   );
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
-    initialHiddenColumns ?? ["telephone", "createdDate", "updatedDate"],
+    tableState.hiddenColumnIds ?? defaultState.hiddenColumnIds,
   );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<SearchState>(
-    initialSearchState ?? TABLE_DEFAULTS.searchState,
+    tableState.searchState ?? defaultState.searchState,
   );
-
-  useEffect(() => {
-    const newSearchParams = setCommonTableParams(searchParams, {
-      currentPage,
-      pageSize,
-      hiddenColumnIds,
-      searchState,
-      sortBy: sortingRule
-        ? {
-            column: {
-              id: sortingRule.column.id,
-              sortColumnName: sortingRule.column.sortColumnName,
-            },
-            desc: sortingRule.desc,
-          }
-        : undefined,
-    });
-
-    setSearchParams(newSearchParams, {
-      replace: true,
-    });
-  }, [
-    currentPage,
-    pageSize,
-    hiddenColumnIds,
-    searchParams,
-    setSearchParams,
-    sortingRule,
-    sortingRule?.desc,
-    sortingRule?.column?.id,
-    sortingRule?.column?.sortColumnName,
-    searchState,
-    searchState.term,
-    searchState.type,
-  ]);
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
@@ -287,14 +258,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
     setUserFilterInput(transformedData);
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set(
-      "filters",
-      encodeURIComponent(JSON.stringify(transformedData)),
-    );
-
-    setSearchParams(newSearchParams, {
-      replace: true,
+    setTableState({
+      ...tableState,
+      filters: transformedData,
     });
   };
 
@@ -497,6 +463,51 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     [initialFilterInput],
   );
 
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setTableState({
+      ...tableState,
+      pageSize: newPageSize,
+    });
+  };
+
+  const handleCurrentPageChange = (newCurrentPage: number) => {
+    setCurrentPage(newCurrentPage);
+    setTableState({
+      ...tableState,
+      currentPage: newCurrentPage,
+    });
+  };
+
+  const handleSortingRuleChange = (
+    newSortingRule: SortingRule<Date> | undefined,
+  ) => {
+    setSortingRule(newSortingRule);
+    setTableState({
+      ...tableState,
+      sortBy: newSortingRule,
+    });
+  };
+
+  const handleSearchStateChange = ({
+    term,
+    type,
+  }: {
+    term: string | undefined;
+    type: string | undefined;
+  }) => {
+    const newSearchState = {
+      term: term ?? "",
+      type: type ?? "",
+    };
+    setCurrentPage(1);
+    setSearchState(newSearchState);
+    setTableState({
+      ...tableState,
+      searchState: newSearchState,
+    });
+  };
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -511,10 +522,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           term: string | undefined,
           type: string | undefined,
         ) => {
-          setCurrentPage(1);
-          setSearchState({
-            term: term ?? "",
-            type: type ?? "",
+          handleSearchStateChange({
+            term,
+            type,
           });
         }}
         initialSearchState={searchState}
@@ -545,14 +555,18 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             value: "phone",
           },
         ]}
-        onColumnHiddenChange={(event) =>
-          handleColumnHiddenChange(
+        onColumnHiddenChange={(event) => {
+          const newHiddenColumnIds = handleColumnHiddenChange(
             allColumnIds,
             hiddenColumnIds,
             setHiddenColumnIds,
             event,
-          )
-        }
+          );
+          setTableState({
+            ...tableState,
+            hiddenColumnIds: newHiddenColumnIds,
+          });
+        }}
         hiddenColumnIds={hiddenColumnIds}
         filterComponent={
           <UserTableFilterDialog
@@ -567,15 +581,15 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             labelledBy="user-table-heading"
             data={filteredData}
             columns={columns}
-            onSortingRuleChange={setSortingRule}
+            onSortingRuleChange={handleSortingRuleChange}
             sortingRule={sortingRule}
             hiddenColumnIds={hiddenColumnIds}
           />
         </Pending>
         <TableFooter
           paginatorInfo={data?.usersPaginated?.paginatorInfo}
-          onCurrentPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
+          onCurrentPageChange={handleCurrentPageChange}
+          onPageSizeChange={handlePageSizeChange}
           onPrint={handlePrint}
           csv={{
             ...csv,
