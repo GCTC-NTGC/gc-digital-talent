@@ -38,7 +38,6 @@ final class SubmitApplication
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
         $application->expiry_date = $expiryDate;
-        $application->signature = $args['signature'];
         $success = $application->save();
 
         ApplicationSubmitted::dispatchIf($success, $application);
