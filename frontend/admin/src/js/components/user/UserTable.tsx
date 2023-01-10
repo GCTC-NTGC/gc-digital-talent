@@ -207,11 +207,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
-  const initialStateFilterInput = initialFilterInput ?? defaultState.filters;
-  const [tableState, setTableState] = useTableState({
-    ...defaultState,
-    filters: initialStateFilterInput,
-  });
+  const [tableState, setTableState] = useTableState<Data, UserFilterInput>(
+    defaultState,
+  );
   const {
     pageSize,
     currentPage,
@@ -274,10 +272,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setTableState({
-      ...tableState,
-      filters: transformedData,
-    });
+    setTableState({ filters: transformedData });
   };
 
   useEffect(() => {
@@ -475,8 +470,8 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const csv = useUserCsvData(selectedApplicants);
 
   const initialFilters = useMemo(
-    () => transformUserFilterInputToFormValues(initialFilterInput),
-    [initialFilterInput],
+    () => transformUserFilterInputToFormValues(userFilterInput),
+    [userFilterInput],
   );
 
   const handlePageSizeChange = (newPageSize: number) => {
@@ -513,6 +508,12 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     });
   };
 
+  const setHiddenColumnIds = (newCols: string[]) => {
+    setTableState({
+      hiddenColumnIds: newCols,
+    });
+  };
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -532,7 +533,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             type,
           });
         }}
-        initialSearchState={searchState ?? defaultState.searchState}
+        initialSearchState={searchState}
         columns={columns}
         searchBy={[
           {
@@ -561,21 +562,12 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           },
         ]}
         onColumnHiddenChange={(event) => {
-          const setHiddenColumnIds = (newCols: string[]) => {
-            setTableState({
-              hiddenColumnIds: newCols,
-            });
-          };
-
-          const newHiddenColumnIds = handleColumnHiddenChange(
+          handleColumnHiddenChange(
             allColumnIds,
             hiddenColumnIds ?? [],
             setHiddenColumnIds,
             event,
           );
-          setTableState({
-            hiddenColumnIds: newHiddenColumnIds,
-          });
         }}
         hiddenColumnIds={hiddenColumnIds ?? []}
         filterComponent={

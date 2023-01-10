@@ -64,14 +64,6 @@ const setString = (
 ) => {
   const prevValue = params.get(key);
 
-  console.log({
-    newValue,
-    defaultValue,
-    prevValue,
-    preNotEquals: prevValue !== newValue,
-    defaultNotEquals: newValue !== defaultValue,
-  });
-
   if (!prevValue || prevValue !== newValue) {
     if (newValue && newValue !== defaultValue) {
       params.set(key, newValue);
@@ -113,15 +105,21 @@ const useTableState = <T, F>(
   const pageSizeParam = searchParams.get("pageSize");
   const hiddenColumnsParam = searchParams.get("hiddenColumnIds");
   const sortByEncoded = searchParams.get("sortBy");
-  const sortByParam = sortByEncoded
-    ? JSON.parse(decodeURIComponent(sortByEncoded))
-    : undefined;
+  const sortByParam = useMemo(
+    () =>
+      sortByEncoded ? JSON.parse(decodeURIComponent(sortByEncoded)) : undefined,
+    [sortByEncoded],
+  );
   const searchTermParam = searchParams.get("searchTerm");
   const searchByParam = searchParams.get("searchBy");
   const filtersEncoded = searchParams.get("filters");
-  const filtersParam = filtersEncoded
-    ? JSON.parse(decodeURIComponent(filtersEncoded))
-    : undefined;
+  const filtersParam = useMemo(
+    () =>
+      filtersEncoded
+        ? JSON.parse(decodeURIComponent(filtersEncoded))
+        : undefined,
+    [filtersEncoded],
+  );
 
   const tableState = useMemo(
     () => ({
@@ -153,11 +151,7 @@ const useTableState = <T, F>(
     ],
   );
 
-  const setTableState = (newState: DefaultState<T, F>) => {
-    const mergedState = {
-      ...tableState,
-      ...newState,
-    };
+  const setTableState = (newState: Partial<TableState<T, F>>) => {
     const {
       pageSize,
       currentPage,
@@ -165,7 +159,10 @@ const useTableState = <T, F>(
       searchState,
       filters,
       sortBy,
-    } = mergedState;
+    } = {
+      ...tableState,
+      ...newState,
+    };
     setSearchParams(
       (previous) => {
         let newParams = new URLSearchParams(previous);
