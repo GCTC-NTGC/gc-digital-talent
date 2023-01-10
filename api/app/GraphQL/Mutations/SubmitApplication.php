@@ -23,7 +23,7 @@ final class SubmitApplication
         // submit to validator the PoolCandidate model
         $application = PoolCandidate::find($args['id']);
         $submitValidator = new SubmitApplicationValidator($application);
-        // We have saved the signature yet, so manually add it to the array
+        // We haven't saved the signature yet, so manually add it to the array
         $application['signature'] = $args['signature'];
         $validator = Validator::make($application->toArray(), $submitValidator->rules(), $submitValidator->messages());
         if ($validator->fails()) {
