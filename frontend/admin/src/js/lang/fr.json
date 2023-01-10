@@ -2289,5 +2289,17 @@
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
+  },
+  "8V8WwR": {
+    "defaultMessage": "Bassins additionnels",
+    "description": "Label displayed on the additional pools field of the change candidate status dialog"
+  },
+  "vtXnOQ": {
+    "defaultMessage": "Sélectionnez d’autres bassins additionnels...",
+    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
+  },
+  "wiUfZL": {
+    "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
+    "description": "Header for section to add additional pools to the change status operation"
   }
 }
