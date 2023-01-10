@@ -86,14 +86,6 @@ const setEncodedJson = (
     ? JSON.parse(decodeURIComponent(prevValueEncoded))
     : undefined;
 
-  console.log({
-    prevValue,
-    newValue,
-    defaultValue,
-    prevEqual: isEqual(prevValue, newValue),
-    defaultEqual: isEqual(defaultValue, newValue),
-  });
-
   if (!prevValue || !isEqual(prevValue, newValue)) {
     if (newValue && !isEqual(newValue, defaultValue)) {
       params.set(key, encodeURIComponent(JSON.stringify(newValue)));
