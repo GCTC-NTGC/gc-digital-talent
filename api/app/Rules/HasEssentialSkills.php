@@ -7,7 +7,6 @@ use App\Models\Pool;
 use App\Models\SkillFamily;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
-use Illuminate\Support\Facades\Log;
 
 class HasEssentialSkills implements Rule
 {
