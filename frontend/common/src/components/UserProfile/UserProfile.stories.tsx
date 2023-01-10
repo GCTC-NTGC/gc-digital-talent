@@ -80,8 +80,6 @@ UserProfileNull.args = {
   locationPreferences: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,
-  expectedSalary: null,
-  expectedClassifications: null,
   positionDuration: null,
   cmoAssets: null,
   armedForcesStatus: null,
