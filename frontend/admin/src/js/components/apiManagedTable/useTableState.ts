@@ -46,7 +46,7 @@ const setArray = <T>(
 ) => {
   const prevValue = params.get(key);
   if (!prevValue || !isEqual(prevValue.split(","), newValue)) {
-    if (newValue && newValue !== defaultValue) {
+    if (newValue && !isEqual(newValue, defaultValue)) {
       params.set(key, newValue.toString());
     } else {
       params.delete(key);
