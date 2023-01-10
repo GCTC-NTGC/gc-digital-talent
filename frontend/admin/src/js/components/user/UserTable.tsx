@@ -187,7 +187,21 @@ const defaultState = {
     },
     desc: false,
   },
-  filters: {},
+  // Note: lodash/isEqual is comparing undefined
+  // so we need to actually set it here
+  filters: {
+    applicantFilter: {
+      languageAbility: undefined,
+      locationPreferences: [],
+      operationalRequirements: [],
+      positionDuration: undefined,
+      skills: [],
+    },
+    isGovEmployee: undefined,
+    isProfileComplete: undefined,
+    jobLookingStatus: [],
+    poolFilters: [],
+  },
 };
 
 type UserTableProps = {

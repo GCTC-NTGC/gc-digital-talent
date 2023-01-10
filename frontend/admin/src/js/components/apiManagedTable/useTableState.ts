@@ -75,6 +75,36 @@ const setString = (
   return params;
 };
 
+const setEncodedJson = (
+  key: string,
+  params: URLSearchParams,
+  newValue?: unknown,
+  defaultValue?: unknown,
+) => {
+  const prevValueEncoded = params.get(key);
+  const prevValue = prevValueEncoded
+    ? JSON.parse(decodeURIComponent(prevValueEncoded))
+    : undefined;
+
+  console.log({
+    prevValue,
+    newValue,
+    defaultValue,
+    prevEqual: isEqual(prevValue, newValue),
+    defaultEqual: isEqual(defaultValue, newValue),
+  });
+
+  if (!prevValue || !isEqual(prevValue, newValue)) {
+    if (newValue && !isEqual(newValue, defaultValue)) {
+      params.set(key, encodeURIComponent(JSON.stringify(newValue)));
+    } else {
+      params.delete(key);
+    }
+  }
+
+  return params;
+};
+
 const useTableState = <T, F>(
   defaultState: DefaultState<T, F>,
 ): [state: TableState<T, F>, setState: SetTableState<T, F>] => {
@@ -94,7 +124,14 @@ const useTableState = <T, F>(
     : undefined;
 
   const setTableState = (newState: TableState<T, F>) => {
-    const { pageSize, currentPage, hiddenColumnIds, searchState } = newState;
+    const {
+      pageSize,
+      currentPage,
+      hiddenColumnIds,
+      searchState,
+      filters,
+      sortBy,
+    } = newState;
     setSearchParams(
       (previous) => {
         let newParams = new URLSearchParams(previous);
@@ -127,6 +164,18 @@ const useTableState = <T, F>(
           newParams,
           searchState?.type,
           defaultState.searchState?.type,
+        );
+        newParams = setEncodedJson(
+          "sortBy",
+          newParams,
+          sortBy,
+          defaultState.sortBy,
+        );
+        newParams = setEncodedJson(
+          "filters",
+          newParams,
+          filters,
+          defaultState.filters,
         );
         return newParams;
       },
