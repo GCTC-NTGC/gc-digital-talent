@@ -64,16 +64,6 @@ fragment poolCandidateTable on PoolCandidate {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
     positionDuration
     priorityWeight
   }
@@ -179,18 +169,9 @@ fragment selectedPoolCandidates on PoolCandidate {
     hasDisability
     citizenship
     armedForcesStatus
-    expectedSalary
     jobLookingStatus
     currentCity
     currentProvince
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     department {
       id
       departmentNumber
@@ -395,7 +376,6 @@ query getCandidateProfile($id: UUID!) {
       indigenousDeclarationSignature
       isVisibleMinority
       hasDisability
-      expectedSalary
       department {
         id
         departmentNumber

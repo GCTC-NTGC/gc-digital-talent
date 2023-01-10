@@ -3,7 +3,6 @@
 use App\Models\User;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Classification;
 use App\Models\Skill;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
@@ -28,7 +27,7 @@ class ApplicantTest extends TestCase
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
+        $newUser = new User();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
@@ -354,110 +353,6 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 4
-            ]
-        ]);
-    }
-
-    public function testCountApplicantsQuerySalaryClassifications(): void
-    {
-        // Recycling salary/classification tests //
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
-
-        PoolCandidate::factory()->count(1)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-                'expected_salary' => [],
-            ])
-        ]);
-
-        PoolCandidate::factory()->count(2)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-                'expected_salary' => ['_50_59K', '_70_79K'],
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $classificationLvl1 = Classification::factory()->create([
-                'group' => 'ZZ',
-                'level' => 1,
-                'min_salary' => 50000,
-                'max_salary' => 69000,
-            ]);
-            $candidate->user->expectedClassifications()->sync($classificationLvl1);
-        })->create();
-
-        PoolCandidate::factory()->count(4)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-                'expected_salary' => ['_60_69K', '_80_89K'],
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->user->expectedClassifications()->delete();
-        })->create();
-
-        PoolCandidate::factory()->count(11)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-                'expected_salary' => ['_90_99K', '_100K_PLUS']
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->user->expectedClassifications()->delete();
-        })->create();
-
-        // Assert query with just pool filter
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 18
-            ]
-        ]);
-
-        // Assert query to test classification-salary
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                    'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 6
             ]
         ]);
     }
@@ -1090,7 +985,8 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testStatusWeight(): void {
+    public function testStatusWeight(): void
+    {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
 
         // create candidates for each status
@@ -1200,6 +1096,14 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+        ]);
+
+        $candidateSixteen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a26',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
         ]);
 
         // Assert candidate one DRAFT is 10
@@ -1472,6 +1376,24 @@ class ApplicantTest extends TestCase
                 ]
             ]
         ]);
+        // Assert candidate sixteen REMOVED is 160
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateSixteen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 160,
+                    "status" => ApiEnums::CANDIDATE_STATUS_REMOVED,
+                ]
+            ]
+        ]);
     }
 
     public function testSortingStatusThenPriority(): void
@@ -1596,8 +1518,8 @@ class ApplicantTest extends TestCase
             ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
 
-    public function testNullFilterEqualsUndefinedPoolCandidate() {
-
+    public function testNullFilterEqualsUndefinedPoolCandidate()
+    {
         // setup
         $owner = User::where('sub', 'ilike', 'admin@test.com')->sole();
         $pool = Pool::factory()->create([
@@ -1660,7 +1582,6 @@ class ApplicantTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'equity' => null,
-                        'expectedClassifications' => null,
                         'hasDiploma' => null,
                         'languageAbility' => null,
                         'locationPreferences' => null,

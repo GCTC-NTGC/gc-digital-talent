@@ -3,7 +3,7 @@
     "type": "project",
     "description": "The GC Digital Talent API.",
     "keywords": ["canada", "talent", "api"],
-    "license": "MIT",
+    "license": "AGPL-3.0",
     "require": {
         "php": "^8.1",
         "doctrine/dbal": "^3.1",
