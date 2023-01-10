@@ -14,7 +14,7 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
       data-h2-align-items="base(center)"
       data-h2-display="base(inline-flex)"
       data-h2-flex-wrap="base(wrap)"
-      data-h2-gap="base(x.5, 0)"
+      data-h2-gap="base(0, x.5)"
       data-h2-flex-grow="base(1)"
       data-h2-margin="base(x1, 0) p-tablet(0, 0, x1, 0)"
     >

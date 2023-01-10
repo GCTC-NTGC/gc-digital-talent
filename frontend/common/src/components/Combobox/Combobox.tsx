@@ -237,7 +237,7 @@ const Combobox = ({
                     data-h2-padding="base(x.25, x.5)"
                     data-h2-display="base(flex)"
                     data-h2-align-items="base(center)"
-                    data-h2-gap="base(x.25, 0)"
+                    data-h2-gap="base(0, x.25)"
                     {...(active
                       ? {
                           "data-h2-background-color": "base(dt-gray.light)",

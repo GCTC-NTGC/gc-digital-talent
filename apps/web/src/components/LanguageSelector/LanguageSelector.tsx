@@ -46,7 +46,7 @@ const LanguageSelector = () => {
       <div
         data-h2-align-items="base(center)"
         data-h2-display="base(flex)"
-        data-h2-gap="base(x.75, 0)"
+        data-h2-gap="base(0, x.75)"
         data-h2-justify-content="base(center)"
       >
         <p>
@@ -64,7 +64,7 @@ const LanguageSelector = () => {
               data-h2-align-items="base(center)"
               data-h2-display="base(flex)"
               data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(x.5, 0)"
+              data-h2-gap="base(0, x.5)"
             >
               <span>
                 {currentLocale ||
@@ -109,7 +109,7 @@ const LanguageSelector = () => {
         <div
           data-h2-align-items="base(center)"
           data-h2-display="base(flex)"
-          data-h2-gap="base(x.75, 0)"
+          data-h2-gap="base(0, x.75)"
           data-h2-justify-content="base(center)"
         >
           <Button mode="inline" color="white" onClick={unsetLocale}>

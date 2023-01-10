@@ -119,7 +119,7 @@ const Root = React.forwardRef<
       data-h2-display="base(inline-flex)"
       data-h2-padding="base(x.25)"
       data-h2-radius="base(m)"
-      data-h2-gap="base(x.25, 0)"
+      data-h2-gap="base(0, x.25)"
       ref={forwardedRef}
       {...rest}
     />
