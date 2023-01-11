@@ -6,20 +6,31 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import DropdownMenu from "@common/components/DropdownMenu";
 
 import { Button } from "@common/components";
-import type { SearchColumn } from "./basicTableHelpers";
+import type { SearchColumn, SearchState } from "./basicTableHelpers";
 
 export interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
   searchBy?: Array<SearchColumn>;
+  initialData?: SearchState;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
+const SearchForm: React.FC<SearchFormProps> = ({
+  onChange,
+  searchBy,
+  initialData,
+}) => {
   const intl = useIntl();
+
+  const initialColumn =
+    initialData?.type && searchBy
+      ? searchBy.find((column) => column.value === initialData?.type)
+      : undefined;
+
   const [column, setColumn] = React.useState<SearchColumn | undefined>(
-    undefined,
+    initialColumn,
   );
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    undefined,
+    initialData?.term,
   );
   const showDropdown = searchBy && searchBy.length;
 
@@ -41,12 +52,6 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
     setColumn(searchBy?.find((item) => item.value === col));
     onChange(searchTerm, col);
   };
-
-  React.useEffect(() => {
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-  }, [debouncedChangeHandler]);
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",
@@ -103,6 +108,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         id="tableSearch"
         type="text"
         onChange={debouncedChangeHandler}
+        defaultValue={initialData?.term}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
           id: "chFoB8",

@@ -18,8 +18,10 @@ import {
   Provider,
   Operation,
   makeOperation,
+  AnyVariables,
 } from "urql";
 import { useIntl } from "react-intl";
+import { useLogger } from "../../hooks/useLogger";
 import { toast } from "../Toast";
 
 import { AuthenticationContext } from "../Auth";
@@ -96,6 +98,7 @@ const ClientProvider: React.FC<{
 }> = ({ client, children }) => {
   const intl = useIntl();
   const authContext = useContext(AuthenticationContext);
+  const logger = useLogger();
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -157,7 +160,10 @@ const ClientProvider: React.FC<{
         requestPolicy: "cache-and-network",
         exchanges: [
           errorExchange({
-            onError: (error: CombinedError) => {
+            onError: (
+              error: CombinedError,
+              operation: Operation<unknown, AnyVariables>,
+            ) => {
               const validationErrorMessages =
                 extractValidationErrorMessages(error);
               const validationErrorMessageNode =
@@ -176,8 +182,13 @@ const ClientProvider: React.FC<{
                   toastId: "rate-limit", // limits toasts for rate limit to one.
                 });
 
-              // eslint-disable-next-line no-console
-              console.error(error);
+              logger.error(
+                JSON.stringify({
+                  message: "ClientProvider onError",
+                  error,
+                  operation,
+                }),
+              );
             },
           }),
           dedupExchange,
@@ -192,7 +203,7 @@ const ClientProvider: React.FC<{
         ],
       })
     );
-  }, [client, getAuth, intl]);
+  }, [client, getAuth, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

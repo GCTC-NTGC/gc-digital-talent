@@ -105,19 +105,22 @@ const ApplicationPageWrapper = ({
                 }}
               />
               <p data-h2-font-size="base(h6, 1)">
-                {intl.formatMessage({
-                  defaultMessage: "Closing date:",
-                  id: "GIN69n",
-                  description:
-                    "Label for a pool advertisements closing date on the application",
-                })}
-                <br />
-                {closingDate
-                  ? relativeClosingDate({
-                      closingDate: parseDateTimeUtc(closingDate),
-                      intl,
-                    })
-                  : ""}
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Closing date:",
+                    id: "GIN69n",
+                    description:
+                      "Label for a pool advertisements closing date on the application",
+                  })}
+                </span>
+                <span data-h2-display="base(block)">
+                  {closingDate
+                    ? relativeClosingDate({
+                        closingDate: parseDateTimeUtc(closingDate),
+                        intl,
+                      })
+                    : ""}
+                </span>
               </p>
             </div>
           </div>

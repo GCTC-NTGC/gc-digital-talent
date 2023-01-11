@@ -1912,6 +1912,22 @@
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
   },
+  "C/tnCE": {
+    "defaultMessage": "Le profil est incomplet",
+    "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
+  },
+  "H8eisr": {
+    "defaultMessage": "Compétences essentielles manquantes",
+    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
+  },
+  "J30FT0": {
+    "defaultMessage": "La signature représente un champ obligatoire",
+    "description": "Message displayed when user attempts to apply to a pool without a signature"
+  },
+  "Mm+Me1": {
+    "defaultMessage": "Impossible d’appliquer à un bassin fermé",
+    "description": "Message displayed when user attempts to apply to a closed pool"
+  },
   "NNFXCN": {
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
