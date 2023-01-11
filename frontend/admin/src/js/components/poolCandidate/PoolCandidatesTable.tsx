@@ -496,7 +496,7 @@ const PoolCandidatesTable: React.FC<{
           description:
             "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
         }),
-        id: "preferredInterviewLanguage",
+        id: "preferredLanguageForInterview",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLanguageForInterview, intl),
         sortColumnName: "PREFERRED_LANGUAGE_FOR_INTERVIEW",
@@ -508,7 +508,7 @@ const PoolCandidatesTable: React.FC<{
           description:
             "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
         }),
-        id: "preferredExamLanguage",
+        id: "preferredLanguageForExam",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLanguageForExam, intl),
         sortColumnName: "PREFERRED_LANGUAGE_FOR_EXAM",

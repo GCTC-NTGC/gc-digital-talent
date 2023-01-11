@@ -124,7 +124,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       }),
     },
     {
-      key: "preferredInterviewLanguage",
+      key: "preferredLanguageForInterview",
       label: intl.formatMessage({
         defaultMessage: "Preferred Spoken Interview Language",
         id: "P+m8Wl",
@@ -132,7 +132,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       }),
     },
     {
-      key: "preferredExamLanguage",
+      key: "preferredLanguageForExam",
       label: intl.formatMessage({
         defaultMessage: "Preferred Written Exam Language",
         id: "K7fcQT",
@@ -349,10 +349,10 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
         preferredCommunicationLanguage: user.preferredLang
           ? intl.formatMessage(getLanguage(user.preferredLang as string))
           : "",
-        preferredInterviewLanguage: user.preferredLanguageForInterview
+        preferredLanguageForInterview: user.preferredLanguageForInterview
           ? intl.formatMessage(getLanguage(user.preferredLang as string))
           : "",
-        preferredExamLanguage: user.preferredLanguageForExam
+        preferredLanguageForExam: user.preferredLanguageForExam
           ? intl.formatMessage(getLanguage(user.preferredLang as string))
           : "",
         currentCity: user.currentCity || "",

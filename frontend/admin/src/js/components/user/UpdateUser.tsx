@@ -184,14 +184,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               }))}
             />
             <Select
-              id="preferredInterviewLanguage"
+              id="preferredLanguageForInterview"
               label={intl.formatMessage({
                 defaultMessage: "Preferred Spoken Interview Language",
                 id: "RIMCZn",
                 description:
                   "Label displayed on the user form preferred spoken interview language field.",
               })}
-              name="preferredInterviewLanguage"
+              name="preferredLanguageForInterview"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
                 id: "fGAMy/",
@@ -207,14 +207,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               }))}
             />
             <Select
-              id="preferredExamLanguage"
+              id="preferredLanguageForExam"
               label={intl.formatMessage({
                 defaultMessage: "Preferred Written Exam Language",
                 id: "SxP9zE",
                 description:
                   "Label displayed on the user form preferred written exam language field.",
               })}
-              name="preferredExamLanguage"
+              name="preferredLanguageForExam"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
                 id: "F4Flho",
@@ -306,6 +306,8 @@ const UpdateUser = () => {
           "lastName",
           "telephone",
           "preferredLang",
+          "preferredLanguageForInterview",
+          "preferredLanguageForExam",
           "sub",
           "roles",
         ]),
