@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// remove this eslint-disable when the action handlers are implemented
 import * as React from "react";
 import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
@@ -13,6 +11,7 @@ import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
 import { useParams } from "react-router-dom";
 import SEO from "@common/components/SEO/SEO";
+import { useLogger } from "@common/hooks/useLogger";
 import {
   PoolAdvertisement,
   Scalars,
@@ -319,6 +318,7 @@ type RouteParams = {
 export const EditPool = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
+  const logger = useLogger();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -360,7 +360,7 @@ export const EditPool = () => {
               onDelete={() => mutations.delete(poolId)}
               onClose={() => mutations.close(poolId)}
               onExtend={(extendData) => mutations.update(poolId, extendData)}
-              onArchive={() => console.warn("onArchive not yet implemented")}
+              onArchive={() => logger.warning("onArchive not yet implemented")}
             />
           </EditPoolContext.Provider>
         ) : (
