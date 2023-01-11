@@ -124,8 +124,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             {intl.formatMessage({
               defaultMessage: "Language preference for interviews:",
               id: "GtGonl",
-              description:
-                "Preferred Language for interviews label and colon",
+              description: "Preferred Language for interviews label and colon",
             })}
             <br />
             <span data-h2-font-weight="base(700)">
@@ -140,9 +139,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Language preference for exams:",
-              id:"qE8AZJ",
-              description:
-                "Preferred Language for exams label and colon",
+              id: "qE8AZJ",
+              description: "Preferred Language for exams label and colon",
             })}
             <br />
             <span data-h2-font-weight="base(700)">
