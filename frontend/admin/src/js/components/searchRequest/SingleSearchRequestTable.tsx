@@ -17,8 +17,6 @@ import {
   PoolCandidateFilter,
   ApplicantFilter,
   IdInput,
-  Classification,
-  ClassificationFilterInput,
   PoolCandidateSearchInput,
   PoolCandidateStatus,
 } from "../../api/generated";
@@ -95,26 +93,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table candidate name column.",
         }),
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "MmFgbF",
-          description:
-            "Title displayed on the single search request table classifications column.",
-        }),
-        accessor: ({ user }) =>
-          user.expectedClassifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="secondary"
-                mode="outline"
-              >
-                {`${classification?.group}-${classification?.level}`}
-              </Pill>
-            );
-          }),
       },
       {
         Header: intl.formatMessage({
@@ -274,18 +252,6 @@ const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
-    expectedClassifications: [
-      ...(inputFilter?.classifications
-        ? inputFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
-              return {
-                group,
-                level,
-              };
-            })
-        : []),
-    ],
     cmoAssets: [
       ...(inputFilter?.cmoAssets
         ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
@@ -327,10 +293,6 @@ function pickId<T extends IdInput>(x: T): IdInput {
   return pick(x, ["id"]);
 }
 
-function classificationToInput(c: Classification): ClassificationFilterInput {
-  return pick(c, ["group", "level"]);
-}
-
 // Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.
 type MappingType = {
   [Property in keyof Omit<
@@ -346,8 +308,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
-    expectedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,

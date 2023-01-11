@@ -11,7 +11,7 @@
     "url": "git+https://github.com/GCTC-NTGC/gc-digital-talent.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
   },
@@ -34,7 +34,6 @@
     "production": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=87148152bdff --auto-accept-changes",
     "codegen": "graphql-codegen",
     "intl-extract": "formatjs extract './src/js/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./src/js/lang/fr.json --ast --out-file ./src/js/lang/frCompiled.json",

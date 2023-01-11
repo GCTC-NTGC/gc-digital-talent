@@ -5,7 +5,7 @@ import { Maybe, Scalars } from "../../api/generated";
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   return formatDate({
     date: new Date(date),
-    formatString: "MMM RRRR",
+    formatString: "MMMM RRRR",
     intl,
   });
 }

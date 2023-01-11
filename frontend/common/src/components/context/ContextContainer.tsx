@@ -1,6 +1,7 @@
 import React from "react";
 
 import ClientProvider from "../ClientProvider";
+import { AppInsightsContextProvider } from "./AppInsightsContextProvider";
 import AuthenticationProvider from "./AuthenticationProvider";
 import AuthorizationProvider from "./AuthorizationProvider";
 import LanguageProvider, { Messages } from "./LanguageProvider";
@@ -22,7 +23,9 @@ const ContextContainer: React.FC<ContextContainerProps> = ({
       <LanguageProvider messages={messages}>
         {/* <ThemeProvider> */}
         <ClientProvider>
-          <AuthorizationProvider>{children}</AuthorizationProvider>
+          <AppInsightsContextProvider>
+            <AuthorizationProvider>{children}</AuthorizationProvider>
+          </AppInsightsContextProvider>
         </ClientProvider>
         {/* </ThemeProvider> */}
       </LanguageProvider>
