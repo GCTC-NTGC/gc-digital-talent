@@ -501,7 +501,7 @@ const Home: React.FunctionComponent = () => {
                     data-h2-color="base(ia-white)"
                     data-h2-font-size="base(h3, 1)"
                   >
-                    <span>
+                    <span data-h2-display="base(block)">
                       {intl.formatMessage({
                         defaultMessage:
                           "Is the IT Apprenticeship Program right for you?",
@@ -509,7 +509,6 @@ const Home: React.FunctionComponent = () => {
                         description: "Application box heading part one",
                       })}
                     </span>
-                    <br />
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "Apply today!",
