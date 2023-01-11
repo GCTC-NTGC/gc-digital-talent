@@ -1,15 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import zipWith from "lodash/zipWith";
 
 import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
 import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import { Input, Select } from "@common/components/form";
+import { Input } from "@common/components/form";
+import MultiSelectV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
+import { notEmpty } from "@common/helpers/util";
 import {
   AdvertisementStatus,
   Applicant,
@@ -20,7 +23,7 @@ import {
 } from "../../../api/generated";
 
 type FormValues = {
-  poolId: Pool["id"];
+  pools: Array<Pool["id"]>;
   expiryDate: PoolCandidate["expiryDate"];
 };
 
@@ -46,6 +49,9 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
     }
   });
 
+  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
+
   const requestMutation = async (values: CreatePoolCandidateAsAdminInput) => {
     const result = await executeMutation({ poolCandidate: values });
     if (result.data?.createPoolCandidateAsAdmin) {
@@ -57,24 +63,68 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    await requestMutation({
-      pool: {
-        connect: formValues.poolId,
-      },
-      user: {
-        connect: user.id,
-      },
-      expiryDate: formValues.expiryDate,
-    })
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User added successfully",
-            id: "O8U5Sz",
-            description:
-              "Toast for successful add user to pool on view-user page",
-          }),
+    const poolsToUpdate = formValues.pools
+      .map((poolId) => poolMap.get(poolId))
+      .filter(notEmpty);
+
+    const promises = poolsToUpdate.map((pool) => {
+      return requestMutation({
+        pool: {
+          connect: pool?.id,
+        },
+        user: {
+          connect: user.id,
+        },
+        expiryDate: formValues.expiryDate,
+      }).catch((err) => {
+        throw err;
+      });
+    });
+
+    Promise.allSettled(promises)
+      .then((settledResults) => {
+        const requestsWithResults = zipWith(
+          poolsToUpdate,
+          settledResults,
+          (pool, settledResult) => {
+            return {
+              pool,
+              settledResult,
+            };
+          },
         );
+        const rejectedRequests = requestsWithResults.filter(
+          (r) => r.settledResult.status === "rejected",
+        );
+
+        if (!rejectedRequests.length) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "User added successfully",
+              id: "O8U5Sz",
+              description:
+                "Toast for successful add user to pool on view-user page",
+            }),
+          );
+        } else {
+          toast.error(
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Failed to add user to the following pools:",
+                id: "6Y6hy9",
+                description:
+                  "Error message displayed when an attempt to add users to known pools",
+              })}
+              <ul>
+                {rejectedRequests.map((rejected) => (
+                  <li key={rejected.pool.id}>
+                    {getFullPoolAdvertisementTitle(intl, rejected.pool)}
+                  </li>
+                ))}
+              </ul>
+            </>,
+          );
+        }
         setOpen(false);
       })
       .catch(() => {
@@ -88,6 +138,20 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
       });
   };
   const { handleSubmit } = methods;
+
+  const poolOptions = pools
+    .filter((pool) => !currentPools.includes(pool.id))
+    .filter(
+      (pool) =>
+        pool.advertisementStatus === AdvertisementStatus.Published ||
+        pool.advertisementStatus === AdvertisementStatus.Closed,
+    )
+    .map((pool) => {
+      return {
+        value: pool.id,
+        label: getFullPoolAdvertisementTitle(intl, pool),
+      };
+    });
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -118,7 +182,9 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
             description: "First section of text on the add user to pool dialog",
           })}
         </p>
-        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-font-weight="base(800)">
+          - {getFullNameHtml(user.firstName, user.lastName, intl)}
+        </p>
         <p data-h2-margin="base(x1, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage: "Choose pool:",
@@ -130,16 +196,16 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
             <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <Select
-                id="addToPoolDialog-poolId"
-                name="poolId"
+              <MultiSelectV2
+                id="addToPoolDialog-pools"
+                name="pools"
                 label={intl.formatMessage({
                   defaultMessage: "Pools",
                   id: "aJVlIF",
                   description:
                     "Label displayed on the pools field of the add user to pool dialog",
                 })}
-                nullSelection={intl.formatMessage({
+                placeholder={intl.formatMessage({
                   defaultMessage: "Select a pool...",
                   id: "X198m3",
                   description:
@@ -148,20 +214,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                options={pools
-                  .filter((pool) => !currentPools.includes(pool.id))
-                  .filter(
-                    (pool) =>
-                      pool.advertisementStatus ===
-                        AdvertisementStatus.Published ||
-                      pool.advertisementStatus === AdvertisementStatus.Closed,
-                  )
-                  .map((pool) => {
-                    return {
-                      value: pool.id,
-                      label: getFullPoolAdvertisementTitle(intl, pool),
-                    };
-                  })}
+                options={poolOptions}
               />
             </div>
             <p data-h2-margin="base(x1, 0, 0, 0)">

@@ -86,6 +86,7 @@ export const AssetSkillsSection = ({
               description: "Text on a button to save the pool asset skills",
             })}
             isSubmitting={isSubmitting}
+            skillType="asset"
           />
         </>
       ) : (

@@ -242,7 +242,13 @@ describe("skill util tests", () => {
           {
             id: "1",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+            ],
           },
         ],
       },
@@ -295,17 +301,35 @@ describe("skill util tests", () => {
           {
             id: "1",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+            ],
           },
           {
             id: "2",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+            ],
           },
           {
             id: "3",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+            ],
           },
         ],
       },
@@ -346,7 +370,23 @@ describe("skill util tests", () => {
           {
             id: "1",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+              {
+                id: "2",
+                key: "skill_two",
+                name: {},
+              },
+              {
+                id: "3",
+                key: "skill_three",
+                name: {},
+              },
+            ],
           },
         ],
       },
@@ -358,7 +398,23 @@ describe("skill util tests", () => {
           {
             id: "1",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+              {
+                id: "2",
+                key: "skill_two",
+                name: {},
+              },
+              {
+                id: "3",
+                key: "skill_three",
+                name: {},
+              },
+            ],
           },
         ],
       },
@@ -370,7 +426,23 @@ describe("skill util tests", () => {
           {
             id: "1",
             applicant: fakeApplicant,
-            skills: [],
+            skills: [
+              {
+                id: "1",
+                key: "skill_one",
+                name: {},
+              },
+              {
+                id: "2",
+                key: "skill_two",
+                name: {},
+              },
+              {
+                id: "3",
+                key: "skill_three",
+                name: {},
+              },
+            ],
           },
         ],
       },

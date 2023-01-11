@@ -1,3 +1,4 @@
+import { SeverityLevel, tryParseSeverityLevelString } from "./loggingUtils";
 import { isStringTrue } from "./util";
 
 interface HasServerConfig {
@@ -41,3 +42,9 @@ export const checkFeatureFlag = (name: string): boolean => {
 export const getFeatureFlags = () => ({
   ongoingRecruitments: checkFeatureFlag("FEATURE_ONGOING_RECRUITMENTS"),
 });
+
+/**
+ * A convenience function for runtime variable logging levels
+ */
+export const getLoggingLevel = (name: string): SeverityLevel | undefined =>
+  tryParseSeverityLevelString(getRuntimeVariable(name));
