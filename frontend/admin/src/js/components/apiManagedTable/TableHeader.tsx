@@ -12,6 +12,7 @@ import type {
   ColumnsOf,
   IdType,
   SearchColumn,
+  SearchState,
 } from "./basicTableHelpers";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
@@ -20,6 +21,7 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
     col: SearchColumn["value"] | undefined,
   ) => void;
   columns: ColumnsOf<T>;
+  initialSearchState?: SearchState;
   searchBy?: Array<SearchColumn>;
   addBtn?: {
     path: string;
@@ -35,6 +37,7 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
 function TableHeader<T extends Record<string, unknown>>({
   onSearchChange,
   searchBy,
+  initialSearchState,
   columns,
   addBtn,
   filter = true,
@@ -56,7 +59,11 @@ function TableHeader<T extends Record<string, unknown>>({
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, x.5)">
                 <div data-h2-flex-item="base(content)">
-                  <SearchForm onChange={onSearchChange} searchBy={searchBy} />
+                  <SearchForm
+                    onChange={onSearchChange}
+                    searchBy={searchBy}
+                    initialData={initialSearchState}
+                  />
                 </div>
                 <div data-h2-flex-item="base(content)">{filterComponent}</div>
                 <div data-h2-flex-item="base(content)">
