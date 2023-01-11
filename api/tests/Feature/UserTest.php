@@ -51,6 +51,8 @@ class UserTest extends TestCase
                     email
                     telephone
                     preferredLang
+                    preferredLanguageForInterview
+                    preferredLanguageForExam
                     roles
                 }
             }
@@ -71,6 +73,8 @@ class UserTest extends TestCase
                     'email' => 'jane@test.com',
                     'telephone' => null,
                     'preferredLang' => null,
+                    'preferredLanguageForInterview' => null,
+                    'preferredLanguageForExam' => null,
                     'roles' => []
                 ]
             ]
@@ -91,6 +95,8 @@ class UserTest extends TestCase
                     email
                     telephone
                     preferredLang
+                    preferredLanguageForInterview
+                    preferredLanguageForExam
                     roles
                 }
             }
@@ -111,6 +117,8 @@ class UserTest extends TestCase
                     'email' => 'jane@test.com',
                     'telephone' => null,
                     'preferredLang' => null,
+                    'preferredLanguageForInterview' => null,
+                    'preferredLanguageForExam' => null,
                     'roles' => ['ADMIN']
                 ]
             ]

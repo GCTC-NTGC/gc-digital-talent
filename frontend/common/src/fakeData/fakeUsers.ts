@@ -61,6 +61,12 @@ const generateUser = (
     preferredLang: faker.helpers.arrayElement<Language>(
       Object.values(Language),
     ),
+    preferredLanguageForInterview: faker.helpers.arrayElement<Language>(
+      Object.values(Language),
+    ),
+    preferredLanguageForExam: faker.helpers.arrayElement<Language>(
+      Object.values(Language),
+    ),
     currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
       Object.values(ProvinceOrTerritory),
     ),

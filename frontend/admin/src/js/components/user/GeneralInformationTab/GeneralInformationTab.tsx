@@ -170,19 +170,54 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           </p>
           <p>{user.email}</p>
         </div>
-        {/* Preferred language */}
+        {/* Preferred communication language */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
-              defaultMessage: "Preferred Language:",
-              id: "slTax4",
+              defaultMessage: "Preferred Communication Language:",
+              id: "LvHCvn",
               description:
-                "Display text for the preferred language field on users",
+                "Display text for the preferred communication language field on users",
             })}
           </p>
           <p>
             {user.preferredLang
               ? intl.formatMessage(getLanguage(user.preferredLang as string))
+              : ""}
+          </p>
+        </div>
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Preferred Spoken Interview Language:",
+              id: "Wmuizf",
+              description:
+                "Display text for the preferred spoken interview language field on users",
+            })}
+          </p>
+          <p>
+            {user.preferredLanguageForInterview
+              ? intl.formatMessage(
+                  getLanguage(user.preferredLanguageForInterview as string),
+                )
+              : ""}
+          </p>
+        </div>
+        {/* Preferred exam language */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Preferred Written Exam Language:",
+              id: "zzwPOR",
+              description:
+                "Display text for the preferred written exam language field on users",
+            })}
+          </p>
+          <p>
+            {user.preferredLanguageForExam
+              ? intl.formatMessage(
+                  getLanguage(user.preferredLanguageForExam as string),
+                )
               : ""}
           </p>
         </div>

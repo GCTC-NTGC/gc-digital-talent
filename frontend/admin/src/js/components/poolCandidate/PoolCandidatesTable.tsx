@@ -253,6 +253,8 @@ const PoolCandidatesTable: React.FC<{
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",
+        "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+        "PREFERRED_LANGUAGE_FOR_EXAM",
         "CURRENT_CITY",
       ].includes(sortingRule.column.sortColumnName)
     ) {
@@ -477,15 +479,39 @@ const PoolCandidatesTable: React.FC<{
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Preferred Language",
-          id: "dTJkNA",
+          defaultMessage: "Preferred Communication Language",
+          id: "eN8J/9",
           description:
-            "Title displayed on the Pool Candidates table Preferred Lang column.",
+            "Title displayed on the Pool Candidates table Preferred Communication Language column.",
         }),
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Spoken Interview Language",
+          id: "iRJV64",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
+        }),
+        id: "preferredInterviewLanguage",
+        accessor: ({ user }) =>
+          preferredLanguageAccessor(user?.preferredLanguageForInterview, intl),
+        sortColumnName: "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Written Exam Language",
+          id: "5l+Ydz",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
+        }),
+        id: "preferredExamLanguage",
+        accessor: ({ user }) =>
+          preferredLanguageAccessor(user?.preferredLanguageForExam, intl),
+        sortColumnName: "PREFERRED_LANGUAGE_FOR_EXAM",
       },
       {
         label: intl.formatMessage({

@@ -41,11 +41,11 @@ describe("AboutMeForm", () => {
     });
 
     expect(
-      await screen.getByRole("radio", { name: /english/i }),
+      await screen.getByRole("combobox", { name: /english/i }),
     ).toBeInTheDocument();
 
     expect(
-      await screen.getByRole("radio", { name: /french/i }),
+      await screen.getByRole("combobox", { name: /french/i }),
     ).toBeInTheDocument();
 
     expect(
@@ -116,6 +116,8 @@ describe("AboutMeForm", () => {
         initialUser: {
           id: "",
           preferredLang: undefined,
+          preferredLanguageForInterview: undefined,
+          preferredLanguageForExam: undefined,
           currentProvince: undefined,
           currentCity: undefined,
           telephone: "",

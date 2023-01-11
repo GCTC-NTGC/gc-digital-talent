@@ -93,6 +93,8 @@ const UpdateUserTemplate: Story = () => {
     email: "mattow0@ning.com",
     telephone: "+867365373244",
     preferredLang: Language.En,
+    preferredLanguageForExam: Language.En,
+    preferredLanguageForInterview: Language.En,
   };
   return (
     <UpdateUserForm

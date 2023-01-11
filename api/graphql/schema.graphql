@@ -867,6 +867,8 @@ type Query {
               "first_name"
               "email"
               "preferred_lang"
+              "preferred_language_for_interview"
+              "preferred_language_for_exam"
               "current_city"
             ]
           }
