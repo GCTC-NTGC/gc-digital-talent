@@ -15,9 +15,13 @@ import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 
-export const ClassificationTable: React.FC<
-  GetClassificationsQuery & { editUrlRoot: string }
-> = ({ classifications, editUrlRoot }) => {
+interface ClassificationTableProps {
+  classifications: GetClassificationsQuery["classifications"];
+}
+
+export const ClassificationTable = ({
+  classifications,
+}: ClassificationTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
@@ -86,12 +90,12 @@ export const ClassificationTable: React.FC<
         accessor: (d) =>
           tableEditButtonAccessor(
             d.id,
-            editUrlRoot,
+            paths.classificationTable(),
             `${d.name?.[locale]} ${d.group}-0${d.level}`,
           ), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl, locale],
+    [intl, locale, paths],
   );
 
   const memoizedData = useMemo(
@@ -127,14 +131,10 @@ export const ClassificationTableApi: React.FunctionComponent = () => {
     context,
   });
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
-      <ClassificationTable
-        classifications={data?.classifications ?? []}
-        editUrlRoot={pathname}
-      />
+      <ClassificationTable classifications={data?.classifications ?? []} />
     </Pending>
   );
 };
