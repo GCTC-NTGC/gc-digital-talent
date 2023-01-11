@@ -58,6 +58,20 @@ export const ApplicationStatusForm = ({
       notes: values.notes,
       expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
     });
+
+    // recycle the field reset from Eric in UpdateSearchRequest.tsx
+    methods.resetField("status", {
+      keepDirty: false,
+      defaultValue: values.status,
+    });
+    methods.resetField("notes", {
+      keepDirty: false,
+      defaultValue: values.notes,
+    });
+    methods.resetField("expiryDate", {
+      keepDirty: false,
+      defaultValue: values.expiryDate,
+    });
   };
 
   const allowedStatuses = enumToOptions(PoolCandidateStatus).filter(
