@@ -42,16 +42,16 @@ const grabSkillJustification = (
   skillsArray: Skill[],
   accordionSkill: Skill,
 ): string => {
-  // find the skill from the array that matches the accordion skill, this results in an array of one skill
-  const specificSkill = skillsArray.filter(
+  // find the skill from the array that matches the accordion skill
+  const specificSkill = skillsArray.find(
     (skillIterator) => skillIterator.id === accordionSkill.id,
   );
   // guarding against possible undefined
   const justification =
-    specificSkill[0] &&
-    specificSkill[0]?.experienceSkillRecord &&
-    specificSkill[0].experienceSkillRecord?.details
-      ? specificSkill[0].experienceSkillRecord.details
+    specificSkill &&
+    specificSkill?.experienceSkillRecord &&
+    specificSkill.experienceSkillRecord?.details
+      ? specificSkill.experienceSkillRecord.details
       : "";
   return justification;
 };
