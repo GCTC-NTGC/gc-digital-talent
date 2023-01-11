@@ -1,3 +1,4 @@
+import { Maybe, Skill } from "@common/api/generated";
 import {
   AllFormValues,
   ExperienceDetailsSubmissionData,
@@ -8,6 +9,7 @@ import {
 const formValuesToSubmitData = (
   type: ExperienceType,
   data: FormValues<AllFormValues>,
+  hiddenSkills: Maybe<Skill[]>,
 ): ExperienceDetailsSubmissionData => {
   const {
     issuedBy,
@@ -75,12 +77,24 @@ const formValuesToSubmitData = (
   let skillSync;
   if (data.skills) {
     skillSync = data.skills
-      ? data.skills.map((skill) => {
-          return {
-            id: skill.skillId,
-            details: skill.details,
-          };
-        })
+      ? [
+          ...(data.skills
+            ? data.skills.map((skill) => {
+                return {
+                  id: skill.skillId,
+                  details: skill.details,
+                };
+              })
+            : []),
+          ...(hiddenSkills
+            ? hiddenSkills.map((skill) => {
+                return {
+                  id: skill.id,
+                  details: skill.experienceSkillRecord?.details,
+                };
+              })
+            : []),
+        ]
       : undefined;
   }
 

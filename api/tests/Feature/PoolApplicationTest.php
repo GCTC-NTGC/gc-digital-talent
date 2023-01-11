@@ -612,7 +612,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // pool with no essential skills
@@ -709,7 +708,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([]);
@@ -806,7 +804,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // create an experience with no skills, then attach it to the user
@@ -885,7 +882,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([]);
@@ -930,7 +926,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([]);
@@ -1019,6 +1014,7 @@ class PoolApplicationTest extends TestCase
             ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
             ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
             ApiEnums::CANDIDATE_STATUS_EXPIRED,
+            ApiEnums::CANDIDATE_STATUS_REMOVED,
         ];
 
         // Create admin user we run tests as
@@ -1107,8 +1103,14 @@ class PoolApplicationTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
         ]);
+        $candidateFourteen = PoolCandidate::factory()->create([
+            'pool_candidate_status' => $statusesThatShouldFail[13],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a24',
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.past_date'),
+        ]);
 
-        // Assert submitted object cannot be deleted, 13 different ones that should fail
+        // Assert submitted object cannot be deleted, 14 different ones that should fail
         // just running through each of them one at a time
         $this->graphQL(
             /** @lang Graphql */
@@ -1316,5 +1318,23 @@ class PoolApplicationTest extends TestCase
                 'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
+
+
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ',
+            [
+                'id' => $candidateFourteen->id,
+            ]
+        )->assertJson([
+            'errors' => [[
+                'message' => 'pool candidate status InvalidValueDeletion',
+            ]]
+        ]);
+
     }
 }

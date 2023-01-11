@@ -93,7 +93,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         applicant={profileDataInput as Applicant}
         sections={{
           myStatus: { isVisible: true, override: <MyStatusApi /> },
-          hiringPools: { isVisible: true },
+          hiringPools: { isVisible: false },
           about: { isVisible: true, editUrl: paths.aboutMe(userId) },
           language: {
             isVisible: true,
@@ -115,7 +115,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             isVisible: true,
             editUrl: paths.diversityEquityInclusion(userId),
           },
-          roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
           skillsExperience: {
             isVisible: true,
             editUrl: paths.skillsAndExperiences(userId),

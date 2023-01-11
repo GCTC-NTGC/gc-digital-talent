@@ -3,7 +3,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 describe("Talentsearch Direct Intake Page", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "getPoolAdvertisement");
+      aliasQuery(req, "browsePoolAdvertisements");
     });
   });
 
@@ -13,11 +13,11 @@ describe("Talentsearch Direct Intake Page", () => {
         '/en/browse/pools',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
+        cy.wait("@gqlbrowsePoolAdvertisementsQuery");
         cy.findByRole("heading", { name: /browse it jobs/i })
           .should("exist")
           .and("be.visible");
       })
-
     })
   });
 });

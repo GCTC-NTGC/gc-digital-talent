@@ -61,10 +61,11 @@ describe("ApplicationStatusForm", () => {
     });
 
     const submitBtn = screen.getByRole("button", { name: /save changes/i });
-    await waitFor(async () => {
-      await fireEvent.click(submitBtn);
+    fireEvent.submit(submitBtn);
+
+    await waitFor(() => {
+      expect(mockSubmit).toHaveBeenCalled();
     });
-    expect(mockSubmit).toHaveBeenCalled();
   });
 
   it("should not submit without required data", async () => {

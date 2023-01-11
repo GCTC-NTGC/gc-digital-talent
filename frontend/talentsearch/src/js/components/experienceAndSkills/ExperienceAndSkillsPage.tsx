@@ -31,19 +31,35 @@ const ExperienceAndSkillsApi = ({
   const [{ data, fetching, error }] = useGetApplicationDetailsQuery({
     variables: { id: applicationId || "" },
   });
+  const missingSkills = {
+    requiredSkills:
+      data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
+    optionalSkills:
+      data?.poolCandidate?.poolAdvertisement?.nonessentialSkills || [],
+  };
+  const experiencesOnlyRelevantSkills = experiences.map((experience) => {
+    return {
+      ...experience,
+      skills: experience?.skills?.filter((skill) => {
+        return (
+          missingSkills.requiredSkills?.find(
+            (essentialSkill) => essentialSkill.id === skill.id,
+          ) ||
+          missingSkills.optionalSkills?.find(
+            (assetSkill) => assetSkill.id === skill.id,
+          )
+        );
+      }),
+    };
+  });
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate?.poolAdvertisement ? (
         <ExperienceAndSkills
           applicantId={applicantId}
           poolAdvertisement={data.poolCandidate.poolAdvertisement}
-          missingSkills={{
-            requiredSkills:
-              data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
-            optionalSkills:
-              data?.poolCandidate?.poolAdvertisement?.nonessentialSkills || [],
-          }}
-          experiences={experiences}
+          missingSkills={missingSkills}
+          experiences={experiencesOnlyRelevantSkills}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

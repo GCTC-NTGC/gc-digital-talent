@@ -33,6 +33,29 @@ export interface SkillAccordionProps {
   headingLevel?: HeadingLevel;
 }
 
+/**
+ * @param skillsArray - array of skills attached to experience
+ * @param accordionSkill - single skill that is the focus of a skill accordion
+ * @returns justification for the skill that matches the accordion skill or return an empty string
+ */
+const grabSkillJustification = (
+  skillsArray: Skill[],
+  accordionSkill: Skill,
+): string => {
+  // find the skill from the array that matches the accordion skill
+  const specificSkill = skillsArray.find(
+    (skillIterator) => skillIterator.id === accordionSkill.id,
+  );
+  // guarding against possible undefined
+  const justification =
+    specificSkill &&
+    specificSkill?.experienceSkillRecord &&
+    specificSkill.experienceSkillRecord?.details
+      ? specificSkill.experienceSkillRecord.details
+      : "";
+  return justification;
+};
+
 const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   skill,
   headingLevel = "h2",
@@ -43,7 +66,11 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   const { name, experiences } = skill;
 
   const getPersonalExperience = (experience: PersonalExperience) => {
-    const { title, description, startDate, endDate, details } = experience;
+    const { title, description, startDate, endDate, details, skills } =
+      experience;
+
+    const justification = skills ? grabSkillJustification(skills, skill) : "";
+
     return (
       <>
         <p data-h2-color="base(dt-primary)">{title}</p>
@@ -51,7 +78,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {getDateRange({ endDate, startDate, intl })}
         </p>
         <p> {description} </p>
-        <p>{skill.experienceSkillRecord?.details}</p>
+        <p>{justification}</p>
         <p> {details} </p>
       </>
     );
@@ -67,7 +94,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       status,
       areaOfStudy,
       institution,
+      skills,
     } = experience;
+
+    const justification = skills ? grabSkillJustification(skills, skill) : "";
 
     return (
       <div>
@@ -107,14 +137,24 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             : ""}
         </p>
         <p> {details} </p>
-        <p>{skill.experienceSkillRecord?.details}</p>
+        <p>{justification}</p>
       </div>
     );
   };
 
   const getAwardExperience = (experience: AwardExperience) => {
-    const { awardedDate, awardedScope, awardedTo, details, title, issuedBy } =
-      experience;
+    const {
+      awardedDate,
+      awardedScope,
+      awardedTo,
+      details,
+      title,
+      issuedBy,
+      skills,
+    } = experience;
+
+    const justification = skills ? grabSkillJustification(skills, skill) : "";
+
     return (
       <>
         <p>
@@ -148,7 +188,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <p>{skill.experienceSkillRecord?.details}</p>
+        <p>{justification}</p>
         <p
           data-h2-color="base(dt-primary)"
           data-h2-font-weight="base(700)"
@@ -167,8 +207,18 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   };
 
   const getCommunityExperience = (experience: CommunityExperience) => {
-    const { startDate, endDate, project, organization, details, title } =
-      experience;
+    const {
+      startDate,
+      endDate,
+      project,
+      organization,
+      details,
+      title,
+      skills,
+    } = experience;
+
+    const justification = skills ? grabSkillJustification(skills, skill) : "";
+
     return (
       <>
         <p>
@@ -194,7 +244,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { project },
           )}
         </p>
-        <p>{skill.experienceSkillRecord?.details}</p>
+        <p>{justification}</p>
         <p
           data-h2-color="base(dt-primary)"
           data-h2-font-weight="base(700)"
@@ -212,8 +262,18 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   };
 
   const getWorkExperience = (experience: WorkExperience) => {
-    const { startDate, endDate, role, division, organization, details } =
-      experience;
+    const {
+      startDate,
+      endDate,
+      role,
+      division,
+      organization,
+      details,
+      skills,
+    } = experience;
+
+    const justification = skills ? grabSkillJustification(skills, skill) : "";
+
     return (
       <>
         <p>
@@ -231,7 +291,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>{division}</p>
-        <p>{skill.experienceSkillRecord?.details}</p>
+        <p>{justification}</p>
         <p
           data-h2-color="base(dt-primary)"
           data-h2-font-weight="base(700)"

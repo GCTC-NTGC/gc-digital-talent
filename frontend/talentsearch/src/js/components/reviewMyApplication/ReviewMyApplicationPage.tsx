@@ -40,7 +40,22 @@ export const ReviewMyApplication: React.FunctionComponent<
 > = ({ applicant, poolAdvertisement, applicationId, closingDate }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const experiences = applicant.experiences?.filter(notEmpty) || [];
+  const experiences =
+    applicant.experiences?.filter(notEmpty).map((experience) => {
+      return {
+        ...experience,
+        skills: experience?.skills?.filter((skill) => {
+          return (
+            poolAdvertisement.essentialSkills?.find(
+              (essentialSkill) => essentialSkill.id === skill.id,
+            ) ||
+            poolAdvertisement.nonessentialSkills?.find(
+              (assetSkill) => assetSkill.id === skill.id,
+            )
+          );
+        }),
+      };
+    }) || [];
   const missingSkills = {
     requiredSkills: poolAdvertisement.essentialSkills?.filter(notEmpty),
     optionalSkills: poolAdvertisement.nonessentialSkills?.filter(notEmpty),
@@ -146,10 +161,6 @@ export const ReviewMyApplication: React.FunctionComponent<
                 applicant.id,
                 applicationId,
               ),
-            },
-            roleSalary: {
-              isVisible: true,
-              editUrl: paths.roleSalary(applicant.id, applicationId),
             },
             skillsExperience: {
               isVisible: true,

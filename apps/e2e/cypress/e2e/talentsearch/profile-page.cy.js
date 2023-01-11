@@ -37,7 +37,6 @@ describe("Talentsearch Profile Page", () => {
         '/en/users/test-no-role/profile/about-me/edit',
         '/en/users/test-no-role/profile/language-info/edit',
         '/en/users/test-no-role/profile/government-info/edit',
-        '/en/users/test-no-role/profile/role-salary-expectations/edit',
         '/en/users/test-no-role/profile/work-location/edit',
         '/en/users/test-no-role/profile/work-preferences/edit',
         '/en/users/test-no-role/profile/employment-equity/edit',
@@ -56,7 +55,6 @@ describe("Talentsearch Profile Page", () => {
     it("loads page successfully", () => {
       cy.visit('/en/users/test-applicant/profile')
       cy.contains("My Status");
-      cy.contains("My hiring pools");
       cy.contains("About Me");
       cy.contains("Language Information");
       cy.contains("Government Information");
@@ -67,7 +65,6 @@ describe("Talentsearch Profile Page", () => {
 
       cy.visit('/en/talent/profile')
       cy.contains("My Status");
-      cy.contains("My hiring pools");
       cy.contains("About Me");
       cy.contains("Language Information");
       cy.contains("Government Information");

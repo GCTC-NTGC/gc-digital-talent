@@ -34,43 +34,12 @@ sudo chmod -R 775 ./ ./storage
 php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
-cd $ROOT_DIR/frontend
+cd $ROOT_DIR
 npm ci --include=dev
 
-# Run h2-build using workspace command from /frontend
-npm run h2-build --workspace common
-
-### Common
-
-cd $ROOT_DIR/frontend/common
-npm run codegen
-npm run intl-compile
-
-### Talentsearch
-
-cd $ROOT_DIR/frontend/talentsearch
-npm run codegen
-npm run intl-compile
-npm run production
-
-### Admin
-
-cd $ROOT_DIR/frontend/admin
-npm run codegen
-npm run intl-compile
-npm run production
-
-### Indigenous Apprenticeship
-
-cd $ROOT_DIR
-npm install
-npm run codegen
-npm run intl-compile
+### Build frontend
 npm run build
+chmod -R a+r,a+w node_modules
 
-
-### Cleanup /frontend npm dependencies
-cd $ROOT_DIR
-npm prune --production
-cd $ROOT_DIR/frontend
+### Cleanup frontend npm dependencies
 npm prune --production
