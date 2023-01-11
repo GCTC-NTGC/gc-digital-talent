@@ -30,11 +30,9 @@ import {
   ColumnsOf,
   SortingRule,
   sortingRuleToOrderByClause,
-  IdType,
   handleColumnHiddenChange,
   rowSelectionColumn,
   handleRowSelectedChange,
-  SearchState,
   TABLE_DEFAULTS,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor, tableViewItemButtonAccessor } from "../Table";
@@ -171,9 +169,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
 };
 
 const defaultState = {
-  currentPage: TABLE_DEFAULTS.currentPage,
-  pageSize: TABLE_DEFAULTS.pageSize,
-  searchState: TABLE_DEFAULTS.searchState,
+  ...TABLE_DEFAULTS,
   hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
   sortBy: {
     column: {
@@ -199,11 +195,7 @@ const defaultState = {
   },
 };
 
-type UserTableProps = {
-  initialFilterInput?: UserFilterInput;
-};
-
-export const UserTable = ({ initialFilterInput }: UserTableProps) => {
+export const UserTable = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
@@ -219,25 +211,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
     filters: userFilterInput,
   } = tableState;
 
-  // const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-  //   tableState.filters ?? initialStateFilterInput,
-  // );
-  // const [currentPage, setCurrentPage] = useState(
-  //   tableState.currentPage || defaultState.currentPage,
-  // );
-  // const [pageSize, setPageSize] = useState(
-  //   tableState.currentPage || defaultState.pageSize,
-  // );
-  // const [sortingRule, setSortingRule] = useState<SortingRule<Data> | undefined>(
-  //   tableState.sortBy ?? defaultState.sortBy,
-  // );
-  // const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>(
-  //   tableState.hiddenColumnIds ?? defaultState.hiddenColumnIds,
-  // );
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
-  // const [searchState, setSearchState] = useState<SearchState>(
-  //   tableState.searchState ?? defaultState.searchState,
-  // );
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
