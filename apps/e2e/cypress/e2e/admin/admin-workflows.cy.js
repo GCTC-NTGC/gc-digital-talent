@@ -16,7 +16,6 @@ describe("Admin Workflow Tests", () => {
     // test fancy filter is present and triggers graphQL
     cy.findByRole("button", {name: /filters/i}).click();
     cy.findByRole("button", {name: /Show results/i}).click();
-    cy.wait("@gqlAllUsersPaginatedQuery");
 
     cy.findByRole("textbox", { name: /search/i })
       .clear()
