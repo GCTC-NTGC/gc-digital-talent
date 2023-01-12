@@ -19,6 +19,9 @@ module.exports = {
       "./src/css/app.css",
     ],
   },
+  watchOptions: {
+    ignored: ['**/hydrogen.css'],
+  },
   plugins: [
 
     // Run Hydrogen on Webpack's compiler hooks

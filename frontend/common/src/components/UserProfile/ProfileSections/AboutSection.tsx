@@ -53,12 +53,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Name:",
-                id: "DAmLhV",
-                description: "Name label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Name:",
+                  id: "DAmLhV",
+                  description: "Name label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {getFullNameHtml(firstName, lastName, intl)}
               </span>
@@ -68,12 +69,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {!!email && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Email:",
-                id: "mtFK6A",
-                description: "Email label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Email:",
+                  id: "mtFK6A",
+                  description: "Email label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">{email}</span>
             </p>
           </div>
@@ -81,12 +83,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {!!telephone && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Phone:",
-                id: "azOv8A",
-                description: "Phone label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Phone:",
+                  id: "azOv8A",
+                  description: "Phone label and colon",
+                })}
+              </span>
               {telephone ? (
                 <a
                   href={`tel:${telephone}`}
@@ -103,13 +106,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {!!preferredLang && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Preferred Communication Language:",
-                id: "bEwwY/",
-                description:
-                  "Preferred Language for communication purposes label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Preferred Communication Language:",
+                  id: "bEwwY/",
+                  description:
+                    "Preferred Language for communication purposes label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {preferredLang
                   ? intl.formatMessage(getLanguage(preferredLang))
@@ -154,12 +158,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {!!currentCity && !!currentProvince && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Current Location:",
-                id: "s1h7Mc",
-                description: "Current Location label and colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Current Location:",
+                  id: "s1h7Mc",
+                  description: "Current Location label and colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {currentCity},{" "}
                 {currentProvince
@@ -172,12 +177,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Member of CAF:",
-                id: "Md/cQS",
-                description: "Veteran/member label",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Member of CAF:",
+                  id: "Md/cQS",
+                  description: "Veteran/member label",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(
                   getArmedForcesStatusesProfile(armedForcesStatus),
@@ -189,12 +195,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {citizenship ? (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Citizenship Status:",
-                id: "92hwzj",
-                description: "Citizenship status label",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Citizenship Status:",
+                  id: "92hwzj",
+                  description: "Citizenship status label",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
               </span>
