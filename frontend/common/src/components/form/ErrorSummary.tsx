@@ -6,7 +6,6 @@ import type { FieldLabels } from "./BasicForm";
 
 import Alert from "../Alert";
 import { ScrollToLink } from "../Link";
-import { getLocale } from "../../helpers/localize";
 import { notEmpty } from "../../helpers/util";
 
 interface ErrorSummaryProps {
@@ -24,7 +23,6 @@ const ErrorSummary = React.forwardRef<
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
 
-  const locale = getLocale(intl);
   const { errors } = useFormState();
 
   // Don't show if the form is valid
@@ -78,7 +76,7 @@ const ErrorSummary = React.forwardRef<
         {invalidFields.map((field) => (
           <li key={field.name}>
             <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
-            {`${locale === "fr" && ` `}${field.message}`}
+            {`${` `}${field.message}`}
           </li>
         ))}
       </ul>
