@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
-import SkipLink from "@common/components/Link/SkipLink"
+import SkipLink from "@common/components/Link/SkipLink";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { getLocale } from "@common/helpers/localize";
