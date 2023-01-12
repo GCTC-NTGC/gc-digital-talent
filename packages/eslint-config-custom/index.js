@@ -6,11 +6,14 @@ module.exports = {
     jest: true,
   },
   extends: [
+    "plugin:@typescript-eslint/recommended",
     "airbnb",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
     "prettier",
   ],
   globals: {
@@ -31,16 +34,16 @@ module.exports = {
     "generated.ts",
     "webpack.*.js",
     "tsconfig.json",
-    "CssStub.js"
+    "CssStub.js",
+    ".turbo"
   ],
   plugins: [
-    "prettier",
     "react",
     "react-hooks",
+    "import",
     "@typescript-eslint",
     "formatjs",
-    "jsx-a11y",
-    "import"
+    "jsx-a11y"
   ],
   rules: {
     "formatjs/no-id": "off",
@@ -118,21 +121,14 @@ module.exports = {
     "react/function-component-definition": "off",
   },
   settings: {
-    react: {
-      version: "detect",
-    },
+    "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       typescript: {
-        "alwaysTryTypes": true,
-        "project": [
-          "apps/*/tsconfig.json",
-          "frontend/*/tsconfig.json",
-          "packages/*/tsconfig.json",
-        ]
+        project: [__dirname]
       },
-    },
+    }
   },
 };
