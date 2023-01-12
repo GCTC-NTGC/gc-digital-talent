@@ -357,7 +357,7 @@ export const UserTable = () => {
         id: "preferredLang",
         accessor: (user) =>
           languageAccessor(user?.preferredLanguageForInterview, intl),
-        sortColumnName: "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+        sortColumnName: "preferred_language_for_interview",
       },
       {
         label: intl.formatMessage({
@@ -369,7 +369,7 @@ export const UserTable = () => {
         id: "preferredLang",
         accessor: (user) =>
           languageAccessor(user?.preferredLanguageForExam, intl),
-        sortColumnName: "PREFERRED_LANGUAGE_FOR_EXAM",
+        sortColumnName: "preferred_language_for_exam",
       },
       {
         label: intl.formatMessage({
