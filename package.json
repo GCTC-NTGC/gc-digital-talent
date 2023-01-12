@@ -44,7 +44,7 @@
     "@graphql-codegen/cli": "^2.16.4",
     "@hydrogen-css/hydrogen": "2.0.0-beta.33",
     "eslint-config-custom": "*",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "turbo": "^1.6.3"
   }
 }
