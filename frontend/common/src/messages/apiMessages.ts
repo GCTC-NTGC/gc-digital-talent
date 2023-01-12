@@ -163,6 +163,30 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Message displayed when user attempts to apply to an unpublished pool",
   },
+  POOL_CLOSED: {
+    defaultMessage: "Unable to apply to a closed pool",
+    id: "Mm+Me1",
+    description:
+      "Message displayed when user attempts to apply to a closed pool",
+  },
+  PROFILE_INCOMPLETE: {
+    defaultMessage: "Profile is incomplete",
+    id: "C/tnCE",
+    description:
+      "Message displayed when user attempts to apply to a pool with an incomplete profile",
+  },
+  MISSING_ESSENTIAL_SKILLS: {
+    defaultMessage: "Missing essential skills",
+    id: "H8eisr",
+    description:
+      "Message displayed when user attempts to apply to a pool without an essential skill",
+  },
+  SIGNATURE_REQUIRED: {
+    defaultMessage: "Signature is a required field",
+    id: "J30FT0",
+    description:
+      "Message displayed when user attempts to apply to a pool without a signature",
+  },
   RATE_LIMIT: {
     defaultMessage: "Too many requests, please wait a minute and try again.",
     id: "SUYPIt",
