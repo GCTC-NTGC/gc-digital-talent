@@ -8,6 +8,7 @@ import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
 import Header from "@common/components/Header";
+import SkipLink from "@common/components/Link/SkipLink";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import { getLocale } from "@common/helpers/localize";
 
@@ -78,13 +79,7 @@ const Layout = () => {
           })}
         />
       </Helmet>
-      <a href="#main" data-h2-visibility="base(hidden)">
-        {intl.formatMessage({
-          defaultMessage: "Skip to main content",
-          id: "Srs7a4",
-          description: "Assistive technology skip link",
-        })}
-      </a>
+      <SkipLink />
       <div data-h2-flex-grid="base(stretch, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}

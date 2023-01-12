@@ -914,10 +914,6 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "TxEV7S": {
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
