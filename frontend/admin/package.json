@@ -78,7 +78,7 @@
     "@types/react-helmet": "^6.1.6",
     "@types/react-table": "^7.7.13",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "babel-loader": "^9.1.2",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
