@@ -17,7 +17,7 @@ const classificationData = fakeClassifications();
 const stories = storiesOf("Classifications", module);
 
 stories.add("Classifications Table", () => (
-  <ClassificationTable classifications={classificationData} editUrlRoot="#" />
+  <ClassificationTable classifications={classificationData} />
 ));
 
 stories.add("Create Classification Form", () => (
