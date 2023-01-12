@@ -3,7 +3,7 @@ import {
   Classification,
   Maybe,
   UserPublicProfile,
-} from "../api/generated";
+} from "~/api/generated";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
 export type SimpleOwner = Pick<
