@@ -208,7 +208,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->expectedGenericJobTitles()->saveMany(
-                GenericJobTitle::inRandomOrder()->take(3)->get()
+                GenericJobTitle::inRandomOrder()->take(1)->get()
             );
         });
     }
