@@ -24,6 +24,7 @@ const TemplateUserProfile: Story<Applicant> = (args) => {
         workLocation: { isVisible: true },
         workPreferences: { isVisible: true },
         employmentEquity: { isVisible: true },
+        roleSalary: { isVisible: true },
         skillsExperience: { isVisible: true },
       }}
     />

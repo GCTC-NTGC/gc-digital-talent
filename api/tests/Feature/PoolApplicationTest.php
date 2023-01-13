@@ -612,6 +612,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // pool with no essential skills
@@ -710,6 +711,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([
@@ -811,6 +813,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // create an experience with no skills, then attach it to the user
@@ -889,6 +892,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([
@@ -1004,6 +1008,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([]);

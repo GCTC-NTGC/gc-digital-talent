@@ -60,6 +60,12 @@ class ApplicantFilterTest extends TestCase
             'operationalRequirements' => $filter->operational_requirements,
             'locationPreferences' => $filter->location_preferences,
             'positionDuration' => $filter->position_duration,
+            'expectedClassifications' => $filter->classifications->map(function ($classification) {
+                return [
+                    'group' => $classification->group,
+                    'level' => $classification->level,
+                ];
+            })->toArray(),
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
         ];
@@ -68,6 +74,9 @@ class ApplicantFilterTest extends TestCase
     protected function filterToCreateInput(ApplicantFilter $filter)
     {
         $input = $this->filterToInput($filter);
+        $input['expectedClassifications'] = [
+            'sync' => $filter->classifications->pluck('id')->toArray()
+        ];
         $input['skills'] = [
             'sync' => $filter->skills->pluck('id')->toArray()
         ];
@@ -242,6 +251,13 @@ class ApplicantFilterTest extends TestCase
             query {
                 applicantFilters {
                     id
+                    expectedClassifications {
+                        id
+                        name {
+                            en
+                            fr
+                        }
+                    }
                     skills {
                         id
                         name {
@@ -263,6 +279,7 @@ class ApplicantFilterTest extends TestCase
         );
         // Assert that each relationship collection has the right size.
         foreach ($response->json('data.applicantFilters') as $filter) {
+            $this->assertCount($filters->find($filter['id'])->classifications->count(), $filter['expectedClassifications']);
             $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
@@ -273,6 +290,12 @@ class ApplicantFilterTest extends TestCase
                 'applicantFilters' => [
                     [
                         'id' => $filters[0]->id,
+                        'expectedClassifications' => [
+                            [
+                                'id' => $filters[0]->classifications->first()->id,
+                                'name' => $filters[0]->classifications->first()->name,
+                            ],
+                        ],
                         'skills' => [
                             [
                                 'id' => $filters[0]->skills->first()->id,
@@ -368,7 +391,7 @@ class ApplicantFilterTest extends TestCase
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->activelyLooking()->withSkills(10)
+            'user_id' => User::factory()->activelyLooking()->withExpectedGenericJobTitles()->withSkills(10)
         ]);
 
         // Generate a filter that matches at least one candidate
@@ -395,6 +418,9 @@ class ApplicantFilterTest extends TestCase
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->operational_requirements,
             ]
+        );
+        $filter->classifications()->saveMany(
+            $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
         );
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
@@ -462,6 +488,10 @@ class ApplicantFilterTest extends TestCase
                         languageAbility
                         operationalRequirements
                         positionDuration
+                        expectedClassifications {
+                            group
+                            level
+                        }
                         skills {
                             id
                         }

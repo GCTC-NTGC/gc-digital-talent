@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property boolean $is_woman
  * @property string $language_ability
  * @property array $work_regions
+ * @property array $expected_salary
  * @property array $operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at

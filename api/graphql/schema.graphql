@@ -98,8 +98,8 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary") @deprecated(reason: "Expected role/salary being removed")
-  expectedClassifications: [Classification] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: [Classification] @belongsToMany
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
@@ -119,7 +119,7 @@ type User {
   pools: [Pool] @hasMany # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
@@ -258,8 +258,8 @@ type Applicant {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary") @deprecated(reason: "Expected role/salary being removed")
-  expectedClassifications: [Classification] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: [Classification] @belongsToMany
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
@@ -275,7 +275,7 @@ type Applicant {
   workExperiences: [WorkExperience]
 
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
@@ -551,6 +551,8 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  expectedClassifications: [Classification]
+    @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   pools: [Pool] @belongsToMany
 }
@@ -758,6 +760,7 @@ input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   equity: EquitySelectionsInput @scope
+  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -785,6 +788,8 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -1007,6 +1012,9 @@ input CreateUserInput {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
@@ -1075,6 +1083,9 @@ input UpdateUserAsAdminInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
@@ -1138,6 +1149,9 @@ input UpdateUserAsUserInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
@@ -1292,6 +1306,8 @@ input CreateApplicantFilterInput {
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  expectedClassifications: ClassificationBelongsToMany
+    @rename(attribute: "classifications")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus

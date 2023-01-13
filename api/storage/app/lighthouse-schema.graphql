@@ -43,8 +43,8 @@ type Applicant {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "Expected role\/salary being removed")
-  expectedClassifications: [Classification] @deprecated(reason: "Expected role\/salary being removed")
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
@@ -55,7 +55,7 @@ type Applicant {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "Expected role\/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
 }
 
@@ -68,6 +68,7 @@ type ApplicantFilter {
   locationPreferences: [WorkRegion]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
+  expectedClassifications: [Classification]
   skills: [Skill]
   pools: [Pool]
 }
@@ -78,6 +79,7 @@ input ApplicantFilterBelongsTo {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
+  expectedClassifications: [ClassificationFilterInput]
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
@@ -242,6 +244,7 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
   positionDuration: [PositionDuration]
+  expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
@@ -369,6 +372,9 @@ input CreateUserInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -856,6 +862,7 @@ input PoolCandidateFilterBelongsTo {
 input PoolCandidateFilterInput {
   cmoAssets: [KeyFilterInput]
   equity: EquitySelectionsInput
+  expectedClassifications: [ClassificationFilterInput]
   email: String
   generalSearch: String
   hasDiploma: Boolean
@@ -1350,6 +1357,9 @@ input UpdateUserAsAdminInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1394,6 +1404,9 @@ input UpdateUserAsUserInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1444,8 +1457,8 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "Expected role\/salary being removed")
-  expectedClassifications: [Classification] @deprecated(reason: "Expected role\/salary being removed")
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
@@ -1458,7 +1471,7 @@ type User {
   workExperiences: [WorkExperience]
   pools: [Pool]
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "Expected role\/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
 }
 

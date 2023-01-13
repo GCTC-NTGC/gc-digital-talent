@@ -187,6 +187,10 @@
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
   },
+  "MmFgbF": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the single search request table classifications column."
+  },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
     "description": "Placeholder displayed on the classification form level field."
@@ -1089,6 +1093,10 @@
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
   },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
+  },
   "usNShh": {
     "defaultMessage": "Sélectionner un statut de bassin...",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
@@ -1716,6 +1724,9 @@
     "defaultMessage": "Niveau verbal",
     "description": "CSV Header, Verbal Level column"
   },
+  "5TVKj1": {
+    "defaultMessage": "Classifications"
+  },
   "5iNcHS": {
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
@@ -2020,6 +2031,10 @@
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
+  },
+  "iIZS1K": {
+    "defaultMessage": "Attente en matière de poste/salaire",
+    "description": "CSV Header, Role/Salary Expectation column"
   },
   "j9m5qA": {
     "defaultMessage": "Date de réception",
