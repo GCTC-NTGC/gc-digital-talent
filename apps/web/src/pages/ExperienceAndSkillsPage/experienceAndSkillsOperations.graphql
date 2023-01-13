@@ -1,3 +1,8 @@
+fragment applicant on Applicant {
+  id
+  email
+}
+
 fragment experience on Experience {
   id
   details

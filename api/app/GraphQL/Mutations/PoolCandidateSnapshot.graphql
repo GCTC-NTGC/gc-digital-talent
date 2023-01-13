@@ -1,6 +1,6 @@
 # Comes from frontend/talentsearch/src/js/api/userOperations.graphql
 # Should match the getMe query from that file to take accurate snapshots
-query getProfile($userId: ID!) {
+query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
     sub
