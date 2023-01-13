@@ -55,14 +55,17 @@ export const listOrEmptyString = (value: string[] | undefined) => {
 };
 
 /**
- * Converts a possible array to
- * a new line separated list
+ * Sanitizes justifications strings for csv,
+ * and separates multiple justifications with a new line.
  *
  * @param value string[] | undefined    Array of items to convert
  * @returns string                      Comma separated list or empty
  */
-export const newLineListOrEmptyString = (value: string[] | undefined) => {
-  return value ? insertBetween("\n\n", value).join("") : "";
+export const sanitizeJustifications = (values: string[] | undefined) => {
+  const sanitizedList = values
+    ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
+    : "";
+  return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
 /**
@@ -308,15 +311,17 @@ export const skillKeyAndJustifications = (
     })
     .flatMap((justification) => justification);
 
-  return skills.reduce((accumulator, currentValue) => {
-    const { key, id: skillId } = currentValue;
+  const keyAndJustfications = skills.reduce((accumulator, currentValue) => {
+    const { key, id } = currentValue;
     const justifications = skillJustifications
       ?.filter(notEmpty)
-      .filter((esj) => esj.id === skillId)
-      .map((j) => j.justification);
+      .filter((sj) => sj.id === id)
+      .map((j) => j.justification.trim());
     return {
       ...accumulator,
-      [key]: newLineListOrEmptyString(justifications),
+      [key]: sanitizeJustifications(justifications),
     };
   }, {});
+
+  return keyAndJustfications;
 };
