@@ -8,7 +8,7 @@ import { axeTest, render } from "@common/helpers/testUtils";
 import { fakePoolCandidates } from "@common/fakeData";
 import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
 
-import { ApplicationCard, type ApplicationCardProps } from "./ApplicationCard";
+import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
 import { PoolCandidateStatus } from "../../../api/generated";
 
 const mockApplication = fakePoolCandidates()[0];

@@ -9,18 +9,17 @@ import {
   fakeUsers,
 } from "@common/fakeData";
 import pick from "lodash/pick";
-import { GovEmployeeType } from "../../api/generated";
-import GovInfoFormContainer, {
-  GovInfoFormWithProfileWrapper,
-} from "./GovernmentInfoForm";
+
+import { GovEmployeeType } from "~/api/generated";
+import GovernmentInfoForm from "./GovernmentInfoForm";
 
 export default {
-  component: GovInfoFormContainer,
+  component: GovernmentInfoForm,
   title: "Government Info Form",
 } as Meta;
 
 const TemplateGovInfoForm: Story = (args) => (
-  <GovInfoFormWithProfileWrapper
+  <GovernmentInfoForm
     departments={fakeDepartments()}
     classifications={fakeClassifications()}
     initialData={args.initialData}

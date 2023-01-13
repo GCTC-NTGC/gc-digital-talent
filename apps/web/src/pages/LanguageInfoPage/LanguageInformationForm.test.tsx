@@ -12,8 +12,7 @@ import {
   EvaluatedLanguageAbility,
   User,
 } from "../../api/generated";
-import {
-  LanguageInformationForm,
+import LanguageInformationForm, {
   LanguageInformationUpdateHandler,
 } from "./LanguageInformationForm";
 

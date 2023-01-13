@@ -6,7 +6,7 @@ import pick from "lodash/pick";
 import { fakeUsers } from "@common/fakeData";
 import { UpdateUserAsUserInput } from "@common/api/generated";
 
-import { LanguageInformationForm } from "./LanguageInformationForm";
+import LanguageInformationForm from "./LanguageInformationForm";
 
 export default {
   component: LanguageInformationForm,

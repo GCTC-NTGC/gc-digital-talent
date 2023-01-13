@@ -7,7 +7,7 @@ import {
 } from "@common/fakeData";
 
 import { Experience } from "~/api/generated";
-import ReviewApplicationPage from "./ReviewApplicationPage";
+import { ReviewApplication } from "./ReviewApplicationPage";
 
 const poolCandidate = fakePoolCandidates(1)[0];
 const { poolAdvertisement } = poolCandidate;
@@ -17,7 +17,7 @@ const newExperience = fakeExperiences(1)[0] as Experience;
 newExperience.skills = essentialSkills;
 
 export default {
-  component: ReviewApplicationPage,
+  component: ReviewApplication,
   title: "Pages/Review Application",
   args: {
     poolAdvertisement,
@@ -25,10 +25,10 @@ export default {
     applicationId: poolCandidate.id,
     closingDate: poolCandidate.poolAdvertisement?.closingDate,
   },
-} as ComponentMeta<typeof ReviewApplicationPage>;
+} as ComponentMeta<typeof ReviewApplication>;
 
-const Template: ComponentStory<typeof ReviewApplicationPage> = (args) => {
-  return <ReviewApplicationPage {...args} />;
+const Template: ComponentStory<typeof ReviewApplication> = (args) => {
+  return <ReviewApplication {...args} />;
 };
 
 export const ApplicationIsIncomplete = Template.bind({});

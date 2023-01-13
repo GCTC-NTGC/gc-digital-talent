@@ -16,9 +16,8 @@ import {
   waitFor,
   axeTest,
 } from "@common/helpers/testUtils";
-import {
-  GovInfoFormWithProfileWrapper as GovernmentInfoForm,
-  GovInfoFormWithProfileWrapperProps as GovernmentInfoFormProps,
+import GovernmentInfoForm, {
+  GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";
 
 const mockDepartments = fakeDepartments();

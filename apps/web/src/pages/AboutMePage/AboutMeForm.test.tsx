@@ -6,7 +6,7 @@ import { screen, fireEvent, waitFor, act } from "@testing-library/react";
 import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { render, axeTest } from "@common/helpers/testUtils";
-import { AboutMeForm, AboutMeFormProps } from "./AboutMeForm";
+import AboutMeForm, { AboutMeFormProps } from "./AboutMeForm";
 
 const mockUser = fakeUsers()[0];
 

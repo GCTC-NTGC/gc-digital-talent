@@ -7,8 +7,7 @@ import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
 import { axeTest, render } from "@common/helpers/testUtils";
-import {
-  EmploymentEquityForm,
+import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
 
