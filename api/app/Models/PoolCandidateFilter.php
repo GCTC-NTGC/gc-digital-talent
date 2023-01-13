@@ -48,10 +48,6 @@ class PoolCandidateFilter extends Model
     {
         return $this->belongsToMany(Classification::class, 'classification_pool_candidate_filter');
     }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class, 'cmo_asset_pool_candidate_filter');
-    }
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');

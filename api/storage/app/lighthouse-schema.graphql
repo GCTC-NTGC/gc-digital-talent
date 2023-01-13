@@ -47,7 +47,6 @@ type Applicant {
   expectedClassifications: [Classification] @deprecated(reason: "Expected role\/salary being removed")
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -184,20 +183,6 @@ input ClassificationFilterInput {
   level: Int!
 }
 
-"""
-e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
-"""
-type CmoAsset {
-  id: ID!
-  key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString
-}
-
-input CmoAssetBelongsToMany {
-  sync: [ID!]
-}
-
 type CommunityExperience implements Experience {
   id: ID!
   applicant: Applicant!
@@ -256,12 +241,6 @@ input CreateClassificationInput {
   maxSalary: Int
 }
 
-input CreateCmoAssetInput {
-  key: KeyString!
-  name: LocalizedStringInput!
-  description: LocalizedStringInput
-}
-
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
@@ -282,7 +261,6 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
@@ -307,8 +285,6 @@ input CreatePoolInput {
   key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
@@ -370,7 +346,6 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -590,9 +565,6 @@ type Mutation {
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
-  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
-  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
-  deleteCmoAsset(id: ID!): CmoAsset @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
@@ -769,8 +741,6 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification]
-  assetCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
-  essentialCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
@@ -840,7 +810,6 @@ type PoolCandidate {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
@@ -854,7 +823,6 @@ input PoolCandidateFilterBelongsTo {
 }
 
 input PoolCandidateFilterInput {
-  cmoAssets: [KeyFilterInput]
   equity: EquitySelectionsInput
   email: String
   generalSearch: String
@@ -994,8 +962,6 @@ type Query {
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
-  cmoAsset(id: UUID!): CmoAsset @deprecated(reason: "replaced by skills")
-  cmoAssets: [CmoAsset]! @deprecated(reason: "replaced by skills")
   department(id: UUID!): Department
   departments: [Department]!
   poolCandidateFilter(id: UUID!): PoolCandidateFilter
@@ -1239,11 +1205,6 @@ input UpdateClassificationInput {
   maxSalary: Int
 }
 
-input UpdateCmoAssetInput {
-  name: LocalizedStringInput
-  description: LocalizedStringInput
-}
-
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
@@ -1288,8 +1249,6 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus
@@ -1351,7 +1310,6 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1395,7 +1353,6 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1448,7 +1405,6 @@ type User {
   expectedClassifications: [Classification] @deprecated(reason: "Expected role\/salary being removed")
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]

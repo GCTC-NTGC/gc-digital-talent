@@ -91,10 +91,6 @@ class User extends Model implements Authenticatable
     {
         return $this->belongsTo(Classification::class, "current_classification");
     }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class)->withTimestamps();
-    }
 
     public function isAdmin(): bool
     {
@@ -376,23 +372,6 @@ class User extends Model implements Authenticatable
                 ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
                 ->whereColumn('aggregate_experiences.user_id', 'users.id');
         });
-        return $query;
-    }
-
-    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
-    public static function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
-    {
-        if (empty($cmoAssets)) {
-            return $query;
-        }
-
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
-                foreach ($cmoAssets as $cmoAsset) {
-                    $query->where('key', $cmoAsset['key']);
-                }
-            });
         return $query;
     }
 
