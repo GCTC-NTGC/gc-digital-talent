@@ -8,7 +8,7 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
-} from "talentsearch/src/js/api/generated";
+} from "apps/web/src/api/generated";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,

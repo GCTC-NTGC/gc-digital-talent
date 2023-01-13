@@ -17,7 +17,6 @@ chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
 # copy out new .env files
 cd /var/www/html/frontend
-cp ./talentsearch/.env.example ./talentsearch/.env --preserve=all
 cp ./admin/.env.example ./admin/.env --preserve=all
 
 cd /var/www/html

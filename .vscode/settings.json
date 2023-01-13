@@ -19,7 +19,6 @@
     "apps",
     "frontend/admin",
     "frontend/common",
-    "frontend/talentsearch"
   ],
   "[typescriptreact]": {
     "editor.tabSize": 2

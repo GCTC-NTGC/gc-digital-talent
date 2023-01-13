@@ -37,7 +37,6 @@ To refresh each sub-project after they have been setup run one of the refresh sc
 - `docker-compose run --rm maintenance bash refresh_api.sh`
 - `docker-compose run --rm maintenance bash refresh_frontend.sh`
 - `docker-compose run --rm maintenance bash refresh_common.sh`
-- `docker-compose run --rm maintenance bash refresh_talentsearch.sh`
 - `docker-compose run --rm maintenance bash refresh_admin.sh`
 
 Or refresh all of them in order:
@@ -53,14 +52,14 @@ In order to compile and render UI for development, you have two options.
 
 ### Logging into the UI
 
-- Navigate to the app you'd like to work on (e.g. `cd frontend/talentsearch`)
+- Navigate to the app you'd like to work on (e.g. `cd apps/web`)
 - Run `npm run watch`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and refresh your page
 
 ### Running Storybook
 
-- Navigate to the app you'd like to work on (e.g. `cd frontend/talentsearch`)
+- Navigate to the app you'd like to work on (e.g. `cd app/web`)
 - Run `npm run storybook`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh

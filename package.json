@@ -32,7 +32,6 @@
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
     "watch:project": "turbo run watch",
     "watch:admin": "turbo run watch --filter=admin",
-    "watch:talentsearch": "turbo run watch --filter=talentsearch",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
     "e2e:open": "npm run e2e:open",
     "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",

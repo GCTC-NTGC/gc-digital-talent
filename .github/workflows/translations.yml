@@ -46,7 +46,6 @@ jobs:
           npm run check-intl-admin --workspace=frontend/common
           npm run check-intl-common --workspace=frontend/common
           npm run check-intl-web --workspace=frontend/common
-          npm run check-intl-talentsearch --workspace=frontend/common
 
       - name: "Verify no untranslated file: admin"
         if: always()
@@ -81,18 +80,6 @@ jobs:
             exit 1;
           else
             echo ":heavy_check_mark: Web is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 0;
-          fi
-
-      - name: "Verify no untranslated file: talentsearch"
-        if: always()
-        working-directory: frontend/talentsearch/src/js/lang
-        run: >
-          if test -f "untranslated.json"; then
-            echo ":x: Talentsearch has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 1;
-          else
-            echo ":heavy_check_mark: Talentsearch is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 

@@ -367,7 +367,6 @@
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
   },
-
   ".ellipsis": {
     "defaultMessage": "... "
   },
@@ -1094,10 +1093,6 @@
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
     "description": "Title for addition information on Experience form"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "T1TKNL": {
     "defaultMessage": "Niveau de compétence en langue seconde",
     "description": "Legend for second language proficiency level in language information form"
@@ -1245,10 +1240,6 @@
   "d0qGas": {
     "defaultMessage": "Quelles tâches ou activités avez-vous effectuées qui ont trait à cette compétence?",
     "description": "Question for user in skills in detail section of experience form."
-  },
-  "dHLkSE": {
-    "defaultMessage": "Retour au bassin",
-    "description": "Label for button to return to view pool"
   },
   "dTMBj9": {
     "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
@@ -1425,10 +1416,6 @@
   "t12bCU": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Button text to submit employment equity form."
-  },
-  "tf/wEc": {
-    "defaultMessage": "Index des bassins",
-    "description": "Breadcrumb title for the pools index link."
   },
   "tlsomU": {
     "defaultMessage": "Mon profil",
