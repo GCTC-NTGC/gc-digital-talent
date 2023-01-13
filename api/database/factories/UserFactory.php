@@ -203,4 +203,13 @@ class UserFactory extends Factory
             }
         });
     }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->expectedGenericJobTitles()->saveMany(
+                GenericJobTitle::inRandomOrder()->take(3)->get()
+            );
+        });
+    }
 }
