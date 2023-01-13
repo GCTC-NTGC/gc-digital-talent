@@ -68,7 +68,7 @@ const Header = ({ width }: HeaderProps) => {
                   />
                 </>
               )}
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "gpcHeU",

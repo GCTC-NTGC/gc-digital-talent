@@ -54,7 +54,7 @@ const Actions = ({
     >
       {fetching && (
         <span aria-live="polite" {...layoutStyles}>
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Searching...",
               id: "4l+gBD",

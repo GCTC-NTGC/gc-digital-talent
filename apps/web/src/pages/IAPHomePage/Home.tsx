@@ -90,7 +90,7 @@ const Home: React.FunctionComponent = () => {
               )}
               alt=""
             />
-            <span data-h2-visibility="base(invisible)">
+            <span data-h2-visually-hidden="base(invisible)">
               {intl.formatMessage({
                 defaultMessage:
                   "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
@@ -320,7 +320,7 @@ const Home: React.FunctionComponent = () => {
                       "First paragraph what will you learn at the program",
                   })}
                 </p>
-                <div data-h2-visibility="base(revealed) l-tablet(invisible)">
+                <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
                   <CTAButtons />
                 </div>
               </div>

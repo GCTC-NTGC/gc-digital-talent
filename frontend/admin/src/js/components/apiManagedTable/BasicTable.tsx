@@ -90,7 +90,7 @@ function BasicTable<T extends RecordWithId>({
     >
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <caption>
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Column headers with buttons are sortable",
               id: "/bwX1a",

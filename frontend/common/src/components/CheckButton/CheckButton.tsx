@@ -63,7 +63,7 @@ const CheckButton = ({
       data-h2-display="base(inline-flex)"
       {...colorMap[color]}
     >
-      <span data-h2-visibility="base(invisible)">
+      <span data-h2-visually-hidden="base(invisible)">
         {checked
           ? intl.formatMessage(
               {

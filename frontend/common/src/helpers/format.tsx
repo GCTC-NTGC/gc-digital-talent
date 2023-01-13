@@ -20,7 +20,7 @@ export const strong = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 export const hidden = (text: React.ReactNode) => (
-  <span data-h2-visibility="base(invisible)" style={{ whiteSpace: "pre" }}>
+  <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
     {text}
   </span>
 );

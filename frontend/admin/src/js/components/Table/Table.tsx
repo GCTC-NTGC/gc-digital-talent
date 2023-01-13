@@ -357,7 +357,7 @@ function Table<T extends Record<string, unknown>>({
             {...getTableProps()}
           >
             <caption>
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Column headers with buttons are sortable",
                   id: "/bwX1a",

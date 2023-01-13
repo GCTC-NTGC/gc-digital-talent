@@ -141,7 +141,7 @@ const Footer = ({ width }: FooterProps) => {
                 data-h2-display="base(none) base:dark(inline-block)"
                 data-h2-max-width="base(x10)"
               />
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "m1eQrS",

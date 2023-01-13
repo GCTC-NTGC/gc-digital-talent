@@ -121,7 +121,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
                     data-h2-padding="base(0, 0, 0, x.25)"
-                    data-h2-visibility="base(invisible) p-tablet(revealed)"
+                    data-h2-visually-hidden="base(invisible) p-tablet(revealed)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from experience",

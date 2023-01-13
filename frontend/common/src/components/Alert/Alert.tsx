@@ -127,7 +127,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                   data-h2-height="base(1.5rem)"
                   strokeWidth="2px"
                 />
-                <span data-h2-visibility="base(invisible)">
+                <span data-h2-visually-hidden="base(invisible)">
                   {intl.formatMessage({
                     defaultMessage: "Close alert",
                     id: "oGXgxJ",
@@ -171,7 +171,7 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
       {...rest}
     >
       {alertLevelTitle && (
-        <span data-h2-visibility="base(invisible)">{alertLevelTitle} </span>
+        <span data-h2-visually-hidden="base(invisible)">{alertLevelTitle} </span>
       )}
       {children}
     </Heading>

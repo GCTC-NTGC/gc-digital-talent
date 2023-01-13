@@ -174,7 +174,7 @@ const SkillPicker = ({
       </p>
       <a
         href={`#${skipToHeadingId}`}
-        data-h2-visibility="base(invisible)"
+        data-h2-visually-hidden="base(invisible)"
         data-h2-position="base:focus(static)"
         data-h2-location="base:focus(auto)"
         data-h2-height="base:focus(auto)"
