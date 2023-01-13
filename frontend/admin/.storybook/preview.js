@@ -39,7 +39,6 @@ const messages = {
     ...AdminFrench,
     ...CommonFrench,
     // Technically only needed when envvar MERGE_STORYBOOKS=true is used.
-    ...TalentFrench,
     ...IndigenousFrench,
   }
 };
