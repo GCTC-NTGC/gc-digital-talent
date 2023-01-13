@@ -388,7 +388,6 @@ const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
 > = ({ filters, selectedClassifications }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   let poolCandidateFilter;
 
   // eslint-disable-next-line no-underscore-dangle

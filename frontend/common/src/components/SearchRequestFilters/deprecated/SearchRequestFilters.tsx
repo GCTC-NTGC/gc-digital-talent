@@ -12,7 +12,6 @@ import {
   getOperationalRequirement,
   getWorkRegion,
 } from "../../../constants/localizedConstants";
-import { getLocale } from "../../../helpers/localize";
 
 export interface FilterBlockProps {
   title: string;
@@ -102,7 +101,6 @@ const SearchRequestFilters: React.FunctionComponent<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ poolCandidateFilter, poolApplicantFilter }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
