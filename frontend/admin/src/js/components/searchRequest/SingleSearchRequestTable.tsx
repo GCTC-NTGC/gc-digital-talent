@@ -191,28 +191,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Skills",
-          id: "i9/L40",
-          description:
-            "Title displayed on the single search request table skills column.",
-        }),
-        accessor: ({ user }) =>
-          user.cmoAssets?.map((cmoAsset) => {
-            return (
-              <Pill key={cmoAsset?.key} color="primary" mode="outline">
-                {cmoAsset?.name?.[locale] ||
-                  intl.formatMessage({
-                    defaultMessage: "Error: Name not found.",
-                    id: "ZP3GYM",
-                    description:
-                      "Error message displayed on the single search request table operational requirements column.",
-                  })}
-              </Pill>
-            );
-          }),
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Edit",
           id: "lo2bSB",
           description:
@@ -252,15 +230,6 @@ const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
-    cmoAssets: [
-      ...(inputFilter?.cmoAssets
-        ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
-        : []),
-    ],
     operationalRequirements: inputFilter?.operationalRequirements,
     pools: [
       ...(inputFilter?.pools

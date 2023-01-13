@@ -186,16 +186,6 @@ const SearchRequestFilters: React.FunctionComponent<
         defaultMessage: "Any language",
         id: "0/8x/z",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (skill) =>
-      skill?.name[locale] ||
-      intl.formatMessage({
-        defaultMessage: "Error: skill name not found",
-        id: "vyQv+i",
-        description:
-          "Error message when cmo asset name is not found on request page.",
-      }),
-  );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
@@ -269,15 +259,6 @@ const SearchRequestFilters: React.FunctionComponent<
                 "Title for employment equity section on summary of filters section",
             })}
             content={employmentEquity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Skills",
-              id: "gD3yqV",
-              description:
-                "Title for skills section on summary of filters section",
-            })}
-            content={skills}
           />
         </div>
       </div>
