@@ -38,8 +38,10 @@ import {
 
 import { SimpleClassification } from "~/types/pool";
 
-import { FormValues as SearchFormValues } from "~/pages/SearchPage/SearchForm";
-import { BrowserHistoryState } from "~/pages/SearchPage/SearchContainer";
+import {
+  BrowserHistoryState,
+  FormValues as SearchFormValues,
+} from "~/pages/SearchPage/types";
 
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {

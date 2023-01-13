@@ -29,9 +29,9 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";

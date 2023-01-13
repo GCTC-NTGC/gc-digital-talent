@@ -22,8 +22,9 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 export type FormValues = Pick<
   CreateUserInput,

@@ -5,7 +5,7 @@ import { Button, Link } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
-import useRoutes from "../../../hooks/useRoutes";
+import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
 

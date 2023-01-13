@@ -13,6 +13,7 @@ import {
   UpdateUserAsUserInput,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
+
 import EmploymentEquityForm from "./EmploymentEquityForm";
 import { EmploymentEquityUpdateHandler } from "./types";
 

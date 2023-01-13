@@ -8,9 +8,10 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import { User, PoolCandidate, IndigenousCommunity } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 

@@ -28,13 +28,15 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
-import CommunityExperienceForm from "../communityExperienceForm/CommunityExperienceForm";
-import EducationExperienceForm from "../educationExperienceForm/EducationExperienceForm";
-import PersonalExperienceForm from "../personalExperienceForm/PersonalExperienceForm";
-import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+
+import AwardFormFields from "./AwardFormFields/AwardFormFields";
+import CommunityFormFields from "./CommunityFormFields/CommunityFormFields";
+import EducationFormFields from "./EducationFormFields/EducationFormFields";
+import PersonalFormFields from "./PersonalFormFields/PersonalFormFields";
+import WorkFormFields from "./WorkFormFields/WorkFormFields";
 
 import ExperienceSkills from "./ExperienceSkills";
 
@@ -227,17 +229,17 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           defaultValues,
         }}
       >
-        {experienceType === "award" && <AwardDetailsForm labels={labels} />}
+        {experienceType === "award" && <AwardFormFields labels={labels} />}
         {experienceType === "community" && (
-          <CommunityExperienceForm labels={labels} />
+          <CommunityFormFields labels={labels} />
         )}
         {experienceType === "education" && (
-          <EducationExperienceForm labels={labels} />
+          <EducationFormFields labels={labels} />
         )}
         {experienceType === "personal" && (
-          <PersonalExperienceForm labels={labels} />
+          <PersonalFormFields labels={labels} />
         )}
-        {experienceType === "work" && <WorkExperienceForm labels={labels} />}
+        {experienceType === "work" && <WorkFormFields labels={labels} />}
         <ExperienceSkills
           skills={skills}
           poolAdvertisement={poolAdvertisement}

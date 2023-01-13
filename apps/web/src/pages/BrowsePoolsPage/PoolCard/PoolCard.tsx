@@ -22,8 +22,8 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 
-import { PoolAdvertisement } from "../../../api/generated";
-import useRoutes from "../../../hooks/useRoutes";
+import { PoolAdvertisement } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 

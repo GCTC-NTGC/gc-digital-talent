@@ -16,7 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 
-import MyStatusApi from "../../myStatusForm/MyStatusForm";
+import MyStatusApi from "./MyStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
   profileDataInput: User;

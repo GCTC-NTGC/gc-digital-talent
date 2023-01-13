@@ -4,11 +4,11 @@ import { useLocation } from "react-router-dom";
 
 import useTheme from "@common/hooks/useTheme";
 import Heading from "@common/components/Heading";
-
 import { useLogger } from "@common/hooks/useLogger";
-import useRoutes from "~/hooks/useRoutes";
 
-import CallToAction from "../CallToAction";
+import useRoutes from "~/hooks/useRoutes";
+import CallToAction from "~/components/CallToAction/CallToAction";
+
 import { PugDark, PugLight } from "./Icons";
 import useErrorMessages from "./useErrorMessages";
 

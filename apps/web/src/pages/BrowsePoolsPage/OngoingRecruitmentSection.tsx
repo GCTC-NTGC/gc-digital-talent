@@ -1,6 +1,7 @@
 import React from "react";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
+
 import Heading from "@common/components/Heading";
 import { PoolStream, Skill } from "@common/api/generated";
 import Accordion from "@common/components/Accordion";
@@ -10,8 +11,9 @@ import { Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { AuthorizationContext } from "@common/components/Auth";
 import { getId, notEmpty, uniqueItems } from "@common/helpers/util";
-import { PoolAdvertisement, useMySkillsQuery } from "../../api/generated";
-import useRoutes from "../../hooks/useRoutes";
+
+import { PoolAdvertisement, useMySkillsQuery } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
 import messages from "./messages";
 
 // the shape of the data model to populate this component

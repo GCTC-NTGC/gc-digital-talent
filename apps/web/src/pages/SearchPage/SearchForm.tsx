@@ -34,8 +34,8 @@ import {
   SimplePool,
 } from "~/types/pool";
 
+import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
-import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 import { FormValues } from "./types";
 
 function mapObjectsByKey<T>(

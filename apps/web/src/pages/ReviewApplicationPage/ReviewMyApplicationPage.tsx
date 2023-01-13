@@ -26,7 +26,7 @@ import {
   useGetReviewApplicationPageDataQuery,
 } from "~/api/generated";
 
-import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
+import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 
 interface ReviewApplicationProps {
   applicant: Applicant;

@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 import { ApplicantFilterInput } from "~/api/generated";
 import { SimpleClassification } from "~/types/pool";
 
+import { FormValues as SearchFormValues } from "~/pages/SearchPage/types";
 import CreateRequest from "./RequestForm";
-import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type LocationState = {
   applicantFilter: ApplicantFilterInput;

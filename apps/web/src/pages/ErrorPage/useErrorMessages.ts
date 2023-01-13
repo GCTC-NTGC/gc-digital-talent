@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useRouteError } from "react-router-dom";
+
 import { errorMessages } from "@common/messages";
 
 interface ErrorMessage {

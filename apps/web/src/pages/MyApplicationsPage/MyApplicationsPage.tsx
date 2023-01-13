@@ -7,8 +7,9 @@ import Pending from "@common/components/Pending";
 import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 
-import { useMyApplicationsQuery } from "../../api/generated";
-import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { useMyApplicationsQuery } from "~/api/generated";
+import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
+
 import ApplicationCard, {
   type Application,
 } from "./ApplicationCard/ApplicationCard";

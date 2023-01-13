@@ -8,7 +8,7 @@ import {
   relativeClosingDate,
 } from "@common/helpers/dateUtils";
 
-import type { Maybe, PoolAdvertisement } from "../../api/generated";
+import type { Maybe, PoolAdvertisement } from "~/api/generated";
 
 export interface PoolInfoCardProps {
   closingDate: PoolAdvertisement["closingDate"];

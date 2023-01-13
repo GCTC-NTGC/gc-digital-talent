@@ -30,9 +30,9 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { ExperienceType } from "~/types/experience";
-
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 type MergedExperiences = Array<
   | AwardExperience

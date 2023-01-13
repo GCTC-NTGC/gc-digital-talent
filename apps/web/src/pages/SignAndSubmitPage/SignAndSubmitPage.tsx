@@ -32,7 +32,7 @@ import {
   useSubmitApplicationMutation,
 } from "~/api/generated";
 
-import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
+import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 
 const ImportantInfo = () => {
   const intl = useIntl();

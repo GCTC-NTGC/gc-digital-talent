@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { ScrollToLink } from "@common/components/Link";
 
-import Spinner from "../Spinner";
+import Spinner from "~/components/Spinner/Spinner";
 
 interface EstimatedCandidatesProps {
   candidateCount: number;

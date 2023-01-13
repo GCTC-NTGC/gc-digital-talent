@@ -16,10 +16,11 @@ import {
   PublishingGroup,
   PoolAdvertisement,
   useBrowsePoolAdvertisementsQuery,
-} from "../../api/generated";
-import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import useBreadcrumbs from "../../hooks/useBreadcrumbs";
-import useRoutes from "../../hooks/useRoutes";
+} from "~/api/generated";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
+
 import { ActiveRecruitmentSection } from "./ActiveRecruitmentSection";
 import { OngoingRecruitmentSection } from "./OngoingRecruitmentSection";
 

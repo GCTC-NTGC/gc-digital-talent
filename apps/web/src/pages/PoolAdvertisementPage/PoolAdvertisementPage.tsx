@@ -50,7 +50,7 @@ import TALENTSEARCH_APP_DIR, {
 import { isAdvertisementVisible } from "~/utils/poolUtils";
 
 import PoolInfoCard from "./PoolInfoCard";
-import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
+import ClassificationDefinition from "./ClassificationDefinition/ClassificationDefinition";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];

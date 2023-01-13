@@ -9,10 +9,8 @@ import {
 
 import { notEmpty } from "@common/helpers/util";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import {
-  type PoolCandidate,
-  PoolCandidateStatus,
-} from "../../../api/generated";
+
+import { type PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
 import type {

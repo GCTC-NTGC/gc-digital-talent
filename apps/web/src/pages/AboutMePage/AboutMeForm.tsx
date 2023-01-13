@@ -30,8 +30,9 @@ import {
   ArmedForcesStatus,
 } from "~/api/generated";
 
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 export type FormValues = Pick<
   User,

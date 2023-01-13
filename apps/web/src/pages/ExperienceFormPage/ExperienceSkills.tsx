@@ -7,9 +7,9 @@ import { notEmpty } from "@common/helpers/util";
 import SkillBlock from "@common/components/SkillPicker/SkillBlock";
 import Separator from "@common/components/Separator";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import { PoolAdvertisement, Skill, SkillCategory } from "~/api/generated";
 
-import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
+import { PoolAdvertisement, Skill, SkillCategory } from "~/api/generated";
+import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "./types";
 

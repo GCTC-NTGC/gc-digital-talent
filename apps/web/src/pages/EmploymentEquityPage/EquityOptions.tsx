@@ -10,7 +10,8 @@ import {
 } from "@common/constants";
 
 import profileMessages from "~/messages/profileMessages";
-import Spinner from "../Spinner";
+import Spinner from "~/components/Spinner/Spinner";
+
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "./types";
 
