@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\GenericJobTitle;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
