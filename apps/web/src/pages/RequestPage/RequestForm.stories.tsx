@@ -3,15 +3,12 @@ import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeDepartments } from "@common/fakeData";
 import {
-  RequestForm,
-  RequestFormProps,
-} from "../components/request/CreateRequest";
-import {
   CreatePoolCandidateSearchRequestInput,
   OperationalRequirement,
   PoolCandidateFilter,
   WorkRegion,
-} from "../api/generated";
+} from "~/api/generated";
+import { RequestForm, RequestFormProps } from "./RequestForm";
 
 const poolCandidateFilter: PoolCandidateFilter = {
   id: "9ef184ad-1752-411e-a022-7f7989f6bf27",
@@ -88,7 +85,7 @@ const poolCandidateFilter: PoolCandidateFilter = {
 
 export default {
   component: RequestForm,
-  title: "RequestForm",
+  title: "Forms/Request Form",
   args: {
     departments: fakeDepartments(),
     poolCandidateFilter,

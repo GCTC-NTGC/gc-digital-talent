@@ -6,15 +6,16 @@ import {
   fakeCmoAssets,
   fakePools,
 } from "@common/fakeData";
+
+import { Classification, CmoAsset, Pool } from "~/api/generated";
 import {
-  SearchContainer as SearchPageComponent,
+  SearchContainerComponent,
   SearchContainerProps as SearchPageProps,
-} from "../components/search/SearchContainer";
-import { Classification, CmoAsset, Pool } from "../api/generated";
+} from "./SearchContainer";
 
 export default {
-  component: SearchPageComponent,
-  title: "Search Page",
+  component: SearchContainerComponent,
+  title: "Pages/Search Page",
   args: {
     classifications: fakeClassifications() as Classification[],
     cmoAssets: fakeCmoAssets() as CmoAsset[],
@@ -29,7 +30,7 @@ export default {
 } as Meta;
 
 const TemplateSearchPage: Story<SearchPageProps> = (args) => {
-  return <SearchPageComponent {...args} />;
+  return <SearchContainerComponent {...args} />;
 };
 
 export const SearchPage = TemplateSearchPage.bind({});

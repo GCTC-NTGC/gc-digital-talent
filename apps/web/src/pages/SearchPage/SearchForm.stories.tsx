@@ -1,22 +1,23 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import pick from "lodash/pick";
 import {
   fakeClassifications,
   fakeCmoAssets,
   fakePools,
   fakeUsers,
 } from "@common/fakeData";
-import pick from "lodash/pick";
-import { Classification, CmoAsset } from "../api/generated";
+
+import { Classification, CmoAsset } from "~/api/generated";
 import {
-  SearchContainer,
   SearchContainerProps,
-} from "../components/search/SearchContainer";
+  SearchContainerComponent,
+} from "./SearchContainer";
 
 export default {
-  component: SearchContainer,
-  title: "Search Form",
+  component: SearchContainerComponent,
+  title: "Forms/Search Form",
   args: {
     classifications: fakeClassifications() as Classification[],
     cmoAssets: fakeCmoAssets() as CmoAsset[],
@@ -32,7 +33,7 @@ export default {
 } as Meta;
 
 const Template: Story<SearchContainerProps> = (args) => {
-  return <SearchContainer {...args} />;
+  return <SearchContainerComponent {...args} />;
 };
 
 export const Default = Template.bind({});
