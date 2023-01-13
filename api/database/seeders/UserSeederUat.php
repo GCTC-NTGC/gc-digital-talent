@@ -73,7 +73,7 @@ class UserSeederUat extends Seeder
             ]
         );
         User::updateOrCreate(
-            ['sub' => '43a2b0f0-218b-447b-9208-9254b487ebab'],
+            ['sub' => 'ecbf3c81-9bc0-4d9e-bb88-8a4554b651ea'],
             [
                 'first_name' => 'Julie',
                 'last_name' => 'Harrison',
