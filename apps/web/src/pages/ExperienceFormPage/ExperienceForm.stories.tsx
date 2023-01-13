@@ -3,7 +3,7 @@ import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { Skill } from "@common/api/generated";
 import { getStaticSkills } from "@common/fakeData";
-import { ExperienceForm } from "./ExperienceForm";
+import { ExperienceForm } from "./ExperienceFormPage";
 import type { ExperienceDetailsSubmissionData, ExperienceType } from "./types";
 
 const skillData = getStaticSkills();

@@ -8,10 +8,6 @@ import RequireAuth from "@common/components/RequireAuth/RequireAuth";
 import Layout from "./Layout";
 import { Role } from "../api/generated";
 
-import TalentRedirect from "./Redirects/TalentRedirect";
-import ProfileRedirect from "./Redirects/ProfileRedirect";
-import CreateAccountRedirect from "./createAccount/CreateAccountRedirect";
-
 /** Home */
 const HomePage = React.lazy(() =>
   lazyRetry(
