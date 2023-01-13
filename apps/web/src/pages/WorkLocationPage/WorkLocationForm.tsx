@@ -13,7 +13,7 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   CreateUserInput,
-  CreateWorkLocationPreferenceMutation,
+  CreateWorkLocationMutation,
   WorkRegion,
   UpdateUserAsUserInput,
   User,
@@ -36,7 +36,7 @@ export interface WorkLocationFormProps {
   handleWorkLocationPreference: (
     id: string,
     data: UpdateUserAsUserInput,
-  ) => Promise<CreateWorkLocationPreferenceMutation["updateUserAsUser"]>;
+  ) => Promise<CreateWorkLocationMutation["updateUserAsUser"]>;
 }
 
 const WorkLocationForm: React.FC<WorkLocationFormProps> = ({

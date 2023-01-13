@@ -6,9 +6,9 @@ import {
 } from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 
-const NullSelection = "NULL_SELECTION";
+export const NullSelection = "NULL_SELECTION";
 
-type Option<V> = { value: V; label: string };
+export type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   ApplicantFilterInput,
   "locationPreferences" | "operationalRequirements"
@@ -24,7 +24,7 @@ export type FormValues = Pick<
   pools?: SimplePool[];
 };
 
-type LocationState = BrowserHistoryState | null;
+export type LocationState = BrowserHistoryState | null;
 
 export type BrowserHistoryState = {
   applicantFilter?: ApplicantFilterInput;

@@ -14,7 +14,7 @@ import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 // import { Messages } from "@common/components/context/LanguageProvider";
 // import NestedLanguageProvider from "@common/components/context/NestedLanguageProvider";
 
-import { useIndigenousApprenticeshipRoutes } from "../routes/indigenousApprenticeshipRoutes";
+import useRoutes from "~/hooks/useRoutes";
 
 /**
  * TODO: This will be implemented in #4617
@@ -38,7 +38,7 @@ const Layout = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
-  const paths = useIndigenousApprenticeshipRoutes();
+  const paths = useRoutes();
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -95,7 +95,7 @@ const Layout = () => {
             <Header />
             <NavMenu
               mainItems={[
-                <MenuLink key="home" to={paths.home()}>
+                <MenuLink key="home" to={paths.iap()}>
                   {intl.formatMessage({
                     defaultMessage: "Home",
                     id: "TFeQL2",

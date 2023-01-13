@@ -222,7 +222,7 @@ export interface GovernmentInfoFormFieldsProps {
 }
 
 // inner component
-const GovernmentInfoFormFields: React.FunctionComponent<
+export const GovernmentInfoFormFields: React.FunctionComponent<
   GovernmentInfoFormFieldsProps
 > = ({ departments, classifications, labels }) => {
   const intl = useIntl();

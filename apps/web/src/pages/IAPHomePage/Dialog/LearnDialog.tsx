@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
-import Heading from "../Heading/Heading";
+
+import Heading from "../Heading";
 import CloseButton from "./CloseButton";
 
 import { BasicDialogProps } from "./types";

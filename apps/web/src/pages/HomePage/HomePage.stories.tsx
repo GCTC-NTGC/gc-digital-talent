@@ -9,7 +9,7 @@ type Story = ComponentStory<typeof Home>;
 
 export default {
   component: Home,
-  title: "Pages/Digital Talent Home Page",
+  title: "Pages/Home Page/Digital Talent",
 } as Meta;
 
 const Template: Story = () => (

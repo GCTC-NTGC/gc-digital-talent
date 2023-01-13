@@ -28,8 +28,8 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   formValuesToSubmitData,
   getGovernmentInfoLabels,
-  GovernmentInfoForm,
-} from "../GovernmentInfoForm/GovernmentInfoForm";
+  GovernmentInfoFormFields,
+} from "~/pages/GovernmentInfoPage/GovernmentInfoForm";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -267,7 +267,7 @@ export const CreateAccountForm: React.FunctionComponent<
                     "Second message before is a government of canada radio group in create account form.",
                 })}
               </p>
-              <GovernmentInfoForm
+              <GovernmentInfoFormFields
                 labels={labels}
                 departments={departments}
                 classifications={classifications}

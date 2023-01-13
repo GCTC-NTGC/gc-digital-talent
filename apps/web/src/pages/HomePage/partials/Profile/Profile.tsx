@@ -6,7 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
-import CallToAction from "../../../CallToAction";
+import CallToAction from "~/components/CallToAction/CallToAction";
 
 import "./profile.css";
 

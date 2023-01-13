@@ -28,15 +28,12 @@ import {
   Skill,
   PositionDuration,
 } from "~/api/generated";
-import {
-  poolMatchesClassification,
-  SimpleClassification,
-  SimplePool,
-} from "~/types/pool";
+import { SimpleClassification, SimplePool } from "~/types/pool";
+import { poolMatchesClassification } from "~/utils/poolUtils";
 
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
-import { FormValues } from "./types";
+import { FormValues, LocationState, NullSelection, Option } from "./types";
 
 function mapObjectsByKey<T>(
   keyFunction: (t: T) => string,

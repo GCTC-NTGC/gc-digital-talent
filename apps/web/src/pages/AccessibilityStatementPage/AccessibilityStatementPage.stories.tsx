@@ -10,7 +10,7 @@ type Story = ComponentStory<typeof AccessibilityStatement>;
 
 export default {
   component: AccessibilityStatement,
-  title: "Page/Accessibility Statement",
+  title: "Pages/Accessibility Statement",
 } as Meta;
 
 const Template: Story = () => <AccessibilityStatement />;

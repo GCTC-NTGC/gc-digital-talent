@@ -30,7 +30,7 @@ const applications = [...activeApplications, ...archivedApplications];
 
 export default {
   component: ApplicationCardComponent,
-  title: "Component/Application Card",
+  title: "Components/Application Card",
 } as Meta;
 
 const Template: Story = () => {

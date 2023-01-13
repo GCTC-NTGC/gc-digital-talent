@@ -4,7 +4,7 @@ import { useWatch } from "react-hook-form";
 import Input from "@common/components/form/Input";
 import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
-import { SubExperienceFormProps } from "../experienceForm/types";
+import { SubExperienceFormProps } from "~/pages/ExperienceFormPage/types";
 
 export const WorkExperienceForm = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();

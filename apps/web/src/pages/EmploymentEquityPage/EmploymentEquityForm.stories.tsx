@@ -7,8 +7,7 @@ import {
   InputMaybe,
   UpdateUserAsUserInput,
 } from "../../api/generated";
-import {
-  EmploymentEquityForm,
+import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
 import { EquityKeys } from "./types";

@@ -5,8 +5,9 @@ import {
   fakePoolCandidates,
   fakeSkills,
 } from "@common/fakeData";
-import { ReviewApplicationPage } from "./ReviewApplicationPagePage";
-import { Experience } from "../../api/generated";
+
+import { Experience } from "~/api/generated";
+import ReviewApplicationPage from "./ReviewApplicationPage";
 
 const poolCandidate = fakePoolCandidates(1)[0];
 const { poolAdvertisement } = poolCandidate;

@@ -4,7 +4,7 @@ import { SupportPage } from "./SupportPage";
 
 export default {
   component: SupportPage,
-  title: "Support/Support Page",
+  title: "Pages/Support Page",
 } as ComponentMeta<typeof SupportPage>;
 
 const Template: ComponentStory<typeof SupportPage> = () => {
