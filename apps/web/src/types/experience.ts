@@ -1,4 +1,4 @@
-export declare type ExperienceType =
+export type ExperienceType =
   | "award"
   | "community"
   | "education"
