@@ -94,6 +94,26 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
+        sortType: (rowA, rowB) => {
+          let rowAName;
+          let rowBName;
+
+          if (locale === "en") {
+            rowAName = rowA.original.name?.en ? rowA.original.name.en : "";
+            rowBName = rowB.original.name?.en ? rowB.original.name.en : "";
+          } else {
+            rowAName = rowA.original.name?.fr ? rowA.original.name.fr : "";
+            rowBName = rowB.original.name?.fr ? rowB.original.name.fr : "";
+          }
+
+          if (rowAName > rowBName) {
+            return -1;
+          }
+          if (rowAName < rowBName) {
+            return 1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
