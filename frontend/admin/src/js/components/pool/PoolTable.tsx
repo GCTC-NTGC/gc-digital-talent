@@ -161,6 +161,38 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               </Pill>
             );
           }),
+        sortType: (rowA, rowB, id, desc) => {
+          const rowAGroup =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].group
+              : "";
+          const rowBGroup =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].group
+              : "";
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAGroup > rowBGroup) {
+            return -1;
+          }
+          if (rowAGroup < rowBGroup) {
+            return 1;
+          }
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
