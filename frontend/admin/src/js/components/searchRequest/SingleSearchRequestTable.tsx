@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
 import { identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
@@ -72,7 +71,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
 > = ({ searchPoolCandidates }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -204,7 +202,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           ),
       },
     ],
-    [intl, locale],
+    [intl],
   );
 
   const memoizedData = useMemo(
