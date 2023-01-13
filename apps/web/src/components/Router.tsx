@@ -231,11 +231,12 @@ const IAPHomePage = React.lazy(() =>
 const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
-      path: `/${locale}`,
+      path: `/`,
+      element: <Layout />,
+      errorElement: <ErrorPage />,
       children: [
         {
-          path: "/",
-          element: <Layout />,
+          path: locale,
           errorElement: <ErrorPage />,
           children: [
             {
@@ -486,15 +487,21 @@ const createRoute = (locale: Locales) =>
           ],
         },
         {
-          path: "indigenous-it-apprentice",
-          element: <IAPLayout />,
-          errorElement: <ErrorPage />,
-          children: [
-            {
-              index: true,
-              element: <IAPHomePage />,
-            },
-          ],
+          path: "*",
+          loader: () => {
+            throw new Response("Not Found", { status: 404 });
+          },
+        },
+      ],
+    },
+    {
+      path: `${locale}/indigenous-it-apprentice`,
+      element: <IAPLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <IAPHomePage />,
         },
         {
           path: "*",

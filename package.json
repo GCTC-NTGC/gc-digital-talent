@@ -12,7 +12,6 @@
     "apps/*",
     "frontend/admin",
     "frontend/common",
-    "frontend/talentsearch",
     "packages/*"
   ],
   "scripts": {
