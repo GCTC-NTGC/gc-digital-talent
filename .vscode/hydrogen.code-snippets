@@ -36,6 +36,10 @@
     "prefix": "data-h2-border",
     "body": ["data-h2-border=\"${1:query}${2::modifiers}(${3:css})\""]
   },
+  "hydrogen-clip-path": {
+    "prefix": ["data-h2-clip-path"],
+    "body": ["data-h2-clip-path=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
   "hydrogen-color": {
     "prefix": ["data-h2-color", "data-h2-font-color"],
     "body": ["data-h2-color=\"${1:query}${2::modifiers}(${3:css})\""]
@@ -272,6 +276,10 @@
     "prefix": ["data-h2-shadow", "data-h2-box-shadow"],
     "body": ["data-h2-shadow=\"${1:query}${2::modifiers}(${3:css})\""]
   },
+  "hydrogen-stroke": {
+    "prefix": "data-h2-stroke",
+    "body": ["data-h2-stroke=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
   "hydrogen-text-align": {
     "prefix": "data-h2-text-align",
     "body": ["data-h2-text-align=\"${1:query}${2::modifiers}(${3:css})\""]
@@ -327,6 +335,12 @@
   "hydrogen-visibility": {
     "prefix": "data-h2-visibility",
     "body": ["data-h2-visibility=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-visually-hidden": {
+    "prefix": "data-h2-visually-hidden",
+    "body": [
+      "data-h2-visually-hidden=\"${1:query}${2::modifiers}(${3|visible,invisible,hidden|})\""
+    ]
   },
   "hydrogen-width": {
     "prefix": "data-h2-width",
