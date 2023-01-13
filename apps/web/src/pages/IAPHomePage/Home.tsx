@@ -4,26 +4,27 @@ import { motion } from "framer-motion";
 
 import imageUrl from "@common/helpers/imageUrl";
 
-// import LanguageSelector from "../LanguageSelector/LanguageSelector";
-import Banner from "~/components/Banner/Banner";
-import Card from "~/components/Card/Card";
-import Heading from "~/components/Heading/Heading";
-import Step from "~/components/Step/Step";
-import Quote from "~/components/Quote/Quote";
-
-import BarChart from "~/components/Svg/BarChart";
-import Calendar from "~/components/Svg/Calendar";
-import People from "~/components/Svg/People";
-import RadiatingCircles from "~/components/Svg/RadiatingCircles";
-import ThickCircle from "~/components/Svg/ThickCircle";
-import TrendingUp from "~/components/Svg/TrendingUp";
-import Triangle from "~/components/Svg/Triangle";
-
 import useQuote from "~/hooks/useQuote";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "~/constants/indigenousApprenticeshipConstants";
 
-import { ApplyDialog, RequirementDialog } from "~/components/Dialog";
-import CTAButtons from "~/components/CallToAction/CTAButtons";
+import Banner from "./Banner";
+import Card from "./Card";
+import CTAButtons from "./CTAButtons";
+import { ApplyDialog, RequirementDialog } from "./Dialog";
+import Heading from "./Heading";
+// import LanguageSelector from "./LanguageSelector";
+import Step from "./Step";
+import Quote from "./Quote";
+
+import {
+  BarChart,
+  Calendar,
+  People,
+  RadiatingCircles,
+  ThickCircle,
+  TrendingUp,
+  Triangle,
+} from "./Svg";
 
 import "./home.css";
 

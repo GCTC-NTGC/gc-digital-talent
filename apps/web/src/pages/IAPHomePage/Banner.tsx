@@ -1,6 +1,10 @@
 import React from "react";
 
-const Banner: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+interface BannerProps {
+  children?: React.ReactNode;
+}
+
+const Banner = ({ children }: BannerProps) => (
   <div
     data-h2-display="base(inline-block)"
     data-h2-position="base(relative)"
