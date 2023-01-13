@@ -61,7 +61,7 @@ class UserResource extends JsonResource
             'telephone' => $this->telephone,
             'preferredLang' => $this->preferred_lang ? strtoupper($this->preferred_lang) : null,
             'preferred_language_for_interview' => $this->preferred_language_for_interview ? strtoupper($this->preferred_language_for_interview) : null,
-            'preferred_language_for_exam' => $this->preferred_language_for_exam ? strtoupper($this->$preferred_language_for_exam) : null,
+            'preferred_language_for_exam' => $this->preferred_language_for_exam ? strtoupper($this->preferred_language_for_exam) : null,
             'currentProvince' => $this->current_province,
             'currentCity' => $this->current_city,
             'citizenship' => $this->citizenship,
