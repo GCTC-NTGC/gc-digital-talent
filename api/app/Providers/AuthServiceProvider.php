@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Department;
 use App\Models\PoolCandidate;
 use App\Models\Pool;
@@ -15,7 +14,6 @@ use App\Models\EducationExperience;
 use App\Models\AwardExperience;
 
 use App\Policies\ClassificationPolicy;
-use App\Policies\CmoAssetPolicy;
 use App\Policies\DepartmentPolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
@@ -54,7 +52,6 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
 
         Gate::policy(Classification::class, ClassificationPolicy::class);
-        Gate::policy(CmoAsset::class, CmoAssetPolicy::class);
         Gate::policy(Department::class, DepartmentPolicy::class);
         Gate::policy(PoolCandidate::class, PoolCandidatePolicy::class);
         Gate::policy(Pool::class, PoolPolicy::class);

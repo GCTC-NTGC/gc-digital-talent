@@ -28,22 +28,6 @@ query getSearchFormData($poolKey: String!) {
       group
       level
     }
-    assetCriteria {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    essentialCriteria {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     operationalRequirements
   }
   skills {

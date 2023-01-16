@@ -90,7 +90,6 @@ class UserResource extends JsonResource
             'locationExemptions' =>  $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->accepted_operational_requirements,
             'positionDuration' => $this->position_duration,
-            'cmoAssets' => CmoAssetResource::collection($this->cmoAssets),
             'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
