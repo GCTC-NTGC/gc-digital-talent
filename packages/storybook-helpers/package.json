@@ -1,5 +1,6 @@
 {
   "name": "storybook-helpers",
+  "license": "AGPL-3.0",
   "main": "index.ts",
   "version": "0.0.0",
   "files": [
@@ -12,9 +13,9 @@
     "@storybook/react": "^6.5.14",
     "chromatic": "^6.13.1",
     "lodash": "^4.17.21",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.4.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
     "storybook-addon-intl": "^2.4.1",
     "urql": "^3.0.3",
     "wonka": "^6.1.2"

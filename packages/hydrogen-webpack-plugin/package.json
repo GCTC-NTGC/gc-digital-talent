@@ -3,7 +3,7 @@
   "description": "Hooks into webpack to run hydrogen cli on watch",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "peerDependencies": {
     "@hydrogen-css/hydrogen": "*"
   },

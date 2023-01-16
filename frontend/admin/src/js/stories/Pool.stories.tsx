@@ -49,7 +49,7 @@ const storyGenericJobTitles = [
 
 const classifications = fakeClassifications();
 
-stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
+stories.add("Pool Table", () => <PoolTable pools={poolData} />);
 
 stories.add("Create Pool Form", () => (
   <CreatePoolForm

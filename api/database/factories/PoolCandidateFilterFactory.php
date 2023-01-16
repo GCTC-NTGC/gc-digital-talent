@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -52,10 +51,8 @@ class PoolCandidateFilterFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (PoolCandidateFilter $filter) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(3)->get();
             $pools = Pool::inRandomOrder()->limit(1)->get();
-            $filter->cmoAssets()->saveMany($assets);
             $filter->classifications()->saveMany($classifications);
             $filter->pools()->saveMany($pools);
         });

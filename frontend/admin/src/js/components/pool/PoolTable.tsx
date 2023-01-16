@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+
 import { Link, Pill } from "@common/components";
-import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
@@ -10,6 +10,7 @@ import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+
 import {
   GetPoolsQuery,
   Maybe,
@@ -47,18 +48,31 @@ function poolCandidatesLinkAccessor(
   );
 }
 
-function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
+function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
-    <Link href={`${editUrlRoot}/${pool.id}`} type="link">
+    <Link href={url} type="link">
       {getFullPoolAdvertisementTitle(intl, pool)}
     </Link>
   );
 }
 
-export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
-  pools,
-  editUrlRoot,
-}) => {
+function dateAccessor(value: Maybe<string>, intl: IntlShape) {
+  return value ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(value),
+        formatString: "PPP p",
+        intl,
+      })}
+    </span>
+  ) : null;
+}
+
+interface PoolTableProps {
+  pools: GetPoolsQuery["pools"];
+}
+
+export const PoolTable = ({ pools }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
@@ -79,7 +93,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           id: "HocLRh",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => viewLinkAccessor(editUrlRoot, d, intl),
+        accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
       },
       {
         Header: intl.formatMessage({
@@ -145,7 +159,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         accessor: (d) =>
           tableEditButtonAccessor(
             d.id,
-            editUrlRoot,
+            paths.poolTable(),
             d.name ? d.name[locale] : "",
           ), // callback extracted to separate function to stabilize memoized component
       },
@@ -156,26 +170,30 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed on the Pool table Date Created column",
         }),
         accessor: "createdDate",
-        Cell: ({ value }) =>
-          value
-            ? formatDate({
-                date: parseDateTimeUtc(value),
-                formatString: "PPP p",
-                intl,
-              })
-            : null,
+        Cell: ({ value }) => dateAccessor(value, intl),
       },
     ],
-    [editUrlRoot, intl, paths, locale],
+    [intl, paths, locale],
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
+  const { hiddenCols, initialSortBy } = useMemo(() => {
+    return {
+      hiddenCols: ["id", "description", "createdDate"],
+      initialSortBy: [
+        {
+          id: "createdDate",
+          desc: true,
+        },
+      ],
+    };
+  }, []);
 
   return (
     <Table
       data={data}
       columns={columns}
-      hiddenCols={["id", "description", "createdDate"]}
+      hiddenCols={hiddenCols}
       search={false}
       addBtn={{
         path: paths.poolCreate(),
@@ -185,12 +203,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Heading displayed above the Create Pool form.",
         }),
       }}
-      initialSortBy={[
-        {
-          id: "createdDate",
-          desc: true,
-        },
-      ]}
+      initialSortBy={initialSortBy}
     />
   );
 };
@@ -198,11 +211,10 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
 export const PoolTableApi: React.FunctionComponent = () => {
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />
+      <PoolTable pools={data?.pools ?? []} />
     </Pending>
   );
 };

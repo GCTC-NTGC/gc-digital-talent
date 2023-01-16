@@ -30,8 +30,6 @@ const defaultValues: FormValues = {
   query: "",
   skillFamily: "",
 };
-
-const skipToHeadingId = `selected-skills-heading-${uniqueId()}`;
 export interface SkillPickerProps {
   skills: Skills;
   selectedSkills?: Skills;
@@ -40,6 +38,7 @@ export interface SkillPickerProps {
   handleSave?: () => void;
   submitButtonText?: string;
   isSubmitting?: boolean;
+  skillType?: string;
 }
 
 const SkillPicker = ({
@@ -50,6 +49,7 @@ const SkillPicker = ({
   handleSave,
   submitButtonText,
   isSubmitting,
+  skillType,
 }: SkillPickerProps) => {
   const intl = useIntl();
   const Heading = headingLevel;
@@ -59,6 +59,8 @@ const SkillPicker = ({
     defaultValues,
   });
   const { watch, handleSubmit } = methods;
+  const skipToHeadingId = `selected-skills-heading-${skillType || uniqueId}`;
+  const queryInputId = `query-${skillType || uniqueId}`;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -120,7 +122,7 @@ const SkillPicker = ({
     <FormProvider {...methods}>
       <InputLabel
         required={false}
-        inputId="query"
+        inputId={queryInputId}
         label={intl.formatMessage({
           defaultMessage: "Search skills by keyword",
           id: "ARqO1j",
@@ -133,7 +135,7 @@ const SkillPicker = ({
           families={allSkillFamilies}
         />
         <input
-          id="query"
+          id={queryInputId}
           type="text"
           autoComplete="off"
           {...methods.register("query")}

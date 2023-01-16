@@ -49,7 +49,6 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $has_diploma
  * @property array $location_preferences
  * @property string $location_exemptions
- * @property array $expected_salary
  * @property array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
@@ -71,7 +70,6 @@ class User extends Model implements Authenticatable
     protected $casts = [
         'roles' => 'array',
         'location_preferences' => 'array',
-        'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
@@ -92,18 +90,6 @@ class User extends Model implements Authenticatable
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, "current_classification");
-    }
-    public function expectedClassifications(): BelongsToMany
-    {
-        return $this->belongsToMany(Classification::class, 'classification_user')->withTimestamps();
-    }
-    public function expectedGenericJobTitles(): BelongsToMany
-    {
-        return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
-    }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class)->withTimestamps();
     }
 
     public function isAdmin(): bool
@@ -164,8 +150,7 @@ class User extends Model implements Authenticatable
             empty($this->attributes['location_preferences']) or
             empty($this->attributes['position_duration'])  or
             is_null($this->attributes['citizenship']) or
-            is_null($this->attributes['armed_forces_status']) or
-            $this->expectedGenericJobTitles->isEmpty()
+            is_null($this->attributes['armed_forces_status'])
         ) {
             return false;
         } else {
@@ -192,7 +177,6 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereJsonLength('position_duration', '>', 0);
-            $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
             $query->whereNotNull('armed_forces_status');
         }
@@ -389,155 +373,6 @@ class User extends Model implements Authenticatable
                 ->whereColumn('aggregate_experiences.user_id', 'users.id');
         });
         return $query;
-    }
-
-    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
-    public static function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
-    {
-        if (empty($cmoAssets)) {
-            return $query;
-        }
-
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
-                foreach ($cmoAssets as $cmoAsset) {
-                    $query->where('key', $cmoAsset['key']);
-                }
-            });
-        return $query;
-    }
-
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
-    {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        $query->where(function ($query) use ($classifications) {
-            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                }
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                self::filterByClassificationToSalary($query, $classifications);
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                self::filterByClassificationToGenericJobTitles($query, $classifications);
-            });
-        });
-
-        return $query;
-    }
-    public static function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
-    {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-
-        // group these in a subquery to properly handle "OR" condition
-        $query->whereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
-            $query->whereHas('classification', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                }
-            });
-        });
-
-        return $query;
-    }
-    private static function filterByClassificationToSalary(Builder $query, ?array $classifications): Builder
-    {
-        // When managers search for a classification, also return any users whose expected salary
-        // ranges overlap with the min/max salaries of any of those classifications.
-        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
-        // numeric values and compare them to specified classifications
-
-        // This subquery only works for a non-zero number of filter classifications.
-        // If passed zero classifications then return same query builder unchanged.
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        $parameters = [];
-        $sql = <<<RAWSQL1
-
-SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
-  FROM (
-    SELECT    -- convert salary ranges to numeric min/max values
-      t.user_id,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 50000
-        WHEN '_60_69K' THEN 60000
-        WHEN '_70_79K' THEN 70000
-        WHEN '_80_89K' THEN 80000
-        WHEN '_90_99K' THEN 90000
-        WHEN '_100K_PLUS' THEN 100000
-      END min_salary,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 59999
-        WHEN '_60_69K' THEN 69999
-        WHEN '_70_79K' THEN 79999
-        WHEN '_80_89K' THEN 89999
-        WHEN '_90_99K' THEN 99999
-        WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary
-    FROM (
-      SELECT    -- find all salary ranges for each candidate
-        users.id user_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(users.expected_salary) salary_range_id
-      FROM users
-    ) t
-  ) u
-  JOIN classifications c ON
-    c.max_salary >= u.min_salary
-    AND c.min_salary <= u.max_salary
-  WHERE (
-
-RAWSQL1;
-
-        foreach ($classifications as $index => $classification) {
-            if ($index === 0) {
-                // First iteration must use where instead of orWhere
-                $sql .= '(c.group = ? AND c.level = ?)';
-            } else {
-                $sql .= ' OR (c.group = ? AND c.level = ?)';
-            }
-            array_push($parameters, [$classification['group'], $classification['level']]);
-        }
-
-        $sql .= <<<RAWSQL2
-  )
-  AND u.user_id = "users".id
-
-RAWSQL2;
-
-        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder

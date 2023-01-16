@@ -136,6 +136,7 @@ class ApiEnums
     const CANDIDATE_STATUS_PLACED_TERM = 'PLACED_TERM';
     const CANDIDATE_STATUS_PLACED_INDETERMINATE = 'PLACED_INDETERMINATE';
     const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
+    const CANDIDATE_STATUS_REMOVED = 'REMOVED';
 
     public static function candidateStatuses(): array
     {
@@ -155,6 +156,7 @@ class ApiEnums
             self::CANDIDATE_STATUS_PLACED_TERM,
             self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
             self::CANDIDATE_STATUS_EXPIRED,
+            self::CANDIDATE_STATUS_REMOVED,
         ];
     }
 
@@ -372,14 +374,23 @@ class ApiEnums
      */
     const POOL_CANDIDATE_EXISTS = 'APPLICATION_EXISTS';
     const POOL_CANDIDATE_POOL_NOT_PUBLISHED = 'POOL_NOT_PUBLISHED';
+    const POOL_CANDIDATE_POOL_CLOSED = 'POOL_CLOSED';
+    const POOL_CANDIDATE_PROFILE_INCOMPLETE = 'PROFILE_INCOMPLETE';
+    const POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS = 'MISSING_ESSENTIAL_SKILLS';
+    const POOL_CANDIDATE_SIGNATURE_REQUIRED = 'SIGNATURE_REQUIRED';
 
     public static function poolCandidateErrors(): array
     {
         return [
             self::POOL_CANDIDATE_EXISTS,
             self::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
+            self::POOL_CANDIDATE_POOL_CLOSED,
+            self::POOL_CANDIDATE_PROFILE_INCOMPLETE,
+            self::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
+            self::POOL_CANDIDATE_SIGNATURE_REQUIRED
         ];
     }
+
 
     /**
      * Pool Candidate Request Statuses

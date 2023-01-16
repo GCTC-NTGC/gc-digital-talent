@@ -90,14 +90,6 @@ class Pool extends Model
     {
         return $this->belongsToMany(Classification::class);
     }
-    public function assetCriteria(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class, 'asset_cmo_asset_pool');
-    }
-    public function essentialCriteria(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class, 'essential_cmo_asset_pool');
-    }
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);

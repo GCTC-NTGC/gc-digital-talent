@@ -30,12 +30,13 @@ const WorkLocationSection: React.FunctionComponent<{
         {anyCriteriaSelected && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Work location:",
-                id: "b5bUa0",
-                description: "Work Location label, followed by colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Work location:",
+                  id: "b5bUa0",
+                  description: "Work Location label, followed by colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">{regionPreferences}</span>
             </p>
           </div>
@@ -43,12 +44,13 @@ const WorkLocationSection: React.FunctionComponent<{
         {!!applicant.locationExemptions && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Location exemptions:",
-                id: "MoWNS4",
-                description: "Location Exemptions label, followed by colon",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Location exemptions:",
+                  id: "MoWNS4",
+                  description: "Location Exemptions label, followed by colon",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {applicant.locationExemptions}
               </span>
@@ -64,9 +66,8 @@ const WorkLocationSection: React.FunctionComponent<{
                 description: "Message for when no data exists for the section",
               })}
             </p>
+            <p>{intl.formatMessage(messages.requiredFieldsMissing)}</p>
             <p>
-              {intl.formatMessage(messages.requiredFieldsMissing)}
-              <br />
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your work location options.",

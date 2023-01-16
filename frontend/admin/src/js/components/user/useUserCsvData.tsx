@@ -4,7 +4,6 @@ import type { DownloadCsvProps } from "@common/components/Link";
 import {
   employeeTypeToString,
   flattenExperiencesToSkills,
-  getExpectedClassifications,
   getLocationPreference,
   getLookingForLanguage,
   getOperationalRequirements,
@@ -217,14 +216,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
-      }),
-    },
-    {
       key: "skills",
       label: intl.formatMessage({
         defaultMessage: "Skills",
@@ -263,7 +254,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
         isIndigenous,
         isVisibleMinority,
         hasDisability,
-        expectedGenericJobTitles,
         experiences,
       }) => ({
         firstName: firstName || "",
@@ -313,10 +303,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
         isIndigenous: yesOrNo(isIndigenous, intl),
         isVisibleMinority: yesOrNo(isVisibleMinority, intl),
         hasDisability: yesOrNo(hasDisability, intl),
-        expectedClassification: getExpectedClassifications(
-          expectedGenericJobTitles,
-          intl,
-        ),
         skills: flattenExperiencesToSkills(experiences, locale),
       }),
     );

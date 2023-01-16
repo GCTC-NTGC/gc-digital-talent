@@ -118,6 +118,23 @@ describe("ApplicationCard", () => {
     expect(archiveLink).toBeInTheDocument();
   });
 
+  it("should show archive link if removed", () => {
+    renderApplicationCard({
+      ...defaultProps,
+      application: {
+        ...mockApplication,
+        status: PoolCandidateStatus.Removed,
+        archivedAt: null,
+      },
+    });
+
+    const archiveLink = screen.queryByRole("button", {
+      name: /archive/i,
+    });
+
+    expect(archiveLink).toBeInTheDocument();
+  });
+
   it("should not show archive link if already archived", () => {
     renderApplicationCard({
       ...defaultProps,

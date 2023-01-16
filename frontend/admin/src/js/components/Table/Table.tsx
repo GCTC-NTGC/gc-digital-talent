@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement } from "react";
+import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 
 import {
@@ -17,8 +18,10 @@ import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
+import useInitialTableState from "./useInitialTableState";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -128,6 +131,11 @@ const HeaderWrapper = <T extends object>({
   );
 };
 
+const TABLE_DEFAULTS = {
+  pageSize: 10,
+  pageIndex: 0,
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
@@ -137,9 +145,12 @@ function Table<T extends Record<string, unknown>>({
   filterColumns = true,
   search = true,
   pagination = true,
-  hiddenCols = [],
-  initialSortBy = [],
+  hiddenCols,
+  initialSortBy,
 }: TableProps<T>): ReactElement {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialState = useInitialTableState(searchParams);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -149,7 +160,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, hiddenColumns, sortBy },
     gotoPage,
     setPageSize,
     page,
@@ -158,8 +169,10 @@ function Table<T extends Record<string, unknown>>({
       columns,
       data,
       initialState: {
-        hiddenColumns: hiddenCols,
-        sortBy: initialSortBy,
+        hiddenColumns: initialState.hiddenColumns ?? hiddenCols ?? [],
+        sortBy: initialState.sortBy ?? initialSortBy ?? [],
+        pageSize: initialState.pageSize ?? TABLE_DEFAULTS.pageSize,
+        pageIndex: initialState.pageIndex ?? TABLE_DEFAULTS.pageIndex,
       },
     },
     useGlobalFilter,
@@ -169,6 +182,61 @@ function Table<T extends Record<string, unknown>>({
 
   const intl = useIntl();
   const methods = useForm();
+
+  React.useEffect(() => {
+    setSearchParams(
+      (previous) => {
+        if (pageSize && pageSize !== TABLE_DEFAULTS.pageSize) {
+          const newPageSize = pageSize.toString();
+          if (newPageSize !== previous.get("pageSize")) {
+            previous.set("pageSize", newPageSize);
+          }
+        } else {
+          previous.delete("pageSize");
+        }
+
+        if (pageIndex && pageIndex !== TABLE_DEFAULTS.pageIndex) {
+          const newPageIndex = pageIndex.toString();
+          if (newPageIndex !== previous.get("pageIndex")) {
+            previous.set("pageIndex", newPageIndex);
+          }
+        } else {
+          previous.delete("pageIndex");
+        }
+
+        if (sortBy && !isEqual(sortBy, initialSortBy)) {
+          const newSortBy = encodeURIComponent(JSON.stringify(sortBy));
+          if (previous.get("sortBy") !== newSortBy) {
+            previous.set("sortBy", newSortBy);
+          }
+        } else {
+          previous.delete("sortBy");
+        }
+
+        if (hiddenColumns && !isEqual(hiddenCols, hiddenColumns)) {
+          const newHiddenColumns = hiddenColumns.join(",");
+          if (previous.get("hiddenColumns") !== newHiddenColumns) {
+            previous.set("hiddenColumns", newHiddenColumns);
+          }
+        } else {
+          previous.delete("hiddenColumns");
+        }
+
+        return previous;
+      },
+      {
+        replace: true,
+      },
+    );
+  }, [
+    pageSize,
+    pageIndex,
+    hiddenColumns,
+    sortBy,
+    setSearchParams,
+    initialSortBy,
+    hiddenCols,
+  ]);
 
   return (
     <div>
@@ -241,8 +309,8 @@ function Table<T extends Record<string, unknown>>({
                                     id={column.Header?.toString()}
                                     type="checkbox"
                                     {...column.getToggleHiddenProps()}
-                                  />{" "}
-                                  {column.Header}
+                                  />
+                                  {` ${column.Header}`}
                                 </label>
                               </div>
                             ))}

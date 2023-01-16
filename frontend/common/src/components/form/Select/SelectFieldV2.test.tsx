@@ -8,8 +8,9 @@ import {
   render,
   RenderOptions,
   fireEvent,
+  renderHook,
+  act,
 } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
 import { FormProvider, useForm, RegisterOptions } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
