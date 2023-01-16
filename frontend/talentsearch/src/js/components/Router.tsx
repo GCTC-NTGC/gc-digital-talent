@@ -256,7 +256,8 @@ const router = createBrowserRouter([
               if (redirectUri) {
                 localStorage.removeItem("POST_LOGOUT_URI");
                 if (redirectUri.startsWith("/")) {
-                  return redirect(redirectUri);
+                  window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
+                  return null;
                 }
                 console.warn(
                   "Retrieved an unsafe uri from POST_LOGOUT_URI:",
