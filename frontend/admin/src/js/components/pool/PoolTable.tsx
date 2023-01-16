@@ -180,6 +180,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           if (a < b) return -1;
           return 0;
         },
+        id: "ownerName",
       },
       {
         Header: intl.formatMessage({
@@ -190,12 +191,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         accessor: ({ owner }) =>
           emailLinkAccessor(owner && owner.email ? owner.email : "", intl),
         sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.email ? rowA.original.owner.email : "";
-          const b = rowB.original.owner?.email ? rowB.original.owner.email : "";
+          const a = rowA.original.owner?.email ?? "";
+          const b = rowB.original.owner?.email ?? "";
           if (a > b) return 1;
           if (a < b) return -1;
           return 0;
         },
+        id: "ownerEmail",
       },
       {
         Header: intl.formatMessage({
