@@ -49,6 +49,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
       .findByRole("link", {name: /view applicant test/i})
+      .should("exist")
       .click();
 
     // exercise profile page
