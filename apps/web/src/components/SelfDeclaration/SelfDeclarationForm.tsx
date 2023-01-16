@@ -72,7 +72,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
             {intl.formatMessage({
               id: "Ma0UMe",
               defaultMessage:
-                "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the Program!",
+                "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada, and are interested in joining the Program!",
               description:
                 "Text describing the self-declaration form and its importance",
             })}
