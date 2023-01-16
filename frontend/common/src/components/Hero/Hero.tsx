@@ -3,6 +3,7 @@ import React from "react";
 import Heading from "../Heading";
 import Breadcrumbs, { type BreadcrumbsProps } from "../Breadcrumbs/v2";
 import Flourish from "../Flourish";
+import BackgroundGraphic from "./BackgroundPattern";
 
 import "./hero.css";
 
@@ -65,20 +66,15 @@ const Hero = ({
     <>
       <div
         data-h2-background-color="base(black)"
+        data-h2-overflow="base(hidden)"
+        data-h2-position="base(relative)"
         {...padding}
-        className="header-bg-image"
-        style={
-          showImg
-            ? {
-                backgroundImage: `url('${imgPath}')`,
-              }
-            : {}
-        }
       >
         <div
           data-h2-position="base(relative)"
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(1, relative)"
+          data-h2-z-index="base(3)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
             <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
@@ -96,13 +92,34 @@ const Hero = ({
             )}
           </div>
         </div>
+        {showImg ? (
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(0)"
+            data-h2-height="base(auto)"
+            data-h2-width="base(100%)"
+            data-h2-z-index="base(2)"
+            className="header-bg-image"
+            style={{ backgroundImage: `url('${imgPath}')` }}
+          />
+        ) : (
+          <BackgroundGraphic
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(0, 0, auto, auto)"
+            data-h2-height="base(auto)"
+            data-h2-width="base(75%)"
+            data-h2-z-index="base(1)"
+          />
+        )}
       </div>
       {children ? (
         <>
           <Flourish />
           <div
             data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+            data-h2-position="base(relative)"
             data-h2-margin="base(-x3, auto, 0, auto)"
+            data-h2-z-index="base(4)"
           >
             <div
               data-h2-background-color="base(white)"
