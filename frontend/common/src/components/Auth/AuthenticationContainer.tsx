@@ -52,9 +52,8 @@ const logoutAndRefreshPage = (
 
   if (postLogoutUri) {
     if (!postLogoutUri.startsWith("/")) {
-      console.warn(
-        "Tried to set an unsafe uri as postLogoutUri:",
-        postLogoutUri,
+      defaultLogger.warning(
+        `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
       );
     } else {
       localStorage.setItem("POST_LOGOUT_URI", postLogoutUri);
@@ -88,6 +87,10 @@ const refreshTokenSet = async (
   // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
   defaultLogger.notice("Attempting to refresh the auth token set");
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
+  if (refreshToken === null) {
+    return null;
+  }
 
   const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
   if (response.ok) {
