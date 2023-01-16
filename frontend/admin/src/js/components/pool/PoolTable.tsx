@@ -226,7 +226,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate", "1ownerEmail"],
+      hiddenCols: ["id", "description", "createdDate", "ownerEmail"],
       initialSortBy: [
         {
           id: "createdDate",
