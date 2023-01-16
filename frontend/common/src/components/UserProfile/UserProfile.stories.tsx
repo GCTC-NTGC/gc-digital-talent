@@ -81,7 +81,6 @@ UserProfileNull.args = {
   locationExemptions: null,
   acceptedOperationalRequirements: null,
   positionDuration: null,
-  cmoAssets: null,
   armedForcesStatus: null,
   citizenship: null,
 };

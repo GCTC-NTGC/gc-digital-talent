@@ -1,23 +1,18 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import {
-  fakeClassifications,
-  fakeCmoAssets,
-  fakePools,
-} from "@common/fakeData";
+import { fakeClassifications, fakePools } from "@common/fakeData";
 import {
   SearchContainer as SearchPageComponent,
   SearchContainerProps as SearchPageProps,
 } from "../components/search/SearchContainer";
-import { Classification, CmoAsset, Pool } from "../api/generated";
+import { Classification, Pool } from "../api/generated";
 
 export default {
   component: SearchPageComponent,
   title: "Search Page",
   args: {
     classifications: fakeClassifications() as Classification[],
-    cmoAssets: fakeCmoAssets() as CmoAsset[],
     pool: fakePools()[0] as Pool,
     poolOwner: fakePools()[0].owner,
     candidateCount: 10,
