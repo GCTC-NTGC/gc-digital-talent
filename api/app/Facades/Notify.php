@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Notify;
+namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class NotifyFacade extends Facade
+class Notify extends Facade
 {
     protected static function getFacadeAccessor()
     {

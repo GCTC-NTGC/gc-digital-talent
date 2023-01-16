@@ -263,7 +263,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // Custom aliases
-        'Notify'   =>  App\Notify\NotifyFacade::class
+        'Notify'   =>  App\Facades\Notify::class
 
     ],
 

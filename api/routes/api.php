@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupportController;
+use App\Facades\Notify;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::prefix('support')->controller(SupportController::class)->group(function (
 Route::get('/test-notify', function () {
     try {
         Notify::sendEmail(
-            'email@domain.com', // Replace with the email you gave to @esizer
+            'eric.sizer@gmail.com', // Replace with the email you gave to @esizer
             'c386053b-e65c-477e-8f09-da19c2e9dea0',
             [
                 'name' => 'Eric Sizer'
