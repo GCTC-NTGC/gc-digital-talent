@@ -74,17 +74,9 @@
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "gD3yqV": {
-    "defaultMessage": "Compétences",
-    "description": "Title for skills section on summary of filters section"
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
-  },
-  "vyQv+i": {
-    "defaultMessage": "Erreur : Nom de la compétence introuvable",
-    "description": "Error message when cmo asset name is not found on request page."
   },
   "AWiMVP": {
     "defaultMessage": "Contactez-nous",

@@ -14,7 +14,6 @@ class UatSeeder extends Seeder
     public function run()
     {
         $this->call(ClassificationSeeder::class);
-        $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(UserSeederUat::class);
         $this->call(PoolSeederUat::class);

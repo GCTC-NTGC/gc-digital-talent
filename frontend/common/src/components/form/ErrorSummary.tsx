@@ -78,7 +78,7 @@ const ErrorSummary = React.forwardRef<
         {invalidFields.map((field) => (
           <li key={field.name}>
             <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
-            {`${locale === "fr" && ` `}${field.message}`}
+            {`${locale === "fr" ? ` : ` : `: `}${field.message}`}
           </li>
         ))}
       </ul>

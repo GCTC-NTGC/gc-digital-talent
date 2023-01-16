@@ -3,12 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
-import {
-  fakeSkills,
-  fakePools,
-  fakeClassifications,
-  fakeCmoAssets,
-} from "@common/fakeData";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import PoolCandidateTableFilterDialog from "./PoolCandidateTableFilterDialog";
 import type { FormValues } from "./PoolCandidateTableFilterDialog";
 
@@ -24,7 +19,6 @@ export default {
       getFilterData: {
         data: {
           classifications: fakeClassifications(),
-          cmoAssets: fakeCmoAssets(),
           pools: fakePools(),
           skills: fakeSkills(30),
         },
