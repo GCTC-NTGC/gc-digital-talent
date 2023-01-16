@@ -100,11 +100,11 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           let rowBName;
 
           if (locale === "en") {
-            rowAName = rowA.original.name?.en ? rowA.original.name.en : "";
-            rowBName = rowB.original.name?.en ? rowB.original.name.en : "";
+            rowAName = rowA.original.name?.en ?? "";
+            rowBName = rowB.original.name?.en ?? "";
           } else {
-            rowAName = rowA.original.name?.fr ? rowA.original.name.fr : "";
-            rowBName = rowB.original.name?.fr ? rowB.original.name.fr : "";
+            rowAName = rowA.original.name?.fr ?? "";
+            rowBName = rowB.original.name?.fr ?? "";
           }
           const rowALevel =
             rowA.original.classifications && rowA.original.classifications[0]
