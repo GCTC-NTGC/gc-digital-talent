@@ -1,5 +1,4 @@
 import fakeClassifications from "./fakeClassifications";
-import fakeCmoAssets from "./fakeCmoAssets";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
@@ -13,7 +12,6 @@ import fakePoolAdvertisements from "./fakePoolAdvertisements";
 
 export {
   fakeClassifications,
-  fakeCmoAssets,
   fakeDepartments,
   fakeExperiences,
   fakePools,

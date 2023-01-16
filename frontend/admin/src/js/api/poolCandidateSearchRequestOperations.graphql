@@ -23,14 +23,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
       group
       level
     }
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     hasDiploma
     equity {
       hasDisability

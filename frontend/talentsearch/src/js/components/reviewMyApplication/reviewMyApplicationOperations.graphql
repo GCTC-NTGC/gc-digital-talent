@@ -72,18 +72,6 @@ query getReviewMyApplicationPageData($id: UUID!) {
         level
       }
       positionDuration
-      cmoAssets {
-        id
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        key
-      }
       experiences {
         id
         __typename

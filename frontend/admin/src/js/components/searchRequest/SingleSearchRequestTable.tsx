@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
 import { identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
@@ -74,7 +73,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
 > = ({ searchPoolCandidates }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -213,28 +211,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Skills",
-          id: "i9/L40",
-          description:
-            "Title displayed on the single search request table skills column.",
-        }),
-        accessor: ({ user }) =>
-          user.cmoAssets?.map((cmoAsset) => {
-            return (
-              <Pill key={cmoAsset?.key} color="primary" mode="outline">
-                {cmoAsset?.name?.[locale] ||
-                  intl.formatMessage({
-                    defaultMessage: "Error: Name not found.",
-                    id: "ZP3GYM",
-                    description:
-                      "Error message displayed on the single search request table operational requirements column.",
-                  })}
-              </Pill>
-            );
-          }),
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Edit",
           id: "lo2bSB",
           description:
@@ -248,7 +224,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           ),
       },
     ],
-    [intl, locale],
+    [intl],
   );
 
   const memoizedData = useMemo(
@@ -284,15 +260,6 @@ const transformPoolCandidateFilterToFilterInput = (
                 level,
               };
             })
-        : []),
-    ],
-    cmoAssets: [
-      ...(inputFilter?.cmoAssets
-        ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
         : []),
     ],
     operationalRequirements: inputFilter?.operationalRequirements,

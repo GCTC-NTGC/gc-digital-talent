@@ -34,7 +34,6 @@ class StoreApplicationSnapshot
             'currentClassification',
             'expectedClassifications',
             'expectedGenericJobTitles',
-            'cmoAssets',
             'awardExperiences',
             'communityExperiences',
             'educationExperiences',

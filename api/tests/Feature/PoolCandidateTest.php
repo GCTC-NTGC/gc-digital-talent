@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -93,73 +92,6 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
-
-  public function testFilterByCmoAsset(): void
-  {
-
-    // Create initial data.
-    CmoAsset::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create([
-      'expiry_date' => config('constants.far_future_date'),
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-    ]);
-
-    // Create new cmoAsset and attach to two new pool candidates.
-    $cmoAsset = CmoAsset::factory()->create([
-      'key' => 'new_cmo_asset'
-    ]);
-    PoolCandidate::factory()->count(2)->create([
-      'expiry_date' => config('constants.far_future_date'),
-       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-       ])->each(function($candidate) use ($cmoAsset) {
-
-      $candidate->user->cmoAssets()->save($cmoAsset);
-    });
-
-    // Assert query with no cmoAssets filter will return all candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
-      }
-    ', [
-      'where' => []
-    ])->assertJson([
-      'data' => [
-        'countPoolCandidates' => 7
-      ]
-    ]);
-
-    // Assert query with cmoAsset filter will return correct candidate count
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
-      }
-    ', [
-      'where' => [
-        'cmoAssets' => [[ 'key' => 'new_cmo_asset' ]],
-      ]
-    ])->assertJson([
-      'data' => [
-        'countPoolCandidates' => 2
-      ]
-    ]);
-
-    // Assert query with unknown cmoAsset filter will return zero
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
-      }
-    ', [
-      'where' => [
-        'cmoAssets' => [[ 'key' => 'unknown_cmo_asset' ]],
-      ]
-    ])->assertJson([
-      'data' => [
-        'countPoolCandidates' => 0
-      ]
-    ]);
-  }
-
   public function testFilterByOperationalRequirements(): void
   {
     // Create initial data.

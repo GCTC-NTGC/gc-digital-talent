@@ -15,13 +15,6 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
       hasDisability
       isVisibleMinority
       isIndigenous
-      cmoAssets {
-        key
-        name {
-          en
-          fr
-        }
-      }
     }
     pool {
       id
