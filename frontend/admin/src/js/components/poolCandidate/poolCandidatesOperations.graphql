@@ -118,6 +118,25 @@ fragment selectedPoolCandidates on PoolCandidate {
       level
     }
   }
+  poolAdvertisement {
+    id
+    essentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
   user {
     id
     email
