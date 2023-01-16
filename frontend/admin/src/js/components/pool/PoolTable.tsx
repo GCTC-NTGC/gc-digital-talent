@@ -10,7 +10,7 @@ import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   GetPoolsQuery,
   Maybe,
@@ -67,6 +67,21 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
     </span>
   ) : null;
 }
+
+const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
+  if (value) {
+    return <a href={`mailto:${value}`}>{value}</a>;
+  }
+  return (
+    <span data-h2-font-style="base(italic)">
+      {intl.formatMessage({
+        defaultMessage: "No email provided",
+        id: "1JCjTP",
+        description: "Fallback for email value",
+      })}
+    </span>
+  );
+};
 
 interface PoolTableProps {
   pools: GetPoolsQuery["pools"];
@@ -144,11 +159,43 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Owner",
-          id: "VgbJiw",
-          description: "Title displayed for the Pool table owner email column.",
+          defaultMessage: "Owner Name",
+          id: "AWk4BX",
+          description: "Title displayed for the Pool table Owner Name column",
         }),
-        accessor: ({ owner }) => owner?.email,
+        accessor: ({ owner }) =>
+          getFullNameHtml(
+            owner && owner.firstName ? owner.firstName : "",
+            owner && owner.lastName ? owner.lastName : "",
+            intl,
+          ),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.owner?.firstName
+            ? rowA.original.owner.firstName.toLowerCase()
+            : "";
+          const b = rowB.original.owner?.firstName
+            ? rowB.original.owner.firstName.toLowerCase()
+            : "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Owner Email",
+          id: "pe5WkF",
+          description: "Title displayed for the Pool table Owner Email column",
+        }),
+        accessor: ({ owner }) =>
+          emailLinkAccessor(owner && owner.email ? owner.email : "", intl),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.owner?.email ? rowA.original.owner.email : "";
+          const b = rowB.original.owner?.email ? rowB.original.owner.email : "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -179,7 +226,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate"],
+      hiddenCols: ["id", "description", "createdDate", "1ownerEmail"],
       initialSortBy: [
         {
           id: "createdDate",

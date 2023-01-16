@@ -149,6 +149,8 @@ query getPools {
     owner {
       id
       email
+      firstName
+      lastName
     }
     name {
       en
