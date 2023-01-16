@@ -28,6 +28,9 @@ const TalentRedirect = () => {
       if (pathname.includes("government-information")) {
         profilePath = paths.governmentInformation(id);
       }
+      if (pathname.includes("role-salary")) {
+        profilePath = paths.roleSalary(id);
+      }
       if (pathname.includes("work-location")) {
         profilePath = paths.workLocation(id);
       }

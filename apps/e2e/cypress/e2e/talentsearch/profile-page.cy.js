@@ -37,6 +37,7 @@ describe("Talentsearch Profile Page", () => {
         '/en/users/test-no-role/profile/about-me/edit',
         '/en/users/test-no-role/profile/language-info/edit',
         '/en/users/test-no-role/profile/government-info/edit',
+        '/en/users/test-no-role/profile/role-salary-expectations/edit',
         '/en/users/test-no-role/profile/work-location/edit',
         '/en/users/test-no-role/profile/work-preferences/edit',
         '/en/users/test-no-role/profile/employment-equity/edit',

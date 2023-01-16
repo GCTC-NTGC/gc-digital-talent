@@ -8,6 +8,7 @@ import {
   isWorkExperience,
 } from "../types/ExperienceUtils";
 import {
+  getGenericJobTitles,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,
@@ -184,6 +185,27 @@ export const getOperationalRequirements = (
 };
 
 /**
+ * Converts a possible array of generic job titles
+ * to a comma separated list or empty string
+ *
+ * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
+ * @param intl react-intl object
+ * @returns string
+ */
+export const getExpectedClassifications = (
+  genericTitles: Applicant["expectedGenericJobTitles"],
+  intl: IntlShape,
+) => {
+  const expected = genericTitles
+    ?.map((title) =>
+      title ? intl.formatMessage(getGenericJobTitles(title.key)) : undefined,
+    )
+    .filter(notEmpty);
+
+  return listOrEmptyString(expected);
+};
+
+/**
  * Converts a possible array of experiences to
  * a flattened comma separated list of skills
  * or an empty string
@@ -311,7 +333,7 @@ export const skillKeyAndJustifications = (
     })
     .flatMap((justification) => justification);
 
-  const keyAndJustfications = skills.reduce((accumulator, currentValue) => {
+  const keyAndJustifications = skills.reduce((accumulator, currentValue) => {
     const { key, id } = currentValue;
     const justifications = skillJustifications
       ?.filter(notEmpty)
@@ -323,5 +345,5 @@ export const skillKeyAndJustifications = (
     };
   }, {});
 
-  return keyAndJustfications;
+  return keyAndJustifications;
 };

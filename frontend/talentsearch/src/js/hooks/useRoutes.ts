@@ -73,6 +73,8 @@ const getRoutes = (lang: Locales) => {
       userEditUrl("language-info", userId, applicationId),
     governmentInformation: (userId: string, applicationId?: string) =>
       userEditUrl("government-info", userId, applicationId),
+    roleSalary: (userId: string, applicationId?: string) =>
+      userEditUrl("role-salary-expectations", userId, applicationId),
     workLocation: (userId: string, applicationId?: string) =>
       userEditUrl("work-location", userId, applicationId),
     workPreferences: (userId: string, applicationId?: string) =>

@@ -17,6 +17,7 @@ import {
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
+  getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
 } from "@common/helpers/csvUtils";
@@ -342,6 +343,14 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
+      key: "expectedClassification",
+      label: intl.formatMessage({
+        defaultMessage: "Role/Salary Expectation",
+        id: "iIZS1K",
+        description: "CSV Header, Role/Salary Expectation column",
+      }),
+    },
+    {
       key: "skills",
       label: intl.formatMessage({
         defaultMessage: "Skills",
@@ -446,6 +455,10 @@ const usePoolCandidateCsvData = (
           isIndigenous: yesOrNo(user.isIndigenous, intl),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
+          expectedClassification: getExpectedClassifications(
+            user.expectedGenericJobTitles,
+            intl,
+          ),
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,
