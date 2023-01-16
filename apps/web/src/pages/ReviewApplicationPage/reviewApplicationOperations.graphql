@@ -54,18 +54,6 @@ query getReviewApplicationPageData($id: UUID!) {
       locationExemptions
       acceptedOperationalRequirements
       positionDuration
-      cmoAssets {
-        id
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        key
-      }
       experiences {
         id
         __typename

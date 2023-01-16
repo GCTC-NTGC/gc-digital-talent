@@ -2,14 +2,9 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import pick from "lodash/pick";
-import {
-  fakeClassifications,
-  fakeCmoAssets,
-  fakePools,
-  fakeUsers,
-} from "@common/fakeData";
+import { fakeClassifications, fakePools, fakeUsers } from "@common/fakeData";
 
-import { Classification, CmoAsset } from "~/api/generated";
+import { Classification } from "~/api/generated";
 import {
   SearchContainerProps,
   SearchContainerComponent,
@@ -20,7 +15,6 @@ export default {
   title: "Forms/Search Form",
   args: {
     classifications: fakeClassifications() as Classification[],
-    cmoAssets: fakeCmoAssets() as CmoAsset[],
     pool: pick(fakePools()[0], ["name", "description"]),
     poolOwner: pick(fakeUsers()[0], ["firstName", "lastName"]),
     candidateCount: 10,

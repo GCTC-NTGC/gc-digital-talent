@@ -362,10 +362,6 @@
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title displayed on the single search request table employment equity column."
   },
-  "i9/L40": {
-    "defaultMessage": "Compétences",
-    "description": "Title displayed on the single search request table skills column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
