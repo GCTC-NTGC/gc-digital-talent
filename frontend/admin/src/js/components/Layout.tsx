@@ -11,6 +11,10 @@ import Header from "@common/components/Header";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import { getLocale } from "@common/helpers/localize";
 
+import {
+  getFromLocalStorage,
+  setInLocalStorage,
+} from "@common/helpers/storageUtils";
 import AdminSideMenu from "./menu/AdminSideMenu";
 
 interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -49,8 +53,17 @@ const Layout = () => {
   const isSmallScreen = useIsSmallScreen();
   const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
 
+  // retain state of admin sidemenu in local storage
+  const menuStorageKey = "digitaltalent-menustate";
+  const menuPreference = getFromLocalStorage(menuStorageKey, true);
+  if (isMenuOpen !== menuPreference) {
+    // prevent infinite re-render with a conditional execution
+    setMenuOpen(menuPreference);
+  }
+
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
+    setInLocalStorage(menuStorageKey, !isMenuOpen);
   };
 
   const handleDismiss = () => {
