@@ -85,6 +85,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
       .findByRole("link", { name: /Edit/i })
+      .should("exist")
+      .and("be.visible")
       .click();
 
     cy.wait("@gqlUserQuery");
@@ -124,6 +126,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
       .findByRole("button", { name: /select/i })
+      .should("exist")
+      .and("be.visible")
       .click();
 
     cy.wait("@gqlselectedUsersQuery");
