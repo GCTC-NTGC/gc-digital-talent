@@ -39,7 +39,7 @@ class PoolFactory extends Factory
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
-            'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
+            'closing_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
             'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
             'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,

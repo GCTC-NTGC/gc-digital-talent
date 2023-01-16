@@ -6,6 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+import SEO from "@common/components/SEO/SEO";
 
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
@@ -42,6 +43,13 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
 
   return (
     <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "My profile",
+          id: "pR23NW",
+          description: "Page title for the applicants profile page",
+        })}
+      />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -85,7 +93,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         applicant={profileDataInput as Applicant}
         sections={{
           myStatus: { isVisible: true, override: <MyStatusApi /> },
-          hiringPools: { isVisible: true },
+          hiringPools: { isVisible: false },
           about: { isVisible: true, editUrl: paths.aboutMe(userId) },
           language: {
             isVisible: true,
@@ -107,7 +115,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             isVisible: true,
             editUrl: paths.diversityEquityInclusion(userId),
           },
-          roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
           skillsExperience: {
             isVisible: true,
             editUrl: paths.skillsAndExperiences(userId),

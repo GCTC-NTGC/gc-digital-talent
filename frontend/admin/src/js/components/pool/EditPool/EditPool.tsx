@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// remove this eslint-disable when the action handlers are implemented
 import * as React from "react";
 import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
@@ -12,6 +10,8 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
 import { useParams } from "react-router-dom";
+import SEO from "@common/components/SEO/SEO";
+import { useLogger } from "@common/hooks/useLogger";
 import {
   PoolAdvertisement,
   Scalars,
@@ -196,7 +196,14 @@ export const EditPoolForm = ({
   };
 
   return (
-    <div>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Edit pool",
+          id: "dc5TeX",
+          description: "Page title for the edit pool page",
+        })}
+      />
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
@@ -300,7 +307,7 @@ export const EditPoolForm = ({
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -311,6 +318,7 @@ type RouteParams = {
 export const EditPool = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
+  const logger = useLogger();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -352,7 +360,7 @@ export const EditPool = () => {
               onDelete={() => mutations.delete(poolId)}
               onClose={() => mutations.close(poolId)}
               onExtend={(extendData) => mutations.update(poolId, extendData)}
-              onArchive={() => console.warn("onArchive not yet implemented")}
+              onArchive={() => logger.warning("onArchive not yet implemented")}
             />
           </EditPoolContext.Provider>
         ) : (

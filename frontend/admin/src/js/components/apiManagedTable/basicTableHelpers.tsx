@@ -108,9 +108,17 @@ export function handleRowSelectedChange<T>(
   }
 }
 
+export interface SearchState {
+  term?: string;
+  type?: string;
+}
+
 // Information about the sorting order of a table
 export interface SortingRule<T> {
-  column: Column<T>;
+  column: {
+    id: IdType<T>;
+    sortColumnName?: string;
+  };
   desc?: boolean | undefined;
 }
 
@@ -144,23 +152,27 @@ export function handleColumnHiddenChange<T>(
   hiddenColumnIds: IdType<T>[],
   setHiddenColumnIds: (ids: IdType<T>[]) => void,
   { columnId, setHidden }: ColumnHiddenEvent<T>,
-): void {
+): IdType<T>[] {
+  let newHiddenColumnIds: IdType<T>[] = [];
   if (columnId && setHidden) {
     // column ID is provided, add column to hidden list
-    setHiddenColumnIds([...hiddenColumnIds, columnId]);
+    newHiddenColumnIds = [...hiddenColumnIds, columnId];
   }
   if (columnId && !setHidden) {
     // column ID is provided, remove column from hidden list
-    setHiddenColumnIds(hiddenColumnIds.filter((id) => id !== columnId));
+    newHiddenColumnIds = hiddenColumnIds.filter((id) => id !== columnId);
   }
   if (!columnId && setHidden) {
     // column ID not provided, add all columns to hidden list
-    setHiddenColumnIds([...allColumnIds]);
+    newHiddenColumnIds = [...allColumnIds];
   }
   if (!columnId && !setHidden) {
     // column ID not provided, remove all columns from hidden list
-    setHiddenColumnIds([]);
+    newHiddenColumnIds = [];
   }
+
+  setHiddenColumnIds(newHiddenColumnIds);
+  return newHiddenColumnIds;
 }
 
 export function useDebounce<T>(value: T, delay: number): T {
@@ -183,3 +195,50 @@ export function useDebounce<T>(value: T, delay: number): T {
   );
   return debouncedValue;
 }
+
+interface CommonTableParams<T> {
+  currentPage?: number;
+  pageSize?: number;
+  hiddenColumnIds?: Array<string>;
+  sortBy?: SortingRule<T>;
+  searchState?: SearchState;
+}
+
+export function getCommonTableParams<T>(
+  searchParams: URLSearchParams,
+): CommonTableParams<T> {
+  const initialPage = searchParams.get("currentPage");
+  const initialPageSize = searchParams.get("pageSize");
+  const initialHiddenColumns = searchParams.get("hiddenColumnIds");
+  const initialSortByEncoded = searchParams.get("sortBy");
+  const initialSortByDecoded = initialSortByEncoded
+    ? JSON.parse(decodeURIComponent(initialSortByEncoded))
+    : undefined;
+  const initialSearchTerm = searchParams.get("searchTerm");
+  const initialSearchBy = searchParams.get("searchBy");
+
+  return {
+    currentPage: initialPage ? parseInt(initialPage, 10) : undefined,
+    pageSize: initialPageSize ? parseInt(initialPageSize, 10) : undefined,
+    hiddenColumnIds: initialHiddenColumns
+      ? initialHiddenColumns.split(",")
+      : undefined,
+    sortBy: initialSortByDecoded,
+    searchState: {
+      term: initialSearchTerm || "",
+      type: initialSearchBy || "",
+    },
+  };
+}
+
+export const TABLE_DEFAULTS = {
+  pageSize: 10,
+  currentPage: 1,
+  searchState: {
+    term: "",
+    type: "",
+  },
+  hiddenColumnIds: [],
+  sortBy: undefined,
+  filters: {},
+};

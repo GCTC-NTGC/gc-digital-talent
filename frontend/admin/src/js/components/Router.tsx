@@ -85,22 +85,6 @@ const PoolCandidatePage = React.lazy(() =>
       ),
   ),
 );
-const CreatePoolCandidate = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreatePoolCandidate" */ "./poolCandidate/CreatePoolCandidate"
-      ),
-  ),
-);
-const UpdatePoolCandidate = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdatePoolCandidate" */ "./poolCandidate/UpdatePoolCandidate"
-      ),
-  ),
-);
 const ViewPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -226,12 +210,12 @@ const SingleSearchRequestPage = React.lazy(() =>
 
 const router = createBrowserRouter([
   {
-    path: "/:locale",
+    path: `/`,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "admin",
+        path: ":locale/admin",
         errorElement: <ErrorPage />,
         children: [
           {
@@ -338,14 +322,6 @@ const router = createBrowserRouter([
                         ),
                       },
                       {
-                        path: "create",
-                        element: (
-                          <RequireAuth roles={[Role.Admin]}>
-                            <CreatePoolCandidate />
-                          </RequireAuth>
-                        ),
-                      },
-                      {
                         path: ":poolCandidateId",
                         children: [
                           {
@@ -353,14 +329,6 @@ const router = createBrowserRouter([
                             element: (
                               <RequireAuth roles={[Role.Admin]}>
                                 <ViewPoolCandidatePage />
-                              </RequireAuth>
-                            ),
-                          },
-                          {
-                            path: "edit",
-                            element: (
-                              <RequireAuth roles={[Role.Admin]}>
-                                <UpdatePoolCandidate />
                               </RequireAuth>
                             ),
                           },
@@ -541,6 +509,12 @@ const router = createBrowserRouter([
                 ],
               },
             ],
+          },
+          {
+            path: "*",
+            loader: () => {
+              throw new Response("Not Found", { status: 404 });
+            },
           },
         ],
       },

@@ -1,0 +1,11 @@
+@media screen and (min-width: 48em) {
+  [data-h2] .hero-logo {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media screen and (min-width: 48em) {
+  [data-h2] .hero-cta {
+    transform: translate(-50%, 0);
+  }
+}

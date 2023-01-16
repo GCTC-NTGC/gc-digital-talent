@@ -31,6 +31,19 @@ query getApplication($id: UUID!) {
           en
           fr
         }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
       }
       nonessentialSkills {
         id
@@ -42,6 +55,19 @@ query getApplication($id: UUID!) {
         description {
           en
           fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
         }
       }
       classifications {

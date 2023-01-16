@@ -12,6 +12,7 @@ import { keyStringRegex } from "@common/constants/regularExpressions";
 import { errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -274,6 +275,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 };
 
 const CreateSkill: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [lookupResult] = useAllSkillFamiliesQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
@@ -288,14 +290,23 @@ const CreateSkill: React.FunctionComponent = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        <CreateSkillForm
-          handleCreateSkill={handleCreateSkill}
-          families={families}
-        />
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Create Skill",
+          id: "qZd17O",
+          description: "Title displayed on the create a skill form.",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          <CreateSkillForm
+            handleCreateSkill={handleCreateSkill}
+            families={families}
+          />
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

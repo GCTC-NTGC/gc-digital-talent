@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
@@ -59,12 +60,6 @@ class ApplicantFilterTest extends TestCase
             'operationalRequirements' => $filter->operational_requirements,
             'locationPreferences' => $filter->location_preferences,
             'positionDuration' => $filter->position_duration,
-            'expectedClassifications' => $filter->classifications->map(function ($classification) {
-                return [
-                    'group' => $classification->group,
-                    'level' => $classification->level,
-                ];
-            })->toArray(),
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
         ];
@@ -73,9 +68,6 @@ class ApplicantFilterTest extends TestCase
     protected function filterToCreateInput(ApplicantFilter $filter)
     {
         $input = $this->filterToInput($filter);
-        $input['expectedClassifications'] = [
-            'sync' => $filter->classifications->pluck('id')->toArray()
-        ];
         $input['skills'] = [
             'sync' => $filter->skills->pluck('id')->toArray()
         ];
@@ -250,13 +242,6 @@ class ApplicantFilterTest extends TestCase
             query {
                 applicantFilters {
                     id
-                    expectedClassifications {
-                        id
-                        name {
-                            en
-                            fr
-                        }
-                    }
                     skills {
                         id
                         name {
@@ -278,7 +263,6 @@ class ApplicantFilterTest extends TestCase
         );
         // Assert that each relationship collection has the right size.
         foreach ($response->json('data.applicantFilters') as $filter) {
-            $this->assertCount($filters->find($filter['id'])->classifications->count(), $filter['expectedClassifications']);
             $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
@@ -289,12 +273,6 @@ class ApplicantFilterTest extends TestCase
                 'applicantFilters' => [
                     [
                         'id' => $filters[0]->id,
-                        'expectedClassifications' => [
-                            [
-                                'id' => $filters[0]->classifications->first()->id,
-                                'name' => $filters[0]->classifications->first()->name,
-                            ],
-                        ],
                         'skills' => [
                             [
                                 'id' => $filters[0]->skills->first()->id,
@@ -390,12 +368,21 @@ class ApplicantFilterTest extends TestCase
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->activelyLooking()->withExpectedGenericJobTitles()->withSkills(10)
+            'user_id' => User::factory()->activelyLooking()->withSkills(10)
         ]);
-
 
         // Generate a filter that matches at least one candidate
         $candidate = $candidates->random();
+        $filterLanguage = null; // run through fields and assign the enum for the first one that is true
+        if ($candidate->looking_for_english) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+        }
+        elseif ($candidate->looking_for_french) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
+        }
+        elseif ($candidate->looking_for_bilingual) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+        }
         $filter = ApplicantFilter::factory()->create(
             [
                 'has_diploma' => $candidate->user->has_diploma,
@@ -404,13 +391,10 @@ class ApplicantFilterTest extends TestCase
                 'is_visible_minority' => $candidate->user->is_visible_minority,
                 'is_woman' => $candidate->user->is_woman,
                 'position_duration' => $candidate->user->position_duration,
-                'language_ability' => $candidate->user->language_ability,
+                'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->operational_requirements,
             ]
-        );
-        $filter->classifications()->saveMany(
-            $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
         );
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
@@ -478,10 +462,6 @@ class ApplicantFilterTest extends TestCase
                         languageAbility
                         operationalRequirements
                         positionDuration
-                        expectedClassifications {
-                            group
-                            level
-                        }
                         skills {
                             id
                         }

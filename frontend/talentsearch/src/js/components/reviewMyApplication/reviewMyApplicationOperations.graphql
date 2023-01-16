@@ -42,14 +42,6 @@ query getReviewMyApplicationPageData($id: UUID!) {
           fr
         }
       }
-      expectedGenericJobTitles {
-        id
-        key
-        name {
-          en
-          fr
-        }
-      }
       isWoman
       hasDisability
       isIndigenous
@@ -61,16 +53,6 @@ query getReviewMyApplicationPageData($id: UUID!) {
       locationPreferences
       locationExemptions
       acceptedOperationalRequirements
-      expectedSalary
-      expectedClassifications {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
       positionDuration
       cmoAssets {
         id
@@ -156,7 +138,7 @@ query getReviewMyApplicationPageData($id: UUID!) {
         fr
       }
       stream
-      expiryDate
+      closingDate
       classifications {
         id
         group

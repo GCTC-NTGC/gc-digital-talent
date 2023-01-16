@@ -9,7 +9,7 @@ query browsePoolAdvertisements {
       en
       fr
     }
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance
@@ -100,6 +100,16 @@ query browsePool($id: UUID!) {
     name {
       en
       fr
+    }
+  }
+}
+query mySkills {
+  me {
+    experiences {
+      id
+      skills {
+        id
+      }
     }
   }
 }

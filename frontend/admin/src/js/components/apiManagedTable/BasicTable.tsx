@@ -37,18 +37,27 @@ function BasicTable<T extends RecordWithId>({
     }
     // no current sorting, sort by this column
     if (!sortingRule) {
-      onSortingRuleChange({ column, desc: false });
+      onSortingRuleChange({
+        column: { id: column.id, sortColumnName: column.sortColumnName },
+        desc: false,
+      });
       return;
     }
     // current sort is not by this column, sort by this column
     if (sortingRule.column.id !== column.id) {
-      onSortingRuleChange({ column, desc: false });
+      onSortingRuleChange({
+        column: { id: column.id, sortColumnName: column.sortColumnName },
+        desc: false,
+      });
       return;
     }
     // current sort is this column, advance the order
     if (sortingRule.column.id === column.id) {
       if (sortingRule.desc === undefined || sortingRule.desc === false) {
-        onSortingRuleChange({ column, desc: true });
+        onSortingRuleChange({
+          column: { id: column.id, sortColumnName: column.sortColumnName },
+          desc: true,
+        });
         return;
       }
       if (sortingRule.desc === true) {

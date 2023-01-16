@@ -10,18 +10,17 @@ import {
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
-import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
 import {
+  PoolCandidateSearchInput,
   InputMaybe,
   JobLookingStatus,
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
-  PoolCandidateFilterInput,
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
@@ -38,6 +37,7 @@ import {
   handleRowSelectedChange,
   rowSelectionColumn,
   SortingRule,
+  TABLE_DEFAULTS,
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -53,8 +53,46 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "../user/util";
+import useTableState from "../apiManagedTable/useTableState";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
+
+function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+): FormValues {
+  return {
+    languageAbility: input?.applicantFilter?.languageAbility
+      ? [input?.applicantFilter?.languageAbility]
+      : [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    hasDiploma: input?.applicantFilter?.hasDiploma ? ["true"] : [],
+    pools:
+      input?.applicantFilter?.pools
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.id) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
+  };
+}
 
 // callbacks extracted to separate function to stabilize memoized component
 const preferredLanguageAccessor = (
@@ -180,21 +218,57 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
-const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
+const defaultState = {
+  ...TABLE_DEFAULTS,
+  filters: {
+    applicantFilter: {
+      operationalRequirements: [],
+      locationPreferences: [],
+      equity: {},
+      pools: [],
+      skills: [],
+      hasDiploma: undefined,
+      languageAbility: undefined,
+    },
+    poolCandidateStatus: [],
+    priorityWeight: [],
+  },
+};
+
+const PoolCandidatesTable: React.FC<{
+  initialFilterInput?: PoolCandidateSearchInput;
+}> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
+  // Note: Need to memoize to prevent infinite
+  // update depth
+  const memoizedDefaultState = useMemo(
+    () => ({
+      ...defaultState,
+      filters: {
+        ...defaultState.filters,
+        applicantFilter: {
+          ...defaultState.filters.applicantFilter,
+          pools: initialFilterInput?.applicantFilter?.pools,
+        },
+      },
+    }),
+    [initialFilterInput],
+  );
+  const [tableState, setTableState] = useTableState<
+    Data,
+    PoolCandidateSearchInput
+  >(memoizedDefaultState);
+  const {
+    pageSize,
+    currentPage,
+    sortBy: sortingRule,
+    hiddenColumnIds,
+    searchState,
+    filters: applicantFilterInput,
+  } = tableState;
 
-  const [poolCandidateFilterInput, setPoolCandidateFilterInput] =
-    useState<PoolCandidateFilterInput>({ pools: [{ id: poolId }] });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    type: string | undefined;
-  }>();
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -226,20 +300,21 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         },
       };
     }
+    // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
+    // default tertiary sort is submitted_at,
     return {
-      column: "status_weight",
+      column: "submitted_at",
       order: SortOrder.Asc,
       user: undefined,
     };
   }, [sortingRule]);
-  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: PoolCandidateFilterInput | undefined,
+    fancyFilterState: PoolCandidateSearchInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
-  ): InputMaybe<PoolCandidateFilterInput> => {
+  ): InputMaybe<PoolCandidateSearchInput> => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&
@@ -255,51 +330,51 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       name: searchType === "name" ? searchBarTerm : undefined,
 
       // from fancy filter
-      pools: [{ id: poolId }],
-      languageAbility: fancyFilterState?.languageAbility,
-      expectedClassifications: fancyFilterState?.expectedClassifications,
-      operationalRequirements: fancyFilterState?.operationalRequirements,
-      locationPreferences: fancyFilterState?.locationPreferences,
-      hasDiploma: fancyFilterState?.hasDiploma,
-      equity: fancyFilterState?.equity,
-      status: fancyFilterState?.status,
+      applicantFilter: fancyFilterState?.applicantFilter,
+      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    setPoolCandidateFilterInput({
-      languageAbility: data.languageAbility[0]
-        ? stringToEnumLanguage(data.languageAbility[0])
-        : undefined,
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
-          return stringToEnumOperational(requirement);
+    const transformedData = {
+      applicantFilter: {
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        hasDiploma: data.hasDiploma[0] ? true : undefined,
+        equity: {
+          ...(data.equity.includes("isWoman") && { isWoman: true }),
+          ...(data.equity.includes("hasDisability") && { hasDisability: true }),
+          ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+          ...(data.equity.includes("isVisibleMinority") && {
+            isVisibleMinority: true,
+          }),
         },
-      ),
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      hasDiploma: data.hasDiploma[0] ? true : undefined,
-      equity: {
-        ...(data.equity.includes("isWoman") && { isWoman: true }),
-        ...(data.equity.includes("hasDisability") && { hasDisability: true }),
-        ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
-        ...(data.equity.includes("isVisibleMinority") && {
-          isVisibleMinority: true,
+        pools: data.pools.map((id) => {
+          return { id };
+        }),
+        skills: data.skills.map((id) => {
+          return { id };
         }),
       },
-      status: data.status.map((status) => {
+      poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);
       }),
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);
       }),
-    });
+    };
+
+    setTableState({ filters: transformedData });
   };
 
   useEffect(() => {
@@ -309,7 +384,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
       where: addSearchToPoolCandidateFilterInput(
-        poolCandidateFilterInput,
+        applicantFilterInput,
         searchState?.term,
         searchState?.type,
       ),
@@ -508,6 +583,51 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
 
   const csv = usePoolCandidateCsvData(selectedCandidates);
 
+  const initialFilters = useMemo(
+    () => transformPoolCandidateSearchInputToFormValues(applicantFilterInput),
+    [applicantFilterInput],
+  );
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setTableState({ pageSize: newPageSize });
+  };
+
+  const handleCurrentPageChange = (newCurrentPage: number) => {
+    setTableState({
+      currentPage: newCurrentPage,
+    });
+  };
+
+  const handleSortingRuleChange = (
+    newSortingRule: SortingRule<Date> | undefined,
+  ) => {
+    setTableState({
+      sortBy: newSortingRule,
+    });
+  };
+
+  const handleSearchStateChange = ({
+    term,
+    type,
+  }: {
+    term: string | undefined;
+    type: string | undefined;
+  }) => {
+    setTableState({
+      currentPage: 1,
+      searchState: {
+        term: term ?? defaultState.searchState.term,
+        type: type ?? defaultState.searchState.type,
+      },
+    });
+  };
+
+  const setHiddenColumnIds = (newCols: string[]) => {
+    setTableState({
+      hiddenColumnIds: newCols,
+    });
+  };
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -522,18 +642,19 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         filterComponent={
           <PoolCandidateTableFilterDialog
             onSubmit={handlePoolCandidateFilterSubmit}
+            initialFilters={initialFilters}
           />
         }
         onSearchChange={(
           term: string | undefined,
           type: string | undefined,
         ) => {
-          setCurrentPage(1);
-          setSearchState({
+          handleSearchStateChange({
             term,
             type,
           });
         }}
+        initialSearchState={searchState}
         searchBy={[
           {
             label: intl.formatMessage({
@@ -552,15 +673,15 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             value: "email",
           },
         ]}
-        onColumnHiddenChange={(event) =>
+        onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,
-            hiddenColumnIds,
+            hiddenColumnIds ?? [],
             setHiddenColumnIds,
             event,
-          )
-        }
-        hiddenColumnIds={hiddenColumnIds}
+          );
+        }}
+        hiddenColumnIds={hiddenColumnIds ?? []}
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>
@@ -568,15 +689,15 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             labelledBy="pool-candidate-table-heading"
             data={filteredData}
             columns={columns}
-            hiddenColumnIds={hiddenColumnIds}
-            onSortingRuleChange={setSortingRule}
+            onSortingRuleChange={handleSortingRuleChange}
             sortingRule={sortingRule}
+            hiddenColumnIds={hiddenColumnIds ?? []}
           />
         </Pending>
         <TableFooter
           paginatorInfo={data?.poolCandidatesPaginated?.paginatorInfo}
-          onCurrentPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
+          onCurrentPageChange={handleCurrentPageChange}
+          onPageSizeChange={handlePageSizeChange}
           hasSelection
           onPrint={handlePrint}
           fetchingSelected={selectedCandidatesFetching}

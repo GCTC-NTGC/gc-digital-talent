@@ -66,12 +66,6 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
-    classifications: filterRes.data?.classifications
-      .filter(notEmpty)
-      .map(({ group, level }) => ({
-        value: `${group}-${level}`,
-        label: `${group}-0${level}`,
-      })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
@@ -108,10 +102,12 @@ export default function useFilterOptions(enableEducationType = false) {
       equityOption("isIndigenous", getEmploymentEquityGroup("indigenous")),
       equityOption("isVisibleMinority", getEmploymentEquityGroup("minority")),
     ],
-    status: enumToOptions(PoolCandidateStatus).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getPoolCandidateStatus(value)),
-    })),
+    poolCandidateStatus: enumToOptions(PoolCandidateStatus).map(
+      ({ value }) => ({
+        value,
+        label: intl.formatMessage(getPoolCandidateStatus(value)),
+      }),
+    ),
     priorityWeight: Object.keys(poolCandidatePriorities).map((key) => ({
       value: Number(key),
       label: intl.formatMessage(

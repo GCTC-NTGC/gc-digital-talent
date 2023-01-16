@@ -25,15 +25,15 @@ mutation publishPoolAdvertisement($id: ID!) {
   }
 }
 
-mutation changePoolExpiryDate($id: ID!, $newExpiryDate: DateTime!) {
-  changePoolExpiryDate(id: $id, newExpiryDate: $newExpiryDate) {
-    expiryDate
+mutation changePoolClosingDate($id: ID!, $newClosingDate: DateTime!) {
+  changePoolClosingDate(id: $id, newClosingDate: $newClosingDate) {
+    closingDate
   }
 }
 
 mutation closePoolAdvertisement($id: ID!) {
   closePoolAdvertisement(id: $id) {
-    expiryDate
+    closingDate
   }
 }
 

@@ -16,15 +16,13 @@ import {
   ApplicantFilterInput,
   PoolCandidateFilter,
   ApplicantFilter,
-  UserFilterInput,
   IdInput,
-  Classification,
-  ClassificationFilterInput,
-  JobLookingStatus,
+  PoolCandidateSearchInput,
+  PoolCandidateStatus,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
-import UserTable from "../user/UserTable";
+import PoolCandidatesTable from "../poolCandidate/PoolCandidatesTable";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
@@ -98,47 +96,33 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "MmFgbF",
-          description:
-            "Title displayed on the single search request table classifications column.",
-        }),
-        accessor: ({ expectedClassifications }) =>
-          expectedClassifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="secondary"
-                mode="outline"
-              >
-                {`${classification?.group}-${classification?.level}`}
-              </Pill>
-            );
-          }),
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Operational Requirements",
           id: "gN/+W2",
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
-        accessor: ({ acceptedOperationalRequirements }) =>
-          acceptedOperationalRequirements?.map((operationalRequirement) => {
-            return (
-              <Pill key={operationalRequirement} color="primary" mode="outline">
-                {intl.formatMessage(
-                  operationalRequirement
-                    ? getOperationalRequirement(operationalRequirement)
-                    : {
-                        defaultMessage: "Error: Name not found.",
-                        description:
-                          "Error message displayed on the single search request table operational requirements column.",
-                      },
-                )}
-              </Pill>
-            );
-          }),
+        accessor: ({ user }) =>
+          user.acceptedOperationalRequirements?.map(
+            (operationalRequirement) => {
+              return (
+                <Pill
+                  key={operationalRequirement}
+                  color="primary"
+                  mode="outline"
+                >
+                  {intl.formatMessage(
+                    operationalRequirement
+                      ? getOperationalRequirement(operationalRequirement)
+                      : {
+                          defaultMessage: "Error: Name not found.",
+                          description:
+                            "Error message displayed on the single search request table operational requirements column.",
+                        },
+                  )}
+                </Pill>
+              );
+            },
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -147,14 +131,9 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table employment equity column.",
         }),
-        accessor: ({
-          isIndigenous,
-          isVisibleMinority,
-          isWoman,
-          hasDisability,
-        }) => {
+        accessor: ({ user }) => {
           const employmentEquity = [
-            ...(isWoman
+            ...(user.isWoman
               ? [
                   intl.formatMessage({
                     defaultMessage: "Woman",
@@ -164,7 +143,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(isVisibleMinority
+            ...(user.isVisibleMinority
               ? [
                   intl.formatMessage({
                     defaultMessage: "Visible Minority",
@@ -174,7 +153,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(isIndigenous
+            ...(user.isIndigenous
               ? [
                   intl.formatMessage({
                     defaultMessage: "Indigenous",
@@ -184,7 +163,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                   }),
                 ]
               : []),
-            ...(hasDisability
+            ...(user.hasDisability
               ? [
                   intl.formatMessage({
                     defaultMessage: "Disability",
@@ -217,8 +196,8 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table skills column.",
         }),
-        accessor: ({ cmoAssets }) =>
-          cmoAssets?.map((cmoAsset) => {
+        accessor: ({ user }) =>
+          user.cmoAssets?.map((cmoAsset) => {
             return (
               <Pill key={cmoAsset?.key} color="primary" mode="outline">
                 {cmoAsset?.name?.[locale] ||
@@ -273,18 +252,6 @@ const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
-    expectedClassifications: [
-      ...(inputFilter?.classifications
-        ? inputFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
-              return {
-                group,
-                level,
-              };
-            })
-        : []),
-    ],
     cmoAssets: [
       ...(inputFilter?.cmoAssets
         ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
@@ -326,26 +293,21 @@ function pickId<T extends IdInput>(x: T): IdInput {
   return pick(x, ["id"]);
 }
 
-function classificationToInput(c: Classification): ClassificationFilterInput {
-  return pick(c, ["group", "level"]);
-}
-
 // Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.
 type MappingType = {
-  [Property in keyof ApplicantFilterInput]: (
-    x: ApplicantFilter[Property],
-  ) => ApplicantFilterInput[Property];
+  [Property in keyof Omit<
+    ApplicantFilterInput,
+    "email" | "name" | "generalSearch"
+  >]: (x: ApplicantFilter[Property]) => ApplicantFilterInput[Property];
 };
 
-const transformApplicantFilterToFilterInput = (
+const transformApplicantFilterToPoolCandidateSearchInput = (
   applicantFilter: ApplicantFilter,
-): ApplicantFilterInput => {
+): PoolCandidateSearchInput => {
   // GraphQL will error if an input object includes any unexpected attributes.
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
-    expectedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,
@@ -357,40 +319,29 @@ const transformApplicantFilterToFilterInput = (
 
   const emptyFilter: ApplicantFilterInput = {};
 
-  return Object.entries(mapping).reduce((applicantFilterInput, filterEntry) => {
-    const [key, transform] = filterEntry;
-    const typedKey = key as keyof MappingType;
-
-    // There should be way to get the types to work without using "any", but I'm having trouble.
-    // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
-
-    // eslint-disable-next-line no-param-reassign
-    applicantFilterInput[typedKey] = transform(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      applicantFilter[typedKey] as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ) as any;
-    return applicantFilterInput;
-  }, emptyFilter);
-};
-
-const transformApplicantFilterToUserFilterInput = (
-  applicantFilter: ApplicantFilter,
-): UserFilterInput => {
-  const applicantFilterInput =
-    transformApplicantFilterToFilterInput(applicantFilter);
   return {
-    applicantFilter: applicantFilterInput,
-    // The user table makes use of the UserFilterInput.poolFilters field INSTEAD OF the applicantFilterInput.pools field.
-    poolFilters: applicantFilterInput.pools?.filter(notEmpty).map((pool) => ({
-      poolId: pool.id,
-    })),
-    // The following fields can be changed in the UserTable filter, but we initialize them to reasonable defaults.
-    jobLookingStatus: [
-      JobLookingStatus.ActivelyLooking,
-      JobLookingStatus.OpenToOpportunities,
+    applicantFilter: Object.entries(mapping).reduce(
+      (applicantFilterInput, filterEntry) => {
+        const [key, transform] = filterEntry;
+        const typedKey = key as keyof MappingType;
+
+        // There should be way to get the types to work without using "any", but I'm having trouble.
+        // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
+
+        // eslint-disable-next-line no-param-reassign
+        applicantFilterInput[typedKey] = transform(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          applicantFilter[typedKey] as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ) as any;
+        return applicantFilterInput;
+      },
+      emptyFilter,
+    ),
+    poolCandidateStatus: [
+      PoolCandidateStatus.QualifiedAvailable,
+      PoolCandidateStatus.PlacedCasual,
     ],
-    isProfileComplete: true,
   };
 };
 
@@ -406,8 +357,8 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
     variables: { poolCandidateFilter: poolCandidateFilterInput },
     pause: !isLegacyFilter,
   });
-  const userFilterInput = !isLegacyFilter
-    ? transformApplicantFilterToUserFilterInput(filter)
+  const applicantFilterInput = !isLegacyFilter
+    ? transformApplicantFilterToPoolCandidateSearchInput(filter)
     : undefined;
 
   return isLegacyFilter ? (
@@ -417,6 +368,6 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
       />
     </Pending>
   ) : (
-    <UserTable initialFilterInput={userFilterInput} />
+    <PoolCandidatesTable initialFilterInput={applicantFilterInput} />
   );
 };

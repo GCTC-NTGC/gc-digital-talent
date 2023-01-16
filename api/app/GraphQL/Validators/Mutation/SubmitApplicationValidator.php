@@ -2,9 +2,25 @@
 
 namespace App\GraphQL\Validators\Mutation;
 use Nuwave\Lighthouse\Validation\Validator;
+use App\Models\PoolCandidate;
+use App\Rules\PoolClosed;
+use App\Rules\UserProfileComplete;
+use App\Rules\HasEssentialSkills;
+use Database\Helpers\ApiEnums;
 
 final class SubmitApplicationValidator extends Validator
 {
+    private $application;
+
+    /**
+     * Create a new rule instance.
+     *
+     * @return void
+     */
+    public function __construct(PoolCandidate $application)
+    {
+        $this->application = $application;
+    }
     /**
      * Return the validation rules.
      *
@@ -14,7 +30,13 @@ final class SubmitApplicationValidator extends Validator
     {
         return [
             //
+            'user_id' => [
+                new UserProfileComplete,
+                new HasEssentialSkills($this->application->pool)
+            ],
+            'pool_id' => [new PoolClosed],
             'submitted_at' => ['prohibited', 'nullable'],
+            'signature' => ['required']
         ];
     }
 
@@ -22,6 +44,7 @@ final class SubmitApplicationValidator extends Validator
     {
         return  [
             'submitted_at.prohibited' => 'AlreadySubmitted',
+            'signature.required' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED
         ];
     }
 }

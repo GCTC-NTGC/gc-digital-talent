@@ -32,12 +32,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Employee status:",
-                id: "z/J4uL",
-                description: "Label for applicant's employee status",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Employee status:",
+                  id: "z/J4uL",
+                  description: "Label for applicant's employee status",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage:
@@ -52,12 +53,14 @@ const GovernmentInformationSection: React.FunctionComponent<{
           {applicant.department && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {intl.formatMessage({
-                  defaultMessage: "Department:",
-                  id: "nV57as",
-                  description: "Label for applicants department",
-                })}
-                <br />
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Department:",
+                    id: "ny/ddo",
+                    description:
+                      "Label for applicant's Government of Canada department",
+                  })}
+                </span>
                 <span data-h2-font-weight="base(700)">
                   {applicant.department.name[locale]}
                 </span>
@@ -67,12 +70,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
           {applicant.govEmployeeType && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {intl.formatMessage({
-                  defaultMessage: "Employment type:",
-                  id: "T49QiO",
-                  description: "Label for applicant's employment type",
-                })}
-                <br />
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Employment type:",
+                    id: "T49QiO",
+                    description: "Label for applicant's employment type",
+                  })}
+                </span>
                 <span data-h2-font-weight="base(700)">
                   {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
                 </span>
@@ -83,13 +87,14 @@ const GovernmentInformationSection: React.FunctionComponent<{
             !!applicant.currentClassification?.level && (
               <div data-h2-flex-item="base(1of1)">
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Current group and classification:",
-                    id: "MuyuAu",
-                    description:
-                      "Field label before government employment group and level, followed by colon",
-                  })}
-                  <br />
+                  <span data-h2-display="base(block)">
+                    {intl.formatMessage({
+                      defaultMessage: "Current group and classification:",
+                      id: "MuyuAu",
+                      description:
+                        "Field label before government employment group and level, followed by colon",
+                    })}
+                  </span>
                   <span data-h2-font-weight="base(700)">
                     {applicant.currentClassification?.group}-
                     {applicant.currentClassification?.level}
@@ -137,13 +142,14 @@ const GovernmentInformationSection: React.FunctionComponent<{
         >
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "Priority entitlement:",
-                id: "swugkW",
-                description:
-                  "Label for applicant's priority entitlement status",
-              })}
-              <br />
+              <span data-h2-display="base(block)">
+                {intl.formatMessage({
+                  defaultMessage: "Priority entitlement:",
+                  id: "swugkW",
+                  description:
+                    "Label for applicant's priority entitlement status",
+                })}
+              </span>
               <span data-h2-font-weight="base(700)">
                 {applicant.hasPriorityEntitlement
                   ? intl.formatMessage({
@@ -162,12 +168,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
           {applicant.priorityNumber && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {intl.formatMessage({
-                  defaultMessage: "Priority number:",
-                  id: "ZUO1OX",
-                  description: "Label for applicant's priority number value",
-                })}
-                <br />
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Priority number:",
+                    id: "ZUO1OX",
+                    description: "Label for applicant's priority number value",
+                  })}
+                </span>
                 <span data-h2-font-weight="base(700)">
                   {applicant.priorityNumber}
                 </span>

@@ -64,16 +64,6 @@ fragment poolCandidateTable on PoolCandidate {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
     positionDuration
     priorityWeight
   }
@@ -106,28 +96,6 @@ fragment poolCandidateForm on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
 }
 
@@ -182,18 +150,9 @@ fragment selectedPoolCandidates on PoolCandidate {
     hasDisability
     citizenship
     armedForcesStatus
-    expectedSalary
     jobLookingStatus
     currentCity
     currentProvince
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     department {
       id
       departmentNumber
@@ -278,37 +237,12 @@ fragment selectedPoolCandidates on PoolCandidate {
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    name {
-      en
-      fr
-    }
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
   submittedAt
   notes
   archivedAt
 }
+
 query getPoolCandidate($id: UUID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
@@ -322,7 +256,7 @@ query GetSelectedPoolCandidates($ids: [ID]) {
 }
 
 query GetPoolCandidatesPaginated(
-  $where: PoolCandidateFilterInput
+  $where: PoolCandidateSearchInput
   $first: Int
   $page: Int
   $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
@@ -361,72 +295,6 @@ query getPoolCandidatesByPool($id: UUID!) {
   }
 }
 
-query getCreatePoolCandidateData {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  users {
-    id
-    firstName
-    lastName
-    email
-    preferredLang
-    telephone
-  }
-}
-
-query getUpdatePoolCandidateData($id: UUID!) {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pools {
-    id
-    name {
-      en
-      fr
-    }
-  }
-  poolCandidate(id: $id) {
-    # to allow simultaneous editing of the associated user entity
-    user {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      preferredLang
-    }
-    ...poolCandidateForm
-  }
-}
-
 mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
   createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
     pool {
@@ -437,21 +305,6 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
     }
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }
@@ -463,21 +316,6 @@ mutation updatePoolCandidate(
   updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    hasDiploma
-    languageAbility
-    locationPreferences
-    acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-    }
-    cmoAssets {
-      id
-    }
     status
   }
 }
@@ -519,7 +357,6 @@ query getCandidateProfile($id: UUID!) {
       indigenousDeclarationSignature
       isVisibleMinority
       hasDisability
-      expectedSalary
       department {
         id
         departmentNumber

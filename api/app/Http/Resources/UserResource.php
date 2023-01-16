@@ -10,6 +10,13 @@ use GraphQL\Experimental\Executor\Collector;
 
 class UserResource extends JsonResource
 {
+    protected $poolSkillIds;
+
+    public function poolSkillIds($value){
+        $this->poolSkillIds = $value;
+        return $this;
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -18,6 +25,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $poolSkillIds = $this->poolSkillIds; // passed in from StoreApplicationSnapshot, an array of skill ids attached to a pool
 
         $awardExperiences = AwardExperienceResource::collection($this->awardExperiences);
         $communityExperiences = CommunityExperienceResource::collection($this->communityExperiences);
@@ -31,6 +39,17 @@ class UserResource extends JsonResource
         $collection = $collection->merge($educationExperiences);
         $collection = $collection->merge($personalExperiences);
         $collection = $collection->merge($workExperiences);
+
+        // if poolSkillIds is valid, filter out skills that are not in the id array by stepping through each item in $collection
+        if (!empty($poolSkillIds)) {
+            $collection->each(function ($experience) use ($poolSkillIds) {
+                $skills = $experience->skills;
+                $skillsFiltered = $skills->filter(function ($skill) use ($poolSkillIds) {
+                    return in_array($skill->id, $poolSkillIds);
+                });
+                $experience->skills = $skillsFiltered;
+            });
+        }
 
         return [
             'id' => $this->id,
@@ -59,8 +78,6 @@ class UserResource extends JsonResource
             'govEmployeeType' => $this->gov_employee_type,
             'department' => $this->department ? (new DepartmentResource(Department::find($this->department))) : null,
             'currentClassification' => (new ClassificationResource($this->currentClassification)),
-            'expectedClassifications' => ClassificationResource::collection($this->expectedClassifications),
-            'expectedGenericJobTitles' => GenericJobTitleResource::collection($this->expectedGenericJobTitles),
             'isWoman' => $this->is_woman,
             'hasDisability' => $this->has_disability,
             'isIndigenous' => $this->is_indigenous,
@@ -72,7 +89,6 @@ class UserResource extends JsonResource
             'locationPreferences' => $this->location_preferences,
             'locationExemptions' =>  $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->accepted_operational_requirements,
-            'expectedSalary' => $this->expected_salary,
             'positionDuration' => $this->position_duration,
             'cmoAssets' => CmoAssetResource::collection($this->cmoAssets),
             'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),

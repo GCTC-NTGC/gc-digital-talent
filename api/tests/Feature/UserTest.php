@@ -183,6 +183,11 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => null,
         ]);
+        PoolCandidate::factory()->count(1)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
+        ]);
 
         // Assert query with no pool filter will return all users, including unavailable
         $this->graphQL(
@@ -203,7 +208,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 15
+                        'total' => 16
                     ]
                 ]
             ]
@@ -234,7 +239,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
+                        'total' => 13
                     ]
                 ]
             ]
@@ -272,7 +277,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool filter, expired + available statuses
+        // Assert query with pool filter, only removed status
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -289,7 +294,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_REMOVED],
                         ]
                     ]
                 ]
@@ -298,7 +303,39 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 9
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool filter, expired + removed + available statuses
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED, ApiEnums::CANDIDATE_STATUS_REMOVED],
+                        ]
+                    ]
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
                     ]
                 ]
             ]
@@ -330,7 +367,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
+                        'total' => 13
                     ]
                 ]
             ]
@@ -583,18 +620,26 @@ class UserTest extends TestCase
     public function testFilterByLanguageAbility(): void
     {
         User::factory()->count(5)->create([
-            'language_ability' => 'TEST'
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
 
         // Create new LanguageAbility and attach to 3 new pool users.
         User::factory()->create([
-            'language_ability' => 'FRENCH'
+            'looking_for_english' => false,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => false,
         ]);
         User::factory()->create([
-            'language_ability' => 'ENGLISH'
+            'looking_for_english' => true,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
         User::factory()->create([
-            'language_ability' => 'BILINGUAL'
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => true,
         ]);
 
         // Assert query with no LanguageAbility filter will return all users
@@ -645,7 +690,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
+                        'total' => 1
                     ]
                 ]
             ]
@@ -674,7 +719,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
+                        'total' => 1
                     ]
                 ]
             ]
@@ -704,384 +749,6 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 1
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    public function testFilterByClassification(): void
-    {
-        // Create initial data.
-        User::factory()->count(5)->create([
-            'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
-        ]);
-
-        // Create new classification and attach to two new users.
-        $classification = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 1,
-        ]);
-        User::factory()->count(2)->create()->each(function ($user) use ($classification) {
-            $user->expectedClassifications()->save($classification);
-        });
-
-        // Assert query with no classifications filter will return all users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with classification filter will return correct number of users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with unknown classification filter will return zero
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    public function testFilterByClassificationToSalary(): void
-    {
-        // Create initial data.
-        User::factory()->count(5)->create([
-            'expected_salary' => []
-        ]);
-
-        // Create new classification.
-        $classificationLvl1 = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 1,
-            'min_salary' => 50000,
-            'max_salary' => 69000,
-        ]);
-
-        // Attach new users that are in the expected salary range.
-        $user1 = User::factory()->create([
-            'expected_salary' => ['_50_59K', '_70_79K']
-        ]);
-        $user1->expectedClassifications()->delete();
-        $user1->expectedClassifications()->save($classificationLvl1);
-
-        // Attach new users that overlap the expected salary range.
-        $user2 = User::factory()->create([
-            'expected_salary' => ['_60_69K', '_80_89K']
-        ]);
-        $user2->expectedClassifications()->delete();
-
-        // Attach new users that are over the expected salary range.
-        $user3 = User::factory()->create([
-            'expected_salary' => ['_90_99K', '_100K_PLUS']
-        ]);
-        $user3->expectedClassifications()->delete();
-
-        // Assert query with no classifications filter will return all users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 9
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with classification filter will return users in range and overlapping.
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with unknown classification filter will return zero
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    public function testFilterByClassificationToGenericJobTitle(): void
-    {
-        // Create initial data.
-        User::factory()->count(5)->create([
-            'expected_salary' => []
-        ]);
-
-        // Create classifications and Generics
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        // Create 3 users which correspond to IT-03
-        User::factory()->count(1)->create(['expected_salary' => []])->each(function ($user) {
-            $user->expectedGenericJobTitles()->sync(
-                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03)->get()
-            );
-        });
-        User::factory()->count(2)->create(['expected_salary' => []])->each(function ($user) {
-            $user->expectedGenericJobTitles()->sync(
-                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03)->get()
-            );
-        });
-        // Create 4 users which correspond to IT-04
-        User::factory()->count(4)->create(['expected_salary' => []])->each(function ($user) {
-            $user->expectedGenericJobTitles()->sync(
-                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04)->get()
-            );
-        });
-        // Create 7 users which correspond to both IT-03 and IT-04
-        User::factory()->count(7)->create(['expected_salary' => []])->each(function ($user) {
-            $user->expectedGenericJobTitles()->sync(
-                GenericJobTitle::whereIn('key', [
-                    ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
-                    ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03
-                ])->get()
-            );
-        });
-
-
-        // Assert query with no classifications filter will return all users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 20
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with one classification filter will return correct number of users.
-        $results = $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [['group' => 'IT', 'level' => 3]],
-                    ]
-                ]
-            ]
-        );
-        $results->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 10
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with two classification filters will return correct number of users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [
-                            ['group' => 'IT', 'level' => 3],
-                            ['group' => 'IT', 'level' => 4]
-                        ]
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 14
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert that adding an unknown classification to query to classification won't reduce number of users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'expectedClassifications' => [
-                            ['group' => 'IT', 'level' => 3],
-                            ['group' => 'IT', 'level' => 4],
-                            ['group' => 'QQ', 'level' => 9]
-                        ]
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 14
                     ]
                 ]
             ]
@@ -1729,9 +1396,6 @@ class UserTest extends TestCase
 
         // Create some complete users.
         User::factory()->count(3)
-            ->afterCreating(function ($user) {
-                $user->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-            })
             ->create([
                 'current_province' => 'ONTARIO',
                 'location_preferences' => ['PRAIRIE'],
@@ -1741,7 +1405,6 @@ class UserTest extends TestCase
                 'telephone' => '+15407608748',
                 'current_city' => 'Somewhere random',
                 'is_gov_employee' => false,
-                'expected_salary' => ['_50_59K'],
             ]);
 
         // Assert query no isProfileComplete filter will return all users
@@ -2190,195 +1853,6 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByClassificationToSalaryWithPools(): void
-    {
-        // myPool will be people we're querying for and should be returned
-        $myPool = Pool::factory()->create(['name' => 'myPool']);
-        // otherPool will be people we're not querying for and should not be returned
-        $otherPool = Pool::factory()->create(['name' => 'otherPool']);
-
-        // myClassification is the classification we will be querying for
-        $myClassification = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 1,
-            'min_salary' => 55000,
-            'max_salary' => 64999,
-        ]);
-
-        // *** first make three users in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
-        // attach AVAILABLE status to ensure filtering by pools doesn't filter by status
-        // Attach new user in the pool with the desired classification
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) use ($myClassification) {
-                $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($myClassification);
-            })->create([
-                'expected_salary' => []
-            ]),
-            'pool_id' => $myPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) {
-                $user->expectedClassifications()->delete();
-            })->create([
-                'expected_salary' => ['_60_69K']
-            ]),
-            'pool_id' => $myPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) {
-                $user->expectedClassifications()->delete();
-            })->create([
-                'expected_salary' => ['_90_99K', '_100K_PLUS']
-            ]),
-            'pool_id' => $myPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // *** now make the same three users in the wrong pool
-
-        // Attach new user in the pool with the desired classification WRONG POOL
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) use ($myClassification) {
-                $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($myClassification);
-            })->create([
-                'expected_salary' => []
-            ]),
-            'pool_id' => $otherPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) {
-                $user->expectedClassifications()->delete();
-            })->create([
-                'expected_salary' => ['_60_69K']
-            ]),
-            'pool_id' => $otherPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
-        PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function ($user) {
-                $user->expectedClassifications()->delete();
-            })->create([
-                'expected_salary' => ['_90_99K', '_100K_PLUS']
-            ]),
-            'pool_id' => $otherPool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-        ]);
-
-        // Assert query with just pool filters will return all users in that pool
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'pools' => [
-                            ['id' => $myPool->id],
-                        ]
-                    ]
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 3
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with classification filter will return users in range and overlapping in that pool
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'pools' => [
-                            ['id' => $myPool->id],
-                        ],
-                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with unknown classification filter will return zero
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'pools' => [
-                            ['id' => $myPool->id]
-                        ],
-                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
-        ]);
-    }
-
     public function testCountApplicantsQuery(): void
     {
         // Get the ID of the base admin user
@@ -2397,7 +1871,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2406,7 +1882,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
+                'looking_for_english' => false,
+                'looking_for_french' => true,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
@@ -2416,7 +1894,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2426,7 +1906,9 @@ class UserTest extends TestCase
             'expiry_date' => '2000-01-01',
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -2436,7 +1918,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
@@ -2446,7 +1930,9 @@ class UserTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'looking_for_english' => true,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_INACTIVE
             ])
         ]);
@@ -2875,7 +2361,6 @@ class UserTest extends TestCase
                         'operationalRequirements' => null,
                         'locationPreferences' => null,
                         'positionDuration' => null,
-                        'expectedClassifications' => null,
                         'skills' => null,
                         'pools' => null,
                     ],

@@ -11,6 +11,7 @@ import { notEmpty } from "../../helpers/util";
 
 interface ErrorSummaryProps {
   labels?: FieldLabels;
+  show: boolean;
 }
 
 const a = (chunks: React.ReactNode) => (
@@ -20,14 +21,14 @@ const a = (chunks: React.ReactNode) => (
 const ErrorSummary = React.forwardRef<
   React.ElementRef<"div">,
   ErrorSummaryProps
->(({ labels }, forwardedRef) => {
+>(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
 
   const locale = getLocale(intl);
   const { errors } = useFormState();
 
   // Don't show if the form is valid
-  if (!errors) return null;
+  if (!errors || !show) return null;
 
   const invalidFields = Object.keys(errors)
     .map((field) => {
@@ -77,7 +78,7 @@ const ErrorSummary = React.forwardRef<
         {invalidFields.map((field) => (
           <li key={field.name}>
             <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
-            {locale === "fr" && " "}: {field.message}
+            {`${locale === "fr" && ` `}${field.message}`}
           </li>
         ))}
       </ul>

@@ -105,7 +105,6 @@ class UserFactory extends Factory
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
             'has_diploma' => $this->faker->boolean(90), // temporary fix for Cypress workflows
-            'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
             'location_preferences' => $this->faker->randomElements(
                 [
                     'TELEWORK',
@@ -120,17 +119,7 @@ class UserFactory extends Factory
                 3
             ),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
-            'expected_salary' => $this->faker->randomElements(
-                [
-                    '_50_59K',
-                    '_60_69K',
-                    '_70_79K',
-                    '_80_89K',
-                    '_90_99K',
-                    '_100K_PLUS',
-                ],
-                3
-            ),
+            'expected_salary' => null,
             'position_duration' => $this->faker->boolean() ?
                 [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
                 : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
@@ -152,18 +141,6 @@ class UserFactory extends Factory
             return [
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ];
-        });
-    }
-
-    /**
-     * GenericJobTitleSeeder must have already been run.
-     */
-    public function withExpectedGenericJobTitles()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->expectedGenericJobTitles()->saveMany(
-                GenericJobTitle::inRandomOrder()->take(3)->get()
-            );
         });
     }
 

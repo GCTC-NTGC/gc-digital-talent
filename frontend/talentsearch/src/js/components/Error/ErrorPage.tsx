@@ -4,6 +4,8 @@ import useTheme from "@common/hooks/useTheme";
 
 import Heading from "@common/components/Heading";
 
+import { useLogger } from "@common/hooks/useLogger";
+import { useLocation } from "react-router-dom";
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
 import useRoutes from "../../hooks/useRoutes";
@@ -13,7 +15,17 @@ const ErrorPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { mode } = useTheme();
+  const location = useLocation();
   const error = useErrorMessages();
+  const logger = useLogger();
+
+  logger.notice(
+    JSON.stringify({
+      message: "ErrorPage triggered",
+      pathname: location.pathname,
+      error,
+    }),
+  );
 
   const Image = mode === "dark" ? PugDark : PugLight;
 

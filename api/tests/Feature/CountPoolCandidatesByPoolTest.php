@@ -336,15 +336,21 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $pool = Pool::factory()->create();
         $user1 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => true,
         ]);
         $user2 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            'looking_for_english' => true,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
         ]);
         $user3 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+            'looking_for_english' => false,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => false,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -370,7 +376,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
+                        'candidateCount' => 1
                     ]
                 ]
             ]
@@ -539,70 +545,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
                     [
                         'pool' => ['id' => $pool->id],
                         'candidateCount' => 1
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    // test classifications
-    // creates a three users various expected classifications and filter for the classifications on two of them
-    public function testClassifications()
-    {
-        $pool = Pool::factory()->create();
-        $classifications = Classification::factory(3)
-            ->create(
-                ['min_salary' => 0,  'max_salary' => 0] // avoid classification/salary cross-matching
-            );
-        $users = User::factory(3)
-            ->afterCreating(function ($user) use ($pool) {
-                PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
-            })
-            ->create([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-            ]);
-        $users[0]->expectedClassifications()->sync([
-            $classifications[0]->id,
-            $classifications[1]->id
-        ]);
-        $users[1]->expectedClassifications()->sync([
-            $classifications[1]->id,
-            $classifications[2]->id
-        ]);
-        $users[2]->expectedClassifications()->sync([
-            $classifications[2]->id
-        ]);
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => [
-                    'expectedClassifications' => [
-                        [
-                            'group' => $classifications[0]->group,
-                            'level' => $classifications[0]->level,
-                        ],
-                        [
-                            'group' => $classifications[1]->group,
-                            'level' => $classifications[1]->level,
-                        ]
-                    ]
-                ]
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
                     ]
                 ]
             ]

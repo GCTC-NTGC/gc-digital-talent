@@ -37,6 +37,7 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
+import SEO from "@common/components/SEO/SEO";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
@@ -133,7 +134,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
-const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
+const anchorTag = (chunks: React.ReactNode) => (
   <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
 );
 
@@ -267,6 +268,7 @@ export const PoolAdvertisementPoster = ({
 
   return (
     <>
+      <SEO title={fullTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -300,7 +302,7 @@ export const PoolAdvertisementPoster = ({
           >
             <div>
               <PoolInfoCard
-                closingDate={poolAdvertisement.expiryDate}
+                closingDate={poolAdvertisement.closingDate}
                 classification={classificationSuffix}
                 salary={{
                   min: classification?.minSalary,

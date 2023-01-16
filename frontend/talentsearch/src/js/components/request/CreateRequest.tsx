@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import SEO from "@common/components/SEO/SEO";
 import { Input, Select, Submit, TextArea } from "@common/components/form";
 import { Link } from "@common/components";
 import { errorMessages } from "@common/messages";
@@ -45,9 +46,6 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
-    expectedClassifications?: {
-      sync?: Array<Maybe<Classification["id"]>>;
-    };
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -81,7 +79,6 @@ export interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   skills,
-  classifications,
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
@@ -135,22 +132,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          expectedClassifications: {
-            sync: applicantFilter?.expectedClassifications
-              ? applicantFilter.expectedClassifications
-                  .filter(notEmpty)
-                  .map((expectedClassification) => {
-                    const cl = classifications.find((classification) => {
-                      return (
-                        classification.group ===
-                          expectedClassification?.group &&
-                        classification.level === expectedClassification.level
-                      );
-                    });
-                    return cl?.id ?? "";
-                  })
-              : [],
-          },
         },
       },
       department: { connect: values.department ?? "" },
@@ -188,17 +169,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications:
-      applicantFilter?.expectedClassifications?.map(
-        (expectedClassification) => {
-          return classifications.find((classification) => {
-            return (
-              classification.group === expectedClassification?.group &&
-              classification.level === expectedClassification.level
-            );
-          });
-        },
-      ) ?? [],
     skills:
       applicantFilter?.skills?.map((skillId) => {
         return skills.find((skill) => {
@@ -419,6 +389,7 @@ export const CreateRequest: React.FunctionComponent<{
   searchFormInitialValues,
   selectedClassifications,
 }) => {
+  const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -440,19 +411,28 @@ export const CreateRequest: React.FunctionComponent<{
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <RequestForm
-        classifications={classifications}
-        departments={departments}
-        skills={skills}
-        applicantFilter={applicantFilter}
-        candidateCount={candidateCount}
-        searchFormInitialValues={searchFormInitialValues}
-        selectedClassifications={selectedClassifications}
-        handleCreatePoolCandidateSearchRequest={
-          handleCreatePoolCandidateSearchRequest
-        }
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Request pool candidates",
+          id: "u3eefq",
+          description: "Page title for the request candidates form page",
+        })}
       />
-    </Pending>
+      <Pending fetching={fetching} error={error}>
+        <RequestForm
+          classifications={classifications}
+          departments={departments}
+          skills={skills}
+          applicantFilter={applicantFilter}
+          candidateCount={candidateCount}
+          searchFormInitialValues={searchFormInitialValues}
+          selectedClassifications={selectedClassifications}
+          handleCreatePoolCandidateSearchRequest={
+            handleCreatePoolCandidateSearchRequest
+          }
+        />
+      </Pending>
+    </>
   );
 };

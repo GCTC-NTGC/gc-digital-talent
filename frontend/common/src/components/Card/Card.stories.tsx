@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 import Card from "./Card";
 
 export default {
@@ -7,7 +8,11 @@ export default {
   title: "Components/Card",
 } as Meta;
 
-const Spacer: React.FC = ({ children }) => (
+interface SpacerProps {
+  children: React.ReactNode;
+}
+
+const Spacer = ({ children }: SpacerProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
@@ -26,22 +31,22 @@ const Template: Story = () => (
   >
     <Spacer>
       <Card title="TS Primary">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </Card>
     </Spacer>
     <Spacer>
       <Card title="TS Secondary" color="ts-secondary">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </Card>
     </Spacer>
     <Spacer>
       <Card title="IA Primary" color="ia-primary">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </Card>
     </Spacer>
     <Spacer>
       <Card title="IA Secondary" color="ia-secondary">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </Card>
     </Spacer>
   </div>

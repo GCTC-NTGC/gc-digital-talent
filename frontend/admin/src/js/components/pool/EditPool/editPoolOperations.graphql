@@ -7,7 +7,7 @@ query getEditPoolData($poolId: UUID!) {
       en
       fr
     }
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance
@@ -142,12 +142,14 @@ mutation updatePoolAdvertisement(
 
 mutation publishPoolAdvertisement($id: ID!) {
   publishPoolAdvertisement(id: $id) {
+    id
     publishedAt
   }
 }
 mutation closePoolAdvertisement($id: ID!) {
   closePoolAdvertisement(id: $id) {
-    expiryDate
+    id
+    closingDate
   }
 }
 

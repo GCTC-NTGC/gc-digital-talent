@@ -10,6 +10,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -159,31 +160,40 @@ const UpdateDepartment = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {departmentData?.department ? (
-          <UpdateDepartmentForm
-            initialDepartment={departmentData.department}
-            handleUpdateDepartment={handleUpdateDepartment}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Department {departmentId} not found.",
-                  id: "8Otaw9",
-                  description: "Message displayed for department not found.",
-                },
-                { departmentId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Edit department",
+          id: "GKo3Df",
+          description: "Page title for the department edit page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {departmentData?.department ? (
+            <UpdateDepartmentForm
+              initialDepartment={departmentData.department}
+              handleUpdateDepartment={handleUpdateDepartment}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department {departmentId} not found.",
+                    id: "8Otaw9",
+                    description: "Message displayed for department not found.",
+                  },
+                  { departmentId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

@@ -119,14 +119,6 @@ const WorkLocationPreferenceFormPage = React.lazy(() =>
       ),
   ),
 );
-const RoleSalaryFormPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRoleSalaryPage" */ "./roleSalaryForm/RoleSalaryFormPage"
-      ),
-  ),
-);
 const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -364,14 +356,6 @@ const router = createBrowserRouter([
                         ),
                       },
                       {
-                        path: "role-salary-expectations/edit",
-                        element: (
-                          <RequireAuth roles={[Role.Applicant]}>
-                            <RoleSalaryFormPage />
-                          </RequireAuth>
-                        ),
-                      },
-                      {
                         path: "experiences",
                         children: [
                           {
@@ -489,11 +473,13 @@ const router = createBrowserRouter([
               </RequireAuth>
             ),
           },
+          {
+            path: "*",
+            loader: () => {
+              throw new Response("Not Found", { status: 404 });
+            },
+          },
         ],
-      },
-      {
-        path: "*",
-        element: <ErrorPage />,
       },
     ],
   },

@@ -12,6 +12,7 @@ import Heading from "@common/components/Heading";
 import UserProfile from "@common/components/UserProfile";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useParams } from "react-router-dom";
+import SEO from "@common/components/SEO/SEO";
 import { notEmpty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -131,7 +132,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
               workLocation: { isVisible: true },
               workPreferences: { isVisible: true },
               employmentEquity: { isVisible: true },
-              roleSalary: { isVisible: true },
               skillsExperience: { isVisible: true },
             }}
           />
@@ -156,28 +156,37 @@ const ViewUser = () => {
   const pools = lookupData?.pools.filter(notEmpty);
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {user && pools ? (
-          <ViewUserPage user={user} pools={pools} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "User {userId} not found.",
-                  id: "0SoKjt",
-                  description: "Message displayed for user not found.",
-                },
-                { userId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Candidate details",
+          id: "dj8GiH",
+          description: "Page title for the individual user page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {user && pools ? (
+            <ViewUserPage user={user} pools={pools} />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "User {userId} not found.",
+                    id: "0SoKjt",
+                    description: "Message displayed for user not found.",
+                  },
+                  { userId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+const HydrogenPlugin  = require("hydrogen-webpack-plugin");
 require('dotenv').config({ path: './.env' });
 const shell = require("shelljs");
 const fs = require("fs");
@@ -13,34 +14,18 @@ module.exports = {
   entry: {
     app: [
       "./src/js/main.tsx",
-      "../common/src/css/hydrogen.css",
+      path.resolve(__dirname, "../common/src/css/hydrogen.css"),
       "../common/src/css/common.css",
       "./src/css/app.css",
     ],
   },
+  watchOptions: {
+    ignored: ['**/hydrogen.css'],
+  },
   plugins: [
 
     // Run Hydrogen on Webpack's compiler hooks
-    // Note that it's necessary in both instances to cd up and into the common folder
-    {
-      apply: (compiler) => {
-        // Build Hydrogen
-        // Run on the environment hook to catch the initial compile and non-watch compiles
-        compiler.hooks.environment.tap('environment', () => {
-          shell.cd('..');
-          shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
-        })
-        // Build Hydrogen and manipulate it's modified time
-        // Run on the invalid hook so that the file time is updated before the next compile
-        compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
-          shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
-          var f = path.resolve('common/src/css/hydrogen.css')
-          var now = Date.now() / 1000
-          var then = now - 100
-          fs.utimes(f, then, then, function (err) { if (err) throw err })
-        })
-      },
-    },
+    new HydrogenPlugin({ outputFile: path.resolve(__dirname, "../common/src/css/hydrogen.css") }),
 
     // process and copy CSS files
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),

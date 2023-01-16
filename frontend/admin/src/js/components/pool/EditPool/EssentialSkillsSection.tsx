@@ -11,7 +11,6 @@ import {
   Skill,
   UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
-
 import { SectionMetadata } from "./EditPool";
 import { useEditPoolContext } from "./EditPoolContext";
 
@@ -85,6 +84,7 @@ export const EssentialSkillsSection = ({
               description: "Text on a button to save the pool essential skills",
             })}
             isSubmitting={isSubmitting}
+            skillType="essential"
           />
         </>
       ) : (

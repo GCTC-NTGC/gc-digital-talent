@@ -4,11 +4,15 @@ import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
-import { getLanguage } from "@common/constants/localizedConstants";
+import {
+  getJobLookingStatus,
+  getLanguage,
+} from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -21,14 +25,15 @@ import {
   useSelectedUsersQuery,
 } from "../../api/generated";
 import BasicTable from "../apiManagedTable/BasicTable";
+import useTableState from "../apiManagedTable/useTableState";
 import {
   ColumnsOf,
   SortingRule,
   sortingRuleToOrderByClause,
-  IdType,
   handleColumnHiddenChange,
   rowSelectionColumn,
   handleRowSelectedChange,
+  TABLE_DEFAULTS,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor, tableViewItemButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -51,10 +56,6 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -91,10 +92,6 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    classifications:
-      input?.applicantFilter?.expectedClassifications
-        ?.filter(notEmpty)
-        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -131,6 +128,20 @@ const languageAccessor = (
   </span>
 );
 
+const phoneAccessor = (telephone: string | null | undefined) => {
+  if (telephone) {
+    return (
+      <a
+        href={`tel:${telephone}`}
+        aria-label={telephone.replace(/.{1}/g, "$& ")}
+      >
+        {telephone}
+      </a>
+    );
+  }
+  return "";
+};
+
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
@@ -156,27 +167,51 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
     </span>
   );
 };
-type UserTableProps = {
-  initialFilterInput?: UserFilterInput;
+
+const defaultState = {
+  ...TABLE_DEFAULTS,
+  hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
+  sortBy: {
+    column: {
+      id: "createdDate",
+      sortColumnName: "created_at",
+    },
+    desc: false,
+  },
+  // Note: lodash/isEqual is comparing undefined
+  // so we need to actually set it here
+  filters: {
+    applicantFilter: {
+      languageAbility: undefined,
+      locationPreferences: [],
+      operationalRequirements: [],
+      positionDuration: undefined,
+      skills: [],
+    },
+    isGovEmployee: undefined,
+    isProfileComplete: undefined,
+    jobLookingStatus: [],
+    poolFilters: [],
+  },
 };
-export const UserTable = ({ initialFilterInput }: UserTableProps) => {
+
+export const UserTable = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
-
-  const initialStateFilterInput = initialFilterInput ?? {};
-  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    initialStateFilterInput,
+  const [tableState, setTableState] = useTableState<Data, UserFilterInput>(
+    defaultState,
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const {
+    pageSize,
+    currentPage,
+    sortBy: sortingRule,
+    hiddenColumnIds,
+    searchState,
+    filters: userFilterInput,
+  } = tableState;
+
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    type: string | undefined;
-  }>();
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
@@ -209,8 +244,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setUserFilterInput(transformFormValuesToUserFilterInput(data));
+    setTableState({ filters: transformedData });
   };
 
   useEffect(() => {
@@ -266,6 +302,21 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
       },
       {
         label: intl.formatMessage({
+          defaultMessage: "Status",
+          id: "Ag+0A4",
+          description: "Title displayed for the User table Status column",
+        }),
+        accessor: (user) =>
+          user.jobLookingStatus
+            ? intl.formatMessage(
+                getJobLookingStatus(user.jobLookingStatus as string, "short"),
+              )
+            : "",
+        id: "jobLookingStatus",
+        sortColumnName: "job_looking_status",
+      },
+      {
+        label: intl.formatMessage({
           defaultMessage: "Email",
           id: "0+g2jN",
           description: "Title displayed for the User table Email column.",
@@ -281,7 +332,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           id: "fXMsoK",
           description: "Title displayed for the User table Telephone column.",
         }),
-        accessor: (user) => user.telephone,
+        accessor: (user) => phoneAccessor(user.telephone),
         id: "telephone",
         sortColumnName: "telephone",
       },
@@ -324,6 +375,40 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           ),
         id: "view",
       },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Created",
+          id: "+pgXHm",
+          description: "Title displayed for the User table Date Created column",
+        }),
+        accessor: (user) =>
+          user.createdDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.createdDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "createdDate",
+        sortColumnName: "created_at",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        accessor: (user) =>
+          user.updatedDate
+            ? formatDate({
+                date: parseDateTimeUtc(user.updatedDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
+        id: "updatedDate",
+        sortColumnName: "updated_at",
+      },
     ],
     [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
   );
@@ -359,9 +444,49 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const csv = useUserCsvData(selectedApplicants);
 
   const initialFilters = useMemo(
-    () => transformUserFilterInputToFormValues(initialFilterInput),
-    [initialFilterInput],
+    () => transformUserFilterInputToFormValues(userFilterInput),
+    [userFilterInput],
   );
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setTableState({ pageSize: newPageSize });
+  };
+
+  const handleCurrentPageChange = (newCurrentPage: number) => {
+    setTableState({
+      currentPage: newCurrentPage,
+    });
+  };
+
+  const handleSortingRuleChange = (
+    newSortingRule: SortingRule<Date> | undefined,
+  ) => {
+    setTableState({
+      sortBy: newSortingRule,
+    });
+  };
+
+  const handleSearchStateChange = ({
+    term,
+    type,
+  }: {
+    term: string | undefined;
+    type: string | undefined;
+  }) => {
+    setTableState({
+      currentPage: 1,
+      searchState: {
+        term: term ?? defaultState.searchState.term,
+        type: type ?? defaultState.searchState.type,
+      },
+    });
+  };
+
+  const setHiddenColumnIds = (newCols: string[]) => {
+    setTableState({
+      hiddenColumnIds: newCols,
+    });
+  };
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -377,12 +502,12 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           term: string | undefined,
           type: string | undefined,
         ) => {
-          setCurrentPage(1);
-          setSearchState({
+          handleSearchStateChange({
             term,
             type,
           });
         }}
+        initialSearchState={searchState}
         columns={columns}
         searchBy={[
           {
@@ -410,15 +535,15 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             value: "phone",
           },
         ]}
-        onColumnHiddenChange={(event) =>
+        onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,
-            hiddenColumnIds,
+            hiddenColumnIds ?? [],
             setHiddenColumnIds,
             event,
-          )
-        }
-        hiddenColumnIds={hiddenColumnIds}
+          );
+        }}
+        hiddenColumnIds={hiddenColumnIds ?? []}
         filterComponent={
           <UserTableFilterDialog
             onSubmit={handleFilterSubmit}
@@ -432,15 +557,15 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
             labelledBy="user-table-heading"
             data={filteredData}
             columns={columns}
-            onSortingRuleChange={setSortingRule}
+            onSortingRuleChange={handleSortingRuleChange}
             sortingRule={sortingRule}
-            hiddenColumnIds={hiddenColumnIds}
+            hiddenColumnIds={hiddenColumnIds ?? []}
           />
         </Pending>
         <TableFooter
           paginatorInfo={data?.usersPaginated?.paginatorInfo}
-          onCurrentPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
+          onCurrentPageChange={handleCurrentPageChange}
+          onPageSizeChange={handlePageSizeChange}
           onPrint={handlePrint}
           csv={{
             ...csv,

@@ -7,6 +7,7 @@ import { Role } from "../../api/generated";
 import { useApiRoutes } from "../../hooks/useApiRoutes";
 import useLocale from "../../hooks/useLocale";
 import Loading from "../Pending/Loading";
+import { useLogger } from "../../hooks/useLogger";
 
 interface RequireAuthProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
   const { locale } = useLocale();
   const location = useLocation();
   const apiRoutes = useApiRoutes();
+  const logger = useLogger();
   const { loggedIn } = useAuth();
   const { loggedInUserRoles, isLoaded } = useAuthorizationContext();
 
@@ -38,6 +40,12 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
   }
 
   if (loggedIn && !isAuthorized) {
+    logger.notice(
+      JSON.stringify({
+        message: "Logged in but not authorized",
+        pathname: location.pathname,
+      }),
+    );
     throw new Response("", {
       status: 401,
       statusText: "Unauthorized",

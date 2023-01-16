@@ -6,6 +6,7 @@ Authenticatable
 BEHAVIOURAL
 chra
 chrc
+codegen
 colour
 colours
 combobox
@@ -49,6 +50,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+skillset
 subcomponents
 subquery
 TALENTSEARCH

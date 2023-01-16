@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import jwtDecode, { JwtPayload } from "jwt-decode";
+import { defaultLogger } from "../../hooks/useLogger";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -39,6 +40,7 @@ const logoutAndRefreshPage = (
   logoutRedirectUri: string,
   postLogoutUri?: string,
 ): void => {
+  defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const idToken = localStorage.getItem(ID_TOKEN);
@@ -84,6 +86,7 @@ const refreshTokenSet = async (
   // Local storage should be most up to date, especially if a refresh happened in a different tab.
   // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
   // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
+  defaultLogger.notice("Attempting to refresh the auth token set");
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
   const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
@@ -139,6 +142,7 @@ interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
   logoutRedirectUri: string;
+  children?: React.ReactNode;
 }
 
 const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({

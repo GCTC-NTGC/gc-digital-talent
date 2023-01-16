@@ -19,6 +19,7 @@ import { errorMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -250,6 +251,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
 };
 
 const CreateSkillFamily: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [lookupResult] = useGetCreateSkillFamilyDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const skills = lookupData?.skills.filter(notEmpty) ?? [];
@@ -264,14 +266,23 @@ const CreateSkillFamily: React.FunctionComponent = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        <CreateSkillFamilyForm
-          handleCreateSkillFamily={handleCreateSkillFamily}
-          skills={skills}
-        />
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Create skill family",
+          id: "FCQnWB",
+          description: "Page title for the skill family creation page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          <CreateSkillFamilyForm
+            handleCreateSkillFamily={handleCreateSkillFamily}
+            skills={skills}
+          />
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 
