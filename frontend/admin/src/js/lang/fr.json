@@ -2297,6 +2297,14 @@
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
   },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essentielles)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Utiles)",
+    "description": "CSV Header, Asset skill column."
+  },
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
