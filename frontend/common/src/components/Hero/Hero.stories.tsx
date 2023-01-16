@@ -11,19 +11,19 @@ export default {
     crumbs: [
       {
         label: "Home",
-        url: "#",
+        url: "#home",
       },
       {
         label: "One",
-        url: "#",
+        url: "#one",
       },
       {
         label: "Two",
-        url: "#",
+        url: "#two",
       },
       {
         label: "Three",
-        url: "#",
+        url: "#three",
       },
     ],
   },
