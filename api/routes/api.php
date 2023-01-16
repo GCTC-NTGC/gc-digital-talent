@@ -18,3 +18,17 @@ Route::prefix('support')->controller(SupportController::class)->group(function (
     Route::post('/tickets', 'createTicket');
 });
 
+Route::get('/test-notify', function () {
+    try {
+        Notify::sendEmail(
+            'email@domain.com', // Replace with the email you gave to @esizer
+            'c386053b-e65c-477e-8f09-da19c2e9dea0',
+            [
+                'name' => 'Eric Sizer'
+            ]
+        );
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+
+});

@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'gcnotify' => [
+        'baseUrl' => env('GCNOTIFY_URL', 'https://api.notification.canada.ca'),
+        'apiKey' => env('GCNOTIFY_API_KEY'),
+    ]
+
 ];

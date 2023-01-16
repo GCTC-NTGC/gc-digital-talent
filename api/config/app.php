@@ -188,25 +188,24 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
+        // Additional Providers
+        \Nuwave\Lighthouse\LighthouseServiceProvider::class,
+        \Nuwave\Lighthouse\Auth\AuthServiceProvider::class,
+        \Nuwave\Lighthouse\GlobalId\GlobalIdServiceProvider::class,
+        \Nuwave\Lighthouse\OrderBy\OrderByServiceProvider::class,
+        \Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class,
+        \Nuwave\Lighthouse\Scout\ScoutServiceProvider::class,
+        \Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider::class,
+        \Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
+        \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
+        //\Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,,
+        MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class,
+        \Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        \Laravel\Tinker\TinkerServiceProvider::class,
 
-
-\Nuwave\Lighthouse\LighthouseServiceProvider::class,
-\Nuwave\Lighthouse\Auth\AuthServiceProvider::class,
-\Nuwave\Lighthouse\GlobalId\GlobalIdServiceProvider::class,
-\Nuwave\Lighthouse\OrderBy\OrderByServiceProvider::class,
-\Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class,
-\Nuwave\Lighthouse\Scout\ScoutServiceProvider::class,
-\Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider::class,
-\Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
-\Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
-//\Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,,
-MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class,
-\Fideloper\Proxy\TrustedProxyServiceProvider::class,
-\Laravel\Tinker\TinkerServiceProvider::class,
-
-App\Providers\GraphQLServiceProvider::class,
-App\Providers\BearerTokenServiceProvider::class,
-
+        App\Providers\GraphQLServiceProvider::class,
+        App\Providers\BearerTokenServiceProvider::class,
+        App\Providers\GCNotifyServiceProvider::class,
 
     ],
 
@@ -262,6 +261,9 @@ App\Providers\BearerTokenServiceProvider::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        // Custom aliases
+        'Notify'   =>  App\Notify\NotifyFacade::class
 
     ],
 
