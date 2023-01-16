@@ -6,6 +6,28 @@ import Flourish from "../Flourish";
 
 import "./hero.css";
 
+const paddingMap = new Map([
+  [
+    "default",
+    {
+      "data-h2-padding": "base(x3, 0)",
+    },
+  ],
+  [
+    "image",
+    {
+      "data-h2-padding":
+        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x3, 0)",
+    },
+  ],
+  [
+    "overlap",
+    {
+      "data-h2-padding": "base(x3, 0, x6, 0)",
+    },
+  ],
+]);
+
 export interface HeroProps {
   imgPath: string;
   title: React.ReactNode;
@@ -33,19 +55,17 @@ const Hero = ({
     : {
         "data-h2-text-align": "base(center) l-tablet(left)",
       };
+  let padding = paddingMap.get("default");
+  if (showImg) {
+    padding = paddingMap.get("image");
+  } else if (children) {
+    padding = paddingMap.get("overlap");
+  }
   return (
     <>
       <div
         data-h2-background-color="base(black)"
-        {...(children
-          ? {
-              "data-h2-padding":
-                "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x3, 0, x6, 0)",
-            }
-          : {
-              "data-h2-padding":
-                "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x3, 0)",
-            })}
+        {...padding}
         className="header-bg-image"
         style={
           showImg
