@@ -50,6 +50,7 @@ describe("Admin Workflow Tests", () => {
       .findByRole("row", { name: /applicant test/i })
       .findByRole("link", {name: /view applicant test/i})
       .should("exist")
+      .and("be.visible")
       .click();
 
     // exercise profile page
