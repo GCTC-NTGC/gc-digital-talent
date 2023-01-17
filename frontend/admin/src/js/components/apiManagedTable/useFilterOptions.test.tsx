@@ -7,7 +7,7 @@ import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor, renderHook } from "@testing-library/react";
-import { fakeSkills, fakePools } from "@common/fakeData";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
@@ -68,6 +68,9 @@ describe("useFilterOptions", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
       expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
+      expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
+        true,
+      );
       expect(result.current.rawGraphqlResults.skills.fetching).toBe(true);
     });
   });
@@ -75,7 +78,7 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [11, 2];
+      const [countSimple, countAsync] = [11, 3];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -98,6 +101,8 @@ describe("useFilterOptions", () => {
   describe("async fields", () => {
     it("returns undefined for async fields prior to response", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
+
+      expect(result.current.optionsData.classifications).toBeUndefined();
       expect(result.current.optionsData.pools).toBeUndefined();
       expect(result.current.optionsData.skills).toBeUndefined();
     });
@@ -109,12 +114,29 @@ describe("useFilterOptions", () => {
       // expect(mockClient.executeQuery).toBeCalledTimes(3);
     });
 
+    it("generates appropriate number of options after response: classifications", async () => {
+      const result = renderHookWithProviders({
+        responseData: {
+          data: {
+            pools: [],
+            skills: [],
+            classifications: fakeClassifications(),
+          },
+        },
+      });
+      await waitFor(() =>
+        expect(result.current.optionsData.classifications).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.classifications).toHaveLength(4);
+    });
+
     it("generates appropriate number of options after response: pools", async () => {
       const result = renderHookWithProviders({
         responseData: {
           data: {
             pools: fakePools(),
             skills: [],
+            classifications: [],
           },
         },
       });
@@ -130,6 +152,7 @@ describe("useFilterOptions", () => {
           data: {
             pools: [],
             skills: fakeSkills(10),
+            classifications: [],
           },
         },
       });

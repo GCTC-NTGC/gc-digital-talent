@@ -421,6 +421,14 @@
     "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
     "description": "Example for Location exemptions field in work location preference form"
   },
+  "2KjiDn": {
+    "defaultMessage": "Niveau 4 : Gestionnaire",
+    "description": "title for IT-04 manager dialog"
+  },
+  "2VprXV": {
+    "defaultMessage": "Niveau 4 : Conseiller principal",
+    "description": "title for IT-04 senior advisor dialog"
+  },
   "2cUBGT": {
     "defaultMessage": "Utilisateur introuvable.",
     "description": "Message displayed for user not found."
@@ -432,6 +440,10 @@
   "3vDhoc": {
     "defaultMessage": "Déconnexion",
     "description": "Étiquette affichée dans l'élément de menu du lien Déconnexion."
+  },
+  "44bgIY": {
+    "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
   },
   "4FEV7d": {
     "defaultMessage": "Vous vous êtes connecté avec succès",
@@ -453,6 +465,10 @@
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
   },
+  "6LTC0y": {
+    "defaultMessage": "Gestion de la base de données de la TI",
+    "description": "work stream example"
+  },
   "6UCzgs": {
     "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
     "description": "Message displayed to a user after logging out."
@@ -472,6 +488,10 @@
   "70bx4O": {
     "defaultMessage": "Retirer de l'expérience",
     "description": "Message in skills in details section to remove skill from the experience."
+  },
+  "75nLSV": {
+    "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
   },
   "7OWQgZ": {
     "defaultMessage": "Préférences de travail",
@@ -553,9 +573,17 @@
     "defaultMessage": "Erreur, incapable de charger le bassin",
     "description": "Error message, placeholder"
   },
+  "DrR60L": {
+    "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
+    "description": "Legend for role and salary checklist form"
+  },
   "Dy5kjx": {
     "defaultMessage": "Qu'avez-vous accompli, créé ou produit en utilisant cette compétence?",
     "description": "Question for user in skills in detail section of experience form."
+  },
+  "FayQOt": {
+    "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
   },
   "FmN1eN": {
     "defaultMessage": "+123243234",
@@ -625,6 +653,10 @@
     "defaultMessage": "Mon expérience et mes compétences",
     "description": "Heading for experience and skills page in applicant profile."
   },
+  "KT3jUW": {
+    "defaultMessage": "<link>Cliquez ici pour en savoir plus sur les classifications dans la collectivité numérique du gouvernement du Canada.</link>",
+    "description": "Link to learn more about classifications"
+  },
   "KmKbA6": {
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Label displayed on experience form for additional information input"
@@ -648,6 +680,10 @@
   "M6PbPI": {
     "defaultMessage": "Sélectionner une province ou un territoire...",
     "description": "Placeholder displayed on the About Me form province or territory field."
+  },
+  "MNVv3A": {
+    "defaultMessage": "Niveau 2 : Analystes",
+    "description": "title for IT-02 dialog"
   },
   "MTwQ3S": {
     "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
@@ -705,6 +741,10 @@
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
   },
+  "PcYOnN": {
+    "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur TI-02</openModal>",
+    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+  },
   "Q2+VXx": {
     "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
     "description": "Instructions on what to do if user doesn't know if they have a GC Key"
@@ -712,6 +752,10 @@
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Heading for employment equity categories added to user profile."
+  },
+  "QZ9FZB": {
+    "defaultMessage": "Activités d'infrastructure de TI",
+    "description": "work stream example"
   },
   "R5aTZ9": {
     "defaultMessage": "Informations linguistiques",
@@ -724,6 +768,10 @@
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
     "description": "Title for addition information on Experience form"
+  },
+  "SDDp1t": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "work stream example"
   },
   "Srs7a4": {
     "defaultMessage": "Passer au contenu principal",
@@ -776,6 +824,10 @@
   "W7io0W": {
     "defaultMessage": "Mon statut a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
+  },
+  "WE0OGe": {
+    "defaultMessage": "Niveau 3 : Conseillers techniques",
+    "description": "title for IT-03 advisor dialog"
   },
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
@@ -841,6 +893,10 @@
     "defaultMessage": "Date d'expiration :",
     "description": "The expiry date label and colon"
   },
+  "Zn10pO": {
+    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur TI-01</openModal>",
+    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+  },
   "Zx3BVC": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
@@ -848,6 +904,10 @@
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
     "description": "Label displayed on Education Experience form for current education bounded box"
+  },
+  "aLMroa": {
+    "defaultMessage": "Niveau 1 : Techniciens",
+    "description": "title for IT-01 dialog"
   },
   "aQJOd0": {
     "defaultMessage": "Sélectionnez un niveau...",
@@ -888,6 +948,10 @@
   "de/Vcy": {
     "defaultMessage": "Ville actuelle",
     "description": "Label for current city field in About Me form"
+  },
+  "dgOYID": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Label for role and salary link"
   },
   "dh2xc5": {
     "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
@@ -937,6 +1001,10 @@
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
     "description": "Message displayed to user when user profile completed."
   },
+  "hizC89": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+  },
   "i5xxbe": {
     "defaultMessage": "Courriel",
     "description": "Label for email field in About Me form"
@@ -961,6 +1029,10 @@
     "defaultMessage": "Préférences de travail",
     "description": "Title for Profile Form wrapper in Work Preferences Form"
   },
+  "kCBLsJ": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title role and salary expectations form"
+  },
   "lai6E5": {
     "defaultMessage": "Enregistrement...",
     "description": "Submitting text for save button on profile form."
@@ -968,6 +1040,10 @@
   "mJ1HE4": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Display text for add experience form in breadcrumbs"
+  },
+  "mTlHta": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe",
+    "description": "title for IT-03 lead dialog"
   },
   "md7Klw": {
     "defaultMessage": "Connexion",
@@ -989,6 +1065,10 @@
     "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
+  "nrBkon": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "work stream example"
+  },
   "ntUOoz": {
     "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
     "description": "Legend for considered position languages check list in language information form"
@@ -1005,6 +1085,10 @@
     "defaultMessage": "Pour commencer",
     "description": "Main heading in create account page."
   },
+  "oOcegG": {
+    "defaultMessage": "Architecture intégrée de la TI ",
+    "description": "work stream example"
+  },
   "pGTTrp": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Display Text for Diversity, equity and inclusion Page"
@@ -1020,6 +1104,10 @@
   "px7yu1": {
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
     "description": "Message displayed when there are no employment equity categories available to be added."
+  },
+  "qSxmx0": {
+    "defaultMessage": "Fermer",
+    "description": "Close Confirmations"
   },
   "r4PFx0": {
     "defaultMessage": "Province ou territoire actuel",
@@ -1065,6 +1153,10 @@
     "defaultMessage": "Mon profil",
     "description": "Breadcrumb from applicant profile wrapper."
   },
+  "tm3zLD": {
+    "defaultMessage": "Gestion du portefeuille de projets de TI",
+    "description": "work stream example"
+  },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
     "description": "Heading for how employment equity information will be used."
@@ -1076,6 +1168,10 @@
   "uG2MuI": {
     "defaultMessage": "À propos de moi",
     "description": "Display text for About Me Form Page Link"
+  },
+  "uIpPFZ": {
+    "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
+    "description": "Description for the role and salary expectation form"
   },
   "uQYCfd": {
     "defaultMessage": "Ces quatre groupes sont les « femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles. »",
@@ -1177,6 +1273,10 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description, ignore things in <> tags please"
   },
+  "58BEeZ": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
   "VQWGkh": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
@@ -1200,6 +1300,10 @@
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
+  },
+  "Eubngf": {
+    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
+    "description": "Blurb describing the purpose of the form"
   },
   "3quMA8": {
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
@@ -1844,6 +1948,10 @@
   "25VYzu": {
     "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
+  },
+  "vQzmUH": {
+    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
+    "description": "Preceding list description"
   },
   "w3Kkk2": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
