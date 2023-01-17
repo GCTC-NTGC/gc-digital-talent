@@ -171,7 +171,9 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
       {...rest}
     >
       {alertLevelTitle && (
-        <span data-h2-visually-hidden="base(invisible)">{alertLevelTitle} </span>
+        <span data-h2-visually-hidden="base(invisible)">
+          {alertLevelTitle}{" "}
+        </span>
       )}
       {children}
     </Heading>
