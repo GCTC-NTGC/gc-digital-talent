@@ -132,4 +132,15 @@ describe("Admin Workflow Tests", () => {
 
     cy.verifyDownload('.csv', { contains: true });
   });
+
+  it("Tests fancy filter is present and triggers graphQL", () => {
+    // find the applicant user to review
+    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.wait("@gqlAllUsersPaginatedQuery");
+
+    // tests fancy filter is present and triggers graphQL
+    cy.findByRole("button", {name: /filters/i}).click();
+    cy.findByRole("button", {name: /Show results/i}).click();
+    cy.wait("@gqlAllUsersPaginatedQuery");
+  });
 });
