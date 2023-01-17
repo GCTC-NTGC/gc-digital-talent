@@ -17,6 +17,7 @@ type Option = { value: string; label: string };
 export type FormValues = {
   pools: Option["value"][];
   languageAbility: Option["value"][];
+  classifications: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
   // TODO: Make mandatory once data model settles.
@@ -142,6 +143,17 @@ const UserTableFilterDialog = ({
                   id: "GsBRWL",
                 })}
                 options={optionsData.languageAbility}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <MultiSelectFieldV2
+                id="classifications"
+                label={formatMessage({
+                  defaultMessage: "Classifications",
+                  id: "5TVKj1",
+                })}
+                options={optionsData.classifications}
+                isLoading={rawGraphqlResults.classifications.fetching}
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

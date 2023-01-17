@@ -162,6 +162,10 @@ export const ReviewApplication: React.FunctionComponent<
                 applicationId,
               ),
             },
+            roleSalary: {
+              isVisible: true,
+              editUrl: paths.roleSalary(applicant.id, applicationId),
+            },
             skillsExperience: {
               isVisible: true,
               editUrl: paths.skillsAndExperiences(applicant.id, applicationId),

@@ -153,6 +153,14 @@ const AboutMePage = React.lazy(() =>
       ),
   ),
 );
+const RoleSalaryPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/RoleSalaryPage/RoleSalaryPage"
+      ),
+  ),
+);
 const EmploymentEquityPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -357,6 +365,14 @@ const createRoute = (locale: Locales) =>
                           element: (
                             <RequireAuth roles={[Role.Applicant]}>
                               <EmploymentEquityPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: "role-salary-expectations/edit",
+                          element: (
+                            <RequireAuth roles={[Role.Applicant]}>
+                              <RoleSalaryPage />
                             </RequireAuth>
                           ),
                         },
