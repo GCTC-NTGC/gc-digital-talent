@@ -207,7 +207,7 @@ class Client
 
         if(!is_null($scheduleFor)) {
             if(!$scheduleFor->isFuture()) {
-                throw new NotFutureDateException("Schedule for must be a date in the future.");
+                throw new NotFutureDateException("Schedule for date must be a date in the future.");
             }
             $payload['schedule_for'] = $scheduleFor->toIso8601String();
         }
