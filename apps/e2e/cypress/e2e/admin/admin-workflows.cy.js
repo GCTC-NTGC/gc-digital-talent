@@ -13,10 +13,6 @@ describe("Admin Workflow Tests", () => {
   };
 
   const searchForUser = (name, expectedEmail) => {
-    // test fancy filter is present and triggers graphQL
-    cy.findByRole("button", {name: /filters/i}).click();
-    cy.findByRole("button", {name: /Show results/i}).click();
-
     cy.findByRole("textbox", { name: /search/i })
       .clear()
       .type(name);
@@ -48,7 +44,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
-      .findByRole("link", {name: /view applicant test/i}, { timeout: 10000 })
+      .findByRole("link", {name: /view applicant test/i})
       .should("exist")
       .and("be.visible")
       .click();
