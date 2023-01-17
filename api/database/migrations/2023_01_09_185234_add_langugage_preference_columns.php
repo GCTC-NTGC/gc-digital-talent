@@ -14,9 +14,12 @@ class AddLangugagePreferenceColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('preferred_language_for_interview')->nullable()->default(null);
-            $table->string('preferred_language_for_exam')->nullable()->default(null);
+            $table->string('preferred_language_for_interview')->nullable()->default('en');
+            $table->string('preferred_language_for_exam')->nullable()->default('en');
         });
+
+        // update the new columns with existing preferred language column value
+        DB::statement('UPDATE users SET preferred_language_for_interview = preferred_lang , preferred_language_for_exam = preferred_lang');
     }
 
     /**
