@@ -60,6 +60,11 @@ const Layout = () => {
     initialMenuState = false; // override menu preference to be closed for small screens
   }
   const [isMenuOpen, setMenuOpen] = React.useState(initialMenuState);
+  React.useEffect(() => {
+    if (isSmallScreen) {
+      setMenuOpen(false); // collapse menu if window resized to small
+    }
+  }, [isSmallScreen]);
 
   const handleMenuToggle = () => {
     setMenuPreference(!isMenuOpen);
