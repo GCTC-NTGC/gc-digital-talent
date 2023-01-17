@@ -19,17 +19,58 @@ Route::prefix('support')->controller(SupportController::class)->group(function (
     Route::post('/tickets', 'createTicket');
 });
 
-Route::get('/test-notify', function () {
-    try {
-        Notify::sendEmail(
-            'eric.sizer@gmail.com', // Replace with the email you gave to @esizer
-            'c386053b-e65c-477e-8f09-da19c2e9dea0',
-            [
-                'name' => 'Eric Sizer'
-            ]
-        );
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    }
+/**
+ * Note: These routes are for testing/example and should be
+ * removed before merging
+ */
+Route::prefix('notify')->group(function () {
+    $templates = config('notify.templates');
 
+    Route::get('email', function () use ($templates) {
+        try {
+            $response = Notify::sendEmail(
+                'domain@test.com', // Replace with your email
+                $templates['email'],
+                ['name' => 'Your Name']
+            );
+
+            return $response->json();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    });
+
+    Route::get('sms', function () use ($templates) {
+        try {
+            $response = Notify::sendSms(
+                '5555555555', // Replace with your phone number
+                $templates['sms'],
+                ['name' => 'Your Name']
+            );
+
+            return $response->json();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    });
+
+    Route::prefix('bulk')->group(function () use($templates) {
+        Route::get('email', function () use ($templates) {
+            try {
+                $response = Notify::sendBulk(
+                    'Test',
+                    [
+                        ['email address', 'name'],
+                        ['email@domain.com', 'Your Name'], // Replace with your email + name
+                        ['anotheremail@domain.com', 'Another Name'], // Replace with another email + name or remove
+                    ],
+                    $templates['bulk_email']
+                );
+
+                return $response->json();
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+        });
+    });
 });

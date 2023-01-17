@@ -205,7 +205,7 @@ return [
 
         App\Providers\GraphQLServiceProvider::class,
         App\Providers\BearerTokenServiceProvider::class,
-        App\Providers\GCNotifyServiceProvider::class,
+        App\Providers\NotifyServiceProvider::class,
 
     ],
 

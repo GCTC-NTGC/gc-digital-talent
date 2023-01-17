@@ -8,6 +8,6 @@ class Notify extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'gcnotify';
+        return 'notify';
     }
 }
