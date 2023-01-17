@@ -36,7 +36,7 @@ const RoleSalarySection: React.FunctionComponent<{
                 description: "Label for Role and salary expectations sections",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x2)">
+            <ul data-h2-padding="base(0, 0, 0, x1)">
               {expectedClassificationArray}
             </ul>
           </div>
