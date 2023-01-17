@@ -1956,6 +1956,10 @@
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
   },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
   "c7At4h": {
     "defaultMessage": "Langue parlée préférée pour l'entretien :",
     "description": "Preferred Language for interviews label and colon"

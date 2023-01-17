@@ -26,9 +26,9 @@ const Item = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
-    data-h2-border="
-      base(left, x.5, solid, dt-secondary)
-      base:selectors[[data-state='open']](left, x.5, solid, dt-primary)"
+    data-h2-border-left="
+      base(x.5 solid dt-secondary)
+      base:selectors[[data-state='open']](x.5 solid dt-primary)"
     data-h2-margin="base(x.25, 0)"
     data-h2-shadow="base(l)"
     data-h2-radius="base(0px, s, s, 0px)"
@@ -59,7 +59,7 @@ const StyledTrigger = React.forwardRef<
     data-h2-background-color="base(dt-white)"
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
-    data-h2-gap="base(x.5, 0)"
+    data-h2-gap="base(0, x.5)"
     data-h2-padding="base(x1, x1, x1, x.5)"
     data-h2-justify-content="base(space-between)"
     data-h2-text-align="base(left)"

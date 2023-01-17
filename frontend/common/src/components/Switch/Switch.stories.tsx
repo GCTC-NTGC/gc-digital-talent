@@ -19,12 +19,12 @@ const Template: ComponentStory<typeof Switch.Root> = () => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
-    data-h2-gap="base(0, x.5)"
+    data-h2-gap="base(x.5, 0)"
   >
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
-      data-h2-gap="base(x.25, 0)"
+      data-h2-gap="base(0, x.25)"
     >
       <label htmlFor="checked">Default Checked</label>
       <Switch.Root defaultChecked id="checked">
@@ -34,7 +34,7 @@ const Template: ComponentStory<typeof Switch.Root> = () => (
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
-      data-h2-gap="base(x.25, 0)"
+      data-h2-gap="base(0, x.25)"
     >
       <label htmlFor="checked">Default Not Checked</label>
       <Switch.Root id="unchecked">

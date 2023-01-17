@@ -1,25 +1,25 @@
 [data-h2-position*="MEDIAKEY(static)"],
-[data-h2-position*="MEDIAKEY(static)"][data-h2-visibility] {
+[data-h2-position*="MEDIAKEY(static)"][data-h2-visually-hidden] {
   position: static;
 }
 
 [data-h2-position*="MEDIAKEY(relative)"],
-[data-h2-position*="MEDIAKEY(relative)"][data-h2-visibility] {
+[data-h2-position*="MEDIAKEY(relative)"][data-h2-visually-hidden] {
   position: relative;
 }
 
 [data-h2-position*="MEDIAKEY(fixed)"],
-[data-h2-position*="MEDIAKEY(fixed)"][data-h2-visibility] {
+[data-h2-position*="MEDIAKEY(fixed)"][data-h2-visually-hidden] {
   position: fixed;
 }
 
 [data-h2-position*="MEDIAKEY(absolute)"],
-[data-h2-position*="MEDIAKEY(absolute)"][data-h2-visibility] {
+[data-h2-position*="MEDIAKEY(absolute)"][data-h2-visually-hidden] {
   position: absolute;
 }
 
 [data-h2-position*="MEDIAKEY(sticky)"],
-[data-h2-position*="MEDIAKEY(sticky)"][data-h2-visibility] {
+[data-h2-position*="MEDIAKEY(sticky)"][data-h2-visually-hidden] {
   position: -webkit-sticky;
   position: sticky;
   top: 0;

@@ -522,7 +522,7 @@ export const UserTable = () => {
 
   return (
     <div data-h2-margin="base(x1, 0)">
-      <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
+      <h2 id="user-table-heading" data-h2-visually-hidden="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
           id: "VlI1K4",
