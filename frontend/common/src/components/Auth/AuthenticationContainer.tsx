@@ -58,7 +58,7 @@ const logoutAndRefreshPage = (
         `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
       );
     } else {
-      localStorage.setItem(POST_LOGOUT_URI, postLogoutUri);
+      sessionStorage.setItem(POST_LOGOUT_URI, postLogoutUri);
     }
   }
 

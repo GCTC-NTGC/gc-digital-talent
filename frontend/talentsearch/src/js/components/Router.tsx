@@ -250,9 +250,9 @@ const router = createBrowserRouter([
           {
             path: "logged-out",
             loader: async () => {
-              const redirectUri = localStorage.getItem(POST_LOGOUT_URI);
+              const redirectUri = sessionStorage.getItem(POST_LOGOUT_URI);
               if (redirectUri) {
-                localStorage.removeItem(POST_LOGOUT_URI);
+                sessionStorage.removeItem(POST_LOGOUT_URI);
                 if (redirectUri.startsWith("/")) {
                   window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
                   return null;
