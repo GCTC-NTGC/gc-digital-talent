@@ -1,14 +1,23 @@
 import { Maybe } from "graphql/jsutils/Maybe";
 import { IntlShape } from "react-intl";
 import {
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "../types/ExperienceUtils";
+import {
+  getGenericJobTitles,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,
 } from "../constants/localizedConstants";
-import { Applicant, GovEmployeeType } from "../api/generated";
+import { Applicant, GovEmployeeType, Skill } from "../api/generated";
 import { enumToOptions } from "./formUtils";
 import { Locales } from "./localize";
 import { empty, insertBetween, notEmpty, uniqueItems } from "./util";
+import experienceLabels from "../components/UserProfile/ExperienceAccordion/labels";
 
 /**
  * Converts a possible boolean
@@ -44,6 +53,20 @@ export const yesOrNo = (value: Maybe<boolean>, intl: IntlShape) => {
  */
 export const listOrEmptyString = (value: string[] | undefined) => {
   return value ? insertBetween(", ", value).join("") : "";
+};
+
+/**
+ * Sanitizes justifications strings for csv,
+ * and separates multiple justifications with a new line.
+ *
+ * @param value string[] | undefined    Array of items to convert
+ * @returns string                      Comma separated list or empty
+ */
+export const sanitizeJustifications = (values: string[] | undefined) => {
+  const sanitizedList = values
+    ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
+    : "";
+  return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
 /**
@@ -162,6 +185,27 @@ export const getOperationalRequirements = (
 };
 
 /**
+ * Converts a possible array of generic job titles
+ * to a comma separated list or empty string
+ *
+ * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
+ * @param intl react-intl object
+ * @returns string
+ */
+export const getExpectedClassifications = (
+  genericTitles: Applicant["expectedGenericJobTitles"],
+  intl: IntlShape,
+) => {
+  const expected = genericTitles
+    ?.map((title) =>
+      title ? intl.formatMessage(getGenericJobTitles(title.key)) : undefined,
+    )
+    .filter(notEmpty);
+
+  return listOrEmptyString(expected);
+};
+
+/**
  * Converts a possible array of experiences to
  * a flattened comma separated list of skills
  * or an empty string
@@ -189,4 +233,117 @@ export const flattenExperiencesToSkills = (
     : undefined;
 
   return listOrEmptyString(flattenedSkills);
+};
+
+/**
+ * Creates an object with the a skill-justification as the key-value pair.
+ * The skill must be associated within the skills list,
+ * and also be an experience-skill of the Applicant.
+ *
+ * @param experiences Maybe<Maybe<Experience>[]>
+ * @param skills Skill[]
+ * @param intl react-intl object
+ * @returns { [key]: string }
+ */
+export const skillKeyAndJustifications = (
+  experiences: Applicant["experiences"],
+  skills: Skill[],
+  intl: IntlShape,
+) => {
+  // Iterate through experiences.
+  // If the experience has a skill that's in the pool's essential and asset skills, then add it to the collection.
+  const skillJustifications = experiences
+    ?.filter(notEmpty)
+    .map((experience) => {
+      const getExperienceSkillsFromSkills = experience.skills
+        ?.filter(notEmpty)
+        .filter((experienceSkill) =>
+          skills.find((skill) => skill.id === experienceSkill.id),
+        );
+      return getExperienceSkillsFromSkills?.reduce(
+        (
+          accumulator: { id: string; justification: string }[],
+          currentValue: Skill,
+        ) => {
+          let justification = {
+            id: "",
+            justification: "",
+          };
+
+          if (isAwardExperience(experience)) {
+            justification = {
+              id: currentValue.id,
+              justification: `${intl.formatMessage(
+                experienceLabels.awardIssuedBy,
+                {
+                  title: experience.title,
+                  issuedBy: experience.issuedBy,
+                },
+              )}: ${currentValue.experienceSkillRecord?.details}`,
+            };
+          }
+
+          if (isCommunityExperience(experience)) {
+            justification = {
+              id: currentValue.id,
+              justification: `${intl.formatMessage(
+                experienceLabels.communityAt,
+                {
+                  title: experience.title,
+                  organization: experience.organization,
+                },
+              )}: ${currentValue.experienceSkillRecord?.details}`,
+            };
+          }
+
+          if (isEducationExperience(experience)) {
+            justification = {
+              id: currentValue.id,
+              justification: `${intl.formatMessage(
+                experienceLabels.educationAt,
+                {
+                  areaOfStudy: experience.areaOfStudy,
+                  institution: experience.institution,
+                },
+              )}: ${currentValue.experienceSkillRecord?.details}`,
+            };
+          }
+
+          if (isPersonalExperience(experience)) {
+            justification = {
+              id: currentValue.id,
+              justification: `${experience.title}: ${currentValue.experienceSkillRecord?.details}`,
+            };
+          }
+
+          if (isWorkExperience(experience)) {
+            justification = {
+              id: currentValue.id,
+              justification: `${intl.formatMessage(experienceLabels.workAt, {
+                role: experience.role,
+                organization: experience.organization,
+              })}: ${currentValue.experienceSkillRecord?.details}`,
+            };
+          }
+
+          return [...accumulator, justification];
+        },
+        [],
+      );
+    })
+    .flatMap((justification) => justification);
+
+  const keyAndJustifications = skills.reduce((accumulator, currentValue) => {
+    const { key, id } = currentValue;
+    const justifications = skillJustifications
+      ?.filter(notEmpty)
+      .filter((sj) => sj.id === id)
+      .map((j) => j.justification.trim());
+    return {
+      ...accumulator,
+      [key]: sanitizeJustifications(justifications),
+    };
+  }, {});
+
+  return keyAndJustifications;
 };

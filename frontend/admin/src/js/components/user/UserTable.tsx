@@ -56,6 +56,10 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
+      expectedClassifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -92,6 +96,10 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],

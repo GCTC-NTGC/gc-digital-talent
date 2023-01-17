@@ -1,0 +1,33 @@
+query getRoleSalaryInfo {
+  me {
+    id
+    isProfileComplete
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+  genericJobTitles {
+    id
+    key
+  }
+}
+
+mutation UpdateRoleSalary($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    id
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    isProfileComplete
+  }
+}

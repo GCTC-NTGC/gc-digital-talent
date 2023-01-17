@@ -279,7 +279,8 @@ class PoolCandidate extends Model
         $user = User::with([
             'department',
             'currentClassification',
-            'cmoAssets',
+            'expectedClassifications',
+            'expectedGenericJobTitles',
             'awardExperiences',
             'communityExperiences',
             'educationExperiences',
@@ -324,20 +325,6 @@ class PoolCandidate extends Model
                         }
                     }
                 });
-        });
-        return $query;
-    }
-
-    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
-    public function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
-    {
-        if (empty($cmoAssets)) {
-            return $query;
-        }
-
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
-        $query->whereHas('user', function ($query) use ($cmoAssets) {
-            User::filterByCmoAssets($query, $cmoAssets);
         });
         return $query;
     }

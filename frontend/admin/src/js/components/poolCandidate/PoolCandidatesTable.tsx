@@ -28,6 +28,8 @@ import {
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
+  PoolAdvertisement,
+  Maybe,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
@@ -61,6 +63,10 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -237,7 +243,10 @@ const defaultState = {
 
 const PoolCandidatesTable: React.FC<{
   initialFilterInput?: PoolCandidateSearchInput;
-}> = ({ initialFilterInput }) => {
+  currentPool?: Maybe<
+    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+  >;
+}> = ({ initialFilterInput, currentPool }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
   // Note: Need to memoize to prevent infinite
@@ -342,6 +351,10 @@ const PoolCandidatesTable: React.FC<{
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
@@ -581,7 +594,7 @@ const PoolCandidatesTable: React.FC<{
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
-  const csv = usePoolCandidateCsvData(selectedCandidates);
+  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
 
   const initialFilters = useMemo(
     () => transformPoolCandidateSearchInputToFormValues(applicantFilterInput),

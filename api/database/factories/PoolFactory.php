@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
@@ -53,11 +52,8 @@ class PoolFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Pool $pool) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            $pool->essentialCriteria()->saveMany($assets->slice(0, 2));
-            $pool->assetCriteria()->saveMany($assets->slice(2, 2));
             $pool->classifications()->saveMany($classifications);
             $pool->essentialSkills()->saveMany($skills->slice(0, 5));
             $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));

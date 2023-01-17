@@ -12,11 +12,11 @@ const container = document.getElementById("app");
 if (container) {
   const root = createRoot(container);
   root.render(
-    <>
+    <React.StrictMode>
       <ContextContainer messages={messages}>
         <Router />
       </ContextContainer>
       <Toast />
-    </>,
+    </React.StrictMode>,
   );
 }

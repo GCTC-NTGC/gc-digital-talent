@@ -187,6 +187,10 @@
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
   },
+  "MmFgbF": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the single search request table classifications column."
+  },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
     "description": "Placeholder displayed on the classification form level field."
@@ -361,10 +365,6 @@
   "i45Vxz": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title displayed on the single search request table employment equity column."
-  },
-  "i9/L40": {
-    "defaultMessage": "Compétences",
-    "description": "Title displayed on the single search request table skills column."
   },
   "i9AjuX": {
     "defaultMessage": "S.O.",
@@ -1085,6 +1085,10 @@
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
   },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
+  },
   "usNShh": {
     "defaultMessage": "Sélectionner un statut de bassin...",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
@@ -1712,6 +1716,9 @@
     "defaultMessage": "Niveau verbal",
     "description": "CSV Header, Verbal Level column"
   },
+  "5TVKj1": {
+    "defaultMessage": "Classifications"
+  },
   "5iNcHS": {
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
@@ -2017,6 +2024,10 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
+  "iIZS1K": {
+    "defaultMessage": "Attente en matière de poste/salaire",
+    "description": "CSV Header, Role/Salary Expectation column"
+  },
   "j9m5qA": {
     "defaultMessage": "Date de réception",
     "description": "En-tête CSV, colonne Date de réception"
@@ -2281,6 +2292,14 @@
   "VCl+IZ": {
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
+  },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essentielles)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Utiles)",
+    "description": "CSV Header, Asset skill column."
   },
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
