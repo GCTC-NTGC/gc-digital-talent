@@ -53,6 +53,8 @@ describe("Admin Workflow Tests", () => {
       .and("be.visible")
       .click();
 
+    cy.wait("@gqlGetViewUserDataQuery");
+
     // exercise profile page
     cy.findByRole("heading", { name: /Candidate Details/i })
       .should("exist")
