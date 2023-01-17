@@ -86,7 +86,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
     >
       <div
         data-h2-position="base(absolute)"
-        data-h2-offset="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
+        data-h2-location="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
       >
         <div
           className="recruitment-flag"
@@ -132,7 +132,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         </div>
         <div
           data-h2-display="p-tablet(grid)"
-          data-h2-gap="base(x3, x1)"
+          data-h2-gap="base(x1, x3)"
           data-h2-grid-template-columns="base(repeat(2, minmax(0, 1fr)))"
           data-h2-grid-template-rows="base(2fr)"
         >

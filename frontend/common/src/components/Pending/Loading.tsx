@@ -57,7 +57,7 @@ const Loading = ({
     >
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
         <span className="lds-dual-ring">
-          <span data-h2-visibility="base(invisible)">{children}</span>
+          <span data-h2-visually-hidden="base(invisible)">{children}</span>
         </span>
       </div>
     </div>

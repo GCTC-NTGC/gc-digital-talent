@@ -27,7 +27,7 @@ const RequestPage = () => {
   return (
     <section
       data-h2-background-color="base(dt-gray.15)"
-      data-h2-border="base(top, 1px, solid, dt-gray)"
+      data-h2-border-top="base(1px solid dt-gray)"
     >
       <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
         <h1
@@ -45,7 +45,7 @@ const RequestPage = () => {
         </h1>
       </div>
       <div
-        data-h2-background-color="base(dt-linear)"
+        data-h2-background="base(dt-linear)"
         data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
         data-h2-position="base(relative)"
       >
@@ -59,7 +59,7 @@ const RequestPage = () => {
             data-h2-shadow="base(m)"
             data-h2-padding="base(x1) p-tablet(x2)"
             data-h2-position="base(relative)"
-            data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
+            data-h2-location="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
           >
             <CreateRequest
               applicantFilter={applicantFilter as ApplicantFilterInput}

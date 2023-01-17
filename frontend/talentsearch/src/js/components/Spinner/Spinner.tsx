@@ -5,7 +5,7 @@ const Spinner: React.FC = () => {
   const intl = useIntl();
   return (
     <span className="lds-dual-ring">
-      <span data-h2-visibility="base(invisible)">
+      <span data-h2-visually-hidden="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "Searching...",
           id: "w6vHXf",
