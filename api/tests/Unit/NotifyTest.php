@@ -61,6 +61,8 @@ class NotifyTest extends TestCase
      */
     public function test_bulk_sms()
     {
+        $this->markTestSkipped("Prevent hitting the server.");
+
         $response = Notify::sendBulk(
             $this->bulkName,
             [
@@ -83,6 +85,8 @@ class NotifyTest extends TestCase
      */
     public function test_bulk_email()
     {
+        $this->markTestSkipped("Prevent hitting the server.");
+
         $response = Notify::sendBulk(
             $this->bulkName,
             [
