@@ -4,6 +4,7 @@ namespace App\Notify;
 
 use Illuminate\Support\Facades\Http;
 use App\Exceptions\ApiKeyNotFoundException;
+use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\NotFutureDateException;
 
 /**
@@ -64,11 +65,11 @@ class Client
      * @param string $reference (optional) Add a reference key to identify the message
      * @param string $replyTo (optional) ID for a reply to email address
      */
-    public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null)
+    public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
     {
         return $this->post(
             self::ENDPOINT_NOTIFICATION_EMAIL,
-            $this->buildEmailPayload($to, $template, $personalisation, $reference, $replyTo)
+            $this->buildEmailPayload($to, $template, $personalisation, $reference, $replyTo, $attachment)
         );
     }
 
@@ -155,13 +156,19 @@ class Client
      * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
      * @param string $reference (optional) Add a reference key to identify the message
      * @param string $replyTo (optional) ID for a reply to email address
+     * @param array<mixed> $attachment (optional) Array of key => value pairs to be replaced in template
      */
-    private function buildEmailPayload($to, $template, $personalisation = [], $reference = null, $replyTo = null)
+    private function buildEmailPayload($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
     {
+
         $payload = $this->buildPayload('email', $to, $template, $personalisation, $reference);
 
         if(!is_null($replyTo) && $replyTo !== '') {
             $payload['email_reply_to_id'] = $replyTo;
+        }
+
+        if(!is_null($attachment)) {
+            $payload['personalisation']['attachment'] = $this->buildEmailAttachmentFile($attachment);
         }
 
         return $payload;
@@ -241,6 +248,29 @@ class Client
         }
 
         return $headers;
+    }
+
+    /**
+     * Build Email Attachment
+     *
+     * Add an attachment file to an email payload
+     *
+     * @param array<mixed> $attachment The attachment file array [file => string, filename => string]
+     * @return array<mixed> The new payload
+     */
+    private function buildEmailAttachmentFile($attachment)
+    {
+        if(!isset($attachment['filename']) || !isset($attachment['file'])) {
+            throw new EmailAttachmentException("Missing attachment filename or file.");
+        }
+
+        if(base64_decode($attachment['file'], true) === false) {
+            throw new EmailAttachmentException("Attachment file must be base64 encoded");
+        }
+
+        $attachment['sending_method'] = 'attach';
+
+        return $attachment;
     }
 
     /**

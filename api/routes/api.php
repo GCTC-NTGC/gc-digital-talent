@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupportController;
 use App\Facades\Notify;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,27 @@ Route::prefix('notify')->group(function () {
                 'domain@test.com', // Replace with your email
                 $templates['email'],
                 ['name' => 'Your Name']
+            );
+
+            return $response->json();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    });
+
+    Route::get('email/attachment', function () use ($templates) {
+        try {
+            $file = Storage::get('example.txt'); // Add a file by this name to `api/storage/app`
+            $response = Notify::sendEmail(
+                'domain@test.com', // Replace with your email
+                $templates['email'],
+                ['name' => 'Your Name'],
+                null,
+                null,
+                [
+                    'file' => base64_encode($file),
+                    'filename' => "attachment.txt"
+                ]
             );
 
             return $response->json();
