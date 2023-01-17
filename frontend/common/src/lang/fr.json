@@ -1955,5 +1955,13 @@
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
+  },
+  "c7At4h": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien :",
+    "description": "Preferred Language for interviews label and colon"
+  },
+  "rSymh2": {
+    "defaultMessage": "Langue préférée de l'examen écrit :",
+    "description": "Preferred Language for exams label and colon"
   }
 }
