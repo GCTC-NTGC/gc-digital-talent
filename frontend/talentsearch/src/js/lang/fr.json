@@ -537,10 +537,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "D8IMp7": {
-    "defaultMessage": "Préférence linguistique pour la communication",
-    "description": "Legend text for required language preference in About Me form"
-  },
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
@@ -2532,5 +2528,29 @@
   "LFYdXR": {
     "defaultMessage": "Recommandé selon vos compétences",
     "description": "Tip that your skills match this section well and so it is recommended"
+  },
+  "JCyvcW": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred interview language"
+  },
+  "MyUazW": {
+    "defaultMessage": "Sélectionnez votre langue de communication préférée",
+    "description": "Legend text for required communication language preference in About Me form"
+  },
+  "PBl2Rj": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred exam language"
+  },
+  "g5pT17": {
+    "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
+    "description": "Legend text for required written exam language preference for exams in About Me form"
+  },
+  "sOmEaW": {
+    "defaultMessage": "Sélectionnez votre langue préférée pour l'entretien oral",
+    "description": "Legend text for required spoken interview language preference for interviews in About Me form"
+  },
+  "wRxZQV": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred communication language"
   }
 }
