@@ -19,6 +19,7 @@
   "modes": {
     "dark": {
       "automatic": true,
+      "automatic_modifiers": true,
       "method": "toggle"
     }
   },

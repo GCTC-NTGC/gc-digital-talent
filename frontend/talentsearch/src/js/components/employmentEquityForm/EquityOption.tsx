@@ -76,8 +76,8 @@ const EquityOption = ({
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(space-between)"
       {...(isAdded
-        ? { "data-h2-border": "base(left, .5rem, solid, dark.dt-primary)" }
-        : { "data-h2-border": "base(left, .5rem, solid, dt-primary)" })}
+        ? { "data-h2-border-left": "base(.5rem solid dt-primary.dark)" }
+        : { "data-h2-border-left": "base(.5rem solid dt-primary)" })}
     >
       <span>{title}</span>
       <span style={{ flexShrink: 0 }}>

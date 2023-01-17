@@ -44,7 +44,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   return (
     <div data-h2-padding="base(0, 0, x1, 0)">
-      <div data-h2-visibility="base(visible) p-tablet(hidden)">
+      <div data-h2-visually-hidden="base(visible) p-tablet(hidden)">
         <p
           data-h2-display="base(inline)"
           data-h2-padding="base(0, x.125, 0, 0)"
@@ -68,7 +68,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           </p>
         )}
       </div>
-      <div data-h2-visibility="base(hidden) p-tablet(visible)">
+      <div data-h2-visually-hidden="base(hidden) p-tablet(visible)">
         <p
           data-h2-display="base(block)"
           data-h2-padding="base(0, x.125, 0, 0)"

@@ -154,7 +154,7 @@ const MissingSkills = ({
     <>
       {missingRequiredSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(light.dt-error.05)"
+          data-h2-background-color="base(dt-error.light.05)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "error", mode: "outline" }}
           headingLevel={headingLevel}
@@ -184,7 +184,7 @@ const MissingSkills = ({
       ) : null}
       {missingTransferableSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(light.dt-primary.10)"
+          data-h2-background-color="base(dt-primary.light.10)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "primary", mode: "outline" }}
           headingLevel={headingLevel}
@@ -208,7 +208,7 @@ const MissingSkills = ({
       ) : null}
       {missingOptionalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(light.dt-primary.10)"
+          data-h2-background-color="base(dt-primary.light.10)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "primary", mode: "outline" }}
           headingLevel={headingLevel}
@@ -241,7 +241,7 @@ const MissingSkills = ({
         data-h2-display="base(flex)"
         data-h2-padding="base(x1)"
         data-h2-radius="base(rounded)"
-        data-h2-background-color="base(light.dt-primary.10)"
+        data-h2-background-color="base(dt-primary.light.10)"
       >
         <span data-h2-margin="base(0, x1, 0, 0)">
           <InformationCircleIcon style={{ width: "1.2rem" }} />

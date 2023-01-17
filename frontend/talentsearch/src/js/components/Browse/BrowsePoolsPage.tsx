@@ -37,7 +37,9 @@ const flourishBottomDark = imageUrl(
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
   "data-h2-width": "base(25vw)",
-  "data-h2-offset": isTop ? "base(0, 0, auto, auto)" : "base(auto, auto, 0, 0)",
+  "data-h2-location": isTop
+    ? "base(0, 0, auto, auto)"
+    : "base(auto, auto, 0, 0)",
   "data-h2-z-index": "base(-1)",
 });
 
@@ -108,7 +110,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       <div
         data-h2-background-color="base(black.03) base:dark(black.90)"
         data-h2-color="base(black) base:dark(white)"
-        data-h2-border="base(bottom, 1px, solid, black.50)"
+        data-h2-border-bottom="base(1px solid black.50)"
         data-h2-position="base(relative)"
       >
         <img

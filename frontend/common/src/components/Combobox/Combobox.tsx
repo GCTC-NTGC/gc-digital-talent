@@ -190,7 +190,7 @@ const Combobox = ({
             data-h2-radius="base(input)"
             data-h2-width="base(100%)"
             {...(readOnly && {
-              "data-h2-background-color": "base(light.dt-gray)",
+              "data-h2-background-color": "base(dt-gray.light)",
             })}
           />
           <Actions
@@ -211,14 +211,14 @@ const Combobox = ({
         </div>
         <ComboboxPrimitive.Options
           data-h2-background-color="base(white)"
-          data-h2-border="base(all, 2px, solid, dt-gray)"
+          data-h2-border="base(2px solid dt-gray)"
           data-h2-shadow="base(l)"
           data-h2-padding="base(x.5)"
           data-h2-radius="base(input)"
           data-h2-max-height="base(24rem)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(100%, 0, auto, 0)"
-          data-h2-overflow="base(inherit, auto)"
+          data-h2-location="base(100%, 0, auto, 0)"
+          data-h2-overflow="base(visible auto)"
           as={noOptions ? "div" : "ul"}
         >
           {noOptions ? (
@@ -237,10 +237,10 @@ const Combobox = ({
                     data-h2-padding="base(x.25, x.5)"
                     data-h2-display="base(flex)"
                     data-h2-align-items="base(center)"
-                    data-h2-gap="base(x.25, 0)"
+                    data-h2-gap="base(0, x.25)"
                     {...(active
                       ? {
-                          "data-h2-background-color": "base(light.dt-gray)",
+                          "data-h2-background-color": "base(dt-gray.light)",
                         }
                       : {
                           "data-h2-background-color": "base(white)",

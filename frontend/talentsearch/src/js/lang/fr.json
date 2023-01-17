@@ -773,10 +773,6 @@
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "work stream example"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "T1TKNL": {
     "defaultMessage": "Niveau de compétence en langue seconde",
     "description": "Legend for second language proficiency level in language information form"
