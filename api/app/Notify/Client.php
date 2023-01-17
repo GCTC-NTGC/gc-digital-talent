@@ -11,7 +11,6 @@ use App\Exceptions\NotFutureDateException;
  *
  * Interacts with the GC Notify API
  *
- * @property string $baseUrl GC Notify Base URL
  * @property string $apiKey API Key for auth
  */
 class Client
