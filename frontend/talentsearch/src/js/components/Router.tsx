@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import lazyRetry from "@common/helpers/lazyRetry";
 import Loading from "@common/components/Pending/Loading";
 import RequireAuth from "@common/components/RequireAuth/RequireAuth";
+import { defaultLogger } from "@common/hooks/useLogger";
 
+import { POST_LOGOUT_URI } from "@common/components/Auth/AuthenticationContainer";
 import Layout from "./Layout";
 import { Role } from "../api/generated";
 
@@ -252,16 +250,15 @@ const router = createBrowserRouter([
           {
             path: "logged-out",
             loader: async () => {
-              const redirectUri = localStorage.getItem("POST_LOGOUT_URI");
+              const redirectUri = localStorage.getItem(POST_LOGOUT_URI);
               if (redirectUri) {
-                localStorage.removeItem("POST_LOGOUT_URI");
+                localStorage.removeItem(POST_LOGOUT_URI);
                 if (redirectUri.startsWith("/")) {
                   window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
                   return null;
                 }
-                console.warn(
-                  "Retrieved an unsafe uri from POST_LOGOUT_URI:",
-                  redirectUri,
+                defaultLogger.warning(
+                  `Retrieved an unsafe uri from POST_LOGOUT_URI: ${redirectUri}`,
                 );
               }
               return null;

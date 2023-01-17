@@ -6,6 +6,8 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
+export const POST_LOGOUT_URI = "post_logout_uri";
+
 export interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
@@ -56,7 +58,7 @@ const logoutAndRefreshPage = (
         `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
       );
     } else {
-      localStorage.setItem("POST_LOGOUT_URI", postLogoutUri);
+      localStorage.setItem(POST_LOGOUT_URI, postLogoutUri);
     }
   }
 
