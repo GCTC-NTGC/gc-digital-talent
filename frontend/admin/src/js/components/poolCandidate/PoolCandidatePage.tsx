@@ -11,7 +11,7 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 import { useAdminRoutes } from "../../adminRoutes";
-import { Scalars, useGetPoolQuery } from "../../api/generated";
+import { Scalars, useGetPoolAdvertisementQuery } from "../../api/generated";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -22,7 +22,7 @@ export const PoolCandidatePage = () => {
   const paths = useAdminRoutes();
   const { poolId } = useParams<RouteParams>();
 
-  const [{ data, fetching, error }] = useGetPoolQuery({
+  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: {
       id: poolId || "",
     },
@@ -39,13 +39,15 @@ export const PoolCandidatePage = () => {
     },
     {
       title:
-        getFullPoolAdvertisementTitle(intl, data?.pool) ||
+        getFullPoolAdvertisementTitle(intl, data?.poolAdvertisement) ||
         intl.formatMessage({
           defaultMessage: "Pool name not found",
           id: "HGMl3y",
           description: "Breadcrumb to pool page if pool name not found",
         }),
-      href: data?.pool ? paths.poolView(data.pool.id) : paths.poolTable(),
+      href: data?.poolAdvertisement
+        ? paths.poolView(data.poolAdvertisement.id)
+        : paths.poolTable(),
     },
     {
       title: intl.formatMessage({
@@ -75,7 +77,10 @@ export const PoolCandidatePage = () => {
                 "Subtitle on pool candidates page indicating which pool candidates are from",
             },
             {
-              poolName: getFullPoolAdvertisementTitle(intl, data?.pool),
+              poolName: getFullPoolAdvertisementTitle(
+                intl,
+                data?.poolAdvertisement,
+              ),
             },
           )}
         >
@@ -99,6 +104,7 @@ export const PoolCandidatePage = () => {
           initialFilterInput={{
             applicantFilter: { pools: [{ id: poolId || "" }] },
           }}
+          currentPool={data?.poolAdvertisement}
         />
       </DashboardContentContainer>
     </Pending>

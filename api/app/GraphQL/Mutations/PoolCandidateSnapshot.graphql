@@ -46,6 +46,14 @@ query getProfile($userId: ID!) {
         fr
       }
     }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
     isWoman
     hasDisability
     isIndigenous
@@ -57,19 +65,17 @@ query getProfile($userId: ID!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    positionDuration
-    cmoAssets {
+    expectedSalary
+    expectedClassifications {
       id
       name {
         en
         fr
       }
-      description {
-        en
-        fr
-      }
-      key
+      group
+      level
     }
+    positionDuration
     experiences {
       id
       __typename

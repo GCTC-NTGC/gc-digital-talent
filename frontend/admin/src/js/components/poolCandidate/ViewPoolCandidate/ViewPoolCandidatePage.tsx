@@ -150,6 +150,7 @@ export const ViewPoolCandidate = ({
           employmentEquity: {
             isVisible: true,
           },
+          roleSalary: { isVisible: true },
           skillsExperience: {
             isVisible: true,
           },

@@ -32,40 +32,6 @@ const poolCandidateFilter: PoolCandidateFilter = {
       level: 1,
     },
   ],
-  cmoAssets: [
-    {
-      id: "6605d898-bd08-4b30-bb16-d56e299b475b",
-      key: "app_dev",
-      name: {
-        en: "Application Development",
-        fr: "Développement d'applications",
-      },
-    },
-    {
-      id: "f506e278-e4af-4ab5-b8d6-8f38c1c1591a",
-      key: "app_testing",
-      name: {
-        en: "Application Testing / Quality Assurance",
-        fr: "Mise à l'essai des applications / Assurance de la qualité",
-      },
-    },
-    {
-      id: "6cf47865-5079-4584-87d3-395b1825c5d4",
-      key: "cybersecurity",
-      name: {
-        en: "Cybersecurity / Information Security / IT Security",
-        fr: "Cybersécurité / Sécurité de l'information / Sécurité de la TI",
-      },
-    },
-    {
-      id: "1225da7c-c8ff-46c0-be1c-df97f8a4f253",
-      key: "data_science",
-      name: {
-        en: "Data Science / Analysis",
-        fr: "Science / analyse des données",
-      },
-    },
-  ],
   hasDiploma: false,
   equity: {
     hasDisability: false,

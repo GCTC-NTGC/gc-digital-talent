@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;

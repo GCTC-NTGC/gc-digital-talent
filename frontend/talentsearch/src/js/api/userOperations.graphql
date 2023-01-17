@@ -44,6 +44,14 @@ query getMe {
         fr
       }
     }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
     isWoman
     hasDisability
     isIndigenous
@@ -57,19 +65,17 @@ query getMe {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    positionDuration
-    cmoAssets {
+    expectedSalary
+    expectedClassifications {
       id
       name {
         en
         fr
       }
-      description {
-        en
-        fr
-      }
-      key
+      group
+      level
     }
+    positionDuration
     experiences {
       id
       __typename
