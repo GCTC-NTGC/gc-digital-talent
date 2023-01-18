@@ -49,7 +49,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
         )}
       </span>
       {wordsLeft < 0 && (
-        <span aria-live="polite" data-h2-visibility="base(invisible)">
+        <span aria-live="polite" data-h2-visually-hidden="base(invisible)">
           {intl.formatMessage(
             {
               defaultMessage: "You are over the word limit, {wordLimit}.",

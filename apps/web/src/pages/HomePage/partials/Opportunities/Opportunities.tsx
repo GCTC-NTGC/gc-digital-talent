@@ -33,7 +33,7 @@ const Opportunities = () => {
         <img
           data-h2-display="base(block) base:dark(none)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(0, 0, auto, auto)"
+          data-h2-location="base(0, 0, auto, auto)"
           data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
@@ -44,7 +44,7 @@ const Opportunities = () => {
         <img
           data-h2-display="base(none) base:dark(block)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(0, 0, auto, auto)"
+          data-h2-location="base(0, 0, auto, auto)"
           data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
@@ -53,8 +53,8 @@ const Opportunities = () => {
           alt=""
         />
         <div
-          data-h2-background-color="base(tm-linear-divider)"
-          data-h2-offset="base(0, 0, auto, 0)"
+          data-h2-background="base(tm-linear-divider)"
+          data-h2-location="base(0, 0, auto, 0)"
           data-h2-display="base(block)"
           data-h2-height="base(x1)"
           data-h2-position="base(absolute)"

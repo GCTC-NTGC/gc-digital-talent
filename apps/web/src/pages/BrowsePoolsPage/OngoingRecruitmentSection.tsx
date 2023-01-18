@@ -809,7 +809,7 @@ export const OngoingRecruitmentSection = ({
         </FormProvider>
       </div>
 
-      <p aria-live="polite" data-h2-visibility="base(invisible)">
+      <p aria-live="polite" data-h2-visually-hidden="base(invisible)">
         {quickFilterStream
           ? intl.formatMessage(
               {

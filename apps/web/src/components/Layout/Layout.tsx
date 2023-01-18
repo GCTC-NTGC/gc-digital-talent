@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import MenuLink from "@common/components/Link/MenuLink";
+import SkipLink from "@common/components/Link/SkipLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
@@ -143,16 +144,7 @@ const Layout = () => {
           })}
         />
       </Helmet>
-      <a
-        href="#main"
-        data-h2-visibility="base(invisible) base:focus-visible(visible)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Skip to main content",
-          id: "Srs7a4",
-          description: "Assistive technology skip link",
-        })}
-      </a>
+      <SkipLink />
       <div
         className="container"
         data-h2-display="base(flex)"

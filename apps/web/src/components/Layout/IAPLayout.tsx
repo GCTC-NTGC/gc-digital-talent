@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
+import SkipLink from "@common/components/Link/SkipLink";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { getLocale } from "@common/helpers/localize";
@@ -78,13 +79,7 @@ const Layout = () => {
             })}
           />
         </Helmet>
-        <a href="#main" data-h2-visibility="base(hidden)">
-          {intl.formatMessage({
-            defaultMessage: "Skip to main content",
-            id: "Srs7a4",
-            description: "Assistive technology skip link",
-          })}
-        </a>
+        <SkipLink />
         <div
           className="container"
           data-h2-display="base(flex)"

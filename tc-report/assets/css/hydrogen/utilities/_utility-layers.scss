@@ -14,7 +14,7 @@ $h2-map-position: (
       @each $positionKey, $positionValue in $h2-map-position {
         [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})']#{$stateValue},
         [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})'][data-h2-position]#{$stateValue},
-        [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})'][data-h2-visibility]#{$stateValue} {
+        [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})'][data-h2-visually-hidden]#{$stateValue} {
           position: #{$positionValue};
           z-index: #{$i};
         }

@@ -5,11 +5,11 @@ import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 const commonStyles = {
   "data-h2-background-color":
-    "base(light.dt-secondary) base:selectors[.active](lighter.dt-secondary.10) base:focus-visible(lighter.dt-secondary.30) base:hover(lighter.dt-secondary.30)",
+    "base(dt-secondary.light) base:selectors[.active](dt-secondary.lighter.10) base:focus-visible(dt-secondary.lighter.30) base:hover(dt-secondary.lighter.30)",
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
-  "data-h2-border": "base(bottom, 1px, solid, dt-white.10)",
+  "data-h2-border-bottom": "base(1px solid dt-white.10)",
   "data-h2-color": "base(dt-white)",
   "data-h2-width": "base(100%)",
   "data-h2-text-align": "base(left)",

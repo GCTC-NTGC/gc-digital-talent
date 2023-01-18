@@ -42,7 +42,7 @@ const Home: React.FunctionComponent = () => {
    */
   return (
     <motion.div
-      data-h2-overflow="base(hidden, visible)"
+      data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -57,7 +57,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-flex-direction="base(column)"
       >
         <div
-          data-h2-background-color="base(ia-primary-dark-to-transparent)"
+          data-h2-background="base(ia-primary-dark-to-transparent)"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
@@ -79,7 +79,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
-          data-h2-offset="p-tablet(5%, auto, auto, 50%)"
+          data-h2-location="p-tablet(5%, auto, auto, 50%)"
           data-h2-width="base(100%) p-tablet(40vw)"
         >
           <h1>
@@ -91,7 +91,7 @@ const Home: React.FunctionComponent = () => {
               )}
               alt=""
             />
-            <span data-h2-visibility="base(invisible)">
+            <span data-h2-visually-hidden="base(invisible)">
               {intl.formatMessage({
                 defaultMessage:
                   "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
@@ -107,7 +107,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
-          data-h2-offset="p-tablet(auto, auto, 20%, 50%)"
+          data-h2-location="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
         >
@@ -122,7 +122,7 @@ const Home: React.FunctionComponent = () => {
         >
           <div
             data-h2-position="base(relative)"
-            data-h2-offset="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
+            data-h2-location="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
           >
             <div
               data-h2-padding="p-tablet(x2) l-tablet(x3)"
@@ -143,7 +143,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-background-color="base(ia-primary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
-                      data-h2-offset="base(-x1.5, -x1, auto, auto)"
+                      data-h2-location="base(-x1.5, -x1, auto, auto)"
                     />
                     <div
                       data-h2-radius="base(100rem)"
@@ -152,7 +152,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-background-color="base(ia-secondary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
-                      data-h2-offset="base(auto, auto, -x3, -x5.5)"
+                      data-h2-location="base(auto, auto, -x3, -x5.5)"
                     />
                     <div
                       data-h2-min-height="base(60vh) p-tablet(initial)"
@@ -176,7 +176,7 @@ const Home: React.FunctionComponent = () => {
                       alt=""
                       data-h2-position="base(absolute)"
                       data-h2-width="base(150%)"
-                      data-h2-offset="base(auto, -15%, 0, auto)"
+                      data-h2-location="base(auto, -15%, 0, auto)"
                       style={{
                         maxWidth: "initial",
                         transform: "translate(0, 60%)",
@@ -250,7 +250,7 @@ const Home: React.FunctionComponent = () => {
                     className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(110%)"
-                    data-h2-offset="base(-x2, -x12, auto, auto)"
+                    data-h2-location="base(-x2, -x12, auto, auto)"
                     data-h2-opacity="base(20%)"
                   />
                   <div
@@ -275,7 +275,7 @@ const Home: React.FunctionComponent = () => {
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(140%)"
-                    data-h2-offset="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
+                    data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
                   />
                 </div>
               </div>
@@ -321,7 +321,7 @@ const Home: React.FunctionComponent = () => {
                       "First paragraph what will you learn at the program",
                   })}
                 </p>
-                <div data-h2-visibility="base(visible) l-tablet(invisible)">
+                <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
                   <CTAButtons />
                 </div>
               </div>
@@ -348,7 +348,7 @@ const Home: React.FunctionComponent = () => {
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(ia-secondary)"
-                    data-h2-offset="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
+                    data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
                   <div
                     data-h2-min-height="base(60vh) p-tablet(initial)"
@@ -370,7 +370,7 @@ const Home: React.FunctionComponent = () => {
                     data-h2-display="base(block) p-tablet(none)"
                     data-h2-position="base(absolute)"
                     data-h2-width="base(x20)"
-                    data-h2-offset="base(auto, -30%, -10%, auto)"
+                    data-h2-location="base(auto, -30%, -10%, auto)"
                   />
                 </div>
               </div>
@@ -418,7 +418,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-display="base(none) p-tablet(block)"
                   data-h2-position="base(absolute)"
                   data-h2-width="base(x20)"
-                  data-h2-offset="base(auto, -40%, auto, auto) l-tablet(auto, -30%, auto, auto)"
+                  data-h2-location="base(auto, -40%, auto, auto) l-tablet(auto, -30%, auto, auto)"
                 />
                 <div
                   data-h2-margin="base(x2, 0, x1, 0)"
@@ -546,20 +546,20 @@ const Home: React.FunctionComponent = () => {
           data-h2-height="base(100%)"
           data-h2-width="base(100%)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(0, auto, auto, 0)"
+          data-h2-location="base(0, auto, auto, 0)"
           data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
             className=""
             data-h2-color="base(ia-primary)"
             data-h2-position="base(absolute)"
-            data-h2-offset="base(x10, auto, auto, -10%)"
+            data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
           />
           <ThickCircle
             className=""
             data-h2-position="base(absolute)"
-            data-h2-offset="base(auto, -10%, x35, auto)"
+            data-h2-location="base(auto, -10%, x35, auto)"
             data-h2-width="base(35%)"
           />
         </div>
@@ -804,7 +804,7 @@ const Home: React.FunctionComponent = () => {
               <div
                 data-h2-position="base(absolute)"
                 data-h2-width="base(75%)"
-                data-h2-offset="base(auto, auto, -2rem, -2rem) p-tablet(auto, auto, -3rem, -3rem)"
+                data-h2-location="base(auto, auto, -2rem, -2rem) p-tablet(auto, auto, -3rem, -3rem)"
                 style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
                 <Triangle
@@ -823,7 +823,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-height="base(100%)"
                   data-h2-width="base(100%)"
                   data-h2-position="base(absolute)"
-                  data-h2-offset="base(0, 0, auto, auto)"
+                  data-h2-location="base(0, 0, auto, auto)"
                   data-h2-overflow="base(hidden)"
                 >
                   <img
@@ -833,7 +833,7 @@ const Home: React.FunctionComponent = () => {
                     )}
                     alt=""
                     data-h2-position="base(absolute)"
-                    data-h2-offset="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
+                    data-h2-location="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
                     data-h2-width="base(120%) p-tablet(x25) desktop(x35)"
                     data-h2-max-width="base(initial)"
                     data-h2-opacity="base(40%)"
@@ -878,7 +878,7 @@ const Home: React.FunctionComponent = () => {
                     <img
                       data-h2-display="base(block)"
                       data-h2-position="p-tablet(absolute)"
-                      data-h2-offset="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
+                      data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
                       src={imageUrl(
                         INDIGENOUSAPPRENTICESHIP_APP_DIR,
                         "indigenous-woman.png",

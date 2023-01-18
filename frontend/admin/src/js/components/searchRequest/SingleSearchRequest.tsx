@@ -50,7 +50,7 @@ const ManagerInfo: React.FunctionComponent<{
             "Heading for the manager info section of the single search request view.",
         })}
       </Heading>
-      <div data-h2-background-color="base(lightest.dt-gray)">
+      <div data-h2-background-color="base(dt-gray.lightest)">
         <div data-h2-padding="base(x1)">
           <div
             data-h2-flex-grid="base(stretch, x1, 0)"
@@ -58,7 +58,7 @@ const ManagerInfo: React.FunctionComponent<{
           >
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -86,7 +86,7 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -114,7 +114,7 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+              data-h2-border-right="p-tablet(1px solid dt-gray)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -257,12 +257,12 @@ export const SingleSearchRequest: React.FunctionComponent<
         </Heading>
         <div
           data-h2-padding="base(x1)"
-          data-h2-background-color="base(lightest.dt-gray)"
+          data-h2-background-color="base(dt-gray.lightest)"
         >
           <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border="base(top, 1px, solid, dt-gray)"
+            data-h2-border-top="base(1px solid dt-gray)"
             data-h2-margin="base(x1, 0, 0, 0)"
           >
             <FilterBlock
