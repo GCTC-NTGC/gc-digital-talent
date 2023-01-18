@@ -126,7 +126,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-font-size="base(h4, 1)"
-      data-h2-margin="base(x1.5, 0, x1, 0)"
+      data-h2-margin="base(x2, 0, x1, 0)"
     >
       <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
       <span>{children}</span>
