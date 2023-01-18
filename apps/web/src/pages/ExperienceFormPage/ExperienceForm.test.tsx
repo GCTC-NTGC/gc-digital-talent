@@ -20,8 +20,8 @@ const renderExperienceForm = (props: ExperienceFormProps) =>
   render(<ExperienceForm {...props} />);
 
 describe("ExperienceForm", () => {
-  // TODO: remove skips in #4755
-  it.skip("award type should have no accessibility errors", async () => {
+  jest.setTimeout(30000); // TODO: remove in #4755
+  it("award type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
@@ -33,7 +33,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it.skip("community type should have no accessibility errors", async () => {
+  it("community type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "community",
@@ -45,7 +45,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it.skip("education type should have no accessibility errors", async () => {
+  it("education type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "education",
@@ -57,7 +57,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it.skip("personal type should have no accessibility errors", async () => {
+  it("personal type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "personal",
@@ -69,7 +69,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it.skip("work type should have no accessibility errors", async () => {
+  it("work type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "work",
