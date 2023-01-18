@@ -2,16 +2,16 @@
 
 There are various cookies present on production, ownership of cookies varies. Here are the cookies present and some details about them.
 
-# ARRAffinity
+## ARRAffinity
 
-This is a cookie controlled by Microsoft Azure. Its purpose is directing clients to specific instances. 
-Additional [reading.](https://azure.microsoft.com/en-us/blog/disabling-arrs-instance-affinity-in-windows-azure-web-sites/)
+This is a cookie controlled by Microsoft Azure. Its purpose is to direct clients to specific instances. 
+[Additional information](https://azure.microsoft.com/en-us/blog/disabling-arrs-instance-affinity-in-windows-azure-web-sites/).
 
-# ARRAffinitySameSite
+## ARRAffinitySameSite
 
-This cookie is also controlled by Microsoft Azure. It's similar in purpose to ARRAffinity, but works with a relatively new SameSite browser attribute.
+This cookie is also controlled by Microsoft Azure. It is similar in purpose to `ARRAffinity`, but works with a relatively new `SameSite` browser attribute.
 
-# TS(string)
+## TS012e8da0
 
 This cookie is security related and is affiliated with F5 load balancers. Validation of cookies, session expiration, and ASM Frame integrity. 
-Further [reading.](https://support.f5.com/csp/article/K6850)
+[Additional information](https://support.f5.com/csp/article/K6850).
