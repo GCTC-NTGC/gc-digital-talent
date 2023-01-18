@@ -133,7 +133,7 @@ describe("Admin Workflow Tests", () => {
     cy.verifyDownload('.csv', { contains: true });
   });
 
-  it("Tests fancy filter is present and triggers graphQL", () => {
+  it("Opens filter dialog and triggers GraphQL query", () => {
     // find the applicant user to review
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
