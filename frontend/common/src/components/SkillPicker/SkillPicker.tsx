@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useId } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import uniqueId from "lodash/uniqueId";
 
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
@@ -59,8 +58,9 @@ const SkillPicker = ({
     defaultValues,
   });
   const { watch, handleSubmit } = methods;
-  const skipToHeadingId = `selected-skills-heading-${skillType || uniqueId}`;
-  const queryInputId = `query-${skillType || uniqueId}`;
+  const staticId = useId();
+  const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
+  const queryInputId = `query-${skillType || staticId}`;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
