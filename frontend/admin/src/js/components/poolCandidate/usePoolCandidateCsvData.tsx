@@ -159,11 +159,27 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "preferredLanguage",
+      key: "preferredCommunicationLanguage",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Language",
-        id: "p0e6Y5",
-        description: "CSV Header, Preferred Language column",
+        defaultMessage: "Preferred Communication Language",
+        id: "d9OIGt",
+        description: "CSV Header, Preferred Communication Language column",
+      }),
+    },
+    {
+      key: "preferredLanguageForInterview",
+      label: intl.formatMessage({
+        defaultMessage: "Preferred Spoken Interview Language",
+        id: "P+m8Wl",
+        description: "CSV Header, Preferred Spoken Interview Language column",
+      }),
+    },
+    {
+      key: "preferredLanguageForExam",
+      label: intl.formatMessage({
+        defaultMessage: "Preferred Written Exam Language",
+        id: "K7fcQT",
+        description: "CSV Header, Preferred Written Exam Language column",
       }),
     },
     {

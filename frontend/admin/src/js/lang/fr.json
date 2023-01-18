@@ -271,10 +271,6 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
-  "ZP3GYM": {
-    "defaultMessage": "Erreur : Nom introuvable.",
-    "description": "Error message displayed on the single search request table operational requirements column."
-  },
   "ZbpbD6": {
     "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
