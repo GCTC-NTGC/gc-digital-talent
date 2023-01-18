@@ -1,36 +1,56 @@
 {
   "hydrogen-query": {
     "prefix": "h2-query",
-    "body": ["${1:query}${2::modifiers}(${3:options})"],
+    "body": ["${1:query}${2::modifiers}(${3:css})"],
     "description": "Adds a query to an existing Hydrogen attribute."
+  },
+  "hydrogen-accent-color": {
+    "prefix": "data-h2-accent-color",
+    "body": ["data-h2-accent-color=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-align-content": {
     "prefix": "data-h2-align-content",
-    "body": [
-      "data-h2-align-content=\"${1:query}${2::modifiers}(${3:alignment})\""
-    ]
+    "body": ["data-h2-align-content=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-align-items": {
     "prefix": "data-h2-align-items",
-    "body": [
-      "data-h2-align-items=\"${1:query}${2::modifiers}(${3:alignment})\""
-    ]
+    "body": ["data-h2-align-items=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-align-self": {
     "prefix": "data-h2-align-self",
-    "body": ["data-h2-align-self=\"${1:query}${2::modifiers}(${3:alignment})\""]
+    "body": ["data-h2-align-self=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-background": {
+    "prefix": ["data-h2-background", "data-h2-bg"],
+    "body": ["data-h2-background=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-background-color": {
     "prefix": ["data-h2-background-color", "data-h2-bg-color"],
-    "body": [
-      "data-h2-background-color=\"${1:query}${2::modifiers}(${3:color/gradient})\""
-    ]
+    "body": ["data-h2-background-color=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-background-image": {
+    "prefix": ["data-h2-background-image", "data-h2-bg-image"],
+    "body": ["data-h2-background-image=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-border": {
     "prefix": "data-h2-border",
-    "body": [
-      "data-h2-border=\"${1:query}${2::modifiers}(${3:sides}, ${4:width}, ${5:style}, ${6:color})\""
-    ]
+    "body": ["data-h2-border=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-clip-path": {
+    "prefix": ["data-h2-clip-path"],
+    "body": ["data-h2-clip-path=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-color": {
+    "prefix": ["data-h2-color", "data-h2-font-color"],
+    "body": ["data-h2-color=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-columns": {
+    "prefix": ["data-h2-columns", "data-h2-font-columns"],
+    "body": ["data-h2-columns=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-contain": {
+    "prefix": ["data-h2-contain", "data-h2-font-contain"],
+    "body": ["data-h2-contain=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-container": {
     "prefix": "data-h2-container",
@@ -40,21 +60,27 @@
   },
   "hydrogen-cursor": {
     "prefix": "data-h2-cursor",
-    "body": ["data-h2-cursor=\"${1:query}${2::modifiers}(${3:cursor})\""]
+    "body": ["data-h2-cursor=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-display": {
     "prefix": "data-h2-display",
-    "body": ["data-h2-display=\"${1:query}${2::modifiers}(${3:display})\""]
+    "body": ["data-h2-display=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-fill": {
+    "prefix": ["data-h2-fill"],
+    "body": ["data-h2-fill=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-flex": {
+    "prefix": "data-h2-flex",
+    "body": ["data-h2-flex=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-flex-basis": {
     "prefix": "data-h2-flex-basis",
-    "body": ["data-h2-flex-basis=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-flex-basis=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-flex-direction": {
     "prefix": "data-h2-flex-direction",
-    "body": [
-      "data-h2-flex-direction=\"${1:query}${2::modifiers}(${3:direction})\""
-    ]
+    "body": ["data-h2-flex-direction=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-flex-grid": {
     "prefix": "data-h2-flex-grid",
@@ -64,208 +90,260 @@
   },
   "hydrogen-flex-grow": {
     "prefix": "data-h2-flex-grow",
-    "body": ["data-h2-flex-grow=\"${1:query}${2::modifiers}(${3:grow})\""]
+    "body": ["data-h2-flex-grow=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-flex-item": {
     "prefix": "data-h2-flex-item",
-    "body": ["data-h2-flex-item=\"${1:query}${2::modifiers}(${3:X/Y})\""]
+    "body": ["data-h2-flex-item=\"${1:query}${2::modifiers}(${3:X}/${4:Y})\""]
   },
   "hydrogen-flex-wrap": {
     "prefix": "data-h2-flex-wrap",
-    "body": ["data-h2-flex-wrap=\"${1:query}${2::modifiers}(${3:wrap})\""]
-  },
-  "hydrogen-font-color": {
-    "prefix": ["data-h2-color", "data-h2-font-color"],
-    "body": ["data-h2-color=\"${1:query}${2::modifiers}(${3:color/gradient})\""]
+    "body": ["data-h2-flex-wrap=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-font-family": {
     "prefix": "data-h2-font-family",
-    "body": ["data-h2-font-family=\"${1:query}${2::modifiers}(${3:family})\""]
+    "body": ["data-h2-font-family=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-font-size": {
     "prefix": "data-h2-font-size",
-    "body": [
-      "data-h2-font-size=\"${1:query}${2::modifiers}(${3:size}, ${4:optional-line-height})\""
-    ]
+    "body": ["data-h2-font-size=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-font-style": {
     "prefix": "data-h2-font-style",
-    "body": ["data-h2-font-style=\"${1:query}${2::modifiers}(${3:style})\""]
+    "body": ["data-h2-font-style=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-font-weight": {
     "prefix": "data-h2-font-weight",
-    "body": ["data-h2-font-weight=\"${1:query}${2::modifiers}(${3:weight})\""]
+    "body": ["data-h2-font-weight=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-height": {
     "prefix": "data-h2-height",
-    "body": ["data-h2-height=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-height=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-gap": {
     "prefix": ["data-h2-gap", "data-h2-gutter"],
-    "body": [
-      "data-h2-gap=\"${1:query}${2::modifiers}(${3:column-gap-unit}, ${4:row-gap-unit})\""
-    ]
+    "body": ["data-h2-gap=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-grid-column": {
     "prefix": "data-h2-grid-column",
-    "body": ["data-h2-grid-column=\"${1:query}${2::modifiers}(${3:span})\""]
+    "body": ["data-h2-grid-column=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-grid-row": {
     "prefix": "data-h2-grid-row",
-    "body": ["data-h2-grid-row=\"${1:query}${2::modifiers}(${3:span})\""]
+    "body": ["data-h2-grid-row=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-grid-template": {
+    "prefix": "data-h2-grid-template",
+    "body": ["data-h2-grid-template=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-grid-template-columns": {
     "prefix": "data-h2-grid-template-columns",
     "body": [
-      "data-h2-grid-template-columns=\"${1:query}${2::modifiers}(${3:template})\""
+      "data-h2-grid-template-columns=\"${1:query}${2::modifiers}(${3:css})\""
     ]
   },
   "hydrogen-grid-template-rows": {
     "prefix": "data-h2-grid-template-rows",
     "body": [
-      "data-h2-grid-template-rows=\"${1:query}${2::modifiers}(${3:template})\""
+      "data-h2-grid-template-rows=\"${1:query}${2::modifiers}(${3:css})\""
     ]
   },
   "hydrogen-justify-content": {
     "prefix": "data-h2-justify-content",
-    "body": [
-      "data-h2-justify-content=\"${1:query}${2::modifiers}(${3:justification})\""
-    ]
+    "body": ["data-h2-justify-content=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-justify-items": {
     "prefix": "data-h2-justify-items",
-    "body": [
-      "data-h2-justify-items=\"${1:query}${2::modifiers}(${3:justification})\""
-    ]
+    "body": ["data-h2-justify-items=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-layer": {
     "prefix": "data-h2-layer",
     "body": [
-      "data-h2-layer=\"${1:query}${2::modifiers}(${3:z-index}, ${4:position})\""
+      "data-h2-layer=\"${1:query}${2::modifiers}${3:index}, ${4:position})\""
     ]
   },
   "hydrogen-list-style": {
     "prefix": "data-h2-list-style",
-    "body": ["data-h2-list-style=\"${1:query}${2::modifiers}(${3:style})\""]
+    "body": ["data-h2-list-style=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-list-style-position": {
+    "prefix": "data-h2-list-style-position",
+    "body": [
+      "data-h2-list-style-position=\"${1:query}${2::modifiers}(${3:css})\""
+    ]
   },
   "hydrogen-line-height": {
     "prefix": ["data-h2-line-height", "data-h2-leading"],
+    "body": ["data-h2-line-height=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-location": {
+    "prefix": ["data-h2-location"],
     "body": [
-      "data-h2-line-height=\"${1:query}${2::modifiers}(${3:line-height})\""
+      "data-h2-location=\"${1:query}${2::modifiers}(${3:top}, ${4:right}, ${5:bottom}, ${6:left})\""
     ]
   },
   "hydrogen-margin": {
     "prefix": "data-h2-margin",
-    "body": [
-      "data-h2-margin=\"${1:query}${2::modifiers}(${3:top}, ${4:right}, ${5:bottom}, ${6:left})\""
-    ]
+    "body": ["data-h2-margin=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-margin-top": {
+    "prefix": "data-h2-margin-top",
+    "body": ["data-h2-margin-top=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-margin-right": {
+    "prefix": "data-h2-margin-right",
+    "body": ["data-h2-margin-right=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-margin-bottom": {
+    "prefix": "data-h2-margin-bottom",
+    "body": ["data-h2-margin-bottom=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-margin-left": {
+    "prefix": "data-h2-margin-left",
+    "body": ["data-h2-margin-left=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-max-height": {
     "prefix": "data-h2-max-height",
-    "body": ["data-h2-max-height=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-max-height=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-max-width": {
     "prefix": "data-h2-max-width",
-    "body": ["data-h2-max-width=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-max-width=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-min-height": {
     "prefix": "data-h2-min-height",
-    "body": ["data-h2-min-height=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-min-height=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-min-width": {
     "prefix": "data-h2-min-width",
-    "body": ["data-h2-min-width=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-min-width=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-offset": {
-    "prefix": ["data-h2-offset", "data-h2-location"],
-    "body": [
-      "data-h2-offset=\"${1:query}${2::modifiers}(${3:top}, ${4:right}, ${5:bottom}, ${6:left})\""
-    ]
+    "prefix": ["data-h2-offset"],
+    "body": ["data-h2-offset=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-opacity": {
     "prefix": ["data-h2-opacity"],
-    "body": ["data-h2-opacity=\"${1:query}${2::modifiers}(${3:opacity})\""]
+    "body": ["data-h2-opacity=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-order": {
     "prefix": "data-h2-order",
-    "body": ["data-h2-order=\"${1:query}${2::modifiers}(${3:order})\""]
+    "body": ["data-h2-order=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-outline": {
     "prefix": "data-h2-outline",
-    "body": ["data-h2-outline=\"${1:query}${2::modifiers}(${3:outline})\""]
+    "body": ["data-h2-outline=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-overflow": {
     "prefix": "data-h2-overflow",
-    "body": [
-      "data-h2-overflow=\"${1:query}${2::modifiers}(${3:x-overflow}, ${4:y-overflow})\""
-    ]
+    "body": ["data-h2-overflow=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-overlay": {
     "prefix": "data-h2-overlay",
     "body": [
-      "data-h2-overlay=\"${1:query}${2::modifiers}(${3:color}, ${4:opacity})\""
+      "data-h2-overlay=\"${1:query}${2::modifiers}(${3:color/gradient}, ${4:opacity})\""
     ]
   },
   "hydrogen-padding": {
     "prefix": "data-h2-padding",
-    "body": [
-      "data-h2-padding=\"${1:query}${2::modifiers}(${3:top}, ${4:right}, ${5:bottom}, ${6:left})\""
-    ]
+    "body": ["data-h2-padding=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-padding-top": {
+    "prefix": "data-h2-padding-top",
+    "body": ["data-h2-padding-top=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-padding-right": {
+    "prefix": "data-h2-padding-right",
+    "body": ["data-h2-padding-right=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-padding-bottom": {
+    "prefix": "data-h2-padding-bottom",
+    "body": ["data-h2-padding-bottom=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-padding-left": {
+    "prefix": "data-h2-padding-left",
+    "body": ["data-h2-padding-left=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-position": {
     "prefix": "data-h2-position",
-    "body": ["data-h2-position=\"${1:query}${2::modifiers}(${3:position})\""]
+    "body": ["data-h2-position=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-radius": {
     "prefix": "data-h2-radius",
-    "body": ["data-h2-radius=\"${1:query}${2::modifiers}(${3:radius})\""]
+    "body": ["data-h2-radius=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-shadow": {
-    "prefix": "data-h2-shadow",
-    "body": ["data-h2-shadow=\"${1:query}${2::modifiers}(${3:shadow})\""]
+    "prefix": ["data-h2-shadow", "data-h2-box-shadow"],
+    "body": ["data-h2-shadow=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-stroke": {
+    "prefix": "data-h2-stroke",
+    "body": ["data-h2-stroke=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-text-align": {
     "prefix": "data-h2-text-align",
-    "body": ["data-h2-text-align=\"${1:query}${2::modifiers}(${3:alignment})\""]
+    "body": ["data-h2-text-align=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-text-decoration": {
     "prefix": "data-h2-text-decoration",
-    "body": [
-      "data-h2-text-decoration=\"${1:query}${2::modifiers}(${3:decoration})\""
-    ]
+    "body": ["data-h2-text-decoration=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-text-emphasis": {
+    "prefix": "data-h2-text-emphasis",
+    "body": ["data-h2-text-emphasis=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-text-indent": {
+    "prefix": "data-h2-text-indent",
+    "body": ["data-h2-text-indent=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-text-shadow": {
+    "prefix": "data-h2-text-shadow",
+    "body": ["data-h2-text-shadow=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-text-transform": {
     "prefix": "data-h2-text-transform",
-    "body": [
-      "data-h2-text-transform=\"${1:query}${2::modifiers}(${3:transformation})\""
-    ]
+    "body": ["data-h2-text-transform=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-top": {
+    "prefix": "data-h2-top",
+    "body": ["data-h2-top=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-right": {
+    "prefix": "data-h2-right",
+    "body": ["data-h2-right=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-bottom": {
+    "prefix": "data-h2-bottom",
+    "body": ["data-h2-bottom=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-left": {
+    "prefix": "data-h2-left",
+    "body": ["data-h2-left=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-transform": {
     "prefix": "data-h2-transform",
-    "body": [
-      "data-h2-transform=\"${1:query}${2::modifiers}(${3:transformation})\""
-    ]
+    "body": ["data-h2-transform=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-transition": {
     "prefix": "data-h2-transition",
-    "body": [
-      "data-h2-transition=\"${1:query}${2::modifiers}(${3:property}, ${4:duration}, ${5:function}, ${6:delay})\""
-    ]
+    "body": ["data-h2-transition=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-vertical-align": {
     "prefix": "data-h2-vertical-align",
-    "body": [
-      "data-h2-vertical-align=\"${1:query}${2::modifiers}(${3:alignment})\""
-    ]
+    "body": ["data-h2-vertical-align=\"${1:query}${2::modifiers}(${3:css})\""]
   },
   "hydrogen-visibility": {
     "prefix": "data-h2-visibility",
+    "body": ["data-h2-visibility=\"${1:query}${2::modifiers}(${3:css})\""]
+  },
+  "hydrogen-visually-hidden": {
+    "prefix": "data-h2-visually-hidden",
     "body": [
-      "data-h2-visibility=\"${1:query}${2::modifiers}(${3:visibility})\""
+      "data-h2-visually-hidden=\"${1:query}${2::modifiers}(${3|visible,invisible,hidden|})\""
     ]
   },
   "hydrogen-width": {
     "prefix": "data-h2-width",
-    "body": ["data-h2-width=\"${1:query}${2::modifiers}(${3:size})\""]
+    "body": ["data-h2-width=\"${1:query}${2::modifiers}(${3:css})\""]
   }
 }

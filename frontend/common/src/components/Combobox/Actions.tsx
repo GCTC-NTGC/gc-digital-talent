@@ -19,7 +19,7 @@ const layoutStyles = {
 const buttonStyles = {
   "data-h2-background-color": "base(transparent) base:hover(dt-gray.lightest)",
   "data-h2-border":
-    "base(all, 2px, solid, transparent) base:focus-visible(all, 2px, solid, tm-blue)",
+    "base(2px solid transparent) base:focus-visible(2px solid tm-blue)",
   "data-h2-radius": "base(input)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-outline": "base(none)",
@@ -48,13 +48,13 @@ const Actions = ({
   return (
     <div
       data-h2-display="base(flex)"
-      data-h2-gap="base(x.1, 0)"
+      data-h2-gap="base(0, x.1)"
       data-h2-position="base(absolute)"
-      data-h2-offset="base(x.25, x.25, x.25, auto)"
+      data-h2-location="base(x.25, x.25, x.25, auto)"
     >
       {fetching && (
         <span aria-live="polite" {...layoutStyles}>
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Searching...",
               id: "4l+gBD",

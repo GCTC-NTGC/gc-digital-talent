@@ -155,10 +155,6 @@
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "TFeQL2": {
     "defaultMessage": "Accueil",
     "description": "Link to the homepage for indigenous apprenticeship program."

@@ -52,7 +52,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
             data-h2-width="base(x1)"
             data-h2-margin="base(0, 0, 0, x.25)"
           />
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {" "}
             {intl.formatMessage({
               defaultMessage: "(opens in new tab)",
