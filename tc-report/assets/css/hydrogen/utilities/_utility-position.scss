@@ -11,7 +11,7 @@ $h2-map-position: (
 @mixin h2-utility-position($mediaKey) {
   @each $positionKey, $positionValue in $h2-map-position {
     [data-h2-position*='#{$mediaKey}(#{$positionKey})'],
-    [data-h2-position*='#{$mediaKey}(#{$positionKey})'][data-h2-visibility] {
+    [data-h2-position*='#{$mediaKey}(#{$positionKey})'][data-h2-visually-hidden] {
       position: #{$positionValue};
       @if $positionKey == 'sticky' {
         top: 0;

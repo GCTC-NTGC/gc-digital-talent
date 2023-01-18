@@ -4,16 +4,16 @@ export type BorderMapKey = "cta" | "dt-primary" | "dt-secondary" | "dt-gray";
 
 export const borderMap: Record<BorderMapKey, Record<string, string>> = {
   cta: {
-    "data-h2-border": "base(left, x1, solid, dt-accent)",
+    "data-h2-border-left": "base(x1 solid dt-accent)",
   },
   "dt-primary": {
-    "data-h2-border": "base(left, x1, solid, dt-primary)",
+    "data-h2-border-left": "base(x1 solid dt-primary)",
   },
   "dt-secondary": {
-    "data-h2-border": "base(left, x1, solid, dt-secondary)",
+    "data-h2-border-left": "base(x1 solid dt-secondary)",
   },
   "dt-gray": {
-    "data-h2-border": "base(left, x1, solid, dt-gray)",
+    "data-h2-border-left": "base(x1 solid dt-gray)",
   },
 };
 

@@ -11,7 +11,7 @@ const About = () => {
   const { locale } = useLocale();
   return (
     <div
-      data-h2-background-color="base(tm-linear-footer)"
+      data-h2-background="base(tm-linear-footer)"
       data-h2-layer="base(1, relative)"
       data-h2-margin="base(-3%, 0, 0, 0)"
     >

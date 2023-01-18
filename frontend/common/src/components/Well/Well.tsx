@@ -6,7 +6,7 @@ export interface WellProps extends React.HTMLProps<HTMLDivElement> {
 
 const Well = ({ children, ...rest }: WellProps) => (
   <div
-    data-h2-background-color="base(light.dt-gray)"
+    data-h2-background-color="base(dt-gray.light)"
     data-h2-padding="base(x1)"
     data-h2-radius="base(s)"
     {...rest}

@@ -56,6 +56,10 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
+      expectedClassifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -92,6 +96,10 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -490,7 +498,7 @@ export const UserTable = () => {
 
   return (
     <div data-h2-margin="base(x1, 0)">
-      <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
+      <h2 id="user-table-heading" data-h2-visually-hidden="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
           id: "VlI1K4",

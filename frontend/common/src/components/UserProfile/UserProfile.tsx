@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import {
   ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
   BuildingLibraryIcon,
   LightBulbIcon,
   BoltIcon,
@@ -20,6 +21,7 @@ import GovernmentInformationSection from "./ProfileSections/GovernmentInformatio
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
+import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import ExperienceSection from "./ExperienceSection";
 import type { HeadingLevel } from "../Heading";
 
@@ -43,6 +45,7 @@ export interface UserProfileProps {
     hiringPools?: SectionControl;
     language?: SectionControl;
     myStatus?: SectionControl;
+    roleSalary?: SectionControl;
     skillsExperience?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
@@ -200,6 +203,16 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 id: "e2R6fy",
                 description:
                   "Title of the Diversity, equity and inclusion link section",
+              })}
+            </TableOfContents.AnchorLink>
+          )}
+          {showSection("roleSalary") && (
+            <TableOfContents.AnchorLink id="role-and-salary-section">
+              {intl.formatMessage({
+                defaultMessage: "Role and salary expectations",
+                id: "95OYVk",
+                description:
+                  "Title of the Role and salary expectations link section",
               })}
             </TableOfContents.AnchorLink>
           )}
@@ -513,6 +526,47 @@ const UserProfile: React.FC<UserProfileProps> = ({
               <DiversityEquityInclusionSection
                 applicant={applicant}
                 editPath={sections.employmentEquity?.editUrl}
+              />
+            )}
+          </TableOfContents.Section>
+        )}
+        {showSection("roleSalary") && (
+          <TableOfContents.Section id="role-and-salary-section">
+            <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                <TableOfContents.Heading
+                  as={headingLevel}
+                  icon={CurrencyDollarIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Role and salary expectations",
+                    id: "uMzeiF",
+                    description:
+                      "Title of the Role and salary expectations section",
+                  })}
+                </TableOfContents.Heading>
+              </div>
+              {sections.roleSalary?.editUrl && (
+                <EditUrlLink
+                  link={sections.roleSalary.editUrl}
+                  text={intl.formatMessage({
+                    defaultMessage: "Edit Role and Salary",
+                    id: "CEzDTC",
+                    description:
+                      "Text on link to update a users role and salary expectations.",
+                  })}
+                />
+              )}
+            </HeadingWrapper>
+            {sections.roleSalary?.override ? (
+              sections.roleSalary.override
+            ) : (
+              <RoleSalarySection
+                applicant={applicant}
+                editPath={sections.roleSalary?.editUrl}
               />
             )}
           </TableOfContents.Section>

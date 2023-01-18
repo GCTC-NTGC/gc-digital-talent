@@ -14,8 +14,8 @@ const StyledOverlay = React.forwardRef<
     data-h2-display="base(grid)"
     data-h2-position="base(fixed)"
     data-h2-background-color="base(black.85)"
-    data-h2-offset="base(0)"
-    data-h2-overflow="base(inherit, auto)"
+    data-h2-location="base(0)"
+    data-h2-overflow="base(visible auto)"
     style={{ placeItems: "center", zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
@@ -78,7 +78,7 @@ const Content = React.forwardRef<
               data-h2-color="base(dt-white)"
               data-h2-cursor="base(pointer)"
               data-h2-line-height="base(0)"
-              data-h2-offset="base(x.5, x.5, auto, auto)"
+              data-h2-location="base(x.5, x.5, auto, auto)"
               data-h2-padding="base(x.5)"
               data-h2-position="base(absolute)"
               data-h2-radius="base(circle)"
@@ -132,7 +132,7 @@ type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "base(dt-linear)",
+    "data-h2-background": "base(dt-linear)",
     "data-h2-color": "base(dt-white)",
   },
   "ts-secondary": {
@@ -140,11 +140,11 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-linear-secondary)",
+    "data-h2-background": "base(ia-linear-secondary)",
     "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "base(ia-secondary)",
+    "data-h2-background": "base(ia-secondary)",
     "data-h2-color": "base(ia-white)",
   },
 };
@@ -183,7 +183,7 @@ interface DialogFooterProps {
 const Footer = ({ children }: DialogFooterProps) => (
   <div
     data-h2-align-items="base(center)"
-    data-h2-border="base(top, 1px, solid, dt-gray.dark)"
+    data-h2-border-top="base(1px solid dt-gray.dark)"
     data-h2-display="base(flex)"
     data-h2-justify-content="base(flex-end)"
     data-h2-margin="base(x1, 0, 0, 0)"
