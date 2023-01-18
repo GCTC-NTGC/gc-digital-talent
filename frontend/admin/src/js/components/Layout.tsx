@@ -50,24 +50,18 @@ const Layout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
 
-  // use local storage for menu preference, true = open and false = closed
-  const [menuPreference, setMenuPreference] = useLocalStorage(
+  // retain menu preference in storage
+  const [isMenuOpen, setMenuOpen] = useLocalStorage(
     "digitaltalent-menustate",
     true,
   );
-  let initialMenuState = menuPreference;
-  if (isSmallScreen) {
-    initialMenuState = false; // override menu preference to be closed for small screens
-  }
-  const [isMenuOpen, setMenuOpen] = React.useState(initialMenuState);
   React.useEffect(() => {
     if (isSmallScreen) {
       setMenuOpen(false); // collapse menu if window resized to small
     }
-  }, [isSmallScreen]);
+  }, [isSmallScreen, setMenuOpen]);
 
   const handleMenuToggle = () => {
-    setMenuPreference(!isMenuOpen);
     setMenuOpen(!isMenuOpen);
   };
 
