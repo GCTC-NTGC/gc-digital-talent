@@ -176,6 +176,7 @@ const SkillSelection = ({
           <Heading level="h3" size="h6" data-h2-font-weight="base(400)">
             {intl.formatMessage({
               defaultMessage: "How this skill is defined",
+              id: "ZP30Tz",
               description: "Heading for a specific skills definition",
             })}
           </Heading>
