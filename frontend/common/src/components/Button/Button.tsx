@@ -32,37 +32,37 @@ export const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-primary)",
+      "data-h2-border": "base(1px solid dt-primary)",
       "data-h2-background-color":
-        "base(dt-primary) base:hover(dark.dt-primary)",
+        "base(dt-primary) base:hover(dt-primary.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-primary)",
+      "data-h2-border": "base(1px solid dt-primary)",
       "data-h2-background-color": "base(dt-primary.10)",
       "data-h2-color": "base(dt-primary)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color":
-        "base(transparent) base:focus-visible(light.dt-primary.15)",
-      "data-h2-color": "base(dt-primary) base:focus-visible(dark.dt-primary)",
+        "base(transparent) base:focus-visible(dt-primary.light.15)",
+      "data-h2-color": "base(dt-primary) base:focus-visible(dt-primary.dark)",
     },
     tableHeader: {},
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary.light)",
+      "data-h2-border": "base(1px solid dt-secondary.light)",
       "data-h2-background-color": "base(dt-secondary.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary.light)",
+      "data-h2-border": "base(1px solid dt-secondary.light)",
       "data-h2-background-color": "base(dt-secondary.light.10)",
       "data-h2-color": "base(dt-secondary.light)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(dt-secondary.light)",
     },
@@ -77,35 +77,35 @@ export const colorMap: Record<
   },
   cta: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-accent)",
-      "data-h2-background-color": "base(dark.dt-accent)",
+      "data-h2-border": "base(1px solid dt-accent.dark)",
+      "data-h2-background-color": "base(dt-accent.dark)",
       "data-h2-color": "base(dt-black)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-accent)",
-      "data-h2-background-color": "base(light.dt-accent.10)",
-      "data-h2-color": "base(dark.dt-accent)",
+      "data-h2-border": "base(1px solid dt-accent.dark)",
+      "data-h2-background-color": "base(dt-accent.light.10)",
+      "data-h2-color": "base(dt-accent.dark)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dark.dt-accent)",
+      "data-h2-color": "base(dt-accent.dark)",
     },
     tableHeader: {},
   },
   white: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-white)",
+      "data-h2-border": "base(1px solid dt-white)",
       "data-h2-background-color": "base(dt-white)",
       "data-h2-color": "base(dt-primary)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-white)",
+      "data-h2-border": "base(1px solid dt-white)",
       "data-h2-background-color": "base(dt-white.10)",
       "data-h2-color": "base(dt-white)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(dt-white)",
     },
@@ -113,17 +113,17 @@ export const colorMap: Record<
   },
   black: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-black)",
+      "data-h2-border": "base(1px solid dt-black)",
       "data-h2-background-color": "base(dt-black)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-black)",
+      "data-h2-border": "base(1px solid dt-black)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(dt-black)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(dt-black)",
     },
@@ -131,17 +131,17 @@ export const colorMap: Record<
   },
   "ia-primary": {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, ia-primary)",
+      "data-h2-border": "base(1px solid ia-primary)",
       "data-h2-background-color": "base(ia-primary)",
       "data-h2-color": "base(ia-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, ia-primary)",
-      "data-h2-background-color": "base(light.ia-primary.10)",
+      "data-h2-border": "base(1px solid ia-primary)",
+      "data-h2-background-color": "base(ia-primary.light.10)",
       "data-h2-color": "base(ia-primary)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(ia-primary)",
     },
@@ -149,17 +149,17 @@ export const colorMap: Record<
   },
   "ia-secondary": {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, ia-secondary)",
+      "data-h2-border": "base(1px solid ia-secondary)",
       "data-h2-background-color": "base(ia-secondary)",
       "data-h2-color": "base(ia-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, ia-secondary)",
-      "data-h2-background-color": "base(light.ia-secondary.10)",
+      "data-h2-border": "base(1px solid ia-secondary)",
+      "data-h2-background-color": "base(ia-secondary.light.10)",
       "data-h2-color": "base(ia-secondary)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(ia-secondary)",
     },
@@ -170,18 +170,18 @@ export const colorMap: Record<
       "data-h2-background-color":
         "base(tm-yellow) base:hover(tm-yellow.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(all, 3px, solid, tm-yellow) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-yellow) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(all, 3px, solid, tm-yellow) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-yellow) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
         "base(tm-yellow.lighter) base:hover(tm-yellow) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(tm-yellow)",
     },
@@ -192,18 +192,18 @@ export const colorMap: Record<
       "data-h2-background-color":
         "base(tm-purple) base:hover(tm-purple.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(all, 3px, solid, tm-purple) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-purple) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(all, 3px, solid, tm-purple) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-purple) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
         "base(tm-purple.lighter) base:hover(tm-purple) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(tm-purple)",
     },
@@ -214,18 +214,18 @@ export const colorMap: Record<
       "data-h2-background-color":
         "base(tm-red) base:hover(tm-red.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(all, 3px, solid, tm-red) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-red) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(all, 3px, solid, tm-red) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-red) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
         "base(tm-red.lighter) base:hover(tm-red) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(tm-red)",
     },
@@ -236,18 +236,18 @@ export const colorMap: Record<
       "data-h2-background-color":
         "base(tm-blue) base:hover(tm-blue.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(all, 3px, solid, tm-blue) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-blue) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(all, 3px, solid, tm-blue) base:focus-visible(all, 3px, solid, focus)",
+        "base(3px solid tm-blue) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
         "base(tm-blue.lighter) base:hover(tm-blue) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
-      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(tm-blue)",
     },

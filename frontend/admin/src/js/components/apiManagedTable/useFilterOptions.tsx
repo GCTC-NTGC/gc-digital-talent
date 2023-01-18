@@ -66,6 +66,12 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
+    classifications: filterRes.data?.classifications
+      .filter(notEmpty)
+      .map(({ group, level }) => ({
+        value: `${group}-${level}`,
+        label: `${group}-0${level}`,
+      })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),

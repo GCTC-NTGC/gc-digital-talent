@@ -49,7 +49,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
     <div data-h2-flex-item="base(content)">
       <div
         data-h2-position="base(sticky)"
-        data-h2-offset="base(0, auto, auto, auto)"
+        data-h2-location="base(0, auto, auto, auto)"
         data-h2-height="base(100vh)"
       >
         <FocusLock
@@ -60,7 +60,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
         >
           <RemoveScroll
             enabled={isSmallScreen && isOpen}
-            data-h2-background-color="base(light.dt-secondary)"
+            data-h2-background-color="base(dt-secondary.light)"
             data-h2-overflow="base(auto)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"

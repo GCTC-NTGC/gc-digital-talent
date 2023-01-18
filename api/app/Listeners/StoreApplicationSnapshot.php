@@ -32,6 +32,8 @@ class StoreApplicationSnapshot
         $user = User::with([
             'department',
             'currentClassification',
+            'expectedClassifications',
+            'expectedGenericJobTitles',
             'awardExperiences',
             'communityExperiences',
             'educationExperiences',

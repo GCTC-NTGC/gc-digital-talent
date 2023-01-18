@@ -1,4 +1,4 @@
-[data-h2-visibility*="MEDIAKEY(invisible)"] {
+[data-h2-visually-hidden*="MEDIAKEY(invisible)"] {
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -7,12 +7,12 @@
   width: 1px;
 }
 
-[data-h2-visibility*="MEDIAKEY(hidden)"] {
+[data-h2-visually-hidden*="MEDIAKEY(hidden)"] {
   display: none;
   visibility: hidden;
 }
 
-[data-h2-visibility*="MEDIAKEY(visible)"] {
+[data-h2-visually-hidden*="MEDIAKEY(visible)"] {
   display: block;
   height: auto;
   overflow: auto;
@@ -23,7 +23,7 @@
   visibility: visible;
 }
 
-[data-h2-visibility*="MEDIAKEY:a(invisible)"]:active {
+[data-h2-visually-hidden*="MEDIAKEY:a(invisible)"]:active {
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -32,12 +32,12 @@
   width: 1px;
 }
 
-[data-h2-visibility*="MEDIAKEY:a(hidden)"]:active {
+[data-h2-visually-hidden*="MEDIAKEY:a(hidden)"]:active {
   display: none;
   visibility: hidden;
 }
 
-[data-h2-visibility*="MEDIAKEY:a(visible)"]:active {
+[data-h2-visually-hidden*="MEDIAKEY:a(visible)"]:active {
   display: block;
   height: auto;
   overflow: auto;
@@ -48,7 +48,7 @@
   visibility: visible;
 }
 
-[data-h2-visibility*="MEDIAKEY:h(invisible)"]:hover {
+[data-h2-visually-hidden*="MEDIAKEY:h(invisible)"]:hover {
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -57,12 +57,12 @@
   width: 1px;
 }
 
-[data-h2-visibility*="MEDIAKEY:h(hidden)"]:hover {
+[data-h2-visually-hidden*="MEDIAKEY:h(hidden)"]:hover {
   display: none;
   visibility: hidden;
 }
 
-[data-h2-visibility*="MEDIAKEY:h(visible)"]:hover {
+[data-h2-visually-hidden*="MEDIAKEY:h(visible)"]:hover {
   display: block;
   height: auto;
   overflow: auto;
@@ -73,7 +73,7 @@
   visibility: visible;
 }
 
-[data-h2-visibility*="MEDIAKEY:f(invisible)"]:focus {
+[data-h2-visually-hidden*="MEDIAKEY:f(invisible)"]:focus {
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -82,12 +82,12 @@
   width: 1px;
 }
 
-[data-h2-visibility*="MEDIAKEY:f(hidden)"]:focus {
+[data-h2-visually-hidden*="MEDIAKEY:f(hidden)"]:focus {
   display: none;
   visibility: hidden;
 }
 
-[data-h2-visibility*="MEDIAKEY:f(visible)"]:focus {
+[data-h2-visually-hidden*="MEDIAKEY:f(visible)"]:focus {
   display: block;
   height: auto;
   overflow: auto;
@@ -98,7 +98,7 @@
   visibility: visible;
 }
 
-[data-h2-visibility*="MEDIAKEY:d(invisible)"]:disabled {
+[data-h2-visually-hidden*="MEDIAKEY:d(invisible)"]:disabled {
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -107,12 +107,12 @@
   width: 1px;
 }
 
-[data-h2-visibility*="MEDIAKEY:d(hidden)"]:disabled {
+[data-h2-visually-hidden*="MEDIAKEY:d(hidden)"]:disabled {
   display: none;
   visibility: hidden;
 }
 
-[data-h2-visibility*="MEDIAKEY:d(visible)"]:disabled {
+[data-h2-visually-hidden*="MEDIAKEY:d(visible)"]:disabled {
   display: block;
   height: auto;
   overflow: auto;

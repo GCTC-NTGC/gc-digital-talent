@@ -132,6 +132,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
               workLocation: { isVisible: true },
               workPreferences: { isVisible: true },
               employmentEquity: { isVisible: true },
+              roleSalary: { isVisible: true },
               skillsExperience: { isVisible: true },
             }}
           />

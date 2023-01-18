@@ -83,13 +83,14 @@ function BasicTable<T extends RecordWithId>({
   return (
     <div
       data-h2-radius="base(s, s, 0px, 0px)"
-      data-h2-border="base(right-left, 1px, solid, dt-secondary)"
+      data-h2-border-right="base(1px solid dt-secondary)"
+      data-h2-border-left="base(1px solid dt-secondary)"
       data-h2-overflow="base(auto)"
       data-h2-max-width="base(100%)"
     >
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <caption>
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Column headers with buttons are sortable",
               id: "/bwX1a",

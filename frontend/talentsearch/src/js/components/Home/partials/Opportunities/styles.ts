@@ -7,18 +7,18 @@ export type HomeButtonColor = Extract<
 
 export const colorMap: Record<HomeButtonColor, Record<string, string>> = {
   yellow: {
-    "data-h2-border": "base(left, x.25, solid, tm-yellow)",
+    "data-h2-border-left": "base(x.25 solid tm-yellow)",
   },
   red: {
-    "data-h2-border": "base(left, x.25, solid, tm-red)",
+    "data-h2-border-left": "base(x.25 solid tm-red)",
   },
   blue: {
-    "data-h2-border": "base(left, x.25, solid, tm-blue)",
+    "data-h2-border-left": "base(x.25 solid tm-blue)",
   },
   black: {
-    "data-h2-border": "base(left, x.25, solid, black)",
+    "data-h2-border-left": "base(x.25 solid black)",
   },
   purple: {
-    "data-h2-border": "base(left, x.25, solid, tm-purple)",
+    "data-h2-border-left": "base(x.25 solid tm-purple)",
   },
 };

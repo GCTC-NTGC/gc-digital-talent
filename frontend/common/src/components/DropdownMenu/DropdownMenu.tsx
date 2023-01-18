@@ -89,7 +89,7 @@ const itemStyleProps = {
   "data-h2-align-items": "base(center)",
   "data-h2-background-color": "base(transparent) base:hover(dt-secondary.15)",
   "data-h2-color":
-    "base(dark.dt-secondary) base:selectors[[data-disabled]](dt-gray)",
+    "base(dt-secondary.dark) base:selectors[[data-disabled]](dt-gray)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",
@@ -162,7 +162,7 @@ const ItemIndicator = React.forwardRef<
     data-h2-align-items="base(center)"
     data-h2-display="base(inline-flex)"
     data-h2-justify-content="base(center)"
-    data-h2-offset="base(auto, auto, auto, 0)"
+    data-h2-location="base(auto, auto, auto, 0)"
     data-h2-position="base(absolute)"
     data-h2-width="base(x1)"
     data-h2-padding="base(x.25)"
