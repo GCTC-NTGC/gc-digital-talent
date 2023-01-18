@@ -82,7 +82,7 @@ describe("Admin Workflow Tests", () => {
       .findByRole("row", { name: /applicant/i })
       .findByRole("link", { name: /Edit/i })
       .should("exist")
-      .should('be.visible')
+      .should("be.visible")
       .click();
 
     cy.wait("@gqlUserQuery");
