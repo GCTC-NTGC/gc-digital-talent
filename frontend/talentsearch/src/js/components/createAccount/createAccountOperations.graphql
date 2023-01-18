@@ -1,7 +1,4 @@
 query getCreateAccountFormData {
-  me {
-    id
-  }
   classifications {
     id
     name {
