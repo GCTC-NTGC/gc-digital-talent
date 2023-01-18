@@ -122,7 +122,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
       .findByRole("button", { name: /select/i })
-      .should('be.visible')
+      .should("be.visible")
       .click();
 
     cy.wait("@gqlselectedUsersQuery");
