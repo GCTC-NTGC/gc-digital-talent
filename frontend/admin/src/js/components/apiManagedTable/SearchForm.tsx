@@ -6,20 +6,31 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import DropdownMenu from "@common/components/DropdownMenu";
 
 import { Button } from "@common/components";
-import type { SearchColumn } from "./basicTableHelpers";
+import type { SearchColumn, SearchState } from "./basicTableHelpers";
 
 export interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
   searchBy?: Array<SearchColumn>;
+  initialData?: SearchState;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
+const SearchForm: React.FC<SearchFormProps> = ({
+  onChange,
+  searchBy,
+  initialData,
+}) => {
   const intl = useIntl();
+
+  const initialColumn =
+    initialData?.type && searchBy
+      ? searchBy.find((column) => column.value === initialData?.type)
+      : undefined;
+
   const [column, setColumn] = React.useState<SearchColumn | undefined>(
-    undefined,
+    initialColumn,
   );
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    undefined,
+    initialData?.term,
   );
   const showDropdown = searchBy && searchBy.length;
 
@@ -42,12 +53,6 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
     onChange(searchTerm, col);
   };
 
-  React.useEffect(() => {
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-  }, [debouncedChangeHandler]);
-
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",
     id: "IMdFJM",
@@ -66,7 +71,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
               data-h2-align-items="base(center)"
               data-h2-display="base(flex)"
               data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(x.25, 0)"
+              data-h2-gap="base(0, x.25)"
               data-h2-radius="base(s, none, none, s)"
               data-h2-margin-right="base(0)"
               style={{ borderRightWidth: 0 }}
@@ -103,6 +108,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         id="tableSearch"
         type="text"
         onChange={debouncedChangeHandler}
+        defaultValue={initialData?.term}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
           id: "chFoB8",
@@ -114,7 +120,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="base(all, 1px, solid, dt-secondary)"
+        data-h2-border="base(1px solid dt-secondary)"
         data-h2-background-color="base(dt-white)"
         data-h2-padding="base(x.25, x.5)"
         data-h2-margin-left="base(0)"

@@ -80,8 +80,8 @@ const InputLabel: React.FC<InputLabelProps> = ({
                 data-h2-display="base(inline-block)"
                 data-h2-margin="base(0, 0, 0, x.125)"
                 {...(required
-                  ? { "data-h2-color": "base(dark.dt-error)" }
-                  : { "data-h2-color": "base(dark.dt-gray)" })}
+                  ? { "data-h2-color": "base(dt-error.dark)" }
+                  : { "data-h2-color": "base(dt-gray.dark)" })}
               >
                 (
                 {required
@@ -98,7 +98,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
               data-h2-margin="base(0, 0, 0, x.125)"
               onClick={clickHandler}
             >
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
                   id: "jhImZp",

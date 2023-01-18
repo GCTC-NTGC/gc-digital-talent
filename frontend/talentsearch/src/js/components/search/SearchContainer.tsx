@@ -55,6 +55,9 @@ const applicantFilterToQueryArgs = (
       where: {
         ...filter,
         equity: { ...filter?.equity },
+        expectedClassifications: filter?.expectedClassifications
+          ? pickMap(filter.expectedClassifications, ["group", "level"])
+          : [],
         // TODO: pickMap the skills array as well?
         // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
         // TODO: Add skills back in when most candidates in production have populated skills.
@@ -115,7 +118,7 @@ const ResultsDisplay = ({
       data-h2-shadow="base(m)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border="base(left, x1, solid, dt-gray.dark)"
+      data-h2-border-left="base(x1 solid dt-gray.dark)"
     >
       <p>
         {intl.formatMessage({

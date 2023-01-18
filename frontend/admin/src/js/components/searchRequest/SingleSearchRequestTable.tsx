@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
 import { identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
@@ -17,6 +16,8 @@ import {
   PoolCandidateFilter,
   ApplicantFilter,
   IdInput,
+  Classification,
+  ClassificationFilterInput,
   PoolCandidateSearchInput,
   PoolCandidateStatus,
 } from "../../api/generated";
@@ -72,7 +73,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
 > = ({ searchPoolCandidates }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -93,6 +93,26 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table candidate name column.",
         }),
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "MmFgbF",
+          description:
+            "Title displayed on the single search request table classifications column.",
+        }),
+        accessor: ({ user }) =>
+          user.expectedClassifications?.map((classification) => {
+            return (
+              <Pill
+                key={`${classification?.group}-${classification?.level}`}
+                color="secondary"
+                mode="outline"
+              >
+                {`${classification?.group}-${classification?.level}`}
+              </Pill>
+            );
+          }),
       },
       {
         Header: intl.formatMessage({
@@ -191,28 +211,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Skills",
-          id: "i9/L40",
-          description:
-            "Title displayed on the single search request table skills column.",
-        }),
-        accessor: ({ user }) =>
-          user.cmoAssets?.map((cmoAsset) => {
-            return (
-              <Pill key={cmoAsset?.key} color="primary" mode="outline">
-                {cmoAsset?.name?.[locale] ||
-                  intl.formatMessage({
-                    defaultMessage: "Error: Name not found.",
-                    id: "ZP3GYM",
-                    description:
-                      "Error message displayed on the single search request table operational requirements column.",
-                  })}
-              </Pill>
-            );
-          }),
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Edit",
           id: "lo2bSB",
           description:
@@ -226,7 +224,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           ),
       },
     ],
-    [intl, locale],
+    [intl],
   );
 
   const memoizedData = useMemo(
@@ -252,13 +250,16 @@ const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
-    cmoAssets: [
-      ...(inputFilter?.cmoAssets
-        ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
+    expectedClassifications: [
+      ...(inputFilter?.classifications
+        ? inputFilter.classifications
+            .filter(notEmpty)
+            .map(({ group, level }) => {
+              return {
+                group,
+                level,
+              };
+            })
         : []),
     ],
     operationalRequirements: inputFilter?.operationalRequirements,
@@ -293,6 +294,10 @@ function pickId<T extends IdInput>(x: T): IdInput {
   return pick(x, ["id"]);
 }
 
+function classificationToInput(c: Classification): ClassificationFilterInput {
+  return pick(c, ["group", "level"]);
+}
+
 // Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.
 type MappingType = {
   [Property in keyof Omit<
@@ -308,6 +313,8 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
+    expectedClassifications: (classifications) =>
+      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,

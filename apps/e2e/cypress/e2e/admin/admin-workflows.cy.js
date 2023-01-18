@@ -16,7 +16,6 @@ describe("Admin Workflow Tests", () => {
     // test fancy filter is present and triggers graphQL
     cy.findByRole("button", {name: /filters/i}).click();
     cy.findByRole("button", {name: /Show results/i}).click();
-    cy.wait("@gqlAllUsersPaginatedQuery");
 
     cy.findByRole("textbox", { name: /search/i })
       .clear()
@@ -50,6 +49,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
       .findByRole("link", {name: /view applicant test/i})
+      .should("exist")
+      .and("be.visible")
       .click();
 
     // exercise profile page
@@ -84,6 +85,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
       .findByRole("link", { name: /Edit/i })
+      .should("exist")
+      .and("be.visible")
       .click();
 
     cy.wait("@gqlUserQuery");
@@ -123,6 +126,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
       .findByRole("button", { name: /select/i })
+      .should("exist")
+      .and("be.visible")
       .click();
 
     cy.wait("@gqlselectedUsersQuery");

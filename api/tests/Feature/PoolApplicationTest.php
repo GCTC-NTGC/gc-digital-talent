@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\GenericJobTitle;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\GenericJobTitle;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -14,6 +14,7 @@ use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Carbon\Carbon;
 
 class PoolApplicationTest extends TestCase
 {
@@ -612,10 +613,13 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // pool with no essential skills
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -641,7 +645,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'profile is not complete',
+                'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
             ]]
         ]);
 
@@ -708,9 +712,12 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -735,7 +742,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'signature field must be filled',
+                'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
             ]]
         ]);
 
@@ -796,14 +803,18 @@ class PoolApplicationTest extends TestCase
         $this->seed(SkillSeeder::class);
 
         // create a pool, attach one essential skill to it
-        $newPool = Pool::factory()->create();
-        $newPool->essentialSkills()->sync([Skill::all()->first()->id]);
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1)
+        ]);
+        $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
+        $newPool->essentialSkills()->sync($essentialSkills);
 
         // create complete user
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         // create an experience with no skills, then attach it to the user
@@ -834,7 +845,7 @@ class PoolApplicationTest extends TestCase
             ]
         )->assertJson([
             'errors' => [[
-                'message' => 'a required pool skill is missing from application',
+                'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
             ]]
         ]);
 
@@ -842,7 +853,7 @@ class PoolApplicationTest extends TestCase
         $secondExperience = AwardExperience::factory()->create([
             'user_id' => $newUser->id,
         ]);
-        $secondExperience->skills()->sync($newPool->essentialSkills()->pluck('pools_essential_skills.skill_id')->toArray());
+        $secondExperience->skills()->sync($essentialSkills);
 
         // assert user can now submit application as the essential skill is present
         $this->graphQL(
@@ -882,9 +893,12 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
-        $newPool = Pool::factory()->create([]);
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->addDays(1)
+        ]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -916,6 +930,75 @@ class PoolApplicationTest extends TestCase
         ]);
     }
 
+    public function testApplicationSubmitClosingDate(): void
+    {
+        // re-make complete user, attach pool candidate
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+
+        $newUser = User::factory()->create();
+        $newUser->email = 'admin@test.com';
+        $newUser->sub = 'admin@test.com';
+        $newUser->roles = ['ADMIN'];
+        $newUser->save();
+
+        //Closed Pool
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->subDays(1)
+        ]);
+        $newPool->essentialSkills()->sync([]);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $newUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+
+        $graphDoc = /** @lang Graphql */ '
+            mutation submitTest($id: ID!, $sig: String!) {
+                submitApplication(id: $id, signature: $sig) {
+                    submittedAt
+                }
+            }
+        ';
+
+        // assert status
+        $this->graphQL(
+            $graphDoc,
+            [
+                'id' => $newPoolCandidate->id,
+                'sig' => 'sign',
+            ]
+        )->assertJson([
+            'errors' => [[
+                'message' => ApiEnums::POOL_CANDIDATE_POOL_CLOSED,
+            ]]
+        ]);
+
+        $newPool->closing_date = Carbon::now()->addDays(1);
+        $newPool->save();
+
+        $this->graphQL(
+            $graphDoc,
+            [
+                'id' => $newPoolCandidate->id,
+                'sig' => 'sign',
+            ]
+        )->assertJson(
+            fn (AssertableJson $json) =>
+            $json->has(
+                'data',
+                fn ($json) =>
+                $json->has(
+                    'submitApplication',
+                    fn ($json) =>
+                    $json->whereType('submittedAt', 'string')
+                )
+            )
+        );
+
+    }
+
     public function testApplicationDeletion(): void
     {
         // re-make complete user, attach pool candidate
@@ -926,6 +1009,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
+        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
         $newPool = Pool::factory()->create([]);

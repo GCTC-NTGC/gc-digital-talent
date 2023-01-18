@@ -43,6 +43,8 @@ Cypress.Commands.add("createUser", (user) => {
     locationPreferences: undefined,
     locationExemptions: undefined,
     acceptedOperationalRequirements: undefined,
+    expectedSalary: undefined,
+    expectedClassifications: [],
     positionDuration: undefined,
   };
   cy.graphqlRequest({

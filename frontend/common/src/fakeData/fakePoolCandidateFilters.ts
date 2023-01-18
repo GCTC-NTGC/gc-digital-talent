@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
 import {
   Classification,
-  CmoAsset,
   PoolCandidateFilter,
   OperationalRequirement,
   Pool,
@@ -9,12 +8,10 @@ import {
   LanguageAbility,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
-import fakeCmoAssets from "./fakeCmoAssets";
 import fakePools from "./fakePools";
 
 const generatePoolCandidateFilters = (
   classifications: Classification[],
-  cmoAssets: CmoAsset[],
   operationalRequirements: OperationalRequirement[],
   pools: Pool[],
 ): PoolCandidateFilter => {
@@ -41,13 +38,11 @@ const generatePoolCandidateFilters = (
       faker.helpers.arrayElements<OperationalRequirement>(
         operationalRequirements,
       ),
-    cmoAssets: faker.helpers.arrayElements(cmoAssets),
   };
 };
 
 export default (): PoolCandidateFilter[] => {
   const classifications = fakeClassifications();
-  const cmoAssets = fakeCmoAssets();
   const operationalRequirements =
     faker.helpers.arrayElements<OperationalRequirement>(
       Object.values(OperationalRequirement),
@@ -58,7 +53,6 @@ export default (): PoolCandidateFilter[] => {
   return [...Array(20)].map(() =>
     generatePoolCandidateFilters(
       classifications,
-      cmoAssets,
       operationalRequirements,
       pools,
     ),

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+
 import { Link, Pill } from "@common/components";
-import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
@@ -10,6 +10,7 @@ import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+
 import {
   GetPoolsQuery,
   Maybe,
@@ -47,9 +48,9 @@ function poolCandidatesLinkAccessor(
   );
 }
 
-function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
+function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
-    <Link href={`${editUrlRoot}/${pool.id}`} type="link">
+    <Link href={url} type="link">
       {getFullPoolAdvertisementTitle(intl, pool)}
     </Link>
   );
@@ -67,10 +68,11 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
   ) : null;
 }
 
-export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
-  pools,
-  editUrlRoot,
-}) => {
+interface PoolTableProps {
+  pools: GetPoolsQuery["pools"];
+}
+
+export const PoolTable = ({ pools }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
@@ -91,7 +93,44 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           id: "HocLRh",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => viewLinkAccessor(editUrlRoot, d, intl),
+        accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          let rowAName;
+          let rowBName;
+
+          if (locale === "en") {
+            rowAName = rowA.original.name?.en ?? "";
+            rowBName = rowB.original.name?.en ?? "";
+          } else {
+            rowAName = rowA.original.name?.fr ?? "";
+            rowBName = rowB.original.name?.fr ?? "";
+          }
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAName > rowBName) {
+            return 1;
+          }
+          if (rowAName < rowBName) {
+            return -1;
+          }
+          // if names identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether name sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -139,6 +178,41 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
               </Pill>
             );
           }),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          const rowAGroup =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].group
+              : "";
+          const rowBGroup =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].group
+              : "";
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAGroup > rowBGroup) {
+            return 1;
+          }
+          if (rowAGroup < rowBGroup) {
+            return -1;
+          }
+          // if groups identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -157,7 +231,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         accessor: (d) =>
           tableEditButtonAccessor(
             d.id,
-            editUrlRoot,
+            paths.poolTable(),
             d.name ? d.name[locale] : "",
           ), // callback extracted to separate function to stabilize memoized component
       },
@@ -171,16 +245,27 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         Cell: ({ value }) => dateAccessor(value, intl),
       },
     ],
-    [editUrlRoot, intl, paths, locale],
+    [intl, paths, locale],
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
+  const { hiddenCols, initialSortBy } = useMemo(() => {
+    return {
+      hiddenCols: ["id", "description", "createdDate"],
+      initialSortBy: [
+        {
+          id: "createdDate",
+          desc: true,
+        },
+      ],
+    };
+  }, []);
 
   return (
     <Table
       data={data}
       columns={columns}
-      hiddenCols={["id", "description", "createdDate"]}
+      hiddenCols={hiddenCols}
       search={false}
       addBtn={{
         path: paths.poolCreate(),
@@ -190,12 +275,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Heading displayed above the Create Pool form.",
         }),
       }}
-      initialSortBy={[
-        {
-          id: "createdDate",
-          desc: true,
-        },
-      ]}
+      initialSortBy={initialSortBy}
     />
   );
 };
@@ -203,11 +283,10 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
 export const PoolTableApi: React.FunctionComponent = () => {
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />
+      <PoolTable pools={data?.pools ?? []} />
     </Pending>
   );
 };

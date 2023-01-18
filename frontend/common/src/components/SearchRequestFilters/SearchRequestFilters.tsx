@@ -56,7 +56,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   return (
     <div data-h2-padding="base(0, 0, x1, 0)">
-      <div data-h2-visibility="base(visible) p-tablet(hidden)">
+      <div data-h2-visually-hidden="base(visible) p-tablet(hidden)">
         <p
           data-h2-display="base(inline)"
           data-h2-padding="base(0, x.125, 0, 0)"
@@ -86,7 +86,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
         )}
         {children && children}
       </div>
-      <div data-h2-visibility="base(hidden) p-tablet(visible)">
+      <div data-h2-visually-hidden="base(hidden) p-tablet(visible)">
         <p
           data-h2-display="base(block)"
           data-h2-padding="base(0, x.125, 0, 0)"
@@ -388,7 +388,6 @@ const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
 > = ({ filters, selectedClassifications }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   let poolCandidateFilter;
 
   // eslint-disable-next-line no-underscore-dangle
@@ -488,19 +487,6 @@ const SearchRequestFilters: React.FunctionComponent<
         defaultMessage: "Any language",
         id: "0/8x/z",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (cmoAsset) => {
-      return (
-        cmoAsset?.name[locale] ||
-        intl.formatMessage({
-          defaultMessage: "Error: skill name not found",
-          id: "vyQv+i",
-          description:
-            "Error message when cmo asset name is not found on request page.",
-        })
-      );
-    },
-  );
 
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
@@ -517,18 +503,6 @@ const SearchRequestFilters: React.FunctionComponent<
                   "Title for group and level on summary of filters section",
               })}
               content={classifications}
-            />
-            <FilterBlock
-              title={intl.formatMessage(
-                {
-                  defaultMessage: "Selected skills ({numOfSkills})",
-                  id: "159+n7",
-                  description:
-                    "Title for skills section on summary of filters section",
-                },
-                { numOfSkills: skills?.length },
-              )}
-              content={skills}
             />
             <FilterBlock
               title={intl.formatMessage({

@@ -24,7 +24,7 @@ const EstimatedCandidates: React.FunctionComponent<
       <div
         data-h2-padding="base(x3, 0, 0, 0)"
         data-h2-position="base(sticky)"
-        data-h2-offset="p-tablet(0, auto, auto, auto)"
+        data-h2-location="p-tablet(0, auto, auto, auto)"
       >
         <div
           data-h2-background-color="base(dt-white)"
