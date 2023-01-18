@@ -1,5 +1,5 @@
 [data-h2-location*="MEDIAKEY(all, none)"],
-[data-h2-location*="MEDIAKEY(all, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, none)"][data-h2-position] {
   top: 0;
   right: 0;
@@ -8,7 +8,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, xxs)"],
-[data-h2-location*="MEDIAKEY(all, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, xxs)"][data-h2-position] {
   top: 0.4444444444rem;
   right: 0.4444444444rem;
@@ -17,7 +17,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, xs)"],
-[data-h2-location*="MEDIAKEY(all, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, xs)"][data-h2-position] {
   top: 0.6666666667rem;
   right: 0.6666666667rem;
@@ -26,7 +26,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, s)"],
-[data-h2-location*="MEDIAKEY(all, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, s)"][data-h2-position] {
   top: 1rem;
   right: 1rem;
@@ -35,7 +35,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, m)"],
-[data-h2-location*="MEDIAKEY(all, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, m)"][data-h2-position] {
   top: 1.5rem;
   right: 1.5rem;
@@ -44,7 +44,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, l)"],
-[data-h2-location*="MEDIAKEY(all, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, l)"][data-h2-position] {
   top: 2.25rem;
   right: 2.25rem;
@@ -53,7 +53,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, xl)"],
-[data-h2-location*="MEDIAKEY(all, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, xl)"][data-h2-position] {
   top: 3.375rem;
   right: 3.375rem;
@@ -62,7 +62,7 @@
 }
 
 [data-h2-location*="MEDIAKEY(all, xxl)"],
-[data-h2-location*="MEDIAKEY(all, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(all, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(all, xxl)"][data-h2-position] {
   top: 5.0625rem;
   right: 5.0625rem;
@@ -71,528 +71,528 @@
 }
 
 [data-h2-location*="MEDIAKEY(top, none)"],
-[data-h2-location*="MEDIAKEY(top, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, none)"][data-h2-position] {
   top: 0;
 }
 
 [data-h2-location*="MEDIAKEY(top, xxs)"],
-[data-h2-location*="MEDIAKEY(top, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, xxs)"][data-h2-position] {
   top: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, xs)"],
-[data-h2-location*="MEDIAKEY(top, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, xs)"][data-h2-position] {
   top: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, s)"],
-[data-h2-location*="MEDIAKEY(top, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, s)"][data-h2-position] {
   top: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, m)"],
-[data-h2-location*="MEDIAKEY(top, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, m)"][data-h2-position] {
   top: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, l)"],
-[data-h2-location*="MEDIAKEY(top, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, l)"][data-h2-position] {
   top: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, xl)"],
-[data-h2-location*="MEDIAKEY(top, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, xl)"][data-h2-position] {
   top: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(top, xxl)"],
-[data-h2-location*="MEDIAKEY(top, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top, xxl)"][data-h2-position] {
   top: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, none)"],
-[data-h2-location*="MEDIAKEY(right, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, none)"][data-h2-position] {
   right: 0;
 }
 
 [data-h2-location*="MEDIAKEY(right, xxs)"],
-[data-h2-location*="MEDIAKEY(right, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, xxs)"][data-h2-position] {
   right: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, xs)"],
-[data-h2-location*="MEDIAKEY(right, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, xs)"][data-h2-position] {
   right: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, s)"],
-[data-h2-location*="MEDIAKEY(right, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, s)"][data-h2-position] {
   right: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, m)"],
-[data-h2-location*="MEDIAKEY(right, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, m)"][data-h2-position] {
   right: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, l)"],
-[data-h2-location*="MEDIAKEY(right, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, l)"][data-h2-position] {
   right: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, xl)"],
-[data-h2-location*="MEDIAKEY(right, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, xl)"][data-h2-position] {
   right: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(right, xxl)"],
-[data-h2-location*="MEDIAKEY(right, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right, xxl)"][data-h2-position] {
   right: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, none)"],
-[data-h2-location*="MEDIAKEY(bottom, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, none)"][data-h2-position] {
   bottom: 0;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, xxs)"],
-[data-h2-location*="MEDIAKEY(bottom, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, xxs)"][data-h2-position] {
   bottom: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, xs)"],
-[data-h2-location*="MEDIAKEY(bottom, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, xs)"][data-h2-position] {
   bottom: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, s)"],
-[data-h2-location*="MEDIAKEY(bottom, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, s)"][data-h2-position] {
   bottom: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, m)"],
-[data-h2-location*="MEDIAKEY(bottom, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, m)"][data-h2-position] {
   bottom: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, l)"],
-[data-h2-location*="MEDIAKEY(bottom, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, l)"][data-h2-position] {
   bottom: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, xl)"],
-[data-h2-location*="MEDIAKEY(bottom, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, xl)"][data-h2-position] {
   bottom: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom, xxl)"],
-[data-h2-location*="MEDIAKEY(bottom, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom, xxl)"][data-h2-position] {
   bottom: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, none)"],
-[data-h2-location*="MEDIAKEY(left, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, none)"][data-h2-position] {
   left: 0;
 }
 
 [data-h2-location*="MEDIAKEY(left, xxs)"],
-[data-h2-location*="MEDIAKEY(left, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, xxs)"][data-h2-position] {
   left: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, xs)"],
-[data-h2-location*="MEDIAKEY(left, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, xs)"][data-h2-position] {
   left: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, s)"],
-[data-h2-location*="MEDIAKEY(left, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, s)"][data-h2-position] {
   left: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, m)"],
-[data-h2-location*="MEDIAKEY(left, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, m)"][data-h2-position] {
   left: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, l)"],
-[data-h2-location*="MEDIAKEY(left, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, l)"][data-h2-position] {
   left: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, xl)"],
-[data-h2-location*="MEDIAKEY(left, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, xl)"][data-h2-position] {
   left: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(left, xxl)"],
-[data-h2-location*="MEDIAKEY(left, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(left, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(left, xxl)"][data-h2-position] {
   left: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, none)"],
-[data-h2-location*="MEDIAKEY(top-right, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, none)"][data-h2-position] {
   top: 0;
   right: 0;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, xxs)"],
-[data-h2-location*="MEDIAKEY(top-right, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, xxs)"][data-h2-position] {
   top: 0.4444444444rem;
   right: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, xs)"],
-[data-h2-location*="MEDIAKEY(top-right, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, xs)"][data-h2-position] {
   top: 0.6666666667rem;
   right: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, s)"],
-[data-h2-location*="MEDIAKEY(top-right, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, s)"][data-h2-position] {
   top: 1rem;
   right: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, m)"],
-[data-h2-location*="MEDIAKEY(top-right, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, m)"][data-h2-position] {
   top: 1.5rem;
   right: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, l)"],
-[data-h2-location*="MEDIAKEY(top-right, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, l)"][data-h2-position] {
   top: 2.25rem;
   right: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, xl)"],
-[data-h2-location*="MEDIAKEY(top-right, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, xl)"][data-h2-position] {
   top: 3.375rem;
   right: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-right, xxl)"],
-[data-h2-location*="MEDIAKEY(top-right, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-right, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-right, xxl)"][data-h2-position] {
   top: 5.0625rem;
   right: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, none)"],
-[data-h2-location*="MEDIAKEY(top-bottom, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, none)"][data-h2-position] {
   top: 0;
   bottom: 0;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, xxs)"],
-[data-h2-location*="MEDIAKEY(top-bottom, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, xxs)"][data-h2-position] {
   top: 0.4444444444rem;
   bottom: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, xs)"],
-[data-h2-location*="MEDIAKEY(top-bottom, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, xs)"][data-h2-position] {
   top: 0.6666666667rem;
   bottom: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, s)"],
-[data-h2-location*="MEDIAKEY(top-bottom, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, s)"][data-h2-position] {
   top: 1rem;
   bottom: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, m)"],
-[data-h2-location*="MEDIAKEY(top-bottom, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, m)"][data-h2-position] {
   top: 1.5rem;
   bottom: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, l)"],
-[data-h2-location*="MEDIAKEY(top-bottom, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, l)"][data-h2-position] {
   top: 2.25rem;
   bottom: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, xl)"],
-[data-h2-location*="MEDIAKEY(top-bottom, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, xl)"][data-h2-position] {
   top: 3.375rem;
   bottom: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-bottom, xxl)"],
-[data-h2-location*="MEDIAKEY(top-bottom, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-bottom, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-bottom, xxl)"][data-h2-position] {
   top: 5.0625rem;
   bottom: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, none)"],
-[data-h2-location*="MEDIAKEY(top-left, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, none)"][data-h2-position] {
   top: 0;
   left: 0;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, xxs)"],
-[data-h2-location*="MEDIAKEY(top-left, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, xxs)"][data-h2-position] {
   top: 0.4444444444rem;
   left: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, xs)"],
-[data-h2-location*="MEDIAKEY(top-left, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, xs)"][data-h2-position] {
   top: 0.6666666667rem;
   left: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, s)"],
-[data-h2-location*="MEDIAKEY(top-left, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, s)"][data-h2-position] {
   top: 1rem;
   left: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, m)"],
-[data-h2-location*="MEDIAKEY(top-left, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, m)"][data-h2-position] {
   top: 1.5rem;
   left: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, l)"],
-[data-h2-location*="MEDIAKEY(top-left, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, l)"][data-h2-position] {
   top: 2.25rem;
   left: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, xl)"],
-[data-h2-location*="MEDIAKEY(top-left, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, xl)"][data-h2-position] {
   top: 3.375rem;
   left: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(top-left, xxl)"],
-[data-h2-location*="MEDIAKEY(top-left, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(top-left, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(top-left, xxl)"][data-h2-position] {
   top: 5.0625rem;
   left: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, none)"],
-[data-h2-location*="MEDIAKEY(bottom-right, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, none)"][data-h2-position] {
   bottom: 0;
   right: 0;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, xxs)"],
-[data-h2-location*="MEDIAKEY(bottom-right, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, xxs)"][data-h2-position] {
   bottom: 0.4444444444rem;
   right: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, xs)"],
-[data-h2-location*="MEDIAKEY(bottom-right, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, xs)"][data-h2-position] {
   bottom: 0.6666666667rem;
   right: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, s)"],
-[data-h2-location*="MEDIAKEY(bottom-right, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, s)"][data-h2-position] {
   bottom: 1rem;
   right: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, m)"],
-[data-h2-location*="MEDIAKEY(bottom-right, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, m)"][data-h2-position] {
   bottom: 1.5rem;
   right: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, l)"],
-[data-h2-location*="MEDIAKEY(bottom-right, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, l)"][data-h2-position] {
   bottom: 2.25rem;
   right: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, xl)"],
-[data-h2-location*="MEDIAKEY(bottom-right, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, xl)"][data-h2-position] {
   bottom: 3.375rem;
   right: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-right, xxl)"],
-[data-h2-location*="MEDIAKEY(bottom-right, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-right, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-right, xxl)"][data-h2-position] {
   bottom: 5.0625rem;
   right: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, none)"],
-[data-h2-location*="MEDIAKEY(bottom-left, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, none)"][data-h2-position] {
   bottom: 0;
   left: 0;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, xxs)"],
-[data-h2-location*="MEDIAKEY(bottom-left, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, xxs)"][data-h2-position] {
   bottom: 0.4444444444rem;
   left: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, xs)"],
-[data-h2-location*="MEDIAKEY(bottom-left, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, xs)"][data-h2-position] {
   bottom: 0.6666666667rem;
   left: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, s)"],
-[data-h2-location*="MEDIAKEY(bottom-left, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, s)"][data-h2-position] {
   bottom: 1rem;
   left: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, m)"],
-[data-h2-location*="MEDIAKEY(bottom-left, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, m)"][data-h2-position] {
   bottom: 1.5rem;
   left: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, l)"],
-[data-h2-location*="MEDIAKEY(bottom-left, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, l)"][data-h2-position] {
   bottom: 2.25rem;
   left: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, xl)"],
-[data-h2-location*="MEDIAKEY(bottom-left, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, xl)"][data-h2-position] {
   bottom: 3.375rem;
   left: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(bottom-left, xxl)"],
-[data-h2-location*="MEDIAKEY(bottom-left, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(bottom-left, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(bottom-left, xxl)"][data-h2-position] {
   bottom: 5.0625rem;
   left: 5.0625rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, none)"],
-[data-h2-location*="MEDIAKEY(right-left, none)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, none)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, none)"][data-h2-position] {
   right: 0;
   left: 0;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, xxs)"],
-[data-h2-location*="MEDIAKEY(right-left, xxs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, xxs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, xxs)"][data-h2-position] {
   right: 0.4444444444rem;
   left: 0.4444444444rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, xs)"],
-[data-h2-location*="MEDIAKEY(right-left, xs)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, xs)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, xs)"][data-h2-position] {
   right: 0.6666666667rem;
   left: 0.6666666667rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, s)"],
-[data-h2-location*="MEDIAKEY(right-left, s)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, s)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, s)"][data-h2-position] {
   right: 1rem;
   left: 1rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, m)"],
-[data-h2-location*="MEDIAKEY(right-left, m)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, m)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, m)"][data-h2-position] {
   right: 1.5rem;
   left: 1.5rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, l)"],
-[data-h2-location*="MEDIAKEY(right-left, l)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, l)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, l)"][data-h2-position] {
   right: 2.25rem;
   left: 2.25rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, xl)"],
-[data-h2-location*="MEDIAKEY(right-left, xl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, xl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, xl)"][data-h2-position] {
   right: 3.375rem;
   left: 3.375rem;
 }
 
 [data-h2-location*="MEDIAKEY(right-left, xxl)"],
-[data-h2-location*="MEDIAKEY(right-left, xxl)"][data-h2-visibility],
+[data-h2-location*="MEDIAKEY(right-left, xxl)"][data-h2-visually-hidden],
 [data-h2-location*="MEDIAKEY(right-left, xxl)"][data-h2-position] {
   right: 5.0625rem;
   left: 5.0625rem;

@@ -16,6 +16,7 @@ const mockClient = {
     // though not how data would ever be returned in app.
     fromValue({
       data: {
+        classifications: [{ id: "IT_3", group: "IT", level: "3" }],
         pools: [{ id: "BAR", name: { en: "Bar Pool" } }],
         skills: [{ id: "BAZ", name: { en: "Baz Skill" } }],
       },
@@ -23,6 +24,7 @@ const mockClient = {
 } as any; // eslint-disable-line
 
 const emptyFormValues = {
+  classifications: [],
   employmentDuration: [],
   govEmployee: [],
   jobLookingStatus: [],
@@ -162,6 +164,7 @@ describe("UserTableFilterDialog", () => {
         selectFilterOption(/government employee/i);
 
         // TODO: Async filters.
+        selectFilterOption(/classifications/i);
         selectFilterOption(/pools/i);
         selectFilterOption(/skill filter/i);
 
@@ -169,7 +172,7 @@ describe("UserTableFilterDialog", () => {
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(13);
+        expect(Object.keys(activeFilter)).toHaveLength(14);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
@@ -179,6 +182,7 @@ describe("UserTableFilterDialog", () => {
         expect(activeFilter.profileComplete).toHaveLength(1);
 
         // Async filters.
+        expect(activeFilter.classifications).toHaveLength(1);
         expect(activeFilter.skills).toHaveLength(1);
         expect(activeFilter.pools).toHaveLength(1);
       },
@@ -241,7 +245,7 @@ describe("UserTableFilterDialog", () => {
 
   it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
-    expect(screen.getAllByRole("combobox")).toHaveLength(9);
+    expect(screen.getAllByRole("combobox")).toHaveLength(10);
   });
 
   describe("enableEducationType prop", () => {
@@ -257,7 +261,7 @@ describe("UserTableFilterDialog", () => {
         isOpenDefault: true,
         enableEducationType: true,
       });
-      expect(screen.getAllByRole("combobox")).toHaveLength(10);
+      expect(screen.getAllByRole("combobox")).toHaveLength(11);
       expect(
         screen.getByRole("combobox", { name: /education/i }),
       ).toBeVisible();

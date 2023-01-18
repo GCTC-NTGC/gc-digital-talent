@@ -19,7 +19,9 @@ const flourishTopDark = imageUrl(TALENTSEARCH_APP_DIR, "support_top_dark.png");
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
   "data-h2-height": "base(100%)",
-  "data-h2-offset": isTop ? "base(0, 0, auto, auto)" : "base(auto, auto, 0, 0)",
+  "data-h2-location": isTop
+    ? "base(0, 0, auto, auto)"
+    : "base(auto, auto, 0, 0)",
 });
 
 export const SupportPage: React.FC = () => {

@@ -33,6 +33,7 @@ query GetViewUserData($id: UUID!) {
     hasDisability
     isVisibleMinority
     isWoman
+    expectedSalary
     poolCandidates {
       id
       status
@@ -53,6 +54,14 @@ query GetViewUserData($id: UUID!) {
           level
         }
         stream
+      }
+    }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
       }
     }
     department {
@@ -216,6 +225,15 @@ query selectedUsers($ids: [ID]!) {
     hasDisability
     citizenship
     armedForcesStatus
+    expectedSalary
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
     department {
       id
       departmentNumber

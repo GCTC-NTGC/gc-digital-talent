@@ -17,35 +17,35 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
     "data-h2-background-color":
       "base(white) base:children[div:first-child](tm-blue) base:children[div:first-child]:hover(tm-blue.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](all, 3px, solid, tm-blue) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "base:children[div:first-child](3px solid tm-blue) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
   job: {
     "data-h2-background-color":
       "base(white) base:children[div:first-child](tm-yellow) base:children[div:first-child]:hover(tm-yellow.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](all, 3px, solid, tm-yellow) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "base:children[div:first-child](3px solid tm-yellow) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
   profile: {
     "data-h2-background-color":
       "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](all, 3px, solid, tm-green) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "base:children[div:first-child](3px solid tm-green) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
   home: {
     "data-h2-background-color":
       "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](all, 3px, solid, tm-green) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "base:children[div:first-child](3px solid tm-green) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
   support: {
     "data-h2-background-color":
       "base(white) base:children[div:first-child](tm-purple) base:children[div:first-child]:hover(tm-purple.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](all, 3px, solid, tm-purple) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "base:children[div:first-child](3px solid tm-purple) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
 };

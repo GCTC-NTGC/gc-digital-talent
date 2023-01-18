@@ -13,6 +13,7 @@ import { emptyToNull, notEmpty } from "@common/helpers/util";
 import SEO from "@common/components/SEO/SEO";
 import Pending from "@common/components/Pending";
 
+import { AuthorizationContext } from "@common/components/Auth/AuthorizationContainer";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
   Language,
@@ -274,7 +275,7 @@ export const CreateAccountForm: React.FunctionComponent<
               <div
                 data-h2-margin="base(x2, 0)"
                 data-h2-padding="base(x2, 0)"
-                data-h2-border="base(top, 1px, solid, light.dt-gray)"
+                data-h2-border-top="base(1px solid dt-gray.light)"
                 data-h2-display="base(flex)"
                 data-h2-justify-content="base(flex-end)"
               >
@@ -307,11 +308,11 @@ const CreateAccount: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const paths = useRoutes();
   const { from } = location.state as LocationState;
+  const authContext = React.useContext(AuthorizationContext);
+  const meId = authContext.loggedInUser?.id;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
-  const meInfo = lookupData?.me;
-  const meId = meInfo?.id;
   const departments: Department[] | [] =
     lookupData?.departments.filter(notEmpty) ?? [];
   const classifications: Classification[] | [] =
@@ -346,7 +347,6 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(from || paths.profile(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",
@@ -355,6 +355,7 @@ const CreateAccount: React.FunctionComponent = () => {
               "Message displayed to user if account is created successfully.",
           }),
         );
+        // navigation will happen on useEffect after authorization context has updated
       })
       .catch(() => {
         toast.error(
@@ -368,8 +369,17 @@ const CreateAccount: React.FunctionComponent = () => {
       });
   };
 
+  // OK to navigate to profile once we have a user ID and an email
+  const shouldNavigate = meId && authContext.loggedInEmail;
+  const navigationTarget = from || paths.profile(meId || "");
+  React.useEffect(() => {
+    if (shouldNavigate) {
+      navigate(navigationTarget);
+    }
+  }, [navigate, navigationTarget, shouldNavigate]);
+
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching || !authContext.isLoaded} error={error}>
       <CreateAccountForm
         cacheKey={`create-account-${meId}`}
         departments={departments}

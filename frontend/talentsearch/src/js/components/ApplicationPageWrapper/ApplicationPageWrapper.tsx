@@ -78,7 +78,7 @@ const ApplicationPageWrapper = ({
             data-h2-justify-content="base(space-between)"
             data-h2-margin="base(0, 0, x.5, 0) p-tablet(x.5, 0)"
             {...(showNav && {
-              "data-h2-border": "base(bottom, 1px, solid, dt-gray.dark)",
+              "data-h2-border-bottom": "base(1px solid dt-gray.dark)",
               "data-h2-padding": "base(0, 0, x.5, 0)",
             })}
           >

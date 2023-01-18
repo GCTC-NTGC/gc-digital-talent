@@ -109,6 +109,43 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          let rowAName;
+          let rowBName;
+
+          if (locale === "en") {
+            rowAName = rowA.original.name?.en ?? "";
+            rowBName = rowB.original.name?.en ?? "";
+          } else {
+            rowAName = rowA.original.name?.fr ?? "";
+            rowBName = rowB.original.name?.fr ?? "";
+          }
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAName > rowBName) {
+            return 1;
+          }
+          if (rowAName < rowBName) {
+            return -1;
+          }
+          // if names identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether name sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -156,6 +193,41 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               </Pill>
             );
           }),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          const rowAGroup =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].group
+              : "";
+          const rowBGroup =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].group
+              : "";
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAGroup > rowBGroup) {
+            return 1;
+          }
+          if (rowAGroup < rowBGroup) {
+            return -1;
+          }
+          // if groups identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({

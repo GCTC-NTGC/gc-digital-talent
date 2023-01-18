@@ -46,6 +46,9 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
+    expectedClassifications?: {
+      sync?: Array<Maybe<Classification["id"]>>;
+    };
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -79,6 +82,7 @@ export interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   skills,
+  classifications,
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
@@ -132,6 +136,22 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
+          expectedClassifications: {
+            sync: applicantFilter?.expectedClassifications
+              ? applicantFilter.expectedClassifications
+                  .filter(notEmpty)
+                  .map((expectedClassification) => {
+                    const cl = classifications.find((classification) => {
+                      return (
+                        classification.group ===
+                          expectedClassification?.group &&
+                        classification.level === expectedClassification.level
+                      );
+                    });
+                    return cl?.id ?? "";
+                  })
+              : [],
+          },
         },
       },
       department: { connect: values.department ?? "" },
@@ -169,6 +189,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
+    expectedClassifications:
+      applicantFilter?.expectedClassifications?.map(
+        (expectedClassification) => {
+          return classifications.find((classification) => {
+            return (
+              classification.group === expectedClassification?.group &&
+              classification.level === expectedClassification.level
+            );
+          });
+        },
+      ) ?? [],
     skills:
       applicantFilter?.skills?.map((skillId) => {
         return skills.find((skill) => {

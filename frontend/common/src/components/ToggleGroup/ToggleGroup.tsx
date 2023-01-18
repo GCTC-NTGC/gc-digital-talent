@@ -30,7 +30,7 @@ const colorMap: Record<Color, Record<string, string>> = {
   },
   secondary: {
     "data-h2-background-color":
-      "base(dt-secondary) base:dark(lighter.dt-secondary)",
+      "base(dt-secondary) base:dark(dt-secondary.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:dark:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
@@ -40,12 +40,12 @@ const colorMap: Record<Color, Record<string, string>> = {
       "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   white: {
-    "data-h2-background-color": "base(white) base:dark(lighter.black)",
+    "data-h2-background-color": "base(white) base:dark(black.lighter)",
     "data-h2-color":
       "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   black: {
-    "data-h2-background-color": "base(dt-black) base:dark(lighter.dt-black)",
+    "data-h2-background-color": "base(dt-black) base:dark(dt-black.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
@@ -119,7 +119,7 @@ const Root = React.forwardRef<
       data-h2-display="base(inline-flex)"
       data-h2-padding="base(x.25)"
       data-h2-radius="base(m)"
-      data-h2-gap="base(x.25, 0)"
+      data-h2-gap="base(0, x.25)"
       ref={forwardedRef}
       {...rest}
     />

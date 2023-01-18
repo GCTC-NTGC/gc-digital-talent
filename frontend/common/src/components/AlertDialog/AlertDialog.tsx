@@ -11,7 +11,7 @@ const StyledOverlay = React.forwardRef<
   <AlertDialogPrimitive.Overlay
     data-h2-position="base(fixed)"
     data-h2-background-color="base(black.85)"
-    data-h2-offset="base(0)"
+    data-h2-location="base(0)"
     style={{ zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
@@ -120,7 +120,7 @@ interface AlertDialogFooterProps {
 const Footer = ({ children }: AlertDialogFooterProps) => (
   <div
     data-h2-align-items="base(center)"
-    data-h2-border="base(top, 1px, solid, dt-gray.dark)"
+    data-h2-border-top="base(1px solid dt-gray.dark)"
     data-h2-display="base(flex)"
     data-h2-justify-content="base(flex-end)"
     data-h2-margin="base(x1, 0, 0, 0)"

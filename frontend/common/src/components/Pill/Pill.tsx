@@ -27,75 +27,75 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-primary)",
+      "data-h2-border": "base(1px solid dt-primary.dark)",
       "data-h2-background-color": "base(dt-primary)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-primary)",
-      "data-h2-background-color": "base(light.dt-primary.10)",
-      "data-h2-color": "base(dark.dt-primary)",
+      "data-h2-border": "base(1px solid dt-primary.dark)",
+      "data-h2-background-color": "base(dt-primary.light.10)",
+      "data-h2-color": "base(dt-primary.dark)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
-      "data-h2-background-color": "base(light.dt-secondary)",
+      "data-h2-border": "base(1px solid dt-secondary.dark)",
+      "data-h2-background-color": "base(dt-secondary.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
-      "data-h2-background-color": "base(light.dt-secondary.10)",
-      "data-h2-color": "base(dark.dt-secondary)",
+      "data-h2-border": "base(1px solid dt-secondary.dark)",
+      "data-h2-background-color": "base(dt-secondary.light.10)",
+      "data-h2-color": "base(dt-secondary.dark)",
     },
   },
   blue: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
-      "data-h2-background-color": "base(light.tm-blue)",
+      "data-h2-border": "base(1px solid tm-blue.dark)",
+      "data-h2-background-color": "base(tm-blue.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
-      "data-h2-background-color": "base(light.tm-blue.10)",
-      "data-h2-color": "base(dark.tm-blue)",
+      "data-h2-border": "base(1px solid tm-blue.dark)",
+      "data-h2-background-color": "base(tm-blue.light.10)",
+      "data-h2-color": "base(tm-blue.dark)",
     },
   },
   green: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-green)",
-      "data-h2-background-color": "base(light.tm-green)",
+      "data-h2-border": "base(1px solid tm-green.dark)",
+      "data-h2-background-color": "base(tm-green.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-green)",
-      "data-h2-background-color": "base(light.tm-green.10)",
-      "data-h2-color": "base(dark.tm-green)",
+      "data-h2-border": "base(1px solid tm-green.dark)",
+      "data-h2-background-color": "base(tm-green.light.10)",
+      "data-h2-color": "base(tm-green.dark)",
     },
   },
   neutral: {
     solid: {
       /* not very visible - should probably be fixed before using */
-      "data-h2-border": "base(all, 1px, solid, dark.dt-gray)",
-      "data-h2-background-color": "base(dark.dt-gray)",
+      "data-h2-border": "base(1px solid dt-gray.dark)",
+      "data-h2-background-color": "base(dt-gray.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-gray)",
+      "data-h2-border": "base(1px solid dt-gray.dark)",
       "data-h2-background-color": "base(dt-gray.10)",
-      "data-h2-color": "base(dark.dt-gray)",
+      "data-h2-color": "base(dt-gray.dark)",
     },
   },
   error: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-error)",
-      "data-h2-background-color": "base(dark.dt-error)",
+      "data-h2-border": "base(1px solid dt-error.dark)",
+      "data-h2-background-color": "base(dt-error.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.dt-error)",
-      "data-h2-background-color": "base(light.dt-error.10)",
-      "data-h2-color": "base(dark.dt-black)",
+      "data-h2-border": "base(1px solid dt-error.dark)",
+      "data-h2-background-color": "base(dt-error.light.10)",
+      "data-h2-color": "base(dt-black.dark)",
     },
   },
 };
