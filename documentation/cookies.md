@@ -12,9 +12,14 @@ May be controlled in Azure settings at `Settings -> Configuration -> General Set
 
 This cookie is also controlled by Microsoft Azure. It is similar in purpose to `ARRAffinity`, but works with a relatively new `SameSite` browser attribute.
 
-## TS012e8da0
+## TS(xxxxxxxx)
 
 This cookie is security related and is affiliated with F5 load balancers. Validation of cookies, session expiration, and ASM Frame integrity. 
 [Additional information](https://support.f5.com/csp/article/K6850).
 F5 provides an Application Security Manager (ASM) which is for security purposes, it controls traffic. This belongs to whoever owns the firewall.
 [ASM](https://www.f5.com/pdf/products/big-ip-application-security-manager-overview.pdf)
+
+## ai_user and ai_session
+
+These are [Application Insight](https://learn.microsoft.com/en-gb/azure/azure-monitor/app/configuration-with-applicationinsights-config) cookies belonging to Azure.
+`SessionTelemetryInitializer` in Insights draws from the `ai_session` cookies while `UserTelemetryInitializer` works off `ai_user`.
