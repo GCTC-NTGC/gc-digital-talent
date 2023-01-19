@@ -40,7 +40,7 @@ final class CreateApplication
             ]);
 
             // draft expiry date is the same as the expiry of the pool it is attached to
-            $poolExpiry = Pool::find($application->pool_id)->expiry_date;
+            $poolExpiry = Pool::find($application->pool_id)->closing_date;
 
             // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
             $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;

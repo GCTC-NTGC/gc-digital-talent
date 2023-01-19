@@ -416,7 +416,7 @@ class ApplicantFilterTest extends TestCase
                 'position_duration' => $candidate->user->position_duration,
                 'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
-                'operational_requirements' => $candidate->user->operational_requirements,
+                'operational_requirements' => $candidate->user->accepted_operational_requirements,
             ]
         );
         $filter->classifications()->saveMany(
