@@ -28,7 +28,7 @@ const isMerged = (process.env.MERGE_STORYBOOKS === 'true');
 module.exports = {
   "staticDirs": [
     { from: '../public', to: '/admin' },
-    { from: '../../../apps/web/public', to: '/indigenous-it-apprentice' } // TODO: Update once all are merged
+    { from: '../../../apps/web/public', to: '/' } // TODO: Update once all are merged
   ],
   "stories": [
     `${ isMerged ? '../../admin/src/'        : '../src/' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
