@@ -10,3 +10,4 @@ apps/e2e/cypress/downloads
 
 .jekyll-cache
 .turbo
+.env
