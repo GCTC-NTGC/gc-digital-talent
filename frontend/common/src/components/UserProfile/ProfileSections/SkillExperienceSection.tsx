@@ -34,24 +34,30 @@ const SkillExperienceSection: React.FunctionComponent<{
 
   return !experiences || experiences?.length === 0 ? (
     <Well>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "You haven't added any information here yet.",
-          id: "SCCX7B",
-          description: "Message for when no data exists for the section",
-        })}
-      </p>
-      <p>
-        {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-        <a href={editPath}>
-          {intl.formatMessage({
-            defaultMessage: "Edit your skill and experience options.",
-            id: "hDupu9",
-            description:
-              "Link text for editing skills and experiences on profile.",
-          })}
-        </a>
-      </p>
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+        <div data-h2-flex-item="base(1of1)">
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any information here yet.",
+              id: "SCCX7B",
+              description: "Message for when no data exists for the section",
+            })}
+          </p>
+        </div>
+        <div data-h2-flex-item="base(1of1)">
+          <p>
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Edit your skill and experience options.",
+                id: "hDupu9",
+                description:
+                  "Link text for editing skills and experiences on profile.",
+              })}
+            </a>
+          </p>
+        </div>
+      </div>
     </Well>
   ) : (
     <div data-h2-padding="base(x1)" data-h2-radius="base(s)">

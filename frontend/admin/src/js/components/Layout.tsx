@@ -12,6 +12,7 @@ import SkipLink from "@common/components/Link/SkipLink";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import { getLocale } from "@common/helpers/localize";
 
+import useLocalStorage from "@common/hooks/useLocalStorage";
 import AdminSideMenu from "./menu/AdminSideMenu";
 
 interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -48,7 +49,17 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 const Layout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
+
+  // retain menu preference in storage
+  const [isMenuOpen, setMenuOpen] = useLocalStorage(
+    "digitaltalent-menustate",
+    true,
+  );
+  React.useEffect(() => {
+    if (isSmallScreen) {
+      setMenuOpen(false); // collapse menu if window resized to small
+    }
+  }, [isSmallScreen, setMenuOpen]);
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);

@@ -58,27 +58,31 @@ const WorkLocationSection: React.FunctionComponent<{
           </div>
         )}
         {!anyCriteriaSelected && editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                id: "SCCX7B",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-            <p>{intl.formatMessage(messages.requiredFieldsMissing)}</p>
-            <p>
-              <a href={editPath}>
+          <>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
-                  defaultMessage: "Edit your work location options.",
-                  id: "F3/88e",
-                  description: "Link text to edit work location on profile",
+                  defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
+                  description:
+                    "Message for when no data exists for the section",
                 })}
-              </a>
-            </p>
-          </div>
+              </p>
+            </div>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Edit your work location options.",
+                    id: "F3/88e",
+                    description: "Link text to edit work location on profile",
+                  })}
+                </a>
+              </p>
+            </div>
+          </>
         )}
-
         {!anyCriteriaSelected && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
