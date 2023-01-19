@@ -45,13 +45,13 @@ jobs:
         working-directory: ./
         run: npm run intl-compile
 
-      - name: "Compile Intl Indigenous Languages: indigenousapprenticeship workspace"
+      - name: "Compile Intl Indigenous Languages: apps/web workspace"
         working-directory: frontend
         run: |
-          npm run intl-compile-crg --workspace=indigenousapprenticeship
-          npm run intl-compile-crk --workspace=indigenousapprenticeship
-          npm run intl-compile-ojw --workspace=indigenousapprenticeship
-          npm run intl-compile-mic --workspace=indigenousapprenticeship
+          npm run intl-compile-crg --workspace=apps/web
+          npm run intl-compile-crk --workspace=apps/web
+          npm run intl-compile-ojw --workspace=apps/web
+          npm run intl-compile-mic --workspace=apps/web
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./
