@@ -43,7 +43,7 @@
     "npm": ">=8.0.0"
   },
   "peerDependencies": {
-    "react-hook-form": "~7.38.0"
+    "react-hook-form": "~7.42.1"
   },
   "sideEffects": [
     "**/*.css"
@@ -83,7 +83,7 @@
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.9.2",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "~7.38.0",
+    "react-hook-form": "~7.42.1",
     "react-intl": "^6.2.5",
     "react-remove-scroll": "^2.5.5",
     "react-router-dom": "^6.6.1",

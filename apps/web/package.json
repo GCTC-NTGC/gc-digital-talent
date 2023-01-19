@@ -35,7 +35,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "~7.38.0",
+    "react-hook-form": "~7.42.1",
     "react-intl": "^6.2.5",
     "react-router-dom": "^6.4.3",
     "react-toastify": "^9.1.1",
