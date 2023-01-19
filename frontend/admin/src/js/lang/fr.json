@@ -239,10 +239,6 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
-  "VgbJiw": {
-    "defaultMessage": "Responsable",
-    "description": "Title displayed for the Pool table owner email column."
-  },
   "VqyL+/": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Classification table ID column."
@@ -2316,5 +2312,13 @@
   "wiUfZL": {
     "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
     "description": "Header for section to add additional pools to the change status operation"
+  },
+  "pe5WkF": {
+    "defaultMessage": "Courriel du propriétaire",
+    "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "AWk4BX": {
+    "defaultMessage": "Nom du propriétaire",
+    "description": "Title displayed for the Pool table Owner Name column"
   }
 }
