@@ -60,7 +60,7 @@
     "@types/jest": "^29.2.6",
     "@types/jest-axe": "^3.5.5",
     "@types/lodash": "^4.14.191",
-    "@types/react": "^18.0.26",
+    "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "babel-plugin-formatjs": "^10.3.35",
