@@ -44,10 +44,18 @@ const setArray = <T>(
   newValue?: Array<T>,
   defaultValue?: Array<T>,
 ) => {
-  const prevValue = params.get(key);
-  if (!prevValue || !isEqual(prevValue.split(","), newValue)) {
-    if (newValue && !isEqual(newValue, defaultValue)) {
-      params.set(key, newValue.toString());
+  const prevValueEncoded = params.get(key);
+  const prevValue = prevValueEncoded
+    ? JSON.parse(decodeURIComponent(prevValueEncoded))
+    : undefined;
+  // Compare sets so that order doesn't matter
+  const prevValueSet = new Set(prevValue);
+  const newValueSet = new Set(newValue);
+  const defaultValueSet = new Set(defaultValue);
+
+  if (!prevValue || !isEqual(prevValueSet, newValueSet)) {
+    if (newValue && !isEqual(newValueSet, defaultValueSet)) {
+      params.set(key, encodeURIComponent(JSON.stringify(newValue)));
     } else {
       params.delete(key);
     }
@@ -103,7 +111,14 @@ const useTableState = <T, F>(
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPageParam = searchParams.get("currentPage");
   const pageSizeParam = searchParams.get("pageSize");
-  const hiddenColumnsParam = searchParams.get("hiddenColumnIds");
+  const hiddenColumnsEncoded = searchParams.get("hiddenColumnIds");
+  const hiddenColumnsParam = useMemo(
+    () =>
+      hiddenColumnsEncoded
+        ? JSON.parse(decodeURIComponent(hiddenColumnsEncoded))
+        : undefined,
+    [hiddenColumnsEncoded],
+  );
   const sortByEncoded = searchParams.get("sortBy");
   const sortByParam = useMemo(
     () =>
@@ -129,9 +144,7 @@ const useTableState = <T, F>(
       pageSize: pageSizeParam
         ? parseInt(pageSizeParam, 10)
         : defaultState.pageSize,
-      hiddenColumnIds: hiddenColumnsParam
-        ? hiddenColumnsParam.split(",")
-        : defaultState.hiddenColumnIds,
+      hiddenColumnIds: hiddenColumnsParam ?? defaultState.hiddenColumnIds,
       sortBy: sortByParam ?? defaultState.sortBy,
       searchState: {
         term: searchTermParam ?? defaultState.searchState?.term,
