@@ -44,9 +44,7 @@ import {
   PoolAdvertisement,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import TALENTSEARCH_APP_DIR, {
-  TALENTSEARCH_RECRUITMENT_EMAIL,
-} from "~/constants/talentSearchConstants";
+import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import { isAdvertisementVisible } from "~/utils/poolUtils";
 
 import PoolInfoCard from "./PoolInfoCard";
@@ -277,10 +275,7 @@ export const PoolAdvertisementPoster = ({
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

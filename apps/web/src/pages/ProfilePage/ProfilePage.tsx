@@ -11,7 +11,6 @@ import SEO from "@common/components/SEO/SEO";
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
@@ -56,10 +55,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         data-h2-color="base(dt-white)"
         data-h2-text-align="base(center)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

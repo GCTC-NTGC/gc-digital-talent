@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
+import SEO, { Favicon } from "@common/components/SEO/SEO";
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
 import SkipLink from "@common/components/Link/SkipLink";
@@ -37,7 +37,6 @@ import useRoutes from "~/hooks/useRoutes";
 
 const Layout = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const location = useLocation();
   const paths = useRoutes();
 
@@ -58,27 +57,21 @@ const Layout = () => {
   return (
     <AnimatePresence>
       <React.Fragment key={location.pathname}>
-        <Helmet>
-          <html lang={locale} />
-          <title>
-            {intl.formatMessage({
-              defaultMessage: "Indigenous Apprenticeship Program",
-              id: "C5tUG2",
-              description:
-                "Title tag for Indigenous Apprenticeship Program site",
-            })}
-          </title>
-          <meta
-            name="description"
-            content={intl.formatMessage({
-              defaultMessage:
-                "Apply now to get started on your IT career journey.",
-              id: "Oh1/Gc",
-              description:
-                "Meta tag description for Indigenous Apprenticeship Program site",
-            })}
-          />
-        </Helmet>
+        <Favicon project="iap" />
+        <SEO
+          title={intl.formatMessage({
+            defaultMessage: "Indigenous Apprenticeship Program",
+            id: "C5tUG2",
+            description: "Title tag for Indigenous Apprenticeship Program site",
+          })}
+          description={intl.formatMessage({
+            defaultMessage:
+              "Apply now to get started on your IT career journey.",
+            id: "Oh1/Gc",
+            description:
+              "Meta tag description for Indigenous Apprenticeship Program site",
+          })}
+        />
         <SkipLink />
         <div
           className="container"

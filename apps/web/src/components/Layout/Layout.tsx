@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
+import SEO, { Favicon } from "@common/components/SEO/SEO";
 import MenuLink from "@common/components/Link/MenuLink";
 import SkipLink from "@common/components/Link/SkipLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
@@ -125,25 +126,20 @@ const Layout = () => {
 
   return (
     <>
-      <Helmet>
-        <html lang={locale} />
-        <title>
-          {intl.formatMessage({
-            defaultMessage: "GC Digital Talent",
-            id: "Mz+gUV",
-            description: "Title tag for Talent Search site",
-          })}
-        </title>
-        <meta
-          name="description"
-          content={intl.formatMessage({
-            defaultMessage:
-              "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
-            id: "jRmRd+",
-            description: "Meta tag description for Talent Search site",
-          })}
-        />
-      </Helmet>
+      <Favicon project="digital-talent" />
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "GC Digital Talent",
+          id: "Mz+gUV",
+          description: "Title tag for Talent Search site",
+        })}
+        description={intl.formatMessage({
+          defaultMessage:
+            "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
+          id: "jRmRd+",
+          description: "Meta tag description for Talent Search site",
+        })}
+      />
       <SkipLink />
       <div
         className="container"

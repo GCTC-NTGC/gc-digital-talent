@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 
+import Favicon from "./Favicon";
 import useLocale from "../../hooks/useLocale";
 
 interface SEOProps {
@@ -36,6 +37,7 @@ const SEO = ({ title, description, type = "website" }: SEOProps) => {
 
   return (
     <Helmet>
+      <html lang={locale} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta property="og:type" content={seo.type} />
@@ -50,4 +52,5 @@ const SEO = ({ title, description, type = "website" }: SEOProps) => {
   );
 };
 
+export { Favicon };
 export default SEO;

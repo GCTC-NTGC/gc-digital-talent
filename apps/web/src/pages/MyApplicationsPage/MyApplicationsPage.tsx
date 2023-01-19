@@ -8,7 +8,6 @@ import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 
 import { useMyApplicationsQuery } from "~/api/generated";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 import ApplicationCard, {
   type Application,
@@ -52,10 +51,7 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
         data-h2-color="base(dt-white)"
         data-h2-text-align="base(center)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

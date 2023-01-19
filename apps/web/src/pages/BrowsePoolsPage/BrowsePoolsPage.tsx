@@ -19,21 +19,14 @@ import {
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 import { ActiveRecruitmentSection } from "./ActiveRecruitmentSection";
 import { OngoingRecruitmentSection } from "./OngoingRecruitmentSection";
 
-const flourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
-const flourishBottomLight = imageUrl(
-  TALENTSEARCH_APP_DIR,
-  "browse_bottom_light.png",
-);
-const flourishTopDark = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_dark.png");
-const flourishBottomDark = imageUrl(
-  TALENTSEARCH_APP_DIR,
-  "browse_bottom_dark.png",
-);
+const flourishTopLight = imageUrl("/", "browse_top_light.png");
+const flourishBottomLight = imageUrl("/", "browse_bottom_light.png");
+const flourishTopDark = imageUrl("/", "browse_top_dark.png");
+const flourishBottomDark = imageUrl("/", "browse_bottom_dark.png");
 
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
@@ -97,7 +90,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
         })}
       />
       <Hero
-        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.jpg")}
+        imgPath={imageUrl("/", "browse_header.jpg")}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:

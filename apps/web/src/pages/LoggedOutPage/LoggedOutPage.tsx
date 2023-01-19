@@ -9,7 +9,6 @@ import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
 const LoggedOutPage: React.FC = () => {
@@ -32,10 +31,7 @@ const LoggedOutPage: React.FC = () => {
         data-h2-color="base(dt-white)"
         data-h2-text-align="base(center)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

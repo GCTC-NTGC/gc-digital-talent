@@ -5,7 +5,6 @@ import Heading from "@common/components/Heading";
 import imageUrl from "@common/helpers/imageUrl";
 
 import useRoutes from "~/hooks/useRoutes";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 import CallToAction from "~/components/CallToAction/CallToAction";
 
@@ -13,10 +12,10 @@ import "./hero.css";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
-    imageUrl(TALENTSEARCH_APP_DIR, "hero-1-landscape.jpg"),
-    imageUrl(TALENTSEARCH_APP_DIR, "hero-2-landscape.jpg"),
-    imageUrl(TALENTSEARCH_APP_DIR, "hero-3-landscape.jpg"),
-    imageUrl(TALENTSEARCH_APP_DIR, "hero-4-landscape.jpg"),
+    imageUrl("/", "hero-1-landscape.jpg"),
+    imageUrl("/", "hero-2-landscape.jpg"),
+    imageUrl("/", "hero-3-landscape.jpg"),
+    imageUrl("/", "hero-4-landscape.jpg"),
   ];
   return items[index ?? Math.floor(Math.random() * items.length)];
 };

@@ -5,7 +5,6 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import Heading from "@common/components/Heading";
 import { getLocale } from "@common/helpers/localize";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 import Block from "./Block";
 
@@ -52,10 +51,7 @@ const Featured = () => {
       }),
 
       img: {
-        path: imageUrl(
-          TALENTSEARCH_APP_DIR,
-          "check_it_out_digital_ambition.jpg",
-        ),
+        path: imageUrl("/", "check_it_out_digital_ambition.jpg"),
       },
       link: {
         path:
@@ -84,10 +80,7 @@ const Featured = () => {
           "Summary of the Indigenous Apprenticeship Program for the homepage",
       }),
       img: {
-        path: imageUrl(
-          TALENTSEARCH_APP_DIR,
-          "check_it_out_IAP_manager_callout.jpg",
-        ),
+        path: imageUrl("/", "check_it_out_IAP_manager_callout.jpg"),
       },
       link: {
         path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
@@ -119,7 +112,7 @@ const Featured = () => {
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_light_2.png")}
+          src={imageUrl("/", "Desktop_Graphics_light_2.png")}
           alt=""
         />
         <img
@@ -130,7 +123,7 @@ const Featured = () => {
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_dark_2.png")}
+          src={imageUrl("/", "Desktop_Graphics_dark_2.png")}
           alt=""
         />
         <img
@@ -141,7 +134,7 @@ const Featured = () => {
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_light_3.png")}
+          src={imageUrl("/", "Desktop_Graphics_light_3.png")}
           alt=""
         />
         <img
@@ -152,7 +145,7 @@ const Featured = () => {
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_dark_3.png")}
+          src={imageUrl("/", "Desktop_Graphics_dark_3.png")}
           alt=""
         />
       </div>

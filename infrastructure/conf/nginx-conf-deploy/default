@@ -94,8 +94,8 @@ server {
     }
 
     # rewrite talent static files to "apps/web/dist"
-    location ~ "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        rewrite "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html

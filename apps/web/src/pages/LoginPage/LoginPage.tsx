@@ -8,7 +8,6 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import SEO from "@common/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
@@ -34,10 +33,7 @@ const LoginPage: React.FC = () => {
         data-h2-color="base(dt-white)"
         data-h2-text-align="base(center)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

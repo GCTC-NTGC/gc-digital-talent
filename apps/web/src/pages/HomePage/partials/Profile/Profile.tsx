@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import imageUrl from "@common/helpers/imageUrl";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
 import CallToAction from "~/components/CallToAction/CallToAction";
@@ -34,10 +33,7 @@ const Profile = () => {
           data-h2-width="base(100%)"
           className="profile-bg-image"
           style={{
-            backgroundImage: `url('${imageUrl(
-              TALENTSEARCH_APP_DIR,
-              "hero-profile.jpg",
-            )}')`,
+            backgroundImage: `url('${imageUrl("/", "hero-profile.jpg")}')`,
           }}
         />
         <div

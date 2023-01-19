@@ -2,7 +2,6 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import imageUrl from "@common/helpers/imageUrl";
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 
 const SearchHeading: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -12,7 +11,7 @@ const SearchHeading: React.FunctionComponent = () => {
         data-h2-padding="base(x2.5, 0, x4, 0) p-tablet(x4, 0, x6, 0)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
+            "/",
             "hero-background-search.png",
           )})`,
           backgroundSize: "cover",

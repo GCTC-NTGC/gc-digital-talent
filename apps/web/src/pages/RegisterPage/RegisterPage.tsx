@@ -7,7 +7,6 @@ import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
@@ -34,10 +33,7 @@ const RegisterPage: React.FC = () => {
         data-h2-color="base(dt-white)"
         data-h2-text-align="base(center)"
         style={{
-          background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.png",
-          )})`,
+          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -5,7 +5,6 @@ import SEO from "@common/components/SEO/SEO";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import imageUrl from "@common/helpers/imageUrl";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
 import CancelButton, { type CancelButtonProps } from "./CancelButton";
@@ -53,10 +52,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
       data-h2-padding="base(x1, 0)"
       data-h2-color="base(dt-white)"
       style={{
-        background: `url(${imageUrl(
-          TALENTSEARCH_APP_DIR,
-          "applicant-profile-banner.png",
-        )})`,
+        background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
         backgroundSize: "100vw 5rem",
       }}
     >

@@ -7,7 +7,6 @@ import { ExternalLink } from "@common/components/Link";
 import imageUrl from "@common/helpers/imageUrl";
 import { getLocale, Locales } from "@common/helpers/localize";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -204,10 +203,7 @@ const AccessibilityStatementPage = () => {
   return (
     <>
       <Hero
-        imgPath={imageUrl(
-          TALENTSEARCH_APP_DIR,
-          "accessibility-statement-header.jpg",
-        )}
+        imgPath={imageUrl("/", "accessibility-statement-header.jpg")}
         title={pageTitle}
         subtitle={intl.formatMessage({
           defaultMessage:

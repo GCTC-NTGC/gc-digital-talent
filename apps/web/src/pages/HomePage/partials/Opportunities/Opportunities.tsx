@@ -10,7 +10,6 @@ import useLocale from "@common/hooks/useLocale";
 import imageUrl from "@common/helpers/imageUrl";
 import { AuthenticationContext } from "@common/components/Auth";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 
 // Create the page component
@@ -38,7 +37,7 @@ const Opportunities = () => {
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_light_1.png")}
+          src={imageUrl("/", "Desktop_Graphics_light_1.png")}
           alt=""
         />
         <img
@@ -49,7 +48,7 @@ const Opportunities = () => {
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl(TALENTSEARCH_APP_DIR, "Desktop_Graphics_dark_1.png")}
+          src={imageUrl("/", "Desktop_Graphics_dark_1.png")}
           alt=""
         />
         <div

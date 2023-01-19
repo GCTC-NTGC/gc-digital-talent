@@ -9,7 +9,6 @@ import {
   relativeClosingDate,
 } from "@common/helpers/dateUtils";
 
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import { PoolAdvertisement } from "~/api/generated";
 
 import ApplicationNavigation, {
@@ -35,7 +34,7 @@ const ApplicationPageWrapper = ({
 }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
 
-  const banner = imageUrl(TALENTSEARCH_APP_DIR, "applicant-profile-banner.png");
+  const banner = imageUrl("/", "applicant-profile-banner.png");
 
   const breadcrumbs = crumbs ? <Breadcrumbs links={crumbs} /> : null;
 

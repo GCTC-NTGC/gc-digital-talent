@@ -4,18 +4,13 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import Hero from "@common/components/Hero";
 import useTheme from "@common/hooks/useTheme";
-
-import TALENTSEARCH_APP_DIR from "~/constants/talentSearchConstants";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import SupportForm from "./SupportForm";
 
-const flourishTopLight = imageUrl(
-  TALENTSEARCH_APP_DIR,
-  "support_top_light.png",
-);
-const flourishTopDark = imageUrl(TALENTSEARCH_APP_DIR, "support_top_dark.png");
+const flourishTopLight = imageUrl("/", "support_top_light.png");
+const flourishTopDark = imageUrl("/", "support_top_dark.png");
 
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
@@ -45,7 +40,7 @@ export const SupportPage: React.FC = () => {
   return (
     <>
       <Hero
-        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "support_header.png")}
+        imgPath={imageUrl("/", "support_header.png")}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:

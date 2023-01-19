@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import imageUrl from "@common/helpers/imageUrl";
 
 import useQuote from "~/hooks/useQuote";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "~/constants/indigenousApprenticeshipConstants";
 
 import Banner from "./Banner";
 import Card from "./Card";
@@ -70,7 +69,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
           data-h2-order="base(2) p-tablet(1)"
-          src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
+          src={imageUrl("/", "hero.jpg")}
           alt=""
         />
         <div
@@ -85,10 +84,7 @@ const Home: React.FunctionComponent = () => {
           <h1>
             <img
               data-h2-width="base(100%)"
-              src={imageUrl(
-                INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                `logo-${intl.locale}.svg`,
-              )}
+              src={imageUrl("/", `logo-${intl.locale}.svg`)}
               alt=""
             />
             <span data-h2-visually-hidden="base(invisible)">
@@ -161,7 +157,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-position="base(relative)"
                       style={{
                         backgroundImage: `url('${imageUrl(
-                          INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                          "/",
                           "indigenous-woman-smiling.jpg",
                         )}')`,
                         backgroundPosition: "center",
@@ -169,10 +165,7 @@ const Home: React.FunctionComponent = () => {
                       }}
                     />
                     <img
-                      src={imageUrl(
-                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                        "feathers.png",
-                      )}
+                      src={imageUrl("/", "feathers.png")}
                       alt=""
                       data-h2-position="base(absolute)"
                       data-h2-width="base(150%)"
@@ -260,7 +253,7 @@ const Home: React.FunctionComponent = () => {
                     data-h2-position="base(relative)"
                     style={{
                       backgroundImage: `url('${imageUrl(
-                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "/",
                         "man-on-computer.jpg",
                       )}')`,
                       backgroundPosition: "center",
@@ -268,10 +261,7 @@ const Home: React.FunctionComponent = () => {
                     }}
                   />
                   <img
-                    src={imageUrl(
-                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "gloves.png",
-                    )}
+                    src={imageUrl("/", "gloves.png")}
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(140%)"
@@ -357,7 +347,7 @@ const Home: React.FunctionComponent = () => {
                     data-h2-position="base(relative)"
                     style={{
                       backgroundImage: `url('${imageUrl(
-                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "/",
                         "applicant.jpg",
                       )}')`,
                       backgroundPosition: "center",
@@ -365,7 +355,7 @@ const Home: React.FunctionComponent = () => {
                     }}
                   />
                   <img
-                    src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                    src={imageUrl("/", "ulu.png")}
                     alt=""
                     data-h2-display="base(block) p-tablet(none)"
                     data-h2-position="base(absolute)"
@@ -413,7 +403,7 @@ const Home: React.FunctionComponent = () => {
                   )}
                 </p>
                 <img
-                  src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                  src={imageUrl("/", "ulu.png")}
                   alt=""
                   data-h2-display="base(none) p-tablet(block)"
                   data-h2-position="base(absolute)"
@@ -439,10 +429,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-margin="p-tablet(x2, 0, 0, 0)"
         data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
         style={{
-          backgroundImage: `url(${imageUrl(
-            INDIGENOUSAPPRENTICESHIP_APP_DIR,
-            "quote-bg.jpg",
-          )})`,
+          backgroundImage: `url(${imageUrl("/", "quote-bg.jpg")})`,
           backgroundSize: "cover",
           backgroundPosition: "right 10% center",
         }}
@@ -466,10 +453,7 @@ const Home: React.FunctionComponent = () => {
       <div
         data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
         style={{
-          backgroundImage: `url(${imageUrl(
-            INDIGENOUSAPPRENTICESHIP_APP_DIR,
-            "sash.jpg",
-          )})`,
+          backgroundImage: `url(${imageUrl("/", "sash.jpg")})`,
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -481,10 +465,7 @@ const Home: React.FunctionComponent = () => {
                 <div
                   data-h2-height="base(40vh) p-tablet(100%)"
                   style={{
-                    backgroundImage: `url(${imageUrl(
-                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "lower-back.jpg",
-                    )})`,
+                    backgroundImage: `url(${imageUrl("/", "lower-back.jpg")})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
@@ -827,10 +808,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-overflow="base(hidden)"
                 >
                   <img
-                    src={imageUrl(
-                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "icon-watermark.svg",
-                    )}
+                    src={imageUrl("/", "icon-watermark.svg")}
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-location="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
@@ -879,10 +857,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-display="base(block)"
                       data-h2-position="p-tablet(absolute)"
                       data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
-                      src={imageUrl(
-                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                        "indigenous-woman.png",
-                      )}
+                      src={imageUrl("/", "indigenous-woman.png")}
                       alt=""
                     />
                   </div>
