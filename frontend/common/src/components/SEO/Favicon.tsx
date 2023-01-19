@@ -9,7 +9,7 @@ interface FaviconProps {
 
 const colourMap = new Map<Project, string>([
   ["digital-talent", "#fff"],
-  ["iap", "#fff"],
+  ["iap", "#6e1d41"],
   ["admin", "#fff"],
 ]);
 
