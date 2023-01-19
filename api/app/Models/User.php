@@ -47,7 +47,6 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $has_disability
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
- * @property string $language_ability
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $expected_salary
@@ -101,10 +100,6 @@ class User extends Model implements Authenticatable
     public function expectedGenericJobTitles(): BelongsToMany
     {
         return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
-    }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class)->withTimestamps();
     }
 
     public function isAdmin(): bool
@@ -219,7 +214,7 @@ class User extends Model implements Authenticatable
      * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
      * @return Builder
      */
-    public static function filterByPools(Builder $query, ?array $poolFilters): Builder
+    public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
         if (empty($poolFilters)) {
             return $query;
@@ -235,7 +230,7 @@ class User extends Model implements Authenticatable
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                                     ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
@@ -269,7 +264,7 @@ class User extends Model implements Authenticatable
      * @param array $poolIds
      * @return Builder
      */
-    public static function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -282,23 +277,28 @@ class User extends Model implements Authenticatable
                 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
-        return self::filterByPools($query, $poolFilters);
+        return self::scopePoolFilters($query, $poolFilters);
     }
-    public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    public static function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
             return $query;
         }
-        // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function ($query) use ($languageAbility) {
-            $query->where('language_ability', $languageAbility);
-            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-            }
-        });
+
+        // $languageAbility comes from enum LanguageAbility
+        // filtering on fields looking_for_<english/french/bilingual>
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH) {
+            $query->where('looking_for_english', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+            $query->where('looking_for_french', true);
+        }
+        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
+            $query->where('looking_for_bilingual', true);
+        }
         return $query;
     }
-    public static function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
+    public static function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($operationalRequirements)) {
@@ -309,7 +309,7 @@ class User extends Model implements Authenticatable
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
-    public static function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
+    public static function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
             return $query;
@@ -327,7 +327,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
+    public static function scopeJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
         if (empty($statuses)) {
             return $query;
@@ -345,7 +345,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function filterBySkills(Builder $query, ?array $skills): Builder
+    public static function scopeSkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -386,6 +386,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
+
     public static function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
@@ -540,7 +541,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByEquity(Builder $query, ?array $equity): Builder
+    public static function scopeEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -575,7 +576,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
             $query->where(function ($query) use ($search) {
@@ -588,7 +589,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function filterByName(Builder $query, ?string $name): Builder
+    public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
             $splitName = explode(" ", $name);
@@ -666,5 +667,35 @@ RAWSQL2;
         }
 
         return null; // if indigenousCommunities is null then so is isIndigenous
+    }
+
+    /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
+    public function getLanguageAbilityAttribute($languageAbility = null) {
+        // if the field exists, say for migration purposes, must stop accessor overriding
+        if($languageAbility !== null){
+            return $languageAbility;
+        }
+
+        $lookingForEnglish = $this->looking_for_english;
+        $lookingForFrench = $this->looking_for_french;
+        $lookingForBilingual = $this->looking_for_bilingual;
+
+            // only english case
+            if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+                return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            }
+
+            // only french case
+            if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+               return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            }
+
+            // bilingual case just depends on the one field being true
+            // or ignore the field if english and french are both true
+            if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
+                return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            }
+
+            // in all other cases the field stays null, so cases where all fields tested are false/null for instance
     }
 }

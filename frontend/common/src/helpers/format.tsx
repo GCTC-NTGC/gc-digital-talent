@@ -11,7 +11,7 @@ import React from "react";
  *
  * @param text text to wrap.
  */
-export const strong = (text: React.ReactNode): React.ReactNode => (
+export const strong = (text: React.ReactNode) => (
   <span data-h2-font-weight="base(700)">{text}</span>
 );
 
@@ -19,8 +19,8 @@ export const strong = (text: React.ReactNode): React.ReactNode => (
  * Wraps text in span to make invisible to sighted users
  * @param text text to wrap.
  */
-export const hidden = (text: React.ReactNode): React.ReactNode => (
-  <span data-h2-visibility="base(invisible)" style={{ whiteSpace: "pre" }}>
+export const hidden = (text: React.ReactNode) => (
+  <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
     {text}
   </span>
 );
@@ -29,7 +29,7 @@ export const hidden = (text: React.ReactNode): React.ReactNode => (
  * Wraps text in tags to make it the primary color with a heavy weight
  * @param text text to wrap.
  */
-export const heavyPrimary = (text: React.ReactNode): React.ReactNode => (
+export const heavyPrimary = (text: React.ReactNode) => (
   <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
     {text}
   </span>
@@ -39,7 +39,7 @@ export const heavyPrimary = (text: React.ReactNode): React.ReactNode => (
  * Wraps text in tags to make it the primary color
  * @param text text to wrap.
  */
-export const primary = (text: React.ReactNode): React.ReactNode => (
+export const primary = (text: React.ReactNode) => (
   <span data-h2-color="base(dt-primary)">{text}</span>
 );
 
@@ -47,15 +47,15 @@ export const primary = (text: React.ReactNode): React.ReactNode => (
  * Wraps text in tags to make it red
  * @param text  text to wrap
  */
-export const red = (text: React.ReactNode): React.ReactNode => (
-  <span data-h2-color="base(dark.dt-error)">{text}</span>
+export const red = (text: React.ReactNode) => (
+  <span data-h2-color="base(dt-error.dark)">{text}</span>
 );
 
 /**
  * Wraps text in tags to make it gray
  * @param text  text to wrap
  */
-export const gray = (text: React.ReactNode): React.ReactNode => (
+export const gray = (text: React.ReactNode) => (
   <span data-h2-color="base(dt-gray.dark)">{text}</span>
 );
 

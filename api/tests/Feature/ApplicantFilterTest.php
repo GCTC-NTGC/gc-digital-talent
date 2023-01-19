@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
@@ -390,12 +391,21 @@ class ApplicantFilterTest extends TestCase
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->activelyLooking()->withExpectedGenericJobTitles()->withSkills(10)
+            'user_id' => User::factory()->activelyLooking()->withSkills(10)
         ]);
-
 
         // Generate a filter that matches at least one candidate
         $candidate = $candidates->random();
+        $filterLanguage = null; // run through fields and assign the enum for the first one that is true
+        if ($candidate->looking_for_english) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+        }
+        elseif ($candidate->looking_for_french) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
+        }
+        elseif ($candidate->looking_for_bilingual) {
+            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+        }
         $filter = ApplicantFilter::factory()->create(
             [
                 'has_diploma' => $candidate->user->has_diploma,
@@ -404,7 +414,7 @@ class ApplicantFilterTest extends TestCase
                 'is_visible_minority' => $candidate->user->is_visible_minority,
                 'is_woman' => $candidate->user->is_woman,
                 'position_duration' => $candidate->user->position_duration,
-                'language_ability' => $candidate->user->language_ability,
+                'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->operational_requirements,
             ]

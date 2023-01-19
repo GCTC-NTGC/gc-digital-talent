@@ -19,11 +19,13 @@ type FormValues = {
 
 export interface SkillsInDetailProps {
   skills: FormSkills;
+  required?: boolean;
   onDelete: (id: string) => void;
 }
 
 const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   skills,
+  required,
   onDelete,
 }) => {
   const intl = useIntl();
@@ -54,7 +56,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
       <ul
         data-h2-margin="base(x.5, 0, x1, 0)"
         data-h2-padding="base(0, 0, 0, x1)"
-        data-h2-color="base(dark.dt-gray)"
+        data-h2-color="base(dt-gray.dark)"
         data-h2-font-style="base(italic)"
       >
         <li>
@@ -119,7 +121,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
                     data-h2-padding="base(0, 0, 0, x.25)"
-                    data-h2-visibility="base(invisible) p-tablet(visible)"
+                    data-h2-visually-hidden="base(invisible) p-tablet(revealed)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from experience",
@@ -153,7 +155,9 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   })}
                   name={`skills.${index}.details`}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: required
+                      ? intl.formatMessage(errorMessages.required)
+                      : undefined,
                     validate: {
                       wordCount: (value: string) =>
                         countNumberOfWords(value) <= MAX_WORDS ||

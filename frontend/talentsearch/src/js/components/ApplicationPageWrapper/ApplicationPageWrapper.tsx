@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import imageUrl from "@common/helpers/imageUrl";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 
 import { CalendarIcon } from "@heroicons/react/24/outline";
@@ -19,7 +19,7 @@ export interface ApplicationPageWrapperProps {
   subtitle?: string;
   crumbs?: BreadcrumbsProps["links"];
   navigation?: ApplicationNavigationProps;
-  closingDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   children: React.ReactNode;
 }
 
@@ -78,7 +78,7 @@ const ApplicationPageWrapper = ({
             data-h2-justify-content="base(space-between)"
             data-h2-margin="base(0, 0, x.5, 0) p-tablet(x.5, 0)"
             {...(showNav && {
-              "data-h2-border": "base(bottom, 1px, solid, dt-gray.dark)",
+              "data-h2-border-bottom": "base(1px solid dt-gray.dark)",
               "data-h2-padding": "base(0, 0, x.5, 0)",
             })}
           >
@@ -105,19 +105,22 @@ const ApplicationPageWrapper = ({
                 }}
               />
               <p data-h2-font-size="base(h6, 1)">
-                {intl.formatMessage({
-                  defaultMessage: "Closing date:",
-                  id: "GIN69n",
-                  description:
-                    "Label for a pool advertisements closing date on the application",
-                })}
-                <br />
-                {closingDate
-                  ? relativeExpiryDate({
-                      expiryDate: parseDateTimeUtc(closingDate),
-                      intl,
-                    })
-                  : ""}
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Closing date:",
+                    id: "GIN69n",
+                    description:
+                      "Label for a pool advertisements closing date on the application",
+                  })}
+                </span>
+                <span data-h2-display="base(block)">
+                  {closingDate
+                    ? relativeClosingDate({
+                        closingDate: parseDateTimeUtc(closingDate),
+                        intl,
+                      })
+                    : ""}
+                </span>
               </p>
             </div>
           </div>

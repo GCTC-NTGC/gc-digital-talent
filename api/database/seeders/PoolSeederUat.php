@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -46,21 +45,6 @@ class PoolSeederUat extends Seeder
                 'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
             ]
         );
-
-        $softAssets = CmoAsset::whereIn('key', ['teamwork', 'at', 'cs', 'comms'])->get();
-        $hardAssets = CmoAsset::whereIn('key', [
-            'app_dev',
-            'app_testing',
-            'cybersecurity',
-            'data_science',
-            'db_admin',
-            'enterprise_architecture',
-            'information_management',
-            'infrastructure_ops',
-            'project_management'
-        ])->get();
-        $digitalCareers->essentialCriteria()->sync($softAssets);
-        $digitalCareers->assetCriteria()->sync($hardAssets);
 
         $itClassifications = Classification::where('group', 'IT')->get();
         $digitalCareers->classifications()->sync($itClassifications);

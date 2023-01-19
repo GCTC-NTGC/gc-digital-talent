@@ -63,20 +63,10 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
       experience.skills?.some((childSkills) => skill.id === childSkills?.id),
     );
 
-    // step 2 - clone the experiences and strip off the child skills to prevent circular references
-    const experienceWithChildrenRemoved = skillsInThisExperience.map(
-      (experience) => {
-        return {
-          ...experience,
-          skills: [],
-        };
-      },
-    );
-
-    // step 3 - clone the skill and attach the experience collection
+    // step 2 - clone the skill and attach the experience collection
     return {
       ...skill,
-      experiences: experienceWithChildrenRemoved,
+      experiences: skillsInThisExperience,
     };
   });
   return skillsWithExperiences;
@@ -141,6 +131,38 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
             addedSkill.experienceSkillRecord?.details,
         );
       });
+};
+
+/**
+ * Differentiate Missing Skills
+ *
+ * Determines if a skill is missing or present but
+ * simply missing details
+ *
+ * @param missingSkills Skill[] Array of skills that are missing from the application
+ * @param addedSkills Skill[] Array of skills added to a users profile
+ * @returns [skills: Skill[], details: Skill[]] Tuple where first index is the skills
+ *          That are completely missing and second index are the skills that are present
+ *          but missing details
+ */
+export const differentiateMissingSkills = (
+  missingSkills: Skill[],
+  addedSkills?: Skill[],
+) => {
+  const skills: Skill[] = [];
+  const details: Skill[] = [];
+
+  missingSkills.forEach((skill) => {
+    const addedSkill = addedSkills?.find((added) => added.id === skill.id);
+
+    if (addedSkill && !addedSkill.experienceSkillRecord?.details) {
+      details.push(skill);
+    } else {
+      skills.push(skill);
+    }
+  });
+
+  return [skills, details];
 };
 
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

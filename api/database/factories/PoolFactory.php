@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
@@ -39,7 +38,7 @@ class PoolFactory extends Factory
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
-            'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
+            'closing_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
             'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
             'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
@@ -53,11 +52,8 @@ class PoolFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Pool $pool) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            $pool->essentialCriteria()->saveMany($assets->slice(0, 2));
-            $pool->assetCriteria()->saveMany($assets->slice(2, 2));
             $pool->classifications()->saveMany($classifications);
             $pool->essentialSkills()->saveMany($skills->slice(0, 5));
             $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));

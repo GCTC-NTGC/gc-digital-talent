@@ -27,8 +27,11 @@ assignees: ''
 - [ ] The interface provides both light and dark mode designs
 - [ ] Complex interactions have been prototypes in a way that showcases every step in the flow
 - [ ] Empty/null states have been accounted for
+- [ ] A [content spreadsheet](https://1drv.ms/x/s!Ajx0PiLIqEzSgclOERYCPtg3t9dKyQ?e=BBFKF1) has been created and copywriting has been assigned
 - [ ] The design has been reviewed by at least one other team member
 - [ ] The design has been presented to the design team
+- [ ] The design has gone through at least one round of usability testing
+- [ ] The design has gone through at least one round of accessibility testing
 - [ ] The design has been approved by stakeholders
 
 ## ✅ Accessibility checklist

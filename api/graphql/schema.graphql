@@ -41,6 +41,8 @@ type User {
   id: ID!
   sub: String
   roles: [Role]
+  createdDate: DateTime @rename(attribute: "created_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
@@ -54,7 +56,9 @@ type User {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
+  languageAbility: LanguageAbility
+    @rename(attribute: "language_ability")
+    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -100,7 +104,6 @@ type User {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
@@ -218,7 +221,9 @@ type Applicant {
   priorityNumber: String @rename(attribute: "priority_number")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
+  languageAbility: LanguageAbility
+    @rename(attribute: "language_ability")
+    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -258,7 +263,6 @@ type Applicant {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Experiences
   experiences: [Experience]
@@ -287,8 +291,6 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
-  assetCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
-  essentialCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
@@ -301,6 +303,7 @@ type Pool {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  createdDate: DateTime @rename(attribute: "created_at")
 }
 
 enum PoolStatus {
@@ -324,7 +327,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
-  expiryDate: DateTime @rename(attribute: "expiry_date")
+  closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
   description: LocalizedString
@@ -349,7 +352,7 @@ type PoolAdvertisement {
 enum AdvertisementStatus {
   DRAFT
   PUBLISHED
-  EXPIRED
+  CLOSED
   ARCHIVED
 }
 
@@ -369,6 +372,7 @@ enum PoolCandidateStatus {
   PLACED_TERM
   PLACED_INDETERMINATE
   EXPIRED
+  REMOVED
 }
 
 enum SecurityStatus {
@@ -402,20 +406,6 @@ type PoolCandidate {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
-
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  acceptedOperationalRequirements: [OperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -495,16 +485,6 @@ type GenericJobTitle {
   classification: Classification @belongsTo
 }
 
-"""
-e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
-"""
-type CmoAsset {
-  id: ID!
-  key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString
-}
-
 type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
@@ -534,7 +514,6 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -763,65 +742,53 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-  cmoAssets: [KeyFilterInput]
-    @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
-  equity: EquitySelectionsInput
-    @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
-  expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
-  generalSearch: String
-    @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  equity: EquitySelectionsInput @scope
+  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
   email: String @scope
-  name: String @builder(method: "App\\Models\\PoolCandidate@filterByName")
+  generalSearch: String @scope
   hasDiploma: Boolean @scope
-  languageAbility: LanguageAbility
-    @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
-  locationPreferences: [WorkRegion]
-    @builder(method: "App\\Models\\PoolCandidate@filterByLocationPreferences")
-  operationalRequirements: [OperationalRequirement]
-    @builder(
-      method: "App\\Models\\PoolCandidate@filterByOperationalRequirements"
-    )
-  pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-  priorityWeight: [Int] @scope(name: "priorityWeight")
-  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  languageAbility: LanguageAbility @scope
+  locationPreferences: [WorkRegion] @scope
+  name: String @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  priorityWeight: [Int] @scope
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput]
-    @builder(method: "App\\Models\\User@filterByPools")
-  jobLookingStatus: [JobLookingStatus]
-    @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobLookingStatus: [JobLookingStatus] @scope
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
-  name: String @builder(method: "App\\Models\\User@filterByName")
-  generalSearch: String
-    @builder(method: "App\\Models\\User@filterByGeneralSearch")
+  name: String @scope
+  generalSearch: String @scope
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
-  hasDiploma: Boolean @scope
-  equity: EquitySelectionsInput
-    @builder(method: "App\\Models\\User@filterByEquity")
-  languageAbility: LanguageAbility
-    @builder(method: "App\\Models\\User@filterByLanguageAbility")
-  operationalRequirements: [OperationalRequirement]
-    @builder(method: "App\\Models\\User@filterByOperationalRequirements")
-  locationPreferences: [WorkRegion]
-    @builder(method: "App\\Models\\User@filterByLocationPreferences")
-  positionDuration: [PositionDuration] @scope
+  equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
-  skills: [IdInput]
-    @pluck(key: "id")
-    @builder(method: "App\\Models\\User@filterBySkills") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  pools: [IdInput]
-    @pluck(key: "id")
-    @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  hasDiploma: Boolean @scope
+  languageAbility: LanguageAbility @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  positionDuration: [PositionDuration] @scope
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+}
+
+input PoolCandidateSearchInput {
+  applicantFilter: ApplicantFilterInput @spread
+  email: String @scope
+  generalSearch: String @scope
+  name: String @scope
+  priorityWeight: [Int] @scope(name: "priorityWeight")
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 type CandidateSearchPoolResult {
@@ -872,7 +839,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
   poolCandidatesPaginated(
-    where: PoolCandidateFilterInput
+    where: PoolCandidateSearchInput
     orderBy: _
       @orderBy(
         relations: [
@@ -890,7 +857,7 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft", "availableForOpportunities", "expiryFilter"])
     @guard
     @can(ability: "viewAny")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
@@ -914,8 +881,6 @@ type Query {
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find
   classifications: [Classification]! @all
-  cmoAsset(id: UUID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills")
-  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills")
   department(id: UUID! @eq): Department @find
   departments: [Department]! @all
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
@@ -926,11 +891,12 @@ type Query {
     @all
     @guard
     @can(ability: "viewAny")
+    @throttle(name: "graphql")
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
     @can(ability: "view", query: true)
-  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
+  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -991,7 +957,6 @@ input CreateUserInput {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -1032,7 +997,6 @@ input CreateUserInput {
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1062,7 +1026,6 @@ input UpdateUserAsAdminInput
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -1104,7 +1067,6 @@ input UpdateUserAsAdminInput
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1129,7 +1091,6 @@ input UpdateUserAsUserInput
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -1171,7 +1132,6 @@ input UpdateUserAsUserInput
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1206,16 +1166,6 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input CreateCmoAssetInput {
-  key: KeyString!
-  name: LocalizedStringInput!
-  description: LocalizedStringInput
-}
-
-input CmoAssetBelongsToMany {
-  sync: [ID!]
-}
-
 input ConnectOrCreateBelongsTo {
   connect: ID
   create: CreateUserInput
@@ -1226,18 +1176,6 @@ input CreatePoolCandidateAsAdminInput {
   user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  acceptedOperationalRequirements: [OperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
@@ -1249,8 +1187,6 @@ input CreatePoolInput {
   key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
@@ -1266,26 +1202,9 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdateCmoAssetInput {
-  name: LocalizedStringInput
-  description: LocalizedStringInput
-}
-
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  acceptedOperationalRequirements: [OperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   notes: String
 }
@@ -1295,8 +1214,6 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
@@ -1326,7 +1243,6 @@ input DepartmentBelongsTo {
 
 input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1512,11 +1428,11 @@ input UpdatePoolAdvertisementInput {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
-  expiryDate: DateTime
-    @rename(attribute: "expiry_date")
+  closingDate: DateTime
+    @rename(attribute: "closing_date")
     @rules(
       apply: ["after:today"]
-      messages: [{ rule: "after", message: "UpdatePoolExpiryDate" }]
+      messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
     )
   # Your impact
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
@@ -1540,6 +1456,7 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
+    @throttle(maxAttempts: 100)
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
@@ -1586,21 +1503,6 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
-  createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset
-    @create
-    @guard
-    @can(ability: "create")
-    @deprecated(reason: "replaced by skills")
-  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset
-    @update
-    @guard
-    @can(ability: "update", find: "id")
-    @deprecated(reason: "replaced by skills")
-  deleteCmoAsset(id: ID!): CmoAsset
-    @delete(globalId: false)
-    @guard
-    @can(ability: "delete", find: "id")
-    @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard
@@ -1718,17 +1620,17 @@ type Mutation {
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "publish", find: "id", model: "Pool")
-  changePoolExpiryDate(
+  changePoolClosingDate(
     id: ID!
-    newExpiryDate: DateTime!
-      @rename(attribute: "new_expiry_date")
+    newClosingDate: DateTime!
+      @rename(attribute: "new_closing_date")
       @rules(
         apply: ["after:today"]
-        messages: [{ rule: "after", message: "UpdatePoolExpiryDate" }]
+        messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
       )
   ): PoolAdvertisement
     @guard
-    @can(ability: "changePoolExpiryDate", find: "id", model: "Pool")
+    @can(ability: "changePoolClosingDate", find: "id", model: "Pool")
   closePoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")

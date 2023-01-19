@@ -4,6 +4,8 @@ import useTheme from "@common/hooks/useTheme";
 
 import Heading from "@common/components/Heading";
 
+import { useLogger } from "@common/hooks/useLogger";
+import { useLocation } from "react-router-dom";
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
 import useRoutes from "../../hooks/useRoutes";
@@ -13,14 +15,24 @@ const ErrorPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { mode } = useTheme();
+  const location = useLocation();
   const error = useErrorMessages();
+  const logger = useLogger();
+
+  logger.notice(
+    JSON.stringify({
+      message: "ErrorPage triggered",
+      pathname: location.pathname,
+      error,
+    }),
+  );
 
   const Image = mode === "dark" ? PugDark : PugLight;
 
   return (
     <>
       <div
-        data-h2-background-color="base(tm-linear-divider)"
+        data-h2-background="base(tm-linear-divider)"
         data-h2-display="base(block)"
         data-h2-height="base(x1)"
       />
@@ -95,7 +107,7 @@ const ErrorPage = () => {
         </div>
       </div>
       <div
-        data-h2-background-color="base(tm-linear-divider)"
+        data-h2-background="base(tm-linear-divider)"
         data-h2-display="base(block)"
         data-h2-height="base(x1)"
       />

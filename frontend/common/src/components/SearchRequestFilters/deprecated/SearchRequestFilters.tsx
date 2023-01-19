@@ -12,7 +12,6 @@ import {
   getOperationalRequirement,
   getWorkRegion,
 } from "../../../constants/localizedConstants";
-import { getLocale } from "../../../helpers/localize";
 
 export interface FilterBlockProps {
   title: string;
@@ -45,7 +44,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   return (
     <div data-h2-padding="base(0, 0, x1, 0)">
-      <div data-h2-visibility="base(visible) p-tablet(hidden)">
+      <div data-h2-visually-hidden="base(visible) p-tablet(hidden)">
         <p
           data-h2-display="base(inline)"
           data-h2-padding="base(0, x.125, 0, 0)"
@@ -69,7 +68,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           </p>
         )}
       </div>
-      <div data-h2-visibility="base(hidden) p-tablet(visible)">
+      <div data-h2-visually-hidden="base(hidden) p-tablet(visible)">
         <p
           data-h2-display="base(block)"
           data-h2-padding="base(0, x.125, 0, 0)"
@@ -102,7 +101,6 @@ const SearchRequestFilters: React.FunctionComponent<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ poolCandidateFilter, poolApplicantFilter }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
@@ -186,16 +184,6 @@ const SearchRequestFilters: React.FunctionComponent<
         defaultMessage: "Any language",
         id: "0/8x/z",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (skill) =>
-      skill?.name[locale] ||
-      intl.formatMessage({
-        defaultMessage: "Error: skill name not found",
-        id: "vyQv+i",
-        description:
-          "Error message when cmo asset name is not found on request page.",
-      }),
-  );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
@@ -269,15 +257,6 @@ const SearchRequestFilters: React.FunctionComponent<
                 "Title for employment equity section on summary of filters section",
             })}
             content={employmentEquity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Skills",
-              id: "gD3yqV",
-              description:
-                "Title for skills section on summary of filters section",
-            })}
-            content={skills}
           />
         </div>
       </div>

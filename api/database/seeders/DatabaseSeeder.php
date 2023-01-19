@@ -6,7 +6,6 @@ use App\Models\ApplicantFilter;
 use App\Models\User;
 use App\Models\Pool;
 use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
@@ -39,7 +38,6 @@ class DatabaseSeeder extends Seeder
         $this->truncateTables();
 
         $this->call(ClassificationSeeder::class);
-        $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
@@ -57,8 +55,6 @@ class DatabaseSeeder extends Seeder
         ])
             ->count(150)
             ->afterCreating(function (User $user) use ($faker) {
-                $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-                $user->cmoAssets()->sync($assets);
 
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
@@ -225,7 +221,7 @@ class DatabaseSeeder extends Seeder
                     Pool::factory()->afterCreating(function ($pool) use ($classification, $faker) {
                         $pool->classifications()->sync([$classification->id]);
                     })->create([
-                        'expiry_date' => $date,
+                        'closing_date' => $date,
                         'publishing_group' => $publishingGroup,
                         'published_at' => $faker->dateTimeBetween('-1 year', 'now')
                     ]);

@@ -21,7 +21,9 @@ import PrintExperienceByType from "@common/components/UserProfile/PrintExperienc
 import { Applicant } from "../../api/generated";
 import AdminAboutSection from "./AdminAboutSection";
 
-const HeadingWrapper: React.FC = ({ children }) => {
+const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
   );

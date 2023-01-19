@@ -18,13 +18,17 @@ import {
   Provider,
   Operation,
   makeOperation,
+  AnyVariables,
 } from "urql";
 import { useIntl } from "react-intl";
+import { useLogger } from "../../hooks/useLogger";
 import { toast } from "../Toast";
 
 import { AuthenticationContext } from "../Auth";
 import {
+  buildRateLimitErrorMessageNode,
   buildValidationErrorMessageNode,
+  extractRateLimitErrorMessages,
   extractValidationErrorMessages,
 } from "../../helpers/errorUtils";
 
@@ -88,12 +92,13 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   return false;
 };
 
-const ClientProvider: React.FC<{ client?: Client }> = ({
-  client,
-  children,
-}) => {
+const ClientProvider: React.FC<{
+  client?: Client;
+  children?: React.ReactNode;
+}> = ({ client, children }) => {
   const intl = useIntl();
   const authContext = useContext(AuthenticationContext);
+  const logger = useLogger();
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -101,8 +106,10 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
     authRef.current = authContext;
   }, [authContext]);
 
-  const getAuth = useCallback(
-    async ({ authState: existingAuthState }): Promise<AuthState | null> => {
+  const getAuth: (params: {
+    authState: AuthState | null;
+  }) => Promise<AuthState | null> = useCallback(
+    async ({ authState: existingAuthState }) => {
       // getAuth could be called for the first request or as the result of an error
 
       // At runtime, get the current auth state
@@ -153,7 +160,10 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           errorExchange({
-            onError: (error: CombinedError) => {
+            onError: (
+              error: CombinedError,
+              operation: Operation<unknown, AnyVariables>,
+            ) => {
               const validationErrorMessages =
                 extractValidationErrorMessages(error);
               const validationErrorMessageNode =
@@ -161,8 +171,24 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
               if (validationErrorMessageNode)
                 toast.error(validationErrorMessageNode);
 
-              // eslint-disable-next-line no-console
-              console.error(error);
+              const rateLimitErrorMessages =
+                extractRateLimitErrorMessages(error);
+              const rateLimitErrorMessageNode = buildRateLimitErrorMessageNode(
+                rateLimitErrorMessages,
+                intl,
+              );
+              if (rateLimitErrorMessageNode)
+                toast.error(rateLimitErrorMessageNode, {
+                  toastId: "rate-limit", // limits toasts for rate limit to one.
+                });
+
+              logger.error(
+                JSON.stringify({
+                  message: "ClientProvider onError",
+                  error,
+                  operation,
+                }),
+              );
             },
           }),
           dedupExchange,
@@ -177,7 +203,7 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         ],
       })
     );
-  }, [client, getAuth, intl]);
+  }, [client, getAuth, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

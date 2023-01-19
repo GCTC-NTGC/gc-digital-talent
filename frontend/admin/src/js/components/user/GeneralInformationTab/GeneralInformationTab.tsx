@@ -45,7 +45,7 @@ interface SectionWithPoolsProps {
   pools: Pool[];
 }
 
-const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
+const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
   const intl = useIntl();
   const routes = useAdminRoutes();
 
@@ -65,7 +65,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
     <table data-h2-text-align="base(center)">
       <thead>
         <tr
-          data-h2-background-color="base(dark.dt-gray)"
+          data-h2-background-color="base(dt-gray.dark)"
           data-h2-color="base(dt-white)"
         >
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
@@ -92,14 +92,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                 "Title of the 'Expiry date' column for the table on view-user page",
             })}
           </th>
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-            {intl.formatMessage({
-              defaultMessage: "Actions",
-              id: "jWNEdi",
-              description:
-                "Title of the 'Actions' column for the table on view-user page",
-            })}
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -108,7 +100,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
             return (
               <tr key={candidate.id}>
                 <td
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {candidate.pool ? (
@@ -120,7 +112,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   )}
                 </td>
                 <td
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {intl.formatMessage(
@@ -130,27 +122,15 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   <ChangeStatusDialog
                     selectedCandidate={candidate}
                     user={user}
+                    pools={pools}
                   />
                 </td>
                 <td
                   data-h2-text-decoration="base(underline)"
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   <ChangeDateDialog selectedCandidate={candidate} user={user} />
-                </td>
-                <td
-                  data-h2-text-decoration="base(underline)"
-                  data-h2-background-color="base(light.dt-gray)"
-                  data-h2-color="base(dark.dt-gray)"
-                  data-h2-padding="base(x.25, 0)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Remove from pool",
-                    id: "C8Ltjj",
-                    description:
-                      "Button to remove a user from a pool - located in the table on view-user page",
-                  })}
                 </td>
               </tr>
             );
@@ -215,7 +195,18 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
               description: "Display text for the phone number field on users",
             })}
           </p>
-          <p>{user.telephone}</p>
+          <p>
+            {user.telephone ? (
+              <a
+                href={`tel:${user.telephone}`}
+                aria-label={user.telephone.replace(/.{1}/g, "$& ")}
+              >
+                {user.telephone}
+              </a>
+            ) : (
+              ""
+            )}
+          </p>
         </div>
         {/* Current location */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -326,7 +317,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             "Title of the 'Pool status' section of the view-user page",
         })}
       </Heading>
-      <PoolStatusTable user={user} />
+      <PoolStatusTable user={user} pools={pools} />
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Add user to pool",

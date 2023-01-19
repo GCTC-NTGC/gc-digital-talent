@@ -14,10 +14,11 @@ import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import SEO from "@common/components/SEO/SEO";
 import TableOfContents from "@common/components/TableOfContents";
 import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
-import { getMissingSkills } from "@common/helpers/skillUtils";
+import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -26,6 +27,7 @@ import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWra
 import {
   PoolAdvertisement,
   Scalars,
+  SkillCategory,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -231,7 +233,7 @@ export interface SignAndSubmitFormProps {
   applicationId: string;
   poolAdvertisementId: string;
   userId: string;
-  closingDate: PoolAdvertisement["expiryDate"];
+  closingDate: PoolAdvertisement["closingDate"];
   jobTitle: string;
   isApplicationComplete: boolean;
   handleSubmitApplication: (
@@ -283,88 +285,97 @@ export const SignAndSubmitForm = ({
   ];
 
   return (
-    <ApplicationPageWrapper
-      closingDate={closingDate}
-      title={intl.formatMessage({
-        defaultMessage: "My application profile",
-        id: "6p6syC",
-        description: "Title for sign and submit page.",
-      })}
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "kjtiha",
-            description: "Breadcrumb for sign and submit page.",
-          }),
-          href: paths.allPools(),
-        },
-        {
-          title: jobTitle,
-          href: paths.pool(poolAdvertisementId),
-        },
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Step 2",
-            id: "oOR4Rd",
-            description: "Breadcrumb for sign and submit page.",
-          }),
-        },
-      ]}
-      navigation={{
-        currentStep: 2,
-        steps: [
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Submit application profile",
+          id: "pf1Ffp",
+          description: "Page title for pool application sign and submit page",
+        })}
+      />
+      <ApplicationPageWrapper
+        closingDate={closingDate}
+        title={intl.formatMessage({
+          defaultMessage: "My application profile",
+          id: "6p6syC",
+          description: "Title for sign and submit page.",
+        })}
+        crumbs={[
           {
-            path: paths.reviewApplication(applicationId),
-            label: intl.formatMessage({
-              defaultMessage: "Step 1: Review my profile",
-              id: "LUEVdb",
-              description: "Navigation step in sign and submit page.",
+            title: intl.formatMessage({
+              defaultMessage: "My applications",
+              id: "kjtiha",
+              description: "Breadcrumb for sign and submit page.",
             }),
+            href: paths.allPools(),
           },
           {
-            path: "#sign-and-submit",
-            label: intl.formatMessage({
-              defaultMessage: "Step 2: Sign and submit",
-              id: "LOh+c5",
-              description: "Navigation step in sign and submit page.",
+            title: jobTitle,
+            href: paths.pool(poolAdvertisementId),
+          },
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Step 2",
+              id: "oOR4Rd",
+              description: "Breadcrumb for sign and submit page.",
             }),
           },
-        ],
-      }}
-      subtitle={jobTitle}
-    >
-      <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
-          {tocNavItems.map((item) => (
-            <TableOfContents.AnchorLink key={item.id} id={item.id}>
-              {item.title}
-            </TableOfContents.AnchorLink>
-          ))}
-        </TableOfContents.Navigation>
-        <TableOfContents.Content>
-          {tocNavItems.map((item) => (
-            <TableOfContents.Section key={item.id} id={item.id}>
-              <div data-h2-padding="base(x2, 0, x1, 0)">
-                <div data-h2-flex-grid="base(center, x2, x1)">
-                  <div
-                    data-h2-flex-item="base(1of1) p-tablet(content)"
-                    data-h2-text-align="base(center) p-tablet(right)"
-                    style={{ marginTop: 0 }}
-                  >
-                    <TableOfContents.Heading as="h3" icon={item.icon}>
-                      {item.title}
-                    </TableOfContents.Heading>
+        ]}
+        navigation={{
+          currentStep: 2,
+          steps: [
+            {
+              path: paths.reviewApplication(applicationId),
+              label: intl.formatMessage({
+                defaultMessage: "Step 1: Review my profile",
+                id: "LUEVdb",
+                description: "Navigation step in sign and submit page.",
+              }),
+            },
+            {
+              path: "#sign-and-submit",
+              label: intl.formatMessage({
+                defaultMessage: "Step 2: Sign and submit",
+                id: "LOh+c5",
+                description: "Navigation step in sign and submit page.",
+              }),
+            },
+          ],
+        }}
+        subtitle={jobTitle}
+      >
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation>
+            {tocNavItems.map((item) => (
+              <TableOfContents.AnchorLink key={item.id} id={item.id}>
+                {item.title}
+              </TableOfContents.AnchorLink>
+            ))}
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            {tocNavItems.map((item) => (
+              <TableOfContents.Section key={item.id} id={item.id}>
+                <div data-h2-padding="base(x2, 0, x1, 0)">
+                  <div data-h2-flex-grid="base(center, x2, x1)">
+                    <div
+                      data-h2-flex-item="base(1of1) p-tablet(content)"
+                      data-h2-text-align="base(center) p-tablet(right)"
+                      style={{ marginTop: 0 }}
+                    >
+                      <TableOfContents.Heading as="h3" icon={item.icon}>
+                        {item.title}
+                      </TableOfContents.Heading>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {item.component}
-            </TableOfContents.Section>
-          ))}
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-    </ApplicationPageWrapper>
+                {item.component}
+              </TableOfContents.Section>
+            ))}
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </ApplicationPageWrapper>
+    </>
   );
 };
 
@@ -390,11 +401,14 @@ const SignAndSubmitPage = () => {
   const isProfileComplete = data?.poolCandidate?.user.isProfileComplete;
   const experiences = data?.poolCandidate?.user.experiences?.filter(notEmpty);
   const hasExperiences = notEmpty(experiences);
+  const technicalRequiredSkills = categorizeSkill(
+    data?.poolCandidate?.poolAdvertisement?.essentialSkills,
+  )[SkillCategory.Technical];
 
   const isApplicationComplete =
     isProfileComplete === true &&
     getMissingSkills(
-      data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
+      technicalRequiredSkills || [],
       hasExperiences
         ? flattenExperienceSkills(experiences).filter(notEmpty)
         : [],
@@ -416,7 +430,7 @@ const SignAndSubmitPage = () => {
           applicationId={data.poolCandidate.id}
           poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
           userId={data.poolCandidate.user.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
+          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
           jobTitle={jobTitle}
           isApplicationComplete={isApplicationComplete}
           handleSubmitApplication={handleSubmitApplication}

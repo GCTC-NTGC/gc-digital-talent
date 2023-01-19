@@ -74,17 +74,9 @@
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "gD3yqV": {
-    "defaultMessage": "Compétences",
-    "description": "Title for skills section on summary of filters section"
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
-  },
-  "vyQv+i": {
-    "defaultMessage": "Erreur : Nom de la compétence introuvable",
-    "description": "Error message when cmo asset name is not found on request page."
   },
   "AWiMVP": {
     "defaultMessage": "Contactez-nous",
@@ -640,6 +632,10 @@
     "defaultMessage": "Langue de communication préférée :",
     "description": "Preferred Language for communication purposes label and colon"
   },
+  "e2Rfn/": {
+    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
+    "description": "Label for Role and salary expectations sections"
+  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -647,10 +643,6 @@
   "e2R6fy": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title of the Diversity, equity and inclusion link section"
-  },
-  "e2Rfn/": {
-    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
-    "description": "Label for Role and salary expectations sections"
   },
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
@@ -692,6 +684,10 @@
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
   },
+  "kjX7mF": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled RoleSalary section."
+  },
   "janplU": {
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "The language ability is bilingual - both English and French."
@@ -699,10 +695,6 @@
   "jhImZp": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of an input."
-  },
-  "kjX7mF": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled RoleSalary section."
   },
   "l/MbFR": {
     "defaultMessage": "Modifier mes bassins d'embauche",
@@ -1056,6 +1048,10 @@
     "defaultMessage": "Erreur : nom non trouvé.",
     "description": "Error message when name is not found on listed item."
   },
+  "BPiMTY": {
+    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
+    "description": "Link text to edit role and salary expectations on profile."
+  },
   "6FX40U": {
     "defaultMessage": "Membre d'une minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
@@ -1067,10 +1063,6 @@
   "AhNR6n": {
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging out."
-  },
-  "BPiMTY": {
-    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
-    "description": "Link text to edit role and salary expectations on profile."
   },
   "C7cFDV": {
     "defaultMessage": "Débutant",
@@ -1123,10 +1115,6 @@
   "cEB0aW": {
     "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
-  },
-  "PzyMeM": {
-    "defaultMessage": "La date limite des candidatures est passée.",
-    "description": "Message displayed when a date has expired."
   },
   "QZpZQh": {
     "defaultMessage": "Personne handicapée",
@@ -1183,10 +1171,6 @@
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
-  },
-  "gfzfP6": {
-    "defaultMessage": "Expirée",
-    "description": "Expired pool advertisement status"
   },
   "gz2VrQ": {
     "defaultMessage": "Intermédiaire",
@@ -1560,9 +1544,9 @@
     "defaultMessage": "Aucun nom fourni",
     "description": "Fallback for name value"
   },
-  "nV57as": {
-    "defaultMessage": "Département :",
-    "description": "Label for applicants department"
+  "ny/ddo": {
+    "defaultMessage": "Ministère :",
+    "description": "Label for applicant's Government of Canada department"
   },
   "oMyc4e": {
     "defaultMessage": "Citoyen ou résident",
@@ -1587,10 +1571,6 @@
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
-  },
-  "sfr5Pa": {
-    "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui.",
-    "description": "Error message that the given skill expiry date must be after today."
   },
   "swTjNd": {
     "defaultMessage": "Citoyen canadien",
@@ -1772,10 +1752,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
     "description": "Error message that Work Tasks in French must be filled"
   },
-  "gU/2O6": {
-    "defaultMessage": "Le bassin doit avoir une date d’expiration postérieure à aujourd’hui.",
-    "description": "Error message that pool expiry isn't in the future."
-  },
   "juklNA": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
     "description": "Error message that Your Impact in English must be filled"
@@ -1892,8 +1868,96 @@
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
   },
+  "jRmRd+": {
+    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "description": "Meta tag description for Talent Search site"
+  },
+  "vD6Uia": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Default title for the site"
+  },
+  "SUYPIt": {
+    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
+    "description": "Message displayed when number of user attempts exceeds rate limit"
+  },
   "1YuZjR": {
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "FckGRB": {
+    "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "w6jDaJ": {
+    "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
+    "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "b3ar1X": {
+    "defaultMessage": "Rétablir {label}",
+    "description": "Button text to reset the combobox input"
+  },
+  "IRCKBP": {
+    "defaultMessage": "Aucun résultat n’a été trouvé.",
+    "description": "Message displayed when combobox has no options available"
+  },
+  "4l+gBD": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is being done."
+  },
+  "obD2sw": {
+    "defaultMessage": "Compétences transférables requises",
+    "description": "Title that appears in transferable skills section on their profile."
+  },
+  "LZ0Poh": {
+    "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
+    "description": "Text that appears in transferable skills section on their profile."
+  },
+  "qmEyxS": {
+    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
+    "description": "Error message that the pool closing date isn't in the future."
+  },
+  "8WC+Ty": {
+    "defaultMessage": "La date limite des candidatures est passée.",
+    "description": "Message displayed when a closing date has passed."
+  },
+  "/UBSoB": {
+    "defaultMessage": "Fermée",
+    "description": "Closed pool advertisement status"
+  },
+  "csLjMi": {
+    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
+    "description": "Error message that the given skill closing date must be after today."
+  },
+  "C/tnCE": {
+    "defaultMessage": "Le profil est incomplet",
+    "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
+  },
+  "H8eisr": {
+    "defaultMessage": "Compétences essentielles manquantes",
+    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
+  },
+  "J30FT0": {
+    "defaultMessage": "La signature représente un champ obligatoire",
+    "description": "Message displayed when user attempts to apply to a pool without a signature"
+  },
+  "Mm+Me1": {
+    "defaultMessage": "Impossible d’appliquer à un bassin fermé",
+    "description": "Message displayed when user attempts to apply to a closed pool"
+  },
+  "NNFXCN": {
+    "defaultMessage": "Retiré",
+    "description": "The pool candidate's status is Removed."
+  },
+  "z3QvIv": {
+    "defaultMessage": "Outres compétences",
+    "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "00lloL": {
+    "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
+    "description": "Text that appears during an application to explain skills appearing missing from their profile."
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
   }
 }

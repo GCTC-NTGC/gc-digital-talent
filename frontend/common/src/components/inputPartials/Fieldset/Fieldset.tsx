@@ -59,7 +59,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
       data-h2-margin="base(0, 0, x.125, 0)"
       {...rest}
     >
-      <legend data-h2-visibility="base(invisible)">{legend}</legend>
+      <legend data-h2-visually-hidden="base(invisible)">{legend}</legend>
       <div
         data-h2-display="base(flex)"
         data-h2-flex-wrap="base(wrap)"
@@ -87,8 +87,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span
                 data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-color": "base(dark.dt-error)" }
-                  : { "data-h2-color": "base(dark.dt-gray)" })}
+                  ? { "data-h2-color": "base(dt-error.dark)" }
+                  : { "data-h2-color": "base(dt-gray.dark)" })}
               >
                 (
                 {required
@@ -107,7 +107,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
                 setContextIsActive((currentState) => !currentState)
               }
             >
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
                   id: "2W9CMn",

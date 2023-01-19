@@ -38,7 +38,7 @@ const generatePoolAdvertisement = (
         max: 10,
       }),
     ),
-    expiryDate: faker.date
+    closingDate: faker.date
       .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
       .toISOString(),
     id: faker.datatype.uuid(),

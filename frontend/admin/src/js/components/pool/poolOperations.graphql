@@ -28,22 +28,6 @@ fragment pool on Pool {
     group
     level
   }
-  assetCriteria {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  essentialCriteria {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   operationalRequirements
   stream
   processNumber
@@ -62,7 +46,7 @@ query getPoolAdvertisement($id: UUID!) {
       en
       fr
     }
-    expiryDate
+    closingDate
     advertisementStatus
     advertisementLanguage
     securityClearance
@@ -149,6 +133,8 @@ query getPools {
     owner {
       id
       email
+      firstName
+      lastName
     }
     name {
       en
@@ -166,6 +152,7 @@ query getPools {
     advertisementStatus
     stream
     processNumber
+    createdDate
   }
 }
 
@@ -191,14 +178,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       id
       group
       level
-    }
-    assetCriteria {
-      id
-      key
-    }
-    essentialCriteria {
-      id
-      key
     }
     operationalRequirements
     stream

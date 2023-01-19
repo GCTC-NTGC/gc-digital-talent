@@ -10,20 +10,17 @@ export type InputFieldError =
   | undefined;
 
 export interface InputErrorProps extends React.HTMLProps<HTMLSpanElement> {
-  isVisible: boolean;
   error: InputFieldError;
+  isVisible: boolean;
 }
 
-const InputError: React.FC<InputErrorProps> = ({
-  error,
-  isVisible,
-  ...rest
-}) => {
+const InputError = ({ error, isVisible, ...rest }: InputErrorProps) => {
   return isVisible ? (
     <span
+      role="alert"
       data-h2-display="base(block)"
       data-h2-margin="base(x.25, 0, 0, 0)"
-      data-h2-border="base(all, 1px, solid, dt-error.light)"
+      data-h2-border="base(1px solid dt-error.light)"
       data-h2-radius="base(input)"
       data-h2-background-color="base(dt-error.10)"
       data-h2-padding="base(x.75)"
@@ -32,7 +29,7 @@ const InputError: React.FC<InputErrorProps> = ({
       aria-live="polite"
       {...rest}
     >
-      {error}
+      {error?.toString()}
     </span>
   ) : null;
 };

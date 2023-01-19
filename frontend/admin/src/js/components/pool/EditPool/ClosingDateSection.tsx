@@ -17,12 +17,12 @@ import { SectionMetadata, Spacer } from "./EditPool";
 import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["expiryDate"];
+  endDate?: PoolAdvertisement["closingDate"];
 };
 
 export type ClosingDateSubmitData = Pick<
   UpdatePoolAdvertisementInput,
-  "expiryDate"
+  "closingDate"
 >;
 interface ClosingDateSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -39,14 +39,14 @@ export const ClosingDateSection = ({
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
-    const expiryDateInPacific = initialData.expiryDate
+    const closingDateInPacific = initialData.closingDate
       ? convertDateTimeToDate(
-          convertDateTimeZone(initialData.expiryDate, "UTC", "Canada/Pacific"),
+          convertDateTimeZone(initialData.closingDate, "UTC", "Canada/Pacific"),
         )
       : null;
 
     return {
-      endDate: expiryDateInPacific,
+      endDate: closingDateInPacific,
     };
   };
 
@@ -61,7 +61,7 @@ export const ClosingDateSection = ({
   }, [suppliedValues, reset]);
 
   const handleSave = (formValues: FormValues) => {
-    const expiryDateInUtc = formValues.endDate
+    const closingDateInUtc = formValues.endDate
       ? convertDateTimeZone(
           `${formValues.endDate} 23:59:59`,
           "Canada/Pacific",
@@ -70,7 +70,7 @@ export const ClosingDateSection = ({
       : null;
 
     onSave({
-      expiryDate: expiryDateInUtc,
+      closingDate: closingDateInUtc,
     });
     methods.reset(formValues, {
       keepDirty: false,

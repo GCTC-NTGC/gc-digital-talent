@@ -2,15 +2,15 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 
 import MenuLink from "@common/components/Link/MenuLink";
+import SkipLink from "@common/components/Link/SkipLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+
 import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";
@@ -46,19 +46,6 @@ const Layout = () => {
 
   const { loggedInUser } = useAuthorizationContext();
   const { loggedIn } = useAuth();
-
-  const aiConnectionString = getRuntimeVariable(
-    "APPLICATIONINSIGHTS_CONNECTION_STRING",
-  );
-  if (aiConnectionString) {
-    const appInsights = new ApplicationInsights({
-      config: {
-        connectionString: aiConnectionString,
-      },
-    });
-    appInsights.loadAppInsights();
-    appInsights.trackPageView();
-  }
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>
@@ -157,16 +144,7 @@ const Layout = () => {
           })}
         />
       </Helmet>
-      <a
-        href="#main"
-        data-h2-visibility="base(invisible) base:focus-visible(visible)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Skip to main content",
-          id: "Srs7a4",
-          description: "Assistive technology skip link",
-        })}
-      </a>
+      <SkipLink />
       <div
         className="container"
         data-h2-display="base(flex)"

@@ -4,7 +4,7 @@
     "description": "Heading displayed above the Create Pool form."
   },
   "/YiBdv": {
-    "defaultMessage": "No de ministère",
+    "defaultMessage": "Numéro de ministère",
     "description": "Label displayed on the create a department form department number field."
   },
   "/uqLeF": {
@@ -23,21 +23,9 @@
     "defaultMessage": "Utilisateur {userId} introuvable.",
     "description": "Message displayed for user not found."
   },
-  "0tYHRO": {
-    "defaultMessage": "Sélectionner une ou plusieurs classifications...",
-    "description": "Placeholder displayed on the pool form classifications field."
-  },
   "154pGu": {
     "defaultMessage": "Utilisateurs",
     "description": "Label displayed on the Users menu item."
-  },
-  "1THfui": {
-    "defaultMessage": "Renseignements sur le candidat",
-    "description": "Heading for the candidate information section"
-  },
-  "1b39FQ": {
-    "defaultMessage": "Bassin",
-    "description": "Label displayed on the pool candidate form pool field."
   },
   "1bNptz": {
     "defaultMessage": "Identifiant du candidat",
@@ -46,10 +34,6 @@
   "2wmzS1": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Department table Name column."
-  },
-  "33VQf6": {
-    "defaultMessage": "Sélectionner un statut...",
-    "description": "Placeholder displayed on the pool candidate form status field."
   },
   "3D/wxC": {
     "defaultMessage": "Création de la classification réussie!",
@@ -67,17 +51,9 @@
     "defaultMessage": "Ministères",
     "description": "Heading displayed above the Department Table component."
   },
-  "4Gf0FC": {
-    "defaultMessage": "Sélectionner un bassin...",
-    "description": "Placeholder displayed on the pool candidate form Pool field."
-  },
   "4boO/6": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a department form name (English) field."
-  },
-  "4r60bZ": {
-    "defaultMessage": "Salaire attendu",
-    "description": "Label displayed on the pool candidate form expected salary field."
   },
   "5FFRV2": {
     "defaultMessage": "Erreur : Échec de la mise à jour de l’utilisateur",
@@ -86,18 +62,6 @@
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
-  },
-  "5kFbxW": {
-    "defaultMessage": "Classifications attendues",
-    "description": "Label displayed on the pool candidate form expected classifications field."
-  },
-  "6Lo9lm": {
-    "defaultMessage": "Bassin de candidats {poolCandidateId} introuvable.",
-    "description": "Message displayed for pool candidate not found."
-  },
-  "6jTDpQ": {
-    "defaultMessage": "Description (anglais)",
-    "description": "Label displayed on the pool form description (English) field."
   },
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
@@ -135,22 +99,6 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
-  "ABE9vg": {
-    "defaultMessage": "Détient un diplôme",
-    "description": "Label displayed on the pool candidate form has diploma field."
-  },
-  "ANLJ2T": {
-    "defaultMessage": "Mise à jour du bassin réussie!",
-    "description": "Message displayed to user after pool is updated successfully."
-  },
-  "AXASuP": {
-    "defaultMessage": "Autochtone",
-    "description": "Placeholder displayed on the pool candidate form is indigenous field."
-  },
-  "B0lDYB": {
-    "defaultMessage": "Sélectionner un ou plusieurs critères essentiels...",
-    "description": "Placeholder displayed on the pool form essential criteria field."
-  },
   "BAzKWq": {
     "defaultMessage": "Date de réalisation",
     "description": "Title for the date done block in the manager info section of the single search request view."
@@ -158,10 +106,6 @@
   "BbaMf0": {
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
-  },
-  "D2DUgE": {
-    "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
-    "description": "Placeholder displayed on the pool candidate form cmo assets field."
   },
   "D753gS": {
     "defaultMessage": "Modifier",
@@ -187,10 +131,6 @@
     "defaultMessage": "Résultats du candidat",
     "description": "Heading for the candidate results section of the single search request view."
   },
-  "ECIFDU": {
-    "defaultMessage": "Mise à jour du bassin de candidats réussie!",
-    "description": "Message displayed to user after pool candidate is updated successfully."
-  },
   "EfRVfk": {
     "defaultMessage": "Erreur : Échec de la création d’utilisateur",
     "description": "Message displayed to user after user fails to get created."
@@ -199,21 +139,9 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
   },
-  "GGjwcl": {
-    "defaultMessage": "Critères constituant un atout",
-    "description": "Label displayed on the pool form asset criteria field."
-  },
   "GTR9Pt": {
     "defaultMessage": "Ministère mis à jour avec succès!",
     "description": "Message displayed to user after department is updated successfully."
-  },
-  "H5EJq1": {
-    "defaultMessage": "Mettre à jour un bassin",
-    "description": "Title displayed on the update a pool form."
-  },
-  "HH7lQo": {
-    "defaultMessage": "Erreur : Échec de la mise à jour du bassin de candidats",
-    "description": "Message displayed to pool candidate after pool candidate fails to get updated."
   },
   "HUCIzc": {
     "defaultMessage": "Nom",
@@ -238,14 +166,6 @@
   "IfWj5I": {
     "defaultMessage": "Toutes les demandes",
     "description": "Heading displayed above the search request component."
-  },
-  "IvK9RL": {
-    "defaultMessage": "Sélectionner une ou plusieurs classifications...",
-    "description": "Placeholder displayed on the pool candidate form expected classifications field."
-  },
-  "J/HfO8": {
-    "defaultMessage": "A un handicap",
-    "description": "Label displayed on the pool candidate form has disability field."
   },
   "JtgX1e": {
     "defaultMessage": "Autochtone",
@@ -280,7 +200,7 @@
     "description": "Label displayed on the Global Filter form Search field."
   },
   "QOvS1b": {
-    "defaultMessage": "No de ministère",
+    "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
   },
   "QftM3f": {
@@ -291,21 +211,9 @@
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
     "description": "Message displayed to user after the request has failed to change the status tp done on the single search request page."
   },
-  "Rimr49": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Label displayed on the pool form operational requirements field."
-  },
   "Sb2fEr": {
     "defaultMessage": "Bassin {poolId} introuvable.",
     "description": "Message displayed for pool not found."
-  },
-  "SqZuQS": {
-    "defaultMessage": "Créer un bassin de candidats",
-    "description": "Title displayed on the create a user form."
-  },
-  "TkvUdX": {
-    "defaultMessage": "Compétence linguistique",
-    "description": "Label displayed on the pool candidate form language ability field."
   },
   "U+WqrO": {
     "defaultMessage": "Mettre à jour une classification",
@@ -323,14 +231,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity column on the the single search request table."
   },
-  "Ue4SoL": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the pool form name (English) field."
-  },
-  "Urq3fM": {
-    "defaultMessage": "Responsable",
-    "description": "Label displayed on the pool form owner field."
-  },
   "VaCRxh": {
     "defaultMessage": "Femme",
     "description": "Message for woman option in the employment equity column on the the single search request table."
@@ -338,10 +238,6 @@
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
-  },
-  "VgbJiw": {
-    "defaultMessage": "Responsable",
-    "description": "Title displayed for the Pool table owner email column."
   },
   "VqyL+/": {
     "defaultMessage": "Identifiant",
@@ -367,49 +263,17 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
   },
-  "Xk7io5": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the pool form name (French) field."
-  },
-  "Y9jn9b": {
-    "defaultMessage": "Critères essentiels",
-    "description": "Label displayed on the pool form essential criteria field."
-  },
   "YNLJcX": {
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
-  },
-  "YO9JAn": {
-    "defaultMessage": "Sélectionner une compétence linguistique...",
-    "description": "Placeholder displayed on the pool candidate form language ability field."
-  },
-  "YOHJFE": {
-    "defaultMessage": "Erreur : Échec de la création du bassin de candidats",
-    "description": "Message displayed to pool candidate after pool candidate fails to get created."
-  },
-  "ZH3zx+": {
-    "defaultMessage": "Créer un nouvel utilisateur",
-    "description": "Label for the new user assignment option in the create pool candidate form."
   },
   "ZP3GYM": {
     "defaultMessage": "Erreur : Nom introuvable.",
     "description": "Error message displayed on the single search request table operational requirements column."
   },
-  "ZSXEfX": {
-    "defaultMessage": "Classifications",
-    "description": "Label displayed on the pool form classifications field."
-  },
-  "ZbW9T7": {
-    "defaultMessage": "Erreur : Échec de la mise à jour du bassin",
-    "description": "Message displayed to pool after pool fails to get updated."
-  },
   "ZbpbD6": {
     "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
-  },
-  "aGEisH": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Pool Candidates table Edit column."
   },
   "aPqZsz": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement."
@@ -426,10 +290,6 @@
     "defaultMessage": "Niveau",
     "description": "Label displayed on the classification form level field."
   },
-  "bxh7Ba": {
-    "defaultMessage": "Sélectionner une ou plusieurs préférences de lieu...",
-    "description": "Placeholder displayed on the pool candidate form location preferences field."
-  },
   "c0n+2j": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a department form name (French) field."
@@ -437,18 +297,6 @@
   "c9jMPS": {
     "defaultMessage": "Erreur : Nom introuvable.",
     "description": "Error message displayed on the single search request table employment equity column."
-  },
-  "cH6GzM": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Label displayed on the pool candidate form operational requirements field."
-  },
-  "cT/8aw": {
-    "defaultMessage": "Sélectionner un ou plusieurs salaires attendus...",
-    "description": "Placeholder displayed on the pool candidate form expected salary field."
-  },
-  "cy2UdP": {
-    "defaultMessage": "Mettre à jour un bassin de candidats",
-    "description": "Title displayed on the update a user form."
   },
   "d3oN4p": {
     "defaultMessage": "Courriel du gouvernement",
@@ -458,10 +306,6 @@
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed on the Pool Candidates table Preferred Lang column."
   },
-  "ekKb+G": {
-    "defaultMessage": "Créer un bassin",
-    "description": "Title displayed on the create a pool form."
-  },
   "evxvnW": {
     "defaultMessage": "Mise à jour de l’utilisateur réussie!",
     "description": "Message displayed to user after user is updated successfully."
@@ -469,10 +313,6 @@
   "f24Z8p": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the search request table id column."
-  },
-  "f9E/6Q": {
-    "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
-    "description": "Placeholder displayed on the pool candidate form operational requirements field."
   },
   "fAIozk": {
     "defaultMessage": "Création de l’utilisateur réussie!",
@@ -498,10 +338,6 @@
     "defaultMessage": "Salaire maximal",
     "description": "Label displayed for the classification form max salary field."
   },
-  "h6kyvS": {
-    "defaultMessage": "Sélectionner un utilisateur...",
-    "description": "Placeholder displayed on the pool candidate form user field."
-  },
   "hTfHUv": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the Department table Edit column."
@@ -513,10 +349,6 @@
   "hiZAeF": {
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
-  },
-  "hnyrdl": {
-    "defaultMessage": "Classifications",
-    "description": "Heading displayed above the Classification Table component."
   },
   "hzL/Gd": {
     "defaultMessage": "Date de la demande",
@@ -530,17 +362,9 @@
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title displayed on the single search request table employment equity column."
   },
-  "i9/L40": {
-    "defaultMessage": "Compétences",
-    "description": "Title displayed on the single search request table skills column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
-  },
-  "iDohso": {
-    "defaultMessage": "Femme",
-    "description": "Label displayed on the pool candidate form is woman field."
   },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
@@ -554,14 +378,6 @@
     "defaultMessage": "Notes personnelles",
     "description": "Heading for the personal notes section of the single search request view."
   },
-  "l7xk8j": {
-    "defaultMessage": "Sélectionner un ou plusieurs actifs...",
-    "description": "Placeholder displayed on the pool form asset criteria field."
-  },
-  "lfnGmL": {
-    "defaultMessage": "Description (français)",
-    "description": "Label displayed on the pool form description (French) field."
-  },
   "lo2bSB": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
@@ -570,17 +386,9 @@
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed for the User table Preferred Language column."
   },
-  "mqswWd": {
-    "defaultMessage": "Utilisateur",
-    "description": "Label displayed on the pool candidate form user field."
-  },
   "mv+9jt": {
     "defaultMessage": "Renseignements sur l’utilisateur",
     "description": "Heading for the user information section"
-  },
-  "mykZx3": {
-    "defaultMessage": "Préférences de lieu",
-    "description": "Label displayed on the pool candidate form location preferences field."
   },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
@@ -594,10 +402,6 @@
     "defaultMessage": "Nom de famille",
     "description": "Label displayed on the user form last name field."
   },
-  "os4TSk": {
-    "defaultMessage": "Sélectionner un responsable...",
-    "description": "Placeholder displayed on the pool form owner field."
-  },
   "p7D5i5": {
     "defaultMessage": "Notes personnelles",
     "description": "Label displayed on the search request form personal notes field."
@@ -610,10 +414,6 @@
     "defaultMessage": "Oups, on dirait que vous êtes tombé sur une page qui n’existe pas ou qui a été déplacée.",
     "description": "Detailed message saying the page was not found."
   },
-  "qL43Gw": {
-    "defaultMessage": "Bassins",
-    "description": "Heading displayed above the Pool Table component."
-  },
   "qYH0du": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the User table Edit column."
@@ -622,10 +422,6 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
   },
-  "rfkkae": {
-    "defaultMessage": "Statut",
-    "description": "Label displayed on the pool candidate form status field."
-  },
   "rz8uPO": {
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
@@ -633,10 +429,6 @@
   "s6HoFU": {
     "defaultMessage": "Retour à toutes les demandes",
     "description": "Button label displayed on the search request form which returns the user back to all requests."
-  },
-  "s9dqrf": {
-    "defaultMessage": "Affecter un utilisateur existant",
-    "description": "Label for the existing user assignment option in the create pool candidate form."
   },
   "sZHcsV": {
     "defaultMessage": "Courriel",
@@ -654,10 +446,6 @@
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
   },
-  "vkus5u": {
-    "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
-    "description": "Placeholder displayed on the pool form operational requirements field."
-  },
   "vnhTgE": {
     "defaultMessage": "Sélectionner une langue...",
     "description": "Placeholder displayed on the user form preferred language field."
@@ -670,14 +458,6 @@
     "defaultMessage": "Création du bassin réussie!",
     "description": "Message displayed to user after pool is created successfully."
   },
-  "x3SuY9": {
-    "defaultMessage": "Date d’expiration",
-    "description": "Label displayed on the pool candidate form expiry date field."
-  },
-  "xIWdFW": {
-    "defaultMessage": "Minorité visible",
-    "description": "Label displayed on the pool candidate form is visible minority field."
-  },
   "xjOcT7": {
     "defaultMessage": "L’état de la demande a été réglé avec succès à Effectuée!",
     "description": "Message displayed to user after the request has been successfully set to done on the single search request page."
@@ -689,14 +469,6 @@
   "yZqUAU": {
     "defaultMessage": "Niveau",
     "description": "Title displayed for the Classification table Level column."
-  },
-  "yoshF7": {
-    "defaultMessage": "Création du bassin de candidats réussie!",
-    "description": "Message displayed to user after pool candidate is created successfully."
-  },
-  "zWX4ko": {
-    "defaultMessage": "Actifs du BGC",
-    "description": "Label displayed on the pool candidate form cmo assets field."
   },
   "zwcUgi": {
     "defaultMessage": "Ministère",
@@ -930,10 +702,6 @@
     "defaultMessage": "Sélectionner une catégorie...",
     "description": "Placeholder displayed on the skill family form category field."
   },
-  "w73KdO": {
-    "defaultMessage": "Familles de compétences",
-    "description": "Heading displayed above the Skill Family Table component."
-  },
   "xx8yaE": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form skill families field."
@@ -945,10 +713,6 @@
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
-  },
-  "0MYQ73": {
-    "defaultMessage": "Numéro de processus",
-    "description": "Label displayed on the pool candidate form process number field."
   },
   "/MBeNc": {
     "defaultMessage": "Commencez à écrire vos notes ici...",
@@ -1022,10 +786,6 @@
     "defaultMessage": "S.O.",
     "description": "Not available message."
   },
-  "AiOtNy": {
-    "defaultMessage": "Tâches principales (en anglais)",
-    "description": "Label displayed on the pool form key tasks (English) field."
-  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -1037,10 +797,6 @@
   "Bvj3zI": {
     "defaultMessage": "Gérer les demandes",
     "description": "Text label for link to requests page on admin dashboard"
-  },
-  "C8Ltjj": {
-    "defaultMessage": "Retirer du bassin",
-    "description": "Button to remove a user from a pool - located in the table on view-user page"
   },
   "CSDdh/": {
     "defaultMessage": "Notes",
@@ -1102,10 +858,6 @@
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
     "description": "Toast for failed add user to pool on view-user page"
   },
-  "GhGkBV": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Tabs title for the individual pool candidates."
-  },
   "HQOsq2": {
     "defaultMessage": "Ministères",
     "description": "Label displayed on the departments menu item."
@@ -1121,10 +873,6 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
-  },
-  "InHDUX": {
-    "defaultMessage": "Tâches principales (en français)",
-    "description": "Label displayed on the pool form key tasks (French) field."
   },
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
@@ -1158,17 +906,9 @@
     "defaultMessage": "Modifier le statut",
     "description": "title for change status dialog on view-user page"
   },
-  "SH/wd3": {
-    "defaultMessage": "Modifier le bassin",
-    "description": "Link text for button to edit a specific pool"
-  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
-  },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
   },
   "TxEV7S": {
     "defaultMessage": "Connexion",
@@ -1238,10 +978,6 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
   },
-  "dAxaVL": {
-    "defaultMessage": "Aucune donnée sur le candidat",
-    "description": "No candidate data was found"
-  },
   "eMXL0K": {
     "defaultMessage": "Utilisateurs",
     "description": "Breadcrumb title for the all users table link."
@@ -1250,17 +986,9 @@
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
   },
-  "fu4Fen": {
-    "defaultMessage": "Statut",
-    "description": "Label displayed on the pool form status field."
-  },
   "gKyog2": {
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
-  },
-  "gZwKs8": {
-    "defaultMessage": "Détails sur le bassin",
-    "description": "Tabs title for the individual pool details."
   },
   "gk7uJQ": {
     "defaultMessage": "Classifications",
@@ -1289,17 +1017,9 @@
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
   },
-  "jI4Mpn": {
-    "defaultMessage": "Échec de la récupération des données pour l'onglet.",
-    "description": "Message displayed for failed fetching data."
-  },
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
-  },
-  "jWNEdi": {
-    "defaultMessage": "Mesures",
-    "description": "Title of the 'Actions' column for the table on view-user page"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
@@ -1337,10 +1057,6 @@
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
   },
-  "qr5RPo": {
-    "defaultMessage": "Sélectionnez un statut...",
-    "description": "Placeholder displayed on the pool form status field."
-  },
   "sICXeM": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the add user to pool dialog"
@@ -1376,10 +1092,6 @@
   "uutH18": {
     "defaultMessage": "À propos",
     "description": "Title of the 'About' section of the view-user page"
-  },
-  "yBmBnd": {
-    "defaultMessage": "Détails sur le bassin",
-    "description": "Title for the page when viewing an individual pool."
   },
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
@@ -1488,10 +1200,6 @@
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
-  },
-  "8c/kP1": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Title for users page on the admin portal."
   },
   "GG15JI": {
     "defaultMessage": "Éditer {label}",
@@ -1721,10 +1429,6 @@
     "defaultMessage": "État",
     "description": "Label for a pool advertisements status"
   },
-  "dG1EJO": {
-    "defaultMessage": "Ce bassin est annoncé, mais n'accepte plus de candidatures.",
-    "description": "Status description of a pool in EXPIRED status"
-  },
   "dJxNRU": {
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Label displayed on cancel button for new pool form."
@@ -1864,10 +1568,6 @@
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
-  },
-  "uBA5mM": {
-    "defaultMessage": "<heavyPrimary>Expirée</heavyPrimary>",
-    "description": "Status name of a pool in EXPIRED status"
   },
   "uDuEu0": {
     "defaultMessage": "Publier le bassin",
@@ -2171,10 +1871,6 @@
   "OunUSG": {
     "defaultMessage": "Enregistrer les modifications",
     "description": "Text for the pool candidate application status submit button"
-  },
-  "Ox+Gj/": {
-    "defaultMessage": "Créer un candidat de bassin",
-    "description": "Text label for link to create new pool candidate on admin table"
   },
   "P5+9Wy": {
     "defaultMessage": "Bassin publié avec succès!",
@@ -2500,5 +2196,129 @@
   "k4xm25": {
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
+  },
+  "+4Zmyc": {
+    "defaultMessage": "Demandes de talent",
+    "description": "Page title for the search request index page"
+  },
+  "0VlOQq": {
+    "defaultMessage": "Modifier - compétence",
+    "description": "Page title for the edit skill page."
+  },
+  "dj8GiH": {
+    "defaultMessage": "Détails sur le candidat",
+    "description": "Page title for the individual user page"
+  },
+  "fYyK2p": {
+    "defaultMessage": "Créer une classification",
+    "description": "Page title for the classification creation page"
+  },
+  "Eydy42": {
+    "defaultMessage": "Mettre à jour l’utilisateur",
+    "description": "Page title for the user edit page"
+  },
+  "FCQnWB": {
+    "defaultMessage": "Créer - famille",
+    "description": "Page title for the skill family creation page"
+  },
+  "GKo3Df": {
+    "defaultMessage": "Mettre à jour un ministère",
+    "description": "Page title for the department edit page"
+  },
+  "Kr9mHX": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Page title for the user index page"
+  },
+  "OCmMDP": {
+    "defaultMessage": "Modifier - classification",
+    "description": "Page title for the edit classification page"
+  },
+  "PRrRRN": {
+    "defaultMessage": "Créer un ministère",
+    "description": "Page title for the department creation page"
+  },
+  "SnytBx": {
+    "defaultMessage": "Bassins",
+    "description": "Page title for the pools index page"
+  },
+  "azdo5+": {
+    "defaultMessage": "Modifier - famille",
+    "description": "Page title for the skill family edit page"
+  },
+  "dc5TeX": {
+    "defaultMessage": "Modifier - bassin",
+    "description": "Page title for the edit pool page"
+  },
+  "hUIqiV": {
+    "defaultMessage": "Familles de compétence",
+    "description": "Page title for the skill family index page"
+  },
+  "vINfxJ": {
+    "defaultMessage": "Annonce du bassin",
+    "description": "Page title for the individual pool page"
+  },
+  "xJm72U": {
+    "defaultMessage": "Classifications",
+    "description": "Page title for the classification index page"
+  },
+  "zwYuly": {
+    "defaultMessage": "Créer un bassin",
+    "description": "Page title for the pool creation page"
+  },
+  "zAqJMe": {
+    "defaultMessage": "Créé",
+    "description": "Title displayed on the Pool table Date Created column"
+  },
+  "Ag+0A4": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed for the User table Status column"
+  },
+  "+pgXHm": {
+    "defaultMessage": "Créé",
+    "description": "Title displayed for the User table Date Created column"
+  },
+  "R2sSy9": {
+    "defaultMessage": "Révisé",
+    "description": "Title displayed for the User table Date Updated column"
+  },
+  "3AmNSJ": {
+    "defaultMessage": "Ce bassin est annoncé, mais n'accepte plus de candidatures.",
+    "description": "Status description of a pool in CLOSED status"
+  },
+  "VCl+IZ": {
+    "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
+    "description": "Status name of a pool in CLOSED status"
+  },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essentielles)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Utiles)",
+    "description": "CSV Header, Asset skill column."
+  },
+  "6Y6hy9": {
+    "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
+    "description": "Error message displayed when an attempt to add users to known pools"
+  },
+  "8V8WwR": {
+    "defaultMessage": "Bassins additionnels",
+    "description": "Label displayed on the additional pools field of the change candidate status dialog"
+  },
+  "vtXnOQ": {
+    "defaultMessage": "Sélectionnez d’autres bassins additionnels...",
+    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
+  },
+  "wiUfZL": {
+    "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
+    "description": "Header for section to add additional pools to the change status operation"
+  },
+  "pe5WkF": {
+    "defaultMessage": "Courriel du propriétaire",
+    "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "AWk4BX": {
+    "defaultMessage": "Nom du propriétaire",
+    "description": "Title displayed for the Pool table Owner Name column"
   }
 }

@@ -4,16 +4,16 @@ export type BorderMapKey = "cta" | "dt-primary" | "dt-secondary" | "dt-gray";
 
 export const borderMap: Record<BorderMapKey, Record<string, string>> = {
   cta: {
-    "data-h2-border": "base(left, x1, solid, dt-accent)",
+    "data-h2-border-left": "base(x1 solid dt-accent)",
   },
   "dt-primary": {
-    "data-h2-border": "base(left, x1, solid, dt-primary)",
+    "data-h2-border-left": "base(x1 solid dt-primary)",
   },
   "dt-secondary": {
-    "data-h2-border": "base(left, x1, solid, dt-secondary)",
+    "data-h2-border-left": "base(x1 solid dt-secondary)",
   },
   "dt-gray": {
-    "data-h2-border": "base(left, x1, solid, dt-gray)",
+    "data-h2-border-left": "base(x1 solid dt-gray)",
   },
 };
 
@@ -37,6 +37,7 @@ export const borderKeyMap: Record<PoolCandidateStatus, BorderMapKey> = {
   [PoolCandidateStatus.ScreenedOutApplication]: "dt-gray",
   [PoolCandidateStatus.ScreenedOutAssessment]: "dt-gray",
   [PoolCandidateStatus.Expired]: "dt-gray",
+  [PoolCandidateStatus.Removed]: "dt-gray",
 };
 
 export const statusSortMap: Record<PoolCandidateStatus, number> = {
@@ -55,4 +56,5 @@ export const statusSortMap: Record<PoolCandidateStatus, number> = {
   [PoolCandidateStatus.ScreenedOutApplication]: 13,
   [PoolCandidateStatus.ScreenedOutAssessment]: 14,
   [PoolCandidateStatus.Expired]: 15,
+  [PoolCandidateStatus.Removed]: 16,
 };

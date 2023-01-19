@@ -21,8 +21,10 @@ export type FormValues = {
   workRegion: Option["value"][];
   hasDiploma: Option["value"][];
   equity: Option["value"][];
-  status: Option["value"][];
+  poolCandidateStatus: Option["value"][];
   priorityWeight: Option["value"][];
+  pools: Option["value"][];
+  skills: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -120,6 +122,17 @@ const PoolCandidateTableFilterDialog = ({
           }}
         >
           <div data-h2-flex-grid="base(flex-start, x1, x.5)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+              <MultiSelectFieldV2
+                id="pools"
+                label={formatMessage({
+                  defaultMessage: "Pools",
+                  id: "mjyHeP",
+                })}
+                options={optionsData.pools}
+                isLoading={rawGraphqlResults.pools.fetching}
+              />
+            </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
               <SelectFieldV2
                 forceArrayFormValue
@@ -185,12 +198,12 @@ const PoolCandidateTableFilterDialog = ({
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
               <MultiSelectFieldV2
-                id="status"
+                id="poolCandidateStatus"
                 label={formatMessage({
                   defaultMessage: "Status",
                   id: "tzMNF3",
                 })}
-                options={optionsData.status}
+                options={optionsData.poolCandidateStatus}
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
@@ -201,6 +214,17 @@ const PoolCandidateTableFilterDialog = ({
                   id: "8lCjAM",
                 })}
                 options={optionsData.priorityWeight}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+              <MultiSelectFieldV2
+                id="skills"
+                label={formatMessage({
+                  defaultMessage: "Skill Filter",
+                  id: "GGaxMx",
+                })}
+                options={optionsData.skills}
+                isLoading={rawGraphqlResults.skills.fetching}
               />
             </div>
           </div>
@@ -218,17 +242,21 @@ export type PoolCandidateTableFiltersProps = Pick<
   "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
+  initialFilters?: FormValues;
 };
 
 const PoolCandidateTableFilters = ({
   onSubmit,
   isOpenDefault = false,
   enableEducationType,
+  initialFilters,
   ...rest
 }: PoolCandidateTableFiltersProps) => {
   const { emptyFormValues } = useFilterOptions(enableEducationType);
-  const [activeFilters, setActiveFilters] =
-    useState<FormValues>(emptyFormValues);
+  const initialStateActiveFilters = initialFilters ?? emptyFormValues;
+  const [activeFilters, setActiveFilters] = useState<FormValues>(
+    initialStateActiveFilters,
+  );
   const [isOpen, setIsOpen] = useState(isOpenDefault);
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
@@ -239,7 +267,7 @@ const PoolCandidateTableFilters = ({
 
   return (
     <PoolCandidateTableFilterDialog
-      {...{ isOpen, activeFilters, enableEducationType }}
+      {...{ isOpen, isOpenDefault, activeFilters, enableEducationType }}
       {...rest}
       onOpenChange={setIsOpen}
       onSubmit={handleSubmit}

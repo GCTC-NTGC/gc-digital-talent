@@ -1,6 +1,7 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import { faker } from "@faker-js/faker";
 import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import Button from "../Button";
@@ -32,11 +33,7 @@ const Template: ComponentStory<typeof Dialog.Header> = (args) => {
           <Dialog.Header color={color} subtitle={subtitle}>
             {children}
           </Dialog.Header>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-            efficitur leo a tellus imperdiet, quis imperdiet nulla viverra.
-            Aliquam porttitor pellentesque rhoncus.
-          </p>
+          <p>{faker.lorem.sentences(3)}</p>
           <Dialog.Footer>
             <Dialog.Close>
               <Button color="cta">Close</Button>

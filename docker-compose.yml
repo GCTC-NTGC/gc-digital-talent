@@ -46,17 +46,19 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-    environment:
-      # Prevent `npm install` from trying to install Cypress in the container,
-      # which is not required and just creates permission issues.
-      # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
-      - CYPRESS_INSTALL_BINARY=0
     volumes:
       - maintenancedata:/root
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
       - ./frontend:/var/www/html/frontend
+      - ./apps:/var/www/html/apps
+      - ./packages:/var/www/html/packages
       - ./tc-report:/var/www/html/tc-report
+      - ./package.json:/var/www/html/package.json
+      - ./package-lock.json:/var/www/html/package-lock.json
+      - ./node_modules:/var/www/html/node_modules
+      - ./turbo.json:/var/www/html/turbo.json
+      - ./hydrogen.config.json:/var/www/html/hydrogen.config.json
 
   # We proxy the auth server through apache, so it's at localhost.
   # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration

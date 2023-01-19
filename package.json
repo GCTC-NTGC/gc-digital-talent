@@ -1,3 +1,50 @@
 {
-  "note": "Workaround. Bundlewatch CLI needs package.json in root."
+  "name": "gc-digital-talent",
+  "private": true,
+  "author": "",
+  "license": "AGPL-3.0",
+  "engines": {
+    "node": "16.16.0",
+    "npm": ">=8.0.0"
+  },
+  "packageManager": "npm@8.0.0",
+  "workspaces": [
+    "apps/*",
+    "frontend/admin",
+    "frontend/common",
+    "frontend/talentsearch",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "h2-build && turbo run build --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "build:all": "turbo run build",
+    "build:css": "h2-build",
+    "build:project": "turbo run build",
+    "codegen": "npm run codegen --workspaces --if-present",
+    "intl-extract": "npm run intl-extract --workspaces --if-present",
+    "intl-compile": "npm run intl-compile --workspaces --if-present",
+    "dev": "turbo run dev --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "dev:project": "turbo run dev",
+    "lint": "turbo run lint",
+    "storybook:project": "npm run storybook",
+    "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=admin",
+    "build-storybook": "MERGE_STORYBOOKS=true npm run build-storybook --workspace=admin",
+    "test": "turbo run test",
+    "watch": "turbo run watch --filter=@gc-digital-talent/web",
+    "watch:project": "turbo run watch",
+    "watch:admin": "turbo run watch --filter=admin",
+    "watch:talentsearch": "turbo run watch --filter=talentsearch",
+    "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
+    "e2e:open": "npm run e2e:open",
+    "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
+    "e2e:run:inspect": "npm run e2e:run:inspect --workspace=@gc-digital-talent/e2e",
+    "tsc": "turbo run tsc"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.4",
+    "@hydrogen-css/hydrogen": "2.0.0-beta.38",
+    "eslint-config-custom": "*",
+    "prettier": "^2.8.2",
+    "turbo": "^1.7.0"
+  }
 }

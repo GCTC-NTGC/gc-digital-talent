@@ -30,9 +30,10 @@ import {
 } from "@common/constants/localizedConstants";
 import {
   parseDateTimeUtc,
-  relativeExpiryDate,
+  relativeClosingDate,
 } from "@common/helpers/dateUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import SEO from "@common/components/SEO/SEO";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -145,14 +146,14 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
 
   let closingStringLocal;
   let closingStringPacific;
-  if (pool.expiryDate) {
-    const expiryDateObject = parseDateTimeUtc(pool.expiryDate);
-    closingStringLocal = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+  if (pool.closingDate) {
+    const closingDateObject = parseDateTimeUtc(pool.closingDate);
+    closingStringLocal = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
     });
-    closingStringPacific = relativeExpiryDate({
-      expiryDate: expiryDateObject,
+    closingStringPacific = relativeClosingDate({
+      closingDate: closingDateObject,
       intl,
       timeZone: "Canada/Pacific",
     });
@@ -162,32 +163,40 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   }
 
   return (
-    <DashboardContentContainer>
-      <div data-h2-container="base(left, medium, 0)">
-        <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
-        <Breadcrumbs links={links} />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-margin="base(x2, 0)"
-        >
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={adminPaths.poolCandidateTable(pool.id)}
-              icon={UserGroupIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage candidates",
-                id: "B/VlGq",
-                description:
-                  "Link text for button to manage candidates of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          {/*
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "View pool",
+          id: "vINfxJ",
+          description: "Page title for the individual pool page",
+        })}
+      />
+      <DashboardContentContainer>
+        <div data-h2-container="base(left, medium, 0)">
+          <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
+          <Breadcrumbs links={links} />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-margin="base(x2, 0)"
+          >
+            <Spacer>
+              <IconLink
+                mode="solid"
+                color="secondary"
+                type="button"
+                href={adminPaths.poolCandidateTable(pool.id)}
+                icon={UserGroupIcon}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Manage candidates",
+                  id: "B/VlGq",
+                  description:
+                    "Link text for button to manage candidates of a specific pool",
+                })}
+              </IconLink>
+            </Spacer>
+            {/*
           TODO - uncomment once something to link to exists and reimport TicketIcon
           <Spacer>
             <IconLink
@@ -207,552 +216,558 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </IconLink>
           </Spacer>
           */}
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={adminPaths.poolEdit(pool.id)}
-              icon={CogIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Edit pool advertisement",
-                id: "dmGvCL",
-                description: "Link text for button to edit a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-        </div>
-        <FormProvider {...form}>
-          <h2
-            data-h2-margin="base(x2, 0, 0, 0)"
-            data-h2-font-size="base(h3, 1)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "View pool advertisement",
-              id: "w9FYqi",
-              description: "Sub title for admin view pool page",
-            })}
-          </h2>
-          <div data-h2-flex-grid="base(flex-start, x1, 0)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                readOnly
-                value={relativeToAbsoluteURL(
-                  adminPaths.poolAdvertisement(pool.id),
-                )}
-                hideOptional
-                id="poolUrl"
-                name="poolUrl"
-                type="text"
-                label={intl.formatMessage({
-                  defaultMessage: "Pool advertisement",
-                  id: "de2F/x",
-                  description: "Label for pool advertisement url field",
-                })}
-              />
-            </div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-            >
-              <IconButton
-                data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
-                color="secondary"
-                disabled={linkCopied}
-                icon={linkCopied ? CheckIcon : ClipboardIcon}
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    relativeToAbsoluteURL(
-                      adminPaths.poolAdvertisement(pool.id),
-                    ),
-                  );
-                  setLinkCopied(true);
-                }}
-              >
-                <span aria-live={linkCopied ? "assertive" : "off"}>
-                  {linkCopied
-                    ? intl.formatMessage({
-                        defaultMessage: "Link copied!",
-                        id: "E9S4B8",
-                        description:
-                          "Button text to be displayed after link was copied",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage: "Copy link",
-                        id: "044hi7",
-                        description: "Button text to copy a url",
-                      })}
-                </span>
-              </IconButton>
+            <Spacer>
               <IconLink
-                data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
+                mode="solid"
                 color="secondary"
                 type="button"
-                href={adminPaths.poolAdvertisement(pool.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={ArrowTopRightOnSquareIcon}
+                href={adminPaths.poolEdit(pool.id)}
+                icon={CogIcon}
               >
                 {intl.formatMessage({
-                  defaultMessage: "View pool advertisement",
-                  id: "G/MFLe",
-                  description:
-                    "Link text to view the public facing pool advertisement",
+                  defaultMessage: "Edit pool advertisement",
+                  id: "dmGvCL",
+                  description: "Link text for button to edit a specific pool",
                 })}
               </IconLink>
-            </div>
+            </Spacer>
           </div>
-          <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
-            {intl.formatMessage({
-              defaultMessage: "Details",
-              id: "xzkqPm",
-              description: "Sub title for admin view pool page",
-            })}
-          </h2>
-          {classification ? (
+          <FormProvider {...form}>
+            <h2
+              data-h2-margin="base(x2, 0, 0, 0)"
+              data-h2-font-size="base(h3, 1)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "View pool advertisement",
+                id: "w9FYqi",
+                description: "Sub title for admin view pool page",
+              })}
+            </h2>
             <div data-h2-flex-grid="base(flex-start, x1, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="classification"
-                  name="classification"
-                  type="text"
                   readOnly
+                  value={relativeToAbsoluteURL(
+                    adminPaths.poolAdvertisement(pool.id),
+                  )}
                   hideOptional
-                  value={`${classification.group}-0${
-                    classification.level
-                  }  (${getLocalizedName(classification.name, intl)})`}
+                  id="poolUrl"
+                  name="poolUrl"
+                  type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Classification",
-                    id: "w/qZsH",
-                    description:
-                      "Label displayed on the pool form classification field.",
+                    defaultMessage: "Pool advertisement",
+                    id: "de2F/x",
+                    description: "Label for pool advertisement url field",
                   })}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <Input
-                  id="stream"
-                  name="stream"
-                  type="text"
-                  readOnly
-                  hideOptional
-                  value={
-                    pool.stream
-                      ? intl.formatMessage(getPoolStream(pool.stream))
-                      : ""
-                  }
-                  label={intl.formatMessage({
-                    defaultMessage: "Streams/Job Titles",
-                    id: "PzijvH",
+              <div
+                data-h2-flex-item="base(1of1)"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+              >
+                <IconButton
+                  data-h2-margin="base(0, x.5, 0, 0)"
+                  mode="outline"
+                  color="secondary"
+                  disabled={linkCopied}
+                  icon={linkCopied ? CheckIcon : ClipboardIcon}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      relativeToAbsoluteURL(
+                        adminPaths.poolAdvertisement(pool.id),
+                      ),
+                    );
+                    setLinkCopied(true);
+                  }}
+                >
+                  <span aria-live={linkCopied ? "assertive" : "off"}>
+                    {linkCopied
+                      ? intl.formatMessage({
+                          defaultMessage: "Link copied!",
+                          id: "E9S4B8",
+                          description:
+                            "Button text to be displayed after link was copied",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "Copy link",
+                          id: "044hi7",
+                          description: "Button text to copy a url",
+                        })}
+                  </span>
+                </IconButton>
+                <IconLink
+                  data-h2-margin="base(0, x.5, 0, 0)"
+                  mode="outline"
+                  color="secondary"
+                  type="button"
+                  href={adminPaths.poolAdvertisement(pool.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  icon={ArrowTopRightOnSquareIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "View pool advertisement",
+                    id: "G/MFLe",
                     description:
-                      "Label displayed on the pool form stream/job title field.",
+                      "Link text to view the public facing pool advertisement",
                   })}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <Input
-                  id="specificTitleEn"
-                  name="specificTitleEn"
-                  type="text"
-                  readOnly
-                  hideOptional
-                  value={pool.name?.en ?? ""}
-                  label={intl.formatMessage({
-                    defaultMessage: "Specific Title (English)",
-                    id: "fTwl6k",
-                    description:
-                      "Label for a pool advertisements specific English title",
-                  })}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <Input
-                  id="specificTitleFr"
-                  name="specificTitleFr"
-                  type="text"
-                  readOnly
-                  hideOptional
-                  value={pool.name?.fr ?? ""}
-                  label={intl.formatMessage({
-                    defaultMessage: "Specific Title (French)",
-                    id: "MDjwSO",
-                    description:
-                      "Label for a pool advertisements specific French title",
-                  })}
-                />
+                </IconLink>
               </div>
             </div>
-          ) : null}
-          <div data-h2-flex-grid="base(flex-start, x1, 0)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
-              <Input
-                id="processNumber"
-                name="processNumber"
-                type="text"
-                readOnly
-                hideOptional
-                value={pool.processNumber ?? ""}
-                label={intl.formatMessage({
-                  defaultMessage: "Process Number",
-                  id: "1E0RiD",
-                  description: "Label for a pools process number",
-                })}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
-              <Input
-                id="expiryDate"
-                name="expiryDate"
-                type="text"
-                readOnly
-                hideOptional
-                value={closingStringLocal}
-                label={intl.formatMessage({
-                  defaultMessage: "Closing date",
-                  id: "VWz3+d",
-                  description: "Label for a pool advertisements expiry date",
-                })}
-              />
-            </div>
-            {closingStringPacific &&
-              closingStringPacific !== closingStringLocal && (
-                <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Details",
+                id: "xzkqPm",
+                description: "Sub title for admin view pool page",
+              })}
+            </h2>
+            {classification ? (
+              <div data-h2-flex-grid="base(flex-start, x1, 0)">
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                   <Input
-                    id="expiryDatePacific"
-                    name="expiryDatePacific"
+                    id="classification"
+                    name="classification"
                     type="text"
                     readOnly
                     hideOptional
-                    value={closingStringPacific}
+                    value={`${classification.group}-0${
+                      classification.level
+                    }  (${getLocalizedName(classification.name, intl)})`}
                     label={intl.formatMessage({
-                      defaultMessage: "Closing date (Pacific time zone)",
-                      id: "j6V32h",
+                      defaultMessage: "Classification",
+                      id: "w/qZsH",
                       description:
-                        "Label for a pool advertisements expiry date in the Pacific time zone",
+                        "Label displayed on the pool form classification field.",
                     })}
                   />
                 </div>
-              )}
-            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
-              <Input
-                id="status"
-                name="status"
-                type="text"
-                readOnly
-                hideOptional
-                value={intl.formatMessage(
-                  getAdvertisementStatus(pool.advertisementStatus ?? ""),
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                  <Input
+                    id="stream"
+                    name="stream"
+                    type="text"
+                    readOnly
+                    hideOptional
+                    value={
+                      pool.stream
+                        ? intl.formatMessage(getPoolStream(pool.stream))
+                        : ""
+                    }
+                    label={intl.formatMessage({
+                      defaultMessage: "Streams/Job Titles",
+                      id: "PzijvH",
+                      description:
+                        "Label displayed on the pool form stream/job title field.",
+                    })}
+                  />
+                </div>
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                  <Input
+                    id="specificTitleEn"
+                    name="specificTitleEn"
+                    type="text"
+                    readOnly
+                    hideOptional
+                    value={pool.name?.en ?? ""}
+                    label={intl.formatMessage({
+                      defaultMessage: "Specific Title (English)",
+                      id: "fTwl6k",
+                      description:
+                        "Label for a pool advertisements specific English title",
+                    })}
+                  />
+                </div>
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                  <Input
+                    id="specificTitleFr"
+                    name="specificTitleFr"
+                    type="text"
+                    readOnly
+                    hideOptional
+                    value={pool.name?.fr ?? ""}
+                    label={intl.formatMessage({
+                      defaultMessage: "Specific Title (French)",
+                      id: "MDjwSO",
+                      description:
+                        "Label for a pool advertisements specific French title",
+                    })}
+                  />
+                </div>
+              </div>
+            ) : null}
+            <div data-h2-flex-grid="base(flex-start, x1, 0)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                <Input
+                  id="processNumber"
+                  name="processNumber"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={pool.processNumber ?? ""}
+                  label={intl.formatMessage({
+                    defaultMessage: "Process Number",
+                    id: "1E0RiD",
+                    description: "Label for a pools process number",
+                  })}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                <Input
+                  id="expiryDate"
+                  name="expiryDate"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={closingStringLocal}
+                  label={intl.formatMessage({
+                    defaultMessage: "Closing date",
+                    id: "VWz3+d",
+                    description: "Label for a pool advertisements expiry date",
+                  })}
+                />
+              </div>
+              {closingStringPacific &&
+                closingStringPacific !== closingStringLocal && (
+                  <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                    <Input
+                      id="expiryDatePacific"
+                      name="expiryDatePacific"
+                      type="text"
+                      readOnly
+                      hideOptional
+                      value={closingStringPacific}
+                      label={intl.formatMessage({
+                        defaultMessage: "Closing date (Pacific time zone)",
+                        id: "j6V32h",
+                        description:
+                          "Label for a pool advertisements expiry date in the Pacific time zone",
+                      })}
+                    />
+                  </div>
                 )}
-                label={intl.formatMessage({
-                  defaultMessage: "Status",
-                  id: "cy5aj8",
-                  description: "Label for a pool advertisements status",
-                })}
-              />
-            </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                <Input
+                  id="status"
+                  name="status"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={intl.formatMessage(
+                    getAdvertisementStatus(pool.advertisementStatus ?? ""),
+                  )}
+                  label={intl.formatMessage({
+                    defaultMessage: "Status",
+                    id: "cy5aj8",
+                    description: "Label for a pool advertisements status",
+                  })}
+                />
+              </div>
 
-            <div data-h2-flex-item="base(1of1)">
-              <h2
-                data-h2-margin="base(x2, 0, 0, 0)"
-                data-h2-font-size="base(h3)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Your impact",
-                  id: "rGE0gj",
-                  description: "Title for pool advertisement impact section",
-                })}
-              </h2>
+              <div data-h2-flex-item="base(1of1)">
+                <h2
+                  data-h2-margin="base(x2, 0, 0, 0)"
+                  data-h2-font-size="base(h3)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Your impact",
+                    id: "rGE0gj",
+                    description: "Title for pool advertisement impact section",
+                  })}
+                </h2>
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <p
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-font-size="base(h6)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "English impact text",
+                    id: "BzaGwp",
+                    description: "Title for English pool advertisement impact",
+                  })}
+                </p>
+                <p data-h2-margin="base(x.5, 0, 0, 0)">
+                  {pool.yourImpact?.en || ""}
+                </p>
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <p
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-font-size="base(h6)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "French impact text",
+                    id: "CTnN9W",
+                    description: "Title for French pool advertisement impact",
+                  })}
+                </p>
+                <p data-h2-margin="base(x.5, 0, 0, 0)">
+                  {pool.yourImpact?.fr || ""}
+                </p>
+              </div>
+              <div data-h2-flex-item="base(1of1)">
+                <h2
+                  data-h2-margin="base(x2, 0, 0, 0)"
+                  data-h2-font-size="base(h3)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Your work",
+                    id: "Qp6B20",
+                    description:
+                      "Title for pool advertisement work text section",
+                  })}
+                </h2>
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <p
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-font-size="base(h6)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "English work text",
+                    id: "UjGx0m",
+                    description: "Title for English pool advertisement Work",
+                  })}
+                </p>
+                <p data-h2-margin="base(x.5, 0, 0, 0)">
+                  {pool.keyTasks?.en || ""}
+                </p>
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <p
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-font-size="base(h6)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "French work text",
+                    id: "88Haix",
+                    description: "Title for French pool advertisement Work",
+                  })}
+                </p>
+                <p data-h2-margin="base(x.5, 0, 0, 0)">
+                  {pool.keyTasks?.fr || ""}
+                </p>
+              </div>
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <p
-                data-h2-margin="base(x1, 0, 0, 0)"
-                data-h2-font-weight="base(700)"
-                data-h2-font-size="base(h6)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "English impact text",
-                  id: "BzaGwp",
-                  description: "Title for English pool advertisement impact",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.yourImpact?.en || ""}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <p
-                data-h2-margin="base(x1, 0, 0, 0)"
-                data-h2-font-weight="base(700)"
-                data-h2-font-size="base(h6)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "French impact text",
-                  id: "CTnN9W",
-                  description: "Title for French pool advertisement impact",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.yourImpact?.fr || ""}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1)">
-              <h2
-                data-h2-margin="base(x2, 0, 0, 0)"
-                data-h2-font-size="base(h3)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Your work",
-                  id: "Qp6B20",
-                  description: "Title for pool advertisement work text section",
-                })}
-              </h2>
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <p
-                data-h2-margin="base(x1, 0, 0, 0)"
-                data-h2-font-weight="base(700)"
-                data-h2-font-size="base(h6)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "English work text",
-                  id: "UjGx0m",
-                  description: "Title for English pool advertisement Work",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.keyTasks?.en || ""}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <p
-                data-h2-margin="base(x1, 0, 0, 0)"
-                data-h2-font-weight="base(700)"
-                data-h2-font-size="base(h6)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "French work text",
-                  id: "88Haix",
-                  description: "Title for French pool advertisement Work",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.keyTasks?.fr || ""}
-              </p>
-            </div>
-          </div>
-          <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
-            {intl.formatMessage({
-              defaultMessage: "Need to have skills",
-              id: "FFaQND",
-              description: "Title required skills for a pool advertisement",
-            })}
-          </h2>
-          {essentialOccupationalSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Occupational",
-                  id: "Vpk+nl",
-                  description:
-                    "Title for pool advertisement occupational skill list",
-                })}
-              </h3>
-              <Chips>
-                {essentialOccupationalSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
-          {essentialTransferableSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Transferable",
-                  id: "eGEusj",
-                  description:
-                    "Title for pool advertisement transferable skill list",
-                })}
-              </h3>
-              <Chips>
-                {essentialTransferableSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
-          <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
-            {intl.formatMessage({
-              defaultMessage: "Nice to have skills",
-              id: "kTW+mP",
-              description: "Title optional skills for a pool advertisement",
-            })}
-          </h2>
-          {nonEssentialOccupationalSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Occupational",
-                  id: "Vpk+nl",
-                  description:
-                    "Title for pool advertisement occupational skill list",
-                })}
-              </h3>
-              <Chips>
-                {nonEssentialOccupationalSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
-          {nonEssentialTransferableSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Transferable",
-                  id: "eGEusj",
-                  description:
-                    "Title for pool advertisement transferable skill list",
-                })}
-              </h3>
-              <Chips>
-                {nonEssentialTransferableSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
-          <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
-            {intl.formatMessage({
-              defaultMessage: "Requirements",
-              id: "P5xgmH",
-              description: "Title for a pool advertisement requirements",
-            })}
-          </h2>
-          <ul>
-            <li>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Language requirement: {languageRequirement}",
-                  id: "fvJnoC",
-                  description: "Pool advertisement language requirement",
-                },
-                {
-                  languageRequirement,
-                },
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Security clearance: {securityClearance}",
-                  id: "GYk6Nz",
-                  description:
-                    "Pool advertisement security clearance requirement",
-                },
-                {
-                  securityClearance,
-                },
-              )}
-            </li>
-            {pool.isRemote ? (
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Location: Remote optional",
-                  id: "3OfvwW",
-                  description:
-                    "Label for a pool advertisement that has remote option.",
-                })}
-              </li>
-            ) : (
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Need to have skills",
+                id: "FFaQND",
+                description: "Title required skills for a pool advertisement",
+              })}
+            </h2>
+            {essentialOccupationalSkills?.length ? (
               <>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Location (English): {locationEn}",
-                      id: "IcDAU1",
-                      description:
-                        "Pool advertisement location requirement, English",
-                    },
-                    {
-                      locationEn: pool.advertisementLocation?.en ?? "",
-                    },
-                  )}
-                </li>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Location (French): {locationFr}",
-                      id: "cEeW3m",
-                      description:
-                        "Pool advertisement location requirement, French",
-                    },
-                    {
-                      locationFr: pool.advertisementLocation?.fr ?? "",
-                    },
-                  )}
-                </li>
+                <h3
+                  data-h2-font-size="base(h6)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x1, 0, x.5, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Occupational",
+                    id: "Vpk+nl",
+                    description:
+                      "Title for pool advertisement occupational skill list",
+                  })}
+                </h3>
+                <Chips>
+                  {essentialOccupationalSkills.map((skill) => (
+                    <Chip
+                      key={`occupationalSkill-${skill.id}`}
+                      mode="outline"
+                      color="primary"
+                      label={getLocalizedName(skill.name, intl)}
+                    />
+                  ))}
+                </Chips>
               </>
-            )}
-          </ul>
-        </FormProvider>
-        <p data-h2-margin="base(x2, 0, 0, 0)">
-          <Link
-            type="button"
-            mode="solid"
-            color="secondary"
-            href={adminPaths.poolTable()}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Back to pools",
-              id: "Pr8bok",
-              description:
-                "Link text for buttons to go back to the admin pools page",
-            })}
-          </Link>
-        </p>
-      </div>
-    </DashboardContentContainer>
+            ) : null}
+            {essentialTransferableSkills?.length ? (
+              <>
+                <h3
+                  data-h2-font-size="base(h6)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x1, 0, x.5, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Transferable",
+                    id: "eGEusj",
+                    description:
+                      "Title for pool advertisement transferable skill list",
+                  })}
+                </h3>
+                <Chips>
+                  {essentialTransferableSkills.map((skill) => (
+                    <Chip
+                      key={`occupationalSkill-${skill.id}`}
+                      mode="outline"
+                      color="primary"
+                      label={getLocalizedName(skill.name, intl)}
+                    />
+                  ))}
+                </Chips>
+              </>
+            ) : null}
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Nice to have skills",
+                id: "kTW+mP",
+                description: "Title optional skills for a pool advertisement",
+              })}
+            </h2>
+            {nonEssentialOccupationalSkills?.length ? (
+              <>
+                <h3
+                  data-h2-font-size="base(h6)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x1, 0, x.5, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Occupational",
+                    id: "Vpk+nl",
+                    description:
+                      "Title for pool advertisement occupational skill list",
+                  })}
+                </h3>
+                <Chips>
+                  {nonEssentialOccupationalSkills.map((skill) => (
+                    <Chip
+                      key={`occupationalSkill-${skill.id}`}
+                      mode="outline"
+                      color="primary"
+                      label={getLocalizedName(skill.name, intl)}
+                    />
+                  ))}
+                </Chips>
+              </>
+            ) : null}
+            {nonEssentialTransferableSkills?.length ? (
+              <>
+                <h3
+                  data-h2-font-size="base(h6)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x1, 0, x.5, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Transferable",
+                    id: "eGEusj",
+                    description:
+                      "Title for pool advertisement transferable skill list",
+                  })}
+                </h3>
+                <Chips>
+                  {nonEssentialTransferableSkills.map((skill) => (
+                    <Chip
+                      key={`occupationalSkill-${skill.id}`}
+                      mode="outline"
+                      color="primary"
+                      label={getLocalizedName(skill.name, intl)}
+                    />
+                  ))}
+                </Chips>
+              </>
+            ) : null}
+            <h2
+              data-h2-margin="base(x2, 0, x1, 0)"
+              data-h2-font-size="base(h3)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Requirements",
+                id: "P5xgmH",
+                description: "Title for a pool advertisement requirements",
+              })}
+            </h2>
+            <ul>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Language requirement: {languageRequirement}",
+                    id: "fvJnoC",
+                    description: "Pool advertisement language requirement",
+                  },
+                  {
+                    languageRequirement,
+                  },
+                )}
+              </li>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Security clearance: {securityClearance}",
+                    id: "GYk6Nz",
+                    description:
+                      "Pool advertisement security clearance requirement",
+                  },
+                  {
+                    securityClearance,
+                  },
+                )}
+              </li>
+              {pool.isRemote ? (
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Location: Remote optional",
+                    id: "3OfvwW",
+                    description:
+                      "Label for a pool advertisement that has remote option.",
+                  })}
+                </li>
+              ) : (
+                <>
+                  <li>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "Location (English): {locationEn}",
+                        id: "IcDAU1",
+                        description:
+                          "Pool advertisement location requirement, English",
+                      },
+                      {
+                        locationEn: pool.advertisementLocation?.en ?? "",
+                      },
+                    )}
+                  </li>
+                  <li>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "Location (French): {locationFr}",
+                        id: "cEeW3m",
+                        description:
+                          "Pool advertisement location requirement, French",
+                      },
+                      {
+                        locationFr: pool.advertisementLocation?.fr ?? "",
+                      },
+                    )}
+                  </li>
+                </>
+              )}
+            </ul>
+          </FormProvider>
+          <p data-h2-margin="base(x2, 0, 0, 0)">
+            <Link
+              type="button"
+              mode="solid"
+              color="secondary"
+              href={adminPaths.poolTable()}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Back to pools",
+                id: "Pr8bok",
+                description:
+                  "Link text for buttons to go back to the admin pools page",
+              })}
+            </Link>
+          </p>
+        </div>
+      </DashboardContentContainer>
+    </>
   );
 };
 

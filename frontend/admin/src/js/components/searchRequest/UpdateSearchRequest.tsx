@@ -47,6 +47,13 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
       adminNotes: data.adminNotes,
     })
       .then(() => {
+        // HACK: This marks the field as clean after
+        // submitting the data since the form is never
+        // submitted in the traditional sense
+        methods.resetField("adminNotes", {
+          keepDirty: false,
+          defaultValue: data.adminNotes,
+        });
         toast.success(
           intl.formatMessage({
             defaultMessage: "Notes saved successfully!",
@@ -114,7 +121,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
             <div
-              data-h2-border="base(bottom, 1px, solid, dt-gray)"
+              data-h2-border-bottom="base(1px solid dt-gray)"
               data-h2-margin="base(0, 0, x1, 0)"
               data-h2-padding="base(0, 0, x1, 0)"
             >

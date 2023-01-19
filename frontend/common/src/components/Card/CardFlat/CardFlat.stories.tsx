@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 import CardFlat from "./CardFlat";
 
 export default {
@@ -7,7 +8,11 @@ export default {
   title: "Components/Card Flat",
 } as Meta;
 
-const Spacer: React.FC = ({ children }) => (
+interface SpacerProps {
+  children: React.ReactNode;
+}
+
+const Spacer = ({ children }: SpacerProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
@@ -26,22 +31,22 @@ const Template: Story = () => (
   >
     <Spacer>
       <CardFlat title="Yellow" color="yellow">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
     </Spacer>
     <Spacer>
       <CardFlat title="Red" color="red">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
     </Spacer>
     <Spacer>
       <CardFlat title="Blue" color="blue">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
     </Spacer>
     <Spacer>
       <CardFlat title="Black" color="black">
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
     </Spacer>
     <Spacer>
@@ -50,7 +55,7 @@ const Template: Story = () => (
         color="purple"
         link={{ href: "#", label: "With link" }}
       >
-        <p>Etiam auctor bibendum lectus, ornare dapibus est placerat vitae.</p>
+        <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
     </Spacer>
   </div>

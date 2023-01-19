@@ -32,7 +32,7 @@ use Carbon\Carbon;
  * @property string $publishing_group
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $expiry_date
+ * @property Illuminate\Support\Carbon $closing_date
  * @property Illuminate\Support\Carbon $published_at
  */
 
@@ -55,7 +55,7 @@ class Pool extends Model
         'key_tasks' => 'array',
         'advertisement_location' => 'array',
         'your_impact' => 'array',
-        'expiry_date' => 'datetime',
+        'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean'
     ];
@@ -67,7 +67,7 @@ class Pool extends Model
      */
     protected $fillable = [
         'is_remote',
-        'expiry_date',
+        'closing_date',
         'published_at',
         'name',
         'key_tasks',
@@ -90,14 +90,6 @@ class Pool extends Model
     {
         return $this->belongsToMany(Classification::class);
     }
-    public function assetCriteria(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class, 'asset_cmo_asset_pool');
-    }
-    public function essentialCriteria(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class, 'essential_cmo_asset_pool');
-    }
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
@@ -118,16 +110,16 @@ class Pool extends Model
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
         $publishedDate = $this->published_at;
-        $expiryDate = $this->expiry_date;
+        $closedDate = $this->closing_date;
         $currentTime = date("Y-m-d H:i:s");
-        if ($expiryDate != null) {
-            $isExpired = $currentTime > $expiryDate ? true : false;
+        if ($closedDate != null) {
+            $isClosed = $currentTime >= $closedDate ? true : false;
         }
         else {
-            $isExpired = false;
+            $isClosed = false;
         }
         if ($publishedDate != null) {
-            $isPublished = $currentTime > $publishedDate ? true : false;
+            $isPublished = $currentTime >= $publishedDate ? true : false;
         }
         else {
             $isPublished = false;
@@ -135,10 +127,10 @@ class Pool extends Model
 
         if (!$isPublished) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
-        } elseif ($isPublished && !$isExpired) {
+        } elseif ($isPublished && !$isClosed) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED;
-        } elseif ($isPublished && $isExpired) {
-            return ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED;
+        } elseif ($isPublished && $isClosed) {
+            return ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED;
         } else {
             return null;
         }

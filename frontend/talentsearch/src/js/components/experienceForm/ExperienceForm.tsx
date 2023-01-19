@@ -15,6 +15,8 @@ import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { categorizeSkill } from "@common/helpers/skillUtils";
+import { Maybe, SkillCategory } from "@common/api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
@@ -79,19 +81,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const applicationId = searchParams.get("applicationId");
   const paths = useRoutes();
 
-  const defaultValues = experience
-    ? queryResultToDefaultValues(experienceType, experience)
-    : undefined;
   const returnPath = `${paths.skillsAndExperiences(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
-
-  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
-    formValues,
-  ) => {
-    const data = formValuesToSubmitData(experienceType, formValues);
-    await onUpdateExperience(data);
-  };
 
   let crumbs = [
     {
@@ -117,6 +109,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     },
   ] as BreadcrumbsProps["links"];
 
+  let irrelevantSkills: Maybe<Skill[]> = [];
+
   if (poolAdvertisement) {
     const advertisementTitle = getFullPoolAdvertisementTitle(
       intl,
@@ -138,7 +132,42 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       },
       ...crumbs,
     ];
+
+    irrelevantSkills = experience?.skills?.filter((skill) => {
+      return (
+        !poolAdvertisement.essentialSkills?.find(
+          (essentialSkill) => essentialSkill.id === skill.id,
+        ) &&
+        !poolAdvertisement.nonessentialSkills?.find(
+          (assetSkill) => assetSkill.id === skill.id,
+        )
+      );
+    });
   }
+  const newExperience = {
+    ...experience,
+    skills: experience?.skills?.filter(
+      (skill) =>
+        !irrelevantSkills?.find(
+          (irrelevantSkill) => irrelevantSkill.id === skill.id,
+        ),
+    ),
+  };
+
+  const defaultValues = newExperience
+    ? queryResultToDefaultValues(experienceType, newExperience)
+    : undefined;
+
+  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
+    formValues,
+  ) => {
+    const data = formValuesToSubmitData(
+      experienceType,
+      formValues,
+      irrelevantSkills,
+    );
+    await onUpdateExperience(data);
+  };
 
   const labels = getExperienceFormLabels(intl, experienceType);
 
@@ -211,31 +240,23 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           skills={skills}
           poolAdvertisement={poolAdvertisement}
         />
-        {poolAdvertisement && (
-          <>
-            <h2
-              data-h2-font-size="base(h3, 1)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "4. Additional information for this experience",
-                id: "Rgh/Qb",
-                description:
-                  "Title for addition information on Experience form",
-              })}
-            </h2>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Anything else about this experience you would like to share.",
-                id: "h1wsiL",
-                description:
-                  "Description blurb for additional information on Experience form",
-              })}
-            </p>
-            <TextArea id="details" label={labels.details} name="details" />
-          </>
-        )}
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
+          {intl.formatMessage({
+            defaultMessage: "4. Additional information for this experience",
+            id: "Rgh/Qb",
+            description: "Title for addition information on Experience form",
+          })}
+        </h2>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Anything else about this experience you would like to share.",
+            id: "h1wsiL",
+            description:
+              "Description blurb for additional information on Experience form",
+          })}
+        </p>
+        <TextArea id="details" label={labels.details} name="details" />
         {edit && (
           <AlertDialog.Root>
             <AlertDialog.Trigger>
@@ -474,7 +495,11 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           }
           experience={experience as ExperienceQueryData}
           experienceType={experienceType || "personal"}
-          skills={skillsData.skills as Skill[]}
+          skills={
+            categorizeSkill(skillsData.skills as Skill[])[
+              SkillCategory.Technical
+            ] ?? []
+          } // Only grab technical skills (hard skills).
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
           cacheKey={cacheKey}

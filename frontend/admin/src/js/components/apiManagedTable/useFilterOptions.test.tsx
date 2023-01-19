@@ -1,13 +1,12 @@
 /**
  * @jest-environment jsdom
  */
-import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
-import { waitFor } from "@testing-library/react";
+import { waitFor, renderHook } from "@testing-library/react";
 import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 
@@ -89,7 +88,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.operationalRequirement).toHaveLength(7);
       expect(result.current.optionsData.workRegion).toHaveLength(8);
       expect(result.current.optionsData.equity).toHaveLength(4);
-      expect(result.current.optionsData.status).toHaveLength(15);
+      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(16);
       expect(result.current.optionsData.priorityWeight).toHaveLength(4);
 
       // Boolean filters

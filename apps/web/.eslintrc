@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "extends": ["custom"],
+  "parserOptions": {
+    "tsconfigRootDir": "."
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": [
+          "tsconfig.json"
+        ]
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ const SkillLabelWrapper = ({ children }: SkillLabelWrapperProps) => (
     data-h2-position="base(relative)"
     data-h2-display="base(flex)"
     data-h2-align-items="base(center)"
-    data-h2-gap="base(x.25, 0)"
+    data-h2-gap="base(0, x.25)"
     data-h2-font-weight="base(700)"
   >
     <CheckCircleIcon data-h2-width="base(x.75)" />
@@ -71,13 +71,13 @@ const SkillBlock = ({
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-align-items="base(flex-start) p-tablet(center)"
         data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0, x.25) p-tablet(x.5, 0)"
+        data-h2-gap="base(x.25, 0) p-tablet(0, x.5)"
       >
         <SkillLabel isAdded={isAdded}>{skillName}</SkillLabel>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(flex-end)"
-          data-h2-gap="base(x.5, 0)"
+          data-h2-gap="base(0, x.5)"
           style={{ flexShrink: 0 }}
         >
           <div>
@@ -164,7 +164,7 @@ const SkillBlock = ({
           <Collapsible.Content>
             <div
               data-h2-padding="base(x.75)"
-              data-h2-border="base(all, 1px, solid, dt-primary)"
+              data-h2-border="base(1px solid dt-primary)"
               data-h2-color="base(dt-primary)"
               data-h2-background-color="base(dt-primary.15)"
               data-h2-margin="base(x.25, 0)"

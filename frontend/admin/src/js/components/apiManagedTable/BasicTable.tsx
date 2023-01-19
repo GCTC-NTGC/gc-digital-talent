@@ -37,18 +37,27 @@ function BasicTable<T extends RecordWithId>({
     }
     // no current sorting, sort by this column
     if (!sortingRule) {
-      onSortingRuleChange({ column, desc: false });
+      onSortingRuleChange({
+        column: { id: column.id, sortColumnName: column.sortColumnName },
+        desc: false,
+      });
       return;
     }
     // current sort is not by this column, sort by this column
     if (sortingRule.column.id !== column.id) {
-      onSortingRuleChange({ column, desc: false });
+      onSortingRuleChange({
+        column: { id: column.id, sortColumnName: column.sortColumnName },
+        desc: false,
+      });
       return;
     }
     // current sort is this column, advance the order
     if (sortingRule.column.id === column.id) {
       if (sortingRule.desc === undefined || sortingRule.desc === false) {
-        onSortingRuleChange({ column, desc: true });
+        onSortingRuleChange({
+          column: { id: column.id, sortColumnName: column.sortColumnName },
+          desc: true,
+        });
         return;
       }
       if (sortingRule.desc === true) {
@@ -74,13 +83,14 @@ function BasicTable<T extends RecordWithId>({
   return (
     <div
       data-h2-radius="base(s, s, 0px, 0px)"
-      data-h2-border="base(right-left, 1px, solid, dt-secondary)"
+      data-h2-border-right="base(1px solid dt-secondary)"
+      data-h2-border-left="base(1px solid dt-secondary)"
       data-h2-overflow="base(auto)"
       data-h2-max-width="base(100%)"
     >
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <caption>
-          <span data-h2-visibility="base(invisible)">
+          <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Column headers with buttons are sortable",
               id: "/bwX1a",

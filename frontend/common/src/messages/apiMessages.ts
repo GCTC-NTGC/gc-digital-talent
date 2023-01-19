@@ -67,18 +67,19 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description: "Error message that the application cannot be deleted.",
   },
 
-  "validator:expiry_date.after": {
-    defaultMessage: "Expiry Date must be after today.",
-    id: "sfr5Pa",
+  "validator:closing_date.after": {
+    defaultMessage: "Closing date must be after today.",
+    id: "csLjMi",
     description:
-      "Error message that the given skill expiry date must be after today.",
+      "Error message that the given skill closing date must be after today.",
   },
 
   // pool updating
-  UpdatePoolExpiryDate: {
-    defaultMessage: "The pool must have an expiry date after today.",
-    id: "gU/2O6",
-    description: "Error message that pool expiry isn't in the future.",
+  UpdatePoolClosingDate: {
+    defaultMessage: "The pool must have a closing date after today.",
+    id: "qmEyxS",
+    description:
+      "Error message that the pool closing date isn't in the future.",
   },
 
   // pool publishing validation
@@ -161,6 +162,36 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     id: "16AY+M",
     description:
       "Message displayed when user attempts to apply to an unpublished pool",
+  },
+  POOL_CLOSED: {
+    defaultMessage: "Unable to apply to a closed pool",
+    id: "Mm+Me1",
+    description:
+      "Message displayed when user attempts to apply to a closed pool",
+  },
+  PROFILE_INCOMPLETE: {
+    defaultMessage: "Profile is incomplete",
+    id: "C/tnCE",
+    description:
+      "Message displayed when user attempts to apply to a pool with an incomplete profile",
+  },
+  MISSING_ESSENTIAL_SKILLS: {
+    defaultMessage: "Missing essential skills",
+    id: "H8eisr",
+    description:
+      "Message displayed when user attempts to apply to a pool without an essential skill",
+  },
+  SIGNATURE_REQUIRED: {
+    defaultMessage: "Signature is a required field",
+    id: "J30FT0",
+    description:
+      "Message displayed when user attempts to apply to a pool without a signature",
+  },
+  RATE_LIMIT: {
+    defaultMessage: "Too many requests, please wait a minute and try again.",
+    id: "SUYPIt",
+    description:
+      "Message displayed when number of user attempts exceeds rate limit",
   },
 });
 

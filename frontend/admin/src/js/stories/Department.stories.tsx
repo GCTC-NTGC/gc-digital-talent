@@ -48,10 +48,7 @@ stories.add("Update Department Form", () => {
         return {
           id,
           departmentNumber: data.departmentNumber || 0,
-          name: data.name || {
-            en: "No department name found.",
-            fr: "No department name found.",
-          },
+          name: data.name || { en: "", fr: "" },
         };
       }}
     />
