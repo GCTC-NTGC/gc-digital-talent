@@ -127,6 +127,6 @@ class Skill extends Model
 
     public function getDetailsAttribute()
     {
-        return $this->experience_skill_pivot ? $this->experience_skill_pivot->details : "";
+        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : "";
     }
 }

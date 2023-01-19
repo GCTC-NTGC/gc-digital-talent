@@ -92,8 +92,8 @@ class PoolPolicy
             return Response::deny("Pool Advertisement has already been published.");
         }
 
-        // The expiry date must be greater than today's date at the end of day.
-        if ($pool->expiry_date && $pool->expiry_date < Carbon::now()->endOfDay()) {
+        // The closing date must be greater than today's date at the end of day.
+        if ($pool->closing_date && $pool->closing_date < Carbon::now()->endOfDay()) {
             return Response::deny("Expiry date must be a future date.");
         }
 

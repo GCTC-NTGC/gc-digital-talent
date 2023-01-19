@@ -187,7 +187,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
         </p>
       ) : (
         <>
-          <p>
+          <p data-h2-padding="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
               id: "SCCX7B",
