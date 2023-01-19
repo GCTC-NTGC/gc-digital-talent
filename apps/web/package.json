@@ -64,7 +64,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "babel-plugin-formatjs": "^10.3.35",
-    "eslint": "^8.30.0",
+    "eslint": "^8.32.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.3.1",
