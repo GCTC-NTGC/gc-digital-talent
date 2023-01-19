@@ -10,7 +10,6 @@ import MenuLink from "@common/components/Link/MenuLink";
 import SkipLink from "@common/components/Link/SkipLink";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 // import { Messages } from "@common/components/context/LanguageProvider";
 // import NestedLanguageProvider from "@common/components/context/NestedLanguageProvider";
