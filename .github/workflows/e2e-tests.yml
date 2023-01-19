@@ -35,6 +35,15 @@ jobs:
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
       NPM_VERSION: '8.3.0'
+    strategy:
+      # when one test fails, DO NOT cancel the other
+      # containers, because this will kill Cypress processes
+      # leaving Cypress Cloud hanging ...
+      # https://github.com/cypress-io/github-action/issues/48
+      fail-fast: false
+      matrix:
+        # run 5 copies of the current job in parallel
+        containers: [1, 2, 3, 4, 5]
     steps:
 
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
@@ -66,6 +75,8 @@ jobs:
         uses: cypress-io/github-action@v4.2.0
         with:
           spec: "**/*.cy.js"
+          record: true
+          parallel: true
           browser: chrome
           config-file: cypress.config.js
           project: ./apps/e2e
