@@ -82,7 +82,7 @@
     "@types/react-helmet": "^6.1.6",
     "@types/react-table": "^7.7.13",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.2",
     "babel-loader": "^9.1.2",
     "babel-plugin-formatjs": "^10.3.35",
     "copy-webpack-plugin": "^11.0.0",
