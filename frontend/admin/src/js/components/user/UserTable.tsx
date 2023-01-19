@@ -362,7 +362,7 @@ export const UserTable = () => {
           description:
             "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
         }),
-        id: "preferredLang",
+        id: "preferredInterviewLanguage",
         accessor: (user) =>
           languageAccessor(user?.preferredLanguageForInterview, intl),
         sortColumnName: "preferred_language_for_interview",
@@ -374,7 +374,7 @@ export const UserTable = () => {
           description:
             "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
         }),
-        id: "preferredLang",
+        id: "preferredExamLanguage",
         accessor: (user) =>
           languageAccessor(user?.preferredLanguageForExam, intl),
         sortColumnName: "preferred_language_for_exam",
