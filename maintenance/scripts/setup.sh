@@ -20,7 +20,7 @@ cd /var/www/html/frontend
 cp ./admin/.env.example ./admin/.env --preserve=all
 
 cd /var/www/html
-cp ./apps/web/.env.example ./apps/web/.env --preserve=all
+cp ./.env.example ./.env --preserve=all
 
 # build projects
 cd /var/www/html
