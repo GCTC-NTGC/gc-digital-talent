@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
@@ -7,7 +6,6 @@ import SEO, { Favicon } from "@common/components/SEO/SEO";
 import MenuLink from "@common/components/Link/MenuLink";
 import SkipLink from "@common/components/Link/SkipLink";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
@@ -42,7 +40,6 @@ export const LogoutButton = React.forwardRef<
 
 const Layout = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const { loggedInUser } = useAuthorizationContext();
