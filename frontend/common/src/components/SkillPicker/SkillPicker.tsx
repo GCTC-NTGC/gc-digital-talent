@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useId } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import uniqueId from "lodash/uniqueId";
 
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
@@ -59,8 +58,9 @@ const SkillPicker = ({
     defaultValues,
   });
   const { watch, handleSubmit } = methods;
-  const skipToHeadingId = `selected-skills-heading-${skillType || uniqueId}`;
-  const queryInputId = `query-${skillType || uniqueId}`;
+  const staticId = useId();
+  const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
+  const queryInputId = `query-${skillType || staticId}`;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -139,11 +139,11 @@ const SkillPicker = ({
           type="text"
           autoComplete="off"
           {...methods.register("query")}
-          data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
+          data-h2-background-color="base(white) base:focus-visible(dt-primary.lighter.10)"
           data-h2-outline="base(none)"
           data-h2-shadow="base:focus-visible(s, dt-primary.30)"
           data-h2-flex-grow="base(1)"
-          data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
+          data-h2-border="base(1px solid dt-primary) base:focus-visible(1px solid dt-primary.dark)"
           data-h2-radius="base(0, input, input, 0)"
           data-h2-padding="base(x.5, x1)"
           placeholder={intl.formatMessage({
@@ -174,9 +174,9 @@ const SkillPicker = ({
       </p>
       <a
         href={`#${skipToHeadingId}`}
-        data-h2-visibility="base(invisible)"
+        data-h2-visually-hidden="base(invisible)"
         data-h2-position="base:focus(static)"
-        data-h2-offset="base:focus(auto)"
+        data-h2-location="base:focus(auto)"
         data-h2-height="base:focus(auto)"
         data-h2-width="base:focus(auto)"
       >

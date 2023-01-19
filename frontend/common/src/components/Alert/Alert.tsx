@@ -114,7 +114,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                 data-h2-position="base(absolute)"
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
-                data-h2-offset="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
+                data-h2-location="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
                 data-h2-cursor="base(pointer)"
                 data-h2-padding="base(x.25)"
                 data-h2-transition="base(all, 100ms, ease-in)"
@@ -127,7 +127,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                   data-h2-height="base(1.5rem)"
                   strokeWidth="2px"
                 />
-                <span data-h2-visibility="base(invisible)">
+                <span data-h2-visually-hidden="base(invisible)">
                   {intl.formatMessage({
                     defaultMessage: "Close alert",
                     id: "oGXgxJ",
@@ -171,7 +171,9 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
       {...rest}
     >
       {alertLevelTitle && (
-        <span data-h2-visibility="base(invisible)">{alertLevelTitle} </span>
+        <span data-h2-visually-hidden="base(invisible)">
+          {alertLevelTitle}{" "}
+        </span>
       )}
       {children}
     </Heading>

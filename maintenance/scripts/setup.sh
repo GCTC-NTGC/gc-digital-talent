@@ -28,3 +28,4 @@ cd /var/www/html
 npm install
 npm run build
 chmod -R a+r,a+w node_modules
+chmod -R a+r,a+w apps/web/.turbo frontend/admin/.turbo frontend/common/.turbo frontend/talentsearch/.turbo

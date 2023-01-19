@@ -6,7 +6,7 @@
   @each $sideKey, $sideValue in $sideMap {
     @each $whitespaceKey, $whitespaceValue in $whitespaceMap {
       [data-h2-location*='#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})'],
-      [data-h2-location*='#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})'][data-h2-visibility],
+      [data-h2-location*='#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})'][data-h2-visually-hidden],
       [data-h2-location*='#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})'][data-h2-position] {
         @if $sideKey == 'top-bottom' or $sideKey == 'tb' {
           top: #{$whitespaceValue};

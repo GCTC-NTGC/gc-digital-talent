@@ -114,7 +114,7 @@ const Featured = () => {
         <img
           data-h2-display="base(block) base:dark(none)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(0, 0, auto, auto)"
+          data-h2-location="base(0, 0, auto, auto)"
           data-h2-transform="base(skew(3deg))"
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
@@ -125,7 +125,7 @@ const Featured = () => {
         <img
           data-h2-display="base(none) base:dark(block)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(0, 0, auto, auto)"
+          data-h2-location="base(0, 0, auto, auto)"
           data-h2-transform="base(skew(3deg))"
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
@@ -136,7 +136,7 @@ const Featured = () => {
         <img
           data-h2-display="base(block) base:dark(none)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(auto, auto, 0, 0)"
+          data-h2-location="base(auto, auto, 0, 0)"
           data-h2-transform="base(skew(3deg))"
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
@@ -147,7 +147,7 @@ const Featured = () => {
         <img
           data-h2-display="base(none) base:dark(block)"
           data-h2-position="base(absolute)"
-          data-h2-offset="base(auto, auto, 0, 0)"
+          data-h2-location="base(auto, auto, 0, 0)"
           data-h2-transform="base(skew(3deg))"
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
