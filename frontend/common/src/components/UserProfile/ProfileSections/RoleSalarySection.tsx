@@ -36,37 +36,38 @@ const RoleSalarySection: React.FunctionComponent<{
                 description: "Label for Role and salary expectations sections",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x2)">
+            <ul data-h2-padding="base(0, 0, 0, x1)">
               {expectedClassificationArray}
             </ul>
           </div>
         )}
         {!anyCriteriaSelected && editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p data-h2-color="base(dt-gray.dark)">
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                id: "SCCX7B",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-          </div>
-        )}
-        {!anyCriteriaSelected && editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p data-h2-color="base(dt-gray.dark)">
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
+          <>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
-                  defaultMessage:
-                    "Edit your role and salary expectation options.",
-                  id: "BPiMTY",
+                  defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
                   description:
-                    "Link text to edit role and salary expectations on profile.",
+                    "Message for when no data exists for the section",
                 })}
-              </a>
-            </p>
-          </div>
+              </p>
+            </div>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Edit your role and salary expectation options.",
+                    id: "BPiMTY",
+                    description:
+                      "Link text to edit role and salary expectations on profile.",
+                  })}
+                </a>
+              </p>
+            </div>
+          </>
         )}
         {!anyCriteriaSelected && !editPath && (
           <div data-h2-flex-item="base(1of1)">
