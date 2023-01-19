@@ -74,7 +74,7 @@
     "prettier": "^2.8.2",
     "storybook-addon-intl": "^2.4.1",
     "storybook-helpers": "*",
-    "ts-jest": "^29.0.3",
+    "ts-jest": "^29.0.5",
     "tsconfig": "*",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
