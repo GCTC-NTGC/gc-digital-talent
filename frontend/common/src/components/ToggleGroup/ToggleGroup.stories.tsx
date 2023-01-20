@@ -53,7 +53,7 @@ const AllTemplate: ComponentStory<typeof ToggleGroup.Root> = (args) => {
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-gap="base(0, x1)"
+      data-h2-gap="base(x1, 0)"
       data-h2-align-items="base(center)"
     >
       <ToggleGroup.Root {...args}>

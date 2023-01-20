@@ -23,14 +23,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
       group
       level
     }
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     hasDiploma
     equity {
       hasDisability
@@ -72,6 +64,15 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     operationalRequirements
     locationPreferences
     positionDuration
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
     skills {
       id
       key

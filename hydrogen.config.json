@@ -11,7 +11,6 @@
     "frontend/common/src/components",
     "frontend/common/src/styles",
     "frontend/admin/src/js/components",
-    "frontend/talentsearch/src/js/components",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
@@ -19,6 +18,7 @@
   "modes": {
     "dark": {
       "automatic": true,
+      "automatic_modifiers": true,
       "method": "toggle"
     }
   },

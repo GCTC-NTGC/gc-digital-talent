@@ -135,17 +135,63 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Select
               id="preferredLang"
               label={intl.formatMessage({
-                defaultMessage: "Preferred Language",
-                id: "o+ZObe",
+                defaultMessage: "Preferred Communication Language",
+                id: "Vvc9/b",
                 description:
-                  "Label displayed on the user form preferred language field.",
+                  "Label displayed on the user form preferred communication language field.",
               })}
               name="preferredLang"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
-                id: "vnhTgE",
+                id: "0UY4v5",
                 description:
-                  "Placeholder displayed on the user form preferred language field.",
+                  "Placeholder displayed on the user form preferred communication language field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+            <Select
+              id="preferredLanguageForInterview"
+              label={intl.formatMessage({
+                defaultMessage: "Preferred Spoken Interview Language",
+                id: "RIMCZn",
+                description:
+                  "Label displayed on the user form preferred spoken interview language field.",
+              })}
+              name="preferredLanguageForInterview"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                id: "fGAMy/",
+                description:
+                  "Placeholder displayed on the user form preferred spoken interview language field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+            <Select
+              id="preferredLanguageForExam"
+              label={intl.formatMessage({
+                defaultMessage: "Preferred Written Exam Language",
+                id: "SxP9zE",
+                description:
+                  "Label displayed on the user form preferred written exam language field.",
+              })}
+              name="preferredLanguageForExam"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                id: "RYW3AP",
+                description:
+                  "Placeholder displayed on the user form preferred written exam language field.",
               })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),

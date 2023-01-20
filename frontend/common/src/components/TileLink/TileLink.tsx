@@ -7,37 +7,37 @@ import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-border": "base(left, .5rem, solid, dt-primary)",
+    "data-h2-border-left": "base(.5rem solid dt-primary)",
   },
   secondary: {
-    "data-h2-border": "base(left, .5rem, solid, dt-secondary)",
+    "data-h2-border-left": "base(.5rem solid dt-secondary)",
   },
   cta: {
-    "data-h2-border": "base(left, .5rem, solid, dark.dt-accent)",
+    "data-h2-border-left": "base(.5rem solid dt-accent.dark)",
   },
   white: {
-    "data-h2-border": "base(left, .5rem, solid, dt-white)",
+    "data-h2-border-left": "base(.5rem solid dt-white)",
   },
   black: {
-    "data-h2-border": "base(left, .5rem, solid, dt-black)",
+    "data-h2-border-left": "base(.5rem solid dt-black)",
   },
   "ia-primary": {
-    "data-h2-border": "base(left, .5rem, solid, ia-primary)",
+    "data-h2-border-left": "base(.5rem solid ia-primary)",
   },
   "ia-secondary": {
-    "data-h2-border": "base(left, .5rem, solid, ia-secondary)",
+    "data-h2-border-left": "base(.5rem solid ia-secondary)",
   },
   yellow: {
-    "data-h2-border": "base(left, .5rem, solid, tm-yellow)",
+    "data-h2-border-left": "base(.5rem solid tm-yellow)",
   },
   red: {
-    "data-h2-border": "base(left, .5rem, solid, tm-red)",
+    "data-h2-border-left": "base(.5rem solid tm-red)",
   },
   blue: {
-    "data-h2-border": "base(left, .5rem, solid, tm-blue)",
+    "data-h2-border-left": "base(.5rem solid tm-blue)",
   },
   purple: {
-    "data-h2-border": "base(left, .5rem, solid, tm-purple)",
+    "data-h2-border-left": "base(.5rem solid tm-purple)",
   },
 };
 

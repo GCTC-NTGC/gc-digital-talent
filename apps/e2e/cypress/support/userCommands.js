@@ -13,6 +13,8 @@ Cypress.Commands.add("createUser", (user) => {
     firstName: "Cypress",
     lastName: "User",
     preferredLang: "EN",
+    preferredLanguageForInterview: "EN",
+    preferredLanguageForExam: "EN",
 
     // optional
     telephone: undefined,
@@ -43,6 +45,8 @@ Cypress.Commands.add("createUser", (user) => {
     locationPreferences: undefined,
     locationExemptions: undefined,
     acceptedOperationalRequirements: undefined,
+    expectedSalary: undefined,
+    expectedClassifications: [],
     positionDuration: undefined,
   };
   cy.graphqlRequest({

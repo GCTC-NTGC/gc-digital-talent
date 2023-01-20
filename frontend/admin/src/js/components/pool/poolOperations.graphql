@@ -28,22 +28,6 @@ fragment pool on Pool {
     group
     level
   }
-  assetCriteria {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  essentialCriteria {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   operationalRequirements
   stream
   processNumber
@@ -149,6 +133,8 @@ query getPools {
     owner {
       id
       email
+      firstName
+      lastName
     }
     name {
       en
@@ -192,14 +178,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       id
       group
       level
-    }
-    assetCriteria {
-      id
-      key
-    }
-    essentialCriteria {
-      id
-      key
     }
     operationalRequirements
     stream

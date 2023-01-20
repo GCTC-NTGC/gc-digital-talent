@@ -29,7 +29,7 @@ const Header = ({ width }: HeaderProps) => {
   return (
     <header
       data-h2-background-color="base(white) base:dark(black.light)"
-      data-h2-border="base(bottom, 1px, solid, black.20) base:dark(bottom, 1px, solid, white.20)"
+      data-h2-border-bottom="base(1px solid black.20) base:dark(1px solid white.20)"
       data-h2-padding="base(x1, 0) p-tablet(x.5, 0)"
     >
       <div {...headerWidth}>
@@ -68,7 +68,7 @@ const Header = ({ width }: HeaderProps) => {
                   />
                 </>
               )}
-              <span data-h2-visibility="base(invisible)">
+              <span data-h2-visually-hidden="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "gpcHeU",

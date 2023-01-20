@@ -70,7 +70,7 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           data-h2-align-items="base(center)"
           data-h2-display="base(flex)"
           data-h2-flex-shrink="base(0)"
-          data-h2-gap="base(x.25, 0)"
+          data-h2-gap="base(0, x.25)"
           data-h2-radius="base(s, none, none, s)"
           data-h2-margin-right="base(0)"
           style={{ borderRightWidth: 0 }}

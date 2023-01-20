@@ -20,7 +20,7 @@ export const strong = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 export const hidden = (text: React.ReactNode) => (
-  <span data-h2-visibility="base(invisible)" style={{ whiteSpace: "pre" }}>
+  <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
     {text}
   </span>
 );
@@ -48,7 +48,7 @@ export const primary = (text: React.ReactNode) => (
  * @param text  text to wrap
  */
 export const red = (text: React.ReactNode) => (
-  <span data-h2-color="base(dark.dt-error)">{text}</span>
+  <span data-h2-color="base(dt-error.dark)">{text}</span>
 );
 
 /**

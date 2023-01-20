@@ -77,11 +77,6 @@ if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/a
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for web *failed*. $MENTION\" } }"
 fi
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/talentsearch/dist/config.js /home/site/config-talentsearch.js; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for talentsearch *successful*.\" } }"
-else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for talentsearch *failed*. $MENTION\" } }"
-fi
 
 # Add a source context block
 read -r -d '' BLOCKS << EndOfMessage

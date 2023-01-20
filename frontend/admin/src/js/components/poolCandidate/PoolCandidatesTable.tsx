@@ -28,6 +28,8 @@ import {
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
+  PoolAdvertisement,
+  Maybe,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
@@ -61,6 +63,10 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -237,7 +243,10 @@ const defaultState = {
 
 const PoolCandidatesTable: React.FC<{
   initialFilterInput?: PoolCandidateSearchInput;
-}> = ({ initialFilterInput }) => {
+  currentPool?: Maybe<
+    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+  >;
+}> = ({ initialFilterInput, currentPool }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
   // Note: Need to memoize to prevent infinite
@@ -287,6 +296,8 @@ const PoolCandidatesTable: React.FC<{
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",
+        "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+        "PREFERRED_LANGUAGE_FOR_EXAM",
         "CURRENT_CITY",
       ].includes(sortingRule.column.sortColumnName)
     ) {
@@ -342,6 +353,10 @@ const PoolCandidatesTable: React.FC<{
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
@@ -513,15 +528,39 @@ const PoolCandidatesTable: React.FC<{
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Preferred Language",
-          id: "dTJkNA",
+          defaultMessage: "Preferred Communication Language",
+          id: "eN8J/9",
           description:
-            "Title displayed on the Pool Candidates table Preferred Lang column.",
+            "Title displayed on the Pool Candidates table Preferred Communication Language column.",
         }),
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Spoken Interview Language",
+          id: "iRJV64",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
+        }),
+        id: "preferredLanguageForInterview",
+        accessor: ({ user }) =>
+          preferredLanguageAccessor(user?.preferredLanguageForInterview, intl),
+        sortColumnName: "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Written Exam Language",
+          id: "5l+Ydz",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
+        }),
+        id: "preferredLanguageForExam",
+        accessor: ({ user }) =>
+          preferredLanguageAccessor(user?.preferredLanguageForExam, intl),
+        sortColumnName: "PREFERRED_LANGUAGE_FOR_EXAM",
       },
       {
         label: intl.formatMessage({
@@ -581,7 +620,7 @@ const PoolCandidatesTable: React.FC<{
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
-  const csv = usePoolCandidateCsvData(selectedCandidates);
+  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
 
   const initialFilters = useMemo(
     () => transformPoolCandidateSearchInputToFormValues(applicantFilterInput),
@@ -630,7 +669,10 @@ const PoolCandidatesTable: React.FC<{
 
   return (
     <div data-h2-margin="base(x1, 0)">
-      <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
+      <h2
+        id="pool-candidate-table-heading"
+        data-h2-visually-hidden="base(invisible)"
+      >
         {intl.formatMessage({
           defaultMessage: "All Pool Candidates",
           id: "z0QI6A",

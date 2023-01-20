@@ -24,6 +24,7 @@ const TemplateUserProfile: Story<Applicant> = (args) => {
         workLocation: { isVisible: true },
         workPreferences: { isVisible: true },
         employmentEquity: { isVisible: true },
+        roleSalary: { isVisible: true },
         skillsExperience: { isVisible: true },
       }}
     />
@@ -57,6 +58,8 @@ UserProfileNull.args = {
   email: undefined,
   telephone: null,
   preferredLang: null,
+  preferredLanguageForInterview: null,
+  preferredLanguageForExam: null,
   currentCity: null,
   currentProvince: null,
   languageAbility: null,
@@ -80,8 +83,9 @@ UserProfileNull.args = {
   locationPreferences: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,
+  expectedSalary: null,
+  expectedClassifications: null,
   positionDuration: null,
-  cmoAssets: null,
   armedForcesStatus: null,
   citizenship: null,
 };

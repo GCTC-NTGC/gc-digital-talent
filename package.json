@@ -12,7 +12,6 @@
     "apps/*",
     "frontend/admin",
     "frontend/common",
-    "frontend/talentsearch",
     "packages/*"
   ],
   "scripts": {
@@ -33,7 +32,6 @@
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
     "watch:project": "turbo run watch",
     "watch:admin": "turbo run watch --filter=admin",
-    "watch:talentsearch": "turbo run watch --filter=talentsearch",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
     "e2e:open": "npm run e2e:open",
     "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
@@ -41,10 +39,10 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.4",
-    "@hydrogen-css/hydrogen": "2.0.0-beta.33",
+    "@graphql-codegen/cli": "2.16.3",
+    "@hydrogen-css/hydrogen": "2.0.0-beta.38",
     "eslint-config-custom": "*",
-    "prettier": "^2.8.2",
-    "turbo": "^1.7.0"
+    "prettier": "^2.8.3",
+    "turbo": "~1.6.3"
   }
 }

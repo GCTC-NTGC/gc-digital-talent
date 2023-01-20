@@ -74,17 +74,9 @@
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "gD3yqV": {
-    "defaultMessage": "Compétences",
-    "description": "Title for skills section on summary of filters section"
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
-  },
-  "vyQv+i": {
-    "defaultMessage": "Erreur : Nom de la compétence introuvable",
-    "description": "Error message when cmo asset name is not found on request page."
   },
   "AWiMVP": {
     "defaultMessage": "Contactez-nous",
@@ -428,6 +420,10 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
+  "95OYVk": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations link section"
+  },
   "9WxeNz": {
     "defaultMessage": "Lieu de travail",
     "description": "Title of the Work Location link section"
@@ -447,6 +443,10 @@
   "B9x0ZV": {
     "defaultMessage": "Informations linguistiques ",
     "description": "Title of the Language Information link section"
+  },
+  "CEzDTC": {
+    "defaultMessage": "Modifier le rôle et le salaire",
+    "description": "Text on link to update a users role and salary expectations."
   },
   "CPRJ61": {
     "defaultMessage": "ID :",
@@ -632,6 +632,10 @@
     "defaultMessage": "Langue de communication préférée :",
     "description": "Preferred Language for communication purposes label and colon"
   },
+  "e2Rfn/": {
+    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
+    "description": "Label for Role and salary expectations sections"
+  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -679,6 +683,10 @@
   "j6WJBY": {
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
+  },
+  "kjX7mF": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled RoleSalary section."
   },
   "janplU": {
     "defaultMessage": "Bilingue (français et anglais)",
@@ -775,6 +783,10 @@
   "tXze8h": {
     "defaultMessage": "Québec",
     "description": "Quebec selection for province or territory input"
+  },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
   },
   "ufSiRU": {
     "defaultMessage": "Introuvable",
@@ -1035,6 +1047,10 @@
   "62+Jkh": {
     "defaultMessage": "Erreur : nom non trouvé.",
     "description": "Error message when name is not found on listed item."
+  },
+  "BPiMTY": {
+    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
+    "description": "Link text to edit role and salary expectations on profile."
   },
   "6FX40U": {
     "defaultMessage": "Membre d'une minorité visible",
@@ -1939,5 +1955,17 @@
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
+  "c7At4h": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien :",
+    "description": "Preferred Language for interviews label and colon"
+  },
+  "rSymh2": {
+    "defaultMessage": "Langue préférée de l'examen écrit :",
+    "description": "Preferred Language for exams label and colon"
   }
 }

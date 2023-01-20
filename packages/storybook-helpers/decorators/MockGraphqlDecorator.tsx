@@ -18,7 +18,7 @@ import merge from "lodash/merge";
  * https://storybook.js.org/docs/react/writing-stories/parameters#rules-of-parameter-inheritance
  *
  * For examples of our usage, see:
- * /frontend/talentsearch/src/js/components/profile/ProfilePage/ProfilePage.stories.tsx
+ * /apps/web/src/pages/ProfilePage/ProfilePage/ProfilePage.stories.tsx
  */
 export default function MockGraphqlDecorator(Story: StoryFn, context: StoryContext) {
   // Allow response to be set in story via parameters.

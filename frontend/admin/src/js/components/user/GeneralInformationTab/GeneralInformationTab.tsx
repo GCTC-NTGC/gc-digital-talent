@@ -65,7 +65,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
     <table data-h2-text-align="base(center)">
       <thead>
         <tr
-          data-h2-background-color="base(dark.dt-gray)"
+          data-h2-background-color="base(dt-gray.dark)"
           data-h2-color="base(dt-white)"
         >
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
@@ -100,7 +100,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
             return (
               <tr key={candidate.id}>
                 <td
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {candidate.pool ? (
@@ -112,7 +112,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                   )}
                 </td>
                 <td
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {intl.formatMessage(
@@ -127,7 +127,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                 </td>
                 <td
                   data-h2-text-decoration="base(underline)"
-                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-background-color="base(dt-gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   <ChangeDateDialog selectedCandidate={candidate} user={user} />
@@ -170,19 +170,54 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           </p>
           <p>{user.email}</p>
         </div>
-        {/* Preferred language */}
+        {/* Preferred communication language */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
-              defaultMessage: "Preferred Language:",
-              id: "slTax4",
+              defaultMessage: "Preferred Communication Language:",
+              id: "LvHCvn",
               description:
-                "Display text for the preferred language field on users",
+                "Display text for the preferred communication language field on users",
             })}
           </p>
           <p>
             {user.preferredLang
               ? intl.formatMessage(getLanguage(user.preferredLang as string))
+              : ""}
+          </p>
+        </div>
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Preferred Spoken Interview Language:",
+              id: "Wmuizf",
+              description:
+                "Display text for the preferred spoken interview language field on users",
+            })}
+          </p>
+          <p>
+            {user.preferredLanguageForInterview
+              ? intl.formatMessage(
+                  getLanguage(user.preferredLanguageForInterview as string),
+                )
+              : ""}
+          </p>
+        </div>
+        {/* Preferred exam language */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Preferred Written Exam Language:",
+              id: "zzwPOR",
+              description:
+                "Display text for the preferred written exam language field on users",
+            })}
+          </p>
+          <p>
+            {user.preferredLanguageForExam
+              ? intl.formatMessage(
+                  getLanguage(user.preferredLanguageForExam as string),
+                )
               : ""}
           </p>
         </div>

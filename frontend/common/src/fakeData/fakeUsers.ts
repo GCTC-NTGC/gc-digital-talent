@@ -13,7 +13,7 @@ import {
   Pool,
   PoolCandidate,
   WorkRegion,
-  CmoAsset,
+  SalaryRange,
   AwardExperience,
   CommunityExperience,
   EducationExperience,
@@ -28,14 +28,12 @@ import {
   PositionDuration,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
-import fakeCmoAssets from "./fakeCmoAssets";
 import fakeDepartments from "./fakeDepartments";
 import fakeGenericJobTitles from "./fakeGenericJobTitles";
 
 const generateUser = (
   departments: Department[],
   classifications: Classification[], // all classifications
-  cmoAssets: CmoAsset[], // all CmoAssets
   genericJobTitles: GenericJobTitle[], // all generic job titles
 
   awardExperiences: AwardExperience[], // Experiences belonging to this user
@@ -59,6 +57,12 @@ const generateUser = (
     lastName: faker.name.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
     preferredLang: faker.helpers.arrayElement<Language>(
+      Object.values(Language),
+    ),
+    preferredLanguageForInterview: faker.helpers.arrayElement<Language>(
+      Object.values(Language),
+    ),
+    preferredLanguageForExam: faker.helpers.arrayElement<Language>(
       Object.values(Language),
     ),
     currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
@@ -132,10 +136,16 @@ const generateUser = (
       faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       ),
+    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
+      Object.values(SalaryRange),
+    ),
+    expectedClassifications:
+      faker.helpers.arrayElements<Classification>(classifications),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
-    cmoAssets: faker.helpers.arrayElements<CmoAsset>(cmoAssets),
+    expectedGenericJobTitles:
+      faker.helpers.arrayElements<GenericJobTitle>(genericJobTitles),
     poolCandidates,
 
     experiences: [
@@ -159,7 +169,6 @@ const generateUser = (
 export const defaultGenerator = (numToGenerate = 20): User[] => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
-  const cmoAssets = fakeCmoAssets();
   const genericJobTitles = fakeGenericJobTitles();
 
   const awardExperiences: AwardExperience[] = [];
@@ -173,7 +182,6 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
     generateUser(
       departments,
       classifications,
-      cmoAssets,
       genericJobTitles,
       awardExperiences,
       communityExperiences,

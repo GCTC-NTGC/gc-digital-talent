@@ -17,14 +17,57 @@ import {
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
+  getExpectedClassifications,
   flattenExperiencesToSkills,
+  skillKeyAndJustifications,
 } from "@common/helpers/csvUtils";
 import { getLocale } from "@common/helpers/localize";
-import { PoolCandidate, PositionDuration } from "../../api/generated";
+import {
+  Maybe,
+  PoolCandidate,
+  PositionDuration,
+  PoolAdvertisement,
+} from "../../api/generated";
 
-const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
+const usePoolCandidateCsvData = (
+  candidates: PoolCandidate[],
+  poolAdvertisement: Maybe<
+    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+  >,
+) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const essentialSkillHeaders = poolAdvertisement?.essentialSkills
+    ? poolAdvertisement.essentialSkills.map((skill) => {
+        return {
+          key: skill.key,
+          label: intl.formatMessage(
+            {
+              defaultMessage: "{skillName} (Essential)",
+              id: "nsm/uC",
+              description: "CSV Header, Essential skill column.",
+            },
+            { skillName: skill.name[locale] },
+          ),
+        };
+      })
+    : [];
+  const nonEssentialSkillHeaders = poolAdvertisement?.nonessentialSkills
+    ? poolAdvertisement.nonessentialSkills.map((skill) => {
+        return {
+          key: skill.key,
+          label: intl.formatMessage(
+            {
+              defaultMessage: "{skillName} (Asset)",
+              id: "exYii8",
+              description: "CSV Header, Asset skill column.",
+            },
+            { skillName: skill.name[locale] },
+          ),
+        };
+      })
+    : [];
 
   const headers: DownloadCsvProps["headers"] = [
     {
@@ -116,11 +159,27 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       }),
     },
     {
-      key: "preferredLanguage",
+      key: "preferredCommunicationLanguage",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Language",
-        id: "p0e6Y5",
-        description: "CSV Header, Preferred Language column",
+        defaultMessage: "Preferred Communication Language",
+        id: "d9OIGt",
+        description: "CSV Header, Preferred Communication Language column",
+      }),
+    },
+    {
+      key: "preferredLanguageForInterview",
+      label: intl.formatMessage({
+        defaultMessage: "Preferred Spoken Interview Language",
+        id: "P+m8Wl",
+        description: "CSV Header, Preferred Spoken Interview Language column",
+      }),
+    },
+    {
+      key: "preferredLanguageForExam",
+      label: intl.formatMessage({
+        defaultMessage: "Preferred Written Exam Language",
+        id: "K7fcQT",
+        description: "CSV Header, Preferred Written Exam Language column",
       }),
     },
     {
@@ -300,6 +359,14 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       }),
     },
     {
+      key: "expectedClassification",
+      label: intl.formatMessage({
+        defaultMessage: "Role/Salary Expectation",
+        id: "iIZS1K",
+        description: "CSV Header, Role/Salary Expectation column",
+      }),
+    },
+    {
       key: "skills",
       label: intl.formatMessage({
         defaultMessage: "Skills",
@@ -307,86 +374,125 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
         description: "CSV Header, Skills column",
       }),
     },
+    ...essentialSkillHeaders,
+    ...nonEssentialSkillHeaders,
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
     const flattenedCandidates: DownloadCsvProps["data"] = candidates.map(
-      ({ status, notes, submittedAt, archivedAt, expiryDate, user }) => ({
-        status: status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : "",
-        priority: user.priorityWeight
-          ? intl.formatMessage(getPoolCandidatePriorities(user.priorityWeight))
-          : "",
-        availability: user.jobLookingStatus
-          ? intl.formatMessage(
-              getJobLookingStatus(user.jobLookingStatus as string, "short"),
-            )
-          : "",
-        notes: notes || "",
-        dateReceived: submittedAt || "",
-        expiryDate: expiryDate || "",
-        archivedAt: archivedAt || "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        preferredLanguage: user.preferredLang
-          ? intl.formatMessage(getLanguage(user.preferredLang as string))
-          : "",
-        currentCity: user.currentCity || "",
-        currentProvince: user.currentProvince
-          ? intl.formatMessage(
-              getProvinceOrTerritory(user.currentProvince as string),
-            )
-          : "",
-        armedForcesStatus: user.armedForcesStatus
-          ? intl.formatMessage(
-              getArmedForcesStatusesAdmin(user.armedForcesStatus),
-            )
-          : "",
-        citizenship: user.citizenship
-          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
-          : "",
-        bilingualEvaluation: user.bilingualEvaluation
-          ? intl.formatMessage(getBilingualEvaluation(user.bilingualEvaluation))
-          : "",
-        comprehensionLevel: user.comprehensionLevel || "",
-        writtenLevel: user.writtenLevel || "",
-        verbalLevel: user.verbalLevel || "",
-        estimatedLanguageAbility: user.estimatedLanguageAbility
-          ? intl.formatMessage(
-              getLanguageProficiency(user.estimatedLanguageAbility),
-            )
-          : "",
-        isGovEmployee: yesOrNo(user.isGovEmployee, intl),
-        hasPriorityEntitlement: yesOrNo(user.hasPriorityEntitlement, intl),
-        priorityNumber: user.priorityNumber || "",
-        department: user.department?.name[locale] || "",
-        govEmployeeType: user.govEmployeeType
-          ? employeeTypeToString(user.govEmployeeType, intl)
-          : "",
-        currentClassification: user.currentClassification
-          ? `${user.currentClassification.group}-${user.currentClassification.level}`
-          : "",
-        locationPreferences: getLocationPreference(
-          user.locationPreferences,
-          intl,
-        ),
-        locationExemptions: user.locationExemptions || "",
-        wouldAcceptTemporary: yesOrNo(
-          user.positionDuration?.includes(PositionDuration.Temporary),
-          intl,
-        ),
-        acceptedOperationalRequirements: getOperationalRequirements(
-          user.acceptedOperationalRequirements,
-          intl,
-        ),
-        isWoman: yesOrNo(user.isWoman, intl),
-        isIndigenous: yesOrNo(user.isIndigenous, intl),
-        isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
-        hasDisability: yesOrNo(user.hasDisability, intl),
-        skills: flattenExperiencesToSkills(user.experiences, locale),
-      }),
+      ({
+        status,
+        notes,
+        submittedAt,
+        archivedAt,
+        expiryDate,
+        user,
+        poolAdvertisement: poolAd,
+      }) => {
+        const poolAdvertisementSkills =
+          poolAd?.essentialSkills && poolAd?.nonessentialSkills
+            ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
+            : [];
+        return {
+          status: status
+            ? intl.formatMessage(getPoolCandidateStatus(status as string))
+            : "",
+          priority: user.priorityWeight
+            ? intl.formatMessage(
+                getPoolCandidatePriorities(user.priorityWeight),
+              )
+            : "",
+          availability: user.jobLookingStatus
+            ? intl.formatMessage(
+                getJobLookingStatus(user.jobLookingStatus as string, "short"),
+              )
+            : "",
+          notes: notes || "",
+          dateReceived: submittedAt || "",
+          expiryDate: expiryDate || "",
+          archivedAt: archivedAt || "",
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+          email: user.email || "",
+          preferredCommunicationLanguage: user.preferredLang
+            ? intl.formatMessage(getLanguage(user.preferredLang as string))
+            : "",
+          preferredLanguageForInterview: user.preferredLanguageForInterview
+            ? intl.formatMessage(
+                getLanguage(user.preferredLanguageForInterview as string),
+              )
+            : "",
+          preferredLanguageForExam: user.preferredLanguageForExam
+            ? intl.formatMessage(
+                getLanguage(user.preferredLanguageForExam as string),
+              )
+            : "",
+          currentCity: user.currentCity || "",
+          currentProvince: user.currentProvince
+            ? intl.formatMessage(
+                getProvinceOrTerritory(user.currentProvince as string),
+              )
+            : "",
+          armedForcesStatus: user.armedForcesStatus
+            ? intl.formatMessage(
+                getArmedForcesStatusesAdmin(user.armedForcesStatus),
+              )
+            : "",
+          citizenship: user.citizenship
+            ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
+            : "",
+          bilingualEvaluation: user.bilingualEvaluation
+            ? intl.formatMessage(
+                getBilingualEvaluation(user.bilingualEvaluation),
+              )
+            : "",
+          comprehensionLevel: user.comprehensionLevel || "",
+          writtenLevel: user.writtenLevel || "",
+          verbalLevel: user.verbalLevel || "",
+          estimatedLanguageAbility: user.estimatedLanguageAbility
+            ? intl.formatMessage(
+                getLanguageProficiency(user.estimatedLanguageAbility),
+              )
+            : "",
+          isGovEmployee: yesOrNo(user.isGovEmployee, intl),
+          hasPriorityEntitlement: yesOrNo(user.hasPriorityEntitlement, intl),
+          priorityNumber: user.priorityNumber || "",
+          department: user.department?.name[locale] || "",
+          govEmployeeType: user.govEmployeeType
+            ? employeeTypeToString(user.govEmployeeType, intl)
+            : "",
+          currentClassification: user.currentClassification
+            ? `${user.currentClassification.group}-${user.currentClassification.level}`
+            : "",
+          locationPreferences: getLocationPreference(
+            user.locationPreferences,
+            intl,
+          ),
+          locationExemptions: user.locationExemptions || "",
+          wouldAcceptTemporary: yesOrNo(
+            user.positionDuration?.includes(PositionDuration.Temporary),
+            intl,
+          ),
+          acceptedOperationalRequirements: getOperationalRequirements(
+            user.acceptedOperationalRequirements,
+            intl,
+          ),
+          isWoman: yesOrNo(user.isWoman, intl),
+          isIndigenous: yesOrNo(user.isIndigenous, intl),
+          isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
+          hasDisability: yesOrNo(user.hasDisability, intl),
+          expectedClassification: getExpectedClassifications(
+            user.expectedGenericJobTitles,
+            intl,
+          ),
+          skills: flattenExperiencesToSkills(user.experiences, locale),
+          ...skillKeyAndJustifications(
+            user.experiences,
+            poolAdvertisementSkills || [],
+            intl,
+          ),
+        };
+      },
     );
 
     return flattenedCandidates;

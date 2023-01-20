@@ -8,9 +8,11 @@ import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
 import Header from "@common/components/Header";
+import SkipLink from "@common/components/Link/SkipLink";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import { getLocale } from "@common/helpers/localize";
 
+import useLocalStorage from "@common/hooks/useLocalStorage";
 import AdminSideMenu from "./menu/AdminSideMenu";
 
 interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -23,9 +25,9 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   children,
 }) => (
   <div
-    data-h2-visibility="base(visible) l-tablet(hidden)"
+    data-h2-visually-hidden="base(visible) l-tablet(hidden)"
     data-h2-position="base(fixed)"
-    data-h2-offset="base(auto, x.25, x.25, auto)"
+    data-h2-location="base(auto, x.25, x.25, auto)"
     style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
@@ -47,7 +49,17 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 const Layout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
+
+  // retain menu preference in storage
+  const [isMenuOpen, setMenuOpen] = useLocalStorage(
+    "digitaltalent-menustate",
+    true,
+  );
+  React.useEffect(() => {
+    if (isSmallScreen) {
+      setMenuOpen(false); // collapse menu if window resized to small
+    }
+  }, [isSmallScreen, setMenuOpen]);
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
@@ -78,13 +90,7 @@ const Layout = () => {
           })}
         />
       </Helmet>
-      <a href="#main" data-h2-visibility="base(hidden)">
-        {intl.formatMessage({
-          defaultMessage: "Skip to main content",
-          id: "Srs7a4",
-          description: "Assistive technology skip link",
-        })}
-      </a>
+      <SkipLink />
       <div data-h2-flex-grid="base(stretch, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}

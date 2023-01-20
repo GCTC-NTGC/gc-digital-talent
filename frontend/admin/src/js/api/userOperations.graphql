@@ -6,6 +6,8 @@ query AllUsers {
     lastName
     telephone
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
   }
 }
 
@@ -18,6 +20,8 @@ query User($id: UUID!) {
     lastName
     telephone
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     roles
   }
 }
@@ -36,6 +40,8 @@ mutation CreateUser($user: CreateUserInput!) {
 
     languageAbility
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -80,6 +86,18 @@ mutation CreateUser($user: CreateUserInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
     positionDuration
   }
 }
@@ -92,6 +110,8 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     lastName
     telephone
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     currentProvince
     currentCity
 
@@ -140,6 +160,18 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
     positionDuration
   }
 }
@@ -158,6 +190,8 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 
     languageAbility
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -202,6 +236,18 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
     positionDuration
   }
 }

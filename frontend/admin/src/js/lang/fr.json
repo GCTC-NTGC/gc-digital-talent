@@ -187,6 +187,10 @@
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
   },
+  "MmFgbF": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the single search request table classifications column."
+  },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
     "description": "Placeholder displayed on the classification form level field."
@@ -235,10 +239,6 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
-  "VgbJiw": {
-    "defaultMessage": "Responsable",
-    "description": "Title displayed for the Pool table owner email column."
-  },
   "VqyL+/": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Classification table ID column."
@@ -266,10 +266,6 @@
   "YNLJcX": {
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
-  },
-  "ZP3GYM": {
-    "defaultMessage": "Erreur : Nom introuvable.",
-    "description": "Error message displayed on the single search request table operational requirements column."
   },
   "ZbpbD6": {
     "defaultMessage": "Créer un ministère",
@@ -301,10 +297,6 @@
   "d3oN4p": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
-  },
-  "dTJkNA": {
-    "defaultMessage": "Langue de préférence",
-    "description": "Title displayed on the Pool Candidates table Preferred Lang column."
   },
   "evxvnW": {
     "defaultMessage": "Mise à jour de l’utilisateur réussie!",
@@ -362,10 +354,6 @@
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title displayed on the single search request table employment equity column."
   },
-  "i9/L40": {
-    "defaultMessage": "Compétences",
-    "description": "Title displayed on the single search request table skills column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
@@ -386,10 +374,6 @@
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
   },
-  "mf+QEY": {
-    "defaultMessage": "Langue de préférence",
-    "description": "Title displayed for the User table Preferred Language column."
-  },
   "mv+9jt": {
     "defaultMessage": "Renseignements sur l’utilisateur",
     "description": "Heading for the user information section"
@@ -397,10 +381,6 @@
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
-  },
-  "o+ZObe": {
-    "defaultMessage": "Langue de préférence",
-    "description": "Label displayed on the user form preferred language field."
   },
   "oQnVSn": {
     "defaultMessage": "Nom de famille",
@@ -449,10 +429,6 @@
   "uAmdiU": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
-  },
-  "vnhTgE": {
-    "defaultMessage": "Sélectionner une langue...",
-    "description": "Placeholder displayed on the user form preferred language field."
   },
   "wCBE9S": {
     "defaultMessage": "Bassins",
@@ -914,10 +890,6 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "TxEV7S": {
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
@@ -1073,10 +1045,6 @@
     "defaultMessage": "Statut",
     "description": "Title of the 'Status' column for the table on view-user page"
   },
-  "slTax4": {
-    "defaultMessage": "Langue préférée :",
-    "description": "Display text for the preferred language field on users"
-  },
   "tiF/jI": {
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Close dialog button"
@@ -1088,6 +1056,10 @@
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
+  },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
   },
   "usNShh": {
     "defaultMessage": "Sélectionner un statut de bassin...",
@@ -1716,6 +1688,9 @@
     "defaultMessage": "Niveau verbal",
     "description": "CSV Header, Verbal Level column"
   },
+  "5TVKj1": {
+    "defaultMessage": "Classifications"
+  },
   "5iNcHS": {
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
@@ -2021,6 +1996,10 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
+  "iIZS1K": {
+    "defaultMessage": "Attente en matière de poste/salaire",
+    "description": "CSV Header, Role/Salary Expectation column"
+  },
   "j9m5qA": {
     "defaultMessage": "Date de réception",
     "description": "En-tête CSV, colonne Date de réception"
@@ -2074,10 +2053,6 @@
   "p/Qp/u": {
     "defaultMessage": "Nom du candidat",
     "description": "Title displayed on the Pool Candidates table name column."
-  },
-  "p0e6Y5": {
-    "defaultMessage": "Langue préférée",
-    "description": "CSV Header, Preferred Language column"
   },
   "qhhPj5": {
     "defaultMessage": "Lieux de travail"
@@ -2286,6 +2261,14 @@
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
   },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essentielles)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Utiles)",
+    "description": "CSV Header, Asset skill column."
+  },
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
@@ -2301,5 +2284,81 @@
   "wiUfZL": {
     "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
     "description": "Header for section to add additional pools to the change status operation"
+  },
+  "pe5WkF": {
+    "defaultMessage": "Courriel du propriétaire",
+    "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "AWk4BX": {
+    "defaultMessage": "Nom du propriétaire",
+    "description": "Title displayed for the Pool table Owner Name column"
+  },
+  "0UY4v5": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the user form preferred communication language field."
+  },
+  "5l+Ydz": {
+    "defaultMessage": "Langue préférée de l'examen écrit",
+    "description": "Title displayed on the Pool Candidates table Preferred Written Exam Language column."
+  },
+  "CfXIqC": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed for the User table Preferred Communication Language column."
+  },
+  "F4Flho": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the user form preferred written exam language  field."
+  },
+  "K7fcQT": {
+    "defaultMessage": "Langue préférée de l'examen écrit",
+    "description": "CSV Header, Preferred Written Exam Language column"
+  },
+  "LvHCvn": {
+    "defaultMessage": "Langue de communication préférée :",
+    "description": "Display text for the preferred communication language field on users"
+  },
+  "P+m8Wl": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien",
+    "description": "CSV Header, Preferred Spoken Interview Language column"
+  },
+  "RIMCZn": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien",
+    "description": "Label displayed on the user form preferred spoken interview language field."
+  },
+  "RYW3AP": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the user form preferred written exam language field."
+  },
+  "SxP9zE": {
+    "defaultMessage": "Langue préférée de l'examen écrit",
+    "description": "Label displayed on the user form preferred written exam language field."
+  },
+  "Vvc9/b": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Label displayed on the user form preferred communication language field."
+  },
+  "Wmuizf": {
+    "defaultMessage": "Langue préférée pour l'entretien parlé :",
+    "description": "Display text for the preferred spoken interview language field on users"
+  },
+  "d9OIGt": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "CSV Header, Preferred Communication Language column"
+  },
+  "eN8J/9": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
+  },
+  "fGAMy/": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the user form preferred spoken interview language field."
+  },
+  "iRJV64": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien",
+    "description": "Title displayed on the Pool Candidates table Preferred Spoken Language column."
+  },
+  "zzwPOR": {
+    "defaultMessage": "Langue préférée pour l'examen écrit :",
+    "description": "Display text for the preferred written exam language field on users"
   }
 }

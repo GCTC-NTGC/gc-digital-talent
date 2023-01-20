@@ -50,6 +50,8 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -98,13 +100,12 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary") @deprecated(reason: "Expected role/salary being removed")
-  expectedClassifications: [Classification] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: [Classification] @belongsToMany
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
@@ -119,7 +120,7 @@ type User {
   pools: [Pool] @hasMany # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
@@ -208,6 +209,8 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -258,13 +261,12 @@ type Applicant {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary") @deprecated(reason: "Expected role/salary being removed")
-  expectedClassifications: [Classification] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: [Classification] @belongsToMany
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Experiences
   experiences: [Experience]
@@ -275,7 +277,7 @@ type Applicant {
   workExperiences: [WorkExperience]
 
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany @deprecated(reason: "Expected role/salary being removed")
+  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
@@ -293,8 +295,6 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
-  assetCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
-  essentialCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
@@ -489,16 +489,6 @@ type GenericJobTitle {
   classification: Classification @belongsTo
 }
 
-"""
-e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
-"""
-type CmoAsset {
-  id: ID!
-  key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString
-}
-
 type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
@@ -528,7 +518,6 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -551,6 +540,8 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  expectedClassifications: [Classification]
+    @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   pools: [Pool] @belongsToMany
 }
@@ -755,9 +746,8 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-  cmoAssets: [KeyFilterInput]
-    @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   equity: EquitySelectionsInput @scope
+  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -785,6 +775,8 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -863,6 +855,8 @@ type Query {
               "first_name"
               "email"
               "preferred_lang"
+              "preferred_language_for_interview"
+              "preferred_language_for_exam"
               "current_city"
             ]
           }
@@ -893,8 +887,6 @@ type Query {
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find
   classifications: [Classification]! @all
-  cmoAsset(id: UUID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills")
-  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills")
   department(id: UUID! @eq): Department @find
   departments: [Department]! @all
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
@@ -965,6 +957,8 @@ input CreateUserInput {
     )
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1007,8 +1001,10 @@ input CreateUserInput {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1032,6 +1028,8 @@ input UpdateUserAsAdminInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1075,8 +1073,10 @@ input UpdateUserAsAdminInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1095,6 +1095,8 @@ input UpdateUserAsUserInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1138,8 +1140,10 @@ input UpdateUserAsUserInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
+  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+  expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1174,16 +1178,6 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input CreateCmoAssetInput {
-  key: KeyString!
-  name: LocalizedStringInput!
-  description: LocalizedStringInput
-}
-
-input CmoAssetBelongsToMany {
-  sync: [ID!]
-}
-
 input ConnectOrCreateBelongsTo {
   connect: ID
   create: CreateUserInput
@@ -1205,8 +1199,6 @@ input CreatePoolInput {
   key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
@@ -1222,11 +1214,6 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdateCmoAssetInput {
-  name: LocalizedStringInput
-  description: LocalizedStringInput
-}
-
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
@@ -1239,8 +1226,6 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
-  assetCriteria: CmoAssetBelongsToMany
-  essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
@@ -1270,7 +1255,6 @@ input DepartmentBelongsTo {
 
 input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1292,6 +1276,8 @@ input CreateApplicantFilterInput {
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  expectedClassifications: ClassificationBelongsToMany
+    @rename(attribute: "classifications")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
@@ -1529,21 +1515,6 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
-  createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset
-    @create
-    @guard
-    @can(ability: "create")
-    @deprecated(reason: "replaced by skills")
-  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset
-    @update
-    @guard
-    @can(ability: "update", find: "id")
-    @deprecated(reason: "replaced by skills")
-  deleteCmoAsset(id: ID!): CmoAsset
-    @delete(globalId: false)
-    @guard
-    @can(ability: "delete", find: "id")
-    @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard

@@ -32,12 +32,18 @@ class StoreApplicationSnapshot
         $user = User::with([
             'department',
             'currentClassification',
-            'cmoAssets',
+            'expectedClassifications',
+            'expectedGenericJobTitles',
             'awardExperiences',
+            'awardExperiences.skills',
             'communityExperiences',
+            'communityExperiences.skills',
             'educationExperiences',
+            'educationExperiences.skills',
             'personalExperiences',
-            'workExperiences'
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills'
         ])->findOrFail($poolCandidate->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

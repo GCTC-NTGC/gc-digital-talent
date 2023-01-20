@@ -56,6 +56,10 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
+      expectedClassifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -92,6 +96,10 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -338,14 +346,38 @@ export const UserTable = () => {
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Preferred Language",
-          id: "mf+QEY",
+          defaultMessage: "Preferred Communication Language",
+          id: "CfXIqC",
           description:
-            "Title displayed for the User table Preferred Language column.",
+            "Title displayed for the User table Preferred Communication Language column.",
         }),
         accessor: (user) => languageAccessor(user.preferredLang, intl),
         id: "preferredLanguage",
         sortColumnName: "preferred_lang",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Spoken Interview Language",
+          id: "iRJV64",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
+        }),
+        id: "preferredInterviewLanguage",
+        accessor: (user) =>
+          languageAccessor(user?.preferredLanguageForInterview, intl),
+        sortColumnName: "preferred_language_for_interview",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Written Exam Language",
+          id: "5l+Ydz",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
+        }),
+        id: "preferredExamLanguage",
+        accessor: (user) =>
+          languageAccessor(user?.preferredLanguageForExam, intl),
+        sortColumnName: "preferred_language_for_exam",
       },
       {
         label: intl.formatMessage({
@@ -490,7 +522,7 @@ export const UserTable = () => {
 
   return (
     <div data-h2-margin="base(x1, 0)">
-      <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
+      <h2 id="user-table-heading" data-h2-visually-hidden="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
           id: "VlI1K4",

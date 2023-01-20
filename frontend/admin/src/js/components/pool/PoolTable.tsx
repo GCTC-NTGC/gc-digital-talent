@@ -10,7 +10,7 @@ import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   GetPoolsQuery,
   Maybe,
@@ -68,6 +68,21 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
   ) : null;
 }
 
+const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
+  if (value) {
+    return <a href={`mailto:${value}`}>{value}</a>;
+  }
+  return (
+    <span data-h2-font-style="base(italic)">
+      {intl.formatMessage({
+        defaultMessage: "No email provided",
+        id: "1JCjTP",
+        description: "Fallback for email value",
+      })}
+    </span>
+  );
+};
+
 interface PoolTableProps {
   pools: GetPoolsQuery["pools"];
 }
@@ -94,6 +109,43 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          let rowAName;
+          let rowBName;
+
+          if (locale === "en") {
+            rowAName = rowA.original.name?.en ?? "";
+            rowBName = rowB.original.name?.en ?? "";
+          } else {
+            rowAName = rowA.original.name?.fr ?? "";
+            rowBName = rowB.original.name?.fr ?? "";
+          }
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAName > rowBName) {
+            return 1;
+          }
+          if (rowAName < rowBName) {
+            return -1;
+          }
+          // if names identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether name sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -141,14 +193,83 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               </Pill>
             );
           }),
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override react-table sorting by jsx elements
+          const rowAGroup =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].group
+              : "";
+          const rowBGroup =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].group
+              : "";
+          const rowALevel =
+            rowA.original.classifications && rowA.original.classifications[0]
+              ? rowA.original.classifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.classifications && rowB.original.classifications[0]
+              ? rowB.original.classifications[0].level
+              : 0;
+
+          if (rowAGroup > rowBGroup) {
+            return 1;
+          }
+          if (rowAGroup < rowBGroup) {
+            return -1;
+          }
+          // if groups identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Owner",
-          id: "VgbJiw",
-          description: "Title displayed for the Pool table owner email column.",
+          defaultMessage: "Owner Name",
+          id: "AWk4BX",
+          description: "Title displayed for the Pool table Owner Name column",
         }),
-        accessor: ({ owner }) => owner?.email,
+        accessor: ({ owner }) =>
+          getFullNameHtml(
+            owner && owner.firstName ? owner.firstName : "",
+            owner && owner.lastName ? owner.lastName : "",
+            intl,
+          ),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.owner?.firstName
+            ? rowA.original.owner.firstName.toLowerCase()
+            : "";
+          const b = rowB.original.owner?.firstName
+            ? rowB.original.owner.firstName.toLowerCase()
+            : "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
+        id: "ownerName",
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Owner Email",
+          id: "pe5WkF",
+          description: "Title displayed for the Pool table Owner Email column",
+        }),
+        accessor: ({ owner }) =>
+          emailLinkAccessor(owner && owner.email ? owner.email : "", intl),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.owner?.email ?? "";
+          const b = rowB.original.owner?.email ?? "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
+        id: "ownerEmail",
       },
       {
         Header: intl.formatMessage({
@@ -179,7 +300,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate"],
+      hiddenCols: ["id", "description", "createdDate", "ownerEmail"],
       initialSortBy: [
         {
           id: "createdDate",

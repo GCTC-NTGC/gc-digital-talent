@@ -1,0 +1,17 @@
+query WorkLocation {
+  me {
+    id
+    locationPreferences
+    locationExemptions
+    isProfileComplete
+  }
+}
+
+mutation createWorkLocation($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    id
+    locationPreferences
+    locationExemptions
+    isProfileComplete
+  }
+}
