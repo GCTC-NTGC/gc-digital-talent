@@ -63,7 +63,7 @@ const Hero = ({
     padding = paddingMap.get("overlap");
   }
   return (
-    <>
+    <div data-h2-margin="base(0, 0, x3, 0)">
       <div
         data-h2-background-color="base(black)"
         data-h2-overflow="base(hidden)"
@@ -75,7 +75,7 @@ const Hero = ({
           data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
-            <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
+            <Heading level="h1" data-h2-margin="base(0)">
               {title}
             </Heading>
             {subtitle && (
@@ -83,7 +83,6 @@ const Hero = ({
                 data-h2-font-size="base(h6, 1.4)"
                 data-h2-font-weight="base(300)"
                 data-h2-margin="base(x1, 0, 0, 0)"
-                {...(!centered && { "data-h2-max-width": "l-tablet(50%)" })}
               >
                 {subtitle}
               </p>
@@ -117,7 +116,7 @@ const Hero = ({
           <div
             data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
             data-h2-position="base(relative)"
-            data-h2-margin="base(-x3, auto, 0, auto)"
+            data-h2-margin="base(-x4, auto, 0, auto)"
             data-h2-z-index="base(4)"
           >
             <div
@@ -134,7 +133,7 @@ const Hero = ({
       ) : (
         breadCrumbs
       )}
-    </>
+    </div>
   );
 };
 
