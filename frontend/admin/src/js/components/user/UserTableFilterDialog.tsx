@@ -4,7 +4,7 @@ import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
-import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -124,7 +124,7 @@ const UserTableFilterDialog = ({
         >
           <div data-h2-flex-grid="base(flex-start, x1, x.5)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="pools"
                 label={formatMessage({
                   defaultMessage: "Pools",
@@ -146,7 +146,7 @@ const UserTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="classifications"
                 label={formatMessage({
                   defaultMessage: "Classifications",
@@ -157,7 +157,7 @@ const UserTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="operationalRequirement"
                 label={formatMessage({
                   defaultMessage: "Work Preferences",
@@ -167,7 +167,7 @@ const UserTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="workRegion"
                 label={formatMessage({
                   defaultMessage: "Work Locations",
@@ -178,7 +178,7 @@ const UserTableFilterDialog = ({
             </div>
             {enableEducationType && (
               <div data-h2-flex-item="base(1of1)">
-                <MultiSelectFieldV2
+                <MultiSelectField
                   id="educationType"
                   label={formatMessage({
                     defaultMessage: "Education",
@@ -200,7 +200,7 @@ const UserTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="jobLookingStatus"
                 label={formatMessage({
                   defaultMessage: "Availability",
@@ -221,7 +221,7 @@ const UserTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="skills"
                 label={formatMessage({
                   defaultMessage: "Skill Filter",
