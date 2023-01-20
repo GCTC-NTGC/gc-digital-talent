@@ -34,6 +34,8 @@ import profileMessages from "../profile/profileMessages";
 export type FormValues = Pick<
   User,
   | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
   | "currentProvince"
   | "currentCity"
   | "telephone"
@@ -69,10 +71,22 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
   const labelMap = {
     preferredLang: intl.formatMessage({
-      defaultMessage: "Language preference for communication",
-      id: "D8IMp7",
+      defaultMessage: "Select your preferred communication language",
+      id: "MyUazW",
       description:
-        "Legend text for required language preference in About Me form",
+        "Legend text for required communication language preference in About Me form",
+    }),
+    preferredLanguageForInterview: intl.formatMessage({
+      defaultMessage: "Select your preferred spoken interview language",
+      id: "sOmEaW",
+      description:
+        "Legend text for required spoken interview language preference for interviews in About Me form",
+    }),
+    preferredLanguageForExam: intl.formatMessage({
+      defaultMessage: "Select your preferred written exam language",
+      id: "g5pT17",
+      description:
+        "Legend text for required written exam language preference for exams in About Me form",
     }),
     currentProvince: intl.formatMessage({
       defaultMessage: "Current province or territory",
@@ -121,6 +135,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
+    preferredLanguageForInterview: data?.preferredLanguageForInterview,
+    preferredLanguageForExam: data?.preferredLanguageForExam,
     currentProvince: data?.currentProvince,
     currentCity: data?.currentCity,
     telephone: data?.telephone,
@@ -250,13 +266,52 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         </p>
         <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
           <div>
-            <RadioGroup
+            <Select
               id="preferredLang"
-              idPrefix="required-lang-preferences"
-              legend={labelMap.preferredLang}
+              label={labelMap.preferredLang}
               name="preferredLang"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={enumToOptions(Language).map(({ value }) => ({
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                id: "wRxZQV",
+                description:
+                  "Placeholder displayed on the About Me form preferred communication language",
+              })}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+
+            <Select
+              id="preferredLanguageForInterview"
+              label={labelMap.preferredLanguageForInterview}
+              name="preferredLanguageForInterview"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                id: "JCyvcW",
+                description:
+                  "Placeholder displayed on the About Me form preferred interview language",
+              })}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+
+            <Select
+              id="preferredLanguageForExam"
+              label={labelMap.preferredLanguageForExam}
+              name="preferredLanguageForExam"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                id: "PBl2Rj",
+                description:
+                  "Placeholder displayed on the About Me form preferred exam language",
+              })}
+              options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),
               }))}

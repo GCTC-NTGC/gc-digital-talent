@@ -54,6 +54,9 @@ class UserFactory extends Factory
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
+            'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
+            'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
+
             'roles' => [],
             'job_looking_status' => $this->faker->randomElement([
                 'ACTIVELY_LOOKING',

@@ -8,6 +8,8 @@ query getReviewMyApplicationPageData($id: UUID!) {
       email
       telephone
       preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
       currentProvince
       currentCity
       citizenship

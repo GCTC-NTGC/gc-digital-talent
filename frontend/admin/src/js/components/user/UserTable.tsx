@@ -346,14 +346,38 @@ export const UserTable = () => {
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Preferred Language",
-          id: "mf+QEY",
+          defaultMessage: "Preferred Communication Language",
+          id: "CfXIqC",
           description:
-            "Title displayed for the User table Preferred Language column.",
+            "Title displayed for the User table Preferred Communication Language column.",
         }),
         accessor: (user) => languageAccessor(user.preferredLang, intl),
         id: "preferredLanguage",
         sortColumnName: "preferred_lang",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Spoken Interview Language",
+          id: "iRJV64",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
+        }),
+        id: "preferredInterviewLanguage",
+        accessor: (user) =>
+          languageAccessor(user?.preferredLanguageForInterview, intl),
+        sortColumnName: "preferred_language_for_interview",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Preferred Written Exam Language",
+          id: "5l+Ydz",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
+        }),
+        id: "preferredExamLanguage",
+        accessor: (user) =>
+          languageAccessor(user?.preferredLanguageForExam, intl),
+        sortColumnName: "preferred_language_for_exam",
       },
       {
         label: intl.formatMessage({
