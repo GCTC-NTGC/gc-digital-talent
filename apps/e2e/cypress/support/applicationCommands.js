@@ -1,7 +1,7 @@
 import {
   CreateApplicationDocument,
   SubmitApplicationDocument,
-} from "talentsearch/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 import { UpdatePoolCandidateStatusDocument } from "admin/src/js/api/generated";
 
 function getGqlString(doc) {

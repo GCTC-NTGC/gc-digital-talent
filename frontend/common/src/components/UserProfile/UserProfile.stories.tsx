@@ -58,6 +58,8 @@ UserProfileNull.args = {
   email: undefined,
   telephone: null,
   preferredLang: null,
+  preferredLanguageForInterview: null,
+  preferredLanguageForExam: null,
   currentCity: null,
   currentProvince: null,
   languageAbility: null,
