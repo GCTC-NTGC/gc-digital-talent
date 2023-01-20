@@ -57,7 +57,7 @@ class Client
     /**
      * Send Email
      *
-     * Send a single Email with GC Notify
+     * Send a single email with GC Notify
      *
      * @param string $to Email address to send message to
      * @param string $template ID of the template to use
