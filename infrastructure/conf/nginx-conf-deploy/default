@@ -93,6 +93,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
     }
 
+    # find the web config in the writable home root
+    location = /talent/config.js {
+        alias /home/site/config-web.js;
+    }
+
     # rewrite talent static files to "apps/web/dist"
     location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
         rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
