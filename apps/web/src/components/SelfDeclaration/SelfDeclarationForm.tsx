@@ -8,12 +8,14 @@ import { BasicForm, RadioGroup } from "@common/components/form";
 import errorMessages from "@common/messages/errorMessages";
 import Separator from "@common/components/Separator";
 
+import SelfDeclarationDialog from "~/pages/IAPHomePage/Dialog/SelfDeclarationDialog";
+import VerificationDialog from "~/pages/IAPHomePage/Dialog/VerificationDialog";
+import DefinitionDialog from "~/pages/IAPHomePage/Dialog/DefinitionDialog";
+
 import CommunitySelection from "./CommunitySelection";
 import SignAndContinue from "./SignAndContinue";
 import HelpLink from "./HelpLink";
-import SelfDeclarationDialog from "../Dialog/SelfDeclarationDialog";
-import VerificationDialog from "../Dialog/VerificationDialog";
-import DefinitionDialog from "../Dialog/DefinitionDialog";
+
 import { getSelfDeclarationLabels } from "./utils";
 
 type FormValues = {

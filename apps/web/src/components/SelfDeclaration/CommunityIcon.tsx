@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 
 import imageUrl from "@common/helpers/imageUrl";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 import { partOfCommunity } from "./utils";
 
 interface CommunityIconProps {
@@ -41,20 +40,14 @@ const CommunityIcon = ({ community, value }: CommunityIconProps) => {
               {...styles}
               alt=""
               key={`${community}-true`}
-              src={imageUrl(
-                INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                `${community}-true.png`,
-              )}
+              src={imageUrl("/", `${community}-true.png`)}
             />
           ) : (
             <motion.img
               {...styles}
               alt=""
               key={`${community}-false`}
-              src={imageUrl(
-                INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                `${community}-false.png`,
-              )}
+              src={imageUrl("/", `${community}-false.png`)}
             />
           )}
         </AnimatePresence>
