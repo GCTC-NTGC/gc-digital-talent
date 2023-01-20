@@ -11,6 +11,7 @@
     "frontend/common/src/components",
     "frontend/common/src/styles",
     "frontend/admin/src/js/components",
+    "frontend/talentsearch/src/js/components",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
@@ -18,7 +19,6 @@
   "modes": {
     "dark": {
       "automatic": true,
-      "automatic_modifiers": true,
       "method": "toggle"
     }
   },
@@ -79,21 +79,15 @@
         {
           "key": "black",
           "default": {
-            "color": "#010101",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#2F313D"
-              },
-              {
-                "key": "lighter",
-                "color": "#474a59"
-              },
-              {
-                "key": "darker",
-                "color": "#1b1c22"
-              }
-            ]
+            "color": "#1E1E23",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "gray",
+          "default": {
+            "color": "#B9B9B9",
+            "modifiers": []
           }
         },
         {
@@ -104,37 +98,37 @@
           }
         },
         {
-          "key": "tm-yellow",
-          "default": {
-            "color": "#FFAD31",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "tm-green",
-          "default": {
-            "color": "#52C765",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "tm-blue",
+          "key": "primary",
           "default": {
             "color": "#27C9BC",
             "modifiers": []
           }
         },
         {
-          "key": "tm-red",
+          "key": "secondary",
+          "default": {
+            "color": "#9747FF",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "tertiary",
           "default": {
             "color": "#FF5958",
             "modifiers": []
           }
         },
         {
-          "key": "tm-purple",
+          "key": "quaternary",
           "default": {
-            "color": "#9747FF",
+            "color": "#FFAD31",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "quinary",
+          "default": {
+            "color": "#52C765",
             "modifiers": []
           }
         },
@@ -146,159 +140,23 @@
           }
         },
         {
-          "key": "dt-black",
-          "default": {
-            "color": "#1E1E23",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "dt-white",
-          "default": {
-            "color": "#FFFFFF",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "dt-gray",
-          "default": {
-            "color": "#B9B9B9",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#F0F0F0"
-              },
-              {
-                "key": "dark",
-                "color": "#646464"
-              }
-            ]
-          }
-        },
-        {
-          "key": "dt-primary",
-          "default": {
-            "color": "#674C90",
-            "modifiers": [
-              {
-                "key": "dark",
-                "color": "#363661"
-              }
-            ]
-          }
-        },
-        {
-          "key": "dt-secondary",
-          "default": {
-            "color": "#072131",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#1D2C4C"
-              }
-            ]
-          }
-        },
-        {
-          "key": "dt-accent",
-          "default": {
-            "color": "#F8A812",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#FBDCA5"
-              },
-              {
-                "key": "dark",
-                "color": "#F8A812"
-              }
-            ]
-          }
-        },
-        {
-          "key": "dt-success",
+          "key": "success",
           "default": {
             "color": "#087835",
             "modifiers": []
           }
         },
         {
-          "key": "dt-error",
+          "key": "warning",
+          "default": {
+            "color": "#9747FF",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "error",
           "default": {
             "color": "#e90101",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "ia-black",
-          "default": {
-            "color": "#1E1E23",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "ia-white",
-          "default": {
-            "color": "#FFFFFF",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "ia-gray",
-          "default": {
-            "color": "#B9B9B9",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#F0F0F0"
-              },
-              {
-                "key": "dark",
-                "color": "#646464"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ia-primary",
-          "default": {
-            "color": "#C01E5A",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#E9568A"
-              },
-              {
-                "key": "dark",
-                "color": "#781443"
-              },
-              {
-                "key": "hero",
-                "color": "rgb(71, 6, 46)"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ia-secondary",
-          "default": {
-            "color": "#272F6B",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#4D5194"
-              },
-              {
-                "key": "dark",
-                "color": "#211C53"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ia-error",
-          "default": {
-            "color": "#AE0000",
             "modifiers": []
           }
         }
@@ -486,60 +344,90 @@
           "key": "s",
           "default": {
             "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "small",
           "default": {
             "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "m",
           "default": {
             "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "medium",
           "default": {
             "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "l",
           "default": {
             "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "large",
           "default": {
             "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "xl",
           "default": {
             "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "larger",
           "default": {
             "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "xxl",
           "default": {
             "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .5)"
           }
         },
         {
           "key": "largest",
           "default": {
             "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          },
+          "dark": {
+            "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .5)"
           }
         }
       ],
@@ -569,6 +457,46 @@
           }
         ]
       }
+    },
+    {
+      "key": "iap",
+      "colors": [
+        {
+          "key": "primary",
+          "default": {
+            "color": "#C01E5A",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "secondary",
+          "default": {
+            "color": "#272F6B",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "tertiary",
+          "default": {
+            "color": "#272F6B",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "quaternary",
+          "default": {
+            "color": "#272F6B",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "quinary",
+          "default": {
+            "color": "#272F6B",
+            "modifiers": []
+          }
+        }
+      ]
     }
   ]
 }
