@@ -48,7 +48,7 @@ class Client
         $config = config('notify.client');
 
         if (!$config['apiKey']) {
-            throw new ApiKeyNotFoundException("GC Notify API Key not found in config");
+            throw new ApiKeyNotFoundException("GC Notify API key not found in config.");
         }
 
         $this->apiKey = $config['apiKey'];
