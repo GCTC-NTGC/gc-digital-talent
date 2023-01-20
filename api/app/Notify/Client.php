@@ -265,7 +265,7 @@ class Client
         }
 
         if(base64_decode($attachment['file'], true) === false) {
-            throw new EmailAttachmentException("Attachment file must be base64 encoded");
+            throw new EmailAttachmentException("Attachment file must be base64 encoded.");
         }
 
         $attachment['sending_method'] = 'attach';
