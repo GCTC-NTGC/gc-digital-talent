@@ -180,7 +180,7 @@ const SkillSelection = ({
               description: "Heading for a specific skills definition",
             })}
           </Heading>
-          <p data-h2-margin="bases(x1, 0)">
+          <p data-h2-margin="base(x1, 0)">
             {getLocalizedName(selectedSkill.description, intl)}
           </p>
         </>
