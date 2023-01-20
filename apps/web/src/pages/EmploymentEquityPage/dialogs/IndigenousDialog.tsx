@@ -3,13 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 import Dialog from "@common/components/Dialog";
-import { Checkbox } from "@common/components/form";
+import { RadioGroup } from "@common/components/form";
 
-import {
-  getEmploymentEquityGroup,
-  getEmploymentEquityStatement,
-} from "@common/constants";
-import { Fieldset } from "@common/components/inputPartials";
+import { getEmploymentEquityGroup } from "@common/constants";
+import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
+import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
+import errorMessages from "~/../../../frontend/common/src/messages/errorMessages";
 import type { EquityDialogProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -33,6 +32,8 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
     onSave(data.isIndigenous);
   };
+
+  const labels = getSelfDeclarationLabels(intl);
 
   return (
     <Dialog.Root>
@@ -62,23 +63,39 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
           <form onSubmit={handleSubmit(submitHandler)}>
             <AddToProfile />
             <div data-h2-margin="base(x1, 0, x1.5, 0)">
-              <Fieldset
-                legend={intl.formatMessage({
-                  defaultMessage: "Self-Declaration",
-                  id: "dYS0MA",
-                  description: "Form label for a self-declaration input",
-                })}
+              <RadioGroup
+                idPrefix="isIndigenous"
+                id="isIndigenous"
                 name="isIndigenous"
-                hideOptional
-              >
-                <Checkbox
-                  id="isIndigenous"
-                  name="isIndigenous"
-                  label={intl.formatMessage(
-                    getEmploymentEquityStatement("indigenous"),
-                  )}
-                />
-              </Fieldset>
+                legend={labels.isIndigenous}
+                trackUnsaved={false}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                items={[
+                  {
+                    value: "yes",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        '"I affirm that I am First Nations, Inuk (Inuit), or a Métis person"',
+                      id: "7STO48",
+                      description:
+                        "Text for the option to self-declare as Indigenous",
+                    }),
+                  },
+                  {
+                    value: "no",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        '"I am not a member of an Indigenous group, and I would like to see other opportunities available to me"',
+                      id: "//J5ti",
+                      description:
+                        "Text for the option to self-declare as not an Indigenous person",
+                    }),
+                  },
+                ]}
+              />
+              <CommunitySelection labels={labels} />
             </div>
             <Dialog.Footer>
               <DialogFooter />
