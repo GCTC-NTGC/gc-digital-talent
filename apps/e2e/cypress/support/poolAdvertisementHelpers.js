@@ -3,7 +3,7 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "talentsearch/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 import {
   FAR_FUTURE_DATE,
 } from "@gc-digital-talent/common/src/helpers/dateUtils";
