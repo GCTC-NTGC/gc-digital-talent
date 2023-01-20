@@ -14,7 +14,6 @@ class NotifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->app->singleton('notify', function ($app) {
             return new Client();
         });
