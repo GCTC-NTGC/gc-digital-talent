@@ -11,14 +11,12 @@ import {
   CloudIcon,
 } from "@heroicons/react/24/outline";
 
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import Hero from "@common/components/Hero/Hero";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
-import imageUrl from "@common/helpers/imageUrl";
 import {
   AdvertisementStatus,
   Scalars,
@@ -201,17 +199,18 @@ export const PoolAdvertisementPoster = ({
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Browse opportunities",
         id: "NSuNSA",
         description: "Breadcrumb title for the browse pools page.",
       }),
-      href: paths.allPools(),
+      url: paths.allPools(),
     },
     {
-      title: fullTitle,
+      label: fullTitle,
+      url: paths.pool(poolAdvertisement.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   const sections: Record<string, { id: string; title: string }> = {
     about: {
@@ -271,27 +270,13 @@ export const PoolAdvertisementPoster = ({
   return (
     <>
       <SEO title={fullTitle} />
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
-        style={{
-          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div data-h2-container="base(center, medium, 0)">
-          <h1 data-h2-margin="base(x2, 0)">{fullTitle}</h1>
-        </div>
-      </div>
+      <Hero title={fullTitle} crumbs={links} />
       <div
         data-h2-background-color="base(dt-white)"
         data-h2-shadow="base(m)"
         data-h2-padding="base(x1, 0)"
       >
         <div data-h2-container="base(center, medium, 0)">
-          <Breadcrumbs links={links} />
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) p-tablet(row)"

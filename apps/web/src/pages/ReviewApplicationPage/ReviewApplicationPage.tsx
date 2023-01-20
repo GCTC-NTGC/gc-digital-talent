@@ -91,19 +91,20 @@ export const ReviewApplication: React.FunctionComponent<
         })}
         crumbs={[
           {
-            title: intl.formatMessage({
+            label: intl.formatMessage({
               id: "Uaew4x",
               defaultMessage: "My applications",
               description: "Breadcrumb for review application page.",
             }),
-            href: paths.applications(applicant.id),
+            url: paths.applications(applicant.id),
           },
           {
-            title: jobTitle,
-            href: paths.pool(poolAdvertisement.id),
+            label: jobTitle,
+            url: paths.pool(poolAdvertisement.id),
           },
           {
-            title: intl.formatMessage(navigationMessages.stepOne),
+            label: intl.formatMessage(navigationMessages.stepOne),
+            url: paths.reviewApplication(applicationId),
           },
         ]}
         navigation={{

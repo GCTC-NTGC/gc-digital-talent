@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Hero from "@common/components/Hero/Hero";
 import SEO from "@common/components/SEO/SEO";
 import { ExternalLink } from "@common/components/Link";
 import { getLocale } from "@common/helpers/localize";
-import imageUrl from "@common/helpers/imageUrl";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
@@ -25,22 +26,17 @@ const RegisterPage: React.FC = () => {
     description: "Title for the registration page for applicant profiles.",
   });
 
+  const crumbs = useBreadcrumbs([
+    {
+      label: pageTitle,
+      url: paths.register(),
+    },
+  ]);
+
   return (
     <>
       <SEO title={pageTitle} />
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
-        data-h2-text-align="base(center)"
-        style={{
-          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <h1 data-h2-margin="base(x2, 0)">{pageTitle}</h1>
-      </div>
+      <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">
           <p>

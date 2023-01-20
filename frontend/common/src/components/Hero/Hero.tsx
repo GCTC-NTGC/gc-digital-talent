@@ -30,7 +30,7 @@ const paddingMap = new Map([
 ]);
 
 export interface HeroProps {
-  imgPath: string;
+  imgPath?: string;
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
@@ -71,10 +71,8 @@ const Hero = ({
         {...padding}
       >
         <div
-          data-h2-position="base(relative)"
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-layer="base(1, relative)"
-          data-h2-z-index="base(3)"
+          data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
             <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">

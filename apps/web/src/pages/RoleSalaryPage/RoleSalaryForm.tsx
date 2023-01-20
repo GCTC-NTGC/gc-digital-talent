@@ -1,10 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import {
-  BriefcaseIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, Checklist } from "@common/components/form";
 
@@ -134,25 +131,24 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const applicationBreadcrumbs = application
     ? [
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "My Applications",
             id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: paths.applications(application.user.id),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+          url: paths.applications(application.user.id),
         },
         {
-          title: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitle(
             intl,
             application.poolAdvertisement,
           ),
-          href: paths.pool(application.pool.id),
+          url: paths.pool(application.pool.id),
         },
         {
-          href: paths.reviewApplication(application.id),
-          title: intl.formatMessage(navigationMessages.stepOne),
+          label: intl.formatMessage(navigationMessages.stepOne),
+          url: paths.reviewApplication(application.id),
         },
       ]
     : [];
@@ -170,17 +166,15 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         id: "uIpPFZ",
         description: "Description for the role and salary expectation form",
       })}
-      cancelLink={{
-        href: returnRoute,
-      }}
       crumbs={[
         ...applicationBreadcrumbs,
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "Role and Salary Expectations",
             id: "dgOYID",
             description: "Label for role and salary link",
           }),
+          url: initialData.me?.id ? paths.roleSalary(initialData.me.id) : "#",
         },
       ]}
       prefixBreadcrumbs={!application}
