@@ -63,7 +63,7 @@ const Hero = ({
     padding = paddingMap.get("overlap");
   }
   return (
-    <div data-h2-margin="base(0, 0, x3, 0)">
+    <>
       <div
         data-h2-background-color="base(black)"
         data-h2-overflow="base(hidden)"
@@ -133,7 +133,7 @@ const Hero = ({
       ) : (
         breadCrumbs
       )}
-    </div>
+    </>
   );
 };
 

@@ -53,7 +53,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
     <>
       <SEO title={metaTitle || title} />
       <Hero title={title} subtitle={description} crumbs={links} />
-      <section data-h2-margin="base(x1, 0, x3, 0)">
+      <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
           {children}
         </div>
