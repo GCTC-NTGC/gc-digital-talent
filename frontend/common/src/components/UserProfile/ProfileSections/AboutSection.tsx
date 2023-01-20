@@ -20,6 +20,8 @@ interface AboutSectionProps {
     | "email"
     | "telephone"
     | "preferredLang"
+    | "preferredLanguageForInterview"
+    | "preferredLanguageForExam"
     | "currentCity"
     | "currentProvince"
     | "citizenship"
@@ -36,6 +38,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     telephone,
     email,
     preferredLang,
+    preferredLanguageForInterview,
+    preferredLanguageForExam,
     currentCity,
     currentProvince,
     citizenship,
@@ -118,6 +122,46 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             </p>
           </div>
         )}
+
+        {!!preferredLanguageForInterview && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Preferred Spoken Interview Language:",
+                id: "c7At4h",
+                description:
+                  "Preferred Language for interviews label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {preferredLanguageForInterview
+                  ? intl.formatMessage(
+                      getLanguage(preferredLanguageForInterview),
+                    )
+                  : ""}
+              </span>
+            </p>
+          </div>
+        )}
+
+        {!!preferredLanguageForExam && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Preferred Written Exam Language:",
+                id: "rSymh2",
+                description: "Preferred Language for exams label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {preferredLanguageForExam
+                  ? intl.formatMessage(getLanguage(preferredLanguageForExam))
+                  : ""}
+              </span>
+            </p>
+          </div>
+        )}
+
         {!!currentCity && !!currentProvince && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
@@ -201,6 +245,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !email ||
         !telephone ||
         !preferredLang ||
+        !preferredLanguageForInterview ||
+        !preferredLanguageForInterview ||
         !currentCity ||
         !currentProvince ||
         !citizenship ||

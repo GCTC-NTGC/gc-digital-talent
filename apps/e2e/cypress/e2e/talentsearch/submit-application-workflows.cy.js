@@ -8,7 +8,7 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
-} from "talentsearch/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -21,7 +21,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.intercept("POST", "/graphql", function (req) {
       aliasQuery(req, "browsePoolAdvertisements");
       aliasQuery(req, "getPoolAdvertisement");
-      aliasQuery(req, "getReviewMyApplicationPageData");
+      aliasQuery(req, "getReviewApplicationPageData");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
 
@@ -151,7 +151,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlcreateApplicationMutation");
 
     // Review my profile page
-    cy.wait("@gqlgetReviewMyApplicationPageDataQuery");
+    cy.wait("@gqlgetReviewApplicationPageDataQuery");
     cy.findByRole("heading", { name: /My application profile/i })
       .should("exist")
       .and("be.visible");

@@ -9,7 +9,7 @@ The common subproject contains a script (`src/tooling/checkIntl.js`) to help man
 ### Bulk Translation
 The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts.
 
-Note: each subproject using react-intl (e.g. admin, common, talentsearch, etc.) requires its own set of commands, and must be managed separately.
+Note: each subproject using react-intl (e.g. admin, common, apps/web, etc.) requires its own set of commands, and must be managed separately.
 
 For example, to ensure translations in the admin project are up to date:
 1. Run `npm run intl-extract` in the project you are managing (in this case, admin).

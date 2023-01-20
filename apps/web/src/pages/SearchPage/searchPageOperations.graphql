@@ -1,0 +1,85 @@
+query CountApplicantsAndCountPoolCandidatesByPool(
+  $where: ApplicantFilterInput
+) {
+  countApplicants(where: $where)
+  countPoolCandidatesByPool(where: $where) {
+    pool {
+      id
+      owner {
+        id
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+    }
+    candidateCount
+  }
+}
+
+query getSearchFormDataAcrossAllPools {
+  publishedPoolAdvertisements {
+    id
+    key
+    owner {
+      email
+      firstName
+      lastName
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    stream
+  }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+}
+
+query countApplicants($where: ApplicantFilterInput) {
+  countApplicants(where: $where)
+}

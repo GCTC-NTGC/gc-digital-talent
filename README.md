@@ -9,7 +9,6 @@ The GC Digital Talent app is divided into multiple services, each treated as its
   - `/admin`, a CRUD-style admin dashboard
   - `/common`, code shared by multiple other workspaces
   - `/cypress`, e2e testing with [`Cypress`](/frontend/cypress/README.md)
-  - `/talentsearch`, pages related to searching and requesting talent from pools
   
 - `/tc-report`, containing static content generated with Jekyll, mostly the Talent Cloud report. This used to be maintained in a [separate repo](https://github.com/GCTC-NTGC/tc-report), but now the entire project has been imported into this repo. See [`/tc-report/README.md`](/tc-report/README.md) for instructions on how to run Jekyll and re-generate the site content.
 - `/infrastructure`, support files for the docker infrastructure to run the project
