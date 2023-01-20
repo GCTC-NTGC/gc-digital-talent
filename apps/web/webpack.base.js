@@ -27,7 +27,7 @@ module.exports = merge(base(basePath), {
   },
   // TO DO: We should be able to remove this after merging all apps
   output: {
-    publicPath: "/indigenous-it-apprentice/", // final path for routing
+    publicPath: "/", // final path for routing
     filename: "[name].[contenthash].js", // file hashing for cache busting
     chunkFilename: "[name].[contenthash].js", // file hashing for cache busting
     path: path.resolve(basePath, "dist"), // output folder

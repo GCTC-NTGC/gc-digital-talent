@@ -1,13 +1,15 @@
 {
   "extends": "tsconfig/base.json",
-  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
   },
+  "include": ["src/**/*"],
   "exclude": [
+    ".turbo",
     "node_modules",
+    "dist",
     "!node_modules/@types",
     "*/node_modules",
     "!*/node_modules/@types"
-  ]
+  ],
 }

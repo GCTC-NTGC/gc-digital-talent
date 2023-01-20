@@ -1,4 +1,4 @@
-# Comes from frontend/talentsearch/src/js/api/userOperations.graphql
+# Comes from apps/web/src/pages/ProfilePage/profileOperations.graphql
 # Should match the getMe query from that file to take accurate snapshots
 query getProfile($userId: ID!) {
   user(id: $userId) {
