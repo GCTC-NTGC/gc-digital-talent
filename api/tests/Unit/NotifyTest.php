@@ -31,7 +31,7 @@ class NotifyTest extends TestCase
     {
         $response = Notify::sendEmail(
             'simulate-delivered@notification.canada.ca',
-            $this->templates['email'],
+            $this->templates['test_email'],
             ['name' => $this->username]
         );
 
@@ -47,7 +47,7 @@ class NotifyTest extends TestCase
     {
         $response = Notify::sendSms(
             '+16132532222',
-            $this->templates['sms'],
+            $this->templates['test_sms'],
             ['name' => $this->username]
         );
 
@@ -71,7 +71,7 @@ class NotifyTest extends TestCase
                 ['+16132532223', $this->username . ' 2'],
                 ['+16132532224', $this->username . ' 3'],
             ],
-            $this->templates['bulk_sms']
+            $this->templates['test_bulk_sms']
         );
 
         Log::debug($response->json());
@@ -95,7 +95,7 @@ class NotifyTest extends TestCase
                 ['simulate-delivered-2@notification.canada.ca', $this->username . ' 2'],
                 ['simulate-delivered-3@notification.canada.ca', $this->username . ' 3'],
             ],
-            $this->templates['bulk_email']
+            $this->templates['test_bulk_email']
         );
 
        $this->assertBulkResponseSuccess($response);
