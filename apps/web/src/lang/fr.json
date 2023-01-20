@@ -362,5 +362,169 @@
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
-  }
+  },
+    "+M8xoo": {
+      "defaultMessage": "Statut des membres des Premières Nations",
+      "description": "label for the First Nations status self-declaration input"
+    },
+    "//J5ti": {
+      "defaultMessage": "\"Je ne suis pas membre d’un groupe autochtone, mais j’aimerais bénéficier d’autres occasions.\"",
+      "description": "Text for the option to self-declare as not an Indigenous person"
+    },
+    "/81xCT": {
+      "defaultMessage": "\"Je suis métisse.\"",
+      "description": "Label text for Métis community declaration"
+    },
+    "1nOT0r": {
+      "defaultMessage": "Ma communauté ou mes communautés :",
+      "description": "Text label for list of the users selected Indigenous communities"
+    },
+    "32qwlv": {
+      "defaultMessage": "Explorer les occasions en matière de TI au sein du gouvernement fédéral",
+      "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
+    },
+    "3oW16P": {
+      "defaultMessage": "Signature",
+      "description": "label for the signature input on the self-declaration form"
+    },
+    "489G7C": {
+      "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada. ",
+      "description": "Content for the self-declaration verification dialog"
+    },
+    "4e74J2": {
+      "defaultMessage": "\"Je suis un membre d’une communauté des Premières Nations.\"",
+      "description": "Label text for First Nations community declaration"
+    },
+    "5dgCOy": {
+      "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
+      "description": "Heading for the self-declaration explanation dialog"
+    },
+    "7STO48": {
+      "defaultMessage": "\"J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis\"",
+      "description": "Text for the option to self-declare as Indigenous"
+    },
+    "7rSh+m": {
+      "defaultMessage": "Signer et continuer",
+      "description": "Button text to submit the Indigenous self-declaration form."
+    },
+    "A4ALhu": {
+      "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
+      "description": "Text describing the self-declaration form and its importance"
+    },
+    "AMboRG": {
+      "defaultMessage": "Voir <whyLink>Raison pour lesquelles nous vous demandons de déclarer votre statut</whyLink>, <verificationLink>Mode de vérification</verificationLink> Le terme <definitionLink>autochtone comme il est défini pour ce programme</definitionLink>.",
+      "description": "Links to more information on the self-declaration process and definition of Indigenous"
+    },
+    "BIgaKT": {
+      "defaultMessage": "Métis",
+      "description": "Trigger text for Métis tab"
+    },
+    "Cn9LYM": {
+      "defaultMessage": " Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
+      "description": "Text explaining the program and the possibility of needing to provide proof."
+    },
+    "Dz9xib": {
+      "defaultMessage": "Lorsque vous soumettez votre signature (en tapant votre nom complet), vous contribuez à créer un espace équitable et sécuritaire afin de permettre aux peuples autochtones de profiter de ces occasions.",
+      "description": "Disclaimer displayed before signing the Indigenous self-declaration form"
+    },
+    "FRcbbi": {
+      "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici.",
+      "description": "Label text for not represented community declaration"
+    },
+    "GSqmjE": {
+      "defaultMessage": "Premières Nations",
+      "description": "Label for First Nations community"
+    },
+    "KaisAC": {
+      "defaultMessage": "Métis",
+      "description": "Label for Métis community"
+    },
+    "Md1Pj4": {
+      "defaultMessage": "Autochtone selon la définition de ce programme :",
+      "description": "Heading for the definition of Indigenous dialog"
+    },
+    "NxmuI4": {
+      "defaultMessage": "Premières Nations",
+      "description": "Trigger text for First Nations tab"
+    },
+    "WDtanj": {
+      "defaultMessage": "Inuk",
+      "description": "Trigger text for Inuk tab"
+    },
+    "WwEznG": {
+      "defaultMessage": "Autre",
+      "description": "Trigger text for not represented community declaration tab"
+    },
+    "Xe90FW": {
+      "defaultMessage": "Ne suis-je pas un membre d’un groupe autochtone?",
+      "description": "Lead in text for button to submit form and navigate to a different page when no Indigenous"
+    },
+    "Xvvcsg": {
+      "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+      "description": "Label for not represented community"
+    },
+    "YZ/ZhG": {
+      "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les peuples autochtones, veuillez<link>nous contacter</link> nous serons heureux de vous rencontrer.",
+      "description": "Text describing where to get help with the self-declaration form"
+    },
+    "at11n5": {
+      "defaultMessage": "Êtes-vous sûr de vouloir sélectionner : « Je suis autochtone, mais je ne trouve pas ma communauté ici? »",
+      "description": "Title for the alert warning users about selection not represented and a represented community"
+    },
+    "dT/c1r": {
+      "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
+      "description": "Paragraph two for the self-declaration explanation dialog"
+    },
+    "dafWEO": {
+      "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.. ",
+      "description": "Paragraph one for the self-declaration explanation dialog"
+    },
+    "h4E9+K": {
+      "defaultMessage": "De quelle manière sera vérifié le statut?",
+      "description": "Heading for the self-declaration verification dialog"
+    },
+    "kUHaE/": {
+      "defaultMessage": "Inuk",
+      "description": "Label for Inuk community"
+    },
+    "pKACZK": {
+      "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
+      "description": "Title for the indigenous self-declaration form"
+    },
+    "qEvJjr": {
+      "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada",
+      "description": "Paragraph three for the self-declaration explanation dialog"
+    },
+    "qwJkEy": {
+      "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
+      "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
+    },
+    "r6L5aI": {
+      "defaultMessage": "« Auto-déclaration »",
+      "description": "label for the Indigenous self-declaration input"
+    },
+    "reUbO2": {
+      "defaultMessage": "(Sélectionnez tout ce qui s’applique à vous)",
+      "description": "Disclaimer for the checkbox group for selecting Indigenous communities"
+    },
+    "sSE4kt": {
+      "defaultMessage": "Je suis un membre des Premières Nations sans statut",
+      "description": "Text for the option to self-declare as a non-status first nations"
+    },
+    "ssJxrj": {
+      "defaultMessage": "Je suis un membre des Premières Nations.",
+      "description": "Text for the option to self-declare as a status first nations"
+    },
+    "vDb+O+": {
+      "defaultMessage": "« Je suis Inuk »",
+      "description": "Label text for Inuk community declaration"
+    },
+    "w4SSBu": {
+      "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les \"peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada\". Cette politique (conforme aux pratiques canadiennes générales) considère que le terme \"Autochtones\" dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
+      "description": "Content for the definition of Indigenous dialog"
+    },
+    "zSH7Hx": {
+      "defaultMessage": "Sélectionnez une ou plusieurs communautés :",
+      "description": "Legend for the checkbox group for selecting Indigenous communities"
+    }
 }
