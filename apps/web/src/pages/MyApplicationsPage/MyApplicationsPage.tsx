@@ -1,13 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Hero from "@common/components/Hero/Hero";
 import { ThrowNotFound } from "@common/components/NotFound";
 import SEO from "@common/components/SEO/SEO";
 import Pending from "@common/components/Pending";
-import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 
-import { useMyApplicationsQuery } from "~/api/generated";
+import { Scalars, useMyApplicationsQuery } from "~/api/generated";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationCard, {
   type Application,
@@ -17,10 +19,15 @@ import { statusSortMap } from "./ApplicationCard/maps";
 
 interface MyApplicationsProps {
   applications: Array<Application>;
+  userId: Scalars["ID"];
 }
 
-export const MyApplications = ({ applications }: MyApplicationsProps) => {
+export const MyApplications = ({
+  applications,
+  userId,
+}: MyApplicationsProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const archivedApplications = applications.filter((application) => {
     return !!application.archivedAt;
@@ -43,31 +50,17 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
     description: "Title for page that displays current users applications.",
   });
 
+  const crumbs = useBreadcrumbs([
+    {
+      label: pageTitle,
+      url: paths.applications(userId),
+    },
+  ]);
+
   return (
     <>
       <SEO title={pageTitle} />
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
-        data-h2-text-align="base(center)"
-        style={{
-          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <h1
-          data-h2-margin="base(x2, 0)"
-          data-h2-font-weight="base(700)"
-          style={{
-            letterSpacing: "-2px",
-            textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
-          }}
-        >
-          {pageTitle}
-        </h1>
-      </div>
+      <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0, x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           {sortedApplications.length > 0 ? (
@@ -109,6 +102,7 @@ const MyApplicationsPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me?.poolCandidates ? (
         <MyApplications
+          userId={data.me.id}
           applications={data.me.poolCandidates.filter(notEmpty)}
         />
       ) : (
