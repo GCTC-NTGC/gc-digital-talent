@@ -14,6 +14,6 @@ class ApiKeyNotFoundException extends Exception
      */
     public function report()
     {
-        Log::debug("API Key Not Found");
+        Log::debug("API key not found.");
     }
 }
