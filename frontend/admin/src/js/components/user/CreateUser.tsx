@@ -219,32 +219,34 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
             />
-            <MultiSelectField
-              id="roles"
-              name="roles"
-              label={intl.formatMessage({
-                defaultMessage: "Roles",
-                id: "kwNyl6",
-                description: "Label displayed on the user form roles field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select zero or more roles...",
-                id: "Cw8pyL",
-                description:
-                  "Placeholder displayed on the user form roles field.",
-              })}
-              options={enumToOptions(Role).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getRole(value)),
-              }))}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The roles grant additional functionality to a user's login.",
-                id: "Z6sh9j",
-                description:
-                  "Additional context describing the purpose of the users's 'role' field.",
-              })}
-            />
+            <div data-h2-margin="base(x1, 0)">
+              <MultiSelectField
+                id="roles"
+                name="roles"
+                label={intl.formatMessage({
+                  defaultMessage: "Roles",
+                  id: "kwNyl6",
+                  description: "Label displayed on the user form roles field.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select zero or more roles...",
+                  id: "Cw8pyL",
+                  description:
+                    "Placeholder displayed on the user form roles field.",
+                })}
+                options={enumToOptions(Role).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getRole(value)),
+                }))}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The roles grant additional functionality to a user's login.",
+                  id: "Z6sh9j",
+                  description:
+                    "Additional context describing the purpose of the users's 'role' field.",
+                })}
+              />
+            </div>
             <Submit />
           </form>
         </FormProvider>

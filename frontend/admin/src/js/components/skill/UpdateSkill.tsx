@@ -240,23 +240,25 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelectField
-              id="families"
-              name="families"
-              label={intl.formatMessage({
-                defaultMessage: "Families",
-                id: "JxVREd",
-                description:
-                  "Label displayed on the skill form families field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more families...",
-                id: "9bz9jA",
-                description:
-                  "Placeholder displayed on the skill form families field.",
-              })}
-              options={skillFamilyOptions}
-            />
+            <div data-h2-margin="base(x1, 0)">
+              <MultiSelectField
+                id="families"
+                name="families"
+                label={intl.formatMessage({
+                  defaultMessage: "Families",
+                  id: "JxVREd",
+                  description:
+                    "Label displayed on the skill form families field.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select one or more families...",
+                  id: "9bz9jA",
+                  description:
+                    "Placeholder displayed on the skill form families field.",
+                })}
+                options={skillFamilyOptions}
+              />
+            </div>
             <Submit />
           </form>
         </FormProvider>

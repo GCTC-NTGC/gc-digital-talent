@@ -220,23 +220,25 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelectField
-              id="skills"
-              name="skills"
-              label={intl.formatMessage({
-                defaultMessage: "Skills",
-                id: "F2Rs/C",
-                description:
-                  "Label displayed on the skill family form skills field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more skills...",
-                id: "7Cx7lp",
-                description:
-                  "Placeholder displayed on the skill family form skills field.",
-              })}
-              options={skillOptions}
-            />
+            <div data-h2-margin="base(x1, 0)">
+              <MultiSelectField
+                id="skills"
+                name="skills"
+                label={intl.formatMessage({
+                  defaultMessage: "Skills",
+                  id: "F2Rs/C",
+                  description:
+                    "Label displayed on the skill family form skills field.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select one or more skills...",
+                  id: "7Cx7lp",
+                  description:
+                    "Placeholder displayed on the skill family form skills field.",
+                })}
+                options={skillOptions}
+              />
+            </div>
             <Submit />
           </form>
         </FormProvider>
