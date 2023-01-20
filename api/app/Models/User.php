@@ -58,6 +58,8 @@ use Illuminate\Support\Facades\DB;
  * @property Illuminate\Support\Carbon $updated_at
  * @property string $indigenous_declaration_signature
  * @property array $indigenous_communities
+ * @property string $preferred_language_for_interview
+ * @property string $preferred_language_for_exam
  */
 
 class User extends Model implements Authenticatable
@@ -148,6 +150,8 @@ class User extends Model implements Authenticatable
             is_null($this->attributes['email']) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
+            is_null($this->attributes['preferred_language_for_interview']) or
+            is_null($this->attributes['preferred_language_for_exam']) or
             is_null($this->attributes['current_province']) or
             is_null($this->attributes['current_city']) or
             (is_null($this->attributes['looking_for_english']) &&
@@ -176,6 +180,8 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('email');
             $query->whereNotNull('telephone');
             $query->whereNotNull('preferred_lang');
+            $query->whereNotNull('preferred_language_for_interview');
+            $query->whereNotNull('preferred_language_for_exam');
             $query->whereNotNull('current_province');
             $query->whereNotNull('current_city');
             $query->where(function ($query) {

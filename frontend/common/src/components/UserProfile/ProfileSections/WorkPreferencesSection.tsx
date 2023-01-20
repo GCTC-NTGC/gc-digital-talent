@@ -69,25 +69,31 @@ const WorkPreferencesSection: React.FunctionComponent<{
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {(positionDuration === null || positionDuration?.length === 0) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                id: "SCCX7B",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-            <p>
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
+          <>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
-                  defaultMessage: "Edit your work preference options.",
-                  id: "eFCDP4",
-                  description: "Link text to edit work preferences on profile",
+                  defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
+                  description:
+                    "Message for when no data exists for the section",
                 })}
-              </a>
-            </p>
-          </div>
+              </p>
+            </div>
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Edit your work preference options.",
+                    id: "eFCDP4",
+                    description:
+                      "Link text to edit work preferences on profile",
+                  })}
+                </a>
+              </p>
+            </div>
+          </>
         )}
 
         {positionDuration &&

@@ -13,6 +13,8 @@ Cypress.Commands.add("createUser", (user) => {
     firstName: "Cypress",
     lastName: "User",
     preferredLang: "EN",
+    preferredLanguageForInterview: "EN",
+    preferredLanguageForExam: "EN",
 
     // optional
     telephone: undefined,

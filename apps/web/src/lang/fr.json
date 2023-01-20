@@ -901,10 +901,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "D8IMp7": {
-    "defaultMessage": "Préférence linguistique pour la communication",
-    "description": "Legend text for required language preference in About Me form"
-  },
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."

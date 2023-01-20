@@ -2,6 +2,8 @@ query getAboutMe {
   me {
     id
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     currentProvince
     currentCity
     telephone
@@ -18,6 +20,8 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     currentProvince
     currentCity
     telephone

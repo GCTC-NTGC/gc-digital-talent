@@ -27,6 +27,8 @@ mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
     firstName
     lastName
     preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
     isGovEmployee
     govEmployeeType
     isProfileComplete

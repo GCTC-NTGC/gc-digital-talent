@@ -41,11 +41,21 @@ describe("AboutMeForm", () => {
     });
 
     expect(
-      await screen.getByRole("radio", { name: /english/i }),
+      await screen.getByRole("combobox", {
+        name: /communication/i,
+      }),
     ).toBeInTheDocument();
 
     expect(
-      await screen.getByRole("radio", { name: /french/i }),
+      await screen.getByRole("combobox", {
+        name: /interview/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("combobox", {
+        name: /exam/i,
+      }),
     ).toBeInTheDocument();
 
     expect(
@@ -116,6 +126,8 @@ describe("AboutMeForm", () => {
         initialUser: {
           id: "",
           preferredLang: undefined,
+          preferredLanguageForInterview: undefined,
+          preferredLanguageForExam: undefined,
           currentProvince: undefined,
           currentCity: undefined,
           telephone: "",
@@ -130,7 +142,7 @@ describe("AboutMeForm", () => {
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(10);
+    expect(await screen.findAllByRole("alert")).toHaveLength(12);
     expect(mockSave).not.toHaveBeenCalled();
   });
 
