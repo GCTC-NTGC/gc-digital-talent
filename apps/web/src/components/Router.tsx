@@ -6,7 +6,7 @@ import Loading from "@common/components/Pending/Loading";
 import RequireAuth from "@common/components/RequireAuth/RequireAuth";
 import useLocale from "@common/hooks/useLocale";
 import lazyRetry from "@common/helpers/lazyRetry";
-import { POST_LOGOUT_URI } from "@common/components/Auth/AuthenticationContainer";
+import { POST_LOGOUT_URI_KEY } from "@common/components/Auth/AuthenticationContainer";
 import { defaultLogger } from "@common/hooks/useLogger";
 
 import Layout, { IAPLayout } from "~/components/Layout";
@@ -281,9 +281,9 @@ const createRoute = (locale: Locales) =>
             {
               path: "logged-out",
               loader: async () => {
-                const redirectUri = sessionStorage.getItem(POST_LOGOUT_URI);
+                const redirectUri = sessionStorage.getItem(POST_LOGOUT_URI_KEY);
                 if (redirectUri) {
-                  sessionStorage.removeItem(POST_LOGOUT_URI);
+                  sessionStorage.removeItem(POST_LOGOUT_URI_KEY);
                   if (redirectUri.startsWith("/")) {
                     window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
                     return null;
