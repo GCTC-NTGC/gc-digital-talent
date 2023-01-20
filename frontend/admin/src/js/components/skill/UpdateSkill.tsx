@@ -6,7 +6,7 @@ import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 
 import { toast } from "@common/components/Toast";
-import { Submit, Input, MultiSelect, TextArea } from "@common/components/form";
+import { Submit, Input, TextArea } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds } from "@common/helpers/formUtils";
@@ -16,6 +16,7 @@ import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading/Heading";
 import SEO from "@common/components/SEO/SEO";
 
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -239,7 +240,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="families"
               name="families"
               label={intl.formatMessage({

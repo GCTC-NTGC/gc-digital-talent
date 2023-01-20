@@ -5,7 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 
 import { toast } from "@common/components/Toast";
-import { Select, Submit, Input, MultiSelect } from "@common/components/form";
+import { Select, Submit, Input } from "@common/components/form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
@@ -15,6 +15,7 @@ import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading/Heading";
 import SEO from "@common/components/SEO/SEO";
 
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -246,7 +247,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
             />
-            <MultiSelect
+            <MultiSelectField
               id="roles"
               name="roles"
               label={intl.formatMessage({
