@@ -29,7 +29,7 @@ const CommunityTabTrigger = ({
     data-h2-cursor="base(pointer)"
   >
     <CommunityIcon community={community} value={value} />
-    <span data-h2-visibility="base(invisible)">{label}</span>
+    <span data-h2-visually-hidden="base(invisible)">{label}</span>
   </Tabs.Trigger>
 );
 
@@ -52,7 +52,7 @@ const CommunityTabContent = ({
       data-h2-padding="base(0)"
       data-h2-border="base(none)"
       {...(!on && {
-        "data-h2-visibility": "base(invisible)",
+        "data-h2-visually-hidden": "base(invisible)",
       })}
     >
       {children}

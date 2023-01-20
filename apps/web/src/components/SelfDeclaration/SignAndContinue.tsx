@@ -24,7 +24,7 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
 
   return (
     <div
-      data-h2-max-width="bas(48rem)"
+      data-h2-max-width="base(48rem)"
       data-h2-margin="base(x1, auto)"
       data-h2-text-align="base(center)"
     >
