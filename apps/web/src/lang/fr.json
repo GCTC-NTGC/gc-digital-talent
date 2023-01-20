@@ -392,7 +392,7 @@
       "description": "Content for the self-declaration verification dialog"
     },
     "4e74J2": {
-      "defaultMessage": "\"Je suis un membre d’une communauté des Premières Nations.\"",
+      "defaultMessage": "« Je suis un membre d’une communauté des Premières Nations. »",
       "description": "Label text for First Nations community declaration"
     },
     "5dgCOy": {
@@ -400,7 +400,7 @@
       "description": "Heading for the self-declaration explanation dialog"
     },
     "7STO48": {
-      "defaultMessage": "\"J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis\"",
+      "defaultMessage": "« J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis »",
       "description": "Text for the option to self-declare as Indigenous"
     },
     "7rSh+m": {
@@ -464,7 +464,7 @@
       "description": "Label for not represented community"
     },
     "YZ/ZhG": {
-      "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les peuples autochtones, veuillez<link>nous contacter</link> nous serons heureux de vous rencontrer.",
+      "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les peuples autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
       "description": "Text describing where to get help with the self-declaration form"
     },
     "at11n5": {
