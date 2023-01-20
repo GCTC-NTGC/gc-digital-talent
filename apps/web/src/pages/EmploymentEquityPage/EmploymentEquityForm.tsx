@@ -128,7 +128,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "<strong>This section is optional, however, to be considered eligible for the IT Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
-            id: "zHaQlT",
+            id: "okZjVr",
             description:
               "Explanation that employment equity information is optional.",
           })}
@@ -147,7 +147,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             {intl.formatMessage({
               defaultMessage:
                 "You would like to be considered for opportunities addressed to underrepresented groups.",
-              id: "WZwXDb",
+              id: "N+S2bh",
               description:
                 "Instruction on when to fill out equity information, item two",
             })}

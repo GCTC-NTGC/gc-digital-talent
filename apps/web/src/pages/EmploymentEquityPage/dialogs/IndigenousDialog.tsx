@@ -9,6 +9,7 @@ import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@common/constants";
+import { Fieldset } from "@common/components/inputPartials";
 import type { EquityDialogProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -61,13 +62,23 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
           <form onSubmit={handleSubmit(submitHandler)}>
             <AddToProfile />
             <div data-h2-margin="base(x1, 0, x1.5, 0)">
-              <Checkbox
-                id="isIndigenous"
+              <Fieldset
+                legend={intl.formatMessage({
+                  defaultMessage: "Self-Declaration",
+                  id: "dYS0MA",
+                  description: "Form label for a self-declaration input",
+                })}
                 name="isIndigenous"
-                label={intl.formatMessage(
-                  getEmploymentEquityStatement("indigenous"),
-                )}
-              />
+                hideOptional
+              >
+                <Checkbox
+                  id="isIndigenous"
+                  name="isIndigenous"
+                  label={intl.formatMessage(
+                    getEmploymentEquityStatement("indigenous"),
+                  )}
+                />
+              </Fieldset>
             </div>
             <Dialog.Footer>
               <DialogFooter />
