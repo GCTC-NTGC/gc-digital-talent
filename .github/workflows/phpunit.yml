@@ -28,10 +28,10 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         env:
-          runner: self-hosted
         with:
           php-version: '8.1'
           extensions: bcmath
+          tools: composer
 
       - name: Install composer dependencies
         working-directory: api
