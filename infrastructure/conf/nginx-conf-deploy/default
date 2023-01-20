@@ -94,7 +94,7 @@ server {
     }
 
     # find the web config in the writable home root
-    location = /talent/config.js {
+    location = /config.js {
         alias /home/site/config-web.js;
     }
 
