@@ -3,9 +3,11 @@
 namespace App\Notify;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\NotFutureDateException;
+
 
 /**
  * GC Notify Client
@@ -93,24 +95,40 @@ class Client
     }
 
     /**
-     * Send Bulk Notification
+     * Send Bulk Email Notification
      *
-     * Send bulk SMS or Email with GC Notify
+     * Send bulk Email with GC Notify
      *
      * @param string $name Used to identify this bulk of notifications later on.
      * @param array<mixed> $rows Array of arrays for messages to send
-     * where first row is the headers. Header row first index indicates
-     * whether to send an SMS (phone number) or Email (email address)
-     * any following indices should match personalisation template tags
      * @param string $template ID of the template to use
      * @param Carbon\Carbon $scheduleFor (optional)
      * @param string $replyTo (optional) ID for a reply to email address
      */
-    public function sendBulk($name, $rows, $template, $scheduleFor = null, $replyTo = null)
+    public function sendBulkEmail($name, $rows, $template, $scheduleFor = null, $replyTo = null)
     {
         return $this->post(
             self::ENDPOINT_NOTIFICATION_BULK,
-            $this->buildBulkPayload($name, $rows, $template, $scheduleFor, $replyTo)
+            $this->buildBulkEmailPayload($name, $rows, $template, $scheduleFor, $replyTo)
+        );
+    }
+
+    /**
+     * Send Bulk SMS Notification
+     *
+     * Send bulk SMS with GC Notify
+     *
+     * @param string $name Used to identify this bulk of notifications later on.
+     * @param array<mixed> $rows Array of arrays for messages to send
+     * @param string $template ID of the template to use
+     * @param Carbon\Carbon $scheduleFor (optional)
+     * @param string $replyTo (optional) ID for a reply to email address
+     */
+    public function sendBulkSms($name, $rows, $template, $scheduleFor = null, $replyTo = null)
+    {
+        return $this->post(
+            self::ENDPOINT_NOTIFICATION_BULK,
+            $this->buildBulkSmsPayload($name, $rows, $template, $scheduleFor, $replyTo)
         );
     }
 
@@ -224,6 +242,113 @@ class Client
         }
 
         return $payload;
+    }
+
+    /**
+     * Build Bulk Email Payload
+     *
+     * @param string $name Used to identify this bulk of notifications later on.
+     * @param array<string> $rows The recipient of the notification
+     * @param string $template Template of the notification
+     * @param Carbon\Carbon $scheduleFor (optional)
+     * @param string $replyTo (optional) ID for a reply to email address
+     * @return array<mixed> The partial payload
+     */
+    private function buildBulkEmailPayload($name, $rows, $template, $scheduleFor = null, $replyTo = null)
+    {
+
+        $normalizedRows = [['email address']];
+        $personalisationKeyMap = null;
+
+        if(isset($rows[0]['personalisation'])) {
+            array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
+        }
+
+        foreach($rows as $index => $row) {
+            if(!isset($row['email'])) {
+                throw new InvalidBulkRowDataException("Key 'email' not found in row $index.");
+            }
+
+            $normalizedRows[$index + 1] = array_merge(
+                [$row['email']],
+                $this->buildBulkPersonalisationRowData($row['personalisation'])
+            );
+        }
+
+        return $this->buildBulkPayload($name, $normalizedRows, $template, $scheduleFor, $replyTo);
+    }
+
+    /**
+     * Build Bulk SMS Payload
+     *
+     * @param string $name Used to identify this bulk of notifications later on.
+     * @param array<string> $rows The recipient of the notification
+     * @param string $template Template of the notification
+     * @param Carbon\Carbon $scheduleFor (optional)
+     * @param string $replyTo (optional) ID for a reply to email address
+     * @return array<mixed> The partial payload
+     */
+    private function buildBulkSmsPayload($name, $rows, $template, $scheduleFor = null, $replyTo = null)
+    {
+
+        $normalizedRows = [['phone number']];
+        $personalisationKeyMap = null;
+
+        if(isset($rows[0]['personalisation'])) {
+            array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
+        }
+
+        foreach($rows as $index => $row) {
+            if(!isset($row['phone_number'])) {
+                throw new InvalidBulkRowDataException("Key 'phone_number' not found in row $index.");
+            }
+
+            $normalizedRows[$index + 1] = array_merge(
+                [$row['phone_number']],
+                $this->buildBulkPersonalisationRowData($row['personalisation'])
+            );
+        }
+
+        return $this->buildBulkPayload($name, $normalizedRows, $template, $scheduleFor, $replyTo);
+    }
+
+    /**
+     * Build Bulk Personalisation Headers
+     *
+     * @param array<array<string>> $rows The recipient of the notification
+     * @return array<string>
+     */
+    private function buildBulkPersonalisationHeaders($personalisation)
+    {
+        $personalisationHeaders = [];
+
+        if(empty($personalisation)) {
+            throw new InvalidBulkRowDataException("No data found in personalisation key.");
+        }
+
+        foreach($personalisation as $header => $value) {
+            array_push($personalisationHeaders, $header);
+        }
+
+        return $personalisationHeaders;
+    }
+
+    /**
+     * Build Bulk Personalisation Row Data
+     *
+     * @param array<array<string>> $rows The recipient of the notification
+     * @return array<string>
+     */
+    private function buildBulkPersonalisationRowData($personalisation)
+    {
+
+        $personalisationData = [];
+
+        foreach($personalisation as $value) {
+            array_push($personalisationData, $value);
+        }
+
+        return $personalisationData;
     }
 
     /**

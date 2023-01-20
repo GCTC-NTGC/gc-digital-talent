@@ -3,9 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
 
-class NotFutureDateException extends Exception
+class InvalidBulkRowDataException extends Exception
 {
     /**
      * Report the exception.
@@ -14,6 +13,6 @@ class NotFutureDateException extends Exception
      */
     public function report()
     {
-        Log::debug("The send date must be in the future.");
+        Log::debug("Bulk \$rows data is invalid.");
     }
 }

@@ -63,18 +63,31 @@ class NotifyTest extends TestCase
     {
         $this->markTestSkipped("Prevent hitting the server.");
 
-        $response = Notify::sendBulk(
+        $response = Notify::sendBulkSms(
             $this->bulkName,
             [
-                ['phone number', 'name'],
-                ['+16132532222', $this->username . ' 1'],
-                ['+16132532223', $this->username . ' 2'],
-                ['+16132532224', $this->username . ' 3'],
+                [
+                    'phone_number' => '+16132532222',
+                    'personalisation' => [
+                        'name' => $this->username . ' 1'
+                    ],
+                ],
+                [
+                    'phone_number' => '+16132532223',
+                    'personalisation' => [
+                        'name' => $this->username . ' 2'
+                    ],
+                ],
+                [
+                    'phone_number' => '+16132532224',
+                    'personalisation' => [
+                        'name' => $this->username . ' 3'
+                    ],
+                ],
+
             ],
             $this->templates['test_bulk_sms']
         );
-
-        Log::debug($response->json());
 
        $this->assertBulkResponseSuccess($response);
     }
@@ -87,13 +100,28 @@ class NotifyTest extends TestCase
     {
         $this->markTestSkipped("Prevent hitting the server.");
 
-        $response = Notify::sendBulk(
+        $response = Notify::sendBulkEmail(
             $this->bulkName,
             [
-                ['email address', 'name'],
-                ['simulate-delivered@notification.canada.ca', $this->username . ' 1'],
-                ['simulate-delivered-2@notification.canada.ca', $this->username . ' 2'],
-                ['simulate-delivered-3@notification.canada.ca', $this->username . ' 3'],
+                [
+                    'email' => 'simulate-delivered@notification.canada.ca',
+                    'personalisation' => [
+                        'name' => $this->username . ' 1'
+                    ],
+                ],
+                [
+                    'email' => 'simulate-delivered-2@notification.canada.ca',
+                    'personalisation' => [
+                        'name' => $this->username . ' 2'
+                    ],
+                ],
+                [
+                    'email' => 'simulate-delivered-3@notification.canada.ca',
+                    'personalisation' => [
+                        'name' => $this->username . ' 3'
+                    ],
+                ],
+
             ],
             $this->templates['test_bulk_email']
         );
