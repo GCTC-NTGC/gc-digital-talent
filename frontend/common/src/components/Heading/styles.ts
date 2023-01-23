@@ -43,6 +43,6 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[svg](tm-red)",
   },
   purple: {
-    "data-h2-color": "base:children[svg](tm-purple)",
+    "data-h2-color": "base:children[svg](primary)",
   },
 };

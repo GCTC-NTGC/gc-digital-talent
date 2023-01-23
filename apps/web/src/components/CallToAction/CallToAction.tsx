@@ -43,9 +43,9 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   support: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-purple) base:children[div:first-child]:hover(tm-purple.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base(white) base:children[div:first-child](primary) base:children[div:first-child]:hover(primary.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-purple) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+      "base:children[div:first-child](3px solid primary) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
 };

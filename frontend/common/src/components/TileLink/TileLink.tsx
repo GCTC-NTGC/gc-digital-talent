@@ -37,7 +37,7 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-border-left": "base(.5rem solid tm-blue)",
   },
   purple: {
-    "data-h2-border-left": "base(.5rem solid tm-purple)",
+    "data-h2-border-left": "base(.5rem solid primary)",
   },
 };
 

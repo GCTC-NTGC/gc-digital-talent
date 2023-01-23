@@ -19,6 +19,6 @@ export const colorMap: Record<HomeButtonColor, Record<string, string>> = {
     "data-h2-border-left": "base(x.25 solid black)",
   },
   purple: {
-    "data-h2-border-left": "base(x.25 solid tm-purple)",
+    "data-h2-border-left": "base(x.25 solid primary)",
   },
 };

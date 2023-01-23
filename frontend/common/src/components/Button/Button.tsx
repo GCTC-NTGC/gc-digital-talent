@@ -190,22 +190,22 @@ export const colorMap: Record<
   purple: {
     solid: {
       "data-h2-background-color":
-        "base(tm-purple) base:hover(tm-purple.lighter) base:focus-visible(focus) base:active(transparent)",
+        "base(primary) base:hover(primary.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(3px solid tm-purple) base:focus-visible(3px solid focus)",
+        "base(3px solid primary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(3px solid tm-purple) base:focus-visible(3px solid focus)",
+        "base(3px solid primary) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
-        "base(tm-purple.lighter) base:hover(tm-purple) base:focus-visible(focus) base:active(transparent)",
+        "base(primary.lighter) base:hover(primary) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tm-purple)",
+      "data-h2-color": "base(primary)",
     },
     tableHeader: {},
   },
