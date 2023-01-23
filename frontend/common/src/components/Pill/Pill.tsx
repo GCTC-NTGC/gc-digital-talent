@@ -101,14 +101,14 @@ const colorMap: Record<
   },
   warning: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-yellow)",
-      "data-h2-background-color": "base(dark.tm-yellow)",
+      "data-h2-border": "base(1px solid tm-yellow.dark)",
+      "data-h2-background-color": "base(tm-yellow.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dark.tm-yellow)",
-      "data-h2-background-color": "base(light.tm-yellow.10)",
-      "data-h2-color": "base(dark.dt-black)",
+      "data-h2-border": "base(1px solid tm-yellow.dark)",
+      "data-h2-background-color": "base(tm-yellow.light.10)",
+      "data-h2-color": "base(dt-black.dark)",
     },
   },
 };
