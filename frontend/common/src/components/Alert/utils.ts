@@ -12,7 +12,7 @@ import { AlertType } from "./Alert";
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-border":
-      "base(0.25rem solid tm-green.darker) base:dark(0.25rem solid tm-green.lightest)",
+      "base(0.25rem solid success.darker) base:dark(0.25rem solid success.lightest)",
   },
   warning: {
     "data-h2-border":
@@ -31,9 +31,9 @@ export const styleMap: Record<AlertType, Record<string, string>> = {
 export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-green.lightest) base:focus-visible(focus.light)",
+      "base(transparent) base:hover(success.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-green.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(success.darker)  base:focus-visible(black)",
   },
   warning: {
     "data-h2-background-color":
@@ -58,7 +58,7 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
 export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-background-color":
-      "base(tm-green.darker) base:dark(tm-green.lightest)",
+      "base(success.darker) base:dark(success.lightest)",
   },
   warning: {
     "data-h2-background-color":
@@ -86,8 +86,8 @@ export const iconMap: Record<
 
 export const iconStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color": "base(tm-green.lightest)",
-    "data-h2-color": "base(tm-green.darker)",
+    "data-h2-background-color": "base(success.lightest)",
+    "data-h2-color": "base(success.darker)",
   },
   warning: {
     "data-h2-background-color": "base(warning.lightest)",
