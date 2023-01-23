@@ -1,14 +1,24 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import {
+  FormProvider,
+  useForm,
+  useFormContext,
+  type SubmitHandler,
+} from "react-hook-form";
 
 import Dialog from "@common/components/Dialog";
-import { RadioGroup } from "@common/components/form";
+import { Checkbox, RadioGroup } from "@common/components/form";
 
-import { getEmploymentEquityGroup } from "@common/constants";
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
-import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
+import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
 import errorMessages from "~/../../../frontend/common/src/messages/errorMessages";
+import { Fieldset } from "~/../../../frontend/common/src/components/inputPartials";
+import { FieldLabels } from "~/../../../frontend/common/src/components/form/BasicForm";
 import type { EquityDialogProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -16,8 +26,22 @@ import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
+interface CommunitySelectionProps {
+  labels: FieldLabels;
+}
+
+const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
+  const { watch } = useFormContext();
+
+  const [isIndigenousValue] = watch(["isIndigenous"]);
+  const isIndigenous = !!isIndigenousValue;
+
+  return isIndigenous ? <CommunityList labels={labels} /> : null;
+};
 interface FormValues {
   isIndigenous: boolean;
+  communities: Array<string>;
+  isStatusFirstNations: "yes" | "no" | null;
 }
 
 const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
@@ -27,10 +51,19 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
       isIndigenous: isAdded,
     },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+
+  // Callback version of watch.  It's your responsibility to unsubscribe when done.
+  React.useEffect(() => {
+    const subscription = watch((value, { name, type }) =>
+      console.log(value, name, type),
+    );
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isIndigenous);
+    // onSave(data.isIndigenous);
+    console.dir(data);
   };
 
   const labels = getSelfDeclarationLabels(intl);
@@ -63,38 +96,25 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
           <form onSubmit={handleSubmit(submitHandler)}>
             <AddToProfile />
             <div data-h2-margin="base(x1, 0, x1.5, 0)">
-              <RadioGroup
-                idPrefix="isIndigenous"
-                id="isIndigenous"
+              <Fieldset
+                legend={intl.formatMessage({
+                  defaultMessage: "Self-Declaration",
+                  id: "dYS0MA",
+                  description: "Form label for a self-declaration input",
+                })}
                 name="isIndigenous"
-                legend={labels.isIndigenous}
+                hideOptional
                 trackUnsaved={false}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                items={[
-                  {
-                    value: "yes",
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        '"I affirm that I am First Nations, Inuk (Inuit), or a Métis person"',
-                      id: "7STO48",
-                      description:
-                        "Text for the option to self-declare as Indigenous",
-                    }),
-                  },
-                  {
-                    value: "no",
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        '"I am not a member of an Indigenous group, and I would like to see other opportunities available to me"',
-                      id: "//J5ti",
-                      description:
-                        "Text for the option to self-declare as not an Indigenous person",
-                    }),
-                  },
-                ]}
-              />
+              >
+                <Checkbox
+                  id="isIndigenous"
+                  name="isIndigenous"
+                  label={intl.formatMessage(
+                    getEmploymentEquityStatement("indigenous"),
+                  )}
+                  trackUnsaved={false}
+                />
+              </Fieldset>
               <CommunitySelection labels={labels} />
             </div>
             <Dialog.Footer>
