@@ -97,7 +97,7 @@ class Client
     /**
      * Send Bulk Email Notification
      *
-     * Send bulk Email with GC Notify
+     * Send bulk email with GC Notify
      *
      * @param string $name Used to identify this bulk of notifications later on.
      * @param array<mixed> $rows Array of arrays for messages to send
