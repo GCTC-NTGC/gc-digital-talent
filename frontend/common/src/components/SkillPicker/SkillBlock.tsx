@@ -15,7 +15,7 @@ interface SkillLabelWrapperProps {
 
 const SkillLabelWrapper = ({ children }: SkillLabelWrapperProps) => (
   <span
-    data-h2-color="base(dt-primary)"
+    data-h2-color="base(primary)"
     data-h2-position="base(relative)"
     data-h2-display="base(flex)"
     data-h2-align-items="base(center)"
@@ -164,9 +164,9 @@ const SkillBlock = ({
           <Collapsible.Content>
             <div
               data-h2-padding="base(x.75)"
-              data-h2-border="base(1px solid dt-primary)"
-              data-h2-color="base(dt-primary)"
-              data-h2-background-color="base(dt-primary.15)"
+              data-h2-border="base(1px solid primary)"
+              data-h2-color="base(primary)"
+              data-h2-background-color="base(primary.15)"
               data-h2-margin="base(x.25, 0)"
               data-h2-radius="base(s)"
             >

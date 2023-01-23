@@ -7,7 +7,7 @@ import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-border-left": "base(.5rem solid dt-primary)",
+    "data-h2-border-left": "base(.5rem solid primary)",
   },
   secondary: {
     "data-h2-border-left": "base(.5rem solid dt-secondary)",

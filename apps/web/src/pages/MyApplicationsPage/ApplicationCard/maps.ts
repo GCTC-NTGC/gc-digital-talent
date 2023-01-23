@@ -7,7 +7,7 @@ export const borderMap: Record<BorderMapKey, Record<string, string>> = {
     "data-h2-border-left": "base(x1 solid dt-accent)",
   },
   "dt-primary": {
-    "data-h2-border-left": "base(x1 solid dt-primary)",
+    "data-h2-border-left": "base(x1 solid primary)",
   },
   "dt-secondary": {
     "data-h2-border-left": "base(x1 solid dt-secondary)",

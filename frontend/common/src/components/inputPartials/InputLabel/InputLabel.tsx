@@ -109,12 +109,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="base(dt-primary)"
+                  data-h2-color="base(primary)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="base(dt-primary)"
+                  data-h2-color="base(primary)"
                 />
               )}
             </button>

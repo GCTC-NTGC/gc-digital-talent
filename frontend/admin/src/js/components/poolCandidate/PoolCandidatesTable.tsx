@@ -151,7 +151,7 @@ const priorityAccessor = (
 ) => {
   if (priority === 10 || priority === 20) {
     return (
-      <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
+      <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
         {priority
           ? intl.formatMessage(getPoolCandidatePriorities(priority))
           : ""}

@@ -27,14 +27,14 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(1px solid dt-primary.dark)",
-      "data-h2-background-color": "base(dt-primary)",
+      "data-h2-border": "base(1px solid primary.dark)",
+      "data-h2-background-color": "base(primary)",
       "data-h2-color": "base(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-primary.dark)",
-      "data-h2-background-color": "base(dt-primary.light.10)",
-      "data-h2-color": "base(dt-primary.dark)",
+      "data-h2-border": "base(1px solid primary.dark)",
+      "data-h2-background-color": "base(primary.light.10)",
+      "data-h2-color": "base(primary.dark)",
     },
   },
   secondary: {

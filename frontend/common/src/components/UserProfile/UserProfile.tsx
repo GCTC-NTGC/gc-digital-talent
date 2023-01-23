@@ -84,7 +84,7 @@ const EditUrlLink: React.FC<{ link: string; text: string }> = ({
   >
     <Link
       href={link}
-      data-h2-color="base(dt-primary)"
+      data-h2-color="base(primary)"
       data-h2-margin="p-tablet(x1.5, 0, x.25, 0)"
       data-h2-display="base(block)"
     >

@@ -14,7 +14,7 @@ export interface CardProps {
 
 const colorMap = {
   "ts-primary": {
-    "data-h2-background-color": "base(dt-primary.light)",
+    "data-h2-background-color": "base(primary.light)",
     "data-h2-color": "base(white)",
   },
   "ts-secondary": {

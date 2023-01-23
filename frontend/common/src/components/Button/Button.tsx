@@ -32,21 +32,20 @@ export const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(1px solid dt-primary)",
-      "data-h2-background-color":
-        "base(dt-primary) base:hover(dt-primary.dark)",
+      "data-h2-border": "base(1px solid primary)",
+      "data-h2-background-color": "base(primary) base:hover(primary.dark)",
       "data-h2-color": "base(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-primary)",
-      "data-h2-background-color": "base(dt-primary.10)",
-      "data-h2-color": "base(dt-primary)",
+      "data-h2-border": "base(1px solid primary)",
+      "data-h2-background-color": "base(primary.10)",
+      "data-h2-color": "base(primary)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color":
-        "base(transparent) base:focus-visible(dt-primary.light.15)",
-      "data-h2-color": "base(dt-primary) base:focus-visible(dt-primary.dark)",
+        "base(transparent) base:focus-visible(primary.light.15)",
+      "data-h2-color": "base(primary) base:focus-visible(primary.dark)",
     },
     tableHeader: {},
   },
@@ -97,7 +96,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid white)",
       "data-h2-background-color": "base(white)",
-      "data-h2-color": "base(dt-primary)",
+      "data-h2-color": "base(primary)",
     },
     outline: {
       "data-h2-border": "base(1px solid white)",

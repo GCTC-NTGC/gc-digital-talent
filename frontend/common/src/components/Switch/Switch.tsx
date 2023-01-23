@@ -11,7 +11,7 @@ const Root = React.forwardRef<
   <SwitchPrimitive.Root
     data-h2-background-color="
       base(gray)
-      base:selectors[[data-state='checked']](dt-primary)"
+      base:selectors[[data-state='checked']](primary)"
     data-h2-transition="base(background-color, 100ms, ease-in-out)"
     data-h2-height="base(1rem)"
     data-h2-outline="base(none)"

@@ -19,12 +19,12 @@ export type Color =
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-background-color": "base(dt-primary)",
+    "data-h2-background-color": "base(primary)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   "primary.dark": {
-    "data-h2-background-color": "base(dt-primary.dark)",
+    "data-h2-background-color": "base(primary.dark)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },

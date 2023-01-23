@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof Separator> = () => (
     <Separator
       orientation="horizontal"
       data-h2-margin="base(x.5, 0)"
-      data-h2-background-color="base(dt-primary.50)"
+      data-h2-background-color="base(primary.50)"
     />
     <div
       data-h2-align-items="base(center)"

@@ -91,10 +91,7 @@ const ApplicationCard = ({
         <div data-h2-text-align="l-tablet(right)">
           <div data-h2-margin="base(0, 0, x0.5, 0)">
             {applicationIsDraft && application.poolAdvertisement ? (
-              <p
-                data-h2-font-weight="base(800)"
-                data-h2-color="base(dt-primary)"
-              >
+              <p data-h2-font-weight="base(800)" data-h2-color="base(primary)">
                 {application.poolAdvertisement.closingDate
                   ? relativeClosingDate({
                       closingDate: parseDateTimeUtc(

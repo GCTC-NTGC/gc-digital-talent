@@ -17,7 +17,7 @@ const colorMap = {
   black: {
     "data-h2-color": "base(black)",
     "data-h2-background-color":
-      "base(transparent) base:hover(dt-primary.light.25)",
+      "base(transparent) base:hover(primary.light.25)",
   },
   white: {
     "data-h2-color": "base(gray.light)",
