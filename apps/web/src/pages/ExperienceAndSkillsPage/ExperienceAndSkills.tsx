@@ -223,9 +223,13 @@ export const ExperienceAndSkills: React.FunctionComponent<
             </p>
           </div>
           <div data-h2-flex-item="base(1of1)">
-            <div data-h2-flex-grid="base(center,x1) p-tablet(center, x.5)">
+            <div
+              data-h2-display="base(block) p-tablet(flex)"
+              data-h2-flex-wrap="base(wrap)"
+              data-h2-gap="base(x.5)"
+            >
               {links.map(({ title, href, icon }) => (
-                <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
+                <div key={title} data-h2-margin-top="base(x.5) p-tablet(0)">
                   <IconLink
                     href={href}
                     type="button"
