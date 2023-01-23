@@ -21,7 +21,6 @@ import {
 
 interface CommunityListProps {
   labels: FieldLabels;
-  show?: boolean;
 }
 
 export const CommunityList = ({ labels }: CommunityListProps) => {
@@ -324,9 +323,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const [isIndigenousValue] = watch(["isIndigenous"]);
   const isIndigenous = isIndigenousValue === "yes";
 
-  return isIndigenous ? (
-    <CommunityList labels={labels} show={isIndigenous} />
-  ) : null;
+  return isIndigenous ? <CommunityList labels={labels} /> : null;
 };
 
 export default CommunitySelection;
