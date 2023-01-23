@@ -91,7 +91,7 @@ const Header = ({ width }: HeaderProps) => {
               <a
                 data-h2-background-color="base:focus-visible(focus)"
                 data-h2-outline="base(none)"
-                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+                data-h2-color="base:hover(secondary.dark) base:focus-visible(black)"
                 href={languageTogglePath}
                 onClick={(e) => {
                   e.preventDefault();

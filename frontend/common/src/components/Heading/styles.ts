@@ -37,7 +37,7 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[svg](tm-yellow)",
   },
   blue: {
-    "data-h2-color": "base:children[svg](tm-blue)",
+    "data-h2-color": "base:children[svg](secondary)",
   },
   red: {
     "data-h2-color": "base:children[svg](tm-red)",

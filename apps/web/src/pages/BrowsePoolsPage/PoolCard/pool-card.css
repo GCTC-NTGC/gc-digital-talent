@@ -16,13 +16,13 @@
 .recruitment-flag::before {
   border-top: 3rem solid transparent;
   border-bottom: 1.5rem solid transparent;
-  border-left: 3rem solid rgba(var(--h2-color-tm-blue), 1);
+  border-left: 3rem solid rgba(var(--h2-color-secondary), 1);
   left: 0;
 }
 
 .recruitment-flag::after {
   border-top: 3rem solid transparent;
   border-bottom: 1.5rem solid transparent;
-  border-right: 3rem solid rgba(var(--h2-color-tm-blue), 1);
+  border-right: 3rem solid rgba(var(--h2-color-secondary), 1);
   right: 0;
 }
