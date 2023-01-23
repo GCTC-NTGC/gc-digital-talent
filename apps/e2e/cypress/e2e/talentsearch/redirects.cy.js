@@ -2,7 +2,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 
 const uuidRegEx = /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}/;
 
-describe.only("Redirects", () => {
+describe("Redirects", () => {
   const expectToBeOnProfile = () => {
     cy.wait("@gqlgetMeQuery");
     cy.url()
@@ -28,20 +28,25 @@ describe.only("Redirects", () => {
     expectToBeOnProfile();
   });
 
-  it("redirects /en/talent/search", () => {
-    cy.visit("/en/talent/search");
-    cy.url().should("eq", "http://localhost:8000/en/search");
-  });
+});
 
+describe("Verify search page redirect", () => {
+const oldUrl = "/en/talent/search";
+const newUrl = "http://localhost:8000/en/search";
 
-  it(" 301 redirect", () => {
-    cy.request({
-      url: "/en/talent/search",
-      followRedirect: false, // turn off following redirects
-    }).then((resp) => {
-      // redirect status code is 301
-      expect(resp.status).to.eq(301);
-      expect(resp.redirectedToUrl).to.eq("http://localhost:8000/en/search");
-    });
+it("redirects /en/talent/search", () => {
+  cy.visit(oldUrl);
+  cy.url().should("eq", newUrl);
+});
+it(" v301 redirect", () => {
+  cy.request({
+    url: oldUrl,
+    followRedirect: false, // turn off following redirects
+  }).then((resp) => {
+    // redirect status code is 301
+    expect(resp.status).to.eq(301);
+    expect(resp.redirectedToUrl).to.eq(newUrl);
   });
+});
+
 });
