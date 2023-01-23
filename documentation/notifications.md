@@ -91,7 +91,7 @@ $response = Notify::sendEmail(
 );
 ```
 
-### Bulk Emails
+### Bulk Email
 
 ```php
 /**
