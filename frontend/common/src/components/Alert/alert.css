@@ -21,7 +21,7 @@
   }
 
   .Alert.Alert--warning .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow-lightest), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-warning-lightest), 1);
   }
 
   .Alert.Alert--info .Alert__Icon:after {

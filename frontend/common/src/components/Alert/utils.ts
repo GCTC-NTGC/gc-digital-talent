@@ -16,7 +16,7 @@ export const styleMap: Record<AlertType, Record<string, string>> = {
   },
   warning: {
     "data-h2-border":
-      "base(0.25rem solid tm-yellow.darker) base:dark(0.25rem solid tm-yellow.lightest)",
+      "base(0.25rem solid warning.darker) base:dark(0.25rem solid warning.lightest)",
   },
   info: {
     "data-h2-border":
@@ -37,9 +37,9 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   },
   warning: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-yellow.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(warning.lightest) base:focus-visible(warning.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-yellow.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(warning.darker)  base:focus-visible(black)",
   },
   info: {
     "data-h2-background-color":
@@ -62,7 +62,7 @@ export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   },
   warning: {
     "data-h2-background-color":
-      "base(tm-yellow.darker) base:dark(tm-yellow.lightest)",
+      "base(warning.darker) base:dark(warning.lightest)",
   },
   info: {
     "data-h2-background-color":
@@ -90,8 +90,8 @@ export const iconStyleMap: Record<AlertType, Record<string, string>> = {
     "data-h2-color": "base(tm-green.darker)",
   },
   warning: {
-    "data-h2-background-color": "base(tm-yellow.lightest)",
-    "data-h2-color": "base(tm-yellow.darker)",
+    "data-h2-background-color": "base(warning.lightest)",
+    "data-h2-color": "base(warning.darker)",
   },
   info: {
     "data-h2-background-color": "base(secondary.lightest)",
