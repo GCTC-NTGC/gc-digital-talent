@@ -22,7 +22,7 @@ const colorMap = {
     "data-h2-color": "base(white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-primary)",
+    "data-h2-background-color": "base(primary)",
     "data-h2-color": "base(white)",
   },
   "ia-secondary": {

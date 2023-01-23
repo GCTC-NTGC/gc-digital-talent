@@ -50,7 +50,7 @@ const colorMap: Record<Color, Record<string, string>> = {
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-primary)",
+    "data-h2-background-color": "base(primary)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },

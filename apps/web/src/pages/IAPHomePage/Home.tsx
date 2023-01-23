@@ -74,7 +74,7 @@ const Home: React.FunctionComponent = () => {
         />
         <div
           className="hero-logo"
-          data-h2-background-color="base(ia-primary.hero) p-tablet(transparent)"
+          data-h2-background-color="base(primary.hero) p-tablet(transparent)"
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
@@ -136,7 +136,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x8)"
                       data-h2-width="base(x8)"
-                      data-h2-background-color="base(ia-primary)"
+                      data-h2-background-color="base(primary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(-x1.5, -x1, auto, auto)"
@@ -529,7 +529,7 @@ const Home: React.FunctionComponent = () => {
         >
           <RadiatingCircles
             className=""
-            data-h2-color="base(ia-primary)"
+            data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"

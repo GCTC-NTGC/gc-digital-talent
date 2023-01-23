@@ -130,19 +130,19 @@ export const colorMap: Record<
   },
   "ia-primary": {
     solid: {
-      "data-h2-border": "base(1px solid ia-primary)",
-      "data-h2-background-color": "base(ia-primary)",
+      "data-h2-border": "base(1px solid primary)",
+      "data-h2-background-color": "base(primary)",
       "data-h2-color": "base(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid ia-primary)",
-      "data-h2-background-color": "base(ia-primary.light.10)",
-      "data-h2-color": "base(ia-primary)",
+      "data-h2-border": "base(1px solid primary)",
+      "data-h2-background-color": "base(primary.light.10)",
+      "data-h2-color": "base(primary)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(ia-primary)",
+      "data-h2-color": "base(primary)",
     },
     tableHeader: {},
   },
