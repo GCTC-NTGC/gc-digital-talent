@@ -8,9 +8,12 @@
   },
   "temp": ["../*/src/views/*.html"],
   "input": [
+    "frontend/common/.storybook",
     "frontend/common/src/components",
     "frontend/common/src/styles",
+    "frontend/admin/.storybook",
     "frontend/admin/src/js/components",
+    "apps/web/.storybook",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
@@ -527,6 +530,56 @@
           "key": "quinary",
           "default": {
             "color": "#272F6B",
+            "modifiers": []
+          }
+        }
+      ]
+    },
+    {
+      "key": "admin",
+      "colors": [
+        {
+          "key": "primary",
+          "default": {
+            "color": "#674C90",
+            "modifiers": [
+              {
+                "key": "dark",
+                "color": "#363661"
+              }
+            ]
+          }
+        },
+        {
+          "key": "secondary",
+          "default": {
+            "color": "#072131",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#1D2C4C"
+              }
+            ]
+          }
+        },
+        {
+          "key": "tertiary",
+          "default": {
+            "color": "#F8A812",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "quaternary",
+          "default": {
+            "color": "#F8A812",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "quinary",
+          "default": {
+            "color": "#F8A812",
             "modifiers": []
           }
         }
