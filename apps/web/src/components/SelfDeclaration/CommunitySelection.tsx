@@ -95,13 +95,16 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           </span>
         </legend>
         <CommunityOptionsWrapper
-          onValueChange={setCurrentTab}
-          {...(!isSmallScreen && {
-            "data-h2-display": "base(grid)",
-            "data-h2-grid-template-columns":
-              "base(1fr 1fr) p-tablet(1fr 1fr 1fr 1fr)",
-            "data-h2-gap": "base(x1)",
-          })}
+          {...(!isSmallScreen
+            ? {
+                "data-h2-display": "base(grid)",
+                "data-h2-grid-template-columns":
+                  "base(1fr 1fr) p-tablet(1fr 1fr 1fr 1fr)",
+                "data-h2-gap": "base(x1)",
+              }
+            : {
+                onValueChange: setCurrentTab,
+              })}
         >
           {isSmallScreen && (
             <Tabs.List
@@ -150,7 +153,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           )}
           <CommunityOption
             value="firstNations"
-            on={currentTab === "firstNations"}
+            on={!!(currentTab === "firstNations")}
           >
             <CommunityCheckbox
               id="communityFirstNations"
@@ -165,7 +168,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="inuk" on={currentTab === "inuk"}>
+          <CommunityOption value="inuk" on={!!(currentTab === "inuk")}>
             <CommunityCheckbox
               id="communityInuk"
               name="communities"
@@ -178,7 +181,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="metis" on={currentTab === "metis"}>
+          <CommunityOption value="metis" on={!!(currentTab === "metis")}>
             <CommunityCheckbox
               id="communityMetis"
               name="communities"
@@ -191,7 +194,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="other" on={currentTab === "other"}>
+          <CommunityOption value="other" on={!!(currentTab === "other")}>
             <CommunityCheckbox
               id="communityOther"
               name="communities"
