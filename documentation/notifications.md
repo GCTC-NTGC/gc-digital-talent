@@ -19,7 +19,7 @@ When sending a notification, we need to pass a template ID to the API. In order 
 
 ### Using Templates
 
-You can access these Templates from the laravel config like any other configuration value.
+You can access these templates from the Laravel config like any other configuration value.
 
 ```php
 // Getting all templates as array
