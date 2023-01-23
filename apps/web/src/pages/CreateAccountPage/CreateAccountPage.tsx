@@ -2,7 +2,7 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import imageUrl from "@common/helpers/imageUrl";
+import Hero from "@common/components/Hero/Hero";
 import { Alert } from "@common/components";
 import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
@@ -104,30 +104,15 @@ export const CreateAccountForm: React.FunctionComponent<
           description: "Page title for the account creation page",
         })}
       />
+      <Hero
+        title={intl.formatMessage({
+          defaultMessage: "Welcome to Digital Talent",
+          id: "0m7BIV",
+          description:
+            "Title for the create account page for applicant profiles.",
+        })}
+      />
       <section>
-        <div
-          data-h2-padding="base(x1, x.5)"
-          data-h2-color="base(white)"
-          data-h2-text-align="base(center)"
-          style={{
-            background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <h1
-            data-h2-margin="base(x3, 0, x.5, 0)"
-            data-h2-font-weight="base(700)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Welcome to Digital Talent",
-              id: "0m7BIV",
-              description:
-                "Title for the create account page for applicant profiles.",
-            })}
-          </h1>
-        </div>
         <div
           data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
           data-h2-padding="base(0, x2) p-tablet(0)"

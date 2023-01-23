@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
@@ -172,25 +171,24 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const applicationBreadcrumbs = application
     ? [
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "My Applications",
             id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: paths.applications(application.user.id),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+          url: paths.applications(application.user.id),
         },
         {
-          title: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitle(
             intl,
             application.poolAdvertisement,
           ),
-          href: paths.pool(application.pool.id),
+          url: paths.pool(application.pool.id),
         },
         {
-          href: paths.reviewApplication(application.id),
-          title: intl.formatMessage(navigationMessages.stepOne),
+          label: intl.formatMessage(navigationMessages.stepOne),
+          url: paths.reviewApplication(application.id),
         },
       ]
     : [];
@@ -222,18 +220,16 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         id: "XY19Sh",
         description: "Title for Profile Form wrapper in About me form",
       })}
-      cancelLink={{
-        href: returnRoute,
-      }}
       prefixBreadcrumbs={!application}
       crumbs={[
         ...applicationBreadcrumbs,
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "About Me",
             id: "uG2MuI",
             description: "Display text for About Me Form Page Link",
           }),
+          url: paths.aboutMe(initialUser.id),
         },
       ]}
     >

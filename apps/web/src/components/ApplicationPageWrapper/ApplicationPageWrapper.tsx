@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 
-import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import imageUrl from "@common/helpers/imageUrl";
+import Hero from "@common/components/Hero/Hero";
+import { BreadcrumbsProps } from "@common/components/Breadcrumbs/v2/Breadcrumbs";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
@@ -18,7 +18,7 @@ import ApplicationNavigation, {
 export interface ApplicationPageWrapperProps {
   title: string;
   subtitle?: string;
-  crumbs?: BreadcrumbsProps["links"];
+  crumbs?: BreadcrumbsProps["crumbs"];
   navigation?: ApplicationNavigationProps;
   closingDate: PoolAdvertisement["closingDate"];
   children: React.ReactNode;
@@ -33,39 +33,11 @@ const ApplicationPageWrapper = ({
   children,
 }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
-
-  const banner = imageUrl("/", "applicant-profile-banner.png");
-
-  const breadcrumbs = crumbs ? <Breadcrumbs links={crumbs} /> : null;
-
   const showNav = !!(navigation && navigation.steps.length > 0);
 
   return (
     <>
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(white)"
-        style={{
-          background: `url(${banner})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div data-h2-container="base(center, medium, x1)">
-          <h1
-            data-h2-margin="base(x2, 0, x1, 0)"
-            data-h2-font-weight="base(700)"
-            style={{
-              letterSpacing: "-2px",
-              textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
-            }}
-          >
-            {title}
-          </h1>
-          {breadcrumbs}
-        </div>
-      </div>
+      <Hero title={title} subtitle={subtitle} crumbs={crumbs} />
       <div
         data-h2-background-color="base(white)"
         data-h2-padding="base(x.5, 0)"
@@ -83,16 +55,6 @@ const ApplicationPageWrapper = ({
               "data-h2-padding": "base(0, 0, x.5, 0)",
             })}
           >
-            <div>
-              {subtitle && (
-                <h2
-                  data-h2-color="base(gray.dark)"
-                  data-h2-font-size="base(h5, 1)"
-                >
-                  {subtitle}
-                </h2>
-              )}
-            </div>
             <div
               data-h2-font-size="base(h5, 1)"
               data-h2-display="base(flex)"
@@ -129,20 +91,6 @@ const ApplicationPageWrapper = ({
         </div>
       </div>
       {children}
-      {crumbs ? (
-        <div
-          data-h2-padding="base(x1, x.5) p-tablet(x1, x3)"
-          data-h2-color="base(white)"
-          style={{
-            background: `url(${banner})`,
-            backgroundSize: "100vw 5rem",
-          }}
-        >
-          <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-            {breadcrumbs}
-          </div>
-        </div>
-      ) : null}
     </>
   );
 };

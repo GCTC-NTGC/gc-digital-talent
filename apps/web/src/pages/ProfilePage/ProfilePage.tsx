@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Hero from "@common/components/Hero/Hero";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -15,6 +15,7 @@ import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import MyStatusApi from "./MyStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
@@ -41,51 +42,39 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   };
   const intl = useIntl();
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "My profile",
+    id: "pR23NW",
+    description: "Page title for the applicants profile page",
+  });
+
+  const crumbs = useBreadcrumbs([
+    {
+      label: pageTitle,
+      url: paths.profile(userId),
+    },
+  ]);
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "pR23NW",
-          description: "Page title for the applicants profile page",
-        })}
+      <SEO title={pageTitle} />
+      <Hero
+        title={intl.formatMessage(
+          {
+            defaultMessage: "{name}'s profile",
+            id: "jslBEY",
+            description: "Title for a specific users profile page",
+          },
+          {
+            name: getFullNameHtml(
+              profileDataInput.firstName,
+              profileDataInput.lastName,
+              intl,
+            ),
+          },
+        )}
+        crumbs={crumbs}
       />
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(white)"
-        data-h2-text-align="base(center)"
-        style={{
-          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <h1
-          data-h2-margin="base(x2, 0)"
-          data-h2-font-weight="base(700)"
-          style={{
-            letterSpacing: "-2px",
-            textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
-          }}
-        >
-          {intl.formatMessage(
-            {
-              defaultMessage: "{name}'s profile",
-              id: "jslBEY",
-              description: "Title for a specific users profile page",
-            },
-            {
-              name: getFullNameHtml(
-                profileDataInput.firstName,
-                profileDataInput.lastName,
-                intl,
-              ),
-            },
-          )}
-        </h1>
-      </div>
-
       <UserProfile
         applicant={profileDataInput as Applicant}
         sections={{

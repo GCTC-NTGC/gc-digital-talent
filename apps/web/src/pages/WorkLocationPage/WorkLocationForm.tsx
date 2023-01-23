@@ -2,7 +2,6 @@ import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
@@ -95,25 +94,24 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
   const applicationBreadcrumbs = application
     ? [
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "My Applications",
             id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: paths.applications(application.user.id),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+          url: paths.applications(application.user.id),
         },
         {
-          title: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitle(
             intl,
             application.poolAdvertisement,
           ),
-          href: paths.pool(application.pool.id),
+          url: paths.pool(application.pool.id),
         },
         {
-          href: paths.reviewApplication(application.id),
-          title: intl.formatMessage(navigationMessages.stepOne),
+          label: intl.formatMessage(navigationMessages.stepOne),
+          url: paths.reviewApplication(application.id),
         },
       ]
     : [];
@@ -133,18 +131,16 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
         description:
           "Title for Profile Form wrapper  in Work Location Preferences Form",
       })}
-      cancelLink={{
-        href: returnRoute,
-      }}
       crumbs={[
         ...applicationBreadcrumbs,
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "Work Location Preference",
             id: "c/Qp8R",
             description:
               "Display Text for the current page in Work Location Preference Form Page",
           }),
+          url: paths.workLocation(initialData.id),
         },
       ]}
       prefixBreadcrumbs={!application}
