@@ -101,7 +101,12 @@
           "key": "primary",
           "default": {
             "color": "#27C9BC",
-            "modifiers": []
+            "modifiers": [
+              {
+                "key": "hero",
+                "color": "rgb(71, 6, 46)"
+              }
+            ]
           }
         },
         {
