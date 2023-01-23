@@ -48,7 +48,7 @@ export const primary = (text: React.ReactNode) => (
  * @param text  text to wrap
  */
 export const red = (text: React.ReactNode) => (
-  <span data-h2-color="base(dt-error.dark)">{text}</span>
+  <span data-h2-color="base(error.dark)">{text}</span>
 );
 
 /**

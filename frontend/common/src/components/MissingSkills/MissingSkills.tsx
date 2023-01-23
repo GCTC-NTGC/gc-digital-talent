@@ -154,7 +154,7 @@ const MissingSkills = ({
     <>
       {missingRequiredSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(dt-error.light.05)"
+          data-h2-background-color="base(error.light.05)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "error", mode: "outline" }}
           headingLevel={headingLevel}

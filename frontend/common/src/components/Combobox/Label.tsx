@@ -44,7 +44,7 @@ const Label = ({ children, required, hideOptional = false }: LabelProps) => {
               data-h2-display="base(inline-block)"
               data-h2-margin="base(0, 0, 0, x.125)"
               {...(required
-                ? { "data-h2-color": "base(dt-error.dark)" }
+                ? { "data-h2-color": "base(error.dark)" }
                 : { "data-h2-color": "base(gray.dark)" })}
             >
               (

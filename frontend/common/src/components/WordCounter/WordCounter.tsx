@@ -21,7 +21,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
     <>
       <span aria-hidden="true" data-h2-font-size="base(caption)" {...rest}>
         {wordsLeft < 0 ? (
-          <span data-h2-color="base(dt-error)">
+          <span data-h2-color="base(error)">
             {Math.abs(wordsLeft)}{" "}
             {intl.formatMessage(
               {

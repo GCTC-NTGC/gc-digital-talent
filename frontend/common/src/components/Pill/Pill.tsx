@@ -88,13 +88,13 @@ const colorMap: Record<
   },
   error: {
     solid: {
-      "data-h2-border": "base(1px solid dt-error.dark)",
-      "data-h2-background-color": "base(dt-error.dark)",
+      "data-h2-border": "base(1px solid error.dark)",
+      "data-h2-background-color": "base(error.dark)",
       "data-h2-color": "base(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-error.dark)",
-      "data-h2-background-color": "base(dt-error.light.10)",
+      "data-h2-border": "base(1px solid error.dark)",
+      "data-h2-background-color": "base(error.light.10)",
       "data-h2-color": "base(black.dark)",
     },
   },
