@@ -17,7 +17,7 @@ const Trigger = React.forwardRef<
 
 const contentStyles = {
   "data-h2-font-family": "base(sans)",
-  "data-h2-background-color": "base(dt-white)",
+  "data-h2-background-color": "base(white)",
   "data-h2-padding": "base(x.5)",
   "data-h2-radius": "base(s)",
   "data-h2-shadow": "base(s)",
@@ -40,7 +40,7 @@ const StyledArrow = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    style={{ fill: `rgba(var(--h2-color-dt-white), 1)` }}
+    style={{ fill: `rgba(var(--h2-color-white), 1)` }}
     ref={forwardedRef}
     {...props}
   />

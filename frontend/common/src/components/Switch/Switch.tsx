@@ -28,7 +28,7 @@ const Thumb = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Thumb>
 >((props, forwardedRef) => (
   <SwitchPrimitive.Thumb
-    data-h2-background-color="base(dt-white)"
+    data-h2-background-color="base(white)"
     data-h2-display="base(block)"
     data-h2-height="base(1.2rem)"
     data-h2-location="base(50%, 0, 0, 0)"

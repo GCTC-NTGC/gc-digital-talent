@@ -66,7 +66,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
       <thead>
         <tr
           data-h2-background-color="base(gray.dark)"
-          data-h2-color="base(dt-white)"
+          data-h2-color="base(white)"
         >
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
             {intl.formatMessage({

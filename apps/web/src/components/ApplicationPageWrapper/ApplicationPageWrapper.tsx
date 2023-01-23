@@ -44,7 +44,7 @@ const ApplicationPageWrapper = ({
     <>
       <div
         data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
+        data-h2-color="base(white)"
         style={{
           background: `url(${banner})`,
           backgroundSize: "cover",
@@ -67,7 +67,7 @@ const ApplicationPageWrapper = ({
         </div>
       </div>
       <div
-        data-h2-background-color="base(dt-white)"
+        data-h2-background-color="base(white)"
         data-h2-padding="base(x.5, 0)"
         data-h2-shadow="base(m)"
       >
@@ -132,7 +132,7 @@ const ApplicationPageWrapper = ({
       {crumbs ? (
         <div
           data-h2-padding="base(x1, x.5) p-tablet(x1, x3)"
-          data-h2-color="base(dt-white)"
+          data-h2-color="base(white)"
           style={{
             background: `url(${banner})`,
             backgroundSize: "100vw 5rem",

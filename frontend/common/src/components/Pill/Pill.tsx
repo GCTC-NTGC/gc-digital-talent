@@ -29,7 +29,7 @@ const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid dt-primary.dark)",
       "data-h2-background-color": "base(dt-primary)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-primary.dark)",
@@ -41,7 +41,7 @@ const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid dt-secondary.dark)",
       "data-h2-background-color": "base(dt-secondary.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-secondary.dark)",
@@ -53,7 +53,7 @@ const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid tm-blue.dark)",
       "data-h2-background-color": "base(tm-blue.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid tm-blue.dark)",
@@ -65,7 +65,7 @@ const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid tm-green.dark)",
       "data-h2-background-color": "base(tm-green.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid tm-green.dark)",
@@ -78,7 +78,7 @@ const colorMap: Record<
       /* not very visible - should probably be fixed before using */
       "data-h2-border": "base(1px solid gray.dark)",
       "data-h2-background-color": "base(gray.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid gray.dark)",
@@ -90,7 +90,7 @@ const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid dt-error.dark)",
       "data-h2-background-color": "base(dt-error.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-error.dark)",

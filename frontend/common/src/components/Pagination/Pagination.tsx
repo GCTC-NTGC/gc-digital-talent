@@ -65,7 +65,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   if (color === "black") {
     fontColor = { "data-h2-color": "base(black)" };
   } else if (color === "white") {
-    fontColor = { "data-h2-color": "base(dt-white)" };
+    fontColor = { "data-h2-color": "base(white)" };
   }
 
   const lastPage = paginationRange[paginationRange.length - 1];

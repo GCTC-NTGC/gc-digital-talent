@@ -22,7 +22,7 @@ const SearchHeading: React.FunctionComponent = () => {
           <h1
             data-h2-font-size="base(h1, 1)"
             data-h2-text-align="base(center)"
-            data-h2-color="base(dt-white)"
+            data-h2-color="base(white)"
             data-h2-font-weight="base(700)"
             style={{
               letterSpacing: "-2px",
@@ -41,7 +41,7 @@ const SearchHeading: React.FunctionComponent = () => {
       <div data-h2-margin="base(-x2, 0, 0, 0) p-tablet(-x4, 0, 0, 0)">
         <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
           <div
-            data-h2-background-color="base(dt-white)"
+            data-h2-background-color="base(white)"
             data-h2-padding="base(x1) p-tablet(x3)"
             data-h2-radius="base(s)"
             data-h2-text-align="base(center)"

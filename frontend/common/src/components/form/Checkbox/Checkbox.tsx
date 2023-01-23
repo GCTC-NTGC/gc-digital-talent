@@ -88,7 +88,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           fillLabel
         >
           <div
-            data-h2-background-color="base(dt-white)"
+            data-h2-background-color="base(white)"
             {...stateStyles}
             data-h2-radius="base(input)"
             data-h2-padding="base(x.25, x.5)"

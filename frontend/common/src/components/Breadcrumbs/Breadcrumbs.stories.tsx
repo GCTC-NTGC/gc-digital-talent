@@ -21,7 +21,7 @@ const BlackTemplateBreadcrumbs: Story<BreadcrumbsProps> = (args) => {
 
 const WhiteTemplateBreadcrumbs: Story<BreadcrumbsProps> = (args) => {
   return (
-    <div data-h2-color="base(dt-white)" data-h2-background-color="base(black)">
+    <div data-h2-color="base(white)" data-h2-background-color="base(black)">
       <Breadcrumbs {...args} />
     </div>
   );

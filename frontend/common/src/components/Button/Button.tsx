@@ -35,7 +35,7 @@ export const colorMap: Record<
       "data-h2-border": "base(1px solid dt-primary)",
       "data-h2-background-color":
         "base(dt-primary) base:hover(dt-primary.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-primary)",
@@ -54,7 +54,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid dt-secondary.light)",
       "data-h2-background-color": "base(dt-secondary.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-secondary.light)",
@@ -95,19 +95,19 @@ export const colorMap: Record<
   },
   white: {
     solid: {
-      "data-h2-border": "base(1px solid dt-white)",
-      "data-h2-background-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid white)",
+      "data-h2-background-color": "base(white)",
       "data-h2-color": "base(dt-primary)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-white)",
-      "data-h2-background-color": "base(dt-white.10)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid white)",
+      "data-h2-background-color": "base(white.10)",
+      "data-h2-color": "base(white)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     tableHeader: {},
   },
@@ -115,7 +115,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid black)",
       "data-h2-background-color": "base(black)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid black)",

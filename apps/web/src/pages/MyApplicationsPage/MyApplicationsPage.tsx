@@ -48,7 +48,7 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
       <SEO title={pageTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
+        data-h2-color="base(white)"
         data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,

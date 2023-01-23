@@ -28,7 +28,7 @@ const StyledContent = React.forwardRef<
 >((props, forwardedRef) => (
   <DialogPrimitive.Content
     data-h2-font-family="base(sans)"
-    data-h2-background-color="base(dt-white)"
+    data-h2-background-color="base(white)"
     data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
@@ -73,9 +73,9 @@ const Content = React.forwardRef<
           <StyledClose>
             <button
               type="button"
-              data-h2-background-color="base(transparent) base:hover(dt-white.15)"
+              data-h2-background-color="base(transparent) base:hover(white.15)"
               data-h2-border="base(none)"
-              data-h2-color="base(dt-white)"
+              data-h2-color="base(white)"
               data-h2-cursor="base(pointer)"
               data-h2-line-height="base(0)"
               data-h2-location="base(x.5, x.5, auto, auto)"
@@ -133,11 +133,11 @@ type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-background": "base(dt-linear)",
-    "data-h2-color": "base(dt-white)",
+    "data-h2-color": "base(white)",
   },
   "ts-secondary": {
     "data-h2-background-color": "base(dt-secondary.light)",
-    "data-h2-color": "base(dt-white)",
+    "data-h2-color": "base(white)",
   },
   "ia-primary": {
     "data-h2-background": "base(ia-linear-secondary)",

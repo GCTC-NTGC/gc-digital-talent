@@ -56,7 +56,7 @@ const StyledTrigger = React.forwardRef<
 >((props, forwardedRef) => (
   <AccordionPrimitive.Trigger
     data-h2-align-items="base(center)"
-    data-h2-background-color="base(dt-white)"
+    data-h2-background-color="base(white)"
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
     data-h2-gap="base(0, x.5)"
@@ -151,7 +151,7 @@ const Content = React.forwardRef<
 >(({ children, ...rest }, forwardedRef) => (
   <AccordionPrimitive.Content
     className="Accordion__Content"
-    data-h2-background-color="base(dt-white)"
+    data-h2-background-color="base(white)"
     ref={forwardedRef}
     {...rest}
   >

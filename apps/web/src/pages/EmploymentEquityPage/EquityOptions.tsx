@@ -234,7 +234,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
       {isDisabled && (
         <div
           data-h2-position="base(absolute)"
-          data-h2-background-color="base(dt-white)"
+          data-h2-background-color="base(white)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(center)"

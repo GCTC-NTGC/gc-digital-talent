@@ -273,7 +273,7 @@ export const PoolAdvertisementPoster = ({
       <SEO title={fullTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
+        data-h2-color="base(white)"
         style={{
           background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
           backgroundSize: "cover",
@@ -286,7 +286,7 @@ export const PoolAdvertisementPoster = ({
         </div>
       </div>
       <div
-        data-h2-background-color="base(dt-white)"
+        data-h2-background-color="base(white)"
         data-h2-shadow="base(m)"
         data-h2-padding="base(x1, 0)"
       >

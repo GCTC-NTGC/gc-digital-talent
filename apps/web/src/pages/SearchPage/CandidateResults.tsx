@@ -24,7 +24,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
 
   return candidateCount > 0 ? (
     <div
-      data-h2-background-color="base(dt-white)"
+      data-h2-background-color="base(white)"
       data-h2-shadow="base(m)"
       data-h2-border-left="base(x1 solid dt-secondary.light)"
       data-h2-margin="base(x.5, 0, 0, 0)"

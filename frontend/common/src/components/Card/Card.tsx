@@ -15,11 +15,11 @@ export interface CardProps {
 const colorMap = {
   "ts-primary": {
     "data-h2-background-color": "base(dt-primary.light)",
-    "data-h2-color": "base(dt-white)",
+    "data-h2-color": "base(white)",
   },
   "ts-secondary": {
     "data-h2-background-color": "base(dt-secondary.light)",
-    "data-h2-color": "base(dt-white)",
+    "data-h2-color": "base(white)",
   },
   "ia-primary": {
     "data-h2-background-color": "base(ia-primary)",
@@ -58,7 +58,7 @@ const Card = ({
       </span>
       <div
         className="card__body"
-        data-h2-background-color="base(dt-white)"
+        data-h2-background-color="base(white)"
         data-h2-radius="base(0, 0, s, s)"
         data-h2-padding="base(x.5)"
       >

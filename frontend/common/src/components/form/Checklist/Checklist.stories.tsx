@@ -72,7 +72,7 @@ ChecklistOfLabelElements.args = {
     {
       value: "two",
       label: (
-        <span data-h2-background-color="base(dt-white)">White Selection</span>
+        <span data-h2-background-color="base(white)">White Selection</span>
       ),
     },
     {

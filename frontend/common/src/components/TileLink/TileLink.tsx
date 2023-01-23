@@ -16,7 +16,7 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-border-left": "base(.5rem solid dt-accent.dark)",
   },
   white: {
-    "data-h2-border-left": "base(.5rem solid dt-white)",
+    "data-h2-border-left": "base(.5rem solid white)",
   },
   black: {
     "data-h2-border-left": "base(.5rem solid black)",
@@ -54,7 +54,7 @@ interface LinkProps extends Omit<TileLinkProps, "title" | "href" | "ref"> {
 
 const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
   const linkProps = {
-    "data-h2-background-color": "base(dt-white)",
+    "data-h2-background-color": "base(white)",
     "data-h2-display": "base(flex)",
     "data-h2-align-items": "base(flex-end)",
     "data-h2-shadow": "base(m) base:hover(xl)",

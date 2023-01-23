@@ -6,7 +6,7 @@ export const fieldStateStyles: Record<FieldState, Record<string, string>> = {
   unset: {
     "data-h2-border":
       "base(2px solid gray) base:focus-visible(2px solid tm-blue)",
-    "data-h2-background-color": "base(dt-white)",
+    "data-h2-background-color": "base(white)",
     "data-h2-outline": "base(none)",
   },
   invalid: {

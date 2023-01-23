@@ -50,7 +50,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   const breadcrumbs = (
     <div
       data-h2-padding="base(x1, 0)"
-      data-h2-color="base(dt-white)"
+      data-h2-color="base(white)"
       style={{
         background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
         backgroundSize: "100vw 5rem",

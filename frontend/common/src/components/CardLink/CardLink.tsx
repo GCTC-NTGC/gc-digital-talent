@@ -20,7 +20,7 @@ export interface CardLinkProps {
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-background-color": "base(dt-secondary.light)",
-    "data-h2-color": "base(dt-white)",
+    "data-h2-color": "base(white)",
   },
   "ia-primary": {
     "data-h2-background": "base(ia-linear-secondary)",
@@ -87,7 +87,7 @@ const CardLink: React.FC<CardLinkProps> = ({
       </span>
       <span
         className="card-link__label"
-        data-h2-background-color="base(dt-white)"
+        data-h2-background-color="base(white)"
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(flex-start)"
