@@ -27,7 +27,7 @@ $templates = config('notify.templates')
 $emailTemplate = $templates['email'];
 
 // Getting a single template
-$emailTemplate = config('notify.templates.email')';
+$emailTemplate = config('notify.templates.email');
 ```
 
 ### Reply To/Senders
