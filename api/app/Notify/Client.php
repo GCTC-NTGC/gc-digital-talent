@@ -279,15 +279,23 @@ class Client
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
         }
 
+        $errors = [];
+
         foreach($rows as $index => $row) {
             if(!isset($row['email'])) {
-                throw new InvalidBulkRowDataException("Key 'email' not found in row $index.");
+                $errors[] = $index + 1;
+                continue;
             }
 
             $normalizedRows[$index + 1] = array_merge(
                 [$row['email']],
                 $this->buildBulkPersonalisationRowData($row['personalisation'])
             );
+        }
+
+        if(!empty($errors)) {
+            $errorString = implode(", ", $errors);
+            throw new InvalidBulkRowDataException("Key 'email' not found in row(s) $errorString.");
         }
 
         return $this->buildBulkPayload($name, $normalizedRows, $template, $scheduleFor, $replyTo);
@@ -312,15 +320,23 @@ class Client
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
         }
 
+        $errors = [];
+
         foreach($rows as $index => $row) {
             if(!isset($row['phone_number'])) {
-                throw new InvalidBulkRowDataException("Key 'phone_number' not found in row $index.");
+                $errors[] = $index + 1;
+                continue;
             }
 
             $normalizedRows[$index + 1] = array_merge(
                 [$row['phone_number']],
                 $this->buildBulkPersonalisationRowData($row['personalisation'])
             );
+        }
+
+        if(!empty($errors)) {
+            $errorString = implode(", ", $errors);
+            throw new InvalidBulkRowDataException("Key 'phone_number' not found in row(s) $errorString.");
         }
 
         return $this->buildBulkPayload($name, $normalizedRows, $template, $scheduleFor, $replyTo);
