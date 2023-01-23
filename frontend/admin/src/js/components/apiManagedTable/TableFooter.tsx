@@ -60,7 +60,7 @@ function TableFooter({
 
   return (
     <div
-      data-h2-background-color="base(dt-secondary.light)"
+      data-h2-background-color="base(secondary.light)"
       data-h2-radius="base(0px, 0px, s, s)"
     >
       <div data-h2-padding="base(x1, x1)">

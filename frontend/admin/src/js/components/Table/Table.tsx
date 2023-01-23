@@ -116,7 +116,7 @@ const HeaderWrapper = <T extends object>({
       })}
       type="button"
       data-h2-location="base(0)"
-      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
+      data-h2-background-color="base(transparent) base:hover(secondary.lightest.35) base:focus-visible(focus)"
       data-h2-color="base(white)"
       data-h2-display="base(flex)"
       data-h2-radius="base(s)"
@@ -346,8 +346,8 @@ function Table<T extends Record<string, unknown>>({
         {/* Table body */}
         <div
           data-h2-radius="base(s, s, 0px, 0px)"
-          data-h2-border-right="base(1px solid dt-secondary)"
-          data-h2-border-left="base(1px solid dt-secondary)"
+          data-h2-border-right="base(1px solid secondary)"
+          data-h2-border-left="base(1px solid secondary)"
           data-h2-overflow="base(auto)"
           data-h2-max-width="base(100%)"
         >
@@ -373,7 +373,7 @@ function Table<T extends Record<string, unknown>>({
                     <th
                       {...column.getHeaderProps()}
                       key={column.id}
-                      data-h2-background-color="base(dt-secondary.light)"
+                      data-h2-background-color="base(secondary.light)"
                       data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
@@ -416,7 +416,7 @@ function Table<T extends Record<string, unknown>>({
         </div>
         {/* Table footer */}
         <div
-          data-h2-background-color="base(dt-secondary.light)"
+          data-h2-background-color="base(secondary.light)"
           data-h2-radius="base(0px, 0px, s, s)"
         >
           {/* <p>

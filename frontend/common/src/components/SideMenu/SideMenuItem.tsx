@@ -5,7 +5,7 @@ import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 const commonStyles = {
   "data-h2-background-color":
-    "base(dt-secondary.light) base:selectors[.active](dt-secondary.lighter.10) base:focus-visible(dt-secondary.lighter.30) base:hover(dt-secondary.lighter.30)",
+    "base(secondary.light) base:selectors[.active](secondary.lighter.10) base:focus-visible(secondary.lighter.30) base:hover(secondary.lighter.30)",
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",

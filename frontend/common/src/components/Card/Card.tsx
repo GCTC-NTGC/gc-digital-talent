@@ -18,7 +18,7 @@ const colorMap = {
     "data-h2-color": "base(white)",
   },
   "ts-secondary": {
-    "data-h2-background-color": "base(dt-secondary.light)",
+    "data-h2-background-color": "base(secondary.light)",
     "data-h2-color": "base(white)",
   },
   "ia-primary": {

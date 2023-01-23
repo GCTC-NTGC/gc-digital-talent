@@ -19,7 +19,7 @@ export interface CardLinkProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "base(dt-secondary.light)",
+    "data-h2-background-color": "base(secondary.light)",
     "data-h2-color": "base(white)",
   },
   "ia-primary": {

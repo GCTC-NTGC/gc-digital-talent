@@ -39,14 +39,14 @@ const colorMap: Record<
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(1px solid dt-secondary.dark)",
-      "data-h2-background-color": "base(dt-secondary.light)",
+      "data-h2-border": "base(1px solid secondary.dark)",
+      "data-h2-background-color": "base(secondary.light)",
       "data-h2-color": "base(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-secondary.dark)",
-      "data-h2-background-color": "base(dt-secondary.light.10)",
-      "data-h2-color": "base(dt-secondary.dark)",
+      "data-h2-border": "base(1px solid secondary.dark)",
+      "data-h2-background-color": "base(secondary.light.10)",
+      "data-h2-color": "base(secondary.dark)",
     },
   },
   blue: {

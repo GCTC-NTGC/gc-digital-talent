@@ -33,7 +33,7 @@ const EstimatedCandidates: React.FunctionComponent<
           data-h2-shadow="base(l)"
         >
           <div
-            data-h2-background-color="base(dt-secondary)"
+            data-h2-background-color="base(secondary)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(s, s, 0, 0)"
           >

@@ -8,7 +8,7 @@
 }
 
 .Chip__Dismiss--secondary:focus-visible {
-  outline-color: rgba(var(--h2-color-dt-secondary), 1);
+  outline-color: rgba(var(--h2-color-secondary), 1);
 }
 
 .Chip__Dismiss--gray:focus-visible {

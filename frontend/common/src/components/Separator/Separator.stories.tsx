@@ -32,7 +32,7 @@ const Template: ComponentStory<typeof Separator> = () => (
       <Separator
         decorative
         orientation="vertical"
-        data-h2-background-color="base(dt-secondary.50)"
+        data-h2-background-color="base(secondary.50)"
         data-h2-margin="base(0, x.5)"
       />
       <p>Red</p>
