@@ -13,7 +13,6 @@ import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
-import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import { Maybe, SkillCategory } from "@common/api/generated";
@@ -91,15 +90,15 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 
   let crumbs = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
         id: "P/Mm5G",
         description: "Display text for My experience and skills Form Page Link",
       }),
-      href: returnPath,
+      url: returnPath,
     },
     {
-      title: experience
+      label: experience
         ? intl.formatMessage({
             defaultMessage: "Edit Experience",
             id: "NrivlZ",
@@ -110,8 +109,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             id: "mJ1HE4",
             description: "Display text for add experience form in breadcrumbs",
           }),
+      url: "#",
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   let irrelevantSkills: Maybe<Skill[]> = [];
 
@@ -123,16 +123,16 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 
     crumbs = [
       {
-        title: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "My Applications",
           id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
-        href: paths.applications(userId),
+        url: paths.applications(userId),
       },
       {
-        title: advertisementTitle,
-        href: "#",
+        label: advertisementTitle,
+        url: paths.pool(poolAdvertisement.id),
       },
       ...crumbs,
     ];
@@ -217,9 +217,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       title={pageTitle()}
       prefixBreadcrumbs={!poolAdvertisement}
       crumbs={crumbs}
-      cancelLink={{
-        href: returnPath,
-      }}
     >
       <BasicForm
         onSubmit={handleSubmit}
