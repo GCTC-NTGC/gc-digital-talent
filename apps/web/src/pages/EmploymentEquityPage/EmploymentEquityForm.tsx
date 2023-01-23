@@ -34,19 +34,6 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
     : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {
-    // isIndigenous has been removed from inputs, indigenousCommunities functions as a replacement
-    // true maps to [LEGACY], false maps to [] OR [non-legacy enums]
-    if (key === "isIndigenous") {
-      if (value) {
-        return onUpdate(user.id, {
-          indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
-          indigenousDeclarationSignature: "PLACEHOLDER",
-        });
-      }
-      return onUpdate(user.id, {
-        indigenousCommunities: [],
-      });
-    }
     return onUpdate(user.id, {
       [key]: value,
     });
@@ -193,7 +180,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       </ul>
       <EquityOptions
         isDisabled={isMutating}
-        isIndigenous={user.isIndigenous}
+        indigenousCommunities={user.indigenousCommunities}
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}

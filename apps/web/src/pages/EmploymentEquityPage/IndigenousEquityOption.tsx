@@ -4,33 +4,28 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
 
-import {
-  DisabilityDialog,
-  VisibleMinorityDialog,
-  WomanDialog,
-} from "./dialogs";
+import { IndigenousCommunity } from "~/api/generated";
+import { IndigenousDialog } from "./dialogs";
 
-import { EquityDialogProps } from "./types";
+import { IndigenousDialogProps } from "./types";
 
-type EquityGroup = "woman" | "minority" | "disability";
+type EquityGroup = "indigenous";
 
 interface EquityOptionProps {
-  isAdded: boolean;
+  indigenousCommunities: Array<IndigenousCommunity>;
   option: EquityGroup;
   // Note: Just defining the func signature
   // eslint-disable-next-line no-unused-vars
-  onSave: (value: boolean) => void;
+  onSave: (indigenousCommunities: Array<IndigenousCommunity>) => void;
   title: React.ReactNode;
 }
 
-const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
-  disability: DisabilityDialog,
-  minority: VisibleMinorityDialog,
-  woman: WomanDialog,
+const dialogMap: Record<EquityGroup, React.FC<IndigenousDialogProps>> = {
+  indigenous: IndigenousDialog,
 };
 
 const EquityOption = ({
-  isAdded,
+  indigenousCommunities,
   option,
   onSave,
   title,
@@ -62,6 +57,8 @@ const EquityOption = ({
     },
   );
 
+  const isAdded = indigenousCommunities && indigenousCommunities.length > 0;
+
   const iconSize = "1rem";
   const Icon = isAdded ? MinusIcon : PlusIcon;
 
@@ -81,7 +78,7 @@ const EquityOption = ({
     >
       <span>{title}</span>
       <span style={{ flexShrink: 0 }}>
-        <Dialog isAdded={isAdded} onSave={onSave}>
+        <Dialog indigenousCommunities={indigenousCommunities} onSave={onSave}>
           <Button
             type="button"
             mode="outline"
