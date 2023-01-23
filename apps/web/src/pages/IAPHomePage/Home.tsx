@@ -788,7 +788,7 @@ const Home: React.FunctionComponent = () => {
                 <Triangle
                   className=""
                   data-h2-width="base(100%)"
-                  data-h2-color="base(light.secondary)"
+                  data-h2-color="base(secondary.light)"
                 />
               </div>
               <div

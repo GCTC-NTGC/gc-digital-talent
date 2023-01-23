@@ -10,7 +10,7 @@ import { BasicDialogProps } from "./types";
 const mailAccessor = (chunks: React.ReactNode) => (
   <a
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-    data-h2-color="base(primary) base:hover(dark.primary)"
+    data-h2-color="base(primary) base:hover(primary.dark)"
   >
     {chunks}
   </a>
