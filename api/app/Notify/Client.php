@@ -5,6 +5,7 @@ namespace App\Notify;
 use Illuminate\Support\Facades\Http;
 use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
+use App\Exceptions\InvalidBulkRowDataException;
 use App\Exceptions\NotFutureDateException;
 
 
@@ -100,6 +101,14 @@ class Client
      *
      * @param string $name Used to identify this bulk of notifications later on.
      * @param array<mixed> $rows Array of arrays for messages to send
+     * $rows = [
+     *      [
+     *          'email' => (string)  Email address of recipient
+     *          'personalisation' => [
+     *              'key' => (mixed) 'key' is replacement key, value is value to replace with
+     *          ]
+     *      ]
+     * ]
      * @param string $template ID of the template to use
      * @param Carbon\Carbon $scheduleFor (optional)
      * @param string $replyTo (optional) ID for a reply to email address
@@ -119,6 +128,14 @@ class Client
      *
      * @param string $name Used to identify this bulk of notifications later on.
      * @param array<mixed> $rows Array of arrays for messages to send
+     *  $rows = [
+     *      [
+     *          'phone_number' => (string)  Phone number of recipient
+     *          'personalisation' => [
+     *              'key' => (mixed) 'key' is replacement key, value is value to replace with
+     *          ]
+     *      ]
+     * ]
      * @param string $template ID of the template to use
      * @param Carbon\Carbon $scheduleFor (optional)
      * @param string $replyTo (optional) ID for a reply to email address
@@ -257,7 +274,6 @@ class Client
     {
 
         $normalizedRows = [['email address']];
-        $personalisationKeyMap = null;
 
         if(isset($rows[0]['personalisation'])) {
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
@@ -291,7 +307,6 @@ class Client
     {
 
         $normalizedRows = [['phone number']];
-        $personalisationKeyMap = null;
 
         if(isset($rows[0]['personalisation'])) {
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
