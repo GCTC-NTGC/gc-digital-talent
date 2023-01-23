@@ -19,7 +19,7 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-border-left": "base(.5rem solid dt-white)",
   },
   black: {
-    "data-h2-border-left": "base(.5rem solid dt-black)",
+    "data-h2-border-left": "base(.5rem solid black)",
   },
   "ia-primary": {
     "data-h2-border-left": "base(.5rem solid ia-primary)",

@@ -222,7 +222,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
             <div>
               <h2
                 data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-color="base(dt-black)"
+                data-h2-color="base(black)"
                 data-h2-font-weight="base(300)"
               >
                 {intl.formatMessage({

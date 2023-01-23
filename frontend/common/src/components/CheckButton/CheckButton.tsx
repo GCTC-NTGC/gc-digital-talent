@@ -6,7 +6,7 @@ import "./check-button.css";
 
 const borderMap = {
   black: {
-    "data-h2-border": "base(1px solid dt-black)",
+    "data-h2-border": "base(1px solid black)",
   },
   white: {
     "data-h2-border": "base(1px solid dt-gray.light)",
@@ -15,7 +15,7 @@ const borderMap = {
 
 const colorMap = {
   black: {
-    "data-h2-color": "base(dt-black)",
+    "data-h2-color": "base(black)",
     "data-h2-background-color":
       "base(transparent) base:hover(dt-primary.light.25)",
   },

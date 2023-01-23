@@ -95,7 +95,7 @@ const colorMap: Record<
     outline: {
       "data-h2-border": "base(1px solid dt-error.dark)",
       "data-h2-background-color": "base(dt-error.light.10)",
-      "data-h2-color": "base(dt-black.dark)",
+      "data-h2-color": "base(black.dark)",
     },
   },
 };

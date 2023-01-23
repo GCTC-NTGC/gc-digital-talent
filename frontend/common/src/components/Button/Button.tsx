@@ -79,7 +79,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid dt-accent.dark)",
       "data-h2-background-color": "base(dt-accent.dark)",
-      "data-h2-color": "base(dt-black)",
+      "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border": "base(1px solid dt-accent.dark)",
@@ -113,19 +113,19 @@ export const colorMap: Record<
   },
   black: {
     solid: {
-      "data-h2-border": "base(1px solid dt-black)",
-      "data-h2-background-color": "base(dt-black)",
+      "data-h2-border": "base(1px solid black)",
+      "data-h2-background-color": "base(black)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-black)",
+      "data-h2-border": "base(1px solid black)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dt-black)",
+      "data-h2-color": "base(black)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dt-black)",
+      "data-h2-color": "base(black)",
     },
     tableHeader: {},
   },

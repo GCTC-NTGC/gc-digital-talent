@@ -63,7 +63,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
 
   let fontColor = {};
   if (color === "black") {
-    fontColor = { "data-h2-color": "base(dt-black)" };
+    fontColor = { "data-h2-color": "base(black)" };
   } else if (color === "white") {
     fontColor = { "data-h2-color": "base(dt-white)" };
   }

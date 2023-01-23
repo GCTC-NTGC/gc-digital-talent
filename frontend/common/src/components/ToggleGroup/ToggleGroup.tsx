@@ -37,15 +37,15 @@ const colorMap: Record<Color, Record<string, string>> = {
   cta: {
     "data-h2-background-color": "base(dt-accent)",
     "data-h2-color":
-      "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   white: {
     "data-h2-background-color": "base(white) base:dark(black.lighter)",
     "data-h2-color":
-      "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   black: {
-    "data-h2-background-color": "base(dt-black) base:dark(dt-black.lighter)",
+    "data-h2-background-color": "base(black) base:dark(black.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
