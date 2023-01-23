@@ -21,7 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
     <El
       {...(color === "pink"
         ? { "data-h2-color": "base(dark.ia-primary)" }
-        : { "data-h2-color": "base(ia-white)" })}
+        : { "data-h2-color": "base(white)" })}
       {...(light
         ? { "data-h2-font-weight": "base(100)" }
         : { "data-h2-font-weight": "base(700)" })}

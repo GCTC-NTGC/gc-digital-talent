@@ -6,10 +6,7 @@ import { CloseQuote, OpenQuote } from "./Svg";
 
 const Quote: React.FC<QuoteProps> = ({ content, author }) => (
   <figure data-h2-padding="base(x2, 0, x1, 0) p-tablet(x3, 0)">
-    <blockquote
-      data-h2-position="base(relative)"
-      data-h2-color="base(ia-white)"
-    >
+    <blockquote data-h2-position="base(relative)" data-h2-color="base(white)">
       <div data-h2-text-align="base(left)">
         <OpenQuote
           data-h2-display="base(inline-block)"

@@ -24,11 +24,11 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
   "ia-primary": {
     "data-h2-background": "base(ia-linear-secondary)",
-    "data-h2-color": "base(ia-white)",
+    "data-h2-color": "base(white)",
   },
   "ia-secondary": {
     "data-h2-background": "base(ia-linear-primary)",
-    "data-h2-color": "base(ia-white)",
+    "data-h2-color": "base(white)",
   },
 };
 

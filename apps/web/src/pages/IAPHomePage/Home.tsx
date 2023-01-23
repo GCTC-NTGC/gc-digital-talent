@@ -122,7 +122,7 @@ const Home: React.FunctionComponent = () => {
           >
             <div
               data-h2-padding="p-tablet(x2) l-tablet(x3)"
-              data-h2-background-color="base(ia-white)"
+              data-h2-background-color="base(white)"
               data-h2-radius="base(iap-home-card)"
             >
               <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
@@ -437,7 +437,7 @@ const Home: React.FunctionComponent = () => {
         <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
             light
-            data-h2-color="base(ia-white)"
+            data-h2-color="base(white)"
             data-h2-text-align="base(center)"
           >
             {intl.formatMessage({
@@ -480,7 +480,7 @@ const Home: React.FunctionComponent = () => {
                 >
                   <Heading
                     light
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                     data-h2-font-size="base(h3, 1)"
                   >
                     <span data-h2-display="base(block)">
@@ -499,10 +499,7 @@ const Home: React.FunctionComponent = () => {
                       })}
                     </span>
                   </Heading>
-                  <p
-                    data-h2-color="base(ia-white)"
-                    data-h2-margin="base(x1, 0)"
-                  >
+                  <p data-h2-color="base(white)" data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Apply today to start your journey to a career in Information Technology.",
@@ -583,7 +580,7 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
               {intl.formatMessage({
@@ -690,7 +687,7 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
               {intl.formatMessage({
@@ -823,7 +820,7 @@ const Home: React.FunctionComponent = () => {
                 >
                   <div
                     data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                   >
                     <Heading color="white" light>
                       {intl.formatMessage({

@@ -133,7 +133,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid ia-primary)",
       "data-h2-background-color": "base(ia-primary)",
-      "data-h2-color": "base(ia-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid ia-primary)",
@@ -151,7 +151,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(1px solid ia-secondary)",
       "data-h2-background-color": "base(ia-secondary)",
-      "data-h2-color": "base(ia-white)",
+      "data-h2-color": "base(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid ia-secondary)",

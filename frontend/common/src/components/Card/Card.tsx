@@ -23,11 +23,11 @@ const colorMap = {
   },
   "ia-primary": {
     "data-h2-background-color": "base(ia-primary)",
-    "data-h2-color": "base(ia-white)",
+    "data-h2-color": "base(white)",
   },
   "ia-secondary": {
     "data-h2-background-color": "base(ia-secondary)",
-    "data-h2-color": "base(ia-white)",
+    "data-h2-color": "base(white)",
   },
 };
 

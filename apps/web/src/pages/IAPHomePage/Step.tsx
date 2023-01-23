@@ -22,7 +22,7 @@ const Step: React.FC<StepProps> = ({ position, title, children }) => (
       </span>
       <span data-h2-display="base(block)">{title}</span>
     </Heading>
-    <div data-h2-color="base(ia-white)" data-h2-margin="base(x1, 0, 0, 0)">
+    <div data-h2-color="base(white)" data-h2-margin="base(x1, 0, 0, 0)">
       {children}
     </div>
   </div>
