@@ -34,7 +34,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
             )}
           </span>
         ) : (
-          <span data-h2-color="base(dt-gray.dark)">
+          <span data-h2-color="base(gray.dark)">
             {wordsLeft}{" "}
             {intl.formatMessage(
               {

@@ -56,7 +56,7 @@ export const red = (text: React.ReactNode) => (
  * @param text  text to wrap
  */
 export const gray = (text: React.ReactNode) => (
-  <span data-h2-color="base(dt-gray.dark)">{text}</span>
+  <span data-h2-color="base(gray.dark)">{text}</span>
 );
 
 export default {

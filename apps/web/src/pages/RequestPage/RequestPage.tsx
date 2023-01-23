@@ -28,8 +28,8 @@ const RequestPage = () => {
 
   return (
     <section
-      data-h2-background-color="base(dt-gray.15)"
-      data-h2-border-top="base(1px solid dt-gray)"
+      data-h2-background-color="base(gray.15)"
+      data-h2-border-top="base(1px solid gray)"
     >
       <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
         <h1

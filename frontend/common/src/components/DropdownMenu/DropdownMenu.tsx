@@ -89,7 +89,7 @@ const itemStyleProps = {
   "data-h2-align-items": "base(center)",
   "data-h2-background-color": "base(transparent) base:hover(dt-secondary.15)",
   "data-h2-color":
-    "base(dt-secondary.dark) base:selectors[[data-disabled]](dt-gray)",
+    "base(dt-secondary.dark) base:selectors[[data-disabled]](gray)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",
@@ -135,7 +135,7 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
-    data-h2-color="base(dt-gray)"
+    data-h2-color="base(gray)"
     ref={forwardedRef}
     {...props}
   />
@@ -146,7 +146,7 @@ const Separator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
-    data-h2-color="base(dt-gray)"
+    data-h2-color="base(gray)"
     data-h2-margin="base(x.25, 0, x.25, 0)"
     style={{ height: 1 }}
     ref={forwardedRef}

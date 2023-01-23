@@ -59,7 +59,7 @@ export const StatusSection = ({
         {poolAdvertisement.advertisementStatus === AdvertisementStatus.Draft ? (
           <>
             <div
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -108,7 +108,7 @@ export const StatusSection = ({
         AdvertisementStatus.Published ? (
           <>
             <div
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -162,7 +162,7 @@ export const StatusSection = ({
         AdvertisementStatus.Closed ? (
           <>
             <div
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -212,7 +212,7 @@ export const StatusSection = ({
         {poolAdvertisement.advertisementStatus ===
         AdvertisementStatus.Archived ? (
           <div
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-padding="base(x.5)"
             data-h2-radius="base(s)"
             style={{ flexGrow: 2 }} // to push buttons to the right side

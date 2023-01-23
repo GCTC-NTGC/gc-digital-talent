@@ -9,7 +9,7 @@ const borderMap = {
     "data-h2-border": "base(1px solid black)",
   },
   white: {
-    "data-h2-border": "base(1px solid dt-gray.light)",
+    "data-h2-border": "base(1px solid gray.light)",
   },
 };
 
@@ -20,7 +20,7 @@ const colorMap = {
       "base(transparent) base:hover(dt-primary.light.25)",
   },
   white: {
-    "data-h2-color": "base(dt-gray.light)",
+    "data-h2-color": "base(gray.light)",
     "data-h2-background-color": "base(transparent) base:hover(dt-white.25)",
   },
 };

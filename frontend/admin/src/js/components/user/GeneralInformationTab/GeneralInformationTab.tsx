@@ -65,7 +65,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
     <table data-h2-text-align="base(center)">
       <thead>
         <tr
-          data-h2-background-color="base(dt-gray.dark)"
+          data-h2-background-color="base(gray.dark)"
           data-h2-color="base(dt-white)"
         >
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
@@ -100,7 +100,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
             return (
               <tr key={candidate.id}>
                 <td
-                  data-h2-background-color="base(dt-gray.light)"
+                  data-h2-background-color="base(gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {candidate.pool ? (
@@ -112,7 +112,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                   )}
                 </td>
                 <td
-                  data-h2-background-color="base(dt-gray.light)"
+                  data-h2-background-color="base(gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   {intl.formatMessage(
@@ -127,7 +127,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                 </td>
                 <td
                   data-h2-text-decoration="base(underline)"
-                  data-h2-background-color="base(dt-gray.light)"
+                  data-h2-background-color="base(gray.light)"
                   data-h2-padding="base(x.25, 0)"
                 >
                   <ChangeDateDialog selectedCandidate={candidate} user={user} />

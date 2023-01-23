@@ -76,14 +76,14 @@ const colorMap: Record<
   neutral: {
     solid: {
       /* not very visible - should probably be fixed before using */
-      "data-h2-border": "base(1px solid dt-gray.dark)",
-      "data-h2-background-color": "base(dt-gray.dark)",
+      "data-h2-border": "base(1px solid gray.dark)",
+      "data-h2-background-color": "base(gray.dark)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-gray.dark)",
-      "data-h2-background-color": "base(dt-gray.10)",
-      "data-h2-color": "base(dt-gray.dark)",
+      "data-h2-border": "base(1px solid gray.dark)",
+      "data-h2-background-color": "base(gray.10)",
+      "data-h2-color": "base(gray.dark)",
     },
   },
   error: {

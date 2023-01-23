@@ -12,5 +12,5 @@
 }
 
 .Chip__Dismiss--gray:focus-visible {
-  outline-color: rgba(var(--h2-color-dt-gray), 1);
+  outline-color: rgba(var(--h2-color-gray), 1);
 }

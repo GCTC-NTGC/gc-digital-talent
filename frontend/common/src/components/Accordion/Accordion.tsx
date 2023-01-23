@@ -157,7 +157,7 @@ const Content = React.forwardRef<
   >
     <div data-h2-padding="base(0, x1, x1, x2.5)">
       <hr
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-height="base(1px)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"

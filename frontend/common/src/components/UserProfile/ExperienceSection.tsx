@@ -172,7 +172,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
     </Tabs.Root>
   ) : (
     <div
-      data-h2-background-color="base(dt-gray.light)"
+      data-h2-background-color="base(gray.light)"
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >

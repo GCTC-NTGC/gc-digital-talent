@@ -67,7 +67,7 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
   };
 
   const disabledColor: Record<string, unknown> = !isFormActive
-    ? { "data-h2-color": "base(dt-gray.dark)" }
+    ? { "data-h2-color": "base(gray.dark)" }
     : {};
 
   return (

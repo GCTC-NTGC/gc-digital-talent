@@ -112,7 +112,7 @@ const ResultsDisplay = ({
       data-h2-shadow="base(m)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border-left="base(x1 solid dt-gray.dark)"
+      data-h2-border-left="base(x1 solid gray.dark)"
     >
       <p>
         {intl.formatMessage({
@@ -265,7 +265,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
         <hr
           data-h2-margin="base(x3, 0, 0, 0)"
           data-h2-height="base(1px)"
-          data-h2-background-color="base(dt-gray)"
+          data-h2-background-color="base(gray)"
           data-h2-border="base(none)"
         />
         <div>

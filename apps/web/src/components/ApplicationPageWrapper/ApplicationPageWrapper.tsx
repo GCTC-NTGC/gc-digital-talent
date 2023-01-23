@@ -79,14 +79,14 @@ const ApplicationPageWrapper = ({
             data-h2-justify-content="base(space-between)"
             data-h2-margin="base(0, 0, x.5, 0) p-tablet(x.5, 0)"
             {...(showNav && {
-              "data-h2-border-bottom": "base(1px solid dt-gray.dark)",
+              "data-h2-border-bottom": "base(1px solid gray.dark)",
               "data-h2-padding": "base(0, 0, x.5, 0)",
             })}
           >
             <div>
               {subtitle && (
                 <h2
-                  data-h2-color="base(dt-gray.dark)"
+                  data-h2-color="base(gray.dark)"
                   data-h2-font-size="base(h5, 1)"
                 >
                   {subtitle}

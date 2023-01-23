@@ -229,7 +229,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         armedForcesStatus === null && (
           <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
-              <p data-h2-color="base(dt-gray.dark)">
+              <p data-h2-color="base(gray.dark)">
                 {intl.formatMessage({
                   defaultMessage: "You haven't added any information here yet.",
                   id: "SCCX7B",

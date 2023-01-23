@@ -126,7 +126,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                data-h2-background-color="base(dt-gray.50)"
+                data-h2-background-color="base(gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
                 decorative
@@ -147,7 +147,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                   />
                   {index + 1 !== technicalEssentialSkills?.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
@@ -171,7 +171,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                data-h2-background-color="base(dt-gray.50)"
+                data-h2-background-color="base(gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
                 decorative
@@ -192,7 +192,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                   />
                   {index + 1 !== technicalNonessentialSkills?.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />

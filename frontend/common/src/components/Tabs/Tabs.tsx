@@ -25,11 +25,11 @@ const Trigger = React.forwardRef<
   <TabsPrimitive.Trigger
     className="Tabs__Trigger"
     data-h2-background-color="base(dt-white)"
-    data-h2-border="base(1px solid dt-gray)"
+    data-h2-border="base(1px solid gray)"
     data-h2-border-top="
-      base(x.5 solid dt-gray)
+      base(x.5 solid gray)
       base:selectors[[data-state='active']](x.5 solid dt-primary)
-      base:hover(x.5 solid dt-gray.dark)"
+      base:hover(x.5 solid gray.dark)"
     data-h2-border-bottom="base:selectors[[data-state='active']](1px solid dt-white)"
     data-h2-cursor="base(pointer)"
     data-h2-padding="base(x.5, x1)"
@@ -49,7 +49,7 @@ const Content = React.forwardRef<
 >((props, forwardedRef) => (
   <TabsPrimitive.Content
     data-h2-background-color="base(dt-white)"
-    data-h2-border="base(1px solid dt-gray)"
+    data-h2-border="base(1px solid gray)"
     data-h2-radius="base(0, s, s, s)"
     data-h2-padding="base(x1, x.75)"
     ref={forwardedRef}

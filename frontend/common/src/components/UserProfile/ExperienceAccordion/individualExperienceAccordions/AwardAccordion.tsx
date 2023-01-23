@@ -50,7 +50,7 @@ export const AwardContent = ({
         {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
       </p>
       <hr
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-height="base(1px)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"
@@ -58,7 +58,7 @@ export const AwardContent = ({
       />
       <SkillList skills={skills} />
       <hr
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-height="base(1px)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"
@@ -125,7 +125,7 @@ const AwardAccordion = ({
         {editUrl && (
           <div>
             <hr
-              data-h2-background-color="base(dt-gray)"
+              data-h2-background-color="base(gray)"
               data-h2-height="base(1px)"
               data-h2-width="base(100%)"
               data-h2-border="base(none)"

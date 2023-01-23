@@ -129,7 +129,7 @@ const PublishDialog = ({
               data-h2-display="base(flex)"
               data-h2-width="base(100%)"
               data-h2-gap="base(.5rem)"
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
             >
@@ -153,7 +153,7 @@ const PublishDialog = ({
                   data-h2-display="base(flex)"
                   data-h2-width="base(100%)"
                   data-h2-gap="base(.5rem)"
-                  data-h2-background-color="base(dt-gray.light)"
+                  data-h2-background-color="base(gray.light)"
                   data-h2-padding="base(x.5)"
                   data-h2-radius="base(s)"
                 >

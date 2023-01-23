@@ -212,7 +212,7 @@ const SkillPicker = ({
                   />
                   {index + 1 !== filteredSkills.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
@@ -226,7 +226,7 @@ const SkillPicker = ({
                 data-h2-margin="base(x2, 0)"
                 data-h2-text-align="base(center)"
                 data-h2-font-style="base(italic)"
-                data-h2-color="base(dt-gray)"
+                data-h2-color="base(gray)"
               >
                 {intl.formatMessage({
                   defaultMessage: "No skills found.",

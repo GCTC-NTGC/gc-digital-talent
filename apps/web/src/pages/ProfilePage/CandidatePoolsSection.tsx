@@ -14,7 +14,7 @@ const CandidatePoolsSection: React.FunctionComponent<{
   return (
     <Well>
       {(!poolCandidates || poolCandidates.length === 0) && (
-        <p data-h2-color="base(dt-gray.dark)">
+        <p data-h2-color="base(gray.dark)">
           {intl.formatMessage({
             defaultMessage:
               "You have not been accepted into any hiring pools yet.",

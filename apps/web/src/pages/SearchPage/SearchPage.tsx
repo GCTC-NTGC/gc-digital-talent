@@ -18,7 +18,7 @@ const SearchPage = () => {
           description: "Page title for the search page",
         })}
       />
-      <section data-h2-background-color="base(dt-gray.15)">
+      <section data-h2-background-color="base(gray.15)">
         <SearchHeading />
         <SearchContainer />
       </section>
