@@ -153,7 +153,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           )}
           <CommunityOption
             value="firstNations"
-            on={!!(currentTab === "firstNations")}
+            {...(isSmallScreen && {
+              on: currentTab === "firstNations",
+            })}
           >
             <CommunityCheckbox
               id="communityFirstNations"
@@ -168,7 +170,12 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="inuk" on={!!(currentTab === "inuk")}>
+          <CommunityOption
+            value="inuk"
+            {...(isSmallScreen && {
+              on: currentTab === "inuk",
+            })}
+          >
             <CommunityCheckbox
               id="communityInuk"
               name="communities"
@@ -181,7 +188,12 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="metis" on={!!(currentTab === "metis")}>
+          <CommunityOption
+            value="metis"
+            {...(isSmallScreen && {
+              on: currentTab === "metis",
+            })}
+          >
             <CommunityCheckbox
               id="communityMetis"
               name="communities"
@@ -194,7 +206,12 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
               })}
             />
           </CommunityOption>
-          <CommunityOption value="other" on={!!(currentTab === "other")}>
+          <CommunityOption
+            value="other"
+            {...(isSmallScreen && {
+              on: currentTab === "other",
+            })}
+          >
             <CommunityCheckbox
               id="communityOther"
               name="communities"

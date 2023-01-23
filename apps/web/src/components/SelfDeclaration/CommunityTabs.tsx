@@ -36,7 +36,7 @@ const CommunityTabTrigger = ({
 interface CommunityTabContentProps {
   value: string;
   children: React.ReactNode;
-  on: boolean;
+  on?: boolean;
 }
 
 const CommunityTabContent = ({
