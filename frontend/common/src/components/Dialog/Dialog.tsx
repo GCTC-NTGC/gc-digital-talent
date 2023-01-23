@@ -144,7 +144,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(white)",
   },
   "ia-secondary": {
-    "data-h2-background": "base(ia-secondary)",
+    "data-h2-background": "base(secondary)",
     "data-h2-color": "base(white)",
   },
 };

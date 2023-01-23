@@ -145,7 +145,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x15)"
                       data-h2-width="base(x15)"
-                      data-h2-background-color="base(ia-secondary)"
+                      data-h2-background-color="base(secondary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(auto, auto, -x3, -x5.5)"
@@ -337,7 +337,7 @@ const Home: React.FunctionComponent = () => {
                     className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
-                    data-h2-color="base(ia-secondary)"
+                    data-h2-color="base(secondary)"
                     data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
                   <div
@@ -474,7 +474,7 @@ const Home: React.FunctionComponent = () => {
               <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
                 <div
                   data-h2-height="base(100%)"
-                  data-h2-background-color="base(ia-secondary.light)"
+                  data-h2-background-color="base(secondary.light)"
                   data-h2-padding="base(x2) p-tablet(x3)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
@@ -516,7 +516,7 @@ const Home: React.FunctionComponent = () => {
       </div>
       {/* Coming soon section */}
       <div
-        data-h2-background-color="base(ia-secondary)"
+        data-h2-background-color="base(secondary)"
         data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
         data-h2-position="base(relative)"
       >
@@ -788,11 +788,11 @@ const Home: React.FunctionComponent = () => {
                 <Triangle
                   className=""
                   data-h2-width="base(100%)"
-                  data-h2-color="base(light.ia-secondary)"
+                  data-h2-color="base(light.secondary)"
                 />
               </div>
               <div
-                data-h2-background-color="base(ia-secondary.light)"
+                data-h2-background-color="base(secondary.light)"
                 data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
                 data-h2-position="base(relative)"
                 data-h2-text-align="base(center) p-tablet(left)"
