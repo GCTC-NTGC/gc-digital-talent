@@ -24,14 +24,16 @@ import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
-import { EquityDialogProps, IndigenousDialogProps } from "../types";
+import { IndigenousDialogProps } from "../types";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;
 }
 
-type formCommunity = "firstNations" | "inuk" | "metis" | "other";
+// constrained list of community form values to avoid typos
+type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
 
+// small wrapper to send value of confirmation checkbox to CommunityList conditional
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const { watch } = useFormContext();
 
@@ -42,7 +44,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
 };
 interface FormValues {
   isIndigenous: boolean;
-  communities: Array<formCommunity>;
+  communities: Array<FormCommunity>;
   isStatusFirstNations: "yes" | "no" | null;
 }
 
@@ -51,31 +53,36 @@ function apiValuesToFormValues(
 ): FormValues {
   const isIndigenous = communities.length > 0;
 
-  const firstNationsCommunity: formCommunity[] =
+  const firstNationsCommunity: FormCommunity[] =
     communities.includes(IndigenousCommunity.StatusFirstNations) ||
     communities.includes(IndigenousCommunity.NonStatusFirstNations)
       ? ["firstNations"]
       : [];
-  const isStatusFirstNations = communities.includes(
-    IndigenousCommunity.StatusFirstNations,
-  )
-    ? "yes"
-    : "no";
-  const inukCommunity: formCommunity[] = communities.includes(
+
+  let isStatusFirstNations: FormValues["isStatusFirstNations"];
+  if (communities.includes(IndigenousCommunity.StatusFirstNations))
+    isStatusFirstNations = "yes";
+  else if (communities.includes(IndigenousCommunity.NonStatusFirstNations))
+    isStatusFirstNations = "no";
+  else isStatusFirstNations = null;
+
+  const inukCommunity: FormCommunity[] = communities.includes(
     IndigenousCommunity.Inuit,
   )
     ? ["inuk"]
     : [];
-  const metisCommunity: formCommunity[] = communities.includes(
+  const metisCommunity: FormCommunity[] = communities.includes(
     IndigenousCommunity.Metis,
   )
     ? ["metis"]
     : [];
-  const otherCommunity: formCommunity[] = communities.includes(
+  const otherCommunity: FormCommunity[] = communities.includes(
     IndigenousCommunity.Other,
   )
     ? ["other"]
     : [];
+
+  // assemble object from pre-computed values
   return {
     isIndigenous,
     communities: [
@@ -88,6 +95,37 @@ function apiValuesToFormValues(
   };
 }
 
+function formValuesToApiValues(
+  formValues: FormValues,
+): Array<IndigenousCommunity> {
+  if (!formValues.isIndigenous) return [];
+
+  const apiValues = [
+    ...(formValues.communities.includes("firstNations") &&
+    formValues.isStatusFirstNations === "yes"
+      ? [IndigenousCommunity.StatusFirstNations]
+      : []),
+
+    ...(formValues.communities.includes("firstNations") &&
+    formValues.isStatusFirstNations === "no"
+      ? [IndigenousCommunity.NonStatusFirstNations]
+      : []),
+
+    ...(formValues.communities.includes("inuk")
+      ? [IndigenousCommunity.Inuit]
+      : []),
+
+    ...(formValues.communities.includes("metis")
+      ? [IndigenousCommunity.Metis]
+      : []),
+
+    ...(formValues.communities.includes("other")
+      ? [IndigenousCommunity.Other]
+      : []),
+  ];
+  return apiValues;
+}
+
 const IndigenousDialog = ({
   indigenousCommunities,
   onSave,
@@ -97,18 +135,10 @@ const IndigenousDialog = ({
   const methods = useForm<FormValues>({
     defaultValues: apiValuesToFormValues(indigenousCommunities),
   });
-  const { handleSubmit, watch } = methods;
-
-  // Callback version of watch.  It's your responsibility to unsubscribe when done.
-  React.useEffect(() => {
-    const subscription = watch((value, { name, type }) =>
-      console.log(value, name, type),
-    );
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    // onSave(data.isIndigenous);
+    onSave(formValuesToApiValues(data));
   };
 
   const labels = getSelfDeclarationLabels(intl);

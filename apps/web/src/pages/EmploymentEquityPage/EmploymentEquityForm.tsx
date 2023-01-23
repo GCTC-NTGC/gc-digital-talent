@@ -33,7 +33,10 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
     ? paths.reviewApplication(application.id)
     : paths.profile(user.id);
 
-  const handleUpdate = (key: EquityKeys, value: boolean) => {
+  const handleUpdate = (
+    key: EquityKeys,
+    value: boolean | Array<IndigenousCommunity>,
+  ) => {
     return onUpdate(user.id, {
       [key]: value,
     });
@@ -186,6 +189,10 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         hasDisability={user.hasDisability}
         onAdd={(key: EquityKeys) => handleUpdate(key, true)}
         onRemove={(key: EquityKeys) => handleUpdate(key, false)}
+        onUpdate={(
+          key: EquityKeys,
+          value: boolean | Array<IndigenousCommunity>,
+        ) => handleUpdate(key, value)}
       />
       <ProfileFormFooter
         mode="cancelButton"
