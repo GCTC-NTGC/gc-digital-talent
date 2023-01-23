@@ -37,7 +37,7 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   },
   warning: {
     "data-h2-background-color":
-      "base(transparent) base:hover(warning.lightest) base:focus-visible(warning.light)",
+      "base(transparent) base:hover(warning.lightest) base:focus-visible(tm-yellow.light)",
     "data-h2-color":
       "base:(inherit) base:hover(warning.darker)  base:focus-visible(black)",
   },

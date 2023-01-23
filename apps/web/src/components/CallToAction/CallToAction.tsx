@@ -22,9 +22,9 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   job: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-yellow) base:children[div:first-child]:hover(tm-yellow.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base(white) base:children[div:first-child](quaternary) base:children[div:first-child]:hover(quaternary.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-yellow) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+      "base:children[div:first-child](3px solid quaternary) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color": "base:children[*](black)",
   },
   profile: {

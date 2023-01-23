@@ -34,7 +34,7 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
 
 export const iconStyles: Record<Color, Record<string, string>> = {
   yellow: {
-    "data-h2-color": "base:children[svg](tm-yellow)",
+    "data-h2-color": "base:children[svg](quaternary)",
   },
   blue: {
     "data-h2-color": "base:children[svg](secondary)",

@@ -167,22 +167,22 @@ export const colorMap: Record<
   yellow: {
     solid: {
       "data-h2-background-color":
-        "base(tm-yellow) base:hover(tm-yellow.lighter) base:focus-visible(focus) base:active(transparent)",
+        "base(quaternary) base:hover(quaternary.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(3px solid tm-yellow) base:focus-visible(3px solid focus)",
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(3px solid tm-yellow) base:focus-visible(3px solid focus)",
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
-        "base(tm-yellow.lighter) base:hover(tm-yellow) base:focus-visible(focus) base:active(transparent)",
+        "base(quaternary.lighter) base:hover(quaternary) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tm-yellow)",
+      "data-h2-color": "base(quaternary)",
     },
     tableHeader: {},
   },

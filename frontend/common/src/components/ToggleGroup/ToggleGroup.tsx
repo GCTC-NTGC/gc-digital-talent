@@ -59,7 +59,7 @@ const colorMap: Record<Color, Record<string, string>> = {
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   yellow: {
-    "data-h2-background-color": "base(tm-yellow)",
+    "data-h2-background-color": "base(quaternary)",
     "data-h2-color":
       "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
