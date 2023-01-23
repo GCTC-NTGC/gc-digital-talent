@@ -3,7 +3,6 @@
 namespace App\Notify;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\NotFutureDateException;
