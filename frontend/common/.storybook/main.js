@@ -23,7 +23,6 @@ const reactIntlTransformRule = {
 
 module.exports = {
   "staticDirs": [
-    { from: '../../talentsearch/src', to: '/talent' },
     { from: '../../admin/src', to: '/admin' },
     // Note: Temporary until all apps are merged
     { from: '../../../apps/web/src', to: '/indigenousapprenticeship' }

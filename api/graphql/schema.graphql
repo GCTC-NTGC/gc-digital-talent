@@ -50,6 +50,8 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -207,6 +209,8 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -851,6 +855,8 @@ type Query {
               "first_name"
               "email"
               "preferred_lang"
+              "preferred_language_for_interview"
+              "preferred_language_for_exam"
               "current_city"
             ]
           }
@@ -951,6 +957,8 @@ input CreateUserInput {
     )
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1020,6 +1028,8 @@ input UpdateUserAsAdminInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1085,6 +1095,8 @@ input UpdateUserAsUserInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
+  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus

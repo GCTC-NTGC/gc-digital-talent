@@ -87,13 +87,13 @@ constrain them to a subset of test suite.
 Examples:
 
 ```
-# Equivalent to matching specs with `cypress/integration/**/*secrets*.spec.js`
-#   - cypress/integration/talentsearch/foo.secrets.spec.js
-#   - cypress/integration/admin/bar.secrets.spec.js
+# Equivalent to matching specs with `apps/e2e/integration/**/*secrets*.spec.js`
+#   - apps/e2e/integration/talentsearch/foo.secrets.spec.js
+#   - apps/e2e/integration/admin/bar.secrets.spec.js
 TEST_FILTER=secrets npm run e2e:run:all
 
-# Equivalent to matching spec with `cypress/integration/**/*static-pages*.spec.js`
-#   - cypress/integration/talentsearch/static-pages.spec.js
+# Equivalent to matching spec with `apps/e2e/integration/**/*static-pages*.spec.js`
+#   - apps/e2e/integration/talentsearch/static-pages.spec.js
 TEST_FILTER=static-pages npm run e2e:run:all
 ```
 
