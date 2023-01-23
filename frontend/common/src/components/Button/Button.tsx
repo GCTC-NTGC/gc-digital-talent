@@ -211,22 +211,22 @@ export const colorMap: Record<
   red: {
     solid: {
       "data-h2-background-color":
-        "base(tm-red) base:hover(tm-red.lighter) base:focus-visible(focus) base:active(transparent)",
+        "base(tertiary) base:hover(tertiary.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
-        "base(3px solid tm-red) base:focus-visible(3px solid focus)",
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
     },
     outline: {
       "data-h2-border":
-        "base(3px solid tm-red) base:focus-visible(3px solid focus)",
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
       "data-h2-background-color":
-        "base(tm-red.lighter) base:hover(tm-red) base:focus-visible(focus) base:active(transparent)",
+        "base(tertiary.lighter) base:hover(tertiary) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
     },
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tm-red)",
+      "data-h2-color": "base(tertiary)",
     },
     tableHeader: {},
   },

@@ -31,8 +31,8 @@ export const closeButtonStyles: Record<TypeOptions, Record<string, string>> = {
   },
   error: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-red.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(tertiary.lightest) base:focus-visible(tm-yellow.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-red.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(tertiary.darker)  base:focus-visible(black)",
   },
 };

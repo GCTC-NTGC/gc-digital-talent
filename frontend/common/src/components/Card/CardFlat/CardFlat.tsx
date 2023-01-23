@@ -23,7 +23,7 @@ const colorMap: Record<CardColor, Record<string, string>> = {
     "data-h2-border-left": "base(x.25 solid tm-yellow)",
   },
   red: {
-    "data-h2-border-left": "base(x.25 solid tm-red)",
+    "data-h2-border-left": "base(x.25 solid tertiary)",
   },
   blue: {
     "data-h2-border-left": "base(x.25 solid secondary)",

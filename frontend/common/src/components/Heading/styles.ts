@@ -40,7 +40,7 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[svg](secondary)",
   },
   red: {
-    "data-h2-color": "base:children[svg](tm-red)",
+    "data-h2-color": "base:children[svg](tertiary)",
   },
   purple: {
     "data-h2-color": "base:children[svg](primary)",

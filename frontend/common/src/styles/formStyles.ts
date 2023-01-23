@@ -10,8 +10,8 @@ export const fieldStateStyles: Record<FieldState, Record<string, string>> = {
     "data-h2-outline": "base(none)",
   },
   invalid: {
-    "data-h2-border": "base(2px solid tm-red.dark)",
-    "data-h2-background-color": "base(tm-red.lightest)",
+    "data-h2-border": "base(2px solid tertiary.dark)",
+    "data-h2-background-color": "base(tertiary.lightest)",
   },
   dirty: {
     "data-h2-border": "base(2px solid secondary.dark)",

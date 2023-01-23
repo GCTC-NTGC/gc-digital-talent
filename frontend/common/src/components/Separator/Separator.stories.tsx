@@ -39,7 +39,7 @@ const Template: ComponentStory<typeof Separator> = () => (
       <Separator
         decorative
         orientation="vertical"
-        data-h2-background-color="base(tm-red.50)"
+        data-h2-background-color="base(tertiary.50)"
         data-h2-margin="base(0, x.5)"
       />
       <p>Vertical</p>

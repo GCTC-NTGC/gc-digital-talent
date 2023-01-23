@@ -29,7 +29,7 @@
   }
 
   .Alert.Alert--error .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-red-lightest), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-tertiary-lightest), 1);
   }
 }
 
