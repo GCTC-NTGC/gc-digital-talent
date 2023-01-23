@@ -60,7 +60,7 @@ export const decorators = [
   withThemeProvider,
   withRouter,
   (Story) => (
-    <div data-h2-font-family="base(sans)">
+    <div data-h2-color="base(black)" data-h2-background="base(background)" data-h2-font-family="base(sans)">
       <Story />
     </div>
   ),

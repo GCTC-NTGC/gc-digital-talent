@@ -11,7 +11,6 @@
     "frontend/common/src/components",
     "frontend/common/src/styles",
     "frontend/admin/src/js/components",
-    "frontend/talentsearch/src/js/components",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
@@ -81,6 +80,10 @@
           "default": {
             "color": "#1E1E23",
             "modifiers": []
+          },
+          "dark": {
+            "color": "#FFFFFF",
+            "modifiers": []
           }
         },
         {
@@ -95,12 +98,16 @@
           "default": {
             "color": "#FFFFFF",
             "modifiers": []
+          },
+          "dark": {
+            "color": "#1E1E23",
+            "modifiers": []
           }
         },
         {
           "key": "primary",
           "default": {
-            "color": "#27C9BC",
+            "color": "#9747FF",
             "modifiers": [
               {
                 "key": "hero",
@@ -112,7 +119,7 @@
         {
           "key": "secondary",
           "default": {
-            "color": "#9747FF",
+            "color": "#27C9BC",
             "modifiers": []
           }
         },
@@ -141,6 +148,28 @@
           "key": "focus",
           "default": {
             "color": "#6492ff",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "foreground",
+          "default": {
+            "color": "#FFFFFF",
+            "modifiers": []
+          },
+          "dark": {
+            "color": "#2a2b38",
+            "modifiers": []
+          }
+        },
+        {
+          "key": "background",
+          "default": {
+            "color": "#f4f8ff",
+            "modifiers": []
+          },
+          "dark": {
+            "color": "#212130",
             "modifiers": []
           }
         },
