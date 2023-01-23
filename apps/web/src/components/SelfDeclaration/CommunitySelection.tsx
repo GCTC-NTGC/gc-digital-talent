@@ -19,11 +19,12 @@ import {
   hasCommunityAndOther,
 } from "./utils";
 
-interface CommunitySelectionProps {
+interface CommunityListProps {
   labels: FieldLabels;
+  show?: boolean;
 }
 
-const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
+export const CommunityList = ({ labels }: CommunityListProps) => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
@@ -34,11 +35,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
 
   const communityLabels = getCommunityLabels(intl);
 
-  const [isIndigenousValue, communitiesValue] = watch([
-    "isIndigenous",
-    "communities",
-  ]);
-  const isIndigenous = isIndigenousValue === "yes";
+  const [communitiesValue] = watch(["communities"]);
   const isFirstNations = partOfCommunity("firstNations", communitiesValue);
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
@@ -59,11 +56,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
     );
     setValue("communities", newCommunities);
   };
-
-  // Show disclaimer is user is not Indigenous
-  if (!isIndigenous) {
-    return null;
-  }
 
   const CommunityOptionsWrapper = isSmallScreen ? Tabs.Root : "div";
   const CommunityOption = isSmallScreen ? CommunityTabs.Content : "div";
@@ -320,6 +312,21 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
       </div>
     </>
   );
+};
+
+interface CommunitySelectionProps {
+  labels: FieldLabels;
+}
+
+const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
+  const { watch } = useFormContext();
+
+  const [isIndigenousValue] = watch(["isIndigenous"]);
+  const isIndigenous = isIndigenousValue === "yes";
+
+  return isIndigenous ? (
+    <CommunityList labels={labels} show={isIndigenous} />
+  ) : null;
 };
 
 export default CommunitySelection;
