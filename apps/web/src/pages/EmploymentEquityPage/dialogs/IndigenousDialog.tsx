@@ -33,7 +33,7 @@ interface CommunitySelectionProps {
 // constrained list of community form values to avoid typos
 type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
 
-// small wrapper to send value of confirmation checkbox to CommunityList conditional
+// small wrapper to take value of confirmation checkbox and make CommunityList conditional
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const { watch } = useFormContext();
 
@@ -49,48 +49,35 @@ interface FormValues {
 }
 
 function apiValuesToFormValues(
-  communities: Array<IndigenousCommunity>,
+  apiCommunities: Array<IndigenousCommunity>,
 ): FormValues {
-  const isIndigenous = communities.length > 0;
+  // array of form communities that will be built and returned
+  const formCommunities: Array<FormCommunity> = [];
 
-  const firstNationsCommunity: FormCommunity[] =
-    communities.includes(IndigenousCommunity.StatusFirstNations) ||
-    communities.includes(IndigenousCommunity.NonStatusFirstNations)
-      ? ["firstNations"]
-      : [];
+  if (
+    apiCommunities.includes(IndigenousCommunity.StatusFirstNations) ||
+    apiCommunities.includes(IndigenousCommunity.NonStatusFirstNations)
+  )
+    formCommunities.push("firstNations");
+  if (apiCommunities.includes(IndigenousCommunity.Inuit))
+    formCommunities.push("inuk");
+  if (apiCommunities.includes(IndigenousCommunity.Metis))
+    formCommunities.push("metis");
+  if (apiCommunities.includes(IndigenousCommunity.Other))
+    formCommunities.push("other");
 
+  // Figure out if isStatusFirstNations should be yes/no/null
   let isStatusFirstNations: FormValues["isStatusFirstNations"];
-  if (communities.includes(IndigenousCommunity.StatusFirstNations))
+  if (apiCommunities.includes(IndigenousCommunity.StatusFirstNations))
     isStatusFirstNations = "yes";
-  else if (communities.includes(IndigenousCommunity.NonStatusFirstNations))
+  else if (apiCommunities.includes(IndigenousCommunity.NonStatusFirstNations))
     isStatusFirstNations = "no";
   else isStatusFirstNations = null;
 
-  const inukCommunity: FormCommunity[] = communities.includes(
-    IndigenousCommunity.Inuit,
-  )
-    ? ["inuk"]
-    : [];
-  const metisCommunity: FormCommunity[] = communities.includes(
-    IndigenousCommunity.Metis,
-  )
-    ? ["metis"]
-    : [];
-  const otherCommunity: FormCommunity[] = communities.includes(
-    IndigenousCommunity.Other,
-  )
-    ? ["other"]
-    : [];
-
   // assemble object from pre-computed values
   return {
-    isIndigenous,
-    communities: [
-      ...firstNationsCommunity,
-      ...inukCommunity,
-      ...metisCommunity,
-      ...otherCommunity,
-    ],
+    isIndigenous: apiCommunities.length > 0,
+    communities: formCommunities,
     isStatusFirstNations,
   };
 }
@@ -98,32 +85,30 @@ function apiValuesToFormValues(
 function formValuesToApiValues(
   formValues: FormValues,
 ): Array<IndigenousCommunity> {
+  // short-circuit if isIndigenous is not checked
   if (!formValues.isIndigenous) return [];
 
-  const apiValues = [
-    ...(formValues.communities.includes("firstNations") &&
+  // array of API communities that will be built and returned
+  const apiCommunities: Array<IndigenousCommunity> = [];
+
+  if (
+    formValues.communities.includes("firstNations") &&
     formValues.isStatusFirstNations === "yes"
-      ? [IndigenousCommunity.StatusFirstNations]
-      : []),
-
-    ...(formValues.communities.includes("firstNations") &&
+  )
+    apiCommunities.push(IndigenousCommunity.StatusFirstNations);
+  if (
+    formValues.communities.includes("firstNations") &&
     formValues.isStatusFirstNations === "no"
-      ? [IndigenousCommunity.NonStatusFirstNations]
-      : []),
+  )
+    apiCommunities.push(IndigenousCommunity.NonStatusFirstNations);
+  if (formValues.communities.includes("inuk"))
+    apiCommunities.push(IndigenousCommunity.Inuit);
+  if (formValues.communities.includes("metis"))
+    apiCommunities.push(IndigenousCommunity.Metis);
+  if (formValues.communities.includes("other"))
+    apiCommunities.push(IndigenousCommunity.Other);
 
-    ...(formValues.communities.includes("inuk")
-      ? [IndigenousCommunity.Inuit]
-      : []),
-
-    ...(formValues.communities.includes("metis")
-      ? [IndigenousCommunity.Metis]
-      : []),
-
-    ...(formValues.communities.includes("other")
-      ? [IndigenousCommunity.Other]
-      : []),
-  ];
-  return apiValues;
+  return apiCommunities;
 }
 
 const IndigenousDialog = ({
