@@ -14,7 +14,7 @@ const VerificationDialog = ({ children, btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="ia-secondary" mode="inline" {...btnProps}>
+        <Button color="ia-primary" mode="inline" {...btnProps}>
           {children}
         </Button>
       </Dialog.Trigger>
