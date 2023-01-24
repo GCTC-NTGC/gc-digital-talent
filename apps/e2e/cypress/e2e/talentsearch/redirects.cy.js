@@ -31,21 +31,36 @@ describe("Redirects", () => {
 });
 
 describe("Verify search page redirect", () => {
-const oldUrl = "/en/talent/search";
-const newUrl = "http://localhost:8000/en/search";
+const oldEnglishUrl = "/en/talent/search";
+const newEnglishUrl = "http://localhost:8000/en/search";
 
-it("redirects /en/talent/search", () => {
-  cy.visit(oldUrl);
-  cy.url().should("eq", newUrl);
+const oldFrenchUrl = "/fr/talent/search";
+const newFrenchUrl = "http://localhost:8000/fr/search";
+
+
+it("redirects to proper url", () => {
+  cy.visit(oldEnglishUrl);
+  cy.url().should("eq", newEnglishUrl);
+  cy.visit(oldFrenchUrl);
+  cy.url().should("eq", newFrenchUrl);
 });
-it(" v301 redirect", () => {
+
+it("gives 301 response code while redirect", () => {
   cy.request({
-    url: oldUrl,
+    url: oldEnglishUrl,
     followRedirect: false, // turn off following redirects
   }).then((resp) => {
     // redirect status code is 301
     expect(resp.status).to.eq(301);
-    expect(resp.redirectedToUrl).to.eq(newUrl);
+    expect(resp.redirectedToUrl).to.eq(newEnglishUrl);
+  });
+  cy.request({
+    url: oldFrenchUrl,
+    followRedirect: false, // turn off following redirects
+  }).then((resp) => {
+    // redirect status code is 301
+    expect(resp.status).to.eq(301);
+    expect(resp.redirectedToUrl).to.eq(newFrenchUrl);
   });
 });
 

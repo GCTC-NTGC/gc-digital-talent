@@ -33,9 +33,14 @@ server {
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
 
     # permanent redirect within the same domain with relative path
-    absolute_redirect off;
-    location = /en/talent/search { return 301 /en/search; }
-    location = /fr/talent/search { return 301 /fr/search; }
+    location = /en/talent/search {
+        absolute_redirect off;
+        return 301 /en/search;
+    }
+    location = /fr/talent/search {
+        absolute_redirect off;
+        return 301 /fr/search;
+    }
     # local auth
     location ^~ /oxauth {
         proxy_pass "http://mock-auth:8080";
