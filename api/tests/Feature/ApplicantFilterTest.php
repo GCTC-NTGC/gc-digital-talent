@@ -15,7 +15,7 @@ use Database\Seeders\PoolSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 
@@ -23,13 +23,13 @@ class ApplicantFilterTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
