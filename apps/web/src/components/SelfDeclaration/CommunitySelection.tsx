@@ -8,6 +8,7 @@ import { Alert } from "@common/components";
 import Tabs from "@common/components/Tabs/Tabs";
 import Chip, { Chips } from "@common/components/Chip";
 import errorMessages from "@common/messages/errorMessages";
+import commonMessages from "@common/messages/commonMessages";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 
 import HelpLink from "./HelpLink";
@@ -18,6 +19,7 @@ import {
   getCommunityLabels,
   hasCommunityAndOther,
 } from "./utils";
+import CommunityError from "./CommunityError";
 
 interface CommunityListProps {
   labels: FieldLabels;
@@ -74,16 +76,30 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           data-h2-margin="base(x1, 0)"
         >
           <span
+            data-h2-align-items="base(center)"
+            data-h2-display="base(flex)"
             data-h2-font-weight="base(700)"
             data-h2-font-size="base(h6)"
+            data-h2-gap="base(x.5 0)"
             data-h2-margin="base(x.25, 0)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Select your Community(ies):",
-              id: "zSH7Hx",
-              description:
-                "Legend for the checkbox group for selecting Indigenous communities",
-            })}
+            <span>
+              {intl.formatMessage({
+                defaultMessage: "Select your Community(ies):",
+                id: "zSH7Hx",
+                description:
+                  "Legend for the checkbox group for selecting Indigenous communities",
+              })}
+            </span>
+            <span
+              data-h2-font-size="base(caption)"
+              data-h2-color="base(dt-error.dark)"
+              data-h2-display="base(inline-block)"
+              data-h2-font-weight="base(400)"
+              data-h2-margin="base(0, 0, 0, x.125)"
+            >
+              ({intl.formatMessage(commonMessages.required)})
+            </span>
           </span>
           <span data-h2-font-style="base(italic)">
             {intl.formatMessage({
@@ -168,6 +184,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 description:
                   "Label text for First Nations community declaration",
               })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </CommunityOption>
           <CommunityOption
@@ -186,6 +205,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 id: "vDb+O+",
                 description: "Label text for Inuk community declaration",
               })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </CommunityOption>
           <CommunityOption
@@ -204,6 +226,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 id: "/81xCT",
                 description: "Label text for Métis community declaration",
               })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </CommunityOption>
           <CommunityOption
@@ -223,9 +248,13 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 description:
                   "Label text for not represented community declaration",
               })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </CommunityOption>
         </CommunityOptionsWrapper>
+        <CommunityError />
       </fieldset>
       {isFirstNations && (
         <RadioGroup

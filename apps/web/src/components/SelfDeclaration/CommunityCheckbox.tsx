@@ -65,14 +65,6 @@ const CommunityCheckbox = ({
             {label}
           </span>
         </span>
-        {error && (
-          <div
-            data-h2-display="base(block)"
-            data-h2-margin="base(x.125, 0, 0, 0)"
-          >
-            <InputError isVisible={!!error} error={error} />
-          </div>
-        )}
       </span>
     </label>
   );
