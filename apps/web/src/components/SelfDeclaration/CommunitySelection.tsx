@@ -273,8 +273,8 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "The Program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada. At a later step of the application process, you may be asked to provide proof that you are Indigenous. You can read more about how this will be verified below.",
-              id: "Cn9LYM",
+                "The program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada. At a later step of the application process, you may be asked to provide proof that you are Indigenous. You can read more about how this will be verified below.",
+              id: "Ap86I/",
               description:
                 "Text explaining the program and the possibility of needing to provide proof.",
             })}

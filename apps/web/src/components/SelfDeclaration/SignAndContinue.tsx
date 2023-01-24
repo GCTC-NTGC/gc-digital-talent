@@ -71,8 +71,8 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "This Program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
-              id: "qwJkEy",
+                "This program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
+              id: "v0EVPQ",
               description:
                 "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
             })}

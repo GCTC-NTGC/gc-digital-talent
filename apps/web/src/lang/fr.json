@@ -367,8 +367,8 @@
       "defaultMessage": "Statut des membres des Premières Nations",
       "description": "label for the First Nations status self-declaration input"
     },
-    "//J5ti": {
-      "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone, mais j’aimerais bénéficier d’autres occasions »",
+    "BwEf/S": {
+      "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
       "description": "Text for the option to self-declare as not an Indigenous person"
     },
     "/81xCT": {
@@ -407,7 +407,7 @@
       "defaultMessage": "Signer et continuer",
       "description": "Button text to submit the Indigenous self-declaration form."
     },
-    "A4ALhu": {
+    "0rL2ds": {
       "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
       "description": "Text describing the self-declaration form and its importance"
     },
@@ -419,7 +419,7 @@
       "defaultMessage": "Métis",
       "description": "Trigger text for Métis tab"
     },
-    "Cn9LYM": {
+    "Ap86I/": {
       "defaultMessage": " Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
       "description": "Text explaining the program and the possibility of needing to provide proof."
     },
@@ -439,8 +439,8 @@
       "defaultMessage": "Métis",
       "description": "Label for Métis community"
     },
-    "Md1Pj4": {
-      "defaultMessage": "Autochtone selon la définition de ce programme :",
+    "UOeiIa": {
+      "defaultMessage": "Autochtone selon la définition de ce programme",
       "description": "Heading for the definition of Indigenous dialog"
     },
     "NxmuI4": {
@@ -495,12 +495,12 @@
       "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
       "description": "Paragraph three for the self-declaration explanation dialog"
     },
-    "qwJkEy": {
+    "v0EVPQ": {
       "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
       "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
     },
     "r6L5aI": {
-      "defaultMessage": "« Auto-déclaration »",
+      "defaultMessage": "Auto-déclaration",
       "description": "label for the Indigenous self-declaration input"
     },
     "reUbO2": {

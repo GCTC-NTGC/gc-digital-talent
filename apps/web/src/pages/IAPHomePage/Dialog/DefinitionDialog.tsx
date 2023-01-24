@@ -21,8 +21,8 @@ const DefinitionDialog = ({ children, btnProps }: BasicDialogProps) => {
       <Dialog.Content>
         <Dialog.Header color="ia-primary">
           {intl.formatMessage({
-            defaultMessage: "Indigenous as defined for this program:",
-            id: "Md1Pj4",
+            defaultMessage: "Indigenous as defined for this program",
+            id: "UOeiIa",
             description: "Heading for the definition of Indigenous dialog",
           })}
         </Dialog.Header>

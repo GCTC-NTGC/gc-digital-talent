@@ -73,8 +73,8 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
           >
             {intl.formatMessage({
               defaultMessage:
-                "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada, and are interested in joining the Program!",
-              id: "A4ALhu",
+                "We recognize the importance of Indigenous voices in the federal government. The program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada, and are interested in joining the Program!",
+              id: "0rL2ds",
               description:
                 "Text describing the self-declaration form and its importance",
             })}
@@ -104,8 +104,8 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
               value: "no",
               label: intl.formatMessage({
                 defaultMessage:
-                  '"I am not a member of an Indigenous group, and I would like to see other opportunities available to me"',
-                id: "//J5ti",
+                  '"I am not a member of an Indigenous group and I would like to see other opportunities available to me"',
+                id: "BwEf/S",
                 description:
                   "Text for the option to self-declare as not an Indigenous person",
               }),
