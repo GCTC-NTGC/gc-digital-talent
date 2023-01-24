@@ -12,6 +12,24 @@ const colorMap: Record<Color, Record<string, string>> = {
   secondary: {
     "data-h2-border-left": "base(.5rem solid secondary)",
   },
+  tertiary: {
+    "data-h2-border-left": "base(.5rem solid tertiary)",
+  },
+  quaternary: {
+    "data-h2-border-left": "base(.5rem solid quaternary)",
+  },
+  quinary: {
+    "data-h2-border-left": "base(.5rem solid quinary)",
+  },
+  success: {
+    "data-h2-border-left": "base(.5rem solid success)",
+  },
+  warning: {
+    "data-h2-border-left": "base(.5rem solid warning)",
+  },
+  error: {
+    "data-h2-border-left": "base(.5rem solid error)",
+  },
   cta: {
     "data-h2-border-left": "base(.5rem solid tertiary.dark)",
   },

@@ -186,7 +186,7 @@
         {
           "key": "warning",
           "default": {
-            "color": "#9747FF",
+            "color": "#ffc747",
             "modifiers": []
           }
         },

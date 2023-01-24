@@ -3,6 +3,12 @@ import React from "react";
 export type Color =
   | "primary"
   | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
+  | "success"
+  | "warning"
+  | "error"
   | "cta"
   | "white"
   | "black"
@@ -32,38 +38,53 @@ export const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "base(1px solid primary)",
-      "data-h2-background-color": "base(primary) base:hover(primary.dark)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid primary.light) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid primary)",
-      "data-h2-background-color": "base(primary.10)",
-      "data-h2-color": "base(primary)",
+      "data-h2-background-color":
+        "base(primary.30) base:hover(primary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid primary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color":
-        "base(transparent) base:focus-visible(primary.light.15)",
-      "data-h2-color": "base(primary) base:focus-visible(primary.dark)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(primary.dark) base:hover(primary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(1px solid secondary.light)",
-      "data-h2-background-color": "base(secondary.light)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(secondary) base:hover(secondary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid secondary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid secondary.light)",
-      "data-h2-background-color": "base(secondary.light.10)",
-      "data-h2-color": "base(secondary.light)",
+      "data-h2-background-color":
+        "base(secondary.30) base:hover(secondary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid secondary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(secondary.light)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(secondary.dark) base:hover(secondary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {
       "data-h2-border": "base(none)",
@@ -74,181 +95,394 @@ export const colorMap: Record<
       "data-h2-text-align": "base(left)",
     },
   },
-  cta: {
+  tertiary: {
     solid: {
-      "data-h2-border": "base(1px solid tertiary.dark)",
-      "data-h2-background-color": "base(tertiary.dark)",
+      "data-h2-background-color":
+        "base(tertiary) base:hover(tertiary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid tertiary.dark)",
-      "data-h2-background-color": "base(tertiary.light.10)",
-      "data-h2-color": "base(tertiary.dark)",
+      "data-h2-background-color":
+        "base(tertiary.30) base:hover(tertiary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tertiary.dark)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(tertiary.dark) base:hover(tertiary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
-  white: {
+  quaternary: {
     solid: {
-      "data-h2-border": "base(1px solid white)",
-      "data-h2-background-color": "base(white)",
-      "data-h2-color": "base(primary)",
+      "data-h2-background-color":
+        "base(quaternary) base:hover(quaternary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid white)",
-      "data-h2-background-color": "base(white.10)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(quaternary.30) base:hover(quaternary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(quaternary.dark) base:hover(quaternary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  quinary: {
+    solid: {
+      "data-h2-background-color":
+        "base(quinary) base:hover(quinary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quinary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(quinary.30) base:hover(quinary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quinary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(quinary.dark) base:hover(quinary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  success: {
+    solid: {
+      "data-h2-background-color":
+        "base(success.light) base:hover(success.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid success.light) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(success.30) base:hover(success.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid success) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(success.dark) base:hover(success.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  warning: {
+    solid: {
+      "data-h2-background-color":
+        "base(warning) base:hover(warning.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid warning) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(warning.30) base:hover(warning.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid warning) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(warning.dark) base:hover(warning.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  error: {
+    solid: {
+      "data-h2-background-color":
+        "base(error.light) base:hover(error.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid error.light) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(error.30) base:hover(error.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid error) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(error.dark) base:hover(error.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   black: {
     solid: {
-      "data-h2-border": "base(1px solid black)",
-      "data-h2-background-color": "base(black)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(black) base:hover(black.light) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid black) base:focus-visible(3px solid focus)",
+      "data-h2-color":
+        "base(white) base:active(black) base:focus-visible(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid black)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(black)",
+      "data-h2-background-color":
+        "base(black.30) base:hover(black.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid black) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base:active(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(black)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(black.dark) base:hover(black.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  white: {
+    solid: {
+      "data-h2-background-color":
+        "base(white) base:hover(white.dark) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid white) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black) base:active(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(white.30) base:hover(white.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid white) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(white) base:hover(white.dark) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   "ia-primary": {
     solid: {
-      "data-h2-border": "base(1px solid primary)",
-      "data-h2-background-color": "base(primary)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid primary.light) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid primary)",
-      "data-h2-background-color": "base(primary.light.10)",
-      "data-h2-color": "base(primary)",
+      "data-h2-background-color":
+        "base(primary.30) base:hover(primary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid primary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(primary)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(primary.dark) base:hover(primary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   "ia-secondary": {
     solid: {
-      "data-h2-border": "base(1px solid secondary)",
-      "data-h2-background-color": "base(secondary)",
-      "data-h2-color": "base(white)",
+      "data-h2-background-color":
+        "base(secondary) base:hover(secondary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid secondary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
-      "data-h2-border": "base(1px solid secondary)",
-      "data-h2-background-color": "base(secondary.light.10)",
-      "data-h2-color": "base(secondary)",
+      "data-h2-background-color":
+        "base(secondary.30) base:hover(secondary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid secondary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(secondary)",
-    },
-    tableHeader: {},
-  },
-  yellow: {
-    solid: {
-      "data-h2-background-color":
-        "base(quaternary) base:hover(quaternary.lighter) base:focus-visible(focus) base:active(transparent)",
-      "data-h2-border":
-        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
-      "data-h2-color": "base(black)",
-    },
-    outline: {
-      "data-h2-border":
-        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
-      "data-h2-background-color":
-        "base(quaternary.lighter) base:hover(quaternary) base:focus-visible(focus) base:active(transparent)",
-      "data-h2-color": "base(black)",
-    },
-    inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(quaternary)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(secondary.dark) base:hover(secondary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   purple: {
     solid: {
       "data-h2-background-color":
-        "base(primary) base:hover(primary.lighter) base:focus-visible(focus) base:active(transparent)",
+        "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid primary.light) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(primary.30) base:hover(primary.50) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(3px solid primary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
-    },
-    outline: {
-      "data-h2-border":
-        "base(3px solid primary) base:focus-visible(3px solid focus)",
-      "data-h2-background-color":
-        "base(primary.lighter) base:hover(primary) base:focus-visible(focus) base:active(transparent)",
-      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(primary)",
-    },
-    tableHeader: {},
-  },
-  red: {
-    solid: {
-      "data-h2-background-color":
-        "base(tertiary) base:hover(tertiary.lighter) base:focus-visible(focus) base:active(transparent)",
-      "data-h2-border":
-        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
-      "data-h2-color": "base(black)",
-    },
-    outline: {
-      "data-h2-border":
-        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
-      "data-h2-background-color":
-        "base(tertiary.lighter) base:hover(tertiary) base:focus-visible(focus) base:active(transparent)",
-      "data-h2-color": "base(black)",
-    },
-    inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tertiary)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(primary.dark) base:hover(primary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
   blue: {
     solid: {
       "data-h2-background-color":
-        "base(secondary) base:hover(secondary.lighter) base:focus-visible(focus) base:active(transparent)",
+        "base(secondary) base:hover(secondary.lightest) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(3px solid secondary) base:focus-visible(3px solid focus)",
       "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     outline: {
+      "data-h2-background-color":
+        "base(secondary.30) base:hover(secondary.50) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(3px solid secondary) base:focus-visible(3px solid focus)",
-      "data-h2-background-color":
-        "base(secondary.lighter) base:hover(secondary) base:focus-visible(focus) base:active(transparent)",
       "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
     },
     inline: {
-      "data-h2-border": "base(1px solid transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(secondary)",
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(secondary.dark) base:hover(secondary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  red: {
+    solid: {
+      "data-h2-background-color":
+        "base(tertiary) base:hover(tertiary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(tertiary.30) base:hover(tertiary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(tertiary.dark) base:hover(tertiary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  yellow: {
+    solid: {
+      "data-h2-background-color":
+        "base(quaternary) base:hover(quaternary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(quaternary.30) base:hover(quaternary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid quaternary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(quaternary.dark) base:hover(quaternary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
+    },
+    tableHeader: {},
+  },
+  cta: {
+    solid: {
+      "data-h2-background-color":
+        "base(tertiary) base:hover(tertiary.lightest) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    outline: {
+      "data-h2-background-color":
+        "base(tertiary.30) base:hover(tertiary.50) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(3px solid tertiary) base:focus-visible(3px solid focus)",
+      "data-h2-color": "base(black)",
+      "data-h2-font-weight": "base(700)",
+    },
+    inline: {
+      "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
+      "data-h2-border": "base(3px solid transparent)",
+      "data-h2-color":
+        "base(tertiary.dark) base:hover(tertiary.light) base:focus-visible(white)",
+      "data-h2-font-weight": "base(700)",
     },
     tableHeader: {},
   },
