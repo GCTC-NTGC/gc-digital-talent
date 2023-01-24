@@ -25,10 +25,7 @@ interface EquityOptionsProps {
   isDisabled: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
-  onUpdate: (
-    key: EquityKeys,
-    value: boolean | Array<IndigenousCommunity>,
-  ) => UserMutationPromise;
+  onUpdate: (key: EquityKeys, value: unknown) => UserMutationPromise;
 }
 
 const resolveMaybe = (value: Maybe<boolean>): boolean => !!value;
@@ -57,17 +54,17 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
 
   const hasItems =
     resolvedDisability ||
-    resolvedIndigenousCommunities.length > 0 ||
+    resolvedIndigenousCommunities.length ||
     resolvedMinority ||
     resolvedWoman;
 
   const itemsAvailable =
     !resolvedDisability ||
-    resolvedIndigenousCommunities.length === 0 ||
+    !resolvedIndigenousCommunities.length ||
     !resolvedMinority ||
     !resolvedWoman;
 
-  const handleBooleanSave = (key: EquityKeys, value: boolean) => {
+  const handleOptionSave = (key: EquityKeys, value: boolean) => {
     const handler = value ? onAdd : onRemove;
     handler(key)
       .then(() => {
@@ -78,10 +75,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
       });
   };
 
-  const handleIndigenousSave = (
-    key: EquityKeys,
-    value: Array<IndigenousCommunity>,
-  ) => {
+  const handleArraySave = <T,>(key: EquityKeys, value: Array<T>) => {
     const handler = onUpdate;
     handler(key, value)
       .then(() => {
@@ -120,19 +114,19 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="woman"
                   isAdded={resolvedWoman}
                   onSave={(newValue) => {
-                    handleBooleanSave("isWoman", newValue);
+                    handleOptionSave("isWoman", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityStatement("woman"),
                   )}
                 />
               )}
-              {resolvedIndigenousCommunities.length > 0 && (
+              {resolvedIndigenousCommunities.length && (
                 <IndigenousEquityOption
                   option="indigenous"
                   indigenousCommunities={resolvedIndigenousCommunities}
                   onSave={(newValue) => {
-                    handleIndigenousSave("indigenousCommunities", newValue);
+                    handleArraySave("indigenousCommunities", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityStatement("indigenous"),
@@ -144,7 +138,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="minority"
                   isAdded={resolvedMinority}
                   onSave={(newValue) => {
-                    handleBooleanSave("isVisibleMinority", newValue);
+                    handleOptionSave("isVisibleMinority", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityStatement("minority"),
@@ -156,7 +150,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="disability"
                   isAdded={resolvedDisability}
                   onSave={(newValue) => {
-                    handleBooleanSave("hasDisability", newValue);
+                    handleOptionSave("hasDisability", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityStatement("disability"),
@@ -200,17 +194,17 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="woman"
                   isAdded={resolvedWoman}
                   onSave={(newValue) => {
-                    handleBooleanSave("isWoman", newValue);
+                    handleOptionSave("isWoman", newValue);
                   }}
                   title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
                 />
               )}
-              {resolvedIndigenousCommunities.length === 0 && (
+              {!resolvedIndigenousCommunities.length && (
                 <IndigenousEquityOption
                   option="indigenous"
                   indigenousCommunities={resolvedIndigenousCommunities}
                   onSave={(newValue) => {
-                    handleIndigenousSave("indigenousCommunities", newValue);
+                    handleArraySave("indigenousCommunities", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityGroup("indigenous"),
@@ -222,7 +216,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="minority"
                   isAdded={resolvedMinority}
                   onSave={(newValue) => {
-                    handleBooleanSave("isVisibleMinority", newValue);
+                    handleOptionSave("isVisibleMinority", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityGroup("minority"),
@@ -234,7 +228,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   option="disability"
                   isAdded={resolvedDisability}
                   onSave={(newValue) => {
-                    handleBooleanSave("hasDisability", newValue);
+                    handleOptionSave("hasDisability", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityGroup("disability"),
