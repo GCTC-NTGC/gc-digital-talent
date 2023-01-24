@@ -236,7 +236,10 @@ const defaultState = {
       hasDiploma: undefined,
       languageAbility: undefined,
     },
-    poolCandidateStatus: [],
+    poolCandidateStatus: [
+      PoolCandidateStatus.PlacedCasual,
+      PoolCandidateStatus.QualifiedAvailable,
+    ],
     priorityWeight: [],
   },
 };
