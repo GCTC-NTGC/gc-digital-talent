@@ -258,12 +258,13 @@ const PoolCandidatesTable: React.FC<{
         ...defaultState.filters,
         applicantFilter: {
           ...defaultState.filters.applicantFilter,
-          pools: initialFilterInput?.applicantFilter?.pools,
+          ...initialFilterInput?.applicantFilter,
         },
       },
     }),
     [initialFilterInput],
   );
+
   const [tableState, setTableState] = useTableState<
     Data,
     PoolCandidateSearchInput
