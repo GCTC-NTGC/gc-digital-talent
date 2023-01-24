@@ -73,7 +73,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-text-align="base(center)"
+          data-h2-justify-content="base(center)"
           data-h2-margin="base(x1, 0)"
+          data-h2-width="base(100%)"
         >
           <span
             data-h2-align-items="base(center)"
