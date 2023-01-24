@@ -236,10 +236,7 @@ const defaultState = {
       hasDiploma: undefined,
       languageAbility: undefined,
     },
-    poolCandidateStatus: [
-      PoolCandidateStatus.PlacedCasual,
-      PoolCandidateStatus.QualifiedAvailable,
-    ],
+    poolCandidateStatus: [],
     priorityWeight: [],
   },
 };
@@ -263,6 +260,7 @@ const PoolCandidatesTable: React.FC<{
           ...defaultState.filters.applicantFilter,
           ...initialFilterInput?.applicantFilter,
         },
+        poolCandidateStatus: initialFilterInput?.poolCandidateStatus,
       },
     }),
     [initialFilterInput],
