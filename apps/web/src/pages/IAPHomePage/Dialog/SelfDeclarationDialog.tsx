@@ -30,7 +30,7 @@ const SelfDeclarationDialog = ({ children, btnProps }: BasicDialogProps) => {
           {intl.formatMessage({
             defaultMessage:
               "We recognize the importance of Indigenous voices in the federal government. The goal of the IT Apprenticeship Program for Indigenous Peoples is to amplify Indigenous voices by creating opportunities for First Nations, Inuit, and Métis peoples to join the federal public service.",
-            id: "dafWEO",
+            id: "J2uivT",
             description:
               "Paragraph one for the self-declaration explanation dialog",
           })}
