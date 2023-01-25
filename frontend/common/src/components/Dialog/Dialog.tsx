@@ -69,7 +69,6 @@ const Content = React.forwardRef<
     <DialogPrimitive.Portal container={container}>
       <StyledOverlay>
         <StyledContent ref={forwardedRef} {...props}>
-          {children}
           <StyledClose>
             <button
               type="button"
@@ -91,6 +90,7 @@ const Content = React.forwardRef<
               <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
             </button>
           </StyledClose>
+          {children}
         </StyledContent>
       </StyledOverlay>
     </DialogPrimitive.Portal>

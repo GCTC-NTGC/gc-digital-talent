@@ -46,6 +46,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
 
   return (
     <div
+      data-h2-color="base(inherit)"
       data-h2-display="base(flex)"
       data-h2-flex-wrap="base(wrap)"
       data-h2-align-items="base(center)"
