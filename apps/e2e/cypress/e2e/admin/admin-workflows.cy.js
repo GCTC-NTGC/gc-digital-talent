@@ -103,7 +103,7 @@ describe("Admin Workflow Tests", () => {
     // show hidden telephone column
     cy.findByRole("button", { name: /Columns/i }).click();
     cy.findByRole("checkbox", { name: /Telephone/i }).click();
-    cy.findByRole("button", { ariaLabel: /Close dialog/i }).type('{esc}');
+    cy.findByRole("dialog", { ariaLabel: /table columns/i }).type('{esc}');
 
     // check that the expected new phone number shows
     cy.findByRole("table")
