@@ -845,8 +845,8 @@
     "defaultMessage": "Renseignements personnels",
     "description": "Title for Personal Information section of the About Me form"
   },
-  "87nFC8": {
-    "defaultMessage": "Il y a deux types d'employés du TI-04 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+  "rifhMf": {
+    "defaultMessage": "Il y a deux types d'employés du {ITAbbr} : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-04 description precursor"
   },
   "8NJbCH": {
@@ -1189,8 +1189,8 @@
     "defaultMessage": "Connexion à l'aide de la CléGC",
     "description": "Title for the login page for applicant profiles."
   },
-  "Z9Uex5": {
-    "defaultMessage": "Les techniciens (TI-01) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
+  "D39mvO": {
+    "defaultMessage": "Les techniciens ({ITAbbr}) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
     "description": "blurb describing IT-01"
   },
   "ZSAzrR": {
@@ -1281,8 +1281,8 @@
     "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
     "description": "Description blurb for additional information on Experience form"
   },
-  "hCgrxA": {
-    "defaultMessage": "Il y a deux types d'employés du TI-03 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+  "NGoXse": {
+    "defaultMessage": "Il y a deux types d'employés du {ITAbbr} : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
   },
   "hTJgV2": {
@@ -1389,8 +1389,8 @@
     "defaultMessage": "Connectez-vous à la place",
     "description": "Login link text on the registration page."
   },
-  "raFdbB": {
-    "defaultMessage": "Les analystes (TI-02) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la TI se retrouvent dans tous les volets de travail.",
+  "dN/wbc": {
+    "defaultMessage": "Les analystes ({ITAbbr}) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la TI se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
   "rywI3C": {
@@ -1521,20 +1521,20 @@
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
     "description": "Message for the haven't completed bilingual evaluation option"
   },
-  "+bC9lc": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
+  "/qXjCD": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la {ITAbbr} ({IT3Abbr}) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la {ITAbbr} dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la {ITAbbr} se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description, ignore things in <> tags please"
   },
-  "VQWGkh": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+  "cL7NJN": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en {ITAbbr} ({IT4Abbr}) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
-  "m21EOJ": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la TI (TI-04) sont responsables de la gestion du développement et de la prestation des services et des activités de TI par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la TI se trouvent dans tous les volets de travail.",
+  "MpRdnW": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la {ITAbbr} ({IT4Abbr}) sont responsables de la gestion du développement et de la prestation des services et des activités de {ITAbbr} par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la {ITAbbr} se trouvent dans tous les volets de travail.",
     "description": "IT-04 manager path description, ignore things in <> tags please"
   },
   "ofOoFQ": {
@@ -1553,8 +1553,8 @@
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
   },
-  "u+9mg1": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en TI (TI-03) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en TI se trouvent dans tous les volets de travail.",
+  "/HbrEK": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en {ITAbbr} ({IT3Abbr}) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en {ITAbbr} se trouvent dans tous les volets de travail.",
     "description": "IT-03 advisor description, ignore things in <> tags please"
   },
   "GIPciq": {
@@ -2094,7 +2094,7 @@
     "description": "Button text to show a users archived applications."
   },
   "f3Qqop": {
-    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des TI dans l’ensemble du gouvernement.",
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des {ITAbbr} dans l’ensemble du gouvernement.",
     "description": "Description for the Indigenous Apprenticeship Program on home page"
   },
   "fI6Hjf": {
@@ -2222,7 +2222,7 @@
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
   "zNvXSs": {
-    "defaultMessage": "Parcourir les emplois en TI",
+    "defaultMessage": "Parcourir les emplois en {ITAbbr}",
     "description": "Texte du lien pour les emplois en TI dans l’appel à l’action du gouvernement"
   },
   "zmV99R": {
@@ -2285,8 +2285,8 @@
     "defaultMessage": "Modifier l’expérience de travail",
     "description": "Page title for the work experience profile form"
   },
-  "+6QgII": {
-    "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
+  "iyVMFP": {
+    "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les {ITAbbr}, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
   },
   "/vsOxF": {
@@ -2345,8 +2345,8 @@
     "defaultMessage": "Votre candidature à un processus de dotation sera examinée par notre équipe et, si elle correspond à ce que nous cherchons, vous serez invité à une évaluation. Une fois que votre candidature aura été acceptée, des gestionnaires pourront communiquer avec vous pour vous informer des possibilités d’emploi correspondant à vos compétences.",
     "description": "Description of how the application process works, paragraph two"
   },
-  "GZrICV": {
-    "defaultMessage": "Parcourez les offres dans le domaine des TI pour la communauté autochtone",
+  "ZFN3Pw": {
+    "defaultMessage": "Parcourez les offres dans le domaine des {ITAbbr} pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
   },
   "Gil1Zj": {
@@ -2361,16 +2361,16 @@
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
   },
-  "J2WrFI": {
-    "defaultMessage": "Parcourez les offres dans le domaine des TI",
+  "1d6L6F": {
+    "defaultMessage": "Parcourez les offres dans le domaine des {ITAbbr}",
     "description": "Page title for the direct intake browse pools page."
   },
   "Jorewd": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
   },
-  "Ms6O4W": {
-    "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des TI préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
+  "gp0MJE": {
+    "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des {ITAbbr} préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
   },
   "OMDX09": {
@@ -2393,8 +2393,8 @@
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
   },
-  "cYg+l1": {
-    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les peuples autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
+  "pkm9aq": {
+    "defaultMessage": "Vous recherchez des talents en {ITAbbr} de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en {ITAbbr} pour les peuples autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
     "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
   },
   "dIIccA": {
@@ -2701,16 +2701,16 @@
     "defaultMessage": "Vous ne voyez pas de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
     "description": "summary for section with ongoing pool advertisements"
   },
-  "4CT5zI": {
-    "defaultMessage": "Solutions logicielles de la TI",
+  "pXsciB": {
+    "defaultMessage": "Solutions logicielles de la {ITAbbr}",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "Jwj3YC": {
-    "defaultMessage": "Gestionnaires et conseillers principaux (IT-04)",
+  "+rZ2Up": {
+    "defaultMessage": "Gestionnaires et conseillers principaux ({ITAbbr})",
     "description": "Title for the 'IT-04 Manager' classification"
   },
-  "+ywDV8": {
-    "defaultMessage": "Analyste (IT-02)",
+  "QJoH72": {
+    "defaultMessage": "Analyste ({ITAbbr})",
     "description": "Title for the 'IT-02 Analyst' classification"
   },
   "7KJGSu": {
@@ -2725,28 +2725,28 @@
     "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.",
     "description": "Title for the 'database management' IT work stream"
   },
-  "C2iUvf": {
-    "defaultMessage": "Architecture intégrée de la TI",
+  "tdsoIT": {
+    "defaultMessage": "Architecture intégrée de la {ITAbbr}",
     "description": "Title for the 'enterprise architecture' IT work stream"
   },
-  "DVkO+D": {
-    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture TI du ministère, la collaboration avec d’autres volets de TI et la recherche sur les technologies émergentes.",
+  "FoOzQv": {
+    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture {ITAbbr} du ministère, la collaboration avec d’autres volets de {ITAbbr} et la recherche sur les technologies émergentes.",
     "description": "Title for the 'enterprise architecture' IT work stream"
   },
-  "EOO6S0": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
+  "axIm4M": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la {ITAbbr}",
     "description": "Title for the 'business line advisory services' IT work stream"
   },
-  "ElfiAv": {
-    "defaultMessage": "Opérations d’infrastructure de la TI",
+  "xSAPPt": {
+    "defaultMessage": "Opérations d’infrastructure de la {ITAbbr}",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
-  "xtIE4i": {
-    "defaultMessage": "Chefs d’équipe et conseillers techniques (IT-03)",
+  "1igMRH": {
+    "defaultMessage": "Chefs d’équipe et conseillers techniques ({ITAbbr})",
     "description": "Title for the 'IT-03 Advisor' classification"
   },
-  "QN/1MR": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en TI qui soutiennent les opérations du GC.",
+  "nsAH33": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de {ITAbbr}, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en {ITAbbr} qui soutiennent les opérations du GC.",
     "description": "Title for the 'business line advisory services' IT work stream"
   },
   "RBsGRp": {
@@ -2757,28 +2757,28 @@
     "defaultMessage": "Les techniciens fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-01 Technician' classification"
   },
-  "MiBPoz": {
-    "defaultMessage": "Technicien (IT-01)",
+  "rWYsog": {
+    "defaultMessage": "Technicien ({ITAbbr})",
     "description": "Title for the 'IT-01 Technician' classification"
   },
-  "VX2+ET": {
-    "defaultMessage": "Planification et établissement de rapports en matière de TI",
+  "LmeRka": {
+    "defaultMessage": "Planification et établissement de rapports en matière de {ITAbbr}",
     "description": "Title for the 'planning and reporting' IT work stream"
   },
-  "aL5y0G": {
-    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
+  "f+xr/+": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la {ITAbbr}",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
   },
-  "crqgGQ": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la TI et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la TI et des processus de gouvernance.",
+  "/i2eFT": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la {ITAbbr} et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la {ITAbbr} et des processus de gouvernance.",
     "description": "Title for the 'planning and reporting' IT work stream"
   },
-  "h5CY+u": {
-    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
+  "P8ogp5": {
+    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la {ITAbbr}.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
   "Jdo3br": {
@@ -2797,8 +2797,8 @@
     "defaultMessage": "Présenter sa candidature pour les opportunités gestionnaires et conseillers<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-04 Manager' classification"
   },
-  "pffFnd": {
-    "defaultMessage": "Gestion de bases de données de la TI",
+  "Nqgm6+": {
+    "defaultMessage": "Gestion de bases de données de la {ITAbbr}",
     "description": "Title for the 'database management' IT work stream"
   },
   "86rJAg": {
@@ -2809,16 +2809,16 @@
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
   },
-  "svCFrY": {
-    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la TI et les relations avec les clients et fournisseurs.",
+  "/9MwUw": {
+    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la {ITAbbr} et les relations avec les clients et fournisseurs.",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
-  "uxlNWH": {
-    "defaultMessage": "Sécurité de la TI",
+  "P3tJYN": {
+    "defaultMessage": "Sécurité de la {ITAbbr}",
     "description": "Title for the 'security' IT work stream"
   },
-  "d4OJ5V": {
-    "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de TI par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
+  "dMcx7X": {
+    "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de {ITAbbr} par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
   },
   "tDetPq": {
@@ -2880,5 +2880,17 @@
   "LFYdXR": {
     "defaultMessage": "Recommandé selon vos compétences",
     "description": "Tip that your skills match this section well and so it is recommended"
+  },
+  "nLW9zq": {
+    "defaultMessage": "Technologie de l’information"
+  },
+  "AoDRut": {
+    "defaultMessage": "TI"
+  },
+  "6svHxg": {
+    "defaultMessage": "Services administratifs"
+  },
+  "L2u3Qn": {
+    "defaultMessage": "SA"
   }
 }
