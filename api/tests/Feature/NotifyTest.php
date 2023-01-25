@@ -4,9 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Facades\Notify;
-use App\Exceptions\ApiKeyNotFoundException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class NotifyTest extends TestCase
 {
