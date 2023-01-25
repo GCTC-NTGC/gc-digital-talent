@@ -5,7 +5,7 @@
 
 version: 2
 env:
-  CHROMATIC_PROJECT_TOKEN : ${{ ${{ secrets.CHROMATIC_PROJECT_TOKEN }} }}
+  CHROMATIC_PROJECT_TOKEN : ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 updates:
   # JAVASCRIPT package.json updates
 
