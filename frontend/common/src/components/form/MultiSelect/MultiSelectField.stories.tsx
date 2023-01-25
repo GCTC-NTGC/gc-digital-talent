@@ -4,11 +4,11 @@ import uniqueId from "lodash/uniqueId";
 import React from "react";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import MultiSelectFieldV2 from "./MultiSelectFieldV2";
+import MultiSelectField from "./MultiSelectField";
 
 export default {
-  component: MultiSelectFieldV2,
-  title: "Form/MultiSelectFieldV2",
+  component: MultiSelectField,
+  title: "Form/MultiSelectField",
   decorators: [
     (Story) => {
       return (
@@ -23,10 +23,10 @@ export default {
       );
     },
   ],
-} as ComponentMeta<typeof MultiSelectFieldV2>;
+} as ComponentMeta<typeof MultiSelectField>;
 
-const Template: ComponentStory<typeof MultiSelectFieldV2> = (args) => {
-  return <MultiSelectFieldV2 {...args} />;
+const Template: ComponentStory<typeof MultiSelectField> = (args) => {
+  return <MultiSelectField {...args} />;
 };
 
 export const Default = Template.bind({});

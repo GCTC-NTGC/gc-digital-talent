@@ -4,7 +4,7 @@ import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
-import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import "../user/UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -123,7 +123,7 @@ const PoolCandidateTableFilterDialog = ({
         >
           <div data-h2-flex-grid="base(flex-start, x1, x.5)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="pools"
                 label={formatMessage({
                   defaultMessage: "Pools",
@@ -145,7 +145,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="classifications"
                 label={formatMessage({
                   defaultMessage: "Classifications",
@@ -156,7 +156,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="operationalRequirement"
                 label={formatMessage({
                   defaultMessage: "Work Preferences",
@@ -166,7 +166,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="workRegion"
                 label={formatMessage({
                   defaultMessage: "Work Locations",
@@ -187,7 +187,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="equity"
                 label={formatMessage({
                   defaultMessage: "Employment Equity",
@@ -197,7 +197,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="poolCandidateStatus"
                 label={formatMessage({
                   defaultMessage: "Status",
@@ -207,7 +207,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="priorityWeight"
                 label={formatMessage({
                   defaultMessage: "Priority",
@@ -217,7 +217,7 @@ const PoolCandidateTableFilterDialog = ({
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="skills"
                 label={formatMessage({
                   defaultMessage: "Skill Filter",
