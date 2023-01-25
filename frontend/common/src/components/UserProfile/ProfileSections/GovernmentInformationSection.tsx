@@ -5,7 +5,8 @@ import Well from "../../Well";
 import { enumToOptions } from "../../../helpers/formUtils";
 import messages from "../../../messages/commonMessages";
 import { getGovEmployeeType } from "../../../constants/localizedConstants";
-import { getLocale } from "../../../helpers/localize";
+import { getLocale, getLocalizedName } from "../../../helpers/localize";
+import { getClassificationAbbvHtml } from "../../../helpers/nameUtils";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
 const GovernmentInformationSection: React.FunctionComponent<{
@@ -96,8 +97,15 @@ const GovernmentInformationSection: React.FunctionComponent<{
                     })}
                   </span>
                   <span data-h2-font-weight="base(700)">
-                    {applicant.currentClassification?.group}-
-                    {applicant.currentClassification?.level}
+                    {getClassificationAbbvHtml(
+                      intl,
+                      getLocalizedName(
+                        applicant.currentClassification.name,
+                        intl,
+                      ),
+                      applicant.currentClassification.group,
+                      applicant.currentClassification.level,
+                    )}
                   </span>
                 </p>
               </div>

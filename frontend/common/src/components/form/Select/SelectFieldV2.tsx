@@ -16,7 +16,11 @@ import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
-export type Option = { value: string | number; label: string };
+export type Option = {
+  value: string | number;
+  label: string;
+  ariaLabel?: string;
+};
 export type Group<T> = {
   label: string;
   options: Array<T>;

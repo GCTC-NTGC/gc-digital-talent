@@ -2,6 +2,7 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { getClassificationAbbvHtml } from "../../helpers/nameUtils";
 import { notEmpty } from "../../helpers/util";
 import {
   ApplicantFilter,
@@ -18,14 +19,18 @@ import {
   getOperationalRequirement,
   getWorkRegion,
 } from "../../constants/localizedConstants";
-import { getLocale } from "../../helpers/localize";
+import { getLocale, getLocalizedName } from "../../helpers/localize";
 import Chip, { Chips } from "../Chip";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
 
 export interface FilterBlockProps {
   title: string;
-  content?: Maybe<string> | Maybe<string[]>;
+  content?:
+    | Maybe<string>
+    | Maybe<string[]>
+    | Maybe<React.ReactNode>
+    | Maybe<React.ReactNode[]>;
   children?: React.ReactNode;
 }
 
@@ -36,7 +41,15 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 }) => {
   const intl = useIntl();
 
-  const emptyArrayOutput = (input: string | string[] | null | undefined) => {
+  const emptyArrayOutput = (
+    input:
+      | string
+      | string[]
+      | React.ReactNode
+      | React.ReactNode[]
+      | null
+      | undefined,
+  ) => {
     return input && !isEmpty(input) ? (
       <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}
@@ -68,7 +81,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           <span>
             {content instanceof Array && content.length > 0 ? (
               <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
-                {content.map((text): string => text).join(", ")}
+                {content.map((text): string => `${text}`).join(", ")}
               </p>
             ) : (
               <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
@@ -115,17 +128,20 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
 const ApplicantFilters: React.FC<{
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }> = ({ applicantFilter, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
   // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory: string[] | undefined =
-    selectedClassifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+  const classificationsFromBrowserHistory: React.ReactNode[] | undefined =
+    selectedClassifications?.map((classification) =>
+      getClassificationAbbvHtml(
+        intl,
+        getLocalizedName(classification?.name, intl),
+        classification?.group,
+        classification?.level,
+      ),
     );
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
@@ -139,11 +155,13 @@ const ApplicantFilters: React.FC<{
     ) || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
-    .map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+    .map((classification) =>
+      getClassificationAbbvHtml(
+        intl,
+        getLocalizedName(classification?.name, intl),
+        classification?.group,
+        classification?.level,
+      ),
     );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
@@ -381,7 +399,7 @@ const ApplicantFilters: React.FC<{
 
 export interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }
 
 const SearchRequestFilters: React.FunctionComponent<
@@ -405,12 +423,14 @@ const SearchRequestFilters: React.FunctionComponent<
     poolCandidateFilter = filters;
   }
 
-  const classifications: string[] | undefined =
-    poolCandidateFilter?.classifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+  const classifications: React.ReactNode[] | undefined =
+    poolCandidateFilter?.classifications?.map((classification) =>
+      getClassificationAbbvHtml(
+        intl,
+        getLocalizedName(classification?.name, intl),
+        classification?.group,
+        classification?.level,
+      ),
     );
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({

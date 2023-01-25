@@ -6,8 +6,10 @@ import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface Option {
   value: string | number;
-  label: string;
+  label: React.ReactNode;
   disabled?: boolean;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
 }
 
 export interface SelectProps
@@ -24,9 +26,9 @@ export interface SelectProps
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
   context?: string;
-  /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
+  /** Null selection string provides a null value with instructions to user (eg. Select a department...). */
   nullSelection?: string;
-  /** Determine if it should track unsaved changes and render it */
+  /** Determine if it should track unsaved changes and render it. */
   trackUnsaved?: boolean;
 }
 
@@ -49,6 +51,8 @@ const Select: React.FunctionComponent<SelectProps> = ({
   const error = get(errors, name)?.message as FieldError;
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+
+  // console.log(options);
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -80,7 +84,11 @@ const Select: React.FunctionComponent<SelectProps> = ({
             </option>
           )}
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              aria-label={option.ariaLabel}
+              key={option.value}
+              value={option.value}
+            >
               {option.label}
             </option>
           ))}
