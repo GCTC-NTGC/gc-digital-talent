@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Department;
 use Database\Seeders\DepartmentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -13,7 +13,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 class PoolCandidateSearchRequestTest extends TestCase {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     /**
      * Default required fields
@@ -28,7 +28,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
     {
         parent::setUp();
 
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
     }
 
     /**
