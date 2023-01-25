@@ -24,6 +24,7 @@ export const themeKey = {
         title: "IAP",
       },
     ],
+    showName: true,
     dynamicTitle: true,
   },
 };
