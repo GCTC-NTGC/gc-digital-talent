@@ -281,6 +281,10 @@ const transformPoolCandidateFilterToFilterInput = (
     },
     languageAbility: inputFilter?.languageAbility || undefined,
     locationPreferences: inputFilter?.workRegions,
+    poolCandidateStatus: [
+      PoolCandidateStatus.PlacedCasual,
+      PoolCandidateStatus.QualifiedAvailable,
+    ],
   };
 };
 
