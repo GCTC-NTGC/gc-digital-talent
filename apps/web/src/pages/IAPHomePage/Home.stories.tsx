@@ -11,6 +11,7 @@ export default {
     backgrounds: {
       default: "white",
     },
+    themeKey: "iap", // Set the default theme to IAP
   },
 } as Meta;
 

@@ -4,7 +4,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import frCompiled from "../src/lang/frCompiled.json";
 import defaultRichTextElements from "../src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
-import withThemeProvider, { theme } from "./decorators/ThemeDecorator";
+import withThemeProvider, { themeKey, themeMode } from "./decorators/ThemeDecorator";
 import withRouter from "./decorators/RouterDecorator";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
@@ -36,7 +36,8 @@ setIntlConfig({
 })
 
 export const globalTypes = {
-  theme
+  themeMode,
+  themeKey
 }
 
 export const decorators = [

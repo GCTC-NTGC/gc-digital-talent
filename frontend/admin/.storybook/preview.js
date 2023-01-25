@@ -7,7 +7,7 @@ import CommonFrench from "../../common/src/lang";
 import IndigenousFrench from "../../../apps/web/src/lang/frCompiled.json";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
-import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
+import withThemeProvider, { themeKey, themeMode } from "../../common/.storybook/decorators/ThemeDecorator"
 import withRouter  from "../../common/.storybook/decorators/RouterDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
@@ -51,7 +51,8 @@ setIntlConfig({
 })
 
 export const globalTypes = {
-  theme
+  themeKey,
+  themeMode
 }
 
 export const decorators = [

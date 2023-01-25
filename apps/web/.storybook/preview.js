@@ -7,7 +7,8 @@ import {
   MockGraphqlDecorator,
   RouterDecorator,
   ThemeDecorator,
-  theme
+  themeKey,
+  themeMode
 } from "storybook-helpers"
 
 import frCompiled from "../src/lang/frCompiled.json";
@@ -43,7 +44,8 @@ setIntlConfig({
 })
 
 export const globalTypes = {
-  theme
+  themeKey,
+  themeMode
 }
 
 export const decorators = [

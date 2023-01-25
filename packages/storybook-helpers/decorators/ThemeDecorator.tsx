@@ -3,9 +3,33 @@ import type { StoryContext, StoryFn } from "@storybook/react";
 import isChromatic from "chromatic/isChromatic";
 import ThemeProvider from "@common/components/Theme";
 
-export const theme = {
+export const themeKey = {
   name: "Theme",
   description: "Global theme for components",
+  toolbar: {
+    icon: "circlehollow",
+    // Array of plain string values or MenuItem shape (see below)
+    items: [
+      {
+        value: "default",
+        title: "Default",
+      },
+      {
+        value: "admin",
+        title: "Admin",
+      },
+      {
+        value: "iap",
+        title: "IAP",
+      },
+    ],
+    dynamicTitle: true,
+  },
+};
+
+export const themeMode = {
+  name: "Theme Mode",
+  description: "Global theme mode for components",
   defaultValue: "pref",
   toolbar: {
     icon: "circlehollow",
@@ -35,11 +59,12 @@ const FontWrapper = ({ children }: { children: React.ReactNode }) => (
   <div data-h2-color="base(black) base:dark(white)">{children}</div>
 );
 
-const ThemeDecorator = (
+const withThemeProvider = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
 ) => {
-  const theme = globals.theme || parameters.theme;
+  const key = globals.themeKey || parameters.themeKey || "default";
+  const mode = globals.themeMode || parameters.themeMode || "pref";
 
   /**
    * HACK: Since we have only one dark mode story
@@ -47,7 +72,7 @@ const ThemeDecorator = (
    * have more dark mode stories, we should remove
    * The parameter from usage
    */
-  const {hasDarkMode} = parameters;
+  const { hasDarkMode } = parameters;
   const showDark = hasDarkMode && isChromatic();
   const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
 
@@ -55,7 +80,9 @@ const ThemeDecorator = (
     <>
       <div id="override-theme-light" data-h2>
         <ThemeProvider
-          override="light"
+          override={{
+            mode: "light",
+          }}
           themeSelector="#override-theme-light[data-h2]"
         >
           <FontWrapper>
@@ -65,7 +92,9 @@ const ThemeDecorator = (
       </div>
       <div id="override-theme-dark" data-h2>
         <ThemeProvider
-          override="dark"
+          override={{
+            mode: "dark",
+          }}
           themeSelector="#override-theme-dark[data-h2]"
         >
           <FontWrapper>
@@ -75,7 +104,12 @@ const ThemeDecorator = (
       </div>
     </>
   ) : (
-    <ThemeProvider override={theme}>
+    <ThemeProvider
+      override={{
+        key,
+        mode,
+      }}
+    >
       <StoryWrapper>
         <Story />
       </StoryWrapper>
@@ -83,4 +117,4 @@ const ThemeDecorator = (
   );
 };
 
-export default ThemeDecorator;
+export default withThemeProvider;
