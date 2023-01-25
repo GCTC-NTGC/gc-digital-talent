@@ -254,7 +254,10 @@ export const UserTable = () => {
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = transformFormValuesToUserFilterInput(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setTableState({ filters: transformedData });
+    setTableState({
+      filters: transformedData,
+      currentPage: defaultState.currentPage,
+    });
   };
 
   useEffect(() => {
