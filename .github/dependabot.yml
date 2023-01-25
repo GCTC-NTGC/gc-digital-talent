@@ -4,8 +4,6 @@
 # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
-env:
-  CHROMATIC_PROJECT_TOKEN : ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 updates:
   # JAVASCRIPT package.json updates
 
