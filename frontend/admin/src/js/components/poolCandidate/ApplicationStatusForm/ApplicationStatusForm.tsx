@@ -13,7 +13,7 @@ import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { strToFormDate } from "@common/helpers/dateUtils";
 import { commonMessages } from "@common/messages";
 import { emptyToNull } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -193,7 +193,7 @@ export const ApplicationStatusForm = ({
                     "Label for the notes field on the pool candidate application",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitle(
+                  poolName: getFullPoolAdvertisementTitleHtml(
                     intl,
                     application.pool,
                   ),

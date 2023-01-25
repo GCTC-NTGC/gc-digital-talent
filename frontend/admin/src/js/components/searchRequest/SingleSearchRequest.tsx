@@ -8,7 +8,7 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import Heading from "@common/components/Heading/Heading";
 import {
   PoolCandidateSearchRequest,
@@ -33,12 +33,6 @@ const ManagerInfo: React.FunctionComponent<{
     poolCandidateFilter,
     applicantFilter,
   } = searchRequest;
-
-  const nonApplicableMessage = intl.formatMessage({
-    defaultMessage: "N/A",
-    id: "i9AjuX",
-    description: "Text shown when the filter was not selected",
-  });
 
   return (
     <>
@@ -130,14 +124,10 @@ const ManagerInfo: React.FunctionComponent<{
                   content={
                     applicantFilter
                       ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
+                          getFullPoolAdvertisementTitleHtml(intl, pool),
                         )
                       : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
+                          getFullPoolAdvertisementTitleHtml(intl, pool),
                         )
                   }
                 />

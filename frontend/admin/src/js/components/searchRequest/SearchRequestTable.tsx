@@ -5,7 +5,7 @@ import { getLocalizedName } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { PoolCandidateSearchStatus } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   ApplicantFilter,
@@ -61,7 +61,7 @@ function poolsAccessor(
           pool && (
             <React.Fragment key={pool.id}>
               <a href={paths.poolCandidateTable(pool.id)}>
-                {getFullPoolAdvertisementTitle(intl, pool)}
+                {getFullPoolAdvertisementTitleHtml(intl, pool)}
               </a>
               {index > 0 && ", "}
             </React.Fragment>
@@ -82,8 +82,8 @@ export const SearchRequestTable = ({
   const paths = useAdminRoutes();
 
   const localizedTransformPoolToPosterTitle = useCallback(
-    (pool: Parameters<typeof getFullPoolAdvertisementTitle>[1]) =>
-      getFullPoolAdvertisementTitle(intl, pool),
+    (pool: Parameters<typeof getFullPoolAdvertisementTitleHtml>[1]) =>
+      getFullPoolAdvertisementTitleHtml(intl, pool),
     [intl],
   );
 

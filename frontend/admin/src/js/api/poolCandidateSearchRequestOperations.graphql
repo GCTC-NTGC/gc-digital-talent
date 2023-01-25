@@ -43,6 +43,10 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         id
         group
         level
+        name {
+          en
+          fr
+        }
       }
       stream
     }
@@ -92,6 +96,10 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         id
         group
         level
+        name {
+          en
+          fr
+        }
       }
     }
   }

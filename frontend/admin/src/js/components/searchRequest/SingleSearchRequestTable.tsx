@@ -5,9 +5,13 @@ import { identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
-import { getFullNameLabel } from "@common/helpers/nameUtils";
+import {
+  getClassificationAbbvHtml,
+  getFullNameLabel,
+} from "@common/helpers/nameUtils";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
+import { getLocalizedName } from "@common/helpers/localize";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
@@ -109,7 +113,12 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                 color="secondary"
                 mode="outline"
               >
-                {`${classification?.group}-${classification?.level}`}
+                {getClassificationAbbvHtml(
+                  intl,
+                  getLocalizedName(classification?.name, intl),
+                  classification?.group,
+                  classification?.level,
+                )}
               </Pill>
             );
           }),

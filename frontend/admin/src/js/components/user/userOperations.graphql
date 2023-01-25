@@ -54,6 +54,10 @@ query GetViewUserData($id: UUID!) {
           id
           group
           level
+          name {
+            en
+            fr
+          }
         }
         stream
       }
@@ -159,6 +163,10 @@ query GetViewUserData($id: UUID!) {
       id
       group
       level
+      name {
+        en
+        fr
+      }
     }
     advertisementStatus
   }

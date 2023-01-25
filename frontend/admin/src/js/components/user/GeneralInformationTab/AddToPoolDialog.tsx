@@ -7,7 +7,10 @@ import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
 import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+} from "@common/helpers/poolUtils";
 import { Input } from "@common/components/form";
 import MultiSelectV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { commonMessages, errorMessages } from "@common/messages";
@@ -118,7 +121,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolAdvertisementTitle(intl, rejected.pool)}
+                    {getFullPoolAdvertisementTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -149,7 +152,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolAdvertisementTitle(intl, pool),
+        label: getFullPoolAdvertisementTitleLabel(intl, pool),
       };
     });
 

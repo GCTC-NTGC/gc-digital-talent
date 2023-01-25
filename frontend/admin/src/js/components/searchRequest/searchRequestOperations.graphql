@@ -9,6 +9,10 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
       expectedClassifications {
         group
         level
+        name {
+          en
+          fr
+        }
       }
       acceptedOperationalRequirements
       isWoman

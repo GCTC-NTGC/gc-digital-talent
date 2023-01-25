@@ -148,6 +148,10 @@ query getPools {
       id
       group
       level
+      name {
+        en
+        fr
+      }
     }
     advertisementStatus
     stream

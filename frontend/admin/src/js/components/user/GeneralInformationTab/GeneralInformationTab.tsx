@@ -23,7 +23,7 @@ import { Button, Link } from "@common/components";
 import { BasicForm, TextArea } from "@common/components/form";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "../../../adminRoutes";
 import { ChangeDateDialog } from "./ChangeDateDialog";
 import { AddToPoolDialog } from "./AddToPoolDialog";
@@ -105,7 +105,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                 >
                   {candidate.pool ? (
                     <Link href={routes.poolView(candidate.pool.id)}>
-                      {getFullPoolAdvertisementTitle(intl, candidate.pool)}
+                      {getFullPoolAdvertisementTitleHtml(intl, candidate.pool)}
                     </Link>
                   ) : (
                     ""
@@ -399,7 +399,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
+                  poolName: getFullPoolAdvertisementTitleHtml(
+                    intl,
+                    candidate.pool,
+                  ),
                 },
               ),
             );
@@ -415,7 +418,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
+                  poolName: getFullPoolAdvertisementTitleHtml(
+                    intl,
+                    candidate.pool,
+                  ),
                 },
               ),
             );
@@ -457,7 +463,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitle(
+                    })} - ${getFullPoolAdvertisementTitleHtml(
                       intl,
                       candidate.pool,
                     )}`}

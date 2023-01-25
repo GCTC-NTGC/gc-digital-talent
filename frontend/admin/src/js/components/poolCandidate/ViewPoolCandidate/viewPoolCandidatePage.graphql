@@ -19,6 +19,10 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         id
         group
         level
+        name {
+          en
+          fr
+        }
       }
     }
   }
