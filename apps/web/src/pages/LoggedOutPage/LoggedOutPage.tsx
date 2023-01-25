@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Hero from "@common/components/Hero/Hero";
 import TileLink from "@common/components/TileLink";
-import imageUrl from "@common/helpers/imageUrl";
 import AlertDialog from "@common/components/AlertDialog";
 import SEO from "@common/components/SEO/SEO";
 import { Alert, Button, Link } from "@common/components";
@@ -10,6 +10,7 @@ import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
 
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
@@ -23,22 +24,17 @@ const LoggedOutPage: React.FC = () => {
     description: "Title for the page users land on after successful logout.",
   });
 
+  const crumbs = useBreadcrumbs([
+    {
+      label: pageTitle,
+      url: paths.loggedOut(),
+    },
+  ]);
+
   return (
     <>
       <SEO title={pageTitle} />
-      <div
-        data-h2-padding="base(x1, x.5)"
-        data-h2-color="base(dt-white)"
-        data-h2-text-align="base(center)"
-        style={{
-          background: `url(${imageUrl("/", "applicant-profile-banner.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <h1 data-h2-margin="base(x2, 0)">{pageTitle}</h1>
-      </div>
+      <Hero title={pageTitle} crumbs={crumbs} />
       <div
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
         data-h2-margin="base(x3, 0)"

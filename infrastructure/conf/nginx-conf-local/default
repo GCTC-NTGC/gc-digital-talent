@@ -12,6 +12,7 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
+
     #server_name localhost;
 
     # redirect server error pages
@@ -31,6 +32,15 @@ server {
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
 
+    # permanent redirect within the same domain with relative path
+    location = /en/talent/search {
+        absolute_redirect off;
+        return 301 /en/search;
+    }
+    location = /fr/talent/search {
+        absolute_redirect off;
+        return 301 /fr/search;
+    }
     # local auth
     location ^~ /oxauth {
         proxy_pass "http://mock-auth:8080";

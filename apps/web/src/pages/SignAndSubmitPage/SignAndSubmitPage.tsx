@@ -303,23 +303,24 @@ export const SignAndSubmitForm = ({
         })}
         crumbs={[
           {
-            title: intl.formatMessage({
+            label: intl.formatMessage({
               defaultMessage: "My applications",
               id: "kjtiha",
               description: "Breadcrumb for sign and submit page.",
             }),
-            href: paths.allPools(),
+            url: paths.allPools(),
           },
           {
-            title: jobTitle,
-            href: paths.pool(poolAdvertisementId),
+            label: jobTitle,
+            url: paths.pool(poolAdvertisementId),
           },
           {
-            title: intl.formatMessage({
+            label: intl.formatMessage({
               defaultMessage: "Step 2",
               id: "oOR4Rd",
               description: "Breadcrumb for sign and submit page.",
             }),
+            url: paths.signAndSubmit(applicationId),
           },
         ]}
         navigation={{

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import compact from "lodash/compact";
 import omit from "lodash/omit";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import { toast } from "@common/components/Toast";
 import { errorMessages, navigationMessages } from "@common/messages";
@@ -188,25 +187,24 @@ const LanguageInformationForm: React.FunctionComponent<{
   const applicationBreadcrumbs = application
     ? [
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "My Applications",
             id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: paths.applications(application.user.id),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+          url: paths.applications(application.user.id),
         },
         {
-          title: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitle(
             intl,
             application.poolAdvertisement,
           ),
-          href: paths.pool(application.pool.id),
+          url: paths.pool(application.pool.id),
         },
         {
-          href: paths.reviewApplication(application.id),
-          title: intl.formatMessage(navigationMessages.stepOne),
+          label: intl.formatMessage(navigationMessages.stepOne),
+          url: paths.reviewApplication(application.id),
         },
       ]
     : [];
@@ -226,17 +224,15 @@ const LanguageInformationForm: React.FunctionComponent<{
         description:
           "Title for Profile Form wrapper in Language Information Form",
       })}
-      cancelLink={{
-        href: returnRoute,
-      }}
       crumbs={[
         ...applicationBreadcrumbs,
         {
-          title: intl.formatMessage({
+          label: intl.formatMessage({
             defaultMessage: "Language Information",
             id: "/k21MP",
             description: "Display Text for Language Information Form Page Link",
           }),
+          url: paths.languageInformation(initialData.id),
         },
       ]}
       prefixBreadcrumbs={!application}
@@ -249,24 +245,22 @@ const LanguageInformationForm: React.FunctionComponent<{
           defaultValues: dataToFormValues(initialData),
         }}
       >
-        <div data-h2-padding="base(0, 0, x2, 0)">
-          <div
-            data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
-            data-h2-padding="base(x.5, 0)"
-          >
-            <Checklist
-              idPrefix="considered-position-languages"
-              legend={labels.consideredPositionLanguages}
-              name="consideredPositionLanguages"
-              id="consideredPositionLanguages"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              items={ConsideredLangItems}
-            />
-          </div>
-          <ConsideredLanguages labels={labels} />
+        <div
+          data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+          data-h2-padding="base(x.5, 0)"
+        >
+          <Checklist
+            idPrefix="considered-position-languages"
+            legend={labels.consideredPositionLanguages}
+            name="consideredPositionLanguages"
+            id="consideredPositionLanguages"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={ConsideredLangItems}
+          />
         </div>
+        <ConsideredLanguages labels={labels} />
         <ProfileFormFooter
           mode="saveButton"
           cancelLink={{ href: returnRoute }}

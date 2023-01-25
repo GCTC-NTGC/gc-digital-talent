@@ -15,7 +15,6 @@ import MissingSkills from "@common/components/MissingSkills";
 import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
-import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -134,32 +133,33 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   let crumbs = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
         id: "PF2m1d",
         description:
           "Breadcrumb for experience and skills page in applicant profile.",
       }),
+      url: paths.skillsAndExperiences(applicantId),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   if (poolAdvertisement) {
     crumbs = [
       {
-        title: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "My Applications",
           id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
-        href: paths.applications(applicantId),
+        url: paths.applications(applicantId),
       },
       {
-        title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
-        href: paths.pool(poolAdvertisement.id),
+        label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+        url: paths.pool(poolAdvertisement.id),
       },
       {
-        href: paths.reviewApplication(applicantId),
-        title: intl.formatMessage(navigationMessages.stepOne),
+        url: paths.reviewApplication(applicantId),
+        label: intl.formatMessage(navigationMessages.stepOne),
       },
       ...crumbs,
     ];
@@ -186,14 +186,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
-      cancelLink={{
-        href: returnRoute,
-        children: intl.formatMessage(
-          applicationId
-            ? navigationMessages.backToApplication
-            : navigationMessages.backToProfile,
-        ),
-      }}
     >
       {missingSkills && (
         <div data-h2-margin="base(x1, 0)">
@@ -223,9 +215,13 @@ export const ExperienceAndSkills: React.FunctionComponent<
             </p>
           </div>
           <div data-h2-flex-item="base(1of1)">
-            <div data-h2-flex-grid="base(center,x1) p-tablet(center, x.5)">
+            <div
+              data-h2-display="base(block) p-tablet(flex)"
+              data-h2-flex-wrap="base(wrap)"
+              data-h2-gap="base(x.5)"
+            >
               {links.map(({ title, href, icon }) => (
-                <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
+                <div key={title} data-h2-margin-top="base(x.5) p-tablet(0)">
                   <IconLink
                     href={href}
                     type="button"

@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -20,12 +20,12 @@ class PoolApplicationTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
     }
 
     public function testApplicationCreation(): void

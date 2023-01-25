@@ -6,12 +6,14 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
+export const POST_LOGOUT_URI_KEY = "post_logout_uri";
+
 export interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
   idToken: string | null;
-  logout: () => void;
+  logout: (postLogoutUri?: string) => void;
   refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
@@ -38,6 +40,7 @@ export const AuthenticationContext =
 const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
+  postLogoutUri?: string,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -48,6 +51,16 @@ const logoutAndRefreshPage = (
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
+
+  if (postLogoutUri) {
+    if (!postLogoutUri.startsWith("/")) {
+      defaultLogger.warning(
+        `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
+      );
+    } else {
+      sessionStorage.setItem(POST_LOGOUT_URI_KEY, postLogoutUri);
+    }
+  }
 
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
@@ -76,6 +89,10 @@ const refreshTokenSet = async (
   // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
   defaultLogger.notice("Attempting to refresh the auth token set");
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
+  if (refreshToken === null) {
+    return null;
+  }
 
   const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
   if (response.ok) {
@@ -175,7 +192,8 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
       refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
-        ? () => logoutAndRefreshPage(logoutUri, logoutRedirectUri)
+        ? (postLogoutUri) =>
+            logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },
