@@ -4,7 +4,7 @@ use App\Models\User;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -13,12 +13,12 @@ class PoolCandidateSearchTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
