@@ -290,6 +290,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-h2-font-size="base(copy)"
         data-h2-font-weight="base(700)"
         data-h2-transition="base:hover(background, .2s, ease, 0s)"
+        data-h2-cursor="base(pointer)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}

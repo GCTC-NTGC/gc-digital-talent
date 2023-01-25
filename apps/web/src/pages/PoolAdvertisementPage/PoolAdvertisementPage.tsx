@@ -111,7 +111,7 @@ const AlreadyAppliedButton = () => {
 };
 
 const Text = ({ children }: { children: React.ReactNode }) => (
-  <p data-h2-margin="base(x0.5, 0, x.5, 0)">{children}</p>
+  <p data-h2-margin="base(0, 0, x.5, 0)">{children}</p>
 );
 interface IconTitleProps {
   children: React.ReactNode;
@@ -126,7 +126,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-font-size="base(h4, 1)"
-      data-h2-margin="base(x1.5, 0, x.25, 0)"
+      data-h2-margin="base(x2, 0, x1, 0)"
     >
       <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
       <span>{children}</span>
@@ -328,7 +328,7 @@ export const PoolAdvertisementPoster = ({
         </TableOfContents.Navigation>
         <TableOfContents.Content data-h2-padding="base(0, x2, 0, x2) l-tablet(0, x2, 0, 0)">
           <TableOfContents.Section id={sections.about.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
               {sections.about.title}
             </TableOfContents.Heading>
             <Accordion.Root type="single" collapsible>
@@ -415,7 +415,7 @@ export const PoolAdvertisementPoster = ({
             ) : null}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.requiredSkills.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
               {sections.requiredSkills.title}
             </TableOfContents.Heading>
             {essentialSkills[SkillCategory.Technical]?.length ? (
@@ -490,7 +490,7 @@ export const PoolAdvertisementPoster = ({
             ) : null}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.optionalSkills.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
               {sections.optionalSkills.title}
             </TableOfContents.Heading>
             {nonEssentialSkills[SkillCategory.Technical]?.length ? (
@@ -558,7 +558,7 @@ export const PoolAdvertisementPoster = ({
             ) : null}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.requirements.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
               {sections.requirements.title}
             </TableOfContents.Heading>
             <IconTitle icon={LightBulbIcon}>
@@ -629,7 +629,7 @@ export const PoolAdvertisementPoster = ({
               </Card>
               <div
                 data-h2-font-size="base(h4, 1)"
-                data-h2-padding="base(x.5)"
+                data-h2-padding="base(x.5, x1)"
                 data-h2-font-weight="base(700)"
                 data-h2-align-self="base(center)"
                 data-h2-text-transform="base(uppercase)"
@@ -726,7 +726,7 @@ export const PoolAdvertisementPoster = ({
             </ul>
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.details.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
               {sections.details.title}
             </TableOfContents.Heading>
             <IconTitle icon={PhoneIcon}>
@@ -787,7 +787,7 @@ export const PoolAdvertisementPoster = ({
             </Text>
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.apply.id}>
-            <TableOfContents.Heading>
+            <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
               {sections.apply.title}
             </TableOfContents.Heading>
             <Text>

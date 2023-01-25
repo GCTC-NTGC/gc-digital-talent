@@ -44,6 +44,7 @@ nuage
 Nuwave
 OCIO
 Ojibway
+personalisation
 pgsql
 Queueable
 recruitmentimit
