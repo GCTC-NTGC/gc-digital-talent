@@ -27,6 +27,7 @@ import {
   BilingualEvaluation,
   PoolStream,
   PublishingGroup,
+  IndigenousCommunity,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -1563,4 +1564,47 @@ export const getPublishingGroup = (
     publishingGroups,
     publishingGroup,
     `Invalid publishing group '${publishingGroup}'`,
+  );
+
+export const indigenousCommunities = defineMessages({
+  [IndigenousCommunity.StatusFirstNations]: {
+    defaultMessage: "Status First Nations",
+    id: "1Wbu+6",
+    description: "The indigenous community for status First Nations",
+  },
+  [IndigenousCommunity.NonStatusFirstNations]: {
+    defaultMessage: "Non-status First Nations",
+    id: "JamdKo",
+    description: "The indigenous community for non-status First Nations",
+  },
+  [IndigenousCommunity.Inuit]: {
+    defaultMessage: "Inuit",
+    id: "z0JksZ",
+    description: "The indigenous community for Inuit",
+  },
+  [IndigenousCommunity.Metis]: {
+    defaultMessage: "Métis",
+    id: "xaCwEO",
+    description: "The indigenous community for Métis",
+  },
+  [IndigenousCommunity.Other]: {
+    defaultMessage: "Other",
+    id: "SwJAnL",
+    description:
+      "The selection for being part of an indigenous community not already listed",
+  },
+  [IndigenousCommunity.LegacyIsIndigenous]: {
+    defaultMessage: "Legacy Indigenous",
+    id: "q412dy",
+    description: "The indigenous community for the legacy isIndigenous field",
+  },
+});
+
+export const getIndigenousCommunity = (
+  indigenousCommunity: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    indigenousCommunities,
+    indigenousCommunity,
+    `Invalid indigenous community '${indigenousCommunity}'`,
   );

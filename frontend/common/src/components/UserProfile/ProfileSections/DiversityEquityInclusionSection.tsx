@@ -2,21 +2,48 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Well from "../../Well";
-import { getEmploymentEquityStatement } from "../../../constants";
-import { Applicant } from "../../../api/generated";
+import {
+  getEmploymentEquityStatement,
+  getIndigenousCommunity,
+} from "../../../constants";
+import { Applicant, IndigenousCommunity } from "../../../api/generated";
 
 const DiversityEquityInclusionSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    "isWoman" | "hasDisability" | "isIndigenous" | "isVisibleMinority"
+    | "isWoman"
+    | "hasDisability"
+    | "isIndigenous"
+    | "isVisibleMinority"
+    | "indigenousCommunities"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
 
-  const { isWoman, hasDisability, isIndigenous, isVisibleMinority } = applicant;
+  const {
+    isWoman,
+    hasDisability,
+    isIndigenous,
+    isVisibleMinority,
+    indigenousCommunities,
+  } = applicant;
+  const hasLegacyIndigenousCommunity =
+    indigenousCommunities?.length === 1 &&
+    indigenousCommunities[0] === IndigenousCommunity.LegacyIsIndigenous;
+  const nonLegacyIndigenousCommunitySelected =
+    indigenousCommunities &&
+    indigenousCommunities.length > 0 &&
+    !hasLegacyIndigenousCommunity;
+  const legacyIsIndigenous =
+    (isIndigenous || hasLegacyIndigenousCommunity) &&
+    !nonLegacyIndigenousCommunitySelected;
   const anyCriteriaSelected =
-    isWoman || isIndigenous || isVisibleMinority || hasDisability;
+    isWoman ||
+    isIndigenous ||
+    isVisibleMinority ||
+    hasDisability ||
+    nonLegacyIndigenousCommunitySelected;
 
   return (
     <Well>
@@ -68,35 +95,95 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                   "Label preceding what groups the user identifies as part of, followed by a colon",
               })}{" "}
             </p>{" "}
-            <ul
-              data-h2-font-weight="base(700)"
-              data-h2-padding="base(0, 0, 0, x1)"
-            >
-              {isWoman && (
-                <li>
-                  {intl.formatMessage(getEmploymentEquityStatement("woman"))}
-                </li>
-              )}
-              {isIndigenous && (
-                <li>
-                  {intl.formatMessage(
-                    getEmploymentEquityStatement("indigenous"),
-                  )}
-                </li>
-              )}{" "}
-              {isVisibleMinority && (
-                <li>
-                  {intl.formatMessage(getEmploymentEquityStatement("minority"))}
-                </li>
-              )}{" "}
-              {hasDisability && (
-                <li>
-                  {intl.formatMessage(
-                    getEmploymentEquityStatement("disability"),
-                  )}
-                </li>
-              )}
-            </ul>
+            {nonLegacyIndigenousCommunitySelected && (
+              <div data-h2-padding="base(x1, 0, 0, 0)">
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Indigenous Identity:",
+                    id: "GrE0hE",
+                    description:
+                      "Label preceding text explaining whether the user is indigenous, followed by a colon",
+                  })}{" "}
+                  <span data-h2-font-weight="base(700)">
+                    {intl.formatMessage(
+                      getEmploymentEquityStatement("indigenous"),
+                    )}
+                  </span>
+                </p>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "My Community(ies):",
+                    id: "Mw4ShP",
+                    description:
+                      "Label preceding text listing the communities the user is a member of, followed by a colon",
+                  })}{" "}
+                  <span data-h2-font-weight="base(700)">
+                    {indigenousCommunities.map((community, index) => {
+                      if (
+                        !community ||
+                        community === IndigenousCommunity.LegacyIsIndigenous
+                      ) {
+                        return "";
+                      }
+
+                      const text = intl.formatMessage(
+                        getIndigenousCommunity(community),
+                      );
+
+                      if (index === 0) {
+                        return text;
+                      }
+                      return `, ${text}`;
+                    })}
+                  </span>
+                </p>
+              </div>
+            )}
+            {(isWoman ||
+              isVisibleMinority ||
+              hasDisability ||
+              legacyIsIndigenous) && (
+              <ul
+                data-h2-font-weight="base(700)"
+                data-h2-padding="base(x1, 0, 0, x1)"
+              >
+                {isWoman && (
+                  <li>
+                    {intl.formatMessage(getEmploymentEquityStatement("woman"))}
+                  </li>
+                )}
+                {legacyIsIndigenous && (
+                  <li>
+                    {intl.formatMessage(
+                      getEmploymentEquityStatement("indigenous"),
+                    )}
+                  </li>
+                )}{" "}
+                {isVisibleMinority && (
+                  <li>
+                    {intl.formatMessage(
+                      getEmploymentEquityStatement("minority"),
+                    )}
+                  </li>
+                )}{" "}
+                {hasDisability && (
+                  <li>
+                    {intl.formatMessage(
+                      getEmploymentEquityStatement("disability"),
+                    )}
+                  </li>
+                )}
+              </ul>
+            )}
+            <p data-h2-padding="base(x1, 0, 0, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "You have identified as a member of an <underline>employment equity group.</underline><strong> You can add additional <underline>employment equity groups</underline> to your profile by editing this section if they apply to you.</strong>",
+                id: "/Jijcj",
+                description:
+                  "Final paragraph in the employment equity profile section, ignore things in <> please",
+              })}
+            </p>
           </div>
         )}
       </div>
