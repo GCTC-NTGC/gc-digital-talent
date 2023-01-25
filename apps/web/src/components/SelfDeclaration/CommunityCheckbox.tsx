@@ -2,8 +2,6 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import { InputError } from "@common/components/inputPartials";
-
 import { CheckboxProps } from "@common/components/form/Checkbox";
 import CommunityIcon from "./CommunityIcon";
 
