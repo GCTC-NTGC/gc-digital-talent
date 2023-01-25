@@ -5,7 +5,6 @@ import {
   BoltIcon,
   CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
-
 import Heading, { type HeadingLevel } from "@common/components/Heading";
 import Link from "@common/components/Link";
 import Chip, { Chips } from "@common/components/Chip";
@@ -17,32 +16,12 @@ import {
 } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
-import {
-  formatClassificationString,
-  getFullPoolAdvertisementTitle,
-} from "@common/helpers/poolUtils";
-
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { PoolAdvertisement } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
+import { getClassificationAbbvHtml } from "@common/helpers/nameUtils";
 import IconLabel from "./IconLabel";
-
 import "./pool-card.css";
-
-const getClassificationStrings = (pool: PoolAdvertisement) => {
-  if (!pool.classifications) return null;
-
-  return pool.classifications
-    .map((classification) => {
-      if (!classification) return undefined;
-
-      return formatClassificationString({
-        group: classification.group,
-        level: classification.level,
-      });
-    })
-    .filter(notEmpty);
-};
 
 const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
   if (!pool.classifications) return null;
@@ -70,8 +49,19 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const classifications = getClassificationStrings(pool);
-  const classification = classifications?.length ? classifications[0] : null;
+  const { classifications } = pool;
+  const classification = classifications ? classifications[0] : null;
+
+  let classificationAbbr; // type wrangling the complex type into a string
+  if (classification) {
+    const { name, group, level } = classification;
+    classificationAbbr = getClassificationAbbvHtml(
+      intl,
+      getLocalizedName(name, intl),
+      group,
+      level,
+    );
+  }
   const salaryRanges = getSalaryRanges(pool, locale);
   const nullMessage = intl.formatMessage(commonMessages.notAvailable);
 
@@ -103,7 +93,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-font-size="base(h6) l-tablet(h4, 1.2)"
             data-h2-layer="base(2, relative)"
           >
-            {classification || nullMessage}
+            {classificationAbbr || nullMessage}
           </span>
         </div>
       </div>
@@ -122,7 +112,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}
           >
-            {getFullPoolAdvertisementTitle(intl, pool)}
+            {getFullPoolAdvertisementTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-flex-grow="p-tablet(1)"
@@ -231,7 +221,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                     description:
                       "Message on link that say to apply to a recruitment advertisement",
                   },
-                  { name: classifications ? classifications[0] : "" },
+                  {
+                    name: classificationAbbr,
+                  },
                 )}
               </Link>
             </p>

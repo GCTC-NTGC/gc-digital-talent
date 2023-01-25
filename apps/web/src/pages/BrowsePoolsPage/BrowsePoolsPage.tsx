@@ -11,6 +11,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import useTheme from "@common/hooks/useTheme";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { AuthenticationContext } from "@common/components/Auth";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 import {
   AdvertisementStatus,
   PublishingGroup,
@@ -50,11 +51,14 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   const paths = useRoutes();
   const featureFlags = useFeatureFlags();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Browse IT jobs",
-    id: "J2WrFI",
-    description: "Page title for the direct intake browse pools page.",
-  });
+  const title = intl.formatMessage(
+    {
+      defaultMessage: "Browse {ITAbbr} jobs",
+      id: "1d6L6F",
+      description: "Page title for the direct intake browse pools page.",
+    },
+    { ITAbbr: getITAbbrHtml(intl) },
+  );
 
   const crumbs = useBreadcrumbs([
     {
@@ -227,13 +231,16 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
           >
             <CardFlat
               color="purple"
-              title={intl.formatMessage({
-                defaultMessage:
-                  "Browse IT opportunities for the Indigenous community",
-                id: "GZrICV",
-                description:
-                  "Title for Indigenous community job opportunities on Browse IT jobs page",
-              })}
+              title={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Browse {ITAbbr} opportunities for the Indigenous community",
+                  id: "ZFN3Pw",
+                  description:
+                    "Title for Indigenous community job opportunities on Browse IT jobs page",
+                },
+                { ITAbbr: getITAbbrHtml(intl) },
+              )}
               link={{
                 href: `${paths.home()}/indigenous-it-apprentice`,
                 mode: "outline",
@@ -248,13 +255,16 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Designed by, with, and for the Indigenous community, the program recruits First Nations, Inuit, and Métis applicants who have a passion for IT, for entry level employment, learning and development opportunities.",
-                  id: "+6QgII",
-                  description:
-                    "Summary for Indigenous community job opportunities on Browse IT jobs page",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Designed by, with, and for the Indigenous community, the program recruits First Nations, Inuit, and Métis applicants who have a passion for {ITAbbr}, for entry level employment, learning and development opportunities.",
+                    id: "iyVMFP",
+                    description:
+                      "Summary for Indigenous community job opportunities on Browse IT jobs page",
+                  },
+                  { ITAbbr: getITAbbrHtml(intl) },
+                )}
               </p>
             </CardFlat>
             <CardFlat
@@ -277,13 +287,16 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Let our team save you time and energy by matching your needs to pre-qualified IT professionals with the right skills for the job. All the talent in our pools has been qualified through a competitive process, so you can jump straight to the interview and decide if they are a good fit for your team.",
-                  id: "Ms6O4W",
-                  description:
-                    "Summary for to go to the search page on Browse IT jobs page",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Let our team save you time and energy by matching your needs to pre-qualified {ITAbbr} professionals with the right skills for the job. All the talent in our pools has been qualified through a competitive process, so you can jump straight to the interview and decide if they are a good fit for your team.",
+                    id: "gp0MJE",
+                    description:
+                      "Summary for to go to the search page on Browse IT jobs page",
+                  },
+                  { ITAbbr: getITAbbrHtml(intl) },
+                )}
               </p>
             </CardFlat>
           </div>

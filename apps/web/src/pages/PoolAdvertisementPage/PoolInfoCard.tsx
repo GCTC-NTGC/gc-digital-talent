@@ -12,7 +12,7 @@ import type { Maybe, PoolAdvertisement } from "~/api/generated";
 
 export interface PoolInfoCardProps {
   closingDate: PoolAdvertisement["closingDate"];
-  classification: string;
+  classification: React.ReactNode;
   salary: {
     min: Maybe<number>;
     max: Maybe<number>;

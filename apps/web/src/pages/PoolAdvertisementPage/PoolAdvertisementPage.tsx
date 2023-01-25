@@ -16,7 +16,7 @@ import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import {
   AdvertisementStatus,
   Scalars,
@@ -31,8 +31,8 @@ import {
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import { notEmpty } from "@common/helpers/util";
 import {
-  formatClassificationString,
-  getFullPoolAdvertisementTitle,
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
 import SEO from "@common/components/SEO/SEO";
@@ -44,7 +44,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import { isAdvertisementVisible } from "~/utils/poolUtils";
-
+import { getClassificationAbbvHtml } from "@common/helpers/nameUtils";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "./ClassificationDefinition/ClassificationDefinition";
 
@@ -159,14 +159,21 @@ export const PoolAdvertisementPoster = ({
   const genericTitle = classification?.genericJobTitles?.length
     ? classification.genericJobTitles[0]
     : null;
-  let classificationSuffix = ""; // type wrangling the complex type into a string
+  let classificationAbbr; // type wrangling the complex type into a string
   if (classification) {
-    classificationSuffix = formatClassificationString({
-      group: classification?.group,
-      level: classification?.level,
-    });
+    const { name, group, level } = classification;
+    classificationAbbr = getClassificationAbbvHtml(
+      intl,
+      getLocalizedName(name, intl),
+      group,
+      level,
+    );
   }
-  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
+  const fullTitleHtml = getFullPoolAdvertisementTitleHtml(
+    intl,
+    poolAdvertisement,
+  );
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
@@ -207,7 +214,7 @@ export const PoolAdvertisementPoster = ({
       url: paths.allPools(),
     },
     {
-      label: fullTitle,
+      label: fullTitleHtml,
       url: paths.pool(poolAdvertisement.id),
     },
   ];
@@ -270,7 +277,7 @@ export const PoolAdvertisementPoster = ({
   return (
     <>
       <SEO title={fullTitle} />
-      <Hero title={fullTitle} crumbs={links} />
+      <Hero title={fullTitleHtml} crumbs={links} />
       <div
         data-h2-background-color="base(dt-white)"
         data-h2-shadow="base(m)"
@@ -287,7 +294,7 @@ export const PoolAdvertisementPoster = ({
             <div>
               <PoolInfoCard
                 closingDate={poolAdvertisement.closingDate}
-                classification={classificationSuffix}
+                classification={classificationAbbr}
                 salary={{
                   min: classification?.minSalary,
                   max: classification?.maxSalary,
@@ -367,7 +374,7 @@ export const PoolAdvertisementPoster = ({
                           "Title for description of a pool advertisements classification group/level",
                       },
                       {
-                        classification: classificationSuffix,
+                        classification: classificationAbbr,
                         genericTitle: genericTitle?.name
                           ? ` ${genericTitle.name[locale]}`
                           : ``,

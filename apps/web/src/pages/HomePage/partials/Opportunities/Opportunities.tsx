@@ -11,6 +11,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import { AuthenticationContext } from "@common/components/Auth";
 
 import useRoutes from "~/hooks/useRoutes";
+import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
 
 // Create the page component
 const Opportunities = () => {
@@ -92,12 +93,17 @@ const Opportunities = () => {
               })}
               link={{
                 href: paths.allPools(),
-                label: intl.formatMessage({
-                  defaultMessage: "Browse IT jobs",
-                  id: "zNvXSs",
-                  description:
-                    "Link text for IT jobs in government call to action",
-                }),
+                label: intl.formatMessage(
+                  {
+                    defaultMessage: "Browse {ITAbbr} jobs",
+                    id: "07u2wB",
+                    description:
+                      "Link text for IT jobs in government call to action",
+                  },
+                  {
+                    ITAbbr: getITAbbrHtml(intl),
+                  },
+                ),
               }}
             >
               <p>
@@ -131,13 +137,16 @@ const Opportunities = () => {
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
-                  id: "f3Qqop",
-                  description:
-                    "Description for the Indigenous Apprenticeship Program on home page",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development {ITAbbr} opportunities across government.",
+                    id: "eKznwV",
+                    description:
+                      "Description for the Indigenous Apprenticeship Program on home page",
+                  },
+                  { ITAbbr: getITAbbrHtml(intl) },
+                )}
               </p>
             </CardFlat>
             <CardFlat

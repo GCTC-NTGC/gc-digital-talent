@@ -5,7 +5,10 @@ import {
   UserPublicProfile,
 } from "~/api/generated";
 
-export type SimpleClassification = Pick<Classification, "group" | "level">;
+export type SimpleClassification = Pick<
+  Classification,
+  "group" | "level" | "name"
+>;
 export type SimpleOwner = Pick<
   UserPublicProfile,
   "email" | "firstName" | "lastName"
