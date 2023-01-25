@@ -59,7 +59,7 @@ const FontWrapper = ({ children }: { children: React.ReactNode }) => (
   <div data-h2-color="base(black) base:dark(white)">{children}</div>
 );
 
-const withThemeProvider = (
+const ThemeDecorator = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
 ) => {
@@ -117,4 +117,4 @@ const withThemeProvider = (
   );
 };
 
-export default withThemeProvider;
+export default ThemeDecorator;
