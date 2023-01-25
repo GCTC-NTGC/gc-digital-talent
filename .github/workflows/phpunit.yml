@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-22.04
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.1
+      env:
+        GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
 
     services:
       postgres:

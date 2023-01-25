@@ -31,34 +31,21 @@ class HasEssentialSkills implements Rule
     public function passes($attribute, $value)
     {
 
-        $poolEssentialSkills = $this->pool
+        $poolEssentialSkillIds = $this->pool
             ->essentialSkills()
-            ->whereHas('families', function($query) {
+            ->whereHas('families', function ($query) {
                 SkillFamily::scopeTechnical($query);
-            })->get()->pluck('id')->toArray();
+            })->get()->pluck('id');
 
-        if(!count($poolEssentialSkills)) {
+        if ($poolEssentialSkillIds->isEmpty()) {
             return true;
         }
 
-        $userSkills = [];
-        $experiences = $this->collectExperiences($value);
+        $userSkillIds = $this->collectExperiencesSkillIds($value);
 
-        foreach($experiences as $experience) {
-            $userSkills = array_merge($userSkills, $experience->skills()->pluck('skills.id')->toArray());
-        }
-
-        if(!count($userSkills)) {
-            return false;
-        }
-
-        $passes = true;
-        foreach($poolEssentialSkills as $skillId) {
-            $passes = in_array($skillId, $userSkills);
-            if(!$passes) {
-                break;
-            }
-        }
+        $passes = $poolEssentialSkillIds->every(function ($poolEssentialSkillIds) use ($userSkillIds) {
+            return $userSkillIds->contains($poolEssentialSkillIds);
+        });
 
         return $passes;
     }
@@ -76,23 +63,35 @@ class HasEssentialSkills implements Rule
     /**
      * Collect all Experiences
      */
-    private function collectExperiences($userId)
+    private function collectExperiencesSkillIds($userId)
     {
         $user = User::with([
             'awardExperiences',
+            'awardExperiences.skills',
             'communityExperiences',
+            'communityExperiences.skills',
             'educationExperiences',
+            'educationExperiences.skills',
             'personalExperiences',
-            'workExperiences'
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills'
         ])->findOrFail($userId);
 
-        $collection = collect();
-        $collection = $collection->merge($user->awardExperiences);
-        $collection = $collection->merge($user->communityExperiences);
-        $collection = $collection->merge($user->educationExperiences);
-        $collection = $collection->merge($user->personalExperiences);
-        $collection = $collection->merge($user->workExperiences);
+        $experiences = collect(
+            [
+                $user->awardExperiences,
+                $user->communityExperiences,
+                $user->educationExperiences,
+                $user->personalExperiences,
+                $user->workExperiences,
+            ]
+        )->flatten();
 
-        return $collection;
+        $userSkillIds = $experiences->flatMap(function ($e) {
+            return $e->skills->pluck('id');
+        });
+
+        return $userSkillIds;
     }
 }

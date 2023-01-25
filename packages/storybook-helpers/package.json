@@ -11,11 +11,11 @@
     "@storybook/builder-webpack5": "^6.5.13",
     "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/react": "^6.5.14",
-    "chromatic": "^6.13.1",
+    "chromatic": "^6.15.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.6.1",
+    "react-router-dom": "^6.7.0",
     "storybook-addon-intl": "^2.4.1",
     "urql": "^3.0.3",
     "wonka": "^6.1.2"

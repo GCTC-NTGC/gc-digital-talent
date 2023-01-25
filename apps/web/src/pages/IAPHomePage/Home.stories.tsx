@@ -6,7 +6,7 @@ import Home from "./Home";
 
 export default {
   component: Home,
-  title: "Pages/IAP Home Page",
+  title: "Pages/Home Page/IAP",
   parameters: {
     backgrounds: {
       default: "white",

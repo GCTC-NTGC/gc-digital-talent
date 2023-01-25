@@ -1633,7 +1633,7 @@
     "description": "Heading for personal experiences in experience by type listing"
   },
   "iWD2Pz": {
-    "defaultMessage": "Expériences de la collectivité",
+    "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
   },
   "aBSEkP": {
@@ -1959,5 +1959,13 @@
   "Srs7a4": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Assistive technology skip link"
+  },
+  "c7At4h": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien :",
+    "description": "Preferred Language for interviews label and colon"
+  },
+  "rSymh2": {
+    "defaultMessage": "Langue préférée de l'examen écrit :",
+    "description": "Preferred Language for exams label and colon"
   }
 }
