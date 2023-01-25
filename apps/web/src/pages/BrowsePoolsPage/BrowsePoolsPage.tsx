@@ -183,7 +183,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                     mode="outline"
                     type="button"
                     weight="bold"
-                    href={paths.myProfile()}
+                    href={loggedIn ? paths.myProfile() : paths.login()}
                     style={{ whiteSpace: "nowrap" }}
                   >
                     {loggedIn
