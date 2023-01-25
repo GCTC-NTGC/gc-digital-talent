@@ -33,7 +33,6 @@ class NotifyTest extends TestCase
      */
     public function test_email()
     {
-
         $response = Notify::sendEmail(
             'simulate-delivered@notification.canada.ca',
             $this->templates['test_email'],
