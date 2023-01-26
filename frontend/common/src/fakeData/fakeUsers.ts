@@ -123,16 +123,14 @@ const generateUser = (
     hasDisability: faker.datatype.boolean(),
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
-    indigenousCommunities: faker.helpers.maybe(() => {
-      return faker.helpers.arrayElements<IndigenousCommunity>([
-        IndigenousCommunity.StatusFirstNations,
-        IndigenousCommunity.NonStatusFirstNations,
-        IndigenousCommunity.Inuit,
-        IndigenousCommunity.Metis,
-        IndigenousCommunity.Other,
-        IndigenousCommunity.LegacyIsIndigenous,
-      ]);
-    }),
+    indigenousCommunities: faker.helpers.arrayElements<IndigenousCommunity>([
+      IndigenousCommunity.StatusFirstNations,
+      IndigenousCommunity.NonStatusFirstNations,
+      IndigenousCommunity.Inuit,
+      IndigenousCommunity.Metis,
+      IndigenousCommunity.Other,
+      IndigenousCommunity.LegacyIsIndigenous,
+    ]),
 
     // Applicant info
     jobLookingStatus: faker.helpers.arrayElement<JobLookingStatus>(

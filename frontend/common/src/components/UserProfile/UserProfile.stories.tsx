@@ -77,6 +77,7 @@ UserProfileNull.args = {
   isWoman: null,
   hasDisability: null,
   isIndigenous: null,
+  indigenousCommunities: null,
   isVisibleMinority: null,
   jobLookingStatus: null,
   hasDiploma: null,
