@@ -4,13 +4,14 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import { toast } from "@common/components/Toast";
-import { Input, MultiSelect, Select, Submit } from "@common/components/form";
+import { Input, Select, Submit } from "@common/components/form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
 import Heading from "@common/components/Heading/Heading";
 
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -218,32 +219,34 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
             />
-            <MultiSelect
-              id="roles"
-              name="roles"
-              label={intl.formatMessage({
-                defaultMessage: "Roles",
-                id: "kwNyl6",
-                description: "Label displayed on the user form roles field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select zero or more roles...",
-                id: "Cw8pyL",
-                description:
-                  "Placeholder displayed on the user form roles field.",
-              })}
-              options={enumToOptions(Role).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getRole(value)),
-              }))}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The roles grant additional functionality to a user's login.",
-                id: "Z6sh9j",
-                description:
-                  "Additional context describing the purpose of the users's 'role' field.",
-              })}
-            />
+            <div data-h2-margin="base(x1, 0)">
+              <MultiSelectField
+                id="roles"
+                name="roles"
+                label={intl.formatMessage({
+                  defaultMessage: "Roles",
+                  id: "kwNyl6",
+                  description: "Label displayed on the user form roles field.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select zero or more roles...",
+                  id: "Cw8pyL",
+                  description:
+                    "Placeholder displayed on the user form roles field.",
+                })}
+                options={enumToOptions(Role).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getRole(value)),
+                }))}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The roles grant additional functionality to a user's login.",
+                  id: "Z6sh9j",
+                  description:
+                    "Additional context describing the purpose of the users's 'role' field.",
+                })}
+              />
+            </div>
             <Submit />
           </form>
         </FormProvider>

@@ -37,7 +37,7 @@ const Trigger = React.forwardRef<
     data-h2-position="base(relative)"
     data-h2-location="base(1px, auto, auto, auto)"
     data-h2-radius="base(s, s, 0, 0)"
-    data-h2-transition="base(border, 100ms, ease)"
+    data-h2-transition="base(border 100ms ease)"
     ref={forwardedRef}
     {...props}
   />

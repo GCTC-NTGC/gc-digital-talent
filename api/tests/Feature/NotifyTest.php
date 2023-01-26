@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Facades\Notify;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class NotifyTest extends TestCase
 {
@@ -20,6 +19,11 @@ class NotifyTest extends TestCase
         $this->username = "Test Name";
         $this->bulkName = "Bulk Test";
         $this->templates = config('notify.templates');
+
+        $apiKey = config('notify.client.apiKey');
+        if(!$apiKey) {
+            $this->markTestSkipped("API key not found");
+        }
     }
 
     /**
@@ -89,7 +93,7 @@ class NotifyTest extends TestCase
             $this->templates['test_bulk_sms']
         );
 
-       $this->assertBulkResponseSuccess($response);
+        $this->assertBulkResponseSuccess($response);
     }
     /**
      * Test sending Bulk Email
@@ -126,7 +130,7 @@ class NotifyTest extends TestCase
             $this->templates['test_bulk_email']
         );
 
-       $this->assertBulkResponseSuccess($response);
+        $this->assertBulkResponseSuccess($response);
     }
 
     /**
@@ -155,4 +159,5 @@ class NotifyTest extends TestCase
         $this->assertStringContainsStringIgnoringCase($this->bulkName, $json['original_file_name']);
         $this->assertEquals(3, $json['notification_count']);
     }
+
 }

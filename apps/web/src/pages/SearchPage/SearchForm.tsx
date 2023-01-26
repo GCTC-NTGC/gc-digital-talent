@@ -15,7 +15,7 @@ import {
   OperationalRequirementV2,
   getPoolStream,
 } from "@common/constants/localizedConstants";
-import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey, notEmpty } from "@common/helpers/util";
@@ -373,7 +373,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the work location filter in the search form.",
             })}
           >
-            <MultiSelectFieldV2
+            <MultiSelectField
               id="locationPreferences"
               name="locationPreferences"
               label={intl.formatMessage({

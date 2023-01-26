@@ -40,7 +40,7 @@ const Scrollbar = React.forwardRef<
     data-h2-flex-direction="base:selectors[[data-orientation='horizontal']](column)"
     data-h2-height="base:selectors[[data-orientation='horizontal']](10px)"
     data-h2-width="base:selectors[[data-orientation='vertical']](10px)"
-    data-h2-transition="base(background, 100ms, ease-out)"
+    data-h2-transition="base(background 100ms ease-out)"
     style={{
       touchAction: "none",
       userSelect: "none",

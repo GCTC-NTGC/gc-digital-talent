@@ -40,18 +40,19 @@ const Card = ({
   return (
     <div
       className="card"
-      data-h2-display="base(block)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(s)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-radius="base(rounded)"
+      data-h2-overflow="base(hidden)"
+      data-h2-shadow="base(small)"
       {...rest}
     >
       <span
         className="card__header"
         data-h2-display="base(block)"
         data-h2-font-size="base(h5, 1) laptop(h4, 1)"
-        data-h2-padding="base(x.5)"
+        data-h2-padding="base(x1)"
         data-h2-margin="base(0)"
-        data-h2-radius="base(s, s, 0, 0)"
         {...colorMap[color]}
       >
         {title}
@@ -59,8 +60,9 @@ const Card = ({
       <div
         className="card__body"
         data-h2-background-color="base(white)"
-        data-h2-radius="base(0, 0, s, s)"
-        data-h2-padding="base(x.5)"
+        data-h2-flex-grow="base(1)"
+        data-h2-padding="base(x1)"
+        data-h2-flex="base(1)"
       >
         {children}
       </div>

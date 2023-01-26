@@ -33,7 +33,7 @@ const Item = React.forwardRef<
     data-h2-shadow="base(l)"
     data-h2-radius="base(0px, s, s, 0px)"
     data-h2-overflow="base(hidden)"
-    data-h2-transition="base(all, 100ms, ease-in)"
+    data-h2-transition="base(100ms ease-in)"
     ref={forwardedRef}
     {...props}
   />
@@ -100,7 +100,7 @@ const Trigger = React.forwardRef<
               <ChevronRightIcon
                 className="Accordion__Chevron"
                 data-h2-width="base(x1.5)"
-                data-h2-transition="base(all, 100ms, ease-in)"
+                data-h2-transition="base(100ms ease-in)"
               />
             </div>
             <div data-h2-flex-grow="base(1)">

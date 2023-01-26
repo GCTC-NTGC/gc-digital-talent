@@ -78,7 +78,7 @@ const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
     "data-h2-shadow": "base(m) base:hover(xl)",
     "data-h2-padding": "base(x.5)",
     "data-h2-justify-content": "base(space-between)",
-    "data-h2-transition": "base(box-shadow, .2s, ease, 0s)",
+    "data-h2-transition": "base(box-shadow .2s ease 0s)",
     ...colorMap[color],
     ...rest,
   };

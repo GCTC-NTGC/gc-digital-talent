@@ -44,7 +44,7 @@ const Link = ({ href, external, children }: LinkProps) => {
     "data-h2-display": "base(inline-block)",
     "data-h2-radius": "base(s)",
     "data-h2-shadow": "base(m) base:hover(xl)",
-    "data-h2-transition": "base:hover(box-shadow, .2s, ease, 0s)",
+    "data-h2-transition": "base:hover(box-shadow .2s ease 0s)",
   };
 
   if (external) {

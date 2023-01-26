@@ -9,10 +9,10 @@ import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { Input } from "@common/components/form";
-import MultiSelectV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import {
   AdvertisementStatus,
   Applicant,
@@ -196,7 +196,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
             <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <MultiSelectV2
+              <MultiSelectField
                 id="addToPoolDialog-pools"
                 name="pools"
                 label={intl.formatMessage({

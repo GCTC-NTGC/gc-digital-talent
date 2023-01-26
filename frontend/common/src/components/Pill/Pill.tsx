@@ -7,7 +7,8 @@ export type PillColor =
   | "neutral"
   | "blue"
   | "green"
-  | "error";
+  | "error"
+  | "warning";
 export type PillMode = "solid" | "outline";
 
 export interface PillProps
@@ -95,6 +96,18 @@ const colorMap: Record<
     outline: {
       "data-h2-border": "base(1px solid error.dark)",
       "data-h2-background-color": "base(error.light.10)",
+      "data-h2-color": "base(black.dark)",
+    },
+  },
+  warning: {
+    solid: {
+      "data-h2-border": "base(1px solid warning.dark)",
+      "data-h2-background-color": "base(warning.dark)",
+      "data-h2-color": "base(white)",
+    },
+    outline: {
+      "data-h2-border": "base(1px solid warning.dark)",
+      "data-h2-background-color": "base(warning.light.10)",
       "data-h2-color": "base(black.dark)",
     },
   },

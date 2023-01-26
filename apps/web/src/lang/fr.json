@@ -363,6 +363,170 @@
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
   },
+  "+M8xoo": {
+    "defaultMessage": "Statut des membres des Premières Nations",
+    "description": "label for the First Nations status self-declaration input"
+  },
+  "BwEf/S": {
+    "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
+    "description": "Text for the option to self-declare as not an Indigenous person"
+  },
+  "/81xCT": {
+    "defaultMessage": "« Je suis métis(se) »",
+    "description": "Label text for Métis community declaration"
+  },
+  "1nOT0r": {
+    "defaultMessage": "Ma communauté ou mes communautés :",
+    "description": "Text label for list of the users selected Indigenous communities"
+  },
+  "32qwlv": {
+    "defaultMessage": "Explorer les occasions en matière de TI au sein du gouvernement fédéral",
+    "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
+  },
+  "3oW16P": {
+    "defaultMessage": "Signature",
+    "description": "label for the signature input on the self-declaration form"
+  },
+  "luj0xr": {
+    "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
+    "description": "Content for the self-declaration verification dialog"
+  },
+  "4e74J2": {
+    "defaultMessage": "« Je suis un membre d’une communauté des Premières Nations »",
+    "description": "Label text for First Nations community declaration"
+  },
+  "5dgCOy": {
+    "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
+    "description": "Heading for the self-declaration explanation dialog"
+  },
+  "7STO48": {
+    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis »",
+    "description": "Text for the option to self-declare as Indigenous"
+  },
+  "7rSh+m": {
+    "defaultMessage": "Signer et continuer",
+    "description": "Button text to submit the Indigenous self-declaration form."
+  },
+  "0rL2ds": {
+    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
+    "description": "Text describing the self-declaration form and its importance"
+  },
+  "AMboRG": {
+    "defaultMessage": "Voir <whyLink>Raison pour lesquelles nous vous demandons de déclarer votre statut</whyLink>, <verificationLink>Mode de vérification</verificationLink> Le terme <definitionLink>autochtone comme il est défini pour ce programme</definitionLink>.",
+    "description": "Links to more information on the self-declaration process and definition of Indigenous"
+  },
+  "BIgaKT": {
+    "defaultMessage": "Métis",
+    "description": "Trigger text for Métis tab"
+  },
+  "Ap86I/": {
+    "defaultMessage": "Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
+    "description": "Text explaining the program and the possibility of needing to provide proof."
+  },
+  "Dz9xib": {
+    "defaultMessage": "Lorsque vous soumettez votre signature (en tapant votre nom complet), vous contribuez à créer un espace équitable et sécuritaire afin de permettre aux peuples autochtones de profiter de ces occasions.",
+    "description": "Disclaimer displayed before signing the Indigenous self-declaration form"
+  },
+  "FRcbbi": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "Label text for not represented community declaration"
+  },
+  "GSqmjE": {
+    "defaultMessage": "Premières Nations",
+    "description": "Label for First Nations community"
+  },
+  "KaisAC": {
+    "defaultMessage": "Métis",
+    "description": "Label for Métis community"
+  },
+  "UOeiIa": {
+    "defaultMessage": "Autochtone selon la définition de ce programme",
+    "description": "Heading for the definition of Indigenous dialog"
+  },
+  "NxmuI4": {
+    "defaultMessage": "Premières Nations",
+    "description": "Trigger text for First Nations tab"
+  },
+  "WDtanj": {
+    "defaultMessage": "Inuk",
+    "description": "Trigger text for Inuk tab"
+  },
+  "WwEznG": {
+    "defaultMessage": "Autre",
+    "description": "Trigger text for not represented community declaration tab"
+  },
+  "Xe90FW": {
+    "defaultMessage": "Ne suis-je pas un membre d’un groupe autochtone?",
+    "description": "Lead in text for button to submit form and navigate to a different page when no Indigenous"
+  },
+  "Xvvcsg": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "Label for not represented community"
+  },
+  "YZ/ZhG": {
+    "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
+    "description": "Text describing where to get help with the self-declaration form"
+  },
+  "at11n5": {
+    "defaultMessage": "Êtes-vous sûr de vouloir sélectionner : « Je suis autochtone, mais je ne trouve pas ma communauté ici? »",
+    "description": "Title for the alert warning users about selection not represented and a represented community"
+  },
+  "dT/c1r": {
+    "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
+    "description": "Paragraph two for the self-declaration explanation dialog"
+  },
+  "J2uivT": {
+    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
+    "description": "Paragraph one for the self-declaration explanation dialog"
+  },
+  "h4E9+K": {
+    "defaultMessage": "De quelle manière sera vérifié le statut?",
+    "description": "Heading for the self-declaration verification dialog"
+  },
+  "kUHaE/": {
+    "defaultMessage": "Inuk",
+    "description": "Label for Inuk community"
+  },
+  "pKACZK": {
+    "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
+    "description": "Title for the indigenous self-declaration form"
+  },
+  "qEvJjr": {
+    "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
+    "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "v0EVPQ": {
+    "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
+    "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
+  },
+  "r6L5aI": {
+    "defaultMessage": "Auto-déclaration",
+    "description": "label for the Indigenous self-declaration input"
+  },
+  "reUbO2": {
+    "defaultMessage": "(Sélectionnez tout ce qui s’applique à vous)",
+    "description": "Disclaimer for the checkbox group for selecting Indigenous communities"
+  },
+  "sSE4kt": {
+    "defaultMessage": "Je suis un membre des Premières Nations sans statut",
+    "description": "Text for the option to self-declare as a non-status first nations"
+  },
+  "ssJxrj": {
+    "defaultMessage": "Je suis un membre des Premières Nations.",
+    "description": "Text for the option to self-declare as a status first nations"
+  },
+  "vDb+O+": {
+    "defaultMessage": "« Je suis Inuk »",
+    "description": "Label text for Inuk community declaration"
+  },
+  "w4SSBu": {
+    "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
+    "description": "Content for the definition of Indigenous dialog"
+  },
+  "zSH7Hx": {
+    "defaultMessage": "Sélectionnez une ou plusieurs communautés :",
+    "description": "Legend for the checkbox group for selecting Indigenous communities"
+  },
   ".ellipsis": {
     "defaultMessage": "... "
   },
@@ -2394,7 +2558,7 @@
     "description": "Title for the current jobs recruiting candidates"
   },
   "cYg+l1": {
-    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les peuples autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
+    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
     "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
   },
   "dIIccA": {
@@ -2880,5 +3044,137 @@
   "LFYdXR": {
     "defaultMessage": "Recommandé selon vos compétences",
     "description": "Tip that your skills match this section well and so it is recommended"
+  },
+  "2KjiDn": {
+    "defaultMessage": "Niveau 4 : Gestionnaire",
+    "description": "title for IT-04 manager dialog"
+  },
+  "2VprXV": {
+    "defaultMessage": "Niveau 4 : Conseiller principal",
+    "description": "title for IT-04 senior advisor dialog"
+  },
+  "44bgIY": {
+    "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
+  },
+  "58BEeZ": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
+  "6LTC0y": {
+    "defaultMessage": "Gestion de la base de données de la TI",
+    "description": "work stream example"
+  },
+  "75nLSV": {
+    "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
+  },
+  "DrR60L": {
+    "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
+    "description": "Legend for role and salary checklist form"
+  },
+  "Eubngf": {
+    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
+    "description": "Blurb describing the purpose of the form"
+  },
+  "FayQOt": {
+    "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
+  },
+  "JCyvcW": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred interview language"
+  },
+  "KT3jUW": {
+    "defaultMessage": "<link>Cliquez ici pour en savoir plus sur les classifications dans la collectivité numérique du gouvernement du Canada.</link>",
+    "description": "Link to learn more about classifications"
+  },
+  "MNVv3A": {
+    "defaultMessage": "Niveau 2 : Analystes",
+    "description": "title for IT-02 dialog"
+  },
+  "MyUazW": {
+    "defaultMessage": "Sélectionnez votre langue de communication préférée",
+    "description": "Legend text for required communication language preference in About Me form"
+  },
+  "PBl2Rj": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred exam language"
+  },
+  "PcYOnN": {
+    "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur TI-02</openModal>",
+    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+  },
+  "QZ9FZB": {
+    "defaultMessage": "Activités d'infrastructure de TI",
+    "description": "work stream example"
+  },
+  "SDDp1t": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "work stream example"
+  },
+  "WE0OGe": {
+    "defaultMessage": "Niveau 3 : Conseillers techniques",
+    "description": "title for IT-03 advisor dialog"
+  },
+  "Zn10pO": {
+    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur TI-01</openModal>",
+    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+  },
+  "aLMroa": {
+    "defaultMessage": "Niveau 1 : Techniciens",
+    "description": "title for IT-01 dialog"
+  },
+  "dgOYID": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Label for role and salary link"
+  },
+  "g5pT17": {
+    "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
+    "description": "Legend text for required written exam language preference for exams in About Me form"
+  },
+  "hizC89": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+  },
+  "kCBLsJ": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title role and salary expectations form"
+  },
+  "mTlHta": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe",
+    "description": "title for IT-03 lead dialog"
+  },
+  "nrBkon": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "work stream example"
+  },
+  "oOcegG": {
+    "defaultMessage": "Architecture intégrée de la TI ",
+    "description": "work stream example"
+  },
+  "qSxmx0": {
+    "defaultMessage": "Fermer",
+    "description": "Close Confirmations"
+  },
+  "sOmEaW": {
+    "defaultMessage": "Sélectionnez votre langue préférée pour l'entretien oral",
+    "description": "Legend text for required spoken interview language preference for interviews in About Me form"
+  },
+  "tm3zLD": {
+    "defaultMessage": "Gestion du portefeuille de projets de TI",
+    "description": "work stream example"
+  },
+  "uIpPFZ": {
+    "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
+    "description": "Description for the role and salary expectation form"
+  },
+  "vQzmUH": {
+    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
+    "description": "Preceding list description"
+  },
+  "wRxZQV": {
+    "defaultMessage": "Sélectionnez une langue...",
+    "description": "Placeholder displayed on the About Me form preferred communication language"
   }
 }
