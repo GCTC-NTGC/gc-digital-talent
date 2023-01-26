@@ -5,7 +5,7 @@ import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
-import { User, PoolCandidate, IndigenousCommunity } from "~/api/generated";
+import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper, {
   ProfileFormFooter,
