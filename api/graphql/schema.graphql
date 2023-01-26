@@ -30,7 +30,7 @@ enum Language {
   FR @enum(value: "fr")
 }
 
-enum Role {
+enum LegacyRole {
   "A user who has administrator privileges"
   ADMIN
   "A user who has a profile to apply to hiring pools"
@@ -40,7 +40,7 @@ enum Role {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
 
@@ -945,7 +945,7 @@ input CreateUserInput {
       apply: ["sometimes", "unique:users,sub"]
       messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
     )
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = [] @rename(attribute: "legacy_roles")
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
@@ -1020,7 +1020,7 @@ input UpdateUserAsAdminInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
 
   # Personal info
   email: Email

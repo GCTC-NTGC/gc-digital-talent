@@ -89,18 +89,18 @@ class ApiEnums
         ];
     }
 
-    const ROLE_ADMIN = 'ADMIN';
-    const ROLE_APPLICANT = 'APPLICANT';
+    const LEGACY_ROLE_ADMIN = 'ADMIN';
+    const LEGACY_ROLE_APPLICANT = 'APPLICANT';
     /**
-     * A collection of enums for Role in factories and seeders
+     * A collection of enums for Legacy Role in factories and seeders
      *
      * @return string[]
      */
-    public static function roles(): array
+    public static function legacyRoles(): array
     {
         return [
-            self::ROLE_ADMIN,
-            self::ROLE_APPLICANT,
+            self::LEGACY_ROLE_ADMIN,
+            self::LEGACY_ROLE_APPLICANT,
         ];
     }
 
