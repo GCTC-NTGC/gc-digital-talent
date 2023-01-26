@@ -124,9 +124,14 @@ const generateUser = (
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     indigenousCommunities: faker.helpers.maybe(() =>
-      faker.helpers.arrayElements<IndigenousCommunity>(
-        Object.values(IndigenousCommunity),
-      ),
+      faker.helpers.arrayElements<IndigenousCommunity>([
+        IndigenousCommunity.StatusFirstNations,
+        IndigenousCommunity.NonStatusFirstNations,
+        IndigenousCommunity.Inuit,
+        IndigenousCommunity.Metis,
+        IndigenousCommunity.Other,
+        IndigenousCommunity.LegacyIsIndigenous,
+      ]),
     ),
 
     // Applicant info
