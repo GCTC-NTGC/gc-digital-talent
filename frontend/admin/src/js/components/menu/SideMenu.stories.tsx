@@ -7,7 +7,7 @@ import {
   defaultAuthState,
 } from "@common/components/Auth";
 import SideMenu, { AdminSideMenuProps } from "./AdminSideMenu";
-import { Role } from "../../api/generated";
+import { LegacyRole } from "../../api/generated";
 
 export default {
   component: SideMenu,
@@ -30,7 +30,7 @@ const Template: Story<TemplateProps> = (args) => {
   const mockAuthorizationState = React.useMemo(
     () => ({
       ...AuthorizationContext,
-      loggedInUserRoles: isLoggedIn ? [Role.Admin] : null,
+      loggedInUserRoles: isLoggedIn ? [LegacyRole.Admin] : null,
       isLoaded: true,
     }),
     [isLoggedIn],
