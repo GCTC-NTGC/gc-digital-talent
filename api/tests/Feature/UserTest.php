@@ -35,7 +35,7 @@ class UserTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
     }
 
@@ -53,7 +53,7 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    roles
+                    legacyRoles
                 }
             }
         ',
@@ -75,7 +75,7 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'roles' => []
+                    'legacyRoles' => []
                 ]
             ]
         ]);
@@ -97,7 +97,7 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    roles
+                    legacyRoles
                 }
             }
         ',
@@ -106,7 +106,7 @@ class UserTest extends TestCase
                     'firstName' => 'Jane',
                     'lastName' => 'Tester',
                     'email' => 'jane@test.com',
-                    'roles' => ['ADMIN']
+                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         )->assertJson([
@@ -119,7 +119,7 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'roles' => ['ADMIN']
+                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         ]);
@@ -129,33 +129,33 @@ class UserTest extends TestCase
 
     public function testUpdateUserRole()
     {
-        $user = User::factory()->create(['roles' => []]);
+        $user = User::factory()->create(['legacy_roles' => []]);
         $this->graphQL(
             /** @lang GraphQL */
             '
             mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
                 updateUserAsAdmin(id: $id, user: $user) {
                     id
-                    roles
+                    legacyRoles
                 }
             }
         ',
             [
                 'id' => $user->id,
                 'user' => [
-                    'roles' => ['ADMIN']
+                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         )->assertJson([
             'data' => [
                 'updateUserAsAdmin' => [
                     'id' => strval($user->id),
-                    'roles' => ['ADMIN']
+                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         ]);
         // Ensure change was saved
-        $this->assertContains('ADMIN', $user->fresh()->roles);
+        $this->assertContains('ADMIN', $user->fresh()->legacy_roles);
     }
 
     public function testFilterByPoolCandidateStatuses(): void

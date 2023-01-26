@@ -22,7 +22,7 @@ class PoolTest extends TestCase
     $newUser = new User;
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
-    $newUser->roles = ['ADMIN'];
+    $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
   }
 
