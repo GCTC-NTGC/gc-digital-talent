@@ -117,7 +117,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                 data-h2-location="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
                 data-h2-cursor="base(pointer)"
                 data-h2-padding="base(x.25)"
-                data-h2-transition="base(all, 100ms, ease-in)"
+                data-h2-transition="base(100ms ease-in)"
                 data-h2-z-index="base(9)"
                 {...dismissStyleMap[type]}
                 onClick={close}

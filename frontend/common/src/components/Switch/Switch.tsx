@@ -35,7 +35,7 @@ const Thumb = React.forwardRef<
     data-h2-position="base(absolute)"
     data-h2-radius="base(9999px)"
     data-h2-shadow="base(s)"
-    data-h2-transition="base(transform, 100ms, ease-in-out)"
+    data-h2-transition="base(transform 100ms ease-in-out)"
     data-h2-transform="
       base(translate(-0.1rem, -50%))
       base:selectors[[data-state='checked']](translate(calc(100% + 0.1rem), -50%))"
