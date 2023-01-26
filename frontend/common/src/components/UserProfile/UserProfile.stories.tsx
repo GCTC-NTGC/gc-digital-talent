@@ -50,6 +50,7 @@ UserProfileStory4.args = {
 };
 UserProfileStory5.args = {
   ...fakeUserArray[4],
+  indigenousCommunities: [],
   experiences: fakeExperiences(5),
 };
 UserProfileNull.args = {
