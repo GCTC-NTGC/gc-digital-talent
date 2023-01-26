@@ -1593,11 +1593,7 @@ export const indigenousCommunities = defineMessages({
     description:
       "The selection for being part of an indigenous community not already listed",
   },
-  [IndigenousCommunity.LegacyIsIndigenous]: {
-    defaultMessage: "Legacy Indigenous",
-    id: "q412dy",
-    description: "The indigenous community for the legacy isIndigenous field",
-  },
+  // IndigenousCommunity.LegacyIsIndigenous not included here since it should have special handling
 });
 
 export const getIndigenousCommunity = (

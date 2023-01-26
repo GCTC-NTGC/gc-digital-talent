@@ -8,6 +8,7 @@ import {
   getIndigenousCommunity,
 } from "../../../constants";
 import { Applicant, IndigenousCommunity } from "../../../api/generated";
+import Link from "../../Link";
 
 const DiversityEquityInclusionSection: React.FunctionComponent<{
   applicant: Pick<
@@ -29,22 +30,25 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     isVisibleMinority,
     indigenousCommunities,
   } = applicant;
-  const hasLegacyIndigenousCommunity =
-    indigenousCommunities?.length === 1 &&
-    indigenousCommunities[0] === IndigenousCommunity.LegacyIsIndigenous;
   const nonLegacyIndigenousCommunitySelected =
     indigenousCommunities &&
     indigenousCommunities.length > 0 &&
-    !hasLegacyIndigenousCommunity;
-  const legacyIsIndigenous =
-    (isIndigenous || hasLegacyIndigenousCommunity) &&
-    !nonLegacyIndigenousCommunitySelected;
+    (indigenousCommunities?.length !== 1 ||
+      indigenousCommunities[0] !== IndigenousCommunity.LegacyIsIndigenous);
   const anyCriteriaSelected =
     isWoman ||
     isIndigenous ||
     isVisibleMinority ||
     hasDisability ||
-    nonLegacyIndigenousCommunitySelected;
+    (indigenousCommunities && indigenousCommunities.length > 0);
+
+  const pledgeLink = (text: React.ReactNode) => {
+    return editPath ? (
+      <Link data-h2-color="base(dt-primary)" mode="inline" href={editPath}>
+        {text}
+      </Link>
+    ) : null;
+  };
 
   return (
     <Well>
@@ -96,10 +100,11 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                   "Label preceding what groups the user identifies as part of, followed by a colon",
               })}{" "}
             </p>{" "}
-            {nonLegacyIndigenousCommunitySelected && (
+            {(isIndigenous ||
+              (indigenousCommunities && indigenousCommunities.length > 0)) && (
               <div
                 data-h2-padding="base(x1, 0, 0, 0)"
-                // data-h2-display="p-tablet(flex)"
+                data-h2-display="p-tablet(flex)"
                 data-h2-align-items="base:(center)"
                 data-h2-justify-content="base:(space-between)"
               >
@@ -125,81 +130,91 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         "Label preceding text listing the communities the user is a member of, followed by a colon",
                     })}{" "}
                     <span data-h2-font-weight="base(700)">
-                      {indigenousCommunities.map((community, index) => {
-                        if (
-                          !community ||
-                          community === IndigenousCommunity.LegacyIsIndigenous
-                        ) {
-                          return "";
-                        }
+                      {nonLegacyIndigenousCommunitySelected
+                        ? indigenousCommunities.map((community, index) => {
+                            if (
+                              !community ||
+                              community ===
+                                IndigenousCommunity.LegacyIsIndigenous
+                            ) {
+                              return "";
+                            }
 
-                        const text = intl.formatMessage(
-                          getIndigenousCommunity(community),
-                        );
+                            const text = intl.formatMessage(
+                              getIndigenousCommunity(community),
+                            );
 
-                        if (index === 0) {
-                          return text;
-                        }
-                        return `, ${text}`;
-                      })}
+                            if (index === 0) {
+                              return text;
+                            }
+                            return `, ${text}`;
+                          })
+                        : intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "You haven't identified your community yet! <pledgeLink>Please enter here</pledgeLink>",
+                              id: "CFKDLD",
+                              description:
+                                "The text displayed if the user has selected as indigenous but not selected a community yet.",
+                            },
+                            { pledgeLink },
+                          )}
                     </span>
                   </p>
                 </div>
                 <div>
-                  {indigenousCommunities.map((community) => {
-                    switch (community) {
-                      case IndigenousCommunity.StatusFirstNations:
-                      case IndigenousCommunity.NonStatusFirstNations:
-                        return (
-                          <img
-                            data-h2-float="base(right)"
-                            data-h2-height="base(4em)"
-                            alt=""
-                            key="first-nations-true"
-                            src={imageUrl("/", "first-nations-true.png")}
-                          />
-                        );
-                      case IndigenousCommunity.Inuit:
-                        return (
-                          <img
-                            data-h2-float="base(right)"
-                            data-h2-height="base(4em)"
-                            alt=""
-                            key="inuit-true"
-                            src={imageUrl("/", "inuit-true.png")}
-                          />
-                        );
-                      case IndigenousCommunity.Metis:
-                        return (
-                          <img
-                            data-h2-float="base(right)"
-                            data-h2-height="base(4em)"
-                            alt=""
-                            key="metis-true"
-                            src={imageUrl("/", "metis-true.png")}
-                          />
-                        );
-                      case IndigenousCommunity.Other:
-                        return (
-                          <img
-                            data-h2-float="base(right)"
-                            data-h2-height="base(4em)"
-                            alt=""
-                            key="other-true"
-                            src={imageUrl("/", "other-true.png")}
-                          />
-                        );
-                      default:
-                        return null;
-                    }
-                  })}
+                  {nonLegacyIndigenousCommunitySelected &&
+                    indigenousCommunities.map((community) => {
+                      switch (community) {
+                        case IndigenousCommunity.StatusFirstNations:
+                        case IndigenousCommunity.NonStatusFirstNations:
+                          return (
+                            <img
+                              data-h2-float="base(right)"
+                              data-h2-height="base(4em)"
+                              alt=""
+                              key="first-nations-true"
+                              src={imageUrl("/", "first-nations-true.png")}
+                            />
+                          );
+                        case IndigenousCommunity.Inuit:
+                          return (
+                            <img
+                              data-h2-float="base(right)"
+                              data-h2-height="base(4em)"
+                              alt=""
+                              key="inuit-true"
+                              src={imageUrl("/", "inuit-true.png")}
+                            />
+                          );
+                        case IndigenousCommunity.Metis:
+                          return (
+                            <img
+                              data-h2-float="base(right)"
+                              data-h2-height="base(4em)"
+                              alt=""
+                              key="metis-true"
+                              src={imageUrl("/", "metis-true.png")}
+                            />
+                          );
+                        case IndigenousCommunity.Other:
+                          return (
+                            <img
+                              data-h2-float="base(right)"
+                              data-h2-height="base(4em)"
+                              alt=""
+                              key="other-true"
+                              src={imageUrl("/", "other-true.png")}
+                            />
+                          );
+                        default:
+                          return null;
+                      }
+                    })}
                 </div>
               </div>
             )}
-            {(isWoman ||
-              isVisibleMinority ||
-              hasDisability ||
-              legacyIsIndigenous) && (
+            {(isWoman || isVisibleMinority || hasDisability) && (
               <ul
                 data-h2-font-weight="base(700)"
                 data-h2-padding="base(x1, 0, 0, x1)"
@@ -209,13 +224,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                     {intl.formatMessage(getEmploymentEquityStatement("woman"))}
                   </li>
                 )}
-                {legacyIsIndigenous && (
-                  <li>
-                    {intl.formatMessage(
-                      getEmploymentEquityStatement("indigenous"),
-                    )}
-                  </li>
-                )}{" "}
                 {isVisibleMinority && (
                   <li>
                     {intl.formatMessage(
