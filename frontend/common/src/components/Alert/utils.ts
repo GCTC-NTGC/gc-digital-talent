@@ -24,7 +24,7 @@ export const styleMap: Record<AlertType, Record<string, string>> = {
   },
   error: {
     "data-h2-border":
-      "base(0.25rem solid tertiary.darker) base:dark(0.25rem solid tertiary.lightest)",
+      "base(0.25rem solid error.darker) base:dark(0.25rem solid error.lightest)",
   },
 };
 
@@ -49,9 +49,9 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   },
   error: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tertiary.lightest) base:focus-visible(focus.light)",
+      "base(transparent) base:hover(error.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tertiary.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(error.darker)  base:focus-visible(black)",
   },
 };
 
@@ -69,8 +69,7 @@ export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
       "base(secondary.darker) base:dark(secondary.lightest)",
   },
   error: {
-    "data-h2-background-color":
-      "base(tertiary.darker) base:dark(tertiary.lightest)",
+    "data-h2-background-color": "base(error.darker) base:dark(error.lightest)",
   },
 };
 
@@ -98,8 +97,8 @@ export const iconStyleMap: Record<AlertType, Record<string, string>> = {
     "data-h2-color": "base(secondary.darker)",
   },
   error: {
-    "data-h2-background-color": "base(tertiary.lightest)",
-    "data-h2-color": "base(tertiary.darker)",
+    "data-h2-background-color": "base(error.lightest)",
+    "data-h2-color": "base(error.darker)",
   },
 };
 
