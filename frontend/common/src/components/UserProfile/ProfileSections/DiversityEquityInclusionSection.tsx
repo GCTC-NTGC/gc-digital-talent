@@ -240,7 +240,10 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 )}
               </ul>
             )}
-            <p data-h2-padding="base(x1, 0, 0, 0)">
+            <p
+              data-h2-padding="base(x1, 0, 0, 0)"
+              data-h2-color="base:(ia-gray.dark)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "You have identified as a member of an <underline>employment equity group.</underline><strong> You can add additional <underline>employment equity groups</underline> to your profile by editing this section if they apply to you.</strong>",
