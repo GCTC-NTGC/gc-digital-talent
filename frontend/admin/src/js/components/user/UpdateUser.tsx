@@ -19,7 +19,7 @@ import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectFie
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
-  Role,
+  LegacyRole,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
@@ -35,7 +35,7 @@ type FormValues = Pick<
   | "email"
   | "firstName"
   | "lastName"
-  | "roles"
+  | "legacyRoles"
   | "preferredLang"
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
@@ -262,7 +262,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                   description:
                     "Placeholder displayed on the user form roles field.",
                 })}
-                options={enumToOptions(Role).map(({ value }) => ({
+                options={enumToOptions(LegacyRole).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getRole(value)),
                 }))}
