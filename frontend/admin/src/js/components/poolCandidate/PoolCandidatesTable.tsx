@@ -391,7 +391,10 @@ const PoolCandidatesTable: React.FC<{
       }),
     };
 
-    setTableState({ filters: transformedData });
+    setTableState({
+      filters: transformedData,
+      currentPage: defaultState.currentPage,
+    });
   };
 
   useEffect(() => {
