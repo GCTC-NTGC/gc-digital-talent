@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import imageUrl from "../../../helpers/imageUrl";
 import Well from "../../Well";
 import {
   getEmploymentEquityStatement,
@@ -96,47 +97,103 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
               })}{" "}
             </p>{" "}
             {nonLegacyIndigenousCommunitySelected && (
-              <div data-h2-padding="base(x1, 0, 0, 0)">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Indigenous Identity:",
-                    id: "GrE0hE",
-                    description:
-                      "Label preceding text explaining whether the user is indigenous, followed by a colon",
-                  })}{" "}
-                  <span data-h2-font-weight="base(700)">
-                    {intl.formatMessage(
-                      getEmploymentEquityStatement("indigenous"),
-                    )}
-                  </span>
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "My Community(ies):",
-                    id: "Mw4ShP",
-                    description:
-                      "Label preceding text listing the communities the user is a member of, followed by a colon",
-                  })}{" "}
-                  <span data-h2-font-weight="base(700)">
-                    {indigenousCommunities.map((community, index) => {
-                      if (
-                        !community ||
-                        community === IndigenousCommunity.LegacyIsIndigenous
-                      ) {
-                        return "";
-                      }
+              <div
+                data-h2-padding="base(x1, 0, 0, 0)"
+                // data-h2-display="p-tablet(flex)"
+                data-h2-align-items="base:(center)"
+                data-h2-justify-content="base:(space-between)"
+              >
+                <div>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Indigenous Identity:",
+                      id: "GrE0hE",
+                      description:
+                        "Label preceding text explaining whether the user is indigenous, followed by a colon",
+                    })}{" "}
+                    <span data-h2-font-weight="base(700)">
+                      {intl.formatMessage(
+                        getEmploymentEquityStatement("indigenous"),
+                      )}
+                    </span>
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "My Community(ies):",
+                      id: "Mw4ShP",
+                      description:
+                        "Label preceding text listing the communities the user is a member of, followed by a colon",
+                    })}{" "}
+                    <span data-h2-font-weight="base(700)">
+                      {indigenousCommunities.map((community, index) => {
+                        if (
+                          !community ||
+                          community === IndigenousCommunity.LegacyIsIndigenous
+                        ) {
+                          return "";
+                        }
 
-                      const text = intl.formatMessage(
-                        getIndigenousCommunity(community),
-                      );
+                        const text = intl.formatMessage(
+                          getIndigenousCommunity(community),
+                        );
 
-                      if (index === 0) {
-                        return text;
-                      }
-                      return `, ${text}`;
-                    })}
-                  </span>
-                </p>
+                        if (index === 0) {
+                          return text;
+                        }
+                        return `, ${text}`;
+                      })}
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  {indigenousCommunities.map((community) => {
+                    switch (community) {
+                      case IndigenousCommunity.StatusFirstNations:
+                      case IndigenousCommunity.NonStatusFirstNations:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="first-nations-true"
+                            src={imageUrl("/", "first-nations-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Inuit:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="inuit-true"
+                            src={imageUrl("/", "inuit-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Metis:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="metis-true"
+                            src={imageUrl("/", "metis-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Other:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="other-true"
+                            src={imageUrl("/", "other-true.png")}
+                          />
+                        );
+                      default:
+                        return null;
+                    }
+                  })}
+                </div>
               </div>
             )}
             {(isWoman ||
