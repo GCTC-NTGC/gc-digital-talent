@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Laratrust\Traits\LaratrustUserTrait;
 
 /**
  * Class User
@@ -64,6 +65,7 @@ use Illuminate\Support\Facades\DB;
 
 class User extends Model implements Authenticatable
 {
+    use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
