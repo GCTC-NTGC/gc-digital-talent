@@ -6,7 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import useQuote from "~/hooks/useQuote";
 
-import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 import Banner from "./Banner";
 import Card from "./Card";
 import CTAButtons from "./CTAButtons";

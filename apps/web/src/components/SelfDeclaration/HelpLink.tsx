@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 
 const contactLink = (chunks: React.ReactNode) => (
   <a

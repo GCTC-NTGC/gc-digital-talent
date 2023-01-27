@@ -32,7 +32,7 @@ import { ExperienceType } from "~/types/experience";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
-import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 
 type MergedExperiences = Array<
   | AwardExperience
