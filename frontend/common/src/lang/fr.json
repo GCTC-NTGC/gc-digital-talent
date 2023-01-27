@@ -1967,5 +1967,41 @@
   "rSymh2": {
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
+  },
+  "/Jijcj": {
+    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un <underline>groupe d’équité en matière d’emploi.</underline><strong> Vous pouvez ajouter d’autres <underline>groupes d’équité en matière d’emploi </underline> à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
+    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+  },
+  "1Wbu+6": {
+    "defaultMessage": "Premières Nations détenant le statut ",
+    "description": "The indigenous community for status First Nations"
+  },
+  "GrE0hE": {
+    "defaultMessage": "Identité autochtone :",
+    "description": "Label preceding text explaining whether the user is indigenous, followed by a colon"
+  },
+  "JamdKo": {
+    "defaultMessage": "Premières Nations sans statut ",
+    "description": "The indigenous community for non-status First Nations"
+  },
+  "Mw4ShP": {
+    "defaultMessage": "Ma (mes) collectivité(s) :",
+    "description": "Label preceding text listing the communities the user is a member of, followed by a colon"
+  },
+  "7XHnFE": {
+    "defaultMessage": "Autre",
+    "description": "The selection for being part of an indigenous community not already listed"
+  },
+  "1GWQal": {
+    "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
+    "description": "The text displayed if the user has selected as indigenous but not selected a community yet."
+  },
+  "xaCwEO": {
+    "defaultMessage": "Métis",
+    "description": "The indigenous community for Métis"
+  },
+  "z0JksZ": {
+    "defaultMessage": "Inuit",
+    "description": "The indigenous community for Inuit"
   }
 }

@@ -152,8 +152,8 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         : intl.formatMessage(
                             {
                               defaultMessage:
-                                "You haven't identified your community yet! <pledgeLink>Please enter here</pledgeLink>",
-                              id: "CFKDLD",
+                                "You haven't identified your community yet! <pledgeLink>Please enter here.</pledgeLink>",
+                              id: "1GWQal",
                               description:
                                 "The text displayed if the user has selected as indigenous but not selected a community yet.",
                             },
