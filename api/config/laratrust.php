@@ -226,7 +226,7 @@ return [
         | it will check only if the user has attached that role/permission ignoring the team.
         |
         */
-        'strict_check' => false,
+        'strict_check' => true,
     ],
 
     /*
