@@ -219,7 +219,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
                 {
-                  IT4Abbr: getITAbbrHtml(intl, 1),
+                  IT1Abbr: getITAbbrHtml(intl, 1),
                   openModal: (msg: React.ReactNode) =>
                     DialogLevelOne({ children: msg }),
                 },
