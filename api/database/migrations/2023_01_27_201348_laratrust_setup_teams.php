@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class LaratrustSetupTeams extends Migration
 {
@@ -15,8 +16,8 @@ class LaratrustSetupTeams extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description')->nullable();
+            $table->jsonb('display_name')->nullable();
+            $table->jsonb('description')->nullable();
             $table->timestamps();
         });
 

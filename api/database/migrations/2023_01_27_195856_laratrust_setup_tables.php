@@ -17,8 +17,8 @@ class LaratrustSetupTables extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description')->nullable();
+            $table->jsonb('display_name')->nullable();
+            $table->jsonb('description')->nullable();
             $table->timestamps();
         });
 
@@ -26,8 +26,8 @@ class LaratrustSetupTables extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description')->nullable();
+            $table->jsonb('display_name')->nullable();
+            $table->jsonb('description')->nullable();
             $table->timestamps();
         });
 
