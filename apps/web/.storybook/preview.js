@@ -11,9 +11,10 @@ import {
 } from "storybook-helpers"
 
 import frCompiled from "../src/lang/frCompiled.json";
+import frCommonCompiled from "@gc-digital-talent/common/src/lang/frCompiled.json"
 
-import "../../../frontend/common/src/css/hydrogen.css"
-import "../../../frontend/common/src/css/common.css"
+import "@gc-digital-talent/common/src/css/hydrogen.css"
+import "@gc-digital-talent/common/src/css/common.css"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -34,7 +35,13 @@ export const parameters = {
   },
 }
 
-const messages = { en: null, fr: frCompiled };
+const messages = {
+  en: null,
+  fr: {
+    ...frCompiled,
+    ...frCommonCompiled
+  }
+};
 setIntlConfig({
   locales: ["en", "fr"],
   defaultLocale: "en",

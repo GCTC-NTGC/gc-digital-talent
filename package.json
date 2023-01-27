@@ -10,7 +10,6 @@
   "packageManager": "npm@8.0.0",
   "workspaces": [
     "apps/*",
-    "frontend/admin",
     "frontend/common",
     "packages/*"
   ],
@@ -26,12 +25,11 @@
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
-    "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=admin",
-    "build-storybook": "MERGE_STORYBOOKS=true npm run build-storybook --workspace=admin",
+    "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=@gc-digital-talent/web",
+    "build-storybook": "MERGE_STORYBOOKS=true npm run build-storybook --workspace=@gc-digital-talent/web",
     "test": "turbo run test",
     "watch": "turbo run watch --filter=@gc-digital-talent/web",
     "watch:project": "turbo run watch",
-    "watch:admin": "turbo run watch --filter=admin",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
     "e2e:open": "npm run e2e:open",
     "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
