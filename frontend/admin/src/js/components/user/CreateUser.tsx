@@ -221,8 +221,8 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             />
             <div data-h2-margin="base(x1, 0)">
               <MultiSelectField
-                id="roles"
-                name="roles"
+                id="legacyRoles"
+                name="legacyRoles"
                 label={intl.formatMessage({
                   defaultMessage: "Roles",
                   id: "kwNyl6",
