@@ -27,7 +27,7 @@ import ProfileFormWrapper, {
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 
-import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -214,7 +214,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 1: Technician ($60,000 to $78,000). <openModal>Learn about {IT1Abbr}</openModal>",
-                  id: "5XAEp9",
+                  id: "SNy7yx",
                   description:
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
@@ -231,12 +231,12 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 2: Analyst ($75,000 to $91,000). <openModal>Learn about {IT2Abbr}</openModal>",
-                  id: "PcYOnN",
+                  id: "b73dZ/",
                   description:
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
                 {
-                  IT2Abbr: getITAbbrHtml(intl, 2);
+                  IT2Abbr: getITAbbrHtml(intl, 2),
                   openModal: (msg: React.ReactNode) =>
                     DialogLevelTwo({ children: msg }),
                 },
@@ -248,7 +248,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 3: Team Leader ($88,000 to $110,000). <openModal>Learn about {IT3Abbr}</openModal>",
-                  id: "hizC89",
+                  id: "YZKeG8",
                   description:
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
@@ -265,7 +265,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 3: Technical Advisor ($88,000 to $110,000). <openModal>Learn about {IT3Abbr}</openModal>",
-                  id: "44bgIY",
+                  id: "IepxPj",
                   description:
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
@@ -282,7 +282,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 4: Senior Advisor ($101,000 to $126,000). <openModal>Learn about{IT4Abbr}</openModal>",
-                  id: "FayQOt",
+                  id: "JHcPMG",
                   description:
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
@@ -299,7 +299,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 4: Manager ($101,000 to $126,000). <openModal>Learn about {IT4Abbr}</openModal>",
-                  id: "75nLSV",
+                  id: "4UmO4s",
                   description:
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
