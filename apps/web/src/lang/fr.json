@@ -27,8 +27,8 @@
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
     "description": "Learn more dialog question eleven paragraph one"
   },
-  "27FjxB": {
-    "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
+  "85mLkm": {
+    "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information ({ITAbbr}), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
   "404R1N": {
@@ -59,8 +59,8 @@
     "defaultMessage": "Lancement",
     "description": "Talent portal strategy item 4 heading"
   },
-  "BSSYnh": {
-    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
+  "lvlSL1": {
+    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en {ITAbbr} de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
   },
   "CY+493": {
@@ -79,28 +79,28 @@
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
   },
-  "DgMIfz": {
-    "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
+  "ehp8Gk": {
+    "defaultMessage": "Le Programme d’apprentissage en {ITAbbr} vous convient-il?",
     "description": "Application box heading part one"
   },
   "DvmNR7": {
     "defaultMessage": "Inscrivez-vous dès maintenant",
     "description": "Button text to apply for program"
   },
-  "Dzyk1q": {
+  "9mb0Oo": {
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "EqVMCE": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+  "cedWJD": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la {ITAbbr} et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
   "GnmmgR": {
     "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 3 à 5 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
   },
-  "qZvV7b": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+  "xb5sV+": {
+    "defaultMessage": "Programme d’apprentissage en {ITAbbr} pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en {ITAbbr}.",
     "description": "Homepage title for Indigenous Apprenticeship Program"
   },
   "Ilot3b": {
@@ -111,8 +111,8 @@
     "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
     "description": "Learn more dialog question seven heading"
   },
-  "L9yjr3": {
-    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
+  "C3U0TO": {
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en {ITAbbr} pour les peuples autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
   "LGSw+f": {
@@ -179,8 +179,8 @@
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
   },
-  "Xhfkfg": {
-    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
+  "YAOAJT": {
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en {ITAbbr}.",
     "description": "Talent portal strategy item 1 content"
   },
   "YGM/D5": {
@@ -243,20 +243,20 @@
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
   },
-  "osGGIt": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
+  "NTR2LK": {
+    "defaultMessage": "Programme d’apprentissage en {ITAbbr} pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
   },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
     "description": "Application box content"
   },
-  "p2sBh3": {
-    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
+  "fYdKK4": {
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en {ITAbbr} pour les peuples autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
-  "pWoAv0": {
-    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
+  "xgimLo": {
+    "defaultMessage": "Le Programme d’apprentissage en {ITAbbr} pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information ({ITAbbr}).",
     "description": "First paragraph about the program"
   },
   "pkFLpT": {
@@ -291,8 +291,8 @@
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
     "description": "Second paragraph about the program"
   },
-  "yZMQ6j": {
-    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
+  "u+ZAZn": {
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la {ITAbbr}!",
     "description": "How it works, step 2 content sentence 1"
   },
   "zlYw3Z": {
@@ -315,8 +315,8 @@
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
   },
-  "49UIne": {
-    "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
+  "zgvZdl": {
+    "defaultMessage": "Apprenti en {ITAbbr} du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
   "74Sg+4": {
@@ -380,7 +380,7 @@
       "description": "Text label for list of the users selected Indigenous communities"
     },
     "32qwlv": {
-      "defaultMessage": "Explorer les occasions en matière de TI au sein du gouvernement fédéral",
+      "defaultMessage": "Explorer les occasions en matière de {ITAbbr} au sein du gouvernement fédéral",
       "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
     },
     "3oW16P": {
@@ -463,8 +463,8 @@
       "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
       "description": "Label for not represented community"
     },
-    "YZ/ZhG": {
-      "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
+    "UQiCgi": {
+      "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en {ITAbbr} pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
       "description": "Text describing where to get help with the self-declaration form"
     },
     "at11n5": {
@@ -475,8 +475,8 @@
       "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
       "description": "Paragraph two for the self-declaration explanation dialog"
     },
-    "J2uivT": {
-      "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
+    "YwxcGD": {
+      "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en {ITAbbr} destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
       "description": "Paragraph one for the self-declaration explanation dialog"
     },
     "h4E9+K": {
@@ -1093,8 +1093,8 @@
     "defaultMessage": "Accueil",
     "description": "Link to the Homepage in the nav menu."
   },
-  "GAjpqU": {
-    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
+  "rfc/Gu": {
+    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de {ITAbbr}.",
     "description": "Description for the experience and skills page in applicant profile."
   },
   "GqVBqi": {
@@ -1885,7 +1885,7 @@
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
   },
-  "m5hjaz": {
+  "CvT9xO": {
     "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",
     "description": "Description of pool recruitment, paragraph two"
   },
@@ -2557,8 +2557,8 @@
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
   },
-  "6oR1o9": {
-    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
+  "pkm9aq": {
+    "defaultMessage": "Vous recherchez des talents en {ITAbbr} de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en {ITAbbr} pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
     "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
   },
   "dIIccA": {
@@ -2613,8 +2613,8 @@
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
   },
-  "p/dXxz": {
-    "defaultMessage": "Je souhaite embaucher des stagiaires autochtones en TI pour mon équipe",
+  "CJwpHZ": {
+    "defaultMessage": "Je souhaite embaucher des stagiaires autochtones en {ITAbbr) pour mon équipe",
     "description": "Subject of email for info on Indigenous Apprenticeship Program"
   },
   "qLYONf": {
