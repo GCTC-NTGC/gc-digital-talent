@@ -28,11 +28,11 @@ const LevelTwo = () => {
       {intl.formatMessage(
         {
           defaultMessage:
-            "Analysts ({ITAbbr}) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders. IT analysts are found in all work streams.",
-          id: "dN/wbc",
+            "Analysts ({IT2Abbr}) provide technical services, advice, analysis, and research in their field of expertise to support service delivery to clients and stakeholders. {ITAbbr} analysts are found in all work streams.",
+          id: "7nQiL5",
           description: "blurb describing IT-02",
         },
-        { ITAbbr: getITAbbrHtml(intl, 2) },
+        { ITAbbr: getITAbbrHtml(intl), IT2Abbr: getITAbbrHtml(intl, 2) },
       )}
     </p>
   );
