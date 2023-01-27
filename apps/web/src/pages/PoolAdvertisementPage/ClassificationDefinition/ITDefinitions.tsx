@@ -147,7 +147,7 @@ const LevelFourAdvisor = (): JSX.Element => {
             id: "rifhMf",
             description: "IT-04 description precursor",
           },
-          { ITAbbr: getITAbbrHtml(intl) },
+          { ITAbbr: getITAbbrHtml(intl, 4) },
         )}
       </p>
       <p>

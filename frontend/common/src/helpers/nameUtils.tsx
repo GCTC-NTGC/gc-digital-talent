@@ -87,10 +87,10 @@ export const getClassificationAbbvHtml = (
   const fallbackTitle =
     name ??
     intl.formatMessage({
-      id: "wSDrXG",
+      id: "kV0k7W",
       defaultMessage: "Classification not found.",
       description:
-        "Message shown to user when pool name or classification are not found.",
+        "Message shown to user when the classification name is not found.",
     });
 
   if (name && group && !level) {

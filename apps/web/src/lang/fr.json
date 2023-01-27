@@ -1009,8 +1009,8 @@
     "defaultMessage": "Renseignements personnels",
     "description": "Title for Personal Information section of the About Me form"
   },
-  "rifhMf": {
-    "defaultMessage": "Il y a deux types d'employés du {ITAbbr} : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+  "QpR/L2": {
+    "defaultMessage": "Il y a deux types d'employés du {IT4Abbr} : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-04 description precursor"
   },
   "8NJbCH": {
@@ -2257,10 +2257,6 @@
     "defaultMessage": "Afficher les candidatures archivées",
     "description": "Button text to show a users archived applications."
   },
-  "f3Qqop": {
-    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des {ITAbbr} dans l’ensemble du gouvernement.",
-    "description": "Description for the Indigenous Apprenticeship Program on home page"
-  },
   "fI6Hjf": {
     "defaultMessage": "La préférence sera accordée aux citoyens canadiens et aux résidents permanents du Canada",
     "description": "Context text for required citizenship status section in About Me form, explaining preference"
@@ -2384,10 +2380,6 @@
   "yiJYdP": {
     "defaultMessage": "Archiver la candidature",
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
-  },
-  "zNvXSs": {
-    "defaultMessage": "Parcourir les emplois en {ITAbbr}",
-    "description": "Texte du lien pour les emplois en TI dans l’appel à l’action du gouvernement"
   },
   "zmV99R": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du GC.",
@@ -3045,18 +3037,6 @@
     "defaultMessage": "Recommandé selon vos compétences",
     "description": "Tip that your skills match this section well and so it is recommended"
   },
-  "nLW9zq": {
-    "defaultMessage": "Technologie de l’information"
-  },
-  "AoDRut": {
-    "defaultMessage": "TI"
-  },
-  "6svHxg": {
-    "defaultMessage": "Services administratifs"
-  },
-  "L2u3Qn": {
-    "defaultMessage": "SA"
-  },
   "2KjiDn": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "title for IT-04 manager dialog"
@@ -3181,12 +3161,40 @@
     "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
     "description": "Description for the role and salary expectation form"
   },
-  "vQzmUH": {
+  "2IQ8Y3": {
     "defaultMessage": "Les techniciens en {ITAbbr} se retrouvent principalement dans trois filières de travail :",
     "description": "Preceding list description"
   },
   "wRxZQV": {
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the About Me form preferred communication language"
+  },
+  "++WV3O": {
+    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3 (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification aria label including titles and salaries"
+  },
+  "07u2wB": {
+    "defaultMessage": "Browse {ITAbbr} jobs",
+    "description": "Link text for IT jobs in government call to action"
+  },
+  "1c+inU": {
+    "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification aria label including titles and salaries"
+  },
+  "BkHx2X": {
+    "defaultMessage": "Analyste T I 2 (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification aria label including titles and salaries"
+  },
+  "Ix0KgU": {
+    "defaultMessage": "Conseiller principal ou Manager Gestionnaire I T 4 (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification aria label including titles and salaries"
+  },
+  "eKznwV": {
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des {ITAbbr} dans l’ensemble du gouvernement.",
+    "description": "Description for the Indigenous Apprenticeship Program on home page"
+  },
+  "rifhMf": {
+    "defaultMessage": "Il y a deux types d'employés du {ITAbbr} : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "description": "IT-04 description precursor"
   }
 }

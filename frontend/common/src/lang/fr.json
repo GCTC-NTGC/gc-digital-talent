@@ -1967,5 +1967,21 @@
   "rSymh2": {
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
+  },
+  "nLW9zq": {
+    "defaultMessage": "Technologie de l’information"
+  },
+  "AoDRut": {
+    "defaultMessage": "TI"
+  },
+  "6svHxg": {
+    "defaultMessage": "Services administratifs"
+  },
+  "L2u3Qn": {
+    "defaultMessage": "SA"
+  },
+  "kV0k7W": {
+    "defaultMessage": "Classification introuvable.",
+    "description": "Message shown to user when classification name is not found."
   }
 }
