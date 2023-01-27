@@ -3130,7 +3130,7 @@
     "description": "title for IT-03 advisor dialog"
   },
   "SNy7yx": {
-    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur {IT1Abbr}</openModal>",
+    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur {IT1Abbr}<openModal>",
     "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
   },
   "aLMroa": {
