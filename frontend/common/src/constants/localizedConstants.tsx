@@ -7,7 +7,7 @@ import {
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
-  Role,
+  LegacyRole,
   GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
@@ -636,12 +636,12 @@ export const getSkillCategory = (
   );
 
 export const Roles = defineMessages({
-  [Role.Admin]: {
+  [LegacyRole.Admin]: {
     defaultMessage: "Administrator",
     id: "LBNX0O",
     description: "The name of the Administrator user role.",
   },
-  [Role.Applicant]: {
+  [LegacyRole.Applicant]: {
     defaultMessage: "Applicant",
     id: "MGqCaE",
     description: "The name of the Applicant user role.",

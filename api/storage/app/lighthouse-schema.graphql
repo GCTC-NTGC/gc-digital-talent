@@ -316,7 +316,7 @@ input CreateSkillInput {
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
@@ -542,6 +542,14 @@ enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
+}
+
+enum LegacyRole {
+  """A user who has administrator privileges"""
+  ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
 }
 
 type LocalizedString {
@@ -1045,14 +1053,6 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   CURRENT_CITY
 }
 
-enum Role {
-  """A user who has administrator privileges"""
-  ADMIN
-
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
-}
-
 """The available SQL operators that are used to filter query results."""
 enum SQLOperator {
   """Equal operator (`=`)"""
@@ -1288,7 +1288,7 @@ input UpdateSkillInput {
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
@@ -1386,7 +1386,7 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String

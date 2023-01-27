@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $roles
+ * @property array $legacy_roles
  * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
@@ -71,7 +71,7 @@ class User extends Model implements Authenticatable
     protected $keyType = 'string';
 
     protected $casts = [
-        'roles' => 'array',
+        'legacy_roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
@@ -106,7 +106,7 @@ class User extends Model implements Authenticatable
 
     public function isAdmin(): bool
     {
-        return is_array($this->roles) && in_array('ADMIN', $this->roles);
+        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
 
     // All the relationships for experiences

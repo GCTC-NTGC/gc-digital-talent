@@ -31,7 +31,7 @@ class ApplicantTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
     }
 
@@ -1630,7 +1630,7 @@ class ApplicantTest extends TestCase
             'user_id' => $owner['id'],
         ]);
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT],
+            'legacy_roles' => [ApiEnums::ROLE_APPLICANT],
             'job_looking_status' => 'ACTIVELY_LOOKING',
         ])
             ->count(60)

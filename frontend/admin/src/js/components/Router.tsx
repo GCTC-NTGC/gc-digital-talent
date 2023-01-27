@@ -7,7 +7,7 @@ import RequireAuth from "@common/components/RequireAuth/RequireAuth";
 
 import Layout from "./Layout";
 
-import { Role } from "../api/generated";
+import { LegacyRole } from "../api/generated";
 
 const HomePage = React.lazy(() =>
   lazyRetry(
@@ -225,7 +225,7 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: (
-              <RequireAuth roles={[Role.Admin]}>
+              <RequireAuth roles={[LegacyRole.Admin]}>
                 <DashboardPage />
               </RequireAuth>
             ),
@@ -236,7 +236,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <UserPage />
                   </RequireAuth>
                 ),
@@ -244,7 +244,7 @@ const router = createBrowserRouter([
               {
                 path: "create",
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <CreateUser />
                   </RequireAuth>
                 ),
@@ -255,7 +255,7 @@ const router = createBrowserRouter([
                   {
                     index: true,
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <ViewUser />
                       </RequireAuth>
                     ),
@@ -263,7 +263,7 @@ const router = createBrowserRouter([
                   {
                     path: "edit",
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <UpdateUser />
                       </RequireAuth>
                     ),
@@ -278,7 +278,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <PoolPage />
                   </RequireAuth>
                 ),
@@ -286,7 +286,7 @@ const router = createBrowserRouter([
               {
                 path: "create",
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <CreatePool />
                   </RequireAuth>
                 ),
@@ -297,7 +297,7 @@ const router = createBrowserRouter([
                   {
                     index: true,
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <ViewPool />
                       </RequireAuth>
                     ),
@@ -305,7 +305,7 @@ const router = createBrowserRouter([
                   {
                     path: "edit",
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <EditPool />
                       </RequireAuth>
                     ),
@@ -316,7 +316,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <PoolCandidatePage />
                           </RequireAuth>
                         ),
@@ -327,7 +327,7 @@ const router = createBrowserRouter([
                           {
                             index: true,
                             element: (
-                              <RequireAuth roles={[Role.Admin]}>
+                              <RequireAuth roles={[LegacyRole.Admin]}>
                                 <ViewPoolCandidatePage />
                               </RequireAuth>
                             ),
@@ -343,7 +343,7 @@ const router = createBrowserRouter([
           {
             path: "candidates/:poolCandidateId/application",
             element: (
-              <RequireAuth roles={[Role.Admin]}>
+              <RequireAuth roles={[LegacyRole.Admin]}>
                 <ViewPoolCandidatePage />
               </RequireAuth>
             ),
@@ -354,7 +354,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <SearchRequestPage />
                   </RequireAuth>
                 ),
@@ -362,7 +362,7 @@ const router = createBrowserRouter([
               {
                 path: ":searchRequestId",
                 element: (
-                  <RequireAuth roles={[Role.Admin]}>
+                  <RequireAuth roles={[LegacyRole.Admin]}>
                     <SingleSearchRequestPage />
                   </RequireAuth>
                 ),
@@ -378,7 +378,7 @@ const router = createBrowserRouter([
                   {
                     index: true,
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <ClassificationPage />
                       </RequireAuth>
                     ),
@@ -386,7 +386,7 @@ const router = createBrowserRouter([
                   {
                     path: "create",
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <CreateClassification />
                       </RequireAuth>
                     ),
@@ -397,7 +397,7 @@ const router = createBrowserRouter([
                       {
                         path: "edit",
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <UpdateClassification />
                           </RequireAuth>
                         ),
@@ -412,7 +412,7 @@ const router = createBrowserRouter([
                   {
                     index: true,
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <DepartmentPage />
                       </RequireAuth>
                     ),
@@ -420,7 +420,7 @@ const router = createBrowserRouter([
                   {
                     path: "create",
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <CreateDepartment />
                       </RequireAuth>
                     ),
@@ -431,7 +431,7 @@ const router = createBrowserRouter([
                       {
                         path: "edit",
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <UpdateDepartment />
                           </RequireAuth>
                         ),
@@ -446,7 +446,7 @@ const router = createBrowserRouter([
                   {
                     index: true,
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <SkillPage />
                       </RequireAuth>
                     ),
@@ -454,7 +454,7 @@ const router = createBrowserRouter([
                   {
                     path: "create",
                     element: (
-                      <RequireAuth roles={[Role.Admin]}>
+                      <RequireAuth roles={[LegacyRole.Admin]}>
                         <CreateSkill />
                       </RequireAuth>
                     ),
@@ -465,7 +465,7 @@ const router = createBrowserRouter([
                       {
                         path: "edit",
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <UpdateSkill />
                           </RequireAuth>
                         ),
@@ -478,7 +478,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <SkillFamilyPage />
                           </RequireAuth>
                         ),
@@ -486,7 +486,7 @@ const router = createBrowserRouter([
                       {
                         path: "create",
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[LegacyRole.Admin]}>
                             <CreateSkillFamily />
                           </RequireAuth>
                         ),
@@ -497,7 +497,7 @@ const router = createBrowserRouter([
                           {
                             path: "edit",
                             element: (
-                              <RequireAuth roles={[Role.Admin]}>
+                              <RequireAuth roles={[LegacyRole.Admin]}>
                                 <UpdateSkillFamily />
                               </RequireAuth>
                             ),

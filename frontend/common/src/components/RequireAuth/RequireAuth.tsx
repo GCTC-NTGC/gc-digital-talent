@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 import useAuthorizationContext from "../../hooks/useAuthorizationContext";
-import { Role } from "../../api/generated";
+import { LegacyRole } from "../../api/generated";
 import { useApiRoutes } from "../../hooks/useApiRoutes";
 import useLocale from "../../hooks/useLocale";
 import Loading from "../Pending/Loading";
@@ -11,7 +11,7 @@ import { useLogger } from "../../hooks/useLogger";
 
 interface RequireAuthProps {
   children: React.ReactNode;
-  roles: Array<Role>;
+  roles: Array<LegacyRole>;
 }
 
 const RequireAuth = ({ children, roles }: RequireAuthProps) => {
@@ -24,7 +24,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
 
   const isAuthorized =
     isLoaded &&
-    roles.some((authorizedRole: Role) =>
+    roles.some((authorizedRole: LegacyRole) =>
       loggedInUserRoles?.includes(authorizedRole),
     );
 

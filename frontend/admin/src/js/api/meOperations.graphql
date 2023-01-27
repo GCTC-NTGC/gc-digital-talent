@@ -1,5 +1,5 @@
 query getMe {
   me {
-    roles
+    legacyRoles
   }
 }
