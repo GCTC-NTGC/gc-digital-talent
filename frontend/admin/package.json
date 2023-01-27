@@ -114,7 +114,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.13",
+    "@heroicons/react": "^2.0.14",
     "@urql/exchange-auth": "^1.0.0",
     "core-js": "^3.27.2",
     "dotenv": "^16.0.3",
