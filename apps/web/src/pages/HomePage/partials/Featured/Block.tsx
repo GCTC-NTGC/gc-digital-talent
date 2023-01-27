@@ -5,14 +5,14 @@ import Heading from "@common/components/Heading";
 // Define the interface
 export interface FeatureBlockProps {
   content: {
-    title: string;
-    summary: string;
+    title: string | React.ReactNode;
+    summary: string | React.ReactNode;
     img: {
       path: string;
     };
     link: {
       path: string;
-      label: string;
+      label: string | React.ReactNode;
     };
   };
 }

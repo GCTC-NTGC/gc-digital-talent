@@ -5,8 +5,8 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import Heading from "@common/components/Heading";
 import { getLocale } from "@common/helpers/localize";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 
-import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
 import Block from "./Block";
 
 // Create the page component
@@ -76,8 +76,8 @@ const Featured = () => {
       summary: intl.formatMessage(
         {
           defaultMessage:
-            "Vous recherchez des talents en {ITAbbr} de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en {ITAbbr} pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
-          id: "6oR1o9",
+            "Are you looking for entry-level {ITAbbr} talent and want to support diversity, inclusion, and reconciliation? Connect with the {ITAbbr} Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
+          id: "pkm9aq",
           description:
             "Summary of the Indigenous Apprenticeship Program for the homepage",
         },

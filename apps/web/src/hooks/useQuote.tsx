@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { getITAbbrHtml } from "~/../../../frontend/common/src/helpers/nameUtils";
 
 export interface Quote {
   content: React.ReactNode | string;
-  author: string;
+  author: React.ReactNode | string;
 }
 
 const useQuote = (): Quote => {
@@ -11,11 +12,14 @@ const useQuote = (): Quote => {
 
   const quotes: Quote[] = [
     {
-      author: intl.formatMessage({
-        defaultMessage: "Government of Canada IT Apprentice",
-        id: "49UIne",
-        description: "author of testimonial number one",
-      }),
+      author: intl.formatMessage(
+        {
+          defaultMessage: "Government of Canada {ITAbbr} Apprentice",
+          id: "zgvZdl",
+          description: "author of testimonial number one",
+        },
+        { ITAbbr: getITAbbrHtml(intl) },
+      ),
       content: intl.formatMessage(
         {
           defaultMessage:

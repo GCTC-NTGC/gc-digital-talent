@@ -22,7 +22,10 @@ import {
 import { getLocale, getLocalizedName } from "../../helpers/localize";
 import Chip, { Chips } from "../Chip";
 
-export type SimpleClassification = Pick<Classification, "group" | "level">;
+export type SimpleClassification = Pick<
+  Classification,
+  "group" | "level" | "name"
+>;
 
 export interface FilterBlockProps {
   title: string;
@@ -128,7 +131,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
 const ApplicantFilters: React.FC<{
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }> = ({ applicantFilter, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -399,7 +402,7 @@ const ApplicantFilters: React.FC<{
 
 export interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }
 
 const SearchRequestFilters: React.FunctionComponent<

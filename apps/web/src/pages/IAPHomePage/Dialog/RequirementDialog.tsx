@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 
 import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
-import CloseButton from "./CloseButton";
+import { getITAbbrHtml } from "@common/helpers/nameUtils";
 
+import CloseButton from "./CloseButton";
 import type { BasicDialogProps } from "./types";
 
 const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
@@ -54,12 +55,15 @@ const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
             })}
           </li>
           <li>
-            {intl.formatMessage({
-              defaultMessage:
-                "Have a passion for and an interest in information technology (IT), with that passion and interest demonstrated through personal, volunteer, community, or professional life experience",
-              id: "27FjxB",
-              description: "IAP Requirement list item four",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Have a passion for and an interest in information technology ({ITAbbr}), with that passion and interest demonstrated through personal, volunteer, community, or professional life experience",
+                id: "85mLkm",
+                description: "IAP Requirement list item four",
+              },
+              { ITAbbr: getITAbbrHtml(intl) },
+            )}
           </li>
           <li>
             {intl.formatMessage({

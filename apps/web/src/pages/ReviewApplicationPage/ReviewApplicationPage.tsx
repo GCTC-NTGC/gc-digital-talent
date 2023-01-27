@@ -15,7 +15,7 @@ import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -71,7 +71,7 @@ export const ReviewApplication: React.FunctionComponent<
       technicalRequiredSkills || [],
       hasExperiences ? flattenExperienceSkills(experiences) : [],
     ).length === 0;
-  const jobTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const jobTitle = getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement);
 
   return (
     <>

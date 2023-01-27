@@ -23,6 +23,10 @@ query CountApplicantsAndCountPoolCandidatesByPool(
         id
         group
         level
+        name {
+          en
+          fr
+        }
       }
     }
     candidateCount

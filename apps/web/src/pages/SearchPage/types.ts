@@ -8,7 +8,7 @@ import { SimpleClassification, SimplePool } from "~/types/pool";
 
 export const NullSelection = "NULL_SELECTION";
 
-export type Option<V> = { value: V; label: string };
+export type Option<V> = { value: V; label: string; ariaLabel?: string };
 export type FormValues = Pick<
   ApplicantFilterInput,
   "locationPreferences" | "operationalRequirements"

@@ -83,6 +83,35 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+const classificationAriaLabels: Record<string, MessageDescriptor> =
+  defineMessages({
+    "IT-01": {
+      defaultMessage: "Technician I T 1 ($60,000 to $78,000)",
+      id: "1c+inU",
+      description:
+        "IT-01 classification aria label including titles and salaries",
+    },
+    "IT-02": {
+      defaultMessage: "Analyst I T 2 ($75,000 to $91,000)",
+      id: "BkHx2X",
+      description:
+        "IT-02 classification aria label including titles and salaries",
+    },
+    "IT-03": {
+      defaultMessage:
+        "Technical Advisor or Team Leader I T 3 ($88,000 to $110,000)",
+      id: "++WV3O",
+      description:
+        "IT-03 classification aria label including titles and salaries",
+    },
+    "IT-04": {
+      defaultMessage: "Senior Advisor or Manager I T 4 ($101,000 to $126,000)",
+      id: "Ix0KgU",
+      description:
+        "IT-04 classification aria label including titles and salaries",
+    },
+  });
+
 const durationSelectionToEnum = (
   selection: string | null,
 ): PositionDuration[] | null => {
@@ -199,11 +228,15 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
 
     const getClassificationLabel = React.useCallback(
-      (group: string, level: number): string => {
+      (
+        group: string,
+        level: number,
+        labels: Record<string, MessageDescriptor>,
+      ): string => {
         const key = `${group}-0${level}`;
         return !hasKey(classificationLabels, key)
           ? key
-          : intl.formatMessage(classificationLabels[key]);
+          : intl.formatMessage(labels[key]);
       },
       [intl],
     );
@@ -212,7 +245,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       () =>
         classifications.map(({ group, level }) => ({
           value: classificationToKey({ group, level }),
-          label: getClassificationLabel(group, level),
+          label: getClassificationLabel(group, level, classificationLabels),
+          ariaLabel: getClassificationLabel(
+            group,
+            level,
+            classificationAriaLabels,
+          ),
         })),
       [classifications, getClassificationLabel],
     );

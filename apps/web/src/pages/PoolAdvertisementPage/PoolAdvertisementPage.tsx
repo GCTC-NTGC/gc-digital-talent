@@ -44,7 +44,10 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import { isAdvertisementVisible } from "~/utils/poolUtils";
-import { getClassificationAbbvHtml } from "@common/helpers/nameUtils";
+import {
+  getClassificationAbbvHtml,
+  getITAbbrHtml,
+} from "@common/helpers/nameUtils";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "./ClassificationDefinition/ClassificationDefinition";
 
@@ -352,13 +355,16 @@ export const PoolAdvertisementPoster = ({
                     })}
                   </Text>
                   <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                      id: "m5hjaz",
-                      description:
-                        "Description of pool recruitment, paragraph two",
-                    })}
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "When hiring managers have {ITAbbr} staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                        id: "CvT9xO",
+                        description:
+                          "Description of pool recruitment, paragraph two",
+                      },
+                      { ITAbbr: getITAbbrHtml(intl) },
+                    )}
                   </Text>
                 </Accordion.Content>
               </Accordion.Item>
