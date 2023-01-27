@@ -23,14 +23,14 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "resolutions": {
+    "@storybook/react/webpack": "^5.75.0"
+  },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "@heroicons/react": "^2.0.13",
     "@microsoft/applicationinsights-react-js": "^3.4.0",
     "@microsoft/applicationinsights-web": "^2.8.9",
-    "@storybook/addon-actions": "^6.5.14",
-    "@storybook/addon-viewport": "^6.5.14",
-    "@storybook/react": "^6.5.14",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "framer-motion": "^8.5.2",

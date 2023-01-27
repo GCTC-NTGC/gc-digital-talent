@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakePoolAdvertisements } from "@common/fakeData";
 import { PoolAdvertisementPoster } from "./PoolAdvertisementPage";
 
@@ -14,14 +14,15 @@ nullAdvertisement.id = fakeAdvertisement.id; // advertisement will never have a 
 export default {
   component: PoolAdvertisementPoster,
   title: "Pages/Pool Advertisement Poster",
-} as Meta;
+} as ComponentMeta<typeof PoolAdvertisementPoster>;
 
-const TemplatePoolAdvertisementPoster: Story = (...args) => (
-  <PoolAdvertisementPoster poolAdvertisement={args[0].poolAdvertisement} />
-);
+const Template: ComponentStory<typeof PoolAdvertisementPoster> = (args) => {
+  const { poolAdvertisement } = args;
+  return <PoolAdvertisementPoster poolAdvertisement={poolAdvertisement} />;
+};
 
-export const CompletedPoolPoster = TemplatePoolAdvertisementPoster.bind({});
+export const CompletedPoolPoster = Template.bind({});
 CompletedPoolPoster.args = { poolAdvertisement: fakeAdvertisement };
 
-export const NullPoolPoster = TemplatePoolAdvertisementPoster.bind({});
+export const NullPoolPoster = Template.bind({});
 NullPoolPoster.args = { poolAdvertisement: nullAdvertisement };

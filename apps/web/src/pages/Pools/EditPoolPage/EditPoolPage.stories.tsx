@@ -18,7 +18,7 @@ const poolAdvertisement = fakePoolAdvertisements(1, skills, classifications)[0];
 
 export default {
   component: EditPoolForm,
-  title: "Pools/Edit Pool Form",
+  title: "Forms/Edit Pool Form",
   args: {
     classifications,
     skills,
@@ -31,7 +31,9 @@ export default {
   },
 } as Meta;
 
-const TemplateEditPoolForm: Story<EditPoolFormProps> = (args) => {
+const TemplateEditPoolForm: Story<EditPoolFormProps> = (
+  args: JSX.IntrinsicAttributes & EditPoolFormProps,
+) => {
   return <EditPoolForm {...args} />;
 };
 

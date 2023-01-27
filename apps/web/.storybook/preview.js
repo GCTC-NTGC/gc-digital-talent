@@ -11,10 +11,10 @@ import {
 } from "storybook-helpers"
 
 import frCompiled from "../src/lang/frCompiled.json";
-import frCommonCompiled from "@gc-digital-talent/common/src/lang/frCompiled.json"
+import frCommonCompiled from "../../../frontend/common/src/lang/frCompiled.json"
 
-import "@gc-digital-talent/common/src/css/hydrogen.css"
-import "@gc-digital-talent/common/src/css/common.css"
+import "../../../frontend/common/src/css/hydrogen.css"
+import "../../../frontend/common/src/css/common.css"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
