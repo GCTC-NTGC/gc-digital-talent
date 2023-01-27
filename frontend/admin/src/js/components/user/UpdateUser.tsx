@@ -312,7 +312,7 @@ const UpdateUser = () => {
           "preferredLanguageForInterview",
           "preferredLanguageForExam",
           "sub",
-          "roles",
+          "legacyRoles",
         ]),
       },
     }).then((result) => {
