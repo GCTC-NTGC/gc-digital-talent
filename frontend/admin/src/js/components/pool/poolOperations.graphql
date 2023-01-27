@@ -203,7 +203,7 @@ mutation createPoolAdvertisement(
 
 query getMePoolCreation {
   me {
-    roles
+    legacyRoles
     id
   }
   genericJobTitles {
