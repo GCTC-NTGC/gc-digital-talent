@@ -5,13 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 
 import { toast } from "@common/components/Toast";
-import {
-  Input,
-  Select,
-  TextArea,
-  Submit,
-  MultiSelect,
-} from "@common/components/form";
+import { Input, Select, TextArea, Submit } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -21,6 +15,7 @@ import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading/Heading";
 import SEO from "@common/components/SEO/SEO";
 
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -225,23 +220,25 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelect
-              id="skills"
-              name="skills"
-              label={intl.formatMessage({
-                defaultMessage: "Skills",
-                id: "F2Rs/C",
-                description:
-                  "Label displayed on the skill family form skills field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more skills...",
-                id: "7Cx7lp",
-                description:
-                  "Placeholder displayed on the skill family form skills field.",
-              })}
-              options={skillOptions}
-            />
+            <div data-h2-margin="base(x1, 0)">
+              <MultiSelectField
+                id="skills"
+                name="skills"
+                label={intl.formatMessage({
+                  defaultMessage: "Skills",
+                  id: "F2Rs/C",
+                  description:
+                    "Label displayed on the skill family form skills field.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select one or more skills...",
+                  id: "7Cx7lp",
+                  description:
+                    "Placeholder displayed on the skill family form skills field.",
+                })}
+                options={skillOptions}
+              />
+            </div>
             <Submit />
           </form>
         </FormProvider>

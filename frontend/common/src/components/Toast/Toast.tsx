@@ -29,7 +29,7 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
     data-h2-align-items="base(center)"
     data-h2-location="base(x1, x1, auto, auto)"
     data-h2-cursor="base(pointer)"
-    data-h2-transition="base(all, 100ms, ease-in)"
+    data-h2-transition="base(all 100ms ease-in)"
     data-h2-z-index="base(9)"
     aria-label={ariaLabel}
     {...closeButtonStyles[type]}

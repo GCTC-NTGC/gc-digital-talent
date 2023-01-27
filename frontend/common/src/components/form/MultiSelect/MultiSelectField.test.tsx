@@ -13,7 +13,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
-import MultiSelectFieldV2 from "./MultiSelectFieldV2";
+import MultiSelectField from "./MultiSelectField";
 
 const Providers = ({
   children,
@@ -69,7 +69,7 @@ const renderWithProviders = (
 
 describe("MultiSelectFieldV2", () => {
   it("should render properly with only label prop", () => {
-    renderWithProviders(<MultiSelectFieldV2 label="Foo Bar" />);
+    renderWithProviders(<MultiSelectField label="Foo Bar" />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("MultiSelectFieldV2", () => {
 
   it("should submit undefine when no default (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<MultiSelectFieldV2 label="Foo Bar" options={[]} />, {
+    renderWithProviders(<MultiSelectField label="Foo Bar" options={[]} />, {
       wrapperProps: {
         onSubmit: mockSubmit,
       },
@@ -98,7 +98,7 @@ describe("MultiSelectFieldV2", () => {
   it("should submit correctly as array of values", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <MultiSelectFieldV2
+      <MultiSelectField
         label="Foo Bar"
         options={[
           { value: "BAZ", label: "Baz" },
@@ -144,7 +144,7 @@ describe("MultiSelectFieldV2", () => {
 
   it("should be clearable even when required", () => {
     renderWithProviders(
-      <MultiSelectFieldV2
+      <MultiSelectField
         label="Foo Bar"
         rules={{ required: "Required!" }}
         options={[{ value: "BAZ", label: "Baz" }]}
@@ -159,7 +159,7 @@ describe("MultiSelectFieldV2", () => {
   });
 
   it("should show loading indicator when isLoading", () => {
-    renderWithProviders(<MultiSelectFieldV2 label="Foo Bar" isLoading />);
+    renderWithProviders(<MultiSelectField label="Foo Bar" isLoading />);
 
     const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,

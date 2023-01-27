@@ -14,7 +14,7 @@ import { Select } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
-import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
+import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
 import { notEmpty } from "@common/helpers/util";
 import zipWith from "lodash/zipWith";
 import {
@@ -257,7 +257,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
               })}
             </p>
             <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <MultiSelectFieldV2
+              <MultiSelectField
                 id="changeStatusDialog-additionalPools"
                 name="additionalPools"
                 label={intl.formatMessage({
