@@ -50,8 +50,10 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -60,7 +62,9 @@ type User {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -110,7 +114,12 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences") # All experiences that a user owns
+  experiences: [Experience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
   awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
   communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
@@ -209,8 +218,10 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -227,7 +238,9 @@ type Applicant {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -269,7 +282,12 @@ type Applicant {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
-  experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences")
+  experiences: [Experience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences")
   awardExperiences: [AwardExperience] @hasMany
   communityExperiences: [CommunityExperience] @hasMany
   educationExperiences: [EducationExperience] @hasMany
@@ -756,7 +774,8 @@ input UserPoolFilterInput {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -766,7 +785,8 @@ input PoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
   priorityWeight: [Int] @scope
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus]
+    @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
@@ -801,7 +821,8 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope
   name: String @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus]
+    @scope(name: "poolCandidateStatuses")
 }
 
 type CandidateSearchPoolResult {
@@ -872,7 +893,11 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft", "availableForOpportunities", "expiryFilter"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["notDraft", "availableForOpportunities", "expiryFilter"]
+    )
     @guard
     @can(ability: "viewAny")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
@@ -911,7 +936,11 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
+  applicantFilters: [ApplicantFilter]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+    @throttle(name: "graphql")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -968,8 +997,10 @@ input CreateUserInput {
     )
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1039,8 +1070,10 @@ input UpdateUserAsAdminInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1106,8 +1139,10 @@ input UpdateUserAsUserInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
