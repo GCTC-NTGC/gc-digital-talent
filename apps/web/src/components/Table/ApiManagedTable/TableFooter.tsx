@@ -122,7 +122,7 @@ function TableFooter({
               onCurrentPageChange={onCurrentPageChange}
               onPageSizeChange={onPageSizeChange}
               pageSize={paginatorInfo.perPage}
-              pageSizes={[10, 20, 30, 40, 50]}
+              pageSizes={[10, 20, 50, 100, 500]}
               totalCount={paginatorInfo.total}
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
