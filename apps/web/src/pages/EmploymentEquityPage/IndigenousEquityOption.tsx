@@ -15,7 +15,6 @@ interface EquityOptionProps {
   indigenousCommunities: Array<IndigenousCommunity>;
   option: EquityGroup;
   // Note: Just defining the func signature
-  // eslint-disable-next-line no-unused-vars
   onSave: (indigenousCommunities: Array<IndigenousCommunity>) => void;
   title: React.ReactNode;
 }

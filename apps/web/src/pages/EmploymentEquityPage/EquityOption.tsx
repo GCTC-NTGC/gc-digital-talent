@@ -18,7 +18,6 @@ interface EquityOptionProps {
   isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
-  // eslint-disable-next-line no-unused-vars
   onSave: (value: boolean) => void;
   title: React.ReactNode;
 }

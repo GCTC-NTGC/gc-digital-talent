@@ -121,7 +121,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   )}
                 />
               )}
-              {resolvedIndigenousCommunities.length && (
+              {resolvedIndigenousCommunities.length ? (
                 <IndigenousEquityOption
                   option="indigenous"
                   indigenousCommunities={resolvedIndigenousCommunities}
@@ -132,7 +132,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                     getEmploymentEquityStatement("indigenous"),
                   )}
                 />
-              )}
+              ) : null}
               {resolvedMinority && (
                 <EquityOption
                   option="minority"
@@ -199,7 +199,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
                 />
               )}
-              {!resolvedIndigenousCommunities.length && (
+              {!resolvedIndigenousCommunities.length ? (
                 <IndigenousEquityOption
                   option="indigenous"
                   indigenousCommunities={resolvedIndigenousCommunities}
@@ -210,7 +210,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                     getEmploymentEquityGroup("indigenous"),
                   )}
                 />
-              )}
+              ) : null}
               {!resolvedMinority && (
                 <EquityOption
                   option="minority"

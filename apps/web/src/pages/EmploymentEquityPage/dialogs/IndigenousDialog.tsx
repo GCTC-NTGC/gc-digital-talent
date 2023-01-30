@@ -16,8 +16,8 @@ import {
 } from "@common/constants";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
-import { Fieldset } from "~/../../../frontend/common/src/components/inputPartials";
-import { FieldLabels } from "~/../../../frontend/common/src/components/form/BasicForm";
+import { Fieldset } from "@common/components/inputPartials";
+import { FieldLabels } from "@common/components/form/BasicForm";
 import { IndigenousCommunity } from "~/api/generated";
 
 import AddToProfile from "./AddToProfile";
