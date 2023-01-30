@@ -1,0 +1,2364 @@
+{
+  "+4Zmyc": {
+    "defaultMessage": "Talent requests",
+    "description": "Page title for the search request index page"
+  },
+  "+5da+V": {
+    "defaultMessage": "<heavyPrimary>Archived</heavyPrimary>",
+    "description": "Status name of a pool in ARCHIVED status"
+  },
+  "+pgXHm": {
+    "defaultMessage": "Created",
+    "description": "Title displayed for the User table Date Created column"
+  },
+  "+svnC6": {
+    "defaultMessage": "Publish",
+    "description": "Heading for the publish pool dialog"
+  },
+  "+tzO5t": {
+    "defaultMessage": "Has Diploma"
+  },
+  "+umNAP": {
+    "defaultMessage": "Create New Pool",
+    "description": "Header for page to create pool advertisements"
+  },
+  "+wG2Ap": {
+    "defaultMessage": "View {name} <hidden>{hiddenLabel}</hidden>",
+    "description": "Title displayed for the View Item column."
+  },
+  "/6voUd": {
+    "defaultMessage": "Edit pool advertisement",
+    "description": "Header for page to edit pool advertisements"
+  },
+  "/8fQ9Y": {
+    "defaultMessage": "Link to user email",
+    "description": "Descriptive title for an anchor link"
+  },
+  "/MBeNc": {
+    "defaultMessage": "Start writing your notes here...",
+    "description": "Placeholder text for a pool candidates notes field"
+  },
+  "/QUq6L": {
+    "defaultMessage": "Are you sure you want to continue?",
+    "description": "Second paragraph for Delete pool dialog"
+  },
+  "/Y7x+s": {
+    "defaultMessage": "Create Pool",
+    "description": "Heading displayed above the Create Pool form."
+  },
+  "/YiBdv": {
+    "defaultMessage": "Department #",
+    "description": "Label displayed on the create a department form department number field."
+  },
+  "/bwX1a": {
+    "defaultMessage": "Column headers with buttons are sortable",
+    "description": "Text displayed to instruct users how to sort table rows"
+  },
+  "/fv4O0": {
+    "defaultMessage": "No information has been provided.",
+    "description": "Message on Admin side when user not filled WorkPreferences section."
+  },
+  "/no0jA": {
+    "defaultMessage": "Candidate Profile",
+    "description": "Tabs title for the individual user profile."
+  },
+  "/pHz5L": {
+    "defaultMessage": "Candidate pool status",
+    "description": "Label for the current applications pool status"
+  },
+  "/s66sg": {
+    "defaultMessage": "Application status",
+    "description": "Title for admins to edit an applications status."
+  },
+  "/uqLeF": {
+    "defaultMessage": "Create User",
+    "description": "Title displayed on the create a user form."
+  },
+  "0+g2jN": {
+    "defaultMessage": "Email",
+    "description": "Title displayed for the User table Email column."
+  },
+  "044hi7": {
+    "defaultMessage": "Copy link",
+    "description": "Button text to copy a url"
+  },
+  "0PmIE8": {
+    "defaultMessage": "Candidate Name",
+    "description": "Title displayed on the single search request table candidate name column."
+  },
+  "0SoKjt": {
+    "defaultMessage": "User {userId} not found.",
+    "description": "Message displayed for user not found."
+  },
+  "0UY4v5": {
+    "defaultMessage": "Select a language...",
+    "description": "Placeholder displayed on the user form preferred communication language field."
+  },
+  "0VlOQq": {
+    "defaultMessage": "Edit skill",
+    "description": "Page title for the edit skill page."
+  },
+  "0Y4Dt4": {
+    "defaultMessage": "My pools",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "0oqRIl": {
+    "defaultMessage": "Name (French)",
+    "description": "Label displayed on the create a skill family form name (French) field."
+  },
+  "0qKFaP": {
+    "defaultMessage": "This pool is currently being advertised and open to receiving new applications.",
+    "description": "Status description of a pool in PUBLISHED status"
+  },
+  "114gjj": {
+    "defaultMessage": "Location Preferences",
+    "description": "CSV Header, Location Preferences column"
+  },
+  "154pGu": {
+    "defaultMessage": "Users",
+    "description": "Label displayed on the Users menu item."
+  },
+  "1E0RiD": {
+    "defaultMessage": "Process Number",
+    "description": "Label for a pools process number"
+  },
+  "1HPhji": {
+    "defaultMessage": "Filters",
+    "description": "Text label for button to open filter dialog on admin tables."
+  },
+  "1JCjTP": {
+    "defaultMessage": "No email provided",
+    "description": "Fallback for email value"
+  },
+  "1XyQqX": {
+    "defaultMessage": "Work Preferences"
+  },
+  "1bNptz": {
+    "defaultMessage": "Candidate ID",
+    "description": "Title displayed on the single search request table id column."
+  },
+  "1pk/7X": {
+    "defaultMessage": "Language Information",
+    "description": "Title of the Language Information content section"
+  },
+  "1sPszf": {
+    "defaultMessage": "Current Location",
+    "description": "Title displayed on the Pool Candidates table Current Location column."
+  },
+  "1vVbe3": {
+    "defaultMessage": "Visible Minority",
+    "description": "CSV Header, Visible Minority column"
+  },
+  "2++hVA": {
+    "defaultMessage": "Are you sure you want to continue?",
+    "description": "Third paragraph for Close pool dialog"
+  },
+  "2TrYLI": {
+    "defaultMessage": "Error: updating pool failed",
+    "description": "Message displayed to user after pool fails to get updated."
+  },
+  "2asU3k": {
+    "defaultMessage": "Save essential skills",
+    "description": "Text on a button to save the pool essential skills"
+  },
+  "2ekC5r": {
+    "defaultMessage": "Skill family updated successfully!",
+    "description": "Message displayed to user after skillFamily is updated successfully."
+  },
+  "2wmzS1": {
+    "defaultMessage": "Name",
+    "description": "Title displayed for the Department table Name column."
+  },
+  "2wo24b": {
+    "defaultMessage": "Name (English)",
+    "description": "Label displayed on the create a skill family form name (English) field."
+  },
+  "36k+Da": {
+    "defaultMessage": "Name",
+    "description": "Label for user table search dropdown (name)."
+  },
+  "3AmNSJ": {
+    "defaultMessage": "This pool is being advertised but no longer accepting applications.",
+    "description": "Status description of a pool in CLOSED status"
+  },
+  "3D/wxC": {
+    "defaultMessage": "Classification created successfully!",
+    "description": "Message displayed to user after classification is created successfully."
+  },
+  "3F6QqF": {
+    "defaultMessage": "Start writing here...",
+    "description": "Placeholder displayed on the Global Filter form Search field."
+  },
+  "3HJ51b": {
+    "defaultMessage": "Woman",
+    "description": "Text on view-user page that the user is a woman"
+  },
+  "3IAJad": {
+    "defaultMessage": "Skills",
+    "description": "CSV Header, Skills column"
+  },
+  "3OfvwW": {
+    "defaultMessage": "Location: Remote optional",
+    "description": "Label for a pool advertisement that has remote option."
+  },
+  "3UkIDo": {
+    "defaultMessage": "Email:",
+    "description": "Display text for the email field on users"
+  },
+  "3b6cy/": {
+    "defaultMessage": "Minimum Salary",
+    "description": "Label displayed for the classification form min salary field."
+  },
+  "3eNQnt": {
+    "defaultMessage": "Date Received",
+    "description": "Title displayed on the Pool Candidates table Date Received column."
+  },
+  "3exDkT": {
+    "defaultMessage": "Key",
+    "description": "Label displayed on the create a skill form key field."
+  },
+  "3fAkvM": {
+    "defaultMessage": "Pools",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "3mrTn5": {
+    "defaultMessage": "Extend Closing Date",
+    "description": "Heading for the extend pool closing date dialog"
+  },
+  "457hEW": {
+    "defaultMessage": "Departments",
+    "description": "Heading displayed above the Department Table component."
+  },
+  "45BhQw": {
+    "defaultMessage": "You're about to PUBLISH this pool.",
+    "description": "First paragraph for publish pool dialog"
+  },
+  "4AubyK": {
+    "defaultMessage": "Notes",
+    "description": "Title of the 'Notes' section of the view-user page"
+  },
+  "4Czd5U": {
+    "defaultMessage": "Saving...",
+    "description": "Text displayed on the pool candidate application submit button while saving"
+  },
+  "4EkI/1": {
+    "defaultMessage": "Description (French)",
+    "description": "Label displayed on the update a skill form description (French) field."
+  },
+  "4Irijj": {
+    "defaultMessage": "Add user to pool",
+    "description": "Button to add user to pool on the view-user page"
+  },
+  "4N6O+3": {
+    "defaultMessage": "Personal status",
+    "description": "Title of the 'Personal status' section of the view-user page"
+  },
+  "4Zl/mp": {
+    "defaultMessage": "Person with disability",
+    "description": "Text on view-user page that the user has a disability"
+  },
+  "4boO/6": {
+    "defaultMessage": "Name (English)",
+    "description": "Label displayed on the create a department form name (English) field."
+  },
+  "4fOu5j": {
+    "defaultMessage": "Skill Families",
+    "description": "Label displayed on the skill families menu item."
+  },
+  "4yBTfg": {
+    "defaultMessage": "<heavyPrimary>Draft</heavyPrimary>",
+    "description": "Status name of a pool in DRAFT status"
+  },
+  "5Al53V": {
+    "defaultMessage": "Create Skill Family",
+    "description": "Title displayed on the create a skill family form."
+  },
+  "5F/aKm": {
+    "defaultMessage": "Name (English)",
+    "description": "Label displayed on the update a skill form name (English) field."
+  },
+  "5FFRV2": {
+    "defaultMessage": "Error: updating user failed",
+    "description": "Message displayed to user after user fails to get updated."
+  },
+  "5PIt8V": {
+    "defaultMessage": "Select the classification intended for this recruitment process.",
+    "description": "Helper message for selecting a classification for the pool"
+  },
+  "5R2iR2": {
+    "defaultMessage": "Verbal Level",
+    "description": "CSV Header, Verbal Level column"
+  },
+  "5TVKj1": {
+    "defaultMessage": "Classifications"
+  },
+  "5iNcHS": {
+    "defaultMessage": "Application",
+    "description": "Title displayed for the Pool Candidates table View Application link."
+  },
+  "5jFkhf": {
+    "defaultMessage": "Error: creating classification failed",
+    "description": "Message displayed to user after classification fails to get created."
+  },
+  "5l+Ydz": {
+    "defaultMessage": "Preferred Written Exam Language",
+    "description": "Title displayed on the Pool Candidates table Preferred Written Exam Language column."
+  },
+  "66MUMB": {
+    "defaultMessage": "Save other requirements",
+    "description": "Text on a button to save the pool other requirements"
+  },
+  "69/cNW": {
+    "defaultMessage": "Candidate information",
+    "description": "Heading displayed above the pool candidate application page."
+  },
+  "6EOrWk": {
+    "defaultMessage": "Home",
+    "description": "Title for homepage on the talent cloud admin portal."
+  },
+  "6R9N+h": {
+    "defaultMessage": "View Candidates<hidden> for {label}</hidden>",
+    "description": "Text for a link to the Pool Candidates table"
+  },
+  "6Y6hy9": {
+    "defaultMessage": "Failed to add user to the following pools:",
+    "description": "Error message displayed when an attempt to add users to known pools"
+  },
+  "71ID2W": {
+    "defaultMessage": "Login",
+    "description": "Label displayed on the Login menu item."
+  },
+  "7B+1RO": {
+    "defaultMessage": "On this page you can find a list of active pools along with a few details about their status.",
+    "description": "Description of the content found on the admin portal dashboard page."
+  },
+  "7Cx7lp": {
+    "defaultMessage": "Select one or more skills...",
+    "description": "Placeholder displayed on the skill family form skills field."
+  },
+  "7FtbwK": {
+    "defaultMessage": "Manager",
+    "description": "Title displayed on the search request table manager column."
+  },
+  "7N+tQw": {
+    "defaultMessage": "My Pools",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "7OQHcx": {
+    "defaultMessage": "Closing Date",
+    "description": "Closing Date field label for close pool dialog"
+  },
+  "7aG86f": {
+    "defaultMessage": "Select a classification...",
+    "description": "Placeholder displayed on the pool form classification field."
+  },
+  "7d/ot8": {
+    "defaultMessage": "Toggle All",
+    "description": "Label displayed on the Table Columns toggle fieldset."
+  },
+  "7k27sT": {
+    "defaultMessage": "Close Manually",
+    "description": "Heading for the close pool dialog"
+  },
+  "7wYPgC": {
+    "defaultMessage": "Name (English)",
+    "description": "Label displayed on the classification form name (English) field."
+  },
+  "80DOGy": {
+    "defaultMessage": "End Date",
+    "description": "Label displayed on the pool candidate form end date field."
+  },
+  "83v9YH": {
+    "defaultMessage": "Indigenous",
+    "description": "CSV Header, Indigenous column"
+  },
+  "88Haix": {
+    "defaultMessage": "French work text",
+    "description": "Title for French pool advertisement Work"
+  },
+  "8L5kDc": {
+    "defaultMessage": "Telephone",
+    "description": "Label displayed on the user form telephone field."
+  },
+  "8Otaw9": {
+    "defaultMessage": "Department {departmentId} not found.",
+    "description": "Message displayed for department not found."
+  },
+  "8V8WwR": {
+    "defaultMessage": "Additional pools",
+    "description": "Label displayed on the additional pools field of the change candidate status dialog"
+  },
+  "8Y+eEc": {
+    "defaultMessage": "You're about to add this user to a different pool:",
+    "description": "First section of text on the add user to pool dialog"
+  },
+  "8bJgxK": {
+    "defaultMessage": "French - Your work",
+    "description": "Label for the French - Your Work textarea in the edit pool page."
+  },
+  "8hee5d": {
+    "defaultMessage": "Job Title",
+    "description": "Title displayed on the search request table job title column."
+  },
+  "8lCjAM": {
+    "defaultMessage": "Priority"
+  },
+  "8mt/5/": {
+    "defaultMessage": "Location Exemptions",
+    "description": "CSV Header, Location Exemptions column"
+  },
+  "93AuFS": {
+    "defaultMessage": "Pool deleted successfully!",
+    "description": "Message displayed to user after pool is deleted"
+  },
+  "953EAy": {
+    "defaultMessage": "Skill {skillId} not found.",
+    "description": "Message displayed for skill not found."
+  },
+  "97LfRf": {
+    "defaultMessage": "Disability",
+    "description": "Message for disability option in the employment equity column on the the single search request table."
+  },
+  "9NDM+k": {
+    "defaultMessage": "Set an expiry date for this candidate on this pool:",
+    "description": "Third section of text on the add user to pool dialog"
+  },
+  "9bz9jA": {
+    "defaultMessage": "Select one or more families...",
+    "description": "Placeholder displayed on the skill form families field."
+  },
+  "9c/MAZ": {
+    "defaultMessage": "Minimum Salary",
+    "description": "Title displayed for the Classification table Minimum Salary column."
+  },
+  "9mJuzm": {
+    "defaultMessage": "These notes are shared between all managers of this pool, but not to candidates.",
+    "description": "Message about the behavior of notes on the view-user page"
+  },
+  "9yGJ6k": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the skill table Description column."
+  },
+  "A1QU9O": {
+    "defaultMessage": "Armed Forces Status",
+    "description": "CSV Header, Armed Forces column"
+  },
+  "A2VzLX": {
+    "defaultMessage": "Specific Location (English)",
+    "description": "Label for a pool advertisements specific English Location"
+  },
+  "AAmd5G": {
+    "defaultMessage": "Request Information",
+    "description": "Heading for the request information section of the single search request view."
+  },
+  "ASNC88": {
+    "defaultMessage": "Security requirement",
+    "description": "Label displayed on the edit pool form security requirement field."
+  },
+  "AWk4BX": {
+    "defaultMessage": "Owner Name",
+    "description": "Title displayed for the Pool table Owner Name column"
+  },
+  "Aaas0w": {
+    "defaultMessage": "The closing time will be automatically set to 11:59 PM in the Pacific time zone.",
+    "description": "Helper message for changing the pool closing date"
+  },
+  "AauSuA": {
+    "defaultMessage": "N/A",
+    "description": "Not available message."
+  },
+  "Ag+0A4": {
+    "defaultMessage": "Status",
+    "description": "Title displayed for the User table Status column"
+  },
+  "AijsNM": {
+    "defaultMessage": "Disabled",
+    "description": "CSV Header, Disabled column"
+  },
+  "Ao/+Ba": {
+    "defaultMessage": "This process number is obtained from your HR shop",
+    "description": "Additional context describing the pools process number."
+  },
+  "B/VlGq": {
+    "defaultMessage": "Manage candidates",
+    "description": "Link text for button to manage candidates of a specific pool"
+  },
+  "BAzKWq": {
+    "defaultMessage": "Date done",
+    "description": "Title for the date done block in the manager info section of the single search request view."
+  },
+  "BNEY8G": {
+    "defaultMessage": "Expiry Date",
+    "description": "CSV Header, Expiry Date column"
+  },
+  "BOeBpE": {
+    "defaultMessage": "Name",
+    "description": "Title displayed for the skill table Name column."
+  },
+  "BQsJSG": {
+    "defaultMessage": "Write a new closing date:",
+    "description": "First paragraph for extend pool closing date dialog"
+  },
+  "BSVnmg": {
+    "defaultMessage": "Email",
+    "description": "Title displayed for the Pool Candidates table Email column."
+  },
+  "BYGKiT": {
+    "defaultMessage": "Employment equity",
+    "description": "Title of the 'Employment equity' section of the view-user page"
+  },
+  "BbaMf0": {
+    "defaultMessage": "Search Request {searchRequestId} not found.",
+    "description": "Message displayed for search request not found on single search request page."
+  },
+  "BhtXXY": {
+    "defaultMessage": "Close",
+    "description": "Text on a button to close the pool"
+  },
+  "BnSa6Y": {
+    "defaultMessage": "Failed updating status",
+    "description": "Toast for failed status update on view-user page"
+  },
+  "Bvj3zI": {
+    "defaultMessage": "Manage requests",
+    "description": "Text label for link to requests page on admin dashboard"
+  },
+  "BzaGwp": {
+    "defaultMessage": "English impact text",
+    "description": "Title for English pool advertisement impact"
+  },
+  "C0ABZu": {
+    "defaultMessage": "Status",
+    "description": "CSV Header, Status column"
+  },
+  "CLOuJF": {
+    "defaultMessage": "Current City",
+    "description": "CSV Header, Current City column"
+  },
+  "CSDdh/": {
+    "defaultMessage": "Notes",
+    "description": "Title for a pool candidates notes field"
+  },
+  "CTnN9W": {
+    "defaultMessage": "French impact text",
+    "description": "Title for French pool advertisement impact"
+  },
+  "CfXIqC": {
+    "defaultMessage": "Preferred Communication Language",
+    "description": "Title displayed for the User table Preferred Communication Language column."
+  },
+  "CjkBMT": {
+    "defaultMessage": "Phone",
+    "description": "Label for user table search dropdown (phone)."
+  },
+  "CoUFQ5": {
+    "defaultMessage": "Successfully updated notes for candidate in {poolName}",
+    "description": "Toast notification for successful update of candidates notes in specified pool"
+  },
+  "Cw8pyL": {
+    "defaultMessage": "Select zero or more roles...",
+    "description": "Placeholder displayed on the user form roles field."
+  },
+  "Cx3s+E": {
+    "defaultMessage": "My Status",
+    "description": "Title of the my status content section"
+  },
+  "D24NyA": {
+    "defaultMessage": "This is the profile submitted on {submittedAt} for the pool: {poolName}",
+    "description": "Snapshot details displayed above the pool candidate application page."
+  },
+  "D753gS": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the Classification table Edit column."
+  },
+  "D8Pgbs": {
+    "defaultMessage": "Create Classification",
+    "description": "Title displayed on the create a classification form."
+  },
+  "DAmLhV": {
+    "defaultMessage": "Name:",
+    "description": "Name label and colon"
+  },
+  "DDR6Ax": {
+    "defaultMessage": "Select/Deselect all",
+    "description": "Header label for the row-selection column in tables."
+  },
+  "DHfumB": {
+    "defaultMessage": "Government Employee",
+    "description": "CSV Header, Government Employee column"
+  },
+  "DMdCkf": {
+    "defaultMessage": "Current Location:",
+    "description": "Display text for the current location field on users"
+  },
+  "DRsBYY": {
+    "defaultMessage": "Save Notes",
+    "description": "Button label displayed on the search request form which saves the users personal notes."
+  },
+  "DUK/pz": {
+    "defaultMessage": "Home",
+    "description": "Breadcrumb title for the home page link."
+  },
+  "Dbqtm6": {
+    "defaultMessage": "Skills",
+    "description": "Heading displayed above the Skill Table component."
+  },
+  "DexZJJ": {
+    "defaultMessage": "Create Classification",
+    "description": "Heading displayed above the Create Classification form."
+  },
+  "DguVoT": {
+    "defaultMessage": "Update User",
+    "description": "Title displayed on the update a user form."
+  },
+  "DlBusi": {
+    "defaultMessage": "Last Name",
+    "description": "CSV Header, Last Name column"
+  },
+  "Duswz0": {
+    "defaultMessage": "Candidate Results",
+    "description": "Heading for the candidate results section of the single search request view."
+  },
+  "DwTEsB": {
+    "defaultMessage": "Employee Type",
+    "description": "CSV Header, Employee Type column"
+  },
+  "E9S4B8": {
+    "defaultMessage": "Link copied!",
+    "description": "Button text to be displayed after link was copied"
+  },
+  "EHVt0j": {
+    "defaultMessage": "Pool Candidates",
+    "description": "Title displayed above the Pool Candidate Table component."
+  },
+  "EK90Iy": {
+    "defaultMessage": "General Information",
+    "description": "Tabs title for the individual user general info."
+  },
+  "ETrCOq": {
+    "defaultMessage": "Candidate status",
+    "description": "Title for admin editing a pool candidates status"
+  },
+  "EZQ9Dj": {
+    "defaultMessage": "Priority",
+    "description": "Title displayed for the Pool Candidates table Priority column."
+  },
+  "EdUZaX": {
+    "defaultMessage": "Candidates",
+    "description": "Header for the View Candidates column of the Pools table"
+  },
+  "EfRVfk": {
+    "defaultMessage": "Error: creating user failed",
+    "description": "Message displayed to user after user fails to get created."
+  },
+  "EkBES+": {
+    "defaultMessage": "Member of CAF:",
+    "description": "label for CAF status"
+  },
+  "EnvwAC": {
+    "defaultMessage": "Phone:",
+    "description": "Display text for the phone number field on users"
+  },
+  "Eui2Wf": {
+    "defaultMessage": "My skills and experience",
+    "description": "Title of the My skills and experience content section"
+  },
+  "Eydy42": {
+    "defaultMessage": "Update user",
+    "description": "Page title for the user edit page"
+  },
+  "F00OD4": {
+    "defaultMessage": "Candidate status",
+    "description": "Title of the 'Candidate status' section of the view-user page"
+  },
+  "F2Rs/C": {
+    "defaultMessage": "Skills",
+    "description": "Label displayed on the skill family form skills field."
+  },
+  "F4Flho": {
+    "defaultMessage": "Select a language...",
+    "description": "Placeholder displayed on the user form preferred written exam language  field."
+  },
+  "F9R74z": {
+    "defaultMessage": "Work Location",
+    "description": "Title of the Work Location content section"
+  },
+  "FA+cJX": {
+    "defaultMessage": "Delete",
+    "description": "Button to delete the pool in the delete pool dialog"
+  },
+  "FCQnWB": {
+    "defaultMessage": "Create skill family",
+    "description": "Page title for the skill family creation page"
+  },
+  "FFaQND": {
+    "defaultMessage": "Need to have skills",
+    "description": "Title required skills for a pool advertisement"
+  },
+  "FGUGtr": {
+    "defaultMessage": "Group and Level",
+    "description": "Title displayed for the Pool table Group and Level column."
+  },
+  "FSlrKF": {
+    "defaultMessage": "Error: could not update pool candidate status",
+    "description": "Message displayed when an error occurs while an admin updates a pool candidate"
+  },
+  "FUxE8S": {
+    "defaultMessage": "From the following pool:",
+    "description": "Second section of text on the change candidate status dialog"
+  },
+  "FWftu5": {
+    "defaultMessage": "Citizenship",
+    "description": "CSV Header, Citizenship column"
+  },
+  "FiylOa": {
+    "defaultMessage": "Keywords (English)",
+    "description": "Label displayed on the skill form keywords field in English."
+  },
+  "Fm4Muz": {
+    "defaultMessage": "Other requirements",
+    "description": "Sub title for the pool other requirements"
+  },
+  "FxceQZ": {
+    "defaultMessage": "(Request is still pending)",
+    "description": "Text for when date done is pending in the manager info section of the single search request view."
+  },
+  "G/MFLe": {
+    "defaultMessage": "View pool advertisement",
+    "description": "Link text to view the public facing pool advertisement"
+  },
+  "GG15JI": {
+    "defaultMessage": "Edit {label}",
+    "description": "Aria Label displayed for the Edit column."
+  },
+  "GGaxMx": {
+    "defaultMessage": "Skill Filter"
+  },
+  "GKo3Df": {
+    "defaultMessage": "Edit department",
+    "description": "Page title for the department edit page"
+  },
+  "GQskY1": {
+    "defaultMessage": "Update Skill Family",
+    "description": "Title displayed on the update a skillFamily form."
+  },
+  "GTR9Pt": {
+    "defaultMessage": "Department updated successfully!",
+    "description": "Message displayed to user after department is updated successfully."
+  },
+  "GXw2um": {
+    "defaultMessage": "Work tasks",
+    "description": "Sub title for the pool work tasks"
+  },
+  "GYk6Nz": {
+    "defaultMessage": "Security clearance: {securityClearance}",
+    "description": "Pool advertisement security clearance requirement"
+  },
+  "GZqEuI": {
+    "defaultMessage": "Failed adding user",
+    "description": "Toast for failed add user to pool on view-user page"
+  },
+  "GiODgs": {
+    "defaultMessage": "Citizenship:",
+    "description": "Citizenship label"
+  },
+  "Gr3BwB": {
+    "defaultMessage": "Employment Equity"
+  },
+  "GrfidX": {
+    "defaultMessage": "Candidate {poolCandidateId} not found.",
+    "description": "Message displayed for pool candidate not found."
+  },
+  "GsBRWL": {
+    "defaultMessage": "Languages"
+  },
+  "H02JZe": {
+    "defaultMessage": "Email",
+    "description": "CSV Header, Email column"
+  },
+  "H9rxOR": {
+    "defaultMessage": "Visible columns",
+    "description": "Legend for the column toggle in admin tables."
+  },
+  "HGMl3y": {
+    "defaultMessage": "Pool name not found",
+    "description": "Breadcrumb to pool page if pool name not found"
+  },
+  "HQOsq2": {
+    "defaultMessage": "Departments",
+    "description": "Label displayed on the departments menu item."
+  },
+  "HUCIzc": {
+    "defaultMessage": "Name",
+    "description": "Title displayed for the Classification table Name column."
+  },
+  "HgQThJ": {
+    "defaultMessage": "Manage pools",
+    "description": "Text label for link to pools page on admin dashboard"
+  },
+  "HkC8XB": {
+    "defaultMessage": "View Request",
+    "description": "Heading displayed above the single search request component."
+  },
+  "Hn6YgE": {
+    "defaultMessage": "Edit Pool",
+    "description": "Edit pool breadcrumb text"
+  },
+  "HocLRh": {
+    "defaultMessage": "Pool Name",
+    "description": "Title displayed for the Pool table pool name column."
+  },
+  "Hqt/ej": {
+    "defaultMessage": "Archive",
+    "description": "Heading for the archive pool dialog"
+  },
+  "HrXZ6X": {
+    "defaultMessage": "Indigenous",
+    "description": "Text on view-user page that the user is indigenous"
+  },
+  "Htqzxb": {
+    "defaultMessage": "Pool",
+    "description": "Title displayed on the search request table pool column."
+  },
+  "HwPuG0": {
+    "defaultMessage": "Expiry date updated successfully",
+    "description": "Toast for successful expiry date update on view-user page"
+  },
+  "HxTuuy": {
+    "defaultMessage": "This pool is no longer advertised.",
+    "description": "Status description of a pool in ARCHIVED status"
+  },
+  "I7rxxQ": {
+    "defaultMessage": "Keywords",
+    "description": "Title displayed for the skill table Keywords column."
+  },
+  "I8jlr2": {
+    "defaultMessage": "Closing date",
+    "description": "Sub title for pool closing date"
+  },
+  "I8v/Uy": {
+    "defaultMessage": "The 'subject' is a string that uniquely identifies a user's login identity.",
+    "description": "Additional context describing the purpose of the users's 'subject' field."
+  },
+  "IE82VM": {
+    "defaultMessage": "Candidate Profiles",
+    "description": "Document title for printing User table results"
+  },
+  "IFGKCz": {
+    "defaultMessage": "Delete",
+    "description": "Text on a button to delete the pool"
+  },
+  "IMdFJM": {
+    "defaultMessage": "All table",
+    "description": "Text in table search form column dropdown when no column is selected."
+  },
+  "IcDAU1": {
+    "defaultMessage": "Location (English): {locationEn}",
+    "description": "Pool advertisement location requirement, English"
+  },
+  "IfWj5I": {
+    "defaultMessage": "All Requests",
+    "description": "Heading displayed above the search request component."
+  },
+  "J8kIar": {
+    "defaultMessage": "Recruit and manage IT employees in the Government of Canada.",
+    "description": "Meta tag description for Admin site"
+  },
+  "JH2+tK": {
+    "defaultMessage": "Profile snapshot not found.",
+    "description": "Message displayed for profile snapshot not found."
+  },
+  "JIpjuA": {
+    "defaultMessage": "Pool Candidate Details",
+    "description": "Title of the pool candidate details content section"
+  },
+  "JJB5Yd": {
+    "defaultMessage": "Pool closed successfully!",
+    "description": "Message displayed to user after pool is closed"
+  },
+  "Jc0lds": {
+    "defaultMessage": "Archive pool",
+    "description": "Button to archive the pool in the archive pool dialog"
+  },
+  "JjTGYe": {
+    "defaultMessage": "You're about to change the expiry date for this user:",
+    "description": "First section of text on the change candidate expiry date dialog"
+  },
+  "JtgX1e": {
+    "defaultMessage": "Indigenous",
+    "description": "Message for indigenous option in the employment equity column on the the single search request table."
+  },
+  "JxVREd": {
+    "defaultMessage": "Families",
+    "description": "Label displayed on the skill form families field."
+  },
+  "K+roYh": {
+    "defaultMessage": "Closing Date",
+    "description": "Closing Date field label for publish pool dialog"
+  },
+  "K3LEpl": {
+    "defaultMessage": "Choose pool:",
+    "description": "Second section of text on the add user to pool dialog"
+  },
+  "K7fcQT": {
+    "defaultMessage": "Preferred Written Exam Language",
+    "description": "CSV Header, Preferred Written Exam Language column"
+  },
+  "KB+xr6": {
+    "defaultMessage": "Skill Families",
+    "description": "Title displayed for the skill table Skill Families column."
+  },
+  "KSNNgE": {
+    "defaultMessage": "Update Department",
+    "description": "Title displayed on the update a department form."
+  },
+  "KZR3ad": {
+    "defaultMessage": "Category",
+    "description": "Label displayed on the skill family form category field."
+  },
+  "Ke0TPJ": {
+    "defaultMessage": "Maximum Salary",
+    "description": "Title displayed for the Classification table Maximum Salary column."
+  },
+  "Kr9mHX": {
+    "defaultMessage": "Users",
+    "description": "Page title for the user index page"
+  },
+  "LEVK8x": {
+    "defaultMessage": "Error: updating classification failed",
+    "description": "Message displayed to user after classification fails to get updated."
+  },
+  "LOhcO4": {
+    "defaultMessage": "Citizenship:",
+    "description": "label for citizenship status"
+  },
+  "LccTZJ": {
+    "defaultMessage": "Essential skills (Need to have)",
+    "description": "Sub title for the pool essential skills"
+  },
+  "LvHCvn": {
+    "defaultMessage": "Preferred Communication Language:",
+    "description": "Display text for the preferred communication language field on users"
+  },
+  "Lzd38d": {
+    "defaultMessage": "Status",
+    "description": "Title for the status block in the manager info section of the single search request view."
+  },
+  "M9ij/0": {
+    "defaultMessage": "Bilingual Evaluation",
+    "description": "CSV Header, Bilingual Evaluation column"
+  },
+  "MDjwSO": {
+    "defaultMessage": "Specific Title (French)",
+    "description": "Label for a pool advertisements specific French title"
+  },
+  "Md/cQS": {
+    "defaultMessage": "Member of CAF:",
+    "description": "Veteran/member label"
+  },
+  "MmFgbF": {
+    "defaultMessage": "Group and Level",
+    "description": "Title displayed on the single search request table classifications column."
+  },
+  "N0ySd0": {
+    "defaultMessage": "Asset skills (Nice to have skills)",
+    "description": "Sub title for the pool essential skills"
+  },
+  "NT3jrI": {
+    "defaultMessage": "This field accepts a list of comma separated keywords associated with the skill.",
+    "description": "Additional context describing the purpose of the skills 'keyword' field."
+  },
+  "NeNnAP": {
+    "defaultMessage": "Candidate Name",
+    "description": "Title displayed on the User table Candidate Name column."
+  },
+  "NfRLs/": {
+    "defaultMessage": "English - Your impact",
+    "description": "Label for the English - Your Impact textarea in the edit pool page."
+  },
+  "Nfy1HK": {
+    "defaultMessage": "Welcome to GC Digital Talent, please log in to continue.",
+    "description": "Instructional text for the talent cloud pool manager portal home page."
+  },
+  "NljjDf": {
+    "defaultMessage": "You can choose to manually close it now, this will prevent users from submitting applications.",
+    "description": "Second paragraph for the close pool dialog"
+  },
+  "NwpZNj": {
+    "defaultMessage": "<heavyPrimary>Published</heavyPrimary>",
+    "description": "Status name of a pool in PUBLISHED status"
+  },
+  "O8U5Sz": {
+    "defaultMessage": "User added successfully",
+    "description": "Toast for successful add user to pool on view-user page"
+  },
+  "OCmMDP": {
+    "defaultMessage": "Update classification",
+    "description": "Page title for the edit classification page"
+  },
+  "OIk63O": {
+    "defaultMessage": "Extend closing date",
+    "description": "Button to extend the pool closing date in the extend pool closing date dialog"
+  },
+  "OJbrJJ": {
+    "defaultMessage": "Status:",
+    "description": "Status label and colon"
+  },
+  "OPG1Q0": {
+    "defaultMessage": "Profile Complete"
+  },
+  "Om6ZoW": {
+    "defaultMessage": "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
+    "description": "Helper message for filling in the pool essential skills"
+  },
+  "OqGhl+": {
+    "defaultMessage": "Select a level...",
+    "description": "Placeholder displayed on the classification form level field."
+  },
+  "OunUSG": {
+    "defaultMessage": "Save changes",
+    "description": "Text for the pool candidate application status submit button"
+  },
+  "P+m8Wl": {
+    "defaultMessage": "Preferred Spoken Interview Language",
+    "description": "CSV Header, Preferred Spoken Interview Language column"
+  },
+  "P5+9Wy": {
+    "defaultMessage": "Pool published successfully!",
+    "description": "Message displayed to user after pool is published"
+  },
+  "P5xgmH": {
+    "defaultMessage": "Requirements",
+    "description": "Title for a pool advertisement requirements"
+  },
+  "P8NuMo": {
+    "defaultMessage": "Archive",
+    "description": "Text on a button to archive the pool"
+  },
+  "P9SZBZ": {
+    "defaultMessage": "Select filters",
+    "description": "Candidate search filter dialog: title"
+  },
+  "PCuQMN": {
+    "defaultMessage": "Write the key tasks for this job poster...",
+    "description": "Placeholder message for  the English - Your Work textarea in the edit pool page."
+  },
+  "PH+6C9": {
+    "defaultMessage": "Specific Location (French)",
+    "description": "Label for a pool advertisements specific French Location"
+  },
+  "PRrRRN": {
+    "defaultMessage": "Create department",
+    "description": "Page title for the department creation page"
+  },
+  "PjK/4B": {
+    "defaultMessage": "Has not identified as a member of any employment equity groups.",
+    "description": "Text on view-user page that the user isn't part of any employment equity groups"
+  },
+  "Pr8bok": {
+    "defaultMessage": "Back to pools",
+    "description": "Link text for buttons to go back to the admin pools page"
+  },
+  "PzijvH": {
+    "defaultMessage": "Streams/Job Titles",
+    "description": "Label displayed on the pool form stream/job title field."
+  },
+  "Q/clLF": {
+    "defaultMessage": "Language",
+    "description": "CSV Header, Language column"
+  },
+  "Q0gIlv": {
+    "defaultMessage": "Description (French)",
+    "description": "Label displayed on the create a skill family form description (French) field."
+  },
+  "QCTZUv": {
+    "defaultMessage": "Search",
+    "description": "Label displayed on the Global Filter form Search field."
+  },
+  "QIh0q7": {
+    "defaultMessage": "Comprehension Level",
+    "description": "CSV Header, Comprehension Level column"
+  },
+  "QOvS1b": {
+    "defaultMessage": "Department #",
+    "description": "Title displayed for the Department table Department # column."
+  },
+  "QftM3f": {
+    "defaultMessage": "Requests",
+    "description": "Label displayed on the requests menu item."
+  },
+  "QjF2CL": {
+    "defaultMessage": "Main Menu",
+    "description": "Label for the main menu on the pool manager admin portal."
+  },
+  "QodYZE": {
+    "defaultMessage": "Create a new job poster from scratch",
+    "description": "Form blurb describing create pool form"
+  },
+  "Qp6B20": {
+    "defaultMessage": "Your work",
+    "description": "Title for pool advertisement work text section"
+  },
+  "R+Zm3X": {
+    "defaultMessage": "Print Profile",
+    "description": "Text for button to print a user profile"
+  },
+  "R2sSy9": {
+    "defaultMessage": "Updated",
+    "description": "Title displayed for the User table Date Updated column"
+  },
+  "RDgQ0h": {
+    "defaultMessage": "From {poolName}",
+    "description": "Subtitle on pool candidates page indicating which pool candidates are from"
+  },
+  "RIMCZn": {
+    "defaultMessage": "Preferred Spoken Interview Language",
+    "description": "Label displayed on the user form preferred spoken interview language field."
+  },
+  "RIYFZu": {
+    "defaultMessage": "Error: saving notes failed",
+    "description": "Message displayed to user after the request has failed to change the status tp done on the single search request page."
+  },
+  "RXoZOS": {
+    "defaultMessage": "Error: closing pool failed",
+    "description": "Message displayed to user after pool fails to get deleted."
+  },
+  "RYW3AP": {
+    "defaultMessage": "Select a language...",
+    "description": "Placeholder displayed on the user form preferred written exam language field."
+  },
+  "S0ghpc": {
+    "defaultMessage": "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
+    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+  },
+  "SARjte": {
+    "defaultMessage": "Change status",
+    "description": "title for change status dialog on view-user page"
+  },
+  "SOZVtc": {
+    "defaultMessage": "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
+    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
+  },
+  "STDYoR": {
+    "defaultMessage": "Expiry date",
+    "description": "Title of the 'Expiry date' column for the table on view-user page"
+  },
+  "Sb2fEr": {
+    "defaultMessage": "Pool {poolId} not found.",
+    "description": "Message displayed for pool not found."
+  },
+  "SnytBx": {
+    "defaultMessage": "Pools",
+    "description": "Page title for the pools index page"
+  },
+  "SoKPAb": {
+    "defaultMessage": "Candidate expiry date",
+    "description": "Label displayed on the pool candidate application form expiry date field."
+  },
+  "SxP9zE": {
+    "defaultMessage": "Preferred Written Exam Language",
+    "description": "Label displayed on the user form preferred written exam language field."
+  },
+  "TDTE1c": {
+    "defaultMessage": "Action",
+    "description": "Title displayed for the search request table edit column."
+  },
+  "TGV2F7": {
+    "defaultMessage": "Logout",
+    "description": "Label displayed on the Logout menu item."
+  },
+  "TLl20s": {
+    "defaultMessage": "Create new pool",
+    "description": "Label displayed on submit button for new pool form."
+  },
+  "TRqbR/": {
+    "defaultMessage": "Create Skill Family",
+    "description": "Heading displayed above the Create Skill Family form."
+  },
+  "Thf4og": {
+    "defaultMessage": "Candidate Profile",
+    "description": "Document title for printing User profile"
+  },
+  "TkTpzk": {
+    "defaultMessage": "Error: publishing pool failed",
+    "description": "Message displayed to user after pool fails to get publish."
+  },
+  "TxEV7S": {
+    "defaultMessage": "Login",
+    "description": "Text label for the login link to the talent cloud admin portal."
+  },
+  "U+WqrO": {
+    "defaultMessage": "Update Classification",
+    "description": "Title displayed on the update a classification form."
+  },
+  "U5HvOH": {
+    "defaultMessage": "Manage users",
+    "description": "Text label for link to users page on admin dashboard"
+  },
+  "UC+4MX": {
+    "defaultMessage": "Skills",
+    "description": "Label displayed on the skills menu item."
+  },
+  "UEsexn": {
+    "defaultMessage": "Manager Information",
+    "description": "Heading for the manager info section of the single search request view."
+  },
+  "UGaZR2": {
+    "defaultMessage": "Location",
+    "description": "Location options in Edit Pool Form"
+  },
+  "UNScjB": {
+    "defaultMessage": "Mark this request as done",
+    "description": "Button label displayed on the search request form which changes request status to done."
+  },
+  "UTFKyy": {
+    "defaultMessage": "Skill updated successfully!",
+    "description": "Message displayed to user after skill is updated successfully."
+  },
+  "UdZaOq": {
+    "defaultMessage": "Visible Minority",
+    "description": "Message for visible minority option in the employment equity column on the the single search request table."
+  },
+  "Ude1JQ": {
+    "defaultMessage": "Text",
+    "description": "Title for the application's profile snapshot."
+  },
+  "UduzGA": {
+    "defaultMessage": "Save introduction",
+    "description": "Text on a button to save the pool introduction"
+  },
+  "UjGx0m": {
+    "defaultMessage": "English work text",
+    "description": "Title for English pool advertisement Work"
+  },
+  "UmNhUa": {
+    "defaultMessage": "Priority:",
+    "description": "Priority label and colon"
+  },
+  "UmTNmR": {
+    "defaultMessage": "Candidate Profiles",
+    "description": "Document title for printing Pool Candidate table results"
+  },
+  "UsFTGT": {
+    "defaultMessage": "Download Profiles",
+    "description": "Text label for button to download items in a table."
+  },
+  "UvKDXK": {
+    "defaultMessage": "The following is a list of active users along with some of their details.",
+    "description": "Descriptive text about the list of users in the admin portal."
+  },
+  "V4+lDw": {
+    "defaultMessage": "Show results",
+    "description": "Submit button within the search filter dialog"
+  },
+  "V89Ryn": {
+    "defaultMessage": "Work Preferences",
+    "description": "Title of the Work Preferences content section"
+  },
+  "VCl+IZ": {
+    "defaultMessage": "<heavyPrimary>Closed</heavyPrimary>",
+    "description": "Status name of a pool in CLOSED status"
+  },
+  "VDP17+": {
+    "defaultMessage": "Archival Date:",
+    "description": "Archival Date label and colon"
+  },
+  "VMhVyJ": {
+    "defaultMessage": "Select a status",
+    "description": "Placeholder text for the pool status field"
+  },
+  "VWz3+d": {
+    "defaultMessage": "Closing date",
+    "description": "Label for a pool advertisements expiry date"
+  },
+  "VaCRxh": {
+    "defaultMessage": "Woman",
+    "description": "Message for woman option in the employment equity column on the the single search request table."
+  },
+  "VaVo2t": {
+    "defaultMessage": "Error: creating department failed",
+    "description": "Message displayed to user after department fails to get created."
+  },
+  "VhBuJ/": {
+    "defaultMessage": "View",
+    "description": "Title displayed for the Pool Candidates table View column."
+  },
+  "VlI1K4": {
+    "defaultMessage": "All Users",
+    "description": "Title for the admin users table"
+  },
+  "VphXhu": {
+    "defaultMessage": "Name",
+    "description": "Title displayed for the Skill Family table Name column."
+  },
+  "Vpk+nl": {
+    "defaultMessage": "Occupational",
+    "description": "Title for pool advertisement occupational skill list"
+  },
+  "VqyL+/": {
+    "defaultMessage": "ID",
+    "description": "Title displayed on the Classification table ID column."
+  },
+  "Vvc9/b": {
+    "defaultMessage": "Preferred Communication Language",
+    "description": "Label displayed on the user form preferred communication language field."
+  },
+  "W2qRX5": {
+    "defaultMessage": "Error: creating pool failed",
+    "description": "Message displayed to pool after pool fails to get created."
+  },
+  "W58QTT": {
+    "defaultMessage": "This user is not in any pools yet",
+    "description": "Message on view-user page that the user is not in any pools"
+  },
+  "W9DTVh": {
+    "defaultMessage": "Full Name",
+    "description": "Title for the full name block in the manager info section of the single search request view."
+  },
+  "WAO4vD": {
+    "defaultMessage": "Expiry date",
+    "description": "Label displayed on the date field of the change candidate expiry date dialog"
+  },
+  "Wmuizf": {
+    "defaultMessage": "Preferred Spoken Interview Language:",
+    "description": "Display text for the preferred spoken interview language field on users"
+  },
+  "WoAuKA": {
+    "defaultMessage": "Update Skill",
+    "description": "Title displayed on the update a skill form."
+  },
+  "WqOnFF": {
+    "defaultMessage": "Additional Comments",
+    "description": "Title for the additional comments block in the search request filters"
+  },
+  "X198m3": {
+    "defaultMessage": "Select a pool...",
+    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
+  },
+  "X4nVv/": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the skill table Edit column."
+  },
+  "XBY4Fq": {
+    "defaultMessage": "Create Department",
+    "description": "Title displayed on the create a department form."
+  },
+  "XKjVO0": {
+    "defaultMessage": "First Name",
+    "description": "Label displayed on the user form first name field."
+  },
+  "XSo129": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the Skill Family table Description column."
+  },
+  "XYLd6G": {
+    "defaultMessage": "My Pools",
+    "description": "Breadcrumb for the My Pools page"
+  },
+  "Xo0M3N": {
+    "defaultMessage": "Current Province",
+    "description": "CSV Header, Current Province column"
+  },
+  "XprYVQ": {
+    "defaultMessage": "Write the introduction for this job poster...",
+    "description": "Placeholder message for  the English - Your Impact textarea in the edit pool page."
+  },
+  "Xsxvql": {
+    "defaultMessage": "Write the key tasks for this job poster...",
+    "description": "Placeholder message for the French - Your Work textarea in the edit pool page."
+  },
+  "XtBhGo": {
+    "defaultMessage": "Candidate Details",
+    "description": "Title for the page when viewing an individual user."
+  },
+  "YH6bFU": {
+    "defaultMessage": "Table columns",
+    "description": "Dialog title for the admin tables columns toggle."
+  },
+  "YNLJcX": {
+    "defaultMessage": "Notes saved successfully!",
+    "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
+  },
+  "YojrdC": {
+    "defaultMessage": "Government Employee"
+  },
+  "Yr4DW5": {
+    "defaultMessage": "Notes - {poolName}",
+    "description": "Label for the notes field on the pool candidate application"
+  },
+  "YtEDfa": {
+    "defaultMessage": "Home",
+    "description": "Breadcrumb title for the home link."
+  },
+  "Z2KhWS": {
+    "defaultMessage": "Go back to All candidates",
+    "description": "Navigation link back to All candidates."
+  },
+  "Z6o8ym": {
+    "defaultMessage": "ID",
+    "description": "Title displayed on the Skill table ID column."
+  },
+  "Z6sh9j": {
+    "defaultMessage": "The roles grant additional functionality to a user's login.",
+    "description": "Additional context describing the purpose of the users's 'role' field."
+  },
+  "ZDmkKD": {
+    "defaultMessage": "Dashboard",
+    "description": "Label displayed on the dashboard menu item."
+  },
+  "ZLDt/c": {
+    "defaultMessage": "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
+    "description": "Subtitle displayed above the single search request component."
+  },
+  "ZNne50": {
+    "defaultMessage": "Save notes",
+    "description": "Button to save notes for a pool candidate on the view-user page"
+  },
+  "ZU3fd5": {
+    "defaultMessage": "Name (French)",
+    "description": "Label displayed on the create a skill form name (French) field."
+  },
+  "ZWnKEJ": {
+    "defaultMessage": "SkillFamily {skillFamilyId} not found.",
+    "description": "Message displayed for skillFamily not found."
+  },
+  "Zbk4zf": {
+    "defaultMessage": "Choose status:",
+    "description": "Third section of text on the change candidate status dialog"
+  },
+  "ZbpbD6": {
+    "defaultMessage": "Create Department",
+    "description": "Heading displayed above the Create Department form."
+  },
+  "ZobKCk": {
+    "defaultMessage": "ID",
+    "description": "Title displayed on the Skill Family table ID column."
+  },
+  "a+bWz1": {
+    "defaultMessage": "Description (French)",
+    "description": "Label displayed on the create a skill form description (French) field."
+  },
+  "a5msuh": {
+    "defaultMessage": "Yes"
+  },
+  "aGI59+": {
+    "defaultMessage": "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
+    "description": "Helper message for filling in the pool introduction"
+  },
+  "aGaaPi": {
+    "defaultMessage": "Woman",
+    "description": "CSV Header, Woman column"
+  },
+  "aJVlIF": {
+    "defaultMessage": "Pools",
+    "description": "Label displayed on the pools field of the add user to pool dialog"
+  },
+  "aPqZsz": {
+    "defaultMessage": "Please use only lowercase letters and underscores."
+  },
+  "aS4Lty": {
+    "defaultMessage": "Group",
+    "description": "Title displayed for the Classification table Group column."
+  },
+  "aWsXoR": {
+    "defaultMessage": "pool_candidates_{date}.csv",
+    "description": "Filename for pool candidate CSV file download"
+  },
+  "aa7B7S": {
+    "defaultMessage": "Employment Equity Information",
+    "description": "Title of the Employment Equity Information content section"
+  },
+  "atniLV": {
+    "defaultMessage": "Pool Candidate {id} not found.",
+    "description": "Message displayed for pool candidate not found."
+  },
+  "azdo5+": {
+    "defaultMessage": "Edit skill family",
+    "description": "Page title for the skill family edit page"
+  },
+  "b3VnhM": {
+    "defaultMessage": "Classification {classificationId} not found.",
+    "description": "Message displayed for classification not found."
+  },
+  "bGi9fO": {
+    "defaultMessage": "Skill created successfully!",
+    "description": "Message displayed to user after skill is created successfully."
+  },
+  "bKixM0": {
+    "defaultMessage": "Availability:",
+    "description": "Availability label and colon"
+  },
+  "bVRixs": {
+    "defaultMessage": "Level",
+    "description": "Label displayed on the classification form level field."
+  },
+  "bbIDc9": {
+    "defaultMessage": "Save pool name",
+    "description": "Text on a button to save the pool name"
+  },
+  "bl7pCx": {
+    "defaultMessage": "Change status",
+    "description": "Button to change a users status in a pool - located in the table on view-user page"
+  },
+  "bqaNWT": {
+    "defaultMessage": "Add user to pool",
+    "description": "title for add to pool dialog on view-user page"
+  },
+  "brucUP": {
+    "defaultMessage": "Select one or more skill families...",
+    "description": "Placeholder displayed on the skill form skill families field."
+  },
+  "c0n+2j": {
+    "defaultMessage": "Name (French)",
+    "description": "Label displayed on the create a department form name (French) field."
+  },
+  "c9jMPS": {
+    "defaultMessage": "Error: Name not found.",
+    "description": "Error message displayed on the single search request table employment equity column."
+  },
+  "cEeW3m": {
+    "defaultMessage": "Location (French): {locationFr}",
+    "description": "Pool advertisement location requirement, French"
+  },
+  "cQE6qE": {
+    "defaultMessage": "Write the introduction for this job poster...",
+    "description": "Placeholder message for the French - Your Impact textarea in the edit pool page."
+  },
+  "chFoB8": {
+    "defaultMessage": "Search Table",
+    "description": "Label for search field on admin tables."
+  },
+  "crrqFg": {
+    "defaultMessage": "Expiry Date:",
+    "description": "Expiry Date label and colon"
+  },
+  "crzWxb": {
+    "defaultMessage": "Open Menu",
+    "description": "Text label for header button that opens side menu."
+  },
+  "cy5aj8": {
+    "defaultMessage": "Status",
+    "description": "Label for a pool advertisements status"
+  },
+  "d3oN4p": {
+    "defaultMessage": "Government Email",
+    "description": "Title for the government email block in the manager info section of the single search request view."
+  },
+  "d8CQJr": {
+    "defaultMessage": "Skill family created successfully!",
+    "description": "Message displayed to user after skill family is created successfully."
+  },
+  "d9OIGt": {
+    "defaultMessage": "Preferred Communication Language",
+    "description": "CSV Header, Preferred Communication Language column"
+  },
+  "dJxNRU": {
+    "defaultMessage": "Cancel and go back",
+    "description": "Label displayed on cancel button for new pool form."
+  },
+  "dYBwCh": {
+    "defaultMessage": "Error: closing pool failed",
+    "description": "Message displayed to user after pool fails to get closed."
+  },
+  "dc5TeX": {
+    "defaultMessage": "Edit pool",
+    "description": "Page title for the edit pool page"
+  },
+  "de2F/x": {
+    "defaultMessage": "Pool advertisement",
+    "description": "Label for pool advertisement url field"
+  },
+  "dj8GiH": {
+    "defaultMessage": "Candidate details",
+    "description": "Page title for the individual user page"
+  },
+  "dmGvCL": {
+    "defaultMessage": "Edit pool advertisement",
+    "description": "Link text for button to edit a specific pool"
+  },
+  "drwKS5": {
+    "defaultMessage": "This table shows a list of all applicants to this pool. Use the review button to manage an applicant.",
+    "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
+  "e9FNqp": {
+    "defaultMessage": "All candidates",
+    "description": "Breadcrumb title for the All Candidates page link."
+  },
+  "eCK3Ng": {
+    "defaultMessage": "Accept Temporary",
+    "description": "CSV Header, Accept Temporary column"
+  },
+  "eGEusj": {
+    "defaultMessage": "Transferable",
+    "description": "Title for pool advertisement transferable skill list"
+  },
+  "eMXL0K": {
+    "defaultMessage": "Users",
+    "description": "Breadcrumb title for the all users table link."
+  },
+  "eN8J/9": {
+    "defaultMessage": "Preferred Communication Language",
+    "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
+  },
+  "eSyXWT": {
+    "defaultMessage": "Error: updating skill failed",
+    "description": "Message displayed to user after skill fails to get updated."
+  },
+  "eickbr": {
+    "defaultMessage": "Visible minority",
+    "description": "Text on view-user page that the user is part of a visible minority"
+  },
+  "ekGCv2": {
+    "defaultMessage": "This will make your pool available to applicants to submit applications.",
+    "description": "Second paragraph for publish pool dialog"
+  },
+  "ev6HnY": {
+    "defaultMessage": "Notes",
+    "description": "CSV Header, Notes column"
+  },
+  "evxvnW": {
+    "defaultMessage": "User updated successfully!",
+    "description": "Message displayed to user after user is updated successfully."
+  },
+  "exYii8": {
+    "defaultMessage": "{skillName} (Asset)",
+    "description": "CSV Header, Asset skill column."
+  },
+  "f24Z8p": {
+    "defaultMessage": "ID",
+    "description": "Title displayed on the search request table id column."
+  },
+  "fAIozk": {
+    "defaultMessage": "User created successfully!",
+    "description": "Message displayed to user after user is created successfully."
+  },
+  "fGAMy/": {
+    "defaultMessage": "Select a language...",
+    "description": "Placeholder displayed on the user form preferred spoken interview language field."
+  },
+  "fLSDYW": {
+    "defaultMessage": "Availability",
+    "description": "Title displayed for the Pool Candidates table Availability column."
+  },
+  "fOl4Ez": {
+    "defaultMessage": "Keywords (French)",
+    "description": "Label displayed on the skill form keywords field in French."
+  },
+  "fPy7Mg": {
+    "defaultMessage": "French - Your impact",
+    "description": "Label for the French - Your Impact textarea in the edit pool page."
+  },
+  "fTwl6k": {
+    "defaultMessage": "Specific Title (English)",
+    "description": "Label for a pool advertisements specific English title"
+  },
+  "fXMsoK": {
+    "defaultMessage": "Telephone",
+    "description": "Title displayed for the User table Telephone column."
+  },
+  "fYyK2p": {
+    "defaultMessage": "Create classification",
+    "description": "Page title for the classification creation page"
+  },
+  "fdKtYm": {
+    "defaultMessage": "Description (English)",
+    "description": "Label displayed on the update a skill form description (English) field."
+  },
+  "fhL8jz": {
+    "defaultMessage": "Error: saving notes failed",
+    "description": "Message displayed to user after the personal notes fail to save on the single search request page."
+  },
+  "fivWMs": {
+    "defaultMessage": "Email",
+    "description": "Label for user table search dropdown (email)."
+  },
+  "fp7Nll": {
+    "defaultMessage": "Pool ID #{id}",
+    "description": "Current pool breadcrumb text"
+  },
+  "fvJnoC": {
+    "defaultMessage": "Language requirement: {languageRequirement}",
+    "description": "Pool advertisement language requirement"
+  },
+  "gDSeKw": {
+    "defaultMessage": "Date Received:",
+    "description": "Date Received label and colon"
+  },
+  "gKXZaj": {
+    "defaultMessage": "Priority Number",
+    "description": "CSV Header, Priority Number column"
+  },
+  "gKyog2": {
+    "defaultMessage": "Oops, it looks like you've landed on a page that you are not authorized to view.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "gLHr9Y": {
+    "defaultMessage": "This pool is set to automatically close on:",
+    "description": "Third paragraph for publish pool dialog"
+  },
+  "gLtTaW": {
+    "defaultMessage": "request",
+    "description": "Text displayed after View text for Search Request table view action"
+  },
+  "gN/+W2": {
+    "defaultMessage": "Operational Requirements",
+    "description": "Title displayed on the single search request table operational requirements column."
+  },
+  "gN5gy5": {
+    "defaultMessage": "Starting group and level",
+    "description": "Label displayed on the pool form classification field."
+  },
+  "gRPGQN": {
+    "defaultMessage": "Job title for this position",
+    "description": "Title for the job title block in the manager info section of the single search request view."
+  },
+  "gk7uJQ": {
+    "defaultMessage": "Classifications",
+    "description": "Label displayed on the classifications menu item."
+  },
+  "gnu0Eb": {
+    "defaultMessage": "Name (English)",
+    "description": "Label displayed on the create a skill form name (English) field."
+  },
+  "gpKGjq": {
+    "defaultMessage": "Maximum Salary",
+    "description": "Label displayed for the classification form max salary field."
+  },
+  "grrIC7": {
+    "defaultMessage": "You're about to delete this pool.",
+    "description": "First paragraph for delete pool dialog"
+  },
+  "gv1Hwu": {
+    "defaultMessage": "Start blank job poster",
+    "description": "Form header to create new pool"
+  },
+  "gvomlw": {
+    "defaultMessage": "Change date",
+    "description": "Confirmation button for change expiry date dialog"
+  },
+  "h9dLBX": {
+    "defaultMessage": "Priority Entitlement",
+    "description": "CSV Header, Priority Entitlement column"
+  },
+  "hGlM9B": {
+    "defaultMessage": "Closing Date (Pacific time zone)",
+    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
+  },
+  "hIaETV": {
+    "defaultMessage": "Pool status",
+    "description": "Title of the 'Pool status' section of the view-user page"
+  },
+  "hMRpmG": {
+    "defaultMessage": "Current Classification",
+    "description": "CSV Header, Current Classification column"
+  },
+  "hOxIeP": {
+    "defaultMessage": "Availability"
+  },
+  "hTfHUv": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the Department table Edit column."
+  },
+  "hUIqiV": {
+    "defaultMessage": "Skill families",
+    "description": "Page title for the skill family index page"
+  },
+  "hci1jW": {
+    "defaultMessage": "View",
+    "description": "Title displayed for the User table View column."
+  },
+  "hgxH8y": {
+    "defaultMessage": "Group",
+    "description": "Label displayed for the classification form group field."
+  },
+  "hiZAeF": {
+    "defaultMessage": "Email",
+    "description": "Title displayed on the search request table email column."
+  },
+  "hlcd+5": {
+    "defaultMessage": "Table results"
+  },
+  "hmacO5": {
+    "defaultMessage": "Request doesn't include a filter!",
+    "description": "Null state for a request not including a filter."
+  },
+  "hmfQmT": {
+    "defaultMessage": "Duration Preferences"
+  },
+  "hqZfyb": {
+    "defaultMessage": "Narrow down your table results using the following filters.",
+    "description": "Candidate search filter dialog: subtitle"
+  },
+  "hzL/Gd": {
+    "defaultMessage": "Date Requested",
+    "description": "Title for the date requested block in the manager info section of the single search request view."
+  },
+  "i3C5Hn": {
+    "defaultMessage": "Department",
+    "description": "Title displayed on the search request table department column."
+  },
+  "i45Vxz": {
+    "defaultMessage": "Employment Equity",
+    "description": "Title displayed on the single search request table employment equity column."
+  },
+  "i9AjuX": {
+    "defaultMessage": "N/A",
+    "description": "Text shown when the filter was not selected"
+  },
+  "i9ND/M": {
+    "defaultMessage": "Edit<hidden> {label}</hidden>",
+    "description": "Title displayed for the Edit column."
+  },
+  "iIZS1K": {
+    "defaultMessage": "Role/Salary Expectation",
+    "description": "CSV Header, Role/Salary Expectation column"
+  },
+  "iOgr3Z": {
+    "defaultMessage": "Delete",
+    "description": "Heading for the delete pool dialog"
+  },
+  "iQzlmB": {
+    "defaultMessage": "New Pool",
+    "description": "New pool breadcrumb text"
+  },
+  "iRJV64": {
+    "defaultMessage": "Preferred Spoken Interview Language",
+    "description": "Title displayed on the Pool Candidates table Preferred Spoken Language column."
+  },
+  "icYqDt": {
+    "defaultMessage": "Pool",
+    "description": "Title of the 'Pool' column for the table on view-user page"
+  },
+  "ioqFVF": {
+    "defaultMessage": "Status",
+    "description": "Title displayed for the Pool table status column."
+  },
+  "iuve97": {
+    "defaultMessage": "Change status",
+    "description": "Confirmation button for change status dialog"
+  },
+  "j01W+1": {
+    "defaultMessage": "Name (French)",
+    "description": "Label displayed on the update a skill form name (French) field."
+  },
+  "j3m2Ca": {
+    "defaultMessage": "Specific location (Specify below)",
+    "description": "Label displayed for 'specific location' option"
+  },
+  "j4G/wv": {
+    "defaultMessage": "Save asset skills",
+    "description": "Text on a button to save the pool asset skills"
+  },
+  "j6V32h": {
+    "defaultMessage": "Closing date (Pacific time zone)",
+    "description": "Label for a pool advertisements expiry date in the Pacific time zone"
+  },
+  "j9m5qA": {
+    "defaultMessage": "Date Received",
+    "description": "CSV Header, Date Received column"
+  },
+  "jJCDGc": {
+    "defaultMessage": "Classification updated successfully!",
+    "description": "Message displayed to user after classification is updated successfully."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Sorry, you are not authorized to view this page.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "jdoFE6": {
+    "defaultMessage": "Pool name and target classification",
+    "description": "Sub title for pool name and classification"
+  },
+  "jiUwae": {
+    "defaultMessage": "Extend the date",
+    "description": "Text on a button to extend the expiry date the pool"
+  },
+  "jphtnM": {
+    "defaultMessage": "Remote optional (Recommended)",
+    "description": "Label displayed for 'remote optional' option"
+  },
+  "jtEouE": {
+    "defaultMessage": "Add user to pool",
+    "description": "Title of the 'Add user to pools' section of the view-user page"
+  },
+  "jthonT": {
+    "defaultMessage": "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
+    "description": "Additional context describing the purpose of the skills 'key' field."
+  },
+  "jttjmJ": {
+    "defaultMessage": "Save closing date",
+    "description": "Text on a button to save the pool closing date"
+  },
+  "jtygmI": {
+    "defaultMessage": "Education"
+  },
+  "k4xm25": {
+    "defaultMessage": "Download failed: No rows selected",
+    "description": "Alert message displayed when a user attempts to print without selecting items first"
+  },
+  "k9nAP5": {
+    "defaultMessage": "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
+    "description": "Helper message for filling in the pool work tasks"
+  },
+  "kHKFAH": {
+    "defaultMessage": "This pool has not been advertised yet.",
+    "description": "Status description of a pool in DRAFT status"
+  },
+  "kTW+mP": {
+    "defaultMessage": "Nice to have skills",
+    "description": "Title optional skills for a pool advertisement"
+  },
+  "kXAnJt": {
+    "defaultMessage": "Failed updating notes for candidate in {poolName}",
+    "description": "Toast notification for failed update of candidates notes in specified pool"
+  },
+  "ksMybU": {
+    "defaultMessage": "Error: creating skill failed",
+    "description": "Message displayed to user after skill fails to get created."
+  },
+  "kt5dPm": {
+    "defaultMessage": "Id",
+    "description": "Title displayed on the Pool table Unique Identifier column."
+  },
+  "kwNyl6": {
+    "defaultMessage": "Roles",
+    "description": "Label displayed on the user form roles field."
+  },
+  "l+cu8R": {
+    "defaultMessage": "Status",
+    "description": "Title displayed for the Pool Candidates table Status column."
+  },
+  "l05aVF": {
+    "defaultMessage": "Personal Notes",
+    "description": "Heading for the personal notes section of the single search request view."
+  },
+  "l1cou8": {
+    "defaultMessage": "Government Information",
+    "description": "Title of the Government Information content section"
+  },
+  "l62TJM": {
+    "defaultMessage": "Availability",
+    "description": "CSV Header, Availability column"
+  },
+  "lFrPv1": {
+    "defaultMessage": "Create Skill",
+    "description": "Heading displayed above the Create Skill form."
+  },
+  "lIwJp4": {
+    "defaultMessage": "Welcome back, {name}",
+    "description": "Title for dashboard on the talent cloud admin portal."
+  },
+  "lb7SoP": {
+    "defaultMessage": "English - Your work",
+    "description": "Label for the English - Your Work textarea in the edit pool page."
+  },
+  "lkZ+Zt": {
+    "defaultMessage": "Notes:",
+    "description": "Notes label and colon"
+  },
+  "lo2bSB": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the single search request table edit column."
+  },
+  "luZnRG": {
+    "defaultMessage": "Description (English)",
+    "description": "Label displayed on the create a skill family form description (English) field."
+  },
+  "m0JFE/": {
+    "defaultMessage": "Code",
+    "description": "Title for the application's profile snapshot."
+  },
+  "m4rXNt": {
+    "defaultMessage": "Subject",
+    "description": "Label displayed on the user form subject field."
+  },
+  "m5RwGF": {
+    "defaultMessage": "Category",
+    "description": "Title displayed for the Skill Family table Category column."
+  },
+  "mRQ/uk": {
+    "defaultMessage": "Profile",
+    "description": "Title displayed for the Pool Candidates table View Profile link."
+  },
+  "mYuXWF": {
+    "defaultMessage": "users_{date}.csv",
+    "description": "Filename for user CSV file download"
+  },
+  "mjyHeP": {
+    "defaultMessage": "Pools"
+  },
+  "mv+9jt": {
+    "defaultMessage": "User Information",
+    "description": "Heading for the user information section"
+  },
+  "mxOuYK": {
+    "defaultMessage": "Download CSV",
+    "description": "Text label for button to download a csv file of items in a table."
+  },
+  "n+d6QE": {
+    "defaultMessage": "Set an expiry date for this candidate on this pool:",
+    "description": "Second section of text on the change candidate expiry date dialog"
+  },
+  "n9YPWe": {
+    "defaultMessage": "Pool status",
+    "description": "Label displayed on the status field of the change candidate status dialog"
+  },
+  "nMYWzb": {
+    "defaultMessage": "Language requirement",
+    "description": "Label displayed on the edit pool form language requirement field."
+  },
+  "nPUAz5": {
+    "defaultMessage": "Pool updated successfully!",
+    "description": "Message displayed to user after pool is updated"
+  },
+  "nRtrPx": {
+    "defaultMessage": "Estimated Language Ability",
+    "description": "CSV Header, Estimated Language Ability column"
+  },
+  "nXRLAX": {
+    "defaultMessage": "Error: updating department failed",
+    "description": "Message displayed to user after department fails to get updated."
+  },
+  "nYriNg": {
+    "defaultMessage": "Status updated successfully",
+    "description": "Toast for successful status update on view-user page"
+  },
+  "nok2sR": {
+    "defaultMessage": "Name:",
+    "description": "Display text for the name field on users"
+  },
+  "npC3bT": {
+    "defaultMessage": "Notes",
+    "description": "Title for admin editing a pool candidates notes"
+  },
+  "nsm/uC": {
+    "defaultMessage": "{skillName} (Essential)",
+    "description": "CSV Header, Essential skill column."
+  },
+  "nxsvto": {
+    "defaultMessage": "Archival Date",
+    "description": "CSV Header, Archival Date column"
+  },
+  "oCX5SP": {
+    "defaultMessage": "Department",
+    "description": "CSV Header, Department column"
+  },
+  "oQnVSn": {
+    "defaultMessage": "Last Name",
+    "description": "Label displayed on the user form last name field."
+  },
+  "p+YRN1": {
+    "defaultMessage": "You're about to change status for this user:",
+    "description": "First section of text on the change candidate status dialog"
+  },
+  "p/Qp/u": {
+    "defaultMessage": "Candidate Name",
+    "description": "Title displayed on the Pool Candidates table name column."
+  },
+  "p7D5i5": {
+    "defaultMessage": "Personal Notes",
+    "description": "Label displayed on the search request form personal notes field."
+  },
+  "pBJzgi": {
+    "defaultMessage": "Sorry, we can't find the page you were looking for.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pFYfVv": {
+    "defaultMessage": "Row Selection",
+    "description": "Label for the row-selection column in the tables column-selection modal."
+  },
+  "pe5WkF": {
+    "defaultMessage": "Owner Email",
+    "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "pgHTkX": {
+    "defaultMessage": "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+    "description": "Detailed message saying the page was not found."
+  },
+  "qSTIKZ": {
+    "defaultMessage": "Failed updating expiry date",
+    "description": "Toast for failed expiry date update on view-user page"
+  },
+  "qVXkby": {
+    "defaultMessage": "Key",
+    "description": "Label displayed on the create a skill family form key field."
+  },
+  "qYH0du": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the User table Edit column."
+  },
+  "qZd17O": {
+    "defaultMessage": "Create Skill",
+    "description": "Title displayed on the create a skill form."
+  },
+  "qhhPj5": {
+    "defaultMessage": "Work Locations"
+  },
+  "qs/dFw": {
+    "defaultMessage": "Accepted Operation Requirements",
+    "description": "CSV Header, Accepted Operation Requirements column"
+  },
+  "r2gD/4": {
+    "defaultMessage": "Date Received",
+    "description": "Title displayed on the search request table requested date column."
+  },
+  "rGE0gj": {
+    "defaultMessage": "Your impact",
+    "description": "Title for pool advertisement impact section"
+  },
+  "rJ36SS": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the Skill Family table Edit column."
+  },
+  "rJqCuH": {
+    "defaultMessage": "Description (English)",
+    "description": "Label displayed on the create a skill form description (English) field."
+  },
+  "rQ3Gbb": {
+    "defaultMessage": "Error: creating skill family failed",
+    "description": "Message displayed to user after skill family fails to get created."
+  },
+  "rkPb6M": {
+    "defaultMessage": "This pool is set to automatically close on:",
+    "description": "First paragraph for the close pool dialog"
+  },
+  "rna1rM": {
+    "defaultMessage": "Select a category...",
+    "description": "Placeholder displayed on the skill family form category field."
+  },
+  "rqXJfW": {
+    "defaultMessage": "Application’s profile snapshot",
+    "description": "Title for the application's profile snapshot."
+  },
+  "ry3jFR": {
+    "defaultMessage": "Your impact",
+    "description": "Sub title for the pool introduction"
+  },
+  "rz8uPO": {
+    "defaultMessage": "Pool Requested",
+    "description": "Title for the pool block in the manager info section of the single search request view."
+  },
+  "s6HoFU": {
+    "defaultMessage": "Back to All Requests",
+    "description": "Button label displayed on the search request form which returns the user back to all requests."
+  },
+  "sICXeM": {
+    "defaultMessage": "Expiry date",
+    "description": "Label displayed on the date field of the add user to pool dialog"
+  },
+  "sUx3ZS": {
+    "defaultMessage": "Status",
+    "description": "Title of the 'Status' column for the table on view-user page"
+  },
+  "sZHcsV": {
+    "defaultMessage": "Email",
+    "description": "Label displayed on the user form email field."
+  },
+  "t3sEc+": {
+    "defaultMessage": "Status",
+    "description": "Title displayed on the search request table status column."
+  },
+  "t4WPUU": {
+    "defaultMessage": "Publish",
+    "description": "Text on a button to publish the pool"
+  },
+  "tQ674x": {
+    "defaultMessage": "Publishing group",
+    "description": "Label displayed on the edit pool form publishing group field."
+  },
+  "tiF/jI": {
+    "defaultMessage": "Cancel and go back",
+    "description": "Close dialog button"
+  },
+  "tiv5J7": {
+    "defaultMessage": "Save work tasks",
+    "description": "Text on a button to save the pool work tasks"
+  },
+  "tpzt/B": {
+    "defaultMessage": "Edit",
+    "description": "Title displayed for the Pool table Edit column."
+  },
+  "tzMNF3": {
+    "defaultMessage": "Status"
+  },
+  "u6GmEz": {
+    "defaultMessage": "Portal manager portal",
+    "description": "Title for the pool manager login link."
+  },
+  "uAmdiU": {
+    "defaultMessage": "Name (French)",
+    "description": "Label displayed on the classification form name (French) field."
+  },
+  "uC0YPE": {
+    "defaultMessage": "Clear filters",
+    "description": "Clear button within the search filter dialog"
+  },
+  "uDuEu0": {
+    "defaultMessage": "Publish pool",
+    "description": "Button to publish the pool in the publish pool dialog"
+  },
+  "uMzeiF": {
+    "defaultMessage": "Role and salary expectations",
+    "description": "Title of the Role and salary expectations section"
+  },
+  "uSdcX4": {
+    "defaultMessage": "Pool candidate status updated successfully",
+    "description": "Message displayed when a pool candidate has been updated by and admin"
+  },
+  "ukL9do": {
+    "defaultMessage": "First Name",
+    "description": "CSV Header, First Name column"
+  },
+  "usNShh": {
+    "defaultMessage": "Select a pool status...",
+    "description": "Placeholder displayed on the status field of the change candidate status dialog."
+  },
+  "uutH18": {
+    "defaultMessage": "About",
+    "description": "Title of the 'About' section of the view-user page"
+  },
+  "v6qX/r": {
+    "defaultMessage": "Back to pool dashboard",
+    "description": "Text on a link to navigate back to the pool dashboard page"
+  },
+  "v8vbWP": {
+    "defaultMessage": "All Candidates",
+    "description": "Breadcrumb for the All Candidates page"
+  },
+  "vINfxJ": {
+    "defaultMessage": "View pool",
+    "description": "Page title for the individual pool page"
+  },
+  "vgOfaa": {
+    "defaultMessage": "Select a stream/job title...",
+    "description": "Placeholder displayed on the pool form classification field."
+  },
+  "vtXnOQ": {
+    "defaultMessage": "Select additional pools...",
+    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
+  },
+  "w/qZsH": {
+    "defaultMessage": "Classification",
+    "description": "Label displayed on the pool form classification field."
+  },
+  "w/v77x": {
+    "defaultMessage": "Written Level",
+    "description": "CSV Header, Written Level column"
+  },
+  "w9FYqi": {
+    "defaultMessage": "View pool advertisement",
+    "description": "Sub title for admin view pool page"
+  },
+  "w9RqOI": {
+    "defaultMessage": "Priority",
+    "description": "CSV Header, Priority column"
+  },
+  "wCBE9S": {
+    "defaultMessage": "Pools",
+    "description": "Label displayed on the Pools menu item."
+  },
+  "wHX/8C": {
+    "defaultMessage": "Admin",
+    "description": "Title tag for Admin site"
+  },
+  "wZ91g+": {
+    "defaultMessage": "Pool created successfully!",
+    "description": "Message displayed to user after pool is created successfully."
+  },
+  "wiUfZL": {
+    "defaultMessage": "If you want this status to change across multiple pools, select them here:",
+    "description": "Header for section to add additional pools to the change status operation"
+  },
+  "xGjm2A": {
+    "defaultMessage": "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
+    "description": "Helper message for filling in the pool asset skills"
+  },
+  "xJm72U": {
+    "defaultMessage": "Classifications",
+    "description": "Page title for the classification index page"
+  },
+  "xcBl1q": {
+    "defaultMessage": "Columns",
+    "description": "Label displayed on the Table Columns toggle button."
+  },
+  "xjOcT7": {
+    "defaultMessage": "Request status successfully set to done!",
+    "description": "Message displayed to user after the request has been successfully set to done on the single search request page."
+  },
+  "xkxwfP": {
+    "defaultMessage": "Advertisement status",
+    "description": "Sub title for the pool advertisement status"
+  },
+  "xlsfRu": {
+    "defaultMessage": "Select the requirements needed for this advertisement.",
+    "description": "Helper message for filling in the pool other requirements"
+  },
+  "xx8yaE": {
+    "defaultMessage": "Families",
+    "description": "Label displayed on the skill form skill families field."
+  },
+  "xzkqPm": {
+    "defaultMessage": "Details",
+    "description": "Sub title for admin view pool page"
+  },
+  "y9tCKP": {
+    "defaultMessage": "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
+    "description": "Helper message for changing the pool advertisement status"
+  },
+  "yGlG9e": {
+    "defaultMessage": "Department created successfully!",
+    "description": "Message displayed to user after department is created successfully."
+  },
+  "yYDzYE": {
+    "defaultMessage": "Close pool now",
+    "description": "Button to close the pool in the close pool dialog"
+  },
+  "yZqUAU": {
+    "defaultMessage": "Level",
+    "description": "Title displayed for the Classification table Level column."
+  },
+  "ye47Rz": {
+    "defaultMessage": "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+  },
+  "ytTGvb": {
+    "defaultMessage": "The 'key' is a string that uniquely identifies a skill family. It should be based on the skill families English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill family, so it cannot be changed later.",
+    "description": "Additional context describing the purpose of the skill families 'key' field."
+  },
+  "yypk6/": {
+    "defaultMessage": "Add to new pool",
+    "description": "Confirmation button for add to pool dialog"
+  },
+  "z0QI6A": {
+    "defaultMessage": "All Pool Candidates",
+    "description": "Title for the admin pool candidates table"
+  },
+  "zAqJMe": {
+    "defaultMessage": "Created",
+    "description": "Title displayed on the Pool table Date Created column"
+  },
+  "zDO6tt": {
+    "defaultMessage": "Expiry Date",
+    "description": "title for change expiry date dialog on view-user page"
+  },
+  "zLvpBy": {
+    "defaultMessage": "These notes are shared between all managers of this pool, but not to candidates.",
+    "description": "Description of the pool candidate notes field."
+  },
+  "zpwZSQ": {
+    "defaultMessage": "Error: updating skill family failed",
+    "description": "Message displayed to user after skillFamily fails to get updated."
+  },
+  "zwYuly": {
+    "defaultMessage": "Create pool",
+    "description": "Page title for the pool creation page"
+  },
+  "zwcUgi": {
+    "defaultMessage": "Department",
+    "description": "Title for the department block in the manager info section of the single search request view."
+  },
+  "zzwPOR": {
+    "defaultMessage": "Preferred Written Exam Language:",
+    "description": "Display text for the preferred written exam language field on users"
+  }
+}
