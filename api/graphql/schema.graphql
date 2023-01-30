@@ -270,11 +270,11 @@ type Applicant {
 
   # Experiences
   experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences")
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
+  awardExperiences: [AwardExperience] @hasMany
+  communityExperiences: [CommunityExperience] @hasMany
+  educationExperiences: [EducationExperience] @hasMany
+  personalExperiences: [PersonalExperience] @hasMany
+  workExperiences: [WorkExperience] @hasMany
 
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
