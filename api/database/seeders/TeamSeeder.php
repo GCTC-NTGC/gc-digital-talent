@@ -15,10 +15,12 @@ class TeamSeeder extends Seeder
     public function run()
     {
         $teams = [
-            'name' => 'digital-community-management',
-            'display_name' => [
-                'en' => 'Digital Community Management',
-                'fr' => 'Gestion de la collectivité numérique',
+            [
+                'name' => 'digital-community-management',
+                'display_name' => [
+                    'en' => 'Digital Community Management',
+                    'fr' => 'Gestion de la collectivité numérique',
+                ],
             ],
         ];
 
