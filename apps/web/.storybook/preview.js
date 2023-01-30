@@ -15,6 +15,7 @@ import frCommonCompiled from "../../../frontend/common/src/lang/frCompiled.json"
 
 import "../../../frontend/common/src/css/hydrogen.css"
 import "../../../frontend/common/src/css/common.css"
+import "../src/assets/css/app.css"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
