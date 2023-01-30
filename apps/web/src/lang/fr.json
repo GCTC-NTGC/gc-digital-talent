@@ -3349,10 +3349,6 @@
     "defaultMessage": "Sélectionner un niveau...",
     "description": "Placeholder displayed on the classification form level field."
   },
-  "QCTZUv": {
-    "defaultMessage": "Recherche",
-    "description": "Label displayed on the Global Filter form Search field."
-  },
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
@@ -3539,14 +3535,6 @@
   "p7D5i5": {
     "defaultMessage": "Notes personnelles",
     "description": "Label displayed on the search request form personal notes field."
-  },
-  "pBJzgi": {
-    "defaultMessage": "Désolé, nous n’avons pas trouvé la page recherchée.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": "Oups, on dirait que vous êtes tombé sur une page qui n’existe pas ou qui a été déplacée.",
-    "description": "Detailed message saying the page was not found."
   },
   "qYH0du": {
     "defaultMessage": "Modifier",
