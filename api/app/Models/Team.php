@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Laratrust\Models\LaratrustTeam;
 
@@ -9,6 +10,7 @@ use Laratrust\Models\LaratrustTeam;
  *
  * @property string $id
  * @property string $name
+ * @property string $contact_email
  * @property array $display_name
  * @property array $description
  * @property Illuminate\Support\Carbon $created_at
@@ -25,4 +27,9 @@ class Team extends LaratrustTeam
     ];
 
     public $guarded = [];
+
+    public function departments(): HasMany
+    {
+        return $this->hasMany(Department::class);
+    }
 }
