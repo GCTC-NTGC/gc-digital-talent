@@ -436,7 +436,7 @@ function Table<T extends Record<string, unknown>>({
                     }
                     onPageSizeChange={setPageSize}
                     pageSize={pageSize}
-                    pageSizes={[10, 20, 30, 40, 50]}
+                    pageSizes={[10, 20, 50, 100, 500]}
                     totalCount={rows.length}
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
