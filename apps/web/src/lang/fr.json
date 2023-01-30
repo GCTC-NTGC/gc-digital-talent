@@ -2441,8 +2441,8 @@
     "defaultMessage": "Je cherche à...",
     "description": "Support form subject field label"
   },
-  "1zkApr": {
-    "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement<hidden> {name}</hidden>",
+  "cUmFnk": {
+    "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
   },
   "2UDONd": {
