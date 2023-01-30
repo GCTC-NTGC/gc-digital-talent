@@ -269,7 +269,7 @@ type Applicant {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
-  experiences: [Experience]
+  experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences")
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
   educationExperiences: [EducationExperience]
