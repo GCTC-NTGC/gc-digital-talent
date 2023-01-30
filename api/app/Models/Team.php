@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 use Laratrust\Models\LaratrustTeam;
 
@@ -28,8 +28,8 @@ class Team extends LaratrustTeam
 
     public $guarded = [];
 
-    public function departments(): HasMany
+    public function departments(): BelongsToMany
     {
-        return $this->hasMany(Department::class);
+        return $this->belongsToMany(Department::class, 'team_department');
     }
 }

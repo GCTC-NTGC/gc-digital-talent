@@ -518,7 +518,7 @@ type Team {
   name: String
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
-  departments: [Department] @hasMany
+  departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
