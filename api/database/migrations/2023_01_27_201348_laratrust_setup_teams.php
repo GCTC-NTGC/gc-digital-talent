@@ -2,6 +2,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class LaratrustSetupTeams extends Migration
 {
@@ -14,12 +15,14 @@ class LaratrustSetupTeams extends Migration
     {
         // Create table for storing teams
         Schema::create('teams', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary('id');
             $table->string('name')->unique();
             $table->jsonb('display_name')->nullable();
             $table->jsonb('description')->nullable();
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE teams ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::table('role_user', function (Blueprint $table) {
             // Drop role foreign key and primary key
@@ -27,7 +30,7 @@ class LaratrustSetupTeams extends Migration
             $table->dropPrimary(['user_id', 'role_id', 'user_type']);
 
             // Add team_id column
-            $table->unsignedInteger('team_id')->nullable();
+            $table->uuid('team_id')->nullable();
 
             // Create foreign keys
             $table->foreign('role_id')->references('id')->on('roles')
@@ -48,7 +51,7 @@ class LaratrustSetupTeams extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             // Add team_id column
-            $table->unsignedInteger('team_id')->nullable();
+            $table->uuid('team_id')->nullable();
 
             $table->foreign('team_id')->references('id')->on('teams')
                 ->onUpdate('cascade')->onDelete('cascade');
