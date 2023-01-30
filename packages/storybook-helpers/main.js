@@ -28,7 +28,8 @@ module.exports = (basePath) => {
     "staticDirs": [ { from: '../public', to: '/' } ],
 
     "stories": [
-      "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      //"../../frontend/common/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
       "@storybook/addon-links",
