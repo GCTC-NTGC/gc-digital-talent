@@ -32,7 +32,7 @@ const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
 
 export interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  icon?: React.FC<{ className: string }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({

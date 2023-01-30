@@ -36,20 +36,20 @@ export const ActiveRecruitmentSection = ({
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>
-      <p data-h2-margin="base(x1, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
-          id: "gtaSs1",
+          id: "C7sYnb",
           defaultMessage:
-            "This platform allows you to apply to recruitment processes that makes it easy for hiring managers to find you.",
+            "This platform allows you to apply to recruitment processes that make it easy for hiring managers to find you. This page offers you a snapshot of our open recruitment processes. Come back and check this page often!",
           description:
             "Description of how the application process works, paragraph one",
         })}
       </p>
       <p>
         {intl.formatMessage({
-          id: "EIHPGF",
+          id: "vNFHWp",
           defaultMessage:
-            "Your application to a process will be reviewed by our team and if it's a match, you will be invited to an assessment. Once accepted, managers will be able to contact you about job opportunities based on your skills.",
+            "Your application to a process will be reviewed by our team and if it's a match, you will be invited to an assessment. Once accepted, managers can contact you about job opportunities.",
           description:
             "Description of how the application process works, paragraph two",
         })}
