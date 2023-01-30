@@ -61,6 +61,7 @@
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.0-beta.39",
     "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-viewport": "^6.5.14",
     "@storybook/builder-webpack5": "^6.5.14",
     "@storybook/react": "^6.5.14",
