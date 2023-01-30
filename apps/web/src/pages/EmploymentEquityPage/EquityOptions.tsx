@@ -12,7 +12,7 @@ import {
 import profileMessages from "~/messages/profileMessages";
 import Spinner from "~/components/Spinner/Spinner";
 
-import { notEmpty } from "~/../../../frontend/common/src/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
