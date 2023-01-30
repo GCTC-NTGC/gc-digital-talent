@@ -29,7 +29,7 @@ module.exports = (basePath) => {
 
     "stories": [
       "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      //"../../frontend/common/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "../../../frontend/common/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
       "@storybook/addon-links",
