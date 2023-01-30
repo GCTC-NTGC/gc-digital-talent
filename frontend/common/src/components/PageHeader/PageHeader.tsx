@@ -2,7 +2,7 @@ import React from "react";
 import Heading from "../Heading";
 
 export interface PageHeaderProps {
-  icon?: React.FC<{ className: string }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
   subtitle?: React.ReactNode;
   children?: React.ReactNode;
 }
