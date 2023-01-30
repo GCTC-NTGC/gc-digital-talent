@@ -15,7 +15,7 @@ php artisan config:clear
 chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
-cd /var/www/html
+cd /var/www/html/apps/web
 cp .env.example .env --preserve=all
 
 # build projects
