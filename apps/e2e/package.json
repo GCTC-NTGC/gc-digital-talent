@@ -9,7 +9,6 @@
     "e2e:run:inspect": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
   },
   "dependencies": {
-    "admin": "*",
     "@gc-digital-talent/common": "*",
     "web": "*"
   },
