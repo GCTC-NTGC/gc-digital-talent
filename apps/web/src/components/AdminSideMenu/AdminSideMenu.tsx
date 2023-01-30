@@ -15,7 +15,7 @@ import SideMenu, { SideMenuItem } from "@common/components/SideMenu";
 import { AuthorizationContext } from "@common/components/Auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Role } from "~/api/generated";
+import { LegacyRole } from "~/api/generated";
 
 import LoginOrLogout from "./LoginOrLogout";
 
@@ -33,8 +33,8 @@ export interface AdminSideMenuProps {
  * @returns boolean
  */
 const checkRole = (
-  checkRoles: Role[] | null,
-  userRoles: (Role | null | undefined)[] | null | undefined,
+  checkRoles: LegacyRole[] | null,
+  userRoles: (LegacyRole | null | undefined)[] | null | undefined,
 ): boolean => {
   if (!checkRoles) {
     return true;
@@ -65,7 +65,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "dashboard",
       href: paths.adminDashboard(),
       icon: HomeIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Dashboard",
         id: "ZDmkKD",
@@ -76,7 +76,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
         id: "wCBE9S",
@@ -87,7 +87,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Users",
         id: "154pGu",
@@ -98,7 +98,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Requests",
         id: "QftM3f",
@@ -109,7 +109,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "classifications",
       href: paths.classificationTable(),
       icon: TagIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Classifications",
         id: "gk7uJQ",
@@ -120,7 +120,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "departments",
       href: paths.departmentTable(),
       icon: BuildingOfficeIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Departments",
         id: "HQOsq2",
@@ -131,7 +131,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "skill-families",
       href: paths.skillFamilyTable(),
       icon: UserGroupIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Skill Families",
         id: "4fOu5j",
@@ -142,7 +142,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "skills",
       href: paths.skillTable(),
       icon: AcademicCapIcon,
-      roles: [Role.Admin],
+      roles: [LegacyRole.Admin],
       text: intl.formatMessage({
         defaultMessage: "Skills",
         id: "UC+4MX",

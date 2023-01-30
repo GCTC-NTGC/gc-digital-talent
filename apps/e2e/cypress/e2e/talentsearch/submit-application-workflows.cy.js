@@ -52,7 +52,7 @@ describe("Submit Application Workflow Tests", () => {
           cy.createUser({
             email: `cypress.user.${uniqueTestId}@example.org`,
             sub: `cypress.sub.${uniqueTestId}`,
-            roles: ["APPLICANT"],
+            legacyRoles: ["APPLICANT"],
             currentProvince: ProvinceOrTerritory.Ontario,
             currentCity: "Test City",
             telephone: "+10123456789",

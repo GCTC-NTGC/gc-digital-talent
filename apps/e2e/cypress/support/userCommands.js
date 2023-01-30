@@ -19,7 +19,7 @@ Cypress.Commands.add("createUser", (user) => {
     // optional
     telephone: undefined,
     email: undefined,
-    roles: [],
+    legacyRoles: [],
     currentProvince: undefined,
     currentCity: undefined,
     languageAbility: undefined,

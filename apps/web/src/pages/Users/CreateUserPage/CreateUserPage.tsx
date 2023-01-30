@@ -18,7 +18,7 @@ import {
   CreateUserInput,
   CreateUserMutation,
   useCreateUserMutation,
-  Role,
+  LegacyRole,
 } from "~/api/generated";
 
 type FormValues = CreateUserInput;
@@ -220,8 +220,8 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             />
             <div data-h2-margin="base(x1, 0)">
               <MultiSelectField
-                id="roles"
-                name="roles"
+                id="legacyRoles"
+                name="legacyRoles"
                 label={intl.formatMessage({
                   defaultMessage: "Roles",
                   id: "kwNyl6",
@@ -233,7 +233,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                   description:
                     "Placeholder displayed on the user form roles field.",
                 })}
-                options={enumToOptions(Role).map(({ value }) => ({
+                options={enumToOptions(LegacyRole).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getRole(value)),
                 }))}

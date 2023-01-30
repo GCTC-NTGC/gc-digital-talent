@@ -89,10 +89,27 @@ class ApiEnums
         ];
     }
 
+    const LEGACY_ROLE_ADMIN = 'ADMIN';
+    const LEGACY_ROLE_APPLICANT = 'APPLICANT';
+    /**
+     * A collection of enums for Legacy Role in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function legacyRoles(): array
+    {
+        return [
+            self::LEGACY_ROLE_ADMIN,
+            self::LEGACY_ROLE_APPLICANT,
+        ];
+    }
+
+    // IMPORTANT
+    // THE FOLLOWING ENUMS ARE DISTINCT FROM TEAMS ROLES AND EXIST TO MAINTAIN MIGRATION REVERSAL
+    // THEY ARE NOT TO BE USED GOING FORWARD, SUPPLANTED BY LEGACY ROLES
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_APPLICANT = 'APPLICANT';
     /**
-     * A collection of enums for Role in factories and seeders
      *
      * @return string[]
      */

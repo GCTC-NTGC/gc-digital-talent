@@ -22,14 +22,14 @@ query User($id: UUID!) {
     preferredLang
     preferredLanguageForInterview
     preferredLanguageForExam
-    roles
+    legacyRoles
   }
 }
 
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     sub
-    roles
+    legacyRoles
 
     firstName
     lastName
@@ -180,7 +180,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
     id
     sub
-    roles
+    legacyRoles
 
     firstName
     lastName
