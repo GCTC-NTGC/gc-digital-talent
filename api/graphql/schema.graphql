@@ -493,6 +493,15 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
+  teams: [Team] @belongsToMany
+}
+
+type Team {
+  name: String
+  displayName: LocalizedString @rename(attribute: "display_name")
+  description: LocalizedString
+  departments: [Department] @hasMany
+  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 enum PoolCandidateSearchStatus {

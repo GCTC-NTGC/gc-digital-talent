@@ -375,6 +375,7 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  teams: [Team]
 }
 
 input DepartmentBelongsTo {
@@ -1192,6 +1193,14 @@ enum SortOrder {
 
   """Sort records in descending order."""
   DESC
+}
+
+type Team {
+  name: String
+  displayName: LocalizedString
+  description: LocalizedString
+  departments: [Department]
+  contactEmail: Email
 }
 
 """
