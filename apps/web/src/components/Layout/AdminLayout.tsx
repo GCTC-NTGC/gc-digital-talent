@@ -1,9 +1,9 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { Helmet } from "react-helmet";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
+import SEO from "@common/components/SEO/SEO";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
@@ -71,25 +71,19 @@ const AdminLayout = () => {
 
   return (
     <>
-      <Helmet>
-        <html lang={getLocale(intl)} />
-        <title>
-          {intl.formatMessage({
-            defaultMessage: "Admin",
-            id: "wHX/8C",
-            description: "Title tag for Admin site",
-          })}
-        </title>
-        <meta
-          name="description"
-          content={intl.formatMessage({
-            defaultMessage:
-              "Recruit and manage IT employees in the Government of Canada.",
-            id: "J8kIar",
-            description: "Meta tag description for Admin site",
-          })}
-        />
-      </Helmet>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Admin",
+          id: "wHX/8C",
+          description: "Title tag for Admin site",
+        })}
+        description={intl.formatMessage({
+          defaultMessage:
+            "Recruit and manage IT employees in the Government of Canada.",
+          id: "J8kIar",
+          description: "Meta tag description for Admin site",
+        })}
+      />
       <SkipLink />
       <div data-h2-flex-grid="base(stretch, 0)">
         <AdminSideMenu
@@ -128,6 +122,11 @@ const AdminLayout = () => {
           description: "Text label for header button that opens side menu.",
         })}
       </OpenMenuButton>
+      <ScrollRestoration
+        getKey={(location) => {
+          return location.pathname;
+        }}
+      />
     </>
   );
 };

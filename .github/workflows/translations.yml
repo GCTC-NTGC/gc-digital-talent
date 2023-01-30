@@ -43,21 +43,8 @@ jobs:
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
-          npm run check-intl-admin --workspace=frontend/common
           npm run check-intl-common --workspace=frontend/common
           npm run check-intl-web --workspace=frontend/common
-
-      - name: "Verify no untranslated file: admin"
-        if: always()
-        working-directory: frontend/admin/src/js/lang
-        run: >
-          if test -f "untranslated.json"; then
-            echo ":x: Admin has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 1;
-          else
-            echo ":heavy_check_mark: Admin is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 0;
-          fi
 
       - name: "Verify no untranslated file: common"
         if: always()

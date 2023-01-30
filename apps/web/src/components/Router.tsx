@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { Locales } from "@common/helpers/localize";
 import Loading from "@common/components/Pending/Loading";
@@ -772,118 +772,123 @@ const createRoute = (locale: Locales) =>
       errorElement: <AdminErrorPage />,
       children: [
         {
-          index: true,
-          element: <AdminHomePage />,
-        },
-        {
-          path: "dashboard",
-          element: (
-            <RequireAuth roles={[Role.Admin]}>
-              <AdminDashboardPage />
-            </RequireAuth>
-          ),
-        },
-        {
-          path: "users",
+          errorElement: <AdminErrorPage />,
           children: [
             {
-              index: true,
+              path: "",
+              element: <AdminHomePage />,
+            },
+            {
+              path: "dashboard",
               element: (
                 <RequireAuth roles={[Role.Admin]}>
-                  <IndexUserPage />
+                  <AdminDashboardPage />
                 </RequireAuth>
               ),
             },
             {
-              path: "create",
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <CreateUserPage />
-                </RequireAuth>
-              ),
-            },
-            {
-              path: ":userId",
+              path: "users",
               children: [
                 {
                   index: true,
                   element: (
                     <RequireAuth roles={[Role.Admin]}>
-                      <ViewUserPage />
+                      <IndexUserPage />
                     </RequireAuth>
                   ),
                 },
                 {
-                  path: "edit",
+                  path: "create",
                   element: (
                     <RequireAuth roles={[Role.Admin]}>
-                      <UpdateUserPage />
-                    </RequireAuth>
-                  ),
-                },
-              ],
-            },
-          ],
-        },
-        {
-          path: "pools",
-          children: [
-            {
-              index: true,
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <IndexPoolPage />
-                </RequireAuth>
-              ),
-            },
-            {
-              path: "create",
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <CreatePoolPage />
-                </RequireAuth>
-              ),
-            },
-            {
-              path: ":poolId",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <ViewPoolPage />
+                      <CreateUserPage />
                     </RequireAuth>
                   ),
                 },
                 {
-                  path: "edit",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <EditPoolPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "pool-candidates",
+                  path: ":userId",
                   children: [
                     {
                       index: true,
                       element: (
                         <RequireAuth roles={[Role.Admin]}>
-                          <IndexPoolCandidatePage />
+                          <ViewUserPage />
                         </RequireAuth>
                       ),
                     },
                     {
-                      path: ":poolCandidateId",
+                      path: "edit",
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <UpdateUserPage />
+                        </RequireAuth>
+                      ),
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "pools",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth roles={[Role.Admin]}>
+                      <IndexPoolPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "create",
+                  element: (
+                    <RequireAuth roles={[Role.Admin]}>
+                      <CreatePoolPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: ":poolId",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <ViewPoolPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "edit",
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <EditPoolPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "pool-candidates",
                       children: [
                         {
                           index: true,
                           element: (
                             <RequireAuth roles={[Role.Admin]}>
-                              <ViewPoolCandidatePage />
+                              <IndexPoolCandidatePage />
                             </RequireAuth>
                           ),
+                        },
+                        {
+                          path: ":poolCandidateId",
+                          children: [
+                            {
+                              index: true,
+                              element: (
+                                <RequireAuth roles={[Role.Admin]}>
+                                  <ViewPoolCandidatePage />
+                                </RequireAuth>
+                              ),
+                            },
+                          ],
                         },
                       ],
                     },
@@ -891,148 +896,46 @@ const createRoute = (locale: Locales) =>
                 },
               ],
             },
-          ],
-        },
-        {
-          path: "candidates/:poolCandidateId/application",
-          element: (
-            <RequireAuth roles={[Role.Admin]}>
-              <ViewPoolCandidatePage />
-            </RequireAuth>
-          ),
-        },
-        {
-          path: "talent-requests",
-          children: [
             {
-              index: true,
+              path: "candidates/:poolCandidateId/application",
               element: (
                 <RequireAuth roles={[Role.Admin]}>
-                  <IndexSearchRequestPage />
+                  <ViewPoolCandidatePage />
                 </RequireAuth>
               ),
             },
             {
-              path: ":searchRequestId",
-              element: (
-                <RequireAuth roles={[Role.Admin]}>
-                  <ViewSearchRequestPage />
-                </RequireAuth>
-              ),
-            },
-          ],
-        },
-        {
-          path: "settings",
-          children: [
-            {
-              path: "classifications",
+              path: "talent-requests",
               children: [
                 {
                   index: true,
                   element: (
                     <RequireAuth roles={[Role.Admin]}>
-                      <IndexClassificationPage />
+                      <IndexSearchRequestPage />
                     </RequireAuth>
                   ),
                 },
                 {
-                  path: "create",
+                  path: ":searchRequestId",
                   element: (
                     <RequireAuth roles={[Role.Admin]}>
-                      <CreateClassificationPage />
+                      <ViewSearchRequestPage />
                     </RequireAuth>
                   ),
-                },
-                {
-                  path: ":classificationId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateClassificationPage />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
                 },
               ],
             },
             {
-              path: "departments",
+              path: "settings",
               children: [
                 {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <IndexDepartmentPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateDepartmentPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":departmentId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateDepartmentPage />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "skills",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <IndexSkillPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateSkillPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":skillId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateSkillPage />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-                {
-                  path: "families",
+                  path: "classifications",
                   children: [
                     {
                       index: true,
                       element: (
                         <RequireAuth roles={[Role.Admin]}>
-                          <IndexSkillFamilyPage />
+                          <IndexClassificationPage />
                         </RequireAuth>
                       ),
                     },
@@ -1040,18 +943,18 @@ const createRoute = (locale: Locales) =>
                       path: "create",
                       element: (
                         <RequireAuth roles={[Role.Admin]}>
-                          <CreateSkillFamilyPage />
+                          <CreateClassificationPage />
                         </RequireAuth>
                       ),
                     },
                     {
-                      path: ":skillFamilyId",
+                      path: ":classificationId",
                       children: [
                         {
                           path: "edit",
                           element: (
                             <RequireAuth roles={[Role.Admin]}>
-                              <UpdateSkillFamilyPage />
+                              <UpdateClassificationPage />
                             </RequireAuth>
                           ),
                         },
@@ -1059,15 +962,117 @@ const createRoute = (locale: Locales) =>
                     },
                   ],
                 },
+                {
+                  path: "departments",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <IndexDepartmentPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <CreateDepartmentPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":departmentId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth roles={[Role.Admin]}>
+                              <UpdateDepartmentPage />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "skills",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <IndexSkillPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <CreateSkillPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":skillId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth roles={[Role.Admin]}>
+                              <UpdateSkillPage />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                    {
+                      path: "families",
+                      children: [
+                        {
+                          index: true,
+                          element: (
+                            <RequireAuth roles={[Role.Admin]}>
+                              <IndexSkillFamilyPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: "create",
+                          element: (
+                            <RequireAuth roles={[Role.Admin]}>
+                              <CreateSkillFamilyPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: ":skillFamilyId",
+                          children: [
+                            {
+                              path: "edit",
+                              element: (
+                                <RequireAuth roles={[Role.Admin]}>
+                                  <UpdateSkillFamilyPage />
+                                </RequireAuth>
+                              ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
               ],
             },
+            {
+              path: "*",
+              loader: () => {
+                throw new Response("Not Found", { status: 404 });
+              },
+            },
           ],
-        },
-        {
-          path: "*",
-          loader: () => {
-            throw new Response("Not Found", { status: 404 });
-          },
         },
       ],
     },

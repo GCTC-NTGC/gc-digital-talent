@@ -87,23 +87,6 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
-    # find the admin config in the writable home root
-    location = /admin/config.js {
-        alias /home/site/config-admin.js;
-    }
-
-    # rewrite admin static files to "admin/dist"
-    location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/admin/dist/$1 break;
-    }
-
-    # rewrite possible lang prefix then "admin" to admin index.html
-    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
-        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
-    }
-
     # find the web config in the writable home root
     location = /config.js {
         alias /home/site/config-web.js;
@@ -119,6 +102,13 @@ server {
         add_header Cache-Control no-cache;
         expires 0;
         rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "admin" to admin index.html
+    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
+      add_header Cache-Control no-cache;
+      expires 0;
+      rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "users" to apps/web index.html

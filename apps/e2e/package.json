@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@gc-digital-talent/common": "*",
-    "web": "*"
+    "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.7",

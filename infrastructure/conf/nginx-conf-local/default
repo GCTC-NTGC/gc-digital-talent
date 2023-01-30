@@ -106,21 +106,16 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
-    # rewrite admin static files to "admin/dist"
-    location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/admin/dist/$1 break;
+    # rewrite talent static files to "apps/web/dist"
+    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
         add_header Cache-Control no-cache;
         expires 0;
-        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
-    }
-
-    # rewrite talent static files to "apps/web/dist"
-    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /apps/web/dist/$1 break;
+        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html

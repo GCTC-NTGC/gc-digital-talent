@@ -15,15 +15,11 @@ php artisan config:clear
 chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
-# copy out new .env files
-cd /var/www/html/frontend
-cp ./admin/.env.example ./admin/.env --preserve=all
-
 cd /var/www/html
-cp ./.env.example ./.env --preserve=all
+cp .env.example .env --preserve=all
 
 # build projects
 cd /var/www/html
 npm install
 npm run build
-chmod -R a+r,a+w node_modules apps/web/.turbo frontend/admin/.turbo frontend/common/.turbo
+chmod -R a+r,a+w node_modules apps/web/.turbo frontend/common/.turbo

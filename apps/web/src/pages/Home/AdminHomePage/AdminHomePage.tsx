@@ -15,7 +15,7 @@ import useAuth from "@common/hooks/useAuth";
 
 import useRoutes from "~/hooks/useRoutes";
 
-const AdminHomePage: React.FC = () => {
+const AdminHomePage = () => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const apiRoutes = useApiRoutes();
