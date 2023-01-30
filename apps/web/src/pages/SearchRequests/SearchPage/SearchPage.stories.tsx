@@ -20,6 +20,7 @@ export default {
     updatePending: false,
     updateCandidateFilter: action("updateCandidateFilter"),
     updateInitialValues: action("updateInitialValues"),
+    onUpdateApplicantFilter: action("updateApplicantFilter"),
     handleSubmit: action("handleSubmit"),
   },
 } as Meta;
