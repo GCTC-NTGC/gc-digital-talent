@@ -937,7 +937,9 @@ type Query {
   skills: [Skill]! @all
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
+  teams: [Team]! @all @can(ability: "viewAny")
 }
+
 input ClassificationBelongsTo {
   connect: ID
   disconnect: Boolean

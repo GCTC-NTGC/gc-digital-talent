@@ -997,6 +997,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  teams: [Team]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
