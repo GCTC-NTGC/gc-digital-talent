@@ -10,7 +10,6 @@ import {
   Exact,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
-  UpdateUserAsUserMutation,
   useGetAboutMeQuery,
   useGetApplicationQuery,
   User,

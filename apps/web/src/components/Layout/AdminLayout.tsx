@@ -10,7 +10,6 @@ import Footer from "@common/components/Footer";
 import Header from "@common/components/Header";
 import SkipLink from "@common/components/Link/SkipLink";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
-import { getLocale } from "@common/helpers/localize";
 import useLocalStorage from "@common/hooks/useLocalStorage";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
