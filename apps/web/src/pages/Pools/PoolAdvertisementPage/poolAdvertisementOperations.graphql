@@ -1,5 +1,5 @@
 query getPool($id: UUID!) {
-  poolAdvertisement (id: $id) {
+  poolAdvertisement(id: $id) {
     id
     name {
       en
@@ -31,6 +31,10 @@ query getPoolAdvertisement($id: UUID!) {
       en
       fr
     }
+    closingDate
+    advertisementStatus
+    advertisementLanguage
+    securityClearance
     classifications {
       id
       group
@@ -47,18 +51,6 @@ query getPoolAdvertisement($id: UUID!) {
           fr
         }
       }
-      minSalary
-      maxSalary
-    }
-    stream
-    closingDate
-    advertisementStatus
-    advertisementLanguage
-    securityClearance
-    isRemote
-    advertisementLocation {
-      en
-      fr
     }
     yourImpact {
       en
@@ -72,10 +64,6 @@ query getPoolAdvertisement($id: UUID!) {
       id
       key
       name {
-        en
-        fr
-      }
-      description {
         en
         fr
       }
@@ -100,10 +88,6 @@ query getPoolAdvertisement($id: UUID!) {
         en
         fr
       }
-      description {
-        en
-        fr
-      }
       families {
         id
         key
@@ -118,6 +102,13 @@ query getPoolAdvertisement($id: UUID!) {
         category
       }
     }
+    isRemote
+    advertisementLocation {
+      en
+      fr
+    }
+    stream
+    processNumber
   }
 }
 
