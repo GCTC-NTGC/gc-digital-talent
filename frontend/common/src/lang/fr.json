@@ -1932,6 +1932,10 @@
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
   },
+  "A1fb/r": {
+    "defaultMessage": "Il y a une exigence linguistique manquante",
+    "description": "Message displayed when user attempts to apply to a pool without the language requirement"
+  },
   "J30FT0": {
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
