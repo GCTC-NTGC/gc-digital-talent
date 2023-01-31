@@ -1197,6 +1197,7 @@ enum SortOrder {
 }
 
 type Team {
+  id: ID!
   name: String
   displayName: LocalizedString
   description: LocalizedString
