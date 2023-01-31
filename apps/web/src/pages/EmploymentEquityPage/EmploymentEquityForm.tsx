@@ -5,7 +5,7 @@ import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
-import { User, PoolCandidate, IndigenousCommunity } from "~/api/generated";
+import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -33,20 +33,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
     ? paths.reviewApplication(application.id)
     : paths.profile(user.id);
 
-  const handleUpdate = (key: EquityKeys, value: boolean) => {
-    // isIndigenous has been removed from inputs, indigenousCommunities functions as a replacement
-    // true maps to [LEGACY], false maps to [] OR [non-legacy enums]
-    if (key === "isIndigenous") {
-      if (value) {
-        return onUpdate(user.id, {
-          indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
-          indigenousDeclarationSignature: "PLACEHOLDER",
-        });
-      }
-      return onUpdate(user.id, {
-        indigenousCommunities: [],
-      });
-    }
+  const handleUpdate = (key: EquityKeys, value: unknown) => {
     return onUpdate(user.id, {
       [key]: value,
     });
@@ -127,8 +114,8 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "<strong>This section is optional</strong>. If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
-            id: "zHaQlT",
+              "<strong>This section is optional, however, to be considered eligible for the IT Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
+            id: "okZjVr",
             description:
               "Explanation that employment equity information is optional.",
           })}
@@ -146,8 +133,8 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           <li>
             {intl.formatMessage({
               defaultMessage:
-                "You would like to be considered for opportunities addressed to  underrepresented groups.",
-              id: "WZwXDb",
+                "You would like to be considered for opportunities addressed to underrepresented groups.",
+              id: "N+S2bh",
               description:
                 "Instruction on when to fill out equity information, item two",
             })}
@@ -193,12 +180,13 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       </ul>
       <EquityOptions
         isDisabled={isMutating}
-        isIndigenous={user.isIndigenous}
+        indigenousCommunities={user.indigenousCommunities}
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
         onAdd={(key: EquityKeys) => handleUpdate(key, true)}
         onRemove={(key: EquityKeys) => handleUpdate(key, false)}
+        onUpdate={(key: EquityKeys, value: unknown) => handleUpdate(key, value)}
       />
       <ProfileFormFooter
         mode="cancelButton"

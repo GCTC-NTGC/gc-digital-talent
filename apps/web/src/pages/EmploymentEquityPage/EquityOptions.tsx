@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { toast } from "@common/components/Toast";
 import Well from "@common/components/Well";
-import type { Maybe } from "@common/api/generated";
+import type { IndigenousCommunity, Maybe } from "@common/api/generated";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -12,52 +12,72 @@ import {
 import profileMessages from "~/messages/profileMessages";
 import Spinner from "~/components/Spinner/Spinner";
 
+import { notEmpty } from "@common/helpers/util";
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "./types";
+import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
-  isIndigenous?: Maybe<boolean>;
+  indigenousCommunities?: Maybe<Array<Maybe<IndigenousCommunity>>>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;
   isDisabled: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
+  onUpdate: (key: EquityKeys, value: unknown) => UserMutationPromise;
 }
 
 const resolveMaybe = (value: Maybe<boolean>): boolean => !!value;
+const resolveMaybeArray = <T,>(value: Maybe<Array<Maybe<T>>>): Array<T> => {
+  return value?.filter(notEmpty) ?? [];
+};
 
 const EquityOptions: React.FC<EquityOptionsProps> = ({
   hasDisability,
-  isIndigenous,
+  indigenousCommunities,
   isVisibleMinority,
   isWoman,
   onAdd,
   onRemove,
+  onUpdate,
   isDisabled,
 }) => {
   const intl = useIntl();
 
   const resolvedDisability = resolveMaybe(hasDisability);
-  const resolvedIndigenous = resolveMaybe(isIndigenous);
+  const resolvedIndigenousCommunities = resolveMaybeArray(
+    indigenousCommunities,
+  );
   const resolvedMinority = resolveMaybe(isVisibleMinority);
   const resolvedWoman = resolveMaybe(isWoman);
 
   const hasItems =
     resolvedDisability ||
-    resolvedIndigenous ||
+    resolvedIndigenousCommunities.length ||
     resolvedMinority ||
     resolvedWoman;
 
   const itemsAvailable =
     !resolvedDisability ||
-    !resolvedIndigenous ||
+    !resolvedIndigenousCommunities.length ||
     !resolvedMinority ||
     !resolvedWoman;
 
   const handleOptionSave = (key: EquityKeys, value: boolean) => {
     const handler = value ? onAdd : onRemove;
     handler(key)
+      .then(() => {
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
+
+  const handleArraySave = <T,>(key: EquityKeys, value: Array<T>) => {
+    const handler = onUpdate;
+    handler(key, value)
       .then(() => {
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
@@ -101,18 +121,18 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   )}
                 />
               )}
-              {resolvedIndigenous && (
-                <EquityOption
+              {resolvedIndigenousCommunities.length ? (
+                <IndigenousEquityOption
                   option="indigenous"
-                  isAdded={resolvedIndigenous}
+                  indigenousCommunities={resolvedIndigenousCommunities}
                   onSave={(newValue) => {
-                    handleOptionSave("isIndigenous", newValue);
+                    handleArraySave("indigenousCommunities", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityStatement("indigenous"),
                   )}
                 />
-              )}
+              ) : null}
               {resolvedMinority && (
                 <EquityOption
                   option="minority"
@@ -179,18 +199,18 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
                 />
               )}
-              {!resolvedIndigenous && (
-                <EquityOption
+              {!resolvedIndigenousCommunities.length ? (
+                <IndigenousEquityOption
                   option="indigenous"
-                  isAdded={resolvedIndigenous}
+                  indigenousCommunities={resolvedIndigenousCommunities}
                   onSave={(newValue) => {
-                    handleOptionSave("isIndigenous", newValue);
+                    handleArraySave("indigenousCommunities", newValue);
                   }}
                   title={intl.formatMessage(
                     getEmploymentEquityGroup("indigenous"),
                   )}
                 />
-              )}
+              ) : null}
               {!resolvedMinority && (
                 <EquityOption
                   option="minority"

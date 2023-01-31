@@ -1953,10 +1953,6 @@
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
-  "zHaQlT": {
-    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
-    "description": "Explanation that employment equity information is optional."
-  },
   "QpfFEG": {
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
@@ -2201,7 +2197,7 @@
     "defaultMessage": "Vous n’avez actuellement aucune candidature archivée.",
     "description": "Messaged displayed when a user has no archived applications."
   },
-  "WZwXDb": {
+  "N+S2bh": {
     "defaultMessage": "Vous souhaitez être pris en considération pour les perspectives d’emploi adressées aux groupes sous-représentés.",
     "description": "Instruction on when to fill out equity information, item two"
   },
@@ -3156,6 +3152,14 @@
   "wRxZQV": {
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the About Me form preferred communication language"
+  },
+  "dYS0MA": {
+    "defaultMessage": "Autodéclaration",
+    "description": "Form label for a self-declaration input"
+  },
+  "okZjVr": {
+    "defaultMessage": "<strong>La présente section est facultative. Toutefois, afin d’être admissible au Programme d’apprentis en TI pour les peuples autochtones, vous devez vous autodéclarer en tant qu’Autochtone.</strong> Si vous êtes membre de l’un ou de plusieurs de ces groupes d’équité en matière d’emploi, et que vous ne souhaitez pas vous autodéclarer sur cette plateforme, vous n’êtes pas oblige(e) de le faire. <strong>Veuillez remplir le formulaire ci-dessous si vous répondez à ces conditions :</strong>",
+    "description": "Explanation that employment equity information is optional."
   },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
