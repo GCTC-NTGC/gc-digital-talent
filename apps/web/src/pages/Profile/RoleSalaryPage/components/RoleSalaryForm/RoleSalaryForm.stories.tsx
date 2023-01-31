@@ -7,7 +7,7 @@ import RoleSalaryForm from "./RoleSalaryForm";
 
 export default {
   component: RoleSalaryForm,
-  title: "Role Salary Expectation Form",
+  title: "Forms/Role Salary Expectation Form",
 } as Meta;
 
 const TemplateRoleSalaryForm: Story = (args) => {

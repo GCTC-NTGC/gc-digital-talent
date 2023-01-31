@@ -11,7 +11,7 @@ import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
 
-import type { EmploymentEquityUpdateHandler } from "./types";
+import type { EmploymentEquityUpdateHandler } from "../../types";
 
 const mockUser = fakeUsers()[0];
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { fakePoolCandidates } from "@common/fakeData";
 
@@ -18,16 +18,10 @@ const mockPaginatorInfo = {
   total: 100,
 };
 
-const stories = storiesOf("Pool Candidates", module);
-
-stories.add(
-  "Tables/Pool Candidates Table",
-  () => (
-    <PoolCandidatesTable
-      initialFilterInput={{ applicantFilter: { pools: [{ id: "123" }] } }}
-    />
-  ),
-  {
+export default {
+  title: "Tables/Pool Candidates Table",
+  component: PoolCandidatesTable,
+  parameters: {
     apiResponses: {
       GetPoolCandidatesPaginated: {
         data: {
@@ -39,4 +33,15 @@ stories.add(
       },
     },
   },
-);
+} as ComponentMeta<typeof PoolCandidatesTable>;
+
+const Template: ComponentStory<typeof PoolCandidatesTable> = (args) => {
+  const { initialFilterInput } = args;
+
+  return <PoolCandidatesTable initialFilterInput={initialFilterInput} />;
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  initialFilterInput: { applicantFilter: { pools: [{ id: "123" }] } },
+};

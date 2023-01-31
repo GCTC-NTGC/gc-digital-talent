@@ -13,7 +13,7 @@ const fakeExperienceArray = fakeExperiences(3);
 
 export default {
   component: ProfilePage,
-  title: "Profile Form",
+  title: "Pages/Profile Page",
   args: {},
   parameters: {
     apiResponses: {

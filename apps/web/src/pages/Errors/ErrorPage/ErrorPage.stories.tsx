@@ -9,7 +9,7 @@ type Story = ComponentStory<typeof Error404>;
 
 export default {
   component: Error404,
-  title: "404 Page",
+  title: "Pages/404 Page",
 } as Meta;
 
 const Template: Story = () => <Error404 />;

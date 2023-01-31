@@ -6,7 +6,7 @@ import { SignAndSubmitForm } from "./SignAndSubmitPage";
 
 export default {
   component: SignAndSubmitForm,
-  title: "Pages/Sign and Submit page",
+  title: "Pages/Sign and Submit Page",
   args: {
     applicationId: "1",
     poolAdvertisementId: "1",

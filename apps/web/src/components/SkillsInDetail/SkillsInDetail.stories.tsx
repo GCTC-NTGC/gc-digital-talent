@@ -11,7 +11,7 @@ import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/SkillsInDetail",
+  title: "Components/Skills In Detail",
   args: {
     skills: [],
     handleDelete: action("Remove from experience"),

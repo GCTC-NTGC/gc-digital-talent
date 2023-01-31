@@ -12,7 +12,7 @@ const basePools = fakePools();
 
 export default {
   component: GeneralInformationTab,
-  title: "General information tab",
+  title: "Components/User General Information Tab",
   args: {
     user: baseUser,
     pools: basePools,

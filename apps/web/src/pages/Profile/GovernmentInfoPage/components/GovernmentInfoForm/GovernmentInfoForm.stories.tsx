@@ -15,7 +15,7 @@ import GovernmentInfoForm from "./GovernmentInfoForm";
 
 export default {
   component: GovernmentInfoForm,
-  title: "Government Info Form",
+  title: "Forms/Government Info Form",
 } as Meta;
 
 const TemplateGovInfoForm: Story = (args) => (
