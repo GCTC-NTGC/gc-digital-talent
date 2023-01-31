@@ -57,17 +57,19 @@ const StyledTrigger = React.forwardRef<
   <AccordionPrimitive.Trigger
     className="Accordion__Trigger"
     data-h2-align-items="base(flex-start)"
-    data-h2-background-color="base(transparent)"
+    data-h2-background-color="base(transparent) base:focus-visible:children[.Accordion__Chevron](focus)"
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
     data-h2-gap="base(0, x1)"
+    data-h2-outline="base(none)"
     data-h2-padding="base(0 0 x1 0)"
     data-h2-justify-content="base(space-between)"
     data-h2-text-align="base(left)"
     data-h2-width="base(100%)"
+    data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
     data-h2-transform="
-      base:children[.Accordion__Chevron](rotate(0deg))
-      base:selectors[[data-state='open']]:children[.Accordion__Chevron](rotate(90deg))"
+      base:children[.Accordion__Chevron__Icon](rotate(0deg))
+      base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(90deg))"
     ref={forwardedRef}
     {...props}
   />
@@ -98,12 +100,14 @@ const Trigger = React.forwardRef<
         <Header data-h2-line-height="base(1)">
           <StyledTrigger ref={forwardedRef} {...rest}>
             <div
+              className="Accordion__Chevron"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
               data-h2-flex-shrink="base(0)"
+              data-h2-radius="base(circle)"
             >
               <ChevronRightIcon
-                className="Accordion__Chevron"
+                className="Accordion__Chevron__Icon"
                 data-h2-width="base(x1)"
                 data-h2-transition="base(100ms ease-in)"
               />
@@ -166,11 +170,10 @@ const Content = React.forwardRef<
     {...rest}
   >
     <hr
+      className="Accordion__Separator"
       data-h2-background-color="base(dt-gray)"
-      data-h2-height="base(1px)"
       data-h2-width="base(100%)"
       data-h2-border="base(none)"
-      data-h2-margin="base(0, 0, x1, 0)"
     />
     {children}
   </AccordionPrimitive.Content>
