@@ -13,7 +13,7 @@ import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
-import CreateAccountRedirect from "~/pages/CreateAccountPage/CreateAccountRedirect";
+import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import { LegacyRole } from "~/api/generated";
 
 /** Home */
@@ -29,7 +29,7 @@ const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsErrorPage" */ "../pages/ErrorPage/ErrorPage"
+        /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
       ),
   ),
 );
@@ -73,7 +73,7 @@ const RegisterPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRegisterPage" */ "../pages/RegisterPage/RegisterPage"
+        /* webpackChunkName: "tsRegisterPage" */ "../pages/Auth/RegisterPage/RegisterPage"
       ),
   ),
 );
@@ -81,7 +81,7 @@ const LoggedOutPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/LoggedOutPage/LoggedOutPage"
+        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/Auth/LoggedOutPage/LoggedOutPage"
       ),
   ),
 );
@@ -89,7 +89,7 @@ const LoginPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoginPage" */ "../pages/LoginPage/LoginPage"
+        /* webpackChunkName: "tsLoginPage" */ "../pages/Auth/LoginPage/LoginPage"
       ),
   ),
 );
@@ -99,7 +99,7 @@ const CreateAccountPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/CreateAccountPage/CreateAccountPage"
+        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
       ),
   ),
 );
@@ -107,7 +107,7 @@ const ProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsProfilePage" */ "../pages/ProfilePage/ProfilePage"
+        /* webpackChunkName: "tsProfilePage" */ "../pages/Profile/ProfilePage/ProfilePage"
       ),
   ),
 );
@@ -115,7 +115,7 @@ const GovernmentInfoPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsGovInfoPage" */ "../pages/GovernmentInfoPage/GovernmentInfoPage"
+        /* webpackChunkName: "tsGovInfoPage" */ "../pages/Profile/GovernmentInfoPage/GovernmentInfoPage"
       ),
   ),
 );
@@ -123,7 +123,7 @@ const LanguageInfoPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLangInfoPage" */ "../pages/LanguageInfoPage/LanguageInfoPage"
+        /* webpackChunkName: "tsLangInfoPage" */ "../pages/Profile/LanguageInfoPage/LanguageInfoPage"
       ),
   ),
 );
@@ -131,7 +131,7 @@ const WorkLocationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/WorkLocationPage/WorkLocationPage"
+        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/Profile/WorkLocationPage/WorkLocationPage"
       ),
   ),
 );
@@ -139,7 +139,7 @@ const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/ExperienceFormPage/ExperienceFormPage"
+        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
       ),
   ),
 );
@@ -147,7 +147,7 @@ const WorkPreferencesPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/WorkPreferencesPage/WorkPreferencesPage"
+        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/Profile/WorkPreferencesPage/WorkPreferencesPage"
       ),
   ),
 );
@@ -155,7 +155,7 @@ const AboutMePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsAboutMePage" */ "../pages/AboutMePage/AboutMePage"
+        /* webpackChunkName: "tsAboutMePage" */ "../pages/Profile/AboutMePage/AboutMePage"
       ),
   ),
 );
@@ -163,7 +163,7 @@ const RoleSalaryPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/RoleSalaryPage/RoleSalaryPage"
+        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/Profile/RoleSalaryPage/RoleSalaryPage"
       ),
   ),
 );
@@ -171,7 +171,7 @@ const EmploymentEquityPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsEquityPage" */ "../pages/EmploymentEquityPage/EmploymentEquityPage"
+        /* webpackChunkName: "tsEquityPage" */ "../pages/Profile/EmploymentEquityPage/EmploymentEquityPage"
       ),
   ),
 );
@@ -179,7 +179,7 @@ const ExperienceAndSkillsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
+        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/Profile/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
       ),
   ),
 );
@@ -213,7 +213,7 @@ const SignAndSubmitPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/SignAndSubmitPage/SignAndSubmitPage"
+        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/Applications/SignAndSubmitPage/SignAndSubmitPage"
       ),
   ),
 );
@@ -221,7 +221,7 @@ const MyApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/MyApplicationsPage/MyApplicationsPage"
+        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
       ),
   ),
 );
@@ -229,7 +229,7 @@ const ReviewApplicationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/ReviewApplicationPage/ReviewApplicationPage"
+        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/Applications/ReviewApplicationPage/ReviewApplicationPage"
       ),
   ),
 );
@@ -257,7 +257,7 @@ const AdminErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/ErrorPage/AdminErrorPage"
+        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
       ),
   ),
 );

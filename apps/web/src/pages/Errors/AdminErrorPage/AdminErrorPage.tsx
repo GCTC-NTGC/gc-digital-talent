@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useLogger } from "@common/hooks/useLogger";
 
-import useErrorMessages from "./useErrorMessages";
+import useErrorMessages from "~/hooks/useErrorMessages";
 
 const AdminErrorPage = () => {
   const location = useLocation();

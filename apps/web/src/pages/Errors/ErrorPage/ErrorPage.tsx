@@ -7,10 +7,10 @@ import Heading from "@common/components/Heading";
 import { useLogger } from "@common/hooks/useLogger";
 
 import useRoutes from "~/hooks/useRoutes";
+import useErrorMessages from "~/hooks/useErrorMessages";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
 import { PugDark, PugLight } from "./Icons";
-import useErrorMessages from "./useErrorMessages";
 
 const ErrorPage = () => {
   const intl = useIntl();
