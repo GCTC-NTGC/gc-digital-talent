@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Team;
+use Database\Seeders\DepartmentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -29,6 +30,8 @@ class TeamsTest extends TestCase
 
   public function testAllTeamsQuery(): void
   {
+    $this->seed(DepartmentSeeder::class);
+
     $team1 = Team::factory()->create([
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
       'name' => 'team1',
@@ -48,6 +51,9 @@ class TeamsTest extends TestCase
           teams {
               id
               name
+              departments {
+                id
+              }
           }
       }
     ');
@@ -61,5 +67,11 @@ class TeamsTest extends TestCase
     $query->assertJsonFragment(['id' => $team1->id]);
     $query->assertJsonFragment(['id' => $team2->id]);
     $query->assertJsonFragment(['id' => $team3->id]);
+
+    // assert a team has two departments connected to it
+    // this is a factory configuration
+    $team0Departments = $data['teams'][0]['departments'];
+    $team0DepartmentCount = count($team0Departments);
+    assertEquals($team0DepartmentCount, 2);
   }
 }
