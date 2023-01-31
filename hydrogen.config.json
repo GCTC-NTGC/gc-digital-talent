@@ -10,7 +10,6 @@
   "input": [
     "frontend/common/src/components",
     "frontend/common/src/styles",
-    "frontend/admin/src/js/components",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
