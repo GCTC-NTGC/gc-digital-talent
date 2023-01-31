@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
@@ -8,7 +8,8 @@ export interface ScrollToLinkProps
 }
 
 const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
-  const { pathname, search, hash } = useLocation();
+  const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
@@ -36,7 +37,7 @@ const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    window.history.pushState({}, "", `${pathname}${search}#${to}`);
+    navigate(`#${to}`);
     scrollToSection();
   };
 
