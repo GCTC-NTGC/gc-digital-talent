@@ -1145,7 +1145,7 @@
     "description": "displayed when localized string not available"
   },
   "UPx6kk": {
-    "defaultMessage": "<primary>{titre}</primary> à {organization}",
+    "defaultMessage": "<primary>{title}</primary> à {organization}",
     "description": "Title at organization"
   },
   "ZWR/F3": {
