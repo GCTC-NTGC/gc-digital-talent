@@ -72,6 +72,26 @@ const ExampleAccordionMultipleOpen = () => (
 
 ## Props
 
+### Root
+
+All props from the `@radix-ui/accordion` `Root` component as well as additional style props.
+
+See: [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#root)
+
+### Definition
+
+```tsx
+type AccordionMode = "card" | "simple";
+
+type RootProps = React.ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Root
+> & {
+  mode?: AccordionMode;
+};
+```
+- `mode`: Determine how the accordion is displayed
+  - See: [Accordion Design File](https://github.com/GCTC-NTGC/gc-digital-talent/discussions/5522)
+
 ### Trigger
 
 All props from the `@radix-ui/accordion` `Trigger` component as well as additional style props.
