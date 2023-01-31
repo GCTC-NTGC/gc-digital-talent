@@ -6,20 +6,35 @@ import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank } from "../../types/primitiveTypes";
+import { styleMap } from "./styles";
+
+export type AccordionColor =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
+  | "white"
+  | "black";
+
+export type AccordionMode = "card" | "simple";
+
+type RootProps = React.ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Root
+> & {
+  color?: AccordionColor;
+  mode?: AccordionMode;
+};
 
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
-  | AccordionPrimitive.AccordionMultipleProps
-  | AccordionPrimitive.AccordionSingleProps
->((props, forwardedRef) => (
-  <AccordionPrimitive.Root
-    className="Accordion"
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+  RootProps
+>(({ color = "primary", mode = "simple", ...rest }, forwardedRef) => {
+  const colours = styleMap.get(mode);
+  const styles = colours?.get(color);
+
+  return <AccordionPrimitive.Root {...styles} {...rest} ref={forwardedRef} />;
+});
 
 const Item = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
