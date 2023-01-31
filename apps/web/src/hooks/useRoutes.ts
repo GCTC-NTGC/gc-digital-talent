@@ -44,6 +44,8 @@ const getRoutes = (lang: Locales) => {
     support: () => path.join(baseUrl, "support"),
     search: () => path.join(baseUrl, "search"),
     request: () => path.join(baseUrl, "search", "request"),
+    requestConfirmation: (requestId: string) =>
+      path.join(baseUrl, "search", "request", requestId),
     register: () => path.join(baseUrl, "register-info"),
     login: () => path.join(baseUrl, "login-info"),
     loggedOut: () => path.join(baseUrl, "logged-out"),
