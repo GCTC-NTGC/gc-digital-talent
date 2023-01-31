@@ -32,7 +32,6 @@ const RequestConfirmationPage = () => {
   const paths = useRoutes();
   const params = useParams<RequestConfirmationParams>();
   const { requestId } = params;
-  console.log(params);
 
   const crumbs = useBreadcrumbs([
     {
@@ -160,7 +159,9 @@ const RequestConfirmationPage = () => {
         </div>
       </div>
     </>
-  ) : null;
+  ) : (
+    <ThrowNotFound />
+  );
 };
 
 export default RequestConfirmationPage;
