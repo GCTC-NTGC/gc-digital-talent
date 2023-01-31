@@ -163,29 +163,37 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     };
   };
 
+  const handleSubmitError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: creating request failed",
+        id: "9nIALc",
+        description:
+          "Message displayed to user after a pool candidate request fails to get created.",
+      }),
+    );
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
-      .then(() => {
-        removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
-        navigate(paths.search());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Request created successfully!",
-            id: "gUb3PY",
-            description:
-              "Message displayed to user after a pool candidate request is created successfully.",
-          }),
-        );
+      .then((res) => {
+        if (res) {
+          removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
+          navigate(paths.requestConfirmation(res.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Request created successfully!",
+              id: "gUb3PY",
+              description:
+                "Message displayed to user after a pool candidate request is created successfully.",
+            }),
+          );
+        } else {
+          handleSubmitError();
+        }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: creating request failed",
-            id: "9nIALc",
-            description:
-              "Message displayed to user after a pool candidate request fails to get created.",
-          }),
-        );
+        handleSubmitError();
       });
   };
 
@@ -441,7 +449,7 @@ const RequestFormApi: React.FunctionComponent<{
   ) =>
     executeMutation({ poolCandidateSearchRequest: data }).then((result) => {
       if (result.data?.createPoolCandidateSearchRequest) {
-        return result.data?.createPoolCandidateSearchRequest;
+        return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
       return Promise.reject(result.error);
     });

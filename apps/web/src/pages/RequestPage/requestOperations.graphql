@@ -28,6 +28,7 @@ mutation createPoolCandidateSearchRequest(
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: $poolCandidateSearchRequest
   ) {
+    id
     fullName
     email
     department {
