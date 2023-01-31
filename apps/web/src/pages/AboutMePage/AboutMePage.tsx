@@ -8,12 +8,12 @@ import Pending from "@common/components/Pending";
 import { toast } from "@common/components/Toast";
 import {
   Exact,
+  UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
-  UpdateUserAsUserMutation,
   useGetAboutMeQuery,
   useGetApplicationQuery,
   User,
-  useUpdateUserAsUserMutation,
+  useUpdateUserAboutMeMutation,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
@@ -80,13 +80,13 @@ const AboutMePage = () => {
   const { data, fetching, error } = result;
   const preProfileStatus = data?.me?.isProfileComplete;
 
-  const [, executeMutation] = useUpdateUserAsUserMutation();
+  const [, executeMutation] = useUpdateUserAboutMeMutation();
 
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
     return executeMutation({ id, user: values }).then(
       (
         res: OperationResult<
-          UpdateUserAsUserMutation,
+          UpdateUserAboutMeMutation,
           Exact<{ id: string; user: UpdateUserAsUserInput }>
         >,
       ) => {

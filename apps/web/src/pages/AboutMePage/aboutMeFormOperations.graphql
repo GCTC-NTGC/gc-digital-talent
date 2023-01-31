@@ -16,7 +16,7 @@ query getAboutMe {
   }
 }
 
-mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
+mutation UpdateUserAboutMe($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
     preferredLang
