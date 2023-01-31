@@ -24,7 +24,7 @@ import {
   ProvinceOrTerritory,
   Language,
   CitizenshipStatus,
-  UpdateUserAsUserMutation,
+  UpdateUserAboutMeMutation,
   PoolCandidate,
   ArmedForcesStatus,
 } from "~/api/generated";
@@ -51,7 +51,7 @@ export type FormValues = Pick<
 export type AboutMeUpdateHandler = (
   id: string,
   data: UpdateUserAsUserInput,
-) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
 
 export interface AboutMeFormProps {
   initialUser: User;
