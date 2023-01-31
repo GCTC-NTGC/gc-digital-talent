@@ -6,32 +6,21 @@ import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank } from "../../types/primitiveTypes";
-import { styleMap } from "./styles";
-
-export type AccordionColor =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary"
-  | "white"
-  | "black";
+import styleMap from "./styles";
 
 export type AccordionMode = "card" | "simple";
 
 type RootProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Root
 > & {
-  color?: AccordionColor;
   mode?: AccordionMode;
 };
 
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   RootProps
->(({ color = "primary", mode = "simple", ...rest }, forwardedRef) => {
-  const colours = styleMap.get(mode);
-  const styles = colours?.get(color);
+>(({ mode = "card", ...rest }, forwardedRef) => {
+  const styles = styleMap?.get(mode);
 
   return <AccordionPrimitive.Root {...styles} {...rest} ref={forwardedRef} />;
 });
@@ -41,12 +30,8 @@ const Item = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
-    data-h2-border-left="
-      base(x.5 solid dt-secondary)
-      base:selectors[[data-state='open']](x.5 solid dt-primary)"
+    className="Accordion__Item"
     data-h2-margin="base(x.5, 0)"
-    data-h2-shadow="base(l)"
-    data-h2-radius="base(0px, s, s, 0px)"
     data-h2-overflow="base(hidden)"
     data-h2-transition="base(100ms ease-in)"
     ref={forwardedRef}
@@ -70,12 +55,13 @@ const StyledTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Trigger
-    data-h2-align-items="base(center)"
-    data-h2-background-color="base(dt-white)"
+    className="Accordion__Trigger"
+    data-h2-align-items="base(flex-start)"
+    data-h2-background-color="base(transparent)"
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
-    data-h2-gap="base(0, x.5)"
-    data-h2-padding="base(x1, x1, x1, x.5)"
+    data-h2-gap="base(0, x1)"
+    data-h2-padding="base(0 0 x1 0)"
     data-h2-justify-content="base(space-between)"
     data-h2-text-align="base(left)"
     data-h2-width="base(100%)"
@@ -111,14 +97,23 @@ const Trigger = React.forwardRef<
       <StyledHeader asChild>
         <Header data-h2-line-height="base(1)">
           <StyledTrigger ref={forwardedRef} {...rest}>
-            <div data-h2-margin="base(0, x.25, 0, 0)" style={{ flexShrink: 0 }}>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-flex-shrink="base(0)"
+            >
               <ChevronRightIcon
                 className="Accordion__Chevron"
-                data-h2-width="base(x1.5)"
+                data-h2-width="base(x1)"
                 data-h2-transition="base(100ms ease-in)"
               />
             </div>
-            <div data-h2-flex-grow="base(1)">
+            <div
+              data-h2-flex-grow="base(1)"
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5 0)"
+            >
               <span
                 data-h2-display="base(block)"
                 data-h2-font-size="base(h6, 1)"
@@ -129,7 +124,7 @@ const Trigger = React.forwardRef<
               {subtitle && (
                 <span
                   data-h2-display="base(block)"
-                  data-h2-font-size="base(copy, 1)"
+                  data-h2-font-size="base(h6, 1)"
                   data-h2-margin="base(x.25, 0, 0, 0)"
                 >
                   {subtitle}
@@ -170,16 +165,14 @@ const Content = React.forwardRef<
     ref={forwardedRef}
     {...rest}
   >
-    <div data-h2-padding="base(0, x1, x1, x2.5)">
-      <hr
-        data-h2-background-color="base(dt-gray)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      />
-      {children}
-    </div>
+    <hr
+      data-h2-background-color="base(dt-gray)"
+      data-h2-height="base(1px)"
+      data-h2-width="base(100%)"
+      data-h2-border="base(none)"
+      data-h2-margin="base(0, 0, x1, 0)"
+    />
+    {children}
   </AccordionPrimitive.Content>
 ));
 
