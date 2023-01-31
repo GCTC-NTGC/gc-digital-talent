@@ -37,7 +37,6 @@ export type FormValues = Pick<
   consideredPositionLanguages: string[];
 };
 
-// TODO: Look at updating this including resetting un-rendered values
 const formValuesToSubmitData = (formValues: FormValues) => {
   const data = {
     ...omit(formValues, ["consideredPositionLanguages"]),

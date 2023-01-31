@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
         $this->seedPools();
 
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
+            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->count(150)
             ->afterCreating(function (User $user) use ($faker) {

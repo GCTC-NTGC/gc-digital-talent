@@ -4,7 +4,7 @@ query getProfile($userId: ID!) {
   user(id: $userId) {
     id
     sub
-    roles
+    legacyRoles
     firstName
     lastName
     email

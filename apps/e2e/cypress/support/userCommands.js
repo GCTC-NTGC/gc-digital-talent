@@ -1,7 +1,7 @@
 import {
   CreateUserDocument,
   MeDocument,
-} from "admin/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;
@@ -19,7 +19,7 @@ Cypress.Commands.add("createUser", (user) => {
     // optional
     telephone: undefined,
     email: undefined,
-    roles: [],
+    legacyRoles: [],
     currentProvince: undefined,
     currentCity: undefined,
     languageAbility: undefined,
