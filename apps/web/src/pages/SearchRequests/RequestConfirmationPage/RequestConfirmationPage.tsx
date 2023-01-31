@@ -3,15 +3,15 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
 import Hero from "@common/components/Hero";
+import SEO from "@common/components/SEO/SEO";
 import Heading from "@common/components/Heading/Heading";
 import { ThrowNotFound } from "@common/components/NotFound";
+import { Button, Link } from "@common/components";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import { Scalars } from "~/api/generated";
-import { Button, Link } from "~/../../../frontend/common/src/components";
-import SEO from "~/../../../frontend/common/src/components/SEO/SEO";
 
 type RequestConfirmationParams = {
   requestId: Scalars["ID"];
@@ -30,7 +30,9 @@ const mailLink = (chunks: React.ReactNode) => (
 const RequestConfirmationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { requestId } = useParams<RequestConfirmationParams>();
+  const params = useParams<RequestConfirmationParams>();
+  const { requestId } = params;
+  console.log(params);
 
   const crumbs = useBreadcrumbs([
     {
@@ -158,9 +160,7 @@ const RequestConfirmationPage = () => {
         </div>
       </div>
     </>
-  ) : (
-    <ThrowNotFound />
-  );
+  ) : null;
 };
 
 export default RequestConfirmationPage;
