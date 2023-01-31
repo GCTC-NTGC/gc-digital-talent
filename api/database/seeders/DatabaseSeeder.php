@@ -11,6 +11,7 @@ use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Skill;
 use App\Models\SkillFamily;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\AwardExperience;
@@ -45,6 +46,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
+        // seed random teams
+        Team::factory()->count(9)->create();
         // Seed random pools
         Pool::factory()->count(10)->create();
         // Seed some expected values

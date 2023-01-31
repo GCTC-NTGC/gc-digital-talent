@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Laratrust\Models\LaratrustTeam;
 
@@ -19,6 +20,7 @@ use Laratrust\Models\LaratrustTeam;
 
 class Team extends LaratrustTeam
 {
+    use HasFactory;
     protected $keyType = 'string';
 
     protected $casts = [
