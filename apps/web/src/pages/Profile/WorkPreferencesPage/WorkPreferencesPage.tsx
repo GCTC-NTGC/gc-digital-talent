@@ -16,7 +16,7 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
-import WorkPreferencesForm from "./WorkPreferencesForm";
+import WorkPreferencesForm from "./components/WorkPreferencesForm/WorkPreferencesForm";
 
 interface WorkPreferencesFormApiProps {
   applicationId: string;

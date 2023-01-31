@@ -10,7 +10,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
-import { PugDark, PugLight } from "./Icons";
+import { PugDark, PugLight } from "./components/Icons";
 
 const ErrorPage = () => {
   const intl = useIntl();

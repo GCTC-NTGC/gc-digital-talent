@@ -17,7 +17,9 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
-import AboutMeForm, { AboutMeUpdateHandler } from "./AboutMeForm";
+import AboutMeForm, {
+  AboutMeUpdateHandler,
+} from "./components/AboutMeForm/AboutMeForm";
 
 interface AboutMeFormApiProps {
   applicationId: string;

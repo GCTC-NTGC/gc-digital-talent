@@ -14,7 +14,7 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
-import EmploymentEquityForm from "./EmploymentEquityForm";
+import EmploymentEquityForm from "./components/EmploymentEquityForm/EmploymentEquityForm";
 import { EmploymentEquityUpdateHandler } from "./types";
 
 interface EmploymentEquityFormApiProps {

@@ -6,7 +6,7 @@ import { fakeSkills } from "@common/fakeData";
 import Form from "@common/components/form/BasicForm";
 import Submit from "@common/components/form/Submit";
 
-import { FormSkills } from "~/pages/ExperienceFormPage/types";
+import { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
 
 export default {

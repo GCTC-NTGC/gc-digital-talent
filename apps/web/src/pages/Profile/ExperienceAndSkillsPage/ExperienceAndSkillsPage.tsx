@@ -14,7 +14,7 @@ import {
   useGetApplicationDetailsQuery,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
-import { ExperienceAndSkills } from "./ExperienceAndSkills";
+import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
 
 interface ExperienceAndSkillsApiProps {
   applicantId: string;

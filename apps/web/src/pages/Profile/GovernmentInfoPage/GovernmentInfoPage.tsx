@@ -19,7 +19,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 
-import GovernmentInfoForm from "./GovernmentInfoForm";
+import GovernmentInfoForm from "./components/GovernmentInfoForm/GovernmentInfoForm";
 
 interface GovernmentInfoFormApiProps {
   applicationId: string;

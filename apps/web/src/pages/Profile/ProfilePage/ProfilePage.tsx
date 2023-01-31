@@ -16,7 +16,8 @@ import profileMessages from "~/messages/profileMessages";
 import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import MyStatusApi from "./MyStatusForm/MyStatusForm";
+
+import MyStatusApi from "./components/MyStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
   profileDataInput: User;

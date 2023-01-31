@@ -31,13 +31,13 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-import AwardFormFields from "./AwardFormFields/AwardFormFields";
-import CommunityFormFields from "./CommunityFormFields/CommunityFormFields";
-import EducationFormFields from "./EducationFormFields/EducationFormFields";
-import PersonalFormFields from "./PersonalFormFields/PersonalFormFields";
-import WorkFormFields from "./WorkFormFields/WorkFormFields";
+import AwardFormFields from "./components/AwardFormFields/AwardFormFields";
+import CommunityFormFields from "./components/CommunityFormFields/CommunityFormFields";
+import EducationFormFields from "./components/EducationFormFields/EducationFormFields";
+import PersonalFormFields from "./components/PersonalFormFields/PersonalFormFields";
+import WorkFormFields from "./components/WorkFormFields/WorkFormFields";
 
-import ExperienceSkills from "./ExperienceSkills";
+import ExperienceSkills from "./components/ExperienceSkills";
 
 import type {
   ExperienceType,

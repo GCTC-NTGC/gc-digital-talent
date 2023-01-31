@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 import { compareByDate } from "@common/types/ExperienceUtils";
-import { Applicant, Experience } from "../../api/generated";
-import { ExperienceForDate } from "./ExperienceAndSkills";
+import { Applicant, Experience } from "~/api/generated";
+import { ExperienceForDate } from "./components/ExperienceAndSkills";
 
 const applicant: Applicant = { email: "blank", id: "blank" };
 const generateExperience = (

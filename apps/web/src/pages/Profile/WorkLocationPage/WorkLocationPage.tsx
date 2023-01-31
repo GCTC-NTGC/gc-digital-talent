@@ -16,7 +16,7 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
-import WorkLocationForm from "./WorkLocationForm";
+import WorkLocationForm from "./components/WorkLocationForm/WorkLocationForm";
 
 interface WorkLocationApiProps {
   applicationId: string;

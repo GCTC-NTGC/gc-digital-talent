@@ -14,7 +14,7 @@ import {
   useDeleteEducationExperienceMutation,
   useDeletePersonalExperienceMutation,
   useDeleteWorkExperienceMutation,
-} from "../../api/generated";
+} from "~/api/generated";
 import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationArgs,

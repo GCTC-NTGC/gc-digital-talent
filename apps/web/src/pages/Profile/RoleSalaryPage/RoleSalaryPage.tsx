@@ -14,7 +14,9 @@ import {
   useGetApplicationQuery,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
-import RoleSalaryForm, { RoleSalaryUpdateHandler } from "./RoleSalaryForm";
+import RoleSalaryForm, {
+  RoleSalaryUpdateHandler,
+} from "./components/RoleSalaryForm/RoleSalaryForm";
 
 interface RoleSalaryFormApiProps {
   applicationId: string;

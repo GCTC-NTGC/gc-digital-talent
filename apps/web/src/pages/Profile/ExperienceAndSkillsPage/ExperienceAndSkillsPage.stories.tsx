@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakeSkills, fakeExperiences } from "@common/fakeData";
 import { notEmpty } from "@common/helpers/util";
-import { ExperienceAndSkills } from "./ExperienceAndSkills";
+import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
 
 export default {
   title: "Pages/Experience and Skills Page",

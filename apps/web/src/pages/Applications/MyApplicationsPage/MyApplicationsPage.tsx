@@ -13,9 +13,9 @@ import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationCard, {
   type Application,
-} from "./ApplicationCard/ApplicationCard";
-import ArchivedApplications from "./ArchivedApplications";
-import { statusSortMap } from "./ApplicationCard/maps";
+} from "./components/ApplicationCard/ApplicationCard";
+import ArchivedApplications from "./components/ArchivedApplications";
+import { statusSortMap } from "./components/ApplicationCard/maps";
 
 interface MyApplicationsProps {
   applications: Array<Application>;

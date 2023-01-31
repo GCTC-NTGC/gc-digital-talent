@@ -17,7 +17,7 @@ import profileMessages from "~/messages/profileMessages";
 
 import LanguageInformationForm, {
   LanguageInformationUpdateHandler,
-} from "./LanguageInformationForm";
+} from "./components/LanguageInformationForm/LanguageInformationForm";
 
 interface LanguageInformationFormApiProps {
   applicationId: string;
