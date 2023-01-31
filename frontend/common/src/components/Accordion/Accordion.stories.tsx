@@ -65,6 +65,14 @@ Default.args = {
   children: <Text />,
 };
 
+export const Simple = Template.bind({});
+Simple.args = {
+  type: "single",
+  mode: "simple",
+  collapsible: true,
+  children: <Text />,
+};
+
 export const DefaultOpen = Template.bind({});
 DefaultOpen.args = {
   defaultValue: "one",
@@ -80,11 +88,7 @@ Nested.args = {
   children: (
     <>
       <Text />
-      <Accordion.Root
-        type="single"
-        collapsible
-        data-h2-margin="base(x1, 0, 0, 0)"
-      >
+      <Accordion.Root type="single" collapsible mode="simple">
         <Accordion.Item value="two">
           <Accordion.Trigger Icon={AcademicCapIcon} subtitle="Subtitle">
             Accordion Two

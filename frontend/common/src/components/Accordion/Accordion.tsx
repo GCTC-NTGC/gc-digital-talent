@@ -31,7 +31,6 @@ const Item = React.forwardRef<
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
     className="Accordion__Item"
-    data-h2-margin="base(x.5, 0)"
     data-h2-overflow="base(hidden)"
     data-h2-transition="base(100ms ease-in)"
     ref={forwardedRef}
@@ -58,6 +57,7 @@ const StyledTrigger = React.forwardRef<
     className="Accordion__Trigger"
     data-h2-align-items="base(flex-start)"
     data-h2-background-color="base(transparent) base:focus-visible:children[.Accordion__Chevron](focus)"
+    data-h2-color="base:focus-visible:children[.Accordion__Chevron](black)"
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
     data-h2-gap="base(0, x1)"
@@ -127,6 +127,7 @@ const Trigger = React.forwardRef<
               </span>
               {subtitle && (
                 <span
+                  className="Accordion__Subtitle"
                   data-h2-display="base(block)"
                   data-h2-font-size="base(h6, 1)"
                   data-h2-margin="base(x.25, 0, 0, 0)"
@@ -165,7 +166,6 @@ const Content = React.forwardRef<
 >(({ children, ...rest }, forwardedRef) => (
   <AccordionPrimitive.Content
     className="Accordion__Content"
-    data-h2-background-color="base(dt-white)"
     ref={forwardedRef}
     {...rest}
   >
