@@ -34,7 +34,10 @@ const TemplateDiversityEquityInclusionForm: Story<
 > = ({ user, isMutating }) => {
   const [mockUser, setMockUser] = React.useState(user);
 
-  const dataToUpdateUser = (key: EquityKeys, value: InputMaybe<boolean>) => {
+  const dataToUpdateUser = (
+    key: EquityKeys,
+    value: InputMaybe<boolean> | InputMaybe<InputMaybe<IndigenousCommunity>[]>,
+  ) => {
     return typeof value !== "undefined"
       ? {
           [key]: value,
@@ -46,12 +49,9 @@ const TemplateDiversityEquityInclusionForm: Story<
     const { isWoman, indigenousCommunities, isVisibleMinority, hasDisability } =
       data;
 
-    const isIndigenous = indigenousCommunities?.includes(
-      IndigenousCommunity.LegacyIsIndigenous,
-    );
     const newUser = {
       ...dataToUpdateUser("isWoman", isWoman),
-      ...dataToUpdateUser("isIndigenous", isIndigenous),
+      ...dataToUpdateUser("indigenousCommunities", indigenousCommunities),
       ...dataToUpdateUser("isVisibleMinority", isVisibleMinority),
       ...dataToUpdateUser("hasDisability", hasDisability),
     };

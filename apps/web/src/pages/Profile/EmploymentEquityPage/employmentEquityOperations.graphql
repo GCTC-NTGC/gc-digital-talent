@@ -2,7 +2,7 @@ query getMyDiversityInfo {
   me {
     id
     isWoman
-    isIndigenous
+    indigenousCommunities
     isVisibleMinority
     hasDisability
   }

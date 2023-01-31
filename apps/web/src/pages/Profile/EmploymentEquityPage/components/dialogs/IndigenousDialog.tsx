@@ -1,37 +1,132 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import {
+  FormProvider,
+  useForm,
+  useFormContext,
+  type SubmitHandler,
+} from "react-hook-form";
 
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
+import { Fieldset } from "@common/components/inputPartials";
+import { FieldLabels } from "@common/components/form/BasicForm";
 
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@common/constants";
-import type { EquityDialogProps } from "../../types";
+import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
+import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
+import { IndigenousCommunity } from "~/api/generated";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
+import { IndigenousDialogProps } from "../../types";
 
-interface FormValues {
-  isIndigenous: boolean;
+interface CommunitySelectionProps {
+  labels: FieldLabels;
 }
 
-const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
+// constrained list of community form values to avoid typos
+type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
+
+// small wrapper to take value of confirmation checkbox and make CommunityList conditional
+const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
+  const { watch } = useFormContext();
+
+  const [isIndigenousValue] = watch(["isIndigenous"]);
+  const isIndigenous = !!isIndigenousValue;
+
+  return isIndigenous ? <CommunityList labels={labels} /> : null;
+};
+interface FormValues {
+  isIndigenous: boolean;
+  communities: Array<FormCommunity>;
+  isStatusFirstNations: "yes" | "no" | null;
+}
+
+function apiValuesToFormValues(
+  apiCommunities: Array<IndigenousCommunity>,
+): FormValues {
+  // array of form communities that will be built and returned
+  const formCommunities: Array<FormCommunity> = [];
+
+  if (
+    apiCommunities.includes(IndigenousCommunity.StatusFirstNations) ||
+    apiCommunities.includes(IndigenousCommunity.NonStatusFirstNations)
+  )
+    formCommunities.push("firstNations");
+  if (apiCommunities.includes(IndigenousCommunity.Inuit))
+    formCommunities.push("inuk");
+  if (apiCommunities.includes(IndigenousCommunity.Metis))
+    formCommunities.push("metis");
+  if (apiCommunities.includes(IndigenousCommunity.Other))
+    formCommunities.push("other");
+
+  // Figure out if isStatusFirstNations should be yes/no/null
+  let isStatusFirstNations: FormValues["isStatusFirstNations"];
+  if (apiCommunities.includes(IndigenousCommunity.StatusFirstNations))
+    isStatusFirstNations = "yes";
+  else if (apiCommunities.includes(IndigenousCommunity.NonStatusFirstNations))
+    isStatusFirstNations = "no";
+  else isStatusFirstNations = null;
+
+  // assemble object from pre-computed values
+  return {
+    isIndigenous: apiCommunities.length > 0,
+    communities: formCommunities,
+    isStatusFirstNations,
+  };
+}
+
+function formValuesToApiValues(
+  formValues: FormValues,
+): Array<IndigenousCommunity> {
+  // short-circuit if isIndigenous is not checked
+  if (!formValues.isIndigenous) return [];
+
+  // array of API communities that will be built and returned
+  const apiCommunities: Array<IndigenousCommunity> = [];
+
+  if (
+    formValues.communities.includes("firstNations") &&
+    formValues.isStatusFirstNations === "yes"
+  )
+    apiCommunities.push(IndigenousCommunity.StatusFirstNations);
+  if (
+    formValues.communities.includes("firstNations") &&
+    formValues.isStatusFirstNations === "no"
+  )
+    apiCommunities.push(IndigenousCommunity.NonStatusFirstNations);
+  if (formValues.communities.includes("inuk"))
+    apiCommunities.push(IndigenousCommunity.Inuit);
+  if (formValues.communities.includes("metis"))
+    apiCommunities.push(IndigenousCommunity.Metis);
+  if (formValues.communities.includes("other"))
+    apiCommunities.push(IndigenousCommunity.Other);
+
+  return apiCommunities;
+}
+
+const IndigenousDialog = ({
+  indigenousCommunities,
+  onSave,
+  children,
+}: IndigenousDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
-    defaultValues: {
-      isIndigenous: isAdded,
-    },
+    defaultValues: apiValuesToFormValues(indigenousCommunities),
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isIndigenous);
+    onSave(formValuesToApiValues(data));
   };
+
+  const labels = getSelfDeclarationLabels(intl);
 
   return (
     <Dialog.Root>
@@ -61,13 +156,26 @@ const IndigenousDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
           <form onSubmit={handleSubmit(submitHandler)}>
             <AddToProfile />
             <div data-h2-margin="base(x1, 0, x1.5, 0)">
-              <Checkbox
-                id="isIndigenous"
+              <Fieldset
+                legend={intl.formatMessage({
+                  defaultMessage: "Self-Declaration",
+                  id: "dYS0MA",
+                  description: "Form label for a self-declaration input",
+                })}
                 name="isIndigenous"
-                label={intl.formatMessage(
-                  getEmploymentEquityStatement("indigenous"),
-                )}
-              />
+                hideOptional
+                trackUnsaved={false}
+              >
+                <Checkbox
+                  id="isIndigenous"
+                  name="isIndigenous"
+                  label={intl.formatMessage(
+                    getEmploymentEquityStatement("indigenous"),
+                  )}
+                  trackUnsaved={false}
+                />
+              </Fieldset>
+              <CommunitySelection labels={labels} />
             </div>
             <Dialog.Footer>
               <DialogFooter />
