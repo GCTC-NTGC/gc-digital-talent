@@ -121,8 +121,8 @@ const RequestConfirmationPage = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "If you have not heard from us or have any immediate questions and request further guidance, please get in touch with use at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
-              id: "dLGxL6",
+                "If you have not heard from us or have any immediate questions and request further guidance, please get in touch with us at: <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+              id: "xR4f/V",
               description:
                 "Description of how a user can contact someone for answers/information on their existing request",
             },
