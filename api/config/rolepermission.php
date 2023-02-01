@@ -40,9 +40,9 @@ return [
     |
     */
     'scopes' => [
-        'o' => 'own',
-        'a' => 'any',
-        't' => 'team'
+        'own' => 'own',
+        'any' => 'any',
+        'team' => 'team'
     ],
 
     /*
@@ -54,26 +54,26 @@ return [
     |
     */
     'resources' => [
-        'cls' => 'classification',
-        'dpt' => 'department',
-        'skl' => 'skill',
-        'skf' => 'skillFamily',
-        'usr' => 'user',
-        'ubi' => 'userBasicInfo',
-        'pol' => 'pool',
-        'ppa' => 'publishedPoolAdvertisement',
-        'dpl' => 'draftPool',
-        'pcd' => 'poolClosingDate',
-        'app' => 'application',
-        'sap' => 'submittedApplication',
-        'apf' => 'applicantProfile',
-        'dap' => 'draftApplication',
-        'aps' => 'applicationStatus',
-        'act' => 'applicantCount',
-        'srq' => 'searchRequest',
-        'tem' => 'team',
-        'tub' => 'teamUsersBasicInfo',
-        'rle' => 'role'
+        'classification' => 'classification',
+        'department' => 'department',
+        'skill' => 'skill',
+        'skillFamily' => 'skillFamily',
+        'user' => 'user',
+        'userBasicInfo' => 'userBasicInfo',
+        'pool' => 'pool',
+        'publishedPoolAdvertisement' => 'publishedPoolAdvertisement',
+        'draftPool' => 'draftPool',
+        'poolClosingDate' => 'poolClosingDate',
+        'application' => 'application',
+        'submittedApplication' => 'submittedApplication',
+        'applicantProfile' => 'applicantProfile',
+        'draftApplication' => 'draftApplication',
+        'applicationStatus' => 'applicationStatus',
+        'applicantCount' => 'applicantCount',
+        'searchRequest' => 'searchRequest',
+        'team' => 'team',
+        'teamUsersBasicInfo' => 'teamUsersBasicInfo',
+        'role' => 'role'
     ],
 
     /*
@@ -394,138 +394,138 @@ return [
     */
     'seeders' => [
         'guest' => [
-            'cls' => [
-                'a' => ['view']
+            'classification' => [
+                'any' => ['view']
             ],
-            'dpt' => [
-                'a' => ['view']
+            'department' => [
+                'any' => ['view']
             ],
-            'skl' => [
-                'a' => ['view']
+            'skill' => [
+                'any' => ['view']
             ],
-            'skf' => [
-                'a' => ['view']
+            'skillFamily' => [
+                'any' => ['view']
             ],
-            'ppa' => [
-                'a' => ['view']
+            'publishedPoolAdvertisement' => [
+                'any' => ['view']
             ],
-            'act' => [
-                'a' => ['view']
+            'applicantCount' => [
+                'any' => ['view']
             ],
-            'srq' => [
-                'a' => ['create']
+            'searchRequest' => [
+                'any' => ['create']
             ],
-            'tem' => [
-                'a' => ['view']
+            'team' => [
+                'any' => ['view']
             ],
         ],
 
         'base_user' => [
-            'cls' => [
-                'a' => ['view']
+            'classification' => [
+                'any' => ['view']
             ],
-            'dpt' => [
-                'a' => ['view']
+            'department' => [
+                'any' => ['view']
             ],
-            'skl' => [
-                'a' => ['view']
+            'skill' => [
+                'any' => ['view']
             ],
-            'skf' => [
-                'a' => ['view']
+            'skillFamily' => [
+                'any' => ['view']
             ],
-            'usr' => [
-                'o' => ['view', 'update']
+            'user' => [
+                'own' => ['view', 'update']
             ],
-            'ppa' => [
-                'a' => ['view']
+            'publishedPoolAdvertisement' => [
+                'any' => ['view']
             ],
-            'act' => [
-                'a' => ['view']
+            'applicantCount' => [
+                'any' => ['view']
             ],
-            'srq' => [
-                'a' => ['create']
+            'searchRequest' => [
+                'any' => ['create']
             ],
-            'tem' => [
-                'a' => ['view']
+            'team' => [
+                'any' => ['view']
             ],
         ],
 
         'applicant' => [
-            'app' => [
-                'o' => ['view', 'submit']
+            'application' => [
+                'own' => ['view', 'submit']
             ],
-            'dap' => [
-                'o' => ['create', 'delete']
+            'draftApplication' => [
+                'own' => ['create', 'delete']
             ],
-            'sap' => [
-                'o' => ['archive']
+            'submittedApplication' => [
+                'own' => ['archive']
             ]
         ],
 
         'team_admin' => [
-            'usr' => [
-                'a' => ['view']
+            'user' => [
+                'any' => ['view']
             ],
-            'pol' => [
-                't' => ['view', 'create', 'publish']
+            'pool' => [
+                'team' => ['view', 'create', 'publish']
             ],
-            'dpl' => [
-                't' => ['update', 'delete']
+            'draftPool' => [
+                'team' => ['update', 'delete']
             ],
-            'pcd' => [
-                't' => ['update']
+            'poolClosingDate' => [
+                'team' => ['update']
             ],
-            'sap' => [
-                't' => ['view']
+            'submittedApplication' => [
+                'team' => ['view']
             ],
-            'apf' => [
-                't' => ['view']
+            'applicantProfile' => [
+                'team' => ['view']
             ],
-            'aps' => [
-                't' => ['update']
+            'applicationStatus' => [
+                'team' => ['update']
             ],
-            'srq' => [
-                't' => ['view', 'update', 'delete']
+            'searchRequest' => [
+                'team' => ['view', 'update', 'delete']
             ],
-            'tub' => [
-                't' => ['view']
+            'teamUsersBasicInfo' => [
+                'team' => ['view']
             ],
-            'tem' => [
-                't' => ['update']
+            'team' => [
+                'team' => ['update']
             ],
-            'rle' => [
-                'a' => ['view'],
-                't' => ['assign'],
+            'role' => [
+                'any' => ['view'],
+                'team' => ['assign'],
             ],
         ],
 
         'super_admin' => [
-            'cls' => [
-                'a' => ['create', 'update', 'delete']
+            'classification' => [
+                'any' => ['create', 'update', 'delete']
             ],
-            'dpt' => [
-                'a' => ['create', 'update', 'delete']
+            'department' => [
+                'any' => ['create', 'update', 'delete']
             ],
-            'skl' => [
-                'a' => ['create', 'update', 'delete']
+            'skill' => [
+                'any' => ['create', 'update', 'delete']
             ],
-            'skf' => [
-                'a' => ['create', 'update', 'delete']
+            'skillFamily' => [
+                'any' => ['create', 'update', 'delete']
             ],
-            'usr' => [
-                'a' => ['view', 'update', 'delete']
+            'user' => [
+                'any' => ['view', 'update', 'delete']
             ],
-            'ubi' => [
-                'a' => ['view']
+            'userBasicInfo' => [
+                'any' => ['view']
             ],
-            'tub' => [
-                'a' => ['view']
+            'teamUsersBasicInfo' => [
+                'any' => ['view']
             ],
-            'tem' => [
-                'a' => ['create', 'update', 'delete']
+            'team' => [
+                'any' => ['create', 'update', 'delete']
             ],
-            'rle' => [
-                'a' => ['view', 'assign', 'update']
+            'role' => [
+                'any' => ['view', 'assign', 'update']
             ]
         ]
     ]
