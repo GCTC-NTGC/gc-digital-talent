@@ -18,6 +18,9 @@ class TeamPolicy
      */
     public function viewAny(User $user = null)
     {
-        return $user->isAdmin();
+        if ($user) {
+            return $user->isAdmin();
+        }
+        return false;
     }
 }
