@@ -36,11 +36,26 @@ const generateTeam = ({ name, departments }: GenerateTeamArgs): Team => {
   };
 };
 
-export default (): Team[] => {
+export default (amount = 10): Team[] => {
   faker.seed(0); // repeatable results
   faker.setLocale("en");
 
+  const teams = Array(amount - 1)
+    .fill(0)
+    .map(() => {
+      const name = faker.company.name();
+
+      return generateTeam({
+        name: {
+          en: `${name} EN`,
+          fr: `${name} FR`,
+        },
+        departments: mockDepartments,
+      });
+    });
+
   return [
+    // Always have our default team
     generateTeam({
       name: {
         en: "Digital Community Management",
@@ -48,5 +63,6 @@ export default (): Team[] => {
       },
       departments: mockDepartments,
     }),
+    ...teams,
   ];
 };

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
 import Pending from "@common/components/Pending";
 import { Link } from "@common/components";
@@ -15,7 +15,7 @@ import Table, {
 } from "~/components/Table/ClientManagedTable";
 
 // TO DO: Remove after #5548
-import { Department } from "~/api/generated";
+import { Department, Maybe } from "~/api/generated";
 
 type Team = {
   id: string;
@@ -39,6 +39,21 @@ const viewAccessor = (url: string, label: string) => (
     {label}
   </Link>
 );
+
+const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
+  if (email) {
+    return <a href={`mailto:${email}`}>{email}</a>;
+  }
+  return (
+    <span data-h2-font-style="base(italic)">
+      {intl.formatMessage({
+        defaultMessage: "No email provided",
+        id: "1JCjTP",
+        description: "Fallback for email value",
+      })}
+    </span>
+  );
+};
 
 export const TeamTable = ({ teams }: TeamTableProps) => {
   const intl = useIntl();
@@ -68,6 +83,13 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         }),
         accessor: (d) =>
           viewAccessor(paths.teamView(d.id), d.displayName?.[locale]),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.displayName[locale] ?? "";
+          const b = rowB.original.displayName[locale] ?? "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -83,7 +105,14 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           id: "TREL4U",
           description: "Title displayed for the teams table email column.",
         }),
-        accessor: (d) => d.contactEmail,
+        accessor: (d) => emailLinkAccessor(d.contactEmail, intl),
+        sortType: (rowA, rowB) => {
+          const a = rowA.original.contactEmail ?? "";
+          const b = rowB.original.contactEmail ?? "";
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        },
       },
     ],
     [paths, intl, locale],
