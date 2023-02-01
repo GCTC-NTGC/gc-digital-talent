@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Pool;
 use App\Models\Team;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -35,11 +35,15 @@ return new class extends Migration
 
         $dcmId = Team::where('name', 'digital-community-management')
             ->first()
-            ->pluck('id');
+            ->id;
 
-        Pool::all()
-            ->team()
-            ->save($dcmId);
+        DB::statement(
+            <<<SQL
+                UPDATE pools
+                SET team_id = :dcmId
+            SQL, [
+                'dcmId' => $dcmId,
+            ]);
 
         Schema::table('pools', function (Blueprint $table) {
             $table->uuid('team_id')->nullable(false)->change();
