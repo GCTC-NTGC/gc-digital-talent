@@ -309,7 +309,7 @@ type UserPublicProfile {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team! @belongsTo
+  team: Team @belongsTo
   name: LocalizedString
   key: KeyString
   description: LocalizedString
