@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Laratrust\Models\LaratrustTeam;
@@ -33,5 +34,10 @@ class Team extends LaratrustTeam
     public function departments(): BelongsToMany
     {
         return $this->belongsToMany(Department::class, 'team_department');
+    }
+
+    public function pools(): HasMany
+    {
+        return $this->hasMany(Pool::class);
     }
 }
