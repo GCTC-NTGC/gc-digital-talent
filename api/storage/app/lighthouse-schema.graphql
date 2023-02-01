@@ -286,6 +286,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
+  team: Team
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1272,6 +1273,7 @@ input UpdatePoolCandidateSearchRequestInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo
+  team: Team
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
