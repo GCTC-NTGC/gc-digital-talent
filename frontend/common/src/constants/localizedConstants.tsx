@@ -1589,8 +1589,8 @@ export const indigenousCommunities = defineMessages({
     description: "The indigenous community for Métis",
   },
   [IndigenousCommunity.Other]: {
-    defaultMessage: "Other",
-    id: "SwJAnL",
+    defaultMessage: "I am Indigenous and I don't see my community here",
+    id: "eNUS2A",
     description:
       "The selection for being part of an indigenous community not already listed",
   },
