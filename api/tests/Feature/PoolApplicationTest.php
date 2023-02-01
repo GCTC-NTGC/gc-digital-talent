@@ -804,7 +804,8 @@ class PoolApplicationTest extends TestCase
 
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->create([
-            'closing_date' => Carbon::now()->addDays(1)
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => 'ENGLISH'
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
@@ -814,6 +815,7 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->legacy_roles = ['ADMIN'];
+        $newUser->looking_for_bilingual = true;
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
