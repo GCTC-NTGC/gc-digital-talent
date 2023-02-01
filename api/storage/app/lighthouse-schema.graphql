@@ -286,7 +286,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
-  team: Team
+  team: TeamBelongsTo
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1208,6 +1208,10 @@ type Team {
   pools: [Pool]
 }
 
+input TeamBelongsTo {
+  connect: ID!
+}
+
 """
 Specify if you want to include or exclude trashed results from a query.
 """
@@ -1273,7 +1277,7 @@ input UpdatePoolCandidateSearchRequestInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo
-  team: Team
+  team: TeamBelongsTo
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany

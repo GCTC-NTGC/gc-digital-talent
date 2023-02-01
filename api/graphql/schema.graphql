@@ -1215,6 +1215,10 @@ input PoolBelongsTo {
   connect: ID!
 }
 
+input TeamBelongsTo {
+  connect: ID!
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -1244,7 +1248,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
-  team: Team
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1273,7 +1277,7 @@ input UpdatePoolCandidateAsAdminInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo @rename(attribute: "user")
-  team: Team
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
