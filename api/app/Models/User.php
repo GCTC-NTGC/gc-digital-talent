@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Laratrust\Traits\LaratrustUserTrait;
 
 /**
  * Class User
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $roles
+ * @property array $legacy_roles
  * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
@@ -58,10 +59,13 @@ use Illuminate\Support\Facades\DB;
  * @property Illuminate\Support\Carbon $updated_at
  * @property string $indigenous_declaration_signature
  * @property array $indigenous_communities
+ * @property string $preferred_language_for_interview
+ * @property string $preferred_language_for_exam
  */
 
 class User extends Model implements Authenticatable
 {
+    use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
@@ -69,7 +73,7 @@ class User extends Model implements Authenticatable
     protected $keyType = 'string';
 
     protected $casts = [
-        'roles' => 'array',
+        'legacy_roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
@@ -104,7 +108,7 @@ class User extends Model implements Authenticatable
 
     public function isAdmin(): bool
     {
-        return is_array($this->roles) && in_array('ADMIN', $this->roles);
+        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
 
     // All the relationships for experiences
@@ -148,6 +152,8 @@ class User extends Model implements Authenticatable
             is_null($this->attributes['email']) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
+            is_null($this->attributes['preferred_language_for_interview']) or
+            is_null($this->attributes['preferred_language_for_exam']) or
             is_null($this->attributes['current_province']) or
             is_null($this->attributes['current_city']) or
             (is_null($this->attributes['looking_for_english']) &&
@@ -176,6 +182,8 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('email');
             $query->whereNotNull('telephone');
             $query->whereNotNull('preferred_lang');
+            $query->whereNotNull('preferred_language_for_interview');
+            $query->whereNotNull('preferred_language_for_exam');
             $query->whereNotNull('current_province');
             $query->whereNotNull('current_city');
             $query->where(function ($query) {

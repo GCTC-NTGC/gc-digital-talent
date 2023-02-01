@@ -12,7 +12,7 @@ const AuthorizationProvider: React.FC<{
 
   return (
     <AuthorizationContainer
-      userRoles={data?.me?.roles}
+      userRoles={data?.me?.legacyRoles}
       email={data?.me?.email}
       currentUser={data?.me}
       isLoaded={isLoaded}

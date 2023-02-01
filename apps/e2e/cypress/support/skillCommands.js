@@ -1,4 +1,4 @@
-import { AllSkillsDocument } from "admin/src/js/api/generated";
+import { AllSkillsDocument } from "@gc-digital-talent/web/src/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;

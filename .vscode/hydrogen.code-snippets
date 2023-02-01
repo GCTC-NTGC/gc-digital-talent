@@ -4,6 +4,11 @@
     "body": ["${1:query}${2::modifiers}(${3:css})"],
     "description": "Adds a query to an existing Hydrogen attribute."
   },
+  "hydrogen-property": {
+    "prefix": "h2-property",
+    "body": ["data-h2-${1:property}=\"${2:query}${3::modifiers}(${4:css})\""],
+    "description": "A quick way of adding any Hydrogen property."
+  },
   "hydrogen-accent-color": {
     "prefix": "data-h2-accent-color",
     "body": ["data-h2-accent-color=\"${1:query}${2::modifiers}(${3:css})\""]

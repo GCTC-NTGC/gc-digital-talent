@@ -15,10 +15,9 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"],
-      "@common/*": ["../../frontend/common/src/*"]
+      "~/*": ["./*"],
+      "@common/*": ["../../../frontend/common/src/*"]
     }
   },
   "exclude": [

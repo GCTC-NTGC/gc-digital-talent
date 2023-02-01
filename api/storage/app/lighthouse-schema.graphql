@@ -12,6 +12,8 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -314,12 +316,14 @@ input CreateSkillInput {
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -371,6 +375,7 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  teams: [Team]
 }
 
 input DepartmentBelongsTo {
@@ -538,6 +543,14 @@ enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
+}
+
+enum LegacyRole {
+  """A user who has administrator privileges"""
+  ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
 }
 
 type LocalizedString {
@@ -984,6 +997,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  teams: [Team]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1036,15 +1050,9 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   FIRST_NAME
   EMAIL
   PREFERRED_LANG
+  PREFERRED_LANGUAGE_FOR_INTERVIEW
+  PREFERRED_LANGUAGE_FOR_EXAM
   CURRENT_CITY
-}
-
-enum Role {
-  """A user who has administrator privileges"""
-  ADMIN
-
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1188,6 +1196,15 @@ enum SortOrder {
   DESC
 }
 
+type Team {
+  id: ID!
+  name: String
+  displayName: LocalizedString
+  description: LocalizedString
+  departments: [Department]
+  contactEmail: Email
+}
+
 """
 Specify if you want to include or exclude trashed results from a query.
 """
@@ -1282,12 +1299,14 @@ input UpdateSkillInput {
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -1334,6 +1353,8 @@ input UpdateUserAsUserInput {
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
@@ -1376,7 +1397,7 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String
@@ -1384,6 +1405,8 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language
+  preferredLanguageForInterview: Language
+  preferredLanguageForExam: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus

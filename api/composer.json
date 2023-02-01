@@ -17,6 +17,7 @@
         "mll-lab/graphql-php-scalars": "^5.1",
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.8",
+        "santigarcor/laratrust": "^7.1",
         "web-token/jwt-core": "^3.1"
     },
     "require-dev": {

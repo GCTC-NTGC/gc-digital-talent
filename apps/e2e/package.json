@@ -9,10 +9,8 @@
     "e2e:run:inspect": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
   },
   "dependencies": {
-    "admin": "*",
     "@gc-digital-talent/common": "*",
-    "talentsearch": "*",
-    "web": "*"
+    "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.7",
@@ -21,7 +19,7 @@
     "cypress-multi-reporters": "^1.6.2",
     "cypress-terminal-report": "^5.0.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "prettier": "^2.8.2",
+    "prettier": "^2.8.3",
     "tsconfig": "*"
   }
 }

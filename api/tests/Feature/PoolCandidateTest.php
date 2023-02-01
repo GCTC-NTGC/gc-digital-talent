@@ -6,7 +6,7 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -16,12 +16,12 @@ class PoolCandidateTest extends TestCase
 {
   use RefreshDatabase;
   use MakesGraphQLRequests;
-  use ClearsSchemaCache;
+  use RefreshesSchemaCache;
 
   protected function setUp(): void
   {
     parent::setUp();
-    $this->bootClearsSchemaCache();
+    $this->bootRefreshesSchemaCache();
   }
 
   public function testFilterByClassification(): void
@@ -1045,7 +1045,7 @@ class PoolCandidateTest extends TestCase
     $newUser = new User;
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
-    $newUser->roles = ['ADMIN'];
+    $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
 
     // Create some expired users
@@ -1193,7 +1193,7 @@ class PoolCandidateTest extends TestCase
     $newUser = new User;
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
-    $newUser->roles = ['ADMIN'];
+    $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
 
     // 1

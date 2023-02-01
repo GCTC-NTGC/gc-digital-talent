@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -20,12 +20,12 @@ class PoolApplicationTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
     }
 
     public function testApplicationCreation(): void
@@ -35,7 +35,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
         $newUser->save();
 
@@ -121,7 +121,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
         $newUser->save();
 
@@ -161,7 +161,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
         $newUser->save();
 
@@ -233,7 +233,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
 
         // Assert expired object can be archived
@@ -306,7 +306,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
 
         // Create pool candidates
@@ -612,7 +612,7 @@ class PoolApplicationTest extends TestCase
         ]);
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -711,7 +711,7 @@ class PoolApplicationTest extends TestCase
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -813,7 +813,7 @@ class PoolApplicationTest extends TestCase
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -892,7 +892,7 @@ class PoolApplicationTest extends TestCase
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -939,7 +939,7 @@ class PoolApplicationTest extends TestCase
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
 
         //Closed Pool
@@ -1008,7 +1008,7 @@ class PoolApplicationTest extends TestCase
         $newUser = User::factory()->create();
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -1105,7 +1105,7 @@ class PoolApplicationTest extends TestCase
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
 
         // Create pool candidates

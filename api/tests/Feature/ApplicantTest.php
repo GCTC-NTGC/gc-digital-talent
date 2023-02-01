@@ -10,7 +10,7 @@ use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -19,19 +19,19 @@ class ApplicantTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
     }
 
@@ -1630,7 +1630,7 @@ class ApplicantTest extends TestCase
             'user_id' => $owner['id'],
         ]);
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT],
+            'legacy_roles' => [ApiEnums::ROLE_APPLICANT],
             'job_looking_status' => 'ACTIVELY_LOOKING',
         ])
             ->count(60)

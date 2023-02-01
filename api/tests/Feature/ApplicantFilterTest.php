@@ -15,7 +15,7 @@ use Database\Seeders\PoolSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 
@@ -23,20 +23,20 @@ class ApplicantFilterTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
 
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
     }
 
@@ -416,7 +416,7 @@ class ApplicantFilterTest extends TestCase
                 'position_duration' => $candidate->user->position_duration,
                 'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
-                'operational_requirements' => $candidate->user->operational_requirements,
+                'operational_requirements' => $candidate->user->accepted_operational_requirements,
             ]
         );
         $filter->classifications()->saveMany(

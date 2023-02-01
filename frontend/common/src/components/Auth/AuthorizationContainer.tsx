@@ -1,8 +1,8 @@
 import React from "react";
-import { Maybe, Role, User } from "../../api/generated";
+import { Maybe, LegacyRole, User } from "../../api/generated";
 
 export type PossibleUser = Maybe<User>;
-export type PossibleUserRoles = Maybe<Array<Maybe<Role>>>;
+export type PossibleUserRoles = Maybe<Array<Maybe<LegacyRole>>>;
 export type MaybeEmail = Maybe<string>;
 
 export interface AuthorizationState {

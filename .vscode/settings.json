@@ -17,9 +17,7 @@
   },
   "eslint.workingDirectories": [
     "apps",
-    "frontend/admin",
-    "frontend/common",
-    "frontend/talentsearch"
+    "frontend/common"
   ],
   "[typescriptreact]": {
     "editor.tabSize": 2

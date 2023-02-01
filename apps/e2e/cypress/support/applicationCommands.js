@@ -1,8 +1,8 @@
 import {
   CreateApplicationDocument,
   SubmitApplicationDocument,
-} from "talentsearch/src/js/api/generated";
-import { UpdatePoolCandidateStatusDocument } from "admin/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+import { UpdatePoolCandidateStatusDocument } from "@gc-digital-talent/web/src/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;

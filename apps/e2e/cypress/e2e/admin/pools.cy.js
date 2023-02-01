@@ -131,8 +131,9 @@ describe("Pools", () => {
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
-    editLinks.first().click();
+      cy.findAllByRole("link", { name: /edit test pool en/i })
+        .first()
+        .click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
@@ -161,8 +162,9 @@ describe("Pools", () => {
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
-    editLinks.first().click();
+    cy.findAllByRole("link", { name: /edit test pool en/i })
+      .first()
+      .click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 

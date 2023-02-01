@@ -9,7 +9,7 @@ const fakeUserArray = fakeApplicants(5);
 
 export default {
   component: UserProfile,
-  title: "Admin/User Profile",
+  title: "Components/User Profile",
   args: {},
 } as Meta;
 
@@ -58,6 +58,8 @@ UserProfileNull.args = {
   email: undefined,
   telephone: null,
   preferredLang: null,
+  preferredLanguageForInterview: null,
+  preferredLanguageForExam: null,
   currentCity: null,
   currentProvince: null,
   languageAbility: null,

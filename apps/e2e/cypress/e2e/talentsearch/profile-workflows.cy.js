@@ -16,8 +16,8 @@ describe("User Profile Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getMe");
-      aliasMutation(req, "UpdateUserAsUser");
-      aliasMutation(req, "createWorkLocationPreference");
+      aliasMutation(req, "UpdateUserAboutMe");
+      aliasMutation(req, "createWorkLocation");
     });
 
     loginAndGoToProfile();
@@ -30,7 +30,7 @@ describe("User Profile Workflow Tests", () => {
       .clear()
       .type("Test City");
     cy.findByRole("button", { name: /Save and go back/i }).click();
-    cy.wait("@gqlUpdateUserAsUserMutation");
+    cy.wait("@gqlUpdateUserAboutMeMutation");
     cy.expectToast(/User updated successfully/i);
     cy.url().should("contain", "/profile");
 
@@ -40,7 +40,7 @@ describe("User Profile Workflow Tests", () => {
       .clear()
       .type("Test Locations");
     cy.findByRole("button", { name: /Save and go back/i }).click();
-    cy.wait("@gqlcreateWorkLocationPreferenceMutation");
+    cy.wait("@gqlcreateWorkLocationMutation");
     cy.expectToast(/User updated successfully/i);
     cy.url().should("contain", "/profile");
   });
