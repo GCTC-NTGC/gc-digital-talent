@@ -6,27 +6,24 @@ import { Button } from "@common/components";
 
 import {
   DisabilityDialog,
-  IndigenousDialog,
   VisibleMinorityDialog,
   WomanDialog,
 } from "./dialogs";
 
 import { EquityDialogProps } from "./types";
 
-type EquityGroup = "woman" | "indigenous" | "minority" | "disability";
+type EquityGroup = "woman" | "minority" | "disability";
 
 interface EquityOptionProps {
   isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
-  // eslint-disable-next-line no-unused-vars
   onSave: (value: boolean) => void;
   title: React.ReactNode;
 }
 
 const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
   disability: DisabilityDialog,
-  indigenous: IndigenousDialog,
   minority: VisibleMinorityDialog,
   woman: WomanDialog,
 };

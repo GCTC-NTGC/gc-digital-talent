@@ -59,6 +59,7 @@ TELEWORK
 testid
 textbox
 toastify
+Typenames
 Unencrypted
 unlocalized
 urql

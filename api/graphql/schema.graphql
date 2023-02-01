@@ -110,7 +110,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] # All experiences that a user owns
+  experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences") # All experiences that a user owns
   awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
   communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
@@ -269,12 +269,12 @@ type Applicant {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
-  experiences: [Experience]
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
+  experiences: [Experience] @with(relation: "awardExperiences") @with(relation: "communityExperiences") @with(relation: "educationExperiences") @with(relation: "personalExperiences") @with(relation: "workExperiences")
+  awardExperiences: [AwardExperience] @hasMany
+  communityExperiences: [CommunityExperience] @hasMany
+  educationExperiences: [EducationExperience] @hasMany
+  personalExperiences: [PersonalExperience] @hasMany
+  workExperiences: [WorkExperience] @hasMany
 
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany

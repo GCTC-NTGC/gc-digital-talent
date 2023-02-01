@@ -15,6 +15,7 @@ class UatSeeder extends Seeder
     {
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
+        $this->call(TeamSeeder::class);
         $this->call(UserSeederUat::class);
         $this->call(PoolSeederUat::class);
     }
