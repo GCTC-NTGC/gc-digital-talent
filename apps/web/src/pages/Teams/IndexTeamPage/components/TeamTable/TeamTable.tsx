@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
+import Pending from "@common/components/Pending";
+import { Link } from "@common/components";
+import fakeTeams from "@common/fakeData/fakeTeams";
 import useLocale from "@common/hooks/useLocale";
 import { notEmpty } from "@common/helpers/util";
-import Pending from "@common/components/Pending";
-import fakeTeams from "@common/fakeData/fakeTeams";
 
 // import {Team, useListTeamsQuery} from "~/api/generated"
 import useRoutes from "~/hooks/useRoutes";
@@ -33,6 +34,12 @@ interface TeamTableProps {
 
 const mockTeams = fakeTeams();
 
+const viewAccessor = (url: string, label: string) => (
+  <Link href={url} type="link">
+    {label}
+  </Link>
+);
+
 export const TeamTable = ({ teams }: TeamTableProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
@@ -59,7 +66,8 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           id: "KIWVbp",
           description: "Title displayed for the teams table team column.",
         }),
-        accessor: (d) => d.displayName?.[locale],
+        accessor: (d) =>
+          viewAccessor(paths.teamView(d.id), d.displayName?.[locale]),
       },
       {
         Header: intl.formatMessage({
