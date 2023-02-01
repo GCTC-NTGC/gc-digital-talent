@@ -68,7 +68,7 @@ const columns: ColumnsOf<Data> = [
 
 export default {
   component: BasicTable,
-  title: "API Managed Table",
+  title: "Tables/API Managed Table",
   subcomponents: {
     TableHeader,
     TableFooter,

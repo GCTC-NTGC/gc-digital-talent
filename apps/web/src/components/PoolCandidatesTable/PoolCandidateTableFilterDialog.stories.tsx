@@ -8,7 +8,7 @@ import PoolCandidateTableFilterDialog from "./PoolCandidateTableFilterDialog";
 import type { FormValues } from "./PoolCandidateTableFilterDialog";
 
 export default {
-  title: "PoolCandidates/PoolCandidateTableFilterDialog",
+  title: "Components/Pool Candidate Table Filter Dialog",
   component: PoolCandidateTableFilterDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {

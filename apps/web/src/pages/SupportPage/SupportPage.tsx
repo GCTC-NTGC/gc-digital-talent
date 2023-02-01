@@ -7,7 +7,7 @@ import useTheme from "@common/hooks/useTheme";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import SupportForm from "./SupportForm";
+import SupportForm from "./components/SupportForm/SupportForm";
 
 const flourishTopLight = imageUrl("/", "support_top_light.png");
 const flourishTopDark = imageUrl("/", "support_top_dark.png");

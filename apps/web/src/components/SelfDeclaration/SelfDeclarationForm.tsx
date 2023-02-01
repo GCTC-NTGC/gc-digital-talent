@@ -8,9 +8,9 @@ import { BasicForm, RadioGroup } from "@common/components/form";
 import errorMessages from "@common/messages/errorMessages";
 import Separator from "@common/components/Separator";
 
-import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/Dialog/SelfDeclarationDialog";
-import VerificationDialog from "~/pages/Home/IAPHomePage/Dialog/VerificationDialog";
-import DefinitionDialog from "~/pages/Home/IAPHomePage/Dialog/DefinitionDialog";
+import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
+import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
+import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
 
 import CommunitySelection from "./CommunitySelection";
 import SignAndContinue from "./SignAndContinue";
