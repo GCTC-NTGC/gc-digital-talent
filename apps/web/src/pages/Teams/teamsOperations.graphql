@@ -1,0 +1,14 @@
+# query GetTeams {
+#   teams {
+#     id
+#     name
+#     contactEmail
+#     displayName {
+#       en
+#       fr
+#     }
+#     departments {
+#       id
+#     }
+#   }
+# }

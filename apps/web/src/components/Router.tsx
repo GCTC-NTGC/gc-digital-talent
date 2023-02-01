@@ -304,6 +304,16 @@ const ViewUserPage = React.lazy(() =>
   ),
 );
 
+/** Teams */
+const IndexTeamPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
+      ),
+  ),
+);
+
 /** Classifications */
 const IndexClassificationPage = React.lazy(() =>
   lazyRetry(
@@ -828,6 +838,48 @@ const createRoute = (locale: Locales) =>
                     },
                   ],
                 },
+              ],
+            },
+            {
+              path: "teams",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth roles={[LegacyRole.Admin]}>
+                      <IndexTeamPage />
+                    </RequireAuth>
+                  ),
+                },
+                // {
+                //   path: "create",
+                //   element: (
+                //     <RequireAuth roles={[LegacyRole.Admin]}>
+                //       <CreateTeamPage />
+                //     </RequireAuth>
+                //   ),
+                // },
+                // {
+                //   path: ":teamId",
+                //   children: [
+                //     {
+                //       index: true,
+                //       element: (
+                //         <RequireAuth roles={[LegacyRole.Admin]}>
+                //           <ViewTeamPage />
+                //         </RequireAuth>
+                //       ),
+                //     },
+                //     {
+                //       path: "edit",
+                //       element: (
+                //         <RequireAuth roles={[LegacyRole.Admin]}>
+                //           <UpdateTeamPage />
+                //         </RequireAuth>
+                //       ),
+                //     },
+                //   ],
+                // },
               ],
             },
             {
