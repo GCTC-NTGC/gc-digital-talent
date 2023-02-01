@@ -4,7 +4,7 @@ import type { ButtonProps } from "./Button";
 
 // NOTE: We should find a way to not need to omit ref
 export interface IconButtonProps extends Omit<ButtonProps, "ref"> {
-  icon?: React.FC<{ className?: string; style?: Record<string, string> }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({ icon, children, ...rest }) => {

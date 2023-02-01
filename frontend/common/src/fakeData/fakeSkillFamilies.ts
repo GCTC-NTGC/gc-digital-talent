@@ -8,6 +8,7 @@ export const getStaticSkillFamilies = (): SkillFamily[] =>
 const generateSkillFamily = (skills: Skill[]) => {
   const name = faker.random.word();
   return {
+    __typename: undefined,
     category: faker.helpers.arrayElement<SkillCategory>([
       SkillCategory.Behavioural,
       SkillCategory.Technical,

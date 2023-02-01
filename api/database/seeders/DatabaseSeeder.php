@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
+        $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
@@ -51,7 +52,7 @@ class DatabaseSeeder extends Seeder
         $this->seedPools();
 
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
+            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->count(150)
             ->afterCreating(function (User $user) use ($faker) {

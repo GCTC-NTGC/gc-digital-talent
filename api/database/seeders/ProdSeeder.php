@@ -17,5 +17,6 @@ class ProdSeeder extends Seeder
         $this->call(DepartmentSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
+        $this->call(TeamSeeder::class);
     }
 }

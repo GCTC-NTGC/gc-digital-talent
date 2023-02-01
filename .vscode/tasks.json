@@ -89,23 +89,6 @@
       "group": "build"
     },
     {
-      "label": "Refresh Admin",
-      "type": "shell",
-
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_admin.sh"],
-
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": false,
-        "clear": true
-      },
-      "group": "build"
-    },
-    {
       "label": "Refresh All",
       "type": "shell",
 

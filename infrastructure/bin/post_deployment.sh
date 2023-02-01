@@ -66,18 +66,6 @@ else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
 fi
 
-# Environment config variable substitutions
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/admin/dist/config.js /home/site/config-admin.js ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for admin *successful*.\" } }"
-else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for admin *failed*. $MENTION\" } }"
-fi
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for web *successful*.\" } }"
-else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for web *failed*. $MENTION\" } }"
-fi
-
 # Add a source context block
 read -r -d '' BLOCKS << EndOfMessage
 $BLOCKS,

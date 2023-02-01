@@ -1145,7 +1145,7 @@
     "description": "displayed when localized string not available"
   },
   "UPx6kk": {
-    "defaultMessage": "<primary>{titre}</primary> à {organization}",
+    "defaultMessage": "<primary>{title}</primary> à {organization}",
     "description": "Title at organization"
   },
   "ZWR/F3": {
@@ -1219,10 +1219,6 @@
   "wFZLxf": {
     "defaultMessage": "IT-03 (chef d'équipe)",
     "description": "The name of the Team leader Analyst classification with group and level."
-  },
-  "wtImjn": {
-    "defaultMessage": "« Je suis autochtone »",
-    "description": "Statement for when someone indicates they are indigenous"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",
@@ -2003,5 +1999,9 @@
   "z0JksZ": {
     "defaultMessage": "Inuit",
     "description": "The indigenous community for Inuit"
+  },
+  "7STO48": {
+    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis »",
+    "description": "Text for the option to self-declare as Indigenous"
   }
 }

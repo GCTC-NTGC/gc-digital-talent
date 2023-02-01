@@ -3,7 +3,7 @@ import {
   AdvertisementStatus,
   Maybe,
   PoolCandidate,
-  Role,
+  LegacyRole,
   Scalars,
 } from "~/api/generated";
 
@@ -37,10 +37,10 @@ export const poolMatchesClassification = (
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roles: Maybe<Role>[],
+  roles: Maybe<LegacyRole>[],
   status?: Maybe<AdvertisementStatus>,
 ) => {
-  let visible = roles.includes(Role.Admin) ?? false;
+  let visible = roles.includes(LegacyRole.Admin) ?? false;
   if (status !== AdvertisementStatus.Draft) {
     visible = true;
   }

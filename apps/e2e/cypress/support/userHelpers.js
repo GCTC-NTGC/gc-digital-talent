@@ -10,7 +10,7 @@ import {
   LanguageAbility,
   OperationalRequirement,
   PositionDuration,
-  Role,
+  LegacyRole,
 } from "@gc-digital-talent/common/src/api/generated";
 
 export function createApplicant({
@@ -23,7 +23,7 @@ export function createApplicant({
   cy.createUser({
     email: email ? `cypress.user.${Date.now().valueOf()}@example.org` : null,
     sub: sub ? `cypress.sub.${Date.now().valueOf()}` : null,
-    roles: [Role.Applicant],
+    legacyRoles: [LegacyRole.Applicant],
     currentProvince: ProvinceOrTerritory.Ontario,
     currentCity: "Test City",
     telephone: "+10123456789",
