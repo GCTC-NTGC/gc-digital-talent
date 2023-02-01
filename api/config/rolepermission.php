@@ -1,5 +1,15 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Role and Permissions Config
+|--------------------------------------------------------------------------
+|
+| Used by the RolePermissionSeeder, based on the Laratrust seeder
+|
+| REF:
+|
+*/
 return [
     /*
     |--------------------------------------------------------------------------
@@ -7,17 +17,18 @@ return [
     |--------------------------------------------------------------------------
     |
     | A map of all actions available within the application.
+    | This is effectively an enum.
     |
     */
     'actions' => [
-        'v' => 'view',
-        'c' => 'create',
-        'u' => 'update',
-        'd' => 'delete',
-        'as' => 'assign',
-        'arc' => 'archive',
-        's' => 'submit',
-        'p' => 'publish'
+        'view' => 'view',
+        'create' => 'create',
+        'update' => 'update',
+        'delete' => 'delete',
+        'assign' => 'assign',
+        'archive' => 'archive',
+        'submit' => 'submit',
+        'publish' => 'publish'
     ],
 
     /*
@@ -43,25 +54,25 @@ return [
     |
     */
     'resources' => [
-        'clss' => 'classification',
+        'cls' => 'classification',
         'dpt' => 'department',
-        'sk' => 'skill',
-        'sf' => 'skillFamily',
+        'skl' => 'skill',
+        'skf' => 'skillFamily',
         'usr' => 'user',
         'ubi' => 'userBasicInfo',
-        'pl' => 'pool',
+        'pol' => 'pool',
         'ppa' => 'publishedPoolAdvertisement',
-        'dp' => 'draftPool',
+        'dpl' => 'draftPool',
         'pcd' => 'poolClosingDate',
         'app' => 'application',
-        'sapp' => 'submittedApplication',
-        'aprf' => 'applicantProfile',
-        'dapp' => 'draftApplication',
-        'apps' => 'applicationStatus',
-        'ac' => 'applicantCount',
-        'sr' => 'searchRequest',
-        't' => 'team',
-        'tusrbi' => 'teamUsersBasicInfo',
+        'sap' => 'submittedApplication',
+        'apf' => 'applicantProfile',
+        'dap' => 'draftApplication',
+        'aps' => 'applicationStatus',
+        'act' => 'applicantCount',
+        'srq' => 'searchRequest',
+        'tem' => 'team',
+        'tub' => 'teamUsersBasicInfo',
         'rle' => 'role'
     ],
 
@@ -383,138 +394,138 @@ return [
     */
     'seeders' => [
         'guest' => [
-            'clss' => [
-                'a' => ['v']
+            'cls' => [
+                'a' => ['view']
             ],
             'dpt' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'sk' => [
-                'a' => ['v']
+            'skl' => [
+                'a' => ['view']
             ],
-            'sf' => [
-                'a' => ['v']
+            'skf' => [
+                'a' => ['view']
             ],
             'ppa' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'ac' => [
-                'a' => ['v']
+            'act' => [
+                'a' => ['view']
             ],
-            'sr' => [
-                'a' => ['c']
+            'srq' => [
+                'a' => ['create']
             ],
-            't' => [
-                'a' => ['v']
+            'tem' => [
+                'a' => ['view']
             ],
         ],
 
         'base_user' => [
-            'clss' => [
-                'a' => ['v']
+            'cls' => [
+                'a' => ['view']
             ],
             'dpt' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'sk' => [
-                'a' => ['v']
+            'skl' => [
+                'a' => ['view']
             ],
-            'sf' => [
-                'a' => ['v']
+            'skf' => [
+                'a' => ['view']
             ],
             'usr' => [
-                'o' => ['v', 'u']
+                'o' => ['view', 'update']
             ],
             'ppa' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'ac' => [
-                'a' => ['v']
+            'act' => [
+                'a' => ['view']
             ],
-            'sr' => [
-                'a' => ['c']
+            'srq' => [
+                'a' => ['create']
             ],
-            't' => [
-                'a' => ['v']
+            'tem' => [
+                'a' => ['view']
             ],
         ],
 
         'applicant' => [
             'app' => [
-                'o' => ['v', 's']
+                'o' => ['view', 'submit']
             ],
-            'dapp' => [
-                'o' => ['c', 'd']
+            'dap' => [
+                'o' => ['create', 'delete']
             ],
-            'sapp' => [
-                'o' => ['arc']
+            'sap' => [
+                'o' => ['archive']
             ]
         ],
 
         'team_admin' => [
             'usr' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'pl' => [
-                't' => ['v', 'c', 'p']
+            'pol' => [
+                't' => ['view', 'create', 'publish']
             ],
-            'dp' => [
-                't' => ['u', 'd']
+            'dpl' => [
+                't' => ['update', 'delete']
             ],
             'pcd' => [
-                't' => ['u']
+                't' => ['update']
             ],
-            'sapp' => [
-                't' => ['v']
+            'sap' => [
+                't' => ['view']
             ],
-            'aprf' => [
-                't' => ['v']
+            'apf' => [
+                't' => ['view']
             ],
-            'apps' => [
-                't' => ['u']
+            'aps' => [
+                't' => ['update']
             ],
-            'sr' => [
-                't' => ['v', 'u', 'd']
+            'srq' => [
+                't' => ['view', 'update', 'delete']
             ],
-            'tusrbi' => [
-                't' => ['v']
+            'tub' => [
+                't' => ['view']
             ],
-            't' => [
-                't' => ['u']
+            'tem' => [
+                't' => ['update']
             ],
             'rle' => [
-                'a' => ['v'],
-                't' => ['as'],
+                'a' => ['view'],
+                't' => ['assign'],
             ],
         ],
 
         'super_admin' => [
-            'clss' => [
-                'a' => ['c', 'u', 'd']
+            'cls' => [
+                'a' => ['create', 'update', 'delete']
             ],
             'dpt' => [
-                'a' => ['c', 'u', 'd']
+                'a' => ['create', 'update', 'delete']
             ],
-            'sk' => [
-                'a' => ['c', 'u', 'd']
+            'skl' => [
+                'a' => ['create', 'update', 'delete']
             ],
-            'sf' => [
-                'a' => ['c', 'u', 'd']
+            'skf' => [
+                'a' => ['create', 'update', 'delete']
             ],
             'usr' => [
-                'a' => ['v', 'u', 'd']
+                'a' => ['view', 'update', 'delete']
             ],
             'ubi' => [
-                'a' => ['v']
+                'a' => ['view']
             ],
-            'tusrbi' => [
-                'a' => ['v']
+            'tub' => [
+                'a' => ['view']
             ],
-            't' => [
-                'a' => ['c', 'u', 'd']
+            'tem' => [
+                'a' => ['create', 'update', 'delete']
             ],
             'rle' => [
-                'a' => ['v', 'as', 'u']
+                'a' => ['view', 'assign', 'update']
             ]
         ]
     ]
