@@ -2,7 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
 import React from "react";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank } from "../../types/primitiveTypes";
@@ -32,7 +32,7 @@ const Item = React.forwardRef<
   <AccordionPrimitive.Item
     className="Accordion__Item"
     data-h2-overflow="base(hidden)"
-    data-h2-transition="base(100ms ease-in)"
+    data-h2-transition="base(border 150ms ease)"
     ref={forwardedRef}
     {...props}
   />
@@ -69,7 +69,7 @@ const StyledTrigger = React.forwardRef<
     data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
     data-h2-transform="
       base:children[.Accordion__Chevron__Icon](rotate(0deg))
-      base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(90deg))"
+      base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(-180deg))"
     ref={forwardedRef}
     {...props}
   />
@@ -106,10 +106,10 @@ const Trigger = React.forwardRef<
               data-h2-flex-shrink="base(0)"
               data-h2-radius="base(circle)"
             >
-              <ChevronRightIcon
+              <ChevronDownIcon
                 className="Accordion__Chevron__Icon"
+                data-h2-transition="base(transform 150ms ease)"
                 data-h2-width="base(x1)"
-                data-h2-transition="base(100ms ease-in)"
               />
             </div>
             <div

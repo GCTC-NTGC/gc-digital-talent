@@ -5,7 +5,7 @@ type AccordionStyles = Record<string, string | undefined>;
 const cardStyles: AccordionStyles = {
   "data-h2-background-color": "base(white)",
   "data-h2-color":
-    "base:selectors[>.Accordion__Item .Accordion__Separator](dt-gray) base:selectors[>.Accordion__Item .Accordion__Chevron](dt-gray)",
+    "base:selectors[>.Accordion__Item .Accordion__Separator](dt-gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
   "data-h2-border-left": `
   base:selectors[>.Accordion__Item](x.5 solid tm-blue)
   base:selectors[>.Accordion__Item[data-state='open']](x.5 solid tm-purple)
