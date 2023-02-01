@@ -9,7 +9,7 @@ const fakeUserArray = fakeApplicants(5);
 
 export default {
   component: UserProfile,
-  title: "Admin/User Profile",
+  title: "Components/User Profile",
   args: {},
 } as Meta;
 

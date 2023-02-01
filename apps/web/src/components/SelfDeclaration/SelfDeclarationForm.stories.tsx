@@ -8,7 +8,7 @@ import SelfDeclarationForm from "./SelfDeclarationForm";
 
 export default {
   component: SelfDeclarationForm,
-  title: "Pages/Self-Declaration Form",
+  title: "Forms/Self-Declaration Form",
 } as ComponentMeta<typeof SelfDeclarationForm>;
 
 const Template: ComponentStory<typeof SelfDeclarationForm> = () => (
