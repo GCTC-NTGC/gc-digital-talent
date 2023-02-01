@@ -31,7 +31,6 @@ class RolePermissionSeeder extends Seeder
                 $this->command->error("Role with key $roleKey does not exist in role map");
             }
 
-            $this->command->info("Adding role $roleKey");
             $role = Role::updateOrCreate(
                 ['name' => $roleKey],
                 [
@@ -78,10 +77,7 @@ class RolePermissionSeeder extends Seeder
                 }
             }
 
-            $permissionIds = collect($permissions)->pluck('id');
-            $permissionCount = count($permissionIds);
-            $this->command->info("Syncing $permissionCount permissions to $roleKey");
-            $role->permissions()->sync($permissionIds);
+            $role->permissions()->sync(collect($permissions)->pluck('id'));
         }
     }
 }
