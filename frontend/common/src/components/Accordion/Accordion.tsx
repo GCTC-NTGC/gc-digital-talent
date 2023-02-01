@@ -32,7 +32,6 @@ const Item = React.forwardRef<
   <AccordionPrimitive.Item
     className="Accordion__Item"
     data-h2-overflow="base(hidden)"
-    data-h2-transition="base(border 150ms ease)"
     ref={forwardedRef}
     {...props}
   />
