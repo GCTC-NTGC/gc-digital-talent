@@ -1,4 +1,4 @@
-# query GetTeams {
+# query ListTeams {
 #   teams {
 #     id
 #     name
