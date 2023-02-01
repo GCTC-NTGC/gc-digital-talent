@@ -350,6 +350,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
@@ -1486,6 +1487,7 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
+  team: TeamBelongsTo @rename(attribute: "team")
 }
 
 input UpdatePoolAdvertisementInput {

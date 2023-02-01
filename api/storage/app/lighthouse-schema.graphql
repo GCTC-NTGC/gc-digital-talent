@@ -253,6 +253,7 @@ input CreateDepartmentInput {
 
 input CreatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
+  team: TeamBelongsTo
 }
 
 input CreatePoolCandidateAsAdminInput {
@@ -777,6 +778,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
+  team: Team
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
