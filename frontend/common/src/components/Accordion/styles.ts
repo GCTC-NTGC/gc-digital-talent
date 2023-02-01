@@ -36,7 +36,8 @@ const simpleStyles: AccordionStyles = {
   "data-h2-display":
     "base:selectors[>.Accordion__Item .Accordion__Separator](none)",
   "data-h2-padding": `
-    base:selectors[>.Accordion__Item](x1 x2 0 x1)
+    base:selectors[>.Accordion__Item](x.5 x2 0 x1)
+    base:selectors[>.Accordion__Item .Accordion__Trigger](0 0 x.5 0)
     base:selectors[>.Accordion__Item .Accordion__Content](0 0 x1 x2)
   `,
 };
