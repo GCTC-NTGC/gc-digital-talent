@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Team;
 use Database\Seeders\DepartmentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -26,6 +27,8 @@ class TeamsTest extends TestCase
     $newUser->sub = 'admin@test.com';
     $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
+
+    DB::table('teams')->delete(); // clear teams created in migrations before testing
   }
 
   public function testAllTeamsQuery(): void
