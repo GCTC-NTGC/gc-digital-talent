@@ -3,40 +3,28 @@ import { IntlShape, useIntl } from "react-intl";
 
 import Pending from "@common/components/Pending";
 import { Link } from "@common/components";
-import fakeTeams from "@common/fakeData/fakeTeams";
 import useLocale from "@common/hooks/useLocale";
 import { notEmpty } from "@common/helpers/util";
 
-// import {Team, useListTeamsQuery} from "~/api/generated"
+import { Maybe, Team, useListTeamsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableActionsAccessor,
 } from "~/components/Table/ClientManagedTable";
 
-// TO DO: Remove after #5548
-import { Department, Maybe } from "~/api/generated";
-
-type Team = {
-  id: string;
-  name: string;
-  contactEmail: string;
-  displayName: {
-    en: string;
-    fr: string;
-  };
-  departments: Department[];
-};
-
 interface TeamTableProps {
   teams: Array<Team>;
 }
 
-const mockTeams = fakeTeams();
-
-const viewAccessor = (url: string, label: string) => (
+const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
-    {label}
+    {label ||
+      intl.formatMessage({
+        defaultMessage: "No name provided",
+        id: "L9Ked5",
+        description: "Fallback for team display name value",
+      })}
   </Link>
 );
 
@@ -71,7 +59,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         accessor: (d) =>
           tableActionsAccessor({
             id: d.id,
-            label: d.displayName[locale],
+            label: d?.displayName ? d.displayName[locale] : d.name,
             editPathFunc: paths.teamUpdate,
           }),
       },
@@ -82,10 +70,22 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table team column.",
         }),
         accessor: (d) =>
-          viewAccessor(paths.teamView(d.id), d.displayName?.[locale]),
+          viewAccessor(
+            paths.teamView(d.id),
+            d?.displayName ? d.displayName[locale] : d.name,
+            intl,
+          ),
         sortType: (rowA, rowB) => {
-          const a = rowA.original.displayName[locale] ?? "";
-          const b = rowB.original.displayName[locale] ?? "";
+          const {
+            original: { displayName: nameA },
+          } = rowA;
+          const {
+            original: { displayName: nameB },
+          } = rowB;
+
+          const a = (nameA ? nameA[locale] : "") ?? "";
+          const b = (nameB ? nameB[locale] : "") ?? "";
+
           if (a > b) return 1;
           if (a < b) return -1;
           return 0;
@@ -97,7 +97,10 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           id: "BDo1aH",
           description: "Title displayed for the teams table department column.",
         }),
-        accessor: (d) => d.departments[0].name?.[locale],
+        accessor: (d) =>
+          d.departments?.length && d.departments[0]
+            ? d.departments[0].name?.[locale]
+            : "",
       },
       {
         Header: intl.formatMessage({
@@ -136,21 +139,14 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
   );
 };
 
-const wait = (amount = 0) =>
-  // Note: Just a mock for now
-  // eslint-disable-next-line no-promise-executor-return
-  new Promise((resolve) => setTimeout(resolve, amount));
-
 const TeamTableApi = () => {
-  // Mock API Request
-  const [fetching, setFetching] = React.useState(true);
-  React.useEffect(() => {
-    wait(500).then(() => setFetching(false));
-  }, []);
+  const [{ data, fetching, error }] = useListTeamsQuery();
+
+  const teams = data?.teams.filter(notEmpty);
 
   return (
-    <Pending fetching={fetching}>
-      <TeamTable teams={mockTeams || []} />
+    <Pending fetching={fetching} error={error}>
+      <TeamTable teams={teams || []} />
     </Pending>
   );
 };
