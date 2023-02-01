@@ -24,5 +24,9 @@ class Team extends LaratrustTeam
         'description' => 'array',
     ];
 
+    protected $fillable = [
+        'name',
+    ];
+
     public $guarded = [];
 }
