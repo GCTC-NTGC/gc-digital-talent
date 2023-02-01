@@ -23,7 +23,9 @@ class RolePermissionSeeder extends Seeder
             'u' => 'update',
             'd' => 'delete',
             'as' => 'assign',
-            'arc'=> 'archive'
+            'arc'=> 'archive',
+            's' => 'submit',
+            'p' => 'publish'
         ];
 
         $scopeMap = [
@@ -353,34 +355,139 @@ class RolePermissionSeeder extends Seeder
         $seeders = [
             'guest' => [
                 'clss' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'dpt' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'sk' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'sf' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'ppa' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'ac' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
                 'sr' => [
-                    'a' => [ 'c' ]
+                    'a' => ['c']
                 ],
                 't' => [
-                    'a' => [ 'v' ]
+                    'a' => ['v']
                 ],
             ],
 
-            // 'base_user'=> [
+            'base_user'=> [
+                'clss' => [
+                    'a' => ['v']
+                ],
+                'dpt' => [
+                    'a' => ['v']
+                ],
+                'sk' => [
+                    'a' => ['v']
+                ],
+                'sf' => [
+                    'a' => ['v']
+                ],
+                'usr' => [
+                    'o' => ['v','u']
+                ],
+                'ppa' => [
+                    'a' => ['v']
+                ],
+                'ac' => [
+                    'a' => ['v']
+                ],
+                'sr' => [
+                    'a' => ['c']
+                ],
+                't' => [
+                    'a' => ['v']
+                ],
+            ],
 
-            // ]
+            'applicant' => [
+                'app' => [
+                    'o' => ['v','s']
+                ],
+                'dapp' => [
+                    'o' => ['c','d']
+                ],
+                'sapp' => [
+                    'o' => ['arc']
+                ]
+            ],
+
+            'team_admin' => [
+                'usr' => [
+                    'a' => ['v']
+                ],
+                'pl' => [
+                    't' => ['v','c','p']
+                ],
+                'dp' => [
+                    't' => ['u','d']
+                ],
+                'pcd' => [
+                    't' => ['u']
+                ],
+                'sapp' => [
+                    't' => ['v']
+                ],
+                'aprf' => [
+                    't' => ['v']
+                ],
+                'apps' => [
+                    't' => ['u']
+                ],
+                'sr' => [
+                    't' => ['v','u','d']
+                ],
+                'tusrbi' => [
+                    't' => ['v']
+                ],
+                't' => [
+                    't' => ['u']
+                ],
+                'rle' => [
+                    'a' => ['v'],
+                    't' => ['as'],
+                ],
+            ],
+
+            'super_admin' => [
+                'clss' => [
+                    'a' => ['c','u','d']
+                ],
+                'dpt' => [
+                    'a' => ['c','u','d']
+                ],
+                'sk' => [
+                    'a' => ['c','u','d']
+                ],
+                'sf' => [
+                    'a' => ['c','u','d']
+                ],
+                'usr' => [
+                    'a' => ['v','u','d']
+                ],
+                'ubi' => [
+                    'a' => ['v']
+                ],
+                'tusrbi' => [
+                    'a' => ['v']
+                ],
+                't' => [
+                    'a' => ['c','u','d']
+                ],
+                'rle' => [
+                    'a' => ['v','as','u']
+                ]
+            ]
         ];
 
         foreach($seeders as $roleKey => $resources) {
