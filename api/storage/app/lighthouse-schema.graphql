@@ -756,6 +756,7 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: UserPublicProfile
+  team: Team!
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -1203,6 +1204,7 @@ type Team {
   description: LocalizedString
   departments: [Department]
   contactEmail: Email
+  pools: [Pool]
 }
 
 """

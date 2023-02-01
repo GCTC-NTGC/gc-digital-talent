@@ -309,6 +309,7 @@ type UserPublicProfile {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team! @belongsTo
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -521,6 +522,7 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+  pools: [Pool] @hasMany
 }
 
 enum PoolCandidateSearchStatus {
