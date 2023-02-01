@@ -44,6 +44,7 @@ class PoolApplicationTest extends TestCase
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
 
         // Assert creating a pool application succeeds
@@ -129,6 +130,7 @@ class PoolApplicationTest extends TestCase
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
 
         $this->graphQL(
@@ -169,6 +171,7 @@ class PoolApplicationTest extends TestCase
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
 
         $this->graphQL(
@@ -618,7 +621,8 @@ class PoolApplicationTest extends TestCase
 
         // pool with no essential skills
         $newPool = Pool::factory()->create([
-            'closing_date' => Carbon::now()->addDays(1)
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -716,7 +720,8 @@ class PoolApplicationTest extends TestCase
         $newUser->save();
 
         $newPool = Pool::factory()->create([
-            'closing_date' => Carbon::now()->addDays(1)
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -805,7 +810,7 @@ class PoolApplicationTest extends TestCase
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => 'ENGLISH'
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
@@ -815,7 +820,6 @@ class PoolApplicationTest extends TestCase
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
         $newUser->legacy_roles = ['ADMIN'];
-        $newUser->looking_for_bilingual = true;
         $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
         $newUser->save();
 
@@ -899,7 +903,8 @@ class PoolApplicationTest extends TestCase
         $newUser->save();
 
         $newPool = Pool::factory()->create([
-            'closing_date' =>  Carbon::now()->addDays(1)
+            'closing_date' =>  Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -946,7 +951,8 @@ class PoolApplicationTest extends TestCase
 
         //Closed Pool
         $newPool = Pool::factory()->create([
-            'closing_date' =>  Carbon::now()->subDays(1)
+            'closing_date' =>  Carbon::now()->subDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
