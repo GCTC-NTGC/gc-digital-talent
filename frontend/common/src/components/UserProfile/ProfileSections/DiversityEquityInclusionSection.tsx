@@ -108,28 +108,20 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 data-h2-align-items="base:(center)"
                 data-h2-justify-content="base:(space-between)"
               >
-                <div>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Indigenous Identity:",
-                      id: "GrE0hE",
-                      description:
-                        "Label preceding text explaining whether the user is indigenous, followed by a colon",
-                    })}{" "}
-                    <span data-h2-font-weight="base(700)">
-                      {intl.formatMessage(
-                        getEmploymentEquityStatement("indigenous"),
-                      )}
-                    </span>
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "My Community(ies):",
-                      id: "Mw4ShP",
-                      description:
-                        "Label preceding text listing the communities the user is a member of, followed by a colon",
-                    })}{" "}
-                    <span data-h2-font-weight="base(700)">
+                <ul data-h2-padding="base(0, 0, 0, x1)">
+                  <li data-h2-font-weight="base(700)">
+                    {intl.formatMessage(
+                      getEmploymentEquityStatement("indigenous"),
+                    )}
+                  </li>
+                  <ul data-h2-padding="base(0, 0, 0, x1)">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage: "My Community(ies):",
+                        id: "Mw4ShP",
+                        description:
+                          "Label preceding text listing the communities the user is a member of, followed by a colon",
+                      })}{" "}
                       {nonLegacyIndigenousCommunitySelected
                         ? indigenousCommunities.map((community, index) => {
                             if (
@@ -159,9 +151,9 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                             },
                             { pledgeLink },
                           )}
-                    </span>
-                  </p>
-                </div>
+                    </li>
+                  </ul>
+                </ul>
                 <div
                   data-h2-display="base(flex) p-tablet(block)"
                   data-h2-justify-content="base:(center) p-tablet(flex-start)"
