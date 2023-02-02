@@ -5519,8 +5519,8 @@
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
   },
-  "xR4f/V": {
-    "defaultMessage": "Si vous n’avez pas eu de nos Nouvelles ou si vous avez des questions immédiates et exigez une aide supplémentaire, contactez-nous à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+  "TsUcCM": {
+    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "hEa14D": {
