@@ -5,7 +5,6 @@ use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -29,24 +28,12 @@ return new class extends Migration
             ],
         );
 
-        Schema::table('pools', function (Blueprint $table) {
-            $table->uuid('team_id')->references('id')->on('teams')->nullable()->default(null);
-        });
-
         $dcmId = Team::where('name', 'digital-community-management')
             ->first()
             ->id;
 
-        DB::statement(
-            <<<SQL
-                UPDATE pools
-                SET team_id = :dcmId
-            SQL, [
-                'dcmId' => $dcmId,
-            ]);
-
-        Schema::table('pools', function (Blueprint $table) {
-            $table->uuid('team_id')->nullable(false)->change();
+        Schema::table('pools', function (Blueprint $table) use ($dcmId) {
+            $table->uuid('team_id')->references('id')->on('teams')->nullable(false)->default($dcmId);
         });
     }
 
