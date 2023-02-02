@@ -244,14 +244,14 @@ const LanguageInformationForm: React.FunctionComponent<{
       ]}
       prefixBreadcrumbs={!application}
     >
-      {missingLanguageRequirements.length > 0 && (
+      {missingLanguageRequirements.length ? (
         <div data-h2-margin="base(x1, 0)">
           <MissingLanguageRequirements
             applicant={initialData as Applicant}
             poolAdvertisement={application?.poolAdvertisement}
           />
         </div>
-      )}
+      ) : null}
       <BasicForm
         labels={labels}
         cacheKey="lang-info-form"
