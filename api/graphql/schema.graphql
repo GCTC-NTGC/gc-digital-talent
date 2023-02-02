@@ -1487,7 +1487,6 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
-  team: TeamBelongsTo @rename(attribute: "team")
 }
 
 input UpdatePoolAdvertisementInput {
@@ -1674,6 +1673,7 @@ type Mutation {
   # PoolAdvertisement mutations
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
+    teamId: ID! @rename(attribute: "team_id")
     poolAdvertisement: CreatePoolAdvertisementInput! @spread
   ): PoolAdvertisement
     @create(model: "Pool")

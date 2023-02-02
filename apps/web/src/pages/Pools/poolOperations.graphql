@@ -93,10 +93,12 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
 
 mutation createPoolAdvertisement(
   $userId: ID!
+  $teamId: ID!
   $poolAdvertisement: CreatePoolAdvertisementInput!
 ) {
   createPoolAdvertisement(
     userId: $userId
+    teamId: $teamId
     poolAdvertisement: $poolAdvertisement
   ) {
     id
@@ -136,6 +138,10 @@ query getMePoolCreation {
     }
     level
     group
+    id
+  }
+  teams {
+    name
     id
   }
 }
