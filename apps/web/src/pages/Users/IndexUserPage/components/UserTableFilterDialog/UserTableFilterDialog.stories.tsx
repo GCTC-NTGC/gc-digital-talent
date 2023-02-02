@@ -10,7 +10,7 @@ import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { FormValues } from "./UserTableFilterDialog";
 
 export default {
-  title: "Users/UserTableFilters",
+  title: "Components/User Table Filters",
   component: UserTableFilterDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {

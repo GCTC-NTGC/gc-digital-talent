@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import SEO from "@common/components/SEO/SEO";
 
-import { About, Featured, Hero, Opportunities, Profile } from "./partials";
-import type { HeroProps } from "./partials/Hero/Hero";
+import { About, Featured, Hero, Opportunities, Profile } from "./components";
+import type { HeroProps } from "./components/Hero/Hero";
 
 const HomePage = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();

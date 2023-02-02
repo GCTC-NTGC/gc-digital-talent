@@ -12,7 +12,7 @@ const fakeRequiredSkills = skills.splice(0, skills.length / 2);
 const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);
 
 export default {
-  title: "Skills/Missing Skills",
+  title: "Components/Missing Skills",
   component: MissingSkills,
 } as ComponentMeta<MissingSkillsComponent>;
 
