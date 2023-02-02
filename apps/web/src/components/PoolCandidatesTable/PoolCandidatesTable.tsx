@@ -231,6 +231,7 @@ const provinceAccessor = (
 
 const defaultState = {
   ...TABLE_DEFAULTS,
+  hiddenColumnIds: ["preferredLang"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -547,30 +548,6 @@ const PoolCandidatesTable: React.FC<{
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Preferred Spoken Interview Language",
-          id: "iRJV64",
-          description:
-            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
-        }),
-        id: "preferredLanguageForInterview",
-        accessor: ({ user }) =>
-          preferredLanguageAccessor(user?.preferredLanguageForInterview, intl),
-        sortColumnName: "PREFERRED_LANGUAGE_FOR_INTERVIEW",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Preferred Written Exam Language",
-          id: "5l+Ydz",
-          description:
-            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
-        }),
-        id: "preferredLanguageForExam",
-        accessor: ({ user }) =>
-          preferredLanguageAccessor(user?.preferredLanguageForExam, intl),
-        sortColumnName: "PREFERRED_LANGUAGE_FOR_EXAM",
       },
       {
         label: intl.formatMessage({

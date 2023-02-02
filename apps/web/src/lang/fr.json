@@ -5443,10 +5443,6 @@
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the user form preferred communication language field."
   },
-  "5l+Ydz": {
-    "defaultMessage": "Langue préférée de l'examen écrit",
-    "description": "Title displayed on the Pool Candidates table Preferred Written Exam Language column."
-  },
   "CfXIqC": {
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed for the User table Preferred Communication Language column."
@@ -5499,10 +5495,6 @@
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the user form preferred spoken interview language field."
   },
-  "iRJV64": {
-    "defaultMessage": "Langue parlée préférée pour l'entretien",
-    "description": "Title displayed on the Pool Candidates table Preferred Spoken Language column."
-  },
   "zzwPOR": {
     "defaultMessage": "Langue préférée pour l'examen écrit :",
     "description": "Display text for the preferred written exam language field on users"
@@ -5510,5 +5502,53 @@
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
+  },
+  "+d2TiI": {
+    "defaultMessage": "Créer une nouvelle demande de talent",
+    "description": "Link text to start a new talent request"
+  },
+  "0zo274": {
+    "defaultMessage": "Demande soumise",
+    "description": "Link text for request confirmation breadcrumb"
+  },
+  "DcpFle": {
+    "defaultMessage": "Demande réussie",
+    "description": "Page title for the request confirmation page."
+  },
+  "N/Vcp3": {
+    "defaultMessage": "Ce à quoi vous pouvez vous attendre",
+    "description": "Heading for the section about user expectations for their request"
+  },
+  "amxWPg": {
+    "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
+    "description": "Message to the user about the ID of their request for referencing the request"
+  },
+  "TsUcCM": {
+    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
+    "description": "Description of how a user can contact someone for answers/information on their existing request"
+  },
+  "hEa14D": {
+    "defaultMessage": "Nous l’avons à partir d’ici!",
+    "description": "Lead in text for the page content on the request confirmation page"
+  },
+  "idu0MU": {
+    "defaultMessage": "Imprimer cette information",
+    "description": "Button text to print the request confirmation page"
+  },
+  "lA+c8E": {
+    "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
+    "description": "Paragraph one, message to user the request was received"
+  },
+  "ltn4Er": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 2 à 4 jours ouvrables.",
+    "description": "Description of when the user should expect a response to their request"
+  },
+  "rVgBGi": {
+    "defaultMessage": "La soumission de votre demande est réussie.",
+    "description": "Subtitle for the request confirmation page."
+  },
+  "weLwJA": {
+    "defaultMessage": "Recherche de talent",
+    "description": "Link text for the search page breadcrumb"
   }
 }
