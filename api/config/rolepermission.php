@@ -464,7 +464,7 @@ return [
         ],
 
         'team_admin' => [
-            'user' => [
+            'userBasicInfo' => [
                 'any' => ['view']
             ],
             'pool' => [

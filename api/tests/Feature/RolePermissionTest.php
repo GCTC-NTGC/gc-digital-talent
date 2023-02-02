@@ -119,7 +119,7 @@ class RolePermissionTest extends TestCase
         );
 
         $permissionsToCheck = [
-            'view-any-user',
+            'view-any-userBasicInfo',
             'view-team-pool',
             'create-team-pool',
             'publish-team-pool',
