@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import isArray from "lodash/isArray";
 
 import Accordion from "@common/components/Accordion/Accordion";
 import Heading from "@common/components/Heading";
@@ -15,7 +16,6 @@ import {
 
 import { NullSelection } from "~/types/searchRequest";
 
-import { isArray } from "lodash";
 import FilterBlock from "./FilterBlock";
 
 interface FieldOption {
