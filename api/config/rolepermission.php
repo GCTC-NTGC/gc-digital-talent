@@ -72,7 +72,7 @@ return [
         'applicantCount' => 'applicantCount',
         'searchRequest' => 'searchRequest',
         'team' => 'team',
-        'teamUsersBasicInfo' => 'teamUsersBasicInfo',
+        'teamMembers' => 'teamMembers',
         'role' => 'role'
     ],
 
@@ -158,7 +158,7 @@ return [
             'fr' => 'Afficher tout utilisateur'
         ],
         'view-any-userBasicInfo' => [
-            'en' => 'View Any User Basic Info',
+            'en' => 'View basic info of any User',
             'fr' => 'Afficher les informations de base de tout utilisateur'
         ],
         'view-own-user' => [
@@ -179,32 +179,32 @@ return [
         ],
 
         'view-team-pool' => [
-            'en' => 'View Team Pool',
-            'fr' => 'Voir le pool d\'équipes'
+            'en' => 'View Pools in this Team',
+            'fr' => 'Voir les bassins de cette équipe'
         ],
         'view-any-publishedPoolAdvertisement' => [
             'en' => 'View Any Published Pool Advertisement',
             'fr' => 'Voir toute annonce publiée sur la piscine'
         ],
         'create-team-pool' => [
-            'en' => 'Create Team Pool',
-            'fr' => 'Créer un pool d\'équipes'
+            'en' => 'Create Pools in this Team',
+            'fr' => 'Créer des bassins dans cette équipe'
         ],
         'update-team-draftPool' => [
-            'en' => 'Update Team Draft Pool',
-            'fr' => 'Mise à jour du pool de sélection des équipes'
+            'en' => 'Update unpublished Pools in this Team',
+            'fr' => 'Mise à jour des bassins non publiés dans cette équipe'
         ],
         'publish-team-pool' => [
-            'en' => 'Update Team Pool',
-            'fr' => 'Mise à jour du pool d\'équipes'
+            'en' => 'Publish Pools in this Team',
+            'fr' => 'Publier des bassins dans cette équipe'
         ],
         'update-team-poolClosingDate' => [
-            'en' => 'Update Team Pool Closing Date',
-            'fr' => 'Mise à jour de la date de clôture de la réserve d\'équipes'
+            'en' => 'Update the closing date of published Pools in this Team',
+            'fr' => 'Mise à jour de la date de clôture des bassins publiés dans cette équipe'
         ],
         'delete-team-draftPool' => [
-            'en' => 'Delete Team Draft Pool',
-            'fr' => 'Supprimer le pool de sélection d\'équipes'
+            'en' => 'Delete draft Pools in this Team',
+            'fr' => 'Supprimer les pools de brouillons dans cette équipe'
         ],
 
         'view-own-application' => [
@@ -212,24 +212,24 @@ return [
             'fr' => 'Afficher sa propre application'
         ],
         'view-team-submittedApplication' => [
-            'en' => 'View Team Submitted Application',
-            'fr' => 'Voir la demande soumise par l\'équipe'
+            'en' => 'View Applications submitted to any of this Team\'s Pools',
+            'fr' => 'Voir les candidatures soumises à n\'importe quel bassin de cette équipe.'
         ],
         'view-team-applicantProfile' => [
-            'en' => 'View Team Applicant Profile',
-            'fr' => 'Voir le profil du candidat de l\'équipe'
+            'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
+            'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
         ],
         'create-own-draftApplication' => [
-            'en' => 'Create Own Draft Application',
-            'fr' => 'Créer son propre projet d\'application'
+            'en' => 'Begin my own Application to any Pool',
+            'fr' => 'Commencer ma propre candidature à une bassin'
         ],
         'submit-own-application' => [
-            'en' => 'Submit Own Application',
-            'fr' => 'Soumettre sa propre demande'
+            'en' => 'Submit my own Application',
+            'fr' => 'Soumettre ma propre candidature'
         ],
         'update-team-applicationStatus' => [
-            'en' => 'Update Team Application Status',
-            'fr' => 'Mise à jour du statut de la demande de l\'équipe'
+            'en' => 'Update the status of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.'
         ],
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
@@ -239,39 +239,40 @@ return [
             'en' => 'Archive Own Submitted Application',
             'fr' => 'Archiver sa propre demande'
         ],
+
         'view-any-applicantCount' => [
-            'en' => 'View Applicant Count',
-            'fr' => 'Voir le nombre de candidats'
+            'en' => 'View the count result of any filter-Applicant query',
+            'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur'
         ],
 
         'create-any-searchRequest' => [
-            'en' => 'Create Any Search Request',
+            'en' => 'Create Any SearchRequest',
             'fr' => 'Créer toute demande de recherche'
         ],
         'view-team-searchRequest' => [
-            'en' => 'Create Team Search Request',
-            'fr' => 'Créer une demande de recherche d\'équipe'
+            'en' => 'View SearchRequests submitted to this Team',
+            'fr' => 'Voir les demandes de recherche soumises à cette équipe'
         ],
         'update-team-searchRequest' => [
-            'en' => 'Update Team Search Request',
-            'fr' => 'Mise à jour de la demande de recherche d\'équipe'
+            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+            'fr' => 'Mettre à jour les notes ou le statut des demandes de recherche soumises à cette équipe.'
         ],
         'delete-team-searchRequest' => [
-            'en' => 'Delete Team Search Request',
-            'fr' => 'Supprimer une demande de recherche d\'équipe'
+            'en' => 'Delete SearchRequests submitted to this Team',
+            'fr' => 'Supprimer les demandes de recherche soumises à cette équipe'
         ],
 
         'view-any-team' => [
             'en' => 'View Any Team',
             'fr' => 'Voir n\'importe quelle équipe'
         ],
-        'view-any-teamUsersBasicInfo' => [
-            'en' => 'View Any Team Users Basic Info',
-            'fr' => 'Afficher les informations de base sur les utilisateurs de n\'importe quelle équipe'
+        'view-any-teamMembers' => [
+            'en' => 'View who is a member of any Team',
+            'fr' => 'Voir qui est membre de n\'import quell équipe'
         ],
-        'view-team-teamUsersBasicInfo' => [
-            'en' => 'View Teams Team Users Basic Info',
-            'fr' => 'Afficher les informations de base sur les utilisateurs de l\'équipe'
+        'view-team-teamMembers' => [
+            'en' => 'View who is a member of this Team',
+            'fr' => 'Voir qui est membre de cette équipe'
         ],
         'create-any-team' => [
             'en' => 'Create Any Team',
@@ -282,8 +283,8 @@ return [
             'fr' => 'Mise à jour de n\'importe quelle équipe'
         ],
         'update-team-team' => [
-            'en' => 'Update Team Team',
-            'fr' => 'Mise à jour de l\'équipe'
+            'en' => 'Update this Team',
+            'fr' => 'Mise à jour de cette équipe'
         ],
         'delete-any-team' => [
             'en' => 'Delete Any Team',
@@ -295,12 +296,12 @@ return [
             'fr' => 'Voir tous les rôles'
         ],
         'assign-any-role' => [
-            'en' => 'Assign Any Role',
-            'fr' => 'Attribuer n\'importe quel rôle'
+            'en' => 'Assign any Role to any User',
+            'fr' => 'Attribuer n\'importe quel rôle à n\'importe quel utilisateur'
         ],
         'assign-team-role' => [
-            'en' => 'Assign Team Role',
-            'fr' => 'Attribuer un rôle à l\'équipe'
+            'en' => 'Assign Roles associated with this Team to any User',
+            'fr' => 'Attribuer les rôles associés à cette équipe à tout utilisateur'
         ],
         'update-any-role' => [
             'en' => 'Update Any Role',
@@ -487,7 +488,7 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete']
             ],
-            'teamUsersBasicInfo' => [
+            'teamMembers' => [
                 'team' => ['view']
             ],
             'team' => [
@@ -518,7 +519,7 @@ return [
             'userBasicInfo' => [
                 'any' => ['view']
             ],
-            'teamUsersBasicInfo' => [
+            'teamMembers' => [
                 'any' => ['view']
             ],
             'team' => [
