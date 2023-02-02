@@ -309,7 +309,7 @@ type UserPublicProfile {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo
+  team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -350,7 +350,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo
+  team: Team @belongsTo @can(ability: "viewAny")
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
@@ -513,7 +513,7 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
-  teams: [Team] @belongsToMany
+  teams: [Team] @belongsToMany @can(ability: "viewAny")
 }
 
 type Team {
@@ -523,7 +523,7 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
-  pools: [Pool] @hasMany
+  pools: [Pool] @hasMany @can(ability: "viewAny")
 }
 
 enum PoolCandidateSearchStatus {
