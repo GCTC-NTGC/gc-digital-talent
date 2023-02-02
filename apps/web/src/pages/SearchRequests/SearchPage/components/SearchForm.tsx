@@ -8,11 +8,8 @@ import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
-  getOperationalRequirement,
   getWorkRegion,
-  getEmploymentDuration,
   EmploymentDuration,
-  OperationalRequirementV2,
   getPoolStream,
 } from "@common/constants/localizedConstants";
 import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
