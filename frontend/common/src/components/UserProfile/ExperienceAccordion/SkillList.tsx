@@ -36,7 +36,7 @@ interface SkillListProps {
 const SkillList = ({ skills }: SkillListProps) => {
   const intl = useIntl();
 
-  return skills ? (
+  return skills?.length ? (
     <ul data-h2-padding="base(0, 0, 0, x1)">
       {skills.map((skill) => (
         <SkillListItem

@@ -311,6 +311,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               trackUnsaved={false}
             />
           </FilterBlock>
+          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
           <FilterBlock
             id="educationRequirementFilter"
             title={intl.formatMessage({
@@ -551,7 +552,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               trackUnsaved={false}
             />
           </FilterBlock>
-          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
           <FilterBlock
             id="operationalRequirementFilter"
             title={intl.formatMessage({

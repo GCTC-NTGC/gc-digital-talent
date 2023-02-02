@@ -375,6 +375,7 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  teams: [Team]
 }
 
 input DepartmentBelongsTo {
@@ -996,6 +997,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  teams: [Team]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1192,6 +1194,15 @@ enum SortOrder {
 
   """Sort records in descending order."""
   DESC
+}
+
+type Team {
+  id: ID!
+  name: String
+  displayName: LocalizedString
+  description: LocalizedString
+  departments: [Department]
+  contactEmail: Email
 }
 
 """

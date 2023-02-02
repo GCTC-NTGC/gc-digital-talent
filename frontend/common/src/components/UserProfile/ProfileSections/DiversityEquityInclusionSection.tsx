@@ -109,7 +109,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 data-h2-justify-content="base:(space-between)"
               >
                 <ul data-h2-padding="base(0, 0, 0, x1)">
-                  <li data-h2-font-weight="base(700)">
+                  <li>
                     {intl.formatMessage(
                       getEmploymentEquityStatement("indigenous"),
                     )}

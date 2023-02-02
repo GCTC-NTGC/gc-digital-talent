@@ -6,14 +6,14 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import useQuote from "~/hooks/useQuote";
 
-import Banner from "./Banner";
-import Card from "./Card";
-import CTAButtons from "./CTAButtons";
-import { ApplyDialog, RequirementDialog } from "./Dialog";
-import Heading from "./Heading";
-// import LanguageSelector from "./LanguageSelector";
-import Step from "./Step";
-import Quote from "./Quote";
+import Banner from "./components/Banner";
+import Card from "./components/Card";
+import CTAButtons from "./components/CTAButtons";
+import { ApplyDialog, RequirementDialog } from "./components/Dialog";
+import Heading from "./components/Heading";
+// import LanguageSelector from "./components/LanguageSelector";
+import Step from "./components/Step";
+import Quote from "./components/Quote";
 
 import {
   BarChart,
@@ -23,7 +23,7 @@ import {
   ThickCircle,
   TrendingUp,
   Triangle,
-} from "./Svg";
+} from "./components/Svg";
 
 import "./home.css";
 

@@ -11,7 +11,7 @@ const theId = "blank";
 
 export default {
   component: ExperienceAccordion,
-  title: "Experience Accordion",
+  title: "Components/Experience Accordion",
   args: {},
 } as Meta;
 
