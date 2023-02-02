@@ -32,6 +32,7 @@ query getApplicationData($id: UUID!) {
     id
     user {
       id
+      lookingForBilingual
       isProfileComplete
       ...applicantExperiences
     }
@@ -58,6 +59,7 @@ query getApplicationData($id: UUID!) {
       nonessentialSkills {
         ...poolAdvertisementSkills
       }
+      advertisementLanguage
     }
   }
 }

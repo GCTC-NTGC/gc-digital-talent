@@ -170,6 +170,7 @@ query getReviewApplicationPageData($id: UUID!) {
       nonessentialSkills {
         ...poolAdvertisementSkills
       }
+      advertisementLanguage
     }
   }
 }

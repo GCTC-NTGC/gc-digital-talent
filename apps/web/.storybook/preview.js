@@ -1,5 +1,5 @@
 
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
 import defaultRichTextElements from "@common/helpers/format";
@@ -32,7 +32,10 @@ export const parameters = {
   },
   viewport: {
     // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
-    viewports: INITIAL_VIEWPORTS
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      ...MINIMAL_VIEWPORTS,
+    },
   },
 }
 

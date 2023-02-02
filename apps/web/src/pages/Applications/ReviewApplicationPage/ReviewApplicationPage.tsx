@@ -7,6 +7,7 @@ import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
 import { ThrowNotFound } from "@common/components/NotFound";
 import MissingSkills from "@common/components/MissingSkills";
+import MissingLanguageRequirements from "@common/components/MissingLanguageRequirements";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import SEO from "@common/components/SEO/SEO";
 import Well from "@common/components/Well";
@@ -16,6 +17,8 @@ import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
+import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -64,13 +67,18 @@ export const ReviewApplication: React.FunctionComponent<
     SkillCategory.Technical
   ];
   const hasExperiences = notEmpty(applicant.experiences);
+  const missingLanguageRequirements = getMissingLanguageRequirements(
+    applicant,
+    poolAdvertisement,
+  );
   const { isProfileComplete } = applicant;
   const isApplicationComplete =
     isProfileComplete === true &&
     getMissingSkills(
       technicalRequiredSkills || [],
       hasExperiences ? flattenExperienceSkills(experiences) : [],
-    ).length === 0;
+    ).length === 0 &&
+    missingLanguageRequirements.length === 0;
   const jobTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
 
   return (
@@ -143,6 +151,20 @@ export const ReviewApplication: React.FunctionComponent<
             language: {
               isVisible: true,
               editUrl: paths.languageInformation(applicant.id, applicationId),
+              override: (
+                <>
+                  <div data-h2-margin="base(0, 0, x1, 0)">
+                    {missingLanguageRequirements.length > 0 && (
+                      <MissingLanguageRequirements
+                        headingLevel="h3"
+                        applicant={applicant}
+                        poolAdvertisement={poolAdvertisement}
+                      />
+                    )}
+                  </div>
+                  <LanguageInformationSection applicant={applicant} />
+                </>
+              ),
             },
             government: {
               isVisible: true,
