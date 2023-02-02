@@ -86,6 +86,10 @@ class Pool extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class);
