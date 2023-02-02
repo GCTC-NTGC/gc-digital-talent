@@ -3508,6 +3508,10 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
+  "+O6J4u": {
+    "defaultMessage": "(Aucun sélectionné)",
+    "description": "Text shown when the filter was not selected"
+  },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
