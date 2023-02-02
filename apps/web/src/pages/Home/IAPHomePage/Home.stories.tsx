@@ -10,6 +10,7 @@ export default {
   parameters: {
     backgrounds: {
       default: "white",
+      values: [{ name: "white", value: "#fff" }],
     },
   },
 } as Meta;
