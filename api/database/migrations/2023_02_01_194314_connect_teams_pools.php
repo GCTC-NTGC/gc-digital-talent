@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Team;
+use App\Models\Pool;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,8 +33,17 @@ return new class extends Migration
             ->first()
             ->id;
 
-        Schema::table('pools', function (Blueprint $table) use ($dcmId) {
-            $table->uuid('team_id')->references('id')->on('teams')->nullable(false)->default($dcmId);
+        Schema::table('pools', function (Blueprint $table) {
+            $table->uuid('team_id')->references('id')->on('teams')->nullable()->default(null);
+        });
+
+        Pool::all()
+            ->each(function ($pool) use ($dcmId) {
+                $pool->team()->save($dcmId);
+            });
+
+        Schema::table('pools', function (Blueprint $table) {
+            $table->uuid('team_id')->nullable(false)->change();
         });
     }
 
