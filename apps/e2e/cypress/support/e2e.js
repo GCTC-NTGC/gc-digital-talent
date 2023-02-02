@@ -19,6 +19,7 @@ import './userCommands'
 import './poolAdvertisementCommands'
 import './classificationCommands'
 import './skillCommands'
+import './teamsCommands'
 import './genericJobTitleCommands'
 import './applicationCommands'
 

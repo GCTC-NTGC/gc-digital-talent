@@ -178,3 +178,14 @@ query GetGenericJobTitles {
     ...genericJobTitle
   }
 }
+
+query allTeams {
+  teams {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
+  }
+}
