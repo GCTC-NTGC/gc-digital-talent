@@ -132,7 +132,7 @@ class RolePermissionTest extends TestCase
             'view-team-searchRequest',
             'update-team-searchRequest',
             'delete-team-searchRequest',
-            'view-team-teamUsersBasicInfo',
+            'view-team-teamMembers',
             'update-team-team',
             'view-any-role',
             'assign-team-role',
