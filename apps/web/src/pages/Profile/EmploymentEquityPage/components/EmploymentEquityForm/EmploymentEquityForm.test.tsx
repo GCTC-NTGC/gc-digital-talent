@@ -70,7 +70,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add indigenous identity to profile/i,
     });
     const removeIndigenous = screen.queryByRole("button", {
-      name: /Remove "I affirm that I am First Nations, Inuk (Inuit), or a Métis person" from profile/i,
+      name: /Remove "I affirm that I am First Nations, Inuk \(Inuit\), or a Métis person" from profile/i,
     });
 
     if (mockUser.indigenousCommunities?.length) {
