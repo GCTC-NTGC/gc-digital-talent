@@ -5439,10 +5439,6 @@
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the user form preferred communication language field."
   },
-  "5l+Ydz": {
-    "defaultMessage": "Langue préférée de l'examen écrit",
-    "description": "Title displayed on the Pool Candidates table Preferred Written Exam Language column."
-  },
   "CfXIqC": {
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed for the User table Preferred Communication Language column."
@@ -5494,10 +5490,6 @@
   "fGAMy/": {
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the user form preferred spoken interview language field."
-  },
-  "iRJV64": {
-    "defaultMessage": "Langue parlée préférée pour l'entretien",
-    "description": "Title displayed on the Pool Candidates table Preferred Spoken Language column."
   },
   "zzwPOR": {
     "defaultMessage": "Langue préférée pour l'examen écrit :",
