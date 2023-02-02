@@ -231,6 +231,7 @@ const provinceAccessor = (
 
 const defaultState = {
   ...TABLE_DEFAULTS,
+  hiddenColumnIds: ["preferredLang"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],

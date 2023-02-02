@@ -187,7 +187,12 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
+  hiddenColumnIds: [
+    "telephone",
+    "preferredLanguage",
+    "createdDate",
+    "updatedDate",
+  ],
   sortBy: {
     column: {
       id: "createdDate",
