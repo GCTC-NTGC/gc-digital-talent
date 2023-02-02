@@ -59,7 +59,7 @@ class RolePermissionTest extends TestCase
             'view-any-applicantCount',
             'create-any-searchRequest',
             'view-any-team'
-        ]));
+        ], true));
 
         $this->cleanup();
     }
@@ -78,7 +78,7 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-own-user',
             'update-own-user',
-        ]));
+        ], true));
 
         $this->cleanup();
     }
@@ -95,12 +95,12 @@ class RolePermissionTest extends TestCase
 
         $this->assertTrue($this->user->hasRole('applicant'));
         $this->assertTrue($this->user->isAbleTo([
-            'view-own-applicant',
-            'submit-own-applicant',
+            'view-own-application',
+            'submit-own-application',
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
-        ]));
+        ], true));
 
         $this->cleanup();
     }
@@ -139,7 +139,7 @@ class RolePermissionTest extends TestCase
         ];
 
         $this->assertTrue($this->user->hasRole('team_admin',  $this->ownedTeam));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, $this->ownedTeam));
+        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, $this->ownedTeam, true));
 
         $this->assertFalse($this->user->hasRole('team_admin',  $this->unownedTeam));
         $this->assertFalse($this->user->isAbleTo($permissionsToCheck, $this->unownedTeam));
@@ -182,7 +182,7 @@ class RolePermissionTest extends TestCase
             'view-any-role',
             'assign-any-role',
             'update-any-role',
-        ]));
+        ], true));
 
         $this->cleanup();
     }
