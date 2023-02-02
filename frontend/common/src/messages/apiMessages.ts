@@ -181,6 +181,12 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Message displayed when user attempts to apply to a pool without an essential skill",
   },
+  MISSING_LANGUAGE_REQUIREMENTS: {
+    defaultMessage: "There is a missing language requirement",
+    id: "A1fb/r",
+    description:
+      "Message displayed when user attempts to apply to a pool without the language requirement",
+  },
   SIGNATURE_REQUIRED: {
     defaultMessage: "Signature is a required field",
     id: "J30FT0",

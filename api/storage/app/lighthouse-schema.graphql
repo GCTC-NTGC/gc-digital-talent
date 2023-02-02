@@ -286,6 +286,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
+  team: TeamBelongsTo
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -608,7 +609,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
@@ -756,6 +757,7 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: UserPublicProfile
+  team: Team
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -775,6 +777,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
+  team: Team
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
@@ -1203,6 +1206,11 @@ type Team {
   description: LocalizedString
   departments: [Department]
   contactEmail: Email
+  pools: [Pool]
+}
+
+input TeamBelongsTo {
+  connect: ID!
 }
 
 """
@@ -1270,6 +1278,7 @@ input UpdatePoolCandidateSearchRequestInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo
+  team: TeamBelongsTo
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
