@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Team;
-use App\Models\Pool;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -37,10 +37,7 @@ return new class extends Migration
             $table->uuid('team_id')->references('id')->on('teams')->nullable()->default(null);
         });
 
-        Pool::all()
-            ->each(function ($pool) use ($dcmId) {
-                $pool->team()->save($dcmId);
-            });
+        DB::table('pools')->update(['team_id' => $dcmId]);
 
         Schema::table('pools', function (Blueprint $table) {
             $table->uuid('team_id')->nullable(false)->change();
