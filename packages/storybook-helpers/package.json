@@ -15,7 +15,7 @@
     "@storybook/addons": "^6.5.14",
     "@storybook/builder-webpack5": "^6.5.13",
     "@storybook/manager-webpack5": "^6.5.14",
-    "@storybook/react": "^6.5.14",
+    "@storybook/react": "^6.5.16",
     "chromatic": "^6.15.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
