@@ -175,7 +175,7 @@ class RolePermissionTest extends TestCase
             'update-any-user',
             'delete-any-user',
             'view-any-userBasicInfo',
-            'view-any-teamUsersBasicInfo',
+            'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
             'delete-any-team',
