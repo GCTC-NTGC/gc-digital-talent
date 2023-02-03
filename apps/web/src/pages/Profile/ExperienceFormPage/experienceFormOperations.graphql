@@ -87,6 +87,7 @@ query getApplication($id: UUID!) {
           }
         }
       }
+      advertisementLanguage
     }
   }
 }

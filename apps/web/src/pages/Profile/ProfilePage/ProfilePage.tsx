@@ -16,7 +16,7 @@ import profileMessages from "~/messages/profileMessages";
 import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-
+import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 import MyStatusApi from "./components/MyStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
@@ -85,6 +85,12 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           language: {
             isVisible: true,
             editUrl: paths.languageInformation(userId),
+            override: (
+              <LanguageInformationSection
+                applicant={profileDataInput}
+                editPath={paths.languageInformation(userId)}
+              />
+            ),
           },
           government: {
             isVisible: true,

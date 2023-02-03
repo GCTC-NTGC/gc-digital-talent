@@ -73,10 +73,17 @@ describe("Talent Search Workflow Tests", () => {
               userAlias: "testUser",
             });
 
+            // fetch the dcmId for its team from database, needed for pool creation
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+            })
+
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification1").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
@@ -87,6 +94,7 @@ describe("Talent Search Workflow Tests", () => {
             cy.get("@testClassification2").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId:dcmId,
                 englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement2",

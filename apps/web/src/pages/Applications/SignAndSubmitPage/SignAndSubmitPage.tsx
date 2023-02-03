@@ -19,6 +19,7 @@ import TableOfContents from "@common/components/TableOfContents";
 import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
+import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -414,6 +415,10 @@ const SignAndSubmitPage = () => {
       hasExperiences
         ? flattenExperienceSkills(experiences).filter(notEmpty)
         : [],
+    ).length === 0 &&
+    getMissingLanguageRequirements(
+      data?.poolCandidate?.user,
+      data?.poolCandidate?.poolAdvertisement,
     ).length === 0;
 
   const [, executeMutation] = useSubmitApplicationMutation();

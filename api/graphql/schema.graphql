@@ -309,6 +309,7 @@ type UserPublicProfile {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -349,6 +350,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team @belongsTo @can(ability: "viewAny")
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
@@ -511,7 +513,7 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
-  teams: [Team] @belongsToMany
+  teams: [Team] @belongsToMany @can(ability: "viewAny")
 }
 
 type Team {
@@ -521,6 +523,7 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+  pools: [Pool] @hasMany @can(ability: "viewAny")
 }
 
 enum PoolCandidateSearchStatus {
@@ -1213,6 +1216,10 @@ input PoolBelongsTo {
   connect: ID!
 }
 
+input TeamBelongsTo {
+  connect: ID!
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -1242,6 +1249,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1270,6 +1278,7 @@ input UpdatePoolCandidateAsAdminInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo @rename(attribute: "user")
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1664,6 +1673,7 @@ type Mutation {
   # PoolAdvertisement mutations
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
+    teamId: ID! @rename(attribute: "team_id")
     poolAdvertisement: CreatePoolAdvertisementInput! @spread
   ): PoolAdvertisement
     @create(model: "Pool")

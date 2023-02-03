@@ -26,6 +26,8 @@ class TeamsTest extends TestCase
     $newUser->sub = 'admin@test.com';
     $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
+
+    Team::truncate(); // clear teams created in migrations before testing
   }
 
   public function testAllTeamsQuery(): void

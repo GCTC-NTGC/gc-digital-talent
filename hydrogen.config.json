@@ -540,6 +540,12 @@
           "default": {
             "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
           }
+        },
+        {
+          "key": "focus",
+          "default": {
+            "shadow": "0 0 0 0.25rem #6492ff"
+          }
         }
       ],
       "transitions": {
