@@ -46,8 +46,10 @@ interface CreatePoolFormProps {
   classificationsArray: Classification[];
   handleCreatePool: (
     userId: string,
+    teamId: string,
     data: CreatePoolAdvertisementInput,
   ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
+  teamId: string; // currently API wrapper feeds in the dcm team by default
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
@@ -55,6 +57,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   genericJobTitles,
   classificationsArray,
   handleCreatePool,
+  teamId,
 }) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -71,7 +74,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(userId, formValuesToSubmitData(data))
+    await handleCreatePool(userId, teamId, formValuesToSubmitData(data))
       .then((result) => {
         if (result) {
           navigate(paths.poolUpdate(result.id));
@@ -249,17 +252,28 @@ const CreatePoolPage = () => {
   // fetched all classifications
   const classificationsData = unpackMaybes(lookupData?.classifications);
 
+  // find the dcm team in order to pass it into the pool creation component
+  // this will be changed later when pool creation is updated to incorporate team selection
+  const teamsData = unpackMaybes(lookupData?.teams);
+  const dcmTeam = teamsData.filter(
+    (team) => team.name === "digital-community-management",
+  );
+  const dcmTeamId = dcmTeam && dcmTeam.length > 0 ? dcmTeam[0].id : "";
+
   const [, executeMutation] = useCreatePoolAdvertisementMutation();
   const handleCreatePool = (
     userId: string,
+    teamId: string,
     data: CreatePoolAdvertisementInput,
   ) =>
-    executeMutation({ userId, poolAdvertisement: data }).then((result) => {
-      if (result.data?.createPoolAdvertisement) {
-        return result.data?.createPoolAdvertisement;
-      }
-      return Promise.reject(result.error);
-    });
+    executeMutation({ userId, teamId, poolAdvertisement: data }).then(
+      (result) => {
+        if (result.data?.createPoolAdvertisement) {
+          return result.data?.createPoolAdvertisement;
+        }
+        return Promise.reject(result.error);
+      },
+    );
 
   return (
     <>
@@ -276,6 +290,7 @@ const CreatePoolPage = () => {
           genericJobTitles={jobTitlesMapped}
           classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
+          teamId={dcmTeamId}
         />
       </Pending>
     </>

@@ -93,10 +93,12 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
 
 mutation createPoolAdvertisement(
   $userId: ID!
+  $teamId: ID!
   $poolAdvertisement: CreatePoolAdvertisementInput!
 ) {
   createPoolAdvertisement(
     userId: $userId
+    teamId: $teamId
     poolAdvertisement: $poolAdvertisement
   ) {
     id
@@ -138,6 +140,10 @@ query getMePoolCreation {
     group
     id
   }
+  teams {
+    name
+    id
+  }
 }
 
 # Note: unsure where this is used but it is needed by
@@ -170,5 +176,16 @@ query getGenericJobTitle($id: UUID!) {
 query GetGenericJobTitles {
   genericJobTitles {
     ...genericJobTitle
+  }
+}
+
+query allTeams {
+  teams {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
   }
 }

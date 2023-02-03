@@ -11,6 +11,7 @@ import { BasicForm, Checklist } from "@common/components/form";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
+  Applicant,
   BilingualEvaluation,
   GetLanguageInformationQuery,
   PoolCandidate,
@@ -24,6 +25,8 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
+import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
+import MissingLanguageRequirements from "@common/components/MissingLanguageRequirements";
 import ConsideredLanguages from "../ConsideredLanguages";
 
 export type FormValues = Pick<
@@ -208,6 +211,11 @@ const LanguageInformationForm: React.FunctionComponent<{
       ]
     : [];
 
+  const missingLanguageRequirements = getMissingLanguageRequirements(
+    initialData as Applicant,
+    application?.poolAdvertisement,
+  );
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -236,6 +244,14 @@ const LanguageInformationForm: React.FunctionComponent<{
       ]}
       prefixBreadcrumbs={!application}
     >
+      {missingLanguageRequirements.length ? (
+        <div data-h2-margin="base(x1, 0)">
+          <MissingLanguageRequirements
+            applicant={initialData as Applicant}
+            poolAdvertisement={application?.poolAdvertisement}
+          />
+        </div>
+      ) : null}
       <BasicForm
         labels={labels}
         cacheKey="lang-info-form"

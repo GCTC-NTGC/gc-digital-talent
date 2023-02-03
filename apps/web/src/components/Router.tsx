@@ -67,6 +67,14 @@ const RequestPage = React.lazy(() =>
       ),
   ),
 );
+const RequestConfirmationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsRequestConfirmationPage" */ "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
+      ),
+  ),
+);
 
 /** Auth */
 const RegisterPage = React.lazy(() =>
@@ -520,7 +528,16 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "request",
-                  element: <RequestPage />,
+                  children: [
+                    {
+                      index: true,
+                      element: <RequestPage />,
+                    },
+                    {
+                      path: ":requestId",
+                      element: <RequestConfirmationPage />,
+                    },
+                  ],
                 },
               ],
             },
