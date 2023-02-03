@@ -1,7 +1,7 @@
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
@@ -46,6 +46,11 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
   const returnRoute = application
     ? paths.reviewApplication(application.id)
     : paths.profile(initialData.id);
@@ -111,7 +116,16 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Work Location Preference",
+            id: "c/Qp8R",
+            description:
+              "Display Text for the current page in Work Location Preference Form Page",
+          }),
+          url: `${paths.workLocation(initialData.id)}${applicationParam}`,
         },
       ]
     : [];
@@ -131,18 +145,21 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
         description:
           "Title for Profile Form wrapper  in Work Location Preferences Form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Work Location Preference",
-            id: "c/Qp8R",
-            description:
-              "Display Text for the current page in Work Location Preference Form Page",
-          }),
-          url: paths.workLocation(initialData.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Work Location Preference",
+                  id: "c/Qp8R",
+                  description:
+                    "Display Text for the current page in Work Location Preference Form Page",
+                }),
+                url: paths.workLocation(initialData.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <BasicForm

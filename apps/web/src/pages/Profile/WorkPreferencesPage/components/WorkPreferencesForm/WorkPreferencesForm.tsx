@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
 import { errorMessages, navigationMessages } from "@common/messages";
@@ -73,6 +73,11 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
   const returnRoute = application
     ? paths.reviewApplication(application.id)
     : paths.profile(initialData.id);
@@ -156,7 +161,15 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Work Preferences",
+            id: "7OWQgZ",
+            description: "Display Text for Work Preferences Form Page Link",
+          }),
+          url: `${paths.workPreferences(initialData.id)}${applicationParam}`,
         },
       ]
     : [];

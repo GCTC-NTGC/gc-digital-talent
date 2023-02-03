@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 
@@ -517,6 +517,11 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
   const returnRoute = application
     ? paths.reviewApplication(application.id)
     : paths.profile(initialData.id);
@@ -554,7 +559,18 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Government Information",
+            id: "Uh9Yj4",
+            description:
+              "Display Text for Government Information Form Page Link",
+          }),
+          url: `${paths.governmentInformation(
+            initialData.id,
+          )}${applicationParam}`,
         },
       ]
     : [];
@@ -574,18 +590,21 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
         description:
           "Title for Profile Form Wrapper in Government Information Form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Government Information",
-            id: "Uh9Yj4",
-            description:
-              "Display Text for Government Information Form Page Link",
-          }),
-          url: paths.governmentInformation(initialData.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Government Information",
+                  id: "Uh9Yj4",
+                  description:
+                    "Display Text for Government Information Form Page Link",
+                }),
+                url: paths.governmentInformation(initialData.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <BasicForm
