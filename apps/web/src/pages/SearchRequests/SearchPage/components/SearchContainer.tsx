@@ -2,7 +2,11 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
+import omit from "lodash/omit";
 
+import Button from "@common/components/Button/Button";
+import Heading from "@common/components/Heading/Heading";
+import Separator from "@common/components/Separator/Separator";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
@@ -15,6 +19,7 @@ import {
   useGetSearchFormDataAcrossAllPoolsQuery,
   CandidateSearchPoolResult,
   useCountApplicantsAndCountPoolCandidatesByPoolQuery,
+  ClassificationFilterInput,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
@@ -64,23 +69,14 @@ const applicantFilterToQueryArgs = (
   return {};
 };
 
-function a(chunks: React.ReactNode) {
-  return (
-    <a
-      href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
-      data-h2-font-weight="base(700)"
-    >
-      {chunks}
-    </a>
-  );
-}
-
 interface ResultsDisplayProps {
   pending: boolean;
+  totalCandidateCount: number;
+  selectedClassifications?: ClassificationFilterInput[];
   results?: Array<CandidateSearchPoolResult>;
   handleSubmit: (
     candidateCount: number,
-    poolId: string,
+    poolId: string | null,
     selectedClassifications: SimpleClassification[],
   ) => Promise<void>;
 }
@@ -89,6 +85,8 @@ const ResultsDisplay = ({
   pending,
   results,
   handleSubmit,
+  totalCandidateCount,
+  selectedClassifications,
 }: ResultsDisplayProps) => {
   const intl = useIntl();
 
@@ -112,30 +110,68 @@ const ResultsDisplay = ({
       data-h2-shadow="base(m)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border-left="base(x1 solid dt-gray.dark)"
+      data-h2-border-left="base(x1 solid tm-blue)"
     >
-      <p>
+      <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
           defaultMessage: "We can still help!",
           id: "5U+V2Y",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
+      </Heading>
+      <p data-h2-margin="base(x.5 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "We have not found any automatic matching candidates but our team can still help.",
+          id: "ak4oel",
+          description:
+            "Text telling users they can still be helped regardless of search results",
+        })}
       </p>
-      <p data-h2-margin="base(x.5, 0, 0, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "If there are no matching candidates <a>Get in touch!</a>",
-            id: "+ZXZj+",
-            description:
-              "Message for helping user if no candidates matched the filters chosen.",
-          },
-          {
-            a,
-          },
-        )}
+      <p data-h2-margin="base(x.5 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "The Digital Community Management office is interested in helping you find the right talent.",
+          id: "JUejJU",
+          description:
+            "Text telling users that Digital Community Management can still help them",
+        })}
       </p>
+      <p data-h2-margin="base(x.5 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            'Submit this request "as-is" and we\'ll get back to you.',
+          id: "pvQVVh",
+          description:
+            "Instructions telling the user to submit a request even though there are no candidates",
+        })}
+      </p>
+
+      <Separator
+        orientation="horizontal"
+        data-h2-margin="base(x1 0)"
+        data-h2-background="base(black.30)"
+      />
+
+      <Button
+        color="blue"
+        mode="outline"
+        onClick={() =>
+          handleSubmit(
+            totalCandidateCount,
+            null,
+            selectedClassifications as SimpleClassification[],
+          )
+        }
+      >
+        {intl.formatMessage({
+          defaultMessage: "Request Candidates",
+          id: "6mDW+R",
+          description:
+            "Button link message on search page that takes user to the request form.",
+        })}
+      </Button>
     </div>
   );
 };
@@ -151,7 +187,7 @@ export interface SearchContainerProps {
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
   onSubmit: (
     candidateCount: number,
-    poolId: string,
+    poolId: string | null,
     selectedClassifications: SimpleClassification[],
   ) => Promise<void>;
 }
@@ -182,6 +218,9 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   const workingLanguage = applicantFilter?.languageAbility;
   const employmentDuration = applicantFilter?.positionDuration;
 
+  const selectedClassifications =
+    applicantFilter?.expectedClassifications?.filter(notEmpty);
+
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
     ? Object.values(equityFilters)
@@ -203,14 +242,18 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
   const tryHandleSubmit = async (
     candidateCount: number,
-    poolId: string,
-    selectedClassifications: SimpleClassification[],
+    poolId: string | null,
+    classificationsToSubmit: SimpleClassification[],
   ) => {
-    if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
+    if (
+      (poolClassificationFilterCount === 0 &&
+        selectedClassifications?.length === 0) ||
+      locationPreferencesCount === 0
+    ) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
-      onSubmit(candidateCount, poolId, selectedClassifications);
+      onSubmit(candidateCount, poolId, classificationsToSubmit);
     }
   };
 
@@ -261,7 +304,10 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
           </div>
         </div>
       </div>
-      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+      <div
+        data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
+        id="results"
+      >
         <hr
           data-h2-margin="base(x3, 0, 0, 0)"
           data-h2-height="base(1px)"
@@ -272,7 +318,6 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
           <h3
             data-h2-text-align="base(center) p-tablet(left)"
             data-h2-font-size="base(h4, 1)"
-            id="results"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
@@ -309,6 +354,8 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
             pending={updatePending}
             results={poolCandidateResults}
             handleSubmit={tryHandleSubmit}
+            selectedClassifications={selectedClassifications}
+            totalCandidateCount={totalCandidateCount}
           />
         </div>
       </div>
@@ -366,14 +413,15 @@ const SearchContainerApi = () => {
   const paths = useRoutes();
   const onSubmit = async (
     candidateCount: number,
-    poolId: string,
+    poolId: string | null,
     selectedClassifications: SimpleClassification[],
   ) => {
     navigate(paths.request(), {
       state: {
         applicantFilter: {
-          ...applicantFilter,
-          pools: [{ id: poolId }],
+          ...omit(applicantFilter, "expectedClassifications"),
+          expectedClassifications: [],
+          pools: poolId ? [{ id: poolId }] : [],
         },
         candidateCount,
         selectedClassifications,
