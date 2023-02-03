@@ -115,6 +115,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       email: values.email ?? "",
       jobTitle: values.jobTitle ?? "",
       additionalComments: values.additionalComments,
+      wasEmpty: candidateCount === 0,
       applicantFilter: {
         create: {
           positionDuration:

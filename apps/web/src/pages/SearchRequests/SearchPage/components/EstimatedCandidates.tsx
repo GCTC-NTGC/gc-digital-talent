@@ -106,31 +106,35 @@ const EstimatedCandidates: React.FunctionComponent<
             data-h2-text-align="base(center)"
           >
             {updatePending ? (
-              <Spinner />
+              <div>
+                <Spinner />
+              </div>
             ) : (
               <CandidateMessage candidateCount={candidateCount} />
             )}
-            <ScrollToLink
-              to="results"
-              data-h2-color="base(dt-black) base:hover(dt-primary)"
-              data-h2-transition="base:hover(color .2s ease 0s)"
-              data-h2-display="base(inline-block)"
-            >
-              {candidateCount
-                ? intl.formatMessage({
-                    defaultMessage: "View results",
-                    id: "3wbcnZ",
-                    description:
-                      "A link to view the pools that contain matching talent.",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "Submit an empty request and tell us more in the comments.",
-                    id: "W/cZp2",
-                    description:
-                      "Link text to scroll to the submit button when no candidates were found",
-                  })}
-            </ScrollToLink>
+            <p>
+              <ScrollToLink
+                to="results"
+                data-h2-color="base(dt-black) base:hover(dt-primary)"
+                data-h2-transition="base:hover(color .2s ease 0s)"
+                data-h2-display="base(inline-block)"
+              >
+                {candidateCount
+                  ? intl.formatMessage({
+                      defaultMessage: "View results",
+                      id: "3wbcnZ",
+                      description:
+                        "A link to view the pools that contain matching talent.",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage:
+                        "Submit an empty request and tell us more in the comments.",
+                      id: "W/cZp2",
+                      description:
+                        "Link text to scroll to the submit button when no candidates were found",
+                    })}
+              </ScrollToLink>
+            </p>
           </div>
         </div>
       </div>
