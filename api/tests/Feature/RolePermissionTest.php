@@ -209,13 +209,13 @@ class RolePermissionTest extends TestCase
         // This should be false because the user only has this permission in a team context
         $this->assertFalse($this->user->isAbleTo($teamPermission, null));
 
-        // This is true because a user only has this permission outside of a team context
+        // This should be true because the user only has this permission outside of a team context
         $this->assertTrue($this->user->isAbleTo($guestPermission, null));
 
         // This should be true because the user has this permission in the team context
         $this->assertTrue($this->user->isAbleTo($teamPermission, $this->ownedTeam));
 
-        // This is false because a user only has this permission outside of a team context
+        // This should be false because the user only has this permission outside of a team context
         $this->assertFalse($this->user->isAbleTo($guestPermission, $this->ownedTeam));
     }
 
