@@ -1,50 +1,43 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link, LinkProps } from "react-router-dom";
 
-export interface ScrollToLinkProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
-  to: string;
-  children?: React.ReactNode;
-}
+const scrollToSection = (section: HTMLElement | null) => {
+  console.log(section);
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
 
-const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
-  const navigate = useNavigate();
+const ScrollToLink = ({ to, children, ...rest }: LinkProps) => {
   const { pathname, hash } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
 
-  const scrollToSection = React.useCallback(() => {
-    if (targetSection) {
-      targetSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [targetSection]);
-
   React.useEffect(() => {
     if (hash && hash === `#${to}`) {
-      scrollToSection();
+      scrollToSection(targetSection);
     }
-  }, [pathname, hash, to, scrollToSection]);
+  }, [pathname, hash, to, targetSection]);
 
   React.useEffect(() => {
-    const section = document.getElementById(to);
+    const section = document.getElementById(to.toString());
     setTargetSection(section);
   }, [to]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    e.stopPropagation();
-    navigate(`#${to}`);
-    scrollToSection();
+    // e.stopPropagation();
+    scrollToSection(targetSection);
   };
 
   return (
-    <a href={`#${to}`} onClick={handleClick} {...rest}>
+    <Link to={`#${to}`} onClick={handleClick} preventScrollReset {...rest}>
       {children}
-    </a>
+    </Link>
   );
 };
 
