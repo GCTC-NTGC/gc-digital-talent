@@ -185,4 +185,76 @@ class TeamsTest extends TestCase
       ]
     );
   }
+
+  public function testTeamUpdateMutation(): void
+  {
+    $this->seed(DepartmentSeeder::class);
+    $departmentId = Department::inRandomOrder()->first()->id;
+
+    $teamOne = Team::factory()->create([
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    ]);
+
+    // Assert team update successful across all input fields
+    $this->graphQL(
+      /** @lang GraphQL */
+      '
+      mutation updateTeam($id: UUID!, $team: UpdateTeamInput!) {
+          updateTeam(id: $id, team: $team) {
+            name
+            displayName {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            contactEmail
+            departments {
+              id
+            }
+          }
+      }
+      ',
+      [
+        'id' => $teamOne->id,
+        'team' => [
+          'name'=> 'team one',
+          'displayName' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'description' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'contactEmail' => 'test@test.com',
+          'departments' => [
+            "sync" => [$departmentId],
+          ],
+        ]
+      ]
+    )->assertJson([
+      'data' => [
+        'updateTeam' => [
+          'name' => 'team one',
+          'displayName' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'description' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'contactEmail' => 'test@test.com',
+          'departments' => [
+            [
+              'id' => $departmentId,
+            ],
+          ],
+        ]
+      ]
+    ]);
+  }
 }
