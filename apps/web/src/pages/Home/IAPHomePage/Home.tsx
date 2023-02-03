@@ -6,6 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import useQuote from "~/hooks/useQuote";
 
+import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -88,13 +89,18 @@ const Home: React.FunctionComponent = () => {
               alt=""
             />
             <span data-h2-visually-hidden="base(invisible)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
-                id: "qZvV7b",
-                description:
-                  "Homepage title for Indigenous Apprenticeship Program",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples. Apply today to get started on your <abbreviation>IT</abbreviation> career journey.",
+                  id: "7Kb+Uh",
+                  description:
+                    "Homepage title for Indigenous Apprenticeship Program",
+                },
+                {
+                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                },
+              )}
             </span>
           </h1>
         </div>
@@ -192,8 +198,8 @@ const Home: React.FunctionComponent = () => {
                   <p data-h2-margin="base(x2, 0, x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "The IT Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
-                      id: "pWoAv0",
+                        "The <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
+                      id: "UMPxOg",
                       description: "First paragraph about the program",
                     })}
                   </p>
@@ -486,8 +492,8 @@ const Home: React.FunctionComponent = () => {
                     <span data-h2-display="base(block)">
                       {intl.formatMessage({
                         defaultMessage:
-                          "Is the IT Apprenticeship Program right for you?",
-                        id: "DgMIfz",
+                          "Is the <abbreviation>IT</abbreviation> Apprenticeship Program right for you?",
+                        id: "W2G590",
                         description: "Application box heading part one",
                       })}
                     </span>
@@ -568,8 +574,8 @@ const Home: React.FunctionComponent = () => {
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
-                id: "osGGIt",
+                  "<abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
+                id: "Zd1x6H",
                 description: "heading for indigenous talent portal section",
               })}
             </Heading>
@@ -636,8 +642,8 @@ const Home: React.FunctionComponent = () => {
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "We want to learn about you and about your interest/passion in the area of IT!",
-                    id: "yZMQ6j",
+                      "We want to learn about you and about your interest/passion in the area of <abbreviation>IT</abbreviation>!",
+                    id: "gxOExQ",
                     description: "How it works, step 2 content sentence 1",
                   })}
                 </p>
@@ -695,8 +701,8 @@ const Home: React.FunctionComponent = () => {
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "In collaboration with the IT Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on IT and technology talent, which will:",
-                id: "Dzyk1q",
+                  "In collaboration with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on <abbreviation>IT</abbreviation> and technology talent, which will:",
+                id: "9FKjvW",
                 description:
                   "Description for strategy for the indigenous talent portal",
               })}
@@ -715,8 +721,8 @@ const Home: React.FunctionComponent = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Address the great demand for Indigenous talent in IT.",
-                    id: "Xhfkfg",
+                      "Address the great demand for Indigenous talent in <abbreviation>IT</abbreviation>.",
+                    id: "cMDC/P",
                     description: "Talent portal strategy item 1 content",
                   })}
                 </p>

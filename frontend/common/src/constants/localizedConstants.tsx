@@ -1541,13 +1541,13 @@ export const publishingGroups = defineMessages({
     description: "The publishing group called Executive Jobs",
   },
   [PublishingGroup.ItJobs]: {
-    defaultMessage: "IT Jobs",
-    id: "C8nrGM",
+    defaultMessage: "<abbreviation>IT</abbreviation> Jobs",
+    id: "Xis88S",
     description: "The publishing group called IT Jobs",
   },
   [PublishingGroup.ItJobsOngoing]: {
-    defaultMessage: "IT Jobs (ongoing)",
-    id: "1YuZjR",
+    defaultMessage: "<abbreviation>IT</abbreviation> Jobs (ongoing)",
+    id: "IKoOjC",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
   [PublishingGroup.Other]: {
@@ -1564,4 +1564,24 @@ export const getPublishingGroup = (
     publishingGroups,
     publishingGroup,
     `Invalid publishing group '${publishingGroup}'`,
+  );
+
+export const abbreviations = defineMessages({
+  IT: {
+    defaultMessage: "Information Technology",
+    id: "nLW9zq",
+  },
+  AS: {
+    defaultMessage: "Administrative Services",
+    id: "6svHxg",
+  },
+});
+
+export const getAbbreviations = (
+  abbreviation: keyof typeof abbreviations,
+): MessageDescriptor =>
+  getOrThrowError(
+    abbreviations,
+    abbreviation,
+    `Invalid abbreviation '${abbreviation}'`,
   );

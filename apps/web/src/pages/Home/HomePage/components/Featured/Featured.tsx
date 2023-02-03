@@ -6,6 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import Heading from "@common/components/Heading";
 import { getLocale } from "@common/helpers/localize";
 
+import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
 import Block from "./Block";
 
 // Create the page component
@@ -72,13 +73,18 @@ const Featured = () => {
         id: "nYA+Tj",
         description: "Title for the Indigenous tech talent feature item",
       }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Are you looking for entry-level IT talent and want to support diversity, inclusion, and reconciliation? Connect with the IT Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
-        id: "cYg+l1",
-        description:
-          "Summary of the Indigenous Apprenticeship Program for the homepage",
-      }),
+      summary: intl.formatMessage(
+        {
+          defaultMessage:
+            "Are you looking for entry-level <abbreviation>IT</abbreviation> talent and want to support diversity, inclusion, and reconciliation? Connect with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
+          id: "LOvD2e",
+          description:
+            "Summary of the Indigenous Apprenticeship Program for the homepage",
+        },
+        {
+          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+        },
+      ),
       img: {
         path: imageUrl("/", "check_it_out_IAP_manager_callout.jpg"),
       },
