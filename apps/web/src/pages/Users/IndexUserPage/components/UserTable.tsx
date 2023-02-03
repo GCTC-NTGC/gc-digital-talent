@@ -187,7 +187,12 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["telephone", "createdDate", "updatedDate"],
+  hiddenColumnIds: [
+    "telephone",
+    "preferredLanguage",
+    "createdDate",
+    "updatedDate",
+  ],
   sortBy: {
     column: {
       id: "createdDate",
@@ -366,30 +371,6 @@ const UserTable = () => {
         accessor: (user) => languageAccessor(user.preferredLang, intl),
         id: "preferredLanguage",
         sortColumnName: "preferred_lang",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Preferred Spoken Interview Language",
-          id: "iRJV64",
-          description:
-            "Title displayed on the Pool Candidates table Preferred Spoken Language column.",
-        }),
-        id: "preferredInterviewLanguage",
-        accessor: (user) =>
-          languageAccessor(user?.preferredLanguageForInterview, intl),
-        sortColumnName: "preferred_language_for_interview",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Preferred Written Exam Language",
-          id: "5l+Ydz",
-          description:
-            "Title displayed on the Pool Candidates table Preferred Written Exam Language column.",
-        }),
-        id: "preferredExamLanguage",
-        accessor: (user) =>
-          languageAccessor(user?.preferredLanguageForExam, intl),
-        sortColumnName: "preferred_language_for_exam",
       },
       {
         label: intl.formatMessage({
