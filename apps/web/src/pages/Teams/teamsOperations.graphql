@@ -1,0 +1,19 @@
+query ListTeams {
+  teams {
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+}

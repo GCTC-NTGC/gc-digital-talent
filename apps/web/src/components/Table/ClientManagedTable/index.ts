@@ -3,6 +3,7 @@ import TableEditButton, { tableEditButtonAccessor } from "./TableEditButton";
 import TableViewItemButton, {
   tableViewItemButtonAccessor,
 } from "./TableViewItemButton";
+import tableActionsAccessor from "./TableActionButtons";
 
 import type { TableProps, ColumnsOf } from "./Table";
 import type { TableEditButtonProps } from "./TableEditButton";
@@ -13,5 +14,6 @@ export {
   tableEditButtonAccessor,
   TableViewItemButton,
   tableViewItemButtonAccessor,
+  tableActionsAccessor,
 };
 export type { ColumnsOf, TableProps, TableEditButtonProps };
