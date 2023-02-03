@@ -3,14 +3,20 @@ import { useLocation, Link, LinkProps } from "react-router-dom";
 
 const scrollToSection = (section: HTMLElement | null) => {
   if (section) {
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    setTimeout(() => {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 10);
   }
 };
 
-const ScrollToLink = ({ to, children, ...rest }: LinkProps) => {
+interface ScrollToLinkProps extends Omit<LinkProps, "to"> {
+  to: string;
+}
+
+const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
   const { pathname, hash } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
@@ -27,13 +33,18 @@ const ScrollToLink = ({ to, children, ...rest }: LinkProps) => {
     setTargetSection(section);
   }, [to]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleClick = () => {
     scrollToSection(targetSection);
   };
 
   return (
-    <Link to={`#${to}`} onClick={handleClick} preventScrollReset {...rest}>
+    <Link
+      to={{ hash: to }}
+      replace
+      preventScrollReset={false}
+      {...rest}
+      onClick={handleClick}
+    >
       {children}
     </Link>
   );
