@@ -4,6 +4,7 @@ import {
   AcademicCapIcon,
   HomeIcon,
   BuildingOfficeIcon,
+  BuildingOffice2Icon,
   TagIcon,
   TicketIcon,
   UserGroupIcon,
@@ -114,6 +115,17 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
         defaultMessage: "Classifications",
         id: "gk7uJQ",
         description: "Label displayed on the classifications menu item.",
+      }),
+    },
+    {
+      key: "teams",
+      href: paths.teamTable(),
+      icon: BuildingOffice2Icon,
+      roles: [LegacyRole.Admin],
+      text: intl.formatMessage({
+        defaultMessage: "Teams",
+        id: "GJsuQg",
+        description: "Label displayed on the teams menu item.",
       }),
     },
     {
