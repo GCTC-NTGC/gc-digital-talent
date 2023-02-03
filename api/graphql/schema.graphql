@@ -590,6 +590,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   doneDate: DateTime @rename(attribute: "done_at")
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 enum SkillCategory {

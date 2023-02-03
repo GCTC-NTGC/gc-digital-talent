@@ -890,6 +890,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
   doneDate: DateTime
+  wasEmpty: Boolean
 }
 
 enum PoolCandidateSearchStatus {
