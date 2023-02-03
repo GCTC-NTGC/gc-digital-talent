@@ -68,6 +68,9 @@ export const ExperienceAndSkills: React.FunctionComponent<
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
+    : paths.profile(applicantId);
 
   const getEditPath = (id: string, type: ExperienceType) => {
     return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
@@ -131,48 +134,54 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const hasExperiences = notEmpty(experiences);
 
-  let crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Experience and Skills",
-        id: "PF2m1d",
-        description:
-          "Breadcrumb for experience and skills page in applicant profile.",
-      }),
-      url: paths.skillsAndExperiences(applicantId),
-    },
-  ];
-
-  if (poolAdvertisement) {
-    crumbs = [
-      {
-        label: intl.formatMessage({
-          defaultMessage: "My Applications",
-          id: "q04FCp",
-          description: "Link text for breadcrumb to user applications page.",
-        }),
-        url: paths.applications(applicantId),
-      },
-      {
-        label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
-        url: paths.pool(poolAdvertisement.id),
-      },
-      {
-        url: paths.reviewApplication(applicantId),
-        label: intl.formatMessage(navigationMessages.stepOne),
-      },
-      ...crumbs,
-    ];
-  }
-
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(applicantId);
+  const applicationBreadcrumbs = poolAdvertisement
+    ? [
+        {
+          label: intl.formatMessage({
+            defaultMessage: "My Applications",
+            id: "q04FCp",
+            description: "Link text for breadcrumb to user applications page.",
+          }),
+          url: paths.applications(applicantId),
+        },
+        {
+          label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+          url: paths.pool(poolAdvertisement.id),
+        },
+        {
+          label: intl.formatMessage(navigationMessages.stepOne),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Experience and Skills",
+            id: "PF2m1d",
+            description:
+              "Breadcrumb for experience and skills page in applicant profile.",
+          }),
+          url: `${paths.skillsAndExperiences(applicantId)}${applicationParam}`,
+        },
+      ]
+    : [];
 
   return (
     <ProfileFormWrapper
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Experience and Skills",
+                  id: "PF2m1d",
+                  description:
+                    "Breadcrumb for experience and skills page in applicant profile.",
+                }),
+                url: paths.skillsAndExperiences(applicantId),
+              },
+            ]
+      }
       prefixBreadcrumbs={!poolAdvertisement}
-      crumbs={crumbs}
       description={intl.formatMessage({
         defaultMessage:
           "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
