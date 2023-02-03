@@ -1,24 +1,11 @@
 import { faker } from "@faker-js/faker";
-// import {Team}from "../api/generated";
 
-// TO DO: Remove after #5548
-import { Department } from "../api/generated";
+import { Department, Team } from "../api/generated";
 import fakeDepartments from "./fakeDepartments";
-
-type Team = {
-  id: string;
-  name: string;
-  contactEmail: string;
-  displayName: {
-    en: string;
-    fr: string;
-  };
-  departments: Department[];
-};
 
 interface GenerateTeamArgs {
   name: Team["displayName"];
-  departments: Team["departments"];
+  departments: Array<Department>;
 }
 
 const mockDepartments = fakeDepartments();
