@@ -9,6 +9,7 @@ import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { Input } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   Applicant,
@@ -104,15 +105,19 @@ export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
               "First section of text on the change candidate expiry date dialog",
           })}
         </p>
-        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-font-weight="base(800)">
+          - {getFullNameHtml(user.firstName, user.lastName, intl)}
+        </p>
         <p data-h2-margin="base(x1, 0, 0, 0)">
           {intl.formatMessage({
-            defaultMessage:
-              "Set an expiry date for this candidate on this pool:",
-            id: "n+d6QE",
+            defaultMessage: "On the following pool:",
+            id: "jIlwJ8",
             description:
               "Second section of text on the change candidate expiry date dialog",
           })}
+        </p>
+        <p data-h2-font-weight="base(800)">
+          - {getFullPoolAdvertisementTitle(intl, selectedCandidate.pool)}
         </p>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
