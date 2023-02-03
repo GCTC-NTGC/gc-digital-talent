@@ -13,31 +13,20 @@ import Link from "../../Link";
 const DiversityEquityInclusionSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    | "isWoman"
-    | "hasDisability"
-    | "isIndigenous"
-    | "isVisibleMinority"
-    | "indigenousCommunities"
+    "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
 
-  const {
-    isWoman,
-    hasDisability,
-    isIndigenous,
-    isVisibleMinority,
-    indigenousCommunities,
-  } = applicant;
-  const nonLegacyIndigenousCommunitySelected =
-    indigenousCommunities &&
-    indigenousCommunities.length > 0 &&
-    (indigenousCommunities?.length !== 1 ||
-      indigenousCommunities[0] !== IndigenousCommunity.LegacyIsIndigenous);
+  const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
+    applicant;
+  const nonLegacyIndigenousCommunities =
+    indigenousCommunities?.filter(
+      (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+    ) || [];
   const anyCriteriaSelected =
     isWoman ||
-    isIndigenous ||
     isVisibleMinority ||
     hasDisability ||
     (indigenousCommunities && indigenousCommunities.length > 0);
@@ -100,8 +89,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                   "Label preceding what groups the user identifies as part of, followed by a colon",
               })}{" "}
             </p>{" "}
-            {(isIndigenous ||
-              (indigenousCommunities && indigenousCommunities.length > 0)) && (
+            {indigenousCommunities && indigenousCommunities.length > 0 && (
               <div
                 data-h2-padding="base(x1, 0, 0, 0)"
                 data-h2-display="p-tablet(flex)"
@@ -122,25 +110,23 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         description:
                           "Label preceding text listing the communities the user is a member of, followed by a colon",
                       })}{" "}
-                      {nonLegacyIndigenousCommunitySelected
-                        ? indigenousCommunities.map((community, index) => {
-                            if (
-                              !community ||
-                              community ===
-                                IndigenousCommunity.LegacyIsIndigenous
-                            ) {
-                              return "";
-                            }
+                      {nonLegacyIndigenousCommunities.length > 0
+                        ? nonLegacyIndigenousCommunities.map(
+                            (community, index) => {
+                              if (!community) {
+                                return "";
+                              }
 
-                            const text = intl.formatMessage(
-                              getIndigenousCommunity(community),
-                            );
+                              const text = intl.formatMessage(
+                                getIndigenousCommunity(community),
+                              );
 
-                            if (index === 0) {
-                              return text;
-                            }
-                            return `, ${text}`;
-                          })
+                              if (index === 0) {
+                                return text;
+                              }
+                              return `, ${text}`;
+                            },
+                          )
                         : intl.formatMessage(
                             {
                               defaultMessage:
@@ -158,54 +144,53 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                   data-h2-display="base(flex) p-tablet(block)"
                   data-h2-justify-content="base:(center) p-tablet(flex-start)"
                 >
-                  {nonLegacyIndigenousCommunitySelected &&
-                    indigenousCommunities.map((community) => {
-                      switch (community) {
-                        case IndigenousCommunity.StatusFirstNations:
-                        case IndigenousCommunity.NonStatusFirstNations:
-                          return (
-                            <img
-                              data-h2-float="p-tablet(right)"
-                              data-h2-height="base(4em)"
-                              alt=""
-                              key="first-nations-true"
-                              src={imageUrl("/", "first-nations-true.png")}
-                            />
-                          );
-                        case IndigenousCommunity.Inuit:
-                          return (
-                            <img
-                              data-h2-float="p-tablet(right)"
-                              data-h2-height="base(4em)"
-                              alt=""
-                              key="inuit-true"
-                              src={imageUrl("/", "inuit-true.png")}
-                            />
-                          );
-                        case IndigenousCommunity.Metis:
-                          return (
-                            <img
-                              data-h2-float="base(right)"
-                              data-h2-height="base(4em)"
-                              alt=""
-                              key="metis-true"
-                              src={imageUrl("/", "metis-true.png")}
-                            />
-                          );
-                        case IndigenousCommunity.Other:
-                          return (
-                            <img
-                              data-h2-float="base(right)"
-                              data-h2-height="base(4em)"
-                              alt=""
-                              key="other-true"
-                              src={imageUrl("/", "other-true.png")}
-                            />
-                          );
-                        default:
-                          return null;
-                      }
-                    })}
+                  {nonLegacyIndigenousCommunities.map((community) => {
+                    switch (community) {
+                      case IndigenousCommunity.StatusFirstNations:
+                      case IndigenousCommunity.NonStatusFirstNations:
+                        return (
+                          <img
+                            data-h2-float="p-tablet(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="first-nations-true"
+                            src={imageUrl("/", "first-nations-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Inuit:
+                        return (
+                          <img
+                            data-h2-float="p-tablet(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="inuit-true"
+                            src={imageUrl("/", "inuit-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Metis:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="metis-true"
+                            src={imageUrl("/", "metis-true.png")}
+                          />
+                        );
+                      case IndigenousCommunity.Other:
+                        return (
+                          <img
+                            data-h2-float="base(right)"
+                            data-h2-height="base(4em)"
+                            alt=""
+                            key="other-true"
+                            src={imageUrl("/", "other-true.png")}
+                          />
+                        );
+                      default:
+                        return null;
+                    }
+                  })}
                 </div>
               </div>
             )}
