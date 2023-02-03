@@ -162,7 +162,7 @@ const AdvancedFilters = () => {
 
   return (
     <>
-      <Heading level="h3" size="h5" data-h2-font-weight="base(700)">
+      <Heading level="h3" size="h6" data-h2-font-weight="base(700)">
         {intl.formatMessage({
           defaultMessage: "Advanced filters",
           id: "eozWFc",
