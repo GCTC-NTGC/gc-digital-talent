@@ -87,15 +87,15 @@ return [
     'permissions' => [
         'view-any-classification' => [
             'en' => 'View Any Classification',
-            'fr' => 'Afficher toute classification'
+            'fr' => 'Visionner toute classification'
         ],
         'create-any-classification' => [
             'en' => 'Create Any Classification',
-            'fr' => 'Créer n\'importe quelle classification'
+            'fr' => 'Créer toute classification'
         ],
         'update-any-classification' => [
             'en' => 'Update Any Classification',
-            'fr' => 'Mise à jour de toute classification'
+            'fr' => 'Mettre à jour toute classification'
         ],
         'delete-any-classification' => [
             'en' => 'Delete Any Classification',
@@ -104,32 +104,32 @@ return [
 
         'view-any-department' => [
             'en' => 'View Any Department',
-            'fr' => 'Voir n\'importe quel département'
+            'fr' => 'Visionner tout ministère'
         ],
         'create-any-department' => [
             'en' => 'Create Any Department',
-            'fr' => 'Créer n\'importe quel département'
+            'fr' => 'Créer tout ministère'
         ],
         'update-any-department' => [
             'en' => 'Update Any Department',
-            'fr' => 'Mise à jour de n\'importe quel département'
+            'fr' => 'Mettre à jour tout ministère'
         ],
         'delete-any-department' => [
             'en' => 'Delete Any Department',
-            'fr' => 'Supprimer un département'
+            'fr' => 'Supprimer tout ministère'
         ],
 
         'view-any-skill' => [
             'en' => 'View Any Skill',
-            'fr' => 'Afficher n\'importe quelle compétence'
+            'fr' => 'Visionner toute compétence'
         ],
         'create-any-skill' => [
             'en' => 'Create Any Skill',
-            'fr' => 'Créer n\'importe quelle compétence'
+            'fr' => 'Créer toute compétence'
         ],
         'update-any-skill' => [
             'en' => 'Update Any Skill',
-            'fr' => 'Mettre à jour n\'importe quelle compétence'
+            'fr' => 'Mettre à jour toute compétence'
         ],
         'delete-any-skill' => [
             'en' => 'Delete Any Skill',
@@ -138,15 +138,15 @@ return [
 
         'view-any-skillFamily' => [
             'en' => 'View Any Skill Family',
-            'fr' => 'Voir n\'importe quelle famille de compétences'
+            'fr' => 'Visionner toute famille de compétences'
         ],
         'create-any-skillFamily' => [
             'en' => 'Create Any Skill Family',
-            'fr' => 'Créer n\'importe quelle famille de compétences'
+            'fr' => 'Créer toute famille de compétences'
         ],
         'update-any-skillFamily' => [
             'en' => 'Update Any Skill Family',
-            'fr' => 'Mettre à jour n\'importe quelle famille de compétences'
+            'fr' => 'Mettre à jour toute famille de compétences'
         ],
         'delete-any-skillFamily' => [
             'en' => 'Delete Any Skill Family',
@@ -155,7 +155,7 @@ return [
 
         'view-any-user' => [
             'en' => 'View Any User',
-            'fr' => 'Afficher tout utilisateur'
+            'fr' => 'Visionner tout utilisateur'
         ],
         'view-any-userBasicInfo' => [
             'en' => 'View basic info of any User',
@@ -163,11 +163,11 @@ return [
         ],
         'view-own-user' => [
             'en' => 'View Own User',
-            'fr' => 'Voir son propre utilisateur'
+            'fr' => 'Visionner son propre utilisateur'
         ],
         'update-any-user' => [
             'en' => 'Update Any User',
-            'fr' => 'Mise à jour de tout utilisateur'
+            'fr' => 'Mettre à jour tout utilisateur'
         ],
         'update-own-user' => [
             'en' => 'Update Own User',
@@ -175,7 +175,7 @@ return [
         ],
         'delete-any-user' => [
             'en' => 'Delete Any User',
-            'fr' => 'Supprimer un utilisateur'
+            'fr' => 'Supprimer tout utilisateur'
         ],
 
         'view-team-pool' => [
@@ -184,7 +184,7 @@ return [
         ],
         'view-any-publishedPoolAdvertisement' => [
             'en' => 'View Any Published Pool Advertisement',
-            'fr' => 'Voir toute annonce publiée sur la piscine'
+            'fr' => 'Visionner toute annonce publiée dans un bassin'
         ],
         'create-team-pool' => [
             'en' => 'Create Pools in this Team',
@@ -209,7 +209,7 @@ return [
 
         'view-own-application' => [
             'en' => 'View Own Application',
-            'fr' => 'Afficher sa propre application'
+            'fr' => 'Visionner sa propre candidature'
         ],
         'view-team-submittedApplication' => [
             'en' => 'View Applications submitted to any of this Team\'s Pools',
@@ -221,7 +221,7 @@ return [
         ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
-            'fr' => 'Commencer ma propre candidature à une bassin'
+            'fr' => 'Créer sa propre candidature provisoire'
         ],
         'submit-own-application' => [
             'en' => 'Submit my own Application',
@@ -233,11 +233,11 @@ return [
         ],
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
-            'fr' => 'Supprimer son propre projet de demande'
+            'fr' => 'Supprimer sa propre candidature provisoire'
         ],
         'archive-own-submittedApplication' => [
             'en' => 'Archive Own Submitted Application',
-            'fr' => 'Archiver sa propre demande'
+            'fr' => 'Archiver sa propre candidature présentée'
         ],
 
         'view-any-applicantCount' => [
@@ -259,12 +259,12 @@ return [
         ],
         'delete-team-searchRequest' => [
             'en' => 'Delete SearchRequests submitted to this Team',
-            'fr' => 'Supprimer les demandes de recherche soumises à cette équipe'
+            'fr' => 'Supprimer une demande de recherche d’équipe'
         ],
 
         'view-any-team' => [
             'en' => 'View Any Team',
-            'fr' => 'Voir n\'importe quelle équipe'
+            'fr' => 'Visionner toute équipe'
         ],
         'view-any-teamMembers' => [
             'en' => 'View who is a member of any Team',
@@ -276,24 +276,24 @@ return [
         ],
         'create-any-team' => [
             'en' => 'Create Any Team',
-            'fr' => 'Créer n\'importe quelle équipe'
+            'fr' => 'Créer toute équipe'
         ],
         'update-any-team' => [
             'en' => 'Update Any Team',
-            'fr' => 'Mise à jour de n\'importe quelle équipe'
+            'fr' => 'Mettre à jour toute équipe'
         ],
         'update-team-team' => [
             'en' => 'Update this Team',
-            'fr' => 'Mise à jour de cette équipe'
+            'fr' => 'Mettre à jour des équipes'
         ],
         'delete-any-team' => [
             'en' => 'Delete Any Team',
-            'fr' => 'Supprimer une équipe'
+            'fr' => 'Supprimer toute équipe'
         ],
 
         'view-any-role' => [
             'en' => 'View Any Role',
-            'fr' => 'Voir tous les rôles'
+            'fr' => 'Visionner tout rôle'
         ],
         'assign-any-role' => [
             'en' => 'Assign any Role to any User',
@@ -305,7 +305,7 @@ return [
         ],
         'update-any-role' => [
             'en' => 'Update Any Role',
-            'fr' => 'Mise à jour de n\'importe quel rôle'
+            'fr' => 'Mettre à jour tout rôle'
         ],
     ],
 
@@ -326,11 +326,11 @@ return [
         'guest' => [
             'display_name' => [
                 'en' => 'Guest',
-                'fr' => 'Guest'
+                'fr' => 'Invité'
             ],
             'description' => [
                 'en' => 'These permissions are available to anyone, even not logged in.',
-                'fr' => 'Ces autorisations sont accessibles à tous, même aux personnes non connectées.'
+                'fr' => 'Ces permissions sont accessibles à quiconque, même sans avoir ouvert de session.'
             ]
         ],
 
@@ -341,7 +341,7 @@ return [
             ],
             'description' => [
                 'en' => 'Available to any logged-in user.',
-                'fr' => 'Disponible pour tout utilisateur connecté.'
+                'fr' => 'Accessibles à tout utilisateur qui a ouvert une session.'
             ]
         ],
 
@@ -352,29 +352,29 @@ return [
             ],
             'description' => [
                 'en' => 'Can edit their own profile and apply to jobs.',
-                'fr' => 'Ils peuvent modifier leur propre profil et postuler à des emplois.'
+                'fr' => 'Peut modifier son propre profil et postuler des emplois.'
             ]
         ],
 
         'team_admin' => [
             'display_name' => [
                 'en' => 'Team Admin',
-                'fr' => 'Team Admin'
+                'fr' => 'Administrateur de l’équipe'
             ],
             'description' => [
                 'en' => 'Can update their Team, add users to their Team, process applications, process requests and work on and publish pools',
-                'fr' => 'Ils peuvent mettre à jour leur équipe, ajouter des utilisateurs à leur équipe, traiter des demandes, travailler sur des pools et les publier.'
+                'fr' => 'Peut mettre à jour son équipe, ajouter des utilisateurs à son équipe, traiter les candidatures, traiter les demandes et travailler aux bassins et les publier.'
             ]
         ],
 
         'super_admin' => [
             'display_name' => [
                 'en' => 'Super Admin',
-                'fr' => 'Super Admin'
+                'fr' => 'Super administrateur'
             ],
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), manages lists of business data, and has the extraordinary ability to edit or delete other users.',
-                'fr' => 'Il crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), gère des listes de données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.'
+                'fr' => 'Crée des équipes, attribue des rôles à d’autres utilisateurs (y compris l’attribution d’utilisateurs à des organisations), gère des listes de données opérationnelles et a la capacité extraordinaire de modifier ou de supprimer d’autres utilisateurs.'
             ]
         ],
     ],
