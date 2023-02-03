@@ -105,19 +105,8 @@ export const wrapAbbr = (
     );
   }
   switch (stringifyText) {
-    // Regex that matches with all IT(en)/TI(fr) classification
-    case stringifyText.match(/[IT][TI]/)?.input:
-      return (
-        <abbr
-          title={intl.formatMessage(getAbbreviations("IT"))}
-          aria-label={stringifyText.split("").join(" ")}
-        >
-          <span aria-hidden="true">{text}</span>
-        </abbr>
-      );
     // Regex that matches with all IT(en)/TI(fr) classification with levels
     case stringifyText.match(/[IT][TI]-0\d/)?.input:
-      console.log(stringifyText.replace("-0", "").split("").join(" "));
       return (
         <abbr
           title={intl.formatMessage(getAbbreviations("IT"))}
@@ -126,10 +115,11 @@ export const wrapAbbr = (
           <span aria-hidden="true">{text}</span>
         </abbr>
       );
-    case "AS":
+    // Regex that matches with all IT(en)/TI(fr) classification
+    case stringifyText.match(/[IT][TI]/)?.input:
       return (
         <abbr
-          title={intl.formatMessage(getAbbreviations("AS"))}
+          title={intl.formatMessage(getAbbreviations("IT"))}
           aria-label={stringifyText.split("").join(" ")}
         >
           <span aria-hidden="true">{text}</span>
@@ -141,6 +131,15 @@ export const wrapAbbr = (
         <abbr
           title={intl.formatMessage(getAbbreviations("AS"))}
           aria-label={stringifyText.replace("-0", "").split("").join(" ")}
+        >
+          <span aria-hidden="true">{text}</span>
+        </abbr>
+      );
+    case stringifyText.match(/[AS][SA]/)?.input:
+      return (
+        <abbr
+          title={intl.formatMessage(getAbbreviations("AS"))}
+          aria-label={stringifyText.split("").join(" ")}
         >
           <span aria-hidden="true">{text}</span>
         </abbr>
