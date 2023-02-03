@@ -188,17 +188,21 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
         id: "64Pv6e",
         description: "Title for Profile Form wrapper in Work Preferences Form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Work Preferences",
-            id: "7OWQgZ",
-            description: "Display Text for Work Preferences Form Page Link",
-          }),
-          url: paths.workPreferences(initialData.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Work Preferences",
+                  id: "7OWQgZ",
+                  description:
+                    "Display Text for Work Preferences Form Page Link",
+                }),
+                url: paths.workPreferences(initialData.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <BasicForm
