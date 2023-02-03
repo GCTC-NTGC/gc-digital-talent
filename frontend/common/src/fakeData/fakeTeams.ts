@@ -12,14 +12,17 @@ const mockDepartments = fakeDepartments();
 
 const generateTeam = ({ name, departments }: GenerateTeamArgs): Team => {
   faker.setLocale("en");
-  const teamDepartments = faker.helpers.arrayElement<Department>(departments);
+  const teamDepartments = faker.helpers.arrayElements<Department>(
+    departments,
+    Math.floor(Math.random() * 4),
+  );
 
   return {
     id: faker.datatype.uuid(),
     name: faker.datatype.string(),
     contactEmail: faker.internet.email(),
     displayName: name,
-    departments: [teamDepartments],
+    departments: teamDepartments,
   };
 };
 

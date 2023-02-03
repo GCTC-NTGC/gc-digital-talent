@@ -89,7 +89,9 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         accessor: (d) =>
           d.departments?.length
             ? d.departments
-                .map((department) => department?.name[locale] || undefined)
+                .map((department) =>
+                  department?.name ? department.name[locale] : undefined,
+                )
                 .filter(notEmpty)
                 .join(", ")
             : "",
