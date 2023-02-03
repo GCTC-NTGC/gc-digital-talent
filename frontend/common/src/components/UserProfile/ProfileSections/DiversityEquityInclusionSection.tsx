@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { unpackMaybes } from "../../../helpers/formUtils";
 import imageUrl from "../../../helpers/imageUrl";
 import Well from "../../Well";
 import {
@@ -22,7 +23,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
   const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
     applicant;
   const nonLegacyIndigenousCommunities =
-    indigenousCommunities?.filter(
+    unpackMaybes(indigenousCommunities).filter(
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
   const anyCriteriaSelected =
@@ -111,22 +112,13 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                           "Label preceding text listing the communities the user is a member of, followed by a colon",
                       })}{" "}
                       {nonLegacyIndigenousCommunities.length > 0
-                        ? nonLegacyIndigenousCommunities.map(
-                            (community, index) => {
-                              if (!community) {
-                                return "";
-                              }
-
-                              const text = intl.formatMessage(
+                        ? nonLegacyIndigenousCommunities
+                            .map((community) => {
+                              return intl.formatMessage(
                                 getIndigenousCommunity(community),
                               );
-
-                              if (index === 0) {
-                                return text;
-                              }
-                              return `, ${text}`;
-                            },
-                          )
+                            })
+                            .join(", ")
                         : intl.formatMessage(
                             {
                               defaultMessage:
