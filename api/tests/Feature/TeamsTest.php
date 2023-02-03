@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Department;
 use App\Models\User;
 use App\Models\Team;
 use Database\Seeders\DepartmentSeeder;
@@ -75,5 +76,113 @@ class TeamsTest extends TestCase
     $team0Departments = $data['teams'][0]['departments'];
     $team0DepartmentCount = count($team0Departments);
     assertEquals($team0DepartmentCount, 2);
+  }
+
+  public function testTeamCreationMutation(): void
+  {
+    $this->seed(DepartmentSeeder::class);
+    $departmentId = Department::inRandomOrder()->first()->id;
+
+    // Assert null name causes failure
+    $this->graphQL(
+      /** @lang GraphQL */
+      '
+      mutation createTeam($team: CreateTeamInput!) {
+          createTeam(team: $team) {
+            name
+          }
+      }
+    ',
+      [
+          'team' => [
+            'name'=> null,
+          ]
+      ]
+    )->assertJsonFragment([
+        "message" => "Variable \"\$team\" got invalid value {\"name\":null}; Expected non-nullable type String! not to be null at value.name."
+      ]
+    );
+
+    // Assert team creation successful across all input fields
+    $this->graphQL(
+      /** @lang GraphQL */
+      '
+      mutation createTeam($team: CreateTeamInput!) {
+          createTeam(team: $team) {
+            name
+            displayName {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            contactEmail
+            departments {
+              id
+            }
+          }
+      }
+    ',
+      [
+          'team' => [
+            'name'=> 'team one',
+            'displayName' => [
+              'en' => 'en',
+              'fr' => 'fr',
+            ],
+            'description' => [
+              'en' => 'en',
+              'fr' => 'fr',
+            ],
+            'contactEmail' => 'test@test.com',
+            'departments' => [
+              "sync" => [$departmentId],
+            ],
+          ]
+      ]
+    )->assertJson([
+      'data' => [
+        'createTeam' => [
+            'name' => 'team one',
+            'displayName' => [
+              'en' => 'en',
+              'fr' => 'fr',
+            ],
+            'description' => [
+              'en' => 'en',
+              'fr' => 'fr',
+            ],
+            'contactEmail' => 'test@test.com',
+            'departments' => [
+              [
+                'id' => $departmentId,
+              ]
+            ],
+        ]
+    ]
+      ]
+    );
+
+    // Assert creating a second team with the same name fails
+    $this->graphQL(
+      /** @lang GraphQL */
+      '
+      mutation createTeam($team: CreateTeamInput!) {
+          createTeam(team: $team) {
+            name
+          }
+      }
+    ',
+      [
+          'team' => [
+            'name'=> 'team one',
+          ]
+      ]
+    )->assertJsonFragment([
+        "createTeam" => null,
+      ]
+    );
   }
 }
