@@ -11,7 +11,7 @@ import { unpackMaybes } from "@common/helpers/formUtils";
 import { toast } from "@common/components/Toast";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   GenericJobTitle,
@@ -141,7 +141,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

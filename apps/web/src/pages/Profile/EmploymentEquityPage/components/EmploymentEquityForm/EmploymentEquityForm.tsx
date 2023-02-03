@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -52,7 +52,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

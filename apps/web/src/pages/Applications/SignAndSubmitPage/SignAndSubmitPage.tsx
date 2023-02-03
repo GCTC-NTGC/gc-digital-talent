@@ -21,7 +21,7 @@ import { notEmpty } from "@common/helpers/util";
 import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
 import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -236,7 +236,7 @@ export interface SignAndSubmitFormProps {
   poolAdvertisementId: string;
   userId: string;
   closingDate: PoolAdvertisement["closingDate"];
-  jobTitle: string;
+  jobTitle: string | React.ReactNode;
   isApplicationComplete: boolean;
   handleSubmitApplication: (
     id: string,
@@ -394,7 +394,10 @@ const SignAndSubmitPage = () => {
   });
 
   const jobTitle = data?.poolCandidate?.poolAdvertisement
-    ? getFullPoolAdvertisementTitle(intl, data.poolCandidate.poolAdvertisement)
+    ? getFullPoolAdvertisementTitleHtml(
+        intl,
+        data.poolCandidate.poolAdvertisement,
+      )
     : intl.formatMessage({
         defaultMessage: "Error, job title not found.",
         id: "oDyHaL",

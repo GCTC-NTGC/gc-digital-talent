@@ -8,9 +8,9 @@ import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { getFullNameHtml, wrapAbbr } from "@common/helpers/nameUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPoolsQuery, Maybe, Pool, useGetPoolsQuery } from "~/api/generated";
@@ -41,7 +41,7 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolAdvertisementTitle(intl, pool) },
+        { label: getFullPoolAdvertisementTitleHtml(intl, pool) },
       )}
     </Link>
   );
@@ -50,7 +50,7 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={url} type="link">
-      {getFullPoolAdvertisementTitle(intl, pool)}
+      {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
 }
@@ -188,7 +188,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
                 color="primary"
                 mode="outline"
               >
-                {classification?.group}&#8209;{classification?.level}
+                {wrapAbbr(
+                  `${classification?.group}-0${classification?.level}`,
+                  intl,
+                )}
               </Pill>
             );
           }),

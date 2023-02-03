@@ -14,7 +14,7 @@ import {
   getArmedForcesStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { emptyToNull } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
@@ -180,7 +180,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

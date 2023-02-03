@@ -16,7 +16,7 @@ import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   AwardExperience,
@@ -132,7 +132,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const hasExperiences = notEmpty(experiences);
 
-  let crumbs = [
+  let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
       label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
@@ -155,7 +155,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         url: paths.applications(applicantId),
       },
       {
-        label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+        label: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
         url: paths.pool(poolAdvertisement.id),
       },
       {

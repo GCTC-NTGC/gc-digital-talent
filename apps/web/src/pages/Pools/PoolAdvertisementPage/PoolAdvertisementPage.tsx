@@ -32,7 +32,7 @@ import { categorizeSkill } from "@common/helpers/skillUtils";
 import { notEmpty } from "@common/helpers/util";
 import {
   formatClassificationString,
-  getFullPoolAdvertisementTitle,
+  getFullPoolAdvertisementTitleLabel,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
 import SEO from "@common/components/SEO/SEO";
@@ -167,7 +167,7 @@ export const PoolAdvertisementPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;

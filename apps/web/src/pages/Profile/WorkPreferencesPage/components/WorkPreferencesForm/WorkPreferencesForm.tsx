@@ -10,7 +10,7 @@ import {
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   PoolCandidate,
@@ -148,7 +148,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

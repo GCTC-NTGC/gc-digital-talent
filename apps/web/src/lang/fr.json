@@ -5502,5 +5502,21 @@
   "y+HB+k": {
     "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
+  },
+  "1c+inU": {
+    "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification aria label including titles and salaries"
+  },
+  "BkHx2X": {
+    "defaultMessage": "Analyste T I 2 (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification aria label including titles and salaries"
+  },
+  "++WV3O": {
+    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3 (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification aria label including titles and salaries"
+  },
+  "Ix0KgU": {
+    "defaultMessage": "Conseiller principal ou Manager Gestionnaire I T 4 (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification aria label including titles and salaries"
   }
 }
