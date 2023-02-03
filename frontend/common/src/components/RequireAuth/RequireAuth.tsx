@@ -4,18 +4,17 @@ import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAuthorizationContext from "../../hooks/useAuthorizationContext";
 import { LegacyRole } from "../../api/generated";
-import useRoutes from "../../hooks/useRoutes";
 import Loading from "../Pending/Loading";
 import { useLogger } from "../../hooks/useLogger";
 
 interface RequireAuthProps {
   children: React.ReactNode;
   roles: Array<LegacyRole>;
+  loginPath: string;
 }
 
-const RequireAuth = ({ children, roles }: RequireAuthProps) => {
+const RequireAuth = ({ children, roles, loginPath }: RequireAuthProps) => {
   const location = useLocation();
-  const routes = useRoutes();
   const logger = useLogger();
   const { loggedIn } = useAuth();
   const { loggedInUserRoles, isLoaded } = useAuthorizationContext();
@@ -31,7 +30,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     if (!loggedIn) {
       navigate(
         {
-          pathname: routes.login(),
+          pathname: loginPath,
           search: createSearchParams({ from: location.pathname }).toString(),
         },
         {
@@ -39,7 +38,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
         },
       );
     }
-  }, [location.pathname, loggedIn, navigate, routes]);
+  }, [location.pathname, loggedIn, loginPath, navigate]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {
