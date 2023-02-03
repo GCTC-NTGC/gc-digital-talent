@@ -78,8 +78,8 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(initialData.id);
 
   const labels = {

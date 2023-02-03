@@ -35,8 +35,8 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {

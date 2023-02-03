@@ -522,8 +522,8 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);

@@ -90,8 +90,8 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.myProfile();
 
   const labels = {

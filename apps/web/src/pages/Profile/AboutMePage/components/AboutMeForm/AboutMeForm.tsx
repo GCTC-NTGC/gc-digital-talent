@@ -72,8 +72,8 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(initialUser.id);
 
   const labelMap = {
