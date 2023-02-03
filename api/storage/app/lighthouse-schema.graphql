@@ -282,6 +282,7 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   poolCandidateFilter: PoolCandidateFilterBelongsTo
   applicantFilter: ApplicantFilterBelongsTo
+  wasEmpty: Boolean
 }
 
 input CreatePoolInput {
