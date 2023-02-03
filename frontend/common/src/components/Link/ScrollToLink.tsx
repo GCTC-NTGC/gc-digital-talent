@@ -1,8 +1,7 @@
 import React from "react";
-import { useLocation, useNavigate, Link, LinkProps } from "react-router-dom";
+import { useLocation, Link, LinkProps } from "react-router-dom";
 
 const scrollToSection = (section: HTMLElement | null) => {
-  console.log(section);
   if (section) {
     section.scrollIntoView({
       behavior: "smooth",
@@ -30,7 +29,6 @@ const ScrollToLink = ({ to, children, ...rest }: LinkProps) => {
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // e.stopPropagation();
     scrollToSection(targetSection);
   };
 
