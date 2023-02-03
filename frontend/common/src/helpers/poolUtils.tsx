@@ -56,7 +56,7 @@ export const formattedPoolPosterTitle = ({
       </>
     ),
     label: `${title ? `${title}` : ""} ${
-      genericTitle ? ` (${genericTitle})` : ""
+      genericTitle ? `(${genericTitle})` : ""
     }`.trim(),
   };
 };
