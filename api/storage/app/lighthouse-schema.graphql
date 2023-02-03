@@ -316,9 +316,9 @@ input CreateSkillInput {
 
 input CreateTeamInput {
   name: String!
-  displayName: LocalizedString
-  description: LocalizedString
-  departments: DepartmentsBelongsToMany
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
   contactEmail: Email
 }
 
@@ -391,8 +391,8 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
-input DepartmentsBelongsToMany {
-  sync: [ID]
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 type EducationExperience implements Experience {
@@ -1321,9 +1321,9 @@ input UpdateSkillInput {
 
 input UpdateTeamInput {
   name: String
-  displayName: LocalizedString
-  description: LocalizedString
-  departments: DepartmentsBelongsToMany
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
   contactEmail: Email
 }
 

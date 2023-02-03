@@ -1310,23 +1310,23 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
-input DepartmentsBelongsToMany {
-  sync: [ID]
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 input CreateTeamInput {
   name: String!
-  displayName: LocalizedString @rename(attribute: "display_name")
-  description: LocalizedString
-  departments: DepartmentsBelongsToMany
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input UpdateTeamInput {
   name: String
-  displayName: LocalizedString @rename(attribute: "display_name")
-  description: LocalizedString
-  departments: DepartmentsBelongsToMany
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
@@ -1740,8 +1740,10 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
 
   # Teams mutations
-  createTeam(team: CreateTeamInput!): Team @create @can(ability: "create")
-  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
+  createTeam(team: CreateTeamInput! @spread): Team
+    @create
+    @can(ability: "create")
+  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
 }
