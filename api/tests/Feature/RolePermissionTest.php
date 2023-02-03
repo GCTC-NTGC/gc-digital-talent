@@ -206,10 +206,12 @@ class RolePermissionTest extends TestCase
         $guestPermission = 'view-any-skill';
         $teamPermission = 'view-any-role';
 
-        // This should be false because the user only has this permission in a team context
-        $this->assertFalse($this->user->isAbleTo($teamPermission, null));
+        // This should be true because even though the role is associated with a team context, we're asking about the permission outside of a team context.
+        // NOTE: this will fail if team_strict_check is true in the laratrust config.
+        $this->assertTrue($this->user->isAbleTo($teamPermission, null));
 
-        // This should be true because the user only has this permission outside of a team context
+        // This should be true because we're asking about the permission without a team context, and the user only has this permission outside of a team context anyway.
+        // That means this should pass regardless whether team_strict_check is true or false.
         $this->assertTrue($this->user->isAbleTo($guestPermission, null));
 
         // This should be true because the user has this permission in the team context
