@@ -3508,6 +3508,10 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
+  "+O6J4u": {
+    "defaultMessage": "(Aucun sélectionné)",
+    "description": "Text shown when the filter was not selected"
+  },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
@@ -5494,6 +5498,10 @@
   "zzwPOR": {
     "defaultMessage": "Langue préférée pour l'examen écrit :",
     "description": "Display text for the preferred written exam language field on users"
+  },
+  "eozWFc": {
+    "defaultMessage": "Filtres avancés",
+    "description": "Title for the additional filters"
   },
   "+d2TiI": {
     "defaultMessage": "Créer une nouvelle demande de talent",
