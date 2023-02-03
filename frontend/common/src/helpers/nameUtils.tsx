@@ -100,7 +100,7 @@ export const wrapAbbr = (
     });
     return (
       <abbr title={fallbackTitle}>
-        <span aria-hidden="true">{text}</span>
+        <span>{text}</span>
       </abbr>
     );
   }
@@ -108,46 +108,42 @@ export const wrapAbbr = (
     // Regex that matches with all IT(en)/TI(fr) classification with levels
     case stringifyText.match(/[IT][TI]-0\d/)?.input:
       return (
-        <abbr
-          title={intl.formatMessage(getAbbreviations("IT"))}
-          aria-label={stringifyText.replace("-0", "").split("").join(" ")}
-        >
-          <span aria-hidden="true">{text}</span>
+        <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
+          <span
+            aria-label={stringifyText.replace("-0", "").split("").join(" ")}
+          >
+            {text}
+          </span>
         </abbr>
       );
     // Regex that matches with all IT(en)/TI(fr) classification
     case stringifyText.match(/[IT][TI]/)?.input:
       return (
-        <abbr
-          title={intl.formatMessage(getAbbreviations("IT"))}
-          aria-label={stringifyText.split("").join(" ")}
-        >
-          <span aria-hidden="true">{text}</span>
+        <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
+          <span aria-label={stringifyText.split("").join(" ")}>{text}</span>
         </abbr>
       );
     // Regex that matches with all AS classification with levels
     case stringifyText.match(/[AS][SA]-0\d/)?.input:
       return (
-        <abbr
-          title={intl.formatMessage(getAbbreviations("AS"))}
-          aria-label={stringifyText.replace("-0", "").split("").join(" ")}
-        >
-          <span aria-hidden="true">{text}</span>
+        <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
+          <span
+            aria-label={stringifyText.replace("-0", "").split("").join(" ")}
+          >
+            {text}
+          </span>
         </abbr>
       );
     case stringifyText.match(/[AS][SA]/)?.input:
       return (
-        <abbr
-          title={intl.formatMessage(getAbbreviations("AS"))}
-          aria-label={stringifyText.split("").join(" ")}
-        >
-          <span aria-hidden="true">{text}</span>
+        <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
+          <span aria-label={stringifyText.split("").join(" ")}>{text}</span>
         </abbr>
       );
     default:
       return (
-        <abbr title={title} aria-label={(text as string).split("").join(" ")}>
-          <span aria-hidden="true">{text}</span>
+        <abbr title={title}>
+          <span aria-label={(text as string).split("").join(" ")}>{text}</span>
         </abbr>
       );
   }
