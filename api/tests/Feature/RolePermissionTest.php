@@ -187,6 +187,38 @@ class RolePermissionTest extends TestCase
         $this->cleanup();
     }
 
+    /**
+     * Test Strict Team Check
+     *
+     * @return void
+     */
+    public function test_strict_team_check()
+    {
+        $teamAdminRole = Role::where('name', 'team_admin')->sole();
+        $this->user->attachRole(
+            $teamAdminRole,
+            $this->ownedTeam
+        );
+
+        $guestRole = Role::where('name', 'guest')->sole();
+        $this->user->attachRole($guestRole);
+
+        $guestPermission = 'view-any-skill';
+        $teamPermission = 'view-any-role';
+
+        // This should be false because the user only has this permission in a team context
+        $this->assertFalse($this->user->isAbleTo($teamPermission, null));
+
+        // This is true because a user only has this permission outside of a team context
+        $this->assertTrue($this->user->isAbleTo($guestPermission, null));
+
+        // This should be true because the user has this permission in the team context
+        $this->assertTrue($this->user->isAbleTo($teamPermission, $this->ownedTeam));
+
+        // This is false because a user only has this permission outside of a team context
+        $this->assertFalse($this->user->isAbleTo($guestPermission, $this->ownedTeam));
+    }
+
     private function cleanup()
     {
         // Remove all roles from a user
