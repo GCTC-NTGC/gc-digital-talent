@@ -167,13 +167,15 @@ const Content = React.forwardRef<
     ref={forwardedRef}
     {...rest}
   >
-    <hr
-      className="Accordion__Separator"
-      data-h2-background-color="base(dt-gray)"
-      data-h2-width="base(100%)"
-      data-h2-border="base(none)"
-    />
-    {children}
+    <>
+      <hr
+        className="Accordion__Separator"
+        data-h2-background-color="base(dt-gray)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+      />
+      {children}
+    </>
   </AccordionPrimitive.Content>
 ));
 

@@ -3508,6 +3508,10 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
+  "+O6J4u": {
+    "defaultMessage": "(Aucun sélectionné)",
+    "description": "Text shown when the filter was not selected"
+  },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
@@ -4155,8 +4159,8 @@
     "defaultMessage": "Bon retour, {name}",
     "description": "Title for dashboard on the talent cloud admin portal."
   },
-  "n+d6QE": {
-    "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
+  "jIlwJ8": {
+    "defaultMessage": "Dans le bassin suivant :",
     "description": "Second section of text on the change candidate expiry date dialog"
   },
   "n9YPWe": {
@@ -5538,6 +5542,10 @@
   "lOiNyG": {
     "defaultMessage": "Équipes",
     "description": "Page title for the teams index page"
+  },
+  "eozWFc": {
+    "defaultMessage": "Filtres avancés",
+    "description": "Title for the additional filters"
   },
   "+d2TiI": {
     "defaultMessage": "Créer une nouvelle demande de talent",
