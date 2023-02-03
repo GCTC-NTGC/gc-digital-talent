@@ -5,7 +5,7 @@ import { useFormState } from "react-hook-form";
 import type { FieldLabels } from "./BasicForm";
 
 import Alert from "../Alert";
-import { ScrollToLink } from "../Link";
+import ScrollToLink, { ScrollLinkClickFunc } from "../Link/ScrollToLink";
 import { getLocale } from "../../helpers/localize";
 import { notEmpty } from "../../helpers/util";
 
@@ -57,6 +57,19 @@ const ErrorSummary = React.forwardRef<
     })
     .filter(notEmpty);
 
+  const handleErrorClick: ScrollLinkClickFunc = (_, target) => {
+    const singleInputTypes = ["input", "select", "textarea"];
+    if (target) {
+      // The input is not part of a group so just focus it directly
+      if (singleInputTypes.includes(target.nodeName.toLocaleLowerCase())) {
+        target.focus();
+      } else {
+        // Find the input in a RadioGroup or CheckList and focus it
+        target.querySelector("input")?.focus();
+      }
+    }
+  };
+
   return invalidFields.length > 0 ? (
     <Alert.Root type="error" ref={forwardedRef} tabIndex={0}>
       <Alert.Title>
@@ -77,7 +90,9 @@ const ErrorSummary = React.forwardRef<
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {invalidFields.map((field) => (
           <li key={field.name}>
-            <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
+            <ScrollToLink to={field.name} onClick={handleErrorClick}>
+              {field.label}
+            </ScrollToLink>
             {`${locale === "fr" ? ` : ` : `: `}${field.message}`}
           </li>
         ))}

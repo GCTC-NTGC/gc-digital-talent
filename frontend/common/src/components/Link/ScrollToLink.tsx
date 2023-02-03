@@ -1,13 +1,24 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+export type ScrollLinkClickFunc = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  section: HTMLElement | null,
+) => void;
+
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
   to: string;
   children?: React.ReactNode;
+  onClick?: ScrollLinkClickFunc;
 }
 
-const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
+const ScrollToLink = ({
+  to,
+  children,
+  onClick,
+  ...rest
+}: ScrollToLinkProps) => {
   const navigate = useNavigate();
   const { pathname, hash } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
@@ -39,6 +50,9 @@ const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
     e.stopPropagation();
     navigate(`#${to}`);
     scrollToSection();
+    if (onClick) {
+      onClick(e, targetSection);
+    }
   };
 
   return (
