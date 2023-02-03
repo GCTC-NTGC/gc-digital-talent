@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
         $this->truncateTables();
 
+        $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);

@@ -24,5 +24,10 @@ class Permission extends LaratrustPermission
         'description' => 'array',
     ];
 
+    protected $fillable = [
+        'name',
+        'display_name'
+    ];
+
     public $guarded = [];
 }
