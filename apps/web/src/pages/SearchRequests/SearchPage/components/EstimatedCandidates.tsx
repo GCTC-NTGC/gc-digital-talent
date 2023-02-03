@@ -5,14 +5,62 @@ import { ScrollToLink } from "@common/components/Link";
 
 import Spinner from "~/components/Spinner/Spinner";
 
+const testId = (chunks: React.ReactNode) => (
+  <span data-testid="candidateCount">{chunks}</span>
+);
+
+interface CandidateMessageProps {
+  candidateCount: number;
+}
+
+const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
+  const intl = useIntl();
+
+  return candidateCount ? (
+    <p data-h2-margin="base(0 0 x.5 0)">
+      {intl.formatMessage(
+        {
+          defaultMessage: `{candidateCount, plural,
+          =0 {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
+          =1 {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
+          other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
+        }`,
+          id: "xwBt36",
+          description:
+            "Message for total estimated candidates box next to search form.",
+        },
+        {
+          testId,
+          candidateCount,
+        },
+      )}
+    </p>
+  ) : (
+    <>
+      <p data-h2-margin="base(0 0 x.5 0)">
+        {intl.formatMessage({
+          defaultMessage: "We didn't find any matching candidates.",
+          id: "8R2XpK",
+          description:
+            "Text telling users that their search produced no candidates",
+        })}
+      </p>
+      <p data-h2-font-weight="base(700)" data-h2-margin="base(x.5 0)">
+        {intl.formatMessage({
+          defaultMessage: "We can still help!",
+          id: "5U+V2Y",
+          description:
+            "Heading for helping user if no candidates matched the filters chosen.",
+        })}
+      </p>
+    </>
+  );
+};
+
 interface EstimatedCandidatesProps {
   candidateCount: number;
   updatePending?: boolean;
 }
-
-const testId = (chunks: React.ReactNode) => (
-  <span data-testid="candidateCount">{chunks}</span>
-);
 
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
@@ -57,46 +105,32 @@ const EstimatedCandidates: React.FunctionComponent<
             aria-live="polite"
             data-h2-text-align="base(center)"
           >
-            <p>
-              {updatePending ? (
-                <Spinner />
-              ) : (
-                <>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: `{candidateCount, plural,
-                        =0 {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
-                        =1 {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
-                        other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
-                      }`,
-                      id: "Bp3HEe",
-                      description:
-                        "Message for total estimated candidates box next to search form.",
-                    },
-                    {
-                      testId,
-                      candidateCount,
-                    },
-                  )}
-                </>
-              )}
-            </p>
-            {candidateCount > 0 && (
-              <ScrollToLink
-                to="results"
-                data-h2-color="base(dt-black) base:hover(dt-primary)"
-                data-h2-transition="base:hover(color .2s ease 0s)"
-                data-h2-display="base(inline-block)"
-                data-h2-margin="base(x1, 0, 0, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "View results",
-                  id: "3wbcnZ",
-                  description:
-                    "A link to view the pools that contain matching talent.",
-                })}
-              </ScrollToLink>
+            {updatePending ? (
+              <Spinner />
+            ) : (
+              <CandidateMessage candidateCount={candidateCount} />
             )}
+            <ScrollToLink
+              to="results"
+              data-h2-color="base(dt-black) base:hover(dt-primary)"
+              data-h2-transition="base:hover(color .2s ease 0s)"
+              data-h2-display="base(inline-block)"
+            >
+              {candidateCount
+                ? intl.formatMessage({
+                    defaultMessage: "View results",
+                    id: "3wbcnZ",
+                    description:
+                      "A link to view the pools that contain matching talent.",
+                  })
+                : intl.formatMessage({
+                    defaultMessage:
+                      "Submit an empty request and tell us more in the comments.",
+                    id: "W/cZp2",
+                    description:
+                      "Link text to scroll to the submit button when no candidates were found",
+                  })}
+            </ScrollToLink>
           </div>
         </div>
       </div>
