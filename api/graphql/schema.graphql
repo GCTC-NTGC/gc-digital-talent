@@ -1740,6 +1740,8 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
 
   # Teams mutations
-  createTeam(team: CreateTeamInput): Team @create
-  updateTeam(id: UUID!, team: UpdateTeamInput): Team @update
+  createTeam(team: CreateTeamInput!): Team @create @can(ability: "create")
+  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
+    @update
+    @can(ability: "update")
 }
