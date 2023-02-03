@@ -9,6 +9,7 @@ import SEO from "@common/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { useSearchParams } from "react-router-dom";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
@@ -18,7 +19,11 @@ const LoginPage: React.FC = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
-  const loginPath = apiPaths.login(paths.myProfile(), getLocale(intl));
+  const [searchParams] = useSearchParams();
+  const loginPath = apiPaths.login(
+    searchParams.get("from") ?? paths.myProfile(),
+    getLocale(intl),
+  );
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Login using GC Key",
