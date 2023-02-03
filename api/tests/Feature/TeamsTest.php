@@ -191,9 +191,7 @@ class TeamsTest extends TestCase
     $this->seed(DepartmentSeeder::class);
     $departmentId = Department::inRandomOrder()->first()->id;
 
-    $teamOne = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    ]);
+    $teamOne = Team::factory()->create();
 
     // Assert team update successful across all input fields
     $this->graphQL(
