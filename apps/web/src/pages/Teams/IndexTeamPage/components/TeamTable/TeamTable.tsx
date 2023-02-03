@@ -17,6 +17,13 @@ interface TeamTableProps {
   teams: Array<Team>;
 }
 
+interface ICell {
+  value: string;
+  row: {
+    original: Team;
+  };
+}
+
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
     {label ||
@@ -69,27 +76,9 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           id: "KIWVbp",
           description: "Title displayed for the teams table team column.",
         }),
-        accessor: (d) =>
-          viewAccessor(
-            paths.teamView(d.id),
-            d?.displayName ? d.displayName[locale] : d.name,
-            intl,
-          ),
-        sortType: (rowA, rowB) => {
-          const {
-            original: { displayName: nameA },
-          } = rowA;
-          const {
-            original: { displayName: nameB },
-          } = rowB;
-
-          const a = (nameA ? nameA[locale] : "") ?? "";
-          const b = (nameB ? nameB[locale] : "") ?? "";
-
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
-        },
+        accessor: (d) => (d?.displayName ? d.displayName[locale] : d.name),
+        Cell: ({ row, value }: ICell) =>
+          viewAccessor(paths.teamView(row.original.id), value, intl),
       },
       {
         Header: intl.formatMessage({
@@ -98,8 +87,11 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table department column.",
         }),
         accessor: (d) =>
-          d.departments?.length && d.departments[0]
-            ? d.departments[0].name?.[locale]
+          d.departments?.length
+            ? d.departments
+                .map((department) => department?.name[locale] || undefined)
+                .filter(notEmpty)
+                .join(", ")
             : "",
       },
       {
@@ -108,14 +100,8 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           id: "TREL4U",
           description: "Title displayed for the teams table email column.",
         }),
-        accessor: (d) => emailLinkAccessor(d.contactEmail, intl),
-        sortType: (rowA, rowB) => {
-          const a = rowA.original.contactEmail ?? "";
-          const b = rowB.original.contactEmail ?? "";
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
-        },
+        accessor: (d) => d.contactEmail,
+        Cell: ({ value }: ICell) => emailLinkAccessor(value, intl),
       },
     ],
     [paths, intl, locale],
