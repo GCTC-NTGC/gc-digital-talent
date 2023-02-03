@@ -9,7 +9,7 @@ const mockTeams = fakeTeams();
 
 export default {
   component: TeamTable,
-  title: "Tables/Department Table",
+  title: "Tables/Team Table",
 } as ComponentMeta<typeof TeamTable>;
 
 const Template: ComponentStory<typeof TeamTable> = (args) => {
