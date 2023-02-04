@@ -30,6 +30,7 @@ export type RouteParams = {
 export const loader =
   (client: Client, userId: Scalars["UUID"]): LoaderFunction =>
   async ({ params, request }) => {
+    const url = new URL(request.url);
     const { poolId } = params;
 
     /**
@@ -39,11 +40,13 @@ export const loader =
     const me = await client
       .query(`query IsLoggedIn { me { id } }`, {})
       .toPromise()
-      .then((res) => res.data.me.id);
+      .then((res) => res.data.me);
 
     // Redirect to login if we got this far (we shouldn't)
-    if (!me.id) {
-      redirect(`/login?from=${request.url}&locale=en`);
+    if (!me) {
+      return window.location.replace(
+        `/login?from=${encodeURI(url.pathname)}&locale=en`,
+      );
     }
 
     const application = client

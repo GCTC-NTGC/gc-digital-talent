@@ -741,11 +741,7 @@ const createRoute = (locale: Locales, client: Client, user: PossibleUser) =>
                         {
                           path: "create-application",
                           loader: applicationLoader(client, user?.id),
-                          element: (
-                            <RequireAuth roles={[LegacyRole.Applicant]}>
-                              <CreateApplicationPage />
-                            </RequireAuth>
-                          ),
+                          element: <CreateApplicationPage />,
                         },
                       ],
                     },
