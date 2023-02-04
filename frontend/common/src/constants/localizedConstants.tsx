@@ -1541,13 +1541,13 @@ export const publishingGroups = defineMessages({
     description: "The publishing group called Executive Jobs",
   },
   [PublishingGroup.ItJobs]: {
-    defaultMessage: "<abbreviation>IT</abbreviation> Jobs",
-    id: "Xis88S",
+    defaultMessage: "IT Jobs",
+    id: "C8nrGM",
     description: "The publishing group called IT Jobs",
   },
   [PublishingGroup.ItJobsOngoing]: {
-    defaultMessage: "<abbreviation>IT</abbreviation> Jobs (ongoing)",
-    id: "IKoOjC",
+    defaultMessage: "IT Jobs (ongoing)",
+    id: "1YuZjR",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
   [PublishingGroup.Other]: {

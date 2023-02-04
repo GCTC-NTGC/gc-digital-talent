@@ -9,6 +9,12 @@ const messages = defineMessages({
     description:
       "Title for the 'business line advisory services' IT work stream",
   },
+  businessAdvisoryServicesLabel: {
+    defaultMessage: "IT business line advisory services",
+    id: "ZOEHxi",
+    description:
+      "Label for the 'business line advisory services' IT work stream",
+  },
   businessAdvisoryServicesSummary: {
     defaultMessage:
       "This stream includes providing specialized <abbreviation>IT</abbreviation> guidance as well as working with clients and/or suppliers to acquire and sustain <abbreviation>IT</abbreviation> resources that support Government operation.",
@@ -21,6 +27,11 @@ const messages = defineMessages({
     id: "vbEXnp",
     description: "Title for the 'database management' IT work stream",
   },
+  databaseManagementLabel: {
+    defaultMessage: "IT database management",
+    id: "AR+sqf",
+    description: "Label for the 'database management' IT work stream",
+  },
   databaseManagementSummary: {
     defaultMessage:
       "This stream includes developing and maintaining data models, database design, capacity planning, performance management, and ensuring data integrity.",
@@ -31,6 +42,11 @@ const messages = defineMessages({
     defaultMessage: "<abbreviation>IT</abbreviation> enterprise architecture",
     id: "eFNBND",
     description: "Title for the 'enterprise architecture' IT work stream",
+  },
+  enterpriseArchitectureLabel: {
+    defaultMessage: "IT enterprise architecture",
+    id: "YbkM7u",
+    description: "Label for the 'enterprise architecture' IT work stream",
   },
   enterpriseArchitectureSummary: {
     defaultMessage:
@@ -43,6 +59,11 @@ const messages = defineMessages({
     id: "6G1ESr",
     description: "Title for the 'infrastructure operations' IT work stream",
   },
+  infrastructureOperationsLabel: {
+    defaultMessage: "IT infrastructure operations",
+    id: "i8DgUB",
+    description: "Label for the 'infrastructure operations' IT work stream",
+  },
   infrastructureOperationsSummary: {
     defaultMessage:
       "This stream includes infrastructure management of networks, mainframes, servers, and storage, providing <abbreviation>IT</abbreviation> support, and client/supplier relationships.",
@@ -53,6 +74,11 @@ const messages = defineMessages({
     defaultMessage: "<abbreviation>IT</abbreviation> planning and reporting",
     id: "E3loNV",
     description: "Title for the 'planning and reporting' IT work stream",
+  },
+  planningAndReportingLabel: {
+    defaultMessage: "IT planning and reporting",
+    id: "NHjbIl",
+    description: "Label for the 'planning and reporting' IT work stream",
   },
   planningAndReportingSummary: {
     defaultMessage:
@@ -66,6 +92,11 @@ const messages = defineMessages({
     id: "AlRcyu",
     description: "Title for the 'project portfolio management' IT work stream",
   },
+  projectPortfolioManagementLabel: {
+    defaultMessage: "IT project portfolio management",
+    id: "lCHx90",
+    description: "Label for the 'project portfolio management' IT work stream",
+  },
   projectPortfolioSummary: {
     defaultMessage:
       "This bucket includes working full-time on large, formal projects that require the sharing of and application of rigorous application of <abbreviation>IT</abbreviation> project management skills and knowledge.",
@@ -77,6 +108,11 @@ const messages = defineMessages({
     id: "wzoCfb",
     description: "Title for the 'security' IT work stream",
   },
+  securityLabel: {
+    defaultMessage: "IT security",
+    id: "/2Vhvl",
+    description: "Label for the 'security' IT work stream",
+  },
   securitySummary: {
     defaultMessage:
       "This stream includes specialized security skills that focus in programming, infrastructure, business applications, and data.",
@@ -87,6 +123,11 @@ const messages = defineMessages({
     defaultMessage: "<abbreviation>IT</abbreviation> software solutions",
     id: "Tjd942",
     description: "Title for the 'software solutions' IT work stream",
+  },
+  softwareSolutionsLabel: {
+    defaultMessage: "IT software solutions",
+    id: "QSTaWO",
+    description: "Label for the 'software solutions' IT work stream",
   },
   softwareSolutionsSummary: {
     defaultMessage:

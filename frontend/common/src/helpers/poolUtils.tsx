@@ -51,7 +51,7 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}{" "}
+        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),

@@ -5395,8 +5395,8 @@
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "UMPxOg": {
-    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
+  "b3v0nI": {
+    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (<abbreviation>TI</abbreviation>).",
     "description": "First paragraph about the program"
   },
   "W2G590": {
@@ -5420,7 +5420,7 @@
     "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
   },
   "cMDC/P": {
-    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en <abbreviation>TI</abbreviation>.",
     "description": "Talent portal strategy item 1 content"
   },
   "drDPf3": {
@@ -5432,7 +5432,7 @@
     "description": "Title for the 'enterprise architecture' IT work stream"
   },
   "gxOExQ": {
-    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la <abbreviation>TI</abbreviation>!",
     "description": "How it works, step 2 content sentence 1"
   },
   "hKKYYL": {
@@ -5610,5 +5610,33 @@
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
+  },
+  "AR+sqf": {
+    "defaultMessage": "Gestion de bases de données de la TI",
+    "description": "Label for the 'database management' IT work stream"
+  },
+  "YbkM7u": {
+    "defaultMessage": "Architecture intégrée de la TI",
+    "description": "Label for the 'enterprise architecture' IT work stream"
+  },
+  "i8DgUB": {
+    "defaultMessage": "Opérations d’infrastructure de la TI",
+    "description": "Label for the 'infrastructure operations' IT work stream"
+  },
+  "NHjbIl": {
+    "defaultMessage": "Planification et établissement de rapports en matière de TI",
+    "description": "Label for the 'planning and reporting' IT work stream"
+  },
+  "lCHx90": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
+    "description": "Label for the 'project portfolio management' IT work stream"
+  },
+  "/2Vhvl": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "Label for the 'security' IT work stream"
+  },
+  "QSTaWO": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "Label for the 'software solutions' IT work stream"
   }
 }

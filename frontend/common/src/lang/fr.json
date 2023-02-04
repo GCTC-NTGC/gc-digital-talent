@@ -1978,16 +1978,16 @@
   "6svHxg": {
     "defaultMessage": "Services administratifs"
   },
-  "IKoOjC": {
-    "defaultMessage": "Emplois en <abbreviation>TI</abbreviation> (en cours)",
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
   },
   "MuWdei": {
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
   },
-  "Xis88S": {
-    "defaultMessage": "Emplois en <abbreviation>TI</abbreviation>",
+  "C8nrGM": {
+    "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
   }
 }
