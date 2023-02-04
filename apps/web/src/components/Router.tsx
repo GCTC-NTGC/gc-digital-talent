@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { Locales } from "@common/helpers/localize";
 import Loading from "@common/components/Pending/Loading";
@@ -15,6 +15,12 @@ import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import { LegacyRole } from "~/api/generated";
+import { Client, useClient } from "urql";
+
+import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+import { PossibleUser } from "@common/components/Auth/AuthorizationContainer";
+
+import { loader as applicationLoader } from "~/pages/CreateApplicationPage/CreateApplicationPage";
 
 /** Home */
 const HomePage = React.lazy(() =>
@@ -209,6 +215,7 @@ const PoolAdvertisementPage = React.lazy(() =>
       ),
   ),
 );
+
 const CreateApplicationPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -496,7 +503,7 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales) =>
+const createRoute = (locale: Locales, client: Client, user: PossibleUser) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -733,6 +740,7 @@ const createRoute = (locale: Locales) =>
                         },
                         {
                           path: "create-application",
+                          loader: applicationLoader(client, user?.id),
                           element: (
                             <RequireAuth roles={[LegacyRole.Applicant]}>
                               <CreateApplicationPage />
@@ -1168,7 +1176,9 @@ const createRoute = (locale: Locales) =>
 
 const Router = () => {
   const { locale } = useLocale();
-  const router = createRoute(locale);
+  const client = useClient();
+  const { loggedInUser } = useAuthorizationContext();
+  const router = createRoute(locale, client, loggedInUser);
   return <RouterProvider router={router} fallbackElement={<Loading />} />;
 };
 

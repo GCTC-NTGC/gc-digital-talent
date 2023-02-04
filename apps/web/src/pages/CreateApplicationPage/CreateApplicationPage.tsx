@@ -1,21 +1,61 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
-import { Id, toast as toastify } from "react-toastify";
+import { Client } from "urql";
+
+import {
+  Await,
+  Navigate,
+  useLoaderData,
+  useParams,
+  defer,
+  LoaderFunction,
+  redirect,
+} from "react-router-dom";
 
 import Loading from "@common/components/Pending/Loading";
-import { toast } from "@common/components/Toast";
-import { notEmpty } from "@common/helpers/util";
-import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import { AuthorizationContext } from "@common/components/Auth";
-import { errorMessages } from "@common/messages";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Scalars, useCreateApplicationMutation } from "~/api/generated";
+import { Scalars, CreateApplicationDocument } from "~/api/generated";
 
-type RouteParams = {
-  poolId: Scalars["ID"];
+export type LoaderData = {
+  application: {
+    id: Scalars["UUID"];
+  };
 };
+
+export type RouteParams = {
+  poolId: Scalars["UUID"];
+};
+
+export const loader =
+  (client: Client, userId: Scalars["UUID"]): LoaderFunction =>
+  async ({ params, request }) => {
+    const { poolId } = params;
+
+    /**
+     * We need to check for a user since this loader
+     * runs before the `<RequireAuth />` logic.
+     */
+    const me = await client
+      .query(`query IsLoggedIn { me { id } }`, {})
+      .toPromise()
+      .then((res) => res.data.me.id);
+
+    // Redirect to login if we got this far (we shouldn't)
+    if (!me.id) {
+      redirect(`/login?from=${request.url}&locale=en`);
+    }
+
+    const application = client
+      .mutation(CreateApplicationDocument, {
+        poolId,
+        userId,
+      })
+      .toPromise()
+      .then((res) => res.data.createApplication);
+
+    return defer({ application });
+  };
 
 /**
  * Note: This is not a real page
@@ -24,133 +64,9 @@ type RouteParams = {
  */
 const CreateApplication = () => {
   const { poolId } = useParams<RouteParams>();
+  const data = useLoaderData() as LoaderData;
   const intl = useIntl();
-  const errorToastId = React.useRef<Id>("");
-  const paths = useRoutes();
-  const navigate = useNavigate();
-  const auth = React.useContext(AuthorizationContext);
-  const [
-    { fetching: creating, data: mutationData, operation },
-    executeMutation,
-  ] = useCreateApplicationMutation();
-
-  // Store path to redirect to later on
-  let redirectPath = paths.pool(poolId || "");
-
-  /**
-   * Handle any errors that occur during mutation
-   *
-   * @returns null
-   */
-  const handleError = React.useCallback(
-    (msg?: React.ReactNode, path?: string) => {
-      navigate(path || redirectPath, { replace: true });
-      /**
-       * This is supposed to prevent the toast
-       * from firing twice, but it does not appear to
-       * work. Leaving it in, in the hopes
-       * it finally does 🤷‍♀️
-       */
-      if (!toastify.isActive(errorToastId.current)) {
-        errorToastId.current = toast.error(
-          msg ||
-            intl.formatMessage({
-              defaultMessage: "Error application creation failed",
-              id: "tlAiJm",
-              description: "Application creation failed",
-            }),
-        );
-      }
-      return null;
-    },
-    [intl, redirectPath, navigate],
-  );
-
-  /**
-   * Store if the application can be created
-   *
-   * !creating - Not currently running a mutation
-   * !mutationData - The mutation has not previously ran
-   * userId - We need a user ID to run the mutation
-   * id - We need a pool ID to run the mutation
-   * isVisible - Should't run it if user cannot view it
-   * !hasApplied - Users can only apply to a single pool advertisement
-   */
-  const userId = auth.loggedInUser?.id;
-  const hasMutationData = notEmpty(mutationData);
-  const isCreating = creating || hasMutationData || operation?.key;
-  const hasRequiredData = userId && poolId;
-
-  if (!hasRequiredData) {
-    if (!poolId) {
-      redirectPath = paths.allPools();
-    }
-    handleError();
-  }
-
-  const createApplication = React.useCallback(() => {
-    if (!isCreating && userId && poolId) {
-      executeMutation({ userId, poolId })
-        .then((result) => {
-          if (result.data?.createApplication) {
-            const newPath = paths.reviewApplication(
-              result.data.createApplication.id,
-            );
-            // Redirect user to the application if it exists
-            // Toast success or error
-            if (!result.error) {
-              navigate(newPath, { replace: true });
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Application created",
-                  id: "U/ji+A",
-                  description: "Application created successfully",
-                }),
-              );
-            } else {
-              const messageDescriptor = tryFindMessageDescriptor(
-                result.error.message,
-              );
-              const message = intl.formatMessage(
-                messageDescriptor ??
-                  errorMessages.unknownErrorRequestErrorTitle,
-              );
-              handleError(message, newPath);
-            }
-          } else if (result.error?.message) {
-            const messageDescriptor = tryFindMessageDescriptor(
-              result.error.message,
-            );
-            const message = intl.formatMessage(
-              messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
-            );
-            handleError(message);
-          } else {
-            // Fallback to generic message
-            handleError();
-          }
-        })
-        .catch(handleError);
-    }
-  }, [
-    isCreating,
-    userId,
-    poolId,
-    executeMutation,
-    handleError,
-    paths,
-    navigate,
-    intl,
-  ]);
-
-  React.useEffect(() => {
-    createApplication();
-  }, [createApplication]);
-
-  // Don't render the page if the mutation ran already
-  if (hasMutationData) {
-    return null;
-  }
+  const routes = useRoutes();
 
   /**
    * Render the loading spinner while we do
@@ -160,7 +76,29 @@ const CreateApplication = () => {
    * based on the logic, so no need to render anything but
    * a loading spinner
    */
-  return <Loading />;
+  return (
+    <React.Suspense
+      fallback={
+        <Loading>
+          {intl.formatMessage({
+            defaultMessage: "Creating application...",
+            id: "KEGAaP",
+            description:
+              "Message to display when application creation is in process.",
+          })}
+        </Loading>
+      }
+    >
+      <Await
+        resolve={data.application}
+        errorElement={<Navigate to={routes.pool(poolId)} replace />}
+      >
+        {(application: LoaderData["application"]) => (
+          <Navigate to={routes.reviewApplication(application.id)} replace />
+        )}
+      </Await>
+    </React.Suspense>
+  );
 };
 
 export default CreateApplication;
