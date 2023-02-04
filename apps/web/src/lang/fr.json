@@ -5335,6 +5335,10 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'business line advisory services' IT work stream"
   },
+  "ZOEHxi": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
+    "description": "Label for the 'business line advisory services' IT work stream"
+  },
   "I/fGUN": {
     "defaultMessage": "Analyste (<abbreviation>TI-02</abbreviation>)",
     "description": "Title for the 'IT-02 Analyst' classification"
