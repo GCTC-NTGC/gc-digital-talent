@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         // https://laravel.com/docs/9.x/eloquent#configuring-eloquent-strictness
         Model::shouldBeStrict(!$this->app->isProduction());
 
-        Relation::enforceMorphMap([
+        Relation::morphMap([
             'awardExperience' => \App\Models\AwardExperience::class,
             'communityExperience' => \App\Models\CommunityExperience::class,
             'educationExperience' => \App\Models\EducationExperience::class,

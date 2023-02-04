@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, Checklist } from "@common/components/form";
@@ -86,8 +86,13 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.myProfile();
 
   const labels = {
@@ -149,7 +154,17 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Role and Salary Expectations",
+            id: "dgOYID",
+            description: "Label for role and salary link",
+          }),
+          url: initialData.me?.id
+            ? `${paths.roleSalary(initialData.me.id)}${applicationParam}`
+            : "#",
         },
       ]
     : [];
@@ -167,17 +182,22 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         id: "uIpPFZ",
         description: "Description for the role and salary expectation form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Role and Salary Expectations",
-            id: "dgOYID",
-            description: "Label for role and salary link",
-          }),
-          url: initialData.me?.id ? paths.roleSalary(initialData.me.id) : "#",
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Role and Salary Expectations",
+                  id: "dgOYID",
+                  description: "Label for role and salary link",
+                }),
+                url: initialData.me?.id
+                  ? paths.roleSalary(initialData.me.id)
+                  : "#",
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <BasicForm
