@@ -4,6 +4,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
 import defaultRichTextElements from "@common/helpers/format";
 import {
+  HelmetDecorator,
   MockGraphqlDecorator,
   RouterDecorator,
   ThemeDecorator,
@@ -58,6 +59,7 @@ export const globalTypes = {
 }
 
 export const decorators = [
+  HelmetDecorator,
   MockGraphqlDecorator,
   withIntl,
   ThemeDecorator,

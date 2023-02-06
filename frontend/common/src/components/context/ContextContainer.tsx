@@ -1,4 +1,5 @@
 import React from "react";
+import { HelmetProvider } from "react-helmet-async";
 
 import ClientProvider from "../ClientProvider";
 import { AppInsightsContextProvider } from "./AppInsightsContextProvider";
@@ -18,19 +19,21 @@ const ContextContainer: React.FC<ContextContainerProps> = ({
   messages,
   children,
 }) => (
-  <LocaleProvider>
-    <AuthenticationProvider>
-      <LanguageProvider messages={messages}>
-        {/* <ThemeProvider> */}
-        <ClientProvider>
-          <AppInsightsContextProvider>
-            <AuthorizationProvider>{children}</AuthorizationProvider>
-          </AppInsightsContextProvider>
-        </ClientProvider>
-        {/* </ThemeProvider> */}
-      </LanguageProvider>
-    </AuthenticationProvider>
-  </LocaleProvider>
+  <HelmetProvider>
+    <LocaleProvider>
+      <AuthenticationProvider>
+        <LanguageProvider messages={messages}>
+          {/* <ThemeProvider> */}
+          <ClientProvider>
+            <AppInsightsContextProvider>
+              <AuthorizationProvider>{children}</AuthorizationProvider>
+            </AppInsightsContextProvider>
+          </ClientProvider>
+          {/* </ThemeProvider> */}
+        </LanguageProvider>
+      </AuthenticationProvider>
+    </LocaleProvider>
+  </HelmetProvider>
 );
 
 export default ContextContainer;

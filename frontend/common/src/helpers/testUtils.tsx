@@ -1,5 +1,6 @@
 import "../tests/matchMeta.mock";
 import React from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { render, RenderOptions } from "@testing-library/react";
 import { axe } from "jest-axe";
 import IntlProvider from "react-intl/src/components/provider";
@@ -10,9 +11,14 @@ const Providers: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   window.history.pushState({}, "Test page", "/");
 
   return (
-    <IntlProvider locale="en" defaultRichTextElements={defaultRichTextElements}>
-      <BrowserRouter>{children}</BrowserRouter>
-    </IntlProvider>
+    <HelmetProvider>
+      <IntlProvider
+        locale="en"
+        defaultRichTextElements={defaultRichTextElements}
+      >
+        <BrowserRouter>{children}</BrowserRouter>
+      </IntlProvider>
+    </HelmetProvider>
   );
 };
 
