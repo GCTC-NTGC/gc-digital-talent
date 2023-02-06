@@ -17,7 +17,7 @@ export interface ScrollToLinkProps extends Omit<LinkProps, "to"> {
 }
 
 const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, search, state } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
@@ -39,7 +39,12 @@ const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
 
   return (
     <Link
-      to={{ hash: to }}
+      to={{
+        pathname,
+        search,
+        hash: to,
+      }}
+      state={state}
       replace
       preventScrollReset={false}
       {...rest}
