@@ -13,7 +13,6 @@ export default {
     userId: "1",
     closingDate: FAR_FUTURE_DATE,
     jobTitle: "Application Developer - React (IT-01)",
-    isApplicationComplete: true,
     handleSubmitApplication: async (id, signature) => {
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
@@ -28,9 +27,4 @@ const Template: ComponentStory<typeof SignAndSubmitForm> = (args) => {
   return <SignAndSubmitForm {...args} />;
 };
 
-export const ApplicationIsComplete = Template.bind({});
-export const ApplicationIsIncomplete = Template.bind({});
-
-ApplicationIsIncomplete.args = {
-  isApplicationComplete: false,
-};
+export const Default = Template.bind({});
