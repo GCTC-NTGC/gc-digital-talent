@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import pick from "lodash/pick";
 
 import { unpackMaybes } from "@common/helpers/formUtils";
@@ -21,6 +22,7 @@ import { SimpleClassification, SimplePool } from "~/types/pool";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import Spinner from "~/components/Spinner/Spinner";
 
+import { LocationState } from "~/types/searchRequest";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
@@ -149,10 +151,11 @@ export interface SearchContainerProps {
   skills?: Skill[];
   totalCandidateCount: number;
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
+  selectedClassifications?: SimpleClassification[];
   onSubmit: (
     candidateCount: number,
     poolId: string,
-    selectedClassifications: SimpleClassification[],
+    selectedClassifications?: SimpleClassification[],
   ) => Promise<void>;
 }
 
@@ -168,6 +171,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   pools,
   skills,
   totalCandidateCount,
+  selectedClassifications,
   onUpdateApplicantFilter,
   onSubmit,
 }) => {
@@ -201,11 +205,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-  const tryHandleSubmit = async (
-    candidateCount: number,
-    poolId: string,
-    selectedClassifications: SimpleClassification[],
-  ) => {
+  const tryHandleSubmit = async (candidateCount: number, poolId: string) => {
     if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
@@ -248,6 +248,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
               pools={pools}
               onUpdateApplicantFilter={onUpdateApplicantFilter}
               ref={searchRef}
+              selectedClassifications={selectedClassifications}
             />
           </div>
           <div
@@ -317,6 +318,9 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi = () => {
+  const location = useLocation();
+  const state = location.state as LocationState;
+
   const navigate = useNavigate();
   // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
@@ -326,11 +330,11 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-
+  const filter = state?.applicantFilter;
+  const selectedClassifications = state?.selectedClassifications;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >();
-
+  >(filter);
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
     if (searchFormData?.publishedPoolAdvertisements) {
@@ -339,6 +343,10 @@ const SearchContainerApi = () => {
       });
     }
   }, [searchFormData?.publishedPoolAdvertisements]);
+
+  useEffect(() => {
+    setApplicantFilter(state?.applicantFilter);
+  }, [state?.applicantFilter]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
@@ -364,11 +372,7 @@ const SearchContainerApi = () => {
     });
 
   const paths = useRoutes();
-  const onSubmit = async (
-    candidateCount: number,
-    poolId: string,
-    selectedClassifications: SimpleClassification[],
-  ) => {
+  const onSubmit = async (candidateCount: number, poolId: string) => {
     navigate(paths.request(), {
       state: {
         applicantFilter: {
@@ -423,6 +427,7 @@ const SearchContainerApi = () => {
         totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}
         onSubmit={onSubmit}
+        selectedClassifications={selectedClassifications}
       />
     </Pending>
   );

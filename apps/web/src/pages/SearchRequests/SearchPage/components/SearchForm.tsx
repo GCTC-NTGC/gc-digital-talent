@@ -55,6 +55,7 @@ export interface SearchFormProps {
   classifications: SimpleClassification[];
   skills?: Skill[];
   pools?: SimplePool[];
+  selectedClassifications?: SimpleClassification[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
 
@@ -134,6 +135,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
+        console.log({ values });
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;

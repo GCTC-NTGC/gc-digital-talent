@@ -390,6 +390,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 state={{
                   ...state,
                   initialValues: searchFormInitialValues,
+                  applicantFilter: {
+                    ...applicantFilter,
+                  },
+                  candidateCount,
+                  selectedClassifications,
                 }}
               >
                 {intl.formatMessage({
