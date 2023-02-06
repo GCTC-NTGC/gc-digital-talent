@@ -314,6 +314,14 @@ input CreateSkillInput {
   keywords: SkillKeywordsInput
 }
 
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
+}
+
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
@@ -381,6 +389,10 @@ type Department {
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 type EducationExperience implements Experience {
@@ -619,6 +631,8 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  createTeam(team: CreateTeamInput!): Team
+  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -1000,6 +1014,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  team(id: UUID!): Team
   teams: [Team]!
   usersPaginated(
     where: UserFilterInput
@@ -1302,6 +1317,14 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+}
+
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
 }
 
 """When updating a User, all fields are optional"""
