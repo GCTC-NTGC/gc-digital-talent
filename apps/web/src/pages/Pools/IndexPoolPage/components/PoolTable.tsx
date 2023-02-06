@@ -292,22 +292,12 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
         accessor: (d) => {
           const firstName =
-            d.owner && d.owner.firstName ? d.owner.firstName : "";
-          const lastName = d.owner && d.owner.lastName ? d.owner.lastName : "";
+            d.owner && d.owner.firstName ? d.owner.firstName.toLowerCase() : "";
+          const lastName =
+            d.owner && d.owner.lastName ? d.owner.lastName.toLowerCase() : "";
           return `${firstName} ${lastName}`;
         },
         Cell: ({ row }: IndividualCell) => fullNameCell(row.original, intl),
-        sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.firstName
-            ? rowA.original.owner.firstName.toLowerCase()
-            : "";
-          const b = rowB.original.owner?.firstName
-            ? rowB.original.owner.firstName.toLowerCase()
-            : "";
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
-        },
         id: "ownerName",
       },
       {
@@ -317,7 +307,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description: "Title displayed for the Pool table Owner Email column",
         }),
         accessor: (d) => {
-          return d.owner && d.owner.email ? d.owner.email : "";
+          return d.owner && d.owner.email ? d.owner.email.toLowerCase() : "";
         },
         Cell: ({ row }: IndividualCell) =>
           emailLinkAccessor(
@@ -326,17 +316,6 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               : "",
             intl,
           ),
-        sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.email
-            ? rowA.original.owner.email.toLowerCase()
-            : "";
-          const b = rowB.original.owner?.email
-            ? rowB.original.owner.email.toLowerCase()
-            : "";
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
-        },
         id: "ownerEmail",
       },
       {
