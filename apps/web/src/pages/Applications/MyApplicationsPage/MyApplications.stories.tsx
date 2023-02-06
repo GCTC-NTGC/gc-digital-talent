@@ -12,6 +12,7 @@ export default {
   component: MyApplications,
   title: "Pages/My Applications",
   args: {
+    userId: "1",
     applications: mockApplications,
   },
 } as Meta;

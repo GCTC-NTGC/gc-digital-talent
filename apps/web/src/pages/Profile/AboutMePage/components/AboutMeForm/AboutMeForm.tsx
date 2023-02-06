@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
 import { toast } from "@common/components/Toast";
@@ -67,8 +67,13 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(initialUser.id);
 
   const labelMap = {
@@ -188,7 +193,15 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "About Me",
+            id: "uG2MuI",
+            description: "Display text for About Me Form Page Link",
+          }),
+          url: `${paths.aboutMe(initialUser.id)}${applicationParam}`,
         },
       ]
     : [];
@@ -221,17 +234,20 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         description: "Title for Profile Form wrapper in About me form",
       })}
       prefixBreadcrumbs={!application}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "About Me",
-            id: "uG2MuI",
-            description: "Display text for About Me Form Page Link",
-          }),
-          url: paths.aboutMe(initialUser.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "About Me",
+                  id: "uG2MuI",
+                  description: "Display text for About Me Form Page Link",
+                }),
+                url: paths.aboutMe(initialUser.id),
+              },
+            ]
+      }
     >
       <BasicForm
         labels={labelMap}

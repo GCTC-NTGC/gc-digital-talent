@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
@@ -29,8 +30,13 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
     : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {
@@ -59,7 +65,16 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Diversity, equity and inclusion",
+            id: "pGTTrp",
+            description:
+              "Display Text for Diversity, equity and inclusion Page",
+          }),
+          url: `${paths.diversityEquityInclusion(user.id)}${applicationParam}`,
         },
       ]
     : [];
@@ -79,18 +94,21 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         description:
           "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Diversity, equity and inclusion",
-            id: "pGTTrp",
-            description:
-              "Display Text for Diversity, equity and inclusion Page",
-          }),
-          url: paths.diversityEquityInclusion(user.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Diversity, equity and inclusion",
+                  id: "pGTTrp",
+                  description:
+                    "Display Text for Diversity, equity and inclusion Page",
+                }),
+                url: paths.diversityEquityInclusion(user.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <p data-h2-margin="base(x1, 0)">

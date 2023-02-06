@@ -3508,6 +3508,10 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
+  "+O6J4u": {
+    "defaultMessage": "(Aucun sélectionné)",
+    "description": "Text shown when the filter was not selected"
+  },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
@@ -4155,8 +4159,8 @@
     "defaultMessage": "Bon retour, {name}",
     "description": "Title for dashboard on the talent cloud admin portal."
   },
-  "n+d6QE": {
-    "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
+  "jIlwJ8": {
+    "defaultMessage": "Dans le bassin suivant :",
     "description": "Second section of text on the change candidate expiry date dialog"
   },
   "n9YPWe": {
@@ -5494,6 +5498,54 @@
   "zzwPOR": {
     "defaultMessage": "Langue préférée pour l'examen écrit :",
     "description": "Display text for the preferred written exam language field on users"
+  },
+  "2jFKrM": {
+    "defaultMessage": "Modifier {label}",
+    "description": "Label for link to edit a specific item in a table"
+  },
+  "BDo1aH": {
+    "defaultMessage": "Ministère",
+    "description": "Title displayed for the teams table department column."
+  },
+  "GJsuQg": {
+    "defaultMessage": "Équipes",
+    "description": "Label displayed on the teams menu item."
+  },
+  "GtrrJ3": {
+    "defaultMessage": "Créer une équipe ",
+    "description": "Link text to create a new team in the admin portal"
+  },
+  "KIWVbp": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the teams table team column."
+  },
+  "L9Ked5": {
+    "defaultMessage": "Aucun nom n’a été fourni",
+    "description": "Fallback for team display name value"
+  },
+  "NLX/aa": {
+    "defaultMessage": "Supprimer {label}",
+    "description": "Label for link to delete a specific item in a table"
+  },
+  "OxeGLu": {
+    "defaultMessage": "Mesures",
+    "description": "Title displayed for the team table actions column"
+  },
+  "TREL4U": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed for the teams table email column."
+  },
+  "i4TGiO": {
+    "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
+    "description": "Descriptive text about the list of teams in the admin portal."
+  },
+  "lOiNyG": {
+    "defaultMessage": "Équipes",
+    "description": "Page title for the teams index page"
+  },
+  "eozWFc": {
+    "defaultMessage": "Filtres avancés",
+    "description": "Title for the additional filters"
   },
   "+d2TiI": {
     "defaultMessage": "Créer une nouvelle demande de talent",

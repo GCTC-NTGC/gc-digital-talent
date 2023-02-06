@@ -29,9 +29,9 @@ const cardStyles: AccordionStyles = {
 
 const simpleStyles: AccordionStyles = {
   "data-h2-color": `
-    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](tm-blue)
-    base:selectors[>.Accordion__Item  > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](tm-blue)
-    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](tm-blue)
+    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](tm-blue.dark)
+    base:selectors[>.Accordion__Item  > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](tm-blue.dark)
+    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](tm-blue.dark)
   `,
   "data-h2-display":
     "base:selectors[>.Accordion__Item .Accordion__Separator](none)",
