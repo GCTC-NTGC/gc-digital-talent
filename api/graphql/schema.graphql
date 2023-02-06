@@ -970,7 +970,7 @@ type Query {
   skills: [Skill]! @all
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
-  team(id: UUID! @eq): Team @find @can(ability: "viewAny")
+  team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
 }
 

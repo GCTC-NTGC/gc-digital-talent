@@ -25,6 +25,22 @@ class TeamPolicy
     }
 
     /**
+     * Determine whether the user can view a specific model.
+     * To be sketched in later with roles and permissions work
+     *
+     * @param  \App\Models\User|null  $user
+     * @param \App\Models\Team|null $team
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user = null, Team $team = null)
+    {
+        if ($user) {
+            return $user->isAdmin();
+        }
+        return false;
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User|null  $user
