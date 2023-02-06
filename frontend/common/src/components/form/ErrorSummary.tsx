@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
-import { useLocation } from "react-router-dom";
 
 import type { FieldLabels } from "./BasicForm";
 
