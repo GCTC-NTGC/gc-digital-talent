@@ -67,6 +67,21 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
   ) : null;
 }
 
+const fullNameCell = (pool: Pool, intl: IntlShape) => {
+  return (
+    <span>
+      {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
+    </span>
+  );
+};
+
+const classificationsCell = (pills: JSX.Element[] | null) => {
+  if (pills) {
+    return <span>{pills}</span>;
+  }
+  return <span />;
+};
+
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
     return <a href={`mailto:${value}`}>{value}</a>;
@@ -84,6 +99,12 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
 
 interface PoolTableProps {
   pools: GetPoolsQuery["pools"];
+}
+
+interface IndividualCell {
+  row: {
+    original: Pool;
+  };
 }
 
 export const PoolTable = ({ pools }: PoolTableProps) => {
@@ -107,7 +128,17 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "HocLRh",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
+        accessor: (d) => {
+          if (d.name && d.name.en && locale === "en") {
+            return d.name.en;
+          }
+          if (d.name && d.name.fr && locale === "fr") {
+            return d.name.fr;
+          }
+          return "";
+        },
+        Cell: ({ row }: IndividualCell) =>
+          viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
         sortType: (rowA, rowB, id, desc) => {
           // passing in sortType to override react-table sorting by jsx elements
           let rowAName;
@@ -153,11 +184,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description:
             "Header for the View Candidates column of the Pools table",
         }),
-        accessor: (pool) =>
+        accessor: (d) => {
+          return d.id;
+        },
+        Cell: ({ row }: IndividualCell) =>
           poolCandidatesLinkAccessor(
-            paths.poolCandidateTable(pool.id),
+            paths.poolCandidateTable(row.original.id),
             intl,
-            pool,
+            row.original,
           ),
       },
       {
@@ -166,12 +200,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-        accessor: ({ advertisementStatus }) =>
-          intl.formatMessage(
-            advertisementStatus
-              ? getAdvertisementStatus(advertisementStatus)
+        accessor: (d) => {
+          return intl.formatMessage(
+            d.advertisementStatus
+              ? getAdvertisementStatus(d.advertisementStatus)
               : commonMessages.notFound,
-          ),
+          );
+        },
       },
       {
         Header: intl.formatMessage({
@@ -180,18 +215,39 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description:
             "Title displayed for the Pool table Group and Level column.",
         }),
-        accessor: ({ classifications }) =>
-          classifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="primary"
-                mode="outline"
-              >
-                {classification?.group}&#8209;{classification?.level}
-              </Pill>
-            );
-          }),
+        accessor: (d) => {
+          let classificationsString = "";
+          if (d.classifications && d.classifications.length > 0) {
+            d.classifications.forEach((classification) => {
+              if (classification) {
+                const groupLevelString = `${classification.group}-${classification.level} `;
+                classificationsString += groupLevelString;
+              }
+            });
+          }
+          return classificationsString;
+        },
+        Cell: ({ row }: IndividualCell) => {
+          const filteredClassifications = row.original.classifications
+            ? row.original.classifications.filter(
+                (classification) => !!classification,
+              )
+            : null;
+          const pillsArray = filteredClassifications
+            ? filteredClassifications.map((classification) => {
+                return (
+                  <Pill
+                    key={`${classification?.group}-${classification?.level}`}
+                    color="primary"
+                    mode="outline"
+                  >
+                    {classification?.group}&#8209;{classification?.level}
+                  </Pill>
+                );
+              })
+            : null;
+          return classificationsCell(pillsArray);
+        },
         sortType: (rowA, rowB, id, desc) => {
           // passing in sortType to override react-table sorting by jsx elements
           const rowAGroup =
@@ -234,12 +290,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "AWk4BX",
           description: "Title displayed for the Pool table Owner Name column",
         }),
-        accessor: ({ owner }) =>
-          getFullNameHtml(
-            owner && owner.firstName ? owner.firstName : "",
-            owner && owner.lastName ? owner.lastName : "",
-            intl,
-          ),
+        accessor: (d) => {
+          const firstName =
+            d.owner && d.owner.firstName ? d.owner.firstName : "";
+          const lastName = d.owner && d.owner.lastName ? d.owner.lastName : "";
+          return `${firstName} ${lastName}`;
+        },
+        Cell: ({ row }: IndividualCell) => fullNameCell(row.original, intl),
         sortType: (rowA, rowB) => {
           const a = rowA.original.owner?.firstName
             ? rowA.original.owner.firstName.toLowerCase()
@@ -259,8 +316,16 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "pe5WkF",
           description: "Title displayed for the Pool table Owner Email column",
         }),
-        accessor: ({ owner }) =>
-          emailLinkAccessor(owner && owner.email ? owner.email : "", intl),
+        accessor: (d) => {
+          return d.owner && d.owner.email ? d.owner.email : "";
+        },
+        Cell: ({ row }: IndividualCell) =>
+          emailLinkAccessor(
+            row.original.owner && row.original.owner.email
+              ? row.original.owner.email
+              : "",
+            intl,
+          ),
         sortType: (rowA, rowB) => {
           const a = rowA.original.owner?.email ?? "";
           const b = rowB.original.owner?.email ?? "";
@@ -276,11 +341,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "tpzt/B",
           description: "Title displayed for the Pool table Edit column.",
         }),
-        accessor: (d) =>
+        accessor: () => {
+          return "Edit";
+        },
+        Cell: ({ row }: IndividualCell) =>
           tableEditButtonAccessor(
-            d.id,
+            row.original.id,
             paths.poolTable(),
-            d.name ? d.name[locale] : "",
+            row.original.name ? row.original.name[locale] : "",
           ), // callback extracted to separate function to stabilize memoized component
       },
       {
@@ -314,7 +382,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
       data={data}
       columns={columns}
       hiddenCols={hiddenCols}
-      search={false}
+      search
       addBtn={{
         path: paths.poolCreate(),
         label: intl.formatMessage({
