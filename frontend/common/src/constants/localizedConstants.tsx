@@ -71,8 +71,8 @@ export const employmentEquityStatements = defineMessages({
   },
   indigenous: {
     defaultMessage:
-      '"I affirm that I am First Nations, Inuk (Inuit), or a Métis person"',
-    id: "7STO48",
+      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person"',
+    id: "KwdzPs",
     description: "Text for the option to self-declare as Indigenous",
   },
   minority: {
@@ -1579,8 +1579,8 @@ export const indigenousCommunities = defineMessages({
     description: "The indigenous community for non-status First Nations",
   },
   [IndigenousCommunity.Inuit]: {
-    defaultMessage: "Inuit",
-    id: "z0JksZ",
+    defaultMessage: "Inuk (Inuit)",
+    id: "gTB9r8",
     description: "The indigenous community for Inuit",
   },
   [IndigenousCommunity.Metis]: {

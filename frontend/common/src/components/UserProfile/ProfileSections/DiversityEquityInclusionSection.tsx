@@ -105,32 +105,30 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                       )}
                     </span>
                     <ul data-h2-padding="base(0, 0, 0, x1)">
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage: "My Community(ies):",
-                          id: "Mw4ShP",
-                          description:
-                            "Label preceding text listing the communities the user is a member of, followed by a colon",
-                        })}{" "}
-                        {nonLegacyIndigenousCommunities.length > 0
-                          ? nonLegacyIndigenousCommunities
-                              .map((community) => {
-                                return intl.formatMessage(
-                                  getIndigenousCommunity(community),
-                                );
-                              })
-                              .join(", ")
-                          : intl.formatMessage(
-                              {
-                                defaultMessage:
-                                  "You haven't identified your community yet! <pledgeLink>Please enter here.</pledgeLink>",
-                                id: "1GWQal",
-                                description:
-                                  "The text displayed if the user has selected as indigenous but not selected a community yet.",
-                              },
-                              { pledgeLink },
-                            )}
-                      </li>
+                      {nonLegacyIndigenousCommunities.length > 0 ? (
+                        nonLegacyIndigenousCommunities.map((community) => {
+                          return (
+                            <li key={community}>
+                              {intl.formatMessage(
+                                getIndigenousCommunity(community),
+                              )}
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <li>
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "You haven't identified your community yet! <pledgeLink>Please enter here.</pledgeLink>",
+                              id: "1GWQal",
+                              description:
+                                "The text displayed if the user has selected as indigenous but not selected a community yet.",
+                            },
+                            { pledgeLink },
+                          )}
+                        </li>
+                      )}
                     </ul>
                   </li>
                 </ul>
