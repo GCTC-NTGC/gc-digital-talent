@@ -140,7 +140,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: IndividualCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
         sortType: (rowA, rowB, id, desc) => {
-          // passing in sortType to override react-table sorting by jsx elements
+          // passing in sortType to override default sort
           let rowAName;
           let rowBName;
 
@@ -160,10 +160,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               ? rowB.original.classifications[0].level
               : 0;
 
-          if (rowAName > rowBName) {
+          if (rowAName.toLowerCase() > rowBName.toLowerCase()) {
             return 1;
           }
-          if (rowAName < rowBName) {
+          if (rowAName.toLowerCase() < rowBName.toLowerCase()) {
             return -1;
           }
           // if names identical then sort by level
@@ -249,7 +249,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           return classificationsCell(pillsArray);
         },
         sortType: (rowA, rowB, id, desc) => {
-          // passing in sortType to override react-table sorting by jsx elements
+          // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
               ? rowA.original.classifications[0].group
@@ -267,10 +267,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               ? rowB.original.classifications[0].level
               : 0;
 
-          if (rowAGroup > rowBGroup) {
+          if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
             return 1;
           }
-          if (rowAGroup < rowBGroup) {
+          if (rowAGroup.toLowerCase() < rowBGroup.toLowerCase()) {
             return -1;
           }
           // if groups identical then sort by level
@@ -327,8 +327,12 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             intl,
           ),
         sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.email ?? "";
-          const b = rowB.original.owner?.email ?? "";
+          const a = rowA.original.owner?.email
+            ? rowA.original.owner.email.toLowerCase()
+            : "";
+          const b = rowB.original.owner?.email
+            ? rowB.original.owner.email.toLowerCase()
+            : "";
           if (a > b) return 1;
           if (a < b) return -1;
           return 0;
