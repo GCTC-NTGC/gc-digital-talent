@@ -1,12 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { filterSkillsByCategory } from "@common/helpers/skillUtils";
+import { SkillCategory } from "@common/api/generated";
 import MissingSkills from "./MissingSkills";
 
-import { fakeSkills } from "../../fakeData";
+import { fakeSkillFamilies, fakeSkills } from "../../fakeData";
 
 type MissingSkillsComponent = typeof MissingSkills;
 
-const skills = fakeSkills();
+const skills = fakeSkills(10, fakeSkillFamilies(2));
 
 const fakeRequiredSkills = skills.splice(0, skills.length / 2);
 const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);
@@ -17,28 +19,7 @@ export default {
 } as ComponentMeta<MissingSkillsComponent>;
 
 const Template: ComponentStory<MissingSkillsComponent> = (args) => {
-  const { optionalSkills, requiredSkills, addedSkills } = args;
-  return (
-    <MissingSkills
-      optionalSkills={optionalSkills}
-      requiredSkills={requiredSkills}
-      addedSkills={addedSkills}
-    />
-  );
-};
-
-export const MissingBothSkills = Template.bind({});
-MissingBothSkills.args = {
-  requiredSkills: fakeRequiredSkills,
-  optionalSkills: fakeOptionalSkills,
-  addedSkills: [],
-};
-
-export const MissingRequiredSkills = Template.bind({});
-MissingRequiredSkills.args = {
-  requiredSkills: fakeRequiredSkills,
-  optionalSkills: fakeOptionalSkills,
-  addedSkills: fakeOptionalSkills,
+  return <MissingSkills {...args} />;
 };
 
 export const MissingOptionalSkills = Template.bind({});
@@ -48,12 +29,42 @@ MissingOptionalSkills.args = {
   addedSkills: fakeRequiredSkills,
 };
 
-export const MissingSomeSkills = Template.bind({});
-MissingSomeSkills.args = {
+export const MissingOptionalAndRequiredSkills = Template.bind({});
+MissingOptionalAndRequiredSkills.args = {
   requiredSkills: fakeRequiredSkills,
   optionalSkills: fakeOptionalSkills,
-  addedSkills: [
-    ...fakeRequiredSkills.slice(0, fakeRequiredSkills.length / 2),
-    ...fakeOptionalSkills.slice(0, fakeOptionalSkills.length / 2),
-  ],
+  addedSkills: [],
+};
+
+export const MissingRequiredBehaviouralSkills = Template.bind({});
+MissingRequiredBehaviouralSkills.args = {
+  requiredSkills: fakeRequiredSkills,
+  optionalSkills: fakeOptionalSkills,
+  addedSkills: filterSkillsByCategory(
+    fakeRequiredSkills,
+    SkillCategory.Technical,
+  ),
+};
+
+export const MissingRequiredTechnicalSkillsWithDetails = Template.bind({});
+MissingRequiredTechnicalSkillsWithDetails.args = {
+  requiredSkills: fakeRequiredSkills,
+  optionalSkills: [],
+  addedSkills: filterSkillsByCategory(
+    fakeRequiredSkills,
+    SkillCategory.Behavioural,
+  ),
+};
+
+export const MissingRequiredTechnicalSkillsWithoutDetails = Template.bind({});
+MissingRequiredTechnicalSkillsWithoutDetails.args = {
+  requiredSkills: fakeRequiredSkills,
+  optionalSkills: [],
+  addedSkills: filterSkillsByCategory(
+    fakeRequiredSkills,
+    SkillCategory.Technical,
+  )?.map((skill) => ({
+    ...skill,
+    experienceSkillRecord: { details: "" },
+  })),
 };
