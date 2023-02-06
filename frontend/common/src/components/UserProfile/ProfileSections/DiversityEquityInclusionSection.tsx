@@ -133,8 +133,9 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                   </li>
                 </ul>
                 <div
-                  data-h2-display="base(flex) p-tablet(block)"
-                  data-h2-justify-content="base:(center) p-tablet(flex-start)"
+                  data-h2-display="base(flex)"
+                  data-h2-justify-content="base:(center)"
+                  data-h2-flex-wrap="base:(no-wrap)"
                 >
                   {nonLegacyIndigenousCommunities.map((community) => {
                     switch (community) {
@@ -142,7 +143,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                       case IndigenousCommunity.NonStatusFirstNations:
                         return (
                           <img
-                            data-h2-float="p-tablet(right)"
                             data-h2-height="base(4em)"
                             alt=""
                             key="first-nations-true"
@@ -152,7 +152,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                       case IndigenousCommunity.Inuit:
                         return (
                           <img
-                            data-h2-float="p-tablet(right)"
                             data-h2-height="base(4em)"
                             alt=""
                             key="inuit-true"
@@ -162,7 +161,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                       case IndigenousCommunity.Metis:
                         return (
                           <img
-                            data-h2-float="base(right)"
                             data-h2-height="base(4em)"
                             alt=""
                             key="metis-true"
@@ -172,7 +170,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                       case IndigenousCommunity.Other:
                         return (
                           <img
-                            data-h2-float="base(right)"
                             data-h2-height="base(4em)"
                             alt=""
                             key="other-true"
