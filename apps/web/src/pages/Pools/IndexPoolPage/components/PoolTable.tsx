@@ -130,10 +130,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
         accessor: (d) => {
           if (d.name && d.name.en && locale === "en") {
-            return d.name.en;
+            return `${d.name.en} ${d.stream ? d.stream : ""}`;
           }
           if (d.name && d.name.fr && locale === "fr") {
-            return d.name.fr;
+            return `${d.name.fr} ${d.stream ? d.stream : ""}`;
           }
           return "";
         },
