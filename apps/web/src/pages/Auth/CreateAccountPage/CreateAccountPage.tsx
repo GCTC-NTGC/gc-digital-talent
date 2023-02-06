@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 import Hero from "@common/components/Hero/Hero";
@@ -286,10 +286,10 @@ type LocationState = {
 
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { from } = location.state as LocationState;
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
   const authContext = React.useContext(AuthorizationContext);
   const meId = authContext.loggedInUser?.id;
 

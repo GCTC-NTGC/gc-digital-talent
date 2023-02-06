@@ -20,7 +20,8 @@ const ScrollToLink = ({
   ...rest
 }: ScrollToLinkProps) => {
   const navigate = useNavigate();
-  const { pathname, hash } = useLocation();
+  const location = useLocation();
+  const { hash, pathname } = location;
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
@@ -48,7 +49,7 @@ const ScrollToLink = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    navigate(`#${to}`);
+    navigate({ ...location, hash: to });
     scrollToSection();
     if (onClick) {
       onClick(e, targetSection);

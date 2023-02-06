@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
 import type { FieldLabels } from "./BasicForm";
 
@@ -57,7 +58,8 @@ const ErrorSummary = React.forwardRef<
     })
     .filter(notEmpty);
 
-  const handleErrorClick: ScrollLinkClickFunc = (_, target) => {
+  const handleErrorClick: ScrollLinkClickFunc = (e, target) => {
+    e.preventDefault();
     const singleInputTypes = ["input", "select", "textarea"];
     if (target) {
       // The input is not part of a group so just focus it directly
