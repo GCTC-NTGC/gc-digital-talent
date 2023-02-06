@@ -928,7 +928,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 {
                   index: true,
                   element: (
-                    <RequireAuth roles={[LegacyRole.Admin]}>
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
                       <IndexTeamPage />
                     </RequireAuth>
                   ),
@@ -936,7 +939,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 // {
                 //   path: "create",
                 //   element: (
-                //     <RequireAuth roles={[LegacyRole.Admin]}>
+                //     <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
                 //       <CreateTeamPage />
                 //     </RequireAuth>
                 //   ),
@@ -947,7 +950,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 //     {
                 //       index: true,
                 //       element: (
-                //         <RequireAuth roles={[LegacyRole.Admin]}>
+                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
                 //           <ViewTeamPage />
                 //         </RequireAuth>
                 //       ),
@@ -955,7 +958,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 //     {
                 //       path: "edit",
                 //       element: (
-                //         <RequireAuth roles={[LegacyRole.Admin]}>
+                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
                 //           <UpdateTeamPage />
                 //         </RequireAuth>
                 //       ),
