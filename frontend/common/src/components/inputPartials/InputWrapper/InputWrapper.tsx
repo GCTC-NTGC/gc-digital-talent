@@ -99,6 +99,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
           <InputContext
+            id={`context-${inputId}`}
             isVisible={contextVisible && !!context}
             context={context}
           />

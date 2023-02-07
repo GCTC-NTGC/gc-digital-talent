@@ -104,6 +104,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
               type="button"
               className="input-label-context-button"
               data-h2-margin="base(0, 0, 0, x.125)"
+              aria-controls={`context-${name}`}
+              aria-expanded={contextIsActive}
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
@@ -156,6 +158,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
           <InputContext
+            id={`context-${name}`}
             isVisible={contextIsActive && !!context}
             context={context}
           />
