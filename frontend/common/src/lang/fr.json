@@ -2007,9 +2007,5 @@
   "hWHT65": {
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
-  },
-  "s7QD5B": {
-    "defaultMessage": "Modifier <hidden>{title}</hidden>",
-    "description": "Text label for button to edit employment equity category from profile."
   }
 }

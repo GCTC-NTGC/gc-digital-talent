@@ -5542,5 +5542,9 @@
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
+  },
+  "s7QD5B": {
+    "defaultMessage": "Modifier <hidden>{title}</hidden>",
+    "description": "Text label for button to edit employment equity category from profile."
   }
 }
