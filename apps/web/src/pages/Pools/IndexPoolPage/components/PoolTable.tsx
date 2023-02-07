@@ -13,7 +13,13 @@ import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPoolsQuery, Maybe, Pool, useGetPoolsQuery } from "~/api/generated";
+import {
+  Classification,
+  GetPoolsQuery,
+  Maybe,
+  Pool,
+  useGetPoolsQuery,
+} from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
@@ -75,11 +81,29 @@ const fullNameCell = (pool: Pool, intl: IntlShape) => {
   );
 };
 
-const classificationsCell = (pills: JSX.Element[] | null) => {
-  if (pills) {
-    return <span>{pills}</span>;
+const classificationsCell = (
+  classifications: Maybe<Maybe<Classification>[]>,
+): JSX.Element | null => {
+  const filteredClassifications = classifications
+    ? classifications.filter((classification) => !!classification)
+    : null;
+  const pillsArray = filteredClassifications
+    ? filteredClassifications.map((classification) => {
+        return (
+          <Pill
+            key={`${classification?.group}-${classification?.level}`}
+            color="primary"
+            mode="outline"
+          >
+            {classification?.group}&#8209;{classification?.level}
+          </Pill>
+        );
+      })
+    : null;
+  if (pillsArray) {
+    return <span>{pillsArray}</span>;
   }
-  return <span />;
+  return null;
 };
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
@@ -228,25 +252,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           return classificationsString;
         },
         Cell: ({ row }: IndividualCell) => {
-          const filteredClassifications = row.original.classifications
-            ? row.original.classifications.filter(
-                (classification) => !!classification,
-              )
-            : null;
-          const pillsArray = filteredClassifications
-            ? filteredClassifications.map((classification) => {
-                return (
-                  <Pill
-                    key={`${classification?.group}-${classification?.level}`}
-                    color="primary"
-                    mode="outline"
-                  >
-                    {classification?.group}&#8209;{classification?.level}
-                  </Pill>
-                );
-              })
-            : null;
-          return classificationsCell(pillsArray);
+          return classificationsCell(row.original.classifications);
         },
         sortType: (rowA, rowB, id, desc) => {
           // passing in sortType to override default sort
