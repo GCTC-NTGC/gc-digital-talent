@@ -280,10 +280,6 @@ export const CreateAccountForm: React.FunctionComponent<
   );
 };
 
-type LocationState = {
-  from?: string;
-};
-
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const navigate = useNavigate();
