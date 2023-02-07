@@ -34,7 +34,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
 
   const pledgeLink = (text: React.ReactNode) => {
     return editPath ? (
-      <Link data-h2-color="base(dt-primary)" mode="inline" href={editPath}>
+      <Link mode="inline" href={editPath}>
         {text}
       </Link>
     ) : null;
@@ -117,16 +117,21 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         })
                       ) : (
                         <li>
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "You haven't identified your community yet! <pledgeLink>Please enter here.</pledgeLink>",
-                              id: "1GWQal",
-                              description:
-                                "The text displayed if the user has selected as indigenous but not selected a community yet.",
-                            },
-                            { pledgeLink },
-                          )}
+                          <span
+                            data-h2-font-weight="base(700)"
+                            data-h2-color="base:(dt-primary)"
+                          >
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  "You haven't identified your community yet! <pledgeLink>Please enter here.</pledgeLink>",
+                                id: "1GWQal",
+                                description:
+                                  "The text displayed if the user has selected as indigenous but not selected a community yet.",
+                              },
+                              { pledgeLink },
+                            )}
+                          </span>
                         </li>
                       )}
                     </ul>
