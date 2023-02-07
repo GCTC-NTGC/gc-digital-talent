@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import { notEmpty } from "@common/helpers/util";
@@ -6,13 +6,10 @@ import { getLocalizedName } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { PoolCandidateSearchStatus } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 
 import {
-  ApplicantFilter,
   Maybe,
-  PoolCandidateFilter,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestsQuery,
 } from "~/api/generated";
@@ -21,13 +18,6 @@ import Table, {
   ColumnsOf,
   tableViewItemButtonAccessor,
 } from "~/components/Table/ClientManagedTable";
-
-interface IRow {
-  original: {
-    poolCandidateFilter?: Maybe<PoolCandidateFilter>;
-    applicantFilter?: Maybe<ApplicantFilter>;
-  };
-}
 
 // callbacks extracted to separate function to stabilize memoized component
 const statusAccessor = (
@@ -50,32 +40,6 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
   ) : null;
 }
 
-function poolsAccessor(
-  row: IRow,
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-) {
-  const pools =
-    row.original?.applicantFilter?.pools ??
-    row.original?.poolCandidateFilter?.pools;
-  const filteredPools = pools?.filter(notEmpty);
-  return filteredPools?.length ? (
-    <span>
-      {filteredPools.map(
-        (pool, index) =>
-          pool && (
-            <React.Fragment key={pool.id}>
-              <a href={paths.poolCandidateTable(pool.id)}>
-                {getFullPoolAdvertisementTitle(intl, pool)}
-              </a>
-              {index > 0 && ", "}
-            </React.Fragment>
-          ),
-      )}
-    </span>
-  ) : null;
-}
-
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
 }
@@ -85,12 +49,6 @@ export const SearchRequestTable = ({
 }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const localizedTransformPoolToPosterTitle = useCallback(
-    (pool: Parameters<typeof getFullPoolAdvertisementTitle>[1]) =>
-      getFullPoolAdvertisementTitle(intl, pool),
-    [intl],
-  );
 
   const columns = useMemo<ColumnsOf<PoolCandidateSearchRequest>>(
     () => [
@@ -113,25 +71,6 @@ export const SearchRequestTable = ({
             }),
             fullName || "",
           ),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Pool",
-          id: "Htqzxb",
-          description:
-            "Title displayed on the search request table pool column.",
-        }),
-        accessor: ({ poolCandidateFilter, applicantFilter }) => {
-          const pools = applicantFilter?.pools ?? poolCandidateFilter?.pools;
-          return pools
-            ? pools
-                .filter(notEmpty)
-                .map(localizedTransformPoolToPosterTitle)
-                .filter(notEmpty)
-                .join(", ")
-            : null;
-        },
-        Cell: ({ row }: { row: IRow }) => poolsAccessor(row, paths, intl),
       },
       {
         Header: intl.formatMessage({
@@ -197,7 +136,7 @@ export const SearchRequestTable = ({
         accessor: "jobTitle",
       },
     ],
-    [intl, paths, localizedTransformPoolToPosterTitle],
+    [intl, paths],
   );
 
   const memoizedData = useMemo(

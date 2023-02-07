@@ -3317,10 +3317,6 @@
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
   },
-  "Htqzxb": {
-    "defaultMessage": "Bassin",
-    "description": "Title displayed on the search request table pool column."
-  },
   "IfWj5I": {
     "defaultMessage": "Toutes les demandes",
     "description": "Heading displayed above the search request component."
