@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->boolean('was_empty')->default(false)->after('pool_candidate_filter_id');
+            $table->boolean('was_empty')->default(false);
         });
     }
 
