@@ -342,8 +342,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you are submitting a form that had zero estimated candidates, let us know moe about this request in the comments.",
-                  id: "Y79y47",
+                    "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",
+                  id: "adM1fA",
                   description:
                     "Instructions to provide additional details when submitting a request with no candidates",
                 })}
