@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 
 import { unpackMaybes } from "@common/helpers/formUtils";
@@ -151,11 +150,10 @@ export interface SearchContainerProps {
   skills?: Skill[];
   totalCandidateCount: number;
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
-  selectedClassifications?: SimpleClassification[];
   onSubmit: (
     candidateCount: number,
     poolId: string,
-    selectedClassifications?: SimpleClassification[],
+    selectedClassifications: SimpleClassification[],
   ) => Promise<void>;
 }
 
@@ -171,7 +169,6 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   pools,
   skills,
   totalCandidateCount,
-  selectedClassifications,
   onUpdateApplicantFilter,
   onSubmit,
 }) => {
@@ -205,7 +202,11 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-  const tryHandleSubmit = async (candidateCount: number, poolId: string) => {
+  const tryHandleSubmit = async (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => {
     if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
@@ -248,7 +249,6 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
               pools={pools}
               onUpdateApplicantFilter={onUpdateApplicantFilter}
               ref={searchRef}
-              selectedClassifications={selectedClassifications}
             />
           </div>
           <div
@@ -330,26 +330,33 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-  const filter = state?.applicantFilter;
-  const selectedClassifications = state?.selectedClassifications;
+
+  const applicantFilterFromBrowserHistory = state
+    ? state.applicantFilter
+    : undefined;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >(filter);
+  >(applicantFilterFromBrowserHistory);
+
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
     if (searchFormData?.publishedPoolAdvertisements) {
       setApplicantFilter({
-        pools: searchFormData?.publishedPoolAdvertisements,
+        pools:
+          applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements,
       });
     }
-  }, [searchFormData?.publishedPoolAdvertisements]);
+  }, [searchFormData?.publishedPoolAdvertisements, applicantFilter?.pools]);
 
   useEffect(() => {
-    setApplicantFilter(state?.applicantFilter);
-  }, [state?.applicantFilter]);
+    setApplicantFilter(applicantFilter);
+  }, [applicantFilter]);
 
   const queryArgs = useMemo(
-    () => applicantFilterToQueryArgs(applicantFilter),
+    () =>
+      applicantFilterToQueryArgs({
+        ...applicantFilter,
+      }),
     [applicantFilter],
   );
 
@@ -372,7 +379,11 @@ const SearchContainerApi = () => {
     });
 
   const paths = useRoutes();
-  const onSubmit = async (candidateCount: number, poolId: string) => {
+  const onSubmit = async (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => {
     navigate(paths.request(), {
       state: {
         applicantFilter: {
@@ -427,7 +438,6 @@ const SearchContainerApi = () => {
         totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}
         onSubmit={onSubmit}
-        selectedClassifications={selectedClassifications}
       />
     </Pending>
   );
