@@ -157,12 +157,12 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
         accessor: (d) => {
           if (d.name && d.name.en && locale === "en") {
-            return `${d.name.en} ${
+            return `${d.name.en.toLowerCase()} ${
               d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
             }`;
           }
           if (d.name && d.name.fr && locale === "fr") {
-            return `${d.name.fr} ${
+            return `${d.name.fr.toLowerCase()} ${
               d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
             }`;
           }
