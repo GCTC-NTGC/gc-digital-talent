@@ -1968,8 +1968,8 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
-  "/Jijcj": {
-    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un <underline>groupe d’équité en matière d’emploi.</underline><strong> Vous pouvez ajouter d’autres <underline>groupes d’équité en matière d’emploi </underline> à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
+  "f8ZHHW": {
+    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
     "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
   },
   "1Wbu+6": {
@@ -1979,10 +1979,6 @@
   "JamdKo": {
     "defaultMessage": "Premières Nations sans statut ",
     "description": "The indigenous community for non-status First Nations"
-  },
-  "Mw4ShP": {
-    "defaultMessage": "Ma (mes) collectivité(s) :",
-    "description": "Label preceding text listing the communities the user is a member of, followed by a colon"
   },
   "eNUS2A": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",

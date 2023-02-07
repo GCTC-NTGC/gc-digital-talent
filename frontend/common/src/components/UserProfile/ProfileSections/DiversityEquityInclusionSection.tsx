@@ -215,8 +215,8 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "You have identified as a member of an <underline>employment equity group.</underline><strong> You can add additional <underline>employment equity groups</underline> to your profile by editing this section if they apply to you.</strong>",
-                id: "/Jijcj",
+                  "You have identified as a member of an employment equity group.<strong> You can add additional employment equity groups to your profile by editing this section if they apply to you.</strong>",
+                id: "f8ZHHW",
                 description:
                   "Final paragraph in the employment equity profile section, ignore things in <> please",
               })}
