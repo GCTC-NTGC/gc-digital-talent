@@ -122,7 +122,7 @@
         {
           "key": "secondary",
           "default": {
-            "color": "#27C9BC",
+            "color": "#00C3B7",
             "modifiers": []
           }
         },
@@ -193,7 +193,7 @@
         {
           "key": "error",
           "default": {
-            "color": "#e90101",
+            "color": "#E31C3D",
             "modifiers": []
           }
         }
@@ -468,32 +468,7 @@
           }
         }
       ],
-      "transitions": {
-        "durations": [
-          {
-            "key": "default",
-            "default": {
-              "duration": ".2s"
-            }
-          }
-        ],
-        "functions": [
-          {
-            "key": "ease",
-            "default": {
-              "function": "ease"
-            }
-          }
-        ],
-        "delays": [
-          {
-            "key": "none",
-            "default": {
-              "delay": "0s"
-            }
-          }
-        ]
-      }
+      "transitions": {}
     },
     {
       "key": "iap",
