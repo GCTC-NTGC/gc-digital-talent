@@ -20,7 +20,7 @@ export type FormValues = Pick<
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
-  poolCandidates: UserPoolFilterInput;
+  poolCandidates?: UserPoolFilterInput;
   pools?: SimplePool[];
 };
 

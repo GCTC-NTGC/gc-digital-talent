@@ -24,6 +24,7 @@ import {
   PoolStream,
   Skill,
   PositionDuration,
+  Maybe,
 } from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import { poolMatchesClassification } from "~/utils/poolUtils";
@@ -37,6 +38,33 @@ import {
 import AdvancedFilters from "./AdvancedFilters";
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
+
+const dataToFormValues = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+  stream?: Maybe<PoolStream>,
+): FormValues => {
+  return {
+    classification: selectedClassifications
+      ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
+      : "",
+    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
+    employmentDuration: "",
+    employmentEquity: [],
+    languageAbility: data.languageAbility
+      ? data.languageAbility
+      : "NULL_SELECTION",
+    skills: [],
+    stream: PoolStream.BusinessAdvisoryServices,
+    locationPreferences: data.locationPreferences,
+    operationalRequirements: data.operationalRequirements,
+    pools: [
+      {
+        id: "aab7271b-3744-4f8c-8146-20973da488ee",
+      },
+    ],
+  };
+};
 
 function mapObjectsByKey<T>(
   keyFunction: (t: T) => string,
@@ -55,7 +83,6 @@ export interface SearchFormProps {
   classifications: SimpleClassification[];
   skills?: Skill[];
   pools?: SimplePool[];
-  selectedClassifications?: SimpleClassification[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
 
@@ -111,11 +138,19 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
     const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state ? state.initialValues : {}),
+      () => (state ? state.applicantFilter : {}),
       [state],
     );
+    // const selectedPoolId = state && state.applicantFilter && state.applicantFilter.pools &&  state.applicantFilter.pools && state.applicantFilter.pools !== null && state.applicantFilter.pools[0];
+    // const selectedPool = pools?.filter(
+    //   (pool) => pool.id === (selectedPoolId || null)
+    // );
     const methods = useForm<FormValues>({
-      defaultValues: initialValues,
+      defaultValues: dataToFormValues(
+        initialValues ?? {},
+        state?.selectedClassifications,
+        undefined, // TODO: Replace with stream from selectedPoolId using getPoolStream()
+      ),
       mode: "onChange",
       reValidateMode: "onChange",
     });
@@ -130,8 +165,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues || {});
-    }, [initialValues, onUpdateApplicantFilter]);
+      onUpdateApplicantFilter(state?.applicantFilter || {});
+    }, [state?.applicantFilter, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
