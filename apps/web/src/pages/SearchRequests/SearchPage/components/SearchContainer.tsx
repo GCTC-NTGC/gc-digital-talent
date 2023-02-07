@@ -30,6 +30,27 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 
+const getMatchingPoolIds = (
+  classifications: SimpleClassification[],
+  pools: SimplePool[],
+) => {
+  return pools
+    .filter((pool) => {
+      return classifications.some((classification) => {
+        return pool.classifications?.find((poolClassification) => {
+          return (
+            poolClassification?.group === classification.group &&
+            poolClassification.level === classification.level
+          );
+        });
+      });
+    })
+    .filter(notEmpty)
+    .map((pool) => ({
+      id: pool.id,
+    }));
+};
+
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
@@ -410,23 +431,6 @@ const SearchContainerApi = () => {
     });
 
   const paths = useRoutes();
-  const onSubmit = async (
-    candidateCount: number,
-    poolId: string | null,
-    selectedClassifications: SimpleClassification[],
-  ) => {
-    navigate(paths.request(), {
-      state: {
-        applicantFilter: {
-          ...omit(applicantFilter, "expectedClassifications"),
-          expectedClassifications: [],
-          pools: poolId ? [{ id: poolId }] : [],
-        },
-        candidateCount,
-        selectedClassifications,
-      },
-    });
-  };
 
   const skills = unpackMaybes<Skill>(searchFormData?.skills);
   const pools = unpackMaybes<SimplePool>(
@@ -455,6 +459,28 @@ const SearchContainerApi = () => {
   const poolCandidateResults = filterIncludesPools
     ? candidatesData?.countPoolCandidatesByPool
     : [];
+
+  const onSubmit = async (
+    candidateCount: number,
+    poolId: string | null,
+    selectedClassifications: SimpleClassification[],
+  ) => {
+    const poolIds = poolId
+      ? [{ id: poolId }]
+      : getMatchingPoolIds(selectedClassifications, pools);
+
+    navigate(paths.request(), {
+      state: {
+        applicantFilter: {
+          ...omit(applicantFilter, "expectedClassifications"),
+          expectedClassifications: [],
+          pools: poolIds,
+        },
+        candidateCount,
+        selectedClassifications,
+      },
+    });
+  };
 
   return (
     <Pending
