@@ -2007,5 +2007,9 @@
   "hWHT65": {
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
+  },
+  "xxxxxx": {
+    "defaultMessage": "Orphaned message",
+    "description": "An orphaned message to test the workflow."
   }
 }
