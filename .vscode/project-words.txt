@@ -51,6 +51,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+rolepermission
 skillset
 subcomponents
 subquery
