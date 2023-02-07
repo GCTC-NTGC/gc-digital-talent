@@ -174,6 +174,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         accessor: (d) => {
           return d.id;
         },
+        disableGlobalFilter: true,
         Cell: ({ row }: IndividualCell) =>
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(row.original.id),
@@ -296,6 +297,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         accessor: () => {
           return "Edit";
         },
+        disableGlobalFilter: true,
         Cell: ({ row }: IndividualCell) =>
           tableEditButtonAccessor(
             row.original.id,
