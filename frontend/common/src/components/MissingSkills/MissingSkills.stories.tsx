@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { filterSkillsByCategory } from "@common/helpers/skillUtils";
-import { SkillCategory } from "@common/api/generated";
+import { filterSkillsByCategory } from "../../helpers/skillUtils";
+import { SkillCategory } from "../../api/generated";
 import MissingSkills from "./MissingSkills";
 
 import { fakeSkillFamilies, fakeSkills } from "../../fakeData";
