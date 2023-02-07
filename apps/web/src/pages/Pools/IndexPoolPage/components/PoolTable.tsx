@@ -6,7 +6,10 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
-import { getAdvertisementStatus } from "@common/constants/localizedConstants";
+import {
+  getAdvertisementStatus,
+  getPoolStream,
+} from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
@@ -154,10 +157,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
         accessor: (d) => {
           if (d.name && d.name.en && locale === "en") {
-            return `${d.name.en} ${d.stream ? d.stream : ""}`;
+            return `${d.name.en.toLowerCase()} ${
+              d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
+            }`;
           }
           if (d.name && d.name.fr && locale === "fr") {
-            return `${d.name.fr} ${d.stream ? d.stream : ""}`;
+            return `${d.name.fr.toLowerCase()} ${
+              d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
+            }`;
           }
           return "";
         },
