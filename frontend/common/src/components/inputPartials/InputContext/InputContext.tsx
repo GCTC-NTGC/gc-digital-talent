@@ -3,18 +3,14 @@ import React from "react";
 export interface InputContextProps {
   isVisible: boolean;
   context: string | React.ReactNode;
-  id: string;
 }
 
 export const InputContext: React.FC<InputContextProps> = ({
   context,
   isVisible,
-  id,
 }) => {
   return isVisible ? (
     <span
-      id={id}
-      role="alert"
       data-h2-display="base(block)"
       data-h2-margin="base(x.25, 0, 0, 0)"
       data-h2-border="base(1px solid dt-primary.light)"

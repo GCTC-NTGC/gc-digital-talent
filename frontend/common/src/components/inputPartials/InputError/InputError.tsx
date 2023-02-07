@@ -17,7 +17,6 @@ export interface InputErrorProps extends React.HTMLProps<HTMLSpanElement> {
 const InputError = ({ error, isVisible, ...rest }: InputErrorProps) => {
   return isVisible ? (
     <span
-      role="alert"
       data-h2-display="base(block)"
       data-h2-margin="base(x.25, 0, 0, 0)"
       data-h2-border="base(1px solid dt-error.light)"
@@ -26,7 +25,6 @@ const InputError = ({ error, isVisible, ...rest }: InputErrorProps) => {
       data-h2-padding="base(x.75)"
       data-h2-color="base(dt-error)"
       data-h2-font-size="base(caption)"
-      aria-live="polite"
       {...rest}
     >
       {error?.toString()}

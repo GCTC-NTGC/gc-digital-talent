@@ -285,6 +285,7 @@ function Table<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <FormProvider {...methods}>
                           <Fieldset
+                            name="visibleColumns"
                             legend={intl.formatMessage({
                               defaultMessage: "Visible columns",
                               id: "H9rxOR",

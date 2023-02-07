@@ -5,6 +5,7 @@ import InputError, { InputFieldError } from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
 import { useFieldState } from "../../../helpers/formUtils";
 import InputUnsaved from "../InputUnsaved/InputUnsaved";
+import { DescriptionIds } from "../../../hooks/useInputDescribedBy";
 
 export interface InputWrapperProps {
   inputId: string;
@@ -20,6 +21,8 @@ export interface InputWrapperProps {
   hideBottomMargin?: boolean;
   fillLabel?: boolean;
   trackUnsaved?: boolean;
+  descriptionIds?: DescriptionIds;
+  onContextToggle?: (visible: boolean) => void;
 }
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -34,6 +37,8 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   hideOptional,
   children,
   hideBottomMargin,
+  onContextToggle,
+  descriptionIds,
   fillLabel = false,
   trackUnsaved = true,
   ...rest
@@ -46,6 +51,13 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   if (labelSize === "copy") {
     fontSize = { "data-h2-font-size": "base(copy)" };
   }
+
+  const handleContextToggle = (newContext: boolean) => {
+    setContextVisible(newContext);
+    if (onContextToggle) {
+      onContextToggle(newContext);
+    }
+  };
 
   return (
     <>
@@ -62,7 +74,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           fillLabel={fillLabel}
           required={required}
           contextIsVisible={context !== undefined && context !== ""}
-          contextToggleHandler={setContextVisible}
+          contextToggleHandler={handleContextToggle}
           hideOptional={hideOptional}
           hideBottomMargin={hideBottomMargin}
         />
@@ -72,7 +84,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
             data-h2-margin="base(0, 0, x.125, 0)"
           >
             <InputError
-              id={`${inputId}-error`}
+              id={descriptionIds?.error}
               isVisible={!!error}
               error={error}
             />
@@ -80,14 +92,14 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
         )}
         {children}
       </div>
-      <InputUnsaved isVisible={isUnsaved} id={`${inputId}-error`} />
+      <InputUnsaved isVisible={isUnsaved} id={descriptionIds?.unsaved} />
       {error && errorPosition === "bottom" && (
         <div
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
           <InputError
-            id={`${inputId}-error`}
+            id={descriptionIds?.error}
             isVisible={!!error}
             error={error}
           />
@@ -97,9 +109,9 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
         <div
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
+          id={descriptionIds?.context}
         >
           <InputContext
-            id={`context-${inputId}`}
             isVisible={contextVisible && !!context}
             context={context}
           />
