@@ -971,6 +971,7 @@ type Query {
   skills: [Skill]! @all
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
+  team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
 }
 
@@ -1308,6 +1309,26 @@ input PoolBelongsToMany {
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input CreatePoolCandidateFilterInput {
@@ -1719,4 +1740,12 @@ type Mutation {
     @guard
     @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
+
+  # Teams mutations
+  createTeam(team: CreateTeamInput! @spread): Team
+    @create
+    @can(ability: "create")
+  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
+    @update
+    @can(ability: "update")
 }

@@ -81,6 +81,11 @@ class User extends Model implements Authenticatable
         'indigenous_communities' => 'array',
     ];
 
+    protected $fillable = [
+        'email',
+        'sub'
+    ];
+
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
