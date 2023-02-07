@@ -4,6 +4,7 @@ Assertable
 atag
 Authenticatable
 BEHAVIOURAL
+Behavioural
 chra
 chrc
 codegen

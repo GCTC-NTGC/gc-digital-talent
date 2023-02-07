@@ -59,6 +59,14 @@ export const gray = (text: React.ReactNode) => (
   <span data-h2-color="base(dt-gray.dark)">{text}</span>
 );
 
+/**
+ * Wraps text in tags to make it underlined
+ * @param text  text to wrap
+ */
+export const underline = (text: React.ReactNode) => (
+  <span data-h2-text-decoration="base(underline)">{text}</span>
+);
+
 export default {
   strong,
   hidden,
@@ -66,4 +74,5 @@ export default {
   primary,
   red,
   gray,
+  underline,
 };
