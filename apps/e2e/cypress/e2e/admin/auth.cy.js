@@ -4,6 +4,9 @@ describe('Auth flows (development)', () => {
   const onAuthLoginPage = () => {
     cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
   }
+  const onLoginInfoPage = () => {
+      cy.url().should('contain', '/en/login-info')
+  }
 
   const loginViaUI = (role) => {
     cy.fixture('users.json').then(users => {
@@ -35,7 +38,7 @@ describe('Auth flows (development)', () => {
         '/en/admin/settings/skills/families',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
-        onAuthLoginPage()
+        onLoginInfoPage()
       })
 
     })
@@ -105,7 +108,8 @@ describe('Auth flows (development)', () => {
     it('redirects back to referring page after login', () => {
       const initialPath = '/en/admin/users'
       cy.visit(initialPath)
-
+      onLoginInfoPage()
+      cy.findByRole('link', { name: /Continue to GC Key and Login/i}).click()
       onAuthLoginPage()
       loginViaUI('admin')
 

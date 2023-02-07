@@ -5618,5 +5618,9 @@
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
+  },
+  "s7QD5B": {
+    "defaultMessage": "Modifier <hidden>{title}</hidden>",
+    "description": "Text label for button to edit employment equity category from profile."
   }
 }

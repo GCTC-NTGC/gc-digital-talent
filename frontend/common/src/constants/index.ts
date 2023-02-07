@@ -11,6 +11,8 @@ import {
   getEmploymentEquityStatement,
   employmentEquityGroups,
   getEmploymentEquityGroup,
+  indigenousCommunities,
+  getIndigenousCommunity,
 } from "./localizedConstants";
 
 export {
@@ -26,4 +28,6 @@ export {
   getEmploymentEquityStatement,
   employmentEquityGroups,
   getEmploymentEquityGroup,
+  indigenousCommunities,
+  getIndigenousCommunity,
 };

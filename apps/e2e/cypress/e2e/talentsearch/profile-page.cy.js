@@ -1,7 +1,7 @@
 describe("Talentsearch Profile Page", () => {
   // Helpers
-  const onAuthLoginPage = () => {
-    cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
+  const onLoginInfoPage = () => {
+    cy.url().should('contain', '/en/login-info')
   }
 
   context('Anonymous visitor', () => {
@@ -11,7 +11,7 @@ describe("Talentsearch Profile Page", () => {
         '/en/users/test-applicant/profile',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
-        onAuthLoginPage()
+        onLoginInfoPage()
       })
 
     })

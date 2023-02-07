@@ -35,7 +35,7 @@ interface WorkTasksSectionProps {
   onSave: (submitData: WorkTasksSubmitData) => void;
 }
 
-const TEXT_AREA_MAX_WORDS = 200;
+const TEXT_AREA_MAX_WORDS = 400;
 const TEXT_AREA_ROWS = 15;
 
 const WorkTasksSection = ({
