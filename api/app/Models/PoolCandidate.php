@@ -221,9 +221,9 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public static function scopeExpiryFilter(Builder $query, ?array $args)
+    public static function scopeExpiryFilter(Builder $query, ?string $args)
     {
-        $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+        $expiryStatus = isset($args) ? $args : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
             $query->where(function ($query) {
                 $query->whereDate('expiry_date', '>=', date("Y-m-d"))
