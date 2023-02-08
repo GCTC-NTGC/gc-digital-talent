@@ -109,13 +109,19 @@ const Opportunities = () => {
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Check out the latest GC opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
-                  id: "951Oju",
-                  description:
-                    "Description for the digital government job opportunities",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Check out the latest <abbreviation>GC</abbreviation> opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
+                    id: "jAFzzR",
+                    description:
+                      "Description for the digital government job opportunities",
+                  },
+                  {
+                    abbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(text, intl),
+                  },
+                )}
               </p>
             </CardFlat>
             <CardFlat
@@ -187,12 +193,24 @@ const Opportunities = () => {
                 })}
               </p>
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
-                  id: "EWCP4t",
-                  description: "Description for executive jobs in government",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "From entry-level executives to <cioAbbreviation>CIO</cioAbbreviation> opportunities across the <gcAbbreviation>GC</gcAbbreviation>, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
+                    id: "YEarCb",
+                    description: "Description for executive jobs in government",
+                  },
+                  {
+                    cioAbbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(
+                        text,
+                        intl,
+                        "Chief Information Officer of Canada",
+                      ),
+                    gcAbbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(text, intl),
+                  },
+                )}
               </p>
             </CardFlat>
           </div>

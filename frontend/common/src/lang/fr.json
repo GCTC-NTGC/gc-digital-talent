@@ -773,7 +773,7 @@
     "description": "Current Location label and colon"
   },
   "shPV27": {
-    "defaultMessage": "A achevé une évaluation officielle du GC :",
+    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
     "description": "Completed a government of canada abbreviation evaluation label and colon"
   },
   "spP+Tz": {
@@ -2005,6 +2005,9 @@
   },
   "6svHxg": {
     "defaultMessage": "Services administratifs"
+  },
+  "t9i8Ml": {
+    "defaultMessage": "Gouvernement du Canada"
   },
   "1YuZjR": {
     "defaultMessage": "Emplois en TI (en cours)",

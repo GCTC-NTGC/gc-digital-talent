@@ -154,6 +154,12 @@ export const wrapAbbr = (
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
+    case stringifyText.match("GC")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("GC"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
     default:
       if (title === undefined) {
         // eslint-disable-next-line no-console
@@ -163,7 +169,7 @@ export const wrapAbbr = (
       }
       return (
         <abbr title={title}>
-          <span aria-label={splitAndJoin(text as string)}>{text}</span>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
   }

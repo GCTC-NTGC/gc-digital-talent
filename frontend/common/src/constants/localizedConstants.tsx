@@ -1568,13 +1568,17 @@ export const getPublishingGroup = (
   );
 
 export const abbreviations = defineMessages({
-  IT: {
-    defaultMessage: "Information Technology",
-    id: "nLW9zq",
-  },
   AS: {
     defaultMessage: "Administrative Services",
     id: "6svHxg",
+  },
+  GC: {
+    defaultMessage: "Government of Canada",
+    id: "t9i8Ml",
+  },
+  IT: {
+    defaultMessage: "Information Technology",
+    id: "nLW9zq",
   },
 });
 

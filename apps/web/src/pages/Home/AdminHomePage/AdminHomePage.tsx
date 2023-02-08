@@ -14,6 +14,7 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import useAuth from "@common/hooks/useAuth";
 
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
 
 const AdminHomePage = () => {
   const intl = useIntl();
@@ -47,13 +48,18 @@ const AdminHomePage = () => {
             })}
           </PageHeader>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Welcome to GC Digital Talent, please log in to continue.",
-              id: "Nfy1HK",
-              description:
-                "Instructional text for the talent cloud pool manager portal home page.",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Welcome to <abbreviation>GC</abbreviation> Digital Talent, please log in to continue.",
+                id: "MsFCeF",
+                description:
+                  "Instructional text for the talent cloud pool manager portal home page.",
+              },
+              {
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+              },
+            )}
           </p>
           <div data-h2-margin="base(x2, 0, 0, 0)">
             <div data-h2-flex-grid="base(top, x2)">

@@ -1277,9 +1277,13 @@
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
   },
-  "Z3prc4": {
+  "4RXJ4p": {
     "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "Title for the login page for applicant profiles."
+    "description": "Seo title for the login page for applicant profiles."
+  },
+  "iNFweP": {
+    "defaultMessage": "Connexion à l'aide de la CléGC",
+    "description": "Page title for the login page for applicant profiles."
   },
   "ZSAzrR": {
     "defaultMessage": "Date d'expiration :",
@@ -1537,9 +1541,13 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
-  "zILELf": {
+  "H4ug6o": {
     "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "Title for the registration page for applicant profiles."
+    "description": "Seo title for the registration page for applicant profiles."
+  },
+  "YXs6l6": {
+    "defaultMessage": "S'inscrire à l'aide de la CléGC",
+    "description": "Page title for the registration page for applicant profiles."
   },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
@@ -1893,8 +1901,8 @@
     "defaultMessage": "Emplacement : Option à distance",
     "description": "Pool advertisement location requirement, Remote option"
   },
-  "l3tT4m": {
-    "defaultMessage": "Derrière la plateforme Talents numériques du GC, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
+  "w1Lego": {
+    "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
     "description": "Description for the Digital Community Management"
   },
   "+cBKDC": {
@@ -1965,8 +1973,8 @@
     "defaultMessage": "En savoir plus",
     "description": "Heading for the about section of the homepage"
   },
-  "951Oju": {
-    "defaultMessage": "Découvrez les dernières perspectives d’emploi du GC dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
+  "jAFzzR": {
+    "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
   },
   "9KOwXq": {
@@ -1993,8 +2001,8 @@
     "defaultMessage": "Continuer vers l’étape 2",
     "description": "Button message on footer of review my application page."
   },
-  "EWCP4t": {
-    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le GC à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
+  "YEarCb": {
+    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <abbreviation>GC</abbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
     "description": "Description for executive jobs in government"
   },
   "FFD16/": {
@@ -2045,8 +2053,8 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
-  "MS9dB9": {
-    "defaultMessage": "Talents numériques du GC",
+  "eSPoJw": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation>",
     "description": "Application title"
   },
   "NjHXGh": {
@@ -2153,8 +2161,8 @@
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
   },
-  "s3Uz7q": {
-    "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
+  "h7URQB": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
   "jcl2s9": {
@@ -2225,8 +2233,8 @@
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to apply for the Indigenous Apprenticeship Program"
   },
-  "GSzckJ": {
-    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme d’aujourd’hui.",
+  "bKRX6C": {
+    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du <abbreviation>GC</abbreviation> a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du <abbreviation>GC</abbreviation> jusqu’à la plateforme d’aujourd’hui.",
     "description": "Description of how the platform was created."
   },
   "ww86SN": {
@@ -2249,8 +2257,8 @@
     "defaultMessage": "Archiver la candidature",
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
-  "zmV99R": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du GC.",
+  "58Z5Ld": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du <abbreviation>GC</abbreviation>.",
     "description": "Description de la candidature sur la page d’accueil"
   },
   "zqIEuu": {
@@ -2529,8 +2537,8 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
-  "s2+FXu": {
-    "defaultMessage": "Talent numérique du GC s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
+  "fNnKNn": {
+    "defaultMessage": "Talent numérique du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
   "vC9NsS": {
@@ -2538,7 +2546,7 @@
     "description": "Title for the accessibility standards"
   },
   "tu2Z17": {
-    "defaultMessage": "L’équipe de Talent numérique GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
+    "defaultMessage": "L’équipe de Talent numérique <abbreviation>GC</abbreviation> adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
   },
   "ztQSF+": {
