@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Input, Submit } from "@common/components/form";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import errorMessages from "@common/messages/errorMessages";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils"
 
 interface SignAndContinueProps {
   labels: FieldLabels;

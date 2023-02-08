@@ -45,7 +45,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import { isAdvertisementVisible } from "~/utils/poolUtils";
 
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import PoolInfoCard from "./components/PoolInfoCard";
 import ClassificationDefinition from "./components/ClassificationDefinition";
 

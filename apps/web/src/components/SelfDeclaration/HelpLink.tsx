@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const contactLink = (chunks: React.ReactNode) => (
   <a

@@ -11,7 +11,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import { AuthenticationContext } from "@common/components/Auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 // Create the page component
 const Opportunities = () => {

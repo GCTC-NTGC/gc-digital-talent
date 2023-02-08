@@ -6,7 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 import Heading from "@common/components/Heading";
 import { getLocale } from "@common/helpers/localize";
 
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import Block from "./Block";
 
 // Create the page component
