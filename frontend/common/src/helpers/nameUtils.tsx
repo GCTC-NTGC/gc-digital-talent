@@ -79,11 +79,25 @@ export const getFullNameHtml = (
 };
 
 /**
+ * Split a string into substrings using the specified separator, and then join all the elements into a string, separated by the specified separator string.
+ *
+ * @param text
+ * @param split
+ * @param join
+ *
+ * @return string
+ */
+export const splitAndJoin = (text: string, split?: string, join?: string) =>
+  text.split(split || "").join(join || " ");
+
+/**
  * Wraps common abbreviations in abbr tags to make them more accessible
  *
  * @param text   text to wrap
  * @param intl   react-intl object
  * @param title  abbreviation title
+ *
+ * @returns jsx.element
  */
 export const wrapAbbr = (
   text: React.ReactNode,
@@ -113,9 +127,7 @@ export const wrapAbbr = (
     case stringifyText.match(/[IT][TI]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
-          <span
-            aria-label={stringifyText.replace("-0", "").split("").join(" ")}
-          >
+          <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
             {text}
           </span>
         </abbr>
@@ -124,16 +136,14 @@ export const wrapAbbr = (
     case stringifyText.match(/[IT][TI]/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
-          <span aria-label={stringifyText.split("").join(" ")}>{text}</span>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
     // Regex that matches with all AS classification with levels
     case stringifyText.match(/[AS][SA]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
-          <span
-            aria-label={stringifyText.replace("-0", "").split("").join(" ")}
-          >
+          <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
             {text}
           </span>
         </abbr>
@@ -141,13 +151,13 @@ export const wrapAbbr = (
     case stringifyText.match(/[AS][SA]/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
-          <span aria-label={stringifyText.split("").join(" ")}>{text}</span>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
     default:
       return (
         <abbr title={title}>
-          <span aria-label={(text as string).split("").join(" ")}>{text}</span>
+          <span aria-label={splitAndJoin(text as string)}>{text}</span>
         </abbr>
       );
   }

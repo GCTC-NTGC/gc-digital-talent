@@ -16,6 +16,7 @@ import { toast } from "@common/components/Toast";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { splitAndJoin } from "@common/helpers/nameUtils";
 
 import {
   Classification,
@@ -249,10 +250,9 @@ export const GovernmentInfoFormFields: React.FunctionComponent<
           id: "YA/7nb",
           description: "Error message if classification group is not defined.",
         }),
-      ariaLabel: `${getLocalizedName(
-        classification.name,
-        intl,
-      )} ${classification.group.split("").join(" ")}`,
+      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
+        classification.group,
+      )}`,
     };
   });
   const noDupes = uniqBy(classGroupsWithDupes, "label");
