@@ -98,6 +98,10 @@ export const wrapAbbr = (
       description:
         "Message shown to user when the abbreviation text is not found.",
     });
+    // eslint-disable-next-line no-console
+    console.warn(
+      "Error using wrapAbbr(): You must provide a string to <abbreviation />",
+    );
     return (
       <abbr title={fallbackTitle}>
         <span>{text}</span>
