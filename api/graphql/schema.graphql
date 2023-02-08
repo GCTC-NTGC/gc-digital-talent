@@ -828,6 +828,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
+  expiryStatus: CandidateExpiryFilter @scope(name: "expiryFilter")
 }
 
 type CandidateSearchPoolResult {
@@ -901,7 +902,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "availableForOpportunities", "expiryFilter"]
+      scopes: ["notDraft", "availableForOpportunities"]
     )
     @guard
     @can(ability: "viewAny")
