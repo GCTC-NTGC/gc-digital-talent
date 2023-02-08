@@ -21,14 +21,17 @@ import {
   GetPoolsQuery,
   Maybe,
   Pool,
+  Scalars,
   useGetPoolsQuery,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -64,11 +67,11 @@ function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   );
 }
 
-function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value ? (
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
     <span>
       {formatDate({
-        date: parseDateTimeUtc(value),
+        date: parseDateTimeUtc(date),
         formatString: "PPP p",
         intl,
       })}
@@ -128,12 +131,6 @@ interface PoolTableProps {
   pools: GetPoolsQuery["pools"];
 }
 
-interface IndividualCell {
-  row: {
-    original: Pool;
-  };
-}
-
 export const PoolTable = ({ pools }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -168,7 +165,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           }
           return "";
         },
-        Cell: ({ row }: IndividualCell) =>
+        Cell: ({ row }: PoolCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
       },
       {
@@ -178,11 +175,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description:
             "Header for the View Candidates column of the Pools table",
         }),
-        accessor: (d) => {
-          return d.id;
-        },
+        id: "candidates",
+        accessor: (d) => `Candidates ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row }: IndividualCell) =>
+        Cell: ({ row }: PoolCell) =>
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(row.original.id),
             intl,
@@ -222,7 +218,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           }
           return classificationsString;
         },
-        Cell: ({ row }: IndividualCell) => {
+        Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
         sortType: (rowA, rowB, id, desc) => {
@@ -274,7 +270,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             d.owner && d.owner.lastName ? d.owner.lastName.toLowerCase() : "";
           return `${firstName} ${lastName}`;
         },
-        Cell: ({ row }: IndividualCell) => fullNameCell(row.original, intl),
+        Cell: ({ row }: PoolCell) => fullNameCell(row.original, intl),
         id: "ownerName",
       },
       {
@@ -286,7 +282,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         accessor: (d) => {
           return d.owner && d.owner.email ? d.owner.email.toLowerCase() : "";
         },
-        Cell: ({ row }: IndividualCell) =>
+        Cell: ({ row }: PoolCell) =>
           emailLinkAccessor(
             row.original.owner && row.original.owner.email
               ? row.original.owner.email
@@ -301,11 +297,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "tpzt/B",
           description: "Title displayed for the Pool table Edit column.",
         }),
-        accessor: () => {
-          return "Edit";
-        },
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row }: IndividualCell) =>
+        Cell: ({ row }: PoolCell) =>
           tableEditButtonAccessor(
             row.original.id,
             paths.poolTable(),
@@ -318,8 +313,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
-        accessor: "createdDate",
-        Cell: ({ value }) => dateAccessor(value, intl),
+        accessor: ({ createdDate }) =>
+          createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.createdDate, intl),
       },
     ],
     [intl, paths, locale],

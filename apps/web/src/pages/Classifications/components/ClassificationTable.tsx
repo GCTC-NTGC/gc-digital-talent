@@ -10,14 +10,18 @@ import Pending from "@common/components/Pending";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
+  Classification,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
+
+type ClassificationCell = Cell<Classification>;
 
 interface ClassificationTableProps {
   classifications: GetClassificationsQuery["classifications"];
@@ -91,11 +95,14 @@ export const ClassificationTable = ({
           description:
             "Title displayed for the Classification table Edit column.",
         }),
-        accessor: (d) =>
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: classification } }: ClassificationCell) =>
           tableEditButtonAccessor(
-            d.id,
+            classification.id,
             paths.classificationTable(),
-            `${d.name?.[locale]} ${d.group}-0${d.level}`,
+            `${classification.name?.[locale]} ${classification.group}-0${classification.level}`,
           ), // callback extracted to separate function to stabilize memoized component
       },
     ],

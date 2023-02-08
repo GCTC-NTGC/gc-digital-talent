@@ -11,12 +11,14 @@ import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   Maybe,
   PoolCandidateSearchRequest,
+  Scalars,
   useGetPoolCandidateSearchRequestsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableViewItemButtonAccessor,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -28,17 +30,19 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
-function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value ? (
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
     <span>
       {formatDate({
-        date: parseDateTimeUtc(value),
+        date: parseDateTimeUtc(date),
         formatString: "PPP p",
         intl,
       })}
     </span>
   ) : null;
 }
+
+type SearchRequestCell = Cell<PoolCandidateSearchRequest>;
 
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
@@ -60,16 +64,18 @@ export const SearchRequestTable = ({
             "Title displayed for the search request table edit column.",
         }),
         id: "action", // required when accessor is a function
-        accessor: ({ id, fullName }) =>
+        accessor: (d) => `Action ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: searchRequest } }: SearchRequestCell) =>
           tableViewItemButtonAccessor(
-            paths.searchRequestView(id),
+            paths.searchRequestView(searchRequest.id),
             intl.formatMessage({
               defaultMessage: "request",
               id: "gLtTaW",
               description:
                 "Text displayed after View text for Search Request table view action",
             }),
-            fullName || "",
+            searchRequest.fullName || "",
           ),
       },
       {
@@ -87,8 +93,10 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        accessor: "requestedDate",
-        Cell: ({ value }) => dateAccessor(value, intl),
+        accessor: ({ requestedDate }) =>
+          requestedDate ? parseDateTimeUtc(requestedDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: SearchRequestCell) =>
+          dateCell(searchRequest.requestedDate, intl),
       },
       {
         Header: intl.formatMessage({
