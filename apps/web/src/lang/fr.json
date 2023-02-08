@@ -5598,9 +5598,5 @@
   "s7QD5B": {
     "defaultMessage": "Modifier <hidden>{title}</hidden>",
     "description": "Text label for button to edit employment equity category from profile."
-  },
-  "xxxxxx": {
-    "defaultMessage": "Orphaned message",
-    "description": "An orphaned message to test the workflow."
   }
 }
