@@ -336,7 +336,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the single search request table edit column.",
         }),
-        accessor: "id",
+        accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
         Cell: ({
           row: {
