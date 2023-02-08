@@ -3,6 +3,7 @@ import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export interface Option {
   value: string | number;
@@ -43,6 +44,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   trackUnsaved = true,
   ...rest
 }) => {
+  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     formState: { errors },
@@ -51,6 +53,14 @@ const Select: React.FunctionComponent<SelectProps> = ({
   const error = get(errors, name)?.message as FieldError;
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && isContextVisible,
+    },
+  });
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -62,6 +72,8 @@ const Select: React.FunctionComponent<SelectProps> = ({
         context={context}
         error={error}
         trackUnsaved={trackUnsaved}
+        onContextToggle={setContextVisible}
+        descriptionIds={descriptionIds}
       >
         <select
           data-h2-padding="base(x.25, x.5)"
@@ -72,7 +84,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           aria-required={rules?.required ? "true" : undefined}
-          aria-describedby={error || isUnsaved ? `${id}-error` : undefined}
+          aria-describedby={ariaDescribedBy}
           {...rest}
           defaultValue=""
         >
