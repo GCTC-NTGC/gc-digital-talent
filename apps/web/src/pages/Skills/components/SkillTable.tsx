@@ -96,7 +96,9 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
         accessor: (skill) =>
           skill.families
             ?.map((family) => family?.name?.[locale])
-            .filter(notEmpty),
+            .filter(notEmpty)
+            .sort()
+            .join(", "),
       },
       {
         Header: intl.formatMessage({

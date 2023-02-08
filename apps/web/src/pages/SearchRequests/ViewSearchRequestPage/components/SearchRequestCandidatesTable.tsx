@@ -303,17 +303,20 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             intl,
           ),
         accessor: ({ user }) =>
-          user.acceptedOperationalRequirements?.map((operationalRequirement) =>
-            intl.formatMessage(
-              operationalRequirement
-                ? getOperationalRequirement(operationalRequirement)
-                : {
-                    defaultMessage: "Error: Name not found.",
-                    description:
-                      "Error message displayed on the single search request table operational requirements column.",
-                  },
-            ),
-          ),
+          user.acceptedOperationalRequirements
+            ?.map((operationalRequirement) =>
+              intl.formatMessage(
+                operationalRequirement
+                  ? getOperationalRequirement(operationalRequirement)
+                  : {
+                      defaultMessage: "Error: Name not found.",
+                      description:
+                        "Error message displayed on the single search request table operational requirements column.",
+                    },
+              ),
+            )
+            .sort()
+            .join(", "),
       },
       {
         Header: intl.formatMessage({
