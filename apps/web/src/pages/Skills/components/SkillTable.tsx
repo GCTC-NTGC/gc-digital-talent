@@ -12,7 +12,7 @@ import { Maybe, Skill, SkillFamily, useAllSkillsQuery } from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
-  IndividualCell,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 const skillFamiliesCell = (
@@ -28,7 +28,7 @@ const skillFamiliesCell = (
   return families ? <span>{families}</span> : null;
 };
 
-type Cell = IndividualCell<Skill>;
+type SkillCell = Cell<Skill>;
 
 interface SkillTableProps {
   skills: Array<Skill>;
@@ -91,7 +91,7 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
           description:
             "Title displayed for the skill table Skill Families column.",
         }),
-        Cell: ({ row: { original: skill } }: Cell) =>
+        Cell: ({ row: { original: skill } }: SkillCell) =>
           skillFamiliesCell(skill.families, locale),
         accessor: (skill) =>
           skill.families
@@ -107,7 +107,7 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
         id: "edit",
         accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row: { original: skill } }: Cell) =>
+        Cell: ({ row: { original: skill } }: SkillCell) =>
           tableEditButtonAccessor(
             skill.id,
             paths.skillTable(),

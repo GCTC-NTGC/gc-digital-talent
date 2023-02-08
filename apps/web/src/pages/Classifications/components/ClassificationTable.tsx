@@ -16,12 +16,12 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
-  IndividualCell,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 
-type Cell = IndividualCell<Classification>;
+type ClassificationCell = Cell<Classification>;
 
 interface ClassificationTableProps {
   classifications: GetClassificationsQuery["classifications"];
@@ -98,7 +98,7 @@ export const ClassificationTable = ({
         id: "edit",
         accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row: { original: classification } }: Cell) =>
+        Cell: ({ row: { original: classification } }: ClassificationCell) =>
           tableEditButtonAccessor(
             classification.id,
             paths.classificationTable(),

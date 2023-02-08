@@ -27,10 +27,7 @@ import {
   OperationalRequirement,
   Applicant,
 } from "~/api/generated";
-import Table, {
-  ColumnsOf,
-  IndividualCell,
-} from "~/components/Table/ClientManagedTable";
+import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 
@@ -38,7 +35,7 @@ type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
 
-type Cell = IndividualCell<PoolCandidate>;
+type CandidateCell = Cell<PoolCandidate>;
 
 const TableEditButton: React.FC<{
   poolCandidateId?: string;
@@ -235,7 +232,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table classifications column.",
         }),
-        Cell: ({ row }: Cell) => {
+        Cell: ({ row }: CandidateCell) => {
           return classificationsCell(row.original.user.expectedClassifications);
         },
         accessor: (d) => {
@@ -300,7 +297,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
-        Cell: ({ row: { original: poolCandidate } }: Cell) =>
+        Cell: ({ row: { original: poolCandidate } }: CandidateCell) =>
           operationalRequirementsCell(
             poolCandidate.user.acceptedOperationalRequirements,
             intl,
@@ -326,7 +323,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed on the single search request table employment equity column.",
         }),
         accessor: ({ user }) => employmentEquityAccessor(user, intl),
-        Cell: ({ row: { original: poolCandidate } }: Cell) =>
+        Cell: ({ row: { original: poolCandidate } }: CandidateCell) =>
           employmentEquityCell(poolCandidate.user, intl),
       },
       {
@@ -342,7 +339,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           row: {
             original: { user, id, pool },
           },
-        }: Cell) =>
+        }: CandidateCell) =>
           tableEditButtonAccessor(
             id,
             pool?.id,

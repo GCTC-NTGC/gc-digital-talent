@@ -17,7 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableViewItemButtonAccessor,
-  IndividualCell,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -39,7 +39,7 @@ function dateAccessor(value: Maybe<string>, intl: IntlShape) {
     : null;
 }
 
-type Cell = IndividualCell<PoolCandidateSearchRequest>;
+type SearchRequestCell = Cell<PoolCandidateSearchRequest>;
 
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
@@ -63,7 +63,7 @@ export const SearchRequestTable = ({
         id: "action", // required when accessor is a function
         accessor: (d) => `Action ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row: { original: searchRequest } }: Cell) =>
+        Cell: ({ row: { original: searchRequest } }: SearchRequestCell) =>
           tableViewItemButtonAccessor(
             paths.searchRequestView(searchRequest.id),
             intl.formatMessage({

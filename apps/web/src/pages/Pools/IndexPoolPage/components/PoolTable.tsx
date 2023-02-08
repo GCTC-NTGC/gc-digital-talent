@@ -26,11 +26,11 @@ import {
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
-  IndividualCell,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
-type Cell = IndividualCell<Pool>;
+type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -164,7 +164,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           }
           return "";
         },
-        Cell: ({ row }: Cell) =>
+        Cell: ({ row }: PoolCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
       },
       {
@@ -177,7 +177,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         id: "candidates",
         accessor: (d) => `Candidates ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row }: Cell) =>
+        Cell: ({ row }: PoolCell) =>
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(row.original.id),
             intl,
@@ -217,7 +217,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           }
           return classificationsString;
         },
-        Cell: ({ row }: Cell) => {
+        Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
         sortType: (rowA, rowB, id, desc) => {
@@ -269,7 +269,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             d.owner && d.owner.lastName ? d.owner.lastName.toLowerCase() : "";
           return `${firstName} ${lastName}`;
         },
-        Cell: ({ row }: Cell) => fullNameCell(row.original, intl),
+        Cell: ({ row }: PoolCell) => fullNameCell(row.original, intl),
         id: "ownerName",
       },
       {
@@ -281,7 +281,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         accessor: (d) => {
           return d.owner && d.owner.email ? d.owner.email.toLowerCase() : "";
         },
-        Cell: ({ row }: Cell) =>
+        Cell: ({ row }: PoolCell) =>
           emailLinkAccessor(
             row.original.owner && row.original.owner.email
               ? row.original.owner.email
@@ -299,7 +299,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         id: "edit",
         accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row }: Cell) =>
+        Cell: ({ row }: PoolCell) =>
           tableEditButtonAccessor(
             row.original.id,
             paths.poolTable(),

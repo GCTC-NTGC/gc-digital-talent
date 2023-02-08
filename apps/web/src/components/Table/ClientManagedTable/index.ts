@@ -7,7 +7,7 @@ import tableActionsAccessor from "./TableActionButtons";
 
 import type { TableProps, ColumnsOf } from "./Table";
 import type { TableEditButtonProps } from "./TableEditButton";
-import type { IndividualCell } from "./types";
+import type { Cell } from "./types";
 
 export default Table;
 export {
@@ -17,4 +17,4 @@ export {
   tableViewItemButtonAccessor,
   tableActionsAccessor,
 };
-export type { ColumnsOf, TableProps, TableEditButtonProps, IndividualCell };
+export type { ColumnsOf, TableProps, TableEditButtonProps, Cell };

@@ -10,10 +10,10 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
-  IndividualCell,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Cell = IndividualCell<Department>;
+type DepartmentCell = Cell<Department>;
 
 interface DepartmentTableProps {
   departments: Array<Department>;
@@ -51,7 +51,7 @@ export const DepartmentTable = ({ departments }: DepartmentTableProps) => {
         id: "edit",
         accessor: (d) => `Edit ${d.id}`,
         disableGlobalFilter: true,
-        Cell: ({ row: { original: department } }: Cell) =>
+        Cell: ({ row: { original: department } }: DepartmentCell) =>
           tableEditButtonAccessor(
             department.id,
             paths.departmentTable(),

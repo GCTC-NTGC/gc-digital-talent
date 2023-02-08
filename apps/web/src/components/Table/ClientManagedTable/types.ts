@@ -1,8 +1,8 @@
-export type IndividualRow<T> = {
+export type Row<T> = {
   original: T;
 };
 
-export type IndividualCell<T> = {
-  row: IndividualRow<T>;
+export type Cell<T> = {
+  row: Row<T>;
   value: string;
 };
