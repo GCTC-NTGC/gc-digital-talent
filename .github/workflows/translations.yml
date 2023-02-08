@@ -58,6 +58,18 @@ jobs:
             exit 0;
           fi
 
+      - name: "Verify no orphaned strings: common"
+        if: always()
+        working-directory: frontend/common/src/lang
+        run: >
+          if [[ "$(git status --porcelain)" == *frontend/common/src/lang/fr.json* ]]; then
+            echo ":x: Common has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Common is tidy" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
       - name: "Verify no untranslated file: web"
         if: always()
         working-directory: apps/web/src/lang
@@ -67,6 +79,18 @@ jobs:
             exit 1;
           else
             echo ":heavy_check_mark: Web is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify no orphaned strings: web"
+        if: always()
+        working-directory: apps/web/src/lang
+        run: >
+          if [[ "$(git status --porcelain)" == *apps/web/src/lang/fr.json* ]]; then
+            echo ":x: Web has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Web is tidy" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
