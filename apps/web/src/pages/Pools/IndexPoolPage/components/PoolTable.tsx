@@ -21,6 +21,7 @@ import {
   GetPoolsQuery,
   Maybe,
   Pool,
+  Scalars,
   useGetPoolsQuery,
 } from "~/api/generated";
 import Table, {
@@ -66,14 +67,16 @@ function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   );
 }
 
-function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value
-    ? formatDate({
-        date: parseDateTimeUtc(value),
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(date),
         formatString: "PPP p",
         intl,
-      })
-    : "";
+      })}
+    </span>
+  ) : null;
 }
 
 const fullNameCell = (pool: Pool, intl: IntlShape) => {
@@ -310,7 +313,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
-        accessor: ({ createdDate }) => dateAccessor(createdDate, intl),
+        accessor: ({ createdDate }) =>
+          createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.createdDate, intl),
       },
     ],
     [intl, paths, locale],

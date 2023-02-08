@@ -11,6 +11,7 @@ import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   Maybe,
   PoolCandidateSearchRequest,
+  Scalars,
   useGetPoolCandidateSearchRequestsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -29,14 +30,16 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
-function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value
-    ? formatDate({
-        date: parseDateTimeUtc(value),
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(date),
         formatString: "PPP p",
         intl,
-      })
-    : null;
+      })}
+    </span>
+  ) : null;
 }
 
 type SearchRequestCell = Cell<PoolCandidateSearchRequest>;
@@ -90,7 +93,10 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        accessor: ({ requestedDate }) => dateAccessor(requestedDate, intl),
+        accessor: ({ requestedDate }) =>
+          requestedDate ? parseDateTimeUtc(requestedDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: SearchRequestCell) =>
+          dateCell(searchRequest.requestedDate, intl),
       },
       {
         Header: intl.formatMessage({
