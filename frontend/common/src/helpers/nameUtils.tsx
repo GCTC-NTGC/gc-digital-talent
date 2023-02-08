@@ -114,7 +114,7 @@ export const wrapAbbr = (
     });
     // eslint-disable-next-line no-console
     console.warn(
-      "Error using wrapAbbr(): You must provide a string to <abbreviation />",
+      "Error using wrapAbbr(). You must provide a string to <abbreviation />",
     );
     return (
       <abbr title={fallbackTitle}>
@@ -155,6 +155,12 @@ export const wrapAbbr = (
         </abbr>
       );
     default:
+      if (title === undefined) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "<abbr /> is missing a title. You must provide a title to wrapAbbr() parameters.",
+        );
+      }
       return (
         <abbr title={title}>
           <span aria-label={splitAndJoin(text as string)}>{text}</span>
