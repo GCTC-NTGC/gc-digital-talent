@@ -68,8 +68,8 @@ jobs:
       # See: https://github.com/lhotari/action-upterm
       - name: Create upterm session for debug
         uses: lhotari/action-upterm@v1
-        # if: ${{ false }}
-        if: ${{ always() }}
+        if: ${{ false }}
+        # if: ${{ always() }}
 
       - name: Install Bundlewatch
         run: npm install -g bundlewatch@0.2.6
