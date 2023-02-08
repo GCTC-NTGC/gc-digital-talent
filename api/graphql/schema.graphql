@@ -590,6 +590,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   doneDate: DateTime @rename(attribute: "done_at")
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 enum SkillCategory {
@@ -1377,6 +1378,7 @@ input CreatePoolCandidateSearchRequestInput {
     @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
   # requestedDate will be set to current date in Eloquent model.
   # status will be set to PENDING in Eloquent model.
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 input UpdatePoolCandidateSearchRequestInput {

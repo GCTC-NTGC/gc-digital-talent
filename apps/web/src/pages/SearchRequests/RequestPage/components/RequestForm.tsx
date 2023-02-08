@@ -115,6 +115,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       email: values.email ?? "",
       jobTitle: values.jobTitle ?? "",
       additionalComments: values.additionalComments,
+      wasEmpty: candidateCount === 0,
       applicantFilter: {
         create: {
           positionDuration:
@@ -337,6 +338,18 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   "Blurb before additional comments textarea in the request form.",
               })}
             </p>
+            {candidateCount === 0 ? (
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",
+                  id: "adM1fA",
+                  description:
+                    "Instructions to provide additional details when submitting a request with no candidates",
+                })}
+              </p>
+            ) : null}
+
             <TextArea
               id="additionalComments"
               name="additionalComments"

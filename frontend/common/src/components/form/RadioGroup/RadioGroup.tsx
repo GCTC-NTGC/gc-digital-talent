@@ -80,7 +80,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       hideOptional={hideOptional}
       hideLegend={hideLegend}
       trackUnsaved={trackUnsaved}
-      aria-describedby={error || isUnsaved ? `${name}-error` : undefined}
+      isUnsaved={isUnsaved}
       {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
