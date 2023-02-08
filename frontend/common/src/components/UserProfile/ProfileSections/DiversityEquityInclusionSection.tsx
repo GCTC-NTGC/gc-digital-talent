@@ -94,8 +94,8 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
               <div
                 data-h2-padding="base(x1, 0, 0, 0)"
                 data-h2-display="p-tablet(flex)"
-                data-h2-align-items="base:(center)"
-                data-h2-justify-content="base:(space-between)"
+                data-h2-align-items="base(center)"
+                data-h2-justify-content="base(space-between)"
               >
                 <ul data-h2-padding="base(0, 0, 0, x1)">
                   <li>
@@ -119,7 +119,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         <li>
                           <span
                             data-h2-font-weight="base(700)"
-                            data-h2-color="base:(dt-primary)"
+                            data-h2-color="base(dt-primary)"
                           >
                             {intl.formatMessage(
                               {
@@ -139,8 +139,8 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 </ul>
                 <div
                   data-h2-display="base(flex)"
-                  data-h2-justify-content="base:(center)"
-                  data-h2-flex-wrap="base:(no-wrap)"
+                  data-h2-justify-content="base(center)"
+                  data-h2-flex-wrap="base(nowrap)"
                 >
                   {nonLegacyIndigenousCommunities.map((community) => {
                     switch (community) {
@@ -216,7 +216,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             )}
             <p
               data-h2-padding="base(x1, 0, 0, 0)"
-              data-h2-color="base:(ia-gray.dark)"
+              data-h2-color="base(ia-gray.dark)"
             >
               {intl.formatMessage({
                 defaultMessage:
