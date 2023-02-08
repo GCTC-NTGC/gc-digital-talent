@@ -67,15 +67,13 @@ function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
 }
 
 function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value ? (
-    <span>
-      {formatDate({
+  return value
+    ? formatDate({
         date: parseDateTimeUtc(value),
         formatString: "PPP p",
         intl,
-      })}
-    </span>
-  ) : null;
+      })
+    : "";
 }
 
 const fullNameCell = (pool: Pool, intl: IntlShape) => {
@@ -312,8 +310,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
-        accessor: "createdDate",
-        Cell: ({ value }) => dateAccessor(value, intl),
+        accessor: ({ createdDate }) => dateAccessor(createdDate, intl),
       },
     ],
     [intl, paths, locale],
