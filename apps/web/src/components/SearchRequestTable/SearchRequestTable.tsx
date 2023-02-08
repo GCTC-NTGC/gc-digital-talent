@@ -30,15 +30,13 @@ const statusAccessor = (
     : "";
 
 function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value ? (
-    <span>
-      {formatDate({
+  return value
+    ? formatDate({
         date: parseDateTimeUtc(value),
         formatString: "PPP p",
         intl,
-      })}
-    </span>
-  ) : null;
+      })
+    : null;
 }
 
 type Cell = IndividualCell<PoolCandidateSearchRequest>;
@@ -92,8 +90,7 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        accessor: "requestedDate",
-        Cell: ({ value }) => dateAccessor(value, intl),
+        accessor: ({ requestedDate }) => dateAccessor(requestedDate, intl),
       },
       {
         Header: intl.formatMessage({
