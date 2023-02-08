@@ -198,7 +198,9 @@ const employmentEquityAccessor = (user: Applicant, intl: IntlShape) =>
           description:
             "Error message displayed on the single search request table employment equity column.",
         }),
-    );
+    )
+    .sort()
+    .join("-");
 
 export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
