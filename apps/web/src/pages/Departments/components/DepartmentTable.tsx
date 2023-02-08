@@ -10,7 +10,10 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  IndividualCell,
 } from "~/components/Table/ClientManagedTable";
+
+type Cell = IndividualCell<Department>;
 
 interface DepartmentTableProps {
   departments: Array<Department>;
@@ -45,12 +48,15 @@ export const DepartmentTable = ({ departments }: DepartmentTableProps) => {
           id: "hTfHUv",
           description: "Title displayed for the Department table Edit column.",
         }),
-        accessor: (d) =>
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: department } }: Cell) =>
           tableEditButtonAccessor(
-            d.id,
+            department.id,
             paths.departmentTable(),
-            d.name?.[locale],
-          ), // callback extracted to separate function to stabilize memoized component
+            department.name?.[locale],
+          ),
       },
     ],
     [paths, intl, locale],

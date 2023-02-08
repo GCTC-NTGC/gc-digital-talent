@@ -11,18 +11,14 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableActionsAccessor,
+  IndividualCell,
 } from "~/components/Table/ClientManagedTable";
 
 interface TeamTableProps {
   teams: Array<Team>;
 }
 
-interface ICell {
-  value: string;
-  row: {
-    original: Team;
-  };
-}
+type Cell = IndividualCell<Team>;
 
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
@@ -77,7 +73,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table team column.",
         }),
         accessor: (d) => (d?.displayName ? d.displayName[locale] : d.name),
-        Cell: ({ row, value }: ICell) =>
+        Cell: ({ row, value }: Cell) =>
           viewAccessor(paths.teamView(row.original.id), value, intl),
       },
       {
@@ -103,7 +99,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table email column.",
         }),
         accessor: (d) => d.contactEmail,
-        Cell: ({ value }: ICell) => emailLinkAccessor(value, intl),
+        Cell: ({ value }: Cell) => emailLinkAccessor(value, intl),
       },
     ],
     [paths, intl, locale],

@@ -12,6 +12,7 @@ import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  IndividualCell,
 } from "~/components/Table/ClientManagedTable";
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -23,6 +24,8 @@ const categoryAccessor = (
     {category ? intl.formatMessage(getSkillCategory(category as string)) : ""}
   </span>
 );
+
+type Cell = IndividualCell<SkillFamily>;
 
 interface SkillFamilyTableProps {
   skillFamilies: Array<SkillFamily>;
@@ -76,12 +79,15 @@ export const SkillFamilyTable = ({ skillFamilies }: SkillFamilyTableProps) => {
           description:
             "Title displayed for the Skill Family table Edit column.",
         }),
-        accessor: (sf) =>
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: skillFamily } }: Cell) =>
           tableEditButtonAccessor(
-            sf.id,
+            skillFamily.id,
             paths.skillFamilyTable(),
-            sf.name?.[locale],
-          ), // callback extracted to separate function to stabilize memoized component
+            skillFamily.name?.[locale],
+          ),
       },
     ],
     [paths, intl, locale],

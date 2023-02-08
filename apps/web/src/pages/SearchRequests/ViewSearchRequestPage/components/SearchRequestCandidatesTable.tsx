@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
 
@@ -22,14 +22,23 @@ import {
   ClassificationFilterInput,
   PoolCandidateSearchInput,
   PoolCandidateStatus,
+  Maybe,
+  PoolCandidate,
+  OperationalRequirement,
+  Applicant,
 } from "~/api/generated";
-import Table, { ColumnsOf } from "~/components/Table/ClientManagedTable";
+import Table, {
+  ColumnsOf,
+  IndividualCell,
+} from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
+
+type Cell = IndividualCell<PoolCandidate>;
 
 const TableEditButton: React.FC<{
   poolCandidateId?: string;
@@ -71,6 +80,129 @@ function tableEditButtonAccessor(
   );
 }
 
+const classificationsCell = (
+  classifications: Maybe<Maybe<Classification>[]>,
+) => {
+  const filteredClassifications = classifications
+    ? classifications.filter((classification) => !!classification)
+    : null;
+  const pillsArray = filteredClassifications
+    ? filteredClassifications.map((classification) => {
+        return (
+          <Pill
+            key={`${classification?.group}-${classification?.level}`}
+            color="primary"
+            mode="outline"
+          >
+            {classification?.group}&#8209;{classification?.level}
+          </Pill>
+        );
+      })
+    : null;
+
+  return pillsArray ? <span>{pillsArray}</span> : null;
+};
+
+const operationalRequirementsCell = (
+  operationalRequirements: Maybe<Maybe<OperationalRequirement>[]>,
+  intl: IntlShape,
+) => {
+  const requirements = operationalRequirements
+    ?.filter(notEmpty)
+    .map((requirement) => (
+      <Pill key={requirement} color="primary" mode="outline">
+        {intl.formatMessage(
+          requirement
+            ? getOperationalRequirement(requirement)
+            : {
+                defaultMessage: "Error: Name not found.",
+                description:
+                  "Error message displayed on the single search request table operational requirements column.",
+              },
+        )}
+      </Pill>
+    ));
+
+  return requirements ? <span>{requirements}</span> : null;
+};
+
+const getEmploymentEquityItems = (user: Applicant, intl: IntlShape) => [
+  ...(user.isWoman
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Woman",
+          id: "VaCRxh",
+          description:
+            "Message for woman option in the employment equity column on the the single search request table.",
+        }),
+      ]
+    : []),
+  ...(user.isVisibleMinority
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Visible Minority",
+          id: "UdZaOq",
+          description:
+            "Message for visible minority option in the employment equity column on the the single search request table.",
+        }),
+      ]
+    : []),
+  ...(user.isIndigenous
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Indigenous",
+          id: "JtgX1e",
+          description:
+            "Message for indigenous option in the employment equity column on the the single search request table.",
+        }),
+      ]
+    : []),
+  ...(user.hasDisability
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Disability",
+          id: "97LfRf",
+          description:
+            "Message for disability option in the employment equity column on the the single search request table.",
+        }),
+      ]
+    : []),
+];
+
+const employmentEquityCell = (user: Applicant, intl: IntlShape) => {
+  const equityItems = getEmploymentEquityItems(user, intl)
+    .filter(notEmpty)
+    .map((option) => {
+      return (
+        <Pill key={option} color="secondary" mode="outline">
+          {option ||
+            intl.formatMessage({
+              defaultMessage: "Error: Name not found.",
+              id: "c9jMPS",
+              description:
+                "Error message displayed on the single search request table employment equity column.",
+            })}
+        </Pill>
+      );
+    });
+
+  return equityItems ? <span>{equityItems}</span> : null;
+};
+
+const employmentEquityAccessor = (user: Applicant, intl: IntlShape) =>
+  getEmploymentEquityItems(user, intl)
+    .filter(notEmpty)
+    .map(
+      (option) =>
+        option ||
+        intl.formatMessage({
+          defaultMessage: "Error: Name not found.",
+          id: "c9jMPS",
+          description:
+            "Error message displayed on the single search request table employment equity column.",
+        }),
+    );
+
 export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
 > = ({ searchPoolCandidates }) => {
@@ -103,18 +235,63 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table classifications column.",
         }),
-        accessor: ({ user }) =>
-          user.expectedClassifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="secondary"
-                mode="outline"
-              >
-                {`${classification?.group}-${classification?.level}`}
-              </Pill>
-            );
-          }),
+        Cell: ({ row }: Cell) => {
+          return classificationsCell(row.original.user.expectedClassifications);
+        },
+        accessor: (d) => {
+          let classificationsString = "";
+          if (
+            d.user.expectedClassifications &&
+            d.user.expectedClassifications.length > 0
+          ) {
+            d.user.expectedClassifications.forEach((classification) => {
+              if (classification) {
+                const groupLevelString = `${classification.group}-${classification.level} `;
+                classificationsString += groupLevelString;
+              }
+            });
+          }
+          return classificationsString;
+        },
+        sortType: (rowA, rowB, id, desc) => {
+          // passing in sortType to override default sort
+          const rowAGroup =
+            rowA.original.user.expectedClassifications &&
+            rowA.original.user.expectedClassifications[0]
+              ? rowA.original.user.expectedClassifications[0].group
+              : "";
+          const rowBGroup =
+            rowB.original.user.expectedClassifications &&
+            rowB.original.user.expectedClassifications[0]
+              ? rowB.original.user.expectedClassifications[0].group
+              : "";
+          const rowALevel =
+            rowA.original.user.expectedClassifications &&
+            rowA.original.user.expectedClassifications[0]
+              ? rowA.original.user.expectedClassifications[0].level
+              : 0;
+          const rowBLevel =
+            rowB.original.user.expectedClassifications &&
+            rowB.original.user.expectedClassifications[0]
+              ? rowB.original.user.expectedClassifications[0].level
+              : 0;
+
+          if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
+            return 1;
+          }
+          if (rowAGroup.toLowerCase() < rowBGroup.toLowerCase()) {
+            return -1;
+          }
+          // if groups identical then sort by level
+          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
+          if (rowALevel > rowBLevel) {
+            return desc ? -1 : 1;
+          }
+          if (rowALevel < rowBLevel) {
+            return desc ? 1 : -1;
+          }
+          return 0;
+        },
       },
       {
         Header: intl.formatMessage({
@@ -123,27 +300,22 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
+        Cell: ({ row: { original: poolCandidate } }: Cell) =>
+          operationalRequirementsCell(
+            poolCandidate.user.acceptedOperationalRequirements,
+            intl,
+          ),
         accessor: ({ user }) =>
-          user.acceptedOperationalRequirements?.map(
-            (operationalRequirement) => {
-              return (
-                <Pill
-                  key={operationalRequirement}
-                  color="primary"
-                  mode="outline"
-                >
-                  {intl.formatMessage(
-                    operationalRequirement
-                      ? getOperationalRequirement(operationalRequirement)
-                      : {
-                          defaultMessage: "Error: Name not found.",
-                          description:
-                            "Error message displayed on the single search request table operational requirements column.",
-                        },
-                  )}
-                </Pill>
-              );
-            },
+          user.acceptedOperationalRequirements?.map((operationalRequirement) =>
+            intl.formatMessage(
+              operationalRequirement
+                ? getOperationalRequirement(operationalRequirement)
+                : {
+                    defaultMessage: "Error: Name not found.",
+                    description:
+                      "Error message displayed on the single search request table operational requirements column.",
+                  },
+            ),
           ),
       },
       {
@@ -153,63 +325,9 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the single search request table employment equity column.",
         }),
-        accessor: ({ user }) => {
-          const employmentEquity = [
-            ...(user.isWoman
-              ? [
-                  intl.formatMessage({
-                    defaultMessage: "Woman",
-                    id: "VaCRxh",
-                    description:
-                      "Message for woman option in the employment equity column on the the single search request table.",
-                  }),
-                ]
-              : []),
-            ...(user.isVisibleMinority
-              ? [
-                  intl.formatMessage({
-                    defaultMessage: "Visible Minority",
-                    id: "UdZaOq",
-                    description:
-                      "Message for visible minority option in the employment equity column on the the single search request table.",
-                  }),
-                ]
-              : []),
-            ...(user.isIndigenous
-              ? [
-                  intl.formatMessage({
-                    defaultMessage: "Indigenous",
-                    id: "JtgX1e",
-                    description:
-                      "Message for indigenous option in the employment equity column on the the single search request table.",
-                  }),
-                ]
-              : []),
-            ...(user.hasDisability
-              ? [
-                  intl.formatMessage({
-                    defaultMessage: "Disability",
-                    id: "97LfRf",
-                    description:
-                      "Message for disability option in the employment equity column on the the single search request table.",
-                  }),
-                ]
-              : []),
-          ];
-          return employmentEquity?.map((option) => {
-            return (
-              <Pill key={option} color="secondary" mode="outline">
-                {option ||
-                  intl.formatMessage({
-                    defaultMessage: "Error: Name not found.",
-                    id: "c9jMPS",
-                    description:
-                      "Error message displayed on the single search request table employment equity column.",
-                  })}
-              </Pill>
-            );
-          });
-        },
+        accessor: ({ user }) => employmentEquityAccessor(user, intl),
+        Cell: ({ row: { original: poolCandidate } }: Cell) =>
+          employmentEquityCell(poolCandidate.user, intl),
       },
       {
         Header: intl.formatMessage({
@@ -218,7 +336,13 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the single search request table edit column.",
         }),
-        accessor: ({ id, pool, user }) =>
+        accessor: "id",
+        disableGlobalFilter: true,
+        Cell: ({
+          row: {
+            original: { user, id, pool },
+          },
+        }: Cell) =>
           tableEditButtonAccessor(
             id,
             pool?.id,

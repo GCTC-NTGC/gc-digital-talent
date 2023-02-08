@@ -8,11 +8,27 @@ import { Pill } from "@common/components";
 import Pending from "@common/components/Pending";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Skill, useAllSkillsQuery } from "~/api/generated";
+import { Maybe, Skill, SkillFamily, useAllSkillsQuery } from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  IndividualCell,
 } from "~/components/Table/ClientManagedTable";
+
+const skillFamiliesCell = (
+  skillFamilies: Maybe<Maybe<SkillFamily>[]>,
+  locale: "en" | "fr",
+) => {
+  const families = skillFamilies?.filter(notEmpty).map((family) => (
+    <Pill color="primary" mode="outline" key={family?.key}>
+      {family?.name?.[locale]}
+    </Pill>
+  ));
+
+  return families ? <span>{families}</span> : null;
+};
+
+type Cell = IndividualCell<Skill>;
 
 interface SkillTableProps {
   skills: Array<Skill>;
@@ -75,12 +91,12 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
           description:
             "Title displayed for the skill table Skill Families column.",
         }),
+        Cell: ({ row: { original: skill } }: Cell) =>
+          skillFamiliesCell(skill.families, locale),
         accessor: (skill) =>
-          skill.families?.map((family) => (
-            <Pill color="primary" mode="outline" key={family?.key}>
-              {family?.name?.[locale]}
-            </Pill>
-          )),
+          skill.families
+            ?.map((family) => family?.name?.[locale])
+            .filter(notEmpty),
       },
       {
         Header: intl.formatMessage({
@@ -88,12 +104,15 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
           id: "X4nVv/",
           description: "Title displayed for the skill table Edit column.",
         }),
-        accessor: (skill) =>
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: skill } }: Cell) =>
           tableEditButtonAccessor(
             skill.id,
             paths.skillTable(),
             skill.name?.[locale],
-          ), // callback extracted to separate function to stabilize memoized component
+          ),
       },
     ],
     [paths, intl, locale],
