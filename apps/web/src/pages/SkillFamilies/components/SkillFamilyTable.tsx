@@ -19,11 +19,7 @@ import Table, {
 const categoryAccessor = (
   category: SkillCategory | null | undefined,
   intl: IntlShape,
-) => (
-  <span>
-    {category ? intl.formatMessage(getSkillCategory(category as string)) : ""}
-  </span>
-);
+) => (category ? intl.formatMessage(getSkillCategory(category as string)) : "");
 
 type Cell = IndividualCell<SkillFamily>;
 
