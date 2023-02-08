@@ -1,5 +1,10 @@
 import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import {
   AuthenticationContext,
@@ -38,10 +43,15 @@ const CreateAccountRedirect = () => {
       empty(loggedInEmail) &&
       isToCreateAccount
     ) {
-      navigate(paths.createAccount(), {
-        replace: true,
-        state: { from: pathname },
-      });
+      navigate(
+        {
+          pathname: paths.createAccount(),
+          search: createSearchParams({ from: pathname }).toString(),
+        },
+        {
+          replace: true,
+        },
+      );
     }
   }, [
     loggedIn,
