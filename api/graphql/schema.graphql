@@ -828,7 +828,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
-  expiryStatus: CandidateExpiryFilter @scope(name: "expiryFilter")
+  expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
 }
 
 type CandidateSearchPoolResult {
