@@ -95,7 +95,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 data-h2-padding="base(x1, 0, 0, 0)"
                 data-h2-display="p-tablet(flex)"
                 data-h2-align-items="base(center)"
-                data-h2-justify-content="base:(space-between)"
+                data-h2-justify-content="base(space-between)"
               >
                 <ul data-h2-padding="base(0, 0, 0, x1)">
                   <li>
