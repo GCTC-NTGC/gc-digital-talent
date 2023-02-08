@@ -8,6 +8,7 @@ module.exports = {
     repoBranchBase: process.env.PR_BRANCH_BASE || process.env.PUSH_BRANCH_BASE,
     repoCurrentBranch: process.env.PR_BRANCH || process.env.PUSH_BRANCH,
   },
+  normalizeFilenames: /^.+?(\..+?)\.\w+$/,
   files: [
     {
       path: "apps/web/dist/app.*.js",
