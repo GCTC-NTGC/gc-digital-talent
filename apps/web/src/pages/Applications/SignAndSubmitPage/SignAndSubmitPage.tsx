@@ -17,17 +17,12 @@ import Pending from "@common/components/Pending";
 import SEO from "@common/components/SEO/SEO";
 import TableOfContents from "@common/components/TableOfContents";
 import { errorMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
-import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
-import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
   PoolAdvertisement,
   Scalars,
-  SkillCategory,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -87,7 +82,6 @@ type FormValues = {
 type SignatureFormProps = {
   applicationId: string;
   userId: string;
-  isApplicationComplete: boolean;
   handleSubmitApplication: (
     id: string,
     signature: string,
@@ -97,7 +91,6 @@ type SignatureFormProps = {
 const SignatureForm = ({
   applicationId,
   userId,
-  isApplicationComplete,
   handleSubmitApplication,
 }: SignatureFormProps) => {
   const intl = useIntl();
@@ -186,7 +179,6 @@ const SignatureForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            disabled={!isApplicationComplete}
           />
         </div>
         <div data-h2-text-align="base(center) p-tablet(left)">
@@ -211,7 +203,6 @@ const SignatureForm = ({
                 />
               </span>
             }
-            disabled={!isApplicationComplete}
           />
           <Link
             href={paths.reviewApplication(applicationId)}
@@ -236,8 +227,7 @@ export interface SignAndSubmitFormProps {
   poolAdvertisementId: string;
   userId: string;
   closingDate: PoolAdvertisement["closingDate"];
-  jobTitle: string | React.ReactNode;
-  isApplicationComplete: boolean;
+  jobTitle: React.ReactNode;
   handleSubmitApplication: (
     id: string,
     signature: string,
@@ -250,7 +240,6 @@ export const SignAndSubmitForm = ({
   userId,
   closingDate,
   jobTitle,
-  isApplicationComplete,
   handleSubmitApplication,
 }: SignAndSubmitFormProps) => {
   const intl = useIntl();
@@ -278,7 +267,6 @@ export const SignAndSubmitForm = ({
         <SignatureForm
           applicationId={applicationId}
           userId={userId}
-          isApplicationComplete={isApplicationComplete}
           handleSubmitApplication={handleSubmitApplication}
         />
       ),
@@ -404,26 +392,6 @@ const SignAndSubmitPage = () => {
         description: "Error message when job title isn't found.",
       });
 
-  const isProfileComplete = data?.poolCandidate?.user.isProfileComplete;
-  const experiences = data?.poolCandidate?.user.experiences?.filter(notEmpty);
-  const hasExperiences = notEmpty(experiences);
-  const technicalRequiredSkills = categorizeSkill(
-    data?.poolCandidate?.poolAdvertisement?.essentialSkills,
-  )[SkillCategory.Technical];
-
-  const isApplicationComplete =
-    isProfileComplete === true &&
-    getMissingSkills(
-      technicalRequiredSkills || [],
-      hasExperiences
-        ? flattenExperienceSkills(experiences).filter(notEmpty)
-        : [],
-    ).length === 0 &&
-    getMissingLanguageRequirements(
-      data?.poolCandidate?.user,
-      data?.poolCandidate?.poolAdvertisement,
-    ).length === 0;
-
   const [, executeMutation] = useSubmitApplicationMutation();
   const handleSubmitApplication = (applicationId: string, signature: string) =>
     executeMutation({ id: applicationId, signature }).then((result) => {
@@ -442,7 +410,6 @@ const SignAndSubmitPage = () => {
           userId={data.poolCandidate.user.id}
           closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
           jobTitle={jobTitle}
-          isApplicationComplete={isApplicationComplete}
           handleSubmitApplication={handleSubmitApplication}
         />
       ) : (

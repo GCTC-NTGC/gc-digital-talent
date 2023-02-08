@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
 
@@ -34,10 +34,10 @@ const EquityOption = ({
 
   const removeText = intl.formatMessage(
     {
-      defaultMessage: "Remove <hidden>{title} </hidden>from profile",
-      id: "OQ+K+X",
+      defaultMessage: "Edit <hidden>{title}</hidden>",
+      id: "s7QD5B",
       description:
-        "Text label for button to remove employment equity category from profile.",
+        "Text label for button to edit employment equity category from profile.",
     },
     {
       title,
@@ -59,7 +59,6 @@ const EquityOption = ({
   const isAdded = indigenousCommunities && indigenousCommunities.length > 0;
 
   const iconSize = "1rem";
-  const Icon = isAdded ? MinusIcon : PlusIcon;
 
   return (
     <div
@@ -87,10 +86,12 @@ const EquityOption = ({
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >
-              <Icon
-                style={{ height: iconSize, width: iconSize }}
-                data-h2-margin="base(0, x.125, 0, 0)"
-              />
+              {!isAdded && (
+                <PlusIcon
+                  style={{ height: iconSize, width: iconSize }}
+                  data-h2-margin="base(0, x.125, 0, 0)"
+                />
+              )}
               <span>{isAdded ? removeText : addText}</span>
             </span>
           </Button>

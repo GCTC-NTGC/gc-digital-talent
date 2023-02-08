@@ -7,6 +7,7 @@ source ${parent_path}/lib/common.sh
 cd /var/www/html/api
 cp .env.example .env --preserve=all
 ${parent_path}/update_env_appkey.sh .env
+touch ./storage/logs/laravel.log
 composer install --prefer-dist
 php artisan key:generate
 php artisan migrate:fresh --seed

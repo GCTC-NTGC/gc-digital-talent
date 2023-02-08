@@ -3,7 +3,7 @@ import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { wrapAbbr } from "../../helpers/nameUtils";
-import { notEmpty } from "../../helpers/util";
+import { notEmpty, uniqueItems } from "../../helpers/util";
 import {
   ApplicantFilter,
   Classification,
@@ -123,10 +123,10 @@ const ApplicantFilters: React.FC<{
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory: React.ReactNode[] | undefined =
-    selectedClassifications?.map((classification) =>
+  const classificationsFromBrowserHistory = selectedClassifications?.map(
+    (classification) =>
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
-    );
+  );
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
   const classifications: Classification[] =
@@ -267,10 +267,10 @@ const ApplicantFilters: React.FC<{
               description:
                 "Title for group and level on summary of filters section",
             })}
-            content={
+            content={uniqueItems(
               classificationsFromBrowserHistory ||
-              classificationsFromApplicantFilter
-            }
+                classificationsFromApplicantFilter,
+            )}
           />
           <FilterBlock
             title={intl.formatMessage(

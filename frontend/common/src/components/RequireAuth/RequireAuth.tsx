@@ -1,26 +1,24 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 import useAuthorizationContext from "../../hooks/useAuthorizationContext";
 import { LegacyRole } from "../../api/generated";
-import { useApiRoutes } from "../../hooks/useApiRoutes";
-import useLocale from "../../hooks/useLocale";
 import Loading from "../Pending/Loading";
 import { useLogger } from "../../hooks/useLogger";
 
 interface RequireAuthProps {
   children: React.ReactNode;
   roles: Array<LegacyRole>;
+  loginPath: string;
 }
 
-const RequireAuth = ({ children, roles }: RequireAuthProps) => {
-  const { locale } = useLocale();
+const RequireAuth = ({ children, roles, loginPath }: RequireAuthProps) => {
   const location = useLocation();
-  const apiRoutes = useApiRoutes();
   const logger = useLogger();
   const { loggedIn } = useAuth();
   const { loggedInUserRoles, isLoaded } = useAuthorizationContext();
+  const navigate = useNavigate();
 
   const isAuthorized =
     isLoaded &&
@@ -30,9 +28,17 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
 
   React.useEffect(() => {
     if (!loggedIn) {
-      window.location.replace(apiRoutes.login(location.pathname, locale));
+      navigate(
+        {
+          pathname: loginPath,
+          search: createSearchParams({ from: location.pathname }).toString(),
+        },
+        {
+          replace: true,
+        },
+      );
     }
-  }, [apiRoutes, locale, location.pathname, loggedIn, isAuthorized]);
+  }, [location.pathname, loggedIn, loginPath, navigate]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {
