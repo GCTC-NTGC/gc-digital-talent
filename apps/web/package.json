@@ -31,7 +31,7 @@
     "@faker-js/faker": "^7.6.0",
     "@heroicons/react": "^2.0.14",
     "@microsoft/applicationinsights-react-js": "^3.4.0",
-    "@microsoft/applicationinsights-web": "^2.8.9",
+    "@microsoft/applicationinsights-web": "^2.8.10",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "framer-motion": "^9.0.1",
