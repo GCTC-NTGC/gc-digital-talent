@@ -53,7 +53,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.15",
-    "@microsoft/applicationinsights-react-js": "^3.4.0",
+    "@microsoft/applicationinsights-react-js": "^3.4.1",
     "@microsoft/applicationinsights-web": "^2.8.10",
     "@radix-ui/react-accordion": "^1.0.1",
     "@radix-ui/react-alert-dialog": "^1.0.2",
