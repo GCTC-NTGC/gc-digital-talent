@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
@@ -8,6 +7,7 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
@@ -30,14 +30,11 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(user.id);
+  const {
+    id: applicationId,
+    param: applicationParam,
+    returnRoute,
+  } = useApplicationInfo(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {
     return onUpdate(user.id, {
@@ -209,7 +206,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          href: returnRoute,
+          href: returnRoute || paths.profile(user.id),
           children: intl.formatMessage(
             application
               ? navigationMessages.backToApplication

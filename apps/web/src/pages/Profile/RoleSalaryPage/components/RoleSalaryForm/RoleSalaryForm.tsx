@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, Checklist } from "@common/components/form";
@@ -26,6 +26,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 
 import {
   DialogLevelOne,
@@ -85,14 +86,11 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.myProfile();
+  const {
+    id: applicationId,
+    param: applicationParam,
+    returnRoute,
+  } = useApplicationInfo(initialData.me?.id);
 
   const labels = {
     expectedGenericJobTitles: intl.formatMessage({

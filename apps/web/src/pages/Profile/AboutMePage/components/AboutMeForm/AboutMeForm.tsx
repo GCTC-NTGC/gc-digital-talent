@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
 import { toast } from "@common/components/Toast";
@@ -18,6 +18,7 @@ import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import {
   User,
   UpdateUserAsUserInput,
@@ -67,14 +68,11 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(initialUser.id);
+  const {
+    id: applicationId,
+    param: applicationParam,
+    returnRoute,
+  } = useApplicationInfo(initialUser.id);
 
   const labelMap = {
     preferredLang: intl.formatMessage({
