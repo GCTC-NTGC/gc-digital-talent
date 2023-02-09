@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@heroicons/react": "^2.0.14",
+    "@heroicons/react": "^2.0.15",
     "@microsoft/applicationinsights-react-js": "^3.4.0",
     "@microsoft/applicationinsights-web": "^2.8.10",
     "date-fns": "^2.29.3",
