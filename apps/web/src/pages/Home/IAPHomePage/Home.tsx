@@ -6,7 +6,7 @@ import imageUrl from "@common/helpers/imageUrl";
 
 import useQuote from "~/hooks/useQuote";
 
-import { wrapAbbr } from "@common/helpers/nameUtils"
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";

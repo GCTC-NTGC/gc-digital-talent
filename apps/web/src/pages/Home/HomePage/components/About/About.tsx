@@ -5,7 +5,7 @@ import { NewspaperIcon } from "@heroicons/react/24/outline";
 import Heading from "@common/components/Heading";
 import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const About = () => {
   const intl = useIntl();

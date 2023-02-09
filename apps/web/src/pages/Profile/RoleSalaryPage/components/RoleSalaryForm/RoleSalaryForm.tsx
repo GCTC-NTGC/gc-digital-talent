@@ -27,7 +27,7 @@ import ProfileFormWrapper, {
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 
-import { wrapAbbr } from "@common/helpers/nameUtils"
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,

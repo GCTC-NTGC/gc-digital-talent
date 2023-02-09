@@ -9,7 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
 import "./hero.css";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [

@@ -30,7 +30,7 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
 } from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,

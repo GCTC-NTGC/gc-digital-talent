@@ -6,10 +6,10 @@ import Heading from "@common/components/Heading";
 import { ExternalLink } from "@common/components/Link";
 import imageUrl from "@common/helpers/imageUrl";
 import { getLocale, Locales } from "@common/helpers/localize";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
@@ -226,9 +226,9 @@ const AccessibilityStatementPage = () => {
           <p>
             {intl.formatMessage(
               {
-                id: "fNnKNn",
+                id: "rnPvJN",
                 defaultMessage:
-                  "<abbreviation>GC</abbrevation> Digital Talent  is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
+                  "<abbreviation>GC</abbreviation> Digital Talent  is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
                 description: "Opening paragraph for accessibility statement",
               },
               {

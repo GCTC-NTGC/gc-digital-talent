@@ -14,7 +14,7 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import useAuth from "@common/hooks/useAuth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const AdminHomePage = () => {
   const intl = useIntl();

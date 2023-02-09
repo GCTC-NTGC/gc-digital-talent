@@ -12,7 +12,7 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-import { wrapAbbr } from "@common/helpers/nameUtils"
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
 

@@ -9,7 +9,7 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { wrapAbbr } from "~/../../../frontend/common/src/helpers/nameUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>

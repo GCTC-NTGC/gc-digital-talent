@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
 
-import { wrapAbbr } from "@common/helpers/nameUtils"
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
