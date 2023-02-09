@@ -195,7 +195,8 @@ const PoolCandidateTableFilterDialog = ({
                 id="expiryStatus"
                 label={formatMessage({
                   defaultMessage: "Expiry Status",
-                  id: "GuhrdF",
+                  description: "Expiry status",
+                  id: "TQU5g8",
                 })}
                 options={optionsData.expiryStatus}
               />
