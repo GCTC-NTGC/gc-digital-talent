@@ -6907,20 +6907,20 @@
         },
         {
             "name": "web-token/jwt-core",
-            "version": "3.1.5",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-core.git",
-                "reference": "c33d69d7a8bd4f782f289560bf75b5eac331b53c"
+                "reference": "ec2580e8cdd17410016216fbf1b645052c35f644"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-core/zipball/c33d69d7a8bd4f782f289560bf75b5eac331b53c",
-                "reference": "c33d69d7a8bd4f782f289560bf75b5eac331b53c",
+                "url": "https://api.github.com/repos/web-token/jwt-core/zipball/ec2580e8cdd17410016216fbf1b645052c35f644",
+                "reference": "ec2580e8cdd17410016216fbf1b645052c35f644",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9|^0.10",
+                "brick/math": "^0.9|^0.10|^0.11",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "paragonie/constant_time_encoding": "^2.4",
@@ -6971,7 +6971,7 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/web-token/jwt-core/tree/3.1.5"
+                "source": "https://github.com/web-token/jwt-core/tree/3.1.6"
             },
             "funding": [
                 {
@@ -6979,7 +6979,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-12-28T05:45:38+00:00"
+            "time": "2023-02-02T17:25:26+00:00"
         },
         {
             "name": "webmozart/assert",
