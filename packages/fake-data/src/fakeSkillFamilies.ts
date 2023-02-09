@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { SkillCategory, SkillFamily, Skill } from "../api/generated";
+
+import { SkillCategory, SkillFamily, Skill } from "@gc-digital-talent/web/src/api/generated";
+
 import staticSkillFamilies from "./skillFamilies.json";
 
 export const getStaticSkillFamilies = (): SkillFamily[] =>

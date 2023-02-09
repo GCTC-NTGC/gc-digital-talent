@@ -1,0 +1,15 @@
+{
+  "name": "@gc-digital-talent/fake-data",
+  "license": "AGPL-3.0",
+  "main": "index.ts",
+  "version": "0.0.0",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@gc-digital-talent/common": "*",
+    "@gc-digital-talent/web": "*",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*"
+  }
+}

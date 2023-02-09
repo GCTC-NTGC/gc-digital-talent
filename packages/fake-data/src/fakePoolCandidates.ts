@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "../helpers/dateUtils";
+
+import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@gc-digital-talent/common/src/helpers/dateUtils";
 import {
   PoolCandidateStatus,
   PoolCandidate,
@@ -7,7 +8,8 @@ import {
   User,
   Applicant,
   PoolAdvertisement,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 import fakePoolAdvertisements from "./fakePoolAdvertisements";

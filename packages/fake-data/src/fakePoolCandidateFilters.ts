@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+
 import {
   Classification,
   PoolCandidateFilter,
@@ -6,7 +7,8 @@ import {
   Pool,
   WorkRegion,
   LanguageAbility,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakeClassifications from "./fakeClassifications";
 import fakePools from "./fakePools";
 

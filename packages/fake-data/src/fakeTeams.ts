@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 
-import { Department, Team } from "../api/generated";
+import { Department, Team } from "@gc-digital-talent/web/src/api/generated";
+
 import fakeDepartments from "./fakeDepartments";
 
 interface GenerateTeamArgs {

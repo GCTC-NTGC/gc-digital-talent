@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import pick from "lodash/pick";
+
 import {
   Classification,
   Pool,
@@ -8,7 +9,8 @@ import {
   PoolStatus,
   PoolStream,
   PublishingGroup,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 

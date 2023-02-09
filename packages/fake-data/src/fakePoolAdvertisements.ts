@@ -1,10 +1,11 @@
 import { faker } from "@faker-js/faker";
+
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
-} from "../helpers/dateUtils";
-import { toLocalizedString } from "../helpers/fake";
+} from "@gc-digital-talent/common/src/helpers/dateUtils";
+
 import {
   AdvertisementStatus,
   Classification,
@@ -13,10 +14,12 @@ import {
   PoolStream,
   SecurityStatus,
   Skill,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import fakeClassifications from "./fakeClassifications";
+import  toLocalizedString from "./fakeLocalizedString";
 
 const generatePoolAdvertisement = (
   skills: Skill[],

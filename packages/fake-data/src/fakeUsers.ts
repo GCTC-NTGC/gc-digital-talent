@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+
 import {
   User,
   Language,
@@ -27,7 +28,8 @@ import {
   GenericJobTitle,
   PositionDuration,
   IndigenousCommunity,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeGenericJobTitles from "./fakeGenericJobTitles";
@@ -201,7 +203,7 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   );
 };
 
-export const applicantGenerator = (numToGenerate = 20): Applicant[] => {
+export const fakeApplicants = (numToGenerate = 20): Applicant[] => {
   return defaultGenerator(numToGenerate).map((user) => {
     return {
       ...user,

@@ -1,10 +1,12 @@
 import { faker } from "@faker-js/faker";
+
 import {
   Department,
   PoolCandidateFilter,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
+
 import fakeDepartments from "./fakeDepartments";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 

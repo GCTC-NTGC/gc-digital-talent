@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+
 import {
   // experiences
   AwardExperience,
@@ -16,7 +17,7 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
-} from "../api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
@@ -30,13 +31,16 @@ const theSkillString1: LocalizedString = {
   en: "The first Skill Name",
   fr: "La première Compétence",
 };
+
 const theSkillDescription1: LocalizedString = {
   en: "The first Skill Description",
   fr: "Le premier Descriptif",
 };
+
 const theExperienceSkillRecord: ExperienceSkillRecord = {
   details: "The skill in detail",
 };
+
 const sampleSkill1: Skill = {
   id: faker.datatype.uuid(),
   key: faker.random.word(),
@@ -44,14 +48,17 @@ const sampleSkill1: Skill = {
   name: theSkillString1,
   experienceSkillRecord: theExperienceSkillRecord,
 };
+
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
   fr: "La deuxième Compétence",
 };
+
 const theSkillDescription2: LocalizedString = {
   en: "The second Description",
   fr: "La deuxième Descriptif",
 };
+
 const sampleSkill2: Skill = {
   id: faker.datatype.uuid(),
   key: faker.random.word(),
@@ -214,7 +221,7 @@ export default (numberOfExperiences: number) => {
 };
 
 // the 5 single experiences of a specific type
-export const generators = {
+export const experienceGenerators = {
   awardExperiences: (numOfExp = 1) => {
     faker.seed(0);
     return [...Array(numOfExp)].map(() => {
