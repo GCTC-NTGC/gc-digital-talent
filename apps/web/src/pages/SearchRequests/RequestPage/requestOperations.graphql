@@ -1,0 +1,43 @@
+query getPoolCandidateSearchRequestData {
+  departments {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  classifications {
+    id
+    group
+    level
+  }
+}
+
+mutation createPoolCandidateSearchRequest(
+  $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+) {
+  createPoolCandidateSearchRequest(
+    poolCandidateSearchRequest: $poolCandidateSearchRequest
+  ) {
+    id
+    fullName
+    email
+    department {
+      id
+    }
+    jobTitle
+    additionalComments
+    poolCandidateFilter {
+      id
+    }
+  }
+}

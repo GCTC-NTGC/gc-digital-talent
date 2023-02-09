@@ -9,23 +9,28 @@ import lazyRetry from "@common/helpers/lazyRetry";
 import { POST_LOGOUT_URI_KEY } from "@common/components/Auth/AuthenticationContainer";
 import { defaultLogger } from "@common/hooks/useLogger";
 
-import Layout, { IAPLayout } from "~/components/Layout";
+import Layout from "~/components/Layout/Layout";
+import AdminLayout from "~/components/Layout/AdminLayout";
+import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
-import CreateAccountRedirect from "~/pages/CreateAccountPage/CreateAccountRedirect";
-import { Role } from "~/api/generated";
+import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
+import { LegacyRole } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
 
 /** Home */
 const HomePage = React.lazy(() =>
   lazyRetry(
     () =>
-      import(/* webpackChunkName: "tsHomePage" */ "../pages/HomePage/HomePage"),
+      import(
+        /* webpackChunkName: "tsHomePage" */ "../pages/Home/HomePage/HomePage"
+      ),
   ),
 );
 const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsErrorPage" */ "../pages/ErrorPage/ErrorPage"
+        /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
       ),
   ),
 );
@@ -51,7 +56,7 @@ const SearchPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsSearchPage" */ "../pages/SearchPage/SearchPage"
+        /* webpackChunkName: "tsSearchPage" */ "../pages/SearchRequests/SearchPage/SearchPage"
       ),
   ),
 );
@@ -59,7 +64,15 @@ const RequestPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRequestPage" */ "../pages/RequestPage/RequestPage"
+        /* webpackChunkName: "tsRequestPage" */ "../pages/SearchRequests/RequestPage/RequestPage"
+      ),
+  ),
+);
+const RequestConfirmationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsRequestConfirmationPage" */ "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
       ),
   ),
 );
@@ -69,7 +82,7 @@ const RegisterPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRegisterPage" */ "../pages/RegisterPage/RegisterPage"
+        /* webpackChunkName: "tsRegisterPage" */ "../pages/Auth/RegisterPage/RegisterPage"
       ),
   ),
 );
@@ -77,7 +90,7 @@ const LoggedOutPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/LoggedOutPage/LoggedOutPage"
+        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/Auth/LoggedOutPage/LoggedOutPage"
       ),
   ),
 );
@@ -85,7 +98,7 @@ const LoginPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoginPage" */ "../pages/LoginPage/LoginPage"
+        /* webpackChunkName: "tsLoginPage" */ "../pages/Auth/LoginPage/LoginPage"
       ),
   ),
 );
@@ -95,7 +108,7 @@ const CreateAccountPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/CreateAccountPage/CreateAccountPage"
+        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
       ),
   ),
 );
@@ -103,7 +116,7 @@ const ProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsProfilePage" */ "../pages/ProfilePage/ProfilePage"
+        /* webpackChunkName: "tsProfilePage" */ "../pages/Profile/ProfilePage/ProfilePage"
       ),
   ),
 );
@@ -111,7 +124,7 @@ const GovernmentInfoPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsGovInfoPage" */ "../pages/GovernmentInfoPage/GovernmentInfoPage"
+        /* webpackChunkName: "tsGovInfoPage" */ "../pages/Profile/GovernmentInfoPage/GovernmentInfoPage"
       ),
   ),
 );
@@ -119,7 +132,7 @@ const LanguageInfoPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLangInfoPage" */ "../pages/LanguageInfoPage/LanguageInfoPage"
+        /* webpackChunkName: "tsLangInfoPage" */ "../pages/Profile/LanguageInfoPage/LanguageInfoPage"
       ),
   ),
 );
@@ -127,7 +140,7 @@ const WorkLocationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/WorkLocationPage/WorkLocationPage"
+        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/Profile/WorkLocationPage/WorkLocationPage"
       ),
   ),
 );
@@ -135,7 +148,7 @@ const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/ExperienceFormPage/ExperienceFormPage"
+        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
       ),
   ),
 );
@@ -143,7 +156,7 @@ const WorkPreferencesPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/WorkPreferencesPage/WorkPreferencesPage"
+        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/Profile/WorkPreferencesPage/WorkPreferencesPage"
       ),
   ),
 );
@@ -151,7 +164,7 @@ const AboutMePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsAboutMePage" */ "../pages/AboutMePage/AboutMePage"
+        /* webpackChunkName: "tsAboutMePage" */ "../pages/Profile/AboutMePage/AboutMePage"
       ),
   ),
 );
@@ -159,7 +172,7 @@ const RoleSalaryPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/RoleSalaryPage/RoleSalaryPage"
+        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/Profile/RoleSalaryPage/RoleSalaryPage"
       ),
   ),
 );
@@ -167,7 +180,7 @@ const EmploymentEquityPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsEquityPage" */ "../pages/EmploymentEquityPage/EmploymentEquityPage"
+        /* webpackChunkName: "tsEquityPage" */ "../pages/Profile/EmploymentEquityPage/EmploymentEquityPage"
       ),
   ),
 );
@@ -175,7 +188,7 @@ const ExperienceAndSkillsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
+        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/Profile/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
       ),
   ),
 );
@@ -185,7 +198,7 @@ const BrowsePoolsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsBrowsePoolsPage" */ "../pages/BrowsePoolsPage/BrowsePoolsPage"
+        /* webpackChunkName: "tsBrowsePoolsPage" */ "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
       ),
   ),
 );
@@ -193,7 +206,7 @@ const PoolAdvertisementPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsPoolAdvertPage" */ "../pages/PoolAdvertisementPage/PoolAdvertisementPage"
+        /* webpackChunkName: "tsPoolAdvertPage" */ "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
       ),
   ),
 );
@@ -209,7 +222,7 @@ const SignAndSubmitPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/SignAndSubmitPage/SignAndSubmitPage"
+        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/Applications/SignAndSubmitPage/SignAndSubmitPage"
       ),
   ),
 );
@@ -217,7 +230,7 @@ const MyApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/MyApplicationsPage/MyApplicationsPage"
+        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
       ),
   ),
 );
@@ -225,7 +238,7 @@ const ReviewApplicationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/ReviewApplicationPage/ReviewApplicationPage"
+        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/Applications/ReviewApplicationPage/ReviewApplicationPage"
       ),
   ),
 );
@@ -234,11 +247,257 @@ const ReviewApplicationPage = React.lazy(() =>
 const IAPHomePage = React.lazy(() =>
   lazyRetry(
     () =>
-      import(/* webpackChunkName: "iapHomePage" */ "../pages/IAPHomePage/Home"),
+      import(
+        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPHomePage/Home"
+      ),
   ),
 );
 
-const createRoute = (locale: Locales) =>
+/** Admin */
+const AdminHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAdminHomePage" */ "../pages/Home/AdminHomePage/AdminHomePage"
+      ),
+  ),
+);
+const AdminErrorPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
+      ),
+  ),
+);
+const AdminDashboardPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAdminDashboardPage" */ "../pages/AdminDashboardPage/AdminDashboardPage"
+      ),
+  ),
+);
+
+/** Users */
+const IndexUserPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexUserPage" */ "../pages/Users/IndexUserPage/IndexUserPage"
+      ),
+  ),
+);
+const CreateUserPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateUserPage" */ "../pages/Users/CreateUserPage/CreateUserPage"
+      ),
+  ),
+);
+const UpdateUserPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateUserPage" */ "../pages/Users/UpdateUserPage/UpdateUserPage"
+      ),
+  ),
+);
+const ViewUserPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPage/ViewUserPage"
+      ),
+  ),
+);
+
+/** Teams */
+const IndexTeamPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
+      ),
+  ),
+);
+
+/** Classifications */
+const IndexClassificationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexClassificationPage" */ "../pages/Classifications/IndexClassificationPage"
+      ),
+  ),
+);
+const CreateClassificationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateClassificationPage" */ "../pages/Classifications/CreateClassificationPage"
+      ),
+  ),
+);
+const UpdateClassificationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateClassificationPage" */ "../pages/Classifications/UpdateClassificationPage"
+      ),
+  ),
+);
+
+/** Pool Candidates */
+const IndexPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexPoolCandidatePage" */ "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
+      ),
+  ),
+);
+const ViewPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+      ),
+  ),
+);
+
+/** Pools */
+const IndexPoolPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexPoolPage" */ "../pages/Pools/IndexPoolPage/IndexPoolPage"
+      ),
+  ),
+);
+const CreatePoolPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreatePoolPage" */ "../pages/Pools/CreatePoolPage/CreatePoolPage"
+      ),
+  ),
+);
+const EditPoolPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
+      ),
+  ),
+);
+const ViewPoolPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewPoolPage" */ "../pages/Pools/ViewPoolPage/ViewPoolPage"
+      ),
+  ),
+);
+
+/** Departments */
+const IndexDepartmentPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexDepartmentPage" */ "../pages/Departments/IndexDepartmentPage"
+      ),
+  ),
+);
+const CreateDepartmentPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateDepartmentPage" */ "../pages/Departments/CreateDepartmentPage"
+      ),
+  ),
+);
+const UpdateDepartmentPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateDepartmentPage" */ "../pages/Departments/UpdateDepartmentPage"
+      ),
+  ),
+);
+
+/** Skill Families */
+const IndexSkillFamilyPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexSkillFamilyPage" */ "../pages/SkillFamilies/IndexSkillFamilyPage"
+      ),
+  ),
+);
+const CreateSkillFamilyPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateSkillFamilyPage" */ "../pages/SkillFamilies/CreateSkillFamilyPage"
+      ),
+  ),
+);
+const UpdateSkillFamilyPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateSkillFamilyPage" */ "../pages/SkillFamilies/UpdateSkillFamilyPage"
+      ),
+  ),
+);
+
+/** Skills */
+const IndexSkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexSkillPage" */ "../pages/Skills/IndexSkillPage"
+      ),
+  ),
+);
+const CreateSkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateSkillPage" */ "../pages/Skills/CreateSkillPage"
+      ),
+  ),
+);
+const UpdateSkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateSkillPage" */ "../pages/Skills/UpdateSkillPage"
+      ),
+  ),
+);
+
+/** Search Requests */
+const IndexSearchRequestPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminIndexSearchRequestPage" */ "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
+      ),
+  ),
+);
+const ViewSearchRequestPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewSearchRequestPage" */ "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+      ),
+  ),
+);
+
+const createRoute = (locale: Locales, loginPath: string) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -270,7 +529,16 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "request",
-                  element: <RequestPage />,
+                  children: [
+                    {
+                      index: true,
+                      element: <RequestPage />,
+                    },
+                    {
+                      path: ":requestId",
+                      element: <RequestConfirmationPage />,
+                    },
+                  ],
                 },
               ],
             },
@@ -303,7 +571,10 @@ const createRoute = (locale: Locales) =>
             {
               path: "create-account",
               element: (
-                <RequireAuth roles={[Role.Applicant]}>
+                <RequireAuth
+                  roles={[LegacyRole.Applicant]}
+                  loginPath={loginPath}
+                >
                   <CreateAccountPage />
                 </RequireAuth>
               ),
@@ -317,7 +588,10 @@ const createRoute = (locale: Locales) =>
                 {
                   path: "me",
                   element: (
-                    <RequireAuth roles={[Role.Applicant]}>
+                    <RequireAuth
+                      roles={[LegacyRole.Applicant]}
+                      loginPath={loginPath}
+                    >
                       <ProfileRedirect />
                     </RequireAuth>
                   ),
@@ -331,7 +605,10 @@ const createRoute = (locale: Locales) =>
                         {
                           index: true,
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <ProfilePage />
                             </RequireAuth>
                           ),
@@ -339,7 +616,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "about-me/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <AboutMePage />
                             </RequireAuth>
                           ),
@@ -347,7 +627,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "government-info/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <GovernmentInfoPage />
                             </RequireAuth>
                           ),
@@ -355,7 +638,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "language-info/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <LanguageInfoPage />
                             </RequireAuth>
                           ),
@@ -363,7 +649,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "work-location/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <WorkLocationPage />
                             </RequireAuth>
                           ),
@@ -371,7 +660,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "work-preferences/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <WorkPreferencesPage />
                             </RequireAuth>
                           ),
@@ -379,7 +671,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "employment-equity/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <EmploymentEquityPage />
                             </RequireAuth>
                           ),
@@ -387,7 +682,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "role-salary-expectations/edit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <RoleSalaryPage />
                             </RequireAuth>
                           ),
@@ -398,7 +696,10 @@ const createRoute = (locale: Locales) =>
                             {
                               index: true,
                               element: (
-                                <RequireAuth roles={[Role.Applicant]}>
+                                <RequireAuth
+                                  roles={[LegacyRole.Applicant]}
+                                  loginPath={loginPath}
+                                >
                                   <ExperienceAndSkillsPage />
                                 </RequireAuth>
                               ),
@@ -409,7 +710,10 @@ const createRoute = (locale: Locales) =>
                                 {
                                   path: "create",
                                   element: (
-                                    <RequireAuth roles={[Role.Applicant]}>
+                                    <RequireAuth
+                                      roles={[LegacyRole.Applicant]}
+                                      loginPath={loginPath}
+                                    >
                                       <ExperienceFormPage />
                                     </RequireAuth>
                                   ),
@@ -420,7 +724,10 @@ const createRoute = (locale: Locales) =>
                                     {
                                       path: "edit",
                                       element: (
-                                        <RequireAuth roles={[Role.Applicant]}>
+                                        <RequireAuth
+                                          roles={[LegacyRole.Applicant]}
+                                          loginPath={loginPath}
+                                        >
                                           <ExperienceFormPage edit />
                                         </RequireAuth>
                                       ),
@@ -436,7 +743,10 @@ const createRoute = (locale: Locales) =>
                     {
                       path: "applications",
                       element: (
-                        <RequireAuth roles={[Role.Applicant]}>
+                        <RequireAuth
+                          roles={[LegacyRole.Applicant]}
+                          loginPath={loginPath}
+                        >
                           <MyApplicationsPage />
                         </RequireAuth>
                       ),
@@ -465,7 +775,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "create-application",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <CreateApplicationPage />
                             </RequireAuth>
                           ),
@@ -483,7 +796,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "submit",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <SignAndSubmitPage />
                             </RequireAuth>
                           ),
@@ -491,7 +807,10 @@ const createRoute = (locale: Locales) =>
                         {
                           path: "apply",
                           element: (
-                            <RequireAuth roles={[Role.Applicant]}>
+                            <RequireAuth
+                              roles={[LegacyRole.Applicant]}
+                              loginPath={loginPath}
+                            >
                               <ReviewApplicationPage />
                             </RequireAuth>
                           ),
@@ -505,7 +824,10 @@ const createRoute = (locale: Locales) =>
             {
               path: "talent/profile/*",
               element: (
-                <RequireAuth roles={[Role.Applicant]}>
+                <RequireAuth
+                  roles={[LegacyRole.Applicant]}
+                  loginPath={loginPath}
+                >
                   <TalentRedirect />
                 </RequireAuth>
               ),
@@ -523,6 +845,433 @@ const createRoute = (locale: Locales) =>
           loader: () => {
             throw new Response("Not Found", { status: 404 });
           },
+        },
+      ],
+    },
+    {
+      path: `${locale}/admin`,
+      element: <AdminLayout />,
+      errorElement: <AdminErrorPage />,
+      children: [
+        {
+          errorElement: <AdminErrorPage />,
+          children: [
+            {
+              path: "",
+              element: <AdminHomePage />,
+            },
+            {
+              path: "dashboard",
+              element: (
+                <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                  <AdminDashboardPage />
+                </RequireAuth>
+              ),
+            },
+            {
+              path: "users",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <IndexUserPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "create",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <CreateUserPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: ":userId",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <ViewUserPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "edit",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <UpdateUserPage />
+                        </RequireAuth>
+                      ),
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "teams",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <IndexTeamPage />
+                    </RequireAuth>
+                  ),
+                },
+                // {
+                //   path: "create",
+                //   element: (
+                //     <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                //       <CreateTeamPage />
+                //     </RequireAuth>
+                //   ),
+                // },
+                // {
+                //   path: ":teamId",
+                //   children: [
+                //     {
+                //       index: true,
+                //       element: (
+                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                //           <ViewTeamPage />
+                //         </RequireAuth>
+                //       ),
+                //     },
+                //     {
+                //       path: "edit",
+                //       element: (
+                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                //           <UpdateTeamPage />
+                //         </RequireAuth>
+                //       ),
+                //     },
+                //   ],
+                // },
+              ],
+            },
+            {
+              path: "pools",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <IndexPoolPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "create",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <CreatePoolPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: ":poolId",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <ViewPoolPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "edit",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <EditPoolPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "pool-candidates",
+                      children: [
+                        {
+                          index: true,
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <IndexPoolCandidatePage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: ":poolCandidateId",
+                          children: [
+                            {
+                              index: true,
+                              element: (
+                                <RequireAuth
+                                  roles={[LegacyRole.Admin]}
+                                  loginPath={loginPath}
+                                >
+                                  <ViewPoolCandidatePage />
+                                </RequireAuth>
+                              ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "candidates/:poolCandidateId/application",
+              element: (
+                <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                  <ViewPoolCandidatePage />
+                </RequireAuth>
+              ),
+            },
+            {
+              path: "talent-requests",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <IndexSearchRequestPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: ":searchRequestId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <ViewSearchRequestPage />
+                    </RequireAuth>
+                  ),
+                },
+              ],
+            },
+            {
+              path: "settings",
+              children: [
+                {
+                  path: "classifications",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <IndexClassificationPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <CreateClassificationPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":classificationId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateClassificationPage />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "departments",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <IndexDepartmentPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <CreateDepartmentPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":departmentId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateDepartmentPage />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "skills",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <IndexSkillPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <CreateSkillPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":skillId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateSkillPage />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                    {
+                      path: "families",
+                      children: [
+                        {
+                          index: true,
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <IndexSkillFamilyPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: "create",
+                          element: (
+                            <RequireAuth
+                              roles={[LegacyRole.Admin]}
+                              loginPath={loginPath}
+                            >
+                              <CreateSkillFamilyPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: ":skillFamilyId",
+                          children: [
+                            {
+                              path: "edit",
+                              element: (
+                                <RequireAuth
+                                  roles={[LegacyRole.Admin]}
+                                  loginPath={loginPath}
+                                >
+                                  <UpdateSkillFamilyPage />
+                                </RequireAuth>
+                              ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "*",
+              loader: () => {
+                throw new Response("Not Found", { status: 404 });
+              },
+            },
+          ],
         },
       ],
     },
@@ -547,7 +1296,8 @@ const createRoute = (locale: Locales) =>
 
 const Router = () => {
   const { locale } = useLocale();
-  const router = createRoute(locale);
+  const routes = useRoutes();
+  const router = createRoute(locale, routes.login());
   return <RouterProvider router={router} fallbackElement={<Loading />} />;
 };
 

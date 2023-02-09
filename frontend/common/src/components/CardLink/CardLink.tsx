@@ -11,7 +11,7 @@ export interface CardLinkProps {
   href: string;
   label: string;
   color?: Color;
-  icon?: React.FC<{ className: string }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
   className?: string;
   external?: boolean;
   children?: React.ReactNode;

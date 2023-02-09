@@ -1145,7 +1145,7 @@
     "description": "displayed when localized string not available"
   },
   "UPx6kk": {
-    "defaultMessage": "<primary>{titre}</primary> à {organization}",
+    "defaultMessage": "<primary>{title}</primary> à {organization}",
     "description": "Title at organization"
   },
   "ZWR/F3": {
@@ -1219,10 +1219,6 @@
   "wFZLxf": {
     "defaultMessage": "IT-03 (chef d'équipe)",
     "description": "The name of the Team leader Analyst classification with group and level."
-  },
-  "wtImjn": {
-    "defaultMessage": "« Je suis autochtone »",
-    "description": "Statement for when someone indicates they are indigenous"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",
@@ -1936,6 +1932,10 @@
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
   },
+  "A1fb/r": {
+    "defaultMessage": "Il y a une exigence linguistique manquante",
+    "description": "Message displayed when user attempts to apply to a pool without the language requirement"
+  },
   "J30FT0": {
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
@@ -1967,5 +1967,45 @@
   "rSymh2": {
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
+  },
+  "f8ZHHW": {
+    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
+    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+  },
+  "1Wbu+6": {
+    "defaultMessage": "Premières Nations détenant le statut ",
+    "description": "The indigenous community for status First Nations"
+  },
+  "JamdKo": {
+    "defaultMessage": "Premières Nations sans statut ",
+    "description": "The indigenous community for non-status First Nations"
+  },
+  "eNUS2A": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "The selection for being part of an indigenous community not already listed"
+  },
+  "1GWQal": {
+    "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
+    "description": "The text displayed if the user has selected as indigenous but not selected a community yet."
+  },
+  "xaCwEO": {
+    "defaultMessage": "Métis",
+    "description": "The indigenous community for Métis"
+  },
+  "gTB9r8": {
+    "defaultMessage": "Inuk (Inuit)",
+    "description": "The indigenous community for Inuit"
+  },
+  "KwdzPs": {
+    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
+    "description": "Text for the option to self-declare as Indigenous"
+  },
+  "Vbt/G1": {
+    "defaultMessage": "Il y a une exigence linguistique manquante",
+    "description": "Title that appears when a user is missing a language requirement."
+  },
+  "hWHT65": {
+    "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
+    "description": "Text that appears when a user is missing a language requirement on their profile."
   }
 }

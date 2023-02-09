@@ -2,7 +2,7 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { notEmpty } from "../../helpers/util";
+import { notEmpty, uniqueItems } from "../../helpers/util";
 import {
   ApplicantFilter,
   Classification,
@@ -270,10 +270,10 @@ const ApplicantFilters: React.FC<{
               description:
                 "Title for group and level on summary of filters section",
             })}
-            content={
+            content={uniqueItems(
               classificationsFromBrowserHistory ||
-              classificationsFromApplicantFilter
-            }
+                classificationsFromApplicantFilter,
+            )}
           />
           <FilterBlock
             title={intl.formatMessage(

@@ -1,39 +1,37 @@
 {
   "info": {
-    "docs": "https://beta.hydrogen.design",
-    "settings": "https://beta.hydrogen.design/en/docs/setup/configuration/",
-    "code": "https://github.com/hydrogen-design-system/hydrogen",
+    "code": "https://github.com/hydrogen-css/hydrogen",
+    "docs": "https://hydrogen.design/",
     "feedback": "https://forms.office.com/r/vz80dsUabZ",
-    "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
+    "roadmap": "https://workflowy.com/s/hydrogens-roadmap/7Gjmdbjiqc0Wst1R",
+    "settings": "https://hydrogen.design/en/docs/configuration"
   },
   "temp": ["../*/src/views/*.html"],
   "input": [
     "frontend/common/.storybook",
     "frontend/common/src/components",
     "frontend/common/src/styles",
-    "frontend/admin/.storybook",
-    "frontend/admin/src/js/components",
-    "apps/web/.storybook",
     "apps/web/src/components",
     "apps/web/src/pages"
   ],
   "output": "frontend/common/src/css",
   "modes": {
+    "method": "toggle",
     "dark": {
-      "automatic": true,
-      "method": "toggle"
+      "auto_apply_styles": true,
+      "swap_default_modifiers": true
     }
   },
   "processing": {
-    "reset_styles": true,
-    "prefixing": true,
-    "minification": true,
-    "var_export": false
+    "include_reset_css": true,
+    "export_variable_file": false,
+    "browser_prefix_css": true,
+    "minify_css": true
   },
   "logging": {
-    "logs": false,
-    "timers": false,
-    "verbose": false
+    "generate_logs": false,
+    "show_timers": false,
+    "verbose_console_output": false
   },
   "media": {
     "base_key": "base",
@@ -465,6 +463,12 @@
           },
           "dark": {
             "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .5)"
+          }
+        },
+        {
+          "key": "focus",
+          "default": {
+            "shadow": "0 0 0 0.25rem #6492ff"
           }
         }
       ],

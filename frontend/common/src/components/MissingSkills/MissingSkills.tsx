@@ -134,25 +134,27 @@ const MissingSkills = ({
   const categorizedRequiredSkills = categorizeSkill(requiredSkills);
   const categorizedOptionalSkills = categorizeSkill(optionalSkills);
 
-  const missingRequiredSkills = getMissingSkills(
+  const missingRequiredTechnicalSkills = getMissingSkills(
     categorizedRequiredSkills.TECHNICAL || [],
     addedSkills,
   ).sort(byLocalizedName);
-  const missingTransferableSkills = getMissingSkills(
-    [
-      ...(categorizedRequiredSkills.BEHAVIOURAL || []),
-      ...(categorizedOptionalSkills.BEHAVIOURAL || []),
-    ] || [],
+
+  const missingRequiredBehaviouralSkills = getMissingSkills(
+    [...(categorizedRequiredSkills.BEHAVIOURAL || [])] || [],
     addedSkills,
   ).sort(byLocalizedName);
+
   const missingOptionalSkills = getMissingSkills(
-    categorizedOptionalSkills.TECHNICAL || [],
+    [
+      ...(categorizedOptionalSkills.TECHNICAL || []),
+      ...(categorizedOptionalSkills.BEHAVIOURAL || []),
+    ] || [],
     addedSkills,
   ).sort(byLocalizedName);
 
   return (
     <>
-      {missingRequiredSkills.length ? (
+      {missingRequiredTechnicalSkills.length ? (
         <MissingSkillsBlock
           data-h2-background-color="base(error.light.05)"
           data-h2-margin="base(0, 0, x.5, 0)"
@@ -178,11 +180,11 @@ const MissingSkills = ({
               "Text that appears when a user is missing required skills on their profile.",
           })}
           icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
-          missingSkills={missingRequiredSkills}
+          missingSkills={missingRequiredTechnicalSkills}
           addedSkills={addedSkills}
         />
       ) : null}
-      {missingTransferableSkills.length ? (
+      {missingRequiredBehaviouralSkills.length ? (
         <MissingSkillsBlock
           data-h2-background-color="base(primary.light.10)"
           data-h2-margin="base(0, 0, x.5, 0)"
@@ -203,7 +205,7 @@ const MissingSkills = ({
           })}
           detailsBlurb="" // No details blurb needed for transferable skills.
           icon={<InformationCircleIcon style={{ width: "1.2rem" }} />}
-          missingSkills={missingTransferableSkills}
+          missingSkills={missingRequiredBehaviouralSkills}
         />
       ) : null}
       {missingOptionalSkills.length ? (

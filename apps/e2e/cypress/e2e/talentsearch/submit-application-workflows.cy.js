@@ -52,7 +52,7 @@ describe("Submit Application Workflow Tests", () => {
           cy.createUser({
             email: `cypress.user.${uniqueTestId}@example.org`,
             sub: `cypress.sub.${uniqueTestId}`,
-            roles: ["APPLICANT"],
+            legacyRoles: ["APPLICANT"],
             currentProvince: ProvinceOrTerritory.Ontario,
             currentCity: "Test City",
             telephone: "+10123456789",
@@ -90,11 +90,17 @@ describe("Submit Application Workflow Tests", () => {
         .as("testUserSub");
     });
 
+    // fetch the dcmId for its team from database, needed for pool creation
+    let dcmId;
+    cy.getDCM().then((dcm) => {
+      dcmId = dcm;
+    })
+
     cy.getMe()
       .its("id")
       .then((adminUserId) => {
         cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPoolAdvertisement(adminUserId, [testClassificationId])
+          cy.createPoolAdvertisement(adminUserId, dcmId, [testClassificationId])
             .its("id")
             .as("testPoolAdvertisementId")
             .then((testPoolAdvertisementId) => {

@@ -7,7 +7,7 @@ import {
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
-  Role,
+  LegacyRole,
   GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
@@ -27,6 +27,7 @@ import {
   BilingualEvaluation,
   PoolStream,
   PublishingGroup,
+  IndigenousCommunity,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -69,9 +70,10 @@ export const employmentEquityStatements = defineMessages({
     description: "Statement for when someone indicates they are a woman",
   },
   indigenous: {
-    defaultMessage: '"I am Indigenous"',
-    id: "wtImjn",
-    description: "Statement for when someone indicates they are indigenous",
+    defaultMessage:
+      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person"',
+    id: "KwdzPs",
+    description: "Text for the option to self-declare as Indigenous",
   },
   minority: {
     defaultMessage: '"I identify as a member of a visible minority"',
@@ -636,12 +638,12 @@ export const getSkillCategory = (
   );
 
 export const Roles = defineMessages({
-  [Role.Admin]: {
+  [LegacyRole.Admin]: {
     defaultMessage: "Administrator",
     id: "LBNX0O",
     description: "The name of the Administrator user role.",
   },
-  [Role.Applicant]: {
+  [LegacyRole.Applicant]: {
     defaultMessage: "Applicant",
     id: "MGqCaE",
     description: "The name of the Applicant user role.",
@@ -1563,4 +1565,43 @@ export const getPublishingGroup = (
     publishingGroups,
     publishingGroup,
     `Invalid publishing group '${publishingGroup}'`,
+  );
+
+export const indigenousCommunities = defineMessages({
+  [IndigenousCommunity.StatusFirstNations]: {
+    defaultMessage: "Status First Nations",
+    id: "1Wbu+6",
+    description: "The indigenous community for status First Nations",
+  },
+  [IndigenousCommunity.NonStatusFirstNations]: {
+    defaultMessage: "Non-status First Nations",
+    id: "JamdKo",
+    description: "The indigenous community for non-status First Nations",
+  },
+  [IndigenousCommunity.Inuit]: {
+    defaultMessage: "Inuk (Inuit)",
+    id: "gTB9r8",
+    description: "The indigenous community for Inuit",
+  },
+  [IndigenousCommunity.Metis]: {
+    defaultMessage: "Métis",
+    id: "xaCwEO",
+    description: "The indigenous community for Métis",
+  },
+  [IndigenousCommunity.Other]: {
+    defaultMessage: "I am Indigenous and I don't see my community here",
+    id: "eNUS2A",
+    description:
+      "The selection for being part of an indigenous community not already listed",
+  },
+  // IndigenousCommunity.LegacyIsIndigenous not included here since it should have special handling
+});
+
+export const getIndigenousCommunity = (
+  indigenousCommunity: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    indigenousCommunities,
+    indigenousCommunity,
+    `Invalid indigenous community '${indigenousCommunity}'`,
   );

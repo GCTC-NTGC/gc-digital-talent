@@ -10,11 +10,12 @@ import {
 
 export function createAndPublishPoolAdvertisement({
   adminUserId,
+  teamId,
   englishName,
   classification,
   poolAdvertisementAlias,
 }) {
-  cy.createPoolAdvertisement(adminUserId, [classification.id]).then(
+  cy.createPoolAdvertisement(adminUserId, teamId, [classification.id]).then(
     (createdPoolAdvertisement) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);

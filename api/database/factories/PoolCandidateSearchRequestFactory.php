@@ -34,6 +34,7 @@ class PoolCandidateSearchRequestFactory extends Factory
         'admin_notes' => $this->faker->text(),
         'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
         'applicant_filter_id' => ApplicantFilter::factory(),
+        'was_empty' => $this->faker->boolean()
       ];
     }
 }

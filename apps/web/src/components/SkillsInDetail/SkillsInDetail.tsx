@@ -11,7 +11,7 @@ import { countNumberOfWords } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { errorMessages } from "@common/messages";
 
-import type { FormSkills } from "~/pages/ExperienceFormPage/types";
+import type { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 
 type FormValues = {
   skills: { [id: string]: { details: string } };

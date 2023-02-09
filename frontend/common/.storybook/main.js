@@ -23,9 +23,7 @@ const reactIntlTransformRule = {
 
 module.exports = {
   "staticDirs": [
-    { from: '../../admin/src', to: '/admin' },
-    // Note: Temporary until all apps are merged
-    { from: '../../../apps/web/src', to: '/indigenousapprenticeship' }
+    { from: '../../../apps/web/src', to: '/' }
   ],
 
   "stories": [
@@ -35,6 +33,7 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
+    '@storybook/addon-viewport',
     "storybook-addon-intl"
   ],
   "core": {

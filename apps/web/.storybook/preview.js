@@ -1,9 +1,10 @@
 
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
 import defaultRichTextElements from "@common/helpers/format";
 import {
+  HelmetDecorator,
   MockGraphqlDecorator,
   RouterDecorator,
   ThemeDecorator,
@@ -12,9 +13,11 @@ import {
 } from "storybook-helpers"
 
 import frCompiled from "../src/lang/frCompiled.json";
+import frCommonCompiled from "../../../frontend/common/src/lang/frCompiled.json"
 
 import "../../../frontend/common/src/css/hydrogen.css"
 import "../../../frontend/common/src/css/common.css"
+import "../src/assets/css/app.css"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -31,11 +34,20 @@ export const parameters = {
   },
   viewport: {
     // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
-    viewports: INITIAL_VIEWPORTS
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      ...MINIMAL_VIEWPORTS,
+    },
   },
 }
 
-const messages = { en: null, fr: frCompiled };
+const messages = {
+  en: null,
+  fr: {
+    ...frCompiled,
+    ...frCommonCompiled
+  }
+};
 setIntlConfig({
   locales: ["en", "fr"],
   defaultLocale: "en",
@@ -49,6 +61,7 @@ export const globalTypes = {
 }
 
 export const decorators = [
+  HelmetDecorator,
   MockGraphqlDecorator,
   withIntl,
   ThemeDecorator,

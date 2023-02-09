@@ -30,7 +30,7 @@ enum Language {
   FR @enum(value: "fr")
 }
 
-enum Role {
+enum LegacyRole {
   "A user who has administrator privileges"
   ADMIN
   "A user who has a profile to apply to hiring pools"
@@ -40,7 +40,7 @@ enum Role {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
 
@@ -50,8 +50,10 @@ type User {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -60,7 +62,9 @@ type User {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -110,7 +114,12 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] # All experiences that a user owns
+  experiences: [Experience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
   awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
   communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
@@ -209,8 +218,10 @@ type Applicant {
   email: Email
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -227,7 +238,9 @@ type Applicant {
   # Language
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
-    @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -270,11 +283,16 @@ type Applicant {
 
   # Experiences
   experiences: [Experience]
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences")
+  awardExperiences: [AwardExperience] @hasMany
+  communityExperiences: [CommunityExperience] @hasMany
+  educationExperiences: [EducationExperience] @hasMany
+  personalExperiences: [PersonalExperience] @hasMany
+  workExperiences: [WorkExperience] @hasMany
 
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
@@ -291,6 +309,7 @@ type UserPublicProfile {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -331,6 +350,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile @belongsTo(relation: "user")
+  team: Team @belongsTo @can(ability: "viewAny")
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
@@ -493,6 +513,17 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
+  teams: [Team] @belongsToMany @can(ability: "viewAny")
+}
+
+type Team {
+  id: ID!
+  name: String
+  displayName: LocalizedString @rename(attribute: "display_name")
+  description: LocalizedString
+  departments: [Department] @belongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
+  pools: [Pool] @hasMany @can(ability: "viewAny")
 }
 
 enum PoolCandidateSearchStatus {
@@ -559,6 +590,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   doneDate: DateTime @rename(attribute: "done_at")
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 enum SkillCategory {
@@ -747,7 +779,8 @@ input UserPoolFilterInput {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -757,7 +790,8 @@ input PoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
   priorityWeight: [Int] @scope
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus]
+    @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
@@ -792,7 +826,8 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope
   name: String @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  poolCandidateStatus: [PoolCandidateStatus]
+    @scope(name: "poolCandidateStatuses")
 }
 
 type CandidateSearchPoolResult {
@@ -863,7 +898,11 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft", "availableForOpportunities", "expiryFilter"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["notDraft", "availableForOpportunities", "expiryFilter"]
+    )
     @guard
     @can(ability: "viewAny")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
@@ -902,7 +941,11 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny") @throttle(name: "graphql")
+  applicantFilters: [ApplicantFilter]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+    @throttle(name: "graphql")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -928,7 +971,10 @@ type Query {
   skills: [Skill]! @all
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
+  team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
+  teams: [Team]! @all @can(ability: "viewAny")
 }
+
 input ClassificationBelongsTo {
   connect: ID
   disconnect: Boolean
@@ -945,7 +991,7 @@ input CreateUserInput {
       apply: ["sometimes", "unique:users,sub"]
       messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
     )
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = [] @rename(attribute: "legacy_roles")
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
@@ -957,8 +1003,10 @@ input CreateUserInput {
     )
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1020,7 +1068,7 @@ input UpdateUserAsAdminInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
 
   # Personal info
   email: Email
@@ -1028,8 +1076,10 @@ input UpdateUserAsAdminInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1095,8 +1145,10 @@ input UpdateUserAsUserInput
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language @rename(attribute: "preferred_language_for_exam")
+  preferredLanguageForInterview: Language
+    @rename(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: Language
+    @rename(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
@@ -1166,6 +1218,10 @@ input PoolBelongsTo {
   connect: ID!
 }
 
+input TeamBelongsTo {
+  connect: ID!
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -1195,6 +1251,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1223,6 +1280,7 @@ input UpdatePoolCandidateAsAdminInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo @rename(attribute: "user")
+  team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1251,6 +1309,26 @@ input PoolBelongsToMany {
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input CreatePoolCandidateFilterInput {
@@ -1300,6 +1378,7 @@ input CreatePoolCandidateSearchRequestInput {
     @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
   # requestedDate will be set to current date in Eloquent model.
   # status will be set to PENDING in Eloquent model.
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1617,6 +1696,7 @@ type Mutation {
   # PoolAdvertisement mutations
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
+    teamId: ID! @rename(attribute: "team_id")
     poolAdvertisement: CreatePoolAdvertisementInput! @spread
   ): PoolAdvertisement
     @create(model: "Pool")
@@ -1660,4 +1740,12 @@ type Mutation {
     @guard
     @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
+
+  # Teams mutations
+  createTeam(team: CreateTeamInput! @spread): Team
+    @create
+    @can(ability: "create")
+  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
+    @update
+    @can(ability: "update")
 }

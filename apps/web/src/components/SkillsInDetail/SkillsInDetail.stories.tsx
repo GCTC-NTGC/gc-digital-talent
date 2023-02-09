@@ -6,12 +6,12 @@ import { fakeSkills } from "@common/fakeData";
 import Form from "@common/components/form/BasicForm";
 import Submit from "@common/components/form/Submit";
 
-import { FormSkills } from "~/pages/ExperienceFormPage/types";
+import { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/SkillsInDetail",
+  title: "Components/Skills In Detail",
   args: {
     skills: [],
     handleDelete: action("Remove from experience"),
@@ -38,6 +38,7 @@ NoSkills.args = {
 
 FewSkills.args = {
   skills: fakeSkills(2).map((skill) => ({
+    id: skill.id,
     skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",
@@ -46,6 +47,7 @@ FewSkills.args = {
 
 ManySkills.args = {
   skills: fakeSkills(5).map((skill) => ({
+    id: skill.id,
     skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",

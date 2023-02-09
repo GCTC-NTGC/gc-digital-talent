@@ -282,10 +282,12 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   poolCandidateFilter: PoolCandidateFilterBelongsTo
   applicantFilter: ApplicantFilterBelongsTo
+  wasEmpty: Boolean
 }
 
 input CreatePoolInput {
   owner: UserBelongsTo!
+  team: TeamBelongsTo
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -313,10 +315,18 @@ input CreateSkillInput {
   keywords: SkillKeywordsInput
 }
 
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
+}
+
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
@@ -375,10 +385,15 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  teams: [Team]
 }
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 type EducationExperience implements Experience {
@@ -544,6 +559,14 @@ enum LanguageAbility {
   BILINGUAL
 }
 
+enum LegacyRole {
+  """A user who has administrator privileges"""
+  ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
+}
+
 type LocalizedString {
   en: String
   fr: String
@@ -599,7 +622,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
@@ -609,6 +632,8 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  createTeam(team: CreateTeamInput!): Team
+  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -747,6 +772,7 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: UserPublicProfile
+  team: Team
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -766,6 +792,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
+  team: Team
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
@@ -878,6 +905,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
   doneDate: DateTime
+  wasEmpty: Boolean
 }
 
 enum PoolCandidateSearchStatus {
@@ -988,6 +1016,8 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  team(id: UUID!): Team
+  teams: [Team]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1043,14 +1073,6 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PREFERRED_LANGUAGE_FOR_INTERVIEW
   PREFERRED_LANGUAGE_FOR_EXAM
   CURRENT_CITY
-}
-
-enum Role {
-  """A user who has administrator privileges"""
-  ADMIN
-
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1194,6 +1216,20 @@ enum SortOrder {
   DESC
 }
 
+type Team {
+  id: ID!
+  name: String
+  displayName: LocalizedString
+  description: LocalizedString
+  departments: [Department]
+  contactEmail: Email
+  pools: [Pool]
+}
+
+input TeamBelongsTo {
+  connect: ID!
+}
+
 """
 Specify if you want to include or exclude trashed results from a query.
 """
@@ -1259,6 +1295,7 @@ input UpdatePoolCandidateSearchRequestInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo
+  team: TeamBelongsTo
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1284,11 +1321,19 @@ input UpdateSkillInput {
   keywords: SkillKeywordsInput
 }
 
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
+}
+
 """When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
@@ -1386,7 +1431,7 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String

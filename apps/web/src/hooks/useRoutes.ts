@@ -7,6 +7,7 @@ import { ExperienceType } from "~/types/experience";
 
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
+  const adminUrl = path.join(baseUrl, "admin");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
     applicationId ? path.join(`?applicationId=${applicationId}`) : "";
@@ -44,11 +45,102 @@ const getRoutes = (lang: Locales) => {
     support: () => path.join(baseUrl, "support"),
     search: () => path.join(baseUrl, "search"),
     request: () => path.join(baseUrl, "search", "request"),
+    requestConfirmation: (requestId: string) =>
+      path.join(baseUrl, "search", "request", requestId),
     register: () => path.join(baseUrl, "register-info"),
     login: () => path.join(baseUrl, "login-info"),
     loggedOut: () => path.join(baseUrl, "logged-out"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
+
+    // Admin
+    admin: () => adminUrl,
+    adminDashboard: () => path.join(adminUrl, "dashboard"),
+
+    // Admin - Pools
+    poolTable: () => path.join(adminUrl, "pools"),
+    poolCreate: () => path.join(adminUrl, "pools", "create"),
+    poolView: (poolId: string) => path.join(adminUrl, "pools", poolId),
+    poolUpdate: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "edit"),
+
+    // Admin - Pool Candidates
+    poolCandidateTable: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "pool-candidates"),
+    poolCandidateCreate: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "pool-candidates", "create"),
+    poolCandidateUpdate: (poolId: string, poolCandidateId: string) =>
+      path.join(
+        adminUrl,
+        "pools",
+        poolId,
+        "pool-candidates",
+        poolCandidateId,
+        "edit",
+      ),
+    poolCandidateApplication: (poolCandidateId: string) =>
+      path.join(adminUrl, "candidates", poolCandidateId, "application"),
+
+    // Admin - Users
+    userTable: () => path.join(adminUrl, "users"),
+    userCreate: () => path.join(adminUrl, "users", "create"),
+    userView: (userId: string) => path.join(adminUrl, "users", userId),
+    userUpdate: (userId: string) =>
+      path.join(adminUrl, "users", userId, "edit"),
+
+    // Admin - Teams
+    teamTable: () => path.join(adminUrl, "teams"),
+    teamCreate: () => path.join(adminUrl, "teams", "create"),
+    teamView: (teamId: string) => path.join(adminUrl, "teams", teamId),
+    teamUpdate: (teamId: string) =>
+      path.join(adminUrl, "teams", teamId, "edit"),
+
+    // Admin - Search Requests
+    searchRequestTable: () => path.join(adminUrl, "talent-requests"),
+    searchRequestView: (id: string) =>
+      path.join(adminUrl, "talent-requests", id),
+
+    // Admin - Classifications
+    classificationTable: () =>
+      path.join(adminUrl, "settings", "classifications"),
+    classificationCreate: () =>
+      path.join(adminUrl, "settings", "classifications", "create"),
+    classificationUpdate: (classificationId: string) =>
+      path.join(
+        adminUrl,
+        "settings",
+        "classifications",
+        classificationId,
+        "edit",
+      ),
+
+    // Admin - Skills
+    skillTable: () => path.join(adminUrl, "settings", "skills"),
+    skillCreate: () => path.join(adminUrl, "settings", "skills", "create"),
+    skillUpdate: (skillId: string) =>
+      path.join(adminUrl, "settings", "skills", skillId, "edit"),
+
+    // Admin - Skill Families
+    skillFamilyTable: () =>
+      path.join(adminUrl, "settings", "skills", "families"),
+    skillFamilyCreate: () =>
+      path.join(adminUrl, "settings", "skills", "families", "create"),
+    skillFamilyUpdate: (skillFamilyId: string) =>
+      path.join(
+        adminUrl,
+        "settings",
+        "skills",
+        "families",
+        skillFamilyId,
+        "edit",
+      ),
+
+    // Admin - Departments
+    departmentTable: () => path.join(adminUrl, "settings", "departments"),
+    departmentCreate: () =>
+      path.join(adminUrl, "settings", "departments", "create"),
+    departmentUpdate: (departmentId: string) =>
+      path.join(adminUrl, "settings", "departments", departmentId, "edit"),
 
     // IAP
     iap: () => path.join(baseUrl, "indigenous-it-apprentice"),

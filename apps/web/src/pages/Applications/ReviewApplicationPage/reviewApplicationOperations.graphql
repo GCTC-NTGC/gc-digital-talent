@@ -1,0 +1,198 @@
+query getReviewApplicationPageData($id: UUID!) {
+  poolCandidate(id: $id) {
+    id
+    user {
+      id
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      currentProvince
+      currentCity
+      citizenship
+      languageAbility
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      govEmployeeType
+      hasPriorityEntitlement
+      priorityNumber
+      isProfileComplete
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      expectedGenericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      isWoman
+      hasDisability
+      isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
+      isVisibleMinority
+      jobLookingStatus
+      hasDiploma
+      locationPreferences
+      locationExemptions
+      acceptedOperationalRequirements
+      expectedSalary
+      expectedClassifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      positionDuration
+      experiences {
+        id
+        __typename
+        applicant {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+    }
+    poolAdvertisement {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      closingDate
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      essentialSkills {
+        ...poolAdvertisementSkills
+      }
+      nonessentialSkills {
+        ...poolAdvertisementSkills
+      }
+      advertisementLanguage
+    }
+  }
+}
+
+fragment poolAdvertisementSkills on Skill {
+  id
+  key
+  name {
+    en
+    fr
+  }
+  families {
+    id
+    key
+    description {
+      en
+      fr
+    }
+    name {
+      en
+      fr
+    }
+    category
+  }
+}

@@ -13,9 +13,11 @@ class ProdSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
+        $this->call(TeamSeeder::class);
     }
 }

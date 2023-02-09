@@ -81,6 +81,7 @@ const Content = React.forwardRef<
               data-h2-padding="base(x.5)"
               data-h2-position="base(absolute)"
               data-h2-radius="base(circle)"
+              data-h2-z-index="base(9)"
               aria-label={intl.formatMessage({
                 defaultMessage: "Close dialog",
                 id: "g2X8Fx",

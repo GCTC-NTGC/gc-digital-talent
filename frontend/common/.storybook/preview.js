@@ -6,7 +6,7 @@ import defaultRichTextElements from "../src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 import withThemeProvider, { themeKey, themeMode } from "./decorators/ThemeDecorator";
 import withRouter from "./decorators/RouterDecorator";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -23,7 +23,10 @@ export const parameters = {
   },
   viewport: {
     // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
-    viewports: INITIAL_VIEWPORTS
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      ...MINIMAL_VIEWPORTS,
+    },
   },
 }
 

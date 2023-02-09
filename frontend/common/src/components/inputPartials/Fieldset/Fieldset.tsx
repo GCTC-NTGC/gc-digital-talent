@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError, { type InputFieldError } from "../InputError/InputError";
 import InputUnsaved from "../InputUnsaved/InputUnsaved";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
   legend: React.ReactNode;
   /** The name of this form control. */
-  name?: string;
+  name: string;
   /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
   /** If an error string is provided, it will appear below the fieldset inputs. */
@@ -26,6 +28,8 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   hideLegend?: boolean;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** If true, the field set has unsaved changes */
+  isUnsaved?: boolean;
 }
 
 const Fieldset: React.FC<FieldsetProps> = ({
@@ -38,6 +42,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
   hideOptional,
   hideLegend,
   children,
+  isUnsaved,
   trackUnsaved = true,
   ...rest
 }) => {
@@ -45,8 +50,14 @@ const Fieldset: React.FC<FieldsetProps> = ({
   const intl = useIntl();
   const fieldState = useFieldState(name ?? "");
   const stateStyles = useFieldStateStyles(name ?? "", !trackUnsaved);
-
-  const ariaDescription = rest["aria-describedby"];
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id: name,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && contextIsActive,
+    },
+  });
 
   return (
     <fieldset
@@ -57,6 +68,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         padding: "0",
       }}
       data-h2-margin="base(0, 0, x.125, 0)"
+      aria-describedby={ariaDescribedBy}
       {...rest}
     >
       <legend data-h2-visually-hidden="base(invisible)">{legend}</legend>
@@ -104,6 +116,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
               type="button"
               className="input-label-context-button"
               data-h2-margin="base(0, 0, 0, x.125)"
+              aria-controls={`context-${name}`}
+              aria-expanded={contextIsActive}
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
@@ -139,7 +153,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         {children}
       </div>
       <InputUnsaved
-        id={ariaDescription}
+        id={descriptionIds.unsaved}
         isVisible={fieldState === "dirty" && trackUnsaved}
       />
       {error && (
@@ -147,13 +161,18 @@ const Fieldset: React.FC<FieldsetProps> = ({
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
-          <InputError id={ariaDescription} isVisible={!!error} error={error} />
+          <InputError
+            id={descriptionIds.error}
+            isVisible={!!error}
+            error={error}
+          />
         </div>
       )}
       {contextIsActive && context && (
         <div
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
+          id={descriptionIds.context}
         >
           <InputContext
             isVisible={contextIsActive && !!context}

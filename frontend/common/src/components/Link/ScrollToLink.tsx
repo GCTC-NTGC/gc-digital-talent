@@ -1,49 +1,71 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, LinkProps } from "react-router-dom";
 
-export interface ScrollToLinkProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
+export type ScrollLinkClickFunc = (
+  e: React.MouseEvent<HTMLAnchorElement | undefined>,
+  section: HTMLElement | null,
+) => void;
+
+const scrollToSection = (section: HTMLElement | null) => {
+  if (section) {
+    setTimeout(() => {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 10);
+  }
+};
+
+export interface ScrollToLinkProps extends Omit<LinkProps, "to"> {
   to: string;
-  children?: React.ReactNode;
+  onScrollTo?: ScrollLinkClickFunc;
 }
 
-const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
-  const { pathname, search, hash } = useLocation();
+const ScrollToLink = ({
+  to,
+  onScrollTo,
+  children,
+  ...rest
+}: ScrollToLinkProps) => {
+  const { pathname, hash, search, state } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
 
-  const scrollToSection = React.useCallback(() => {
-    if (targetSection) {
-      targetSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [targetSection]);
-
   React.useEffect(() => {
     if (hash && hash === `#${to}`) {
-      scrollToSection();
+      scrollToSection(targetSection);
     }
-  }, [pathname, hash, to, scrollToSection]);
+  }, [pathname, hash, to, targetSection]);
 
   React.useEffect(() => {
-    const section = document.getElementById(to);
+    const section = document.getElementById(to.toString());
     setTargetSection(section);
   }, [to]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.history.pushState({}, "", `${pathname}${search}#${to}`);
-    scrollToSection();
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement | undefined>) => {
+    scrollToSection(targetSection);
+    if (onScrollTo) {
+      onScrollTo(e, targetSection);
+    }
   };
 
   return (
-    <a href={`#${to}`} onClick={handleClick} {...rest}>
+    <Link
+      to={{
+        pathname,
+        search,
+        hash: to,
+      }}
+      state={state}
+      replace
+      preventScrollReset={false}
+      {...rest}
+      onClick={handleClick}
+    >
       {children}
-    </a>
+    </Link>
   );
 };
 

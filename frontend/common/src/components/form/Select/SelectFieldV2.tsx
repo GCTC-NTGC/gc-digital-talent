@@ -15,6 +15,7 @@ import { useIntl } from "react-intl";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export type Option = { value: string | number; label: string };
 export type Group<T> = {
@@ -178,6 +179,7 @@ const SelectFieldV2 = ({
   trackUnsaved = true,
 }: SelectFieldV2Props): JSX.Element => {
   const { formatMessage } = useIntl();
+  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
 
   const defaultPlaceholder = formatMessage({
     defaultMessage: "Select...",
@@ -206,6 +208,15 @@ const SelectFieldV2 = ({
   // See: https://github.com/react-hook-form/react-hook-form/issues/458
   const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && isContextVisible,
+    },
+  });
+
   return (
     <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
@@ -214,6 +225,8 @@ const SelectFieldV2 = ({
         inputName={name}
         required={isRequired}
         trackUnsaved={trackUnsaved}
+        onContextToggle={setContextVisible}
+        descriptionIds={descriptionIds}
       >
         <div style={{ width: "100%" }}>
           <Controller
@@ -299,9 +312,7 @@ const SelectFieldV2 = ({
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
-                  ariaDescription={
-                    error || isUnsaved ? `${id}-error` : undefined
-                  }
+                  ariaDescription={ariaDescribedBy}
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({

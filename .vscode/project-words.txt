@@ -4,6 +4,7 @@ Assertable
 atag
 Authenticatable
 BEHAVIOURAL
+Behavioural
 chra
 chrc
 codegen
@@ -51,6 +52,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+rolepermission
 skillset
 subcomponents
 subquery
@@ -59,6 +61,7 @@ TELEWORK
 testid
 textbox
 toastify
+Typenames
 Unencrypted
 unlocalized
 urql

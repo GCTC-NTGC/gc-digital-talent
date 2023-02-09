@@ -19,7 +19,6 @@ export const InputContext: React.FC<InputContextProps> = ({
       data-h2-padding="base(x.75)"
       data-h2-color="base(primary)"
       data-h2-font-size="base(caption)"
-      role="alert"
     >
       {context}
     </span>

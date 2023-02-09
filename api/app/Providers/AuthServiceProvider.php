@@ -99,7 +99,7 @@ class AuthServiceProvider extends ServiceProvider
                 $newUser = new User;
                 $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
                 $newUser->sub = $sub;
-                $newUser->roles = [ApiEnums::ROLE_APPLICANT]; // every new user is automatically an APPLICANT
+                $newUser->legacy_roles = [ApiEnums::LEGACY_ROLE_APPLICANT]; // every new user is automatically an APPLICANT
                 $newUser->save();
                 return $newUser;
             }

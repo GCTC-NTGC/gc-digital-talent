@@ -5,7 +5,7 @@ import type { BreadcrumbsProps } from "./Breadcrumbs";
 
 export default {
   component: Breadcrumbs,
-  title: "Breadcrumbs",
+  title: "Components/Breadcrumbs",
   args: {
     links: [],
   },

@@ -17,7 +17,6 @@ class WorkExperienceResource extends JsonResource
         return [
             'id' => $this->id,
             '__typename' => 'WorkExperience',
-            'title' => $this->title,
             'organization' => $this->organization,
             'role' => $this->role,
             'division' => $this->division,

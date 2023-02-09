@@ -160,6 +160,16 @@ const UserProfile: React.FC<UserProfileProps> = ({
               })}
             </TableOfContents.AnchorLink>
           )}
+          {showSection("employmentEquity") && (
+            <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
+              {intl.formatMessage({
+                defaultMessage: "Diversity, equity and inclusion",
+                id: "e2R6fy",
+                description:
+                  "Title of the Diversity, equity and inclusion link section",
+              })}
+            </TableOfContents.AnchorLink>
+          )}
           {showSection("language") && (
             <TableOfContents.AnchorLink id="language-section">
               {intl.formatMessage({
@@ -193,16 +203,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 defaultMessage: "Work Preferences",
                 id: "0DzlCc",
                 description: "Title of the Work Preferences link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("employmentEquity") && (
-            <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
-              {intl.formatMessage({
-                defaultMessage: "Diversity, equity and inclusion",
-                id: "e2R6fy",
-                description:
-                  "Title of the Diversity, equity and inclusion link section",
               })}
             </TableOfContents.AnchorLink>
           )}
@@ -325,6 +325,47 @@ const UserProfile: React.FC<UserProfileProps> = ({
               <AboutSection
                 applicant={applicant}
                 editPath={sections.about?.editUrl}
+              />
+            )}
+          </TableOfContents.Section>
+        )}
+        {showSection("employmentEquity") && (
+          <TableOfContents.Section id="diversity-equity-inclusion-section">
+            <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                <TableOfContents.Heading
+                  as={headingLevel}
+                  icon={UserCircleIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Diversity, equity and inclusion",
+                    id: "inzzdo",
+                    description:
+                      "Title of the Diversity, equity and inclusion content section",
+                  })}
+                </TableOfContents.Heading>
+              </div>
+              {sections.employmentEquity?.editUrl && (
+                <EditUrlLink
+                  link={sections.employmentEquity.editUrl}
+                  text={intl.formatMessage({
+                    defaultMessage: "Edit Diversity, Equity and Inclusion",
+                    id: "AF8g2I",
+                    description:
+                      "Text on link to update a users employment equity.",
+                  })}
+                />
+              )}
+            </HeadingWrapper>
+            {sections.employmentEquity?.override ? (
+              sections.employmentEquity.override
+            ) : (
+              <DiversityEquityInclusionSection
+                applicant={applicant}
+                editPath={sections.employmentEquity?.editUrl}
               />
             )}
           </TableOfContents.Section>
@@ -485,47 +526,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
               <WorkPreferencesSection
                 applicant={applicant}
                 editPath={sections.workPreferences?.editUrl}
-              />
-            )}
-          </TableOfContents.Section>
-        )}
-        {showSection("employmentEquity") && (
-          <TableOfContents.Section id="diversity-equity-inclusion-section">
-            <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={UserCircleIcon}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Diversity, equity and inclusion",
-                    id: "inzzdo",
-                    description:
-                      "Title of the Diversity, equity and inclusion content section",
-                  })}
-                </TableOfContents.Heading>
-              </div>
-              {sections.employmentEquity?.editUrl && (
-                <EditUrlLink
-                  link={sections.employmentEquity.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Diversity, Equity and Inclusion",
-                    id: "AF8g2I",
-                    description:
-                      "Text on link to update a users employment equity.",
-                  })}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.employmentEquity?.override ? (
-              sections.employmentEquity.override
-            ) : (
-              <DiversityEquityInclusionSection
-                applicant={applicant}
-                editPath={sections.employmentEquity?.editUrl}
               />
             )}
           </TableOfContents.Section>

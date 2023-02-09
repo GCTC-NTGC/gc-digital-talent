@@ -56,10 +56,17 @@ describe("Pool Candidates", () => {
               userAlias: "testUser",
             });
 
+            // fetch the dcmId for its team from database, needed for pool creation
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+            })
+
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
@@ -143,10 +150,17 @@ describe("Pool Candidates", () => {
               userAlias: "testUser",
             });
 
+            // fetch the dcmId for its team from database, needed for pool creation
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+            })
+
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
