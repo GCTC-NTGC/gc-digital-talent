@@ -1,0 +1,40 @@
+{
+  "name": "@gc-digital-talent/app-insights",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-presets/jest/node"
+  },
+  "dependencies": {
+    "@microsoft/applicationinsights-react-js": "^3.4.1",
+    "@microsoft/applicationinsights-web": "^2.8.10",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@gc-digital-talent/runtime": "*",
+    "@types/jest": "^26.0.22",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "jest": "^29.4.2",
+    "jest-presets": "*",
+    "react": "^18.2.0",
+    "tsconfig": "*",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5"
+  }
+}
