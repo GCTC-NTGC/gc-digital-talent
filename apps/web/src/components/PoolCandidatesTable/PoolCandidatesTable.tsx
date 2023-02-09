@@ -32,6 +32,7 @@ import {
   useGetSelectedPoolCandidatesQuery,
   PoolAdvertisement,
   Maybe,
+  CandidateExpiryFilter,
 } from "~/api/generated";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -49,6 +50,7 @@ import {
 } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
 import {
+  stringToEnumCandidateExpiry,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
@@ -102,6 +104,9 @@ function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
+    expiryStatus: input?.expiryStatus
+      ? [input.expiryStatus]
+      : [CandidateExpiryFilter.Active],
   };
 }
 
@@ -352,6 +357,7 @@ const PoolCandidatesTable: React.FC<{
       applicantFilter: fancyFilterState?.applicantFilter,
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
+      expiryStatus: fancyFilterState?.expiryStatus,
     };
   };
 
@@ -395,6 +401,9 @@ const PoolCandidatesTable: React.FC<{
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);
       }),
+      expiryStatus: data.expiryStatus[0]
+        ? stringToEnumCandidateExpiry(data.expiryStatus[0])
+        : undefined,
     };
 
     setTableState({
