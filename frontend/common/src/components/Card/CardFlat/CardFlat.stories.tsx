@@ -23,42 +23,45 @@ const Spacer = ({ children }: SpacerProps) => (
   </div>
 );
 
-const Template: Story = () => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-justify-content="base(space-around)"
-    style={{ margin: "-1rem" }}
-  >
-    <Spacer>
-      <CardFlat title="Yellow" color="yellow">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-    </Spacer>
-    <Spacer>
-      <CardFlat title="Red" color="red">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-    </Spacer>
-    <Spacer>
-      <CardFlat title="Blue" color="blue">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-    </Spacer>
-    <Spacer>
-      <CardFlat title="Black" color="black">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-    </Spacer>
-    <Spacer>
-      <CardFlat
-        title="Purple"
-        color="purple"
-        link={{ href: "#", label: "With link" }}
-      >
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-    </Spacer>
-  </div>
-);
+const Template: Story = () => {
+  faker.seed(0);
+  return (
+    <div
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(space-around)"
+      style={{ margin: "-1rem" }}
+    >
+      <Spacer>
+        <CardFlat title="Yellow" color="yellow">
+          <p>{faker.lorem.sentences(1)}</p>
+        </CardFlat>
+      </Spacer>
+      <Spacer>
+        <CardFlat title="Red" color="red">
+          <p>{faker.lorem.sentences(1)}</p>
+        </CardFlat>
+      </Spacer>
+      <Spacer>
+        <CardFlat title="Blue" color="blue">
+          <p>{faker.lorem.sentences(1)}</p>
+        </CardFlat>
+      </Spacer>
+      <Spacer>
+        <CardFlat title="Black" color="black">
+          <p>{faker.lorem.sentences(1)}</p>
+        </CardFlat>
+      </Spacer>
+      <Spacer>
+        <CardFlat
+          title="Purple"
+          color="purple"
+          link={{ href: "#", label: "With link" }}
+        >
+          <p>{faker.lorem.sentences(1)}</p>
+        </CardFlat>
+      </Spacer>
+    </div>
+  );
+};
 
 export const CardFlatStory = Template.bind({});
