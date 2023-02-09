@@ -1,0 +1,21 @@
+{
+  "name": "@gc-digital-talent/runtime",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc --declaration",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "watch": "tsc -w",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "typescript": "^4.8.3"
+  }
+}
