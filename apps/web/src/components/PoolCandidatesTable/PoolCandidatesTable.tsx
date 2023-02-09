@@ -272,6 +272,9 @@ const PoolCandidatesTable: React.FC<{
           ...initialFilterInput?.applicantFilter,
         },
         poolCandidateStatus: initialFilterInput?.poolCandidateStatus,
+        expiryStatus: initialFilterInput?.expiryStatus
+          ? initialFilterInput.expiryStatus
+          : CandidateExpiryFilter.Active,
       },
     }),
     [initialFilterInput],
