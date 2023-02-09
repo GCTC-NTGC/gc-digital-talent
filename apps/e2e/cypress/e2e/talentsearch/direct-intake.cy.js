@@ -14,7 +14,7 @@ describe("Talentsearch Direct Intake Page", () => {
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         cy.wait("@gqlbrowsePoolAdvertisementsQuery");
-        cy.findByRole("heading", { name: /browse it jobs/i })
+        cy.findByRole("heading", { name: /browse i t jobs/i })
           .should("exist")
           .and("be.visible");
       })
