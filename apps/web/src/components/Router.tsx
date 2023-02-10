@@ -312,6 +312,17 @@ const ViewUserPage = React.lazy(() =>
       ),
   ),
 );
+const ViewUserPageV2 = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPageV2/ViewUserPage"
+      ),
+  ),
+);
+const UserPlacementPage = React.lazy(() =>
+  lazyRetry(() => import("../pages/Users/UserPlacementPage/UserPlacementPage")),
+);
 
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
@@ -904,6 +915,28 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           loginPath={loginPath}
                         >
                           <ViewUserPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "profile",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <ViewUserPageV2 />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "placement",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <UserPlacementPage />
                         </RequireAuth>
                       ),
                     },
