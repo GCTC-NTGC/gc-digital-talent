@@ -9,6 +9,7 @@ use Laratrust\Models\LaratrustRole;
  *
  * @property string $id
  * @property string $name
+ * @property boolean $is_team_based
  * @property array $display_name
  * @property array $description
  * @property Illuminate\Support\Carbon $created_at
@@ -26,7 +27,8 @@ class Role extends LaratrustRole
 
     protected $fillable = [
         'name',
-        'display_name'
+        'display_name',
+        'is_team_based',
     ];
 
     public $guarded = [];
