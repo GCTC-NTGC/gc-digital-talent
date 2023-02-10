@@ -2002,7 +2002,7 @@
     "description": "Button message on footer of review my application page."
   },
   "YEarCb": {
-    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <abbreviation>GC</abbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
+    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <gcAbbreviation>GC</gcAbbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
     "description": "Description for executive jobs in government"
   },
   "FFD16/": {
