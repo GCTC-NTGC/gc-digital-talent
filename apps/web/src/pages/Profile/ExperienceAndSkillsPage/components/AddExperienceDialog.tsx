@@ -143,8 +143,8 @@ const AddExperienceDialog = ({
         description: "Description for award section",
       }),
       buttonText: intl.formatMessage({
-        defaultMessage: "Add education experience",
-        id: "iyhfbN",
+        defaultMessage: "Add award",
+        id: "CSg8cH",
         description: "Button text to add an award to the profile",
       }),
       buttonPath: `${paths.createAward(applicantId)}${applicationParam}`,
@@ -240,26 +240,40 @@ const AddExperienceDialog = ({
               data-h2-margin-bottom="base(x2)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
-              <div data-h2-margin="base(x0.5, 0)">
-                <strong>
-                  <span
-                    data-h2-display="base(inline-block)"
-                    data-h2-height="base(x1)"
-                    data-h2-width="base(x1)"
-                    data-h2-vertical-align="base(middle)"
-                    data-h2-margin="base(0, x0.5, 0, 0)"
-                  >
-                    <section.icon />
-                  </span>
-                  {section.title}
-                </strong>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-justify-content="base(space-between)"
+                data-h2-height="base(100%)"
+              >
+                <div>
+                  <div data-h2-margin="base(x0.5, 0)">
+                    <strong>
+                      <span
+                        data-h2-display="base(inline-block)"
+                        data-h2-height="base(x1)"
+                        data-h2-width="base(x1)"
+                        data-h2-vertical-align="base(middle)"
+                        data-h2-margin="base(0, x0.5, 0, 0)"
+                      >
+                        <section.icon />
+                      </span>
+                      {section.title}
+                    </strong>
+                  </div>
+                  <div data-h2-margin-bottom="base(x0.5)">
+                    {section.description}
+                  </div>
+                </div>
+                <Link
+                  type="button"
+                  color="blue"
+                  href={section.buttonPath}
+                  block
+                >
+                  {section.buttonText}
+                </Link>
               </div>
-              <div data-h2-margin-bottom="base(x0.5)">
-                {section.description}
-              </div>
-              <Link type="button" color="blue" href={section.buttonPath} block>
-                {section.buttonText}
-              </Link>
             </div>
           ))}
         </div>
