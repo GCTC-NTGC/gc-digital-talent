@@ -1,58 +1,30 @@
 import { faker } from "@faker-js/faker";
 
+import { toLocalizedString } from "../helpers/fake";
 import { Department, Team } from "../api/generated";
 import fakeDepartments from "./fakeDepartments";
 
-interface GenerateTeamArgs {
-  name: Team["displayName"];
-  departments: Array<Department>;
-}
-
-const mockDepartments = fakeDepartments();
-
-const generateTeam = ({ name, departments }: GenerateTeamArgs): Team => {
-  faker.setLocale("en");
-  const teamDepartments = faker.helpers.arrayElements<Department>(
-    departments,
-    Math.floor(Math.random() * 4),
-  );
-
+const generateTeam = (departments: Department[]): Team => {
+  const index = faker.datatype.number({
+    min: 0,
+    max: departments.length - 1,
+    precision: 1,
+  });
   return {
     id: faker.datatype.uuid(),
     name: faker.datatype.string(),
     contactEmail: faker.internet.email(),
-    displayName: name,
-    departments: teamDepartments,
+    displayName: toLocalizedString(faker.company.name()),
+    departments: [departments[index]],
   };
 };
 
-export default (amount = 10): Team[] => {
+export default (
+  numToGenerate = 10,
+  departments = fakeDepartments(),
+): Team[] => {
   faker.seed(0); // repeatable results
   faker.setLocale("en");
 
-  const teams = Array(amount - 1)
-    .fill(0)
-    .map(() => {
-      const name = faker.company.name();
-
-      return generateTeam({
-        name: {
-          en: `${name} EN`,
-          fr: `${name} FR`,
-        },
-        departments: mockDepartments,
-      });
-    });
-
-  return [
-    // Always have our default team
-    generateTeam({
-      name: {
-        en: "Digital Community Management",
-        fr: "Gestion de la collectivité numérique",
-      },
-      departments: mockDepartments,
-    }),
-    ...teams,
-  ];
+  return [...Array(numToGenerate)].map(() => generateTeam(departments));
 };
