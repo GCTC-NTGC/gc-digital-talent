@@ -1,0 +1,7 @@
+query getCurrentAuthorizedUser {
+  me {
+    id
+    legacyRoles
+    email
+  }
+}
