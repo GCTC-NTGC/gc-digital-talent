@@ -518,7 +518,7 @@ type Department {
 
 type Team {
   id: ID!
-  name: String!
+  name: String! # represents a unique key for a team
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   departments: [Department] @belongsToMany
@@ -528,7 +528,7 @@ type Team {
 
 type Role {
   id: ID!
-  name: String!
+  name: String! # represents a unique key for a role
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
