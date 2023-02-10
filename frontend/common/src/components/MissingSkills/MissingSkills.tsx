@@ -156,7 +156,7 @@ const MissingSkills = ({
     <>
       {missingRequiredTechnicalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(error.light.05)"
+          data-h2-background-color="base(error.light.10)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "error", mode: "outline" }}
           headingLevel={headingLevel}
@@ -210,9 +210,9 @@ const MissingSkills = ({
       ) : null}
       {missingOptionalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(primary.light.10)"
+          data-h2-background-color="base(secondary.light.10)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "primary", mode: "outline" }}
+          pillType={{ color: "secondary", mode: "outline" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Nice to have skills",

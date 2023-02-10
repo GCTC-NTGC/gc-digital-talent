@@ -19,7 +19,7 @@ export interface CardLinkProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "base(secondary.light)",
+    "data-h2-background-color": "base(secondary)",
     "data-h2-color": "base(white)",
   },
   "ia-primary": {
@@ -43,7 +43,7 @@ const Link = ({ href, external, children }: LinkProps) => {
     className: "card-link",
     "data-h2-display": "base(inline-block)",
     "data-h2-radius": "base(s)",
-    "data-h2-shadow": "base(m) base:hover(xl)",
+    "data-h2-shadow": "base(medium) base:hover(larger)",
     "data-h2-transition": "base:hover(box-shadow .2s ease 0s)",
   };
 
@@ -77,8 +77,7 @@ const CardLink: React.FC<CardLinkProps> = ({
       <span
         className="card-link__header"
         data-h2-display="base(block)"
-        data-h2-font-size="base(h4, 1) desktop(h3, 1)"
-        data-h2-font-weight="base(700)"
+        data-h2-font-size="base(h5, 1)"
         data-h2-padding="base(x1)"
         data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}

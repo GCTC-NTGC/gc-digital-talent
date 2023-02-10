@@ -32,7 +32,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   classNames?: string;
 }
 
-const h2ButtonColors = {
+export const h2ButtonColors = {
   primary: {
     solid: {
       "data-h2-font-weight": "base(700)",

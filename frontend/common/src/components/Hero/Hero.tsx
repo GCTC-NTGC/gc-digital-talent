@@ -65,7 +65,7 @@ const Hero = ({
   return (
     <>
       <div
-        data-h2-background-color="base(black)"
+        data-h2-background-color="base(rgba(0, 0, 0, 1))"
         data-h2-overflow="base(hidden)"
         data-h2-position="base(relative)"
         {...padding}

@@ -48,17 +48,17 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
       <Heading
         level="h3"
         data-h2-font-size="base(h6)"
-        data-h2-margin="base(0, 0, x0.25, 0)"
+        data-h2-margin="base(0, 0, 0, 0)"
       >
         {title}
       </Heading>
       {children && (
-        <div data-h2-flex-grow="base(1)" data-h2-margin="base(x1, 0)">
+        <div data-h2-flex-grow="base(1)" data-h2-margin-top="base(x.5)">
           {children}
         </div>
       )}
       {link && (
-        <div>
+        <div data-h2-margin-top="base(x1)">
           <LinkEl
             color={color}
             type="button"

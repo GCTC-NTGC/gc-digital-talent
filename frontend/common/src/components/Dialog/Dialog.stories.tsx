@@ -36,7 +36,7 @@ const Template: ComponentStory<typeof Dialog.Header> = (args) => {
           <p>{faker.lorem.sentences(3)}</p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="cta">Close</Button>
+              <Button color="primary">Close</Button>
             </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Content>
@@ -49,11 +49,13 @@ const Template: ComponentStory<typeof Dialog.Header> = (args) => {
 export const Basic = Template.bind({});
 Basic.args = {
   children: "Basic Dialog",
+  color: "ts-primary",
 };
 
 export const WithSubtitle = Template.bind({});
 WithSubtitle.args = {
   children: "Basic Dialog",
+  color: "ts-primary",
   subtitle:
     "A dialog is a window overlaid on either the primary window or another dialog window.",
 };

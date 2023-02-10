@@ -137,7 +137,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(white)",
   },
   "ts-secondary": {
-    "data-h2-background-color": "base(secondary.light)",
+    "data-h2-background-color": "base(secondary.dark)",
     "data-h2-color": "base(white)",
   },
   "ia-primary": {
@@ -162,7 +162,7 @@ const Header = ({
   color = "ia-primary",
 }: DialogHeaderProps) => (
   <div
-    data-h2-radius="base(s, s, none, none)"
+    data-h2-radius="base(s, s, 0px, 0px)"
     data-h2-padding="base(x1)"
     data-h2-position="base(relative)"
     data-h2-margin="base(-x1)"

@@ -8,7 +8,7 @@ const SaveButton = () => {
   const intl = useIntl();
   return (
     <Submit
-      color="cta"
+      color="primary"
       mode="solid"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"

@@ -18,7 +18,7 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
   return (
     <>
       <div
-        data-h2-background-color="base(black.80)"
+        data-h2-background-color="base:all(black)"
         data-h2-color="base(white)"
         data-h2-padding="base(x1, 0)"
       >
