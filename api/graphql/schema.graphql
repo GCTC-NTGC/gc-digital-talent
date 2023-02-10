@@ -529,9 +529,9 @@ type Team {
 type Role {
   id: ID!
   name: String!
-  displayName: LocalizedString
+  displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
-  isTeamBased: Boolean
+  isTeamBased: Boolean @rename(attribute: "is_team_based")
 }
 
 enum PoolCandidateSearchStatus {
