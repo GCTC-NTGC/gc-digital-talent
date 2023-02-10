@@ -1,6 +1,5 @@
-import * as CommonFrench from "../lang/frCompiled.json";
-
-import type { Messages } from "../components/context/LanguageProvider";
+import type { Messages } from "~/types";
+import * as CommonFrench from "~/lang/frCompiled.json";
 
 const useIntlLanguages = (
   locale: string | null,
