@@ -2,8 +2,9 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
+import { fakeDepartments } from "../../../fakeData";
 import Form from "../BasicForm";
-import Select from ".";
+import Select, { Option } from ".";
 import type { SelectProps } from ".";
 import Submit from "../Submit";
 
@@ -18,6 +19,11 @@ export default {
     },
   },
 } as Meta;
+
+const departmentOptions: Option[] = fakeDepartments().map(({ id, name }) => ({
+  value: id,
+  label: name?.en || "",
+}));
 
 const TemplateSelect: Story<SelectProps> = (args) => {
   return (
@@ -36,12 +42,9 @@ const TemplateSelect: Story<SelectProps> = (args) => {
 export const SelectDefault = TemplateSelect.bind({});
 SelectDefault.args = {
   id: uniqueId(),
-  label: "Select a dept",
+  label: "Select a department",
   name: "departments",
-  options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
-  ],
+  options: departmentOptions,
 };
 
 export const SelectWithEmptyOption = TemplateSelect.bind({});
@@ -49,8 +52,7 @@ SelectWithEmptyOption.args = {
   ...SelectDefault.args,
   options: [
     { value: "", label: "Select an option...", disabled: true },
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
+    ...departmentOptions,
   ],
 };
 
@@ -84,8 +86,5 @@ export const SelectLabelElement = TemplateSelect.bind({});
 SelectLabelElement.args = {
   label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",
-  options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
-  ],
+  options: departmentOptions,
 };
