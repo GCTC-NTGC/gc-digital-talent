@@ -1,0 +1,29 @@
+{
+  "name": "@gc-digital-talent/helpers",
+  "license": "AGPL-3.0",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@gc-digital-talent/graphql": "*",
+    "@gc-digital-talent/storage": "*",
+    "path-browserify": "^1.0.1",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "tsup": "^6.2.3"
+  }
+}
