@@ -4,6 +4,7 @@
 
 import { CombinedError } from "urql";
 import isEqual from "lodash/isEqual";
+
 import { exportedForTesting } from "./ClientProvider";
 
 const { willAuthError, extractValidationErrorMessages } = exportedForTesting;

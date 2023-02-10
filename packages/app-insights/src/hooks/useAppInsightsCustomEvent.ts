@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ICustomProperties } from "@microsoft/applicationinsights-web";
 
-import useAppInsightsContext from "./useAppInsightsContext"
+import useAppInsightsContext from "./useAppInsightsContext";
 
 export default function useAppInsightsCustomEvent(
   eventName: string,

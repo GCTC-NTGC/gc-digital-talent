@@ -6,6 +6,7 @@ import {
 import imageUrl from "./utils/imageUrl";
 import lazyRetry from "./utils/lazyRetry";
 import sanitizeUrl from "./utils/sanitizeUrl";
+import isUuidError from "./utils/uuid";
 import {
   identity,
   notEmpty,
@@ -39,4 +40,5 @@ export {
   imageUrl,
   lazyRetry,
   sanitizeUrl,
+  isUuidError,
 };

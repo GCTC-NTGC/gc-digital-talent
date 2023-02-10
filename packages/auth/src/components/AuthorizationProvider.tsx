@@ -1,9 +1,9 @@
 import React from "react";
 
 import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
-import AuthorizationContainer from "./AuthorizationContainer";
+import { Pending } from "@gc-digital-talent/ui";
 
-import Pending from "../Pending";
+import AuthorizationContainer from "./AuthorizationContainer";
 
 interface AuthorizationProviderProps {
   children?: React.ReactNode;

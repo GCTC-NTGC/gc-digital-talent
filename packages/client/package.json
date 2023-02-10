@@ -9,9 +9,9 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --minify",
     "clean": "rm -rf dist",
-    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "test": "jest"
   },
@@ -20,15 +20,20 @@
   },
   "dependencies": {
     "@gc-digital-talent/app-insights": "*",
+    "@gc-digital-talent/auth": "*",
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/i18n": "*",
+    "@gc-digital-talent/logger": "*",
+    "@gc-digital-talent/pending": "*",
+    "@gc-digital-talent/toast": "*",
+    "@gc-digital-talent/ui": "*",
     "@urql/exchange-auth": "^1.0.0",
-    "graphql": "16.6.0",
+    "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
-    "react-intl": "6.2.8",
-    "urql": "3.0.3"
+    "react-intl": "^6.2.8",
+    "urql": "^3.0.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",

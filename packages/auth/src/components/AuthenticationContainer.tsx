@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
-import { defaultLogger } from "@gc-digital-talent/app-insights";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";

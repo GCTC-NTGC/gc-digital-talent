@@ -68,7 +68,7 @@ import {
 } from "./messages/localizedConstants";
 
 import { STORED_LOCALE } from "./const";
-import type { Locales } from "./types";
+import type { Locales, Messages } from "./types";
 
 export {
   richTextElements,
@@ -135,4 +135,4 @@ export {
   getIndigenousCommunity,
 };
 
-export type { Locales };
+export type { Locales, Messages };

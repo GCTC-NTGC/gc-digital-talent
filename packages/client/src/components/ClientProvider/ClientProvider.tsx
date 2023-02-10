@@ -22,7 +22,9 @@ import {
 } from "urql";
 import { useIntl } from "react-intl";
 
-import { useLogger } from "@gc-digital-talent/app-insights";
+import { useAuthentication } from "@gc-digital-talent/auth";
+import { useLogger } from "@gc-digital-talent/logger";
+import { toast } from "@gc-digital-talent/toast";
 
 import {
   buildRateLimitErrorMessageNode,
@@ -30,9 +32,6 @@ import {
   extractRateLimitErrorMessages,
   extractValidationErrorMessages,
 } from "~/utils/errors";
-
-import { toast } from "../Toast";
-import { AuthenticationContext } from "../Auth";
 
 // generate nonce somewhere here?
 // const nonce = ...
@@ -99,7 +98,7 @@ const ClientProvider: React.FC<{
   children?: React.ReactNode;
 }> = ({ client, children }) => {
   const intl = useIntl();
-  const authContext = useContext(AuthenticationContext);
+  const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { getRuntimeVariableNotNull } from "@gc-digital-talent/runtime";
+import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
+
+import { useApiRoutes } from "~/hooks/useApiRoutes";
 
 import AuthenticationContainer from "./AuthenticationContainer";
-
-import { useApiRoutes } from "../../hooks/useApiRoutes";
 
 interface AuthenticationContainerProps {
   children?: React.ReactNode;

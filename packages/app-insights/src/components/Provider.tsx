@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 
-import { reactPlugin } from "../utils/reactPlugin"
+import { reactPlugin } from "../utils/reactPlugin";
 
 const AppInsightsContext = createContext(reactPlugin);
 

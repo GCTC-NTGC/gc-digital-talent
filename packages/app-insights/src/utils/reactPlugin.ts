@@ -1,3 +1,4 @@
+import { ComponentType } from "react";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import {
   ReactPlugin,
@@ -5,7 +6,6 @@ import {
 } from "@microsoft/applicationinsights-react-js";
 
 import { getRuntimeVariable } from "@gc-digital-talent/env";
-import { ComponentType } from "react";
 
 const aiConnectionString = getRuntimeVariable(
   "APPLICATIONINSIGHTS_CONNECTION_STRING",

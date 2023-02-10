@@ -12169,6 +12169,23 @@ export type SelectedUsersQuery = {
   >;
 };
 
+export type GetCurrentAuthorizedUserQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetCurrentAuthorizedUserQuery = {
+  __typename?: "Query";
+  me?:
+    | {
+        __typename?: "User";
+        id: string;
+        legacyRoles?: Array<LegacyRole | null | undefined> | null | undefined;
+        email?: string | null | undefined;
+      }
+    | null
+    | undefined;
+};
+
 export const PoolCandidateSearchRequestFragmentDoc = gql`
   fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     id
@@ -16948,4 +16965,25 @@ export function useSelectedUsersQuery(
     query: SelectedUsersDocument,
     ...options,
   });
+}
+export const GetCurrentAuthorizedUserDocument = gql`
+  query getCurrentAuthorizedUser {
+    me {
+      id
+      legacyRoles
+      email
+    }
+  }
+`;
+
+export function useGetCurrentAuthorizedUserQuery(
+  options?: Omit<
+    Urql.UseQueryArgs<GetCurrentAuthorizedUserQueryVariables>,
+    "query"
+  >,
+) {
+  return Urql.useQuery<
+    GetCurrentAuthorizedUserQuery,
+    GetCurrentAuthorizedUserQueryVariables
+  >({ query: GetCurrentAuthorizedUserDocument, ...options });
 }

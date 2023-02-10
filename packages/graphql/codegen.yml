@@ -1,5 +1,7 @@
 schema: ../../api/storage/app/lighthouse-schema.graphql
-documents: ../../apps/**/src/**/*.graphql
+documents:
+  - ../../apps/**/src/**/*.graphql
+  - ../**/*.graphql
 generates:
   ./src/index.ts:
     plugins:
