@@ -37,6 +37,7 @@ class RolePermissionSeeder extends Seeder
                     'name' => $roleKey,
                     'display_name' => json_encode($roleArray['display_name']),
                     'description' => json_encode($roleArray['description']),
+                    'is_team_based' => $roleArray['is_team_based'],
                 ]
             );
 
