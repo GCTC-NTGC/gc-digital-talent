@@ -2,17 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import {
-  PlusIcon,
   BookOpenIcon,
   BriefcaseIcon,
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 import Dialog from "@common/components/Dialog";
-import Button, { IconButton } from "@common/components/Button";
+import { IconButton } from "@common/components/Button";
 import { Link } from "@common/components";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -154,57 +153,29 @@ const AddExperienceDialog = ({
   const Footer = React.useMemo(
     () => (
       <Dialog.Close>
-        {/* Why am i getting ref errors here? */}
-        {/* <IconButton color="purple" icon={ArrowLeftIcon}>
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back",
-              id: "tiF/jI",
-              description: "Close dialog button",
-            })}
-          </IconButton> */}
-        <Button color="purple">
-          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
-            <ArrowLeftIcon
-              data-h2-margin="base(0, x.25, 0, 0)"
-              data-h2-width="base(1rem)"
-            />
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back",
-              id: "tiF/jI",
-              description: "Close dialog button",
-            })}
-          </span>
-        </Button>
+        <IconButton color="purple" icon={ArrowLeftIcon}>
+          {intl.formatMessage({
+            defaultMessage: "Cancel and go back",
+            id: "tiF/jI",
+            description: "Close dialog button",
+          })}
+        </IconButton>
       </Dialog.Close>
     ),
     [intl],
   );
+
   return (
     <Dialog.Root defaultOpen={defaultOpen}>
       <Dialog.Trigger>
-        {/* Why can't I use the solid PlusIcon here?  Why am I getting ref errors here? */}
-        {/* <IconButton color="blue" icon={PlusIcon}>
+        <IconButton color="blue" icon={PlusIcon}>
           {intl.formatMessage({
             defaultMessage: "Add a new experience",
             id: "bOAF9o",
             description:
               "Button to open modal to add a new experience to the profile",
           })}
-        </IconButton> */}
-        <Button color="blue">
-          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
-            <PlusIcon
-              data-h2-margin="base(0, x.25, 0, 0)"
-              data-h2-width="base(1rem)"
-            />
-            {intl.formatMessage({
-              defaultMessage: "Add a new experience",
-              id: "bOAF9o",
-              description:
-                "Button to open modal to add a new experience to the profile",
-            })}
-          </span>
-        </Button>
+        </IconButton>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
