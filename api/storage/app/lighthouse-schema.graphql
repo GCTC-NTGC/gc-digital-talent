@@ -1018,6 +1018,7 @@ type Query {
   genericJobTitles: [GenericJobTitle]!
   team(id: UUID!): Team
   teams: [Team]!
+  roles: [Role]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1073,6 +1074,14 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PREFERRED_LANGUAGE_FOR_INTERVIEW
   PREFERRED_LANGUAGE_FOR_EXAM
   CURRENT_CITY
+}
+
+type Role {
+  id: ID!
+  name: String!
+  displayName: LocalizedString
+  description: LocalizedString
+  isTeamBased: Boolean
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1218,7 +1227,7 @@ enum SortOrder {
 
 type Team {
   id: ID!
-  name: String
+  name: String!
   displayName: LocalizedString
   description: LocalizedString
   departments: [Department]
