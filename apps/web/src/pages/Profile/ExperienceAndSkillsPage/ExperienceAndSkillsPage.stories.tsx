@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakeSkills, fakeExperiences } from "@common/fakeData";
 import { notEmpty } from "@common/helpers/util";
 import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
+import AddExperienceDialog from "./components/AddExperienceDialog";
 
 export default {
   title: "Pages/Experience and Skills Page",
@@ -11,14 +12,26 @@ export default {
   },
 } as ComponentMeta<typeof ExperienceAndSkills>;
 
-const Template: ComponentStory<typeof ExperienceAndSkills> = (args) => {
+const ExperienceAndSkillsTemplate: ComponentStory<
+  typeof ExperienceAndSkills
+> = (args) => {
   return <ExperienceAndSkills {...args} />;
 };
+const AddExperienceDialogTemplate: ComponentStory<
+  typeof AddExperienceDialog
+> = (args) => {
+  return <AddExperienceDialog {...args}/>;
+};
 
-export const NoExperiences = Template.bind({});
-export const WithExperiences = Template.bind({});
-export const NoExperiencesMissingSkills = Template.bind({});
-export const WithExperiencesMissingSkills = Template.bind({});
+export const NoExperiences = ExperienceAndSkillsTemplate.bind({});
+export const WithExperiences = ExperienceAndSkillsTemplate.bind({});
+export const NoExperiencesMissingSkills = ExperienceAndSkillsTemplate.bind({});
+export const WithExperiencesMissingSkills = ExperienceAndSkillsTemplate.bind(
+  {},
+);
+export const AddExperienceDialogOpen = AddExperienceDialogTemplate.bind(
+  {},
+);
 
 const mockExperiences = fakeExperiences(10);
 const mockExperienceSkills = mockExperiences
@@ -56,3 +69,7 @@ WithExperiencesMissingSkills.args = {
     optionalSkills: mockOptionalSkills,
   },
 };
+
+AddExperienceDialogOpen.args = {
+  defaultOpen: true
+}
