@@ -1,5 +1,5 @@
 {
-  "name": "@gc-digital-talent/runtime",
+  "name": "@gc-digital-talent/env",
   "license": "AGPL-3.0",
   "version": "1.0.0",
   "main": "./dist/index.js",
