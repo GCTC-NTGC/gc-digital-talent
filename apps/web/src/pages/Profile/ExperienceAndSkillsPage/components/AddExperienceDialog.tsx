@@ -204,9 +204,16 @@ const AddExperienceDialog = ({
             description: "Instructions for the Add Experience dialog",
           })}
         </div>
-        <div data-h2-margin="base(0, x0.5)">
+        <div
+          data-h2-margin="base(0, x0.5)"
+          data-h2-flex-grid="base(stretch, x2, x1)"
+        >
           {experienceSections.map((section) => (
-            <div key={section.title} data-h2-margin-bottom="base(x2)">
+            <div
+              key={section.title}
+              data-h2-margin-bottom="base(x2)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
+            >
               <div data-h2-margin="base(x0.5, 0)">
                 <strong>
                   <span
@@ -224,7 +231,7 @@ const AddExperienceDialog = ({
               <div data-h2-margin-bottom="base(x0.5)">
                 {section.description}
               </div>
-              <Link type="button" color="blue" href={section.buttonPath}>
+              <Link type="button" color="blue" href={section.buttonPath} block>
                 {section.buttonText}
               </Link>
             </div>
