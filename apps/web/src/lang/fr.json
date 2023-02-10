@@ -5618,5 +5618,29 @@
   "s7QD5B": {
     "defaultMessage": "Modifier <hidden>{title}</hidden>",
     "description": "Text label for button to edit employment equity category from profile."
+  },
+  "BkH0qC": {
+    "defaultMessage": "Profil d’utilisateur",
+    "description": "Page title for the view user profile page"
+  },
+  "/WvEvL": {
+    "defaultMessage": "Information relative au stage",
+    "description": "Page title for the user placement information page"
+  },
+  "vyyfX6": {
+    "defaultMessage": "Créer une nouvelle équipe",
+    "description": "Page title for the create team page"
+  },
+  "SXoCma": {
+    "defaultMessage": "Renseignements sur l’équipe",
+    "description": "Page title for the view team page"
+  },
+  "zEmPCS": {
+    "defaultMessage": "Modifier les renseignements sur l’équipe",
+    "description": "Page title for the edit team page"
+  },
+  "6rb9mg": {
+    "defaultMessage": "Membres de l’équipe",
+    "description": "Page title for the view team members page"
   }
 }
