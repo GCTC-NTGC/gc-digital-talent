@@ -1,0 +1,31 @@
+{
+  "name": "@gc-digital-talent/tooling",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "bin": {
+    "check-integrity": "./dist/checkIntegrity.js"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/checkIntegrity.ts --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "watch": "tsup src/checkIntegrity.ts --format esm,cjs --watch --dts --external react",
+    "check-integrity": "./dist/checkIntegrity.js",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-presets/jest/node"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "jest": "^29.4.2",
+    "jest-presets": "*",
+    "tsconfig": "*",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5"
+  }
+}
