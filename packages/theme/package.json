@@ -1,0 +1,31 @@
+{
+  "name": "@gc-digital-talent/theme",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "react": "^18.2.0",
+    "tsconfig": "*",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5"
+  }
+}
