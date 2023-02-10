@@ -4,7 +4,7 @@ import {
   withAITracking,
 } from "@microsoft/applicationinsights-react-js";
 
-import { getRuntimeVariable } from "@gc-digital-talent/runtime";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { ComponentType } from "react";
 
 const aiConnectionString = getRuntimeVariable(

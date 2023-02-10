@@ -24,7 +24,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@gc-digital-talent/runtime": "*",
+    "@gc-digital-talent/env": "*",
     "@types/jest": "^26.0.22",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",

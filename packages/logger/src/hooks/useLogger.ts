@@ -1,12 +1,8 @@
 /* eslint-disable no-console */
+import { reactPlugin } from "@gc-digital-talent/app-insights";
 
-import { SeverityLevel } from "../types";
-import { getLoggingLevel, levelIncludes } from "../utils/log";
-
-import { reactPlugin } from "../utils/reactPlugin"
-
-import { Logger } from "../types";
-
+import { SeverityLevel, Logger } from "../types";
+import { getLoggingLevel, levelIncludes } from "../utils/logger";
 
 // A simple logger for logging to the browser console.
 // Mostly useful during development.
@@ -107,7 +103,7 @@ export { stackLogger as defaultLogger };
  * A hook version of logger.
  * @returns Logger
  */
-export const useLogger = (): Logger => {
+const useLogger = (): Logger => {
   return stackLogger;
 };
 
