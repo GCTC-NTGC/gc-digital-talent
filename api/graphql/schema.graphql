@@ -981,7 +981,7 @@ type Query {
   genericJobTitles: [GenericJobTitle]! @all
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
-  roles: [Role]! @all
+  roles: [Role]! @all @can(ability: "viewAny")
 }
 
 input ClassificationBelongsTo {
