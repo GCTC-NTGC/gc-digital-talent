@@ -208,7 +208,7 @@ const AddExperienceDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
-          color="ts-primary"
+          color="black"
           subtitle={intl.formatMessage({
             defaultMessage:
               "Get started by selecting the type of experience you would like to add.",
