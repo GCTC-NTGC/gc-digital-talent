@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Department, Team } from "@gc-digital-talent/web/src/api/generated";
+import { Department, Team } from "@gc-digital-talent/graphql";
 
 import fakeDepartments from "./fakeDepartments";
 

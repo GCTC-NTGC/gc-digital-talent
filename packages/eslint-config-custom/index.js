@@ -37,7 +37,8 @@ module.exports = {
     "webpack.*.js",
     "tsconfig.json",
     "CssStub.js",
-    ".turbo"
+    ".turbo",
+    "dist/**"
   ],
   plugins: [
     "react",

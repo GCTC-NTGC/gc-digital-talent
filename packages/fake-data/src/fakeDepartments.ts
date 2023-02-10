@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 
-import { Department } from "@gc-digital-talent/web/src/api/generated"
+import { Department } from "@gc-digital-talent/graphql";
 
-export default  (): Department[] => {
+export default (): Department[] => {
   faker.seed(0); // repeatable results
   faker.setLocale("en");
 

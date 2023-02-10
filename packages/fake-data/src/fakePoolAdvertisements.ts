@@ -4,7 +4,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
-} from "@gc-digital-talent/common/src/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
 import {
   AdvertisementStatus,
@@ -14,12 +14,12 @@ import {
   PoolStream,
   SecurityStatus,
   Skill,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import fakeClassifications from "./fakeClassifications";
-import  toLocalizedString from "./fakeLocalizedString";
+import toLocalizedString from "./fakeLocalizedString";
 
 const generatePoolAdvertisement = (
   skills: Skill[],

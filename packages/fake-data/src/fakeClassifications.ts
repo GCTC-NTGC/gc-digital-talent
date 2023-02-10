@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Classification } from "@gc-digital-talent/web/src/api/generated"
+import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Classification[] => {
   faker.seed(0); // repeatable results

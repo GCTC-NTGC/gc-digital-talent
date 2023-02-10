@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { SkillCategory, SkillFamily, Skill } from "@gc-digital-talent/web/src/api/generated";
+import { SkillCategory, SkillFamily, Skill } from "@gc-digital-talent/graphql";
 
 import staticSkillFamilies from "./skillFamilies.json";
 

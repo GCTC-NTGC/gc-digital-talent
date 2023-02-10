@@ -7,7 +7,7 @@ import {
   Pool,
   WorkRegion,
   LanguageAbility,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import fakeClassifications from "./fakeClassifications";
 import fakePools from "./fakePools";

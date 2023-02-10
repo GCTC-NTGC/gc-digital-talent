@@ -5,7 +5,7 @@ import {
   PoolCandidateFilter,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import fakeDepartments from "./fakeDepartments";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";

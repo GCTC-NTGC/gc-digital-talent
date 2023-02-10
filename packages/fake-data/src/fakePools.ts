@@ -9,7 +9,7 @@ import {
   PoolStatus,
   PoolStream,
   PublishingGroup,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";

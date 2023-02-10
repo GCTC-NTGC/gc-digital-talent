@@ -1,6 +1,9 @@
 import { faker } from "@faker-js/faker";
 
-import { GenericJobTitle, GenericJobTitleKey } from "@gc-digital-talent/web/src/api/generated";
+import {
+  GenericJobTitle,
+  GenericJobTitleKey,
+} from "@gc-digital-talent/graphql";
 
 import fakeClassifications from "./fakeClassifications";
 

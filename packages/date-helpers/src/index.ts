@@ -6,7 +6,7 @@ import { add, format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
 
-import { Scalars } from "@gc-digital-talent/web/src/api/generated";
+import { Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { FormatDateOptions } from "./types";
