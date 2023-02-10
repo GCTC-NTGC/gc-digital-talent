@@ -9,9 +9,9 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsc -w",
+    "dev": "tsc -w --declaration",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "dependencies": {
