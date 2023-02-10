@@ -157,7 +157,10 @@ export const ExperienceAndSkills: React.FunctionComponent<
           data-h2-display="base(flex)"
           data-h2-justify-content="base(flex-end)"
         >
-          <AddExperienceDialog data-h2-flex-item="base(1of1)" />
+          <AddExperienceDialog
+            data-h2-flex-item="base(1of1)"
+            applicantId={applicantId}
+          />
         </div>
       </div>
       {!hasExperiences ? (

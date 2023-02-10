@@ -12,14 +12,14 @@ import {
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 import Dialog from "@common/components/Dialog";
-import { IconButton } from "@common/components/Button";
+import Button, { IconButton } from "@common/components/Button";
 import { Link } from "@common/components";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
 
 type AddExperienceDialogProps = {
-  applicantId?: Scalars["UUID"];
+  applicantId: Scalars["UUID"];
   defaultOpen?: boolean;
 };
 
@@ -153,32 +153,58 @@ const AddExperienceDialog = ({
 
   const Footer = React.useMemo(
     () => (
-      <div style={{ flexGrow: 2 } /* push other div to the right */}>
-        <Dialog.Close>
-          <IconButton color="purple" icon={ArrowLeftIcon}>
+      <Dialog.Close>
+        {/* Why am i getting ref errors here? */}
+        {/* <IconButton color="purple" icon={ArrowLeftIcon}>
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
               id: "tiF/jI",
               description: "Close dialog button",
             })}
-          </IconButton>
-        </Dialog.Close>
-      </div>
+          </IconButton> */}
+        <Button color="purple">
+          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
+            <ArrowLeftIcon
+              data-h2-margin="base(0, x.25, 0, 0)"
+              data-h2-width="base(1rem)"
+            />
+            {intl.formatMessage({
+              defaultMessage: "Cancel and go back",
+              id: "tiF/jI",
+              description: "Close dialog button",
+            })}
+          </span>
+        </Button>
+      </Dialog.Close>
     ),
     [intl],
   );
   return (
     <Dialog.Root defaultOpen={defaultOpen}>
       <Dialog.Trigger>
-        {/* Why can't I use the solid PlusIcon here? */}
-        <IconButton color="blue" icon={PlusIcon}>
+        {/* Why can't I use the solid PlusIcon here?  Why am I getting ref errors here? */}
+        {/* <IconButton color="blue" icon={PlusIcon}>
           {intl.formatMessage({
             defaultMessage: "Add a new experience",
             id: "bOAF9o",
             description:
               "Button to open modal to add a new experience to the profile",
           })}
-        </IconButton>
+        </IconButton> */}
+        <Button color="blue">
+          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
+            <PlusIcon
+              data-h2-margin="base(0, x.25, 0, 0)"
+              data-h2-width="base(1rem)"
+            />
+            {intl.formatMessage({
+              defaultMessage: "Add a new experience",
+              id: "bOAF9o",
+              description:
+                "Button to open modal to add a new experience to the profile",
+            })}
+          </span>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
