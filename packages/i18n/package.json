@@ -5,14 +5,18 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "check-intl": "./dist/cli.js"
+  },
   "files": [
     "dist/**",
     "src/lang/frCompiled.json"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "build": "tsup --entry src/index.tsx --entry src/cli.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
     "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "check-intl": "./dist/cli.js",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile src/lang/fr.json --ast --out-file src/lang/frCompiled.json",
     "postinstall": "npm run intl-extract && npm run intl-compile",
