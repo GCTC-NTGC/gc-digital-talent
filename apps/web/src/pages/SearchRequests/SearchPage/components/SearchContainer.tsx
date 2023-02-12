@@ -339,18 +339,20 @@ const SearchContainerApi = () => {
   >(applicantFilterFromBrowserHistory);
 
   // When pools first load, they should be added to the ApplicantFilter
-  useEffect(() => {
-    if (searchFormData?.publishedPoolAdvertisements) {
-      setApplicantFilter({
-        pools:
-          applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements,
-      });
-    }
-  }, [searchFormData?.publishedPoolAdvertisements, applicantFilter?.pools]);
+  // useEffect(() => {
+  //   if (applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements) {
+  //     setApplicantFilter({
+  //       pools:
+  //         applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements,
+  //     });
+  //   }
+  // }, [searchFormData?.publishedPoolAdvertisements, applicantFilter?.pools]);
 
-  useEffect(() => {
-    setApplicantFilter(applicantFilter);
-  }, [applicantFilter]);
+  // useEffect(() => {
+  //   if (applicantFilter) {
+  //     setApplicantFilter(applicantFilter);
+  //   }
+  // }, [applicantFilter]);
 
   const queryArgs = useMemo(
     () =>

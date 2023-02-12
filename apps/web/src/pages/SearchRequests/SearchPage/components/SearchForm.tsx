@@ -39,30 +39,50 @@ import AdvancedFilters from "./AdvancedFilters";
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
 
+const positionDurationToEmploymentDuration = (
+  durations: Maybe<PositionDuration>[],
+): string => {
+  if (durations && durations.includes(PositionDuration.Temporary)) {
+    return EmploymentDuration.Term;
+  }
+  return EmploymentDuration.Indeterminate;
+};
+
 const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<SimpleClassification[]>,
-  stream?: Maybe<PoolStream>,
+  pools?: SimplePool[],
 ): FormValues => {
+  const dataPoolsSafe = data.pools ? data.pools : [];
+  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+
+  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
   return {
     classification: selectedClassifications
       ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
       : "",
-    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
-    employmentDuration: "",
-    employmentEquity: [],
-    languageAbility: data.languageAbility
-      ? data.languageAbility
+    languageAbility: data?.languageAbility
+      ? data?.languageAbility
       : "NULL_SELECTION",
-    skills: [],
-    stream: PoolStream.BusinessAdvisoryServices,
-    locationPreferences: data.locationPreferences,
-    operationalRequirements: data.operationalRequirements,
-    pools: [
-      {
-        id: "aab7271b-3744-4f8c-8146-20973da488ee",
-      },
-    ],
+    employmentEquity: data.equity
+      ? [
+          ...(data.equity.hasDisability ? ["hasDisability"] : []),
+          ...(data.equity.isIndigenous ? ["isIndigenous"] : []),
+          ...(data.equity.isVisibleMinority ? ["isVisibleMinority"] : []),
+          ...(data.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
+    skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    stream: dataPoolsSafe[0]
+      ? poolMap.get(dataPoolsSafe[0].id)?.stream || ""
+      : "",
+    locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirements:
+      data.operationalRequirements?.filter(notEmpty) ?? [],
+    employmentDuration: data.positionDuration
+      ? positionDurationToEmploymentDuration(data.positionDuration)
+      : "",
   };
 };
 
@@ -141,15 +161,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       () => (state ? state.applicantFilter : {}),
       [state],
     );
-    // const selectedPoolId = state && state.applicantFilter && state.applicantFilter.pools &&  state.applicantFilter.pools && state.applicantFilter.pools !== null && state.applicantFilter.pools[0];
-    // const selectedPool = pools?.filter(
-    //   (pool) => pool.id === (selectedPoolId || null)
-    // );
+
     const methods = useForm<FormValues>({
       defaultValues: dataToFormValues(
         initialValues ?? {},
         state?.selectedClassifications,
-        undefined, // TODO: Replace with stream from selectedPoolId using getPoolStream()
+        pools,
       ),
       mode: "onChange",
       reValidateMode: "onChange",
@@ -170,7 +187,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
-        console.log({ values });
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;
