@@ -389,7 +389,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Legend for the Working Language Ability radio buttons",
               })}
               name="languageAbility"
-              defaultSelected={NullSelection}
               items={[
                 {
                   value: NullSelection,
