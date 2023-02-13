@@ -89,7 +89,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   classifications,
   applicantFilter,
   candidateCount,
-  searchFormInitialValues,
   selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
 }) => {
