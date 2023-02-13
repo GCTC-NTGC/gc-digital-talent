@@ -1,39 +1,94 @@
 import { Color, HeadingRank } from "./types";
 
 import Accordion from "./components/Accordion";
-import Alert from "./components/Alert";
+import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
-import Breadcrumbs, { BreadcrumbsV2 } from "./components/Breadcrumbs";
-import Button, { IconButton } from "./components/Button";
-import Card, { CardFlat } from "./components/Card";
-import CardLink from "./components/CardLink";
-import CheckButton from "./components/CheckButton";
-import Chip, { Chips } from "./components/Chip";
+import Breadcrumbs, {
+  BreadcrumbsV2,
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs";
+import Button, {
+  IconButton,
+  type ButtonProps,
+  type IconButtonProps,
+} from "./components/Button";
+import Card, {
+  CardFlat,
+  type CardFlatProps,
+  type CardProps,
+} from "./components/Card";
+import CardLink, { type CardLinkProps } from "./components/CardLink";
+import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
-import Combobox from "./components/Combobox";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
-import Heading from "./components/Heading";
+import Heading, { HeadingProps } from "./components/Heading";
 import Link, {
   DownloadCsv,
   ExternalLink,
   IconLink,
   ScrollToLink,
+  type ExternalLinkProps,
+  type DownloadCsvProps,
+  type LinkProps,
+  type IconLinkProps,
+  type ScrollToLinkProps,
+  type ScrollLinkClickFunc,
 } from "./components/Link";
-import Loading from "./components/Loading";
-import Pending from "./components/Pending";
-import Pill from "./components/Pill";
+import Loading, { type LoadingProps } from "./components/Loading";
+import Pending, { type PendingProps } from "./components/Pending";
+import Pill, { type PillProps } from "./components/Pill";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
+import SideMenu, {
+  ExternalSideMenuItem,
+  SideMenuButton,
+  SideMenuItem,
+  SideMenuContentWrapper,
+  type SideMenuProps,
+  type SideMenuItemProps,
+} from "./components/SideMenu";
 import Switch from "./components/Switch";
-import TableOfContents from "./components/TableOfContents";
+import TableOfContents, {
+  type TocAnchorLinkProps,
+  TocHeadingProps,
+  TocSectionProps,
+} from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import TileLink from "./components/TileLink";
+import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
-import Well from "./components/Well";
+import Well, { WellProps } from "./components/Well";
 
-export type { Color, HeadingRank };
+export type {
+  Color,
+  HeadingRank,
+  AlertProps,
+  BreadcrumbsProps,
+  ButtonProps,
+  IconButtonProps,
+  CardFlatProps,
+  CardProps,
+  CardLinkProps,
+  ChipProps,
+  HeadingProps,
+  ExternalLinkProps,
+  DownloadCsvProps,
+  LinkProps,
+  IconLinkProps,
+  ScrollToLinkProps,
+  ScrollLinkClickFunc,
+  LoadingProps,
+  PendingProps,
+  PillProps,
+  SideMenuProps,
+  SideMenuItemProps,
+  TocAnchorLinkProps,
+  TocHeadingProps,
+  TocSectionProps,
+  TileLinkProps,
+  WellProps,
+};
 
 export {
   Accordion,
@@ -46,11 +101,9 @@ export {
   Card,
   CardFlat,
   CardLink,
-  CheckButton,
   Chips,
   Chip,
   Collapsible,
-  Combobox,
   Dialog,
   DropdownMenu,
   Flourish,
@@ -65,6 +118,11 @@ export {
   Pill,
   ScrollArea,
   Separator,
+  SideMenu,
+  ExternalSideMenuItem,
+  SideMenuButton,
+  SideMenuItem,
+  SideMenuContentWrapper,
   Switch,
   TableOfContents,
   Tabs,

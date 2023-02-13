@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CheckIcon, MinusIcon } from "@heroicons/react/24/outline";
 
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import "./check-button.css";
 
@@ -67,8 +67,8 @@ const CheckButton = ({
     >
       <span data-h2-visually-hidden="base(invisible)">
         {checked
-          ? intl.formatMessage(uiMessages.deselectCheck, { label })
-          : intl.formatMessage(uiMessages.selectCheck, { label })}
+          ? intl.formatMessage(formMessages.deselectCheck, { label })
+          : intl.formatMessage(formMessages.selectCheck, { label })}
       </span>
       <span
         className="check-button__inner"

@@ -22,6 +22,8 @@ import {
   uniqueItems,
 } from "./utils/util";
 
+import useIsSmallScreen from "./hooks/useIsSmallScreen";
+
 export {
   keyStringRegex,
   phoneNumberRegex,
@@ -41,4 +43,5 @@ export {
   lazyRetry,
   sanitizeUrl,
   isUuidError,
+  useIsSmallScreen,
 };

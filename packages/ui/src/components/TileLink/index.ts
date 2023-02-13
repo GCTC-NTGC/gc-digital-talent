@@ -1,3 +1,4 @@
-import TileLink from "./TileLink";
+import TileLink, { type TileLinkProps } from "./TileLink";
 
 export default TileLink;
+export type { TileLinkProps };

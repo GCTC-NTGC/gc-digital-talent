@@ -1,7 +1,7 @@
 import React from "react";
 import type { StoryContext, StoryFn } from "@storybook/react";
 import isChromatic from "chromatic/isChromatic";
-import ThemeProvider from "@gc-digital-talent/common/src/components/Theme";
+import { ThemeProvider } from "@gc-digital-talent/theme";
 
 export const theme = {
   name: "Theme",
@@ -47,7 +47,7 @@ const ThemeDecorator = (
    * have more dark mode stories, we should remove
    * The parameter from usage
    */
-  const {hasDarkMode} = parameters;
+  const { hasDarkMode } = parameters;
   const showDark = hasDarkMode && isChromatic();
   const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
 

@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --minify",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "test": "jest"
@@ -25,6 +25,7 @@
     "urql": "^3.0.3"
   },
   "devDependencies": {
+    "@swc/core": "^1.3.35",
     "eslint-config-custom": "*",
     "tsup": "^6.2.3"
   }

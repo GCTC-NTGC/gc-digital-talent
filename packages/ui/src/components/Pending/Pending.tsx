@@ -11,7 +11,7 @@ import ErrorMessage from "./ErrorMessage";
 
 import "./pending.css";
 
-interface PendingProps extends LoadingProps {
+export interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
   children: React.ReactNode;
