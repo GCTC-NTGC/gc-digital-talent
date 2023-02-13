@@ -1,10 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import imageUrl from "@common/helpers/imageUrl";
-
-import Heading from "@common/components/Heading";
-import { getLocale } from "@common/helpers/localize";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { Heading } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import Block from "./Block";
 

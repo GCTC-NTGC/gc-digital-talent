@@ -4,8 +4,12 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
-import { fakeClassifications, fakePools, fakeSkills } from "@common/fakeData";
-import { axeTest, render } from "@common/helpers/testUtils";
+import {
+  fakeClassifications,
+  fakePools,
+  fakeSkills,
+} from "@gc-digital-talent/fake-data";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { SearchContainerComponent } from "./SearchContainer";
 import type { SearchContainerProps } from "./SearchContainer";
 
@@ -23,7 +27,7 @@ const renderSearchContainer = ({
 }: MockSearchContainerProps) => {
   const mockUpdate = jest.fn();
   const mockSubmit = jest.fn();
-  return render(
+  return renderWithProviders(
     <SearchContainerComponent
       updatePending={false}
       pools={[]}

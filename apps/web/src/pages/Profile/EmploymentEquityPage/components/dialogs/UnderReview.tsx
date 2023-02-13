@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ExternalLink } from "@common/components/Link";
-import { getLocale } from "@common/helpers/localize";
+import { ExternalLink } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 const actLink = (locale: string, chunks: React.ReactNode) => {
   const href =

@@ -3,11 +3,11 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, axeTest } from "@common/helpers/testUtils";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Home from "./Home";
 
-const renderHome = () => render(<Home />);
+const renderHome = () => renderWithProviders(<Home />);
 
 describe("Basic test for Home", () => {
   it("should render", () => {

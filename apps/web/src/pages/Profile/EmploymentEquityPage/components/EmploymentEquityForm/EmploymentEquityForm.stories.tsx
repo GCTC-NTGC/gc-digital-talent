@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeUsers } from "@common/fakeData";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
 import {
   IndigenousCommunity,
   InputMaybe,

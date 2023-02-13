@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import fakePools from "@common/fakeData/fakePools";
+import { fakePools } from "@gc-digital-talent/fake-data";
 
 import { PoolTable } from "./PoolTable";
 

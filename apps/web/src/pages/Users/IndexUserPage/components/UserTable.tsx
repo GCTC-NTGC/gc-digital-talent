@@ -12,7 +12,6 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
-import printStyles from "@common/constants/printStyles";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -26,6 +25,7 @@ import {
   UserPaginator,
   useSelectedUsersQuery,
 } from "~/api/generated";
+import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";

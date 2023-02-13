@@ -6,13 +6,11 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
-import CardLink from "@common/components/CardLink";
-import Loading from "@common/components/Pending/Loading";
-import PageHeader from "@common/components/PageHeader";
-import { getLocale } from "@common/helpers/localize";
-import { useApiRoutes } from "@common/hooks/useApiRoutes";
-import useAuth from "@common/hooks/useAuth";
+import { CardLink, Loading } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 
+import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 
 const AdminHomePage = () => {
@@ -21,7 +19,7 @@ const AdminHomePage = () => {
   const apiRoutes = useApiRoutes();
   const location = useLocation();
   const navigate = useNavigate();
-  const { loggedIn } = useAuth();
+  const { loggedIn } = useAuthentication();
 
   React.useEffect(() => {
     // If user is logged in, send them to the dashboard instead

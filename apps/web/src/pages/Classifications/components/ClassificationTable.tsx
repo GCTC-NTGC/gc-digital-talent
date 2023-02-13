@@ -2,10 +2,9 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
-import { notEmpty } from "@common/helpers/util";
-import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
-import Pending from "@common/components/Pending";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { Pending } from "@gc-digital-talent/ui";
 
 import {
   GetClassificationsQuery,
@@ -18,6 +17,7 @@ import Table, {
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
+import { FromArray } from "~/types/utility";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 

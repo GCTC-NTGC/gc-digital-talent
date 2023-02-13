@@ -2,15 +2,17 @@ import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import Input from "@common/components/form/Input";
-import Select from "@common/components/form/Select";
-import Checkbox from "@common/components/form/Checkbox";
-import { errorMessages } from "@common/messages";
-import { enumToOptions } from "@common/helpers/formUtils";
 import {
+  Input,
+  Select,
+  Checkbox,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import {
+  errorMessages,
   getEducationStatus,
   getEducationType,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
 
 import { EducationType, EducationStatus } from "~/api/generated";
 import { SubExperienceFormProps } from "../../types";

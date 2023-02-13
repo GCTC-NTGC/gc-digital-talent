@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
+import { OperationalRequirementV2 } from "@gc-digital-talent/i18n";
 import { PositionDuration, UpdateUserAsUserInput, User } from "~/api/generated";
 
 import WorkPreferencesForm from "./WorkPreferencesForm";

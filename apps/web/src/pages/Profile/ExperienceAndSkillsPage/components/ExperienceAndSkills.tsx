@@ -9,15 +9,14 @@ import {
 } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
-import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import { IconLink } from "@common/components/Link";
-import MissingSkills from "@common/components/MissingSkills";
-import Well from "@common/components/Well";
-import { notEmpty } from "@common/helpers/util";
-import { navigationMessages } from "@common/messages";
-import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { IconLink, Well } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { flattenExperienceSkills, ExperienceType } from "~/types/experience";
+import MissingSkills from "~/components/MissingSkills";
+import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import {
   AwardExperience,
   CommunityExperience,
@@ -28,7 +27,6 @@ import {
   WorkExperience,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { ExperienceType } from "~/types/experience";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";

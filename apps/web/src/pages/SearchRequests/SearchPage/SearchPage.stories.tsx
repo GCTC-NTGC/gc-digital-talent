@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeClassifications, fakePools } from "@common/fakeData";
+import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";
 
 import { Classification, Pool } from "~/api/generated";
 import {

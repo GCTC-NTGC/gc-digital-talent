@@ -2,11 +2,15 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { Submit, TextArea } from "@common/components/form";
-import WordCounter from "@common/components/WordCounter/WordCounter";
-import { countNumberOfWords } from "@common/helpers/formUtils";
-import { errorMessages } from "@common/messages";
+import { TableOfContents } from "@gc-digital-talent/ui";
+import {
+  Submit,
+  TextArea,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
+
 import {
   AdvertisementStatus,
   LocalizedString,

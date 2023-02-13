@@ -1,6 +1,6 @@
 import React from "react";
 
-import Heading from "@common/components/Heading";
+import { Heading } from "@gc-digital-talent/ui";
 
 // Define the interface
 export interface FeatureBlockProps {

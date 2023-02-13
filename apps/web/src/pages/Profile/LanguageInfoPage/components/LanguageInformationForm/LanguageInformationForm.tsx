@@ -5,11 +5,11 @@ import { SubmitHandler } from "react-hook-form";
 import compact from "lodash/compact";
 import omit from "lodash/omit";
 
-import { toast } from "@common/components/Toast";
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BasicForm, Checklist } from "@common/components/form";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 
+import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
 import {
   Applicant,
   BilingualEvaluation,
@@ -24,9 +24,9 @@ import profileMessages from "~/messages/profileMessages";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 
-import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
-import MissingLanguageRequirements from "@common/components/MissingLanguageRequirements";
 import ConsideredLanguages from "../ConsideredLanguages";
 
 export type FormValues = Pick<

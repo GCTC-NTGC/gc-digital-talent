@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
+import Hero from "~/components/Hero/Hero";
 
 const SearchHeading: React.FunctionComponent = () => {
   const intl = useIntl();

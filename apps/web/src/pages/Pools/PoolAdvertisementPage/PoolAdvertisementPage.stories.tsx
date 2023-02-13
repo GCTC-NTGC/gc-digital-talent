@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { fakePoolAdvertisements } from "@common/fakeData";
+import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
 import { PoolAdvertisementPoster } from "./PoolAdvertisementPage";
 
 const fakeAdvertisement = fakePoolAdvertisements()[0];

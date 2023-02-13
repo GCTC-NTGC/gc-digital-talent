@@ -2,10 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import Well from "@common/components/Well";
-import { navigationMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { Well } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper, {

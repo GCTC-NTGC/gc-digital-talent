@@ -1,10 +1,9 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 
-import { fakeUsers } from "@common/fakeData";
-import fakeExperiences from "@common/fakeData/fakeExperiences";
-import { JobLookingStatus } from "@common/api/generated";
-import { User } from "~/api/generated";
+import { fakeUsers, fakeExperiences } from "@gc-digital-talent/fake-data";
+
+import { JobLookingStatus, User } from "~/api/generated";
 
 import ProfilePage, { ProfileForm } from "./ProfilePage";
 

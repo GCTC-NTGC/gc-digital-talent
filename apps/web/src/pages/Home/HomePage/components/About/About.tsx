@@ -2,9 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
 
-import Heading from "@common/components/Heading";
-import { CardFlat } from "@common/components/Card";
-import useLocale from "@common/hooks/useLocale";
+import { CardFlat, Heading } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 const About = () => {
   const intl = useIntl();

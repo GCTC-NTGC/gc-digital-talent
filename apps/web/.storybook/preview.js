@@ -11,11 +11,11 @@ import {
   theme
 } from "storybook-helpers"
 
-import frCompiled from "../src/lang/frCompiled.json";
-import frCommonCompiled from "../../../frontend/common/src/lang/frCompiled.json"
+import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json"
 
-import "../../../frontend/common/src/css/hydrogen.css"
-import "../../../frontend/common/src/css/common.css"
+import frCompiled from "../src/lang/frCompiled.json";
+
+import "../src/assets/css/hydrogen.css"
 import "../src/assets/css/app.css"
 
 export const parameters = {

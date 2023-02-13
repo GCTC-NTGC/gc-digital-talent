@@ -4,11 +4,10 @@ import { useIntl } from "react-intl";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 // Local assets
-import Heading from "@common/components/Heading";
-import { CardFlat } from "@common/components/Card";
-import useLocale from "@common/hooks/useLocale";
-import imageUrl from "@common/helpers/imageUrl";
-import { AuthenticationContext } from "@common/components/Auth";
+import { Heading, CardFlat } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -17,7 +16,7 @@ const Opportunities = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { locale } = useLocale();
-  const { loggedIn } = React.useContext(AuthenticationContext);
+  const { loggedIn } = useAuthentication();
 
   return (
     <div data-h2-margin="base(-3%, 0, 0, 0)" data-h2-layer="base(2, relative)">

@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import ContextContainer from "@common/components/context/ContextContainer";
-import Toast from "@common/components/Toast/Toast";
+import Toast from "@gc-digital-talent/toast";
 
 import * as messages from "~/lang/frCompiled.json";
 import Router from "~/components/Router";
+import ContextContainer from "~/components/Context/ContextProvider";
 
 const container = document.getElementById("app");
 if (container) {

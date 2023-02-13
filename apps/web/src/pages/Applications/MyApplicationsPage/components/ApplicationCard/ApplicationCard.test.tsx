@@ -4,9 +4,9 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
-import { axeTest, render } from "@common/helpers/testUtils";
-import { fakePoolCandidates } from "@common/fakeData";
-import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { PoolCandidateStatus } from "~/api/generated";
 import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
@@ -20,7 +20,7 @@ const defaultProps = {
 };
 
 const renderApplicationCard = (props: ApplicationCardProps) =>
-  render(<ApplicationCard {...props} />);
+  renderWithProviders(<ApplicationCard {...props} />);
 
 describe("ApplicationCard", () => {
   it("should have no accessibility errors", async () => {

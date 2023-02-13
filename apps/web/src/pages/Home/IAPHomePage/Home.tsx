@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useQuote from "~/hooks/useQuote";
 

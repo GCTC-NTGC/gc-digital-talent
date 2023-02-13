@@ -5,14 +5,12 @@ import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { toast } from "@common/components/Toast";
-import { Input, Select, Submit } from "@common/components/form";
-import { errorMessages, commonMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
+import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { Input, Select, Submit } from "@gc-digital-talent/forms";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,

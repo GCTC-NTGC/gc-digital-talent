@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { toast } from "@common/components/Toast";
-import { Input, Submit } from "@common/components/form";
-import { errorMessages } from "@common/messages";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
+import { toast } from "@gc-digital-talent/toast";
+import { Input, Submit } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   CreateDepartmentInput,

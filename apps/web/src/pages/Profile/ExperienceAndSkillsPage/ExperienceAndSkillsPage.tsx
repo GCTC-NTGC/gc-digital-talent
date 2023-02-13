@@ -2,11 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import NotFound, { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+import { NotFound, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import {
   Experience,
@@ -101,7 +100,7 @@ const ExperienceAndSkillsPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const { loggedInUser } = useAuthorizationContext();
+  const { loggedInUser } = useAuthorization();
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
     variables: { id: loggedInUser?.id || "" },
   });

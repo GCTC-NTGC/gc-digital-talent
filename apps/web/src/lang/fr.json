@@ -5618,5 +5618,49 @@
   "s7QD5B": {
     "defaultMessage": "Modifier <hidden>{title}</hidden>",
     "description": "Text label for button to edit employment equity category from profile."
+  },
+  "62+Jkh": {
+    "defaultMessage": "Erreur : nom non trouvé.",
+    "description": "Error message when name is not found on listed item."
+  },
+  "6eCvv1": {
+    "defaultMessage": "Postes bilingues (français et anglais)",
+    "description": "Bilingual Positions message"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
+  },
+  "UOO1gW": {
+    "defaultMessage": "Oui",
+    "description": "Message for when a value is true"
+  },
+  "ZLPqdF": {
+    "defaultMessage": "Aucun prénom fourni",
+    "description": "Fallback for first name value"
+  },
+  "fFznH0": {
+    "defaultMessage": "Postes en anglais ou en français",
+    "description": "English or French Positions message"
+  },
+  "n80lVV": {
+    "defaultMessage": "Aucun nom fourni",
+    "description": "Fallback for name value"
+  },
+  "q7bz0J": {
+    "defaultMessage": "Non",
+    "description": "Message for when a value is false"
+  },
+  "qT9sS0": {
+    "defaultMessage": "Postes en français",
+    "description": "French Positions message"
+  },
+  "r7lf0k": {
+    "defaultMessage": "Aucun nom de famille fourni",
+    "description": "Fallback for last name value"
+  },
+  "vFMPHW": {
+    "defaultMessage": "Postes en anglais",
+    "description": "English Positions message"
   }
 }

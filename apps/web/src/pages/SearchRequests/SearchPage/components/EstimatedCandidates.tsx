@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { ScrollToLink } from "@common/components/Link";
+import { ScrollToLink } from "@gc-digital-talent/ui";
 
 import Spinner from "~/components/Spinner/Spinner";
 

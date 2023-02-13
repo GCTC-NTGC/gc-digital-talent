@@ -7,12 +7,11 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
-import { IconLink } from "@common/components/Link";
-import PageHeader from "@common/components/PageHeader";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { IconLink, Pending } from "@gc-digital-talent/ui";
 
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 

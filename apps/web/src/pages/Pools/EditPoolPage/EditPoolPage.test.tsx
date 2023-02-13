@@ -4,8 +4,8 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { act, fireEvent, screen, within } from "@testing-library/react";
-import { currentDate } from "@common/helpers/formUtils";
-import { render } from "@common/helpers/testUtils";
+import { currentDate } from "@gc-digital-talent/date-helpers";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, {
   DraftAdvertisement,
@@ -25,7 +25,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      render(<EditPoolForm {...props} />);
+      renderWithProviders(<EditPoolForm {...props} />);
     });
 
     await act(async () => {
@@ -83,7 +83,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -116,7 +116,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -149,7 +149,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -176,7 +176,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      render(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftAdvertisement {...props} />);
     });
 
     expect(
@@ -200,7 +200,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -232,7 +232,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -263,7 +263,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      render(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedAdvertisement {...props} />);
     });
 
     expect(
@@ -287,7 +287,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      render(<ExpiredAdvertisement {...props} />);
+      renderWithProviders(<ExpiredAdvertisement {...props} />);
     });
 
     await act(async () => {
@@ -321,7 +321,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      render(<ExpiredAdvertisement {...props} />);
+      renderWithProviders(<ExpiredAdvertisement {...props} />);
     });
 
     expect(

@@ -3,20 +3,26 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { empty } from "@common/helpers/util";
-import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
+  errorMessages,
+  navigationMessages,
+  getGovEmployeeType,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import {
+  BasicForm,
+  Input,
+  RadioGroup,
+  Select,
   enumToOptions,
   objectsToSortedOptions,
-} from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
-import { toast } from "@common/components/Toast";
-import ExternalLink from "@common/components/Link/ExternalLink";
-import { FieldLabels } from "@common/components/form/BasicForm";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+  FieldLabels,
+} from "@gc-digital-talent/forms";
+import { empty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import { ExternalLink } from "@gc-digital-talent/ui";
 
+import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,

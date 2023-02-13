@@ -1,5 +1,7 @@
 import { OperationResult } from "urql";
 
+import type { FieldLabels } from "@gc-digital-talent/forms";
+
 import {
   AwardedScope,
   AwardedTo,
@@ -9,10 +11,6 @@ import {
   LocalizedString,
   Maybe,
   Scalars,
-} from "@common/api/generated";
-import type { FieldLabels } from "@common/components/form/BasicForm";
-
-import type {
   AwardExperienceInput,
   CommunityExperienceInput,
   CreateAwardExperienceMutation,

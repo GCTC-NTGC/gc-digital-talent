@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { type SVGProps } from "@common/components/Svg/Svg";
+import Svg, { type SVGProps } from "~/components/Svg/Svg";
 
 const PugDark = (props: SVGProps) => (
   <Svg fill="none" viewBox="0 0 992 502" {...props}>

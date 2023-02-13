@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import useTheme from "@common/hooks/useTheme";
-import Heading from "@common/components/Heading";
-import { useLogger } from "@common/hooks/useLogger";
+import { useTheme } from "@gc-digital-talent/theme";
+import { Heading } from "@gc-digital-talent/ui";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
-import { Button } from "@common/components";
+import { Button } from "@gc-digital-talent/ui";
 
 import { IndigenousCommunity } from "~/api/generated";
 import { IndigenousDialog } from "./dialogs";

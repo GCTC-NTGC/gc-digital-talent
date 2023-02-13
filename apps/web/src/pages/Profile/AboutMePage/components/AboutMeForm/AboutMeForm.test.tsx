@@ -4,8 +4,8 @@
 import "@testing-library/jest-dom";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react";
 import React from "react";
-import { fakeUsers } from "@common/fakeData";
-import { render, axeTest } from "@common/helpers/testUtils";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import AboutMeForm, { AboutMeFormProps } from "./AboutMeForm";
 
 const mockUser = fakeUsers()[0];
@@ -14,7 +14,7 @@ const renderAboutMeForm = ({
   initialUser,
   onUpdateAboutMe,
 }: AboutMeFormProps) =>
-  render(
+  renderWithProviders(
     <AboutMeForm initialUser={initialUser} onUpdateAboutMe={onUpdateAboutMe} />,
   );
 

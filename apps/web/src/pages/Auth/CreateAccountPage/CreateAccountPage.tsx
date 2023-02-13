@@ -2,17 +2,21 @@ import * as React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import { Alert } from "@common/components";
-import { toast } from "@common/components/Toast";
-import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
-import { AuthorizationContext } from "@common/components/Auth/AuthorizationContainer";
-import { errorMessages } from "@common/messages";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getLanguage } from "@common/constants";
-import { emptyToNull, notEmpty } from "@common/helpers/util";
-import SEO from "@common/components/SEO/SEO";
-import Pending from "@common/components/Pending";
+import { Alert, Pending } from "@gc-digital-talent/ui";
+import {
+  BasicForm,
+  Input,
+  RadioGroup,
+  Submit,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 
 import {
   Language,
@@ -286,7 +290,7 @@ const CreateAccount: React.FunctionComponent = () => {
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
-  const authContext = React.useContext(AuthorizationContext);
+  const authContext = useAuthorization();
   const meId = authContext.loggedInUser?.id;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
