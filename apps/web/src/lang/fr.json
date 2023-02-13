@@ -1129,10 +1129,6 @@
     "defaultMessage": "Postes en anglais",
     "description": "Message for the english positions option"
   },
-  "JUk80l": {
-    "defaultMessage": "Éducation",
-    "description": "Title for education experience form button."
-  },
   "JjPpGt": {
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
@@ -1237,10 +1233,6 @@
     "defaultMessage": "Informations linguistiques",
     "description": "Title for Profile Form wrapper in Language Information Form"
   },
-  "RF51Bp": {
-    "defaultMessage": "Travail",
-    "description": "Title for work experience form button."
-  },
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
     "description": "Title for addition information on Experience form"
@@ -1264,10 +1256,6 @@
   "TfoHYi": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for Profile Form wrapper  in DiversityEquityInclusionForm"
-  },
-  "Tr5Pga": {
-    "defaultMessage": "Ajouter une nouvelle expérience :",
-    "description": "Message to user when no experiences have been attached to profile"
   },
   "TuhgU0": {
     "defaultMessage": "Options d'équité en matière d'emploi :",
@@ -1312,10 +1300,6 @@
   "XBfLOu": {
     "defaultMessage": "Mon statut",
     "description": "Legend for my status option in my status form"
-  },
-  "XF4Ok2": {
-    "defaultMessage": "Prix",
-    "description": "Title for award experience form button."
   },
   "XY19Sh": {
     "defaultMessage": "À propos de moi",
@@ -1481,10 +1465,6 @@
     "defaultMessage": "Erreur : l'ajout de l'expérience a échoué",
     "description": "Message displayed to user after experience fails to be created."
   },
-  "mrhpJS": {
-    "defaultMessage": "Communautaire",
-    "description": "Title for community experience form button."
-  },
   "nOE+8s": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
@@ -1496,10 +1476,6 @@
   "ntUOoz": {
     "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
     "description": "Legend for considered position languages check list in language information form"
-  },
-  "nuP1BG": {
-    "defaultMessage": "Personnelle",
-    "description": "Title for personal experience form button."
   },
   "nueuS8": {
     "defaultMessage": "Lieu de travail",
@@ -1804,10 +1780,6 @@
   "WkX8Ge": {
     "defaultMessage": "Requis",
     "description": "Title for the required skills section of a pool advertisement"
-  },
-  "XiUgMy": {
-    "defaultMessage": "<hidden>Ajouter une nouvelle </hidden>{title}<hidden> expérience</hidden>",
-    "description": "Link text for adding a new experience of a specific type."
   },
   "XzUzZz": {
     "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",

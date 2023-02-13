@@ -1,0 +1,78 @@
+{
+ "+ikQY0": {
+   "defaultMessage": « Prix »,
+   "description": "Title for award section"
+ },
+ "6XQGne": {
+   "defaultMessage": « Ajouter l’expérience en matière d’éducation »,
+   "description": "Button text to add an education experience to the profile"
+ },
+ "AKRd34": {
+   "defaultMessage": « Ajouter une expérience communautaire »
+   "description": "Button text to add a community experience to the profile"
+ },
+ "CSg8cH": {
+   "defaultMessage": "Ajouter un prix »
+   "description": "Button text to add an award to the profile"
+ },
+ "El/lyl": {
+   "defaultMessage": « Les gens sont plus que des études et des expériences professionnelles. Nous voulons vous laisser un espace pour que vous puissiez partager votre apprentissage à partir d’autres expériences »,
+   "description": "Description for personal experience section"
+ },
+ "K5UiWg": {
+   "defaultMessage": "Avez-vous des accréditations? Indiquez vos diplômes, vos certificats, les cours en ligne que vous avez suivis, votre apprentissage d’un métier, vos licences ou autres titres de compétences. Si vous avez appris quelque chose auprès d’un fournisseur de services éducatifs reconnu, indiquez ici cette expérience. »,
+   "description": "Description for work experience section"
+ },
+ "KmqF8d": {
+   "defaultMessage": « Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres »,
+   "description": "Description for award section"
+ },
+ "L6UnSl": {
+   "defaultMessage": « Ajoutez votre expérience personnelle »
+   "description": "Button text to add a personal experience to the profile"
+ },
+ "MhgtB6": {
+   "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie »,
+   "description": "Instructions for the Add Experience dialog"
+ },
+ "Rz7WtH": {
+   "defaultMessage": "Bénévolat et expérience communautaire »a
+   "description": "Title for community experience section"
+ },
+ "WkD8tV": {
+   "defaultMessage": "Ajouter une expérience professionnelle »,
+   "description": "Button text to add a work experience to the profile"
+ },
+ "bOAF9o": {
+   "defaultMessage": "Ajouter une nouvelle expérience »,
+   "description": "Button to open modal to add a new experience to the profile"
+ },
+ "giUfys": {
+   "defaultMessage": "Expérience professionnelle »,
+   "description": "Title for work experience section"
+ },
+ "h5MtHc": {
+   "defaultMessage": "Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. »,
+   "description": "Subtitle for the Add Experience dialog"
+ },
+ "muduUA": {
+   "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu »,
+   "description": "Description for community experience section"
+ },
+ "tVVb0b": {
+   "defaultMessage": "Partagez vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses ou de stages »,
+   "description": "Description for work experience section"
+ },
+ "u6LIbY": {
+   "defaultMessage": "Expérience en matière d’éducation »,
+   "description": "Title for education experience section"
+ },
+ "wTFUPE": {
+   "defaultMessage": "Expérience personnelle »,
+   "description": "Title for personal experience section"
+ },
+ "yI5DFC": {
+   "defaultMessage": "Ajoutez une nouvelle expérience à votre CV »,
+   "description": "Heading for the Add Experience dialog"
+ }
+}
