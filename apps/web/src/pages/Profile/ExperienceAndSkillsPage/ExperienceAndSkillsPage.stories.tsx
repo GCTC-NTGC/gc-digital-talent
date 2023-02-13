@@ -20,7 +20,7 @@ const ExperienceAndSkillsTemplate: ComponentStory<
 const AddExperienceDialogTemplate: ComponentStory<
   typeof AddExperienceDialog
 > = (args) => {
-  return <AddExperienceDialog {...args}/>;
+  return <AddExperienceDialog {...args} />;
 };
 
 export const NoExperiences = ExperienceAndSkillsTemplate.bind({});
@@ -29,9 +29,7 @@ export const NoExperiencesMissingSkills = ExperienceAndSkillsTemplate.bind({});
 export const WithExperiencesMissingSkills = ExperienceAndSkillsTemplate.bind(
   {},
 );
-export const AddExperienceDialogOpen = AddExperienceDialogTemplate.bind(
-  {},
-);
+export const AddExperienceDialogOpen = AddExperienceDialogTemplate.bind({});
 
 const mockExperiences = fakeExperiences(10);
 const mockExperienceSkills = mockExperiences
@@ -71,5 +69,5 @@ WithExperiencesMissingSkills.args = {
 };
 
 AddExperienceDialogOpen.args = {
-  defaultOpen: true
-}
+  defaultOpen: true,
+};
