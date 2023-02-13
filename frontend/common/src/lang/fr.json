@@ -773,7 +773,7 @@
     "description": "Current Location label and colon"
   },
   "shPV27": {
-    "defaultMessage": "A achevé une évaluation officielle du GC :",
+    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
     "description": "Completed a government of canada abbreviation evaluation label and colon"
   },
   "spP+Tz": {
@@ -1692,10 +1692,6 @@
     "defaultMessage": "Compétences requises pour la demande",
     "description": "Title that appears when a user is missing required skills on their profile."
   },
-  "C8nrGM": {
-    "defaultMessage": "Emplois en TI",
-    "description": "The publishing group called IT Jobs"
-  },
   "CJy0kS": {
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title that appears when a user is missing optional skills on their profile."
@@ -1876,10 +1872,6 @@
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
   },
-  "1YuZjR": {
-    "defaultMessage": "Emplois en TI (en cours)",
-    "description": "The publishing group called IT Jobs for ongoing recruitments"
-  },
   "FckGRB": {
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
@@ -2019,5 +2011,26 @@
   "qQtJDw": {
     "defaultMessage": "Tous",
     "description": "All statuses"
+  },
+  "nLW9zq": {
+    "defaultMessage": "Technologie de l’information"
+  },
+  "6svHxg": {
+    "defaultMessage": "Services administratifs"
+  },
+  "t9i8Ml": {
+    "defaultMessage": "Gouvernement du Canada"
+  },
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
+    "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "MuWdei": {
+    "defaultMessage": "Abréviation non trouvée.",
+    "description": "Message shown to user when the abbreviation text is not found."
+  },
+  "C8nrGM": {
+    "defaultMessage": "Emplois en TI",
+    "description": "The publishing group called IT Jobs"
   }
 }

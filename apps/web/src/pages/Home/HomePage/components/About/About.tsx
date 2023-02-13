@@ -5,6 +5,7 @@ import { NewspaperIcon } from "@heroicons/react/24/outline";
 import Heading from "@common/components/Heading";
 import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const About = () => {
   const intl = useIntl();
@@ -62,13 +63,19 @@ const About = () => {
                 }}
               >
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out Canada's Digital Ambition 2022 to see where OCIO is heading in the future.",
-                    id: "s3Uz7q",
-                    description:
-                      "Description of the Office of the Chief Information Officer",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "<abbreviation>GC</abbreviation> Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out Canada's Digital Ambition 2022 to see where OCIO is heading in the future.",
+                      id: "h7URQB",
+                      description:
+                        "Description of the Office of the Chief Information Officer",
+                    },
+                    {
+                      abbreviation: (text: React.ReactNode) =>
+                        wrapAbbr(text, intl),
+                    },
+                  )}
                 </p>
               </CardFlat>
               <CardFlat
@@ -93,13 +100,19 @@ const About = () => {
                 }}
               >
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
-                    id: "l3tT4m",
-                    description:
-                      "Description for the Digital Community Management",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Behind the <abbreviation>GC</abbreviation> Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
+                      id: "w1Lego",
+                      description:
+                        "Description for the Digital Community Management",
+                    },
+                    {
+                      abbreviation: (text: React.ReactNode) =>
+                        wrapAbbr(text, intl),
+                    },
+                  )}
                 </p>
               </CardFlat>
               <CardFlat
@@ -122,12 +135,19 @@ const About = () => {
                 }}
               >
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Curious about how the GC Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud's experimental pilot to today's full-scale platform.",
-                    id: "GSzckJ",
-                    description: "Description of how the platform was created.",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Curious about how the <abbreviation>GC</abbreviation> Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud's experimental pilot to today's full-scale platform.",
+                      id: "bKRX6C",
+                      description:
+                        "Description of how the platform was created.",
+                    },
+                    {
+                      abbreviation: (text: React.ReactNode) =>
+                        wrapAbbr(text, intl),
+                    },
+                  )}
                 </p>
               </CardFlat>
             </div>

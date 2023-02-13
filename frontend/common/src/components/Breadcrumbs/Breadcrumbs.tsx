@@ -3,7 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from "../Link";
 
 interface BreadcrumbLink {
-  title: string;
+  title: React.ReactNode;
   href?: string;
 }
 
@@ -48,14 +48,14 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
             href={previousStep.href || "#"}
-            key={previousStep.title}
+            key={previousStep.href}
           >
             {previousStep.title}
           </Link>
         </>
       ) : (
         links.map((link, index) => (
-          <Fragment key={link.title}>
+          <Fragment key={link.href}>
             {index > 0 && (
               <span
                 data-h2-padding="base(0, x.25)"
@@ -70,12 +70,12 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
                 href={link.href}
-                key={link.title}
+                key={link.href}
               >
                 {link.title}
               </Link>
             ) : (
-              <span data-h2-font-weight="base(700)" key={link.title}>
+              <span data-h2-font-weight="base(700)" key={link.href}>
                 {link.title}
               </span>
             )}

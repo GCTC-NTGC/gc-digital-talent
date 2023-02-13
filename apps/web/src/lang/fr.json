@@ -59,10 +59,6 @@
     "defaultMessage": "Lancement",
     "description": "Talent portal strategy item 4 heading"
   },
-  "BSSYnh": {
-    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
-    "description": "Second paragraph for apply now dialog"
-  },
   "CY+493": {
     "defaultMessage": "Pour en apprendre davantage",
     "description": "Button text to learn more about the program"
@@ -79,29 +75,13 @@
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
   },
-  "DgMIfz": {
-    "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
-    "description": "Application box heading part one"
-  },
   "DvmNR7": {
     "defaultMessage": "Inscrivez-vous dès maintenant",
     "description": "Button text to apply for program"
   },
-  "Dzyk1q": {
-    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
-    "description": "Description for strategy for the indigenous talent portal"
-  },
-  "EqVMCE": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
-    "description": "First paragraph for apply now dialog"
-  },
   "GnmmgR": {
     "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 3 à 5 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
-  },
-  "qZvV7b": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
   },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
@@ -110,10 +90,6 @@
   "KdXvmY": {
     "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
     "description": "Learn more dialog question seven heading"
-  },
-  "L9yjr3": {
-    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
-    "description": "Heading for the Learn more dialog"
   },
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
@@ -179,10 +155,6 @@
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
   },
-  "Xhfkfg": {
-    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
-    "description": "Talent portal strategy item 1 content"
-  },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
@@ -243,21 +215,9 @@
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
   },
-  "osGGIt": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
-    "description": "heading for indigenous talent portal section"
-  },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
     "description": "Application box content"
-  },
-  "p2sBh3": {
-    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
-    "description": "Learn more dialog question one heading"
-  },
-  "pWoAv0": {
-    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
-    "description": "First paragraph about the program"
   },
   "pkFLpT": {
     "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
@@ -291,10 +251,6 @@
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
     "description": "Second paragraph about the program"
   },
-  "yZMQ6j": {
-    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
-    "description": "How it works, step 2 content sentence 1"
-  },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
@@ -314,10 +270,6 @@
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
-  },
-  "49UIne": {
-    "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
-    "description": "author of testimonial number one"
   },
   "74Sg+4": {
     "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
@@ -378,10 +330,6 @@
   "1nOT0r": {
     "defaultMessage": "Ma communauté ou mes communautés :",
     "description": "Text label for list of the users selected Indigenous communities"
-  },
-  "32qwlv": {
-    "defaultMessage": "Explorer les occasions en matière de TI au sein du gouvernement fédéral",
-    "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
   "3oW16P": {
     "defaultMessage": "Signature",
@@ -463,10 +411,6 @@
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label for not represented community"
   },
-  "YZ/ZhG": {
-    "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en TI pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
-    "description": "Text describing where to get help with the self-declaration form"
-  },
   "at11n5": {
     "defaultMessage": "Êtes-vous sûr de vouloir sélectionner : « Je suis autochtone, mais je ne trouve pas ma communauté ici? »",
     "description": "Title for the alert warning users about selection not represented and a represented community"
@@ -474,10 +418,6 @@
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
-  },
-  "J2uivT": {
-    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
-    "description": "Paragraph one for the self-declaration explanation dialog"
   },
   "h4E9+K": {
     "defaultMessage": "De quelle manière sera vérifié le statut?",
@@ -921,7 +861,7 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
-  "0O/eV0": {
+  "8+PCdN": {
     "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que cléGC.",
     "description": "Message for successful login alert in create account page."
   },
@@ -977,7 +917,7 @@
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
   },
-  "6UCzgs": {
+  "ocCSfi": {
     "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
     "description": "Message displayed to a user after logging out."
   },
@@ -1005,10 +945,6 @@
     "defaultMessage": "Renseignements personnels",
     "description": "Title for Personal Information section of the About Me form"
   },
-  "87nFC8": {
-    "defaultMessage": "Il y a deux types d'employés du TI-04 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
-    "description": "IT-04 description precursor"
-  },
   "8NJbCH": {
     "defaultMessage": "Indiquez tous les emplacements où vous êtes prêt à travailler, y compris votre emplacement actuel (si vous souhaitez y travailler).",
     "description": "Description text for Profile Form wrapper in Work Location Preferences Form"
@@ -1017,7 +953,7 @@
     "defaultMessage": "Sélectionnez un niveau...",
     "description": "Placeholder displayed on the language information form comprehension field."
   },
-  "9yMdpm": {
+  "ATDtfb": {
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
     "description": "GC Key registration link text on the registration page."
   },
@@ -1053,7 +989,7 @@
     "defaultMessage": "ID :",
     "description": "The ID and colon"
   },
-  "CZcsxM": {
+  "78J7jF": {
     "defaultMessage": "Continuer vers CléGC et se connecter",
     "description": "GC Key login link text on the login page."
   },
@@ -1088,10 +1024,6 @@
   "G1RNXj": {
     "defaultMessage": "Accueil",
     "description": "Link to the Homepage in the nav menu."
-  },
-  "GAjpqU": {
-    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience and skills page in applicant profile."
   },
   "GqVBqi": {
     "defaultMessage": "Détails du compte",
@@ -1137,7 +1069,7 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "K7wsxV": {
+  "lgsXDg": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to login with GC Key."
   },
@@ -1225,7 +1157,7 @@
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
   },
-  "Q2+VXx": {
+  "kJdLk3": {
     "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
     "description": "Instructions on what to do if user doesn't know if they have a GC Key"
   },
@@ -1345,13 +1277,13 @@
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
   },
-  "Z3prc4": {
+  "4RXJ4p": {
     "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "Title for the login page for applicant profiles."
+    "description": "Seo title for the login page for applicant profiles."
   },
-  "Z9Uex5": {
-    "defaultMessage": "Les techniciens (TI-01) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
-    "description": "blurb describing IT-01"
+  "iNFweP": {
+    "defaultMessage": "Connexion à l'aide de la CléGC",
+    "description": "Page title for the login page for applicant profiles."
   },
   "ZSAzrR": {
     "defaultMessage": "Date d'expiration :",
@@ -1377,7 +1309,7 @@
     "defaultMessage": "Préférence pour le lieu de travail",
     "description": "Display Text for the current page in Work Location Preference Form Page"
   },
-  "c3CV4P": {
+  "5KRzTl": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to login with GC Key."
   },
@@ -1436,10 +1368,6 @@
   "h1wsiL": {
     "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
     "description": "Description blurb for additional information on Experience form"
-  },
-  "hCgrxA": {
-    "defaultMessage": "Il y a deux types d'employés du TI-03 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
-    "description": "IT-03 description precursor"
   },
   "hTJgV2": {
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
@@ -1517,7 +1445,7 @@
     "defaultMessage": "2. Compétences affichées pendant cette expérience",
     "description": "Title for skills on Experience form"
   },
-  "pcnr9A": {
+  "5uOWv0": {
     "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
     "description": "Instructions on what to do if user doesn't know if they have a GC Key"
   },
@@ -1540,10 +1468,6 @@
   "rUFZwt": {
     "defaultMessage": "Connectez-vous à la place",
     "description": "Login link text on the registration page."
-  },
-  "raFdbB": {
-    "defaultMessage": "Les analystes (TI-02) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la TI se retrouvent dans tous les volets de travail.",
-    "description": "blurb describing IT-02"
   },
   "rywI3C": {
     "defaultMessage": "Verbal",
@@ -1617,9 +1541,13 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
-  "zILELf": {
+  "H4ug6o": {
     "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "Title for the registration page for applicant profiles."
+    "description": "Seo title for the registration page for applicant profiles."
+  },
+  "YXs6l6": {
+    "defaultMessage": "S'inscrire à l'aide de la CléGC",
+    "description": "Page title for the registration page for applicant profiles."
   },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
@@ -1673,23 +1601,11 @@
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
     "description": "Message for the haven't completed bilingual evaluation option"
   },
-  "+bC9lc": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
-    "description": "IT-03 team lead path description, ignore things in <> tags please"
-  },
-  "VQWGkh": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
-  },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
-  "m21EOJ": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la TI (TI-04) sont responsables de la gestion du développement et de la prestation des services et des activités de TI par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la TI se trouvent dans tous les volets de travail.",
-    "description": "IT-04 manager path description, ignore things in <> tags please"
-  },
-  "ofOoFQ": {
+  "veXICB": {
     "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
     "description": "Instruction on what to do if user does not have a GC Key."
   },
@@ -1700,10 +1616,6 @@
   "3quMA8": {
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
-  },
-  "u+9mg1": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en TI (TI-03) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en TI se trouvent dans tous les volets de travail.",
-    "description": "IT-03 advisor description, ignore things in <> tags please"
   },
   "GIPciq": {
     "defaultMessage": "<strong>Remarque :</strong> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
@@ -1861,10 +1773,6 @@
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
   },
-  "m5hjaz": {
-    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",
-    "description": "Description of pool recruitment, paragraph two"
-  },
   "mNWpoy": {
     "defaultMessage": "Détails supplémentaires",
     "description": "Title for the details section of a pool advertisement"
@@ -1993,8 +1901,8 @@
     "defaultMessage": "Emplacement : Option à distance",
     "description": "Pool advertisement location requirement, Remote option"
   },
-  "l3tT4m": {
-    "defaultMessage": "Derrière la plateforme Talents numériques du GC, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
+  "w1Lego": {
+    "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
     "description": "Description for the Digital Community Management"
   },
   "+cBKDC": {
@@ -2065,8 +1973,8 @@
     "defaultMessage": "En savoir plus",
     "description": "Heading for the about section of the homepage"
   },
-  "951Oju": {
-    "defaultMessage": "Découvrez les dernières perspectives d’emploi du GC dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
+  "jAFzzR": {
+    "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
   },
   "9KOwXq": {
@@ -2093,8 +2001,8 @@
     "defaultMessage": "Continuer vers l’étape 2",
     "description": "Button message on footer of review my application page."
   },
-  "EWCP4t": {
-    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le GC à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
+  "YEarCb": {
+    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <gcAbbreviation>GC</gcAbbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
     "description": "Description for executive jobs in government"
   },
   "FFD16/": {
@@ -2145,8 +2053,8 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
-  "MS9dB9": {
-    "defaultMessage": "Talents numériques du GC",
+  "eSPoJw": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation>",
     "description": "Application title"
   },
   "NjHXGh": {
@@ -2225,10 +2133,6 @@
     "defaultMessage": "Afficher les candidatures archivées",
     "description": "Button text to show a users archived applications."
   },
-  "f3Qqop": {
-    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des TI dans l’ensemble du gouvernement.",
-    "description": "Description for the Indigenous Apprenticeship Program on home page"
-  },
   "fI6Hjf": {
     "defaultMessage": "La préférence sera accordée aux citoyens canadiens et aux résidents permanents du Canada",
     "description": "Context text for required citizenship status section in About Me form, explaining preference"
@@ -2257,8 +2161,8 @@
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
   },
-  "s3Uz7q": {
-    "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
+  "h7URQB": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
   "jcl2s9": {
@@ -2329,8 +2233,8 @@
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to apply for the Indigenous Apprenticeship Program"
   },
-  "GSzckJ": {
-    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme d’aujourd’hui.",
+  "bKRX6C": {
+    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du <abbreviation>GC</abbreviation> a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du <abbreviation>GC</abbreviation> jusqu’à la plateforme d’aujourd’hui.",
     "description": "Description of how the platform was created."
   },
   "ww86SN": {
@@ -2353,12 +2257,8 @@
     "defaultMessage": "Archiver la candidature",
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
-  "zNvXSs": {
-    "defaultMessage": "Parcourir les emplois en TI",
-    "description": "Texte du lien pour les emplois en TI dans l’appel à l’action du gouvernement"
-  },
-  "zmV99R": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du GC.",
+  "58Z5Ld": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du <abbreviation>GC</abbreviation>.",
     "description": "Description de la candidature sur la page d’accueil"
   },
   "zqIEuu": {
@@ -2417,10 +2317,6 @@
     "defaultMessage": "Modifier l’expérience de travail",
     "description": "Page title for the work experience profile form"
   },
-  "+6QgII": {
-    "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
-    "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
-  },
   "/vsOxF": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when logged in"
@@ -2477,10 +2373,6 @@
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
   },
-  "GZrICV": {
-    "defaultMessage": "Parcourez les offres dans le domaine des TI pour la communauté autochtone",
-    "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
-  },
   "Gil1Zj": {
     "defaultMessage": "Lisez l’Ambition numérique",
     "description": "Link text to read the Digital Ambition"
@@ -2493,17 +2385,9 @@
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
   },
-  "J2WrFI": {
-    "defaultMessage": "Parcourez les offres dans le domaine des TI",
-    "description": "Page title for the direct intake browse pools page."
-  },
   "Jorewd": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
-  },
-  "Ms6O4W": {
-    "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des TI préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
-    "description": "Summary for to go to the search page on Browse IT jobs page"
   },
   "OMDX09": {
     "defaultMessage": "Préparez-vous en mettant à jour votre profil.",
@@ -2524,10 +2408,6 @@
   "YImugL": {
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
-  },
-  "cYg+l1": {
-    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
-    "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
   },
   "dIIccA": {
     "defaultMessage": "J’ai découvert le Programme d’apprentissage pour les peuples autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
@@ -2657,16 +2537,16 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
-  "s2+FXu": {
-    "defaultMessage": "Talent numérique du GC s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
+  "rnPvJN": {
+    "defaultMessage": "Talent numérique du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
   },
-  "tu2Z17": {
-    "defaultMessage": "L’équipe de Talent numérique GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
+  "a3c78j": {
+    "defaultMessage": "L’équipe de Talent numérique <abbreviation>GC</abbreviation> adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
   },
   "ztQSF+": {
@@ -2833,18 +2713,6 @@
     "defaultMessage": "Vous ne voyez pas de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
     "description": "summary for section with ongoing pool advertisements"
   },
-  "4CT5zI": {
-    "defaultMessage": "Solutions logicielles de la TI",
-    "description": "Title for the 'software solutions' IT work stream"
-  },
-  "Jwj3YC": {
-    "defaultMessage": "Gestionnaires et conseillers principaux (IT-04)",
-    "description": "Title for the 'IT-04 Manager' classification"
-  },
-  "+ywDV8": {
-    "defaultMessage": "Analyste (IT-02)",
-    "description": "Title for the 'IT-02 Analyst' classification"
-  },
   "7KJGSu": {
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
@@ -2857,30 +2725,6 @@
     "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.",
     "description": "Title for the 'database management' IT work stream"
   },
-  "C2iUvf": {
-    "defaultMessage": "Architecture intégrée de la TI",
-    "description": "Title for the 'enterprise architecture' IT work stream"
-  },
-  "DVkO+D": {
-    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture TI du ministère, la collaboration avec d’autres volets de TI et la recherche sur les technologies émergentes.",
-    "description": "Title for the 'enterprise architecture' IT work stream"
-  },
-  "EOO6S0": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
-    "description": "Title for the 'business line advisory services' IT work stream"
-  },
-  "ElfiAv": {
-    "defaultMessage": "Opérations d’infrastructure de la TI",
-    "description": "Title for the 'infrastructure operations' IT work stream"
-  },
-  "xtIE4i": {
-    "defaultMessage": "Chefs d’équipe et conseillers techniques (IT-03)",
-    "description": "Title for the 'IT-03 Advisor' classification"
-  },
-  "QN/1MR": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en TI qui soutiennent les opérations du GC.",
-    "description": "Title for the 'business line advisory services' IT work stream"
-  },
   "RBsGRp": {
     "defaultMessage": "Postulez au recrutement en cours",
     "description": "title for section with ongoing pool advertisements"
@@ -2889,29 +2733,9 @@
     "defaultMessage": "Les techniciens fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-01 Technician' classification"
   },
-  "MiBPoz": {
-    "defaultMessage": "Technicien (IT-01)",
-    "description": "Title for the 'IT-01 Technician' classification"
-  },
-  "VX2+ET": {
-    "defaultMessage": "Planification et établissement de rapports en matière de TI",
-    "description": "Title for the 'planning and reporting' IT work stream"
-  },
-  "aL5y0G": {
-    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
-    "description": "Title for the 'project portfolio management' IT work stream"
-  },
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
-  },
-  "crqgGQ": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la TI et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la TI et des processus de gouvernance.",
-    "description": "Title for the 'planning and reporting' IT work stream"
-  },
-  "h5CY+u": {
-    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
-    "description": "Title for the 'project portfolio management' IT work stream"
   },
   "Jdo3br": {
     "defaultMessage": "Présenter sa candidature pour les opportunités de techniciens<hidden> {name}</hidden>",
@@ -2929,10 +2753,6 @@
     "defaultMessage": "Présenter sa candidature pour les opportunités gestionnaires et conseillers<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-04 Manager' classification"
   },
-  "pffFnd": {
-    "defaultMessage": "Gestion de bases de données de la TI",
-    "description": "Title for the 'database management' IT work stream"
-  },
   "86rJAg": {
     "defaultMessage": "Les chefs d’équipe sont chargés de superviser le travail et les équipes de projet afin de faciliter la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 1"
@@ -2940,18 +2760,6 @@
   "doatZI": {
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
-  },
-  "svCFrY": {
-    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la TI et les relations avec les clients et fournisseurs.",
-    "description": "Title for the 'infrastructure operations' IT work stream"
-  },
-  "uxlNWH": {
-    "defaultMessage": "Sécurité de la TI",
-    "description": "Title for the 'security' IT work stream"
-  },
-  "d4OJ5V": {
-    "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de TI par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
-    "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
   },
   "tDetPq": {
     "defaultMessage": "Les conseillers principaux sont des travailleurs individuels qui fournissent des conseils techniques spécialisés et une orientation stratégique en vue de la fourniture de solutions et de services.",
@@ -3021,33 +2829,9 @@
     "defaultMessage": "Niveau 4 : Conseiller principal",
     "description": "title for IT-04 senior advisor dialog"
   },
-  "44bgIY": {
-    "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
-    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
-  },
-  "58BEeZ": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
-  },
-  "6LTC0y": {
-    "defaultMessage": "Gestion de la base de données de la TI",
-    "description": "work stream example"
-  },
-  "75nLSV": {
-    "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
-    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
-  },
   "DrR60L": {
     "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
     "description": "Legend for role and salary checklist form"
-  },
-  "Eubngf": {
-    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
-    "description": "Blurb describing the purpose of the form"
-  },
-  "FayQOt": {
-    "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
-    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
   },
   "JCyvcW": {
     "defaultMessage": "Sélectionnez une langue...",
@@ -3069,25 +2853,9 @@
     "defaultMessage": "Sélectionnez une langue...",
     "description": "Placeholder displayed on the About Me form preferred exam language"
   },
-  "PcYOnN": {
-    "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur TI-02</openModal>",
-    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
-  },
-  "QZ9FZB": {
-    "defaultMessage": "Activités d'infrastructure de TI",
-    "description": "work stream example"
-  },
-  "SDDp1t": {
-    "defaultMessage": "Solutions logicielles de la TI",
-    "description": "work stream example"
-  },
   "WE0OGe": {
     "defaultMessage": "Niveau 3 : Conseillers techniques",
     "description": "title for IT-03 advisor dialog"
-  },
-  "Zn10pO": {
-    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur TI-01</openModal>",
-    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
   },
   "aLMroa": {
     "defaultMessage": "Niveau 1 : Techniciens",
@@ -3101,10 +2869,6 @@
     "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
     "description": "Legend text for required written exam language preference for exams in About Me form"
   },
-  "hizC89": {
-    "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
-    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
-  },
   "kCBLsJ": {
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Title role and salary expectations form"
@@ -3112,14 +2876,6 @@
   "mTlHta": {
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "title for IT-03 lead dialog"
-  },
-  "nrBkon": {
-    "defaultMessage": "Sécurité de la TI",
-    "description": "work stream example"
-  },
-  "oOcegG": {
-    "defaultMessage": "Architecture intégrée de la TI ",
-    "description": "work stream example"
   },
   "qSxmx0": {
     "defaultMessage": "Fermer",
@@ -3129,17 +2885,9 @@
     "defaultMessage": "Sélectionnez votre langue préférée pour l'entretien oral",
     "description": "Legend text for required spoken interview language preference for interviews in About Me form"
   },
-  "tm3zLD": {
-    "defaultMessage": "Gestion du portefeuille de projets de TI",
-    "description": "work stream example"
-  },
   "uIpPFZ": {
     "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
     "description": "Description for the role and salary expectation form"
-  },
-  "vQzmUH": {
-    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
-    "description": "Preceding list description"
   },
   "wRxZQV": {
     "defaultMessage": "Sélectionnez une langue...",
@@ -3148,10 +2896,6 @@
   "dYS0MA": {
     "defaultMessage": "Autodéclaration",
     "description": "Form label for a self-declaration input"
-  },
-  "okZjVr": {
-    "defaultMessage": "<strong>La présente section est facultative. Toutefois, afin d’être admissible au Programme d’apprentis en TI pour les peuples autochtones, vous devez vous autodéclarer en tant qu’Autochtone.</strong> Si vous êtes membre de l’un ou de plusieurs de ces groupes d’équité en matière d’emploi, et que vous ne souhaitez pas vous autodéclarer sur cette plateforme, vous n’êtes pas oblige(e) de le faire. <strong>Veuillez remplir le formulaire ci-dessous si vous répondez à ces conditions :</strong>",
-    "description": "Explanation that employment equity information is optional."
   },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
@@ -3996,7 +3740,7 @@
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
   },
-  "Nfy1HK": {
+  "MsFCeF": {
     "defaultMessage": "Bienvenue à Talent numérique du GC, veuillez vous connecter pour continuer.",
     "description": "Instructional text for the talent cloud pool manager portal home page."
   },
@@ -5491,6 +5235,290 @@
     "defaultMessage": "Langue préférée pour l'examen écrit :",
     "description": "Display text for the preferred written exam language field on users"
   },
+  "/R/S8P": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la <abbreviation>TI</abbreviation> et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la <abbreviation>TI</abbreviation> et des processus de gouvernance.",
+    "description": "Title for the 'planning and reporting' IT work stream"
+  },
+  "/SLyVF": {
+    "defaultMessage": "Les analystes (<abbreviation>TI-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
+    "description": "blurb describing IT-02"
+  },
+  "028BJx": {
+    "defaultMessage": "Activités d'infrastructure de <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "0mAZsV": {
+    "defaultMessage": "Parcourir les emplois en <abbreviation>TI</abbreviation>",
+    "description": "Link text for IT jobs in government call to action"
+  },
+  "2MQK8R": {
+    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en <abbreviation>TI</abbreviation> de présenter une demande en ligne.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "2aBKgf": {
+    "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "description": "IT-04 description precursor"
+  },
+  "3gDiDK": {
+    "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "69euaM": {
+    "defaultMessage": "Les techniciens en <abbreviation>TI</abbreviation> se retrouvent principalement dans trois filières de travail :",
+    "description": "Preceding list description"
+  },
+  "6G1ESr": {
+    "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'infrastructure operations' IT work stream"
+  },
+  "6UVZOY": {
+    "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
+    "description": "Summary for to go to the search page on Browse IT jobs page"
+  },
+  "6kSk+R": {
+    "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "7Kb+Uh": {
+    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+    "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "7wcfnG": {
+    "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "description": "IT-03 description precursor"
+  },
+  "9FKjvW": {
+    "defaultMessage": "En collaboration avec le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en <abbreviation>TI</abbreviation> et en technologie, ce qui permettra :",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "9Nf78m": {
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada?",
+    "description": "Learn more dialog question one heading"
+  },
+  "AlRcyu": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'project portfolio management' IT work stream"
+  },
+  "BxAUGH": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la <abbreviation>TI</abbreviation> et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+    "description": "First paragraph for apply now dialog"
+  },
+  "CIwCa3": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "description": "IT-03 advisor description, ignore things in <> tags please"
+  },
+  "E3loNV": {
+    "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'planning and reporting' IT work stream"
+  },
+  "EGXG1j": {
+    "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
+  },
+  "Ea8q/H": {
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada",
+    "description": "Heading for the Learn more dialog"
+  },
+  "F5kDhX": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
+  "FtJRWS": {
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des <abbreviation>TI</abbreviation> dans l’ensemble du gouvernement.",
+    "description": "Description for the Indigenous Apprenticeship Program on home page"
+  },
+  "GtZyhK": {
+    "defaultMessage": "Technicien (<abbreviation>TI-01</abbreviation>)",
+    "description": "Title for the 'IT-01 Technician' classification"
+  },
+  "H8cs1r": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'business line advisory services' IT work stream"
+  },
+  "ZOEHxi": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
+    "description": "Label for the 'business line advisory services' IT work stream"
+  },
+  "I/fGUN": {
+    "defaultMessage": "Analyste (<abbreviation>TI-02</abbreviation>)",
+    "description": "Title for the 'IT-02 Analyst' classification"
+  },
+  "KpNUo0": {
+    "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
+    "description": "Title for the 'IT-04 Manager' classification"
+  },
+  "Ks4G8p": {
+    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
+    "description": "Description for the experience and skills page in applicant profile."
+  },
+  "L6sIvM": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+  },
+  "LOvD2e": {
+    "defaultMessage": "Vous recherchez des talents en <abbreviation>TI</abbreviation> de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
+    "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
+  },
+  "LlgRM8": {
+    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",
+    "description": "Description of pool recruitment, paragraph two"
+  },
+  "Nj6c0X": {
+    "defaultMessage": "<strong>La présente section est facultative. Toutefois, afin d’être admissible au Programme d’apprentis en <abbreviation>TI</abbreviation> pour les peuples autochtones, vous devez vous autodéclarer en tant qu’Autochtone.</strong> Si vous êtes membre de l’un ou de plusieurs de ces groupes d’équité en matière d’emploi, et que vous ne souhaitez pas vous autodéclarer sur cette plateforme, vous n’êtes pas oblige(e) de le faire. <strong>Veuillez remplir le formulaire ci-dessous si vous répondez à ces conditions :</strong>",
+    "description": "Explanation that employment equity information is optional."
+  },
+  "ObVJ7H": {
+    "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "OheHgg": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
+  "OqglGZ": {
+    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
+    "description": "Title for the 'enterprise architecture' IT work stream"
+  },
+  "OvL68O": {
+    "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
+    "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
+  },
+  "QdYrqI": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "description": "IT-03 team lead path description, ignore things in <> tags please"
+  },
+  "RCV8Us": {
+    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en <abbreviation>TI</abbreviation> destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
+    "description": "Paragraph one for the self-declaration explanation dialog"
+  },
+  "S02Y/P": {
+    "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>TI-03</abbreviation>)",
+    "description": "Title for the 'IT-03 Advisor' classification"
+  },
+  "Tjd942": {
+    "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'software solutions' IT work stream"
+  },
+  "b3v0nI": {
+    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (<abbreviation>TI</abbreviation>).",
+    "description": "First paragraph about the program"
+  },
+  "W2G590": {
+    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> vous convient-il?",
+    "description": "Application box heading part one"
+  },
+  "WgGDug": {
+    "defaultMessage": "Gestion du portefeuille de projets de <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "Xdmhoo": {
+    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la <abbreviation>TI</abbreviation> et les relations avec les clients et fournisseurs.",
+    "description": "Title for the 'infrastructure operations' IT work stream"
+  },
+  "Zd1x6H": {
+    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones + Portail des talents autochtones",
+    "description": "heading for indigenous talent portal section"
+  },
+  "bNBhvY": {
+    "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
+  },
+  "cMDC/P": {
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en <abbreviation>TI</abbreviation>.",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "drDPf3": {
+    "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
+    "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
+  },
+  "eFNBND": {
+    "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'enterprise architecture' IT work stream"
+  },
+  "gxOExQ": {
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la <abbreviation>TI</abbreviation>!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "hKKYYL": {
+    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
+    "description": "Title for the 'project portfolio management' IT work stream"
+  },
+  "iA1BBF": {
+    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en <abbreviation>TI</abbreviation> qui soutiennent les opérations du GC.",
+    "description": "Title for the 'business line advisory services' IT work stream"
+  },
+  "j3OROA": {
+    "defaultMessage": "Les techniciens (<abbreviation>TI-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
+    "description": "blurb describing IT-01"
+  },
+  "j3WBqJ": {
+    "defaultMessage": "Explorer les occasions en matière de <abbreviation>TI</abbreviation> au sein du gouvernement fédéral",
+    "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
+  },
+  "jZDflg": {
+    "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
+  },
+  "oUDpNl": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "description": "IT-04 manager path description, ignore things in <> tags please"
+  },
+  "oZ03/b": {
+    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme <abbreviation>TI</abbreviation> (technologie de l'information). Examinez les niveaux suivants dans la classification <abbreviation>TI</abbreviation> et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
+    "description": "Blurb describing the purpose of the form"
+  },
+  "pIiisf": {
+    "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
+    "description": "Text describing where to get help with the self-declaration form"
+  },
+  "pRGDLn": {
+    "defaultMessage": "Apprenti en <abbreviation>TI</abbreviation> du Gouvernement du Canada",
+    "description": "author of testimonial number one"
+  },
+  "tM1de5": {
+    "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation>",
+    "description": "Page title for the direct intake browse pools page."
+  },
+  "uD7QTb": {
+    "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
+    "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
+  },
+  "uT/A3r": {
+    "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur <abbreviation>TI-02</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+  },
+  "vbEXnp": {
+    "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'database management' IT work stream"
+  },
+  "wzoCfb": {
+    "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
+    "description": "Title for the 'security' IT work stream"
+  },
+  "xIwrND": {
+    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur <abbreviation>TI-01</abbreviation></openModal>",
+    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+  },
+  "y+HB+k": {
+    "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
+    "description": "work stream example"
+  },
+  "1c+inU": {
+    "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification aria label including titles and salaries"
+  },
+  "BkHx2X": {
+    "defaultMessage": "Analyste T I 2 (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification aria label including titles and salaries"
+  },
+  "++WV3O": {
+    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3 (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification aria label including titles and salaries"
+  },
+  "Ix0KgU": {
+    "defaultMessage": "Conseiller principal ou Manager Gestionnaire I T 4 (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification aria label including titles and salaries"
+  },
   "2jFKrM": {
     "defaultMessage": "Modifier {label}",
     "description": "Label for link to edit a specific item in a table"
@@ -5586,6 +5614,34 @@
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
+  },
+  "AR+sqf": {
+    "defaultMessage": "Gestion de bases de données de la TI",
+    "description": "Label for the 'database management' IT work stream"
+  },
+  "YbkM7u": {
+    "defaultMessage": "Architecture intégrée de la TI",
+    "description": "Label for the 'enterprise architecture' IT work stream"
+  },
+  "i8DgUB": {
+    "defaultMessage": "Opérations d’infrastructure de la TI",
+    "description": "Label for the 'infrastructure operations' IT work stream"
+  },
+  "NHjbIl": {
+    "defaultMessage": "Planification et établissement de rapports en matière de TI",
+    "description": "Label for the 'planning and reporting' IT work stream"
+  },
+  "lCHx90": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
+    "description": "Label for the 'project portfolio management' IT work stream"
+  },
+  "/2Vhvl": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "Label for the 'security' IT work stream"
+  },
+  "QSTaWO": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "Label for the 'software solutions' IT work stream"
   },
   "8R2XpK": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répond à vos critères.",

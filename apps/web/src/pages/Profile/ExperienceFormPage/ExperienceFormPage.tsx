@@ -13,7 +13,7 @@ import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import { Maybe, SkillCategory } from "@common/api/generated";
 
@@ -88,7 +88,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
-  let crumbs = [
+  let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
       label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
@@ -116,7 +116,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   let irrelevantSkills: Maybe<Skill[]> = [];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
+    const advertisementTitle = getFullPoolAdvertisementTitleHtml(
       intl,
       poolAdvertisement,
     );

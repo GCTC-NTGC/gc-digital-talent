@@ -518,12 +518,20 @@ type Department {
 
 type Team {
   id: ID!
-  name: String
+  name: String! # represents a unique key for a team
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+}
+
+type Role {
+  id: ID!
+  name: String! # represents a unique key for a role
+  displayName: LocalizedString @rename(attribute: "display_name")
+  description: LocalizedString
+  isTeamBased: Boolean @rename(attribute: "is_team_based")
 }
 
 enum PoolCandidateSearchStatus {
@@ -974,6 +982,7 @@ type Query {
   genericJobTitles: [GenericJobTitle]! @all
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
+  roles: [Role]! @all @can(ability: "viewAny")
 }
 
 input ClassificationBelongsTo {

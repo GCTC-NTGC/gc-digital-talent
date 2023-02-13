@@ -331,7 +331,8 @@ return [
             'description' => [
                 'en' => 'These permissions are available to anyone, even not logged in.',
                 'fr' => 'Ces permissions sont accessibles à quiconque, même sans avoir ouvert de session.'
-            ]
+            ],
+            'is_team_based' => false,
         ],
 
         'base_user' => [
@@ -342,7 +343,8 @@ return [
             'description' => [
                 'en' => 'Available to any logged-in user.',
                 'fr' => 'Accessibles à tout utilisateur qui a ouvert une session.'
-            ]
+            ],
+            'is_team_based' => false,
         ],
 
         'applicant' => [
@@ -353,7 +355,8 @@ return [
             'description' => [
                 'en' => 'Can edit their own profile and apply to jobs.',
                 'fr' => 'Peut modifier son propre profil et postuler des emplois.'
-            ]
+            ],
+            'is_team_based' => false,
         ],
 
         'team_admin' => [
@@ -364,7 +367,8 @@ return [
             'description' => [
                 'en' => 'Can update their Team, add users to their Team, process applications, process requests and work on and publish pools',
                 'fr' => 'Peut mettre à jour son équipe, ajouter des utilisateurs à son équipe, traiter les candidatures, traiter les demandes et travailler aux bassins et les publier.'
-            ]
+            ],
+            'is_team_based' => true,
         ],
 
         'super_admin' => [
@@ -375,7 +379,8 @@ return [
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), manages lists of business data, and has the extraordinary ability to edit or delete other users.',
                 'fr' => 'Crée des équipes, attribue des rôles à d’autres utilisateurs (y compris l’attribution d’utilisateurs à des organisations), gère des listes de données opérationnelles et a la capacité extraordinaire de modifier ou de supprimer d’autres utilisateurs.'
-            ]
+            ],
+            'is_team_based' => false,
         ],
     ],
 
