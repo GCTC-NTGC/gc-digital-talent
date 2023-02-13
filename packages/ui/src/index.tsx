@@ -3,10 +3,7 @@ import { Color, HeadingRank } from "./types";
 import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
-import Breadcrumbs, {
-  BreadcrumbsV2,
-  type BreadcrumbsProps,
-} from "./components/Breadcrumbs";
+import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, {
   IconButton,
   type ButtonProps,
@@ -29,16 +26,25 @@ import Link, {
   ExternalLink,
   IconLink,
   ScrollToLink,
+  SkipLink,
+  MenuLink,
   type ExternalLinkProps,
   type DownloadCsvProps,
   type LinkProps,
   type IconLinkProps,
   type ScrollToLinkProps,
   type ScrollLinkClickFunc,
+  type SkipLinkProps,
+  type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
 import Pending, { type PendingProps } from "./components/Pending";
-import Pill, { type PillProps } from "./components/Pill";
+import Pill, {
+  type PillProps,
+  type PillColor,
+  type PillMode,
+  type PillSize,
+} from "./components/Pill";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -78,9 +84,14 @@ export type {
   IconLinkProps,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
+  SkipLinkProps,
+  MenuLinkProps,
   LoadingProps,
   PendingProps,
   PillProps,
+  PillColor,
+  PillMode,
+  PillSize,
   SideMenuProps,
   SideMenuItemProps,
   TocAnchorLinkProps,
@@ -95,7 +106,6 @@ export {
   Alert,
   AlertDialog,
   Breadcrumbs,
-  BreadcrumbsV2,
   Button,
   IconButton,
   Card,
@@ -113,6 +123,8 @@ export {
   ExternalLink,
   IconLink,
   ScrollToLink,
+  SkipLink,
+  MenuLink,
   Loading,
   Pending,
   Pill,

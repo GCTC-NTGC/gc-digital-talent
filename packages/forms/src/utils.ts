@@ -1,13 +1,8 @@
 import { IntlShape } from "react-intl";
-import get from "lodash/get";
-import { useFormState } from "react-hook-form";
 
 import { LocalizedString, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
-
-import { FieldState } from "~/types";
-import fieldStateStyles from "~/styles";
 
 /**
  * Filters out empty data from data response.

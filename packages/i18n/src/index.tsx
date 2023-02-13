@@ -39,6 +39,7 @@ import {
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
   getEducationRequirement,
+  EmploymentDuration,
   getEmploymentDuration,
   getLanguageAbility,
   getLanguageRequirement,
@@ -67,6 +68,10 @@ import {
   getPoolCandidatePriorities,
   getPublishingGroup,
   getIndigenousCommunity,
+  OperationalRequirementV1,
+  OperationalRequirementV2,
+  GenericJobTitlesSorted,
+  poolCandidatePriorities,
 } from "./messages/localizedConstants";
 
 import { STORED_LOCALE } from "./const";
@@ -109,6 +114,7 @@ export {
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
   getEducationRequirement,
+  EmploymentDuration,
   getEmploymentDuration,
   getLanguageAbility,
   getLanguageRequirement,
@@ -137,6 +143,10 @@ export {
   getPoolCandidatePriorities,
   getPublishingGroup,
   getIndigenousCommunity,
+  OperationalRequirementV1,
+  OperationalRequirementV2,
+  GenericJobTitlesSorted,
+  poolCandidatePriorities,
 };
 
 export type { Locales, Messages };

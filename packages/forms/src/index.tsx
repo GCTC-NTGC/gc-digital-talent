@@ -20,14 +20,34 @@ import InputWrapper, {
 } from "~/components/InputWrapper";
 import MultiSelectField from "~/components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "~/components/RadioGroup";
-import Select, { type SelectProps } from "~/components/Select";
+import Select, {
+  SelectFieldV2,
+  type SelectFieldV2Props,
+  type SelectProps,
+} from "~/components/Select";
 import Submit, { type SubmitProps } from "~/components/Submit";
 import TextArea, { type TextAreaProps } from "~/components/TextArea";
 import WordCounter, { type WordCounterProps } from "~/components/WordCounter";
 
-import BasicForm, { type BasicFormProps } from "~/components/BasicForm";
+import BasicForm, {
+  type BasicFormProps,
+  type FieldLabels,
+} from "~/components/BasicForm";
 import ErrorSummary from "~/components/ErrorSummary";
 import UnsavedChanges from "~/components/UnsavedChanges";
+
+import {
+  unpackMaybes,
+  unpackIds,
+  currentDate,
+  enumToOptions,
+  getValues,
+  escapeAString,
+  matchStringCaseDiacriticInsensitive,
+  matchStringsCaseDiacriticInsensitive,
+  countNumberOfWords,
+  objectsToSortedOptions,
+} from "./utils";
 
 export {
   Checkbox,
@@ -44,6 +64,7 @@ export {
   MultiSelectField,
   RadioGroup,
   Select,
+  SelectFieldV2,
   Submit,
   TextArea,
   WordCounter,
@@ -67,8 +88,23 @@ export type {
   InputWrapperProps,
   RadioGroupProps,
   SelectProps,
+  SelectFieldV2Props,
   SubmitProps,
   TextAreaProps,
   WordCounterProps,
   BasicFormProps,
+  FieldLabels,
+};
+
+export {
+  unpackMaybes,
+  unpackIds,
+  currentDate,
+  enumToOptions,
+  getValues,
+  escapeAString,
+  matchStringCaseDiacriticInsensitive,
+  matchStringsCaseDiacriticInsensitive,
+  countNumberOfWords,
+  objectsToSortedOptions,
 };

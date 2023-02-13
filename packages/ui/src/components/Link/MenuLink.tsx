@@ -4,7 +4,7 @@ import { NavLink, NavLinkProps } from "react-router-dom";
 import useCommonLinkStyles from "./useCommonLinkStyles";
 import { LinkProps } from "./Link";
 
-type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
+export type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
 
 const MenuLink = ({
   color = "primary",

@@ -1,89 +1,55 @@
-import React, { Fragment } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import React from "react";
+import { useIntl } from "react-intl";
 
-import Link from "../Link/Link";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
-interface BreadcrumbLink {
-  title: string;
-  href?: string;
-}
+import Flourish from "~/components/Flourish";
+
+import Crumb from "./Crumb";
 
 export interface BreadcrumbsProps {
-  links: BreadcrumbLink[];
+  crumbs: {
+    label: React.ReactNode;
+    url: string;
+  }[];
 }
 
-const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
-  const MOBILE_WIDTH = 768;
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  // choose the screen size
-  const handleResize = () => {
-    if (window.innerWidth < MOBILE_WIDTH) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-  const previousStep = links[links.length - 2];
-
-  // create an event listener
-  React.useEffect(() => {
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isMobile]);
+const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
+  const intl = useIntl();
 
   return (
-    <div data-h2-display="base(flex)">
-      {isMobile && previousStep ? (
-        <>
-          <span
-            data-h2-padding="base(0, x.5)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
+    <>
+      <div
+        data-h2-background-color="base(black.80)"
+        data-h2-color="base(white)"
+        data-h2-padding="base(x1, 0)"
+      >
+        <nav
+          aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
+          data-h2-position="base(relative)"
+          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        >
+          <ol
+            data-h2-list-style="base(none)"
+            data-h2-display="base(flex) base:children[>li](inline-block)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-gap="base(x.5)"
+            data-h2-padding="base(0)"
           >
-            <ChevronLeftIcon style={{ width: "1rem" }} />
-          </span>
-          <Link
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            href={previousStep.href || "#"}
-            key={previousStep.title}
-          >
-            {previousStep.title}
-          </Link>
-        </>
-      ) : (
-        links.map((link, index) => (
-          <Fragment key={link.title}>
-            {index > 0 && (
-              <span
-                data-h2-padding="base(0, x.25)"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
+            {crumbs.map((crumb, index) => (
+              <Crumb
+                key={crumb.url}
+                url={crumb.url}
+                isCurrent={index + 1 === crumbs.length}
               >
-                <ChevronRightIcon style={{ width: "1rem" }} />
-              </span>
-            )}
-            {link.href ? (
-              <Link
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                href={link.href}
-                key={link.title}
-              >
-                {link.title}
-              </Link>
-            ) : (
-              <span data-h2-font-weight="base(700)" key={link.title}>
-                {link.title}
-              </span>
-            )}
-          </Fragment>
-        ))
-      )}
-    </div>
+                {crumb.label}
+              </Crumb>
+            ))}
+          </ol>
+        </nav>
+      </div>
+      <Flourish />
+    </>
   );
 };
 

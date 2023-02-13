@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-interface SkipLinkProps {
+export interface SkipLinkProps {
   href?: string;
 }
 

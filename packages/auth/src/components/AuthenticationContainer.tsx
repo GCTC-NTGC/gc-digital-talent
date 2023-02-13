@@ -3,11 +3,12 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-const ACCESS_TOKEN = "access_token";
-const REFRESH_TOKEN = "refresh_token";
-const ID_TOKEN = "id_token";
-
-export const POST_LOGOUT_URI_KEY = "post_logout_uri";
+import {
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+  ID_TOKEN,
+  POST_LOGOUT_URI_KEY,
+} from "../const";
 
 export interface AuthenticationState {
   loggedIn: boolean;
