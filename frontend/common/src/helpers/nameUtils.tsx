@@ -104,18 +104,14 @@ export const wrapAbbr = (
   intl: IntlShape,
   title?: string,
 ): JSX.Element => {
+  const fallbackTitle = intl.formatMessage({
+    id: "MuWdei",
+    defaultMessage: "Abbreviation not found.",
+    description:
+      "Message shown to user when the abbreviation text is not found.",
+  });
   const stringifyText = text && text.toString(); // grabs text from React.ReactNode (is there a better way to get text from React.ReactNode type?)
   if (typeof stringifyText !== "string") {
-    const fallbackTitle = intl.formatMessage({
-      id: "MuWdei",
-      defaultMessage: "Abbreviation not found.",
-      description:
-        "Message shown to user when the abbreviation text is not found.",
-    });
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Error using wrapAbbr(). You must provide a string to <abbreviation />",
-    );
     return (
       <abbr title={fallbackTitle}>
         <span>{text}</span>
@@ -123,7 +119,7 @@ export const wrapAbbr = (
     );
   }
   switch (stringifyText) {
-    // Regex that matches with all IT(en)/TI(fr) classification with levels
+    // Regex that matches all IT(en)/TI(fr) classifications with levels
     case stringifyText.match(/[IT][TI]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
@@ -132,14 +128,14 @@ export const wrapAbbr = (
           </span>
         </abbr>
       );
-    // Regex that matches with all IT(en)/TI(fr) classification
+    // Regex that matches all IT(en)/TI(fr) classifications
     case stringifyText.match(/[IT][TI]/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    // Regex that matches with all AS classification with levels
+    // Regex that matches all AS(en)/SA(fr) classifications with levels
     case stringifyText.match(/[AS][SA]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
@@ -148,6 +144,7 @@ export const wrapAbbr = (
           </span>
         </abbr>
       );
+    // Regex that matches all AS(en)/SA(fr) classifications
     case stringifyText.match(/[AS][SA]/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
@@ -161,14 +158,8 @@ export const wrapAbbr = (
         </abbr>
       );
     default:
-      if (title === undefined) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          "<abbr /> is missing a title. You must provide a title to wrapAbbr() parameters.",
-        );
-      }
       return (
-        <abbr title={title}>
+        <abbr title={title ?? fallbackTitle}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
