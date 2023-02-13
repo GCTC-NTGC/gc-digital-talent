@@ -58,6 +58,29 @@ const errorMessages = defineMessages({
     id: "quLfED",
     description: "Body text for the unexpected error page.",
   },
+  unknown: {
+    defaultMessage: "Unknown error",
+    id: "iqD8qE",
+    description: "Fallback text when an error message is not supplied",
+  },
+  summaryTitle: {
+    defaultMessage: "Oops, you have some errors!",
+    id: "xAxxmc",
+    description: "Title for error summary on profile forms",
+  },
+  summaryDescription: {
+    defaultMessage:
+      "The following error(s) must be fixed before submitting the form:",
+    id: "IlPyP8",
+    description: "Message indicating which errors the form has",
+  },
+  summaryContact: {
+    defaultMessage:
+      "<a>Reach out to our support team</a> if you have any questions.",
+    id: "sVsZmT",
+    description:
+      "Telling users to email support team with any questions about errors",
+  },
 });
 
 export default errorMessages;

@@ -7,6 +7,8 @@ import InputError, { InputFieldError } from "~/components/InputError";
 import InputLabel from "~/components/InputLabel";
 import InputUnsaved from "~/components/InputUnsaved";
 
+import "./input-wrapper.css";
+
 export interface InputWrapperProps {
   inputId: string;
   inputName?: string;

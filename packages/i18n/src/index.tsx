@@ -24,6 +24,8 @@ import {
   errorMessages,
   navigationMessages,
   tryFindMessageDescriptor,
+  uiMessages,
+  formMessages,
 } from "./messages";
 
 import {
@@ -86,6 +88,8 @@ export {
   commonMessages,
   errorMessages,
   navigationMessages,
+  uiMessages,
+  formMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
   LocaleProvider,
