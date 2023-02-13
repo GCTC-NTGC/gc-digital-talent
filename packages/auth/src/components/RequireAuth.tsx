@@ -5,8 +5,8 @@ import { LegacyRole } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 
-import useAuthentication from "~/hooks/useAuthentication";
-import useAuthorization from "~/hooks/useAuthorization";
+import useAuthentication from "../hooks/useAuthentication";
+import useAuthorization from "../hooks/useAuthorization";
 
 interface RequireAuthProps {
   children: React.ReactNode;

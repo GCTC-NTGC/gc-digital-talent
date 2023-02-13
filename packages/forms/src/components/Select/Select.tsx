@@ -2,10 +2,10 @@ import React from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 
-import useFieldState from "~/hooks/useFieldState";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import useInputDescribedBy from "~/hooks/useInputDescribedBy";
-import InputWrapper from "~/components/InputWrapper";
+import useFieldState from "../../hooks/useFieldState";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import InputWrapper from "../InputWrapper";
 
 export interface Option {
   value: string | number;

@@ -25,6 +25,7 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/helpers": "*",
+    "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@headlessui/react": "^1.7.7",
     "@radix-ui/react-accordion": "^1.0.1",

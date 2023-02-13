@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Flourish from "~/components/Flourish";
+import Flourish from "../Flourish";
 
 import Crumb from "./Crumb";
 

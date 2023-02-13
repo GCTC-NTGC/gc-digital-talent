@@ -2,9 +2,9 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
-import useInputDescribedBy from "~/hooks/useInputDescribedBy";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import InputWrapper from "~/components/InputWrapper";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import InputWrapper from "../InputWrapper";
 
 export interface CheckboxProps
   extends Omit<

@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker";
 
 import Toast from "./Toast";
 import toast from "../../toast";
+import "./toast.css";
 
 interface StoryArgs {
   text: string;

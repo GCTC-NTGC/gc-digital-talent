@@ -15,10 +15,10 @@ import { useIntl } from "react-intl";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import useFieldState from "~/hooks/useFieldState";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import useInputDescribedBy from "~/hooks/useInputDescribedBy";
-import InputWrapper from "~/components/InputWrapper";
+import useFieldState from "../../hooks/useFieldState";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import InputWrapper from "../InputWrapper";
 
 export type Option = { value: string | number; label: string };
 export type Group<T> = {

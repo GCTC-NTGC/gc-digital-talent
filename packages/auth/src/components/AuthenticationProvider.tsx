@@ -2,8 +2,7 @@ import React from "react";
 
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 
-import { useApiRoutes } from "~/hooks/useApiRoutes";
-
+import { useApiRoutes } from "../hooks/useApiRoutes";
 import AuthenticationContainer from "./AuthenticationContainer";
 
 interface AuthenticationContainerProps {

@@ -28,6 +28,7 @@
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/storage": "*",
     "@gc-digital-talent/ui": "*",
+    "@heroicons/react": "^2.0.15",
     "lodash": "4.17.21",
     "react-hook-form": "~7.38.0",
     "react-dom": "^18.2.0",

@@ -7,7 +7,8 @@ import {
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 
-import { uiMessages } from "~/../../i18n/dist";
+import { uiMessages } from "@gc-digital-talent/i18n";
+
 import { AlertType } from "./types";
 
 export const styleMap: Record<AlertType, Record<string, string>> = {

@@ -2,7 +2,10 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { WordCounterProps } from ".";
-import { BasicForm, Submit, TextArea } from "../form";
+
+import BasicForm from "../BasicForm";
+import Submit from "../Submit";
+import TextArea from "../TextArea";
 import WordCounter from "./WordCounter";
 
 export default {

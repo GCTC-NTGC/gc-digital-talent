@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { screen } from "@testing-library/react";
-import { render } from "../../helpers/testUtils";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import SideMenu from "./SideMenu";
 import type { SideMenuProps } from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";
@@ -19,7 +19,7 @@ const icon = () => <>Icon</>;
 const openClass = "side-menu--open";
 
 const renderSideMenu = (props: SideMenuProps) => {
-  return render(
+  return renderWithProviders(
     <SideMenu {...props}>
       <SideMenuItem href="#" icon={icon}>
         Test

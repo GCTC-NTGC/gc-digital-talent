@@ -2,9 +2,9 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
-import useFieldState from "~/hooks/useFieldState";
-import Fieldset from "~/components/Fieldset";
-import InputWrapper from "~/components/InputWrapper";
+import useFieldState from "../../hooks/useFieldState";
+import Fieldset from "../Fieldset";
+import InputWrapper from "../InputWrapper";
 
 import Checkbox from "../Checkbox";
 

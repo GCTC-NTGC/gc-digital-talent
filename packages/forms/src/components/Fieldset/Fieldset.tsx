@@ -4,12 +4,12 @@ import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
-import useInputDescribedBy from "~/hooks/useInputDescribedBy";
-import useFieldState from "~/hooks/useFieldState";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import InputContext from "~/components/InputContext";
-import InputError, { type InputFieldError } from "~/components/InputError";
-import InputUnsaved from "~/components/InputUnsaved";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import useFieldState from "../../hooks/useFieldState";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import InputContext from "../InputContext";
+import InputError, { type InputFieldError } from "../InputError";
+import InputUnsaved from "../InputUnsaved";
 
 export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */

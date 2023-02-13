@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, ReactElement } from "react";
-
 import {
   FieldValues,
   FormProvider,
@@ -9,11 +8,13 @@ import {
   UseFormProps,
 } from "react-hook-form";
 import isEqual from "lodash/isEqual";
+
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
+
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 

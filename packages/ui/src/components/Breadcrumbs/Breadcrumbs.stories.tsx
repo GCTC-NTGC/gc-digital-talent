@@ -4,7 +4,7 @@ import Breadcrumbs from "./Breadcrumbs";
 
 export default {
   component: Breadcrumbs,
-  title: "Components/Breadcrumbs/v2",
+  title: "Components/Breadcrumbs",
 } as ComponentMeta<typeof Breadcrumbs>;
 
 const Template: ComponentStory<typeof Breadcrumbs> = (args) => (

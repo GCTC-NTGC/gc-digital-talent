@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import useFieldState from "~/hooks/useFieldState";
-import { DescriptionIds } from "~/hooks/useInputDescribedBy";
-import InputContext from "~/components/InputContext";
-import InputError, { InputFieldError } from "~/components/InputError";
-import InputLabel from "~/components/InputLabel";
-import InputUnsaved from "~/components/InputUnsaved";
+import useFieldState from "../../hooks/useFieldState";
+import { DescriptionIds } from "../../hooks/useInputDescribedBy";
+import InputContext from "../InputContext";
+import InputError, { InputFieldError } from "../InputError";
+import InputLabel from "../InputLabel";
+import InputUnsaved from "../InputUnsaved";
 
 import "./input-wrapper.css";
 

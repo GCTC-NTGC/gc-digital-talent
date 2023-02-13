@@ -5,7 +5,7 @@ import type { CombinedError } from "urql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { isUuidError } from "@gc-digital-talent/helpers";
 
-import Loading, { LoadingProps } from "~/components/Loading";
+import Loading, { LoadingProps } from "../Loading";
 
 import ErrorMessage from "./ErrorMessage";
 

@@ -1,5 +1,5 @@
-import useFieldState from "~/hooks/useFieldState";
-import fieldStateStyles from "~/styles";
+import useFieldState from "./useFieldState";
+import fieldStateStyles from "../styles";
 
 /**
  * Gets hydrogen styles for a form input

@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
-import { formMessages } from "@gc-digital-talent/i18n";
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
 const layoutStyles = {
@@ -56,7 +56,7 @@ const Actions = ({
       {fetching && (
         <span aria-live="polite" {...layoutStyles}>
           <span data-h2-visually-hidden="base(invisible)">
-            {intl.formatMessage(formMessages.searching)}
+            {intl.formatMessage(uiMessages.searching)}
           </span>
           <ArrowPathIcon className="animate-spin" {...iconStyles} />
         </span>

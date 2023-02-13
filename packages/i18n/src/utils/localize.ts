@@ -1,10 +1,7 @@
 import { createPath, parsePath, Path } from "history";
 import type { IntlShape } from "react-intl";
 
-import type {
-  LocalizedString,
-  Maybe,
-} from "@gc-digital-talent/web/src/api/generated";
+import type { LocalizedString, Maybe } from "@gc-digital-talent/graphql";
 
 import { STORED_LOCALE } from "../const";
 import { Locales } from "../types";

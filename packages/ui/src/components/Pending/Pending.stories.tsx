@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
 
 import { OverlayOrDialogDecorator } from "storybook-helpers";
-import NotFound from "@gc-digital-talent/ui";
+import NotFound from "../NotFound";
 
 import Pending from "./Pending";
 

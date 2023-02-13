@@ -1,12 +1,6 @@
 import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Client,
   CombinedError,
@@ -31,7 +25,7 @@ import {
   buildValidationErrorMessageNode,
   extractRateLimitErrorMessages,
   extractValidationErrorMessages,
-} from "~/utils/errors";
+} from "../../utils/errors";
 
 // generate nonce somewhere here?
 // const nonce = ...

@@ -29,7 +29,7 @@ module.exports = (basePath) => {
 
     "stories": [
       "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "../../../frontend/common/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
       "@storybook/addon-links",
@@ -48,12 +48,6 @@ module.exports = (basePath) => {
         ...config.resolve.extensions,
         ".tsx", ".ts", ".js"
       ];
-
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "~": path.resolve(__dirname, "../../apps/web/src/"),
-        "@common": path.resolve(__dirname, '../../frontend/common/src/'),
-      }
 
       config.module.rules = [
         ...config.module.rules,

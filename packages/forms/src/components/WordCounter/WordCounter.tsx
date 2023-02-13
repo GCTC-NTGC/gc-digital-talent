@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { formMessages } from "~/../../i18n/dist";
 
-import { countNumberOfWords } from "~/utils";
+import { formMessages } from "@gc-digital-talent/i18n";
+
+import { countNumberOfWords } from "../../utils";
 
 export interface WordCounterProps {
   /** The string of text that words will be counted from. */

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ThemeMode, SetModeFunc } from "~/types";
+import { ThemeMode, SetModeFunc } from "../types";
 
 export interface ThemeState {
   mode: ThemeMode;

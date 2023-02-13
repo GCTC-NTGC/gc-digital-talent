@@ -1,7 +1,7 @@
 import { useFormState } from "react-hook-form";
 import get from "lodash/get";
 
-import { FieldState } from "~/types";
+import { FieldState } from "../types";
 
 /**
  * Determines the fields current state

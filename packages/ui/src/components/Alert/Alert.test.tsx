@@ -6,7 +6,8 @@ import React from "react";
 
 import { render, axeTest } from "../../helpers/testUtils";
 
-import Alert, { AlertProps } from "./Alert";
+import Alert from "./Alert";
+import { AlertProps } from "./types";
 
 const defaultProps = {
   title: "Alert test",

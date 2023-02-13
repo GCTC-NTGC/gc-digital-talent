@@ -7,10 +7,10 @@ import debounce from "lodash/debounce";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import useFieldState from "~/hooks/useFieldState";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import InputUnsaved from "~/components/InputUnsaved";
-import InputError from "~/components/InputError";
+import useFieldState from "../../hooks/useFieldState";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import InputUnsaved from "../InputUnsaved";
+import InputError from "../InputError";
 
 import Actions from "./Actions";
 import Label from "./Label";

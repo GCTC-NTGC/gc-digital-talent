@@ -4,8 +4,8 @@ import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 
-import BasicForm from "~/components/BasicForm";
-import Submit from "~/components/Submit";
+import BasicForm from "../BasicForm";
+import Submit from "../Submit";
 
 import Combobox, { Option, ComboboxProps } from "./Combobox";
 

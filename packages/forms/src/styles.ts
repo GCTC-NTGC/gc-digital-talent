@@ -1,4 +1,4 @@
-import { FieldState } from "~/types";
+import { FieldState } from "./types";
 
 const fieldStateStyles: Record<FieldState, Record<string, string>> = {
   unset: {

@@ -2,10 +2,10 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
-import useFieldState from "~/hooks/useFieldState";
-import useFieldStateStyles from "~/hooks/useFieldStateStyles";
-import useInputDescribedBy from "~/hooks/useInputDescribedBy";
-import InputWrapper from "~/components/InputWrapper";
+import useFieldState from "../../hooks/useFieldState";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import InputWrapper from "../InputWrapper";
 
 export interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { HomeIcon } from "@heroicons/react/24/outline";
-
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
+
 import SideMenuComponent from "./SideMenu";
 import { SideMenuButton } from "./SideMenuItem";
 

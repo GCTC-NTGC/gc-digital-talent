@@ -5,7 +5,7 @@ import React from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
-import type { HeadingRank } from "~/types";
+import type { HeadingRank } from "../../types";
 
 import { AccordionMode } from "./types";
 import styleMap from "./styles";

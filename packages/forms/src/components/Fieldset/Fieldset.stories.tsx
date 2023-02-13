@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import Form from "~/components/BasicForm";
+import Form from "../BasicForm";
 
 import Fieldset from "./Fieldset";
 import type { FieldsetProps } from "./Fieldset";
