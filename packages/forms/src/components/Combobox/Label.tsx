@@ -2,7 +2,7 @@ import React from "react";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import { useIntl } from "react-intl";
 
-import commonMessages from "../../messages/commonMessages";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface LabelProps {
   children: React.ReactNode;

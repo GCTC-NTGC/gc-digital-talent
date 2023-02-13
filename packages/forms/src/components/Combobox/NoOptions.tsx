@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import { uiMessages } from "~/../../i18n/dist";
+
+import { formMessages } from "@gc-digital-talent/i18n";
 
 interface NoOptionsProps {
   fetching?: boolean;
@@ -27,7 +28,7 @@ const NoOptions = ({ fetching }: NoOptionsProps) => {
           className="animate-spin"
         />
       ) : (
-        intl.formatMessage(uiMessages.noResultsCombobox)
+        intl.formatMessage(formMessages.noResultsCombobox)
       )}
     </p>
   );

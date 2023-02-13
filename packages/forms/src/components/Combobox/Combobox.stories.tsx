@@ -4,9 +4,10 @@ import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 
+import BasicForm from "~/components/BasicForm";
+import Submit from "~/components/Submit";
+
 import Combobox, { Option, ComboboxProps } from "./Combobox";
-import BasicForm from "../form/BasicForm";
-import Submit from "../form/Submit";
 
 const skills = getStaticSkills().map((skill) => ({
   value: skill.id,

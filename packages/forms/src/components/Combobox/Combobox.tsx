@@ -5,11 +5,12 @@ import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 
 import { Scalars } from "@gc-digital-talent/graphql";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { formMessages } from "@gc-digital-talent/i18n";
 
-import InputUnsaved from "../inputPartials/InputUnsaved/InputUnsaved";
-import InputError from "../inputPartials/InputError/InputError";
-import { useFieldState, useFieldStateStyles } from "../../helpers/formUtils";
+import useFieldState from "~/hooks/useFieldState";
+import useFieldStateStyles from "~/hooks/useFieldStateStyles";
+import InputUnsaved from "~/components/InputUnsaved";
+import InputError from "~/components/InputError";
 
 import Actions from "./Actions";
 import Label from "./Label";
@@ -200,7 +201,7 @@ const Combobox = ({
             onClear={handleClear}
             fetching={fetching}
             clearLabel={intl
-              .formatMessage(uiMessages.resetCombobox, { label })
+              .formatMessage(formMessages.resetCombobox, { label })
               .toString()}
           />
         </div>
