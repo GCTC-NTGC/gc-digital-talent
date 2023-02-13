@@ -3,6 +3,7 @@ import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { InputWrapper } from "../../inputPartials";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export interface InputProps
   extends Omit<
@@ -44,6 +45,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   trackUnsaved = true,
   ...rest
 }) => {
+  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     setValue,
@@ -54,6 +56,14 @@ const Input: React.FunctionComponent<InputProps> = ({
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && isContextVisible,
+    },
+  });
 
   const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
     if (whitespaceTrim) {
@@ -74,6 +84,8 @@ const Input: React.FunctionComponent<InputProps> = ({
         hideOptional={hideOptional}
         errorPosition={errorPosition}
         trackUnsaved={trackUnsaved}
+        onContextToggle={setContextVisible}
+        descriptionIds={descriptionIds}
       >
         <input
           data-h2-padding="base(x.25, x.5)"
@@ -90,7 +102,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
-          aria-describedby={error || isUnsaved ? `${id}-error` : undefined}
+          aria-describedby={ariaDescribedBy}
           {...rest}
         />
       </InputWrapper>

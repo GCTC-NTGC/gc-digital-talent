@@ -7,6 +7,8 @@ import Alert, { AlertType } from "./Alert";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
 
+faker.seed(0);
+
 export default {
   component: Alert.Root,
   title: "Components/Alert",

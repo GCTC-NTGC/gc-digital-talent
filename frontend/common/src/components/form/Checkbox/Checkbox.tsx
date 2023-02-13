@@ -3,6 +3,7 @@ import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
 import { useFieldStateStyles } from "../../../helpers/formUtils";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export interface CheckboxProps
   extends Omit<
@@ -25,6 +26,8 @@ export interface CheckboxProps
   boundingBoxLabel?: React.ReactNode;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  isUnsaved?: boolean;
 }
 
 export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
@@ -33,11 +36,13 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   name,
   rules = {},
   context,
+  isUnsaved,
   boundingBox = false,
   boundingBoxLabel = label,
   trackUnsaved = true,
   ...rest
 }) => {
+  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     formState: { errors },
@@ -45,6 +50,14 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && isContextVisible,
+    },
+  });
 
   return (
     <div
@@ -61,12 +74,15 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           context={context}
           error={error}
           trackUnsaved={trackUnsaved}
+          onContextToggle={setContextVisible}
+          descriptionIds={descriptionIds}
           data-h2-flex-direction="base(row)"
-          data-h2-align-items="base(center)"
+          data-h2-align-items="base(flex-start)"
+          data-h2-line-height="base:selectors[>label](1)"
         >
           <input
             data-h2-order="base(-1)"
-            data-h2-margin="base(0, x.25, 0, 0)"
+            data-h2-margin="base(x.2, x.25, 0, 0)"
             id={id}
             {...register(name, rules)}
             type="checkbox"
@@ -85,6 +101,8 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           context={context}
           error={error}
           trackUnsaved={trackUnsaved}
+          onContextToggle={setContextVisible}
+          descriptionIds={descriptionIds}
           fillLabel
         >
           <div
@@ -101,6 +119,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
               {...register(name, rules)}
               type="checkbox"
               aria-invalid={error ? "true" : "false"}
+              aria-describedby={ariaDescribedBy}
               {...rest}
             />
             <span

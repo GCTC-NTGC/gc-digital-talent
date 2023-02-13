@@ -282,6 +282,7 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   poolCandidateFilter: PoolCandidateFilterBelongsTo
   applicantFilter: ApplicantFilterBelongsTo
+  wasEmpty: Boolean
 }
 
 input CreatePoolInput {
@@ -312,6 +313,14 @@ input CreateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+}
+
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
 }
 
 """When creating a User, name is required."""
@@ -381,6 +390,10 @@ type Department {
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 type EducationExperience implements Experience {
@@ -619,6 +632,8 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  createTeam(team: CreateTeamInput!): Team
+  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -890,6 +905,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
   doneDate: DateTime
+  wasEmpty: Boolean
 }
 
 enum PoolCandidateSearchStatus {
@@ -1000,7 +1016,9 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  team(id: UUID!): Team
   teams: [Team]!
+  roles: [Role]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1056,6 +1074,14 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PREFERRED_LANGUAGE_FOR_INTERVIEW
   PREFERRED_LANGUAGE_FOR_EXAM
   CURRENT_CITY
+}
+
+type Role {
+  id: ID!
+  name: String!
+  displayName: LocalizedString
+  description: LocalizedString
+  isTeamBased: Boolean
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1201,7 +1227,7 @@ enum SortOrder {
 
 type Team {
   id: ID!
-  name: String
+  name: String!
   displayName: LocalizedString
   description: LocalizedString
   departments: [Department]
@@ -1302,6 +1328,14 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+}
+
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
 }
 
 """When updating a User, all fields are optional"""

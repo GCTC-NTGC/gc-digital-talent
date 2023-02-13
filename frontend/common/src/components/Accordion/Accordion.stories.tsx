@@ -56,7 +56,10 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
   );
 };
 
-const Text = () => <p>{faker.lorem.sentences(5)}</p>;
+const Text = () => {
+  faker.seed(0);
+  return <p>{faker.lorem.sentences(5)}</p>;
+};
 
 export const Default = Template.bind({});
 Default.args = {

@@ -530,10 +530,6 @@
   ".ellipsis": {
     "defaultMessage": "... "
   },
-  "+ZXZj+": {
-    "defaultMessage": "S’il n’y a aucun candidat qui répond à vos critères <a>Communiquez avec nous! </a>",
-    "description": "Message for helping user if no candidates matched the filters chosen."
-  },
   "09x+E7": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
@@ -1696,10 +1692,6 @@
   "ofOoFQ": {
     "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
     "description": "Instruction on what to do if user does not have a GC Key."
-  },
-  "Bp3HEe": {
-    "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
-    "description": "Message for total estimated candidates box next to search form."
   },
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
@@ -3316,10 +3308,6 @@
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
-  },
-  "Htqzxb": {
-    "defaultMessage": "Bassin",
-    "description": "Title displayed on the search request table pool column."
   },
   "IfWj5I": {
     "defaultMessage": "Toutes les demandes",
@@ -5594,5 +5582,41 @@
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
+  },
+  "8R2XpK": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répond à vos critères.",
+    "description": "Text telling users that their search produced no candidates"
+  },
+  "JUejJU": {
+    "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
+    "description": "Text telling users that Digital Community Management can still help them"
+  },
+  "W/cZp2": {
+    "defaultMessage": "Veuillez soumettre une demande en blanc et dites-nous en davantage dans les commentaires.",
+    "description": "Link text to scroll to the submit button when no candidates were found"
+  },
+  "adM1fA": {
+    "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
+    "description": "Instructions to provide additional details when submitting a request with no candidates"
+  },
+  "ak4oel": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais notre équipe peut toujours vous aider.",
+    "description": "Text telling users they can still be helped regardless of search results"
+  },
+  "pvQVVh": {
+    "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
+    "description": "Instructions telling the user to submit a request even though there are no candidates"
+  },
+  "ruEs9/": {
+    "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
+    "description": "Message to admins that a search request resulted in no candidates being found"
+  },
+  "xwBt36": {
+    "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "s7QD5B": {
+    "defaultMessage": "Modifier <hidden>{title}</hidden>",
+    "description": "Text label for button to edit employment equity category from profile."
   }
 }

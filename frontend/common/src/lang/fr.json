@@ -1968,8 +1968,36 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
-  "7STO48": {
-    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis »",
+  "f8ZHHW": {
+    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
+    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+  },
+  "1Wbu+6": {
+    "defaultMessage": "Premières Nations détenant le statut ",
+    "description": "The indigenous community for status First Nations"
+  },
+  "JamdKo": {
+    "defaultMessage": "Premières Nations sans statut ",
+    "description": "The indigenous community for non-status First Nations"
+  },
+  "eNUS2A": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "The selection for being part of an indigenous community not already listed"
+  },
+  "1GWQal": {
+    "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
+    "description": "The text displayed if the user has selected as indigenous but not selected a community yet."
+  },
+  "xaCwEO": {
+    "defaultMessage": "Métis",
+    "description": "The indigenous community for Métis"
+  },
+  "gTB9r8": {
+    "defaultMessage": "Inuk (Inuit)",
+    "description": "The indigenous community for Inuit"
+  },
+  "KwdzPs": {
+    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
     "description": "Text for the option to self-declare as Indigenous"
   },
   "Vbt/G1": {

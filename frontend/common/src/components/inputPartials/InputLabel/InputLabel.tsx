@@ -97,6 +97,8 @@ const InputLabel: React.FC<InputLabelProps> = ({
               type="button"
               className="input-label-context-button"
               data-h2-margin="base(0, 0, 0, x.125)"
+              aria-controls={`context-${inputId}`}
+              aria-expanded={contextIsActive}
               onClick={clickHandler}
             >
               <span data-h2-visually-hidden="base(invisible)">

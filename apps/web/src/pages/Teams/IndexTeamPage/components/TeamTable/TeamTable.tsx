@@ -11,18 +11,14 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableActionsAccessor,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 interface TeamTableProps {
   teams: Array<Team>;
 }
 
-interface ICell {
-  value: string;
-  row: {
-    original: Team;
-  };
-}
+type TeamCell = Cell<Team>;
 
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
@@ -77,8 +73,9 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table team column.",
         }),
         accessor: (d) => (d?.displayName ? d.displayName[locale] : d.name),
-        Cell: ({ row, value }: ICell) =>
+        Cell: ({ row, value }: TeamCell) =>
           viewAccessor(paths.teamView(row.original.id), value, intl),
+        id: "teamName",
       },
       {
         Header: intl.formatMessage({
@@ -103,13 +100,23 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Title displayed for the teams table email column.",
         }),
         accessor: (d) => d.contactEmail,
-        Cell: ({ value }: ICell) => emailLinkAccessor(value, intl),
+        Cell: ({ value }: TeamCell) => emailLinkAccessor(value, intl),
       },
     ],
     [paths, intl, locale],
   );
 
   const data = useMemo(() => teams.filter(notEmpty), [teams]);
+  const { initialSortBy } = useMemo(() => {
+    return {
+      initialSortBy: [
+        {
+          id: "teamName",
+          desc: false,
+        },
+      ],
+    };
+  }, []);
 
   return (
     <Table
@@ -123,6 +130,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Link text to create a new team in the admin portal",
         }),
       }}
+      initialSortBy={initialSortBy}
     />
   );
 };

@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import fakeExperiences from "../../fakeData/fakeExperiences";
 import { fakeApplicants } from "../../fakeData";
 import UserProfile from "./UserProfile";
-import { Applicant } from "../../api/generated";
+import { Applicant, IndigenousCommunity } from "../../api/generated";
 
 const fakeUserArray = fakeApplicants(5);
 
@@ -50,6 +50,7 @@ UserProfileStory4.args = {
 };
 UserProfileStory5.args = {
   ...fakeUserArray[4],
+  indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
   experiences: fakeExperiences(5),
 };
 UserProfileNull.args = {
@@ -77,6 +78,7 @@ UserProfileNull.args = {
   isWoman: null,
   hasDisability: null,
   isIndigenous: null,
+  indigenousCommunities: null,
   isVisibleMinority: null,
   jobLookingStatus: null,
   hasDiploma: null,
