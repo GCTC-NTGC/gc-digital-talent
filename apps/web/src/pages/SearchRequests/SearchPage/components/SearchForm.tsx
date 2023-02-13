@@ -260,19 +260,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Placeholder for classification filter in search form.",
               })}
               name="classification"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a classification",
-                    id: "HHEQgM",
-                    description:
-                      "Placeholder for classification filter in search form.",
-                  }),
-                },
-                ...classificationOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a classification",
+                id: "HHEQgM",
+                description:
+                  "Placeholder for classification filter in search form.",
+              })}
+              options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -291,19 +285,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Placeholder for stream filter in search form.",
               })}
               name="stream"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a job stream",
-                    id: "QJ5uDV",
-                    description:
-                      "Placeholder for stream filter in search form.",
-                  }),
-                },
-                ...streamOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a job stream",
+                id: "QJ5uDV",
+                description: "Placeholder for stream filter in search form.",
+              })}
+              options={streamOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

@@ -789,17 +789,13 @@ const OngoingRecruitmentSection = ({
               id: "8NB+Ay",
               description: "A label for a quick filter input.",
             })}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a job stream...",
+              id: "cmFeXj",
+              description:
+                "Placeholder for stream filter in browse opportunities form.",
+            })}
             options={[
-              {
-                value: "",
-                disabled: true,
-                label: intl.formatMessage({
-                  defaultMessage: "Select a job stream...",
-                  id: "cmFeXj",
-                  description:
-                    "Placeholder for stream filter in browse opportunities form.",
-                }),
-              },
               ...streamsWithAvailablePools.map((stream) => ({
                 value: stream.key,
                 label: stream.title,
