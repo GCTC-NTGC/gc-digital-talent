@@ -38,6 +38,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
   type PillProps,
@@ -127,6 +128,8 @@ export {
   MenuLink,
   Loading,
   Pending,
+  NotFound,
+  ThrowNotFound,
   Pill,
   ScrollArea,
   Separator,

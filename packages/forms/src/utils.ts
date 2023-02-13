@@ -23,12 +23,6 @@ export const unpackIds = (
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 /**
- * Returns the current date in the format YYYY-MM-DD.
- * @returns string
- */
-export const currentDate = (): string => new Date().toISOString().slice(0, 10);
-
-/**
  * Converts a string enum to a list of options for select input.
  * @param list - Then string enum to convert to options
  * @param sortOrder - An optional array to indicate desired sort order

@@ -27,6 +27,12 @@ export {
 };
 
 /**
+ * Returns the current date in the format YYYY-MM-DD.
+ * @returns string
+ */
+export const currentDate = (): string => new Date().toISOString().slice(0, 10);
+
+/**
  * Format a date in given format and locale, optionally in a different time zone
  * @returns String in the given format
  */

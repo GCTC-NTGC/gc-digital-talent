@@ -24,6 +24,7 @@ import Select, {
   SelectFieldV2,
   type SelectFieldV2Props,
   type SelectProps,
+  type Option,
 } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
@@ -39,7 +40,6 @@ import UnsavedChanges from "./components/UnsavedChanges";
 import {
   unpackMaybes,
   unpackIds,
-  currentDate,
   enumToOptions,
   getValues,
   escapeAString,
@@ -89,6 +89,7 @@ export type {
   RadioGroupProps,
   SelectProps,
   SelectFieldV2Props,
+  Option,
   SubmitProps,
   TextAreaProps,
   WordCounterProps,
@@ -99,7 +100,6 @@ export type {
 export {
   unpackMaybes,
   unpackIds,
-  currentDate,
   enumToOptions,
   getValues,
   escapeAString,
