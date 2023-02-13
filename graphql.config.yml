@@ -8,3 +8,4 @@ projects:
     documents:
       - "frontend/**/js/**/*.graphql"
       - "apps/web/**/*.graphql"
+      - "packages/**/*.graphql"

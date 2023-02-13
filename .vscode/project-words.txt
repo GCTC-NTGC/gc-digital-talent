@@ -3,8 +3,8 @@ Analyser
 Assertable
 atag
 Authenticatable
-BEHAVIOURAL
 Behavioural
+BEHAVIOURAL
 chra
 chrc
 codegen
@@ -26,6 +26,7 @@ Freshdesk
 FRESHDESK
 Gatineau
 gctalent
+headlessui
 heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk
