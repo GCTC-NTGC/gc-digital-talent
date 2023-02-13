@@ -8,7 +8,7 @@ import {
 } from "@common/helpers/dateUtils";
 
 import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import { type PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 
@@ -61,7 +61,7 @@ const ApplicationCard = ({
         <div>
           <h2 data-h2-font-size="base(h5)" data-h2-margin="base(0, 0, x0.5, 0)">
             {application.poolAdvertisement
-              ? getFullPoolAdvertisementTitle(
+              ? getFullPoolAdvertisementTitleHtml(
                   intl,
                   application.poolAdvertisement,
                 )

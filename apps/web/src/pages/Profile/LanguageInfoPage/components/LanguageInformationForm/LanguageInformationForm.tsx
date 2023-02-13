@@ -8,7 +8,7 @@ import omit from "lodash/omit";
 import { toast } from "@common/components/Toast";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   Applicant,
@@ -203,7 +203,7 @@ const LanguageInformationForm: React.FunctionComponent<{
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

@@ -7,7 +7,10 @@ import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
 import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+} from "@common/helpers/poolUtils";
 import { Select } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -137,9 +140,13 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getFullPoolAdvertisementTitle(intl, r.poolCandidate.pool, {
-                      defaultTitle: r.poolCandidate.id,
-                    })}
+                    {getFullPoolAdvertisementTitleHtml(
+                      intl,
+                      r.poolCandidate.pool,
+                      {
+                        defaultTitle: r.poolCandidate.id,
+                      },
+                    )}
                   </li>
                 ))}
               </ul>
@@ -202,7 +209,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
           })}
         </p>
         <p data-h2-font-weight="base(700)">
-          - {getFullPoolAdvertisementTitle(intl, selectedCandidate?.pool)}
+          - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate?.pool)}
         </p>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
@@ -278,7 +285,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
                   .map((pool) => {
                     return {
                       value: pool.id,
-                      label: getFullPoolAdvertisementTitle(intl, pool),
+                      label: getFullPoolAdvertisementTitleLabel(intl, pool),
                     };
                   })}
               />
