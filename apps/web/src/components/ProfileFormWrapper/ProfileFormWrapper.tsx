@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import SEO from "@common/components/SEO/SEO";
-import { BreadcrumbsProps } from "@common/components/Breadcrumbs/v2/Breadcrumbs";
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+import { BreadcrumbsProps } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
+
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -31,7 +32,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { loggedInUser } = useAuthorizationContext();
+  const { loggedInUser } = useAuthorization();
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
     links = [

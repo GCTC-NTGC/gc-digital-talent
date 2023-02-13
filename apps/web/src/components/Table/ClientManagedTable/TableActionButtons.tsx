@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
-import { Link, Button } from "@common/components";
+import { Link, Button } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 

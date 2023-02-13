@@ -2,9 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
-import { Input, Submit } from "@common/components/form";
-import { FieldLabels } from "@common/components/form/BasicForm";
-import errorMessages from "@common/messages/errorMessages";
+import { Input, Submit, FieldLabels } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 interface SignAndContinueProps {
   labels: FieldLabels;

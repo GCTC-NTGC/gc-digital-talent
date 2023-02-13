@@ -1,13 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Locales } from "@common/helpers/localize";
-import Loading from "@common/components/Pending/Loading";
-import RequireAuth from "@common/components/RequireAuth/RequireAuth";
-import useLocale from "@common/hooks/useLocale";
-import lazyRetry from "@common/helpers/lazyRetry";
-import { POST_LOGOUT_URI_KEY } from "@common/components/Auth/AuthenticationContainer";
-import { defaultLogger } from "@common/hooks/useLogger";
+import { Locales, useLocale } from "@gc-digital-talent/i18n";
+import { RequireAuth, POST_LOGOUT_URI_KEY } from "@gc-digital-talent/auth";
+import { Loading } from "@gc-digital-talent/ui";
+import { lazyRetry } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";

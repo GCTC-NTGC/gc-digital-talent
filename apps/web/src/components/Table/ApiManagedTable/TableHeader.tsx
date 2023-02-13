@@ -3,9 +3,8 @@ import { useIntl } from "react-intl";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Link } from "@common/components";
-import Dialog from "@common/components/Dialog";
-import { Fieldset } from "@common/components/inputPartials";
+import { Button, Link, Dialog } from "@gc-digital-talent/ui";
+import { Fieldset } from "@gc-digital-talent/forms";
 
 import SearchForm from "./SearchForm";
 import {

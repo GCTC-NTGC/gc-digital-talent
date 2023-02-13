@@ -1,19 +1,22 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { notEmpty } from "@common/helpers/util";
-import { getLocalizedName } from "@common/helpers/localize";
-import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
-import { PoolCandidateSearchStatus } from "@common/api/generated";
-import Pending from "@common/components/Pending";
-import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  getLocalizedName,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
+import { Pending } from "@gc-digital-talent/ui";
 
 import {
+  PoolCandidateSearchStatus,
   Maybe,
   PoolCandidateSearchRequest,
   Scalars,
   useGetPoolCandidateSearchRequestsQuery,
 } from "~/api/generated";
+
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,

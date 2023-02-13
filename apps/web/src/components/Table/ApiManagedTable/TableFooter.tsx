@@ -2,11 +2,15 @@ import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
 
-import Pagination from "@common/components/Pagination";
-import Pending from "@common/components/Pending";
-import { Button } from "@common/components";
-import { DownloadCsv, type DownloadCsvProps } from "@common/components/Link";
-import { toast } from "@common/components/Toast";
+import {
+  Pending,
+  Button,
+  DownloadCsv,
+  type DownloadCsvProps,
+} from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+
+import Pagination from "~/components/Pagination";
 
 import { PaginatorInfo } from "~/api/generated";
 

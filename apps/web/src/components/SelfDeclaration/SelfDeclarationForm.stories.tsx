@@ -2,7 +2,8 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "@common/helpers/storybookUtils";
+
+import { widthOf, heightOf } from "storybook-helpers";
 
 import SelfDeclarationForm from "./SelfDeclarationForm";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Tabs from "@common/components/Tabs/Tabs";
+import { Tabs } from "@gc-digital-talent/ui";
 
 import CommunityIcon from "./CommunityIcon";
 

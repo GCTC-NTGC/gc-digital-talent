@@ -12,8 +12,8 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
-import SideMenu, { SideMenuItem } from "@common/components/SideMenu";
-import { AuthorizationContext } from "@common/components/Auth";
+import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import { LegacyRole } from "~/api/generated";
@@ -59,7 +59,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
+  const { loggedInUserRoles } = useAuthorization();
 
   const menuItems = [
     {

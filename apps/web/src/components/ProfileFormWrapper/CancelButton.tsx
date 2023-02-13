@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
-import { Link } from "@common/components";
+import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

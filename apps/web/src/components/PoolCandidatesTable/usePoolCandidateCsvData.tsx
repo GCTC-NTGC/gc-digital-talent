@@ -1,6 +1,7 @@
 import React from "react";
-import { DownloadCsvProps } from "@common/components/Link";
 import { useIntl } from "react-intl";
+
+import { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
@@ -11,7 +12,9 @@ import {
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
-} from "@common/constants/localizedConstants";
+  getLocale,
+} from "@gc-digital-talent/i18n";
+
 import {
   yesOrNo,
   employeeTypeToString,
@@ -20,14 +23,14 @@ import {
   getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
-} from "@common/helpers/csvUtils";
-import { getLocale } from "@common/helpers/localize";
+} from "~/utils/csvUtils";
 import {
   Maybe,
   PoolCandidate,
   PositionDuration,
   PoolAdvertisement,
 } from "~/api/generated";
+import labels from "~/components/UserProfile/ExperienceAccordion/labels";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -488,6 +491,7 @@ const usePoolCandidateCsvData = (
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,
+            labels,
             poolAdvertisementSkills || [],
             intl,
           ),
