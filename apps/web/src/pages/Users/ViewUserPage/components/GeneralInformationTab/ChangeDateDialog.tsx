@@ -9,7 +9,7 @@ import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { Input } from "@common/components/form";
 import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   Applicant,
@@ -117,7 +117,7 @@ export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
           })}
         </p>
         <p data-h2-font-weight="base(800)">
-          - {getFullPoolAdvertisementTitle(intl, selectedCandidate.pool)}
+          - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
         </p>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>

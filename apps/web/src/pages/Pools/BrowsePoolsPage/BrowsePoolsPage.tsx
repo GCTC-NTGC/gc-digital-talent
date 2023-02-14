@@ -22,6 +22,7 @@ import {
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 
@@ -52,11 +53,16 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   const paths = useRoutes();
   const featureFlags = useFeatureFlags();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Browse IT jobs",
-    id: "J2WrFI",
-    description: "Page title for the direct intake browse pools page.",
-  });
+  const title = intl.formatMessage(
+    {
+      defaultMessage: "Browse <abbreviation>IT</abbreviation> jobs",
+      id: "tM1de5",
+      description: "Page title for the direct intake browse pools page.",
+    },
+    {
+      abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+    },
+  );
 
   const crumbs = useBreadcrumbs([
     {
@@ -229,13 +235,18 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
           >
             <CardFlat
               color="purple"
-              title={intl.formatMessage({
-                defaultMessage:
-                  "Browse IT opportunities for the Indigenous community",
-                id: "GZrICV",
-                description:
-                  "Title for Indigenous community job opportunities on Browse IT jobs page",
-              })}
+              title={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Browse <abbreviation>IT</abbreviation> opportunities for the Indigenous community",
+                  id: "drDPf3",
+                  description:
+                    "Title for Indigenous community job opportunities on Browse IT jobs page",
+                },
+                {
+                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                },
+              )}
               link={{
                 href: `${paths.home()}/indigenous-it-apprentice`,
                 mode: "outline",
@@ -250,13 +261,19 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Designed by, with, and for the Indigenous community, the program recruits First Nations, Inuit, and Métis applicants who have a passion for IT, for entry level employment, learning and development opportunities.",
-                  id: "+6QgII",
-                  description:
-                    "Summary for Indigenous community job opportunities on Browse IT jobs page",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Designed by, with, and for the Indigenous community, the program recruits First Nations, Inuit, and Métis applicants who have a passion for <abbreviation>IT</abbreviation>, for entry level employment, learning and development opportunities.",
+                    id: "OvL68O",
+                    description:
+                      "Summary for Indigenous community job opportunities on Browse IT jobs page",
+                  },
+                  {
+                    abbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(text, intl),
+                  },
+                )}
               </p>
             </CardFlat>
             <CardFlat
@@ -279,13 +296,19 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               }}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Let our team save you time and energy by matching your needs to pre-qualified IT professionals with the right skills for the job. All the talent in our pools has been qualified through a competitive process, so you can jump straight to the interview and decide if they are a good fit for your team.",
-                  id: "Ms6O4W",
-                  description:
-                    "Summary for to go to the search page on Browse IT jobs page",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Let our team save you time and energy by matching your needs to pre-qualified <abbreviation>IT</abbreviation> professionals with the right skills for the job. All the talent in our pools has been qualified through a competitive process, so you can jump straight to the interview and decide if they are a good fit for your team.",
+                    id: "6UVZOY",
+                    description:
+                      "Summary for to go to the search page on Browse IT jobs page",
+                  },
+                  {
+                    abbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(text, intl),
+                  },
+                )}
               </p>
             </CardFlat>
           </div>
