@@ -94,16 +94,16 @@ const Layout = () => {
       loggedInUser.legacyRoles.length > 0 &&
       loggedInUser.legacyRoles.includes(LegacyRole.Admin)
     ) {
-      const adminLink = (
+      menuItems = [
+        ...menuItems,
         <MenuLink key="adminDashboard" to={paths.adminDashboard()}>
           {intl.formatMessage({
             defaultMessage: "Admin",
             id: "wHX/8C",
             description: "Title tag for Admin site",
           })}
-        </MenuLink>
-      );
-      menuItems.push(adminLink);
+        </MenuLink>,
+      ];
     }
   }
 
