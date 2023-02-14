@@ -4,7 +4,7 @@ import {
   ProvinceOrTerritory,
   WorkRegion,
 } from "@gc-digital-talent/web/src/api/generated";
-import { FAR_PAST_DATE } from "@gc-digital-talent/common/src/helpers/dateUtils"
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers"
 import {
   JobLookingStatus,
   LanguageAbility,

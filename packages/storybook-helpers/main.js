@@ -54,6 +54,11 @@ module.exports = (basePath) => {
         reactIntlTransformRule,
       ];
 
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "~": path.resolve(__dirname, "../../apps/web/src/"),
+      }
+
       config.resolve.plugins = [
         ...(config.resolve.plugins || []),
         new TsconfigPathsPlugin({
@@ -76,7 +81,7 @@ module.exports = (basePath) => {
             // Run on the invalid hook so that the file time is updated before the next compile
             compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
               shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
-              var f = path.resolve('../frontend/common/src/css/hydrogen.css')
+              var f = path.resolve('../apps/web/src/assets/css/hydrogen.css')
               var now = Date.now() / 1000
               var then = now - 100
               if (f) {

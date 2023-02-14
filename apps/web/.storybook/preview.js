@@ -2,7 +2,7 @@
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
-import defaultRichTextElements from "@common/helpers/format";
+import { defaultRichTextElements } from "@gc-digital-talent/i18n";
 import {
   HelmetDecorator,
   MockGraphqlDecorator,
@@ -11,7 +11,7 @@ import {
   theme
 } from "storybook-helpers"
 
-import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json"
+import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json"
 
 import frCompiled from "../src/lang/frCompiled.json";
 

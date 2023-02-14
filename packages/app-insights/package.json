@@ -3,16 +3,18 @@
   "license": "AGPL-3.0",
   "version": "1.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx  --dts --external react --minify",
+    "build": "rimraf dist && env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+    "dev": "tsup",
+    "watch": "tsup --watch",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "tsc": "tsc --project tsconfig.json --noEmit",
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@microsoft/applicationinsights-react-js": "^3.4.1",
@@ -28,6 +30,7 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
+    "rimraf": "^4.1.2",
     "tsconfig": "*",
     "tsup": "^6.6.0",
     "typescript": "^4.9.5"

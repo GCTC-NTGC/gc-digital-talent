@@ -12,7 +12,7 @@ import {
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
-} from "@gc-digital-talent/common/src/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application Workflow Tests", () => {

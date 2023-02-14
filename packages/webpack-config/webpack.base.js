@@ -61,12 +61,6 @@ module.exports = (basePath) => {
     module: {
       rules: [
         {
-          test: /\.m?js/,
-          resolve: {
-            fullySpecified: false
-          }
-        },
-        {
           // transpile typescript files
           test: /\.ts(x?)$/,
           use: [
@@ -102,7 +96,7 @@ module.exports = (basePath) => {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js', 'mjs'],
+      extensions: ['.tsx', '.ts', '.js'],
     },
     /**
    * Optimizations only run in production mode

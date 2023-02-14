@@ -1,8 +1,10 @@
 {
-  "compilerOptions": {
-    "lib": ["dom", "ES2015"],
-  },
   "extends": "tsconfig/react-lib.json",
-  "include": ["."],
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["dom", "DOM.Iterable", "esnext"],
+  },
+  "include": ["src/**/*", "lib/index.d.ts"],
   "exclude": ["dist", "build", "node_modules"]
 }

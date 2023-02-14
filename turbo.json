@@ -5,10 +5,10 @@
       "outputs": ["dist/**"]
     },
     "codegen": {
-      "outputs": ["src/api/generated.ts", "src/js/api/generated.ts"]
+      "outputs": ["src/api/generated.ts"]
     },
     "dev": {
-      "dependsOn": ["build:css", "intl-compile", "codegen"],
+      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
       "outputs": ["dist/**"]
     },
     "watch": {
@@ -28,6 +28,7 @@
       "outputs": ["src/lang/untranslated.json"]
     },
     "storybook": {
+      "dependsOn": ["codegen", "intl-compile"],
       "outputs": []
     },
     "build-storybook": {
