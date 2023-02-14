@@ -23,4 +23,4 @@ cp .env.example .env --preserve=all
 cd /var/www/html
 npm install
 npm run build
-chmod -R a+r,a+w node_modules apps/web/.turbo frontend/common/.turbo
+chmod -R a+r,a+w node_modules apps/web/.turbo
