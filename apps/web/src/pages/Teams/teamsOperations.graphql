@@ -27,6 +27,10 @@ query ViewTeam($id: UUID!) {
       en
       fr
     }
+    description {
+      en
+      fr
+    }
     departments {
       id
       departmentNumber
