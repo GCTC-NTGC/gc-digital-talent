@@ -5002,6 +5002,10 @@
   "+tzO5t": {
     "defaultMessage": "Possède un diplôme"
   },
+  "TQU5g8": {
+    "defaultMessage": "État d'expiration",
+    "description": "Expiry status"
+  },
   "8lCjAM": {
     "defaultMessage": "Priorité"
   },
