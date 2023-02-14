@@ -29,6 +29,8 @@ export interface SelectProps
   nullSelection?: string;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Determine if it should sort options in alphanumeric ascending order */
+  doNotSortOptions?: boolean;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -40,6 +42,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   context,
   nullSelection,
   trackUnsaved = true,
+  doNotSortOptions = false,
   ...rest
 }) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
@@ -91,11 +94,21 @@ const Select: React.FunctionComponent<SelectProps> = ({
               {nullSelection}
             </option>
           )}
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {doNotSortOptions
+            ? options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))
+            : options
+                .sort((a, b) =>
+                  a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
+                )
+                .map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
         </select>
       </InputWrapper>
     </div>

@@ -2,6 +2,8 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
+import { useIntl } from "react-intl";
+import { getLocalizedName } from "../../../helpers/localize";
 import { fakeDepartments } from "../../../fakeData";
 import Form from "../BasicForm";
 import Select, { Option } from ".";
@@ -20,19 +22,19 @@ export default {
   },
 } as Meta;
 
-const departmentOptions: Option[] = fakeDepartments().map(({ id, name }) => ({
-  value: id,
-  label: name?.en || "",
-}));
-
 const TemplateSelect: Story<SelectProps> = (args) => {
+  const intl = useIntl();
+  const departmentOptions: Option[] = fakeDepartments().map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl) || "",
+  }));
   return (
     <Form
       onSubmit={action("Submit Form")}
       options={{ defaultValues: { departments: "" } }}
     >
       <div>
-        <Select {...args} />
+        <Select {...args} options={departmentOptions} />
         <Submit />
       </div>
     </Form>
@@ -42,18 +44,15 @@ const TemplateSelect: Story<SelectProps> = (args) => {
 export const SelectDefault = TemplateSelect.bind({});
 SelectDefault.args = {
   id: uniqueId(),
-  label: "Select a department",
+  label: "Department",
   name: "departments",
-  options: departmentOptions,
+  nullSelection: "",
 };
 
-export const SelectWithEmptyOption = TemplateSelect.bind({});
-SelectWithEmptyOption.args = {
+export const SelectWithNullSelection = TemplateSelect.bind({});
+SelectWithNullSelection.args = {
   ...SelectDefault.args,
-  options: [
-    { value: "", label: "Select an option...", disabled: true },
-    ...departmentOptions,
-  ],
+  nullSelection: "Select an option...",
 };
 
 export const SelectRequired = TemplateSelect.bind({});
@@ -86,5 +85,4 @@ export const SelectLabelElement = TemplateSelect.bind({});
 SelectLabelElement.args = {
   label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",
-  options: departmentOptions,
 };
