@@ -17,7 +17,7 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
