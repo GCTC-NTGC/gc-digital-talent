@@ -4,18 +4,24 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 
-import { toast } from "@common/components/Toast";
-import { Select, Submit, Input } from "@common/components/form";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages, commonMessages } from "@common/messages";
-import { getLanguage, getRole } from "@common/constants/localizedConstants";
-import { emptyToNull } from "@common/helpers/util";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Select,
+  Submit,
+  Input,
+  enumToOptions,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import {
+  errorMessages,
+  commonMessages,
+  getLanguage,
+  getRole,
+} from "@gc-digital-talent/i18n";
+import { emptyToNull } from "@gc-digital-talent/helpers";
+import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Language,

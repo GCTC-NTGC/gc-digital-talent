@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { useLocalStorage } from "@gc-digital-talents/storage";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Button,
   SkipLink,

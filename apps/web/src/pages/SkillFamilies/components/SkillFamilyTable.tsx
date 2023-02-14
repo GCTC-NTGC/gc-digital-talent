@@ -1,14 +1,16 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
-import { getSkillCategory } from "@common/constants/localizedConstants";
-import { SkillCategory } from "@common/api/generated";
-import Pending from "@common/components/Pending";
+import { getLocale, getSkillCategory } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
+import {
+  SkillCategory,
+  SkillFamily,
+  useAllSkillFamiliesQuery,
+} from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,

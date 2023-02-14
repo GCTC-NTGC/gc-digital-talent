@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
-import { Button } from "@common/components";
+import { Button } from "@gc-digital-talent/ui";
 
 import { Applicant } from "~/api/generated";
 import printStyles from "~/styles/printStyles";

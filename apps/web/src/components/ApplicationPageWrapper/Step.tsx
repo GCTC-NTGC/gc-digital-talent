@@ -1,6 +1,6 @@
 import React from "react";
 
-import Link from "@common/components/Link";
+import { Link } from "@gc-digital-talent/ui";
 
 export interface StepProps {
   path: string;

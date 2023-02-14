@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import fakeSkillFamilies from "@common/fakeData/fakeSkillFamilies";
+import { fakeSkillFamilies } from "@gc-digital-talent/fake-data";
 
 import { SkillFamilyTable } from "./SkillFamilyTable";
 

@@ -9,22 +9,25 @@ import {
   CheckIcon,
 } from "@heroicons/react/24/outline";
 
-import { toast } from "@common/components/Toast";
-import TableOfContents from "@common/components/TableOfContents";
-import Well from "@common/components/Well";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  TableOfContents,
+  Well,
+  Button,
+  Link,
+  Heading,
+} from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
   getLanguage,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
-} from "@common/constants/localizedConstants";
-import { Button, Link } from "@common/components";
-import { BasicForm, TextArea } from "@common/components/form";
-import Heading from "@common/components/Heading";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+} from "@gc-digital-talent/i18n";
+import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 
+import { getFullNameHtml } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   JobLookingStatus,

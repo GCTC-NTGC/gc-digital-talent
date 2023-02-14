@@ -5,19 +5,26 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 
-import { toast } from "@common/components/Toast";
-import { Select, Submit, Input, TextArea } from "@common/components/form";
-import { notEmpty } from "@common/helpers/util";
-import { getLocale } from "@common/helpers/localize";
-import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages, commonMessages } from "@common/messages";
-import { getSkillCategory } from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Select,
+  Submit,
+  Input,
+  MultiSelectField,
+  TextArea,
+  unpackIds,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  getLocale,
+  errorMessages,
+  commonMessages,
+  getSkillCategory,
+} from "@gc-digital-talent/i18n";
+import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,

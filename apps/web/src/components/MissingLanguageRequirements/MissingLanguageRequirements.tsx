@@ -78,7 +78,7 @@ const MissingLanguageRequirementsBlock = ({
 export interface MissingLanguageRequirementsProps {
   applicant?: Applicant;
   poolAdvertisement?: PoolAdvertisement | null;
-  headingLevel?: HeadingLevel;
+  headingLevel?: HeadingRank;
 }
 
 const MissingLanguageRequirements = ({

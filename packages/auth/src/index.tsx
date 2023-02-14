@@ -1,3 +1,5 @@
+import { AuthenticationContext } from "./components/AuthenticationContainer";
+import { AuthorizationContext } from "./components/AuthorizationContainer";
 import RequireAuth from "./components/RequireAuth";
 import AuthenticationProvider from "./components/AuthenticationProvider";
 import AuthorizationProvider from "./components/AuthorizationProvider";
@@ -17,6 +19,8 @@ export {
   RequireAuth,
   AuthenticationProvider,
   AuthorizationProvider,
+  AuthenticationContext,
+  AuthorizationContext,
   useAuthentication,
   useAuthorization,
   useApiRoutes,
