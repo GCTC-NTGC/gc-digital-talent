@@ -93,9 +93,8 @@ const ViewTeamPage = () => {
         >
           {intl.formatMessage({
             defaultMessage: "Back to teams",
-            id: "ZxENUS",
-            description:
-              "Link text for button to go back to the teams table page",
+            id: "LocjmN",
+            description: "Button text to return to the table of teams page",
           })}
         </Link>
       </p>

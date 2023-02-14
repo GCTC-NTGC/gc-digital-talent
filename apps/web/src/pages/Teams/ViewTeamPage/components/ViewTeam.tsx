@@ -46,9 +46,8 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
             value={team.displayName?.en ?? ""}
             label={intl.formatMessage({
               defaultMessage: "Organization's name (English)",
-              id: "DziQ2u",
-              description:
-                "Label displayed on the organization name in English field.",
+              id: "QC23B1",
+              description: "Name of an organization/team in English field.",
             })}
           />
         </div>
@@ -62,9 +61,8 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
             value={team.displayName?.fr ?? ""}
             label={intl.formatMessage({
               defaultMessage: "Organization's name (French)",
-              id: "oTWaul",
-              description:
-                "Label displayed on the organization name in French field.",
+              id: "W0BVd+",
+              description: "Name of an organization/team in French field.",
             })}
           />
         </div>
