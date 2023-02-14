@@ -3344,9 +3344,9 @@
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill family form name (English) field."
   },
-  "3exDkT": {
+  "i8zhiL": {
     "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill form key field."
+    "description": "Key"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -3535,10 +3535,6 @@
   "m5RwGF": {
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Skill Family table Category column."
-  },
-  "qVXkby": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill family form key field."
   },
   "qZd17O": {
     "defaultMessage": " Créer une compétence",
