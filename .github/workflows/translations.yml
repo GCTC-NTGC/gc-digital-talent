@@ -36,6 +36,10 @@ jobs:
         working-directory: ./
         run: npm install
 
+      - name: "Setup cli"
+        working-directory: ./
+        run: npm run build:intl-cli
+
       - name: "Extract English files: all workspaces"
         working-directory: ./
         run: npm run intl-extract
