@@ -72,6 +72,10 @@ return [
     | The key in the array is the name of the relationship inside the roles and permissions.
     |
     */
+    /* gc-digital-talent note:
+    | I've removed the role_user.user_type since we're not using polymorphic relations ships from role to user.
+    | (There's only one user model)
+    */
     'user_models' => [
         'users' => \App\Models\User::class,
     ],
