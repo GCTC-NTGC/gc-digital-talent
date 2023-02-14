@@ -30,7 +30,7 @@ import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 type MergedExperiences = Array<
   | AwardExperience

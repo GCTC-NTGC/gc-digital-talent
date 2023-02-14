@@ -16,7 +16,7 @@ import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();

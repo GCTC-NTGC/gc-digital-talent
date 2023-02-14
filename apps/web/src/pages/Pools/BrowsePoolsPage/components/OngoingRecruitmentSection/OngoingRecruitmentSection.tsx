@@ -16,8 +16,8 @@ import {
   useMySkillsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component

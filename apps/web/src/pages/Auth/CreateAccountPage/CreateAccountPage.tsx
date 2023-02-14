@@ -28,13 +28,12 @@ import {
   Department,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
 import {
   formValuesToSubmitData,
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
 } from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,

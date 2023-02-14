@@ -11,6 +11,7 @@ import {
   Scalars,
   PoolStream,
   PoolAdvertisement,
+  Classification,
 } from "~/api/generated";
 
 import { wrapAbbr } from "./nameUtils";
@@ -76,13 +77,17 @@ export const hasUserApplied = (
   return hasApplied;
 };
 
+export interface formatClassificationStringProps {
+  group: string;
+  level: number;
+}
+
 export const formatClassificationString = ({
   group,
   level,
 }: formatClassificationStringProps): string => {
   return `${group}-0${level}`;
 };
-
 export interface formattedPoolPosterTitleProps {
   title: Maybe<string>;
   classification: Maybe<Classification>;
@@ -120,45 +125,6 @@ export const formattedPoolPosterTitle = ({
       genericTitle ? `(${genericTitle})` : ""
     }`.trim(),
   };
-};
-
-export interface formatClassificationStringProps {
-  group: string;
-  level: number;
-}
-
-export const getFullPoolAdvertisementTitle = (
-  intl: IntlShape,
-  poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "name" | "classifications" | "stream">
-  >,
-  options?: { defaultTitle?: string },
-): string => {
-  const fallbackTitle =
-    options?.defaultTitle ??
-    intl.formatMessage({
-      id: "D91nGW",
-      defaultMessage: "Job title not found.",
-      description:
-        "Message shown to user when pool name or classification are not found.",
-    });
-
-  if (poolAdvertisement === null || poolAdvertisement === undefined)
-    return fallbackTitle;
-
-  const formattedClassification = poolAdvertisement?.classifications?.[0] // TODO: If a pool has multiple classifications, only the first will be shown.
-    ? formatClassificationString(poolAdvertisement?.classifications?.[0])
-    : null;
-
-  const specificTitle = getLocalizedName(poolAdvertisement.name, intl);
-
-  const formattedTitle = formattedPoolPosterTitle({
-    title: specificTitle,
-    classification: formattedClassification,
-    stream: poolAdvertisement.stream,
-    intl,
-  });
-  return formattedTitle ?? fallbackTitle;
 };
 
 export const fullPoolAdvertisementTitle = (

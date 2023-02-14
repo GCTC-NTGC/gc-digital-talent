@@ -10,7 +10,7 @@ import { imageUrl } from "@gc-digital-talent/helpers";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 // Create the page component
 const Opportunities = () => {

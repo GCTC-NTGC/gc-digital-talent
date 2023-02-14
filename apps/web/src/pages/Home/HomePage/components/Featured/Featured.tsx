@@ -5,7 +5,8 @@ import { imageUrl } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
+
 import Block from "./Block";
 
 // Create the page component

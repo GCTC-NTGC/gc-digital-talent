@@ -12,7 +12,7 @@ import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 
 import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const AdminHomePage = () => {
   const intl = useIntl();

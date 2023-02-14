@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
+
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
