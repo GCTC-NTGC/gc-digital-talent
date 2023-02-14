@@ -9,9 +9,9 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --minify",
+    "build": "tsup src/index.tsx  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --minify",
+    "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "dependencies": {

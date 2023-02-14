@@ -12,9 +12,9 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "tsup --entry src/index.tsx --entry src/cli.ts --format esm,cjs --dts --external react --minify",
+    "build": "tsup --entry src/index.tsx --entry src/cli.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --minify",
+    "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },

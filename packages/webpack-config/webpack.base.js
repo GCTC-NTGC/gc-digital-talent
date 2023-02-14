@@ -61,6 +61,12 @@ module.exports = (basePath) => {
     module: {
       rules: [
         {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
+        },
+        {
           // transpile typescript files
           test: /\.ts(x?)$/,
           use: [
@@ -68,7 +74,7 @@ module.exports = (basePath) => {
               loader: 'babel-loader',
               options: {
                 "filename": ".babelrc"
-              },
+              }
             },
             {
               loader: "ts-loader",
@@ -94,6 +100,9 @@ module.exports = (basePath) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
       ],
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js', 'mjs'],
     },
     /**
    * Optimizations only run in production mode

@@ -12,9 +12,9 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "tsup --entry src/index.tsx --entry src/cli.ts --format esm,cjs --dts --external react --minify",
+    "build": "tsup --entry src/index.tsx --entry src/cli.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --minify",
+    "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit"
@@ -47,6 +47,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^26.0.22",
+    "@types/lodash": "4.14.191",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "eslint": "^7.32.0",

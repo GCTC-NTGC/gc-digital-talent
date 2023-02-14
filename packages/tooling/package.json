@@ -9,9 +9,9 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/checkIntegrity.ts --format esm,cjs --dts --external react --minify",
+    "build": "tsup src/checkIntegrity.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/checkIntegrity.ts --format esm,cjs --watch --dts --external react --minify",
+    "watch": "tsup src/checkIntegrity.ts  --watch --dts --external react --minify",
     "check-integrity": "./dist/checkIntegrity.js",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
     "test": "jest"
