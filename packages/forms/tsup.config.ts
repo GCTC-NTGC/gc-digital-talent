@@ -15,6 +15,6 @@ export const tsup: Options = {
   entryPoints: ["src/index.tsx"],
   watch: env === "development",
   target: "es2020",
-  outDir: env === "production" ? "dist" : "lib",
+  outDir: "dist",
   external: ["react", "lodash", "react-hook-form"],
 };
