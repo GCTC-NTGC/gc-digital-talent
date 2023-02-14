@@ -29,8 +29,8 @@ export const CommunityExperienceForm = ({ labels }: SubExperienceFormProps) => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Gained experience by being part of or giving back to a community? People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, indigenous communities, or virtual collaborations.",
-          id: "gDQZIQ",
+            "People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, Indigenous communities, or virtual collaborations. Have you gained experience by being part of or giving back to a community? This could be anything from: helping during events and ceremonies, bartering, DJing at a friend's wedding, to gaming and streaming.",
+          id: "6XVNkV",
           description: "Description blurb for Community Experience form",
         })}
       </p>

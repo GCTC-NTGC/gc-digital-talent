@@ -7,8 +7,10 @@ import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export interface Option {
   value: string | number;
-  label: string;
+  label: React.ReactNode;
   disabled?: boolean;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
 }
 
 export interface SelectProps
@@ -92,7 +94,11 @@ const Select: React.FunctionComponent<SelectProps> = ({
             </option>
           )}
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              aria-label={option.ariaLabel}
+              key={option.value}
+              value={option.value}
+            >
               {option.label}
             </option>
           ))}

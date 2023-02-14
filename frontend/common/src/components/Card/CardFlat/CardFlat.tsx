@@ -8,7 +8,7 @@ import Link, { ExternalLink, type LinkProps } from "../../Link";
 type CardColor = Extract<Color, "yellow" | "red" | "blue" | "black" | "purple">;
 
 interface CardFlatLinkProps extends Pick<LinkProps, "href" | "mode"> {
-  label: string;
+  label: React.ReactNode;
   external?: boolean;
 }
 export interface CardFlatProps {

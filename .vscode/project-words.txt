@@ -3,8 +3,8 @@ Analyser
 Assertable
 atag
 Authenticatable
-BEHAVIOURAL
 Behavioural
+BEHAVIOURAL
 chra
 chrc
 codegen
@@ -30,6 +30,7 @@ heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk
 jwks
+Laratrust
 Laravel
 Laravelista
 Lcobucci

@@ -1,16 +1,17 @@
 import React from "react";
 import Button from "./Button";
-import type { ButtonProps } from "./Button";
 
-// NOTE: We should find a way to not need to omit ref
-export interface IconButtonProps extends Omit<ButtonProps, "ref"> {
+export type IconButtonProps = React.ComponentPropsWithoutRef<typeof Button> & {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
-}
+};
 
-const IconButton: React.FC<IconButtonProps> = ({ icon, children, ...rest }) => {
+const IconButton = React.forwardRef<
+  React.ElementRef<typeof Button>,
+  IconButtonProps
+>(({ icon, children, ...rest }, ref) => {
   const Icon = icon || null;
   return (
-    <Button {...rest}>
+    <Button ref={ref} {...rest}>
       <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
         {Icon && (
           <Icon
@@ -22,6 +23,6 @@ const IconButton: React.FC<IconButtonProps> = ({ icon, children, ...rest }) => {
       </span>
     </Button>
   );
-};
+});
 
 export default IconButton;

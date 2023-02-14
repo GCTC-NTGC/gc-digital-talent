@@ -6,10 +6,11 @@ import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
 
 import { faker } from "@faker-js/faker";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { render, axeTest } from "../../helpers/testUtils";
 
 import Dialog from ".";
-import Button from "../Button";
+import Button, { IconButton } from "../Button";
 
 type DialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof Dialog.Root
@@ -91,5 +92,34 @@ describe("Dialog", () => {
     expect(
       screen.queryByRole("dialog", { name: /dialog title/i }),
     ).not.toBeInTheDocument();
+  });
+
+  it("should work with an IconButton", async () => {
+    renderDialog({
+      children: (
+        <>
+          <Dialog.Trigger>
+            <IconButton icon={PlusIcon}>Open Dialog</IconButton>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header color="ia-primary" subtitle="Dialog Subtitle">
+              Dialog Title
+            </Dialog.Header>
+            <p>{faker.lorem.sentences(3)}</p>
+            <Dialog.Footer>
+              <Dialog.Close>
+                <Button color="cta">Close Action</Button>
+              </Dialog.Close>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </>
+      ),
+    });
+
+    fireEvent.click(await screen.getByRole("button", { name: /open dialog/i }));
+
+    expect(
+      screen.queryByRole("dialog", { name: /dialog title/i }),
+    ).toBeInTheDocument();
   });
 });

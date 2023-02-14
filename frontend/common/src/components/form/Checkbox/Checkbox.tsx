@@ -77,11 +77,12 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           onContextToggle={setContextVisible}
           descriptionIds={descriptionIds}
           data-h2-flex-direction="base(row)"
-          data-h2-align-items="base(center)"
+          data-h2-align-items="base(flex-start)"
+          data-h2-line-height="base:selectors[>label](1)"
         >
           <input
             data-h2-order="base(-1)"
-            data-h2-margin="base(0, x.25, 0, 0)"
+            data-h2-margin="base(x.2, x.25, 0, 0)"
             id={id}
             {...register(name, rules)}
             type="checkbox"

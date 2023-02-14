@@ -76,7 +76,7 @@ describe("BrowsePoolsPage", () => {
 
     fireEvent.click(
       await screen.getByRole("button", {
-        name: /IT business line advisory services/i,
+        name: /business line advisory services/i,
       }),
     );
 

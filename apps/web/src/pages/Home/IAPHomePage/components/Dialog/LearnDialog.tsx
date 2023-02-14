@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import Heading from "../Heading";
 import CloseButton from "./CloseButton";
 
@@ -25,24 +26,34 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header color="ia-secondary">
-          {intl.formatMessage({
-            defaultMessage:
-              "Learn More About the Government of Canada IT Apprenticeship Program for Indigenous Peoples",
-            id: "L9yjr3",
-            description: "Heading for the Learn more dialog",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Learn More About the Government of Canada <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples",
+              id: "Ea8q/H",
+              description: "Heading for the Learn more dialog",
+            },
+            {
+              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            },
+          )}
         </Dialog.Header>
         <Heading
           as="h3"
           data-h2-font-size="base(h6, 1.3)"
           data-h2-margin="base(0)"
         >
-          {intl.formatMessage({
-            defaultMessage:
-              "Who can apply to become an apprentice as part of the Government of Canada IT Apprenticeship Program for Indigenous Peoples?",
-            id: "p2sBh3",
-            description: "Learn more dialog question one heading",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Who can apply to become an apprentice as part of the Government of Canada <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples?",
+              id: "9Nf78m",
+              description: "Learn more dialog question one heading",
+            },
+            {
+              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            },
+          )}
         </Heading>
         <p data-h2-margin="base(x1, 0)">
           {intl.formatMessage({

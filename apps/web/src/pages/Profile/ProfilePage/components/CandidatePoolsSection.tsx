@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Well from "@common/components/Well";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import { PoolCandidate } from "~/api/generated";
 
@@ -33,7 +33,9 @@ const CandidatePoolsSection: React.FunctionComponent<{
             data-h2-padding="base(x1, 0)"
           >
             <div>
-              <p>{getFullPoolAdvertisementTitle(intl, poolCandidate?.pool)}</p>
+              <p>
+                {getFullPoolAdvertisementTitleHtml(intl, poolCandidate?.pool)}
+              </p>
             </div>
             <div>
               <p>

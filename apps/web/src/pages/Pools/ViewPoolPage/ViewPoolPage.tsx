@@ -32,7 +32,7 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import SEO from "@common/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -63,7 +63,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const poolName = getFullPoolAdvertisementTitle(intl, pool);
+  const poolName = getFullPoolAdvertisementTitleHtml(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {

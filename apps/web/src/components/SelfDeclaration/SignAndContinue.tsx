@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Input, Submit } from "@common/components/form";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import errorMessages from "@common/messages/errorMessages";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 interface SignAndContinueProps {
   labels: FieldLabels;
@@ -89,13 +90,18 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
             <Submit
               color="ia-primary"
               mode="solid"
-              text={intl.formatMessage({
-                defaultMessage:
-                  "Explore IT opportunities within the federal government",
-                id: "32qwlv",
-                description:
-                  "Button text to submit the Indigenous self-declaration form when not Indigenous.",
-              })}
+              text={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Explore <abbreviation>IT</abbreviation> opportunities within the federal government",
+                  id: "j3WBqJ",
+                  description:
+                    "Button text to submit the Indigenous self-declaration form when not Indigenous.",
+                },
+                {
+                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                },
+              )}
             />
           </p>
         </>

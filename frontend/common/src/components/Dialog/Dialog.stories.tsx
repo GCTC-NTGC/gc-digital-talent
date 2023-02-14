@@ -23,6 +23,7 @@ export default {
 const Template: ComponentStory<typeof Dialog.Header> = (args) => {
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
   const { children, color, subtitle } = args;
+  faker.seed(0);
   return (
     <>
       <Dialog.Root defaultOpen>

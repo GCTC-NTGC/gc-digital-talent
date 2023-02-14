@@ -19,7 +19,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
 import useLocale from "@common/hooks/useLocale";
 import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleLabel } from "@common/helpers/poolUtils";
 
 import {
   WorkRegion,
@@ -62,7 +62,7 @@ export default function useFilterOptions(enableEducationType = false) {
   const optionsData = {
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
-      label: getFullPoolAdvertisementTitle(intl, pool),
+      label: getFullPoolAdvertisementTitleLabel(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,

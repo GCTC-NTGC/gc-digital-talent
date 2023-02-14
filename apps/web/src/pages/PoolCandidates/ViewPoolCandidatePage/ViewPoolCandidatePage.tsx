@@ -14,7 +14,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import UserProfile from "@common/components/UserProfile";
 import { Applicant } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -57,7 +57,7 @@ export const ViewPoolCandidate = ({
       href: paths.poolTable(),
     },
     {
-      title: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
+      title: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
       href: paths.poolView(poolCandidate.pool.id),
     },
     {
@@ -213,7 +213,10 @@ export const ViewPoolCandidate = ({
             },
             {
               submittedAt: poolCandidate.submittedAt,
-              poolName: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
+              poolName: getFullPoolAdvertisementTitleHtml(
+                intl,
+                poolCandidate.pool,
+              ),
             },
           )}
         </p>

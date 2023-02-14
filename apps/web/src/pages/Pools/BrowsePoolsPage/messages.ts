@@ -3,22 +3,34 @@ import { defineMessages } from "react-intl";
 const messages = defineMessages({
   // title and summary for each stream
   businessAdvisoryServicesTitle: {
-    defaultMessage: "IT business line advisory services",
-    id: "EOO6S0",
+    defaultMessage:
+      "<abbreviation>IT</abbreviation> business line advisory services",
+    id: "H8cs1r",
     description:
       "Title for the 'business line advisory services' IT work stream",
   },
+  businessAdvisoryServicesLabel: {
+    defaultMessage: "IT business line advisory services",
+    id: "ZOEHxi",
+    description:
+      "Label for the 'business line advisory services' IT work stream",
+  },
   businessAdvisoryServicesSummary: {
     defaultMessage:
-      "This stream includes providing specialized IT guidance as well as working with clients and/or suppliers to acquire and sustain IT resources that support Government operation.",
-    id: "QN/1MR",
+      "This stream includes providing specialized <abbreviation>IT</abbreviation> guidance as well as working with clients and/or suppliers to acquire and sustain <abbreviation>IT</abbreviation> resources that support Government operation.",
+    id: "iA1BBF",
     description:
       "Title for the 'business line advisory services' IT work stream",
   },
   databaseManagementTitle: {
-    defaultMessage: "IT database management",
-    id: "pffFnd",
+    defaultMessage: "<abbreviation>IT</abbreviation> database management",
+    id: "vbEXnp",
     description: "Title for the 'database management' IT work stream",
+  },
+  databaseManagementLabel: {
+    defaultMessage: "IT database management",
+    id: "AR+sqf",
+    description: "Label for the 'database management' IT work stream",
   },
   databaseManagementSummary: {
     defaultMessage:
@@ -27,53 +39,79 @@ const messages = defineMessages({
     description: "Title for the 'database management' IT work stream",
   },
   enterpriseArchitectureTitle: {
-    defaultMessage: "IT enterprise architecture",
-    id: "C2iUvf",
+    defaultMessage: "<abbreviation>IT</abbreviation> enterprise architecture",
+    id: "eFNBND",
     description: "Title for the 'enterprise architecture' IT work stream",
+  },
+  enterpriseArchitectureLabel: {
+    defaultMessage: "IT enterprise architecture",
+    id: "YbkM7u",
+    description: "Label for the 'enterprise architecture' IT work stream",
   },
   enterpriseArchitectureSummary: {
     defaultMessage:
-      "This stream includes working with the departmental IT architecture direction, collaborating with other IT streams, and conducting research into emerging technologies.",
-    id: "DVkO+D",
+      "This stream includes working with the departmental <abbreviation>IT</abbreviation> architecture direction, collaborating with other <abbreviation>IT</abbreviation> streams, and conducting research into emerging technologies.",
+    id: "OqglGZ",
     description: "Title for the 'enterprise architecture' IT work stream",
   },
   infrastructureOperationsTitle: {
-    defaultMessage: "IT infrastructure operations",
-    id: "ElfiAv",
+    defaultMessage: "<abbreviation>IT</abbreviation> infrastructure operations",
+    id: "6G1ESr",
     description: "Title for the 'infrastructure operations' IT work stream",
+  },
+  infrastructureOperationsLabel: {
+    defaultMessage: "IT infrastructure operations",
+    id: "i8DgUB",
+    description: "Label for the 'infrastructure operations' IT work stream",
   },
   infrastructureOperationsSummary: {
     defaultMessage:
-      "This stream includes infrastructure management of networks, mainframes, servers, and storage, providing IT support, and client/supplier relationships.",
-    id: "svCFrY",
+      "This stream includes infrastructure management of networks, mainframes, servers, and storage, providing <abbreviation>IT</abbreviation> support, and client/supplier relationships.",
+    id: "Xdmhoo",
     description: "Title for the 'infrastructure operations' IT work stream",
   },
   planningAndReportingTitle: {
-    defaultMessage: "IT planning and reporting",
-    id: "VX2+ET",
+    defaultMessage: "<abbreviation>IT</abbreviation> planning and reporting",
+    id: "E3loNV",
     description: "Title for the 'planning and reporting' IT work stream",
+  },
+  planningAndReportingLabel: {
+    defaultMessage: "IT planning and reporting",
+    id: "NHjbIl",
+    description: "Label for the 'planning and reporting' IT work stream",
   },
   planningAndReportingSummary: {
     defaultMessage:
-      "This stream includes providing specialized IT planning guidance, and the collaborative creation of deliverables that include strategic plans, IT policies and standards, and governance processes.",
-    id: "crqgGQ",
+      "This stream includes providing specialized <abbreviation>IT</abbreviation> planning guidance, and the collaborative creation of deliverables that include strategic plans, <abbreviation>IT</abbreviation> policies and standards, and governance processes.",
+    id: "/R/S8P",
     description: "Title for the 'planning and reporting' IT work stream",
   },
   projectPortfolioManagementTitle: {
-    defaultMessage: "IT project portfolio management",
-    id: "aL5y0G",
+    defaultMessage:
+      "<abbreviation>IT</abbreviation> project portfolio management",
+    id: "AlRcyu",
     description: "Title for the 'project portfolio management' IT work stream",
+  },
+  projectPortfolioManagementLabel: {
+    defaultMessage: "IT project portfolio management",
+    id: "lCHx90",
+    description: "Label for the 'project portfolio management' IT work stream",
   },
   projectPortfolioSummary: {
     defaultMessage:
-      "This bucket includes working full-time on large, formal projects that require the sharing of and application of rigorous application of IT project management skills and knowledge.",
-    id: "h5CY+u",
+      "This bucket includes working full-time on large, formal projects that require the sharing of and application of rigorous application of <abbreviation>IT</abbreviation> project management skills and knowledge.",
+    id: "hKKYYL",
     description: "Title for the 'project portfolio management' IT work stream",
   },
   securityTitle: {
-    defaultMessage: "IT security",
-    id: "uxlNWH",
+    defaultMessage: "<abbreviation>IT</abbreviation> security",
+    id: "wzoCfb",
     description: "Title for the 'security' IT work stream",
+  },
+  securityLabel: {
+    defaultMessage: "IT security",
+    id: "/2Vhvl",
+    description: "Label for the 'security' IT work stream",
   },
   securitySummary: {
     defaultMessage:
@@ -82,9 +120,14 @@ const messages = defineMessages({
     description: "Title for the 'security' IT work stream",
   },
   softwareSolutionsTitle: {
-    defaultMessage: "IT software solutions",
-    id: "4CT5zI",
+    defaultMessage: "<abbreviation>IT</abbreviation> software solutions",
+    id: "Tjd942",
     description: "Title for the 'software solutions' IT work stream",
+  },
+  softwareSolutionsLabel: {
+    defaultMessage: "IT software solutions",
+    id: "QSTaWO",
+    description: "Label for the 'software solutions' IT work stream",
   },
   softwareSolutionsSummary: {
     defaultMessage:
@@ -95,8 +138,8 @@ const messages = defineMessages({
 
   // title and description for each it level
   it01Title: {
-    defaultMessage: "Technician (IT-01)",
-    id: "MiBPoz",
+    defaultMessage: "Technician (<abbreviation>IT-01</abbreviation>)",
+    id: "GtZyhK",
     description: "Title for the 'IT-01 Technician' classification",
   },
   it01Description: {
@@ -113,8 +156,8 @@ const messages = defineMessages({
       "Invitation to apply for the 'IT-01 Technician' classification",
   },
   it02Title: {
-    defaultMessage: "Analyst (IT-02)",
-    id: "+ywDV8",
+    defaultMessage: "Analyst (<abbreviation>IT-02</abbreviation>)",
+    id: "I/fGUN",
     description: "Title for the 'IT-02 Analyst' classification",
   },
   it02Description: {
@@ -129,8 +172,9 @@ const messages = defineMessages({
     description: "Invitation to apply for the 'IT-02 Analyst' classification",
   },
   it03Title: {
-    defaultMessage: "Team Lead and Technical Advisor (IT-03)",
-    id: "xtIE4i",
+    defaultMessage:
+      "Team Lead and Technical Advisor (<abbreviation>IT-03</abbreviation>)",
+    id: "S02Y/P",
     description: "Title for the 'IT-03 Advisor' classification",
   },
   it03Description1: {
@@ -154,14 +198,15 @@ const messages = defineMessages({
     description: "Invitation to apply for the 'IT-03 Advisor' classification",
   },
   it04Title: {
-    defaultMessage: "Manager and Senior Advisor (IT-04)",
-    id: "Jwj3YC",
+    defaultMessage:
+      "Manager and Senior Advisor (<abbreviation>IT-04</abbreviation>)",
+    id: "KpNUo0",
     description: "Title for the 'IT-04 Manager' classification",
   },
   it04Description1: {
     defaultMessage:
-      "Managers are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams.",
-    id: "d4OJ5V",
+      "Managers are responsible for managing the development and delivery of <abbreviation>IT</abbreviation> services and/or operations through subordinate team leaders, technical advisors, and project teams.",
+    id: "uD7QTb",
     description:
       "Description for the 'IT-04 Manager' classification, paragraph 1",
   },

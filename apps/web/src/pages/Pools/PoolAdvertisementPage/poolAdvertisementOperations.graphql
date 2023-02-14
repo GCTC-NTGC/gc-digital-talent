@@ -43,6 +43,8 @@ query getPoolAdvertisement($id: UUID!) {
         en
         fr
       }
+      minSalary
+      maxSalary
       genericJobTitles {
         id
         key

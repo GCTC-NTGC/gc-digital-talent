@@ -9,7 +9,7 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import Heading from "@common/components/Heading/Heading";
 
 import {
@@ -133,12 +133,12 @@ const ManagerInfo: React.FunctionComponent<{
                   content={
                     applicantFilter
                       ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )
                       : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )
