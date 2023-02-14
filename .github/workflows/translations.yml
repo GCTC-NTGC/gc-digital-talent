@@ -38,7 +38,7 @@ jobs:
 
       - name: "Extract English files: all workspaces"
         working-directory: ./
-        run: npm run intl-extract --workspaces
+        run: npm run intl-extract
 
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
@@ -51,10 +51,10 @@ jobs:
         working-directory: packages/i18n/src/lang
         run: >
           if test -f "untranslated.json"; then
-            echo ":x: Common has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: i18n has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: Common is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: i18n is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
