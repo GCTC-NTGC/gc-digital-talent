@@ -4,10 +4,9 @@
 import "@testing-library/jest-dom";
 import React from "react";
 
-import { render, axeTest } from "../../helpers/testUtils";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Alert from "./Alert";
-import { AlertProps } from "./types";
+import Alert, { AlertProps } from "./Alert";
 
 const defaultProps = {
   title: "Alert test",
@@ -15,7 +14,7 @@ const defaultProps = {
 };
 
 const renderAlert = (props: Omit<AlertProps, "children">) => {
-  return render(
+  return renderWithProviders(
     <Alert.Root {...props}>
       <p>This is an alert test.</p>
     </Alert.Root>,
