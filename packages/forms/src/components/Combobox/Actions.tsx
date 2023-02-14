@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
-import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
+import { uiMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
 const layoutStyles = {
