@@ -58,7 +58,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Verify no orphaned strings: common"
+      - name: "Verify no orphaned strings: i18n"
         if: always()
         working-directory: packages/i18n/src/lang
         run: >

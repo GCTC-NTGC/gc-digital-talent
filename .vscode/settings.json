@@ -17,7 +17,7 @@
   },
   "eslint.workingDirectories": [
     "apps",
-    "frontend/common"
+    "packages"
   ],
   "[typescriptreact]": {
     "editor.tabSize": 2

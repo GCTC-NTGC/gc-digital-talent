@@ -11,7 +11,7 @@ import {
   OperationalRequirement,
   PositionDuration,
   LegacyRole,
-} from "@gc-digital-talent/common/src/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 
 export function createApplicant({
   email,
