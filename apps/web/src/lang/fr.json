@@ -785,12 +785,12 @@
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
   },
-  "gDQZIQ": {
-    "defaultMessage": "Expérience acquise en faisant partie d’une collectivité ou en lui rendant la pareille? Les personnes apprennent des compétences à partir d’un vaste éventail d’expériences comme le bénévolat et celles acquises dans des organismes sans but lucratif, des communautés autochtones ou des collaborations virtuelles.",
+  "6XVNkV": {
+    "defaultMessage": "Les gens acquièrent des compétences à partir d’une vaste gamme d’expériences, comme le bénévolat ou le fait de faire partie d’un organisme à but non-lucratif, de communautés autochtones ou de collaborations virtuelles. Il pourrait s’agir de n’importe quoi dont, notamment : le fait d’aider dans le cadre d’événements ou de cérémonies, faire le troc, servir de DJ aux noces d’un ami, jouer des jeux et diffuser en temps réel.",
     "description": "Description blurb for Community Experience form"
   },
-  "i17oNt": {
-    "defaultMessage": "Faites part de vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses de recherche ou de stages.",
+  "qjMTk9": {
+    "defaultMessage": "Partagez les expériences que vous avez acquises dans des postes à temps plein, à temps partiel, du travail autonome, des bourses de recherche, et des stages. Vous n’avez pas nécessairement besoin de tout partager. Misez plutôt sur les expériences qui ont trait à la possibilité qui vous intéresse.",
     "description": "Description blurb for Work Experience form"
   },
   "i55f5L": {
@@ -5678,5 +5678,29 @@
   "s7QD5B": {
     "defaultMessage": "Modifier <hidden>{title}</hidden>",
     "description": "Text label for button to edit employment equity category from profile."
+  },
+  "BkH0qC": {
+    "defaultMessage": "Profil d’utilisateur",
+    "description": "Page title for the view user profile page"
+  },
+  "/WvEvL": {
+    "defaultMessage": "Information relative au stage",
+    "description": "Page title for the user placement information page"
+  },
+  "vyyfX6": {
+    "defaultMessage": "Créer une nouvelle équipe",
+    "description": "Page title for the create team page"
+  },
+  "SXoCma": {
+    "defaultMessage": "Renseignements sur l’équipe",
+    "description": "Page title for the view team page"
+  },
+  "zEmPCS": {
+    "defaultMessage": "Modifier les renseignements sur l’équipe",
+    "description": "Page title for the edit team page"
+  },
+  "6rb9mg": {
+    "defaultMessage": "Membres de l’équipe",
+    "description": "Page title for the view team members page"
   }
 }

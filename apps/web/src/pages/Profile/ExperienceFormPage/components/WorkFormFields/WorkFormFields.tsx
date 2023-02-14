@@ -29,8 +29,8 @@ export const WorkExperienceForm = ({ labels }: SubExperienceFormProps) => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Share your experiences gained from full-time, part-time, self-employment, fellowships or internships.",
-          id: "i17oNt",
+            "Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships, and internships. You don't necessarily need to share everything. Instead, focus on experiences related to the opportunity that you are interested in.",
+          id: "qjMTk9",
           description: "Description blurb for Work Experience form",
         })}
       </p>
