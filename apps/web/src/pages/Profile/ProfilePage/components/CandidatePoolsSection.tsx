@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 
 import { PoolCandidate } from "~/api/generated";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 const CandidatePoolsSection: React.FunctionComponent<{
   poolCandidates: PoolCandidate[];
@@ -33,7 +33,9 @@ const CandidatePoolsSection: React.FunctionComponent<{
             data-h2-padding="base(x1, 0)"
           >
             <div>
-              <p>{getFullPoolAdvertisementTitle(intl, poolCandidate?.pool)}</p>
+              <p>
+                {getFullPoolAdvertisementTitleHtml(intl, poolCandidate?.pool)}
+              </p>
             </div>
             <div>
               <p>

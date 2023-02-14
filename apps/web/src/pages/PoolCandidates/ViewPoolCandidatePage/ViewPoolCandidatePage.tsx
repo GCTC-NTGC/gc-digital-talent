@@ -23,7 +23,7 @@ import {
   PoolCandidate,
   Maybe,
 } from "~/api/generated";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
@@ -59,7 +59,7 @@ export const ViewPoolCandidate = ({
       url: paths.poolTable(),
     },
     {
-      label: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
+      label: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
       url: paths.poolView(poolCandidate.pool.id),
     },
     {
@@ -216,7 +216,10 @@ export const ViewPoolCandidate = ({
             },
             {
               submittedAt: poolCandidate.submittedAt,
-              poolName: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
+              poolName: getFullPoolAdvertisementTitleHtml(
+                intl,
+                poolCandidate.pool,
+              ),
             },
           )}
         </p>

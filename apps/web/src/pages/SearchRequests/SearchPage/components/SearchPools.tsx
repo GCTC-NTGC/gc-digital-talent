@@ -5,7 +5,7 @@ import { Button } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import { Pool } from "~/api/generated";
 
@@ -39,7 +39,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       aria-labelledby={`search_pool_${pool.id}`}
     >
       <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
-        {getFullPoolAdvertisementTitle(intl, pool)}
+        {getFullPoolAdvertisementTitleHtml(intl, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(

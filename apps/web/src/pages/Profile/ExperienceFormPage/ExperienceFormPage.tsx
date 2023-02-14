@@ -16,7 +16,7 @@ import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   Maybe,
@@ -91,7 +91,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
-  let crumbs = [
+  let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
       label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
@@ -119,7 +119,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   let irrelevantSkills: Maybe<Skill[]> = [];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
+    const advertisementTitle = getFullPoolAdvertisementTitleHtml(
       intl,
       poolAdvertisement,
     );

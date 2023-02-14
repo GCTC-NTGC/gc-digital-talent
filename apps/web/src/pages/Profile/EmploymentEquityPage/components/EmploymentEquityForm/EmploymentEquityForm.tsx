@@ -5,13 +5,14 @@ import { useSearchParams } from "react-router-dom";
 import { Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
 
@@ -57,7 +58,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -130,13 +131,18 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       </p>
       <Well data-h2-margin="base(x2, 0, 0, 0)">
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "<strong>This section is optional, however, to be considered eligible for the IT Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
-            id: "okZjVr",
-            description:
-              "Explanation that employment equity information is optional.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "<strong>This section is optional, however, to be considered eligible for the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
+              id: "Nj6c0X",
+              description:
+                "Explanation that employment equity information is optional.",
+            },
+            {
+              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            },
+          )}
         </p>
         <ul>
           <li>

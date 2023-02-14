@@ -24,33 +24,36 @@ const Spacer = ({ children }: SpacerProps) => (
   </div>
 );
 
-const Template: Story = () => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-justify-content="base(space-around)"
-    style={{ margin: "-1rem" }}
-  >
-    <Spacer>
-      <Card title="TS Primary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </Card>
-    </Spacer>
-    <Spacer>
-      <Card title="TS Secondary" color="ts-secondary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </Card>
-    </Spacer>
-    <Spacer>
-      <Card title="IA Primary" color="ia-primary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </Card>
-    </Spacer>
-    <Spacer>
-      <Card title="IA Secondary" color="ia-secondary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </Card>
-    </Spacer>
-  </div>
-);
+const Template: Story = () => {
+  faker.seed(0);
+  return (
+    <div
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(space-around)"
+      style={{ margin: "-1rem" }}
+    >
+      <Spacer>
+        <Card title="TS Primary">
+          <p>{faker.lorem.sentences(1)}</p>
+        </Card>
+      </Spacer>
+      <Spacer>
+        <Card title="TS Secondary" color="ts-secondary">
+          <p>{faker.lorem.sentences(1)}</p>
+        </Card>
+      </Spacer>
+      <Spacer>
+        <Card title="IA Primary" color="ia-primary">
+          <p>{faker.lorem.sentences(1)}</p>
+        </Card>
+      </Spacer>
+      <Spacer>
+        <Card title="IA Secondary" color="ia-secondary">
+          <p>{faker.lorem.sentences(1)}</p>
+        </Card>
+      </Spacer>
+    </div>
+  );
+};
 
 export const CardStory = Template.bind({});

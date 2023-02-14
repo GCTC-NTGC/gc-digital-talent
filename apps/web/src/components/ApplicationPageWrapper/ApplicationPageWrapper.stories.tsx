@@ -17,6 +17,7 @@ export default {
 } as ComponentMeta<ApplicationPageWrapperComponent>;
 
 const Template: ComponentStory<ApplicationPageWrapperComponent> = (args) => {
+  faker.seed(0);
   return (
     <ApplicationPageWrapper {...args}>
       <p>{faker.lorem.sentences(10)}</p>

@@ -15,7 +15,7 @@ import SaveButton from "./SaveButton";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["crumbs"];
-  description?: string;
+  description?: React.ReactNode;
   title: string;
   metaTitle?: string; // Used to override <head><title /></head>
   children?: React.ReactNode;

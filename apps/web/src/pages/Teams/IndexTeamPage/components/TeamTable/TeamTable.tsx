@@ -74,6 +74,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         accessor: (d) => (d?.displayName ? d.displayName[locale] : d.name),
         Cell: ({ row, value }: TeamCell) =>
           viewAccessor(paths.teamView(row.original.id), value, intl),
+        id: "teamName",
       },
       {
         Header: intl.formatMessage({
@@ -105,6 +106,16 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
   );
 
   const data = useMemo(() => teams.filter(notEmpty), [teams]);
+  const { initialSortBy } = useMemo(() => {
+    return {
+      initialSortBy: [
+        {
+          id: "teamName",
+          desc: false,
+        },
+      ],
+    };
+  }, []);
 
   return (
     <Table
@@ -118,6 +129,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
           description: "Link text to create a new team in the admin portal",
         }),
       }}
+      initialSortBy={initialSortBy}
     />
   );
 };

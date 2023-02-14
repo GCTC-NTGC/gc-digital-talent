@@ -11,8 +11,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -52,7 +52,7 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolAdvertisementTitle(intl, pool) },
+        { label: getFullPoolAdvertisementTitleHtml(intl, pool) },
       )}
     </Link>
   );
@@ -61,7 +61,7 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={url} type="link">
-      {getFullPoolAdvertisementTitle(intl, pool)}
+      {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
 }
@@ -210,7 +210,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           if (d.classifications && d.classifications.length > 0) {
             d.classifications.forEach((classification) => {
               if (classification) {
-                const groupLevelString = `${classification.group}-${classification.level} `;
+                const groupLevelString = wrapAbbr(
+                  `${classification?.group}-0${classification?.level}`,
+                  intl,
+                );
                 classificationsString += groupLevelString;
               }
             });

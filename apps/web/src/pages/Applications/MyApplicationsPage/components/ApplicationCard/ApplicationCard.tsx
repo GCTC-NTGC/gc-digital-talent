@@ -8,7 +8,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
@@ -60,7 +60,7 @@ const ApplicationCard = ({
         <div>
           <h2 data-h2-font-size="base(h5)" data-h2-margin="base(0, 0, x0.5, 0)">
             {application.poolAdvertisement
-              ? getFullPoolAdvertisementTitle(
+              ? getFullPoolAdvertisementTitleHtml(
                   intl,
                   application.poolAdvertisement,
                 )

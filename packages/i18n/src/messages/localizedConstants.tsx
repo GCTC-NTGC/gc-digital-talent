@@ -1568,6 +1568,30 @@ export const getPublishingGroup = (
     `Invalid publishing group '${publishingGroup}'`,
   );
 
+export const abbreviations = defineMessages({
+  AS: {
+    defaultMessage: "Administrative Services",
+    id: "6svHxg",
+  },
+  GC: {
+    defaultMessage: "Government of Canada",
+    id: "t9i8Ml",
+  },
+  IT: {
+    defaultMessage: "Information Technology",
+    id: "nLW9zq",
+  },
+});
+
+export const getAbbreviations = (
+  abbreviation: keyof typeof abbreviations,
+): MessageDescriptor =>
+  getOrThrowError(
+    abbreviations,
+    abbreviation,
+    `Invalid abbreviation '${abbreviation}'`,
+  );
+
 export const indigenousCommunities = defineMessages({
   [IndigenousCommunity.StatusFirstNations]: {
     defaultMessage: "Status First Nations",

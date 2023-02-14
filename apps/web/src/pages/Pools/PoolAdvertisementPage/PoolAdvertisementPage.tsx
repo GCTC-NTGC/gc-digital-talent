@@ -38,9 +38,10 @@ import {
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
-  getFullPoolAdvertisementTitle,
+  getFullPoolAdvertisementTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -167,7 +168,7 @@ export const PoolAdvertisementPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
@@ -346,13 +347,19 @@ export const PoolAdvertisementPoster = ({
                     })}
                   </Text>
                   <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                      id: "m5hjaz",
-                      description:
-                        "Description of pool recruitment, paragraph two",
-                    })}
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                        id: "LlgRM8",
+                        description:
+                          "Description of pool recruitment, paragraph two",
+                      },
+                      {
+                        abbreviation: (text: React.ReactNode) =>
+                          wrapAbbr(text, intl),
+                      },
+                    )}
                   </Text>
                 </Accordion.Content>
               </Accordion.Item>

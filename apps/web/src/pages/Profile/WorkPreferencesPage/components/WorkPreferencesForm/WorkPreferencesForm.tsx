@@ -12,7 +12,7 @@ import {
 import { BasicForm, Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidate,
   PositionDuration,
@@ -154,7 +154,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

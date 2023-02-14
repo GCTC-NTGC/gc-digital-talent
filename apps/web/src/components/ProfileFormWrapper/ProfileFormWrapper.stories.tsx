@@ -45,6 +45,8 @@ export const CancelButton = TemplateProfileFormWrapper.bind({});
 export const SaveButton = TemplateProfileFormWrapper.bind({});
 export const BothButtons = TemplateProfileFormWrapper.bind({});
 
+faker.seed(0);
+
 CancelButton.args = {
   crumbs: [{ label: "About Me", url: "#about-cancel" }],
   title: "About me",

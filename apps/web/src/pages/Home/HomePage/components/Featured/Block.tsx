@@ -6,7 +6,7 @@ import { Heading } from "@gc-digital-talent/ui";
 export interface FeatureBlockProps {
   content: {
     title: string;
-    summary: string;
+    summary: React.ReactNode;
     img: {
       path: string;
     };

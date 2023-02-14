@@ -9,7 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   Applicant,
   BilingualEvaluation,
@@ -203,7 +203,7 @@ const LanguageInformationForm: React.FunctionComponent<{
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

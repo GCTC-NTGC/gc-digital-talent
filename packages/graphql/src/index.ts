@@ -1268,6 +1268,7 @@ export type Query = {
   poolCandidatesPaginated?: Maybe<PoolCandidatePaginator>;
   pools: Array<Maybe<Pool>>;
   publishedPoolAdvertisements: Array<PoolAdvertisement>;
+  roles: Array<Maybe<Role>>;
   searchPoolCandidates: Array<Maybe<PoolCandidate>>;
   skill?: Maybe<Skill>;
   skillFamilies: Array<Maybe<SkillFamily>>;
@@ -1420,6 +1421,15 @@ export enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PriorityWeight = "PRIORITY_WEIGHT",
 }
 
+export type Role = {
+  __typename?: "Role";
+  description?: Maybe<LocalizedString>;
+  displayName?: Maybe<LocalizedString>;
+  id: Scalars["ID"];
+  isTeamBased?: Maybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+};
+
 /** The available SQL operators that are used to filter query results. */
 export enum SqlOperator {
   /** Whether a value is within a range of values (`BETWEEN`) */
@@ -1552,7 +1562,7 @@ export type Team = {
   description?: Maybe<LocalizedString>;
   displayName?: Maybe<LocalizedString>;
   id: Scalars["ID"];
-  name?: Maybe<Scalars["String"]>;
+  name: Scalars["String"];
   pools?: Maybe<Array<Maybe<Pool>>>;
 };
 
@@ -6719,6 +6729,8 @@ export type GetPoolAdvertisementQuery = {
                   id: string;
                   group: string;
                   level: number;
+                  minSalary?: number | null | undefined;
+                  maxSalary?: number | null | undefined;
                   name?:
                     | {
                         __typename?: "LocalizedString";
@@ -7091,9 +7103,7 @@ export type GetMePoolCreationQuery = {
     | undefined
   >;
   teams: Array<
-    | { __typename?: "Team"; name?: string | null | undefined; id: string }
-    | null
-    | undefined
+    { __typename?: "Team"; name: string; id: string } | null | undefined
   >;
 };
 
@@ -7223,7 +7233,7 @@ export type AllTeamsQuery = {
     | {
         __typename?: "Team";
         id: string;
-        name?: string | null | undefined;
+        name: string;
         displayName?:
           | {
               __typename?: "LocalizedString";
@@ -10825,7 +10835,7 @@ export type ListTeamsQuery = {
     | {
         __typename?: "Team";
         id: string;
-        name?: string | null | undefined;
+        name: string;
         contactEmail?: string | null | undefined;
         displayName?:
           | {
@@ -14217,6 +14227,8 @@ export const GetPoolAdvertisementDocument = gql`
           en
           fr
         }
+        minSalary
+        maxSalary
         genericJobTitles {
           id
           key

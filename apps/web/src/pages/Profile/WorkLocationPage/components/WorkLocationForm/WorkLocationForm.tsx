@@ -16,7 +16,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   CreateUserInput,
   CreateWorkLocationMutation,
@@ -115,7 +115,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

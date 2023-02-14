@@ -17,7 +17,7 @@ import ApplicationNavigation, {
 
 export interface ApplicationPageWrapperProps {
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
   navigation?: ApplicationNavigationProps;
   closingDate: PoolAdvertisement["closingDate"];

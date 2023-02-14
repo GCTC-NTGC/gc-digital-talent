@@ -10,7 +10,10 @@ import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import {
+  getFullPoolAdvertisementTitleLabel,
+  getFullPoolAdvertisementTitleHtml,
+} from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   AdvertisementStatus,
@@ -117,7 +120,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolAdvertisementTitle(intl, rejected.pool)}
+                    {getFullPoolAdvertisementTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -148,7 +151,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolAdvertisementTitle(intl, pool),
+        label: getFullPoolAdvertisementTitleLabel(intl, pool),
       };
     });
 

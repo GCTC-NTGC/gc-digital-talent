@@ -9,6 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
 import "./hero.css";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
@@ -51,11 +52,17 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-text-align="base(center) p-tablet(left)"
         >
           <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
-            {intl.formatMessage({
-              defaultMessage: "GC Digital Talent",
-              id: "MS9dB9",
-              description: "Application title",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "<abbreviation>GC</abbreviation> Digital Talent",
+                id: "eSPoJw",
+                description: "Application title",
+              },
+              {
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+              },
+            )}
           </Heading>
           <p
             data-h2-font-size="base(h6, 1.4)"
@@ -63,12 +70,17 @@ const Hero = ({ defaultImage }: HeroProps) => {
             data-h2-margin="base(x1, 0, x2, 0)"
             data-h2-max-width="p-tablet(50%)"
           >
-            {intl.formatMessage({
-              defaultMessage:
-                "Whether you're thinking about joining government or already an employee, hoping to hire or considering an executive role, this is the place to come to be part of the GC digital community.",
-              id: "zmV99R",
-              description: "Description of the application on the homepage",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Whether you're thinking about joining government or already an employee, hoping to hire or considering an executive role, this is the place to come to be part of the <abbreviation>GC</abbreviation> digital community.",
+                id: "58Z5Ld",
+                description: "Description of the application on the homepage",
+              },
+              {
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+              },
+            )}
           </p>
         </div>
         <div

@@ -310,6 +310,22 @@ const ViewUserPage = React.lazy(() =>
       ),
   ),
 );
+const ViewUserPageV2 = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPageV2/ViewUserPage"
+      ),
+  ),
+);
+const UserPlacementPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUserPlacementPage" */ "../pages/Users/UserPlacementPage/UserPlacementPage"
+      ),
+  ),
+);
 
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
@@ -317,6 +333,38 @@ const IndexTeamPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
+      ),
+  ),
+);
+const CreateTeamPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
+      ),
+  ),
+);
+const ViewTeamPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminViewTeamPage" */ "../pages/Teams/ViewTeamPage/ViewTeamPage"
+      ),
+  ),
+);
+const UpdateTeamPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUpdateTeamPage" */ "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
+      ),
+  ),
+);
+const TeamMembersPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminTeamMembersPage" */ "../pages/Teams/TeamMembersPage/TeamMembersPage"
       ),
   ),
 );
@@ -906,6 +954,28 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       ),
                     },
                     {
+                      path: "profile",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <ViewUserPageV2 />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "placement",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <UserPlacementPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
                       path: "edit",
                       element: (
                         <RequireAuth
@@ -934,35 +1004,55 @@ const createRoute = (locale: Locales, loginPath: string) =>
                     </RequireAuth>
                   ),
                 },
-                // {
-                //   path: "create",
-                //   element: (
-                //     <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
-                //       <CreateTeamPage />
-                //     </RequireAuth>
-                //   ),
-                // },
-                // {
-                //   path: ":teamId",
-                //   children: [
-                //     {
-                //       index: true,
-                //       element: (
-                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
-                //           <ViewTeamPage />
-                //         </RequireAuth>
-                //       ),
-                //     },
-                //     {
-                //       path: "edit",
-                //       element: (
-                //         <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
-                //           <UpdateTeamPage />
-                //         </RequireAuth>
-                //       ),
-                //     },
-                //   ],
-                // },
+                {
+                  path: "create",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <CreateTeamPage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: ":teamId",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <ViewTeamPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "edit",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <UpdateTeamPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "members",
+                      element: (
+                        <RequireAuth
+                          roles={[LegacyRole.Admin]}
+                          loginPath={loginPath}
+                        >
+                          <TeamMembersPage />
+                        </RequireAuth>
+                      ),
+                    },
+                  ],
+                },
               ],
             },
             {

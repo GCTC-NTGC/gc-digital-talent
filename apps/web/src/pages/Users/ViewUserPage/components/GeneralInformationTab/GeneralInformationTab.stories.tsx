@@ -30,6 +30,8 @@ export const InPools = TemplateInfoTab.bind({});
 export const NoEmploymentEquity = TemplateInfoTab.bind({});
 export const SomeEmploymentEquity = TemplateInfoTab.bind({});
 
+faker.seed(0);
+
 NotInPools.args = {
   user: {
     ...baseUser,

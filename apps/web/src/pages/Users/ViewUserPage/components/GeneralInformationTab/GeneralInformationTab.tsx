@@ -27,7 +27,7 @@ import {
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   JobLookingStatus,
@@ -110,7 +110,7 @@ const PoolStatusTable: React.FC<SectionWithPoolsProps> = ({ user, pools }) => {
                 >
                   {candidate.pool ? (
                     <Link href={paths.poolView(candidate.pool.id)}>
-                      {getFullPoolAdvertisementTitle(intl, candidate.pool)}
+                      {getFullPoolAdvertisementTitleHtml(intl, candidate.pool)}
                     </Link>
                   ) : (
                     ""
@@ -404,7 +404,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
+                  poolName: getFullPoolAdvertisementTitleHtml(
+                    intl,
+                    candidate.pool,
+                  ),
                 },
               ),
             );
@@ -420,7 +423,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
+                  poolName: getFullPoolAdvertisementTitleHtml(
+                    intl,
+                    candidate.pool,
+                  ),
                 },
               ),
             );
@@ -462,7 +468,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitle(
+                    })} - ${getFullPoolAdvertisementTitleHtml(
                       intl,
                       candidate.pool,
                     )}`}

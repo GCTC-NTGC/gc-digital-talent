@@ -12,7 +12,7 @@ import { ApplicantFilter, Maybe, PoolCandidateFilter } from "~/api/generated";
 
 export interface FilterBlockProps {
   title: string;
-  content: Maybe<string> | Maybe<string[]>;
+  content: Maybe<string | React.ReactNode> | Maybe<string[]>;
 }
 
 const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
@@ -21,7 +21,9 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 }) => {
   const intl = useIntl();
 
-  const emptyArrayOutput = (input: string | string[] | null | undefined) => {
+  const emptyArrayOutput = (
+    input: string | React.ReactNode | string[] | null | undefined,
+  ) => {
     return input && !isEmpty(input) ? (
       <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}

@@ -16,6 +16,7 @@ import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
@@ -54,12 +55,17 @@ const LoggedOutPage: React.FC = () => {
             })}
           </Alert.Title>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Remember, to sign back in, you'll need to use your GC Key username and password. We hope to see you soon!",
-              id: "6UCzgs",
-              description: "Message displayed to a user after logging out.",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Remember, to sign back in, you'll need to use your <abbreviation>GC</abbreviation> Key username and password. We hope to see you soon!",
+                id: "ocCSfi",
+                description: "Message displayed to a user after logging out.",
+              },
+              {
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+              },
+            )}
           </p>
         </Alert.Root>
         <h2 data-h2-margin="base(x3, 0, x1, 0)">

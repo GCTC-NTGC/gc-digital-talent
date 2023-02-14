@@ -5,7 +5,7 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import { Breadcrumbs, Pending } from "@gc-digital-talent/ui";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { Scalars, useGetPoolAdvertisementQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -37,7 +37,7 @@ export const IndexPoolCandidatePage = () => {
     },
     {
       label:
-        getFullPoolAdvertisementTitle(intl, data?.poolAdvertisement) ||
+        getFullPoolAdvertisementTitleHtml(intl, data?.poolAdvertisement) ||
         intl.formatMessage({
           defaultMessage: "Pool name not found",
           id: "HGMl3y",
@@ -77,7 +77,7 @@ export const IndexPoolCandidatePage = () => {
               "Subtitle on pool candidates page indicating which pool candidates are from",
           },
           {
-            poolName: getFullPoolAdvertisementTitle(
+            poolName: getFullPoolAdvertisementTitleHtml(
               intl,
               data?.poolAdvertisement,
             ),

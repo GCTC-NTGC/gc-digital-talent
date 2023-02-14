@@ -9,7 +9,7 @@ import {
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
@@ -133,12 +133,12 @@ const ManagerInfo: React.FunctionComponent<{
                   content={
                     applicantFilter
                       ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )
                       : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )

@@ -17,18 +17,20 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component
 interface StreamViewModel {
   key: PoolStream;
-  title: string;
-  summary: string;
+  title: React.ReactNode;
+  label: React.ReactNode;
+  summary: React.ReactNode;
   classifications: {
-    title: string;
+    title: React.ReactNode;
     description: React.ReactNode;
     poolAdvertisement: PoolAdvertisement | undefined;
-    applyMessage: string;
+    applyMessage: React.ReactNode;
   }[];
 }
 
@@ -101,16 +103,26 @@ const OngoingRecruitmentSection = ({
     .map(getId);
   const mySkillIds = uniqueItems(mySkillIdsWithDuplicates ?? []);
 
+  const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
+
+  // this great big object is all the data to populate the accordions
   // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
     // IT business line advisory services bucket
     {
       key: PoolStream.BusinessAdvisoryServices,
-      title: intl.formatMessage(messages.businessAdvisoryServicesTitle),
-      summary: intl.formatMessage(messages.businessAdvisoryServicesSummary),
+      title: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.businessAdvisoryServicesLabel),
+      summary: intl.formatMessage(messages.businessAdvisoryServicesSummary, {
+        abbreviation,
+      }),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -119,11 +131,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -132,11 +148,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -154,15 +174,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -176,7 +202,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.businessAdvisoryServicesTitle),
+            name: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -184,11 +212,16 @@ const OngoingRecruitmentSection = ({
     // IT database management
     {
       key: PoolStream.DatabaseManagement,
-      title: intl.formatMessage(messages.databaseManagementTitle),
+      title: intl.formatMessage(messages.databaseManagementTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.databaseManagementLabel),
       summary: intl.formatMessage(messages.databaseManagementSummary),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -197,11 +230,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.databaseManagementTitle),
+            name: intl.formatMessage(messages.databaseManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -210,11 +247,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.databaseManagementTitle),
+            name: intl.formatMessage(messages.databaseManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -232,15 +273,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.databaseManagementTitle),
+            name: intl.formatMessage(messages.databaseManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -254,7 +301,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.databaseManagementTitle),
+            name: intl.formatMessage(messages.databaseManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -262,11 +311,18 @@ const OngoingRecruitmentSection = ({
     // IT enterprise architecture
     {
       key: PoolStream.EnterpriseArchitecture,
-      title: intl.formatMessage(messages.enterpriseArchitectureTitle),
-      summary: intl.formatMessage(messages.enterpriseArchitectureSummary),
+      title: intl.formatMessage(messages.enterpriseArchitectureTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.enterpriseArchitectureLabel),
+      summary: intl.formatMessage(messages.enterpriseArchitectureSummary, {
+        abbreviation,
+      }),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -275,11 +331,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -288,11 +348,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -310,15 +374,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -332,7 +402,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.enterpriseArchitectureTitle),
+            name: intl.formatMessage(messages.enterpriseArchitectureTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -340,11 +412,18 @@ const OngoingRecruitmentSection = ({
     // IT infrastructure operations
     {
       key: PoolStream.InfrastructureOperations,
-      title: intl.formatMessage(messages.infrastructureOperationsTitle),
-      summary: intl.formatMessage(messages.infrastructureOperationsSummary),
+      title: intl.formatMessage(messages.infrastructureOperationsTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.infrastructureOperationsLabel),
+      summary: intl.formatMessage(messages.infrastructureOperationsSummary, {
+        abbreviation,
+      }),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -353,11 +432,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            name: intl.formatMessage(messages.infrastructureOperationsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -366,11 +449,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            name: intl.formatMessage(messages.infrastructureOperationsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -388,15 +475,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            name: intl.formatMessage(messages.infrastructureOperationsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -410,7 +503,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.infrastructureOperationsTitle),
+            name: intl.formatMessage(messages.infrastructureOperationsTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -418,11 +513,18 @@ const OngoingRecruitmentSection = ({
     // IT planning and reporting
     {
       key: PoolStream.PlanningAndReporting,
-      title: intl.formatMessage(messages.planningAndReportingTitle),
-      summary: intl.formatMessage(messages.planningAndReportingSummary),
+      title: intl.formatMessage(messages.planningAndReportingTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.planningAndReportingLabel),
+      summary: intl.formatMessage(messages.planningAndReportingSummary, {
+        abbreviation,
+      }),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -431,11 +533,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.planningAndReportingTitle),
+            name: intl.formatMessage(messages.planningAndReportingTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -444,11 +550,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.planningAndReportingTitle),
+            name: intl.formatMessage(messages.planningAndReportingTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -466,15 +576,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.planningAndReportingTitle),
+            name: intl.formatMessage(messages.planningAndReportingTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -488,7 +604,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.planningAndReportingTitle),
+            name: intl.formatMessage(messages.planningAndReportingTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -496,11 +614,18 @@ const OngoingRecruitmentSection = ({
     // IT project portfolio management
     {
       key: PoolStream.ProjectPortfolioManagement,
-      title: intl.formatMessage(messages.projectPortfolioManagementTitle),
-      summary: intl.formatMessage(messages.projectPortfolioSummary),
+      title: intl.formatMessage(messages.projectPortfolioManagementTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.projectPortfolioManagementLabel),
+      summary: intl.formatMessage(messages.projectPortfolioSummary, {
+        abbreviation,
+      }),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -509,11 +634,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -522,11 +651,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -544,15 +677,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -566,7 +705,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.projectPortfolioManagementTitle),
+            name: intl.formatMessage(messages.projectPortfolioManagementTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -574,11 +715,16 @@ const OngoingRecruitmentSection = ({
     // IT security
     {
       key: PoolStream.Security,
-      title: intl.formatMessage(messages.securityTitle),
+      title: intl.formatMessage(messages.securityTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.securityLabel),
       summary: intl.formatMessage(messages.securitySummary),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -587,11 +733,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.securityTitle),
+            name: intl.formatMessage(messages.securityTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -600,11 +750,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.securityTitle),
+            name: intl.formatMessage(messages.securityTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -622,15 +776,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.securityTitle),
+            name: intl.formatMessage(messages.securityTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -645,7 +805,9 @@ const OngoingRecruitmentSection = ({
           ),
 
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.securityTitle),
+            name: intl.formatMessage(messages.securityTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -653,11 +815,16 @@ const OngoingRecruitmentSection = ({
     // IT software solutions
     {
       key: PoolStream.SoftwareSolutions,
-      title: intl.formatMessage(messages.softwareSolutionsTitle),
+      title: intl.formatMessage(messages.softwareSolutionsTitle, {
+        abbreviation,
+      }),
+      label: intl.formatMessage(messages.softwareSolutionsLabel),
       summary: intl.formatMessage(messages.softwareSolutionsSummary),
       classifications: [
         {
-          title: intl.formatMessage(messages.it01Title),
+          title: intl.formatMessage(messages.it01Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it01Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -666,11 +833,15 @@ const OngoingRecruitmentSection = ({
             1,
           ),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
+            name: intl.formatMessage(messages.softwareSolutionsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it02Title),
+          title: intl.formatMessage(messages.it02Title, {
+            abbreviation,
+          }),
           description: intl.formatMessage(messages.it02Description),
           poolAdvertisement: selectPoolForSection(
             pools,
@@ -679,11 +850,15 @@ const OngoingRecruitmentSection = ({
             2,
           ),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
+            name: intl.formatMessage(messages.softwareSolutionsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it03Title),
+          title: intl.formatMessage(messages.it03Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
@@ -701,15 +876,21 @@ const OngoingRecruitmentSection = ({
             3,
           ),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
+            name: intl.formatMessage(messages.softwareSolutionsTitle, {
+              abbreviation,
+            }),
           }),
         },
         {
-          title: intl.formatMessage(messages.it04Title),
+          title: intl.formatMessage(messages.it04Title, {
+            abbreviation,
+          }),
           description: (
             <>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
-                {intl.formatMessage(messages.it04Description1)}
+                {intl.formatMessage(messages.it04Description1, {
+                  abbreviation,
+                })}
               </p>
               <p data-h2-margin="base(0, 0, x0.75, 0)">
                 {intl.formatMessage(messages.it04Description2)}
@@ -723,7 +904,9 @@ const OngoingRecruitmentSection = ({
             4,
           ),
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
-            name: intl.formatMessage(messages.softwareSolutionsTitle),
+            name: intl.formatMessage(messages.softwareSolutionsTitle, {
+              abbreviation,
+            }),
           }),
         },
       ],
@@ -804,7 +987,7 @@ const OngoingRecruitmentSection = ({
               },
               ...streamsWithAvailablePools.map((stream) => ({
                 value: stream.key,
-                label: stream.title,
+                label: stream.label,
               })),
             ]}
             trackUnsaved={false}
@@ -877,7 +1060,7 @@ const OngoingRecruitmentSection = ({
                     )
                     .map((classification) => (
                       <div
-                        key={classification.title}
+                        key={`${classification.title}`}
                         data-h2-padding="base(0,0,x1, 0)"
                       >
                         <h4

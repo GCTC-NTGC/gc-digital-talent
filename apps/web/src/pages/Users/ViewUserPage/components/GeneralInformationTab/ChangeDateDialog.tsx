@@ -8,7 +8,7 @@ import { Input } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   Applicant,
@@ -116,7 +116,7 @@ export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
           })}
         </p>
         <p data-h2-font-weight="base(800)">
-          - {getFullPoolAdvertisementTitle(intl, selectedCandidate.pool)}
+          - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
         </p>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>

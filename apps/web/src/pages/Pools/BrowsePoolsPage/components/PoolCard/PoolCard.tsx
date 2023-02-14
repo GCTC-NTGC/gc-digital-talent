@@ -16,31 +16,14 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  formatClassificationString,
-  getFullPoolAdvertisementTitle,
-} from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 import { PoolAdvertisement } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
 import "./pool-card.css";
-
-const getClassificationStrings = (pool: PoolAdvertisement) => {
-  if (!pool.classifications) return null;
-
-  return pool.classifications
-    .map((classification) => {
-      if (!classification) return undefined;
-
-      return formatClassificationString({
-        group: classification.group,
-        level: classification.level,
-      });
-    })
-    .filter(notEmpty);
-};
 
 const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
   if (!pool.classifications) return null;
@@ -68,8 +51,14 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const classifications = getClassificationStrings(pool);
-  const classification = classifications?.length ? classifications[0] : null;
+  const { classifications } = pool;
+  const classification = classifications ? classifications[0] : null;
+
+  let classificationAbbr; // type wrangling the complex type into a string
+  if (classification) {
+    const { group, level } = classification;
+    classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
+  }
   const salaryRanges = getSalaryRanges(pool, locale);
   const nullMessage = intl.formatMessage(commonMessages.notAvailable);
 
@@ -101,7 +90,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-font-size="base(h6) l-tablet(h4, 1.2)"
             data-h2-layer="base(2, relative)"
           >
-            {classification || nullMessage}
+            {classificationAbbr || nullMessage}
           </span>
         </div>
       </div>
@@ -120,7 +109,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}
           >
-            {getFullPoolAdvertisementTitle(intl, pool)}
+            {getFullPoolAdvertisementTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-flex-grow="p-tablet(1)"
@@ -228,7 +217,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                     description:
                       "Message on link that say to apply to a recruitment advertisement",
                   },
-                  { name: classifications ? classifications[0] : "" },
+                  { name: classificationAbbr },
                 )}
               </Link>
             </p>

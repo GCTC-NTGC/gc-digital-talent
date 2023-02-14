@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
@@ -34,7 +34,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
           description: "Link text to continue a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+          name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
         },
       )}
     </Link>
@@ -65,7 +65,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolAdvertisementTitle(intl, advertisement),
+          name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
         },
       )}
     </Link>
@@ -84,7 +84,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitle(
+  const name = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
   );
@@ -171,7 +171,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitle(
+  const name = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
   );

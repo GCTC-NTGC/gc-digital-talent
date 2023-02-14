@@ -68,6 +68,7 @@ import {
   getBilingualEvaluation,
   getPoolCandidatePriorities,
   getPublishingGroup,
+  getAbbreviations,
   getIndigenousCommunity,
   OperationalRequirementV1,
   OperationalRequirementV2,
@@ -148,6 +149,7 @@ export {
   OperationalRequirementV2,
   GenericJobTitlesSorted,
   poolCandidatePriorities,
+  getAbbreviations,
 };
 
 export type { Locales, Messages };

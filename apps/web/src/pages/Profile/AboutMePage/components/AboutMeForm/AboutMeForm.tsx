@@ -21,7 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -191,7 +191,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

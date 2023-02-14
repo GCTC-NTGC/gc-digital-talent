@@ -20,7 +20,7 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   PoolAdvertisement,
@@ -228,7 +228,7 @@ export interface SignAndSubmitFormProps {
   poolAdvertisementId: string;
   userId: string;
   closingDate: PoolAdvertisement["closingDate"];
-  jobTitle: string;
+  jobTitle: React.ReactNode;
   handleSubmitApplication: (
     id: string,
     signature: string,
@@ -383,7 +383,10 @@ const SignAndSubmitPage = () => {
   });
 
   const jobTitle = data?.poolCandidate?.poolAdvertisement
-    ? getFullPoolAdvertisementTitle(intl, data.poolCandidate.poolAdvertisement)
+    ? getFullPoolAdvertisementTitleHtml(
+        intl,
+        data.poolCandidate.poolAdvertisement,
+      )
     : intl.formatMessage({
         defaultMessage: "Error, job title not found.",
         id: "oDyHaL",

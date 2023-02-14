@@ -18,7 +18,10 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+} from "~/utils/poolUtils";
 import {
   AdvertisementStatus,
   Applicant,
@@ -141,9 +144,13 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getFullPoolAdvertisementTitle(intl, r.poolCandidate.pool, {
-                      defaultTitle: r.poolCandidate.id,
-                    })}
+                    {getFullPoolAdvertisementTitleHtml(
+                      intl,
+                      r.poolCandidate.pool,
+                      {
+                        defaultTitle: r.poolCandidate.id,
+                      },
+                    )}
                   </li>
                 ))}
               </ul>
@@ -206,7 +213,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
           })}
         </p>
         <p data-h2-font-weight="base(700)">
-          - {getFullPoolAdvertisementTitle(intl, selectedCandidate?.pool)}
+          - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate?.pool)}
         </p>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(submitForm)}>
@@ -282,7 +289,7 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
                   .map((pool) => {
                     return {
                       value: pool.id,
-                      label: getFullPoolAdvertisementTitle(intl, pool),
+                      label: getFullPoolAdvertisementTitleLabel(intl, pool),
                     };
                   })}
               />

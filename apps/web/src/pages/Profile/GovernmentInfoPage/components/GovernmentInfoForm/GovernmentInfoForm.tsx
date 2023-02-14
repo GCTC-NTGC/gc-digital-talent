@@ -2,12 +2,14 @@ import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
+import uniqBy from "lodash/uniqBy";
 
 import {
   errorMessages,
   navigationMessages,
   getGovEmployeeType,
   getLocale,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   BasicForm,
@@ -22,7 +24,8 @@ import { empty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ExternalLink } from "@gc-digital-talent/ui";
 
-import { getFullPoolAdvertisementTitle } from "~/utils/poolUtils";
+import { splitAndJoin } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -242,26 +245,30 @@ export const GovernmentInfoFormFields: React.FunctionComponent<
       "priorityEntitlementYesNo",
     ]);
 
-  // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
-  // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
-  const classGroupsWithDupes: { value: string; label: string }[] =
-    classifications.map((classification) => {
-      return {
-        value: classification.id,
-        label:
-          classification.group ||
-          intl.formatMessage({
-            defaultMessage: "Error: classification group not found.",
-            id: "YA/7nb",
-            description:
-              "Error message if classification group is not defined.",
-          }),
-      };
-    });
-  const mapped = classGroupsWithDupes.map((x) => x.label);
-  const noDupes = Array.from(new Set(mapped));
-  const groupOptions = noDupes.map((options) => {
-    return { value: options, label: options };
+  const classGroupsWithDupes: {
+    label: string;
+    ariaLabel: string;
+  }[] = classifications.map((classification) => {
+    return {
+      label:
+        classification.group ||
+        intl.formatMessage({
+          defaultMessage: "Error: classification group not found.",
+          id: "YA/7nb",
+          description: "Error message if classification group is not defined.",
+        }),
+      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
+        classification.group,
+      )}`,
+    };
+  });
+  const noDupes = uniqBy(classGroupsWithDupes, "label");
+  const groupOptions = noDupes.map(({ label, ariaLabel }) => {
+    return {
+      value: label,
+      label,
+      ariaLabel,
+    };
   });
 
   // generate classification levels from the selected group
@@ -557,7 +564,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),

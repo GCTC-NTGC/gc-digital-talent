@@ -9,6 +9,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
+import { wrapAbbr } from "~/utils/nameUtils";
 import { Applicant, GovEmployeeType } from "~/api/generated";
 
 const GovernmentInformationSection: React.FunctionComponent<{
@@ -99,8 +100,10 @@ const GovernmentInformationSection: React.FunctionComponent<{
                     })}
                   </span>
                   <span data-h2-font-weight="base(700)">
-                    {applicant.currentClassification?.group}-
-                    {applicant.currentClassification?.level}
+                    {wrapAbbr(
+                      `${applicant.currentClassification?.group}-${applicant.currentClassification?.level}`,
+                      intl,
+                    )}
                   </span>
                 </p>
               </div>
