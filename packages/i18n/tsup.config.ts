@@ -12,7 +12,7 @@ export const tsup: Options = {
   minify: env === "production",
   bundle: env === "production",
   skipNodeModulesBundle: true,
-  entryPoints: ["src/index.tsx"],
+  entryPoints: ["src/index.tsx", "src/cli.ts"],
   watch: env === "development",
   target: "es2020",
   outDir: "dist",
