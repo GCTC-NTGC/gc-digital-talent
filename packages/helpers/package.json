@@ -13,7 +13,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test": "jest"
+    "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
     "@gc-digital-talent/graphql": "*",

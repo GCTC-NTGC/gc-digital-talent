@@ -8,11 +8,12 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "npm run codegen && tsc --declaration",
+    "build": "rimraf dist && env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup",
+    "watch": "tsup --watch",
     "codegen": "graphql-codegen",
-    "postinstall": "npm run build",
-    "dev": "tsc -w --declaration"
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^3.2.3",
@@ -20,6 +21,8 @@
     "@graphql-codegen/typescript": "^2.8.8",
     "@graphql-codegen/typescript-operations": "^2.5.13",
     "@graphql-codegen/typescript-urql": "^3.7.3",
+    "rimraf": "^4.1.2",
+    "tsup": "^6.6.0",
     "typescript": "^4.9.5"
   }
 }

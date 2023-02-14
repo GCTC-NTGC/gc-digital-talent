@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "jest-axe": "^7.0.0",
     "ts-jest": "^29.0.5"
   },
   "scripts": {

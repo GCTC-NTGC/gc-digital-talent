@@ -12,7 +12,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc --declaration",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test": "jest"
+    "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "jest": {
     "preset": "jest-presets/jest/node"

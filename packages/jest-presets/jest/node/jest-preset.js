@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   roots: ["<rootDir>"],
   transform: {
@@ -9,5 +11,11 @@ module.exports = {
     "<rootDir>/node_modules",
     "<rootDir>/dist",
   ],
+  moduleNameMapper: {
+    "^.+\\.(css|less)$": path.join(__dirname, "../../mocks/css.js"),
+  },
   preset: "ts-jest",
+  setupFilesAfterEnv: [
+    path.join(__dirname, "../../setup.js")
+  ],
 };
