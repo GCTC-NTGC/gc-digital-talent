@@ -350,12 +350,12 @@ export interface ExperienceFormContainerProps {
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const { id: applicationId, param: applicationParam } = useApplicationInfo();
+  const { id: applicationId } = useApplicationInfo();
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? applicationParam : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   const [
