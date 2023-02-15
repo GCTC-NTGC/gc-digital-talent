@@ -2,9 +2,13 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import React from "react";
+import { useIntl } from "react-intl";
+import { getLocalizedName } from "../../../helpers/localize";
+import { fakeSkillFamilies, fakeSkills } from "../../../fakeData";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import MultiSelectField from "./MultiSelectField";
+import { Option } from "../Select/SelectFieldV2";
 
 export default {
   component: MultiSelectField,
@@ -26,19 +30,20 @@ export default {
 } as ComponentMeta<typeof MultiSelectField>;
 
 const Template: ComponentStory<typeof MultiSelectField> = (args) => {
-  return <MultiSelectField {...args} />;
+  const intl = useIntl();
+  const skillFamilies = fakeSkillFamilies(10, fakeSkills(2));
+  const fakeOptions: Option[] = skillFamilies.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
+  }));
+  return <MultiSelectField {...args} options={fakeOptions} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   id: uniqueId(),
-  label: "Departments",
-  name: "departments",
-  options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "TBS" },
-    { value: 3, label: "DND" },
-  ],
+  label: "Skills",
+  name: "skills",
 };
 
 export const Required = Template.bind({});
