@@ -2,6 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakeSkills, fakeExperiences } from "@common/fakeData";
 import { notEmpty } from "@common/helpers/util";
+import OverlayOrDialogDecorator from "@gc-digital-talent/common/.storybook/decorators/OverlayOrDialogDecorator";
 import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
 import AddExperienceDialog from "./components/AddExperienceDialog";
 
@@ -68,6 +69,7 @@ WithExperiencesMissingSkills.args = {
   },
 };
 
+AddExperienceDialogOpen.decorators = [OverlayOrDialogDecorator];
 AddExperienceDialogOpen.args = {
   defaultOpen: true,
 };
