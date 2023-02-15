@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 import { getLocalizedName } from "../../../helpers/localize";
 import { fakeDepartments } from "../../../fakeData";
 import Form from "../BasicForm";
-import Select, { Option } from ".";
+import Select, { OptGroup, Option } from ".";
 import type { SelectProps } from ".";
 import Submit from "../Submit";
 
@@ -22,9 +22,10 @@ export default {
   },
 } as Meta;
 
-const TemplateSelect: Story<SelectProps> = (args) => {
+const Template: Story<SelectProps> = (args) => {
   const intl = useIntl();
-  const departmentOptions: Option[] = fakeDepartments().map(({ id, name }) => ({
+  const departments = fakeDepartments();
+  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl) || "",
   }));
@@ -41,7 +42,62 @@ const TemplateSelect: Story<SelectProps> = (args) => {
   );
 };
 
-export const SelectDefault = TemplateSelect.bind({});
+const TemplateGroups: Story<SelectProps> = (args) => {
+  const intl = useIntl();
+  const groups = [
+    {
+      id: 1,
+      label: {
+        en: "Small",
+        fr: "Petit",
+      },
+      options: fakeDepartments().map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+    {
+      id: 2,
+      label: {
+        en: "Medium",
+        fr: "Moyen",
+      },
+      options: fakeDepartments().map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+    {
+      id: 3,
+      label: {
+        en: "Large",
+        fr: "Grand",
+      },
+      options: fakeDepartments().map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+  ];
+  const departmentOptions: OptGroup[] = groups.map((optgroup) => ({
+    label: getLocalizedName(optgroup.label, intl),
+    options: optgroup.options,
+  }));
+
+  return (
+    <Form
+      onSubmit={action("Submit Form")}
+      options={{ defaultValues: { departments: "" } }}
+    >
+      <div>
+        <Select {...args} options={departmentOptions} />
+        <Submit />
+      </div>
+    </Form>
+  );
+};
+
+export const SelectDefault = Template.bind({});
 SelectDefault.args = {
   id: uniqueId(),
   label: "Department",
@@ -49,39 +105,45 @@ SelectDefault.args = {
   nullSelection: "",
 };
 
-export const SelectWithNullSelection = TemplateSelect.bind({});
+export const SelectWithNullSelection = Template.bind({});
 SelectWithNullSelection.args = {
   ...SelectDefault.args,
   nullSelection: "Select an option...",
 };
 
-export const SelectRequired = TemplateSelect.bind({});
+export const SelectWithGroups = TemplateGroups.bind({});
+SelectWithGroups.args = {
+  ...SelectDefault.args,
+  nullSelection: "Select an option...",
+};
+
+export const SelectRequired = Template.bind({});
 SelectRequired.args = {
   ...SelectDefault.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithInfo = TemplateSelect.bind({});
+export const SelectRequiredWithInfo = Template.bind({});
 SelectRequiredWithInfo.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithError = TemplateSelect.bind({});
+export const SelectRequiredWithError = Template.bind({});
 SelectRequiredWithError.args = {
   ...SelectDefault.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
+export const SelectRequiredWithErrorAndContext = Template.bind({});
 SelectRequiredWithErrorAndContext.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectLabelElement = TemplateSelect.bind({});
+export const SelectLabelElement = Template.bind({});
 SelectLabelElement.args = {
   label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",

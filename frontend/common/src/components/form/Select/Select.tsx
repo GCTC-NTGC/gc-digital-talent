@@ -5,11 +5,19 @@ import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
-export interface Option {
-  value: string | number;
+export type Option = {
   label: string;
+  value: string;
   disabled?: boolean;
-}
+};
+
+export type OptGroup = {
+  label: string;
+  options: Array<Option>;
+  disabled?: boolean;
+};
+
+type OptGroupOrOption = OptGroup[] | Option[];
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -19,8 +27,8 @@ export interface SelectProps
   label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
-  /** List of options for the select element. */
-  options: Option[];
+  /** List of options and/or optgroups for the select element. */
+  options: OptGroupOrOption;
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
@@ -95,20 +103,46 @@ const Select: React.FunctionComponent<SelectProps> = ({
             </option>
           )}
           {doNotSort
-            ? options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))
-            : options
-                .sort((a, b) =>
-                  a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
-                )
-                .map((option) => (
+            ? options.map((option) =>
+                "options" in option ? (
+                  <optgroup key={option.label} label={option.label}>
+                    {options.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ) : (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
-                ))}
+                ),
+              )
+            : options
+                .map((option) =>
+                  "options" in option ? (
+                    <optgroup key={option.label} label={option.label}>
+                      {options
+                        .map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))
+                        .sort((a, b) =>
+                          a.label
+                            .toLowerCase()
+                            .localeCompare(b.label.toLowerCase()),
+                        )}
+                    </optgroup>
+                  ) : (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ),
+                )
+                .sort((a, b) =>
+                  a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
+                )}
         </select>
       </InputWrapper>
     </div>
