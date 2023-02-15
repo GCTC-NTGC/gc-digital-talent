@@ -28,6 +28,7 @@ import {
   PoolStream,
   PublishingGroup,
   IndigenousCommunity,
+  CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -592,6 +593,33 @@ export const getPoolCandidateStatus = (
     poolCandidateStatuses,
     poolCandidateStatusId,
     `Invalid Pool Candidate Status '${poolCandidateStatusId}'`,
+  );
+
+export const candidateExpiryFilterStatuses = defineMessages({
+  [CandidateExpiryFilter.Active]: {
+    defaultMessage: "Active",
+    id: "SuKmqa",
+    description: "Active status",
+  },
+  [CandidateExpiryFilter.All]: {
+    defaultMessage: "All",
+    id: "qQtJDw",
+    description: "All statuses",
+  },
+  [CandidateExpiryFilter.Expired]: {
+    defaultMessage: "Expired",
+    id: "GIC6EK",
+    description: "Expired status",
+  },
+});
+
+export const getCandidateExpiryFilterStatus = (
+  candidateExpiryFilterStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    candidateExpiryFilterStatuses,
+    candidateExpiryFilterStatusId,
+    `Invalid Pool Candidate Status '${candidateExpiryFilterStatusId}'`,
   );
 
 export const poolCandidateSearchStatuses = defineMessages({

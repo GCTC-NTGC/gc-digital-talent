@@ -235,6 +235,21 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    // to replace scopeExpiryFilter which is entangled in deprecated queries
+    public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
+    {
+        $expiryStatus = isset($expiryStatus) ? $expiryStatus : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+            $query->where(function ($query) {
+                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                    ->orWhereNull('expiry_date');
+            });
+        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+            $query->whereDate('expiry_date', '<', date("Y-m-d"));
+        }
+        return $query;
+    }
+
     public function scopeNotDraft(Builder $query): Builder
     {
         return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
