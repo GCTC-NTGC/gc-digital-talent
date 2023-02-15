@@ -4,6 +4,16 @@ import { Scalars } from "~/api/generated";
 
 import useRoutes from "./useRoutes";
 
+/**
+ * Use Application Info
+ *
+ * Retrieves the current application context
+ * from search params returning its ID
+ * and a path to return to it.
+ *
+ * @param userId (optional) The ID of the applications user
+ * @returns {id: applicationID, returnRoute: Path to the current application}
+ */
 const useApplicationInfo = (userId?: Scalars["ID"]) => {
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
