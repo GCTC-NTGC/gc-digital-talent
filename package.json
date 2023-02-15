@@ -15,6 +15,7 @@
   "scripts": {
     "build": "h2-build && turbo run build --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
     "build:all": "turbo run build",
+    "build:packages": "turbo run build --filter='./packages/*'",
     "build:css": "h2-build",
     "build:project": "turbo run build",
     "build:intl-cli": "turbo run build --filter=@gc-digital-talent/i18n",
