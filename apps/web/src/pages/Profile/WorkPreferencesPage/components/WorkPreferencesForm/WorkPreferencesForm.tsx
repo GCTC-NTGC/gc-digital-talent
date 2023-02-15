@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
 import { errorMessages, navigationMessages } from "@common/messages";
@@ -10,7 +10,7 @@ import {
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   PoolCandidate,
@@ -20,6 +20,7 @@ import {
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -73,14 +74,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     wouldAcceptTemporary: intl.formatMessage({
@@ -153,7 +147,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -169,7 +163,9 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             id: "7OWQgZ",
             description: "Display Text for Work Preferences Form Page Link",
           }),
-          url: `${paths.workPreferences(initialData.id)}${applicationParam}`,
+          url: `${paths.workPreferences(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

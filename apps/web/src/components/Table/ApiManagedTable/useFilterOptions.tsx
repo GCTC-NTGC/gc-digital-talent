@@ -14,12 +14,13 @@ import {
   getEmploymentEquityGroup,
   getPoolCandidateStatus,
   poolCandidatePriorities,
+  getCandidateExpiryFilterStatus,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
 import useLocale from "@common/hooks/useLocale";
 import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleLabel } from "@common/helpers/poolUtils";
 
 import {
   WorkRegion,
@@ -28,6 +29,7 @@ import {
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
+  CandidateExpiryFilter,
 } from "~/api/generated";
 
 const context: Partial<OperationContext> = {
@@ -62,7 +64,7 @@ export default function useFilterOptions(enableEducationType = false) {
   const optionsData = {
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
-      label: getFullPoolAdvertisementTitle(intl, pool),
+      label: getFullPoolAdvertisementTitleLabel(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
@@ -127,6 +129,10 @@ export default function useFilterOptions(enableEducationType = false) {
     profileComplete: [yesOption],
     govEmployee: [yesOption],
     hasDiploma: [yesOption],
+    expiryStatus: enumToOptions(CandidateExpiryFilter).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
+    })),
   };
 
   // Creates an object keyed with all fields, each with empty array.

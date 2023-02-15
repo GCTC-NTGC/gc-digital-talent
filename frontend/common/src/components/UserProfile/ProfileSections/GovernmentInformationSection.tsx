@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { wrapAbbr } from "../../../helpers/nameUtils";
 import Well from "../../Well";
 import { enumToOptions } from "../../../helpers/formUtils";
 import messages from "../../../messages/commonMessages";
@@ -96,8 +97,10 @@ const GovernmentInformationSection: React.FunctionComponent<{
                     })}
                   </span>
                   <span data-h2-font-weight="base(700)">
-                    {applicant.currentClassification?.group}-
-                    {applicant.currentClassification?.level}
+                    {wrapAbbr(
+                      `${applicant.currentClassification?.group}-${applicant.currentClassification?.level}`,
+                      intl,
+                    )}
                   </span>
                 </p>
               </div>

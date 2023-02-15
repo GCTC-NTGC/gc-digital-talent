@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 
@@ -11,11 +11,12 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { toast } from "@common/components/Toast";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { splitAndJoin } from "@common/helpers/nameUtils";
 
 import {
   Classification,
@@ -27,10 +28,12 @@ import {
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import uniqBy from "lodash/uniqBy";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -236,26 +239,30 @@ export const GovernmentInfoFormFields: React.FunctionComponent<
       "priorityEntitlementYesNo",
     ]);
 
-  // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
-  // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
-  const classGroupsWithDupes: { value: string; label: string }[] =
-    classifications.map((classification) => {
-      return {
-        value: classification.id,
-        label:
-          classification.group ||
-          intl.formatMessage({
-            defaultMessage: "Error: classification group not found.",
-            id: "YA/7nb",
-            description:
-              "Error message if classification group is not defined.",
-          }),
-      };
-    });
-  const mapped = classGroupsWithDupes.map((x) => x.label);
-  const noDupes = Array.from(new Set(mapped));
-  const groupOptions = noDupes.map((options) => {
-    return { value: options, label: options };
+  const classGroupsWithDupes: {
+    label: string;
+    ariaLabel: string;
+  }[] = classifications.map((classification) => {
+    return {
+      label:
+        classification.group ||
+        intl.formatMessage({
+          defaultMessage: "Error: classification group not found.",
+          id: "YA/7nb",
+          description: "Error message if classification group is not defined.",
+        }),
+      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
+        classification.group,
+      )}`,
+    };
+  });
+  const noDupes = uniqBy(classGroupsWithDupes, "label");
+  const groupOptions = noDupes.map(({ label, ariaLabel }) => {
+    return {
+      value: label,
+      label,
+      ariaLabel,
+    };
   });
 
   // generate classification levels from the selected group
@@ -517,14 +524,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 
@@ -551,7 +551,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -568,9 +568,9 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
             description:
               "Display Text for Government Information Form Page Link",
           }),
-          url: `${paths.governmentInformation(
-            initialData.id,
-          )}${applicationParam}`,
+          url: `${paths.governmentInformation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

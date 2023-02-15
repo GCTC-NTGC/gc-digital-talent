@@ -8,7 +8,8 @@ import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 import {
   AwardExperience,
@@ -79,7 +80,10 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const hasExperiences = notEmpty(experiences);
 
-  const applicationBreadcrumbs = poolAdvertisement
+  const applicationBreadcrumbs: {
+    label: string | React.ReactNode;
+    url: string;
+  }[] = poolAdvertisement
     ? [
         {
           label: intl.formatMessage({
@@ -90,7 +94,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
           url: paths.applications(applicantId),
         },
         {
-          label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+          label: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
           url: paths.pool(poolAdvertisement.id),
         },
         {
@@ -127,13 +131,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
             ]
       }
       prefixBreadcrumbs={!poolAdvertisement}
-      description={intl.formatMessage({
-        defaultMessage:
-          "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
-        id: "GAjpqU",
-        description:
-          "Description for the experience and skills page in applicant profile.",
-      })}
+      description={intl.formatMessage(
+        {
+          defaultMessage:
+            "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an <abbreviation>IT</abbreviation> organization.",
+          id: "Ks4G8p",
+          description:
+            "Description for the experience and skills page in applicant profile.",
+        },
+        {
+          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+        },
+      )}
       title={intl.formatMessage({
         defaultMessage: "My experience and skills",
         id: "KE49r9",
