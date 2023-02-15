@@ -440,6 +440,14 @@ const EditPoolPage = React.lazy(() =>
       ),
   ),
 );
+const PoolPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminPoolPage" */ "../pages/Pools/PoolPage/PoolPage"
+      ),
+  ),
+);
 const ViewPoolPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1084,6 +1092,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":poolId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <PoolPage />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,

@@ -2,8 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import PageHeader from "@common/components/PageHeader";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import SEO from "@common/components/SEO/SEO";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import Pending from "@common/components/Pending";
 import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
@@ -60,37 +59,16 @@ export const IndexPoolCandidatePage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <div
-        data-h2-background-color="base(dt-gray.light)"
-        data-h2-padding="base(x1, x1, x1, x1)"
-      >
-        <Breadcrumbs links={crumbs} />
-      </div>
-      <PageHeader
-        icon={Squares2X2Icon}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage: "From {poolName}",
-            id: "RDgQ0h",
-            description:
-              "Subtitle on pool candidates page indicating which pool candidates are from",
-          },
-          {
-            poolName: getFullPoolAdvertisementTitleHtml(
-              intl,
-              data?.poolAdvertisement,
-            ),
-          },
-        )}
-      >
-        {intl.formatMessage({
+      <SEO
+        title={intl.formatMessage({
           id: "EHVt0j",
           defaultMessage: "Pool Candidates",
           description:
             "Title displayed above the Pool Candidate Table component.",
         })}
-      </PageHeader>
-      <p>
+      />
+      <Breadcrumbs links={crumbs} />
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This table shows a list of all applicants to this pool. Use the review button to manage an applicant.",

@@ -6,8 +6,6 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { Link } from "@common/components";
-import PageHeader from "@common/components/PageHeader";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
@@ -199,13 +197,6 @@ export const EditPoolForm = ({
           description: "Page title for the edit pool page",
         })}
       />
-      <PageHeader icon={Squares2X2Icon}>
-        {intl.formatMessage({
-          defaultMessage: "Edit pool advertisement",
-          id: "/6voUd",
-          description: "Header for page to edit pool advertisements",
-        })}
-      </PageHeader>
       <Breadcrumbs links={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>

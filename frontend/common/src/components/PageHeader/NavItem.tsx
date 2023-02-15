@@ -8,21 +8,18 @@ export interface NavItemProps {
   label: React.ReactNode;
   icon?: IconType;
   url: string;
-  end?: boolean;
 }
 
-const NavItem = ({ label, icon, url, end }: NavItemProps) => {
+const NavItem = ({ label, icon, url }: NavItemProps) => {
   const { pathname } = useLocation();
 
-  const isActive =
-    pathname === url ||
-    (!end && pathname.startsWith(url) && pathname.charAt(url.length) === "/");
+  const isActive = pathname === url;
   return (
     <IconLink
       type="button"
       href={url}
       mode="inline"
-      color="primary"
+      color="secondary"
       icon={icon}
       {...(isActive
         ? {

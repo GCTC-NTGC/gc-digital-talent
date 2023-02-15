@@ -1,5 +1,7 @@
 import React from "react";
 
+import Separator from "@common/components/Separator";
+
 import Navigation, { NavigationProps } from "./Navigation";
 import PageTitle, { PageTitleProps } from "./PageTitle";
 
@@ -18,6 +20,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({
     <>
       <PageTitle {...{ icon, subtitle, ...rest }}>{children}</PageTitle>
       {navItems && navItems.length ? <Navigation items={navItems} /> : null}
+      <Separator
+        data-h2-background-color="base(black.lightest)"
+        data-h2-margin="base(x1, 0, x2, 0)"
+      />
     </>
   );
 };

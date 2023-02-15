@@ -165,76 +165,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     <>
       <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <PageHeader
-          icon={Squares2X2Icon}
-          navItems={[
-            {
-              url: paths.poolView(pool.id),
-              label: pageTitle,
-              icon: EyeIcon,
-            },
-          ]}
-        >
-          {poolName}
-        </PageHeader>
         <Breadcrumbs links={links} />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-margin="base(x2, 0)"
-        >
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolCandidateTable(pool.id)}
-              icon={UserGroupIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage candidates",
-                id: "B/VlGq",
-                description:
-                  "Link text for button to manage candidates of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          {/*
-          TODO - uncomment once something to link to exists and reimport TicketIcon
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href="#"
-              disabled
-              icon={TicketIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage requests",
-                id: "v2mXcp",
-                description:
-                  "Link text for button to manage requests of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          */}
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolUpdate(pool.id)}
-              icon={CogIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Edit pool advertisement",
-                id: "dmGvCL",
-                description: "Link text for button to edit a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-        </div>
         <FormProvider {...form}>
           <h2
             data-h2-margin="base(x2, 0, 0, 0)"

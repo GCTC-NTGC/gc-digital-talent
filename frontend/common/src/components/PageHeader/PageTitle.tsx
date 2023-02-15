@@ -17,7 +17,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
   if (subtitle) {
     return (
       <>
-        <Heading level="h1" {...rest}>
+        <Heading level="h1" data-h2-font-weight="base(400)" {...rest}>
           {Icon && (
             <Icon
               className="page-header__icon"
@@ -30,8 +30,10 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
         </Heading>
         <Heading
           level="h2"
-          data-h2-padding="base(0, 0, x1, 0) p-tablet(0, 0, x1, x3)"
-          data-h2-margin="base(x1, 0, x.5, 0)"
+          size="h5"
+          data-h2-padding="base(0) p-tablet(0, 0, 0, x3)"
+          data-h2-margin="base(0, 0, x.5, 0)"
+          data-h2-font-weight="base(700)"
           {...rest}
         >
           {subtitle}
