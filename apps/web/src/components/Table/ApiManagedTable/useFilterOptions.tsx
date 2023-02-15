@@ -14,6 +14,7 @@ import {
   getEmploymentEquityGroup,
   getPoolCandidateStatus,
   poolCandidatePriorities,
+  getCandidateExpiryFilterStatus,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
@@ -28,6 +29,7 @@ import {
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
+  CandidateExpiryFilter,
 } from "~/api/generated";
 
 const context: Partial<OperationContext> = {
@@ -127,6 +129,10 @@ export default function useFilterOptions(enableEducationType = false) {
     profileComplete: [yesOption],
     govEmployee: [yesOption],
     hasDiploma: [yesOption],
+    expiryStatus: enumToOptions(CandidateExpiryFilter).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
+    })),
   };
 
   // Creates an object keyed with all fields, each with empty array.

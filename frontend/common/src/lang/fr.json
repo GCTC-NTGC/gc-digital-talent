@@ -2000,6 +2000,18 @@
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
   },
+  "GIC6EK": {
+    "defaultMessage": "Expiré",
+    "description": "Expired status"
+  },
+  "SuKmqa": {
+    "defaultMessage": "Actif",
+    "description": "Active status"
+  },
+  "qQtJDw": {
+    "defaultMessage": "Tous",
+    "description": "All statuses"
+  },
   "nLW9zq": {
     "defaultMessage": "Technologie de l’information"
   },

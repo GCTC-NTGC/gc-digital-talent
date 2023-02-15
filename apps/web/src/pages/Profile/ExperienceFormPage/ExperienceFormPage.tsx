@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
@@ -26,6 +26,7 @@ import {
   useGetSkillsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -80,12 +81,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
 
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
@@ -350,13 +350,12 @@ export interface ExperienceFormContainerProps {
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo();
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   const [
