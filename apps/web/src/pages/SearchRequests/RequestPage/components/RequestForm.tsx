@@ -396,8 +396,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Link
-                color="primary"
-                mode="outline"
+                color="secondary"
+                mode="inline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
                 state={{
@@ -418,7 +418,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Submit
-                color="cta"
+                color="primary"
                 mode="solid"
                 text={intl.formatMessage({
                   defaultMessage: "Submit Request",

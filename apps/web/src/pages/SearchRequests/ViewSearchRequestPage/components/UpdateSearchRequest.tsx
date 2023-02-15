@@ -158,8 +158,8 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
             </div>
             <div data-h2-margin="base(0, 0, x1, 0)">
               <Button
-                color="primary"
-                mode="outline"
+                color="secondary"
+                mode="inline"
                 onClick={() => {
                   navigate(paths.searchRequestTable());
                 }}

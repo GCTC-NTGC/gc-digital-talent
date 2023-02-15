@@ -116,7 +116,7 @@ const SkillBlock = ({
             {definition ? (
               <Collapsible.Trigger asChild>
                 <Button
-                  color="primary"
+                  color="secondary"
                   mode="inline"
                   type="button"
                   onClick={() => setIsOpen((currentIsOpen) => !currentIsOpen)}
@@ -164,9 +164,9 @@ const SkillBlock = ({
           <Collapsible.Content>
             <div
               data-h2-padding="base(x.75)"
-              data-h2-border="base(1px solid primary)"
-              data-h2-color="base(primary)"
-              data-h2-background-color="base(primary.15)"
+              data-h2-border="base(1px solid secondary.darker)"
+              data-h2-color="base(secondary.darker)"
+              data-h2-background-color="base(secondary.lightest)"
               data-h2-margin="base(x.25, 0)"
               data-h2-radius="base(s)"
             >

@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
 
@@ -60,9 +59,6 @@ const EquityOption = ({
       title,
     },
   );
-
-  const iconSize = "1rem";
-  const Icon = isAdded ? MinusIcon : PlusIcon;
 
   return (
     <div

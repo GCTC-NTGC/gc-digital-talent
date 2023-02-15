@@ -159,7 +159,7 @@ const SkillPicker = ({
         aria-atomic="true"
         data-h2-font-size="base(h6)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x.75, 0, x.5, 0)"
+        data-h2-margin="base(x1, 0, x.5, 0)"
       >
         {intl.formatMessage(
           {
@@ -194,7 +194,7 @@ const SkillPicker = ({
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div
-            data-h2-padding="base(x.5, x1, x.5, x.5)"
+            data-h2-padding="base(x1)"
             role={filteredSkills.length > 0 ? "list" : undefined}
           >
             {filteredSkills.length > 0 ? (
@@ -245,7 +245,7 @@ const SkillPicker = ({
       <Heading
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x.75, 0, x.5, 0)"
+        data-h2-margin="base(x1.5, 0, x.5, 0)"
         id={skipToHeadingId}
         tabIndex={-1}
       >
@@ -268,7 +268,10 @@ const SkillPicker = ({
           ))}
         </Chips>
       ) : (
-        <p data-h2-margin="base(x1, 0)" data-h2-font-style="base(italic)">
+        <p
+          data-h2-margin="base(x.5, 0, x1, 0)"
+          data-h2-font-style="base(italic)"
+        >
           {intl.formatMessage({
             id: "/78DsY",
             defaultMessage: "You have not selected any skills.",

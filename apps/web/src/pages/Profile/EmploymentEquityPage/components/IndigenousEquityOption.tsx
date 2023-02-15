@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
 
@@ -57,8 +56,6 @@ const EquityOption = ({
   );
 
   const isAdded = indigenousCommunities && indigenousCommunities.length > 0;
-
-  const iconSize = "1rem";
 
   return (
     <div

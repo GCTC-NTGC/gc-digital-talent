@@ -148,6 +148,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
       <div
         {...stateStyles}
         data-h2-radius="base(input)"
+        data-h2-background="base(white)"
         data-h2-padding="base(x.5, x.75, x.75, x.75)"
       >
         {children}
