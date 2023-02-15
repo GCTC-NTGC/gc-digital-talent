@@ -6,13 +6,18 @@ import ThemeProvider from "@gc-digital-talent/common/src/components/Theme";
 export const themeKey = {
   name: "Theme",
   description: "Global theme for components",
+  defaultValue: "fallback",
   toolbar: {
     icon: "circlehollow",
     // Array of plain string values or MenuItem shape (see below)
     items: [
       {
-        value: "default",
+        value: "fallback",
         title: "Default",
+      },
+      {
+        value: "default",
+        title: "Digital Talent",
       },
       {
         value: "admin",
@@ -63,7 +68,7 @@ const ThemeDecorator = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
 ) => {
-  const key = globals.themeKey || parameters.themeKey || "default";
+  let key = globals.themeKey || parameters.themeKey || "default";
   const mode = globals.themeMode || parameters.themeMode || "pref";
 
   /**
@@ -75,6 +80,10 @@ const ThemeDecorator = (
   const { hasDarkMode } = parameters;
   const showDark = hasDarkMode && isChromatic();
   const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
+
+  if(key === "fallback") {
+    key = parameters.themeKey || "default"
+  }
 
   return showDark ? (
     <>
