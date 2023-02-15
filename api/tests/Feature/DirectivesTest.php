@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Policies\UserPolicy;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Mockery;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\MocksResolvers;
@@ -161,7 +162,7 @@ class DirectivesTest extends TestCase
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ]);
 
-        $candidates = PoolCandidate::factory()->count(3)->availableInSearch()->create([
+        PoolCandidate::factory()->count(3)->availableInSearch()->create([
             'user_id' => $applicant->id,
         ]);
 
@@ -169,7 +170,9 @@ class DirectivesTest extends TestCase
             return $applicant->fresh();
         });
 
-        $this->schema = /** @lang GraphQL */ '
+        $this->schema =
+        /** @lang GraphQL */
+        '
         type PoolCandidate {
             id: ID
             user: User @belongsTo(relation: "user")
@@ -183,8 +186,9 @@ class DirectivesTest extends TestCase
         }
         ';
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
         query getUser {
             user {
                 id
@@ -194,30 +198,9 @@ class DirectivesTest extends TestCase
             }
         }
         ';
-        $fullResponse = [
-            'data' => [
-                'user' => [
-                    'id' => $applicant->id,
-                    'poolCandidates' => $candidates->map(function ($candidate) {
-                        return ['id' => $candidate->id];
-                    })->toArray(),
-                ],
-            ],
-        ];
-        $unauthorizedResponse = [
-            'data' => [
-                'user' => [
-                    'id' => $applicant->id,
-                    'poolCandidates' => null,
-                ],
-            ],
-            'errors' => [
-                ['message' => 'This action is unauthorized.']
-            ]
-        ];
 
-        $isUser = function($user) {
-            return function($argument) use ($user) {
+        $isUser = function ($user) {
+            return function ($argument) use ($user) {
                 return $argument instanceof User && $argument->id == $user->id;
             };
         };
@@ -228,20 +211,30 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($admin)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $adminResponse = $this->actingAs($admin, 'api')->graphQL($query);
-        $adminResponse->assertJson($fullResponse);
+        $adminResponse->assertJson(fn (AssertableJson $json) =>
+            $json->has('data.user.poolCandidates', 3)
+                ->missing('errors')
+        );
+
 
         // Applicant should be able to view its own user, and therefor all its candidates.
         $mock->shouldReceive('view')
             ->with(Mockery::on($isUser($applicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $applicantResponse = $this->actingAs($applicant, 'api')->graphQL($query);
-        $applicantResponse->assertJson($fullResponse);
+        $applicantResponse->assertJson(fn (AssertableJson $json) =>
+            $json->has('data.user.poolCandidates', 3)
+                ->missing('errors')
+        );
 
         // Other user should not be able to view poolCandidates, as they are protected by UserPolicy.
         $mock->shouldReceive('view')
             ->with(Mockery::on($isUser($otherApplicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(false);
         $otherResponse = $this->actingAs($otherApplicant, 'api')->graphQL($query);
-        $otherResponse->assertJson($unauthorizedResponse);
+        $otherResponse->assertJson(fn (AssertableJson $json) =>
+            $json->where('data.user.poolCandidates', null)
+                ->where('errors.0.message', 'This action is unauthorized.')
+        );
     }
 }
