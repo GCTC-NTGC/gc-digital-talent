@@ -62,7 +62,7 @@ const MissingSkillsBlock = ({
       data-h2-radius="base(rounded)"
       {...rest}
     >
-      <span data-h2-margin="base(0, x1, 0, 0)">{icon}</span>
+      <span data-h2-margin="base(x.15, x1, 0, 0)">{icon}</span>
       <div>
         <Heading
           level={headingLevel}
@@ -156,7 +156,8 @@ const MissingSkills = ({
     <>
       {missingRequiredTechnicalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(error.light.10)"
+          data-h2-shadow="base(medium)"
+          data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "error", mode: "outline" }}
           headingLevel={headingLevel}
@@ -179,14 +180,20 @@ const MissingSkills = ({
             description:
               "Text that appears when a user is missing required skills on their profile.",
           })}
-          icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
+          icon={
+            <ExclamationTriangleIcon
+              style={{ width: "1.2rem" }}
+              data-h2-color="base(error)"
+            />
+          }
           missingSkills={missingRequiredTechnicalSkills}
           addedSkills={addedSkills}
         />
       ) : null}
       {missingRequiredBehaviouralSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(primary.light.10)"
+          data-h2-shadow="base(medium)"
+          data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "primary", mode: "outline" }}
           headingLevel={headingLevel}
@@ -204,13 +211,19 @@ const MissingSkills = ({
               "Text that appears in transferable skills section on their profile.",
           })}
           detailsBlurb="" // No details blurb needed for transferable skills.
-          icon={<InformationCircleIcon style={{ width: "1.2rem" }} />}
+          icon={
+            <InformationCircleIcon
+              style={{ width: "1.2rem" }}
+              data-h2-color="base(primary)"
+            />
+          }
           missingSkills={missingRequiredBehaviouralSkills}
         />
       ) : null}
       {missingOptionalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(secondary.light.10)"
+          data-h2-shadow="base(medium)"
+          data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
           pillType={{ color: "secondary", mode: "outline" }}
           headingLevel={headingLevel}
@@ -234,7 +247,12 @@ const MissingSkills = ({
             description:
               "Text that appears when a user is missing optional skills on their profile",
           })}
-          icon={<LightBulbIcon style={{ width: "1.2rem" }} />}
+          icon={
+            <LightBulbIcon
+              style={{ width: "1.2rem" }}
+              data-h2-color="base(secondary)"
+            />
+          }
           missingSkills={missingOptionalSkills}
           addedSkills={addedSkills}
         />
@@ -243,10 +261,14 @@ const MissingSkills = ({
         data-h2-display="base(flex)"
         data-h2-padding="base(x1)"
         data-h2-radius="base(rounded)"
-        data-h2-background-color="base(primary.light.10)"
+        data-h2-shadow="base(medium)"
+        data-h2-background-color="base(foreground)"
       >
-        <span data-h2-margin="base(0, x1, 0, 0)">
-          <InformationCircleIcon style={{ width: "1.2rem" }} />
+        <span data-h2-margin="base(x.15, x1, 0, 0)">
+          <InformationCircleIcon
+            style={{ width: "1.2rem" }}
+            data-h2-color="base(primary)"
+          />
         </span>
         <div>
           <Heading

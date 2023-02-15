@@ -137,7 +137,7 @@ const RequestConfirmationPage = () => {
           data-h2-flex-wrap="base(wrap)"
           data-h2-gap="base(x1)"
         >
-          <Button mode="solid" color="cta" onClick={() => window.print()}>
+          <Button mode="solid" color="primary" onClick={() => window.print()}>
             {intl.formatMessage({
               defaultMessage: "Print this information",
               id: "idu0MU",
@@ -146,8 +146,8 @@ const RequestConfirmationPage = () => {
           </Button>
           <Link
             href={paths.search()}
-            mode="outline"
-            color="primary"
+            mode="inline"
+            color="secondary"
             type="button"
           >
             {intl.formatMessage({

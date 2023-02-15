@@ -183,7 +183,7 @@ const SignatureForm = ({
         </div>
         <div data-h2-text-align="base(center) p-tablet(left)">
           <Submit
-            color="cta"
+            color="primary"
             text={
               <span
                 data-h2-display="base(flex)"
@@ -206,7 +206,7 @@ const SignatureForm = ({
           />
           <Link
             href={paths.reviewApplication(applicationId)}
-            color="black"
+            color="secondary"
             mode="inline"
             type="button"
           >

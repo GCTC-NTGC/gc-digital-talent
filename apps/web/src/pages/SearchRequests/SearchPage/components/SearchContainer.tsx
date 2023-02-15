@@ -127,6 +127,8 @@ const ResultsDisplay = ({
     </div>
   ) : (
     <div
+      data-h2-background="base(foreground)"
+      data-h2-radius="base(0, rounded, rounded, 0)"
       data-h2-shadow="base(m)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
@@ -175,7 +177,7 @@ const ResultsDisplay = ({
       />
 
       <Button
-        color="blue"
+        color="secondary"
         mode="outline"
         onClick={() =>
           handleSubmit(

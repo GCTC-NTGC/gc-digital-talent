@@ -51,7 +51,11 @@ const ApplicationCard = ({
   const border = borderMap[borderKey];
 
   return (
-    <div data-h2-shadow="base(s)" {...border}>
+    <div
+      data-h2-background="base(foreground)"
+      data-h2-shadow="base(s)"
+      {...border}
+    >
       <div
         data-h2-padding="base(x1)"
         data-h2-display="base(flex)"

@@ -19,7 +19,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
 
   return candidateCount > 0 ? (
     <div
-      data-h2-background-color="base(white)"
+      data-h2-background-color="base(foreground)"
       data-h2-shadow="base(m)"
       data-h2-border-left="base(x1 solid secondary.light)"
       data-h2-margin="base(x.5, 0, 0, 0)"
@@ -80,7 +80,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
       />
 
       <Button
-        color="cta"
+        color="primary"
         mode="solid"
         onClick={() =>
           handleSubmit(
