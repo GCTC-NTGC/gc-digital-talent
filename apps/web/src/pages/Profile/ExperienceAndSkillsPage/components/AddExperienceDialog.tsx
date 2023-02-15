@@ -191,7 +191,7 @@ const AddExperienceDialog = ({
           data-h2-margin="base(0, x0.5)"
           data-h2-flex-grid="base(stretch, x2, x1)"
         >
-          {experienceSections.map((section) => (
+          {experienceSections.map(({ icon: Icon, ...section }) => (
             <div
               key={section.title}
               data-h2-margin-bottom="base(x2)"
@@ -213,7 +213,7 @@ const AddExperienceDialog = ({
                         data-h2-vertical-align="base(middle)"
                         data-h2-margin="base(0, x0.5, 0, 0)"
                       >
-                        <section.icon />
+                        <Icon />
                       </span>
                       {section.title}
                     </Heading>
