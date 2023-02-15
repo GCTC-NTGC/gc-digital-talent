@@ -24,7 +24,6 @@
     "check-intl": "./dist/cli.js",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile src/lang/fr.json --ast --out-file src/lang/frCompiled.json",
-    "postinstall": "npm run intl-extract && npm run intl-compile",
     "postbuild": "cpy --cwd=src/lang frCompiled.json ../../dist"
   },
   "jest": {

@@ -41,8 +41,7 @@
     "e2e:open": "npm run e2e:open",
     "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
     "e2e:run:inspect": "npm run e2e:run:inspect --workspace=@gc-digital-talent/e2e",
-    "tsc": "turbo run tsc",
-    "postinstall": "turbo run build --filter=@gc-digital-talent/graphql"
+    "tsc": "turbo run tsc"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "3.0.0",

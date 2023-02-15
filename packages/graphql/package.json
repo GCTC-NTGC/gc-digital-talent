@@ -12,8 +12,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
     "watch": "tsup --watch",
-    "codegen": "graphql-codegen",
-    "postinstall": "npm run build"
+    "codegen": "graphql-codegen"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^3.2.3",
