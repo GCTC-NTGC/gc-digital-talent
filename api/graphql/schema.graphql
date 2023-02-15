@@ -131,6 +131,11 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
+
+  # teams and roles
+  roles: [Role] @belongsToMany
+  roleAssignments: [Role] @belongsToMany
+  # teams: [Team] @belongsToMany(relation: "rolesTeams") @can(ability: "view", resolved: true)
 }
 
 enum ProvinceOrTerritory {
@@ -524,6 +529,7 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+  members: UserPublicProfile @belongsToMany(relation: "users") @can(ability: "view", resolved: true, model:  "User")
 }
 
 type Role {
@@ -532,6 +538,17 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  # team: Team @belongsToMany
+  pivot: RoleAssignment
+}
+
+type RoleAssignment {
+  # role: Role!
+  # team: Team
+  id: ID
+  team_id: String
+  role: Role @belongsTo
+  team: Team @belongsTo
 }
 
 enum PoolCandidateSearchStatus {

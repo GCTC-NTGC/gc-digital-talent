@@ -1083,6 +1083,12 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
+  pivot: RoleAssignment
+}
+
+type RoleAssignment {
+  team_id: String
+  role: Role
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1234,6 +1240,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
+  members: UserPublicProfile
 }
 
 input TeamBelongsTo {
@@ -1496,6 +1503,8 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
+  roles: [Role]
+  roleAssignments: [Role]
 }
 
 input UserBelongsTo {
