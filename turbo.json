@@ -23,7 +23,7 @@
       "outputs": ["src/lang/*{Compiled}.json"]
     },
     "check-intl": {
-      "dependsOn": ["^build", "intl-compile", "intl-extract"],
+      "dependsOn": ["intl-compile", "intl-extract"],
       "inputs": ["src/lang/fr.json", "src/lang/en.json", "src/lang/*{Compiled}.json"],
       "outputs": ["src/lang/untranslated.json"]
     },

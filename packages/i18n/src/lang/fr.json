@@ -1133,14 +1133,6 @@
     "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
     "description": "Text for the option to self-declare as Indigenous"
   },
-  "Vbt/G1": {
-    "defaultMessage": "Il y a une exigence linguistique manquante",
-    "description": "Title that appears when a user is missing a language requirement."
-  },
-  "hWHT65": {
-    "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
-    "description": "Text that appears when a user is missing a language requirement on their profile."
-  },
   "GIC6EK": {
     "defaultMessage": "Expiré",
     "description": "Expired status"
