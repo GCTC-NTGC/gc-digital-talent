@@ -403,17 +403,11 @@ const SearchContainerApi = () => {
     : undefined;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >(applicantFilterFromBrowserHistory);
-
-  // When pools first load, they should be added to the ApplicantFilter
-  useEffect(() => {
-    if (applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements) {
-      setApplicantFilter({
-        pools:
-          applicantFilter?.pools || searchFormData?.publishedPoolAdvertisements,
-      });
-    }
-  }, [searchFormData?.publishedPoolAdvertisements, applicantFilter?.pools]);
+  >(
+    applicantFilterFromBrowserHistory || {
+      pools: searchFormData?.publishedPoolAdvertisements,
+    },
+  );
 
   const queryArgs = useMemo(
     () =>
