@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 interface CrumbProps {
@@ -9,8 +10,8 @@ interface CrumbProps {
 
 const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
   <li>
-    <a
-      href={url}
+    <Link
+      to={url}
       {...(isCurrent
         ? {
             "data-h2-font-weight": "base(700)",
@@ -20,7 +21,7 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
         : {})}
     >
       {children}
-    </a>
+    </Link>
     {!isCurrent && (
       <span
         aria-hidden="true"

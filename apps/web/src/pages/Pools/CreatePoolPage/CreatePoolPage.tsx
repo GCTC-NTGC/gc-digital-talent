@@ -12,7 +12,7 @@ import {
   getGenericJobTitlesWithClassification,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Pending, Breadcrumbs, Link } from "@gc-digital-talent/ui";
+import { Pending, AdminBreadcrumbs, Link } from "@gc-digital-talent/ui";
 
 import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
@@ -150,7 +150,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
-      <Breadcrumbs crumbs={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

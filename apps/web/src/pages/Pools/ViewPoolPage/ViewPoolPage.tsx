@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import {
-  Breadcrumbs,
+  AdminBreadcrumbs,
   Pending,
   Chip,
   Chips,
@@ -169,7 +169,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
       />
       <div data-h2-container="base(left, medium, 0)">
         <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
-        <Breadcrumbs crumbs={links} />
+        <AdminBreadcrumbs crumbs={links} />
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) l-tablet(row)"

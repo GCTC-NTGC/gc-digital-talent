@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
-import { Breadcrumbs, Pending } from "@gc-digital-talent/ui";
+import { AdminBreadcrumbs, Pending } from "@gc-digital-talent/ui";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { Scalars, useGetPoolAdvertisementQuery } from "~/api/generated";
@@ -65,7 +65,7 @@ export const IndexPoolCandidatePage = () => {
         data-h2-background-color="base(dt-gray.light)"
         data-h2-padding="base(x1, x1, x1, x1)"
       >
-        <Breadcrumbs crumbs={crumbs} />
+        <AdminBreadcrumbs crumbs={crumbs} />
       </div>
       <PageHeader
         icon={Squares2X2Icon}
