@@ -67,7 +67,6 @@ module.exports = (basePath) => {
       ];
 
       // Run Hydrogen on Webpack's compiler hooks
-      // Note that this version is unique from the other workspaces because we're already inside the common folder
       config.plugins.push(
         {
           apply: (compiler) => {

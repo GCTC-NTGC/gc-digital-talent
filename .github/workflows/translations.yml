@@ -67,10 +67,10 @@ jobs:
         working-directory: packages/i18n/src/lang
         run: >
           if [[ "$(git status --porcelain)" == *packages/i18n/src/lang/fr.json* ]]; then
-            echo ":x: Common has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: i18n has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: Common is tidy" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: i18n is tidy" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
