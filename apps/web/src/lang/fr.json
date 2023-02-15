@@ -6433,5 +6433,13 @@
   "MuWdei": {
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
+  },
+  "+aowPB": {
+    "defaultMessage": "Équité en matière d'emploi",
+    "description": "Title for employment equity section on summary of filters section"
+  },
+  "+nS/ak": {
+    "defaultMessage": "Renseignements supplémentaires : ",
+    "description": "Additional information if provided (without details)"
   }
 }
