@@ -13,6 +13,7 @@ import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Dialog from "@common/components/Dialog";
 import { IconButton } from "@common/components/Button";
 import { Link } from "@common/components";
+import Heading from "@common/components/Heading";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -204,7 +205,7 @@ const AddExperienceDialog = ({
               >
                 <div>
                   <div data-h2-margin="base(x0.5, 0)">
-                    <strong>
+                    <Heading level="h3" size="h6">
                       <span
                         data-h2-display="base(inline-block)"
                         data-h2-height="base(x1)"
@@ -215,7 +216,7 @@ const AddExperienceDialog = ({
                         <section.icon />
                       </span>
                       {section.title}
-                    </strong>
+                    </Heading>
                   </div>
                   <div data-h2-margin-bottom="base(x0.5)">
                     {section.description}
