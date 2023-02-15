@@ -74,11 +74,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     wouldAcceptTemporary: intl.formatMessage({
@@ -167,7 +163,9 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             id: "7OWQgZ",
             description: "Display Text for Work Preferences Form Page Link",
           }),
-          url: `${paths.workPreferences(initialData.id)}${applicationParam}`,
+          url: `${paths.workPreferences(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

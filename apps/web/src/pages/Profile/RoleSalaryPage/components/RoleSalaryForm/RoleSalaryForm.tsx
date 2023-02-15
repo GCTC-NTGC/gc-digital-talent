@@ -86,11 +86,9 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialData.me?.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(
+    initialData.me?.id,
+  );
 
   const labels = {
     expectedGenericJobTitles: intl.formatMessage({
@@ -160,7 +158,9 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             description: "Label for role and salary link",
           }),
           url: initialData.me?.id
-            ? `${paths.roleSalary(initialData.me.id)}${applicationParam}`
+            ? `${paths.roleSalary(initialData.me.id)}${
+                applicationId ? `?${applicationId}` : ``
+              }`
             : "#",
         },
       ]

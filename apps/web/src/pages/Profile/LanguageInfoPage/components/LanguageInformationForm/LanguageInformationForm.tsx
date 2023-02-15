@@ -105,11 +105,7 @@ const LanguageInformationForm: React.FunctionComponent<{
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     consideredPositionLanguages: intl.formatMessage({
@@ -217,9 +213,9 @@ const LanguageInformationForm: React.FunctionComponent<{
             id: "/k21MP",
             description: "Display Text for Language Information Form Page Link",
           }),
-          url: `${paths.languageInformation(
-            initialData.id,
-          )}${applicationParam}`,
+          url: `${paths.languageInformation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

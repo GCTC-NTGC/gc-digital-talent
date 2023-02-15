@@ -68,11 +68,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialUser.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialUser.id);
 
   const labelMap = {
     preferredLang: intl.formatMessage({
@@ -199,7 +195,9 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             id: "uG2MuI",
             description: "Display text for About Me Form Page Link",
           }),
-          url: `${paths.aboutMe(initialUser.id)}${applicationParam}`,
+          url: `${paths.aboutMe(initialUser.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

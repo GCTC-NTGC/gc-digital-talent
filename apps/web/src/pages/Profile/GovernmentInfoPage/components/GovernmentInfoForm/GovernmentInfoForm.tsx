@@ -518,11 +518,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 
@@ -566,9 +562,9 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
             description:
               "Display Text for Government Information Form Page Link",
           }),
-          url: `${paths.governmentInformation(
-            initialData.id,
-          )}${applicationParam}`,
+          url: `${paths.governmentInformation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

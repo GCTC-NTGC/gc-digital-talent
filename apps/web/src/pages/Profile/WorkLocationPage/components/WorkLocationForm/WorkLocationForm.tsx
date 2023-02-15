@@ -47,11 +47,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     locationPreferences: intl.formatMessage({
@@ -123,7 +119,9 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
             description:
               "Display Text for the current page in Work Location Preference Form Page",
           }),
-          url: `${paths.workLocation(initialData.id)}${applicationParam}`,
+          url: `${paths.workLocation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

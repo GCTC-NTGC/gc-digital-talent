@@ -19,21 +19,18 @@ const useApplicationInfo = (userId?: Scalars["ID"]) => {
   const [searchParams] = useSearchParams();
 
   let id;
-  let param;
   // If we do not have a userId, we can let the profile redirect handle it
   let returnRoute = userId ? paths.profile(userId) : paths.myProfile();
 
   if (searchParams.has("applicationId")) {
     id = searchParams.get("applicationId");
     if (id) {
-      param = `?${searchParams.toString()}`;
       returnRoute = paths.reviewApplication(id);
     }
   }
 
   return {
     id,
-    param,
     returnRoute,
   };
 };

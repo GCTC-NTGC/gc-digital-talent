@@ -81,12 +81,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const { id: applicationId, param: applicationParam } =
-    useApplicationInfo(userId);
+  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
 
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? applicationParam : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   let crumbs = [

@@ -30,11 +30,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const {
-    id: applicationId,
-    param: applicationParam,
-    returnRoute,
-  } = useApplicationInfo(user.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {
     return onUpdate(user.id, {
@@ -71,7 +67,9 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             description:
               "Display Text for Diversity, equity and inclusion Page",
           }),
-          url: `${paths.diversityEquityInclusion(user.id)}${applicationParam}`,
+          url: `${paths.diversityEquityInclusion(user.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
