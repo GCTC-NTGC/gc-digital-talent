@@ -150,21 +150,6 @@ const AddExperienceDialog = ({
     },
   ];
 
-  const Footer = React.useMemo(
-    () => (
-      <Dialog.Close>
-        <IconButton color="purple" icon={ArrowLeftIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Cancel and go back",
-            id: "tiF/jI",
-            description: "Close dialog button",
-          })}
-        </IconButton>
-      </Dialog.Close>
-    ),
-    [intl],
-  );
-
   return (
     <Dialog.Root defaultOpen={defaultOpen}>
       <Dialog.Trigger>
@@ -248,7 +233,17 @@ const AddExperienceDialog = ({
             </div>
           ))}
         </div>
-        <Dialog.Footer>{Footer}</Dialog.Footer>
+        <Dialog.Footer>
+          <Dialog.Close>
+            <IconButton color="purple" icon={ArrowLeftIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Cancel and go back",
+                id: "tiF/jI",
+                description: "Close dialog button",
+              })}
+            </IconButton>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
   );
