@@ -195,4 +195,141 @@ class PoolCandidateSearchTest extends TestCase
             ]
         ]);
     }
+
+    public function testPoolCandidatesSearchExpiryFilter(): void
+    {
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+
+        $candidateActive = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+        $candidateActive2 = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+        $candidateExpired = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+        $candidateNullExpiry = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => null,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+
+        // Assert that ACTIVE returns 3
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+              poolCandidatesPaginated (
+                    where: $where
+                    orderBy: [
+                    { column: "status_weight", order: ASC }
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  ])
+                {
+                    paginatorInfo
+                    {
+                        count
+                    }
+                }
+            }
+            ',
+            [
+                'where' => [
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                ]
+            ]
+            )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 3,
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert that EXPIRED returns 1
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+              poolCandidatesPaginated (
+                    where: $where
+                    orderBy: [
+                    { column: "status_weight", order: ASC }
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  ])
+                {
+                    paginatorInfo
+                    {
+                        count
+                    }
+                }
+            }
+            ',
+            [
+                'where' => [
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                ]
+            ]
+            )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 1,
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert that ALL returns 4 (all candidates)
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+              poolCandidatesPaginated (
+                    where: $where
+                    orderBy: [
+                    { column: "status_weight", order: ASC }
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  ])
+                {
+                    paginatorInfo
+                    {
+                        count
+                    }
+                }
+            }
+            ',
+            [
+                'where' => [
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                ]
+            ]
+            )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 4,
+                    ]
+                ]
+            ]
+        ]);
+    }
 }

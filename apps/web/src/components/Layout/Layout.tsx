@@ -15,6 +15,7 @@ import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";
 
 import useRoutes from "~/hooks/useRoutes";
+import { LegacyRole } from "~/api/generated";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -88,6 +89,22 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
+    if (
+      loggedInUser?.legacyRoles &&
+      loggedInUser.legacyRoles.length > 0 &&
+      loggedInUser.legacyRoles.includes(LegacyRole.Admin)
+    ) {
+      menuItems = [
+        ...menuItems,
+        <MenuLink key="adminDashboard" to={paths.adminDashboard()}>
+          {intl.formatMessage({
+            defaultMessage: "Admin",
+            id: "wHX/8C",
+            description: "Title tag for Admin site",
+          })}
+        </MenuLink>,
+      ];
+    }
   }
 
   let authLinks = [

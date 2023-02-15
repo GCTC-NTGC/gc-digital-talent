@@ -1,4 +1,5 @@
 import {
+  CandidateExpiryFilter,
   JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
@@ -57,6 +58,19 @@ export function stringToEnumPoolCandidateStatus(
     )
   ) {
     return selection as PoolCandidateStatus;
+  }
+  return undefined;
+}
+
+export function stringToEnumCandidateExpiry(
+  selection: string,
+): CandidateExpiryFilter | undefined {
+  if (
+    Object.values(CandidateExpiryFilter).includes(
+      selection as CandidateExpiryFilter,
+    )
+  ) {
+    return selection as CandidateExpiryFilter;
   }
   return undefined;
 }
