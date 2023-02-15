@@ -9,6 +9,7 @@ import {
   ArrowTopRightOnSquareIcon,
   UserGroupIcon,
   Squares2X2Icon,
+  EyeIcon,
 } from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
@@ -154,17 +155,28 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     closingStringPacific = "";
   }
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "View pool",
+    id: "vINfxJ",
+    description: "Page title for the individual pool page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "View pool",
-          id: "vINfxJ",
-          description: "Page title for the individual pool page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
+        <PageHeader
+          icon={Squares2X2Icon}
+          navItems={[
+            {
+              url: paths.poolView(pool.id),
+              label: pageTitle,
+              icon: EyeIcon,
+            },
+          ]}
+        >
+          {poolName}
+        </PageHeader>
         <Breadcrumbs links={links} />
         <div
           data-h2-display="base(flex)"

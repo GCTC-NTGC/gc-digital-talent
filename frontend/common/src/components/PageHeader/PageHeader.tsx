@@ -1,57 +1,24 @@
 import React from "react";
-import Heading from "../Heading";
 
-export interface PageHeaderProps {
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
-  subtitle?: React.ReactNode;
-  children?: React.ReactNode;
+import Navigation, { NavigationProps } from "./Navigation";
+import PageTitle, { PageTitleProps } from "./PageTitle";
+
+export interface PageHeaderProps extends PageTitleProps {
+  navItems?: NavigationProps["items"];
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   icon,
   subtitle,
   children,
+  navItems,
   ...rest
 }) => {
-  const Icon = icon || null;
-
-  if (subtitle) {
-    return (
-      <>
-        <Heading level="h1" {...rest}>
-          {Icon && (
-            <Icon
-              className="page-header__icon"
-              data-h2-margin="base(0, x1, 0, 0)"
-              data-h2-width="base(x2)"
-              data-h2-vertical-align="base(middle)"
-            />
-          )}
-          <span data-h2-vertical-align="base(middle)">{children}</span>
-        </Heading>
-        <Heading
-          level="h2"
-          data-h2-padding="base(0, 0, x1, 0) p-tablet(0, 0, x1, x3)"
-          data-h2-margin="base(x1, 0, x.5, 0)"
-          {...rest}
-        >
-          {subtitle}
-        </Heading>
-      </>
-    );
-  }
   return (
-    <Heading level="h1" {...rest}>
-      {Icon && (
-        <Icon
-          className="page-header__icon"
-          data-h2-margin="base(0, x1, 0, 0)"
-          data-h2-width="base(x2)"
-          data-h2-vertical-align="base(middle)"
-        />
-      )}
-      <span data-h2-vertical-align="base(middle)">{children}</span>
-    </Heading>
+    <>
+      <PageTitle {...{ icon, subtitle, ...rest }}>{children}</PageTitle>
+      {navItems && navItems.length ? <Navigation items={navItems} /> : null}
+    </>
   );
 };
 
