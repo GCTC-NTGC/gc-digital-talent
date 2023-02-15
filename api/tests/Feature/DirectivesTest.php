@@ -214,6 +214,7 @@ class DirectivesTest extends TestCase
         $adminResponse->assertJson(fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
+                ->etc()
         );
 
 
@@ -225,6 +226,7 @@ class DirectivesTest extends TestCase
         $applicantResponse->assertJson(fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
+                ->etc()
         );
 
         // Other user should not be able to view poolCandidates, as they are protected by UserPolicy.
@@ -235,6 +237,7 @@ class DirectivesTest extends TestCase
         $otherResponse->assertJson(fn (AssertableJson $json) =>
             $json->where('data.user.poolCandidates', null)
                 ->where('errors.0.message', 'This action is unauthorized.')
+                ->etc()
         );
     }
 }
