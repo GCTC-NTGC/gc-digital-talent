@@ -66,7 +66,7 @@
     "@radix-ui/react-tabs": "^1.0.0",
     "@radix-ui/react-toggle-group": "^1.0.1",
     "@urql/exchange-auth": "^1.0.0",
-    "chromatic": "^6.15.0",
+    "chromatic": "^6.17.0",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
     "graphql": "^16.6.0",
