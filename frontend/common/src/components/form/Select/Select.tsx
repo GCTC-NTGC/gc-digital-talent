@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
+import orderBy from "lodash/orderBy";
 import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
@@ -9,15 +10,15 @@ export type Option = {
   label: string;
   value: string;
   disabled?: boolean;
+  options?: Option[];
 };
-
 export type OptGroup = {
   label: string;
-  options: Array<Option>;
+  options: Option[];
   disabled?: boolean;
+  value?: string;
 };
-
-type OptGroupOrOption = OptGroup[] | Option[];
+export type OptGroupOrOption = OptGroup | Option;
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -28,7 +29,7 @@ export interface SelectProps
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options and/or optgroups for the select element. */
-  options: OptGroupOrOption;
+  options: OptGroupOrOption[];
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
@@ -39,6 +40,34 @@ export interface SelectProps
   trackUnsaved?: boolean;
   /** Determine if it should sort options in alphanumeric ascending order */
   doNotSort?: boolean;
+}
+
+function sortOptions(options: OptGroupOrOption[]) {
+  const tempOptions = options.map((option: OptGroupOrOption) =>
+    Object.prototype.hasOwnProperty.call(option, "options")
+      ? {
+          label: option.label,
+          options: orderBy(
+            option.options,
+            ({ label }) =>
+              label
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLocaleLowerCase(),
+            "asc",
+          ),
+        }
+      : option,
+  );
+  return orderBy(
+    tempOptions,
+    ({ label }) =>
+      label
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase(),
+    "asc",
+  );
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -71,6 +100,10 @@ const Select: React.FunctionComponent<SelectProps> = ({
     },
   });
 
+  const optionsModified = useMemo(() => {
+    return doNotSort ? options : sortOptions(options);
+  }, [doNotSort, options]);
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <InputWrapper
@@ -102,47 +135,21 @@ const Select: React.FunctionComponent<SelectProps> = ({
               {nullSelection}
             </option>
           )}
-          {doNotSort
-            ? options.map((option) =>
-                "options" in option ? (
-                  <optgroup key={option.label} label={option.label}>
-                    {options.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ) : (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
+          {optionsModified.map((option) =>
+            Object.prototype.hasOwnProperty.call(option, "options") ? (
+              <optgroup key={option.label} label={option.label}>
+                {option.options?.map(({ value, label: optionLabel }) => (
+                  <option key={value} value={value}>
+                    {optionLabel}
                   </option>
-                ),
-              )
-            : options
-                .map((option) =>
-                  "options" in option ? (
-                    <optgroup key={option.label} label={option.label}>
-                      {options
-                        .map((o) => (
-                          <option key={o.value} value={o.value}>
-                            {o.label}
-                          </option>
-                        ))
-                        .sort((a, b) =>
-                          a.label
-                            .toLowerCase()
-                            .localeCompare(b.label.toLowerCase()),
-                        )}
-                    </optgroup>
-                  ) : (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ),
-                )
-                .sort((a, b) =>
-                  a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
-                )}
+                ))}
+              </optgroup>
+            ) : (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ),
+          )}
         </select>
       </InputWrapper>
     </div>
