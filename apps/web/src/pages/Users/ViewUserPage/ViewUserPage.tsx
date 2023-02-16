@@ -1,11 +1,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { PrinterIcon } from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import PageHeader from "@common/components/PageHeader";
 import Tabs from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
@@ -36,12 +35,6 @@ interface ViewUserProps {
 export const ViewUser: React.FC<ViewUserProps> = ({ user, pools }) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Candidate Details",
-    id: "XtBhGo",
-    description: "Title for the page when viewing an individual user.",
-  });
 
   const links = [
     {
@@ -80,7 +73,6 @@ export const ViewUser: React.FC<ViewUserProps> = ({ user, pools }) => {
 
   return (
     <>
-      <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div data-h2-margin="base(x2, 0, x1, 0)">
         <div data-h2-flex-grid="base(center, x1)">

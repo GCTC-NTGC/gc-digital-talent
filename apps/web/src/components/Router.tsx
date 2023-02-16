@@ -296,6 +296,14 @@ const CreateUserPage = React.lazy(() =>
       ),
   ),
 );
+const UserPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUserPage" */ "../pages/Users/UserPage/UserPage"
+      ),
+  ),
+);
 const UpdateUserPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -951,6 +959,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":userId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <UserPage />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,

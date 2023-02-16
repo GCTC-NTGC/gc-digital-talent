@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { UserIcon } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
 import SEO from "@common/components/SEO/SEO";
 
 const ViewUserPage = () => {
@@ -14,12 +12,7 @@ const ViewUserPage = () => {
     description: "Page title for the view user profile page",
   });
 
-  return (
-    <>
-      <SEO title={pageTitle} />
-      <PageHeader icon={UserIcon}>{pageTitle}</PageHeader>
-    </>
-  );
+  return <SEO title={pageTitle} />;
 };
 
 export default ViewUserPage;
