@@ -35,6 +35,7 @@ Laratrust
 Laravel
 Laravelista
 Lcobucci
+licences
 lightgold
 lightgray
 lightnavy
