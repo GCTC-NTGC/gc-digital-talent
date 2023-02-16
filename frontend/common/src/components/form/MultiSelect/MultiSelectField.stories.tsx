@@ -4,11 +4,10 @@ import uniqueId from "lodash/uniqueId";
 import React from "react";
 import { useIntl } from "react-intl";
 import { getLocalizedName } from "../../../helpers/localize";
-import { fakeSkillFamilies, fakeSkills } from "../../../fakeData";
+import { fakeDepartments, fakePools } from "../../../fakeData";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import MultiSelectField from "./MultiSelectField";
-import { Option } from "../Select/SelectFieldV2";
 
 export default {
   component: MultiSelectField,
@@ -18,7 +17,7 @@ export default {
       return (
         <BasicForm
           onSubmit={action("Submit Form")}
-          options={{ defaultValues: { departments: [] } }}
+          options={{ defaultValues: { groups: [] } }}
         >
           {/* See: https://github.com/storybookjs/storybook/issues/12596#issuecomment-723440097 */}
           {Story() /* Can't use <Story /> for inline decorator. */}
@@ -31,19 +30,53 @@ export default {
 
 const Template: ComponentStory<typeof MultiSelectField> = (args) => {
   const intl = useIntl();
-  const skillFamilies = fakeSkillFamilies(10, fakeSkills(2));
-  const fakeOptions: Option[] = skillFamilies.map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
+  const departments = fakeDepartments();
+  const pools = fakePools();
+  const groups = [
+    {
+      id: 1,
+      label: {
+        en: "Things",
+        fr: "Choses",
+      },
+      options: [],
+    },
+    {
+      id: 2,
+      label: {
+        en: "Departments",
+        fr: "Ministères",
+      },
+      options: departments.map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+    {
+      id: 3,
+      label: {
+        en: "Pools",
+        fr: "Bassins",
+      },
+      options: pools.map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+  ];
+  const groupOptions = groups.map((group) => ({
+    label: getLocalizedName(group.label, intl),
+    options: group.options,
   }));
-  return <MultiSelectField {...args} options={fakeOptions} />;
+
+  return <MultiSelectField {...args} options={groupOptions} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   id: uniqueId(),
-  label: "Skills",
-  name: "skills",
+  label: "Groups",
+  name: "groups",
 };
 
 export const Required = Template.bind({});
