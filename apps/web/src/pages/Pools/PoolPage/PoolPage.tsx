@@ -18,7 +18,7 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
-type PageNaveKeys = "view" | "edit" | "candidates";
+type PageNavKeys = "view" | "edit" | "candidates";
 
 interface PageContentProps {
   pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
@@ -28,7 +28,7 @@ const PageContent = ({ pool }: PageContentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pages = new Map<PageNaveKeys, PageNavInfo>([
+  const pages = new Map<PageNavKeys, PageNavInfo>([
     [
       "view",
       {
@@ -79,7 +79,7 @@ const PageContent = ({ pool }: PageContentProps) => {
   ]);
 
   const poolTitle = getFullPoolAdvertisementTitleLabel(intl, pool);
-  const currentPage = useCurrentPage<PageNaveKeys>(pages);
+  const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (
     <>

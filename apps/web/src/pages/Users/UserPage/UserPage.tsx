@@ -18,7 +18,7 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
-type PageNaveKeys = "profile" | "info" | "edit";
+type PageNavKeys = "profile" | "info" | "edit";
 
 interface PageContentProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
@@ -28,7 +28,7 @@ const PageContent = ({ user }: PageContentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pages = new Map<PageNaveKeys, PageNavInfo>([
+  const pages = new Map<PageNavKeys, PageNavInfo>([
     [
       "profile",
       {
@@ -79,7 +79,7 @@ const PageContent = ({ user }: PageContentProps) => {
   ]);
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
-  const currentPage = useCurrentPage<PageNaveKeys>(pages);
+  const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (
     <>
