@@ -48,6 +48,7 @@ services:
       replicas: 0
     volumes:
       - maintenancedata:/root
+      - ./.git:/var/www/html/.git
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
       - ./apps:/var/www/html/apps
