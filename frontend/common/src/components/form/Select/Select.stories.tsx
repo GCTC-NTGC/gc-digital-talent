@@ -3,10 +3,10 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
+import { fakeDepartments, fakePools } from "../../../fakeData";
 import { getLocalizedName } from "../../../helpers/localize";
-import { fakeDepartments } from "../../../fakeData";
 import Form from "../BasicForm";
-import Select, { OptGroup, Option } from ".";
+import Select, { OptGroup, Option } from "./Select";
 import type { SelectProps } from ".";
 import Submit from "../Submit";
 
@@ -32,7 +32,7 @@ const Template: Story<SelectProps> = (args) => {
   return (
     <Form
       onSubmit={action("Submit Form")}
-      options={{ defaultValues: { departments: "" } }}
+      options={{ defaultValues: { groups: "" } }}
     >
       <div>
         <Select {...args} options={departmentOptions} />
@@ -44,25 +44,24 @@ const Template: Story<SelectProps> = (args) => {
 
 const TemplateGroups: Story<SelectProps> = (args) => {
   const intl = useIntl();
+  const departments = fakeDepartments();
+  const pools = fakePools();
   const groups = [
     {
       id: 1,
       label: {
-        en: "Small",
-        fr: "Petit",
+        en: "Things",
+        fr: "Choses",
       },
-      options: fakeDepartments().map(({ id, name }) => ({
-        value: id,
-        label: getLocalizedName(name, intl) || "",
-      })),
+      options: [],
     },
     {
       id: 2,
       label: {
-        en: "Medium",
-        fr: "Moyen",
+        en: "Departments",
+        fr: "Ministères",
       },
-      options: fakeDepartments().map(({ id, name }) => ({
+      options: departments.map(({ id, name }) => ({
         value: id,
         label: getLocalizedName(name, intl) || "",
       })),
@@ -70,27 +69,27 @@ const TemplateGroups: Story<SelectProps> = (args) => {
     {
       id: 3,
       label: {
-        en: "Large",
-        fr: "Grand",
+        en: "Pools",
+        fr: "Bassins",
       },
-      options: fakeDepartments().map(({ id, name }) => ({
+      options: pools.map(({ id, name }) => ({
         value: id,
         label: getLocalizedName(name, intl) || "",
       })),
     },
   ];
-  const departmentOptions: OptGroup[] = groups.map((optgroup) => ({
-    label: getLocalizedName(optgroup.label, intl),
-    options: optgroup.options,
+  const groupOptions: OptGroup[] = groups.map((group) => ({
+    label: getLocalizedName(group.label, intl),
+    options: group.options,
   }));
 
   return (
     <Form
       onSubmit={action("Submit Form")}
-      options={{ defaultValues: { departments: "" } }}
+      options={{ defaultValues: { groups: "" } }}
     >
       <div>
-        <Select {...args} options={departmentOptions} />
+        <Select {...args} options={groupOptions} />
         <Submit />
       </div>
     </Form>
@@ -100,7 +99,7 @@ const TemplateGroups: Story<SelectProps> = (args) => {
 export const SelectDefault = Template.bind({});
 SelectDefault.args = {
   id: uniqueId(),
-  label: "Department",
+  label: "Departments",
   name: "departments",
   nullSelection: "",
 };
@@ -114,6 +113,8 @@ SelectWithNullSelection.args = {
 export const SelectWithGroups = TemplateGroups.bind({});
 SelectWithGroups.args = {
   ...SelectDefault.args,
+  label: "Groups",
+  name: "groups",
   nullSelection: "Select an option...",
 };
 
