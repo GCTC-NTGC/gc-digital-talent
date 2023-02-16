@@ -105,7 +105,7 @@ jobs:
           name: untranslated
           path: |
             apps/**/lang/untranslated.json
-            frontend/**/lang/untranslated.json
-            !frontend/node_modules/**
+            packages/**/lang/untranslated.json
+            !packages/node_modules/**
           if-no-files-found: ignore
 

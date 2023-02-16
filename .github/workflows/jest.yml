@@ -6,12 +6,12 @@ on:
     paths:
       - .github/workflows/*jest*.yml
       - apps/**
-      - frontend/**
+      - packages/**
   pull_request:
     paths:
       - .github/workflows/*jest*.yml
       - apps/**
-      - frontend/**
+      - packages/**
 
 jobs:
   build:
