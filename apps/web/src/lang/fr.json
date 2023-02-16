@@ -1354,7 +1354,7 @@
     "description": "Label for telephone field in About Me form"
   },
   "gWEfA9": {
-    "defaultMessage": "Vous n'avez pas encore été accepté dans un bassin d'embauche.",
+    "defaultMessage": "Vous n'avez pas encore été accepté(e) dans un bassin d'embauche.",
     "description": "Message for if user not part of any hiring pools"
   },
   "ghmTOo": {
