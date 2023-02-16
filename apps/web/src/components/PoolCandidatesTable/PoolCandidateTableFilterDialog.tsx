@@ -27,6 +27,7 @@ export type FormValues = {
   priorityWeight: Option["value"][];
   pools: Option["value"][];
   skills: Option["value"][];
+  expiryStatus: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -186,6 +187,18 @@ const PoolCandidateTableFilterDialog = ({
                   id: "+tzO5t",
                 })}
                 options={optionsData.hasDiploma}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <SelectFieldV2
+                forceArrayFormValue
+                id="expiryStatus"
+                label={formatMessage({
+                  defaultMessage: "Expiry Status",
+                  description: "Expiry status",
+                  id: "TQU5g8",
+                })}
+                options={optionsData.expiryStatus}
               />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
