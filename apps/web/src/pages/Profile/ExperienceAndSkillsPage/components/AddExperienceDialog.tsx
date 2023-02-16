@@ -205,7 +205,12 @@ const AddExperienceDialog = ({
               >
                 <div>
                   <div data-h2-margin="base(x0.5, 0)">
-                    <Heading level="h3" size="h6">
+                    <Heading
+                      level="h3"
+                      size="h6"
+                      data-h2-display="base(flex)"
+                      data-h2-align-items="base(center)"
+                    >
                       <span
                         data-h2-display="base(inline-block)"
                         data-h2-height="base(x1)"
