@@ -79,13 +79,25 @@ function sortOptions(options: Options): Options {
           label: option.label,
           options: orderBy(
             option.options,
-            ({ label }) => label.toLowerCase(),
+            ({ label }) =>
+              label
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLocaleLowerCase(),
             "asc",
           ),
         }
       : option,
   );
-  return orderBy(tempOptions, ({ label }) => label.toLowerCase(), "asc");
+  return orderBy(
+    tempOptions,
+    ({ label }) =>
+      label
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase(),
+    "asc",
+  );
 }
 
 // See: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/components/Menu.tsx#L497-L503
