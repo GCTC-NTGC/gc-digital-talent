@@ -2,13 +2,14 @@
   "name": "@gc-digital-talent/ui",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "sideEffects": [
     "**/*.css"
+  ],
+  "files": [
+    "dist/**"
   ],
   "scripts": {
     "build": "rimraf dist && env NODE_ENV=production tsup",

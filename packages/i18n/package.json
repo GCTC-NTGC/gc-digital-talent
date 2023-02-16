@@ -2,16 +2,15 @@
   "name": "@gc-digital-talent/i18n",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "bin": {
     "check-intl": "./dist/cli.js"
   },
   "files": [
     "dist/**"
-  ],
-  "sideEffects": [
-    "*.json"
   ],
   "scripts": {
     "build": "rimraf dist && env NODE_ENV=production tsup",
