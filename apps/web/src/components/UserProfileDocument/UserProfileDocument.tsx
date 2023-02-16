@@ -126,8 +126,8 @@ const UserProfileDocument = React.forwardRef<
           {applicants &&
             applicants.map((applicant, index) => {
               return (
-                <>
-                  <div key={applicant.id} className="page-wrapper">
+                <React.Fragment key={applicant.id}>
+                  <div className="page-wrapper">
                     <div className="page-section">
                       <HeadingWrapper>
                         <Heading
@@ -254,7 +254,7 @@ const UserProfileDocument = React.forwardRef<
                   {index + 1 !== applicants.length && (
                     <div style={{ breakAfter: "page" }} />
                   )}
-                </>
+                </React.Fragment>
               );
             })}
         </div>

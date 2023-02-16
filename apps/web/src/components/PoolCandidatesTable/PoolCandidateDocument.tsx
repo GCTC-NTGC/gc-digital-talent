@@ -128,8 +128,8 @@ const PoolCandidateDocument = React.forwardRef<
           {candidates &&
             candidates.map((candidate, index) => {
               return (
-                <>
-                  <div key={candidate.id} className="page-wrapper">
+                <React.Fragment key={candidate.id}>
+                  <div className="page-wrapper">
                     <div className="page-section">
                       <HeadingWrapper>
                         <Heading
@@ -276,7 +276,7 @@ const PoolCandidateDocument = React.forwardRef<
                   {index + 1 !== candidates.length && (
                     <div style={{ breakAfter: "page" }} />
                   )}
-                </>
+                </React.Fragment>
               );
             })}
         </div>
