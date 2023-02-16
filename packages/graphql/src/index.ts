@@ -1140,6 +1140,7 @@ export type PoolCandidatePaginator = {
 export type PoolCandidateSearchInput = {
   applicantFilter?: InputMaybe<ApplicantFilterInput>;
   email?: InputMaybe<Scalars["String"]>;
+  expiryStatus?: InputMaybe<CandidateExpiryFilter>;
   generalSearch?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
   poolCandidateStatus?: InputMaybe<Array<InputMaybe<PoolCandidateStatus>>>;
