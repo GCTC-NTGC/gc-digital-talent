@@ -397,7 +397,7 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-
+  
   const applicantFilterFromBrowserHistory = state
     ? state.applicantFilter
     : undefined;
@@ -409,11 +409,23 @@ const SearchContainerApi = () => {
     },
   );
 
+  // When pools first load, they should be added to the ApplicantFilter
+  useEffect(() => {
+    if (
+      searchFormData?.publishedPoolAdvertisements &&
+      applicantFilterFromBrowserHistory === undefined
+    ) {
+      setApplicantFilter({
+        pools: searchFormData?.publishedPoolAdvertisements,
+      });
+    }
+  }, [
+    searchFormData?.publishedPoolAdvertisements,
+    applicantFilterFromBrowserHistory,
+  ]);
+
   const queryArgs = useMemo(
-    () =>
-      applicantFilterToQueryArgs({
-        ...applicantFilter,
-      }),
+    () => applicantFilterToQueryArgs(applicantFilter),
     [applicantFilter],
   );
 

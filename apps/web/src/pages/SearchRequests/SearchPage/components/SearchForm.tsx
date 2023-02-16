@@ -211,10 +211,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(state?.applicantFilter || {});
-    }, [state?.applicantFilter, onUpdateApplicantFilter]);
-
-    React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
