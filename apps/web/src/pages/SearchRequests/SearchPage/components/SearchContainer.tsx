@@ -397,7 +397,6 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-  
   const applicantFilterFromBrowserHistory = state
     ? state.applicantFilter
     : undefined;
