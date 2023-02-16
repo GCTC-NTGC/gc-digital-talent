@@ -5,7 +5,7 @@
       "outputs": ["dist/**"]
     },
     "codegen": {
-      "outputs": ["src/api/generated.ts"]
+      "outputs": ["src/api/generated.ts", "src/index.ts"]
     },
     "dev": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
@@ -33,9 +33,6 @@
     },
     "build-storybook": {
       "outputs": ["dist/**", "storybook-static/**"]
-    },
-    "build:css": {
-      "outputs": ["src/css/hydrogen.css"]
     },
     "test": {
       "outputs": ["coverage/**"],
