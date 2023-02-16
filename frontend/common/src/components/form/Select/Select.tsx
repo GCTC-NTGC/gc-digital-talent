@@ -1,13 +1,20 @@
 import React, { useMemo } from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
+import isBoolean from "lodash/isBoolean";
+import isNull from "lodash/isNull";
+import isNumber from "lodash/isNumber";
+import isString from "lodash/isString";
+import isUndefined from "lodash/isUndefined";
+
 import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export type Option = {
-  label: string;
+  label: React.ReactNode;
   value: string | number;
   disabled?: boolean;
   options?: Option[];
@@ -15,7 +22,7 @@ export type Option = {
   ariaLabel?: string;
 };
 export type OptGroup = {
-  label: string;
+  label: React.ReactNode;
   options: Option[];
   disabled?: boolean;
   value?: string | number;
@@ -54,10 +61,12 @@ function sortOptions(options: OptGroupOrOption[]) {
           options: orderBy(
             option.options,
             ({ label }) =>
-              label
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .toLocaleLowerCase(),
+              isString(label)
+                ? label
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLocaleLowerCase()
+                : label,
             "asc",
           ),
         }
@@ -66,10 +75,12 @@ function sortOptions(options: OptGroupOrOption[]) {
   return orderBy(
     tempOptions,
     ({ label }) =>
-      label
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLocaleLowerCase(),
+      isString(label)
+        ? label
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLocaleLowerCase()
+        : label,
     "asc",
   );
 }
@@ -141,7 +152,17 @@ const Select: React.FunctionComponent<SelectProps> = ({
           )}
           {optionsModified.map((option) =>
             Object.prototype.hasOwnProperty.call(option, "options") ? (
-              <optgroup key={option.label} label={option.label}>
+              <optgroup
+                key={`optgroup${option.label}`}
+                label={
+                  isNull(option.label) ||
+                  isNumber(option.label) ||
+                  isBoolean(option.label) ||
+                  isUndefined(option.label)
+                    ? ""
+                    : option.label.toString()
+                }
+              >
                 {option.options?.map(
                   ({ value, label: optionLabel, ariaLabel }) => (
                     <option aria-label={ariaLabel} key={value} value={value}>
