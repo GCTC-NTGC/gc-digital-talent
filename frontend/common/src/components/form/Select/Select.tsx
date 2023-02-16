@@ -8,7 +8,7 @@ import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export type Option = {
   label: string;
-  value: string;
+  value: string | number;
   disabled?: boolean;
   options?: Option[];
   /** Aria labels for alternate text that will be read by assistive technologies. */
@@ -18,7 +18,7 @@ export type OptGroup = {
   label: string;
   options: Option[];
   disabled?: boolean;
-  value?: string;
+  value?: string | number;
   /** Aria labels for alternate text that will be read by assistive technologies. */
   ariaLabel?: string;
 };
