@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Team } from "~/api/generated";
 import { Input, TextArea } from "@common/components/form";
 import Pill from "@common/components/Pill/Pill";
-import useLocale from "~/../../../frontend/common/src/hooks/useLocale";
+import { getLocalizedName } from "@common/helpers/localize";
 
 interface ViewTeamProps {
   team: Team;
@@ -12,7 +12,6 @@ interface ViewTeamProps {
 
 export const ViewTeam = ({ team }: ViewTeamProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
   const form = useForm();
 
   const departmentsPillsArray =
@@ -20,7 +19,7 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
       ? team.departments.map((department) => {
           return (
             <Pill color="primary" mode="outline" key={department?.id}>
-              {department?.name?.[locale]}
+              {getLocalizedName(department?.name, intl)}
             </Pill>
           );
         })

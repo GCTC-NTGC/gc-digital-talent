@@ -11,7 +11,7 @@ import NotFound from "@common/components/NotFound";
 import Link from "@common/components/Link";
 import useRoutes from "~/hooks/useRoutes";
 import Heading from "@common/components/Heading";
-import useLocale from "@common/hooks/useLocale";
+import { getLocalizedName } from "@common/helpers/localize";
 import { ViewTeam } from "./components/ViewTeam";
 
 type RouteParams = {
@@ -24,7 +24,6 @@ interface ViewTeamApiProps {
 
 export const ViewTeamApi = ({ pageTitle }: ViewTeamApiProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
   const { teamId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useViewTeamQuery({
     variables: { id: teamId || "" },
@@ -36,7 +35,7 @@ export const ViewTeamApi = ({ pageTitle }: ViewTeamApiProps) => {
         <>
           <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
           <Heading size="h4" level="h4" data-h2-margin-left="base(x3)">
-            {data.team.displayName?.[locale]}
+            {getLocalizedName(data.team.displayName, intl)}
           </Heading>
           <hr
             data-h2-margin="base(x2, 0, 0, 0)"
