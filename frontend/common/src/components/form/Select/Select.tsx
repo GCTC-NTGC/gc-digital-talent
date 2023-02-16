@@ -11,12 +11,16 @@ export type Option = {
   value: string;
   disabled?: boolean;
   options?: Option[];
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
 };
 export type OptGroup = {
   label: string;
   options: Option[];
   disabled?: boolean;
   value?: string;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
 };
 export type OptGroupOrOption = OptGroup | Option;
 
@@ -138,14 +142,20 @@ const Select: React.FunctionComponent<SelectProps> = ({
           {optionsModified.map((option) =>
             Object.prototype.hasOwnProperty.call(option, "options") ? (
               <optgroup key={option.label} label={option.label}>
-                {option.options?.map(({ value, label: optionLabel }) => (
-                  <option key={value} value={value}>
-                    {optionLabel}
-                  </option>
-                ))}
+                {option.options?.map(
+                  ({ value, label: optionLabel, ariaLabel }) => (
+                    <option aria-label={ariaLabel} key={value} value={value}>
+                      {optionLabel}
+                    </option>
+                  ),
+                )}
               </optgroup>
             ) : (
-              <option key={option.value} value={option.value}>
+              <option
+                aria-label={option.ariaLabel}
+                key={option.value}
+                value={option.value}
+              >
                 {option.label}
               </option>
             ),

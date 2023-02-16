@@ -290,6 +290,12 @@ const OtherRequirementsSection = ({
                 options={enumToOptions(PublishingGroup).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getPublishingGroup(value)),
+                  ariaLabel: intl
+                    .formatMessage(getPublishingGroup(value))
+                    .replace(
+                      intl.locale === "en" ? "IT" : "TI",
+                      intl.locale === "en" ? "I T" : "T I",
+                    ),
                 }))}
                 disabled={formDisabled}
               />

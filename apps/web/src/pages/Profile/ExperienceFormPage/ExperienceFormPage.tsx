@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
@@ -13,7 +13,7 @@ import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import { Maybe, SkillCategory } from "@common/api/generated";
 
@@ -26,6 +26,7 @@ import {
   useGetSkillsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -80,15 +81,14 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
 
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
-  let crumbs = [
+  let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
       label: intl.formatMessage({
         defaultMessage: "Experience and Skills",
@@ -116,7 +116,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   let irrelevantSkills: Maybe<Skill[]> = [];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
+    const advertisementTitle = getFullPoolAdvertisementTitleHtml(
       intl,
       poolAdvertisement,
     );
@@ -350,13 +350,12 @@ export interface ExperienceFormContainerProps {
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo();
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   const [

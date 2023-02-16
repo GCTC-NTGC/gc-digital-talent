@@ -32,7 +32,7 @@ import { categorizeSkill } from "@common/helpers/skillUtils";
 import { notEmpty } from "@common/helpers/util";
 import {
   formatClassificationString,
-  getFullPoolAdvertisementTitle,
+  getFullPoolAdvertisementTitleLabel,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
 import SEO from "@common/components/SEO/SEO";
@@ -45,6 +45,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 import { isAdvertisementVisible } from "~/utils/poolUtils";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import PoolInfoCard from "./components/PoolInfoCard";
 import ClassificationDefinition from "./components/ClassificationDefinition";
 
@@ -166,7 +167,7 @@ export const PoolAdvertisementPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
@@ -345,13 +346,19 @@ export const PoolAdvertisementPoster = ({
                     })}
                   </Text>
                   <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                      id: "m5hjaz",
-                      description:
-                        "Description of pool recruitment, paragraph two",
-                    })}
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                        id: "LlgRM8",
+                        description:
+                          "Description of pool recruitment, paragraph two",
+                      },
+                      {
+                        abbreviation: (text: React.ReactNode) =>
+                          wrapAbbr(text, intl),
+                      },
+                    )}
                   </Text>
                 </Accordion.Content>
               </Accordion.Item>

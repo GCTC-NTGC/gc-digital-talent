@@ -28,6 +28,7 @@ import {
   PoolStream,
   PublishingGroup,
   IndigenousCommunity,
+  CandidateExpiryFilter,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -591,6 +592,33 @@ export const getPoolCandidateStatus = (
     poolCandidateStatuses,
     poolCandidateStatusId,
     `Invalid Pool Candidate Status '${poolCandidateStatusId}'`,
+  );
+
+export const candidateExpiryFilterStatuses = defineMessages({
+  [CandidateExpiryFilter.Active]: {
+    defaultMessage: "Active",
+    id: "SuKmqa",
+    description: "Active status",
+  },
+  [CandidateExpiryFilter.All]: {
+    defaultMessage: "All",
+    id: "qQtJDw",
+    description: "All statuses",
+  },
+  [CandidateExpiryFilter.Expired]: {
+    defaultMessage: "Expired",
+    id: "GIC6EK",
+    description: "Expired status",
+  },
+});
+
+export const getCandidateExpiryFilterStatus = (
+  candidateExpiryFilterStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    candidateExpiryFilterStatuses,
+    candidateExpiryFilterStatusId,
+    `Invalid Pool Candidate Status '${candidateExpiryFilterStatusId}'`,
   );
 
 export const poolCandidateSearchStatuses = defineMessages({
@@ -1565,6 +1593,30 @@ export const getPublishingGroup = (
     publishingGroups,
     publishingGroup,
     `Invalid publishing group '${publishingGroup}'`,
+  );
+
+export const abbreviations = defineMessages({
+  AS: {
+    defaultMessage: "Administrative Services",
+    id: "6svHxg",
+  },
+  GC: {
+    defaultMessage: "Government of Canada",
+    id: "t9i8Ml",
+  },
+  IT: {
+    defaultMessage: "Information Technology",
+    id: "nLW9zq",
+  },
+});
+
+export const getAbbreviations = (
+  abbreviation: keyof typeof abbreviations,
+): MessageDescriptor =>
+  getOrThrowError(
+    abbreviations,
+    abbreviation,
+    `Invalid abbreviation '${abbreviation}'`,
   );
 
 export const indigenousCommunities = defineMessages({

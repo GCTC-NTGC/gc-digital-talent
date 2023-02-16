@@ -1,22 +1,15 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import {
-  BookOpenIcon,
-  BriefcaseIcon,
-  LightBulbIcon,
-  StarIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import { IconLink } from "@common/components/Link";
 import MissingSkills from "@common/components/MissingSkills";
 import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 import {
   AwardExperience,
@@ -32,6 +25,7 @@ import { ExperienceType } from "~/types/experience";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import AddExperienceDialog from "./AddExperienceDialog";
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -84,57 +78,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
     workUrl: (id: string) => getEditPath(id, "work"),
   };
 
-  const links = [
-    {
-      href: `${paths.createWork(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Work",
-        id: "RF51Bp",
-        description: "Title for work experience form button.",
-      }),
-      icon: BriefcaseIcon,
-    },
-    {
-      href: `${paths.createEducation(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Education",
-        id: "JUk80l",
-        description: "Title for education experience form button.",
-      }),
-      icon: BookOpenIcon,
-    },
-    {
-      href: `${paths.createCommunity(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Community",
-        id: "mrhpJS",
-        description: "Title for community experience form button.",
-      }),
-      icon: UserGroupIcon,
-    },
-    {
-      href: `${paths.createPersonal(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Personal",
-        id: "nuP1BG",
-        description: "Title for personal experience form button.",
-      }),
-      icon: LightBulbIcon,
-    },
-    {
-      href: `${paths.createAward(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Award",
-        id: "XF4Ok2",
-        description: "Title for award experience form button.",
-      }),
-      icon: StarIcon,
-    },
-  ];
-
   const hasExperiences = notEmpty(experiences);
 
-  const applicationBreadcrumbs = poolAdvertisement
+  const applicationBreadcrumbs: {
+    label: string | React.ReactNode;
+    url: string;
+  }[] = poolAdvertisement
     ? [
         {
           label: intl.formatMessage({
@@ -145,7 +94,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
           url: paths.applications(applicantId),
         },
         {
-          label: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+          label: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
           url: paths.pool(poolAdvertisement.id),
         },
         {
@@ -182,13 +131,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
             ]
       }
       prefixBreadcrumbs={!poolAdvertisement}
-      description={intl.formatMessage({
-        defaultMessage:
-          "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
-        id: "GAjpqU",
-        description:
-          "Description for the experience and skills page in applicant profile.",
-      })}
+      description={intl.formatMessage(
+        {
+          defaultMessage:
+            "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an <abbreviation>IT</abbreviation> organization.",
+          id: "Ks4G8p",
+          description:
+            "Description for the experience and skills page in applicant profile.",
+        },
+        {
+          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+        },
+      )}
       title={intl.formatMessage({
         defaultMessage: "My experience and skills",
         id: "KE49r9",
@@ -208,51 +162,14 @@ export const ExperienceAndSkills: React.FunctionComponent<
         </div>
       )}
       <div data-h2-margin="base(x2, 0)">
-        <div data-h2-flex-grid="base(flex-start, x.5)">
-          <div data-h2-flex-item="base(1of1)">
-            <p
-              data-h2-text-decoration="base(none)"
-              data-h2-font-weight="base(700)"
-              data-h2-text-transform="base(uppercase)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Add new experience:",
-                id: "Tr5Pga",
-                description:
-                  "Message to user when no experiences have been attached to profile",
-              })}
-            </p>
-          </div>
-          <div data-h2-flex-item="base(1of1)">
-            <div
-              data-h2-display="base(block) p-tablet(flex)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-gap="base(x.5)"
-            >
-              {links.map(({ title, href, icon }) => (
-                <div key={title} data-h2-margin-top="base(x.5) p-tablet(0)">
-                  <IconLink
-                    href={href}
-                    type="button"
-                    color="primary"
-                    icon={icon}
-                    block
-                  >
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
-                        id: "XiUgMy",
-                        description:
-                          "Link text for adding a new experience of a specific type.",
-                      },
-                      { title },
-                    )}
-                  </IconLink>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(flex-end)"
+        >
+          <AddExperienceDialog
+            data-h2-flex-item="base(1of1)"
+            applicantId={applicantId}
+          />
         </div>
       </div>
       {!hasExperiences ? (
