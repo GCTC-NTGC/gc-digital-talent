@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * Class User
  *
  * @property string $id
- * @property string $team_id
  */
 
 class RoleAssignment extends Pivot

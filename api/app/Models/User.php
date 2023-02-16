@@ -142,6 +142,11 @@ class User extends Model implements Authenticatable
         return $this->belongsToMany(Role::class)->withPivot('id', 'team_id')
         ->using(RoleAssignment::class);
     }
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class, 'role_user')->withPivot('id', 'role_id')
+        ->using(RoleAssignment::class);
+    }
     public function getExperiencesAttribute()
     {
         $collection = collect();
