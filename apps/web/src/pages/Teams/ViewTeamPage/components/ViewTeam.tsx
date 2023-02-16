@@ -27,7 +27,7 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
 
   return (
     <FormProvider {...form}>
-      <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+      <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
         {intl.formatMessage({
           defaultMessage: "Basic information",
           id: "Rg0SpL",
@@ -36,34 +36,40 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
       </h2>
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="displayNameEnglish"
-            name="displayNameEnglish"
-            type="text"
-            readOnly
-            hideOptional
-            value={team.displayName?.en ?? ""}
-            label={intl.formatMessage({
+          <p>
+            {intl.formatMessage({
               defaultMessage: "Organization's name (English)",
               id: "QC23B1",
               description: "Name of an organization/team in English field.",
             })}
-          />
+          </p>
+          <p
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-margin="base(x.25, 0, x1, 0)"
+            data-h2-padding="base(x.25, 0, x.25, x.5)"
+            data-h2-border="base(2px solid dt-gray)"
+            data-h2-radius="base(rounded)"
+          >
+            <span>{team.displayName?.en ?? ""}</span>
+          </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="displayNameFrench"
-            name="displayNameFrench"
-            type="text"
-            readOnly
-            hideOptional
-            value={team.displayName?.fr ?? ""}
-            label={intl.formatMessage({
+          <p>
+            {intl.formatMessage({
               defaultMessage: "Organization's name (French)",
               id: "W0BVd+",
               description: "Name of an organization/team in French field.",
             })}
-          />
+          </p>
+          <p
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-margin="base(x.25, 0, x1, 0)"
+            data-h2-padding="base(x.25, 0, x.25, x.5)"
+            data-h2-border="base(2px solid dt-gray)"
+            data-h2-radius="base(rounded)"
+          >
+            <span>{team.displayName?.fr ?? ""}</span>
+          </p>
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p data-h2-margin-bottom="base(x.25)">
@@ -77,34 +83,40 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
           {departmentsPillsArray}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="key"
-            name="key"
-            type="text"
-            readOnly
-            hideOptional
-            value={team.name}
-            label={intl.formatMessage({
+          <p data-h2-margin-top="base(x1)">
+            {intl.formatMessage({
               defaultMessage: "Key",
               id: "CvV2l6",
               description: "Label for an entity 'key' field",
             })}
-          />
+          </p>
+          <p
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-margin="base(x.25, 0, x1, 0)"
+            data-h2-padding="base(x.25, 0, x.25, x.5)"
+            data-h2-border="base(2px solid dt-gray)"
+            data-h2-radius="base(rounded)"
+          >
+            <span>{team.name}</span>
+          </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="contactEmail"
-            name="contactEmail"
-            type="text"
-            readOnly
-            hideOptional
-            value={team.contactEmail ?? ""}
-            label={intl.formatMessage({
+          <p data-h2-margin-top="base(x1)">
+            {intl.formatMessage({
               defaultMessage: "Contact email",
               id: "nGNj5Q",
               description: "Contact email",
             })}
-          />
+          </p>
+          <p
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-margin="base(x.25, 0, x1, 0)"
+            data-h2-padding="base(x.25, 0, x.25, x.5)"
+            data-h2-border="base(2px solid dt-gray)"
+            data-h2-radius="base(rounded)"
+          >
+            <span>{team?.contactEmail ?? ""}</span>
+          </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <TextArea
