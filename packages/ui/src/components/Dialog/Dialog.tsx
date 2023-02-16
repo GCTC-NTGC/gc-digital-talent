@@ -127,7 +127,12 @@ const StyledDescription = React.forwardRef<
   />
 ));
 
-type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
+type Color =
+  | "ts-primary"
+  | "ts-secondary"
+  | "ia-primary"
+  | "ia-secondary"
+  | "black";
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
@@ -144,6 +149,10 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
   "ia-secondary": {
     "data-h2-background": "base(ia-secondary)",
+    "data-h2-color": "base(ia-white)",
+  },
+  black: {
+    "data-h2-background": "base(black)",
     "data-h2-color": "base(ia-white)",
   },
 };
