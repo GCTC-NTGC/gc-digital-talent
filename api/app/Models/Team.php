@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 use Laratrust\Models\LaratrustTeam;
 
@@ -44,5 +45,10 @@ class Team extends LaratrustTeam
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
+    }
+
+    public function users(): MorphToMany
+    {
+        return $this->getMorphByUserRelation('users');
     }
 }

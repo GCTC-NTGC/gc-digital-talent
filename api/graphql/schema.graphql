@@ -133,8 +133,10 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
 
   # teams and roles
-  roles: [Role] @belongsToMany
-  teams: [Team] @belongsToMany
+  roles: [Role!] @morphToMany
+  rolesTeams: [Team!] @morphToMany
+  permissionsTeams: [Permission!] @morphToMany
+  permissions: [Permission!] @morphToMany
 }
 
 enum ProvinceOrTerritory {
@@ -528,8 +530,7 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
-  members: UserPublicProfile @belongsToMany(relation: "users") @can(ability: "view", resolved: true, model:  "User")
-  roleAssignment: RoleAssignment @rename(attribute: "pivot")
+  users: [User!] @morphToMany
 }
 
 type Role {
@@ -538,13 +539,12 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
-  roleAssignment: RoleAssignment @rename(attribute: "pivot")
+  users: [User!] @morphToMany
 }
 
-type RoleAssignment {
-  id: ID
-  role: Role @belongsTo
-  team: Team @belongsTo
+type Permission {
+  id: ID!
+  # stub
 }
 
 enum PoolCandidateSearchStatus {

@@ -741,6 +741,10 @@ type PaginatorInfo {
   total: Int!
 }
 
+type Permission {
+  id: ID!
+}
+
 type PersonalExperience implements Experience {
   id: ID!
   applicant: Applicant!
@@ -1083,13 +1087,7 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
-  roleAssignment: RoleAssignment
-}
-
-type RoleAssignment {
-  id: ID
-  role: Role
-  team: Team
+  users: [User!]
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1241,8 +1239,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
-  members: UserPublicProfile
-  roleAssignment: RoleAssignment
+  users: [User!]
 }
 
 input TeamBelongsTo {
@@ -1505,8 +1502,10 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
-  roles: [Role]
-  teams: [Team]
+  roles: [Role!]
+  rolesTeams: [Team!]
+  permissionsTeams: [Permission!]
+  permissions: [Permission!]
 }
 
 input UserBelongsTo {

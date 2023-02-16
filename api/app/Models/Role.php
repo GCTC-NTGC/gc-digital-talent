@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\LaratrustRole;
 
 /**
@@ -35,13 +35,8 @@ class Role extends LaratrustRole
 
     public $guarded = [];
 
-    public function users(): BelongsToMany
+    public function users(): MorphToMany
     {
-        return $this->belongsToMany(User::class);
-    }
-
-    public function team(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'role_user', );
+        return $this->getMorphByUserRelation('users');
     }
 }

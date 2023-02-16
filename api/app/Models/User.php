@@ -137,16 +137,8 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(WorkExperience::class);
     }
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class)->withPivot('id', 'team_id')
-        ->using(RoleAssignment::class);
-    }
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class, 'role_user')->withPivot('id', 'role_id')
-        ->using(RoleAssignment::class);
-    }
+    // The roles relationship exists in LaratrustUserTrait
+    // The rolesTeams relationship exists in LaratrustUserTrait
     public function getExperiencesAttribute()
     {
         $collection = collect();
