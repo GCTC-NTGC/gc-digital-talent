@@ -2,24 +2,35 @@ import React from "react";
 
 import Separator from "@common/components/Separator";
 
-import Navigation, { NavigationProps } from "./Navigation";
+import Navigation from "./Navigation";
 import PageTitle, { PageTitleProps } from "./PageTitle";
+import { PageNavInfo } from "./types";
 
-export interface PageHeaderProps extends PageTitleProps {
-  navItems?: NavigationProps["items"];
+export interface PageHeaderProps<T> extends PageTitleProps {
+  navItems?: Map<T, PageNavInfo>;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
+const PageHeader = <T,>({
   icon,
   subtitle,
   children,
   navItems,
   ...rest
-}) => {
+}: PageHeaderProps<T>) => {
+  const subNavItems = navItems
+    ? Array.from(navItems.values()).map((item) => ({
+        url: item.link.url,
+        label: item.link.label || item.title,
+        icon: item.icon,
+      }))
+    : [];
+
   return (
     <>
       <PageTitle {...{ icon, subtitle, ...rest }}>{children}</PageTitle>
-      {navItems && navItems.length ? <Navigation items={navItems} /> : null}
+      {subNavItems && subNavItems.length ? (
+        <Navigation items={subNavItems} />
+      ) : null}
       <Separator
         data-h2-background-color="base(black.lightest)"
         data-h2-margin="base(x1, 0, x2, 0)"

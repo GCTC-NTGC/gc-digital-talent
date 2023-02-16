@@ -15,7 +15,6 @@ import { getFullNameHtml } from "@common/helpers/nameUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import usePageSubNav from "~/hooks/usePageSubNav";
 import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
@@ -81,16 +80,11 @@ const PageContent = ({ user }: PageContentProps) => {
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
   const currentPage = useCurrentPage<PageNaveKeys>(pages);
-  const navItems = usePageSubNav<PageNaveKeys>(pages);
 
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader
-        subtitle={userName}
-        icon={currentPage?.icon}
-        navItems={navItems}
-      >
+      <PageHeader subtitle={userName} icon={currentPage?.icon} navItems={pages}>
         {currentPage?.title}
       </PageHeader>
     </>

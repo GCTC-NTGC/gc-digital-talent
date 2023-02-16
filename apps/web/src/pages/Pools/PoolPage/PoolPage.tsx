@@ -15,7 +15,6 @@ import { getFullPoolAdvertisementTitleLabel } from "@common/helpers/poolUtils";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import usePageSubNav from "~/hooks/usePageSubNav";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
@@ -81,7 +80,6 @@ const PageContent = ({ pool }: PageContentProps) => {
 
   const poolTitle = getFullPoolAdvertisementTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNaveKeys>(pages);
-  const navItems = usePageSubNav<PageNaveKeys>(pages);
 
   return (
     <>
@@ -89,7 +87,7 @@ const PageContent = ({ pool }: PageContentProps) => {
       <PageHeader
         subtitle={poolTitle}
         icon={currentPage?.icon}
-        navItems={navItems}
+        navItems={pages}
       >
         {currentPage?.title}
       </PageHeader>
