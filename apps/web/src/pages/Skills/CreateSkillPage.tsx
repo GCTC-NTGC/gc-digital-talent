@@ -130,8 +130,8 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
-                id: "i8zhiL",
-                description: "Key",
+                id: "CvV2l6",
+                description: "Label for an entity 'key' field",
               })}
               context={intl.formatMessage({
                 defaultMessage:

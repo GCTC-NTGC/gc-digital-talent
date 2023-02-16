@@ -3344,9 +3344,9 @@
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill family form name (English) field."
   },
-  "i8zhiL": {
+  "CvV2l6": {
     "defaultMessage": "Clé",
-    "description": "Key"
+    "description": "Label for an entity 'key' field"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",

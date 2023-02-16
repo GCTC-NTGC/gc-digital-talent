@@ -87,8 +87,8 @@ export const ViewTeam = ({ team }: ViewTeamProps) => {
             value={team.name}
             label={intl.formatMessage({
               defaultMessage: "Key",
-              id: "i8zhiL",
-              description: "Key",
+              id: "CvV2l6",
+              description: "Label for an entity 'key' field",
             })}
           />
         </div>
