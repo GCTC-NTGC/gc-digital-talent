@@ -7,3 +7,4 @@ source ${parent_path}/lib/common.sh
 cd /var/www/html
 npm install
 npm run dev
+chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
