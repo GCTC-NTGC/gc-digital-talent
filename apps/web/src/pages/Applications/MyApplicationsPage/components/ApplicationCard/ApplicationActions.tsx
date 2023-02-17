@@ -27,11 +27,50 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
-    <Link href={paths.reviewApplication(application.id)}>
+    <div data-h2-margin="base(0, 0, 0, auto)">
+      <Link
+        type="button"
+        mode="solid"
+        color="blue"
+        href={paths.reviewApplication(application.id)}
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage: "Continue this application<hidden> {name}</hidden>",
+            id: "51B5l9",
+            description: "Link text to continue a specific application",
+          },
+          {
+            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          },
+        )}
+      </Link>
+    </div>
+  );
+};
+export interface ViewActionProps extends ActionProps {
+  application: Application;
+}
+
+const ViewAction = ({ show, application }: ViewActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const { poolAdvertisement } = application;
+
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link
+      href={paths.reviewApplication(application.id)}
+      data-h2-font-weight="base(700)"
+      data-h2-color="base(tm-blue.dark)"
+    >
       {intl.formatMessage(
         {
-          defaultMessage: "Continue my application<hidden> {name}</hidden>",
-          id: "60Ee78",
+          defaultMessage: "View this application<hidden> {name}</hidden>",
+          id: "MnAuey",
           description: "Link text to continue a specific application",
         },
         {
@@ -58,17 +97,45 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link href={paths.pool(advertisement.id)}>
+    <Link
+      href={paths.pool(advertisement.id)}
+      data-h2-font-weight="base(700)"
+      data-h2-color="base(tm-blue.dark)"
+    >
       {intl.formatMessage(
         {
-          defaultMessage: "See advertisement<hidden> {name}</hidden>",
-          id: "HXNJ6Z",
+          defaultMessage: "See job ad<hidden> {name}</hidden>",
+          id: "si/wtm",
           description: "Link text to see an applications advertisement",
         },
         {
           name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
         },
       )}
+    </Link>
+  );
+};
+export type SupportActionProps = ActionProps;
+
+const SupportAction = ({ show }: SupportActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link
+      href={paths.support()}
+      data-h2-font-weight="base(700)"
+      data-h2-color="base(tm-blue.dark)"
+    >
+      {intl.formatMessage({
+        defaultMessage: "Get support",
+        id: "rXdaZW",
+        description: "Link text to direct a user to the support page",
+      })}
     </Link>
   );
 };
@@ -92,11 +159,12 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="black">
+        <Button mode="inline" color="red">
           {intl.formatMessage(
             {
-              defaultMessage: "Delete<hidden> application {name}</hidden>",
-              id: "1lmME7",
+              defaultMessage:
+                "Delete this application<hidden> ({name})</hidden>",
+              id: "yDQY/C",
               description: "Link text to continue a specific application",
             },
             {
@@ -246,4 +314,6 @@ export default {
   SeeAdvertisementAction,
   DeleteAction,
   ArchiveAction,
+  SupportAction,
+  ViewAction,
 };
