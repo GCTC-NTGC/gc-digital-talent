@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
-import { Scalars, useViewTeamQuery } from "~/api/generated";
+import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import { useParams } from "react-router-dom";
 import PageHeader from "@common/components/PageHeader";
 import SEO from "@common/components/SEO/SEO";
@@ -18,61 +18,12 @@ type RouteParams = {
   teamId: Scalars["ID"];
 };
 
-interface ViewTeamApiProps {
-  pageTitle: string;
+interface ViewTeamContentProps {
+  team: Team;
 }
 
-export const ViewTeamApi = ({ pageTitle }: ViewTeamApiProps) => {
+export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
   const intl = useIntl();
-  const { teamId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useViewTeamQuery({
-    variables: { id: teamId || "" },
-  });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.team ? (
-        <>
-          <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
-          <Heading size="h4" level="h4" data-h2-margin-left="base(x3)">
-            {getLocalizedName(data.team.displayName, intl)}
-          </Heading>
-          <hr
-            data-h2-margin="base(x2, 0, 0, 0)"
-            data-h2-height="base(1px)"
-            data-h2-background-color="base(dt-gray)"
-            data-h2-border="base(none)"
-          />
-          <ViewTeam team={data.team} />
-          <hr
-            data-h2-margin="base(x2, 0, 0, 0)"
-            data-h2-height="base(1px)"
-            data-h2-background-color="base(dt-gray)"
-            data-h2-border="base(none)"
-          />
-        </>
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Team {teamId} not found.",
-                id: "VJYI6K",
-                description: "Message displayed for team not found.",
-              },
-              { teamId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-const ViewTeamPage = () => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team information",
     id: "SXoCma",
@@ -82,7 +33,58 @@ const ViewTeamPage = () => {
   return (
     <>
       <SEO title={pageTitle} />
-      <ViewTeamApi pageTitle={pageTitle} />
+      <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
+      <Heading size="h4" level="h4" data-h2-margin-left="base(x3)">
+        {getLocalizedName(team.displayName, intl)}
+      </Heading>
+      <hr
+        data-h2-margin="base(x2, 0, 0, 0)"
+        data-h2-height="base(1px)"
+        data-h2-background-color="base(dt-gray)"
+        data-h2-border="base(none)"
+      />
+      <ViewTeam team={team} />
+      <hr
+        data-h2-margin="base(x2, 0, 0, 0)"
+        data-h2-height="base(1px)"
+        data-h2-background-color="base(dt-gray)"
+        data-h2-border="base(none)"
+      />
+    </>
+  );
+};
+
+const ViewTeamPage = () => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  const { teamId } = useParams<RouteParams>();
+  const [{ data, fetching, error }] = useViewTeamQuery({
+    variables: { id: teamId || "" },
+  });
+
+  return (
+    <>
+      <Pending fetching={fetching} error={error}>
+        {data?.team ? (
+          <ViewTeamContent team={data.team} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Team {teamId} not found.",
+                  id: "VJYI6K",
+                  description: "Message displayed for team not found.",
+                },
+                { teamId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </Pending>
       <p data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
