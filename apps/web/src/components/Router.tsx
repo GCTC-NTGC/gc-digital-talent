@@ -296,11 +296,11 @@ const CreateUserPage = React.lazy(() =>
       ),
   ),
 );
-const UserPage = React.lazy(() =>
+const UserLayout = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminUserPage" */ "../pages/Users/UserPage/UserPage"
+        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
       ),
   ),
 );
@@ -448,11 +448,11 @@ const EditPoolPage = React.lazy(() =>
       ),
   ),
 );
-const PoolPage = React.lazy(() =>
+const PoolLayout = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminPoolPage" */ "../pages/Pools/PoolPage/PoolPage"
+        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
       ),
   ),
 );
@@ -964,7 +964,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       roles={[LegacyRole.Admin]}
                       loginPath={loginPath}
                     >
-                      <UserPage />
+                      <UserLayout />
                     </RequireAuth>
                   ),
                   children: [
@@ -1113,7 +1113,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       roles={[LegacyRole.Admin]}
                       loginPath={loginPath}
                     >
-                      <PoolPage />
+                      <PoolLayout />
                     </RequireAuth>
                   ),
                   children: [

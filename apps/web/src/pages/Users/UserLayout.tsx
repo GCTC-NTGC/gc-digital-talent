@@ -20,11 +20,11 @@ import { PageNavInfo } from "~/types/pages";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
-interface PageContentProps {
+interface UserHeaderProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
 }
 
-const PageContent = ({ user }: PageContentProps) => {
+const UserHeader = ({ user }: UserHeaderProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -91,7 +91,7 @@ const PageContent = ({ user }: PageContentProps) => {
   );
 };
 
-const UserPage = () => {
+const UserLayout = () => {
   const intl = useIntl();
   const { userId } = useParams();
   const [{ data, fetching, error }] = useUserNameQuery({
@@ -104,7 +104,7 @@ const UserPage = () => {
     <>
       <Pending fetching={fetching} error={error}>
         {data?.user ? (
-          <PageContent user={data.user} />
+          <UserHeader user={data.user} />
         ) : (
           <ThrowNotFound
             message={intl.formatMessage(
@@ -123,4 +123,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default UserLayout;

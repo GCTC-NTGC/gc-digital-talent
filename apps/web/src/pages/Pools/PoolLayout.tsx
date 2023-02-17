@@ -20,11 +20,11 @@ import { PageNavInfo } from "~/types/pages";
 
 type PageNavKeys = "view" | "edit" | "candidates";
 
-interface PageContentProps {
+interface PoolHeaderProps {
   pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
 }
 
-const PageContent = ({ pool }: PageContentProps) => {
+const PoolHeader = ({ pool }: PoolHeaderProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -95,7 +95,7 @@ const PageContent = ({ pool }: PageContentProps) => {
   );
 };
 
-const PoolPage = () => {
+const PoolLayout = () => {
   const intl = useIntl();
   const { poolId } = useParams();
   const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
@@ -108,7 +108,7 @@ const PoolPage = () => {
     <>
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
-          <PageContent pool={data.pool} />
+          <PoolHeader pool={data.pool} />
         ) : (
           <ThrowNotFound
             message={intl.formatMessage(
@@ -127,4 +127,4 @@ const PoolPage = () => {
   );
 };
 
-export default PoolPage;
+export default PoolLayout;
