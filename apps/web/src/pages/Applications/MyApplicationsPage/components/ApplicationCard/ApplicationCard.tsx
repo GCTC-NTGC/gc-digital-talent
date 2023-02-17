@@ -63,7 +63,11 @@ const ApplicationCard = ({
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(s)"
     >
-      <div data-h2-display="base(flex)" data-h2-gap="base(0, x.5)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(0, x.5)"
+        data-h2-justify-content="base(space-between)"
+      >
         <Heading
           level={headingLevel}
           size="h6"
@@ -77,7 +81,7 @@ const ApplicationCard = ({
               )
             : ""}
         </Heading>
-        <p data-h2-font-size="base(0.8rem)">
+        <p data-h2-font-size="base(0.8rem)" data-h2-text-align="base(right)">
           {intl.formatMessage(
             {
               defaultMessage: "ID: {id}",
