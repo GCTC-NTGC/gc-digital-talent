@@ -186,18 +186,16 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
           )}
         </AlertDialog.Title>
         <AlertDialog.Description>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Are you sure you would like to delete application {name}?",
-                id: "5pZFQ3",
-                description:
-                  "Question displayed when user attempts to delete an application",
-              },
-              { name },
-            )}
-          </p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Are you sure you would like to delete application {name}?",
+              id: "5pZFQ3",
+              description:
+                "Question displayed when user attempts to delete an application",
+            },
+            { name },
+          )}
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
@@ -271,18 +269,16 @@ const ArchiveAction = ({
           })}
         </AlertDialog.Title>
         <AlertDialog.Description>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Are you sure you would like to archive application {name}?",
-                id: "Z0PCOW",
-                description:
-                  "Question displayed when user attempts to archive an application",
-              },
-              { name },
-            )}
-          </p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Are you sure you would like to archive application {name}?",
+              id: "Z0PCOW",
+              description:
+                "Question displayed when user attempts to archive an application",
+            },
+            { name },
+          )}
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
