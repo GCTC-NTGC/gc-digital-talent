@@ -149,7 +149,7 @@ const ApplicationCard = ({
           />
         </div>
         <ApplicationActions.ContinueAction
-          show={applicationIsDraft}
+          show={applicationIsDraft && !recruitmentIsExpired}
           application={application}
         />
       </div>
