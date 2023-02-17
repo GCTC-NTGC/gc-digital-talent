@@ -3,11 +3,7 @@ import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
-import isBoolean from "lodash/isBoolean";
-import isNull from "lodash/isNull";
-import isNumber from "lodash/isNumber";
 import isString from "lodash/isString";
-import isUndefined from "lodash/isUndefined";
 
 import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
@@ -154,14 +150,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
             Object.prototype.hasOwnProperty.call(option, "options") ? (
               <optgroup
                 key={`optgroup${option.label}`}
-                label={
-                  isNull(option.label) ||
-                  isNumber(option.label) ||
-                  isBoolean(option.label) ||
-                  isUndefined(option.label)
-                    ? ""
-                    : option.label.toString()
-                }
+                label={option.label?.toString() ?? ""}
               >
                 {option.options?.map(
                   ({ value, label: optionLabel, ariaLabel }) => (
