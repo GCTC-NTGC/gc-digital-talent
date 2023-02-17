@@ -1,9 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
 import SEO from "@common/components/SEO/SEO";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
+import { commonMessages } from "@common/messages";
+import { notEmpty } from "@common/helpers/util";
+import { getLocalizedName } from "@common/helpers/localize";
 
 import {
   Scalars,
@@ -12,12 +18,7 @@ import {
   useGetTeamQuery,
   useUpdateTeamMutation,
 } from "~/api/generated";
-import { useParams } from "react-router-dom";
-import Pending from "~/../../../frontend/common/src/components/Pending";
-import NotFound from "~/../../../frontend/common/src/components/NotFound";
-import { commonMessages } from "~/../../../frontend/common/src/messages";
-import { notEmpty } from "~/../../../frontend/common/src/helpers/util";
-import { getLocalizedName } from "~/../../../frontend/common/src/helpers/localize";
+
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
 const EditTeamPage = () => {

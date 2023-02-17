@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { kebabCase } from "lodash";
 
 import Input from "@common/components/form/Input";
-import { kebabCase } from "lodash";
-import { errorMessages } from "~/../../../frontend/common/src/messages";
+import { errorMessages } from "@common/messages";
 
 const NameField = () => {
   const intl = useIntl();
