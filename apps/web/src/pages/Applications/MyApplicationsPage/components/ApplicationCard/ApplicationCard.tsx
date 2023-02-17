@@ -63,18 +63,31 @@ const ApplicationCard = ({
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(s)"
     >
-      <Heading
-        level={headingLevel}
-        size="h6"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
-        {application.poolAdvertisement
-          ? getFullPoolAdvertisementTitleHtml(
-              intl,
-              application.poolAdvertisement,
-            )
-          : ""}
-      </Heading>
+      <div data-h2-display="base(flex)" data-h2-gap="base(0, x.5)">
+        <Heading
+          level={headingLevel}
+          size="h6"
+          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-flex-grow="base(1)"
+        >
+          {application.poolAdvertisement
+            ? getFullPoolAdvertisementTitleHtml(
+                intl,
+                application.poolAdvertisement,
+              )
+            : ""}
+        </Heading>
+        <p data-h2-font-size="base(0.8rem)">
+          {intl.formatMessage(
+            {
+              defaultMessage: "ID: {id}",
+              id: "hEXXG0",
+              description: "Label for application ID",
+            },
+            { id: application.id },
+          )}
+        </p>
+      </div>
       <p data-h2-margin="base(x1, 0)">
         {applicationIsDraft
           ? intl.formatMessage(
