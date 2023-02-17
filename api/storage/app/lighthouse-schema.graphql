@@ -1088,6 +1088,15 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean
   users: [User!]
+  roleAssignments: [RoleAssignment!]
+  permissions: [Permission!]
+}
+
+type RoleAssignment {
+  id: ID
+  role: Role
+  team: Team
+  user: User
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1240,6 +1249,7 @@ type Team {
   contactEmail: Email
   pools: [Pool]
   users: [User!]
+  roleAssignments: [RoleAssignment!]
 }
 
 input TeamBelongsTo {
@@ -1506,6 +1516,7 @@ type User {
   rolesTeams: [Team!]
   permissionsTeams: [Permission!]
   permissions: [Permission!]
+  roleAssignments: [RoleAssignment!]
 }
 
 input UserBelongsTo {

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property string $id
  */
 
-class RoleAssignment extends Pivot
+class RoleAssignment extends Model
 {
     /**
      * The table associated with the model.
@@ -19,6 +19,8 @@ class RoleAssignment extends Pivot
      * @var string
      */
     protected $table = 'role_user';
+
+    protected $keyType = 'string';
 
 
 
@@ -30,5 +32,10 @@ class RoleAssignment extends Pivot
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function user()
+    {
+        return $this->morphTo('user');
     }
 }

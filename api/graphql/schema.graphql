@@ -132,11 +132,13 @@ type User {
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
 
-  # teams and roles
+  # teams and roles: built-in
   roles: [Role!] @morphToMany
   rolesTeams: [Team!] @morphToMany
   permissionsTeams: [Permission!] @morphToMany
   permissions: [Permission!] @morphToMany
+  # teams and roles: custom pivot model
+  roleAssignments: [RoleAssignment!] @hasMany
 }
 
 enum ProvinceOrTerritory {
@@ -530,7 +532,10 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+  # teams and roles: built-in
   users: [User!] @morphToMany
+  # teams and roles: custom pivot model
+  roleAssignments: [RoleAssignment!] @hasMany
 }
 
 type Role {
@@ -539,12 +544,24 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  # teams and roles: built-in
   users: [User!] @morphToMany
+  permissions: [Permission!] @belongsToMany
+  # teams and roles: custom pivot model
+  roleAssignments: [RoleAssignment!] @hasMany
 }
 
+# This model represents the polymorphic role_user table and allows querying the team relationship
+type RoleAssignment {
+  id: ID
+  role: Role @belongsTo
+  team: Team @belongsTo
+  user: User @morphTo
+}
+
+# stub for Laratrust
 type Permission {
   id: ID!
-  # stub
 }
 
 enum PoolCandidateSearchStatus {
