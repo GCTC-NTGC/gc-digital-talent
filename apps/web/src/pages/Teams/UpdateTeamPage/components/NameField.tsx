@@ -10,11 +10,18 @@ const NameField = () => {
   const intl = useIntl();
   const { setValue, getValues } = useFormContext();
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleDisplayBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { value: newValue } = e.target;
     const value = getValues("name");
     if (!value) {
       setValue("name", kebabCase(newValue));
+    }
+  };
+
+  const handleKeyBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value) {
+      setValue("name", kebabCase(value));
     }
   };
 
@@ -25,7 +32,7 @@ const NameField = () => {
           type="text"
           id="displayName_en"
           name="displayName.en"
-          onBlur={handleBlur}
+          onBlur={handleDisplayBlur}
           label={intl.formatMessage({
             defaultMessage: "Organization's name (English)",
             id: "1cPlHY",
@@ -41,7 +48,7 @@ const NameField = () => {
           type="text"
           id="displayName_fr"
           name="displayName.fr"
-          onBlur={handleBlur}
+          onBlur={handleDisplayBlur}
           label={intl.formatMessage({
             defaultMessage: "Organization's name (French)",
             id: "OOnxtm",
@@ -57,6 +64,7 @@ const NameField = () => {
           type="text"
           id="name"
           name="name"
+          onBlur={handleKeyBlur}
           label={intl.formatMessage({
             defaultMessage: "Key",
             id: "3sw5qd",
