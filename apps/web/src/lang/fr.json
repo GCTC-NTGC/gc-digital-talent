@@ -5746,5 +5746,37 @@
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
+  },
+  "LocjmN": {
+    "defaultMessage": "De retour aux équipes",
+    "description": "Button text to return to the table of teams page"
+  },
+  "PtbLq+": {
+    "defaultMessage": "Brève description de l’équipe (en français)",
+    "description": "Short description for a team in French"
+  },
+  "QC23B1": {
+    "defaultMessage": "Nom de l’organisation (en anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "Rg0SpL": {
+    "defaultMessage": "Renseignements de base",
+    "description": "Basic information"
+  },
+  "VJYI6K": {
+    "defaultMessage": "Équipe {teamId} non trouvée.",
+    "description": "Message displayed for team not found."
+  },
+  "W0BVd+": {
+    "defaultMessage": "Nom de l’organisation (en français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "nGNj5Q": {
+    "defaultMessage": "Courriel de la personne-ressource",
+    "description": "Contact email"
+  },
+  "whsH/g": {
+    "defaultMessage": "Brève description de l’équipe (en anglais)",
+    "description": "Short description for a team in English"
   }
 }
