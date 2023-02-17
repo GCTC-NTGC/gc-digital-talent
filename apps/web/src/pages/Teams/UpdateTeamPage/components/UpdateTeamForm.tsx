@@ -190,7 +190,7 @@ const UpdateTeamForm = ({
         data-h2-align-items="base(center)"
       >
         <Submit
-          label={intl.formatMessage({
+          text={intl.formatMessage({
             defaultMessage: "Save team information",
             id: "gBKyL2",
             description: "Button text for the update team form submit button",
