@@ -8,7 +8,7 @@ interface ViewTeamProps {
   team: Team;
 }
 
-export const ViewTeam = ({ team }: ViewTeamProps) => {
+const ViewTeam = ({ team }: ViewTeamProps) => {
   const intl = useIntl();
 
   const departmentsPillsArray =

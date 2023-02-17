@@ -41,3 +41,13 @@ query ViewTeam($id: UUID!) {
     }
   }
 }
+
+query TeamName($id: UUID!) {
+  team(id: $id) {
+    id
+    displayName {
+      en
+      fr
+    }
+  }
+}

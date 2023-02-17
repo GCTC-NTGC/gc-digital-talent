@@ -96,7 +96,6 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 };
 
 const PoolLayout = () => {
-  const intl = useIntl();
   const { poolId } = useParams();
   const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
     variables: {
@@ -107,20 +106,7 @@ const PoolLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.pool ? (
-          <PoolHeader pool={data.pool} />
-        ) : (
-          <ThrowNotFound
-            message={intl.formatMessage(
-              {
-                defaultMessage: "Pool {poolId} not found.",
-                id: "Sb2fEr",
-                description: "Message displayed for pool not found.",
-              },
-              { poolId },
-            )}
-          />
-        )}
+        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>

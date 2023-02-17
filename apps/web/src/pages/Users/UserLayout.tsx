@@ -92,7 +92,6 @@ const UserHeader = ({ user }: UserHeaderProps) => {
 };
 
 const UserLayout = () => {
-  const intl = useIntl();
   const { userId } = useParams();
   const [{ data, fetching, error }] = useUserNameQuery({
     variables: {
@@ -103,20 +102,7 @@ const UserLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.user ? (
-          <UserHeader user={data.user} />
-        ) : (
-          <ThrowNotFound
-            message={intl.formatMessage(
-              {
-                defaultMessage: "User {userId} not found.",
-                id: "0SoKjt",
-                description: "Message displayed for user not found.",
-              },
-              { userId },
-            )}
-          />
-        )}
+        {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>

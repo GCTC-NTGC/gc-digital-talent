@@ -354,6 +354,14 @@ const CreateTeamPage = React.lazy(() =>
       ),
   ),
 );
+const TeamLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
+      ),
+  ),
+);
 const ViewTeamPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1043,6 +1051,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":teamId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <TeamLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,

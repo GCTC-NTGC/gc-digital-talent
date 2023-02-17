@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import fakeTeams from "@common/fakeData/fakeTeams";
-import { ViewTeam } from "./ViewTeam";
+import ViewTeam from "./ViewTeam";
 
 const mockTeams = fakeTeams();
 const mockTeam = mockTeams[0];
