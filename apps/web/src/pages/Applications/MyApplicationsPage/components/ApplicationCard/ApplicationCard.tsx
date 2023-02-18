@@ -108,8 +108,8 @@ const ApplicationCard = ({
               {
                 defaultMessage: "Applied on: <strong>{submittedAt}</strong>",
                 description:
-                  "Text notifying user of closing date for an application",
-                id: "NbOOsf",
+                  "Text notifying user of the date they submitted an application",
+                id: "3Q8D5y",
               },
               { submittedAt },
             )}

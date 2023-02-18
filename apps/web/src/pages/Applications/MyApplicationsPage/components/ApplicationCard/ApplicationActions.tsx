@@ -70,8 +70,8 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",
-          id: "MnAuey",
-          description: "Link text to continue a specific application",
+          id: "JM30M7",
+          description: "Link text to view a specific application",
         },
         {
           name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
@@ -164,8 +164,8 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
             {
               defaultMessage:
                 "Delete this application<hidden> ({name})</hidden>",
-              id: "yDQY/C",
-              description: "Link text to continue a specific application",
+              id: "10Ous+",
+              description: "Link text to delete a specific application",
             },
             {
               name,
