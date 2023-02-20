@@ -214,7 +214,6 @@ const AdvancedFilters = () => {
                     "Legend for the Education Requirement filter radio group",
                 })}
                 name="educationRequirement"
-                defaultSelected="no_diploma"
                 items={educationRequirementOptions}
                 trackUnsaved={false}
               />
@@ -253,7 +252,6 @@ const AdvancedFilters = () => {
                 idPrefix="employmentDuration"
                 legend="Duration"
                 name="employmentDuration"
-                defaultSelected={NullSelection}
                 items={employmentDurationOptions}
                 trackUnsaved={false}
               />

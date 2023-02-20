@@ -89,7 +89,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   classifications,
   applicantFilter,
   candidateCount,
-  searchFormInitialValues,
   selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
 }) => {
@@ -402,7 +401,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 href={paths.search()}
                 state={{
                   ...state,
-                  initialValues: searchFormInitialValues,
                 }}
               >
                 {intl.formatMessage({
