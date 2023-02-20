@@ -1,11 +1,3 @@
----
-name: "✨ Feature Request"
-about: A new feature or change to existing functionality
-title: "✨ Feature Request"
-labels: feature
-assignees: ''
----
-
 ## ✨ Feature
 
 Describe the feature that is being requested
@@ -36,3 +28,12 @@ A set of assumptions which, when tested, verify that the feature was properly im
 
 - [ ] Criteria 1
 - [ ] Criteria 2
+
+## :stop_sign: Blockers
+
+List any issues which must be completed before this one.
+
+```[tasklist]
+### Blockers
+```
+
