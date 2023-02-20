@@ -312,22 +312,23 @@ const UpdateUserPage = React.lazy(() =>
       ),
   ),
 );
-const ViewUserPage = React.lazy(() =>
+const AdminUserProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPage/ViewUserPage"
+        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
       ),
   ),
 );
-const ViewUserPageV2 = React.lazy(() =>
+const UserInformationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPageV2/ViewUserPage"
+        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
       ),
   ),
 );
+
 const UserPlacementPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -983,7 +984,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           roles={[LegacyRole.Admin]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPage />
+                          <UserInformationPage />
                         </RequireAuth>
                       ),
                     },
@@ -994,7 +995,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           roles={[LegacyRole.Admin]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPageV2 />
+                          <AdminUserProfilePage />
                         </RequireAuth>
                       ),
                     },
