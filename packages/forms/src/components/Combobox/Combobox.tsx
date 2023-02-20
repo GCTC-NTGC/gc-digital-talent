@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
+import orderBy from "lodash/orderBy";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { formMessages } from "@gc-digital-talent/i18n";
@@ -92,11 +93,15 @@ const Combobox = ({
       return options;
     }
 
-    return options.filter((option) =>
-      option.label
-        ?.toLocaleString()
-        .toLowerCase()
-        .includes(query.toLowerCase()),
+    return orderBy(
+      options.filter((option) =>
+        option.label
+          ?.toLocaleString()
+          .toLowerCase()
+          .includes(query.toLowerCase()),
+      ),
+      (o) => o?.label?.toLocaleString().toLowerCase(),
+      "asc",
     );
   }, [query, isExternalSearch, options]);
 

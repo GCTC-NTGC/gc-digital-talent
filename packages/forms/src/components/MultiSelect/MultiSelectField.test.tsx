@@ -67,7 +67,7 @@ const renderWithProviders = (
     ...options,
   });
 
-describe("MultiSelectFieldV2", () => {
+describe("MultiSelectField", () => {
   it("should render properly with only label prop", () => {
     renderWithProviders(<MultiSelectField label="Foo Bar" />);
     expect(
@@ -104,6 +104,7 @@ describe("MultiSelectFieldV2", () => {
           { value: "BAZ", label: "Baz" },
           { value: "BAM", label: "Bam" },
         ]}
+        doNotSort
       />,
       {
         wrapperProps: {

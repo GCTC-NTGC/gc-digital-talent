@@ -47,5 +47,21 @@ export default (): Department[] => {
         fr: "Secrétariat du Conseil du Trésor",
       },
     },
+    {
+      id: faker.datatype.uuid(),
+      departmentNumber: +faker.random.numeric(3),
+      name: {
+        en: "Canada School of Public Service",
+        fr: "École de la fonction publique du Canada",
+      },
+    },
+    {
+      id: faker.datatype.uuid(),
+      departmentNumber: +faker.random.numeric(3),
+      name: {
+        en: "Environment (Department of the)",
+        fr: "Environnement (Ministère de l')",
+      },
+    },
   ];
 };
