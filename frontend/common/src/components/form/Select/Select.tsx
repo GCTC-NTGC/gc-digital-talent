@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+
 import get from "lodash/get";
+import orderBy from "lodash/orderBy";
+import isString from "lodash/isString";
+
 import { InputWrapper } from "../../inputPartials";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
-export interface Option {
-  value: string | number;
+export type Option = {
   label: React.ReactNode;
+  value: string | number;
   disabled?: boolean;
+  options?: Option[];
   /** Aria labels for alternate text that will be read by assistive technologies. */
   ariaLabel?: string;
-}
+};
+export type OptGroup = {
+  label: React.ReactNode;
+  options: Option[];
+  disabled?: boolean;
+  value?: string | number;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
+};
+export type OptGroupOrOption = OptGroup | Option;
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -21,8 +35,8 @@ export interface SelectProps
   label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
-  /** List of options for the select element. */
-  options: Option[];
+  /** List of options and/or optgroups for the select element. */
+  options: OptGroupOrOption[];
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
@@ -31,6 +45,40 @@ export interface SelectProps
   nullSelection?: string;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Determine if it should sort options in alphanumeric ascending order */
+  doNotSort?: boolean;
+}
+
+function sortOptions(options: OptGroupOrOption[]) {
+  const tempOptions = options.map((option: OptGroupOrOption) =>
+    Object.prototype.hasOwnProperty.call(option, "options")
+      ? {
+          label: option.label,
+          options: orderBy(
+            option.options,
+            ({ label }) =>
+              isString(label)
+                ? label
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLocaleLowerCase()
+                : label,
+            "asc",
+          ),
+        }
+      : option,
+  );
+  return orderBy(
+    tempOptions,
+    ({ label }) =>
+      isString(label)
+        ? label
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLocaleLowerCase()
+        : label,
+    "asc",
+  );
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -42,6 +90,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   context,
   nullSelection,
   trackUnsaved = true,
+  doNotSort = false,
   ...rest
 }) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
@@ -61,6 +110,10 @@ const Select: React.FunctionComponent<SelectProps> = ({
       context: context && isContextVisible,
     },
   });
+
+  const optionsModified = useMemo(() => {
+    return doNotSort ? options : sortOptions(options);
+  }, [doNotSort, options]);
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -93,15 +146,30 @@ const Select: React.FunctionComponent<SelectProps> = ({
               {nullSelection}
             </option>
           )}
-          {options.map((option) => (
-            <option
-              aria-label={option.ariaLabel}
-              key={option.value}
-              value={option.value}
-            >
-              {option.label}
-            </option>
-          ))}
+          {optionsModified.map((option) =>
+            Object.prototype.hasOwnProperty.call(option, "options") ? (
+              <optgroup
+                key={`optgroup${option.label}`}
+                label={option.label?.toString() ?? ""}
+              >
+                {option.options?.map(
+                  ({ value, label: optionLabel, ariaLabel }) => (
+                    <option aria-label={ariaLabel} key={value} value={value}>
+                      {optionLabel}
+                    </option>
+                  ),
+                )}
+              </optgroup>
+            ) : (
+              <option
+                aria-label={option.ariaLabel}
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ),
+          )}
         </select>
       </InputWrapper>
     </div>
