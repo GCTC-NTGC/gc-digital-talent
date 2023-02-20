@@ -474,6 +474,9 @@ return [
             'team' => [
                 'any' => ['view']
             ],
+            'role' => [
+                'any' => ['view']
+            ],
         ],
 
         'base_user' => [
@@ -502,6 +505,9 @@ return [
                 'any' => ['create']
             ],
             'team' => [
+                'any' => ['view']
+            ],
+            'role' => [
                 'any' => ['view']
             ],
         ],
