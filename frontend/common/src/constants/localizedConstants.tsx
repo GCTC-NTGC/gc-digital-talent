@@ -27,6 +27,8 @@ import {
   BilingualEvaluation,
   PoolStream,
   PublishingGroup,
+  IndigenousCommunity,
+  CandidateExpiryFilter,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -70,8 +72,8 @@ export const employmentEquityStatements = defineMessages({
   },
   indigenous: {
     defaultMessage:
-      '"I affirm that I am First Nations, Inuk (Inuit), or a Métis person"',
-    id: "7STO48",
+      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person"',
+    id: "KwdzPs",
     description: "Text for the option to self-declare as Indigenous",
   },
   minority: {
@@ -590,6 +592,33 @@ export const getPoolCandidateStatus = (
     poolCandidateStatuses,
     poolCandidateStatusId,
     `Invalid Pool Candidate Status '${poolCandidateStatusId}'`,
+  );
+
+export const candidateExpiryFilterStatuses = defineMessages({
+  [CandidateExpiryFilter.Active]: {
+    defaultMessage: "Active",
+    id: "SuKmqa",
+    description: "Active status",
+  },
+  [CandidateExpiryFilter.All]: {
+    defaultMessage: "All",
+    id: "qQtJDw",
+    description: "All statuses",
+  },
+  [CandidateExpiryFilter.Expired]: {
+    defaultMessage: "Expired",
+    id: "GIC6EK",
+    description: "Expired status",
+  },
+});
+
+export const getCandidateExpiryFilterStatus = (
+  candidateExpiryFilterStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    candidateExpiryFilterStatuses,
+    candidateExpiryFilterStatusId,
+    `Invalid Pool Candidate Status '${candidateExpiryFilterStatusId}'`,
   );
 
 export const poolCandidateSearchStatuses = defineMessages({
@@ -1564,4 +1593,67 @@ export const getPublishingGroup = (
     publishingGroups,
     publishingGroup,
     `Invalid publishing group '${publishingGroup}'`,
+  );
+
+export const abbreviations = defineMessages({
+  AS: {
+    defaultMessage: "Administrative Services",
+    id: "6svHxg",
+  },
+  GC: {
+    defaultMessage: "Government of Canada",
+    id: "t9i8Ml",
+  },
+  IT: {
+    defaultMessage: "Information Technology",
+    id: "nLW9zq",
+  },
+});
+
+export const getAbbreviations = (
+  abbreviation: keyof typeof abbreviations,
+): MessageDescriptor =>
+  getOrThrowError(
+    abbreviations,
+    abbreviation,
+    `Invalid abbreviation '${abbreviation}'`,
+  );
+
+export const indigenousCommunities = defineMessages({
+  [IndigenousCommunity.StatusFirstNations]: {
+    defaultMessage: "Status First Nations",
+    id: "1Wbu+6",
+    description: "The indigenous community for status First Nations",
+  },
+  [IndigenousCommunity.NonStatusFirstNations]: {
+    defaultMessage: "Non-status First Nations",
+    id: "JamdKo",
+    description: "The indigenous community for non-status First Nations",
+  },
+  [IndigenousCommunity.Inuit]: {
+    defaultMessage: "Inuk (Inuit)",
+    id: "gTB9r8",
+    description: "The indigenous community for Inuit",
+  },
+  [IndigenousCommunity.Metis]: {
+    defaultMessage: "Métis",
+    id: "xaCwEO",
+    description: "The indigenous community for Métis",
+  },
+  [IndigenousCommunity.Other]: {
+    defaultMessage: "I am Indigenous and I don't see my community here",
+    id: "eNUS2A",
+    description:
+      "The selection for being part of an indigenous community not already listed",
+  },
+  // IndigenousCommunity.LegacyIsIndigenous not included here since it should have special handling
+});
+
+export const getIndigenousCommunity = (
+  indigenousCommunity: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    indigenousCommunities,
+    indigenousCommunity,
+    `Invalid indigenous community '${indigenousCommunity}'`,
   );

@@ -4,6 +4,7 @@ import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 
+import orderBy from "lodash/orderBy";
 import InputUnsaved from "../inputPartials/InputUnsaved/InputUnsaved";
 import InputError from "../inputPartials/InputError/InputError";
 import { useFieldState, useFieldStateStyles } from "../../helpers/formUtils";
@@ -89,11 +90,15 @@ const Combobox = ({
       return options;
     }
 
-    return options.filter((option) =>
-      option.label
-        ?.toLocaleString()
-        .toLowerCase()
-        .includes(query.toLowerCase()),
+    return orderBy(
+      options.filter((option) =>
+        option.label
+          ?.toLocaleString()
+          .toLowerCase()
+          .includes(query.toLowerCase()),
+      ),
+      (o) => o?.label?.toLocaleString().toLowerCase(),
+      "asc",
     );
   }, [query, isExternalSearch, options]);
 

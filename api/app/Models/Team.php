@@ -29,6 +29,11 @@ class Team extends LaratrustTeam
         'description' => 'array',
     ];
 
+    protected $fillable = [
+        'name',
+        'display_name'
+    ];
+
     public $guarded = [];
 
     public function departments(): BelongsToMany

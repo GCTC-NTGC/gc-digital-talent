@@ -71,11 +71,11 @@ describe("SearchContainer", () => {
     });
   });
 
-  it("should not render request button with no candidates", async () => {
+  it("should render different results container no candidates", async () => {
     renderSearchContainer({ poolCandidateResults: [], totalCandidateCount });
     await expect(
-      screen.queryByRole("button", { name: /request candidates/i }),
-    ).not.toBeInTheDocument();
+      screen.queryByRole("heading", { name: /we can still help/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render number of candidates", async () => {

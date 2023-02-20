@@ -9,7 +9,7 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import Heading from "@common/components/Heading/Heading";
 
 import {
@@ -133,12 +133,12 @@ const ManagerInfo: React.FunctionComponent<{
                   content={
                     applicantFilter
                       ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )
                       : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitle(intl, pool, {
+                          getFullPoolAdvertisementTitleHtml(intl, pool, {
                             defaultTitle: nonApplicableMessage,
                           }),
                         )
@@ -227,13 +227,13 @@ export const ViewSearchRequest: React.FunctionComponent<
 > = ({ searchRequest }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { additionalComments, poolCandidateFilter, applicantFilter } =
+  const { additionalComments, poolCandidateFilter, applicantFilter, wasEmpty } =
     searchRequest;
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
     <section>
-      <p>
+      <p data-h2-margin="base(0 0 x1 0)">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -248,6 +248,18 @@ export const ViewSearchRequest: React.FunctionComponent<
           },
         )}
       </p>
+      {wasEmpty && (
+        <p data-h2-margin="base(0 0 x1 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
+            id: "ruEs9/",
+            description:
+              "Message to admins that a search request resulted in no candidates being found",
+          })}
+        </p>
+      )}
+
       <ManagerInfo searchRequest={searchRequest} />
       <div>
         <Heading level="h2" size="h4">

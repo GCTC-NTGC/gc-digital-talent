@@ -3,14 +3,16 @@ import { useIntl } from "react-intl";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
+import { wrapAbbr } from "@common/helpers/nameUtils";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
 
@@ -29,9 +31,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
-    : paths.profile(user.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {
     return onUpdate(user.id, {
@@ -51,7 +51,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -59,7 +59,18 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Diversity, equity and inclusion",
+            id: "pGTTrp",
+            description:
+              "Display Text for Diversity, equity and inclusion Page",
+          }),
+          url: `${paths.diversityEquityInclusion(user.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
@@ -79,18 +90,21 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         description:
           "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Diversity, equity and inclusion",
-            id: "pGTTrp",
-            description:
-              "Display Text for Diversity, equity and inclusion Page",
-          }),
-          url: paths.diversityEquityInclusion(user.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Diversity, equity and inclusion",
+                  id: "pGTTrp",
+                  description:
+                    "Display Text for Diversity, equity and inclusion Page",
+                }),
+                url: paths.diversityEquityInclusion(user.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <p data-h2-margin="base(x1, 0)">
@@ -112,13 +126,18 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       </p>
       <Well data-h2-margin="base(x2, 0, 0, 0)">
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "<strong>This section is optional, however, to be considered eligible for the IT Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
-            id: "okZjVr",
-            description:
-              "Explanation that employment equity information is optional.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "<strong>This section is optional, however, to be considered eligible for the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples, you must self declare as Indigenous.</strong> If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions:</strong>",
+              id: "Nj6c0X",
+              description:
+                "Explanation that employment equity information is optional.",
+            },
+            {
+              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            },
+          )}
         </p>
         <ul>
           <li>
@@ -191,7 +210,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          href: returnRoute,
+          href: returnRoute || paths.profile(user.id),
           children: intl.formatMessage(
             application
               ? navigationMessages.backToApplication

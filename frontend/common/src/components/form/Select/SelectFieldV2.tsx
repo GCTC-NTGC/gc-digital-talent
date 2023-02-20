@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
 import type { RegisterOptions } from "react-hook-form";
 import ReactSelect, {
@@ -11,10 +11,12 @@ import ReactSelect, {
 import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
 import camelCase from "lodash/camelCase";
 import flatMap from "lodash/flatMap";
+import orderBy from "lodash/orderBy";
 import { useIntl } from "react-intl";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
+import useInputDescribedBy from "../../../hooks/useInputDescribedBy";
 
 export type Option = { value: string | number; label: string };
 export type Group<T> = {
@@ -60,12 +62,42 @@ export interface SelectFieldV2Props {
   forceArrayFormValue?: boolean;
   isLoading?: boolean;
   trackUnsaved?: boolean;
+  doNotSort?: boolean;
+  /** Determine if it should sort options in alphanumeric ascending order */
 }
 
 // User-defined type guard for react-select's readonly Options.
 // See: https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards
 function isArray<T>(arg: unknown): arg is readonly T[] {
   return Array.isArray(arg);
+}
+
+function sortOptions(options: Options): Options {
+  const tempOptions: Options = options.map((option) =>
+    "options" in option
+      ? {
+          label: option.label,
+          options: orderBy(
+            option.options,
+            ({ label }) =>
+              label
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLocaleLowerCase(),
+            "asc",
+          ),
+        }
+      : option,
+  );
+  return orderBy(
+    tempOptions,
+    ({ label }) =>
+      label
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase(),
+    "asc",
+  );
 }
 
 // See: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/components/Menu.tsx#L497-L503
@@ -176,8 +208,10 @@ const SelectFieldV2 = ({
   forceArrayFormValue = false,
   isLoading = false,
   trackUnsaved = true,
+  doNotSort = false,
 }: SelectFieldV2Props): JSX.Element => {
   const { formatMessage } = useIntl();
+  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
 
   const defaultPlaceholder = formatMessage({
     defaultMessage: "Select...",
@@ -206,6 +240,19 @@ const SelectFieldV2 = ({
   // See: https://github.com/react-hook-form/react-hook-form/issues/458
   const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context: context && isContextVisible,
+    },
+  });
+
+  const optionsModified = useMemo(() => {
+    return doNotSort ? options : sortOptions(options);
+  }, [doNotSort, options]);
+
   return (
     <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
@@ -214,6 +261,8 @@ const SelectFieldV2 = ({
         inputName={name}
         required={isRequired}
         trackUnsaved={trackUnsaved}
+        onContextToggle={setContextVisible}
+        descriptionIds={descriptionIds}
       >
         <div style={{ width: "100%" }}>
           <Controller
@@ -225,10 +274,14 @@ const SelectFieldV2 = ({
               const convertValueToOption = (
                 val: Option["value"] | Option["value"][],
               ) => {
-                const hasGroups = options.some((option) => "options" in option);
+                const hasGroups = optionsModified.some(
+                  (option) => "options" in option,
+                );
                 const flattenedOptions = hasGroups
-                  ? flatMap(options, (o) => ("options" in o ? o.options : o))
-                  : options;
+                  ? flatMap(optionsModified, (o) =>
+                      "options" in o ? o.options : o,
+                    )
+                  : optionsModified;
 
                 if (isArray<Option["value"] | Options>(val)) {
                   return (
@@ -293,15 +346,13 @@ const SelectFieldV2 = ({
                   // E.g., `react-select__control` instead of `css-1s2u09g__control`.
                   classNamePrefix="react-select"
                   {...field}
-                  {...{ options, isMulti, isLoading }}
+                  {...{ options: optionsModified, isMulti, isLoading }}
                   value={convertValueToOption(field.value)}
                   // This only affects react-hook-form state, not internal react-select state.
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
-                  ariaDescription={
-                    error || isUnsaved ? `${id}-error` : undefined
-                  }
+                  ariaDescription={ariaDescribedBy}
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({

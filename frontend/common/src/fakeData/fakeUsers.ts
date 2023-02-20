@@ -26,6 +26,7 @@ import {
   ArmedForcesStatus,
   GenericJobTitle,
   PositionDuration,
+  IndigenousCommunity,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
@@ -122,6 +123,14 @@ const generateUser = (
     hasDisability: faker.datatype.boolean(),
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
+    indigenousCommunities: faker.helpers.arrayElements<IndigenousCommunity>([
+      IndigenousCommunity.StatusFirstNations,
+      IndigenousCommunity.NonStatusFirstNations,
+      IndigenousCommunity.Inuit,
+      IndigenousCommunity.Metis,
+      IndigenousCommunity.Other,
+      IndigenousCommunity.LegacyIsIndigenous,
+    ]),
 
     // Applicant info
     jobLookingStatus: faker.helpers.arrayElement<JobLookingStatus>(

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 import Hero from "@common/components/Hero/Hero";
@@ -30,6 +30,7 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
 } from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
+import { wrapAbbr } from "@common/helpers/nameUtils";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -132,13 +133,18 @@ export const CreateAccountForm: React.FunctionComponent<
               })}
             </Alert.Title>
             <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GC Key username and password.",
-                id: "0O/eV0",
-                description:
-                  "Message for successful login alert in create account page.",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same <abbreviation>GC</abbreviation> Key username and password.",
+                  id: "8+PCdN",
+                  description:
+                    "Message for successful login alert in create account page.",
+                },
+                {
+                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                },
+              )}
             </p>
           </Alert.Root>
           <BasicForm
@@ -280,16 +286,12 @@ export const CreateAccountForm: React.FunctionComponent<
   );
 };
 
-type LocationState = {
-  from?: string;
-};
-
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { from } = location.state as LocationState;
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
   const authContext = React.useContext(AuthorizationContext);
   const meId = authContext.loggedInUser?.id;
 

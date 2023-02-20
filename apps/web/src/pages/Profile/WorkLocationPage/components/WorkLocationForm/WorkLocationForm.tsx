@@ -8,7 +8,7 @@ import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   CreateUserInput,
@@ -19,6 +19,7 @@ import {
   PoolCandidate,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 
 import ProfileFormWrapper, {
@@ -46,9 +47,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     locationPreferences: intl.formatMessage({
@@ -103,7 +102,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -111,7 +110,18 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Work Location Preference",
+            id: "c/Qp8R",
+            description:
+              "Display Text for the current page in Work Location Preference Form Page",
+          }),
+          url: `${paths.workLocation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
@@ -131,18 +141,21 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
         description:
           "Title for Profile Form wrapper  in Work Location Preferences Form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Work Location Preference",
-            id: "c/Qp8R",
-            description:
-              "Display Text for the current page in Work Location Preference Form Page",
-          }),
-          url: paths.workLocation(initialData.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Work Location Preference",
+                  id: "c/Qp8R",
+                  description:
+                    "Display Text for the current page in Work Location Preference Form Page",
+                }),
+                url: paths.workLocation(initialData.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       <BasicForm

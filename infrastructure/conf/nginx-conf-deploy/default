@@ -92,6 +92,11 @@ server {
         alias /home/site/config-web.js;
     }
 
+    # rewrite tc-report static files to "tc-report/_site"
+    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /tc-report/_site/$1 break;
+    }
+
     # rewrite talent static files to "apps/web/dist"
     location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
         rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
@@ -198,11 +203,6 @@ server {
         add_header Cache-Control no-cache;
         expires 0;
         rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /tc-report/_site/$1 break;
     }
 
     # fallback any other files to "tc-report/_site"

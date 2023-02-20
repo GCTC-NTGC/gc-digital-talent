@@ -9,6 +9,7 @@ export default {
   title: "Components/Table of Contents",
 } as Meta;
 
+faker.seed(0);
 const items = [
   {
     id: "item-1",

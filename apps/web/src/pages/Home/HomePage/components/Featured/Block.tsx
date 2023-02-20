@@ -6,7 +6,7 @@ import Heading from "@common/components/Heading";
 export interface FeatureBlockProps {
   content: {
     title: string;
-    summary: string;
+    summary: React.ReactNode;
     img: {
       path: string;
     };

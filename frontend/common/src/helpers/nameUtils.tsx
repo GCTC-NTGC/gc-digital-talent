@@ -1,5 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
+import { getAbbreviations } from "../constants/localizedConstants";
 
 export const getFullNameLabel = (
   firstName: string | null | undefined,
@@ -75,4 +76,92 @@ export const getFullNameHtml = (
     );
   }
   return `${firstName} ${lastName}`;
+};
+
+/**
+ * Split a string into substrings using the specified separator, and then join all the elements into a string, separated by the specified separator string.
+ *
+ * @param text
+ * @param split
+ * @param join
+ *
+ * @return string
+ */
+export const splitAndJoin = (text: string, split?: string, join?: string) =>
+  text.split(split || "").join(join || " ");
+
+/**
+ * Wraps common abbreviations in abbr tags to make them more accessible
+ *
+ * @param text   text to wrap
+ * @param intl   react-intl object
+ * @param title  abbreviation title
+ *
+ * @returns jsx.element
+ */
+export const wrapAbbr = (
+  text: React.ReactNode,
+  intl: IntlShape,
+  title?: string,
+): JSX.Element => {
+  const fallbackTitle = intl.formatMessage({
+    id: "MuWdei",
+    defaultMessage: "Abbreviation not found.",
+    description:
+      "Message shown to user when the abbreviation text is not found.",
+  });
+  const stringifyText = text && text.toString(); // grabs text from React.ReactNode (is there a better way to get text from React.ReactNode type?)
+  if (typeof stringifyText !== "string") {
+    return (
+      <abbr title={fallbackTitle}>
+        <span>{text}</span>
+      </abbr>
+    );
+  }
+  switch (stringifyText) {
+    // Regex that matches all IT(en)/TI(fr) classifications with levels
+    case stringifyText.match(/[IT][TI]-0\d/)?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
+          <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
+            {text}
+          </span>
+        </abbr>
+      );
+    // Regex that matches all IT(en)/TI(fr) classifications
+    case stringifyText.match(/[IT][TI]/)?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    // Regex that matches all AS(en)/SA(fr) classifications with levels
+    case stringifyText.match(/[AS][SA]-0\d/)?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
+          <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
+            {text}
+          </span>
+        </abbr>
+      );
+    // Regex that matches all AS(en)/SA(fr) classifications
+    case stringifyText.match(/[AS][SA]/)?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    case stringifyText.match("GC")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("GC"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    default:
+      return (
+        <abbr title={title ?? fallbackTitle}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+  }
 };

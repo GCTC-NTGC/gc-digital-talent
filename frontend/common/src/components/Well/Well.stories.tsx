@@ -7,6 +7,8 @@ type ComponentType = typeof Well;
 type Meta = ComponentMeta<ComponentType>;
 type Story = ComponentStory<ComponentType>;
 
+faker.seed(0);
+
 export default {
   component: Well,
   title: "Components/Well",

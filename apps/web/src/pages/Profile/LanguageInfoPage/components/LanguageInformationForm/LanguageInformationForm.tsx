@@ -8,7 +8,7 @@ import omit from "lodash/omit";
 import { toast } from "@common/components/Toast";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import {
   Applicant,
@@ -20,6 +20,7 @@ import {
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -104,9 +105,7 @@ const LanguageInformationForm: React.FunctionComponent<{
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     consideredPositionLanguages: intl.formatMessage({
@@ -198,7 +197,7 @@ const LanguageInformationForm: React.FunctionComponent<{
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -206,7 +205,17 @@ const LanguageInformationForm: React.FunctionComponent<{
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "Language Information",
+            id: "/k21MP",
+            description: "Display Text for Language Information Form Page Link",
+          }),
+          url: `${paths.languageInformation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
@@ -231,17 +240,21 @@ const LanguageInformationForm: React.FunctionComponent<{
         description:
           "Title for Profile Form wrapper in Language Information Form",
       })}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "Language Information",
-            id: "/k21MP",
-            description: "Display Text for Language Information Form Page Link",
-          }),
-          url: paths.languageInformation(initialData.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Language Information",
+                  id: "/k21MP",
+                  description:
+                    "Display Text for Language Information Form Page Link",
+                }),
+                url: paths.languageInformation(initialData.id),
+              },
+            ]
+      }
       prefixBreadcrumbs={!application}
     >
       {missingLanguageRequirements.length ? (

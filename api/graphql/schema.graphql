@@ -518,12 +518,20 @@ type Department {
 
 type Team {
   id: ID!
-  name: String
+  name: String! # represents a unique key for a team
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+}
+
+type Role {
+  id: ID!
+  name: String! # represents a unique key for a role
+  displayName: LocalizedString @rename(attribute: "display_name")
+  description: LocalizedString
+  isTeamBased: Boolean @rename(attribute: "is_team_based")
 }
 
 enum PoolCandidateSearchStatus {
@@ -590,6 +598,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   doneDate: DateTime @rename(attribute: "done_at")
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 enum SkillCategory {
@@ -827,6 +836,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
+  expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
 }
 
 type CandidateSearchPoolResult {
@@ -900,7 +910,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "availableForOpportunities", "expiryFilter"]
+      scopes: ["notDraft", "availableForOpportunities"]
     )
     @guard
     @can(ability: "viewAny")
@@ -970,7 +980,9 @@ type Query {
   skills: [Skill]! @all
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
+  team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
+  roles: [Role]! @all @can(ability: "viewAny")
 }
 
 input ClassificationBelongsTo {
@@ -1309,6 +1321,26 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
+input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput @rename(attribute: "display_name")
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email @rename(attribute: "contact_email")
+}
+
 input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
   hasDiploma: Boolean @rename(attribute: "has_diploma")
@@ -1356,6 +1388,7 @@ input CreatePoolCandidateSearchRequestInput {
     @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
   # requestedDate will be set to current date in Eloquent model.
   # status will be set to PENDING in Eloquent model.
+  wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1717,4 +1750,12 @@ type Mutation {
     @guard
     @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
+
+  # Teams mutations
+  createTeam(team: CreateTeamInput! @spread): Team
+    @create
+    @can(ability: "create")
+  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
+    @update
+    @can(ability: "update")
 }

@@ -81,6 +81,7 @@ const Content = React.forwardRef<
               data-h2-padding="base(x.5)"
               data-h2-position="base(absolute)"
               data-h2-radius="base(circle)"
+              data-h2-z-index="base(9)"
               aria-label={intl.formatMessage({
                 defaultMessage: "Close dialog",
                 id: "g2X8Fx",
@@ -128,7 +129,12 @@ const StyledDescription = React.forwardRef<
   />
 ));
 
-type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
+type Color =
+  | "ts-primary"
+  | "ts-secondary"
+  | "ia-primary"
+  | "ia-secondary"
+  | "black";
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
@@ -145,6 +151,10 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
   "ia-secondary": {
     "data-h2-background": "base(ia-secondary)",
+    "data-h2-color": "base(ia-white)",
+  },
+  black: {
+    "data-h2-background": "base(black)",
     "data-h2-color": "base(ia-white)",
   },
 };

@@ -16,7 +16,7 @@ import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 
@@ -79,7 +79,7 @@ export const ReviewApplication: React.FunctionComponent<
       hasExperiences ? flattenExperienceSkills(experiences) : [],
     ).length === 0 &&
     missingLanguageRequirements.length === 0;
-  const jobTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
+  const jobTitle = getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement);
 
   return (
     <>

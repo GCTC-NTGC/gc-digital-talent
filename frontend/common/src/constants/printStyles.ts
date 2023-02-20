@@ -9,9 +9,12 @@ export default `
   .page-section {
     margin-bottom: 2rem;
     display: block;
-    page-break-after: auto;
     page-break-inside: avoid;
     -webkit-region-break-inside: avoid;
   }
 
+  .indigenous-community-image {
+    width: 4rem;
+    height: 4rem;
+  }
 }`;

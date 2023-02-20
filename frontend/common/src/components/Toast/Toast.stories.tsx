@@ -9,6 +9,8 @@ interface StoryArgs {
   longText: string;
 }
 
+faker.seed(0);
+
 export default {
   component: Toast,
   title: "Components/Toast",

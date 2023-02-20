@@ -8,11 +8,8 @@ import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
-  getOperationalRequirement,
   getWorkRegion,
-  getEmploymentDuration,
   EmploymentDuration,
-  OperationalRequirementV2,
   getPoolStream,
 } from "@common/constants/localizedConstants";
 import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
@@ -27,6 +24,7 @@ import {
   PoolStream,
   Skill,
   PositionDuration,
+  Maybe,
 } from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import { poolMatchesClassification } from "~/utils/poolUtils";
@@ -37,8 +35,56 @@ import {
   Option,
 } from "~/types/searchRequest";
 
+import AdvancedFilters from "./AdvancedFilters";
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
+
+const positionDurationToEmploymentDuration = (
+  durations: Maybe<PositionDuration>[],
+): string => {
+  if (durations && durations.includes(PositionDuration.Temporary)) {
+    return EmploymentDuration.Term;
+  }
+  return EmploymentDuration.Indeterminate;
+};
+
+const dataToFormValues = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+  pools?: SimplePool[],
+): FormValues => {
+  const dataPoolsSafe = data.pools ? data.pools : [];
+  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+
+  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
+  return {
+    classification: selectedClassifications
+      ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
+      : "",
+    languageAbility: data?.languageAbility
+      ? data?.languageAbility
+      : "NULL_SELECTION",
+    employmentEquity: data.equity
+      ? [
+          ...(data.equity.hasDisability ? ["hasDisability"] : []),
+          ...(data.equity.isIndigenous ? ["isIndigenous"] : []),
+          ...(data.equity.isVisibleMinority ? ["isVisibleMinority"] : []),
+          ...(data.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
+    skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    stream: dataPoolsSafe[0]
+      ? poolMap.get(dataPoolsSafe[0].id)?.stream || ""
+      : "",
+    locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirements:
+      data.operationalRequirements?.filter(notEmpty) ?? [],
+    employmentDuration: data.positionDuration
+      ? positionDurationToEmploymentDuration(data.positionDuration)
+      : "",
+  };
+};
 
 function mapObjectsByKey<T>(
   keyFunction: (t: T) => string,
@@ -88,6 +134,35 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+const classificationAriaLabels: Record<string, MessageDescriptor> =
+  defineMessages({
+    "IT-01": {
+      defaultMessage: "Technician I T 1 ($60,000 to $78,000)",
+      id: "1c+inU",
+      description:
+        "IT-01 classification aria label including titles and salaries",
+    },
+    "IT-02": {
+      defaultMessage: "Analyst I T 2 ($75,000 to $91,000)",
+      id: "BkHx2X",
+      description:
+        "IT-02 classification aria label including titles and salaries",
+    },
+    "IT-03": {
+      defaultMessage:
+        "Technical Advisor or Team Leader I T 3 ($88,000 to $110,000)",
+      id: "++WV3O",
+      description:
+        "IT-03 classification aria label including titles and salaries",
+    },
+    "IT-04": {
+      defaultMessage: "Senior Advisor or Manager I T 4 ($101,000 to $126,000)",
+      id: "Ix0KgU",
+      description:
+        "IT-04 classification aria label including titles and salaries",
+    },
+  });
+
 const durationSelectionToEnum = (
   selection: string | null,
 ): PositionDuration[] | null => {
@@ -104,6 +179,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
     const location = useLocation();
+
     const classificationMap = React.useMemo(() => {
       return mapObjectsByKey(classificationToKey, classifications);
     }, [classifications]);
@@ -111,11 +187,16 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
     const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state ? state.initialValues : {}),
+      () => (state ? state.applicantFilter : {}),
       [state],
     );
+
     const methods = useForm<FormValues>({
-      defaultValues: initialValues,
+      defaultValues: dataToFormValues(
+        initialValues ?? {},
+        state?.selectedClassifications,
+        pools,
+      ),
       mode: "onChange",
       reValidateMode: "onChange",
     });
@@ -130,16 +211,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues || {});
-    }, [initialValues, onUpdateApplicantFilter]);
-
-    React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;
         return {
-          expectedClassifications: [],
+          expectedClassifications: [selectedClassification],
           skills: values.skills
             ? values.skills
                 .filter((id) => !!id)
@@ -204,11 +281,15 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
 
     const getClassificationLabel = React.useCallback(
-      (group: string, level: number): string => {
+      (
+        group: string,
+        level: number,
+        labels: Record<string, MessageDescriptor>,
+      ): string => {
         const key = `${group}-0${level}`;
         return !hasKey(classificationLabels, key)
           ? key
-          : intl.formatMessage(classificationLabels[key]);
+          : intl.formatMessage(labels[key]);
       },
       [intl],
     );
@@ -217,7 +298,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       () =>
         classifications.map(({ group, level }) => ({
           value: classificationToKey({ group, level }),
-          label: getClassificationLabel(group, level),
+          label: getClassificationLabel(group, level, classificationLabels),
+          ariaLabel: getClassificationLabel(
+            group,
+            level,
+            classificationAriaLabels,
+          ),
         })),
       [classifications, getClassificationLabel],
     );
@@ -261,19 +347,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Placeholder for classification filter in search form.",
               })}
               name="classification"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a classification",
-                    id: "HHEQgM",
-                    description:
-                      "Placeholder for classification filter in search form.",
-                  }),
-                },
-                ...classificationOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a classification",
+                id: "HHEQgM",
+                description:
+                  "Placeholder for classification filter in search form.",
+              })}
+              options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -292,19 +372,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Placeholder for stream filter in search form.",
               })}
               name="stream"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a job stream",
-                    id: "QJ5uDV",
-                    description:
-                      "Placeholder for stream filter in search form.",
-                  }),
-                },
-                ...streamOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a job stream",
+                id: "QJ5uDV",
+                description: "Placeholder for stream filter in search form.",
+              })}
+              options={streamOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -312,96 +385,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             />
           </FilterBlock>
           <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
-          <FilterBlock
-            id="educationRequirementFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Education requirement for the job",
-              id: "AyP6Fr",
-              description:
-                "Heading for education requirement filter of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "Most jobs in the Digital community do not require a diploma, change this only if the job requires a diploma.",
-              id: "mhtcMd",
-              description:
-                "Message describing the education requirement filter of the search form.",
-            })}
-          >
-            <RadioGroup
-              idPrefix="education_requirement"
-              legend={intl.formatMessage({
-                defaultMessage: "Education Requirement filter",
-                id: "/JQ6DD",
-                description:
-                  "Legend for the Education Requirement filter radio group",
-              })}
-              name="educationRequirement"
-              defaultSelected="no_diploma"
-              items={[
-                {
-                  value: "no_diploma",
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Can accept a combination of work experience and education",
-                    id: "74WtLG",
-                    description:
-                      "Radio group option for education requirement filter in search form.",
-                  }),
-                },
-                {
-                  value: "has_diploma",
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Required diploma from post-secondary institution",
-                    id: "KoPFx4",
-                    description:
-                      "Radio group option for education requirement filter in search form.",
-                  }),
-                },
-              ]}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
-            id="locationPreferencesFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Work location",
-              id: "uP+q43",
-              description:
-                "Heading for work location section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "If you have more detailed work location requirement, let us know in the comment section of the submission form.",
-              id: "v7sYE7",
-              description:
-                "Message describing the work location filter in the search form.",
-            })}
-          >
-            <MultiSelectField
-              id="locationPreferences"
-              name="locationPreferences"
-              label={intl.formatMessage({
-                defaultMessage: "Region",
-                id: "F+WFWB",
-                description: "Label for work location filter in search form.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select a location...",
-                id: "asqSAJ",
-                description:
-                  "Placeholder for work location filter in search form.",
-              })}
-              options={enumToOptions(WorkRegion).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </FilterBlock>
           <FilterBlock
             id="workingLanguageFilter"
             title={intl.formatMessage({
@@ -427,7 +410,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Legend for the Working Language Ability radio buttons",
               })}
               name="languageAbility"
-              defaultSelected={NullSelection}
               items={[
                 {
                   value: NullSelection,
@@ -442,54 +424,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   value,
                   label: intl.formatMessage(getLanguageAbility(value)),
                 })),
-              ]}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
-            id="employmentDurationFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Employment Duration",
-              id: "VwVtqr",
-              description:
-                "Heading for employment duration section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "The selected duration will be compared to the one chosen by candidates in their applications. Change this only if the job offer has a determined duration.",
-              id: "iN2H6J",
-              description:
-                "Message describing the employment duration filter in the search form.",
-            })}
-          >
-            <RadioGroup
-              idPrefix="employmentDuration"
-              legend="Duration"
-              name="employmentDuration"
-              defaultSelected={NullSelection}
-              items={[
-                {
-                  value: NullSelection,
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Any duration (short term, long term or indeterminate) (Recommended)",
-                    id: "8fQWTc",
-                    description:
-                      "No preference for employment duration - will accept any",
-                  }),
-                },
-                {
-                  value: EmploymentDuration.Term,
-                  label: intl.formatMessage(
-                    getEmploymentDuration(EmploymentDuration.Term),
-                  ),
-                },
-                {
-                  value: EmploymentDuration.Indeterminate,
-                  label: intl.formatMessage(
-                    getEmploymentDuration(EmploymentDuration.Indeterminate),
-                  ),
-                },
               ]}
               trackUnsaved={false}
             />
@@ -553,38 +487,46 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             />
           </FilterBlock>
           <FilterBlock
-            id="operationalRequirementFilter"
+            id="locationPreferencesFilter"
             title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "laGCzG",
+              defaultMessage: "Work location",
+              id: "uP+q43",
               description:
-                "Heading for operational requirements section of the search form.",
+                "Heading for work location section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
-              id: "IT6Djp",
+                "If you have more detailed work location requirement, let us know in the comment section of the submission form.",
+              id: "v7sYE7",
               description:
-                "Message describing the operational requirements filter in the search form.",
+                "Message describing the work location filter in the search form.",
             })}
           >
-            <Checklist
-              idPrefix="operationalRequirements"
-              legend={intl.formatMessage({
-                defaultMessage: "Conditions of employment",
-                id: "bKvvaI",
-                description:
-                  "Legend for the Conditions of Employment filter checklist",
+            <MultiSelectField
+              id="locationPreferences"
+              name="locationPreferences"
+              label={intl.formatMessage({
+                defaultMessage: "Region",
+                id: "F+WFWB",
+                description: "Label for work location filter in search form.",
               })}
-              name="operationalRequirements"
-              items={OperationalRequirementV2.map((value) => ({
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select a location...",
+                id: "asqSAJ",
+                description:
+                  "Placeholder for work location filter in search form.",
+              })}
+              options={enumToOptions(WorkRegion).map(({ value }) => ({
                 value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
+                label: intl.formatMessage(getWorkRegion(value)),
               }))}
-              trackUnsaved={false}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </FilterBlock>
+
+          <AdvancedFilters />
         </form>
       </FormProvider>
     );

@@ -14,10 +14,11 @@ import {
   getArmedForcesStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { emptyToNull } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import {
   User,
   UpdateUserAsUserInput,
@@ -67,9 +68,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute = application
-    ? paths.reviewApplication(application.id)
-    : paths.profile(initialUser.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialUser.id);
 
   const labelMap = {
     preferredLang: intl.formatMessage({
@@ -180,7 +179,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitle(
+          label: getFullPoolAdvertisementTitleHtml(
             intl,
             application.poolAdvertisement,
           ),
@@ -188,7 +187,17 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(application.id),
+          url: paths.reviewApplication(applicationId ?? ""),
+        },
+        {
+          label: intl.formatMessage({
+            defaultMessage: "About Me",
+            id: "uG2MuI",
+            description: "Display text for About Me Form Page Link",
+          }),
+          url: `${paths.aboutMe(initialUser.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
@@ -221,17 +230,20 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         description: "Title for Profile Form wrapper in About me form",
       })}
       prefixBreadcrumbs={!application}
-      crumbs={[
-        ...applicationBreadcrumbs,
-        {
-          label: intl.formatMessage({
-            defaultMessage: "About Me",
-            id: "uG2MuI",
-            description: "Display text for About Me Form Page Link",
-          }),
-          url: paths.aboutMe(initialUser.id),
-        },
-      ]}
+      crumbs={
+        applicationBreadcrumbs?.length
+          ? applicationBreadcrumbs
+          : [
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "About Me",
+                  id: "uG2MuI",
+                  description: "Display text for About Me Form Page Link",
+                }),
+                url: paths.aboutMe(initialUser.id),
+              },
+            ]
+      }
     >
       <BasicForm
         labels={labelMap}

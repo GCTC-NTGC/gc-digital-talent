@@ -2,7 +2,8 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { notEmpty } from "../../helpers/util";
+import { wrapAbbr } from "../../helpers/nameUtils";
+import { notEmpty, uniqueItems } from "../../helpers/util";
 import {
   ApplicantFilter,
   Classification,
@@ -25,7 +26,7 @@ export type SimpleClassification = Pick<Classification, "group" | "level">;
 
 export interface FilterBlockProps {
   title: string;
-  content?: Maybe<string> | Maybe<string[]>;
+  content?: Maybe<string | React.ReactNode> | Maybe<string[]>;
   children?: React.ReactNode;
 }
 
@@ -36,7 +37,9 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 }) => {
   const intl = useIntl();
 
-  const emptyArrayOutput = (input: string | string[] | null | undefined) => {
+  const emptyArrayOutput = (
+    input: string | React.ReactNode | string[] | null | undefined,
+  ) => {
     return input && !isEmpty(input) ? (
       <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}
@@ -120,13 +123,10 @@ const ApplicantFilters: React.FC<{
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory: string[] | undefined =
-    selectedClassifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
-    );
+  const classificationsFromBrowserHistory = selectedClassifications?.map(
+    (classification) =>
+      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
+  );
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
   const classifications: Classification[] =
@@ -139,11 +139,8 @@ const ApplicantFilters: React.FC<{
     ) || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
-    .map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+    .map((classification) =>
+      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
     );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
@@ -270,10 +267,10 @@ const ApplicantFilters: React.FC<{
               description:
                 "Title for group and level on summary of filters section",
             })}
-            content={
+            content={uniqueItems(
               classificationsFromBrowserHistory ||
-              classificationsFromApplicantFilter
-            }
+                classificationsFromApplicantFilter,
+            )}
           />
           <FilterBlock
             title={intl.formatMessage(

@@ -6,20 +6,32 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
-import { getAdvertisementStatus } from "@common/constants/localizedConstants";
+import {
+  getAdvertisementStatus,
+  getPoolStream,
+} from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { getFullNameHtml, wrapAbbr } from "@common/helpers/nameUtils";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPoolsQuery, Maybe, Pool, useGetPoolsQuery } from "~/api/generated";
+import {
+  Classification,
+  GetPoolsQuery,
+  Maybe,
+  Pool,
+  Scalars,
+  useGetPoolsQuery,
+} from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
+  Cell,
 } from "~/components/Table/ClientManagedTable";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -41,7 +53,7 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolAdvertisementTitle(intl, pool) },
+        { label: getFullPoolAdvertisementTitleHtml(intl, pool) },
       )}
     </Link>
   );
@@ -50,22 +62,55 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={url} type="link">
-      {getFullPoolAdvertisementTitle(intl, pool)}
+      {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
 }
 
-function dateAccessor(value: Maybe<string>, intl: IntlShape) {
-  return value ? (
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
     <span>
       {formatDate({
-        date: parseDateTimeUtc(value),
+        date: parseDateTimeUtc(date),
         formatString: "PPP p",
         intl,
       })}
     </span>
   ) : null;
 }
+
+const fullNameCell = (pool: Pool, intl: IntlShape) => {
+  return (
+    <span>
+      {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
+    </span>
+  );
+};
+
+const classificationsCell = (
+  classifications: Maybe<Maybe<Classification>[]>,
+): JSX.Element | null => {
+  const filteredClassifications = classifications
+    ? classifications.filter((classification) => !!classification)
+    : null;
+  const pillsArray = filteredClassifications
+    ? filteredClassifications.map((classification) => {
+        return (
+          <Pill
+            key={`${classification?.group}-${classification?.level}`}
+            color="primary"
+            mode="outline"
+          >
+            {classification?.group}&#8209;{classification?.level}
+          </Pill>
+        );
+      })
+    : null;
+  if (pillsArray) {
+    return <span>{pillsArray}</span>;
+  }
+  return null;
+};
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
@@ -107,44 +152,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "HocLRh",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => viewLinkAccessor(paths.poolView(d.id), d, intl),
-        sortType: (rowA, rowB, id, desc) => {
-          // passing in sortType to override react-table sorting by jsx elements
-          let rowAName;
-          let rowBName;
-
-          if (locale === "en") {
-            rowAName = rowA.original.name?.en ?? "";
-            rowBName = rowB.original.name?.en ?? "";
-          } else {
-            rowAName = rowA.original.name?.fr ?? "";
-            rowBName = rowB.original.name?.fr ?? "";
+        accessor: (d) => {
+          if (d.name && d.name.en && locale === "en") {
+            return `${d.name.en.toLowerCase()} ${
+              d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
+            }`;
           }
-          const rowALevel =
-            rowA.original.classifications && rowA.original.classifications[0]
-              ? rowA.original.classifications[0].level
-              : 0;
-          const rowBLevel =
-            rowB.original.classifications && rowB.original.classifications[0]
-              ? rowB.original.classifications[0].level
-              : 0;
-
-          if (rowAName > rowBName) {
-            return 1;
+          if (d.name && d.name.fr && locale === "fr") {
+            return `${d.name.fr.toLowerCase()} ${
+              d.stream ? intl.formatMessage(getPoolStream(d.stream)) : ""
+            }`;
           }
-          if (rowAName < rowBName) {
-            return -1;
-          }
-          // if names identical then sort by level
-          // level sorting adjusted to always be ascending regardless of whether name sort is A-Z or Z-A
-          if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
-          }
-          if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
-          }
-          return 0;
+          return "";
         },
+        Cell: ({ row }: PoolCell) =>
+          viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
       },
       {
         Header: intl.formatMessage({
@@ -153,11 +175,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description:
             "Header for the View Candidates column of the Pools table",
         }),
-        accessor: (pool) =>
+        id: "candidates",
+        accessor: (d) => `Candidates ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row }: PoolCell) =>
           poolCandidatesLinkAccessor(
-            paths.poolCandidateTable(pool.id),
+            paths.poolCandidateTable(row.original.id),
             intl,
-            pool,
+            row.original,
           ),
       },
       {
@@ -166,12 +191,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-        accessor: ({ advertisementStatus }) =>
-          intl.formatMessage(
-            advertisementStatus
-              ? getAdvertisementStatus(advertisementStatus)
+        accessor: (d) => {
+          return intl.formatMessage(
+            d.advertisementStatus
+              ? getAdvertisementStatus(d.advertisementStatus)
               : commonMessages.notFound,
-          ),
+          );
+        },
       },
       {
         Header: intl.formatMessage({
@@ -180,20 +206,26 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           description:
             "Title displayed for the Pool table Group and Level column.",
         }),
-        accessor: ({ classifications }) =>
-          classifications?.map((classification) => {
-            return (
-              <Pill
-                key={`${classification?.group}-${classification?.level}`}
-                color="primary"
-                mode="outline"
-              >
-                {classification?.group}&#8209;{classification?.level}
-              </Pill>
-            );
-          }),
+        accessor: (d) => {
+          let classificationsString = "";
+          if (d.classifications && d.classifications.length > 0) {
+            d.classifications.forEach((classification) => {
+              if (classification) {
+                const groupLevelString = wrapAbbr(
+                  `${classification?.group}-0${classification?.level}`,
+                  intl,
+                );
+                classificationsString += groupLevelString;
+              }
+            });
+          }
+          return classificationsString;
+        },
+        Cell: ({ row }: PoolCell) => {
+          return classificationsCell(row.original.classifications);
+        },
         sortType: (rowA, rowB, id, desc) => {
-          // passing in sortType to override react-table sorting by jsx elements
+          // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
               ? rowA.original.classifications[0].group
@@ -211,10 +243,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
               ? rowB.original.classifications[0].level
               : 0;
 
-          if (rowAGroup > rowBGroup) {
+          if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
             return 1;
           }
-          if (rowAGroup < rowBGroup) {
+          if (rowAGroup.toLowerCase() < rowBGroup.toLowerCase()) {
             return -1;
           }
           // if groups identical then sort by level
@@ -234,23 +266,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "AWk4BX",
           description: "Title displayed for the Pool table Owner Name column",
         }),
-        accessor: ({ owner }) =>
-          getFullNameHtml(
-            owner && owner.firstName ? owner.firstName : "",
-            owner && owner.lastName ? owner.lastName : "",
-            intl,
-          ),
-        sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.firstName
-            ? rowA.original.owner.firstName.toLowerCase()
-            : "";
-          const b = rowB.original.owner?.firstName
-            ? rowB.original.owner.firstName.toLowerCase()
-            : "";
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
+        accessor: (d) => {
+          const firstName =
+            d.owner && d.owner.firstName ? d.owner.firstName.toLowerCase() : "";
+          const lastName =
+            d.owner && d.owner.lastName ? d.owner.lastName.toLowerCase() : "";
+          return `${firstName} ${lastName}`;
         },
+        Cell: ({ row }: PoolCell) => fullNameCell(row.original, intl),
         id: "ownerName",
       },
       {
@@ -259,15 +282,16 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "pe5WkF",
           description: "Title displayed for the Pool table Owner Email column",
         }),
-        accessor: ({ owner }) =>
-          emailLinkAccessor(owner && owner.email ? owner.email : "", intl),
-        sortType: (rowA, rowB) => {
-          const a = rowA.original.owner?.email ?? "";
-          const b = rowB.original.owner?.email ?? "";
-          if (a > b) return 1;
-          if (a < b) return -1;
-          return 0;
+        accessor: (d) => {
+          return d.owner && d.owner.email ? d.owner.email.toLowerCase() : "";
         },
+        Cell: ({ row }: PoolCell) =>
+          emailLinkAccessor(
+            row.original.owner && row.original.owner.email
+              ? row.original.owner.email
+              : "",
+            intl,
+          ),
         id: "ownerEmail",
       },
       {
@@ -276,11 +300,14 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "tpzt/B",
           description: "Title displayed for the Pool table Edit column.",
         }),
-        accessor: (d) =>
+        id: "edit",
+        accessor: (d) => `Edit ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row }: PoolCell) =>
           tableEditButtonAccessor(
-            d.id,
+            row.original.id,
             paths.poolTable(),
-            d.name ? d.name[locale] : "",
+            row.original.name ? row.original.name[locale] : "",
           ), // callback extracted to separate function to stabilize memoized component
       },
       {
@@ -289,8 +316,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
-        accessor: "createdDate",
-        Cell: ({ value }) => dateAccessor(value, intl),
+        accessor: ({ createdDate }) =>
+          createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.createdDate, intl),
       },
     ],
     [intl, paths, locale],
@@ -314,7 +343,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
       data={data}
       columns={columns}
       hiddenCols={hiddenCols}
-      search={false}
+      search
       addBtn={{
         path: paths.poolCreate(),
         label: intl.formatMessage({
