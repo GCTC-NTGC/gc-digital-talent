@@ -3316,9 +3316,9 @@
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill family form name (English) field."
   },
-  "3exDkT": {
+  "CvV2l6": {
     "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill form key field."
+    "description": "Label for an entity 'key' field"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -3507,10 +3507,6 @@
   "m5RwGF": {
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Skill Family table Category column."
-  },
-  "qVXkby": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill family form key field."
   },
   "qZd17O": {
     "defaultMessage": " Créer une compétence",
@@ -6489,5 +6485,37 @@
   "+nS/ak": {
     "defaultMessage": "Renseignements supplémentaires : ",
     "description": "Additional information if provided (without details)"
+  },
+  "LocjmN": {
+    "defaultMessage": "De retour aux équipes",
+    "description": "Button text to return to the table of teams page"
+  },
+  "PtbLq+": {
+    "defaultMessage": "Brève description de l’équipe (en français)",
+    "description": "Short description for a team in French"
+  },
+  "QC23B1": {
+    "defaultMessage": "Nom de l’organisation (en anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "Rg0SpL": {
+    "defaultMessage": "Renseignements de base",
+    "description": "Basic information"
+  },
+  "VJYI6K": {
+    "defaultMessage": "Équipe {teamId} non trouvée.",
+    "description": "Message displayed for team not found."
+  },
+  "W0BVd+": {
+    "defaultMessage": "Nom de l’organisation (en français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "nGNj5Q": {
+    "defaultMessage": "Courriel de la personne-ressource",
+    "description": "Contact email"
+  },
+  "whsH/g": {
+    "defaultMessage": "Brève description de l’équipe (en anglais)",
+    "description": "Short description for a team in English"
   }
 }

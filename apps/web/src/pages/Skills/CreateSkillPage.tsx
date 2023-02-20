@@ -131,9 +131,8 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
-                id: "3exDkT",
-                description:
-                  "Label displayed on the create a skill form key field.",
+                id: "CvV2l6",
+                description: "Label for an entity 'key' field",
               })}
               context={intl.formatMessage({
                 defaultMessage:

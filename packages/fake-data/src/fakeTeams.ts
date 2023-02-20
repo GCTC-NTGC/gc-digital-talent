@@ -16,6 +16,7 @@ const generateTeam = (departments: Department[]): Team => {
     name: faker.datatype.string(),
     contactEmail: faker.internet.email(),
     displayName: toLocalizedString(faker.company.name()),
+    description: toLocalizedString(faker.lorem.paragraph()),
     departments: [departments[index]],
   };
 };

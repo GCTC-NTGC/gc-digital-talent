@@ -23,6 +23,7 @@ export interface TextAreaProps
   whitespaceTrim?: boolean;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  hideOptional?: boolean;
 }
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
@@ -34,6 +35,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   children,
   trackUnsaved = true,
   whitespaceTrim = true,
+  hideOptional,
   ...rest
 }) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
@@ -75,6 +77,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
         trackUnsaved={trackUnsaved}
         onContextToggle={setContextVisible}
         descriptionIds={descriptionIds}
+        hideOptional={hideOptional}
       >
         <textarea
           data-h2-padding="base(x.25, x.5)"

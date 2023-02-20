@@ -124,9 +124,8 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
-                id: "qVXkby",
-                description:
-                  "Label displayed on the create a skill family form key field.",
+                id: "CvV2l6",
+                description: "Label for an entity 'key' field",
               })}
               context={intl.formatMessage({
                 defaultMessage:
