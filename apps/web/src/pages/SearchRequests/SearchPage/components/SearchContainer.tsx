@@ -397,9 +397,7 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-  const applicantFilterFromBrowserHistory = state
-    ? state.applicantFilter
-    : undefined;
+  const applicantFilterFromBrowserHistory = state?.applicantFilter;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
   >(
