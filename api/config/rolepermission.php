@@ -540,9 +540,6 @@ return [
             'teamMembers' => [
                 'team' => ['view']
             ],
-            'team' => [
-                'team' => ['update']
-            ],
             'role' => [
                 'any' => ['view'],
             ],
