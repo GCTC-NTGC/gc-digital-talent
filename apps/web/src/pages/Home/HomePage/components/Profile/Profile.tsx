@@ -21,7 +21,7 @@ const Profile = () => {
       <div
         data-h2-height="base(100%)"
         data-h2-width="base(100%)"
-        data-h2-background-color="base(black)"
+        data-h2-background-color="base(black.darkest)"
         data-h2-position="base(absolute)"
         data-h2-transform="base(skewY(-3deg))"
         data-h2-overflow="base(hidden)"
