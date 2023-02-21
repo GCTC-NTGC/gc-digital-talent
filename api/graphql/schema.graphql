@@ -1174,6 +1174,8 @@ input UpdateUserAsAdminInput
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput
@@ -1582,6 +1584,17 @@ input UpdatePoolAdvertisementInput {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
+input RolesInput {
+  roles: [ID!]!,
+  team: ID
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput,
+  detach: RolesInput,
+  sync: RolesInput
+}
+
 type Mutation {
   createUser(user: CreateUserInput! @spread): User
     @create
@@ -1788,4 +1801,6 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+
+
 }

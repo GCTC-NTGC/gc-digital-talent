@@ -1088,8 +1088,8 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean
   users: [User!]
-  roleAssignments: [RoleAssignment!]
   permissions: [Permission!]
+  roleAssignments: [RoleAssignment!]
 }
 
 type RoleAssignment {
@@ -1097,6 +1097,17 @@ type RoleAssignment {
   role: Role
   team: Team
   user: User
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput
+  detach: RolesInput
+  sync: RolesInput
+}
+
+input RolesInput {
+  roles: [ID!]!
+  team: ID
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1404,6 +1415,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {
