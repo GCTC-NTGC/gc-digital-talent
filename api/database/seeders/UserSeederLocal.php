@@ -26,11 +26,11 @@ class UserSeederLocal extends Seeder
         $applicantRole = $roles->sole(function ($r) {
             return $r->name == "applicant";
         });
-        $teamAdminRole = $roles->sole(function ($r) {
-            return $r->name == "team_admin";
+        $poolOperatorRole = $roles->sole(function ($r) {
+            return $r->name == "pool_operator";
         });
-        $superAdminRole = $roles->sole(function ($r) {
-            return $r->name == "super_admin";
+        $platformAdminRole = $roles->sole(function ($r) {
+            return $r->name == "platform_admin";
         });
         $dcmTeam = Team::where('name', 'digital-community-management')->sole();
         $testTeam = Team::where('name', 'test-team')->sole();
@@ -44,9 +44,9 @@ class UserSeederLocal extends Seeder
             'email' => 'admin@test.com',
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
-            ->syncRoles([$teamAdminRole], $dcmTeam)
-            ->syncRoles([$teamAdminRole], $testTeam)
-            ->syncRoles([$baseUserRole, $applicantRole, $superAdminRole], null);
+            ->syncRoles([$poolOperatorRole], $dcmTeam)
+            ->syncRoles([$poolOperatorRole], $testTeam)
+            ->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole], null);
         User::updateOrCreate(
             [
                 'sub' => 'applicant@test.com',
@@ -80,7 +80,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'petertgiles' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => 'c65dd054-db44-4bf6-af39-37eedb39305d',
@@ -90,7 +90,7 @@ class UserSeederLocal extends Seeder
 
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => 'e64b8057-0eaf-4a19-a14a-4a93fa2e8a04',
@@ -99,7 +99,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'JamesHuf' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => '2e72b97b-017a-4ed3-a803-a8773c2e1b14',
@@ -108,7 +108,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'brindasasi' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => 'd9f27aca-b2ea-4c4a-9459-25bb7a7b77f6',
@@ -117,7 +117,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'tristan-orourke' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => '2f3ee3fb-91ab-478e-a675-c56fdc043dc6',
@@ -126,7 +126,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'vd1992' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => 'c736bdff-c1f2-4538-b648-43a9743481a3',
@@ -135,7 +135,7 @@ class UserSeederLocal extends Seeder
                 'email' => 'mnigh' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
         User::updateOrCreate(
             [
                 'sub' => '88f7d707-01df-4f56-8eed-a823d16c232c',
@@ -144,6 +144,6 @@ class UserSeederLocal extends Seeder
                 'email' => 'patcon' . $fakeEmailDomain,
                 'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
-        )->syncRoles([$baseUserRole, $applicantRole, $superAdminRole]);
+        )->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole]);
     }
 }
