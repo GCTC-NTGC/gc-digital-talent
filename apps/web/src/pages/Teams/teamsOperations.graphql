@@ -17,3 +17,9 @@ query ListTeams {
     }
   }
 }
+
+mutation CreateTeam($team: CreateTeamInput!) {
+  createTeam(team: $team) {
+    id
+  }
+}
