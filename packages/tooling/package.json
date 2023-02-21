@@ -12,7 +12,7 @@
     "build": "tsup src/checkIntegrity.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/checkIntegrity.ts  --watch --dts --external react --minify",
-    "check-integrity": "./dist/checkIntegrity.js",
+    "check-integrity": "node ./dist/checkIntegrity.js",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
