@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\LaratrustRole;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Role
@@ -20,6 +21,7 @@ use Laratrust\Models\LaratrustRole;
 
 class Role extends LaratrustRole
 {
+    use HasFactory;
     protected $keyType = 'string';
 
     protected $casts = [
