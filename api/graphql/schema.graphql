@@ -533,7 +533,7 @@ type Team {
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
   # teams and roles: built-in
-  users: [User!] @morphToMany
+  users: [UserPublicProfile!] @morphToMany
   # teams and roles: custom pivot model
   roleAssignments: [RoleAssignment!] @hasMany
 }
@@ -545,7 +545,7 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   # teams and roles: built-in
-  users: [User!] @morphToMany
+  users: [UserPublicProfile!] @morphToMany
   permissions: [Permission!] @belongsToMany
   # teams and roles: custom pivot model
   roleAssignments: [RoleAssignment!] @hasMany
@@ -553,10 +553,10 @@ type Role {
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
 type RoleAssignment {
-  id: ID
+  id: ID!
   role: Role @belongsTo
   team: Team @belongsTo
-  user: User @morphTo
+  user: UserPublicProfile @morphTo
 }
 
 # stub for Laratrust

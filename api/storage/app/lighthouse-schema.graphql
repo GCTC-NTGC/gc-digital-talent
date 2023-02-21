@@ -1087,16 +1087,16 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
-  users: [User!]
+  users: [UserPublicProfile!]
   permissions: [Permission!]
   roleAssignments: [RoleAssignment!]
 }
 
 type RoleAssignment {
-  id: ID
+  id: ID!
   role: Role
   team: Team
-  user: User
+  user: UserPublicProfile
 }
 
 input RoleAssignmentHasMany {
@@ -1259,7 +1259,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
-  users: [User!]
+  users: [UserPublicProfile!]
   roleAssignments: [RoleAssignment!]
 }
 
