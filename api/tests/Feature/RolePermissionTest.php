@@ -58,8 +58,11 @@ class RolePermissionTest extends TestCase
             'view-any-publishedPoolAdvertisement',
             'view-any-applicantCount',
             'create-any-searchRequest',
-            'view-any-team'
+            'view-any-team',
+            'view-any-role',
         ], true));
+
+        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
 
         $this->cleanup();
     }
@@ -76,9 +79,20 @@ class RolePermissionTest extends TestCase
 
         $this->assertTrue($this->user->hasRole('base_user'));
         $this->assertTrue($this->user->isAbleTo([
+            'view-any-classification',
+            'view-any-department',
+            'view-any-skill',
+            'view-any-skillFamily',
             'view-own-user',
             'update-own-user',
+            'view-any-publishedPoolAdvertisement',
+            'view-any-applicantCount',
+            'create-any-searchRequest',
+            'view-any-team',
+            'view-any-role',
         ], true));
+
+        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
 
         $this->cleanup();
     }
@@ -102,62 +116,82 @@ class RolePermissionTest extends TestCase
             'archive-own-submittedApplication',
         ], true));
 
+        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+
         $this->cleanup();
     }
 
     /**
-     * Test the Team Admin Role
+     * Test the Pool Operator Role
      *
      * @return void
      */
-    public function test_team_admin_role()
+    public function test_pool_operator_role()
     {
-        $teamAdminRole = Role::where('name', 'team_admin')->sole();
+        $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->attachRole(
-            $teamAdminRole,
+            $poolOperatorRole,
             $this->ownedTeam
         );
 
         $permissionsToCheck = [
-            'view-any-userBasicInfo',
             'view-team-pool',
             'create-team-pool',
-            'publish-team-pool',
             'update-team-draftPool',
-            'delete-team-draftPool',
             'update-team-poolClosingDate',
+            'delete-team-draftPool',
             'view-team-submittedApplication',
             'view-team-applicantProfile',
             'update-team-applicationStatus',
-            'view-team-searchRequest',
-            'update-team-searchRequest',
-            'delete-team-searchRequest',
             'view-team-teamMembers',
-            'update-team-team',
-            'view-any-role',
-            'assign-team-role',
         ];
 
-        $this->assertTrue($this->user->hasRole('team_admin',  $this->ownedTeam));
+        $this->assertTrue($this->user->hasRole('pool_operator',  $this->ownedTeam));
         $this->assertTrue($this->user->isAbleTo($permissionsToCheck, $this->ownedTeam, true));
 
-        $this->assertFalse($this->user->hasRole('team_admin',  $this->unownedTeam));
+        $this->assertFalse($this->user->hasRole('pool_operator',  $this->unownedTeam));
         $this->assertFalse($this->user->isAbleTo($permissionsToCheck, $this->unownedTeam));
 
         $this->cleanup();
     }
 
     /**
-     * Test the Applicant Role
+     * Test the Request Responder Role
      *
      * @return void
      */
-    public function test_super_admin_role()
+    public function test_request_responder_role()
     {
-        $superAdminRole = Role::where('name', 'super_admin')->sole();
+        $requestResponderRole = Role::where('name', 'request_responder')->sole();
+        $this->user->attachRole($requestResponderRole);
+
+        $permissionsToCheck = [
+            'view-any-submittedApplication',
+            'view-any-applicantProfile',
+            'view-any-searchRequest',
+            'update-any-searchRequest',
+            'delete-any-searchRequest',
+        ];
+
+        $this->assertTrue($this->user->hasRole('request_responder'));
+        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
+
+        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Platform Admin role
+     *
+     * @return void
+     */
+    public function test_platform_admin_role()
+    {
+        $superAdminRole = Role::where('name', 'platform_admin')->sole();
         $this->user->attachRole($superAdminRole);
 
-        $this->assertTrue($this->user->hasRole('super_admin'));
+        $this->assertTrue($this->user->hasRole('platform_admin'));
         $this->assertTrue($this->user->isAbleTo([
             'create-any-classification',
             'update-any-classification',
@@ -172,16 +206,17 @@ class RolePermissionTest extends TestCase
             'update-any-skillFamily',
             'delete-any-skillFamily',
             'view-any-user',
+            'view-any-userBasicInfo',
             'update-any-user',
             'delete-any-user',
-            'view-any-userBasicInfo',
+            'view-any-pool',
+            'publish-any-pool',
+            'create-any-application',
             'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
             'delete-any-team',
-            'view-any-role',
             'assign-any-role',
-            'update-any-role',
         ], true));
 
         $this->cleanup();
@@ -194,9 +229,9 @@ class RolePermissionTest extends TestCase
      */
     public function test_strict_team_check()
     {
-        $teamAdminRole = Role::where('name', 'team_admin')->sole();
+        $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->attachRole(
-            $teamAdminRole,
+            $poolOperatorRole,
             $this->ownedTeam
         );
 
@@ -204,7 +239,7 @@ class RolePermissionTest extends TestCase
         $this->user->attachRole($guestRole);
 
         $guestPermission = 'view-any-skill';
-        $teamPermission = 'view-any-role';
+        $teamPermission = 'view-team-pool';
 
         // This should be true because even though the role is associated with a team context, we're asking about the permission outside of a team context.
         // NOTE: this will fail if team_strict_check is true in the laratrust config.

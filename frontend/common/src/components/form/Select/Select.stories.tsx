@@ -2,8 +2,11 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
+import { useIntl } from "react-intl";
+import { fakeDepartments, fakePools } from "../../../fakeData";
+import { getLocalizedName } from "../../../helpers/localize";
 import Form from "../BasicForm";
-import Select from ".";
+import Select, { OptGroup, Option } from "./Select";
 import type { SelectProps } from ".";
 import Submit from "../Submit";
 
@@ -19,73 +22,130 @@ export default {
   },
 } as Meta;
 
-const TemplateSelect: Story<SelectProps> = (args) => {
+const Template: Story<SelectProps> = (args) => {
+  const intl = useIntl();
+  const departments = fakeDepartments();
+  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl) || "",
+  }));
   return (
     <Form
       onSubmit={action("Submit Form")}
-      options={{ defaultValues: { departments: "" } }}
+      options={{ defaultValues: { groups: "" } }}
     >
       <div>
-        <Select {...args} />
+        <Select {...args} options={departmentOptions} />
         <Submit />
       </div>
     </Form>
   );
 };
 
-export const SelectDefault = TemplateSelect.bind({});
+const TemplateGroups: Story<SelectProps> = (args) => {
+  const intl = useIntl();
+  const departments = fakeDepartments();
+  const pools = fakePools();
+  const groups = [
+    {
+      id: 1,
+      label: {
+        en: "Things",
+        fr: "Choses",
+      },
+      options: [],
+    },
+    {
+      id: 2,
+      label: {
+        en: "Departments",
+        fr: "Ministères",
+      },
+      options: departments.map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+    {
+      id: 3,
+      label: {
+        en: "Pools",
+        fr: "Bassins",
+      },
+      options: pools.map(({ id, name }) => ({
+        value: id,
+        label: getLocalizedName(name, intl) || "",
+      })),
+    },
+  ];
+  const groupOptions: OptGroup[] = groups.map((group) => ({
+    label: getLocalizedName(group.label, intl),
+    options: group.options,
+  }));
+
+  return (
+    <Form
+      onSubmit={action("Submit Form")}
+      options={{ defaultValues: { groups: "" } }}
+    >
+      <div>
+        <Select {...args} options={groupOptions} />
+        <Submit />
+      </div>
+    </Form>
+  );
+};
+
+export const SelectDefault = Template.bind({});
 SelectDefault.args = {
   id: uniqueId(),
-  label: "Select a dept",
+  label: "Departments",
   name: "departments",
-  options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
-  ],
+  nullSelection: "",
 };
 
-export const SelectWithEmptyOption = TemplateSelect.bind({});
-SelectWithEmptyOption.args = {
+export const SelectWithNullSelection = Template.bind({});
+SelectWithNullSelection.args = {
   ...SelectDefault.args,
-  options: [
-    { value: "", label: "Select an option...", disabled: true },
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
-  ],
+  nullSelection: "Select an option...",
 };
 
-export const SelectRequired = TemplateSelect.bind({});
+export const SelectWithGroups = TemplateGroups.bind({});
+SelectWithGroups.args = {
+  ...SelectDefault.args,
+  label: "Groups",
+  name: "groups",
+  nullSelection: "Select an option...",
+};
+
+export const SelectRequired = Template.bind({});
 SelectRequired.args = {
   ...SelectDefault.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithInfo = TemplateSelect.bind({});
+export const SelectRequiredWithInfo = Template.bind({});
 SelectRequiredWithInfo.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithError = TemplateSelect.bind({});
+export const SelectRequiredWithError = Template.bind({});
 SelectRequiredWithError.args = {
   ...SelectDefault.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
+export const SelectRequiredWithErrorAndContext = Template.bind({});
 SelectRequiredWithErrorAndContext.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectLabelElement = TemplateSelect.bind({});
+export const SelectLabelElement = Template.bind({});
 SelectLabelElement.args = {
   label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",
-  options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "CBSA" },
-  ],
 };

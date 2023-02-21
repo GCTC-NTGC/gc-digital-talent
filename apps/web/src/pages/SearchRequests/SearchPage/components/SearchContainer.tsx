@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import omit from "lodash/omit";
 
@@ -25,6 +25,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
 
+import { LocationState } from "~/types/searchRequest";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
@@ -386,6 +387,9 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi = () => {
+  const location = useLocation();
+  const state = location.state as LocationState;
+
   const navigate = useNavigate();
   // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
@@ -395,19 +399,29 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-
+  const applicantFilterFromBrowserHistory = state?.applicantFilter;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >();
+  >(
+    applicantFilterFromBrowserHistory || {
+      pools: searchFormData?.publishedPoolAdvertisements,
+    },
+  );
 
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
-    if (searchFormData?.publishedPoolAdvertisements) {
+    if (
+      searchFormData?.publishedPoolAdvertisements &&
+      applicantFilterFromBrowserHistory === undefined
+    ) {
       setApplicantFilter({
         pools: searchFormData?.publishedPoolAdvertisements,
       });
     }
-  }, [searchFormData?.publishedPoolAdvertisements]);
+  }, [
+    searchFormData?.publishedPoolAdvertisements,
+    applicantFilterFromBrowserHistory,
+  ]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
