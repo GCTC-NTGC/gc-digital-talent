@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 
 import WordCounter from "@common/components/WordCounter/WordCounter";
 
-const TEXT_AREA_MAX_WORDS = 400;
+const TEXT_AREA_MAX_WORDS = 200;
 
 interface DescriptionWordCounterProps {
   name: string;
