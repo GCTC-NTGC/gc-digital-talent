@@ -3,8 +3,10 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
-import { fakeDepartments, fakePools } from "../../../fakeData";
-import { getLocalizedName } from "../../../helpers/localize";
+
+import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+
 import Form from "../BasicForm";
 import Select, { OptGroup, Option } from "./Select";
 import type { SelectProps } from ".";
