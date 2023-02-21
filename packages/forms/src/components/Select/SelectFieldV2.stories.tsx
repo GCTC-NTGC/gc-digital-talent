@@ -3,13 +3,15 @@ import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import React from "react";
 import { useIntl } from "react-intl";
-import { getLocalizedName } from "../../../helpers/localize";
+
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   fakeDepartments,
   fakePools,
   fakeSkillFamilies,
   fakeSkills,
-} from "../../../fakeData";
+} from "@gc-digital-talent/fake-data";
+
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import SelectFieldV2, { Option } from "./SelectFieldV2";
