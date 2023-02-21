@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $digitalTalentPool = Pool::where('key', "digital_careers")->first();
+                $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
             })
             ->create();
 
-        $applicant = User::where('email', 'applicant@test.com')->first();
+        $applicant = User::where('sub', 'applicant@test.com')->sole();
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 

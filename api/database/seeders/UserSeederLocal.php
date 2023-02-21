@@ -33,6 +33,7 @@ class UserSeederLocal extends Seeder
             return $r->name == "super_admin";
         });
         $dcmTeam = Team::where('name', 'digital-community-management')->sole();
+        $testTeam = Team::where('name', 'test-team')->sole();
 
         // shared auth users for testing
         User::updateOrCreate([
@@ -44,6 +45,7 @@ class UserSeederLocal extends Seeder
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->syncRoles([$teamAdminRole], $dcmTeam)
+            ->syncRoles([$teamAdminRole], $testTeam)
             ->syncRoles([$baseUserRole, $applicantRole, $superAdminRole], null);
         User::updateOrCreate(
             [
