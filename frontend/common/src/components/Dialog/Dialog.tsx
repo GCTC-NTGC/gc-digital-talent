@@ -155,7 +155,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
   black: {
     "data-h2-background": "base(black)",
-    "data-h2-color": "base(ia-white)",
+    "data-h2-color": "base(white)",
   },
 };
 
