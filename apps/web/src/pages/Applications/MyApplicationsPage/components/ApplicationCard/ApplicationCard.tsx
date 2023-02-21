@@ -2,11 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Heading, { HeadingLevel } from "@common/components/Heading/Heading";
+import Pill from "@common/components/Pill/Pill";
 import { notEmpty } from "@common/helpers/util";
 import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
 import { type PoolCandidate } from "~/api/generated";
 
+import { getPoolCandidateStatus } from "~/../../../frontend/common/src/constants/localizedConstants";
 import ApplicationActions from "./ApplicationActions";
 import type {
   ArchiveActionProps,
@@ -152,6 +154,13 @@ const ApplicationCard = ({
           show={applicationIsDraft && !recruitmentIsExpired}
           application={application}
         />
+        {!applicationIsDraft && (
+          <Pill color="blue" mode="outline">
+            {intl.formatMessage(
+              getPoolCandidateStatus(application.status || ""),
+            )}
+          </Pill>
+        )}
       </div>
     </div>
   );
