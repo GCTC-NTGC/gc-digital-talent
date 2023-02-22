@@ -3,13 +3,9 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
-import SEO from "@common/components/SEO/SEO";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { commonMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { getLocalizedName } from "@common/helpers/localize";
+import { Pending, NotFound } from "@gc-digital-talent/ui";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   Scalars,
@@ -18,6 +14,9 @@ import {
   useGetTeamQuery,
   useUpdateTeamMutation,
 } from "~/api/generated";
+
+import PageHeader from "~/components/PageHeader/PageHeader";
+import SEO from "~/components/SEO/SEO";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
 

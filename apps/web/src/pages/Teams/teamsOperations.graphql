@@ -37,3 +37,27 @@ mutation UpdateTeam($teamId: UUID!, $team: UpdateTeamInput!) {
     id
   }
 }
+
+query ViewTeam($id: UUID!) {
+  team(id: $id) {
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+}

@@ -3,13 +3,10 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
-import { errorMessages } from "@common/messages";
-import { toast } from "@common/components/Toast";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getJobLookingStatus } from "@common/constants/localizedConstants";
-import { BasicForm, RadioGroup } from "@common/components/form";
-import Pending from "@common/components/Pending";
-import { ThrowNotFound } from "@common/components/NotFound";
+import { errorMessages, getJobLookingStatus } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { enumToOptions, BasicForm, RadioGroup } from "@gc-digital-talent/forms";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {

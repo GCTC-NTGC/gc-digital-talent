@@ -3,8 +3,8 @@
 We use a framework called Cypress to run end-to-end tests against an actual
 version of the website running in the browser. (Chrome, Firefox, or Edge)
 
-:gear: Configuration: [`frontend/cypress.json`][]  
-:open_file_folder: Folder: [`frontend/cypress/`][]  
+:gear: Configuration: [`apps/e2e/cypress.config.js`][]  
+:open_file_folder: Folder: [`apps/e2e/`][]  
 :cloud: CI workflow: [config][e2e-config] | [run logs][e2e-runs]
 
 ![](https://i.imgur.com/t3p6Alo.png)
@@ -47,7 +47,7 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
 
 ## Plugins and Helpers
 
-### [`frontend/cypress/support/graphql-test-utils.js`](/frontend/cypress/support/graphql-test-utils.js)
+### [`apps/e2e/support/graphql-test-utils.js`](/apps/e2e/support/graphql-test-utils.js)
 
 See the official Cypress docs: [Working with GraphQL](https://docs.cypress.io/guides/testing-strategies/working-with-graphql)
 
@@ -71,7 +71,7 @@ See official documentation linked above for examples.
 
 These commands exist via NPM scripts:
 
-(Type `npm run` in `frontend/` to list all commands.)
+(Type `npm run` in `/` to list all commands.)
 
 ### `npm run e2e:open`
 
@@ -137,7 +137,7 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
   - [`cypress/support/index.js`][]: for things that need to run before each test or test file (auto-loaded)
   - [`cypress/support/commands.js`][]: for **custom commands** ([official docs][command-docs]) (auto-loaded)
   - [`cypress/support/graphql-test-utils.js`][]: an example util file imported in specific test files.
-- [`frontend/cypress/integration/`][]: for writing our tests
+- [`apps/e2e/cypress/integration/`][]: for writing our tests
   - try to keep tests in folder according to actual app. if tests must
     straddle, consider keeping them in the root test directory
   - helper functions (e.g., `onDashboard(() => { ... })`)
@@ -158,7 +158,7 @@ See: https://docs.cypress.io/guides/guides/web-security
     - `www.example.com` vs `auth.example.com` (this is ok)
   - general work-arounds
     - using `cy.request()` instead of `cy.visit()`
-    - set `chromeWebSecurity:false` in `cypress.json` (still has caveats, and
+    - set `chromeWebSecurity:false` in `cypress.config.js` (still has caveats, and
       mitigation only works for Chrome browser)
       - with the above change, our Laravel API app will unfortunately become
         suspicious of Cypress, and its default security policies cause other
@@ -172,13 +172,13 @@ See: https://docs.cypress.io/guides/guides/web-security
     thing', () => { ... })` and add comment with `chromeWebSecurity:false`
 
 <!-- Links -->
-   [`cypress/support/index.js`]: /frontend/cypress/support/index.js
-   [`cypress/support/commands.js`]: /frontend/cypress/support/commands.js
-   [`cypress/support/graphql-test-utils.js`]: /frontend/cypress/support/graphql-test-utils.js
-   [`frontend/cypress/integration/`]: /frontend/cypress/integration/
+   [`cypress/support/index.js`]: /apps/e2e/cypress/support/index.js
+   [`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
+   [`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
+   [`apps/e2e/cypress/integration/`]: /apps/e2e/cypress/integration/
    [`frontend/.apache_env`]: /frontend/.apache_env
    [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
-   [`frontend/cypress/`]: /frontend/cypress/
-   [`frontend/cypress.json`]: /frontend/cypress.json
+   [`apps/e2e/`]: /apps/e2e/
+   [`apps/e2e/cypress.config.js`]: /apps/e2e/cypress.config.js
    [e2e-config]: /.github/workflows/e2e-tests.yml
    [e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml

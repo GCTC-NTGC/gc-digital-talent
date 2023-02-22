@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { SignAndSubmitForm } from "./SignAndSubmitPage";
 
 export default {

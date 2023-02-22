@@ -3,11 +3,12 @@ import { useIntl } from "react-intl";
 import { useFormContext, SubmitHandler } from "react-hook-form";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 
-import Dialog from "@common/components/Dialog";
-import { Button } from "@common/components";
-import { BasicForm } from "@common/components/form";
-import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import { Button, Dialog } from "@gc-digital-talent/ui";
+import {
+  BasicForm,
+  SelectFieldV2,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
 import { ButtonIcon } from "~/components/Table/ClientManagedTable/tableComponents";

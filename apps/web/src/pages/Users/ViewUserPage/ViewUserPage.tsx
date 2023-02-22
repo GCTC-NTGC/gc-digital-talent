@@ -3,19 +3,20 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import PageHeader from "@common/components/PageHeader";
-import Tabs from "@common/components/Tabs";
-import { commonMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Heading from "@common/components/Heading";
-import UserProfile from "@common/components/UserProfile";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
-import SEO from "@common/components/SEO/SEO";
-import { notEmpty } from "@common/helpers/util";
+import {
+  AdminBreadcrumbs,
+  Pending,
+  NotFound,
+  Heading,
+  Tabs,
+} from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
+import UserProfile from "~/components/UserProfile";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Applicant,
@@ -45,25 +46,26 @@ export const ViewUser: React.FC<ViewUserProps> = ({ user, pools }) => {
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Home",
         id: "YtEDfa",
         description: "Breadcrumb title for the home link.",
       }),
-      href: paths.home(),
+      url: paths.home(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Users",
         id: "eMXL0K",
         description: "Breadcrumb title for the all users table link.",
       }),
-      href: paths.userTable(),
+      url: paths.userTable(),
     },
     {
-      title: getFullNameHtml(user.firstName, user.lastName, intl),
+      label: getFullNameHtml(user.firstName, user.lastName, intl),
+      url: paths.userView(user.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   const tabs = [
     intl.formatMessage({
@@ -81,7 +83,7 @@ export const ViewUser: React.FC<ViewUserProps> = ({ user, pools }) => {
   return (
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
-      <Breadcrumbs links={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, x1, 0)">
         <div data-h2-flex-grid="base(center, x1)">
           <div data-h2-flex-item="base(1of1) p-tablet(fill)">

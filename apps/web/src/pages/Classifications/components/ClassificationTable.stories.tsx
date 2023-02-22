@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import fakeClassifications from "@common/fakeData/fakeClassifications";
+import { fakeClassifications } from "@gc-digital-talent/fake-data";
 
 import { ClassificationTable } from "./ClassificationTable";
 

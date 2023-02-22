@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { fakePoolAdvertisements } from "@common/fakeData";
+import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
 import { PoolAdvertisement } from "~/api/generated";
 import PoolCard from "./PoolCard";
 

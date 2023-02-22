@@ -5,18 +5,23 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 
-import { toast } from "@common/components/Toast";
-import { Submit, Input, TextArea } from "@common/components/form";
-import { notEmpty } from "@common/helpers/util";
-import { getLocale } from "@common/helpers/localize";
-import { unpackIds } from "@common/helpers/formUtils";
-import { errorMessages, commonMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Submit,
+  Input,
+  TextArea,
+  unpackIds,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  getLocale,
+  errorMessages,
+  commonMessages,
+} from "@gc-digital-talent/i18n";
+import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import SEO from "~/components/SEO/SEO";
 import {
   Skill,
   SkillFamily,

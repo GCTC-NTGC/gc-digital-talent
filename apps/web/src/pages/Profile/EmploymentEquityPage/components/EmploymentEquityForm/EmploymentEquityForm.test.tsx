@@ -2,11 +2,10 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor, act } from "@testing-library/react";
 import React from "react";
-import { fakeUsers } from "@common/fakeData";
-import { act } from "react-dom/test-utils";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
@@ -20,7 +19,7 @@ const renderDiversityEquityInclusionForm = ({
   onUpdate,
   isMutating,
 }: EmploymentEquityFormProps) =>
-  render(
+  renderWithProviders(
     <EmploymentEquityForm
       user={user}
       onUpdate={onUpdate}
