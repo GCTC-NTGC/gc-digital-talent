@@ -1,3 +1,8 @@
 {
   "extends": "tsconfig/e2e.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["."],
+  "exclude": []
 }
