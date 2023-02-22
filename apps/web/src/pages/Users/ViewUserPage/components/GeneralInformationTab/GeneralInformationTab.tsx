@@ -312,7 +312,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   return (
     <>
-      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
+      <Heading level="h4" size="h2" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Personal status",
           id: "4N6O+3",

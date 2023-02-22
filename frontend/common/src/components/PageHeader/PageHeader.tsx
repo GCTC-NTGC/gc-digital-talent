@@ -18,7 +18,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   if (subtitle) {
     return (
       <>
-        <Heading level="h1" {...rest}>
+        <Heading level="h1" size="h2" {...rest}>
           {Icon && (
             <Icon
               className="page-header__icon"
