@@ -346,7 +346,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
               "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
           })}
       </Well>
-      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
+      <Heading level="h4" size="h2" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",
           id: "hIaETV",
