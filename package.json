@@ -28,7 +28,7 @@
     "clean": "turbo run clean",
     "intl-extract": "npm run intl-extract --workspaces --if-present",
     "intl-compile": "npm run intl-compile --workspaces --if-present",
-    "dev": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
+    "dev": "turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",

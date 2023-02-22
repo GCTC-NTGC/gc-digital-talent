@@ -2,6 +2,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "intl-compile", "codegen"],
+      "inputs": ["src/**"],
       "outputs": ["dist/**"]
     },
     "build:css": {
@@ -11,7 +12,8 @@
       "outputs": ["src/api/generated.ts", "src/index.ts"]
     },
     "dev": {
-      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
+      "dependsOn": ["build:css", "intl-compile", "codegen"],
+      "inputs": ["src/**"],
       "outputs": ["dist/**"]
     },
     "watch": {

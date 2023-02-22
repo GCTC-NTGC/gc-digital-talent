@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc --declaration",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsc -w --declaration",
+    "dev": "tsc --declaration",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
