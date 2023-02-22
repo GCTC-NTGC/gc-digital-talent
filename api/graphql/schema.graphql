@@ -526,7 +526,7 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
-  roleAssignments: [RoleAssignment!] @hasMany
+  roleAssignments: [RoleAssignment!] @hasMany @canOnParent(ability: "viewAnyTeamMembers")
 }
 
 type Role {
@@ -535,7 +535,7 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
-  roleAssignments: [RoleAssignment!] @hasMany
+  roleAssignments: [RoleAssignment!] @hasMany @can(ability: "viewAnyTeamMembers", model: "Team")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship

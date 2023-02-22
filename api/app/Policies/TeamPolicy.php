@@ -68,4 +68,19 @@ class TeamPolicy
         }
         return false;
     }
+
+    /**
+     * Determine whether the user can view the members of a team.
+     * Likely to be updated later to allow the team admin and teammates to view their own team
+     *
+     * @param  \App\Models\User|null  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyTeamMembers(User $user = null)
+    {
+        if ($user) {
+            return $user->isAdmin();
+        }
+        return false;
+    }
 }
