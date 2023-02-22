@@ -131,13 +131,7 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
-
-  # teams and roles: built-in
-  roles: [Role!] @morphToMany
-  rolesTeams: [Team!] @morphToMany
-  permissionsTeams: [Permission!] @morphToMany
-  permissions: [Permission!] @morphToMany
-  # teams and roles: custom pivot model
+  # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
 }
 
@@ -532,9 +526,6 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
-  # teams and roles: built-in
-  users: [UserPublicProfile!] @morphToMany
-  # teams and roles: custom pivot model
   roleAssignments: [RoleAssignment!] @hasMany
 }
 
@@ -544,10 +535,6 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
-  # teams and roles: built-in
-  users: [UserPublicProfile!] @morphToMany
-  permissions: [Permission!] @belongsToMany
-  # teams and roles: custom pivot model
   roleAssignments: [RoleAssignment!] @hasMany
 }
 
@@ -557,11 +544,6 @@ type RoleAssignment {
   role: Role @belongsTo
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
-}
-
-# stub for Laratrust
-type Permission {
-  id: ID!
 }
 
 enum PoolCandidateSearchStatus {

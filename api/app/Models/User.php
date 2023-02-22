@@ -137,14 +137,6 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(WorkExperience::class);
     }
-
-    /* The LaratrustUserTrait comes with some built-in relationships
-    * - roles
-    * - rolesTeams
-    * - permissionsTeams
-    * - permissions
-    */
-
     // A relationship to the custom roleAssignments pivot model
     public function roleAssignments(): HasMany
     {

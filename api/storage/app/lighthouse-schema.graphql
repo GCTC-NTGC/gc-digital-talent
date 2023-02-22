@@ -741,10 +741,6 @@ type PaginatorInfo {
   total: Int!
 }
 
-type Permission {
-  id: ID!
-}
-
 type PersonalExperience implements Experience {
   id: ID!
   applicant: Applicant!
@@ -1087,8 +1083,6 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
-  users: [UserPublicProfile!]
-  permissions: [Permission!]
   roleAssignments: [RoleAssignment!]
 }
 
@@ -1259,7 +1253,6 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
-  users: [UserPublicProfile!]
   roleAssignments: [RoleAssignment!]
 }
 
@@ -1524,10 +1517,6 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
-  roles: [Role!]
-  rolesTeams: [Team!]
-  permissionsTeams: [Permission!]
-  permissions: [Permission!]
   roleAssignments: [RoleAssignment!]
 }
 

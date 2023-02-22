@@ -48,12 +48,6 @@ class Team extends LaratrustTeam
         return $this->hasMany(Pool::class);
     }
 
-    public function users(): MorphToMany
-    {
-        // from LaratrustTeamTrait
-        return $this->getMorphByUserRelation('users');
-    }
-
     // A relationship to the custom roleAssignments pivot model
     public function roleAssignments(): HasMany
     {
