@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-import WordCounter from "@common/components/WordCounter/WordCounter";
+import { WordCounter } from "@gc-digital-talent/forms";
 
 const TEXT_AREA_MAX_WORDS = 200;
 

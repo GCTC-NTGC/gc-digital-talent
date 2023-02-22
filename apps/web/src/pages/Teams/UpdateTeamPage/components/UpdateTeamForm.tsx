@@ -4,14 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 
-import { BasicForm, Input, Submit, TextArea } from "@common/components/form";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
-import { unpackIds } from "@common/helpers/formUtils";
-import { toast } from "@common/components/Toast";
-import { errorMessages } from "@common/messages";
-import { getLocalizedName } from "@common/helpers/localize";
-import { Link } from "@common/components";
-import { notEmpty } from "@common/helpers/util";
+import {
+  BasicForm,
+  Input,
+  Submit,
+  TextArea,
+  MultiSelectField,
+  unpackIds,
+} from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   Scalars,
