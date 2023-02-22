@@ -4,20 +4,18 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
-import { toast } from "@common/components/Toast";
-import { Select, Submit } from "@common/components/form";
-import { unpackMaybes } from "@common/helpers/formUtils";
-import { errorMessages, commonMessages } from "@common/messages";
-import { getGenericJobTitlesWithClassification } from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import PageHeader from "@common/components/PageHeader/PageHeader";
-import Breadcrumbs, {
-  BreadcrumbsProps,
-} from "@common/components/Breadcrumbs/Breadcrumbs";
-import Link from "@common/components/Link/Link";
-import SEO from "@common/components/SEO/SEO";
-import { getLocalizedName } from "@common/helpers/localize";
+import { toast } from "@gc-digital-talent/toast";
+import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
+import {
+  errorMessages,
+  commonMessages,
+  getGenericJobTitlesWithClassification,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { Pending, AdminBreadcrumbs, Link } from "@gc-digital-talent/ui";
 
+import PageHeader from "~/components/PageHeader/PageHeader";
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   CreatePoolAdvertisementInput,
@@ -102,21 +100,22 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "My Pools",
         id: "7N+tQw",
         description: "Breadcrumb title for the pools page link.",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: `New Pool`,
         id: "iQzlmB",
         description: "New pool breadcrumb text",
       }),
+      url: paths.poolCreate(),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   // NOTICE NOTICE NOTICE NOTICE NOTICE
   // how the CreatePool will function, in example, Generic Job Classifications vs regular Classifications is undecided so code segments are left in despite being unused
@@ -151,7 +150,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
-      <Breadcrumbs links={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

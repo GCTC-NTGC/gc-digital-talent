@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs/v2";
+import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "./useRoutes";
 

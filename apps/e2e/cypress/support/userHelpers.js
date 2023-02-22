@@ -4,14 +4,14 @@ import {
   ProvinceOrTerritory,
   WorkRegion,
 } from "@gc-digital-talent/web/src/api/generated";
-import { FAR_PAST_DATE } from "@gc-digital-talent/common/src/helpers/dateUtils"
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers"
 import {
   JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
   PositionDuration,
   LegacyRole,
-} from "@gc-digital-talent/common/src/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 
 export function createApplicant({
   email,

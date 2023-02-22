@@ -1,14 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Heading, { HeadingLevel } from "@common/components/Heading/Heading";
-import Pill from "@common/components/Pill/Pill";
-import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Heading, HeadingLevel, Pill } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getPoolCandidateStatus,
+} from "@gc-digital-talent/i18n";
 
 import { type PoolCandidate } from "~/api/generated";
 
-import { getPoolCandidateStatus } from "~/../../../frontend/common/src/constants/localizedConstants";
 import ApplicationActions from "./ApplicationActions";
 import type {
   ArchiveActionProps,

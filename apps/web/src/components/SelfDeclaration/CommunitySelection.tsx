@@ -2,14 +2,10 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { RadioGroup } from "@common/components/form";
-import { FieldLabels } from "@common/components/form/BasicForm";
-import { Alert } from "@common/components";
-import Tabs from "@common/components/Tabs/Tabs";
-import Chip, { Chips } from "@common/components/Chip";
-import errorMessages from "@common/messages/errorMessages";
-import commonMessages from "@common/messages/commonMessages";
-import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
+import { RadioGroup, FieldLabels } from "@gc-digital-talent/forms";
+import { Alert, Chip, Chips, Tabs } from "@gc-digital-talent/ui";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import HelpLink from "./HelpLink";
 import CommunityCheckbox from "./CommunityCheckbox";

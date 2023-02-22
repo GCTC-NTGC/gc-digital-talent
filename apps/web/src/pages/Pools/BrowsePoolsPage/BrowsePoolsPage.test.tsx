@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { screen, act } from "@testing-library/react";
 import React from "react";
 
-import { axeTest, render } from "@common/helpers/testUtils";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import {
   AdvertisementStatus,
@@ -40,7 +40,7 @@ const publishedExecJobsPool: PoolAdvertisement = {
 };
 
 const renderBrowsePoolsPage = ({ poolAdvertisements }: BrowsePoolsProps) =>
-  render(<BrowsePools poolAdvertisements={poolAdvertisements} />);
+  renderWithProviders(<BrowsePools poolAdvertisements={poolAdvertisements} />);
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {

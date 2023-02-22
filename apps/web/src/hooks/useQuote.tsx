@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+
+import { wrapAbbr } from "~/utils/nameUtils";
 
 export interface Quote {
   content: React.ReactNode | string;

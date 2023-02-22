@@ -2,8 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
 import {
   User,

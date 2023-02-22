@@ -1,7 +1,8 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakePoolCandidates } from "@common/fakeData";
+
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
 import { UpdatePoolCandidateAsAdminInput } from "~/api/generated";
 import { ApplicationStatusForm } from "./ApplicationStatusForm";

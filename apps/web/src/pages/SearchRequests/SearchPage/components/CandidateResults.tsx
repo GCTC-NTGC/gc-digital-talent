@@ -1,9 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Button from "@common/components/Button/Button";
-import Heading from "@common/components/Heading/Heading";
-import Separator from "@common/components/Separator/Separator";
+import { Button, Heading, Separator } from "@gc-digital-talent/ui";
 
 import { SimpleClassification } from "~/types/pool";
 import SearchPools, { type SearchPoolsProps } from "./SearchPools";
