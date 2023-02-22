@@ -27,6 +27,7 @@ return [
         'delete' => 'delete',
         'assign' => 'assign',
         'archive' => 'archive',
+        'suspend' => 'suspend',
         'submit' => 'submit',
         'publish' => 'publish'
     ],
@@ -182,6 +183,10 @@ return [
             'en' => 'View Pools in this Team',
             'fr' => 'Voir les bassins de cette équipe'
         ],
+        'view-any-pool' => [
+            'en' => 'View any Pool, published or not',
+            'fr' => 'Voir n\'importe quel bassin, publié ou non'
+        ],
         'view-any-publishedPoolAdvertisement' => [
             'en' => 'View Any Published Pool Advertisement',
             'fr' => 'Visionner toute annonce publiée dans un bassin'
@@ -197,6 +202,10 @@ return [
         'publish-team-pool' => [
             'en' => 'Publish Pools in this Team',
             'fr' => 'Publier des bassins dans cette équipe'
+        ],
+        'publish-any-pool' => [
+            'en' => 'Publish any draft Pool',
+            'fr' => 'Publier n\'import quel bassin'
         ],
         'update-team-poolClosingDate' => [
             'en' => 'Update the closing date of published Pools in this Team',
@@ -215,9 +224,17 @@ return [
             'en' => 'View Applications submitted to any of this Team\'s Pools',
             'fr' => 'Voir les candidatures soumises à n\'importe quel bassin de cette équipe.'
         ],
+        'view-any-submittedApplication' => [
+            'en' => 'View any submitted Applications',
+            'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.'
+        ],
         'view-team-applicantProfile' => [
             'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
             'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
+        ],
+        'view-any-applicantProfile' => [
+            'en' => 'View the Profile of any user accepted into any Pool',
+            'fr' => 'Voir le profil de n\'import quel utilisateur accepté dans n\'import quel bassin.'
         ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
@@ -238,6 +255,15 @@ return [
         'archive-own-submittedApplication' => [
             'en' => 'Archive Own Submitted Application',
             'fr' => 'Archiver sa propre candidature présentée'
+        ],
+        'suspend-own-submittedApplication' => [
+            'en' => 'Suspend or un-suspend Own Submitted Application',
+            'fr' => 'Suspendre ou débloquer sa propre candidature présentée'
+        ],
+
+        'create-any-application' => [
+            'en' => 'Add any user to any Pool, skipping the draft and submission process',
+            'fr' => 'Ajoutez n\'importe quel utilisateur à n\'importe quel pool, en sautant le processus de rédaction et de soumission.'
         ],
 
         'view-any-applicantCount' => [
@@ -260,6 +286,18 @@ return [
         'delete-team-searchRequest' => [
             'en' => 'Delete SearchRequests submitted to this Team',
             'fr' => 'Supprimer une demande de recherche d’équipe'
+        ],
+        'view-any-searchRequest' => [
+            'en' => 'View any SearchRequests',
+            'fr' => 'Voir n\'import quelles demandes de recherche'
+        ],
+        'update-any-searchRequest' => [
+            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+            'fr' => 'Mettre à jour les notes ou le statut de n\'import quelle demande de recherche'
+        ],
+        'delete-any-searchRequest' => [
+            'en' => 'Delete SearchRequests submitted to this Team',
+            'fr' => 'Supprimer n\'import quelle demande de recherche'
         ],
 
         'view-any-team' => [
@@ -304,8 +342,8 @@ return [
             'fr' => 'Attribuer les rôles associés à cette équipe à tout utilisateur'
         ],
         'update-any-role' => [
-            'en' => 'Update Any Role',
-            'fr' => 'Mettre à jour tout rôle'
+            'en' => 'Update metadata associated with any Role',
+            'fr' => 'Mettre à jour des métadonnées associées à tout rôle'
         ],
     ],
 
@@ -359,26 +397,38 @@ return [
             'is_team_based' => false,
         ],
 
-        'team_admin' => [
+        'pool_operator' => [
             'display_name' => [
-                'en' => 'Team Admin',
-                'fr' => 'Administrateur de l’équipe'
+                'en' => 'Pool Operator',
+                'fr' => 'Opérateur de bassin'
             ],
             'description' => [
-                'en' => 'Can update their Team, add users to their Team, process applications, process requests and work on and publish pools',
-                'fr' => 'Peut mettre à jour son équipe, ajouter des utilisateurs à son équipe, traiter les candidatures, traiter les demandes et travailler aux bassins et les publier.'
+                'en' => 'Runs hiring process by creating Pools (which must be published by other roles) and and screening-in/out applicants.',
+                'fr' => 'Gère le processus de recrutement en créant des bassins (qui doivent être publiés par d\'autres rôles) et en filtrant les candidats.'
             ],
             'is_team_based' => true,
         ],
 
-        'super_admin' => [
+        'request_responder' => [
             'display_name' => [
-                'en' => 'Super Admin',
-                'fr' => 'Super administrateur'
+                'en' => 'Request Responder',
+                'fr' => 'Répondant aux demandes'
             ],
             'description' => [
-                'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), manages lists of business data, and has the extraordinary ability to edit or delete other users.',
-                'fr' => 'Crée des équipes, attribue des rôles à d’autres utilisateurs (y compris l’attribution d’utilisateurs à des organisations), gère des listes de données opérationnelles et a la capacité extraordinaire de modifier ou de supprimer d’autres utilisateurs.'
+                'en' => 'Responsible for responding to all talent requests, regardless of Team/Department. This requires viewing all published pools, and the applicants who have been qualified within them.',
+                'fr' => 'Responsable de la réponse à toutes les demandes de talents, quelle que soit l\'équipe ou le département. Pour cela, il faut consulter tous les bassins publiés et les candidats qui ont été qualifiés dedans.'
+            ],
+            'is_team_based' => false,
+        ],
+
+        'platform_admin' => [
+            'display_name' => [
+                'en' => 'Platform Administrator',
+                'fr' => 'administrateur de plateforme'
+            ],
+            'description' => [
+                'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
+                'fr' => 'Crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), publie des pools, gère des données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.'
             ],
             'is_team_based' => false,
         ],
@@ -424,6 +474,9 @@ return [
             'team' => [
                 'any' => ['view']
             ],
+            'role' => [
+                'any' => ['view']
+            ],
         ],
 
         'base_user' => [
@@ -454,6 +507,9 @@ return [
             'team' => [
                 'any' => ['view']
             ],
+            'role' => [
+                'any' => ['view']
+            ],
         ],
 
         'applicant' => [
@@ -464,16 +520,13 @@ return [
                 'own' => ['create', 'delete']
             ],
             'submittedApplication' => [
-                'own' => ['archive']
+                'own' => ['archive', 'suspend']
             ]
         ],
 
-        'team_admin' => [
-            'userBasicInfo' => [
-                'any' => ['view']
-            ],
+        'pool_operator' => [
             'pool' => [
-                'team' => ['view', 'create', 'publish']
+                'team' => ['view', 'create']
             ],
             'draftPool' => [
                 'team' => ['update', 'delete']
@@ -490,22 +543,27 @@ return [
             'applicationStatus' => [
                 'team' => ['update']
             ],
-            'searchRequest' => [
-                'team' => ['view', 'update', 'delete']
-            ],
             'teamMembers' => [
                 'team' => ['view']
             ],
-            'team' => [
-                'team' => ['update']
-            ],
             'role' => [
                 'any' => ['view'],
-                'team' => ['assign'],
             ],
         ],
 
-        'super_admin' => [
+        'request_responder' => [
+            'submittedApplication' => [
+                'any' => ['view'],
+            ],
+            'applicantProfile' => [
+                'any' => ['view'],
+            ],
+            'searchRequest' => [
+                'any' => ['view', 'update', 'delete']
+            ],
+        ],
+
+        'platform_admin' => [
             'classification' => [
                 'any' => ['create', 'update', 'delete']
             ],
@@ -524,6 +582,12 @@ return [
             'userBasicInfo' => [
                 'any' => ['view']
             ],
+            'pool' => [
+                'any' => ['view', 'publish']
+            ],
+            'application' => [
+                'any' => ['create']
+            ],
             'teamMembers' => [
                 'any' => ['view']
             ],
@@ -531,7 +595,7 @@ return [
                 'any' => ['create', 'update', 'delete']
             ],
             'role' => [
-                'any' => ['view', 'assign', 'update']
+                'any' => ['view', 'assign']
             ]
         ]
     ]

@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import SkillPicker from "@common/components/SkillPicker";
-import { notEmpty } from "@common/helpers/util";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import SkillPicker from "~/components/SkillPicker";
 import { Skill } from "~/api/generated";
 
 export interface AddSkillsToFilterProps {

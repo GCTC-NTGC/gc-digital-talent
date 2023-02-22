@@ -2,16 +2,18 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
-import { Link } from "@common/components";
-import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import TableOfContents from "@common/components/TableOfContents";
-import { notEmpty } from "@common/helpers/util";
-import SEO from "@common/components/SEO/SEO";
-import { useLogger } from "@common/hooks/useLogger";
+import {
+  NotFound,
+  Pending,
+  Link,
+  AdminBreadcrumbs,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { useLogger } from "@gc-digital-talent/logger";
 
+import SEO from "~/components/SEO/SEO";
 import {
   PoolAdvertisement,
   Scalars,
@@ -86,23 +88,23 @@ export const EditPoolForm = ({
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Home",
         id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
-      href: paths.admin(),
+      url: paths.admin(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Pools",
         id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title: intl.formatMessage(
+      label: intl.formatMessage(
         {
           defaultMessage: `Pool ID #{id}`,
           id: "fp7Nll",
@@ -110,16 +112,17 @@ export const EditPoolForm = ({
         },
         { id: poolAdvertisement.id },
       ),
-      href: paths.poolView(poolAdvertisement.id),
+      url: paths.poolView(poolAdvertisement.id),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: `Edit Pool`,
         id: "Hn6YgE",
         description: "Edit pool breadcrumb text",
       }),
+      url: paths.poolUpdate(poolAdvertisement.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   const sectionMetadata = {
     poolName: {
@@ -197,7 +200,7 @@ export const EditPoolForm = ({
           description: "Page title for the edit pool page",
         })}
       />
-      <Breadcrumbs links={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>

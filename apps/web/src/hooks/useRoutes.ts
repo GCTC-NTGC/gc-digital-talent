@@ -1,7 +1,6 @@
 import path from "path-browserify";
 
-import useLocale from "@common/hooks/useLocale";
-import { Locales } from "@common/helpers/localize";
+import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 

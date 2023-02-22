@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { GenericJobTitleKey } from "@common/api/generated";
+import { GenericJobTitleKey } from "~/api/generated";
 
 import RoleSalaryForm from "./RoleSalaryForm";
 

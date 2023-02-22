@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "files": [
+    "app.json",
     "base.json",
-    "e2e.json"
+    "e2e.json",
+    "lib.json"
   ]
 }

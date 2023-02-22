@@ -1,9 +1,12 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { fakePoolCandidates } from "@common/fakeData";
-import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
 import { action } from "@storybook/addon-actions";
+
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+
 import { PoolCandidateStatus } from "~/api/generated";
+
 import { ApplicationCardComponent } from "./ApplicationCard";
 
 type Story = ComponentStory<typeof ApplicationCardComponent>;

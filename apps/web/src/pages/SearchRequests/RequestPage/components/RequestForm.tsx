@@ -3,24 +3,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import SEO from "@common/components/SEO/SEO";
-import { Input, Select, Submit, TextArea } from "@common/components/form";
-import { Link } from "@common/components";
-import { errorMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { toast } from "@common/components/Toast";
-import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
+import {
+  Input,
+  Select,
+  Submit,
+  TextArea,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms";
+import { Link, Pending } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
   setInSessionStorage,
-} from "@common/helpers/storageUtils";
-import { EquitySelections } from "@common/api/generated";
-import Pending from "@common/components/Pending";
-import { objectsToSortedOptions } from "@common/helpers/formUtils";
+} from "@gc-digital-talent/storage";
 
+import SEO from "~/components/SEO/SEO";
+import { SearchRequestFilters } from "~/components/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import {
+  EquitySelections,
   Department,
   CreatePoolCandidateSearchRequestInput,
   useGetPoolCandidateSearchRequestDataQuery,
@@ -89,7 +93,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   classifications,
   applicantFilter,
   candidateCount,
-  searchFormInitialValues,
   selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
 }) => {
@@ -402,7 +405,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 href={paths.search()}
                 state={{
                   ...state,
-                  initialValues: searchFormInitialValues,
                 }}
               >
                 {intl.formatMessage({

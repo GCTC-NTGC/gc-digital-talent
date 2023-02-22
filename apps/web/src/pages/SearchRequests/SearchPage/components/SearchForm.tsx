@@ -4,18 +4,23 @@ import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import { useLocation } from "react-router-dom";
 
-import { Checklist, RadioGroup, Select } from "@common/components/form";
-import { getLanguageAbility } from "@common/constants";
 import {
+  Checklist,
+  RadioGroup,
+  Select,
+  MultiSelectField,
+  enumToOptions,
+  unpackMaybes,
+} from "@gc-digital-talent/forms";
+import {
+  getLanguageAbility,
   getEmploymentEquityGroup,
   getWorkRegion,
   EmploymentDuration,
   getPoolStream,
-} from "@common/constants/localizedConstants";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
-import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import errorMessages from "@common/messages/errorMessages";
-import { hasKey, notEmpty } from "@common/helpers/util";
+  errorMessages,
+} from "@gc-digital-talent/i18n";
+import { hasKey, notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   LanguageAbility,
@@ -24,6 +29,7 @@ import {
   PoolStream,
   Skill,
   PositionDuration,
+  Maybe,
 } from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import { poolMatchesClassification } from "~/utils/poolUtils";
@@ -37,6 +43,53 @@ import {
 import AdvancedFilters from "./AdvancedFilters";
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import FilterBlock from "./FilterBlock";
+
+const positionDurationToEmploymentDuration = (
+  durations: Maybe<PositionDuration>[],
+): string => {
+  if (durations && durations.includes(PositionDuration.Temporary)) {
+    return EmploymentDuration.Term;
+  }
+  return EmploymentDuration.Indeterminate;
+};
+
+const dataToFormValues = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+  pools?: SimplePool[],
+): FormValues => {
+  const dataPoolsSafe = data.pools ? data.pools : [];
+  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+
+  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
+  return {
+    classification: selectedClassifications
+      ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
+      : "",
+    languageAbility: data?.languageAbility
+      ? data?.languageAbility
+      : "NULL_SELECTION",
+    employmentEquity: data.equity
+      ? [
+          ...(data.equity.hasDisability ? ["hasDisability"] : []),
+          ...(data.equity.isIndigenous ? ["isIndigenous"] : []),
+          ...(data.equity.isVisibleMinority ? ["isVisibleMinority"] : []),
+          ...(data.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
+    skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    stream: dataPoolsSafe[0]
+      ? poolMap.get(dataPoolsSafe[0].id)?.stream || ""
+      : "",
+    locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirements:
+      data.operationalRequirements?.filter(notEmpty) ?? [],
+    employmentDuration: data.positionDuration
+      ? positionDurationToEmploymentDuration(data.positionDuration)
+      : "",
+  };
+};
 
 function mapObjectsByKey<T>(
   keyFunction: (t: T) => string,
@@ -139,11 +192,16 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
     const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state ? state.initialValues : {}),
+      () => (state ? state.applicantFilter : {}),
       [state],
     );
+
     const methods = useForm<FormValues>({
-      defaultValues: initialValues,
+      defaultValues: dataToFormValues(
+        initialValues ?? {},
+        state?.selectedClassifications,
+        pools,
+      ),
       mode: "onChange",
       reValidateMode: "onChange",
     });
@@ -156,10 +214,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       }),
       [trigger],
     );
-
-    React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues || {});
-    }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
@@ -298,19 +352,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Placeholder for classification filter in search form.",
               })}
               name="classification"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a classification",
-                    id: "HHEQgM",
-                    description:
-                      "Placeholder for classification filter in search form.",
-                  }),
-                },
-                ...classificationOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a classification",
+                id: "HHEQgM",
+                description:
+                  "Placeholder for classification filter in search form.",
+              })}
+              options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -329,19 +377,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Placeholder for stream filter in search form.",
               })}
               name="stream"
-              options={[
-                {
-                  value: "",
-                  disabled: true,
-                  label: intl.formatMessage({
-                    defaultMessage: "Select a job stream",
-                    id: "QJ5uDV",
-                    description:
-                      "Placeholder for stream filter in search form.",
-                  }),
-                },
-                ...streamOptions,
-              ]}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a job stream",
+                id: "QJ5uDV",
+                description: "Placeholder for stream filter in search form.",
+              })}
+              options={streamOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -374,7 +415,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   "Legend for the Working Language Ability radio buttons",
               })}
               name="languageAbility"
-              defaultSelected={NullSelection}
               items={[
                 {
                   value: NullSelection,

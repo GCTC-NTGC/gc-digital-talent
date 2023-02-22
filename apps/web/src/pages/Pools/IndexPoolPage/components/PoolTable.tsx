@@ -1,20 +1,19 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { Link, Pill } from "@common/components";
-import { notEmpty } from "@common/helpers/util";
-import { getLocale } from "@common/helpers/localize";
-import { FromArray } from "@common/types/utilityTypes";
-import Pending from "@common/components/Pending";
+import { Link, Pill, Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   getAdvertisementStatus,
   getPoolStream,
-} from "@common/constants/localizedConstants";
-import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullNameHtml, wrapAbbr } from "@common/helpers/nameUtils";
+  getLocale,
+  commonMessages,
+} from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,

@@ -2,7 +2,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@common/helpers/dateUtils";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
+
 import ApplicationPageWrapper from "./ApplicationPageWrapper";
 
 type ApplicationPageWrapperComponent = typeof ApplicationPageWrapper;

@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { Heading } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import Heading from "@common/components/Heading";
-import { getLocale } from "@common/helpers/localize";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import Block from "./Block";
 
 // Create the page component

@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import fakeTeams from "@common/fakeData/fakeTeams";
+
+import { fakeTeams } from "@gc-digital-talent/fake-data";
+
 import ViewTeam from "./ViewTeam";
 
 const mockTeams = fakeTeams();

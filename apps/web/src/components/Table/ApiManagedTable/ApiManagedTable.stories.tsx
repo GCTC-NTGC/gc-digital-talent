@@ -2,10 +2,10 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { FromArray } from "@common/types/utilityTypes";
-import { fakeUsers } from "@common/fakeData";
-import { Button } from "@common/components";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { Button } from "@gc-digital-talent/ui";
 
+import { FromArray } from "~/types/utility";
 import { User } from "~/api/generated";
 
 import BasicTable from "./BasicTable";

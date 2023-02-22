@@ -2,7 +2,7 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import { InputError } from "@common/components/inputPartials";
+import { InputError } from "@gc-digital-talent/forms";
 
 const CommunityError = () => {
   const {

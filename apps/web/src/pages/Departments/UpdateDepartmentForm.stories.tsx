@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeDepartments } from "@common/fakeData";
+import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
 import { UpdateDepartmentForm } from "./UpdateDepartmentPage";
 

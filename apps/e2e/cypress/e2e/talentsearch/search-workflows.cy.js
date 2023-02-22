@@ -1,4 +1,4 @@
-import { PoolCandidateStatus } from "@gc-digital-talent/common/src/api/generated";
+import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant } from "../../support/userHelpers";

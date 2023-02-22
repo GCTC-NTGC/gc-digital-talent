@@ -2,15 +2,20 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { Input, RadioGroup, Select, Submit } from "@common/components/form";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { TableOfContents } from "@gc-digital-talent/ui";
+import {
+  Input,
+  RadioGroup,
+  Select,
+  Submit,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
 import {
   getLanguageRequirement,
   getPublishingGroup,
   getSecurityClearance,
-} from "@common/constants/localizedConstants";
-import { empty } from "@common/helpers/util";
+} from "@gc-digital-talent/i18n";
+import { empty } from "@gc-digital-talent/helpers";
 
 import {
   AdvertisementStatus,

@@ -2,13 +2,10 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import SEO from "@common/components/SEO/SEO";
-import { commonMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Link from "@common/components/Link";
-import Separator from "@common/components/Separator";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 

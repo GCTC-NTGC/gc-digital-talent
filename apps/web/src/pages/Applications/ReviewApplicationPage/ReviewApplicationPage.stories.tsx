@@ -4,7 +4,7 @@ import {
   fakeExperiences,
   fakePoolCandidates,
   fakeSkills,
-} from "@common/fakeData";
+} from "@gc-digital-talent/fake-data";
 
 import { Experience } from "~/api/generated";
 import { ReviewApplication } from "./ReviewApplicationPage";
