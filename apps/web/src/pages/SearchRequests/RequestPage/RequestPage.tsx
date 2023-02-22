@@ -42,7 +42,7 @@ const RequestPage = () => {
         data-h2-border-top="base(1px solid gray)"
       >
         <div
-          data-h2-background="base(dt-linear)"
+          data-h2-background="base(main-linear)"
           data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
           data-h2-position="base(relative)"
         >

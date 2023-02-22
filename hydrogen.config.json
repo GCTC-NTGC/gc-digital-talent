@@ -299,35 +299,7 @@
         {
           "key": "primary-transparent-linear",
           "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "secondary-transparent-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "dt-linear",
-          "default": {
-            "gradient": "linear-gradient(#674C90, #1D2C4C)",
-            "fallback": "#674C90"
-          }
-        },
-        {
-          "key": "ia-secondary-to-transparent",
-          "default": {
-            "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "ia-primary-dark-to-transparent",
-          "default": {
-            "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
+            "gradient": "linear-gradient(rgb(74, 26, 128, 1), rgb(74, 26, 128, 0))",
             "fallback": "transparent"
           }
         }
@@ -531,30 +503,9 @@
           }
         },
         {
-          "key": "primary-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "secondary-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
           "key": "primary-transparent-linear",
           "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "secondary-transparent-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "gradient": "linear-gradient(rgb(104, 7, 43, 1), rgb(104, 7, 43, 0))",
             "fallback": "transparent"
           }
         }
@@ -625,30 +576,9 @@
           }
         },
         {
-          "key": "primary-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "secondary-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
           "key": "primary-transparent-linear",
           "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "secondary-transparent-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "gradient": "linear-gradient(rgb(51, 35, 75, 1), rgb(51, 35, 75, 0))",
             "fallback": "transparent"
           }
         }

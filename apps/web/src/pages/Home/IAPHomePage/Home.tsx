@@ -58,7 +58,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-flex-direction="base(column)"
       >
         <div
-          data-h2-background="base(ia-primary-dark-to-transparent)"
+          data-h2-background="base(primary-transparent-linear)"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
@@ -76,7 +76,7 @@ const Home: React.FunctionComponent = () => {
         />
         <div
           className="hero-logo"
-          data-h2-background-color="base(primary.hero) p-tablet(transparent)"
+          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
