@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Class User
@@ -34,7 +35,7 @@ class RoleAssignment extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function user()
+    public function user(): MorphTo
     {
         return $this->morphTo('user');
     }
