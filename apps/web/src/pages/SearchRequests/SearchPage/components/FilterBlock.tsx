@@ -1,13 +1,13 @@
 import React from "react";
 
-import { HeadingLevel } from "@common/components/Heading/Heading";
+import { HeadingRank } from "@gc-digital-talent/ui";
 
 interface FilterBlockProps {
   id: string;
   title?: string | React.ReactNode;
   text: string;
   children?: React.ReactNode;
-  headingLevel?: HeadingLevel;
+  headingLevel?: HeadingRank;
 }
 
 const FilterBlock: React.FC<FilterBlockProps> = ({

@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well";
-import { navigationMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Well } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
 

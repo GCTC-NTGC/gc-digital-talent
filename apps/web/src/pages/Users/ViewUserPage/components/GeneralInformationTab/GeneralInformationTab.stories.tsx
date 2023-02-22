@@ -2,8 +2,8 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import { fakePools, fakeUsers } from "@common/fakeData";
-import { PoolCandidateStatus } from "@common/api/generated";
+import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
+import { PoolCandidateStatus } from "~/api/generated";
 
 import { GeneralInformationTab } from "./GeneralInformationTab";
 

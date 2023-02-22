@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import { useForm, useWatch } from "react-hook-form";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { Button } from "@common/components";
-import { TextArea } from "@common/components/form";
-import Well from "@common/components/Well";
-import WordCounter from "@common/components/WordCounter/WordCounter";
-import { countNumberOfWords } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
-import { errorMessages } from "@common/messages";
+import { Button, Well } from "@gc-digital-talent/ui";
+import {
+  TextArea,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
+import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 

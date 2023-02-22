@@ -4,7 +4,6 @@ const uuidRegEx = /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[
 
 describe("Redirects", () => {
   const expectToBeOnProfile = () => {
-    cy.wait("@gqlgetMeQuery");
     cy.url()
     .should('match', new RegExp("users" + uuidRegEx + "profile", "gi"));
   }

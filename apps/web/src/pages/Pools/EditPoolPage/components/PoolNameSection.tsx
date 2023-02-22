@@ -2,13 +2,16 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { notEmpty } from "@common/helpers/util";
-import { getLocalizedName } from "@common/helpers/localize";
-import { Input, Select, Submit } from "@common/components/form";
-import { Option } from "@common/components/form/Select";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getPoolStream } from "@common/constants/localizedConstants";
+import { TableOfContents } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  Input,
+  Select,
+  Submit,
+  Option,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
 
 import {
   AdvertisementStatus,

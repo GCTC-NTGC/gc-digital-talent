@@ -3,12 +3,12 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, axeTest } from "@common/helpers/testUtils";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import HomePage from "./HomePage";
 
 const renderHomepage = () => {
-  return render(<HomePage />);
+  return renderWithProviders(<HomePage />);
 };
 
 describe("DigitalTalentHomePage", () => {

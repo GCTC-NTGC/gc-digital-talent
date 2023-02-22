@@ -2,7 +2,11 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import pick from "lodash/pick";
-import { fakeClassifications, fakePools, fakeUsers } from "@common/fakeData";
+import {
+  fakeClassifications,
+  fakePools,
+  fakeUsers,
+} from "@gc-digital-talent/fake-data";
 
 import { Classification } from "~/api/generated";
 import {

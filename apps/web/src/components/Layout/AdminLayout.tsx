@@ -3,14 +3,18 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
-import SEO from "@common/components/SEO/SEO";
-import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
-import { Button } from "@common/components";
-import Footer from "@common/components/Footer";
-import Header from "@common/components/Header";
-import SkipLink from "@common/components/Link/SkipLink";
-import { SideMenuContentWrapper } from "@common/components/SideMenu";
-import useLocalStorage from "@common/hooks/useLocalStorage";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
+import {
+  Button,
+  SkipLink,
+  SideMenuContentWrapper,
+} from "@gc-digital-talent/ui";
+
+import Footer from "~/components/Footer";
+import Header from "~/components/Header";
+
+import SEO from "~/components/SEO/SEO";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 

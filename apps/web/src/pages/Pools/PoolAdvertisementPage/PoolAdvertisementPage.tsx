@@ -11,41 +11,42 @@ import {
   CloudIcon,
 } from "@heroicons/react/24/outline";
 
-import Hero from "@common/components/Hero/Hero";
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import Card from "@common/components/Card";
-import { Button, Link } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
+import {
+  Button,
+  ThrowNotFound,
+  Pending,
+  Card,
+  Link,
+  Accordion,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
+import {
+  getLocale,
+  getLanguageRequirement,
+  getSecurityClearance,
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { useAuthorization } from "@gc-digital-talent/auth";
+
 import {
   AdvertisementStatus,
   Scalars,
   SkillCategory,
-} from "@common/api/generated";
-import TableOfContents from "@common/components/TableOfContents";
-import Accordion from "@common/components/Accordion";
-import {
-  getLanguageRequirement,
-  getSecurityClearance,
-} from "@common/constants/localizedConstants";
-import { categorizeSkill } from "@common/helpers/skillUtils";
-import { notEmpty } from "@common/helpers/util";
-import {
-  formatClassificationString,
-  getFullPoolAdvertisementTitleLabel,
-} from "@common/helpers/poolUtils";
-import { AuthorizationContext } from "@common/components/Auth";
-import SEO from "@common/components/SEO/SEO";
-
-import {
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
 } from "~/api/generated";
+import { categorizeSkill } from "~/utils/skillUtils";
+import {
+  formatClassificationString,
+  getFullPoolAdvertisementTitleLabel,
+  isAdvertisementVisible,
+} from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
-import { isAdvertisementVisible } from "~/utils/poolUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import PoolInfoCard from "./components/PoolInfoCard";
 import ClassificationDefinition from "./components/ClassificationDefinition";
 
@@ -834,7 +835,7 @@ type RouteParams = {
 
 const PoolAdvertisementPage = () => {
   const { poolId } = useParams<RouteParams>();
-  const auth = React.useContext(AuthorizationContext);
+  const auth = useAuthorization();
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },

@@ -2,11 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
-import Heading from "@common/components/Heading";
-import { BasicForm, RadioGroup } from "@common/components/form";
-
-import errorMessages from "@common/messages/errorMessages";
-import Separator from "@common/components/Separator";
+import { Heading, Separator } from "@gc-digital-talent/ui";
+import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
 import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";

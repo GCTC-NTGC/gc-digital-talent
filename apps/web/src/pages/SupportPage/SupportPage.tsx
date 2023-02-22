@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import imageUrl from "@common/helpers/imageUrl";
 
-import Hero from "@common/components/Hero";
-import useTheme from "@common/hooks/useTheme";
+import { useTheme } from "@gc-digital-talent/theme";
+import { imageUrl } from "@gc-digital-talent/helpers";
+
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 

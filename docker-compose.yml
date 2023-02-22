@@ -48,9 +48,11 @@ services:
       replicas: 0
     volumes:
       - maintenancedata:/root
+      - ./.git:/var/www/html/.git
+      - ./.gitignore:/var/www/html/.gitignore
+      - ./.gitattributes:/var/www/html/.gitattributes
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
-      - ./frontend:/var/www/html/frontend
       - ./apps:/var/www/html/apps
       - ./packages:/var/www/html/packages
       - ./tc-report:/var/www/html/tc-report

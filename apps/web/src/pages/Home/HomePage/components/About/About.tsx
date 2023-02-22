@@ -2,10 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
 
-import Heading from "@common/components/Heading";
-import { CardFlat } from "@common/components/Card";
-import useLocale from "@common/hooks/useLocale";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { CardFlat, Heading } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
+
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const About = () => {
   const intl = useIntl();

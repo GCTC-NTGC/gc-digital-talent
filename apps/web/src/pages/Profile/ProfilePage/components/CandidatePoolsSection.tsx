@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Well } from "@gc-digital-talent/ui";
 
 import { PoolCandidate } from "~/api/generated";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 const CandidatePoolsSection: React.FunctionComponent<{
   poolCandidates: PoolCandidate[];

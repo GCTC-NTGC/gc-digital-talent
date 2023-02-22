@@ -5,12 +5,12 @@ on:
     branches: ["main"]
     paths:
       - .github/workflows/storybook.yml
-      - frontend/**
+      - packages/**
       - apps/**
   pull_request:
     paths:
       - .github/workflows/storybook.yml
-      - frontend/**
+      - packages/**
       - apps/**
 
 jobs:

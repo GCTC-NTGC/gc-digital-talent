@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import fakeSearchRequests from "@common/fakeData/fakeSearchRequests";
+import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
 import { UpdateSearchRequestForm } from "./UpdateSearchRequest";
 

@@ -3,15 +3,16 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
 import {
+  errorMessages,
+  navigationMessages,
   getOperationalRequirement,
   OperationalRequirementV2,
-} from "@common/constants/localizedConstants";
-import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+} from "@gc-digital-talent/i18n";
+import { BasicForm, Checklist, RadioGroup } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidate,
   PositionDuration,

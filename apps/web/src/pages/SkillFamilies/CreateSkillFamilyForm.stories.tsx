@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
+import { fakeSkills, fakeSkillFamilies } from "@gc-digital-talent/fake-data";
 
 import { CreateSkillFamilyForm } from "./CreateSkillFamilyPage";
 

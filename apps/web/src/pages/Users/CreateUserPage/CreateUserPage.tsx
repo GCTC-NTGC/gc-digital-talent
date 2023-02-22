@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { toast } from "@common/components/Toast";
-import { Input, Select, Submit } from "@common/components/form";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getLanguage, getRole } from "@common/constants/localizedConstants";
-import { errorMessages } from "@common/messages";
-import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
-import Heading from "@common/components/Heading/Heading";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Input,
+  Select,
+  Submit,
+  enumToOptions,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import { getLanguage, getRole, errorMessages } from "@gc-digital-talent/i18n";
+import { emptyToNull, emptyToUndefined } from "@gc-digital-talent/helpers";
+import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {

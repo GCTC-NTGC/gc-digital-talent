@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { Story, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import { BasicForm, Input } from "@common/components/form";
+import { BasicForm, Input } from "@gc-digital-talent/forms";
 import ProfileFormWrapper, {
   ProfileFormWrapperProps,
 } from "./ProfileFormWrapper";

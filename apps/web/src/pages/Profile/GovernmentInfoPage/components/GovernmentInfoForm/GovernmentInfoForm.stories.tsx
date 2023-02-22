@@ -3,12 +3,12 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import pick from "lodash/pick";
 import {
   fakeClassifications,
   fakeDepartments,
   fakeUsers,
-} from "@common/fakeData";
-import pick from "lodash/pick";
+} from "@gc-digital-talent/fake-data";
 
 import { GovEmployeeType } from "~/api/generated";
 import GovernmentInfoForm from "./GovernmentInfoForm";

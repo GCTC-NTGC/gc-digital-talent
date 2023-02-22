@@ -1,15 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import SEO from "@common/components/SEO/SEO";
-import { ExternalLink } from "@common/components/Link";
-import { getLocale } from "@common/helpers/localize";
-import { useApiRoutes } from "@common/hooks/useApiRoutes";
+import { ExternalLink } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>

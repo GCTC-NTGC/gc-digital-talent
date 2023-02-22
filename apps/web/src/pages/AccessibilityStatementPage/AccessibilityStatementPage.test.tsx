@@ -3,12 +3,12 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, axeTest } from "@common/helpers/testUtils";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import AccessibilityStatementPage from "./AccessibilityStatementPage";
 
 const renderAccessibilityStatementPage = () => {
-  return render(<AccessibilityStatementPage />);
+  return renderWithProviders(<AccessibilityStatementPage />);
 };
 
 describe("AccessibilityStatementPage", () => {

@@ -6,12 +6,12 @@ on:
     paths:
       - .github/workflows/*jest*.yml
       - apps/**
-      - frontend/**
+      - packages/**
   pull_request:
     paths:
       - .github/workflows/*jest*.yml
       - apps/**
-      - frontend/**
+      - packages/**
 
 jobs:
   build:
@@ -44,8 +44,7 @@ jobs:
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
-          npm run codegen
-          npm run intl-compile
+          npm run build
 
       - name: "Run Unit Tests: all workspaces"
         working-directory: ./

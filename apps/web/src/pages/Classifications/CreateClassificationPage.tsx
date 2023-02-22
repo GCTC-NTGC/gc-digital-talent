@@ -4,12 +4,12 @@ import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Input, Select, Submit } from "@common/components/form";
-import { toast } from "@common/components/Toast";
-import { errorMessages } from "@common/messages";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
+import { Input, Select, Submit } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,

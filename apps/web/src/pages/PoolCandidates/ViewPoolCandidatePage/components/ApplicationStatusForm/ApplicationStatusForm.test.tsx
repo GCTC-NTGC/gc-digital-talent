@@ -4,8 +4,10 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
-import { fakePoolCandidates } from "@common/fakeData";
-import { axeTest, render } from "@common/helpers/testUtils";
+
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
 import {
   ApplicationStatusForm,
   type ApplicationStatusFormProps,
@@ -22,7 +24,7 @@ const defaultProps: ApplicationStatusFormProps = {
 };
 
 const renderApplicationStatusForm = (props: ApplicationStatusFormProps) =>
-  render(<ApplicationStatusForm {...props} />);
+  renderWithProviders(<ApplicationStatusForm {...props} />);
 
 describe("ApplicationStatusForm", () => {
   it("should have no accessibility errors", async () => {

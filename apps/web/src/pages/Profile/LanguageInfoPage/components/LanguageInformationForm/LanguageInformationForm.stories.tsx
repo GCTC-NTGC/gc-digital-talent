@@ -3,8 +3,8 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import pick from "lodash/pick";
 
-import { fakeUsers } from "@common/fakeData";
-import { UpdateUserAsUserInput } from "@common/api/generated";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { UpdateUserAsUserInput } from "~/api/generated";
 
 import LanguageInformationForm from "./LanguageInformationForm";
 

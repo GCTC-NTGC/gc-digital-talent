@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Button } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
+import { getFullNameHtml } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import { Pool } from "~/api/generated";
 

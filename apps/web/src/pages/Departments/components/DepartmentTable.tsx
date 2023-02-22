@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
-import { notEmpty } from "@common/helpers/util";
-import { getLocale } from "@common/helpers/localize";
-import Pending from "@common/components/Pending";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { Pending } from "@gc-digital-talent/ui";
 
 import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";

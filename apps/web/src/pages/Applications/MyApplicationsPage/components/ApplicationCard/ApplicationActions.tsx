@@ -1,10 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, Link } from "@common/components";
-import AlertDialog from "@common/components/AlertDialog";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";

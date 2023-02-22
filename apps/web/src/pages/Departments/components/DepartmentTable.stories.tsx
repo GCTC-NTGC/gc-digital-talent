@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import fakeDepartments from "@common/fakeData/fakeDepartments";
+import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
 import { DepartmentTable } from "./DepartmentTable";
 

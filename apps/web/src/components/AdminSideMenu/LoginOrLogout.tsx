@@ -6,20 +6,17 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
-import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import {
-  ExternalSideMenuItem,
-  SideMenuButton,
-} from "@common/components/SideMenu";
-import { getLocale } from "@common/helpers/localize";
-import { useApiRoutes } from "@common/hooks/useApiRoutes";
-import useAuth from "@common/hooks/useAuth";
+import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
+import { ExternalSideMenuItem, SideMenuButton } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
+
+import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 const LoginOrLogout = () => {
   const intl = useIntl();
   const location = useLocation();
   const apiRoutes = useApiRoutes();
-  const { loggedIn } = useAuth();
+  const { loggedIn } = useAuthentication();
 
   if (loggedIn) {
     return (

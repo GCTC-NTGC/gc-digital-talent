@@ -7,15 +7,9 @@ import {
   fakeClassifications,
   fakeDepartments,
   fakeUsers,
-} from "@common/fakeData";
-import { act } from "react-dom/test-utils";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  axeTest,
-} from "@common/helpers/testUtils";
+} from "@gc-digital-talent/fake-data";
+import { act, screen, waitFor, fireEvent } from "@testing-library/react";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import GovernmentInfoForm, {
   GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";
@@ -31,7 +25,7 @@ const renderGovInfoForm = ({
   classifications,
   submitHandler,
 }: GovernmentInfoFormProps) => {
-  return render(
+  return renderWithProviders(
     <GovernmentInfoForm
       initialData={initialData}
       departments={departments}

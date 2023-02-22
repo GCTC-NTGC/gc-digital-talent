@@ -2,8 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
 
-import { Button } from "@common/components";
-import Dialog from "@common/components/Dialog";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 const DialogFooter: React.FC = () => {
   const intl = useIntl();

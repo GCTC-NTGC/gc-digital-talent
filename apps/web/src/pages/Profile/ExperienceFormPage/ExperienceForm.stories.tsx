@@ -1,8 +1,8 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import type { Skill } from "@common/api/generated";
-import { getStaticSkills } from "@common/fakeData";
+import { getStaticSkills } from "@gc-digital-talent/fake-data";
+import type { Skill } from "~/api/generated";
 import { ExperienceForm } from "./ExperienceFormPage";
 import type { ExperienceDetailsSubmissionData, ExperienceType } from "./types";
 

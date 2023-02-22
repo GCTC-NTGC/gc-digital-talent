@@ -1,4 +1,4 @@
-import { Maybe, Skill } from "@common/api/generated";
+import { Maybe, Skill } from "~/api/generated";
 import {
   AllFormValues,
   ExperienceDetailsSubmissionData,

@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import SEO from "@common/components/SEO/SEO";
+import SEO from "~/components/SEO/SEO";
 
 import { About, Featured, Hero, Opportunities, Profile } from "./components";
 import type { HeroProps } from "./components/Hero/Hero";

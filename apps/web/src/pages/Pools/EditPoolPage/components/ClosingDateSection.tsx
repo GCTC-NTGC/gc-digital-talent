@@ -2,14 +2,14 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { Input, Submit } from "@common/components/form";
-import { useDeepCompareEffect } from "@common/hooks/useDeepCompareEffect";
+import { TableOfContents } from "@gc-digital-talent/ui";
+import { Input, Submit } from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
+import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
 import {
   AdvertisementStatus,
   PoolAdvertisement,

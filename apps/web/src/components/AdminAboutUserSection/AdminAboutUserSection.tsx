@@ -1,14 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well";
+import { Well } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
-} from "@common/constants/localizedConstants";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+} from "@gc-digital-talent/i18n";
 
 import { Applicant } from "~/api/generated";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface AdminAboutUserSectionProps {
   applicant: Pick<

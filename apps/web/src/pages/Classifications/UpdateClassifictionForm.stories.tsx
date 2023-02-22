@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeClassifications } from "@common/fakeData";
+import { fakeClassifications } from "@gc-digital-talent/fake-data";
 
 import { UpdateClassificationForm } from "./UpdateClassificationPage";
 

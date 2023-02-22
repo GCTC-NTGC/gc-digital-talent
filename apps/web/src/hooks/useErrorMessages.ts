@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useRouteError } from "react-router-dom";
 
-import { errorMessages } from "@common/messages";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 interface ErrorMessage {
   title: ReactNode;

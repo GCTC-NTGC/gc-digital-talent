@@ -3,21 +3,25 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
 
-import Dialog from "@common/components/Dialog";
-import Button from "@common/components/Button";
-import { toast } from "@common/components/Toast";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { Dialog, Button } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Select,
+  enumToOptions,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import {
+  commonMessages,
+  errorMessages,
+  getPoolCandidateStatus,
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
-} from "@common/helpers/poolUtils";
-import { Select } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
-import { notEmpty } from "@common/helpers/util";
-
+} from "~/utils/poolUtils";
 import {
   AdvertisementStatus,
   Applicant,

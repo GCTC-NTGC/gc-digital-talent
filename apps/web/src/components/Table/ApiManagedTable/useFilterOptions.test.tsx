@@ -7,7 +7,11 @@ import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor, renderHook } from "@testing-library/react";
-import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
+import {
+  fakeSkills,
+  fakePools,
+  fakeClassifications,
+} from "@gc-digital-talent/fake-data";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {

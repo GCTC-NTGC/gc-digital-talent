@@ -7,7 +7,7 @@
     "main.js"
   ],
   "dependencies": {
-    "@gc-digital-talent/common": "*",
+    "@gc-digital-talent/theme": "*",
     "@storybook/addon-actions": "^6.5.14",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",

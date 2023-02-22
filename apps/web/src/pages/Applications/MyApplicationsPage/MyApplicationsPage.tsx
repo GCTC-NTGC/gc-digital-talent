@@ -1,12 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import { ThrowNotFound } from "@common/components/NotFound";
-import SEO from "@common/components/SEO/SEO";
-import Pending from "@common/components/Pending";
-import { notEmpty } from "@common/helpers/util";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 import { Scalars, useMyApplicationsQuery } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";

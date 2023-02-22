@@ -9,7 +9,7 @@
     "e2e:run:inspect": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
   },
   "dependencies": {
-    "@gc-digital-talent/common": "*",
+    "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/web": "*"
   },
   "devDependencies": {

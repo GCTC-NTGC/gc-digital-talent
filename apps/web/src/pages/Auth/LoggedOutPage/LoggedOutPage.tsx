@@ -1,22 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import TileLink from "@common/components/TileLink";
-import AlertDialog from "@common/components/AlertDialog";
-import SEO from "@common/components/SEO/SEO";
-import { Alert, Button, Link } from "@common/components";
-import { AuthenticationContext } from "@common/components/Auth";
-import { getLocale } from "@common/helpers/localize";
+import {
+  TileLink,
+  AlertDialog,
+  Alert,
+  Button,
+  Link,
+} from "@gc-digital-talent/ui";
+import { useAuthentication } from "@gc-digital-talent/auth";
+import { getLocale } from "@gc-digital-talent/i18n";
+
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { loggedIn, logout } = React.useContext(AuthenticationContext);
+  const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({

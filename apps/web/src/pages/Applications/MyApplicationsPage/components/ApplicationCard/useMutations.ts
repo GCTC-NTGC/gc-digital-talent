@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "@common/components/Toast";
+
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   Scalars,
   useArchiveApplicationMutation,

@@ -2,11 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useQuote from "~/hooks/useQuote";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";

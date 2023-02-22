@@ -2,9 +2,8 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { toast } from "@common/components/Toast";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
 
 import {
   User,

@@ -1,6 +1,7 @@
-import { Button } from "@common/components";
 import React from "react";
 import { useIntl } from "react-intl";
+
+import { Button } from "@gc-digital-talent/ui";
 
 import type { Application } from "./ApplicationCard/ApplicationCard";
 import ApplicationCard from "./ApplicationCard/ApplicationCard";

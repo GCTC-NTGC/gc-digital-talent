@@ -2,17 +2,15 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
-import SEO, { Favicon } from "@common/components/SEO/SEO";
-import MenuLink from "@common/components/Link/MenuLink";
-import SkipLink from "@common/components/Link/SkipLink";
-import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import useAuth from "@common/hooks/useAuth";
+import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+// import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
+import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-
-import Footer from "@common/components/Footer";
-import NavMenu from "@common/components/NavMenu";
-import Header from "@common/components/Header";
+import SEO, { Favicon } from "~/components/SEO/SEO";
+import NavMenu from "~/components/NavMenu";
+import Header from "~/components/Header";
+import Footer from "~/components/Footer";
+import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import { LegacyRole } from "~/api/generated";
@@ -43,8 +41,8 @@ const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const { loggedInUser } = useAuthorizationContext();
-  const { loggedIn } = useAuth();
+  const { loggedInUser } = useAuthorization();
+  const { loggedIn } = useAuthentication();
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>

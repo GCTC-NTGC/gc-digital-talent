@@ -2,8 +2,8 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
-import { widthOf, heightOf } from "@common/helpers/storybookUtils";
-import { fakePoolAdvertisements } from "@common/fakeData";
+import { widthOf, heightOf } from "storybook-helpers";
+import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
 
 import { AdvertisementStatus, PublishingGroup } from "~/api/generated";
 

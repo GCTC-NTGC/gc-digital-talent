@@ -5,14 +5,14 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { format } from "date-fns";
 
-import { render } from "@common/helpers/testUtils";
-import { DATE_FORMAT_STRING } from "@common/helpers/dateUtils";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { DATE_FORMAT_STRING } from "@gc-digital-talent/date-helpers";
 
 import PoolInfoCard from "./PoolInfoCard";
 import type { PoolInfoCardProps } from "./PoolInfoCard";
 
 const renderPoolInfoCard = (props: PoolInfoCardProps) =>
-  render(<PoolInfoCard {...props} />);
+  renderWithProviders(<PoolInfoCard {...props} />);
 
 const now = new Date();
 

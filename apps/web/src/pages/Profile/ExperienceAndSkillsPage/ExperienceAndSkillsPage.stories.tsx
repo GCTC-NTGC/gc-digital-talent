@@ -1,8 +1,10 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { fakeSkills, fakeExperiences } from "@common/fakeData";
-import { notEmpty } from "@common/helpers/util";
-import OverlayOrDialogDecorator from "@gc-digital-talent/common/.storybook/decorators/OverlayOrDialogDecorator";
+
+import { OverlayOrDialogDecorator } from "storybook-helpers";
+import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
 import AddExperienceDialog from "./components/AddExperienceDialog";
 

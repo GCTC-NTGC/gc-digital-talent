@@ -2,15 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import useTheme from "@common/hooks/useTheme";
-import Heading from "@common/components/Heading";
-import { useLogger } from "@common/hooks/useLogger";
+import { useTheme } from "@gc-digital-talent/theme";
+import { Heading } from "@gc-digital-talent/ui";
+import { useLogger } from "@gc-digital-talent/logger";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import CallToAction from "~/components/CallToAction/CallToAction";
-
-import { PugDark, PugLight } from "./components/Icons";
 
 const ErrorPage = () => {
   const intl = useIntl();
@@ -28,7 +27,10 @@ const ErrorPage = () => {
     }),
   );
 
-  const Image = mode === "dark" ? PugDark : PugLight;
+  const imgPath = imageUrl(
+    "/",
+    `404_pug_${mode === "dark" ? "dark" : "light"}.svg`,
+  );
 
   return (
     <>
@@ -54,7 +56,9 @@ const ErrorPage = () => {
           >
             {error.messages.title}
           </Heading>
-          <Image
+          <img
+            src={imgPath}
+            alt=""
             data-h2-display="base(inline-block)"
             data-h2-height="base(auto)"
             data-h2-margin="base(x2, 0)"

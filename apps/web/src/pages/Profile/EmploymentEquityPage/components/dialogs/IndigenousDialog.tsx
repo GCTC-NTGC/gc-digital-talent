@@ -7,15 +7,13 @@ import {
   type SubmitHandler,
 } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
-import { Checkbox } from "@common/components/form";
-import { Fieldset } from "@common/components/inputPartials";
-import { FieldLabels } from "@common/components/form/BasicForm";
-
+import { Dialog } from "@gc-digital-talent/ui";
+import { Checkbox, Fieldset, FieldLabels } from "@gc-digital-talent/forms";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-} from "@common/constants";
+} from "@gc-digital-talent/i18n";
+
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
 import { IndigenousCommunity } from "~/api/generated";

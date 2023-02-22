@@ -2,12 +2,10 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
-import { fakeSkills } from "@common/fakeData";
-import { act } from "react-dom/test-utils";
-import fakeExperiences from "@common/fakeData/fakeExperiences";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
 import type { ExperienceQueryData, ExperienceType } from "./types";
 
@@ -17,7 +15,7 @@ const mockExperiences = fakeExperiences(5);
 const mockCallback = jest.fn();
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
-  render(<ExperienceForm {...props} />);
+  renderWithProviders(<ExperienceForm {...props} />);
 
 describe("ExperienceForm", () => {
   jest.setTimeout(30000); // TODO: remove in #4755
