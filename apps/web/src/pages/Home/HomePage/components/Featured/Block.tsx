@@ -35,6 +35,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
       >
         <Heading
           level="h3"
+          size="h2"
           data-h2-font-size="base(h6)"
           data-h2-margin="base(0, 0, x0.25, 0)"
         >
