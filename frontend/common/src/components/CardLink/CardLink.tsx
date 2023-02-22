@@ -19,16 +19,17 @@ export interface CardLinkProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "base(secondary)",
+    "data-h2-background-color": "base(secondary) base:iap(primary)",
     "data-h2-color": "base(white)",
   },
   "ia-primary": {
-    "data-h2-background": "base(ia-linear-secondary)",
+    "data-h2-background": "base(secondary) base:iap(primary)",
     "data-h2-color": "base(white)",
   },
   "ia-secondary": {
-    "data-h2-background": "base(ia-linear-primary)",
-    "data-h2-color": "base(white)",
+    "data-h2-background":
+      "base(primary) base:iap(secondary) base:admin(tertiary)",
+    "data-h2-color": "base(white) base:admin(black)",
   },
 };
 

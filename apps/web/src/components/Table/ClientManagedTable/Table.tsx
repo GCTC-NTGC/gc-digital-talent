@@ -275,7 +275,7 @@ function Table<T extends Record<string, unknown>>({
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
-                        <Dialog.Header color="ts-primary">
+                        <Dialog.Header>
                           {intl.formatMessage({
                             defaultMessage: "Table columns",
                             id: "YH6bFU",
@@ -283,40 +283,42 @@ function Table<T extends Record<string, unknown>>({
                               "Dialog title for the admin tables columns toggle.",
                           })}
                         </Dialog.Header>
-                        <FormProvider {...methods}>
-                          <Fieldset
-                            name="visibleColumns"
-                            legend={intl.formatMessage({
-                              defaultMessage: "Visible columns",
-                              id: "H9rxOR",
-                              description:
-                                "Legend for the column toggle in admin tables.",
-                            })}
-                          >
-                            <div data-h2-margin="base(x.125, 0)">
-                              <IndeterminateCheckbox
-                                {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                                  typeof IndeterminateCheckbox
-                                >)}
-                              />
-                            </div>
-                            {allColumns.map((column) => (
-                              <div
-                                key={column.id}
-                                data-h2-margin="base(x.125, 0)"
-                              >
-                                <label htmlFor={column.Header?.toString()}>
-                                  <input
-                                    id={column.Header?.toString()}
-                                    type="checkbox"
-                                    {...column.getToggleHiddenProps()}
-                                  />
-                                  {` ${column.Header}`}
-                                </label>
+                        <Dialog.Body>
+                          <FormProvider {...methods}>
+                            <Fieldset
+                              name="visibleColumns"
+                              legend={intl.formatMessage({
+                                defaultMessage: "Visible columns",
+                                id: "H9rxOR",
+                                description:
+                                  "Legend for the column toggle in admin tables.",
+                              })}
+                            >
+                              <div data-h2-margin="base(x.125, 0)">
+                                <IndeterminateCheckbox
+                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                    typeof IndeterminateCheckbox
+                                  >)}
+                                />
                               </div>
-                            ))}
-                          </Fieldset>
-                        </FormProvider>
+                              {allColumns.map((column) => (
+                                <div
+                                  key={column.id}
+                                  data-h2-margin="base(x.125, 0)"
+                                >
+                                  <label htmlFor={column.Header?.toString()}>
+                                    <input
+                                      id={column.Header?.toString()}
+                                      type="checkbox"
+                                      {...column.getToggleHiddenProps()}
+                                    />
+                                    {` ${column.Header}`}
+                                  </label>
+                                </div>
+                              ))}
+                            </Fieldset>
+                          </FormProvider>
+                        </Dialog.Body>
                       </Dialog.Content>
                     </Dialog.Root>
                   </div>

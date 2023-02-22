@@ -20,7 +20,7 @@ export interface CallToActionProps {
 const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   hire: {
     "data-h2-background-color":
-      "base(foreground) base:focus-visible(focus) base:children[div:first-child](secondary) base:hover:children[div:first-child](secondary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](secondary) base:hover:children[div:first-child](secondary.lightest)",
     "data-h2-border":
       "base:children[div:first-child](3px solid secondary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":
@@ -28,7 +28,7 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   job: {
     "data-h2-background-color":
-      "base(foreground) base:focus-visible(focus) base:children[div:first-child](quaternary) base:hover:children[div:first-child](quaternary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quaternary) base:hover:children[div:first-child](quaternary.lightest)",
     "data-h2-border":
       "base:children[div:first-child](3px solid quaternary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":
@@ -36,7 +36,7 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   profile: {
     "data-h2-background-color":
-      "base(foreground) base:focus-visible(focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
     "data-h2-border":
       "base:children[div:first-child](3px solid quinary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":
@@ -44,7 +44,7 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   home: {
     "data-h2-background-color":
-      "base(foreground) base:focus-visible(focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
     "data-h2-border":
       "base:children[div:first-child](3px solid quinary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":
@@ -52,7 +52,7 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   },
   support: {
     "data-h2-background-color":
-      "base(foreground) base:focus-visible(focus) base:children[div:first-child](primary) base:hover:children[div:first-child](primary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](primary) base:hover:children[div:first-child](primary.lightest)",
     "data-h2-border":
       "base:children[div:first-child](3px solid primary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":

@@ -49,13 +49,10 @@ const Template: Story = (args) => {
       data-h2-gap="base(x2)"
     >
       <CardLink color="ts-primary" label={label} href="#" icon={icon}>
-        TS Primary
-      </CardLink>
-      <CardLink color="ia-primary" label={label} href="#" icon={icon}>
-        IA Primary
+        Primary
       </CardLink>
       <CardLink color="ia-secondary" label={label} href="#" icon={icon}>
-        IA Secondary
+        Secondary
       </CardLink>
     </div>
   );

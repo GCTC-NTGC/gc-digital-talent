@@ -37,14 +37,14 @@ const Profile = () => {
           }}
         />
         <div
-          data-h2-background="base(tm-linear-divider)"
+          data-h2-background="base(main-linear)"
           data-h2-location="base(0, 0, auto, 0)"
           data-h2-display="base(block)"
           data-h2-height="base(x1)"
           data-h2-position="base(absolute)"
         />
         <div
-          data-h2-background="base(tm-linear-divider)"
+          data-h2-background="base(main-linear)"
           data-h2-location="base(auto, 0, 0, 0)"
           data-h2-display="base(block)"
           data-h2-height="base(x1)"

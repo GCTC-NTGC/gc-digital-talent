@@ -42,6 +42,7 @@ const Home: React.FunctionComponent = () => {
    */
   return (
     <motion.div
+      data-h2-background="base(white) base:dark(background)"
       data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -128,7 +129,7 @@ const Home: React.FunctionComponent = () => {
           >
             <div
               data-h2-padding="p-tablet(x2) l-tablet(x3)"
-              data-h2-background-color="base(white)"
+              data-h2-background-color="base(white) base:dark(background)"
               data-h2-radius="base(iap-home-card)"
             >
               <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">

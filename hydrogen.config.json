@@ -283,23 +283,30 @@
       ],
       "gradients": [
         {
-          "key": "tm-linear-divider",
+          "key": "main-linear",
           "default": {
             "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "#FFAD31"
-          }
-        },
-        {
-          "key": "tm-linear-text",
-          "default": {
-            "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))",
             "fallback": "transparent"
           }
         },
         {
-          "key": "tm-linear-footer",
+          "key": "home-footer-linear",
           "default": {
             "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "primary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "secondary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
             "fallback": "transparent"
           }
         },
@@ -308,20 +315,6 @@
           "default": {
             "gradient": "linear-gradient(#674C90, #1D2C4C)",
             "fallback": "#674C90"
-          }
-        },
-        {
-          "key": "ia-linear-primary",
-          "default": {
-            "gradient": "linear-gradient(#272F6B, #0F1037)",
-            "fallback": "#272F6B"
-          }
-        },
-        {
-          "key": "ia-linear-secondary",
-          "default": {
-            "gradient": "linear-gradient(#C01E5A, #781443)",
-            "fallback": "#C01E5A"
           }
         },
         {
@@ -521,6 +514,50 @@
             "modifiers": []
           }
         }
+      ],
+      "gradients": [
+        {
+          "key": "main-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #272F6B, #C01E5A)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "home-footer-linear",
+          "default": {
+            "gradient": "linear-gradient(135deg, #C01E5A, #6b44cb)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "primary-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "secondary-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "primary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "secondary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        }
       ]
     },
     {
@@ -569,6 +606,50 @@
           "default": {
             "color": "#F8A812",
             "modifiers": []
+          }
+        }
+      ],
+      "gradients": [
+        {
+          "key": "main-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #F8A812, #4E00C6 75%, #27178C)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "home-footer-linear",
+          "default": {
+            "gradient": "linear-gradient(135deg, #4E00C6, #F8A812)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "primary-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "secondary-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "primary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
+          }
+        },
+        {
+          "key": "secondary-transparent-linear",
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "transparent"
           }
         }
       ]
