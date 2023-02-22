@@ -7,7 +7,7 @@ import {
   NotFound,
   Pending,
   Link,
-  Breadcrumbs,
+  AdminBreadcrumbs,
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -209,7 +209,7 @@ export const EditPoolForm = ({
           description: "Header for page to edit pool advertisements",
         })}
       </PageHeader>
-      <Breadcrumbs crumbs={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>

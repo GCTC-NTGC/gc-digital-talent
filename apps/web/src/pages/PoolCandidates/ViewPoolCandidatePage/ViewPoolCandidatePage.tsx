@@ -9,7 +9,7 @@ import {
   Pending,
   Link,
   ToggleGroup,
-  Breadcrumbs,
+  AdminBreadcrumbs,
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -199,7 +199,7 @@ export const ViewPoolCandidate = ({
         })}
       </PageHeader>
       <Spacer>
-        <Breadcrumbs crumbs={links} />
+        <AdminBreadcrumbs crumbs={links} />
       </Spacer>
       <Spacer>
         <h3>{`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}</h3>

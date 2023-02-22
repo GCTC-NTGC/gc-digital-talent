@@ -77,9 +77,6 @@ const AdminBreadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
               >
                 {link.label}
               </Link>
-              <span data-h2-font-weight="base(700)" key={link.url}>
-                {link.label}
-              </span>
             </Fragment>
           );
         })

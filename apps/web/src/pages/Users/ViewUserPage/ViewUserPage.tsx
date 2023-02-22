@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 
 import {
-  Breadcrumbs,
+  AdminBreadcrumbs,
   Pending,
   NotFound,
   Heading,
@@ -83,7 +83,7 @@ export const ViewUser: React.FC<ViewUserProps> = ({ user, pools }) => {
   return (
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
-      <Breadcrumbs crumbs={links} />
+      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, x1, 0)">
         <div data-h2-flex-grid="base(center, x1)">
           <div data-h2-flex-item="base(1of1) p-tablet(fill)">
