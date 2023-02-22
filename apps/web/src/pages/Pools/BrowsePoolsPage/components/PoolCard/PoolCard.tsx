@@ -6,22 +6,20 @@ import {
   CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 
-import Heading, { type HeadingLevel } from "@common/components/Heading";
-import Link from "@common/components/Link";
-import Chip, { Chips } from "@common/components/Chip";
-import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
   getLocalizedName,
   localizeSalaryRange,
-} from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+  commonMessages,
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 import { PoolAdvertisement } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "@common/helpers/nameUtils";
 
 import IconLabel from "./IconLabel";
 
@@ -45,7 +43,7 @@ const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
 
 export interface PoolCardProps {
   pool: PoolAdvertisement;
-  headingLevel?: HeadingLevel;
+  headingLevel?: HeadingRank;
 }
 
 const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {

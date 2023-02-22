@@ -2,7 +2,7 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
 import { partOfCommunity } from "./utils";
 
 interface CommunityIconProps {

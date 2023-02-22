@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 

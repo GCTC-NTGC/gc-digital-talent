@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "@common/helpers/storybookUtils";
+import { widthOf, heightOf } from "storybook-helpers";
 import Home from "./Home";
 
 export default {

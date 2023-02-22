@@ -2,11 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 
-import { getLocale, localizeSalaryRange } from "@common/helpers/localize";
+import { getLocale, localizeSalaryRange } from "@gc-digital-talent/i18n";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
 import type { Maybe, PoolAdvertisement } from "~/api/generated";
 

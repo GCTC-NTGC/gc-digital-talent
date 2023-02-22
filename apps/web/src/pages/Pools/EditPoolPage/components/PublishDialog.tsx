@@ -2,14 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
-import { Button } from "@common/components";
-import { InputWrapper } from "@common/components/inputPartials";
-import { PoolAdvertisement } from "@common/api/generated";
+import { Dialog, Button } from "@gc-digital-talent/ui";
+import { InputWrapper } from "@gc-digital-talent/forms";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
+
+import { PoolAdvertisement } from "~/api/generated";
 
 type PublishDialogProps = {
   closingDate: PoolAdvertisement["closingDate"];

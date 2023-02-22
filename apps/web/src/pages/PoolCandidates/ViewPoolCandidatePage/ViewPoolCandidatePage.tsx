@@ -4,25 +4,27 @@ import { useParams } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
-import { Link } from "@common/components";
-import ToggleGroup from "@common/components/ToggleGroup";
-import PageHeader from "@common/components/PageHeader";
-import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import UserProfile from "@common/components/UserProfile";
-import { Applicant } from "@common/api/generated";
-import TableOfContents from "@common/components/TableOfContents";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-
-import useRoutes from "~/hooks/useRoutes";
 import {
+  NotFound,
+  Pending,
+  Link,
+  ToggleGroup,
+  AdminBreadcrumbs,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import PageHeader from "~/components/PageHeader";
+import UserProfile from "~/components/UserProfile";
+
+import {
+  Applicant,
   Scalars,
   useGetPoolCandidateSnapshotQuery,
   PoolCandidate,
   Maybe,
 } from "~/api/generated";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 
@@ -49,29 +51,30 @@ export const ViewPoolCandidate = ({
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "My pools",
         id: "0Y4Dt4",
         description: "Breadcrumb title for the pools page link.",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
-      href: paths.poolView(poolCandidate.pool.id),
+      label: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
+      url: paths.poolView(poolCandidate.pool.id),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "All candidates",
         id: "e9FNqp",
         description: "Breadcrumb title for the All Candidates page link.",
       }),
-      href: paths.poolCandidateTable(poolCandidate.pool.id),
+      url: paths.poolCandidateTable(poolCandidate.pool.id),
     },
     {
-      title: `${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`,
+      label: `${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`,
+      url: paths.poolCandidateApplication(poolCandidate.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   const parsedSnapshot: Maybe<Applicant> = JSON.parse(
     poolCandidate.profileSnapshot,
@@ -196,7 +199,7 @@ export const ViewPoolCandidate = ({
         })}
       </PageHeader>
       <Spacer>
-        <Breadcrumbs links={links} />
+        <AdminBreadcrumbs crumbs={links} />
       </Spacer>
       <Spacer>
         <h3>{`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}</h3>

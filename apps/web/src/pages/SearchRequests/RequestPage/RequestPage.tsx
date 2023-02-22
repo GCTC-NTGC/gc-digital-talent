@@ -3,8 +3,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import Hero from "@common/components/Hero/Hero";
-
+import Hero from "~/components/Hero/Hero";
 import { ApplicantFilterInput } from "~/api/generated";
 import { SimpleClassification } from "~/types/pool";
 import { FormValues as SearchFormValues } from "~/types/searchRequest";

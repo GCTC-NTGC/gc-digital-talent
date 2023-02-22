@@ -3,16 +3,13 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
-import { BasicForm, Checklist } from "@common/components/form";
+import { BasicForm, Checklist, unpackMaybes } from "@gc-digital-talent/forms";
+import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import { Well, ExternalLink } from "@gc-digital-talent/ui";
 
-import { errorMessages, navigationMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { unpackMaybes } from "@common/helpers/formUtils";
-import { toast } from "@common/components/Toast";
-import Well from "@common/components/Well";
-import { ExternalLink } from "@common/components/Link";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   GenericJobTitle,
   GenericJobTitleKey,
@@ -26,9 +23,9 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,

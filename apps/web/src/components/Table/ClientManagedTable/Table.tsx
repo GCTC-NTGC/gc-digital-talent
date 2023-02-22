@@ -3,7 +3,9 @@ import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
-
+import { useSearchParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import {
   useTable,
   useGlobalFilter,
@@ -12,13 +14,12 @@ import {
   usePagination,
   HeaderGroup,
 } from "react-table";
-import { Button, Link } from "@common/components";
-import Pagination from "@common/components/Pagination";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
-import Dialog from "@common/components/Dialog";
-import { Fieldset } from "@common/components/inputPartials";
-import { FormProvider, useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { Fieldset } from "@gc-digital-talent/forms";
+
+import Pagination from "~/components/Pagination";
+
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
-import { Submit } from "@common/components/form";
+import { Submit } from "@gc-digital-talent/forms";
 
 const SaveButton = () => {
   const intl = useIntl();

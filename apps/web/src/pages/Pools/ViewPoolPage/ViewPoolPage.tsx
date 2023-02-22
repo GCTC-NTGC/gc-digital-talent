@@ -11,30 +11,33 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import PageHeader from "@common/components/PageHeader";
-import { commonMessages } from "@common/messages";
-import { getLocalizedName } from "@common/helpers/localize";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Chip, { Chips } from "@common/components/Chip";
-import Link, { IconLink } from "@common/components/Link";
-import { Input } from "@common/components/form";
-import { IconButton } from "@common/components/Button";
 import {
+  AdminBreadcrumbs,
+  Pending,
+  Chip,
+  Chips,
+  IconButton,
+  NotFound,
+  Link,
+  IconLink,
+} from "@gc-digital-talent/ui";
+import {
+  commonMessages,
+  getLocalizedName,
   getAdvertisementStatus,
   getLanguageRequirement,
   getPoolStream,
   getSecurityClearance,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
+import { Input } from "@gc-digital-talent/forms";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import SEO from "@common/components/SEO/SEO";
+} from "@gc-digital-talent/date-helpers";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import SEO from "~/components/SEO/SEO";
+import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Scalars,
@@ -109,23 +112,23 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Home",
         id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
-      href: paths.home(),
+      url: paths.home(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Pools",
         id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title: intl.formatMessage(
+      label: intl.formatMessage(
         {
           defaultMessage: `Pool ID #{id}`,
           id: "fp7Nll",
@@ -133,8 +136,9 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
         },
         { id: pool.id },
       ),
+      url: paths.poolView(pool.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   let closingStringLocal;
   let closingStringPacific;
@@ -165,7 +169,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
       />
       <div data-h2-container="base(left, medium, 0)">
         <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
-        <Breadcrumbs links={links} />
+        <AdminBreadcrumbs crumbs={links} />
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) l-tablet(row)"

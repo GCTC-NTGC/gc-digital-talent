@@ -3,9 +3,7 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import DropdownMenu from "@common/components/DropdownMenu/DropdownMenu";
-import { Button } from "@common/components";
-import Separator from "@common/components/Separator";
+import { DropdownMenu, Button, Separator } from "@gc-digital-talent/ui";
 
 const localeMap = new Map([
   ["crg", "Michif"],

@@ -2,10 +2,11 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 
 import {
-  AuthenticationContext,
   AuthorizationContext,
-  defaultAuthState,
-} from "@common/components/Auth";
+  AuthenticationContext,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 
 import { LegacyRole } from "~/api/generated";
 
@@ -25,20 +26,22 @@ interface TemplateProps extends AdminSideMenuProps {
 
 const Template: Story<TemplateProps> = (args) => {
   const { isLoggedIn, ...rest } = args;
+  const authenticationState = useAuthentication();
+  const authorizationState = useAuthorization();
   const mockAuthState = React.useMemo(
     () => ({
-      ...defaultAuthState,
+      ...authenticationState,
       loggedIn: isLoggedIn,
     }),
-    [isLoggedIn],
+    [isLoggedIn, authenticationState],
   );
   const mockAuthorizationState = React.useMemo(
     () => ({
-      ...AuthorizationContext,
+      ...authorizationState,
       loggedInUserRoles: isLoggedIn ? [LegacyRole.Admin] : null,
       isLoaded: true,
     }),
-    [isLoggedIn],
+    [isLoggedIn, authorizationState],
   );
 
   return (

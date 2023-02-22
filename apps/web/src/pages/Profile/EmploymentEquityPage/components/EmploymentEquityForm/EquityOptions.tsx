@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { toast } from "@common/components/Toast";
-import Well from "@common/components/Well";
-import type { IndigenousCommunity, Maybe } from "@common/api/generated";
+import { toast } from "@gc-digital-talent/toast";
+import { Well } from "@gc-digital-talent/ui";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-} from "@common/constants";
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 import Spinner from "~/components/Spinner/Spinner";
+import type { IndigenousCommunity, Maybe } from "~/api/generated";
 
-import { notEmpty } from "@common/helpers/util";
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "../../types";
 import IndigenousEquityOption from "../IndigenousEquityOption";

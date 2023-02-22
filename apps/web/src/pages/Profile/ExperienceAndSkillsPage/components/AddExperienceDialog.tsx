@@ -10,9 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 
-import Dialog from "@common/components/Dialog";
-import { IconButton } from "@common/components/Button";
-import { Link } from "@common/components";
+import { Dialog, IconButton, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import SEO from "@common/components/SEO/SEO";
+import SEO from "~/components/SEO/SEO";
 
 import SearchContainer from "./components/SearchContainer";
 import SearchHeading from "./components/SearchHeading";

@@ -1,6 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import type { DownloadCsvProps } from "@common/components/Link";
+
+import type { DownloadCsvProps } from "@gc-digital-talent/ui";
+import {
+  getArmedForcesStatusesAdmin,
+  getBilingualEvaluation,
+  getCitizenshipStatusesAdmin,
+  getLanguageProficiency,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+
 import {
   employeeTypeToString,
   flattenExperiencesToSkills,
@@ -9,14 +18,7 @@ import {
   getLookingForLanguage,
   getOperationalRequirements,
   yesOrNo,
-} from "@common/helpers/csvUtils";
-import {
-  getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
-  getCitizenshipStatusesAdmin,
-  getLanguageProficiency,
-} from "@common/constants/localizedConstants";
-import { getLocale } from "@common/helpers/localize";
+} from "~/utils/csvUtils";
 
 import { Applicant, PositionDuration } from "~/api/generated";
 

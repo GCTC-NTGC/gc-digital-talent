@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
-import Button from "@common/components/Button";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { Button, Dialog } from "@gc-digital-talent/ui";
+
+import { wrapAbbr } from "~/utils/nameUtils";
+
 import CloseButton from "./CloseButton";
 
 import { BasicDialogProps } from "./types";

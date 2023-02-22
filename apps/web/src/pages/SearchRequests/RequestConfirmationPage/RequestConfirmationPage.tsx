@@ -2,11 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import Hero from "@common/components/Hero";
-import SEO from "@common/components/SEO/SEO";
-import Heading from "@common/components/Heading/Heading";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { Button, Link } from "@common/components";
+import { Heading, ThrowNotFound, Button, Link } from "@gc-digital-talent/ui";
+
+import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";

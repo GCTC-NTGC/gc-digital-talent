@@ -1,17 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-
-import PageHeader from "@common/components/PageHeader";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import Pending from "@common/components/Pending";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
+import { AdminBreadcrumbs, Pending } from "@gc-digital-talent/ui";
+
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { Scalars, useGetPoolAdvertisementQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
+import PageHeader from "~/components/PageHeader";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -30,31 +28,34 @@ export const IndexPoolCandidatePage = () => {
 
   const crumbs = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "My Pools",
         id: "XYLd6G",
         description: "Breadcrumb for the My Pools page",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title:
+      label:
         getFullPoolAdvertisementTitleHtml(intl, data?.poolAdvertisement) ||
         intl.formatMessage({
           defaultMessage: "Pool name not found",
           id: "HGMl3y",
           description: "Breadcrumb to pool page if pool name not found",
         }),
-      href: data?.poolAdvertisement
+      url: data?.poolAdvertisement
         ? paths.poolView(data.poolAdvertisement.id)
         : paths.poolTable(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "All Candidates",
         id: "v8vbWP",
         description: "Breadcrumb for the All Candidates page",
       }),
+      url: data?.poolAdvertisement
+        ? paths.poolCandidateTable(data?.poolAdvertisement.id)
+        : "#",
     },
   ];
 
@@ -64,7 +65,7 @@ export const IndexPoolCandidatePage = () => {
         data-h2-background-color="base(gray.light)"
         data-h2-padding="base(x1, x1, x1, x1)"
       >
-        <Breadcrumbs links={crumbs} />
+        <AdminBreadcrumbs crumbs={crumbs} />
       </div>
       <PageHeader
         icon={Squares2X2Icon}

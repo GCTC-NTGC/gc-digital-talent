@@ -2,15 +2,18 @@ import React, { useCallback } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
-import { PoolAdvertisement } from "@common/api/generated";
-import { Button } from "@common/components";
-import { Input } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
-import { currentDate } from "@common/helpers/formUtils";
-import { convertDateTimeZone } from "@common/helpers/dateUtils";
+import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Input } from "@gc-digital-talent/forms";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  convertDateTimeZone,
+  currentDate,
+} from "@gc-digital-talent/date-helpers";
 
-import { type UpdatePoolAdvertisementInput } from "~/api/generated";
+import {
+  PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
+} from "~/api/generated";
 
 type FormValues = {
   endDate?: PoolAdvertisement["closingDate"];

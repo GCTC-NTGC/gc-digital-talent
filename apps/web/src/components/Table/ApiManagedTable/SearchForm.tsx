@@ -3,9 +3,8 @@ import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import DropdownMenu from "@common/components/DropdownMenu";
+import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
-import { Button } from "@common/components";
 import type { SearchColumn, SearchState } from "./helpers";
 
 export interface SearchFormProps {

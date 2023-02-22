@@ -7,8 +7,7 @@ import {
   MegaphoneIcon,
 } from "@heroicons/react/24/outline";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { heavyPrimary } from "@common/helpers/format";
+import { TableOfContents } from "@gc-digital-talent/ui";
 
 import { PoolAdvertisement, AdvertisementStatus } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -80,14 +79,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Draft</heavyPrimary>",
-                      id: "4yBTfg",
-                      description: "Status name of a pool in DRAFT status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Draft</heavyPrimary>",
+                    id: "4yBTfg",
+                    description: "Status name of a pool in DRAFT status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -129,14 +125,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Published</heavyPrimary>",
-                      id: "NwpZNj",
-                      description: "Status name of a pool in PUBLISHED status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Published</heavyPrimary>",
+                    id: "NwpZNj",
+                    description: "Status name of a pool in PUBLISHED status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -183,14 +176,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Closed</heavyPrimary>",
-                      id: "VCl+IZ",
-                      description: "Status name of a pool in CLOSED status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Closed</heavyPrimary>",
+                    id: "VCl+IZ",
+                    description: "Status name of a pool in CLOSED status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -233,14 +223,11 @@ const StatusSection = ({
                 }}
               />
               <span>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
-                    id: "+5da+V",
-                    description: "Status name of a pool in ARCHIVED status",
-                  },
-                  { heavyPrimary },
-                )}
+                {intl.formatMessage({
+                  defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
+                  id: "+5da+V",
+                  description: "Status name of a pool in ARCHIVED status",
+                })}
               </span>
               <span>
                 {intl.formatMessage({

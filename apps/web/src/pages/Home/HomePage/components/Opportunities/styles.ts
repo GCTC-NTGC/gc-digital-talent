@@ -1,4 +1,4 @@
-import type { Color } from "@common/components/Button";
+import type { Color } from "@gc-digital-talent/ui";
 
 export type HomeButtonColor = Extract<
   Color,

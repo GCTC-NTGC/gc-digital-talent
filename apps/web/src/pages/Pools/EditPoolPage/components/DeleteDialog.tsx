@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
-import { Button } from "@common/components";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 type DeleteDialogProps = {
   onDelete: () => void;

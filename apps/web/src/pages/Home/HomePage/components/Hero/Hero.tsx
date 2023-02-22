@@ -1,15 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Heading from "@common/components/Heading";
-import imageUrl from "@common/helpers/imageUrl";
+import { Heading } from "@gc-digital-talent/ui";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
+import { wrapAbbr } from "~/utils/nameUtils";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
 import "./hero.css";
-import { wrapAbbr } from "@common/helpers/nameUtils";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [

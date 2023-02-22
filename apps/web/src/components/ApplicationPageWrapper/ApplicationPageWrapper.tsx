@@ -2,13 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 
-import Hero from "@common/components/Hero/Hero";
-import { BreadcrumbsProps } from "@common/components/Breadcrumbs/v2/Breadcrumbs";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
+import { BreadcrumbsProps } from "@gc-digital-talent/ui";
 
+import Hero from "~/components/Hero/Hero";
 import { PoolAdvertisement } from "~/api/generated";
 
 import ApplicationNavigation, {

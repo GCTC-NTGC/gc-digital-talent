@@ -68,7 +68,7 @@ module.exports = (basePath) => {
               loader: 'babel-loader',
               options: {
                 "filename": ".babelrc"
-              },
+              }
             },
             {
               loader: "ts-loader",
@@ -94,6 +94,9 @@ module.exports = (basePath) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
       ],
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
     },
     /**
    * Optimizations only run in production mode

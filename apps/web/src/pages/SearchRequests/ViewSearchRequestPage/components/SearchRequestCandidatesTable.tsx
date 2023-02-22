@@ -3,13 +3,12 @@ import { IntlShape, useIntl } from "react-intl";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
 
-import { Link, Pill } from "@common/components";
-import { identity, notEmpty } from "@common/helpers/util";
-import { FromArray } from "@common/types/utilityTypes";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import { getFullNameLabel } from "@common/helpers/nameUtils";
+import { Link, Pill, Pending } from "@gc-digital-talent/ui";
+import { identity, notEmpty } from "@gc-digital-talent/helpers";
+import { getOperationalRequirement } from "@gc-digital-talent/i18n";
 
+import { FromArray } from "~/types/utility";
+import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
