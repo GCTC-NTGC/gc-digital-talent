@@ -5,7 +5,7 @@ import {
   formatDate,
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
 import { Maybe, PoolCandidateStatus } from "~/api/generated";
 

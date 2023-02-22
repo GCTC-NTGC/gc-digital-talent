@@ -1,13 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Heading, HeadingLevel, Pill } from "@gc-digital-talent/ui";
+import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getFullPoolAdvertisementTitleHtml,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
@@ -32,7 +30,7 @@ export interface ApplicationCardProps {
   application: Application;
   onDelete: DeleteActionProps["onDelete"];
   onArchive: ArchiveActionProps["onArchive"];
-  headingLevel?: HeadingLevel;
+  headingLevel?: HeadingProps["level"];
 }
 
 const ApplicationCard = ({
