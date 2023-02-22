@@ -2,7 +2,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "intl-compile", "codegen"],
-      "inputs": ["src/**"],
+      "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"]
     },
     "build:css": {
@@ -13,7 +13,7 @@
     },
     "dev": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "inputs": ["src/**"],
+      "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"]
     },
     "watch": {
