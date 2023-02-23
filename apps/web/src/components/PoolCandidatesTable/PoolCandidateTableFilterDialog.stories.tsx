@@ -2,8 +2,14 @@ import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
-import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
-import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
+
+import { OverlayOrDialogDecorator } from "storybook-helpers";
+import {
+  fakeSkills,
+  fakePools,
+  fakeClassifications,
+} from "@gc-digital-talent/fake-data";
+
 import PoolCandidateTableFilterDialog from "./PoolCandidateTableFilterDialog";
 import type { FormValues } from "./PoolCandidateTableFilterDialog";
 

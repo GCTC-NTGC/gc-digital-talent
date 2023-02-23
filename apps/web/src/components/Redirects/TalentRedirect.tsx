@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-import Loading from "@common/components/Pending/Loading";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { Loading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -10,7 +10,7 @@ const TalentRedirect = () => {
   const paths = useRoutes();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { loggedInUser } = useAuthorizationContext();
+  const { loggedInUser } = useAuthorization();
 
   React.useEffect(() => {
     if (loggedInUser) {

@@ -2,10 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import TableOfContents from "@common/components/TableOfContents";
-import SkillPicker from "@common/components/SkillPicker";
-import Chip, { Chips } from "@common/components/Chip";
-import { getLocalizedName } from "@common/helpers/localize";
+import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import {
   AdvertisementStatus,
@@ -14,6 +12,7 @@ import {
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
+import SkillPicker from "~/components/SkillPicker";
 
 import { useEditPoolContext } from "./EditPoolContext";
 

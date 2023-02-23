@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
 
-import Well from "@common/components/Well";
-import { navigationMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Well } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
 
@@ -31,14 +31,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(user.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
 
   const handleUpdate = (key: EquityKeys, value: unknown) => {
     return onUpdate(user.id, {
@@ -75,7 +68,9 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             description:
               "Display Text for Diversity, equity and inclusion Page",
           }),
-          url: `${paths.diversityEquityInclusion(user.id)}${applicationParam}`,
+          url: `${paths.diversityEquityInclusion(user.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];
@@ -215,7 +210,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          href: returnRoute,
+          href: returnRoute || paths.profile(user.id),
           children: intl.formatMessage(
             application
               ? navigationMessages.backToApplication

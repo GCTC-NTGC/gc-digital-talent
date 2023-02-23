@@ -11,17 +11,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
-import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
-import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
-import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
-import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
-import { notEmpty } from "@common/helpers/util";
-import PrintExperienceByType from "@common/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
+import WorkLocationSection from "~/components/UserProfile/ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "~/components/UserProfile/ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection from "~/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
+import RoleSalarySection from "~/components/UserProfile/ProfileSections/RoleSalarySection";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
+import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 
 import { Applicant } from "~/api/generated";
-import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 
 const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
   children,
@@ -124,128 +125,137 @@ const UserProfileDocument = React.forwardRef<
       <div ref={ref}>
         <div className="print-container">
           {applicants &&
-            applicants.map((applicant) => {
+            applicants.map((applicant, index) => {
               return (
-                <div key={applicant.id} className="page-wrapper">
-                  <div className="page-section">
+                <React.Fragment key={applicant.id}>
+                  <div className="page-wrapper">
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={LightBulbIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "My Status",
+                            id: "Cx3s+E",
+                            description:
+                              "Title of the my status content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <AdminAboutUserSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={ChatBubbleLeftRightIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Language Information",
+                            id: "1pk/7X",
+                            description:
+                              "Title of the Language Information content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <LanguageInformationSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={BuildingLibraryIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Government Information",
+                            id: "l1cou8",
+                            description:
+                              "Title of the Government Information content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <GovernmentInformationSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
+                          {intl.formatMessage({
+                            defaultMessage: "Work Location",
+                            id: "F9R74z",
+                            description:
+                              "Title of the Work Location content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <WorkLocationSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={HandThumbUpIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Work Preferences",
+                            id: "V89Ryn",
+                            description:
+                              "Title of the Work Preferences content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <WorkPreferencesSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={InformationCircleIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Employment Equity Information",
+                            id: "aa7B7S",
+                            description:
+                              "Title of the Employment Equity Information content section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <DiversityEquityInclusionSection applicant={applicant} />
+                    </div>
+                    <div className="page-section">
+                      <HeadingWrapper>
+                        <Heading
+                          icon={CurrencyDollarIcon}
+                          style={{ flex: "1 1 0%" }}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Role and salary expectations",
+                            id: "uMzeiF",
+                            description:
+                              "Title of the Role and salary expectations section",
+                          })}
+                        </Heading>
+                      </HeadingWrapper>
+                      <RoleSalarySection applicant={applicant} />
+                    </div>
                     <HeadingWrapper>
-                      <Heading icon={LightBulbIcon} style={{ flex: "1 1 0%" }}>
+                      <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
                         {intl.formatMessage({
-                          defaultMessage: "My Status",
-                          id: "Cx3s+E",
-                          description: "Title of the my status content section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <AdminAboutUserSection applicant={applicant} />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={ChatBubbleLeftRightIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Language Information",
-                          id: "1pk/7X",
+                          defaultMessage: "My skills and experience",
+                          id: "Eui2Wf",
                           description:
-                            "Title of the Language Information content section",
+                            "Title of the My skills and experience content section",
                         })}
                       </Heading>
                     </HeadingWrapper>
-                    <LanguageInformationSection applicant={applicant} />
+                    <PrintExperienceByType
+                      experiences={applicant.experiences?.filter(notEmpty)}
+                    />
                   </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={BuildingLibraryIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Government Information",
-                          id: "l1cou8",
-                          description:
-                            "Title of the Government Information content section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <GovernmentInformationSection applicant={applicant} />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
-                        {intl.formatMessage({
-                          defaultMessage: "Work Location",
-                          id: "F9R74z",
-                          description:
-                            "Title of the Work Location content section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <WorkLocationSection applicant={applicant} />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={HandThumbUpIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Work Preferences",
-                          id: "V89Ryn",
-                          description:
-                            "Title of the Work Preferences content section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <WorkPreferencesSection applicant={applicant} />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={InformationCircleIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Employment Equity Information",
-                          id: "aa7B7S",
-                          description:
-                            "Title of the Employment Equity Information content section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <DiversityEquityInclusionSection applicant={applicant} />
-                  </div>
-                  <div className="page-section">
-                    <HeadingWrapper>
-                      <Heading
-                        icon={CurrencyDollarIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Role and salary expectations",
-                          id: "uMzeiF",
-                          description:
-                            "Title of the Role and salary expectations section",
-                        })}
-                      </Heading>
-                    </HeadingWrapper>
-                    <RoleSalarySection applicant={applicant} />
-                  </div>
-                  <HeadingWrapper>
-                    <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
-                      {intl.formatMessage({
-                        defaultMessage: "My skills and experience",
-                        id: "Eui2Wf",
-                        description:
-                          "Title of the My skills and experience content section",
-                      })}
-                    </Heading>
-                  </HeadingWrapper>
-                  <PrintExperienceByType
-                    experiences={applicant.experiences?.filter(notEmpty)}
-                  />
-                </div>
+                  {index + 1 !== applicants.length && (
+                    <div style={{ breakAfter: "page" }} />
+                  )}
+                </React.Fragment>
               );
             })}
         </div>

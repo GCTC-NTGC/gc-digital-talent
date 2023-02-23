@@ -29,7 +29,7 @@ module.exports = (basePath) => {
 
     "stories": [
       "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "../../../frontend/common/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
       "@storybook/addon-links",
@@ -49,16 +49,15 @@ module.exports = (basePath) => {
         ".tsx", ".ts", ".js"
       ];
 
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "~": path.resolve(__dirname, "../../apps/web/src/"),
-        "@common": path.resolve(__dirname, '../../frontend/common/src/'),
-      }
-
       config.module.rules = [
         ...config.module.rules,
         reactIntlTransformRule,
       ];
+
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "~": path.resolve(__dirname, "../../apps/web/src/"),
+      }
 
       config.resolve.plugins = [
         ...(config.resolve.plugins || []),
@@ -68,7 +67,6 @@ module.exports = (basePath) => {
       ];
 
       // Run Hydrogen on Webpack's compiler hooks
-      // Note that this version is unique from the other workspaces because we're already inside the common folder
       config.plugins.push(
         {
           apply: (compiler) => {
@@ -82,7 +80,7 @@ module.exports = (basePath) => {
             // Run on the invalid hook so that the file time is updated before the next compile
             compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
               shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
-              var f = path.resolve('../frontend/common/src/css/hydrogen.css')
+              var f = path.resolve('../apps/web/src/assets/css/hydrogen.css')
               var now = Date.now() / 1000
               var then = now - 100
               if (f) {

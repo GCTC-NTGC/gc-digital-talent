@@ -1,21 +1,23 @@
 import React from "react";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
-
-import Heading from "@common/components/Heading";
-import { PoolStream, Skill } from "@common/api/generated";
-import Accordion from "@common/components/Accordion";
-import { Link, Pill } from "@common/components";
-import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
-import { Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
-import { AuthorizationContext } from "@common/components/Auth";
-import { getId, notEmpty, uniqueItems } from "@common/helpers/util";
 
-import { PoolAdvertisement, useMySkillsQuery } from "~/api/generated";
+import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { Select } from "@gc-digital-talent/forms";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+
+import {
+  PoolStream,
+  Skill,
+  PoolAdvertisement,
+  useMySkillsQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component
@@ -90,7 +92,7 @@ const OngoingRecruitmentSection = ({
   });
 
   const quickFilterStream = methods.watch("quickFilter");
-  const { loggedInUser, isLoaded } = React.useContext(AuthorizationContext);
+  const { loggedInUser, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
     pause: !isLoaded || !loggedInUser,
   });
@@ -972,17 +974,13 @@ const OngoingRecruitmentSection = ({
               id: "8NB+Ay",
               description: "A label for a quick filter input.",
             })}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a job stream...",
+              id: "cmFeXj",
+              description:
+                "Placeholder for stream filter in browse opportunities form.",
+            })}
             options={[
-              {
-                value: "",
-                disabled: true,
-                label: intl.formatMessage({
-                  defaultMessage: "Select a job stream...",
-                  id: "cmFeXj",
-                  description:
-                    "Placeholder for stream filter in browse opportunities form.",
-                }),
-              },
               ...streamsWithAvailablePools.map((stream) => ({
                 value: stream.key,
                 label: stream.label,

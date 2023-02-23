@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ExternalLink } from "@common/components/Link";
+import { ExternalLink } from "@gc-digital-talent/ui";
 
 const statCanLink = (href: string, chunks: React.ReactNode) => (
   <ExternalLink newTab href={href}>

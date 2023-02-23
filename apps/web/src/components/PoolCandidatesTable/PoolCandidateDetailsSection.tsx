@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well";
+import { Well } from "@gc-digital-talent/ui";
 import {
   getJobLookingStatus,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
 
 import { PoolCandidate } from "~/api/generated";
 

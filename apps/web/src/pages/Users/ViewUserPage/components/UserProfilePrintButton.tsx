@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
-import { Button } from "@common/components";
-import printStyles from "@common/constants/printStyles";
+import { Button } from "@gc-digital-talent/ui";
 
 import { Applicant } from "~/api/generated";
+import printStyles from "~/styles/printStyles";
 import UserProfileDocument from "~/components/UserProfileDocument/UserProfileDocument";
 
 export interface UserProfilePrintButtonProps {

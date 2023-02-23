@@ -1,16 +1,13 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import omit from "lodash/omit";
 
-import Button from "@common/components/Button/Button";
-import Heading from "@common/components/Heading/Heading";
-import Separator from "@common/components/Separator/Separator";
-import { unpackMaybes } from "@common/helpers/formUtils";
-import Pending from "@common/components/Pending";
-import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
-import { notEmpty } from "@common/helpers/util";
+import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   CountApplicantsQueryVariables,
   Maybe,
@@ -24,7 +21,9 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
+import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
 
+import { LocationState } from "~/types/searchRequest";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
@@ -384,6 +383,9 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi = () => {
+  const location = useLocation();
+  const state = location.state as LocationState;
+
   const navigate = useNavigate();
   // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
@@ -393,19 +395,29 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-
+  const applicantFilterFromBrowserHistory = state?.applicantFilter;
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >();
+  >(
+    applicantFilterFromBrowserHistory || {
+      pools: searchFormData?.publishedPoolAdvertisements,
+    },
+  );
 
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
-    if (searchFormData?.publishedPoolAdvertisements) {
+    if (
+      searchFormData?.publishedPoolAdvertisements &&
+      applicantFilterFromBrowserHistory === undefined
+    ) {
       setApplicantFilter({
         pools: searchFormData?.publishedPoolAdvertisements,
       });
     }
-  }, [searchFormData?.publishedPoolAdvertisements]);
+  }, [
+    searchFormData?.publishedPoolAdvertisements,
+    applicantFilterFromBrowserHistory,
+  ]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
@@ -441,7 +453,7 @@ const SearchContainerApi = () => {
     ?.flatMap((pool) => pool?.classifications)
     .filter(notEmpty);
 
-  const ITClassifications = NonExecutiveITClassifications();
+  const ITClassifications = nonExecutiveITClassifications();
   const searchableClassifications = ITClassifications.filter(
     (classification) => {
       return availableClassifications?.some(

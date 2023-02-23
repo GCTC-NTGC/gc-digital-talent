@@ -4,15 +4,14 @@ import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
-import SEO, { Favicon } from "@common/components/SEO/SEO";
-import NavMenu from "@common/components/NavMenu";
-import MenuLink from "@common/components/Link/MenuLink";
-import SkipLink from "@common/components/Link/SkipLink";
-import Header from "@common/components/Header";
-import Footer from "@common/components/Footer";
-import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
-// import { Messages } from "@common/components/context/LanguageProvider";
-// import NestedLanguageProvider from "@common/components/context/NestedLanguageProvider";
+import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+// import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
+
+import SEO, { Favicon } from "~/components/SEO/SEO";
+import NavMenu from "~/components/NavMenu";
+import Header from "~/components/Header";
+import Footer from "~/components/Footer";
 
 import useRoutes from "~/hooks/useRoutes";
 

@@ -1,15 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
+import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";

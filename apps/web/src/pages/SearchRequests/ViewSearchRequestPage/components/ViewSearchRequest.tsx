@@ -1,17 +1,17 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { getLocale } from "@common/helpers/localize";
-import { FilterBlock } from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
-import SearchRequestFilters from "@common/components/SearchRequestFilters/SearchRequestFilters";
-import { commonMessages } from "@common/messages";
-import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import Heading from "@common/components/Heading/Heading";
+import {
+  getLocale,
+  commonMessages,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
+import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
+import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,

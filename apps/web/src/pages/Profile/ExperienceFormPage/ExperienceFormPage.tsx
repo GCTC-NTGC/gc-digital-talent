@@ -1,23 +1,26 @@
 import React from "react";
-import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { toast } from "@common/components/Toast";
-import { Button } from "@common/components";
-import AlertDialog from "@common/components/AlertDialog";
-import { BasicForm, TextArea } from "@common/components/form";
-import { removeFromSessionStorage } from "@common/helpers/storageUtils";
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { notEmpty } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import { categorizeSkill } from "@common/helpers/skillUtils";
-import { Maybe, SkillCategory } from "@common/api/generated";
-
+import { toast } from "@gc-digital-talent/toast";
 import {
+  Button,
+  AlertDialog,
+  ThrowNotFound,
+  Pending,
+} from "@gc-digital-talent/ui";
+import { BasicForm, TextArea } from "@gc-digital-talent/forms";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { categorizeSkill } from "~/utils/skillUtils";
+import {
+  Maybe,
+  SkillCategory,
   PoolAdvertisement,
   Scalars,
   Skill,
@@ -26,6 +29,7 @@ import {
   useGetSkillsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 
 import ProfileFormWrapper, {
   ProfileFormFooter,
@@ -80,12 +84,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
 
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
@@ -350,13 +353,12 @@ export interface ExperienceFormContainerProps {
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
+  const { id: applicationId } = useApplicationInfo();
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? `?applicationId=${applicationId}` : ``
+    applicationId ? `?${applicationId}` : ``
   }`;
 
   const [

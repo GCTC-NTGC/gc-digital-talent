@@ -4,21 +4,21 @@ The application is being designed and written in English and simultaneously bein
 
 ## Tools
 
-The common subproject contains a script (`src/tooling/checkIntl.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
+The i18n subproject contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
 
 ### Bulk Translation
 The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts.
 
-Note: each subproject using react-intl (e.g. common, apps/web, etc.) requires its own set of commands, and must be managed separately.
+Note: each subproject using react-intl (e.g. packages/i18n, apps/web, etc.) requires its own set of commands, and must be managed separately.
 
 For example, to ensure translations in the apps/web project are up to date:
 1. Run `npm run intl-extract` in the project you are managing (in this case, apps/web).
-2. Run `npm run check-intl-web` (from the /frontend/common folder). This generates a **untranslated.json** file in the apps/web project's lang folder.
+2. Run `npm run check-intl:web` (from the root folder). This generates a **untranslated.json** file in the apps/web project's lang folder.
 3. Send **untranslated.json** for translation.  Refer to the instructions in the next section.
 4. Save the translated version which comes back as **newTranslations.json** in the same lang folder.
-5. Run `npm run check-intl-web-merge` (again from the /frontend/common folder).
+5. Run `npm run check-intl-merge:web` (again from the root folder).
 6. If you see any warnings about untranslated entries which simply match in English and French, add the key to the array in **whitelist.json** and repeat step 4.
-7. Run `npm run intl-compile` in the /apps/web folder.
+7. Run `npm run intl-compile` in the root folder.
 
 ### Smaller Edits
 Sometimes it is necessary to make smaller edits to English and French copy rather than bulk translations as described above.  In this scenario it is often easier to make the changes manually rather than use the npm scripts.  The workflow could look like this:

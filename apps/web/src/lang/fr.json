@@ -1061,10 +1061,6 @@
     "defaultMessage": "Postes en anglais",
     "description": "Message for the english positions option"
   },
-  "JUk80l": {
-    "defaultMessage": "Éducation",
-    "description": "Title for education experience form button."
-  },
   "JjPpGt": {
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
@@ -1169,10 +1165,6 @@
     "defaultMessage": "Informations linguistiques",
     "description": "Title for Profile Form wrapper in Language Information Form"
   },
-  "RF51Bp": {
-    "defaultMessage": "Travail",
-    "description": "Title for work experience form button."
-  },
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
     "description": "Title for addition information on Experience form"
@@ -1196,10 +1188,6 @@
   "TfoHYi": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for Profile Form wrapper  in DiversityEquityInclusionForm"
-  },
-  "Tr5Pga": {
-    "defaultMessage": "Ajouter une nouvelle expérience :",
-    "description": "Message to user when no experiences have been attached to profile"
   },
   "TuhgU0": {
     "defaultMessage": "Options d'équité en matière d'emploi :",
@@ -1244,10 +1232,6 @@
   "XBfLOu": {
     "defaultMessage": "Mon statut",
     "description": "Legend for my status option in my status form"
-  },
-  "XF4Ok2": {
-    "defaultMessage": "Prix",
-    "description": "Title for award experience form button."
   },
   "XY19Sh": {
     "defaultMessage": "À propos de moi",
@@ -1409,10 +1393,6 @@
     "defaultMessage": "Erreur : l'ajout de l'expérience a échoué",
     "description": "Message displayed to user after experience fails to be created."
   },
-  "mrhpJS": {
-    "defaultMessage": "Communautaire",
-    "description": "Title for community experience form button."
-  },
   "nOE+8s": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
@@ -1424,10 +1404,6 @@
   "ntUOoz": {
     "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
     "description": "Legend for considered position languages check list in language information form"
-  },
-  "nuP1BG": {
-    "defaultMessage": "Personnelle",
-    "description": "Title for personal experience form button."
   },
   "nueuS8": {
     "defaultMessage": "Lieu de travail",
@@ -1716,10 +1692,6 @@
   "WkX8Ge": {
     "defaultMessage": "Requis",
     "description": "Title for the required skills section of a pool advertisement"
-  },
-  "XiUgMy": {
-    "defaultMessage": "<hidden>Ajouter une nouvelle </hidden>{title}<hidden> expérience</hidden>",
-    "description": "Link text for adding a new experience of a specific type."
   },
   "XzUzZz": {
     "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
@@ -3344,9 +3316,9 @@
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill family form name (English) field."
   },
-  "3exDkT": {
+  "CvV2l6": {
     "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill form key field."
+    "description": "Label for an entity 'key' field"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -3536,10 +3508,6 @@
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Skill Family table Category column."
   },
-  "qVXkby": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the create a skill family form key field."
-  },
   "qZd17O": {
     "defaultMessage": " Créer une compétence",
     "description": "Title displayed on the create a skill form."
@@ -3585,7 +3553,7 @@
     "description": "Tabs title for the individual user profile."
   },
   "1pk/7X": {
-    "defaultMessage": "Informations linguistiques",
+    "defaultMessage": "Information linguistiques",
     "description": "Title of the Language Information content section"
   },
   "3HJ51b": {
@@ -5679,6 +5647,122 @@
     "defaultMessage": "Modifier <hidden>{title}</hidden>",
     "description": "Text label for button to edit employment equity category from profile."
   },
+  "6eCvv1": {
+    "defaultMessage": "Postes bilingues (français et anglais)",
+    "description": "Bilingual Positions message"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
+  },
+  "UOO1gW": {
+    "defaultMessage": "Oui",
+    "description": "Message for when a value is true"
+  },
+  "ZLPqdF": {
+    "defaultMessage": "Aucun prénom fourni",
+    "description": "Fallback for first name value"
+  },
+  "fFznH0": {
+    "defaultMessage": "Postes en anglais ou en français",
+    "description": "English or French Positions message"
+  },
+  "n80lVV": {
+    "defaultMessage": "Aucun nom fourni",
+    "description": "Fallback for name value"
+  },
+  "q7bz0J": {
+    "defaultMessage": "Non",
+    "description": "Message for when a value is false"
+  },
+  "qT9sS0": {
+    "defaultMessage": "Postes en français",
+    "description": "French Positions message"
+  },
+  "r7lf0k": {
+    "defaultMessage": "Aucun nom de famille fourni",
+    "description": "Fallback for last name value"
+  },
+  "vFMPHW": {
+    "defaultMessage": "Postes en anglais",
+    "description": "English Positions message"
+  },
+  "+ikQY0": {
+    "defaultMessage": "Prix",
+    "description": "Title for award section"
+  },
+  "6XQGne": {
+    "defaultMessage": "Ajouter l’expérience en matière d’éducation",
+    "description": "Button text to add an education experience to the profile"
+  },
+  "AKRd34": {
+    "defaultMessage": "Ajouter une expérience communautaire",
+    "description": "Button text to add a community experience to the profile"
+  },
+  "CSg8cH": {
+    "defaultMessage": "Ajouter un prix",
+    "description": "Button text to add an award to the profile"
+  },
+  "El/lyl": {
+    "defaultMessage": "Les gens sont plus que des études et des expériences professionnelles. Nous voulons vous laisser un espace pour que vous puissiez partager votre apprentissage à partir d’autres expériences.",
+    "description": "Description for personal experience section"
+  },
+  "K5UiWg": {
+    "defaultMessage": "Avez-vous des accréditations? Indiquez vos diplômes, vos certificats, les cours en ligne que vous avez suivis, votre apprentissage d’un métier, vos licences ou autres titres de compétences. Si vous avez appris quelque chose auprès d’un fournisseur de services éducatifs reconnu, indiquez ici cette expérience.",
+    "description": "Description for work experience section"
+  },
+  "KmqF8d": {
+    "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
+    "description": "Description for award section"
+  },
+  "L6UnSl": {
+    "defaultMessage": "Ajoutez votre expérience personnelle",
+    "description": "Button text to add a personal experience to the profile"
+  },
+  "MhgtB6": {
+    "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
+    "description": "Instructions for the Add Experience dialog"
+  },
+  "Rz7WtH": {
+    "defaultMessage": "Bénévolat et expérience communautaire",
+    "description": "Title for community experience section"
+  },
+  "WkD8tV": {
+    "defaultMessage": "Ajouter une expérience professionnelle",
+    "description": "Button text to add a work experience to the profile"
+  },
+  "bOAF9o": {
+    "defaultMessage": "Ajouter une nouvelle expérience",
+    "description": "Button to open modal to add a new experience to the profile"
+  },
+  "giUfys": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Title for work experience section"
+  },
+  "h5MtHc": {
+    "defaultMessage": "Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
+    "description": "Subtitle for the Add Experience dialog"
+  },
+  "muduUA": {
+    "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
+    "description": "Description for community experience section"
+  },
+  "tVVb0b": {
+    "defaultMessage": "Partagez vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses ou de stages.",
+    "description": "Description for work experience section"
+  },
+  "u6LIbY": {
+    "defaultMessage": "Expérience en matière d’éducation",
+    "description": "Title for education experience section"
+  },
+  "wTFUPE": {
+    "defaultMessage": "Expérience personnelle",
+    "description": "Title for personal experience section"
+  },
+  "yI5DFC": {
+    "defaultMessage": "Ajoutez une nouvelle expérience à votre CV",
+    "description": "Heading for the Add Experience dialog"
+  },
   "BkH0qC": {
     "defaultMessage": "Profil d’utilisateur",
     "description": "Page title for the view user profile page"
@@ -5702,5 +5786,736 @@
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
+  },
+  "/fglL0": {
+    "defaultMessage": "Femme",
+    "description": "Message for woman option in the employment equity section of the request page."
+  },
+  "/mFrpj": {
+    "defaultMessage": "Diplôme d’études postsecondaires exigé",
+    "description": "Education level message when candidate has a diploma found on the request page."
+  },
+  "0/8x/z": {
+    "defaultMessage": "N’importe quelle langue"
+  },
+  "4RK/oW": {
+    "defaultMessage": "Minorité visible",
+    "description": "Message for visible minority option in the employment equity section of the request page."
+  },
+  "7GRDML": {
+    "defaultMessage": "Autochtone",
+    "description": "Message for indigenous option in the employment equity section of the request page."
+  },
+  "9DCx2n": {
+    "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
+    "description": "Education level message when candidate does not have a diploma found on the request page."
+  },
+  "GHlK/f": {
+    "defaultMessage": "Handicap",
+    "description": "Message for disability option in the employment equity section of the request page."
+  },
+  "MWZgsB": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title for work location section on summary of filters section"
+  },
+  "Rn5e/i": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title for group and level on summary of filters section"
+  },
+  "VX3Og5": {
+    "defaultMessage": "Compétence linguistique au travail",
+    "description": "Title for work language on summary of filters section"
+  },
+  "YKqt+1": {
+    "defaultMessage": "Niveau d’études",
+    "description": "Title for education level on summary of filters section"
+  },
+  "ZuSEII": {
+    "defaultMessage": "Type de possibilité d’emploi",
+    "description": "Title for type of opportunity section on summary of filters section"
+  },
+  "cMsRgt": {
+    "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
+    "description": "Title for operational requirements section on summary of filters section"
+  },
+  "AWiMVP": {
+    "defaultMessage": "Contactez-nous",
+    "description": "Label for the support link in the Footer."
+  },
+  "VcOlXA": {
+    "defaultMessage": "Énoncé de confidentialité",
+    "description": "Label for the privacy link in the Footer."
+  },
+  "ZE77nf": {
+    "defaultMessage": "Canada.ca",
+    "description": "Label for the Canada link in the Footer."
+  },
+  "ZGpncy": {
+    "defaultMessage": "Avis",
+    "description": "Label for the terms and conditions link in the Footer."
+  },
+  "4uiPHx": {
+    "defaultMessage": "Passer à la page suivante",
+    "description": "Aria label for next page button in pagination nav"
+  },
+  "Fc/i3e": {
+    "defaultMessage": "Modification de la date : {modifiedDate}",
+    "description": "Header for the sites last date modification found in the footer."
+  },
+  "Z3h103": {
+    "defaultMessage": "<hidden>Change language to </hidden>English",
+    "description": "Title for the language toggle link."
+  },
+  "Rv5vo7": {
+    "defaultMessage": "Passer à la page {pageNumber}",
+    "description": "Aria label for each button in pagination nav"
+  },
+  "drr0f7": {
+    "defaultMessage": "Passer à la page précédente",
+    "description": "Aria label for previous page button in pagination nav"
+  },
+  "/+CmAn": {
+    "defaultMessage": "Modifier À propos de moi",
+    "description": "Text on link to update a users personal information."
+  },
+  "0DzlCc": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title of the Work Preferences link section"
+  },
+  "1VFyrc": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled WorkLocation section."
+  },
+  "4BpFoX": {
+    "defaultMessage": "{title} émis par {issuedBy}",
+    "description": "The award title is issued by some group"
+  },
+  "4Xa7Pd": {
+    "defaultMessage": "Aucune information n'a été fournie",
+    "description": "Message on Admin side when user not filled Experience section."
+  },
+  "5APACq": {
+    "defaultMessage": "Modifier les renseignements gouvernementaux",
+    "description": "Text on link to update a users government information."
+  },
+  "5WOqlf": {
+    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
+    "description": "Label preceding what groups the user identifies as part of, followed by a colon"
+  },
+  "5d0vbr": {
+    "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
+    "description": "Message to state user is employed by government"
+  },
+  "6RiVQA": {
+    "defaultMessage": "{role} au sein de la {division}",
+    "description": "Role at division"
+  },
+  "8cRL8r": {
+    "defaultMessage": "Durée permanente",
+    "description": "Permanent duration only"
+  },
+  "95OYVk": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations link section"
+  },
+  "9WxeNz": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title of the Work Location link section"
+  },
+  "9pdtnR": {
+    "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
+    "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "A2KwTw": {
+    "defaultMessage": "1 compétence",
+    "description": "Pluralization for one skill"
+  },
+  "AF8g2I": {
+    "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
+    "description": "Text on link to update a users employment equity."
+  },
+  "B9x0ZV": {
+    "defaultMessage": "Informations linguistiques ",
+    "description": "Title of the Language Information link section"
+  },
+  "CEzDTC": {
+    "defaultMessage": "Modifier le rôle et le salaire",
+    "description": "Text on link to update a users role and salary expectations."
+  },
+  "D7Qb41": {
+    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
+    "description": "Evaluation results for second language, results in that order followed by a colon"
+  },
+  "FF0ubO": {
+    "defaultMessage": "Modifier le lieu de travail",
+    "description": "Text on link to update a users work location."
+  },
+  "JerysR": {
+    "defaultMessage": "Par compétences",
+    "description": "Tab title for experiences sorted by skills in applicant profile."
+  },
+  "MoWNS4": {
+    "defaultMessage": "Exemptions à l'emplacement :",
+    "description": "Location Exemptions label, followed by colon"
+  },
+  "MuyuAu": {
+    "defaultMessage": "Groupe et classification actuels :",
+    "description": "Field label before government employment group and level, followed by colon"
+  },
+  "Nc4sjC": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Title of the Government Information link section"
+  },
+  "OvJwG6": {
+    "defaultMessage": "Renseignements supplémentaires : {details}",
+    "description": "Additional information if provided"
+  },
+  "P/tHlt": {
+    "defaultMessage": "Par type",
+    "description": "Tab title for experiences sorted by type in applicant profile."
+  },
+  "QdXUwo": {
+    "defaultMessage": "Aller à la page :",
+    "description": "Label for pagination input in admin table."
+  },
+  "QjOom4": {
+    "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
+    "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
+  },
+  "SCCX7B": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
+    "description": "Message for when no data exists for the section"
+  },
+  "TLgbZm": {
+    "defaultMessage": "Mon statut",
+    "description": "Title of the My Status section"
+  },
+  "TmCffZ": {
+    "defaultMessage": "Intéressé par :",
+    "description": "Interested in label and colon"
+  },
+  "U/Lv8i": {
+    "defaultMessage": "Expérience inconnue",
+    "description": "Title for unknown experiences"
+  },
+  "UrsGGK": {
+    "defaultMessage": "{areaOfStudy} à {institution}",
+    "description": "Study at institution"
+  },
+  "Vbw1ES": {
+    "defaultMessage": "Modifier les informations linguistiques",
+    "description": "Text on link to update a users language information."
+  },
+  "Vc9vE7": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
+    "description": "Label for what length of position user prefers, followed by colon"
+  },
+  "XqFhIa": {
+    "defaultMessage": "Modifier les compétences et l'expérience",
+    "description": "Text on link to update a users skills and experiences."
+  },
+  "Zm9Hnf": {
+    "defaultMessage": "Depuis : {d1}",
+    "description": "Since"
+  },
+  "azOv8A": {
+    "defaultMessage": "Téléphone :",
+    "description": "Phone label and colon"
+  },
+  "b5bUa0": {
+    "defaultMessage": "Lieu de travail :",
+    "description": "Work Location label, followed by colon"
+  },
+  "bEwwY/": {
+    "defaultMessage": "Langue de communication préférée :",
+    "description": "Preferred Language for communication purposes label and colon"
+  },
+  "e2Rfn/": {
+    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
+    "description": "Label for Role and salary expectations sections"
+  },
+  "dQseX7": {
+    "defaultMessage": "1 expérience",
+    "description": "Pluralization for one experience"
+  },
+  "e2R6fy": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title of the Diversity, equity and inclusion link section"
+  },
+  "eLXTfi": {
+    "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
+    "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "fNOekV": {
+    "defaultMessage": "Mes bassins d'embauche",
+    "description": "Title of the my hiring pools content section"
+  },
+  "fqIEKE": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Title of the My skills and experience link section"
+  },
+  "gpcHeU": {
+    "defaultMessage": "Canada.ca",
+    "description": "Alt text for the Canada logo link in the Header."
+  },
+  "gtLuDM": {
+    "defaultMessage": "Projet : {project}",
+    "description": "Project Name"
+  },
+  "inzzdo": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title of the Diversity, equity and inclusion content section"
+  },
+  "kjX7mF": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled RoleSalary section."
+  },
+  "l/MbFR": {
+    "defaultMessage": "Modifier mes bassins d'embauche",
+    "description": "Text on link to update a users hiring pools."
+  },
+  "l/jGX9": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
+    "description": "Label for what conditions a user will accept, followed by a colon"
+  },
+  "l27ekQ": {
+    "defaultMessage": "{skillsLength} Compétences",
+    "description": "Pluralization for zero or multiple skills"
+  },
+  "m1eQrS": {
+    "defaultMessage": "Canada.ca",
+    "description": "Alt text for the Canada logo link in the Footer."
+  },
+  "mtFK6A": {
+    "defaultMessage": "Courriel :",
+    "description": "Email label and colon"
+  },
+  "oC/GRF": {
+    "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
+    "description": "The skill is not attached to any experience"
+  },
+  "om3i0o": {
+    "defaultMessage": "Modifier mon statut",
+    "description": "Text on link to update a users status."
+  },
+  "omDlZN": {
+    "defaultMessage": "Thèse : {thesisTitle}",
+    "description": "Thesis, if applicable"
+  },
+  "p8Gi1k": {
+    "defaultMessage": "Modifier les préférences de travail",
+    "description": "Text on link to update a users work preferences."
+  },
+  "pbXAOp": {
+    "defaultMessage": "Afficher {numOfRows}",
+    "description": "Options for how many rows to show on admin table"
+  },
+  "phbDSx": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Edit Experience button label"
+  },
+  "q3Gl23": {
+    "defaultMessage": "Niveau de la langue seconde :",
+    "description": "Estimated skill in second language, followed by a colon"
+  },
+  "s1h7Mc": {
+    "defaultMessage": "Emplacement actuel :",
+    "description": "Current Location label and colon"
+  },
+  "shPV27": {
+    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
+    "description": "Completed a government of canada abbreviation evaluation label and colon"
+  },
+  "ugRTOW": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled GovernmentInformation section."
+  },
+  "vV0SDz": {
+    "defaultMessage": "{title} à {organization}",
+    "description": "Title at organization"
+  },
+  "vpAafL": {
+    "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
+    "description": "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please."
+  },
+  "w+L6oa": {
+    "defaultMessage": "Par date",
+    "description": "Tab title for experiences sorted by date in applicant profile."
+  },
+  "wTAdQe": {
+    "defaultMessage": "{role} à {organization}",
+    "description": "Role at organization"
+  },
+  "xNVsei": {
+    "defaultMessage": "{experienceLength} Expériences",
+    "description": "Pluralization for zero or multiple experiences"
+  },
+  "xUl9pz": {
+    "defaultMessage": "Mes bassins d'embauche",
+    "description": "Title of the My Hiring Pools section"
+  },
+  "xjtRjr": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled language section."
+  },
+  "W6Jh6N": {
+    "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
+    "description": "Button label to remove the adjacent skill on skill result block."
+  },
+  "PF4ya+": {
+    "defaultMessage": "p. ex. Python, JavaScript, etc.",
+    "description": "Placeholder for the skills search bar."
+  },
+  "MO80Mu": {
+    "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
+    "description": "Button label to add the adjacent skill on skill result block."
+  },
+  "4sJvia": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the About link section"
+  },
+  "CnB8IO": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the about content section"
+  },
+  "s3FrzP": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user attempts to logout"
+  },
+  "ivKwx0": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user attempts to logout"
+  },
+  "WtwED/": {
+    "defaultMessage": "Voir la définition<hidden> pour {skillName}</hidden>",
+    "description": "Text displayed when skill block is open."
+  },
+  "SGcina": {
+    "defaultMessage": "Masquer la définition<hidden> pour {skillName}</hidden>",
+    "description": "Text displayed when skill block is open."
+  },
+  "3pox8N": {
+    "defaultMessage": "Modifiez vos options d'informations gouvernementales.",
+    "description": "Link text to edit government information on profile."
+  },
+  "BPiMTY": {
+    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
+    "description": "Link text to edit role and salary expectations on profile."
+  },
+  "F3/88e": {
+    "defaultMessage": "Modifier les options de votre lieu de travail.",
+    "description": "Link text to edit work location on profile"
+  },
+  "L9AGk7": {
+    "defaultMessage": "Modifiez vos options à propos de moi.",
+    "description": "Link text to edit about me section on profile."
+  },
+  "RggAL8": {
+    "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
+    "description": "Link text to edit diversity, equity and inclusion information on profile."
+  },
+  "S9lNLG": {
+    "defaultMessage": "Modifiez vos options d'informations linguistiques",
+    "description": "Link text to edit language information on profile."
+  },
+  "UPx6kk": {
+    "defaultMessage": "<primary>{title}</primary> à {organization}",
+    "description": "Title at organization"
+  },
+  "c39xT8": {
+    "defaultMessage": "Modifier les options de votre expérience.",
+    "description": "Link text to edit experience information on profile."
+  },
+  "cK/hoN": {
+    "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
+    "description": "The award title is issued by some group"
+  },
+  "eFCDP4": {
+    "defaultMessage": "Modifiez vos options de préférences de travail.",
+    "description": "Link text to edit work preferences on profile"
+  },
+  "hDupu9": {
+    "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
+    "description": "Link text for editing skills and experiences on profile."
+  },
+  "GThNuu": {
+    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
+    "description": "would not accept job line before a list, ignore things in <> please"
+  },
+  "VOheZB": {
+    "defaultMessage": "<primary>{role}</primary> à {organization}",
+    "description": "Role at organization in work experience block of skill accordion."
+  },
+  "fSBslq": {
+    "defaultMessage": "Taille de la page",
+    "description": "Label for the number of items to display on each page."
+  },
+  "QXYMUG": {
+    "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
+    "description": "Message displayed when a skill has no definition"
+  },
+  "c4r/Zv": {
+    "defaultMessage": "Aucune compétence n’a été liée à cette expérience jusqu’à présent.",
+    "description": "A message explaining that the experience has no associated skills"
+  },
+  "rcI/H3": {
+    "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
+    "description": "An introduction to a list of experiences associated with a skill"
+  },
+  "xdojyj": {
+    "defaultMessage": "Politique et rétroaction",
+    "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "SY1LIh": {
+    "defaultMessage": "Menu principal",
+    "description": "Label for the main navigation"
+  },
+  "HkzjEV": {
+    "defaultMessage": "Utilitaire",
+    "description": "Label for the utility link navigation"
+  },
+  "ARqO1j": {
+    "defaultMessage": "Chercher les compétences par mot-clé",
+    "description": "Label for the skills search bar."
+  },
+  "2Ckihd": {
+    "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
+    "description": "The number of skills found within the skill picker."
+  },
+  "+tKl71": {
+    "defaultMessage": "J’ai un droit de priorité",
+    "description": "affirm possession of priority entitlement"
+  },
+  "0T3NB0": {
+    "defaultMessage": "Erreur : nom de compétence non trouvé",
+    "description": "Error message when skill name is not found on request page."
+  },
+  "159+n7": {
+    "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
+    "description": "Title for skills section on summary of filters section"
+  },
+  "92hwzj": {
+    "defaultMessage": "Statut de citoyenneté :",
+    "description": "Citizenship status label"
+  },
+  "CX/qKY": {
+    "defaultMessage": "à {institution}",
+    "description": "Study at institution"
+  },
+  "3JL02L": {
+    "defaultMessage": "Décerné à :",
+    "description": "The award was given to"
+  },
+  "FAOzjP": {
+    "defaultMessage": "Portée :",
+    "description": "The scope of the award given"
+  },
+  "LjkK5G": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "Tab name for a list of behavioural skills"
+  },
+  "NIEIAC": {
+    "defaultMessage": "Aucun renseignement n’a été fourni.",
+    "description": "Message on Admin side when user not filled about me section."
+  },
+  "PmMr9l": {
+    "defaultMessage": "Durée de l’emploi",
+    "description": "Title for work language on summary of filters section"
+  },
+  "T49QiO": {
+    "defaultMessage": "Type d’emploi :",
+    "description": "Label for applicant's employment type"
+  },
+  "ZUO1OX": {
+    "defaultMessage": "Numéro de priorité :",
+    "description": "Label for applicant's priority number value"
+  },
+  "kxseH4": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Tab name for a list of technical skills"
+  },
+  "ny/ddo": {
+    "defaultMessage": "Ministère :",
+    "description": "Label for applicant's Government of Canada department"
+  },
+  "swugkW": {
+    "defaultMessage": "Droit de priorité :",
+    "description": "Label for applicant's priority entitlement status"
+  },
+  "x0FRH/": {
+    "defaultMessage": "Je n’ai pas de droit de priorité",
+    "description": "affirm no entitlement"
+  },
+  "z/J4uL": {
+    "defaultMessage": "Statut de l’employé :",
+    "description": "Label for applicant's employee status"
+  },
+  "6VyRZ/": {
+    "defaultMessage": "Expériences personnelles",
+    "description": "Heading for personal experiences in experience by type listing"
+  },
+  "iWD2Pz": {
+    "defaultMessage": "Expériences communautaires",
+    "description": "Heading for community experiences in experience by type listing"
+  },
+  "aBSEkP": {
+    "defaultMessage": "Expériences de travail",
+    "description": "Heading for personal experiences in experience by type listing"
+  },
+  "pV96Xv": {
+    "defaultMessage": "Expériences scolaires",
+    "description": "Heading for education experiences in experience by type listing"
+  },
+  "X0YPib": {
+    "defaultMessage": "Expériences relatives aux prix",
+    "description": "Heading for award experiences in experience by type listing"
+  },
+  "56WpMU": {
+    "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
+    "description": "Button text to set no theme mode"
+  },
+  "6wCHq2": {
+    "defaultMessage": "Activez le mode sombre",
+    "description": "Button text to set theme mode to dark"
+  },
+  "9CkDfr": {
+    "defaultMessage": "Aucune compétence trouvée.",
+    "description": "Message displayed when no skills were found in skill picker search"
+  },
+  "9nJi0W": {
+    "defaultMessage": "Activez le mode lumière",
+    "description": "Button text to set theme mode to light"
+  },
+  "AhQ6xv": {
+    "defaultMessage": "Ces compétences requises sont absentes de votre profil :",
+    "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "B89Ihf": {
+    "defaultMessage": "Compétences requises pour la demande",
+    "description": "Title that appears when a user is missing required skills on their profile."
+  },
+  "CJy0kS": {
+    "defaultMessage": "Compétences constituant un atout",
+    "description": "Title that appears when a user is missing optional skills on their profile."
+  },
+  "V3ReC1": {
+    "defaultMessage": "Envisagez d’ajouter ces compétences constituant un atout à votre profil :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "Wwb8Lb": {
+    "defaultMessage": "Sélecteur de mode de couleur du thème",
+    "description": "Label for the group of buttons to change the current colour mode"
+  },
+  "l7Hif/": {
+    "defaultMessage": "Compétences sélectionnées",
+    "description": "Section header for a list of skills selected"
+  },
+  "6uce1H": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for the skill picker family filter"
+  },
+  "/78DsY": {
+    "defaultMessage": "Vous n’avez sélectionné aucune compétence.",
+    "description": "Text that appears after skill picker when no skills are selected"
+  },
+  "pg1S01": {
+    "defaultMessage": "Sauter la liste des compétences.",
+    "description": "Link text to skip the list of add skill links"
+  },
+  "vD6Uia": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Default title for the site"
+  },
+  "FckGRB": {
+    "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "w6jDaJ": {
+    "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
+    "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "obD2sw": {
+    "defaultMessage": "Compétences transférables requises",
+    "description": "Title that appears in transferable skills section on their profile."
+  },
+  "LZ0Poh": {
+    "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
+    "description": "Text that appears in transferable skills section on their profile."
+  },
+  "z3QvIv": {
+    "defaultMessage": "Outres compétences",
+    "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "00lloL": {
+    "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
+    "description": "Text that appears during an application to explain skills appearing missing from their profile."
+  },
+  "c7At4h": {
+    "defaultMessage": "Langue parlée préférée pour l'entretien :",
+    "description": "Preferred Language for interviews label and colon"
+  },
+  "rSymh2": {
+    "defaultMessage": "Langue préférée de l'examen écrit :",
+    "description": "Preferred Language for exams label and colon"
+  },
+  "f8ZHHW": {
+    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
+    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+  },
+  "1GWQal": {
+    "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
+    "description": "The text displayed if the user has selected as indigenous but not selected a community yet."
+  },
+  "Vbt/G1": {
+    "defaultMessage": "Il y a une exigence linguistique manquante",
+    "description": "Title that appears when a user is missing a language requirement."
+  },
+  "hWHT65": {
+    "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
+    "description": "Text that appears when a user is missing a language requirement on their profile."
+  },
+  "MuWdei": {
+    "defaultMessage": "Abréviation non trouvée.",
+    "description": "Message shown to user when the abbreviation text is not found."
+  },
+  "+aowPB": {
+    "defaultMessage": "Équité en matière d'emploi",
+    "description": "Title for employment equity section on summary of filters section"
+  },
+  "+nS/ak": {
+    "defaultMessage": "Renseignements supplémentaires : ",
+    "description": "Additional information if provided (without details)"
+  },
+  "LocjmN": {
+    "defaultMessage": "De retour aux équipes",
+    "description": "Button text to return to the table of teams page"
+  },
+  "PtbLq+": {
+    "defaultMessage": "Brève description de l’équipe (en français)",
+    "description": "Short description for a team in French"
+  },
+  "QC23B1": {
+    "defaultMessage": "Nom de l’organisation (en anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "Rg0SpL": {
+    "defaultMessage": "Renseignements de base",
+    "description": "Basic information"
+  },
+  "VJYI6K": {
+    "defaultMessage": "Équipe {teamId} non trouvée.",
+    "description": "Message displayed for team not found."
+  },
+  "W0BVd+": {
+    "defaultMessage": "Nom de l’organisation (en français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "nGNj5Q": {
+    "defaultMessage": "Courriel de la personne-ressource",
+    "description": "Contact email"
+  },
+  "whsH/g": {
+    "defaultMessage": "Brève description de l’équipe (en anglais)",
+    "description": "Short description for a team in English"
   }
 }

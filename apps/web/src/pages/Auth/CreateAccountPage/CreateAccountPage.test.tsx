@@ -2,10 +2,14 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
-import { fakeClassifications, fakeDepartments } from "@common/fakeData";
 import React from "react";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+
+import {
+  fakeClassifications,
+  fakeDepartments,
+} from "@gc-digital-talent/fake-data";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
 
 const mockDepartments = fakeDepartments();
@@ -17,7 +21,7 @@ const renderCreateAccountForm = ({
   classifications,
   handleCreateAccount,
 }: CreateAccountFormProps) =>
-  render(
+  renderWithProviders(
     <CreateAccountForm
       departments={departments}
       classifications={classifications}

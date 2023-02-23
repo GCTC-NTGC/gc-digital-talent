@@ -2,7 +2,7 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import { CheckboxProps } from "@common/components/form/Checkbox";
+import { CheckboxProps } from "@gc-digital-talent/forms";
 import CommunityIcon from "./CommunityIcon";
 
 interface CommunityCheckboxProps

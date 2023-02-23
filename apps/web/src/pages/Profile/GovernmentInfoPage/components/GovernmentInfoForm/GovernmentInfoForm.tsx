@@ -1,23 +1,31 @@
 import React from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
+import uniqBy from "lodash/uniqBy";
 
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { empty } from "@common/helpers/util";
-import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
+  errorMessages,
+  navigationMessages,
+  getGovEmployeeType,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import {
+  BasicForm,
+  Input,
+  RadioGroup,
+  Select,
   enumToOptions,
   objectsToSortedOptions,
-} from "@common/helpers/formUtils";
-import { getLocale, getLocalizedName } from "@common/helpers/localize";
-import { toast } from "@common/components/Toast";
-import ExternalLink from "@common/components/Link/ExternalLink";
-import { FieldLabels } from "@common/components/form/BasicForm";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import { splitAndJoin } from "@common/helpers/nameUtils";
+  FieldLabels,
+} from "@gc-digital-talent/forms";
+import { empty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import { ExternalLink } from "@gc-digital-talent/ui";
 
+import { splitAndJoin } from "~/utils/nameUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -28,11 +36,11 @@ import {
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
-import uniqBy from "lodash/uniqBy";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -523,14 +531,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 
@@ -574,9 +575,9 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
             description:
               "Display Text for Government Information Form Page Link",
           }),
-          url: `${paths.governmentInformation(
-            initialData.id,
-          )}${applicationParam}`,
+          url: `${paths.governmentInformation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

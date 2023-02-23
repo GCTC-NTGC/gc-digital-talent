@@ -1,15 +1,22 @@
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { BasicForm, Checklist, TextArea } from "@common/components/form";
-import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages, navigationMessages } from "@common/messages";
-import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import {
+  BasicForm,
+  Checklist,
+  TextArea,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import {
+  getWorkRegionsDetailed,
+  errorMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   CreateUserInput,
   CreateWorkLocationMutation,
@@ -19,6 +26,7 @@ import {
   PoolCandidate,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
 
 import ProfileFormWrapper, {
@@ -46,14 +54,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(initialData.id);
+  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = {
     locationPreferences: intl.formatMessage({
@@ -125,7 +126,9 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
             description:
               "Display Text for the current page in Work Location Preference Form Page",
           }),
-          url: `${paths.workLocation(initialData.id)}${applicationParam}`,
+          url: `${paths.workLocation(initialData.id)}${
+            applicationId ? `?${applicationId}` : ``
+          }`,
         },
       ]
     : [];

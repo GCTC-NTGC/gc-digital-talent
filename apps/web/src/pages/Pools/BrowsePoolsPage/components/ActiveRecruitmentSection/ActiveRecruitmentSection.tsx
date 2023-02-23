@@ -2,7 +2,7 @@ import React from "react";
 import { RocketLaunchIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-import Heading from "@common/components/Heading";
+import { Heading } from "@gc-digital-talent/ui";
 
 import { PoolAdvertisement } from "~/api/generated";
 

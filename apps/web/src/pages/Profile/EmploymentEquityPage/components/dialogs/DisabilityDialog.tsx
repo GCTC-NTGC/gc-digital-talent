@@ -2,13 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
-import { Checkbox } from "@common/components/form";
+import { Dialog } from "@gc-digital-talent/ui";
+import { Checkbox } from "@gc-digital-talent/forms";
 
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-} from "@common/constants";
+} from "@gc-digital-talent/i18n";
+
 import type { EquityDialogProps } from "../../types";
 
 import AddToProfile from "./AddToProfile";
