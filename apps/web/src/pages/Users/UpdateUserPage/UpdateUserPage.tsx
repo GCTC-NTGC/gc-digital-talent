@@ -34,6 +34,8 @@ import {
   useUserQuery,
 } from "~/api/generated";
 
+import UserRoleTable from "./components/IndividualRoleTable";
+
 type FormValues = Pick<
   UpdateUserAsAdminInput,
   | "email"
@@ -337,10 +339,13 @@ const UpdateUserPage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {userData?.user ? (
-          <UpdateUserForm
-            initialUser={userData?.user}
-            handleUpdateUser={handleUpdateUser}
-          />
+          <>
+            <UpdateUserForm
+              initialUser={userData?.user}
+              handleUpdateUser={handleUpdateUser}
+            />
+            <UserRoleTable userId={userData.user.id} />
+          </>
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

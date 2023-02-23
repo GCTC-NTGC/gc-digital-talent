@@ -598,3 +598,17 @@ query selectedUsers($ids: [ID]!) {
     }
   }
 }
+
+query UserRoles($userId: UUID!) {
+  user(id: $userId) {
+    id
+  }
+  roles {
+    id
+    displayName {
+      en
+      fr
+    }
+    name
+  }
+}
