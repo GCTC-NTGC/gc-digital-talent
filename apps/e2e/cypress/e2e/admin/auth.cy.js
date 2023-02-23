@@ -1,8 +1,11 @@
 import { aliasQuery } from "../../support/graphql-test-utils";
+
+const AUTH_SERVER_ROOT = 'http://localhost:8000/oxauth';
+
 describe('Auth flows (development)', () => {
   // Helpers
   const onAuthLoginPage = () => {
-    cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
+    cy.url().should('contain', AUTH_SERVER_ROOT + '/authorize')
   }
   const onLoginInfoPage = () => {
       cy.url().should('contain', '/en/login-info')
@@ -46,7 +49,7 @@ describe('Auth flows (development)', () => {
     it('redirects app login page to auth login page', () => {
       cy.request({ url: '/login', followRedirect: false }).then((req) => {
         expect(req.redirectedToUrl)
-          .to.include(Cypress.config().authServerRoot + '/authorize')
+          .to.include(AUTH_SERVER_ROOT + '/authorize')
       })
     })
 

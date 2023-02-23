@@ -4,13 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import omit from "lodash/omit";
 
-import Button from "@common/components/Button/Button";
-import Heading from "@common/components/Heading/Heading";
-import Separator from "@common/components/Separator/Separator";
-import { unpackMaybes } from "@common/helpers/formUtils";
-import Pending from "@common/components/Pending";
-import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
-import { notEmpty } from "@common/helpers/util";
+import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   CountApplicantsQueryVariables,
   Maybe,
@@ -24,6 +21,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
+import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
 
 import { LocationState } from "~/types/searchRequest";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -455,7 +453,7 @@ const SearchContainerApi = () => {
     ?.flatMap((pool) => pool?.classifications)
     .filter(notEmpty);
 
-  const ITClassifications = NonExecutiveITClassifications();
+  const ITClassifications = nonExecutiveITClassifications();
   const searchableClassifications = ITClassifications.filter(
     (classification) => {
       return availableClassifications?.some(

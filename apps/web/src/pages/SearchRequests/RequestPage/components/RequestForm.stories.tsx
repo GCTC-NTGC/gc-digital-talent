@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeDepartments } from "@common/fakeData";
+import { fakeDepartments } from "@gc-digital-talent/fake-data";
 import {
   CreatePoolCandidateSearchRequestInput,
   OperationalRequirement,

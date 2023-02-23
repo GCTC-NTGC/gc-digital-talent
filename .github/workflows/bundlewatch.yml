@@ -13,13 +13,11 @@ on:
     paths:
       - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
-      - frontend/**
       - apps/**
   pull_request:
     paths:
       - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
-      - frontend/**
       - apps/**
 
 jobs:

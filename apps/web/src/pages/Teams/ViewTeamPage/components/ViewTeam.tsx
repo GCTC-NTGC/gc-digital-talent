@@ -1,14 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Team } from "~/api/generated";
-import Pill from "@common/components/Pill/Pill";
-import { getLocalizedName } from "@common/helpers/localize";
+
+import { Pill } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 interface ViewTeamProps {
   team: Team;
 }
 
-export const ViewTeam = ({ team }: ViewTeamProps) => {
+const ViewTeam = ({ team }: ViewTeamProps) => {
   const intl = useIntl();
 
   const departmentsPillsArray =

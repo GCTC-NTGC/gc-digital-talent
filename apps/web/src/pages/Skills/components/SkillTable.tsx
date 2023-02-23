@@ -2,10 +2,9 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
-import { Pill } from "@common/components";
-import Pending from "@common/components/Pending";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pill, Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Maybe, Skill, SkillFamily, useAllSkillsQuery } from "~/api/generated";

@@ -1,7 +1,7 @@
 import React from "react";
 
-import Pending from "@common/components/Pending";
-import { notEmpty } from "@common/helpers/util";
+import { Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { useLatestRequestsQuery } from "~/api/generated";
 import { SearchRequestTable } from "~/components/SearchRequestTable/SearchRequestTable";

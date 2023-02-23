@@ -2,11 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import TableOfContents from "@common/components/TableOfContents";
-import SkillPicker from "@common/components/SkillPicker";
-import { getLocalizedName } from "@common/helpers/localize";
-import Chip, { Chips } from "@common/components/Chip";
+import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import SkillPicker from "~/components/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,

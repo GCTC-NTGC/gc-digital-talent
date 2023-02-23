@@ -9,20 +9,18 @@ module.exports = merge(base(basePath), {
   entry: {
     app: [
       "./src/main.tsx",
-      path.resolve(__dirname, "../../frontend/common/src/css/hydrogen.css"),
-      "../../frontend/common/src/css/common.css",
+      "./src/assets/css/hydrogen.css",
       "./src/assets/css/app.css",
     ],
   },
   plugins: [
     // Run Hydrogen on Webpack's compiler hooks
-    new HydrogenPlugin({ outputFile: path.resolve(__dirname, "../../frontend/common/src/css/hydrogen.css") }),
+    new HydrogenPlugin({ outputFile: path.resolve(__dirname, "./src/assets/css/hydrogen.css") }),
   ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       "~": path.resolve(basePath, "./src/"),
-      '@common': path.resolve(basePath, '../../frontend/common/src'),
     }
   },
   // TO DO: We should be able to remove this after merging all apps

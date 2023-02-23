@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@common/components";
+import { Link } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 

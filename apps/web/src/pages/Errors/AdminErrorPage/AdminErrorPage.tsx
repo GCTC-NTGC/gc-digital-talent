@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { useLogger } from "@common/hooks/useLogger";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import useErrorMessages from "~/hooks/useErrorMessages";
 

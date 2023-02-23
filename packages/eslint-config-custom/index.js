@@ -37,7 +37,8 @@ module.exports = {
     "webpack.*.js",
     "tsconfig.json",
     "CssStub.js",
-    ".turbo"
+    ".turbo",
+    "dist/**"
   ],
   plugins: [
     "react",
@@ -45,7 +46,8 @@ module.exports = {
     "import",
     "@typescript-eslint",
     "formatjs",
-    "jsx-a11y"
+    "jsx-a11y",
+    "turbo"
   ],
   rules: {
     "formatjs/no-id": "off",

@@ -2,12 +2,15 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { RadioGroup, Select } from "@common/components/form";
-import { errorMessages } from "@common/messages";
-import useLocale from "@common/hooks/useLocale";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { FieldLabels } from "@common/components/form/BasicForm";
-import ExternalLink from "@common/components/Link/ExternalLink";
+import {
+  RadioGroup,
+  Select,
+  enumToOptions,
+  FieldLabels,
+} from "@gc-digital-talent/forms";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
+import { ExternalLink } from "@gc-digital-talent/ui";
+
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,

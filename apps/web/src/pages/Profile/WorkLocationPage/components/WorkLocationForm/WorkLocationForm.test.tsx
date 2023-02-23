@@ -3,8 +3,9 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { fakeUsers } from "@common/fakeData";
-import { render, screen, act, axeTest } from "@common/helpers/testUtils";
+import { act, screen } from "@testing-library/react";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import { User, WorkRegion } from "~/api/generated";
 import WorkLocationForm, { WorkLocationFormProps } from "./WorkLocationForm";
 
@@ -12,7 +13,7 @@ const renderWorkLocationForm = ({
   initialData,
   handleWorkLocationPreference,
 }: WorkLocationFormProps) =>
-  render(
+  renderWithProviders(
     <WorkLocationForm
       initialData={initialData}
       handleWorkLocationPreference={handleWorkLocationPreference}

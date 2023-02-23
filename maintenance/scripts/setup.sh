@@ -20,7 +20,8 @@ cd /var/www/html/apps/web
 cp .env.example .env --preserve=all
 
 # build projects
+git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
 npm run build
-chmod -R a+r,a+w node_modules apps/web/.turbo frontend/common/.turbo
+chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo

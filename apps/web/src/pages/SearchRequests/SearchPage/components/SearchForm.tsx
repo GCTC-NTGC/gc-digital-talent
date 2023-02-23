@@ -4,18 +4,23 @@ import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import { useLocation } from "react-router-dom";
 
-import { Checklist, RadioGroup, Select } from "@common/components/form";
-import { getLanguageAbility } from "@common/constants";
 import {
+  Checklist,
+  RadioGroup,
+  Select,
+  MultiSelectField,
+  enumToOptions,
+  unpackMaybes,
+} from "@gc-digital-talent/forms";
+import {
+  getLanguageAbility,
   getEmploymentEquityGroup,
   getWorkRegion,
   EmploymentDuration,
   getPoolStream,
-} from "@common/constants/localizedConstants";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
-import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import errorMessages from "@common/messages/errorMessages";
-import { hasKey, notEmpty } from "@common/helpers/util";
+  errorMessages,
+} from "@gc-digital-talent/i18n";
+import { hasKey, notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   LanguageAbility,

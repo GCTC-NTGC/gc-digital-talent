@@ -1,18 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { CardFlat } from "@common/components/Card";
-import Flourish from "@common/components/Flourish";
-import Hero from "@common/components/Hero";
-import Heading from "@common/components/Heading";
-import Link from "@common/components/Link";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import imageUrl from "@common/helpers/imageUrl";
-import useTheme from "@common/hooks/useTheme";
-import useFeatureFlags from "@common/hooks/useFeatureFlags";
-import { AuthenticationContext } from "@common/components/Auth";
+import {
+  CardFlat,
+  Flourish,
+  Heading,
+  Link,
+  Pending,
+} from "@gc-digital-talent/ui";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { useTheme } from "@gc-digital-talent/theme";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero";
 import {
   AdvertisementStatus,
   PublishingGroup,
@@ -21,8 +23,8 @@ import {
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 
@@ -49,7 +51,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
 }) => {
   const { mode } = useTheme();
   const intl = useIntl();
-  const { loggedIn } = React.useContext(AuthenticationContext);
+  const { loggedIn } = useAuthentication();
   const paths = useRoutes();
   const featureFlags = useFeatureFlags();
 

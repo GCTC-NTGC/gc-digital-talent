@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { screen, act, fireEvent } from "@testing-library/react";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -35,7 +35,7 @@ const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) => {
       }),
   } as never; // Satisfy type for mocking
 
-  return render(
+  return renderWithProviders(
     <GraphqlProvider value={mockClient}>
       <OngoingRecruitmentSection pools={pools} />
     </GraphqlProvider>,
