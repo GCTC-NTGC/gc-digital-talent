@@ -72,7 +72,7 @@
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/jest-helpers": "*",
-    "@graphql-codegen/add": "^3.2.3",
+    "@graphql-codegen/add": "^4.0.1",
     "@graphql-codegen/cli": "3.2.0",
     "@graphql-codegen/typescript": "^3.0.1",
     "@graphql-codegen/typescript-operations": "^2.5.13",
