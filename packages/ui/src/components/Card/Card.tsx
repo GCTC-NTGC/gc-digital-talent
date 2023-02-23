@@ -1,6 +1,11 @@
 import React from "react";
 
 export type Color =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
   | "ts-primary"
   | "ia-primary"
   | "ts-secondary"
@@ -13,6 +18,31 @@ export interface CardProps {
 }
 
 const colorMap = {
+  primary: {
+    "data-h2-background-color":
+      "base:all(primary.light) base:dark:iap(primary)",
+    "data-h2-color":
+      "base:all(black) base:all:admin(white) base:all:iap(white)",
+  },
+  secondary: {
+    "data-h2-background-color":
+      "base(secondary) base:dark:admin(secondary.lighter) base:dark:iap(secondary.light)",
+    "data-h2-color":
+      "base:all(black) base:all:admin(white) base:all:iap(white)",
+  },
+  tertiary: {
+    "data-h2-background-color": "base(tertiary) base:dark:iap(tertiary.light)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
+  },
+  quaternary: {
+    "data-h2-background-color":
+      "base(quaternary) base:dark:iap(quaternary.light)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
+  },
+  quinary: {
+    "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
+  },
   "ts-primary": {
     "data-h2-background-color": "base(primary)",
     "data-h2-color": "base(white)",
@@ -33,7 +63,7 @@ const colorMap = {
 
 const Card = ({
   title,
-  color = "ts-primary",
+  color = "primary",
   children,
   ...rest
 }: CardProps & React.HTMLProps<HTMLDivElement>) => {
@@ -59,7 +89,7 @@ const Card = ({
       </span>
       <div
         className="card__body"
-        data-h2-background-color="base(white)"
+        data-h2-background-color="base(foreground)"
         data-h2-flex-grow="base(1)"
         data-h2-padding="base(x1)"
         data-h2-flex="base(1)"

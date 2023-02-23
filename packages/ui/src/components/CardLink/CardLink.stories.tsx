@@ -45,14 +45,24 @@ const Template: Story = (args) => {
   return (
     <div
       data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(repeat(4, minmax(0, 1fr)))"
+      data-h2-grid-template-columns="base(repeat(5, minmax(0, 1fr)))"
       data-h2-gap="base(x2)"
+      data-h2-padding="base(x2)"
     >
-      <CardLink color="ts-primary" label={label} href="#" icon={icon}>
+      <CardLink color="primary" label={label} href="#" icon={icon}>
         Primary
       </CardLink>
-      <CardLink color="ia-secondary" label={label} href="#" icon={icon}>
+      <CardLink color="secondary" label={label} href="#" icon={icon}>
         Secondary
+      </CardLink>
+      <CardLink color="tertiary" label={label} href="#" icon={icon}>
+        Tertiary
+      </CardLink>
+      <CardLink color="quaternary" label={label} href="#" icon={icon}>
+        Quaternary
+      </CardLink>
+      <CardLink color="quinary" label={label} href="#" icon={icon}>
+        Quinary
       </CardLink>
     </div>
   );
