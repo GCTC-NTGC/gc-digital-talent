@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^5.1.12",
-    "@formatjs/ts-transformer": "^3.11.6",
+    "@formatjs/ts-transformer": "^3.12.0",
     "@swc/core": "^1.3.36",
     "@types/jest": "^26.0.22",
     "@types/react": "^18.0.27",
