@@ -1,6 +1,15 @@
 {
     "configurations": [
         {
+            "name": "Listen for PHP Xdebug from Docker",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/home/site/wwwroot/": "${workspaceFolder}"
+            }
+        },
+        {
             "type": "node",
             "name": "jest-common",
             "request": "launch",
