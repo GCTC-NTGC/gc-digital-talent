@@ -526,7 +526,9 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
-  roleAssignments: [RoleAssignment!] @hasMany @canOnParent(ability: "viewAnyTeamMembers")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @canOnParent(ability: "viewAnyTeamMembers")
 }
 
 type Role {
@@ -535,7 +537,9 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
-  roleAssignments: [RoleAssignment!] @hasMany @can(ability: "viewAnyTeamMembers", model: "Team")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @can(ability: "viewAnyTeamMembers", model: "Team")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -1566,14 +1570,15 @@ input UpdatePoolAdvertisementInput {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
-input RolesInput {
-  roles: [ID!]!,
+input RolesInput
+  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
+  roles: [ID!]!
   team: ID
 }
 
 input RoleAssignmentHasMany {
-  attach: RolesInput,
-  detach: RolesInput,
+  attach: RolesInput
+  detach: RolesInput
   sync: RolesInput
 }
 
@@ -1783,6 +1788,4 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
-
-
 }
