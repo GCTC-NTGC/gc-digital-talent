@@ -42,7 +42,7 @@
     "lodash": "4.17.21",
     "react-csv": "2.2.2",
     "react-dom": "^18.2.0",
-    "react-focus-lock": "^2.9.3",
+    "react-focus-lock": "^2.9.4",
     "react-remove-scroll": "^2.5.5",
     "react-router-dom": "^6.8.1",
     "urql": "^3.0.3"
