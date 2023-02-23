@@ -84,9 +84,9 @@ function BasicTable<T extends RecordWithId>({
 
   return (
     <div
-      data-h2-radius="base(s, s, 0px, 0px)"
-      data-h2-border-right="base(1px solid secondary)"
-      data-h2-border-left="base(1px solid secondary)"
+      data-h2-radius="base(rounded, rounded, 0px, 0px)"
+      data-h2-border-right="base(1px solid black.darkest)"
+      data-h2-border-left="base(1px solid black.darkest)"
       data-h2-overflow="base(auto)"
       data-h2-max-width="base(100%)"
     >
@@ -110,8 +110,8 @@ function BasicTable<T extends RecordWithId>({
                 return (
                   <th
                     key={column.id}
-                    data-h2-background-color="base(secondary.light)"
-                    data-h2-padding="base(x.5, x1)"
+                    data-h2-background-color="base(black.9)"
+                    data-h2-padding="base(x.5, x1, x.5, x.5)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}
                   >
@@ -152,7 +152,7 @@ function BasicTable<T extends RecordWithId>({
               })}
           </tr>
         </thead>
-        <tbody>
+        <tbody data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)">
           {data.map((datum) => {
             return (
               <tr key={JSON.stringify(datum) /* 🤷 */}>

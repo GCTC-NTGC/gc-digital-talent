@@ -85,7 +85,7 @@ const UserTableFilterDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
         <Button
-          mode="solid"
+          mode="outline"
           color="secondary"
           type="button"
           data-h2-display="base(inline-flex)"

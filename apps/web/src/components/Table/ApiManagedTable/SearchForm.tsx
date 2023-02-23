@@ -73,7 +73,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
               data-h2-gap="base(0, x.25)"
               data-h2-radius="base(s, 0, 0, s)"
               data-h2-margin-right="base(0)"
-              style={{ borderRightWidth: 0 }}
             >
               <span>{column ? column.label : allTableMsg}</span>
               <ChevronDownIcon

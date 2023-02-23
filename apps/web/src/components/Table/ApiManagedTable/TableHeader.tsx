@@ -75,7 +75,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="solid"
+                          mode="outline"
                           color="secondary"
                           type="button"
                           data-h2-display="base(inline-flex)"
