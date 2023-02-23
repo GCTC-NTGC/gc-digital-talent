@@ -36,6 +36,7 @@ export interface TableProps<
     path: string;
     label: React.ReactNode;
   };
+  addDialog?: React.ReactNode;
   filterColumns?: boolean;
   search?: boolean;
   pagination?: boolean;
@@ -143,6 +144,7 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
+  addDialog,
   filterColumns = true,
   search = true,
   pagination = true,
@@ -325,20 +327,26 @@ function Table<T extends Record<string, unknown>>({
               </div>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(content)">
-              {addBtn && (
-                <Link
-                  mode="solid"
-                  color="primary"
-                  type="button"
-                  data-h2-display="base(inline-flex)"
-                  data-h2-align-items="base(center)"
-                  style={{ textDecoration: "none" }}
-                  href={addBtn.path}
-                >
-                  <ButtonIcon icon={PlusIcon} />
-                  <span>{addBtn.label}</span>
-                </Link>
-              )}
+              <div
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(flex-end)"
+              >
+                {addBtn && (
+                  <Link
+                    mode="solid"
+                    color="primary"
+                    type="button"
+                    data-h2-display="base(inline-flex)"
+                    data-h2-align-items="base(center)"
+                    style={{ textDecoration: "none" }}
+                    href={addBtn.path}
+                  >
+                    <ButtonIcon icon={PlusIcon} />
+                    <span>{addBtn.label}</span>
+                  </Link>
+                )}
+                {addDialog || null}
+              </div>
             </div>
           </div>
         </div>

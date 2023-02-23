@@ -2,13 +2,15 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Dialog, Button, Pill, Pending } from "@gc-digital-talent/ui";
+import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Role, Scalars, useUserRolesQuery } from "@gc-digital-talent/graphql";
+import { Role, User } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
-import { OperationContext } from "urql";
-import { useParams } from "react-router-dom";
+import { getFullNameHtml } from "~/utils/nameUtils";
+
+import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 
 const roleCell = (displayName: string) => {
   return (
@@ -21,12 +23,12 @@ const roleCell = (displayName: string) => {
 type RoleCell = Cell<Role>;
 
 interface IndividualRoleTableProps {
-  userRoles: Array<Role>;
+  user: User;
   availableRoles: Array<Role>;
 }
 
 export const IndividualRoleTable = ({
-  userRoles,
+  user,
   availableRoles,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
@@ -55,40 +57,38 @@ export const IndividualRoleTable = ({
     [intl],
   );
 
-  const data = useMemo(() => userRoles.filter(notEmpty), [userRoles]);
+  // TO DO: Update to user roles
+  const data = useMemo(() => availableRoles.filter(notEmpty), [availableRoles]);
 
-  return <Table data={data} columns={columns} />;
-};
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["Role"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
-};
-
-interface IndividualRoleTableApiProps {
-  userId: Scalars["UUID"];
-}
-
-const IndividualRoleTableApi = ({ userId }: IndividualRoleTableApiProps) => {
-  const [{ data, fetching, error }] = useUserRolesQuery({
-    context,
-    variables: {
-      userId,
-    },
-  });
-
-  // TO DO: Update once we can query user roles
-  const userRoles = data?.roles.filter(notEmpty);
-  const availableRoles = data?.roles.filter(notEmpty);
+  const handleAddRoles = async (_: any) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Role(s) added successfully!",
+            id: "EAIXQ4",
+            description:
+              "Alert message displayed to user when roles were added to a user",
+          }),
+        );
+      }, 1000);
+    });
+  };
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <IndividualRoleTable
-        userRoles={userRoles || []}
-        availableRoles={availableRoles || []}
-      />
-    </Pending>
+    <Table
+      data={data}
+      columns={columns}
+      addDialog={
+        <AddIndividualRoleDialog
+          userName={getFullNameHtml(user.firstName, user.lastName, intl)}
+          availableRoles={availableRoles}
+          onAddRoles={handleAddRoles}
+        />
+      }
+    />
   );
 };
 
-export default IndividualRoleTableApi;
+export default IndividualRoleTable;

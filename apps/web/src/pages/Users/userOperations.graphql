@@ -599,10 +599,7 @@ query selectedUsers($ids: [ID]!) {
   }
 }
 
-query UserRoles($userId: UUID!) {
-  user(id: $userId) {
-    id
-  }
+query ListRoles {
   roles {
     id
     displayName {

@@ -18,12 +18,10 @@ import {
   getLanguage,
   getRole,
 } from "@gc-digital-talent/i18n";
-import { emptyToNull } from "@gc-digital-talent/helpers";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
+  useListRolesQuery,
   Language,
   LegacyRole,
   Scalars,
@@ -34,6 +32,10 @@ import {
   useUserQuery,
 } from "~/api/generated";
 
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+
+import { OperationContext } from "urql";
 import UserRoleTable from "./components/IndividualRoleTable";
 
 type FormValues = Pick<
@@ -289,6 +291,11 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Role"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 type RouteParams = {
   userId: Scalars["ID"];
 };
@@ -296,8 +303,11 @@ type RouteParams = {
 const UpdateUserPage = () => {
   const intl = useIntl();
   const { userId } = useParams<RouteParams>();
+  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
+    useListRolesQuery();
   const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId || "" },
+    context,
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();
@@ -328,6 +338,8 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
+  const availableRoles = rolesData?.roles.filter(notEmpty);
+
   return (
     <>
       <SEO
@@ -337,14 +349,17 @@ const UpdateUserPage = () => {
           description: "Page title for the user edit page",
         })}
       />
-      <Pending fetching={fetching} error={error}>
+      <Pending fetching={fetching || rolesFetching} error={error || rolesError}>
         {userData?.user ? (
           <>
             <UpdateUserForm
               initialUser={userData?.user}
               handleUpdateUser={handleUpdateUser}
             />
-            <UserRoleTable userId={userData.user.id} />
+            <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+            />
           </>
         ) : (
           <NotFound
