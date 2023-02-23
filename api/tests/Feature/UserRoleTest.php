@@ -236,6 +236,78 @@ class UserRoleTest extends TestCase
         ]);
     }
 
+     // Create a user and attempt to add a non-team role with a team.  Assert that validation fails.
+     public function testAdminCannotAddNonTeamRoleWithATeam()
+     {
+         $role = Role::factory()->create(['is_team_based' => false]);
+         $team = Team::factory()->create();
+         $user = User::factory()->create();
+
+         $this->graphQL(
+             /** @lang GraphQL */
+             '
+                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
+                     updateUserAsAdmin(id:$id, user:$user) {
+                       roleAssignments {
+                         role { id }
+                         team { id }
+                       }
+                     }
+                   }
+             ',
+             [
+                 'id' => $user->id,
+                 'user' => [
+                     'roles' => [
+                         'attach' =>  [
+                             'roles' => [$role->id],
+                             'team' => $team->id
+                         ]
+                     ]
+                 ]
+             ]
+             )->assertJson([
+                'errors' =>  [
+                    ['message' => "Validation failed for the field [updateUserAsAdmin]."]
+                ]
+            ]);
+     }
+
+        // Create a user and attempt to add a team role without a team.  Assert that validation fails.
+        public function testAdminCannotAddTeamRoleWithoutATeam()
+        {
+            $role = Role::factory()->create(['is_team_based' => true]);
+            $user = User::factory()->create();
+
+            $this->graphQL(
+                /** @lang GraphQL */
+                '
+                    mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
+                        updateUserAsAdmin(id:$id, user:$user) {
+                          roleAssignments {
+                            role { id }
+                            team { id }
+                          }
+                        }
+                      }
+                ',
+                [
+                    'id' => $user->id,
+                    'user' => [
+                        'roles' => [
+                            'attach' =>  [
+                                'roles' => [$role->id]
+                            ]
+                        ]
+                    ]
+                ]
+                )->assertJson([
+                   'errors' =>  [
+                       ['message' => "Validation failed for the field [updateUserAsAdmin]."]
+                   ]
+               ]);
+        }
+
     // Create two applicant users.  Assert that one of them cannot query the other's data.
     public function testApplicantCannotQueryAnother()
     {

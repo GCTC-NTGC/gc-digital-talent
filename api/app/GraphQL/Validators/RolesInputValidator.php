@@ -33,11 +33,13 @@ final class RolesInputValidator extends Validator
             ];
         }
 
-        // No team ID.  Just make sure roles are distinct and exist.
+        // No team ID.  We'll need to ensure all the roles are not team based.
         return [
             'roles.*' => [
                 'distinct',
-                'exists:roles,id',
+                Rule::exists('roles', 'id')->where(function ($query) {
+                    return $query->where('is_team_based', false);
+                }),
             ],
         ];
     }
