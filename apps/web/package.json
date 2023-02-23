@@ -57,7 +57,7 @@
     "react-intl": "^6.2.8",
     "react-router-dom": "^6.8.1",
     "react-table": "^7.8.0",
-    "react-to-print": "^2.14.11",
+    "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.1",
     "urql": "^3.0.3"
   },
