@@ -2,16 +2,17 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
-import PageHeader from "~/components/PageHeader";
-import Pending from "@common/components/Pending";
-import SEO from "~/components/SEO/SEO";
-import { notEmpty } from "@common/helpers/util";
+import { Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   CreateTeamInput,
   useDepartmentsQuery,
   useCreateTeamMutation,
 } from "~/api/generated";
+
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 

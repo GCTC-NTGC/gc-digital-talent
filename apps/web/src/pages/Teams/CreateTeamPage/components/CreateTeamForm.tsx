@@ -3,13 +3,16 @@ import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import { Link } from "@common/components";
-import { BasicForm, Input, Submit } from "@common/components/form";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
-import { toast } from "@common/components/Toast";
-import { errorMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { getLocalizedName } from "@common/helpers/localize";
+import { Link } from "@gc-digital-talent/ui";
+import {
+  BasicForm,
+  Input,
+  Submit,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   CreateTeamInput,

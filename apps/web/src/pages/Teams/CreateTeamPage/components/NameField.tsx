@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { kebabCase } from "lodash";
 
-import Input from "@common/components/form/Input";
-import { errorMessages } from "@common/messages";
+import { Input } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 const NameField = () => {
   const intl = useIntl();
