@@ -15,6 +15,8 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import useTheme from "@gc-digital-talent/theme/src/hooks/useTheme";
+
 import LatestRequestsTable from "./components/LatestRequestsTable";
 
 interface DashboardPageProps {
@@ -24,7 +26,8 @@ interface DashboardPageProps {
 const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
-
+  const { setThemeKey } = useTheme();
+  setThemeKey("admin");
   return (
     <>
       <SEO

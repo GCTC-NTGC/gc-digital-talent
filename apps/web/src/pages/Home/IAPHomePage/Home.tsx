@@ -7,6 +7,8 @@ import { imageUrl } from "@gc-digital-talent/helpers";
 import useQuote from "~/hooks/useQuote";
 import { wrapAbbr } from "~/utils/nameUtils";
 
+import useTheme from "@gc-digital-talent/theme/src/hooks/useTheme";
+
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -35,7 +37,8 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
-
+  const { setThemeKey } = useTheme();
+  setThemeKey("iap");
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
