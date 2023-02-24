@@ -5,12 +5,13 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 const commonStyles = {
   "data-h2-background-color":
-    "base(secondary.light) base:selectors[.active](secondary.lighter.10) base:focus-visible(secondary.lighter.30) base:hover(secondary.lighter.30)",
+    "base(transparent) base:selectors[.active](secondary.darker) base:focus-visible(focus) base:hover(secondary.darker) base:admin(secondary.light) base:admin:selectors[.active](secondary.lighter.10) base:admin:focus-visible(focus) base:admin:hover(secondary.lighter.30) base:iap(secondary.light) base:iap:selectors[.active](secondary.lighter.10) base:iap:focus-visible(focus) base:iap:hover(secondary.lighter.30)",
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-border-bottom": "base(1px solid white.10)",
-  "data-h2-color": "base(white)",
+  "data-h2-color":
+    "base(white) base:all:focus-visible(black) base:all:admin:focus-visible(black) base:all:iap:focus-visible(black)",
   "data-h2-width": "base(100%)",
   "data-h2-text-align": "base(left)",
   "data-h2-display": "base(block)",
