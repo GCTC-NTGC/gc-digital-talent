@@ -35,7 +35,12 @@ class DepartmentTest extends TestCase
             'email' => 'base-user@test.com',
             'sub' => 'base-user@test.com',
         ]);
-        $this->baseUser->attachRole("base_user");
+        $this->baseUser->syncRoles([
+            "guest",
+            "base_user",
+            "pool_operator",
+            "request_responder"
+        ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
