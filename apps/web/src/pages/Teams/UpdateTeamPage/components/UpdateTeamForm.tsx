@@ -11,6 +11,7 @@ import {
   TextArea,
   MultiSelectField,
   unpackIds,
+  countNumberOfWords,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -29,7 +30,9 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 import NameField from "./NameField";
-import DescriptionWordCounter from "./DescriptionWordCounter";
+import DescriptionWordCounter, {
+  TEXT_AREA_MAX_WORDS,
+} from "./DescriptionWordCounter";
 
 const TEXT_AREA_ROWS = 4;
 
@@ -167,9 +170,16 @@ const UpdateTeamForm = ({
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
+              validate: {
+                wordCount: (value: string) =>
+                  countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+                  intl.formatMessage(errorMessages.overWordLimit, {
+                    value: TEXT_AREA_MAX_WORDS,
+                  }),
+              },
             }}
           />
-          <DescriptionWordCounter name="description.fr" />
+          <DescriptionWordCounter name="description.en" />
         </div>
         <div data-h2-flex-item="base(1/2)">
           <TextArea
@@ -183,6 +193,13 @@ const UpdateTeamForm = ({
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
+              validate: {
+                wordCount: (value: string) =>
+                  countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+                  intl.formatMessage(errorMessages.overWordLimit, {
+                    value: TEXT_AREA_MAX_WORDS,
+                  }),
+              },
             }}
           />
           <DescriptionWordCounter name="description.fr" />
