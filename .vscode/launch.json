@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Listen for PHP Xdebug from Docker",
+            "name": "Listen for PHP Xdebug from webserver",
             "type": "php",
             "request": "launch",
             "port": 9003,
