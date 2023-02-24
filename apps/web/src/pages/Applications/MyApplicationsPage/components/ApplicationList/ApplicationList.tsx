@@ -43,7 +43,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
         })}
       </p>
       <ul data-h2-margin="base(x1, 0)">
-        <li data-h2-margin="base(x.5, 0)">
+        <li data-h2-margin="base(x.25, 0)">
           {intl.formatMessage({
             defaultMessage:
               "<strong>Drafts</strong> are applications you've begun but have not yet submitted.",
@@ -51,7 +51,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             description: "Explainer for draft applications",
           })}
         </li>
-        <li data-h2-margin="base(x.5, 0)">
+        <li data-h2-margin="base(x.25, 0)">
           {intl.formatMessage({
             defaultMessage:
               "<strong>Submitted</strong> applications are pending assessment or are currently being reviewed.",
@@ -59,7 +59,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             description: "Explainer for submitted applications",
           })}
         </li>
-        <li data-h2-margin="base(x.5, 0)">
+        <li data-h2-margin="base(x.25, 0)">
           {intl.formatMessage({
             defaultMessage:
               "Your <strong>application history</strong> includes applications that are complete or missed the submission deadline.",
