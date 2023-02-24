@@ -13,20 +13,16 @@ import { AlertType } from "./types";
 
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-border":
-      "base(0.25rem solid success.darker) base:dark(0.25rem solid success.lightest)",
+    "data-h2-border": "base(3px solid success.darker)",
   },
   warning: {
-    "data-h2-border":
-      "base(0.25rem solid warning.darker) base:dark(0.25rem solid warning.lightest)",
+    "data-h2-border": "base(3px solid warning.darker)",
   },
   info: {
-    "data-h2-border":
-      "base(0.25rem solid secondary.darker) base:dark(0.25rem solid secondary.lightest)",
+    "data-h2-border": "base(3px solid secondary.darker)",
   },
   error: {
-    "data-h2-border":
-      "base(0.25rem solid error.darker) base:dark(0.25rem solid error.lightest)",
+    "data-h2-border": "base(3px solid error.darker)",
   },
 };
 
@@ -59,19 +55,16 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
 
 export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color":
-      "base(success.darker) base:dark(success.lightest)",
+    "data-h2-background-color": "base(success.darker)",
   },
   warning: {
-    "data-h2-background-color":
-      "base(warning.darker) base:dark(warning.lightest)",
+    "data-h2-background-color": "base(warning.darker)",
   },
   info: {
-    "data-h2-background-color":
-      "base(secondary.darker) base:dark(secondary.lightest)",
+    "data-h2-background-color": "base(secondary.darker)",
   },
   error: {
-    "data-h2-background-color": "base(error.darker) base:dark(error.lightest)",
+    "data-h2-background-color": "base(error.darker)",
   },
 };
 
@@ -87,20 +80,20 @@ export const iconMap: Record<
 
 export const iconStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color": "base(success.lightest)",
-    "data-h2-color": "base(success.darker)",
+    "data-h2-background-color": "base:all(success.lightest)",
+    "data-h2-color": "base:all(success.darker)",
   },
   warning: {
-    "data-h2-background-color": "base(warning.lightest)",
-    "data-h2-color": "base(warning.darker)",
+    "data-h2-background-color": "base:all(warning.lightest)",
+    "data-h2-color": "base:all(warning.darker)",
   },
   info: {
-    "data-h2-background-color": "base(secondary.lightest)",
-    "data-h2-color": "base(secondary.darker)",
+    "data-h2-background-color": "base:all(secondary.lightest)",
+    "data-h2-color": "base:all(secondary.darker)",
   },
   error: {
-    "data-h2-background-color": "base(error.lightest)",
-    "data-h2-color": "base(error.darker)",
+    "data-h2-background-color": "base:all(error.lightest)",
+    "data-h2-color": "base:all(error.darker)",
   },
 };
 

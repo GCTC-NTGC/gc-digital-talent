@@ -74,11 +74,11 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             className={`Alert Alert--${type}`}
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-background-color="base(white) base:dark(black.light)"
-            data-h2-color="base(black) base:dark(white)"
+            data-h2-background-color="base(foreground)"
+            data-h2-color="base(black)"
             data-h2-position="base(relative)"
             data-h2-radius="base(rounded)"
-            data-h2-shadow="base(m)"
+            data-h2-shadow="base(medium)"
             data-h2-overflow="base(hidden)"
             data-h2-margin="base(x1, 0)"
             {...(live ? { role: "alert" } : {})}
@@ -91,19 +91,19 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
               data-h2-align-items="base(flex-start)"
               data-h2-justify-content="base(flex-start)"
               data-h2-position="base(relative)"
-              data-h2-padding="base(x1) p-tablet(x1.5, x1, x1, x1)"
+              data-h2-padding="base(x1) p-tablet(x.5, x1)"
               {...iconStyleMap[type]}
             >
               <Icon
-                data-h2-margin="p-tablet(x.1, 0, 0, 0)"
-                data-h2-width="base(x2)"
+                data-h2-margin="p-tablet(x.2, 0, 0, 0)"
+                data-h2-width="base(x1.5)"
                 strokeWidth="2px"
               />
             </div>
             <div
               style={{ flexGrow: 1 }}
               data-h2-align-self="base(center)"
-              data-h2-padding="base(x1) p-tablet(x2)"
+              data-h2-padding="base(x1) p-tablet(x1, x1, x1, x1.5)"
             >
               {children}
             </div>
@@ -186,7 +186,7 @@ const Footer = ({ children }: AlertFooterProps) => {
       <Separator
         orientation="horizontal"
         data-h2-margin="base(x1, 0)"
-        data-h2-height="base(0.25rem)"
+        data-h2-height="base(3px)"
         {...(ctx?.type && separatorStyleMap[ctx.type])}
       />
       {children}
