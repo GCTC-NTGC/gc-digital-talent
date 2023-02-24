@@ -1,5 +1,11 @@
 import React from "react";
-import { ThemeMode, SetModeFunc, ThemeKey, SetThemeKeyFunc } from "../types";
+import {
+  ThemeMode,
+  SetModeFunc,
+  ThemeKey,
+  SetThemeKeyFunc,
+  SetThemeFunc,
+} from "../types";
 
 export interface ThemeState {
   mode: ThemeMode;
@@ -7,6 +13,7 @@ export interface ThemeState {
   isPref: boolean;
   setMode: SetModeFunc;
   setThemeKey: SetThemeKeyFunc;
+  setTheme: SetThemeFunc;
 }
 
 export const defaultThemeState = {
@@ -17,6 +24,9 @@ export const defaultThemeState = {
     // PASS
   },
   setThemeKey: () => {
+    // PASS
+  },
+  setTheme: () => {
     // PASS
   },
 };
@@ -112,6 +122,20 @@ const ThemeProvider = ({
     [mode, setDOMTheme],
   );
 
+  const setTheme = React.useCallback(
+    (newKey: ThemeKey, newMode: ThemeMode) => {
+      setDOMTheme(newKey, newMode);
+      localStorage.setItem(
+        "theme",
+        JSON.stringify({
+          mode: newMode,
+          key: newKey,
+        }),
+      );
+    },
+    [setDOMTheme],
+  );
+
   React.useEffect(() => {
     const isSet = localStorage.theme !== undefined;
     const prefersDark = window.matchMedia(
@@ -163,9 +187,10 @@ const ThemeProvider = ({
       key,
       setMode: setCurrentMode,
       setThemeKey: setCurrentKey,
+      setTheme,
       isPref,
     }),
-    [mode, key, setCurrentMode, setCurrentKey, isPref],
+    [mode, key, setCurrentMode, setCurrentKey, isPref, setTheme],
   );
 
   return (

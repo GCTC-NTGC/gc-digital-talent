@@ -53,11 +53,11 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const { setThemeKey } = useTheme();
+  const { setTheme } = useTheme();
 
   React.useEffect(() => {
-    setThemeKey("admin");
-  }, [setThemeKey]);
+    setTheme("admin", "light");
+  }, [setTheme]);
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
