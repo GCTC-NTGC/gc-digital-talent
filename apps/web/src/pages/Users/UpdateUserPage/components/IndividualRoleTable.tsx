@@ -11,6 +11,7 @@ import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
+import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 
 const roleCell = (displayName: string) => {
   return (
@@ -19,6 +20,10 @@ const roleCell = (displayName: string) => {
     </Pill>
   );
 };
+
+const actionCell = (role: Role, userName: React.ReactNode) => (
+  <RemoveIndividualRoleDialog role={role} userName={userName} />
+);
 
 type RoleCell = Cell<Role>;
 
@@ -32,6 +37,7 @@ export const IndividualRoleTable = ({
   availableRoles,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
   const columns = useMemo<ColumnsOf<Role>>(
     () => [
@@ -41,7 +47,10 @@ export const IndividualRoleTable = ({
           id: "S8ra2P",
           description: "Title displayed for the role table actions column",
         }),
-        accessor: "id",
+        accessor: (d) => `Actions ${d.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: role } }: RoleCell) =>
+          actionCell(role, userName),
       },
       {
         Header: intl.formatMessage({
@@ -54,7 +63,7 @@ export const IndividualRoleTable = ({
           roleCell(getLocalizedName(role.displayName, intl)),
       },
     ],
-    [intl],
+    [intl, userName],
   );
 
   // TO DO: Update to user roles
@@ -82,7 +91,7 @@ export const IndividualRoleTable = ({
       columns={columns}
       addDialog={
         <AddIndividualRoleDialog
-          userName={getFullNameHtml(user.firstName, user.lastName, intl)}
+          userName={userName}
           availableRoles={availableRoles}
           onAddRoles={handleAddRoles}
         />

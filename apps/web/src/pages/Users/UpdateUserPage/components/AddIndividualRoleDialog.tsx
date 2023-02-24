@@ -6,15 +6,12 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField } from "@gc-digital-talent/forms";
 import {
-  Role,
-  Scalars,
-  UpdateUserAsAdminInput,
-} from "@gc-digital-talent/graphql";
-import {
   commonMessages,
   errorMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+
+import { Role, Scalars, UpdateUserAsAdminInput } from "~/api/generated";
 
 type FormValues = {
   roles: Array<Scalars["UUID"]>;
