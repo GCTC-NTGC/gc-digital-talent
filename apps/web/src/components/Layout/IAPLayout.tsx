@@ -38,11 +38,11 @@ const Layout = () => {
   const intl = useIntl();
   const location = useLocation();
   const paths = useRoutes();
-  const { setThemeKey } = useTheme();
+  const { setTheme } = useTheme();
 
   React.useEffect(() => {
-    setThemeKey("iap");
-  }, [setThemeKey]);
+    setTheme("iap", "light");
+  }, [setTheme]);
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",

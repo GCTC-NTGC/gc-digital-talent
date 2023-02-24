@@ -41,11 +41,11 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { setThemeKey } = useTheme();
+  const { setTheme } = useTheme();
 
   React.useEffect(() => {
-    setThemeKey("default");
-  }, [setThemeKey]);
+    setTheme("default", "light");
+  }, [setTheme]);
 
   const { loggedInUser } = useAuthorization();
   const { loggedIn } = useAuthentication();
