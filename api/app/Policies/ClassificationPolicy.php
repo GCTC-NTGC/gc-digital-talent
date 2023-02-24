@@ -18,7 +18,7 @@ class ClassificationPolicy
      */
     public function viewAny(User $user = null)
     {
-        return $user && $user->isAbleTo("view-any-classification");
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ClassificationPolicy
      */
     public function view(User $user = null)
     {
-        return $user && $user->isAbleTo("view-any-classification");
+        return true;
     }
 
     /**

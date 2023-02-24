@@ -18,7 +18,7 @@ class SkillPolicy
      */
     public function viewAny(User $user = null)
     {
-        return $user && $user->isAbleTo("view-any-skill");
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class SkillPolicy
      */
     public function view(User $user = null)
     {
-        return $user && $user->isAbleTo("view-any-skill");
+        return true;
     }
 
     /**
