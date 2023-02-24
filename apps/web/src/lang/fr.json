@@ -6557,5 +6557,17 @@
   "ytHvhD": {
     "defaultMessage": "Ministères",
     "description": "Label for the team departments input"
+  },
+  "1lmME7": {
+    "defaultMessage": "Supprimer<hidden> la candidature {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "60Ee78": {
+    "defaultMessage": "Continuer ma candidature<hidden> {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "HXNJ6Z": {
+    "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
+    "description": "Link text to see an applications advertisement"
   }
 }
