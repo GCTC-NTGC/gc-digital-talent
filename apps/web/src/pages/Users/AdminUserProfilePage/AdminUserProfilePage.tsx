@@ -3,13 +3,10 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 
-import Heading from "@common/components/Heading";
-import Pending from "@common/components/Pending";
-import UserProfile from "@common/components/UserProfile";
-import SEO from "@common/components/SEO/SEO";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
+import UserProfile from "~/components/UserProfile";
 import { Applicant, Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 

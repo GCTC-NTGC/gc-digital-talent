@@ -7,14 +7,13 @@ import {
   Cog8ToothIcon,
 } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
+import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 

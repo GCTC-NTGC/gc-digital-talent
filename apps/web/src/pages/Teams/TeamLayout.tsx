@@ -7,12 +7,11 @@ import {
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { getLocalizedName } from "@common/helpers/localize";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import SEO from "~/components/SEO/SEO";
+import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Team, useTeamNameQuery } from "~/api/generated";

@@ -8,12 +8,10 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 
-import SEO from "@common/components/SEO/SEO";
-import Pending from "@common/components/Pending";
-import TableOfContents from "@common/components/TableOfContents";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { notEmpty } from "@common/helpers/util";
+import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import SEO from "~/components/SEO/SEO";
 import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
 
 import AboutSection from "./components/AboutSection";

@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Heading from "@common/components/Heading/Heading";
-import Well from "@common/components/Well/Well";
+import { Heading, Well } from "@gc-digital-talent/ui";
 
 import { JobLookingStatus } from "~/api/generated";
 

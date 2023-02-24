@@ -2,11 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
-import Button from "@common/components/Button/Button";
-import Well from "@common/components/Well/Well";
-import { toast } from "@common/components/Toast/Toast";
-import { BasicForm, TextArea } from "@common/components/form";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Button, Well } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { BasicForm, TextArea } from "@gc-digital-talent/forms";
+
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 import {
   UpdatePoolCandidateAsAdminInput,

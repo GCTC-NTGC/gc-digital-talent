@@ -68,7 +68,7 @@ export const IndexPoolCandidatePage = () => {
             "Title displayed above the Pool Candidate Table component.",
         })}
       />
-      <AdminBreadcrumbs links={crumbs} />
+      <AdminBreadcrumbs crumbs={crumbs} />
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:

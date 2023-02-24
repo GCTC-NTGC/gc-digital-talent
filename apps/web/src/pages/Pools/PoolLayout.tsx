@@ -7,15 +7,14 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import { ThrowNotFound } from "@common/components/NotFound";
-import { getFullPoolAdvertisementTitleLabel } from "@common/helpers/poolUtils";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
+import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
 import { PageNavInfo } from "~/types/pages";
 
 type PageNavKeys = "view" | "edit" | "candidates";

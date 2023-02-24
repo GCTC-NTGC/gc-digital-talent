@@ -2,11 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
-import Link from "@common/components/Link/Link";
-import Well from "@common/components/Well/Well";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
+import { Link, Well } from "@gc-digital-talent/ui";
+import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import { UserInformationProps } from "../types";

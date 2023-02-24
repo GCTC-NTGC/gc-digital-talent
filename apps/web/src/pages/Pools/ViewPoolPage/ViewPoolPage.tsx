@@ -163,7 +163,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     <>
       <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <AdminBreadcrumbs links={links} />
+        <AdminBreadcrumbs crumbs={links} />
         <FormProvider {...form}>
           <h2
             data-h2-margin="base(x2, 0, 0, 0)"

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-import Well from "@common/components/Well/Well";
+import { Well } from "@gc-digital-talent/ui";
 
 import { BasicUserInformationProps } from "../types";
 

@@ -1,14 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well/Well";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { Well } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
   getLanguage,
   getProvinceOrTerritory,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
+
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 import { BasicUserInformationProps } from "../types";
 
