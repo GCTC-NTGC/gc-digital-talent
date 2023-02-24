@@ -19,7 +19,7 @@ export default {
 } as Meta;
 
 const TemplateTileLink: Story = (args) => {
-  const { label, color } = args;
+  const { label } = args;
 
   return (
     <div
