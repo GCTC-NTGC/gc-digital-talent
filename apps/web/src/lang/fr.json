@@ -1901,10 +1901,6 @@
     "defaultMessage": "Exemptions de lieux",
     "description": "Location Exemptions field label for work location preference form"
   },
-  "1lmME7": {
-    "defaultMessage": "Supprimer<hidden> la candidature {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
@@ -1920,10 +1916,6 @@
   "5pZFQ3": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
     "description": "Question displayed when user attempts to delete an application"
-  },
-  "60Ee78": {
-    "defaultMessage": "Continuer ma candidature<hidden> {name}</hidden>",
-    "description": "Link text to continue a specific application"
   },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
@@ -1984,10 +1976,6 @@
   "FqXo5j": {
     "defaultMessage": "Droit de priorité",
     "description": "Priority Entitlement Status in Government Info Form"
-  },
-  "HXNJ6Z": {
-    "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
-    "description": "Link text to see an applications advertisement"
   },
   "IUQGA0": {
     "defaultMessage": "Supprimer",
