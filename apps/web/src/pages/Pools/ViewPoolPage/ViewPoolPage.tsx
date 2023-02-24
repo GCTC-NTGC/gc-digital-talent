@@ -32,7 +32,6 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -61,7 +60,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const poolName = getFullPoolAdvertisementTitleHtml(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
