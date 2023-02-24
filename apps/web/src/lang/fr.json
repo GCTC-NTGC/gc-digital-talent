@@ -6533,5 +6533,57 @@
   "si/wtm": {
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
+  },
+  "1cPlHY": {
+    "defaultMessage": "Nom de l’organisation (en anglais)",
+    "description": "Label for the English team display name input"
+  },
+  "2ni0ia": {
+    "defaultMessage": "La mise à jour de l’équipe a été réussie!",
+    "description": "Message displayed after a team is updated"
+  },
+  "3sw5qd": {
+    "defaultMessage": "Commentaires généraux",
+    "description": "Label for the team's key input"
+  },
+  "OOnxtm": {
+    "defaultMessage": "Nom de l’organisation (en français)",
+    "description": "Label for the French team display name input"
+  },
+  "PhrOLp": {
+    "defaultMessage": "Courriel de la personne-ressource",
+    "description": "Label for the French team display name input"
+  },
+  "RtDf2h": {
+    "defaultMessage": "Brève description de l’organisation (en français)",
+    "description": "Label for the French team description input"
+  },
+  "TCQhlo": {
+    "defaultMessage": "Brève description de l’organisation (en anglais)",
+    "description": "Label for the English team description input"
+  },
+  "gBKyL2": {
+    "defaultMessage": "Sauvegarder l’information relative à l’équipe",
+    "description": "Button text for the update team form submit button"
+  },
+  "h486wf": {
+    "defaultMessage": "Erreur : La mise à jour de l’équipe a échoué",
+    "description": "Messaged displayed after updating team fails"
+  },
+  "hTzoAW": {
+    "defaultMessage": "personne-ressource@courriel.com",
+    "description": "Placeholder email format example for team contact email input"
+  },
+  "i0IT1I": {
+    "defaultMessage": "Annuler et retourner aux équipes",
+    "description": "Link text to cancel updating a team"
+  },
+  "jzax3k": {
+    "defaultMessage": "Sélectionnez un ou plusieurs ministères...",
+    "description": "Placeholder text for the team departments input"
+  },
+  "ytHvhD": {
+    "defaultMessage": "Ministères",
+    "description": "Label for the team departments input"
   }
 }
