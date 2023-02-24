@@ -10,6 +10,12 @@
             }
         },
         {
+            "name": "Listen for PHP Xdebug locally",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+        },
+        {
             "type": "node",
             "name": "jest-common",
             "request": "launch",
