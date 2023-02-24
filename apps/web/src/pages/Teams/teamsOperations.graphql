@@ -1,20 +1,40 @@
-query ListTeams {
-  teams {
+fragment team on Team {
+  id
+  name
+  contactEmail
+  displayName {
+    en
+    fr
+  }
+  departments {
     id
-    name
-    contactEmail
-    displayName {
+    departmentNumber
+    name {
       en
       fr
     }
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
+  }
+  description {
+    en
+    fr
+  }
+}
+
+query ListTeams {
+  teams {
+    ...team
+  }
+}
+
+query GetTeam($teamId: UUID!) {
+  team(id: $teamId) {
+    ...team
+  }
+}
+
+mutation UpdateTeam($teamId: UUID!, $team: UpdateTeamInput!) {
+  updateTeam(id: $teamId, team: $team) {
+    id
   }
 }
 
