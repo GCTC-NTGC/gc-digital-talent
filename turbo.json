@@ -18,7 +18,7 @@
     },
     "watch": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "outputs": ["dist/**"]
+      "cache": false
     },
     "build:intl-cli": {
       "outputs": ["dist/cli.js"]
