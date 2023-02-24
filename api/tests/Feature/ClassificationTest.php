@@ -166,10 +166,9 @@ class ClassificationTest extends TestCase
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        $classification = $this->actingAs($this->adminUser, 'api')
+        $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['name' => $variables['classification']['name'] ])
-            ->json('data.createClassification');
+            ->assertJsonFragment(['name' => $variables['classification']['name'] ]);
 
     }
 
