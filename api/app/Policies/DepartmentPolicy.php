@@ -18,7 +18,7 @@ class DepartmentPolicy
      */
     public function viewAny(User $user = null)
     {
-        return true;
+        return $user && $user->isAbleTo("view-any-department");
     }
 
     /**
@@ -30,7 +30,7 @@ class DepartmentPolicy
      */
     public function view(User $user = null)
     {
-        return true;
+        return $user && $user->isAbleTo("view-any-department");
     }
 
     /**
@@ -41,7 +41,7 @@ class DepartmentPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("create-any-department");
     }
 
     /**
@@ -53,7 +53,7 @@ class DepartmentPolicy
      */
     public function update(User $user, Department $department)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("update-any-department");
     }
 
     /**
@@ -65,7 +65,7 @@ class DepartmentPolicy
      */
     public function delete(User $user, Department $department)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("delete-any-department");
     }
 
     /**
@@ -77,7 +77,7 @@ class DepartmentPolicy
      */
     public function restore(User $user, Department $department)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("delete-any-department");
     }
 
     /**
@@ -89,6 +89,6 @@ class DepartmentPolicy
      */
     public function forceDelete(User $user, Department $department)
     {
-        return false;
+        return $user && $user->isAbleTo("delete-any-department");
     }
 }
