@@ -104,7 +104,7 @@ const AdminLayout = () => {
             <main
               id="main"
               data-h2-flex-grow="base(1)"
-              data-h2-background-color="base(gray.15)"
+              data-h2-background-color="base(background)"
             >
               <div data-h2-min-height="base(100%)">
                 <div data-h2-container="base(center, full, x2)">

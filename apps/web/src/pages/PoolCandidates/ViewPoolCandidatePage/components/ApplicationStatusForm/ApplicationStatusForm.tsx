@@ -207,7 +207,7 @@ export const ApplicationStatusForm = ({
               )}
             />
             <Submit
-              color="cta"
+              color="primary"
               isSubmitting={isSubmitting}
               text={intl.formatMessage({
                 id: "OunUSG",

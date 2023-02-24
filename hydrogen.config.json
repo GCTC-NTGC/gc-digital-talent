@@ -167,7 +167,7 @@
         {
           "key": "background",
           "default": {
-            "color": "#f4f8ff",
+            "color": "#F9FBFF",
             "modifiers": [
               {
                 "key": "dark",

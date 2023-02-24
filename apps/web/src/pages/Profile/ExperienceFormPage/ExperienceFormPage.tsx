@@ -267,7 +267,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               <Button
                 type="button"
                 mode="outline"
-                color="secondary"
+                color="error"
                 data-h2-margin="base(x2, 0, 0, 0)"
               >
                 <span>

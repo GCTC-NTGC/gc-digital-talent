@@ -213,14 +213,10 @@ const AccessibilityStatementPage = () => {
         })}
         crumbs={crumbs}
       />
-      <div
-        data-h2-background-color="base(white) base:dark(black.light)"
-        data-h2-color="base(black) base:dark(white)"
-        data-h2-padding="base(x3, 0)"
-      >
+      <div data-h2-padding="base(x3, 0)">
         <div
           data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x.5, 0, 0, 0)"
+          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
           <p>
             {intl.formatMessage(

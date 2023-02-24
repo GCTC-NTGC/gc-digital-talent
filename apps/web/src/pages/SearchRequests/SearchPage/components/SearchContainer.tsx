@@ -127,11 +127,11 @@ const ResultsDisplay = ({
   ) : (
     <div
       data-h2-background="base(foreground)"
-      data-h2-radius="base(0, rounded, rounded, 0)"
-      data-h2-shadow="base(m)"
+      data-h2-shadow="base(medium)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border-left="base(x1 solid secondary)"
+      data-h2-border-left="base(x.5 solid primary)"
+      data-h2-radius="base(0, s, s, 0)"
     >
       <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
@@ -280,7 +280,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 
   return (
     <div data-h2-padding="base(0, 0, x3, 0)">
-      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-flex-grid="base(stretch, x3)">
           <div data-h2-flex-item="base(1of1) p-tablet(3of5)">
             <div>
@@ -326,7 +326,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
         </div>
       </div>
       <div
-        data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         id="results"
       >
         <hr

@@ -81,6 +81,9 @@ export default {
       },
     },
   },
+  parameters: {
+    themeKey: "admin",
+  },
 } as Meta<ApiManageTableProps>;
 
 const allColumnIds = columns.map((c) => c.id);

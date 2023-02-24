@@ -160,9 +160,9 @@ const SkillPicker = ({
       <p
         aria-live="polite"
         aria-atomic="true"
-        data-h2-font-size="base(h6)"
+        data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x1, 0, x.5, 0)"
+        data-h2-margin="base(x1.5, 0, x.5, 0)"
       >
         {intl.formatMessage(
           {

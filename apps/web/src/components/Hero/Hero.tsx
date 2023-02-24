@@ -39,6 +39,7 @@ export interface HeroProps {
   crumbs?: BreadcrumbsProps["crumbs"];
   children?: React.ReactNode;
   centered?: boolean;
+  contentAlignment?: "center" | "left" | "right";
 }
 
 const Hero = ({
@@ -48,6 +49,7 @@ const Hero = ({
   crumbs,
   children,
   centered = false,
+  contentAlignment = "center",
 }: HeroProps) => {
   const showImg = imgPath && !centered && !children;
   const breadCrumbs =
@@ -64,6 +66,12 @@ const Hero = ({
     padding = paddingMap.get("image");
   } else if (children) {
     padding = paddingMap.get("overlap");
+  }
+  let alignment = { "data-h2-text-align": "base(center)" };
+  if (contentAlignment && contentAlignment === "left") {
+    alignment = { "data-h2-text-align": "base(left)" };
+  } else if (contentAlignment && contentAlignment === "right") {
+    alignment = { "data-h2-text-align": "base(right)" };
   }
   return (
     <>
@@ -125,9 +133,9 @@ const Hero = ({
             <div
               data-h2-background-color="base(white)"
               data-h2-radius="base(rounded)"
-              data-h2-padding="base(x2, x1)"
-              data-h2-shadow="base(s)"
-              {...textAlignment}
+              data-h2-padding="base(x1) p-tablet(x2)"
+              data-h2-shadow="base(large)"
+              {...alignment}
             >
               {children}
             </div>

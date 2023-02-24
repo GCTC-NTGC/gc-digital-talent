@@ -10,7 +10,7 @@ const SearchPage = () => {
   const intl = useIntl();
 
   return (
-    <div data-h2-background-color="base(gray.15)">
+    <div>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Search pools",

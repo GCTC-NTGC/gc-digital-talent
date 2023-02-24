@@ -62,8 +62,6 @@ button:not(disabled) {
 }
 
 [data-h2] .container {
-  height: 100vh;
-  margin: 0;
   display: flex;
   flex-direction: column;
 }

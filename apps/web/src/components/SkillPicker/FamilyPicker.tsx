@@ -71,7 +71,6 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           data-h2-gap="base(0, x.25)"
           data-h2-radius="base(input, 0px, 0px, input)"
           data-h2-margin-right="base(0)"
-          style={{ borderRightWidth: 0 }}
         >
           <span>
             {currentFamily

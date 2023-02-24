@@ -1,7 +1,7 @@
 import { AccordionMode, AccordionStyles } from "./types";
 
 const cardStyles: AccordionStyles = {
-  "data-h2-background-color": "base(white)",
+  "data-h2-background-color": "base:selectors[>.Accordion__Item](foreground)",
   "data-h2-color":
     "base:selectors[>.Accordion__Item .Accordion__Separator](gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
   "data-h2-border-left": `
@@ -18,7 +18,7 @@ const cardStyles: AccordionStyles = {
   `,
   "data-h2-padding": `
       base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x1 x2 x1 x1)
-      base:selectors[>.Accordion__Item > .Accordion__Content](0 0 x1 x2)
+      base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3)
   `,
   "data-h2-radius":
     "base:selectors[>.Accordion__Item](0px, rounded, rounded, 0px)",

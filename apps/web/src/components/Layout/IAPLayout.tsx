@@ -75,7 +75,8 @@ const Layout = () => {
           className="container"
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
-          style={{ height: "100vh", margin: "0" }}
+          data-h2-min-height="base(100vh)"
+          data-h2-margin="base(0)"
         >
           <div>
             <Header />

@@ -23,7 +23,7 @@ export const LogoutButton = React.forwardRef<
   LogoutButtonProps
 >(({ children, ...rest }, forwardedRef) => (
   <button
-    data-h2-color="base(primary)"
+    data-h2-color="base(black) base:hover(primary)"
     data-h2-font-size="base(normal)"
     data-h2-text-decoration="base(underline)"
     style={{
@@ -157,7 +157,7 @@ const Layout = () => {
         className="container"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-height="base(100vh)"
+        data-h2-min-height="base(100vh)"
         data-h2-margin="base(0)"
         data-h2-color="base(black) base:dark(white)"
       >

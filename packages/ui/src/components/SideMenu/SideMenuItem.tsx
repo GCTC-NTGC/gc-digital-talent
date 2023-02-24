@@ -25,18 +25,21 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const Icon = icon || null;
 
   return (
-    <div data-h2-flex-grid="base(center, x.375, 0)">
-      <div data-h2-flex-item="base(content)">
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(x1 1fr)"
+      data-h2-gap="base(x.5)"
+    >
+      <div>
         {Icon ? (
           <Icon
             data-h2-width="base(x1)"
             data-h2-display="base(inline-block)"
-            data-h2-margin="base(0, x.125, 0, 0)"
             data-h2-vertical-align="base(bottom)"
           />
         ) : null}
       </div>
-      <div className="side-menu__item__label" data-h2-flex-item="base(content)">
+      <div className="side-menu__item__label">
         <span
           data-h2-display="base(inline-block)"
           data-h2-min-width="base(12rem)"

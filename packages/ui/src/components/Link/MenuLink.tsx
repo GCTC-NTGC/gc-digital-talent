@@ -30,7 +30,7 @@ const MenuLink = ({
       {...styles}
       {...rest}
       data-h2-background-color="base(transparent)"
-      data-h2-color="base(primary)"
+      data-h2-color="base(black) base:hover(primary)"
       data-h2-border="base(none)"
       data-h2-font-size="base(normal)"
       data-h2-font-weight="base(400) base:selectors[.active](800)"

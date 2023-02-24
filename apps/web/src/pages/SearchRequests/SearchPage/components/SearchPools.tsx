@@ -82,8 +82,8 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       </p>
       <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
-        color="primary"
-        mode="solid"
+        color="secondary"
+        mode="outline"
         onClick={() =>
           handleSubmit(candidateCount, pool.id, selectedClassifications)
         }
