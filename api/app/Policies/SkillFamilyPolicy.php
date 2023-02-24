@@ -18,7 +18,7 @@ class SkillFamilyPolicy
      */
     public function viewAny(User $user = null)
     {
-        return true;
+        return $user && $user->isAbleTo("view-any-skillFamily");
     }
 
     /**
@@ -30,7 +30,7 @@ class SkillFamilyPolicy
      */
     public function view(User $user = null)
     {
-        return true;
+        return $user && $user->isAbleTo("view-any-skillFamily");
     }
 
     /**
@@ -41,7 +41,7 @@ class SkillFamilyPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("create-any-skillFamily");
     }
 
     /**
@@ -53,7 +53,7 @@ class SkillFamilyPolicy
      */
     public function update(User $user, SkillFamily $skillFamily)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("update-any-skillFamily");
     }
 
     /**
@@ -65,7 +65,7 @@ class SkillFamilyPolicy
      */
     public function delete(User $user, SkillFamily $skillFamily)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -77,7 +77,7 @@ class SkillFamilyPolicy
      */
     public function restore(User $user, SkillFamily $skillFamily)
     {
-        return $user->isAdmin();
+        return $user && $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -89,6 +89,6 @@ class SkillFamilyPolicy
      */
     public function forceDelete(User $user, SkillFamily $skillFamily)
     {
-        return false;
+        return $user && $user->isAbleTo("delete-any-skillFamily");
     }
 }
