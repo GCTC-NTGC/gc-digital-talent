@@ -52,12 +52,14 @@ const ThemeProvider = ({
       setKey(newKey);
       const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
       let themeString: string | undefined = "";
+      // TO DO: Add mode back once dark mode is done
       if (newMode && newKey) {
-        themeString = `${newKey} ${newMode}`;
+        // themeString = `${newKey} ${newMode}`;
+        themeString = newKey;
       } else if (newKey) {
         themeString = newKey;
       } else if (newMode) {
-        themeString = newMode;
+        // themeString = newMode;
       } else {
         themeString = undefined;
       }
