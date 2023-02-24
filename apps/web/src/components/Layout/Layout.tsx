@@ -5,6 +5,7 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
@@ -40,6 +41,11 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { setThemeKey } = useTheme();
+
+  React.useEffect(() => {
+    setThemeKey("default");
+  }, [setThemeKey]);
 
   const { loggedInUser } = useAuthorization();
   const { loggedIn } = useAuthentication();
