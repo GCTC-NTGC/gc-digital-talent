@@ -6514,10 +6514,6 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "3sw5qd": {
-    "defaultMessage": "Commentaires généraux",
-    "description": "Label for the team's key input"
-  },
   "OOnxtm": {
     "defaultMessage": "Nom de l’organisation (en français)",
     "description": "Label for the French team display name input"
