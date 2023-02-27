@@ -130,15 +130,7 @@ const Hero = ({
             data-h2-margin="base(-x4, auto, 0, auto)"
             data-h2-z-index="base(4)"
           >
-            <div
-              data-h2-background-color="base(white)"
-              data-h2-radius="base(rounded)"
-              data-h2-padding="base(x1) p-tablet(x2)"
-              data-h2-shadow="base(large)"
-              {...alignment}
-            >
-              {children}
-            </div>
+            {children}
           </div>
         </>
       ) : (
