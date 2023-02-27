@@ -26,6 +26,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import { kebabCase } from "lodash";
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 import DescriptionWordCounter, {
   TEXT_AREA_MAX_WORDS,
@@ -34,7 +35,6 @@ import DescriptionWordCounter, {
 const TEXT_AREA_ROWS = 4;
 
 type FormValues = {
-  name: string;
   displayName?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]>;
@@ -52,9 +52,11 @@ const dataToFormValues = (data: Team): FormValues => {
 };
 
 const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
-  const { departments, ...rest } = data;
+  const { departments, displayName, ...rest } = data;
   return {
     ...rest,
+    displayName,
+    name: kebabCase(displayName?.en || ""),
     departments: { sync: departments },
   };
 };

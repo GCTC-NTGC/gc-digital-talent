@@ -2,6 +2,7 @@ import * as React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { kebabCase } from "lodash";
 
 import { Link } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
@@ -20,16 +21,17 @@ import useRoutes from "~/hooks/useRoutes";
 import CreateTeamFormFields from "./CreateTeamFormFields";
 
 type FormValues = {
-  name: string;
   displayName?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]>;
   departments?: Array<Scalars["UUID"]>;
 };
 
 const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
-  const { departments, ...rest } = data;
+  const { displayName, contactEmail, departments } = data;
   return {
-    ...rest,
+    displayName,
+    contactEmail,
+    name: kebabCase(displayName?.en || ""),
     departments: { sync: departments },
   };
 };

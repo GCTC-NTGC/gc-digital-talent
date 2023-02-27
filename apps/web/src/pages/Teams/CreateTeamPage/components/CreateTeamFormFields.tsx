@@ -31,13 +31,6 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
     }
   };
 
-  const handleKeyBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    if (value) {
-      setValue("name", kebabCase(value));
-    }
-  };
-
   return (
     <>
       <div data-h2-flex-item="base(1/2)">
@@ -66,28 +59,6 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
             defaultMessage: "Organization's name (French)",
             id: "OOnxtm",
             description: "Label for the French team display name input",
-          })}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-      </div>
-      <div data-h2-flex-item="base(1/2)">
-        <Input
-          type="text"
-          id="name"
-          name="name"
-          context={intl.formatMessage({
-            defaultMessage:
-              "The 'key' is a string that uniquely identifies a team. It's auto-generated based on the teams name.",
-            id: "HSiPHu",
-            description: "Context for the team's key input",
-          })}
-          onBlur={handleKeyBlur}
-          label={intl.formatMessage({
-            defaultMessage: "Key",
-            id: "3sw5qd",
-            description: "Label for the team's key input",
           })}
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -135,7 +106,6 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
           }}
         />
       </div>
-      <div data-h2-flex-item="base(1/2)" />
     </>
   );
 };
