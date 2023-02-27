@@ -8,6 +8,7 @@
             "pathMappings": {
                 "/home/site/wwwroot/": "${workspaceFolder}"
             }
+            // For configuration, see the infrastructure/conf/xdebug.ini file.
         },
         {
             "name": "Listen for PHP Xdebug locally",
