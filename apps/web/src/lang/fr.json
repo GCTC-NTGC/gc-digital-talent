@@ -6569,5 +6569,13 @@
   "HXNJ6Z": {
     "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
+  },
+  "WX6NnA": {
+    "defaultMessage": "Créer une nouvelle équipe",
+    "description": "Button text for the create team form submit button"
+  },
+  "XaYhX3": {
+    "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
+    "description": "Descriptive text for the create team page in the admin portal."
   }
 }
