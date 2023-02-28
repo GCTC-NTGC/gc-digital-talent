@@ -23,6 +23,7 @@ use App\Http\Resources\UserResource;
  * @property int $status_weight
  * @property int $pool_id
  * @property int $user_id
+ * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -44,6 +45,7 @@ class PoolCandidate extends Model
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
+        'suspended_at' => 'datetime',
         'profile_snapshot' => 'json'
     ];
 

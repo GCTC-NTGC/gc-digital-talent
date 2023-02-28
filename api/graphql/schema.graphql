@@ -436,6 +436,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
+  suspendedAt: DateTime @rename(attribute: "suspended_at")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String

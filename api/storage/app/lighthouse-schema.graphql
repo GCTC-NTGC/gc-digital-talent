@@ -840,6 +840,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
 }
