@@ -113,7 +113,7 @@ const LoginPage: React.FC = () => {
                 href={paths.home()}
                 mode="inline"
                 color="secondary"
-                type="link"
+                type="button"
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",

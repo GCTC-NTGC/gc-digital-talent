@@ -26,7 +26,12 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
-    <Link href={paths.reviewApplication(application.id)}>
+    <Link
+      mode="inline"
+      type="button"
+      color="secondary"
+      href={paths.reviewApplication(application.id)}
+    >
       {intl.formatMessage(
         {
           defaultMessage: "Continue my application<hidden> {name}</hidden>",
@@ -57,7 +62,12 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link href={paths.pool(advertisement.id)}>
+    <Link
+      mode="inline"
+      type="button"
+      color="secondary"
+      href={paths.pool(advertisement.id)}
+    >
       {intl.formatMessage(
         {
           defaultMessage: "See advertisement<hidden> {name}</hidden>",
@@ -91,7 +101,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="black">
+        <Button mode="inline" type="button" color="error">
           {intl.formatMessage(
             {
               defaultMessage: "Delete<hidden> application {name}</hidden>",
@@ -179,7 +189,7 @@ const ArchiveAction = ({
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="black">
+        <Button mode="inline" type="button" color="secondary">
           {intl.formatMessage(
             {
               defaultMessage: "Archive<hidden> application {name}</hidden>",

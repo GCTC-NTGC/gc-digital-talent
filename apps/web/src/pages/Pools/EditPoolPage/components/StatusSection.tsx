@@ -7,7 +7,7 @@ import {
   MegaphoneIcon,
 } from "@heroicons/react/24/outline";
 
-import { TableOfContents } from "@gc-digital-talent/ui";
+import { TableOfContents, Well } from "@gc-digital-talent/ui";
 
 import { PoolAdvertisement, AdvertisementStatus } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -60,16 +60,11 @@ const StatusSection = ({
         {/* Draft status */}
         {poolAdvertisement.advertisementStatus === AdvertisementStatus.Draft ? (
           <>
-            <div
-              data-h2-background-color="base(gray.light)"
-              data-h2-padding="base(x.5)"
-              data-h2-radius="base(s)"
-              style={{ flexGrow: 2 }} // to push buttons to the right side
-            >
+            <Well data-h2-flex-grow="base(2)">
               <div
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
-                style={{ gap: "0.5rem" }}
+                data-h2-gap="base(x.5)"
               >
                 <PencilIcon
                   style={{
@@ -93,7 +88,7 @@ const StatusSection = ({
                   })}
                 </span>
               </div>
-            </div>
+            </Well>
             <PublishDialog
               closingDate={poolAdvertisement.closingDate}
               onPublish={onPublish}

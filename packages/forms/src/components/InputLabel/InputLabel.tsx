@@ -83,7 +83,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
                 data-h2-margin="base(0, 0, 0, x.125)"
                 {...(required
                   ? { "data-h2-color": "base(error.dark)" }
-                  : { "data-h2-color": "base(gray.dark)" })}
+                  : { "data-h2-color": "base(gray.darker)" })}
               >
                 (
                 {required

@@ -52,7 +52,8 @@ const ApplicationCard = ({
   return (
     <div
       data-h2-background="base(foreground)"
-      data-h2-shadow="base(s)"
+      data-h2-shadow="base(medium)"
+      data-h2-radius="base(0px rounded rounded 0px)"
       {...border}
     >
       <div
@@ -62,7 +63,7 @@ const ApplicationCard = ({
         data-h2-justify-content="base(space-between)"
       >
         <div>
-          <h2 data-h2-font-size="base(h5)" data-h2-margin="base(0, 0, x0.5, 0)">
+          <h2 data-h2-font-size="base(h5, 1.1)">
             {application.poolAdvertisement
               ? getFullPoolAdvertisementTitleHtml(
                   intl,
@@ -70,7 +71,11 @@ const ApplicationCard = ({
                 )
               : ""}
           </h2>
-          <div data-h2-display="base(flex)" data-h2-gap="base(x0.5)">
+          <div
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x0.5)"
+            data-h2-padding="base(x1, 0) l-tablet(x1, 0, 0, 0)"
+          >
             <ApplicationActions.ContinueAction
               show={applicationIsDraft}
               application={application}

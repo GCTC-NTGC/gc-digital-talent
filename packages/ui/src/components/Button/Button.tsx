@@ -479,7 +479,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...underline}
         style={{
           outlineOffset: 4,
-          opacity: disabled ? "0.6" : undefined,
+          opacity: disabled ? "0.7" : undefined,
           width: block ? "100%" : "auto",
         }}
         {...rest}

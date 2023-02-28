@@ -221,7 +221,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             )}
             <p
               data-h2-padding="base(x1, 0, 0, 0)"
-              data-h2-color="base(gray.dark)"
+              data-h2-color="base(gray.darker)"
             >
               {intl.formatMessage({
                 defaultMessage:
