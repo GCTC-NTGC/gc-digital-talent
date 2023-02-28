@@ -7,6 +7,7 @@ const SearchHeading: React.FunctionComponent = () => {
   const intl = useIntl();
   return (
     <Hero
+      centered
       title={intl.formatMessage({
         defaultMessage: "Search the Digital Talent Pool",
         id: "SZTFJq",
@@ -16,11 +17,11 @@ const SearchHeading: React.FunctionComponent = () => {
       <div
         data-h2-background-color="base(white)"
         data-h2-radius="base(rounded)"
-        data-h2-padding="base(x2, x1)"
-        data-h2-shadow="base(s)"
+        data-h2-padding="base(x1) p-tablet(x2)"
+        data-h2-shadow="base(large)"
         data-h2-text-align="base(center)"
       >
-        <h2 data-h2-color="base(dt-black)" data-h2-margin="base(0, 0, x1, 0)">
+        <h2 data-h2-color="base(black)" data-h2-margin="base(0, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "About the Digital Talent Pool",
             id: "9hdbFi",

@@ -1,10 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-
-import { User } from "@gc-digital-talent/graphql";
-
-import Hero from "~/components/Hero/Hero";
-import useRoutes from "~/hooks/useRoutes";
 import {
   BriefcaseIcon,
   BookOpenIcon,
@@ -12,6 +7,11 @@ import {
   LightBulbIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
+
+import { User } from "@gc-digital-talent/graphql";
+
+import Hero from "~/components/Hero/Hero";
+import useRoutes from "~/hooks/useRoutes";
 import { HeroCard } from "./HeroCard";
 import {
   HeroCardExperienceItem,

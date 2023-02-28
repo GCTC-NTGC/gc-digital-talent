@@ -276,19 +276,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ editPath, applicant }) => {
           ""
         )}
       </div>
-      {hasAllEmptyFields(applicant) && (
-        <div data-h2-flex-grid="base(flex-start, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p data-h2-color="base(dt-gray.dark)">
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                id: "SCCX7B",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-          </div>
-        </div>
-      )}
       {hasEmptyRequiredFields(applicant) && (
         <div data-h2-margin="base(x1, 0, 0, 0)">
           <p>
