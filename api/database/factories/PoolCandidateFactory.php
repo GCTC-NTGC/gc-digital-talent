@@ -53,9 +53,11 @@ class PoolCandidateFactory extends Factory
             $candidateStatus = $results[0]->pool_candidate_status;
             if ($candidateStatus !='DRAFT' && $candidateStatus != 'DRAFT_EXPIRED'){
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
+                $suspendedDate = $this->faker->optional()->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
                                 'submitted_at' => $submittedDate,
+                                'suspended_at' => $suspendedDate,
                                 'signature' => $fakeSignature,
                                 ]);
             }
