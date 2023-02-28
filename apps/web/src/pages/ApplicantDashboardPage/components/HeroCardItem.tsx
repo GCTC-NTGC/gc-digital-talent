@@ -88,13 +88,15 @@ export const HeroCardItem = ({
   );
 };
 
+export type ProfileItemStatus =
+  | "has-empty-required-fields"
+  | "has-empty-optional-fields"
+  | "all-sections-complete";
+
 export interface HeroCardProfileItemProps {
   sectionName: string;
   href: string;
-  status:
-    | "required-sections-missing"
-    | "optional-sections-available"
-    | "all-sections-complete";
+  status: ProfileItemStatus;
 }
 
 export const HeroCardProfileItem = ({
@@ -104,7 +106,7 @@ export const HeroCardProfileItem = ({
 }: HeroCardProfileItemProps) => {
   const intl = useIntl();
   switch (status) {
-    case "required-sections-missing":
+    case "has-empty-required-fields":
       return (
         <HeroCardItem
           icon={ExclamationCircleIcon}
@@ -121,7 +123,7 @@ export const HeroCardProfileItem = ({
           href={href}
         />
       );
-    case "optional-sections-available":
+    case "has-empty-optional-fields":
       return (
         <HeroCardItem
           icon={CheckCircleIcon}
@@ -178,8 +180,9 @@ export const HeroCardExperienceItem = ({
           =1 {1 item}
           other {# items}
         } added`,
-          id: "74UA2k",
-          description: "Subline to describe number of experience items added",
+          id: "6hQQIY",
+          description:
+            "context message to describe number of experience items added",
         },
         { itemCount },
       )}

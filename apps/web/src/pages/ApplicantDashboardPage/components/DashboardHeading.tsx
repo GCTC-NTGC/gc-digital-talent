@@ -13,7 +13,35 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import { HeroCard } from "./HeroCard";
-import { HeroCardExperienceItem, HeroCardProfileItem } from "./HeroCardItem";
+import {
+  HeroCardExperienceItem,
+  HeroCardProfileItem,
+  ProfileItemStatus,
+} from "./HeroCardItem";
+import {
+  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as aboutSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/AboutSection";
+import {
+  hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/LanguageInformationSection";
+import {
+  hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as governmentInformationSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/GovernmentInformationSection";
+import {
+  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as workLocationSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/WorkLocationSection";
+import {
+  hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as workPreferencesSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/WorkPreferencesSection";
+import {
+  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 
 export interface DashboardHeadingProps {
   user: User;
@@ -22,6 +50,16 @@ export interface DashboardHeadingProps {
 export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  function deriveSectionStatus(
+    isMissingRequiredFields: boolean,
+    isMissingOptionalFields: boolean,
+  ): ProfileItemStatus {
+    if (isMissingRequiredFields) return "has-empty-required-fields";
+    if (isMissingOptionalFields) return "has-empty-optional-fields";
+    return "all-sections-complete";
+  }
+
   return (
     <Hero
       centered
@@ -65,7 +103,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'about me' profile section",
             })}
-            status="required-sections-missing"
+            status={deriveSectionStatus(
+              aboutSectionHasEmptyRequiredFields(user),
+              aboutSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.aboutMe(user.id)}
           />
 
@@ -76,7 +117,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'language information' profile section",
             })}
-            status="optional-sections-available"
+            status={deriveSectionStatus(
+              languageInformationSectionHasEmptyRequiredFields(user),
+              languageInformationSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.languageInformation(user.id)}
           />
 
@@ -87,7 +131,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'government information' profile section",
             })}
-            status="all-sections-complete"
+            status={deriveSectionStatus(
+              governmentInformationSectionHasEmptyRequiredFields(user),
+              governmentInformationSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.governmentInformation(user.id)}
           />
           <HeroCardProfileItem
@@ -97,7 +144,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'work location' profile section",
             })}
-            status="all-sections-complete"
+            status={deriveSectionStatus(
+              workLocationSectionHasEmptyRequiredFields(user),
+              workLocationSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.workLocation(user.id)}
           />
 
@@ -108,7 +158,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'work preferences' profile section",
             })}
-            status="all-sections-complete"
+            status={deriveSectionStatus(
+              workPreferencesSectionHasEmptyRequiredFields(user),
+              workPreferencesSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.workPreferences(user.id)}
           />
           <HeroCardProfileItem
@@ -118,7 +171,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "applicant dashboard card section name for the 'diversity, equity inclusion' profile section",
             })}
-            status="required-sections-missing"
+            status={deriveSectionStatus(
+              diversityEquityInclusionSectionHasEmptyRequiredFields(user),
+              diversityEquityInclusionSectionHasEmptyOptionalFields(user),
+            )}
             href={paths.diversityEquityInclusion(user.id)}
           />
         </HeroCard>

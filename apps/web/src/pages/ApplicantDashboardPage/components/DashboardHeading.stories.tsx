@@ -1,7 +1,7 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { experienceGenerators, fakeUsers } from "@gc-digital-talent/fake-data";
 
 import { DashboardHeading } from "./DashboardHeading";
 
@@ -9,6 +9,8 @@ type Story = ComponentStory<typeof DashboardHeading>;
 type Meta = ComponentMeta<typeof DashboardHeading>;
 
 const mockUser = fakeUsers(1)[0];
+mockUser.workExperiences = experienceGenerators.workExperiences(3);
+mockUser.awardExperiences = experienceGenerators.awardExperiences(1);
 
 export default {
   component: DashboardHeading,
@@ -22,4 +24,4 @@ const Template: Story = (args) => {
   return <DashboardHeading {...args} />;
 };
 
-export const CompleteProfile = Template.bind({});
+export const PartiallyCompletedProfile = Template.bind({});
