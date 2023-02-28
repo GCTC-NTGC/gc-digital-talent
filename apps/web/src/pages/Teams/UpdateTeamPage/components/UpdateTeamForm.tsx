@@ -6,17 +6,14 @@ import omit from "lodash/omit";
 
 import {
   BasicForm,
-  Input,
   Submit,
   TextArea,
-  MultiSelectField,
   unpackIds,
   countNumberOfWords,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   Scalars,
@@ -29,7 +26,8 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import NameField from "./NameField";
+import { kebabCase } from "lodash";
+import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 import DescriptionWordCounter, {
   TEXT_AREA_MAX_WORDS,
 } from "./DescriptionWordCounter";
@@ -37,7 +35,6 @@ import DescriptionWordCounter, {
 const TEXT_AREA_ROWS = 4;
 
 type FormValues = {
-  name: string;
   displayName?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]>;
@@ -55,9 +52,11 @@ const dataToFormValues = (data: Team): FormValues => {
 };
 
 const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
-  const { departments, ...rest } = data;
+  const { departments, displayName, ...rest } = data;
   return {
     ...rest,
+    displayName,
+    name: kebabCase(displayName?.en || ""),
     departments: { sync: departments },
   };
 };
@@ -103,11 +102,6 @@ const UpdateTeamForm = ({
       });
   };
 
-  const departmentOptions = departments?.filter(notEmpty).map((department) => ({
-    value: department.id,
-    label: getLocalizedName(department.name, intl),
-  }));
-
   return (
     <BasicForm
       onSubmit={handleSubmit}
@@ -116,48 +110,7 @@ const UpdateTeamForm = ({
       }}
     >
       <div data-h2-flex-grid="base(center, x1, 0)">
-        <NameField />
-        <div data-h2-flex-item="base(1/2)">
-          <MultiSelectField
-            id="departments"
-            name="departments"
-            label={intl.formatMessage({
-              defaultMessage: "Departments",
-              id: "ytHvhD",
-              description: "Label for the team departments input",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select on or more departments...",
-              id: "jzax3k",
-              description: "Placeholder text for the team departments input",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={departmentOptions}
-          />
-        </div>
-        <div data-h2-flex-item="base(1/2)">
-          <Input
-            type="email"
-            id="contactEmail"
-            name="contactEmail"
-            label={intl.formatMessage({
-              defaultMessage: "Contact email",
-              id: "PhrOLp",
-              description: "Label for the French team display name input",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "contact@email.com",
-              id: "hTzoAW",
-              description:
-                "Placeholder email format example for team contact email input",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </div>
+        <CreateTeamFormFields departments={departments} />
         <div data-h2-flex-item="base(1/2)">
           <TextArea
             id="description_en"
@@ -210,13 +163,6 @@ const UpdateTeamForm = ({
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
       >
-        <Submit
-          text={intl.formatMessage({
-            defaultMessage: "Save team information",
-            id: "gBKyL2",
-            description: "Button text for the update team form submit button",
-          })}
-        />
         <Link href={paths.teamTable()}>
           {intl.formatMessage({
             defaultMessage: "Cancel and go back to teams",
@@ -224,6 +170,13 @@ const UpdateTeamForm = ({
             description: "Link text to cancel updating a team",
           })}
         </Link>
+        <Submit
+          text={intl.formatMessage({
+            defaultMessage: "Save team information",
+            id: "gBKyL2",
+            description: "Button text for the update team form submit button",
+          })}
+        />
       </div>
     </BasicForm>
   );
