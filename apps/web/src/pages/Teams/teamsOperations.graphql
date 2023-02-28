@@ -61,3 +61,9 @@ query ViewTeam($id: UUID!) {
     }
   }
 }
+
+mutation CreateTeam($team: CreateTeamInput!) {
+  createTeam(team: $team) {
+    id
+  }
+}
