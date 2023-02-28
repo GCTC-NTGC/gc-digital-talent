@@ -42,22 +42,19 @@ class RoleSync extends Command
 
         $users = User::all();
 
-        foreach($users as $user) {
-            // Only sync roles if they have none assigned
-            if(!$user->roles()->exists()) {
-                // Everyone gets the base roles :)
-                $rolesToSync = [$baseUserRole, $applicantRole];
+        foreach ($users as $user) {
+            // Everyone gets the base roles :)
+            $rolesToSync = [$baseUserRole, $applicantRole];
 
-                // Add admin roles if user has the legacy admin role
-                if(in_array(ApiEnums::ROLE_ADMIN, $user->legacy_roles)) {
-                    array_push($rolesToSync, $requestResponderRole, $superAdminRole);
+            // Add admin roles if user has the legacy admin role
+            if (in_array(ApiEnums::ROLE_ADMIN, $user->legacy_roles)) {
+                array_push($rolesToSync, $requestResponderRole, $superAdminRole);
 
-                    // Attach the pool_operator role to DCM team
-                    $user->attachRole($poolOperatorRole, $DCMTeam);
-                }
-
-                $user->attachRoles($rolesToSync);
+                // Attach the pool_operator role to DCM team
+                $user->attachRole($poolOperatorRole, $DCMTeam);
             }
+
+            $user->syncRoles($rolesToSync);
         }
 
         return Command::SUCCESS;
