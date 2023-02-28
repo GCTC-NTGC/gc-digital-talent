@@ -22,13 +22,6 @@ class TeamSeeder extends Seeder
                     'fr' => 'Gestion de la collectivité numérique',
                 ],
             ],
-            [
-                'name' => 'test-team',
-                'display_name' => [
-                    'en' => 'Test Team',
-                    'fr' => 'Équipe de test',
-                ],
-            ],
         ];
 
         foreach ($teams as $team) {

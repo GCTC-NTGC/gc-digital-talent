@@ -38,6 +38,16 @@ class DatabaseSeeder extends Seeder
 
         $this->truncateTables();
 
+        // seed a test team and random teams
+        Team::factory()->create([
+            'name' => 'test-team',
+            'display_name' => [
+                'en' => 'Test Team',
+                'fr' => 'Équipe de test',
+            ],
+        ]);
+        Team::factory()->count(9)->create();
+
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
@@ -48,8 +58,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        // seed random teams
-        Team::factory()->count(9)->create();
         // Seed random pools
         Pool::factory()->count(10)->create();
         // Seed some expected values
