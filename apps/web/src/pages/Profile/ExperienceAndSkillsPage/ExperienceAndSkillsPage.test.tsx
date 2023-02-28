@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { compareByDate } from "@common/types/ExperienceUtils";
+import { compareByDate } from "~/types/experience";
 import { Applicant, Experience } from "~/api/generated";
 import { ExperienceForDate } from "./components/ExperienceAndSkills";
 

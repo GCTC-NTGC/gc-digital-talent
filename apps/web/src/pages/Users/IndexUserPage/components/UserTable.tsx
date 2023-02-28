@@ -4,17 +4,13 @@ import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
-import { notEmpty } from "@common/helpers/util";
-import { FromArray } from "@common/types/utilityTypes";
-import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
-import {
-  getJobLookingStatus,
-  getLanguage,
-} from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import printStyles from "@common/constants/printStyles";
-import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getJobLookingStatus, getLanguage } from "@gc-digital-talent/i18n";
+import { Pending } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
+import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   InputMaybe,
@@ -26,6 +22,7 @@ import {
   UserPaginator,
   useSelectedUsersQuery,
 } from "~/api/generated";
+import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";

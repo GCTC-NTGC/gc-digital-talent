@@ -2,11 +2,10 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import React from "react";
-import { axeTest, render } from "@common/helpers/testUtils";
-import { act } from "react-dom/test-utils";
-import { fakeUsers } from "@common/fakeData";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
@@ -45,7 +44,7 @@ const renderLanguageInfoForm = ({
   initialData: User;
   submitHandler: LanguageInformationUpdateHandler;
 }) =>
-  render(
+  renderWithProviders(
     <LanguageInformationForm
       initialData={initialData}
       submitHandler={submitHandler}

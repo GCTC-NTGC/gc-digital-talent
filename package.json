@@ -10,25 +10,32 @@
   "packageManager": "npm@8.0.0",
   "workspaces": [
     "apps/*",
-    "frontend/common",
     "packages/*"
   ],
   "scripts": {
-    "build": "h2-build && turbo run build --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "build": "h2-build && turbo run build --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
     "build:all": "turbo run build",
+    "build:packages": "turbo run build --filter='./packages/*'",
     "build:css": "h2-build",
     "build:project": "turbo run build",
+    "build:intl-cli": "turbo run build --filter=@gc-digital-talent/i18n",
     "codegen": "npm run codegen --workspaces --if-present",
+    "check-intl:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml",
+    "check-intl:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml",
+    "check-intl-merge:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml --merge-fr ./packages/i81n/src/lang/newTranslations.json",
+    "check-intl-merge:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml --merge-fr ./apps/web/src/lang/newTranslations.json",
+    "check-integrity": "turbo run check-integrity --filter=@gc-digital-talent/tooling -- --dir $INIT_CWD --lock-file=\"package-lock.json\"",
+    "clean": "turbo run clean",
     "intl-extract": "npm run intl-extract --workspaces --if-present",
     "intl-compile": "npm run intl-compile --workspaces --if-present",
-    "dev": "turbo run dev --filter='./apps/*' --filter='./frontend/*' --filter='!@gc-digital-talent/e2e'",
+    "dev": "turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
     "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=@gc-digital-talent/web",
     "build-storybook": "MERGE_STORYBOOKS=true npm run build-storybook --workspace=@gc-digital-talent/web",
     "test": "turbo run test",
-    "watch": "turbo run watch --filter=@gc-digital-talent/web",
+    "watch": "turbo run watch --parallel",
     "watch:project": "turbo run watch",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
     "e2e:open": "npm run e2e:open",
@@ -37,10 +44,10 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "3.0.0",
+    "@graphql-codegen/cli": "3.2.0",
     "@hydrogen-css/hydrogen": "2.0.0",
     "eslint-config-custom": "*",
     "prettier": "^2.8.4",
-    "turbo": "^1.7.0"
+    "turbo": "^1.8.2"
   }
 }

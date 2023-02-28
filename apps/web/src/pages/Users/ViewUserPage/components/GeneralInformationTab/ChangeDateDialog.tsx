@@ -2,15 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
-import Button from "@common/components/Button";
-import { toast } from "@common/components/Toast";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { Input } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
-import { currentDate } from "@common/helpers/formUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Dialog, Button } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { Input } from "@gc-digital-talent/forms";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { currentDate } from "@gc-digital-talent/date-helpers";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   Applicant,
   PoolCandidate,

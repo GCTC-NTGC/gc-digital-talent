@@ -3,7 +3,8 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, screen, axeTest, act } from "@common/helpers/testUtils";
+import { screen, act } from "@testing-library/react";
+import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import { GetMyStatusQuery } from "~/api/generated";
 
 import { MyStatusFormComponent, MyStatusFormProps } from "./MyStatusForm";
@@ -13,7 +14,7 @@ const renderMyStatusForm = ({
   initialData,
   handleMyStatus,
 }: MyStatusFormProps) => {
-  return render(
+  return renderWithProviders(
     <MyStatusFormComponent
       initialData={initialData}
       handleMyStatus={handleMyStatus}

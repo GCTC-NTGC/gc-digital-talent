@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
+import { Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import { Scalars } from "~/api/generated";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";

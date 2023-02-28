@@ -3,13 +3,20 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
-import { BasicForm, Checklist, TextArea } from "@common/components/form";
-import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages, navigationMessages } from "@common/messages";
-import { toast } from "@common/components/Toast";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import {
+  BasicForm,
+  Checklist,
+  TextArea,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import {
+  getWorkRegionsDetailed,
+  errorMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   CreateUserInput,
   CreateWorkLocationMutation,

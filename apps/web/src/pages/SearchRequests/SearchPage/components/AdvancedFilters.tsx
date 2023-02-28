@@ -4,15 +4,14 @@ import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
-import Accordion from "@common/components/Accordion/Accordion";
-import Heading from "@common/components/Heading";
-import { Checklist, RadioGroup } from "@common/components/form";
+import { Accordion, Heading } from "@gc-digital-talent/ui";
+import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
   getEmploymentDuration,
   EmploymentDuration,
   OperationalRequirementV2,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
 
 import { NullSelection } from "~/types/searchRequest";
 

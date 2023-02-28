@@ -1,18 +1,17 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
-import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import { useParams } from "react-router-dom";
-import PageHeader from "@common/components/PageHeader";
-import SEO from "@common/components/SEO/SEO";
-import { commonMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Link from "@common/components/Link";
+import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
+
+import { Heading, Pending, NotFound, Link } from "@gc-digital-talent/ui";
+import { getLocalizedName, commonMessages } from "@gc-digital-talent/i18n";
+
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import Heading from "@common/components/Heading";
-import { getLocalizedName } from "@common/helpers/localize";
-import { ViewTeam } from "./components/ViewTeam";
+import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
+
+import ViewTeam from "./components/ViewTeam";
 
 type RouteParams = {
   teamId: Scalars["ID"];

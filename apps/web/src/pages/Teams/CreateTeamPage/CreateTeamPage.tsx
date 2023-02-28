@@ -2,8 +2,8 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
-import PageHeader from "@common/components/PageHeader";
-import SEO from "@common/components/SEO/SEO";
+import PageHeader from "~/components/PageHeader";
+import SEO from "~/components/SEO/SEO";
 
 const CreateTeamPage = () => {
   const intl = useIntl();

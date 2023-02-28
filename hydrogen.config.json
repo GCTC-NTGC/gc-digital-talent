@@ -8,12 +8,14 @@
   },
   "temp": ["../*/src/views/*.html"],
   "input": [
-    "frontend/common/src/components",
-    "frontend/common/src/styles",
     "apps/web/src/components",
-    "apps/web/src/pages"
+    "apps/web/src/pages",
+    "apps/web/src/styles",
+    "packages/forms/src",
+    "packages/toast/src",
+    "packages/ui/src"
   ],
-  "output": "frontend/common/src/css",
+  "output": "apps/web/src/assets/css",
   "modes": {
     "method": "toggle",
     "dark": {

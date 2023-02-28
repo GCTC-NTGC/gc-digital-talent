@@ -10,14 +10,14 @@ import {
   within,
 } from "@testing-library/react";
 import React from "react";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import SelfDeclarationForm, {
   SelfDeclarationFormProps,
 } from "./SelfDeclarationForm";
 
 const renderSelfDeclarationForm = (props: SelfDeclarationFormProps) =>
-  render(<SelfDeclarationForm {...props} />);
+  renderWithProviders(<SelfDeclarationForm {...props} />);
 
 const mockCallback = jest.fn();
 

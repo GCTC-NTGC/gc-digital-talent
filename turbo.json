@@ -1,19 +1,27 @@
 {
   "pipeline": {
     "build": {
-      "dependsOn": ["intl-compile", "codegen"],
+      "dependsOn": ["^build", "intl-compile", "codegen"],
+      "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"]
     },
+    "build:css": {
+        "outputs": ["src/assets/css/hydrogen.css"]
+    },
     "codegen": {
-      "outputs": ["src/api/generated.ts", "src/js/api/generated.ts"]
+      "outputs": ["src/api/generated.ts", "src/index.ts"]
     },
     "dev": {
-      "dependsOn": ["build:css", "intl-compile", "codegen"],
+      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
+      "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"]
     },
     "watch": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "outputs": ["dist/**"]
+      "cache": false
+    },
+    "build:intl-cli": {
+      "outputs": ["dist/cli.js"]
     },
     "intl-extract": {
       "outputs": ["src/lang/en.json"]
@@ -22,17 +30,27 @@
       "dependsOn": ["^intl-compile", "intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"]
     },
+    "check-intl": {
+      "dependsOn": ["build:intl-cli", "intl-compile", "intl-extract"],
+      "inputs": ["src/lang/fr.json", "src/lang/en.json", "src/lang/*{Compiled}.json"],
+      "outputs": ["src/lang/untranslated.json"]
+    },
     "storybook": {
+      "dependsOn": ["codegen", "intl-compile"],
       "outputs": []
     },
     "build-storybook": {
       "outputs": ["dist/**", "storybook-static/**"]
     },
-    "build:css": {
-      "outputs": ["src/css/hydrogen.css"]
-    },
     "test": {
-      "outputs": []
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "check-integrity": {
+      "cache": false
     },
     "e2e": {},
     "e2e:open": {},
