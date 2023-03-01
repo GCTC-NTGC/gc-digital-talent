@@ -42,15 +42,23 @@ export interface HeroCardProps {
   title: string;
   href: string;
   children?: React.ReactNode;
+  ariaRole?: React.AriaRole;
 }
 
-export const HeroCard = ({ color, title, href, children }: HeroCardProps) => {
+export const HeroCard = ({
+  color,
+  title,
+  href,
+  children,
+  ariaRole,
+}: HeroCardProps) => {
   return (
     <div
       data-h2-background-color="base(white)"
       data-h2-radius="base(s)"
       data-h2-shadow="base(s)"
       data-h2-flex-grow="base(1)"
+      role={ariaRole}
     >
       <div
         className="card-link__header"
