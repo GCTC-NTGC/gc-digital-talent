@@ -384,57 +384,49 @@
         {
           "key": "tm-linear-divider",
           "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "#FFAD31"
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)"
           }
         },
         {
           "key": "tm-linear-text",
           "default": {
-            "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))"
           }
         },
         {
           "key": "tm-linear-footer",
           "default": {
-            "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)"
           }
         },
         {
           "key": "dt-linear",
           "default": {
-            "gradient": "linear-gradient(#674C90, #1D2C4C)",
-            "fallback": "#674C90"
+            "gradient": "linear-gradient(#674C90, #1D2C4C)"
           }
         },
         {
           "key": "ia-linear-primary",
           "default": {
-            "gradient": "linear-gradient(#272F6B, #0F1037)",
-            "fallback": "#272F6B"
+            "gradient": "linear-gradient(#272F6B, #0F1037)"
           }
         },
         {
           "key": "ia-linear-secondary",
           "default": {
-            "gradient": "linear-gradient(#C01E5A, #781443)",
-            "fallback": "#C01E5A"
+            "gradient": "linear-gradient(#C01E5A, #781443)"
           }
         },
         {
           "key": "ia-secondary-to-transparent",
           "default": {
-            "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))"
           }
         },
         {
           "key": "ia-primary-dark-to-transparent",
           "default": {
-            "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))"
           }
         }
       ],

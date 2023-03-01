@@ -71,3 +71,9 @@ query TeamName($id: UUID!) {
     }
   }
 }
+
+mutation CreateTeam($team: CreateTeamInput!) {
+  createTeam(team: $team) {
+    id
+  }
+}
