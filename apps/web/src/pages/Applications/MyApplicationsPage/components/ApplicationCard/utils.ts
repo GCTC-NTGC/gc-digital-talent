@@ -48,28 +48,3 @@ export const canBeDeleted = (status: Maybe<PoolCandidateStatus>): boolean => {
       )
     : false;
 };
-
-export const formatClosingDate = (
-  closingDate: Maybe<string>,
-  intl: IntlShape,
-): string => {
-  return closingDate
-    ? relativeClosingDate({
-        closingDate: parseDateTimeUtc(closingDate),
-        intl,
-      })
-    : "";
-};
-
-export const formatSubmittedAt = (
-  submittedAt: Maybe<string>,
-  intl: IntlShape,
-): string => {
-  return submittedAt
-    ? formatDate({
-        date: parseDateTimeUtc(submittedAt),
-        formatString: "MMMM do, yyyy",
-        intl,
-      })
-    : "";
-};

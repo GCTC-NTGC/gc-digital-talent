@@ -39,7 +39,7 @@ describe("ApplicationCard", () => {
     });
 
     const continueLink = screen.queryByRole("link", {
-      name: /continue this application/i,
+      name: /continue my application/i,
     });
 
     expect(continueLink).toBeInTheDocument();

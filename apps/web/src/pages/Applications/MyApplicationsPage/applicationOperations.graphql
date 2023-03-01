@@ -1,11 +1,11 @@
 query MyApplications {
   me {
     id
+
     poolCandidates {
       id
       status
       archivedAt
-      submittedAt
       poolAdvertisement {
         id
         closingDate
