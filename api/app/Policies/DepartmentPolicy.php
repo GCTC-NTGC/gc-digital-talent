@@ -18,7 +18,7 @@ class DepartmentPolicy
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -32,7 +32,7 @@ class DepartmentPolicy
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view()
+    public function view(?User $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class DepartmentPolicy
      */
     public function create(User $user)
     {
-        return $user && $user->isAbleTo("create-any-department");
+        return $user->isAbleTo("create-any-department");
     }
 
     /**
@@ -57,7 +57,7 @@ class DepartmentPolicy
      */
     public function update(User $user)
     {
-        return $user && $user->isAbleTo("update-any-department");
+        return $user->isAbleTo("update-any-department");
     }
 
     /**
@@ -69,7 +69,7 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-department");
+        return $user->isAbleTo("delete-any-department");
     }
 
     /**
@@ -81,7 +81,7 @@ class DepartmentPolicy
      */
     public function restore(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-department");
+        return $user->isAbleTo("delete-any-department");
     }
 
     /**
@@ -93,6 +93,6 @@ class DepartmentPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-department");
+        return $user->isAbleTo("delete-any-department");
     }
 }

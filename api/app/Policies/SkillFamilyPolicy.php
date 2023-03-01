@@ -18,7 +18,7 @@ class SkillFamilyPolicy
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -32,7 +32,7 @@ class SkillFamilyPolicy
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view()
+    public function view(?User $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class SkillFamilyPolicy
      */
     public function create(User $user)
     {
-        return $user && $user->isAbleTo("create-any-skillFamily");
+        return $user->isAbleTo("create-any-skillFamily");
     }
 
     /**
@@ -57,7 +57,7 @@ class SkillFamilyPolicy
      */
     public function update(User $user)
     {
-        return $user && $user->isAbleTo("update-any-skillFamily");
+        return $user->isAbleTo("update-any-skillFamily");
     }
 
     /**
@@ -69,7 +69,7 @@ class SkillFamilyPolicy
      */
     public function delete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skillFamily");
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -81,7 +81,7 @@ class SkillFamilyPolicy
      */
     public function restore(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skillFamily");
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -93,6 +93,6 @@ class SkillFamilyPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skillFamily");
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 }

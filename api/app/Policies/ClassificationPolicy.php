@@ -18,7 +18,7 @@ class ClassificationPolicy
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -32,7 +32,7 @@ class ClassificationPolicy
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view()
+    public function view(?User $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class ClassificationPolicy
      */
     public function create(User $user)
     {
-        return $user && $user->isAbleTo("create-any-classification");
+        return $user->isAbleTo("create-any-classification");
     }
 
     /**
@@ -57,7 +57,7 @@ class ClassificationPolicy
      */
     public function update(User $user)
     {
-        return $user && $user->isAbleTo("update-any-classification");
+        return $user->isAbleTo("update-any-classification");
     }
 
     /**
@@ -69,7 +69,7 @@ class ClassificationPolicy
      */
     public function delete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-classification");
     }
 
     /**
@@ -81,7 +81,7 @@ class ClassificationPolicy
      */
     public function restore(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-classification");
     }
 
     /**
@@ -93,6 +93,6 @@ class ClassificationPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-classification");
     }
 }

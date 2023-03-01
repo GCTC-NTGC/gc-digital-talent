@@ -18,7 +18,7 @@ class SkillPolicy
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -32,7 +32,7 @@ class SkillPolicy
      * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view()
+    public function view(?User $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class SkillPolicy
      */
     public function create(User $user)
     {
-        return $user && $user->isAbleTo("create-any-skill");
+        return $user->isAbleTo("create-any-skill");
     }
 
     /**
@@ -57,7 +57,7 @@ class SkillPolicy
      */
     public function update(User $user)
     {
-        return $user && $user->isAbleTo("update-any-skill");
+        return $user->isAbleTo("update-any-skill");
     }
 
     /**
@@ -69,7 +69,7 @@ class SkillPolicy
      */
     public function delete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skill");
+        return $user->isAbleTo("delete-any-skill");
     }
 
     /**
@@ -81,7 +81,7 @@ class SkillPolicy
      */
     public function restore(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skill");
+        return $user->isAbleTo("delete-any-skill");
     }
 
     /**
@@ -93,6 +93,6 @@ class SkillPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user && $user->isAbleTo("delete-any-skill");
+        return $user->isAbleTo("delete-any-skill");
     }
 }
