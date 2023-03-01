@@ -1084,6 +1084,25 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
+  roleAssignments: [RoleAssignment!]
+}
+
+type RoleAssignment {
+  id: ID!
+  role: Role
+  team: Team
+  user: UserPublicProfile
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput
+  detach: RolesInput
+  sync: RolesInput
+}
+
+input RolesInput {
+  roles: [ID!]!
+  team: ID
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1235,6 +1254,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
+  roleAssignments: [RoleAssignment!]
 }
 
 input TeamBelongsTo {
@@ -1389,6 +1409,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {
@@ -1497,6 +1518,7 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
+  roleAssignments: [RoleAssignment!]
 }
 
 input UserBelongsTo {

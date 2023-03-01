@@ -38,6 +38,16 @@ class DatabaseSeeder extends Seeder
 
         $this->truncateTables();
 
+        // seed a test team and random teams
+        Team::factory()->create([
+            'name' => 'test-team',
+            'display_name' => [
+                'en' => 'Test Team',
+                'fr' => 'Équipe de test',
+            ],
+        ]);
+        Team::factory()->count(9)->create();
+
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
@@ -48,8 +58,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        // seed random teams
-        Team::factory()->count(9)->create();
         // Seed random pools
         Pool::factory()->count(10)->create();
         // Seed some expected values
@@ -68,7 +76,7 @@ class DatabaseSeeder extends Seeder
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $digitalTalentPool = Pool::where('key', "digital_careers")->first();
+                $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
@@ -96,7 +104,7 @@ class DatabaseSeeder extends Seeder
             })
             ->create();
 
-        $applicant = User::where('email', 'applicant@test.com')->first();
+        $applicant = User::where('sub', 'applicant@test.com')->sole();
         $ultraAdmin = User::where('email', 'admin@test.com')->first();
         $ultraAdmin->syncRoles([
             "guest",
