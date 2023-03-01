@@ -119,6 +119,21 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether the user can suspend the model.
+     *
+     * Note: Everyone needs to be able to count applicants
+     * for now
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function count(?User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
