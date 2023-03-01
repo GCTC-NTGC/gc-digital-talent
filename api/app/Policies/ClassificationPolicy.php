@@ -13,10 +13,12 @@ class ClassificationPolicy
     /**
      * Determine whether the user can view any models.
      *
+     * Note: This action is possible for everyone, including anonymous users
+     *
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user = null)
+    public function viewAny()
     {
         return true;
     }
@@ -24,11 +26,13 @@ class ClassificationPolicy
     /**
      * Determine whether the user can view the model.
      *
+     * Note: This action is possible for everyone, including anonymous users
+     *
      * @param  \App\Models\User|null  $user
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user = null)
+    public function view()
     {
         return true;
     }
@@ -51,7 +55,7 @@ class ClassificationPolicy
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Classification $classification)
+    public function update(User $user)
     {
         return $user && $user->isAbleTo("update-any-classification");
     }
@@ -63,7 +67,7 @@ class ClassificationPolicy
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Classification $classification)
+    public function delete(User $user)
     {
         return $user && $user->isAbleTo("delete-any-classification");
     }
@@ -75,7 +79,7 @@ class ClassificationPolicy
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Classification $classification)
+    public function restore(User $user)
     {
         return $user && $user->isAbleTo("delete-any-classification");
     }
@@ -87,7 +91,7 @@ class ClassificationPolicy
      * @param  \App\Models\Classification  $classification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Classification $classification)
+    public function forceDelete(User $user)
     {
         return $user && $user->isAbleTo("delete-any-classification");
     }
