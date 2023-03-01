@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -17,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo('view-any-user');
     }
 
     /**
@@ -29,23 +30,19 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isAdmin() || $user->id === $model->id;
+        return $user->isAbleTo('view-any-user')
+            || ($user->isAbleTo('view-own-user') && $user->id === $model->id);
     }
 
     /**
-     * Determine whether the user can view a more limited, public version of the model model.
+     * Determine whether the user can view a more limited version of the User model.
      *
-     * @param  \App\Models\User|null  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewPublic(?User $user, User $model)
+    public function viewBasicInfo(User $user)
     {
-        if ($user !== null && $this->view($user, $model)) {
-            return true;
-        }
-        $model->loadCount('pools');
-        return $model->pools_count > 0; // Any owner of a pool must be partially visible to even guest users
+        return $user->isAbleTo('view-any-userBasicInfo');
     }
 
     /**
@@ -56,7 +53,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAdmin(); //TODO: return false when createUser mutation is removed.
     }
 
     /**
@@ -68,7 +65,8 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAdmin() || $user->id === $model->id;
+        return $user->isAbleTo('update-any-user')
+            || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
     }
 
     /**
@@ -80,62 +78,46 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if($user->isAdmin()){
-            if($user->id !== $model->id){
-                return true;
-            } else {
-                return false; // Do not allow user to delete their own model.
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, User $model)
-    {
-        return $user->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, User $model)
-    {
-        return false;
+        return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to delete their own model.
     }
 
     /*******************  APPLICANT QUERIES  *******************/
+
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyApplicants(User $user = null)
+    public function viewAnyApplicants(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo('view-any-applicantProfile');
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $user
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewApplicant(User $user = null, User $model)
+    public function viewApplicant(User $user, User $model)
     {
-        return $user->isAdmin() || $user->id === $model->id;
+        return $user->isAbleTo('view-any-applicantProfile')
+            || (
+                $user->isAbleTo('view-team-applicantProfile')
+                && $this->applicantHasAppliedToPoolInTeams($model, $user->rolesTeams()->pluck('id')
+            )
+        );
+    }
+
+    protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)
+    {
+        return PoolCandidate::where('user_id', $applicant->id)
+            ->notDraft()
+            ->whereExists(function ($query) use ($teamIds) {
+                return $query->pool()->whereIn('team_id', $teamIds);
+            })
+            ->exists();
     }
 }
