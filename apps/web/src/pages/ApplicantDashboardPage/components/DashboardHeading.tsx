@@ -76,8 +76,8 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       )}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Find new opportunities, update your résumé experience, or track applications.",
-        id: "pqrVnW",
+          "Find new opportunities, update your resume experience, or track applications.",
+        id: "HvBs2+",
         description: "Subtitle for applicant dashboard hero",
       })}
     >
@@ -183,9 +183,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           ariaRole="navigation"
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "My résumé and experience",
-            id: "naaQ+q",
-            description: "applicant dashboard card title for résumé card",
+            defaultMessage: "My resume and experience",
+            id: "9ePTF1",
+            description: "applicant dashboard card title for resume card",
           })}
           href={paths.skillsAndExperiences(user.id)}
         >
