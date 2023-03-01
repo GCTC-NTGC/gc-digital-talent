@@ -42,6 +42,10 @@ import {
   hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
   hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
 } from "../../../components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
+import {
+  hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
+} from "../../../components/UserProfile/ProfileSections/RoleSalarySection";
 
 export interface DashboardHeadingProps {
   user: User;
@@ -172,6 +176,19 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               diversityEquityInclusionSectionHasEmptyOptionalFields(user),
             )}
             href={paths.diversityEquityInclusion(user.id)}
+          />
+          <HeroCardProfileItem
+            sectionName={intl.formatMessage({
+              defaultMessage: "Role and salary expectations",
+              id: "95OYVk",
+              description:
+                "Title of the Role and salary expectations link section",
+            })}
+            status={deriveSectionStatus(
+              roleSalarySectionHasEmptyRequiredFields(user),
+              roleSalarySectionHasEmptyOptionalFields(user),
+            )}
+            href={paths.roleSalary(user.id)}
           />
         </HeroCard>
         <HeroCard
