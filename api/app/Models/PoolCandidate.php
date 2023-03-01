@@ -252,7 +252,7 @@ class PoolCandidate extends Model
 
     public function scopeNotDraft(Builder $query): Builder
     {
-        return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
+        return $query->whereNotNull('submitted_at')->where('submitted_at', '<=', now());
     }
 
    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
