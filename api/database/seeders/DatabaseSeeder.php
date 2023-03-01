@@ -97,6 +97,14 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $applicant = User::where('email', 'applicant@test.com')->first();
+        $ultraAdmin = User::where('email', 'admin@test.com')->first();
+        $ultraAdmin->syncRoles([
+            "guest",
+            "base_user",
+            "request_responder",
+            "platform_admin",
+            "pool_operator",
+        ]);
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 
