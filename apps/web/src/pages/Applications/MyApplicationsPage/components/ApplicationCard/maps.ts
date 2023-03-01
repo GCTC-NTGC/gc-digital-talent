@@ -1,5 +1,3 @@
-import React from "react";
-import { defineMessage, MessageDescriptor } from "react-intl";
 import { PoolCandidateStatus } from "~/api/generated";
 
 // eslint-disable-next-line import/prefer-default-export

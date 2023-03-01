@@ -3,10 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getPoolCandidateStatus,
-  getPoolCandidateStatusLabel,
-} from "@gc-digital-talent/i18n";
+import { getPoolCandidateStatusLabel } from "@gc-digital-talent/i18n";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate } from "~/api/generated";
