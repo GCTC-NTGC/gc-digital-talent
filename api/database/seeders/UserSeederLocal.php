@@ -32,6 +32,9 @@ class UserSeederLocal extends Seeder
         $platformAdminRole = $roles->sole(function ($r) {
             return $r->name == "platform_admin";
         });
+        $requestResponderRole = $roles->sole(function ($r) {
+            return $r->name == "request_responder";
+        });
         $dcmTeam = Team::where('name', 'digital-community-management')->sole();
         $testTeam = Team::where('name', 'test-team')->sole();
 
@@ -45,7 +48,7 @@ class UserSeederLocal extends Seeder
         ])
             ->syncRoles([$poolOperatorRole], $dcmTeam)
             ->syncRoles([$poolOperatorRole], $testTeam)
-            ->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole], null);
+            ->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole, $requestResponderRole], null);
         User::factory()->create([
             'first_name' => 'Applicant',
             'last_name' => 'Test',
