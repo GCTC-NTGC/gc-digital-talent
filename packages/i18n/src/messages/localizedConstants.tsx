@@ -1660,6 +1660,7 @@ export const getIndigenousCommunity = (
     `Invalid indigenous community '${indigenousCommunity}'`,
   );
 
+// Custom status keys used to consolidate labels
 type StatusLabelKey =
   | "DRAFT"
   | "RECEIVED"
@@ -1670,6 +1671,7 @@ type StatusLabelKey =
   | "SCREENED_OUT"
   | "QUALIFIED";
 
+// Map new, consolidated keys to their labels
 const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
   ["DRAFT", null],
   [
@@ -1734,6 +1736,7 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
   ],
 ]);
 
+// Map existing statuses to their new, consolidated keys
 const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.Draft, "DRAFT"],
   [PoolCandidateStatus.NewApplication, "RECEIVED"],
@@ -1753,6 +1756,16 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.Removed, "QUALIFIED"],
 ]);
 
+/**
+ * Get the label for a status
+ *
+ * Note: This is different than other helpers
+ * in this file since it is mapping old statuses
+ * that do not match the database ENUM
+ *
+ * @param status  Database status
+ * @returns Maybe<MessageDescriptor>    Returns the message or null
+ */
 export const getPoolCandidateStatusLabel = (
   status: Maybe<PoolCandidateStatus>,
 ) => {
