@@ -286,22 +286,19 @@
         {
           "key": "main-linear",
           "default": {
-            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)"
           }
         },
         {
           "key": "home-footer-linear",
           "default": {
-            "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)"
           }
         },
         {
           "key": "primary-transparent-linear",
           "default": {
-            "gradient": "linear-gradient(rgb(74, 26, 128, 1), rgb(74, 26, 128, 0))",
-            "fallback": "transparent"
+            "gradient": "linear-gradient(rgb(74, 26, 128, 1), rgb(74, 26, 128, 0))"
           }
         }
       ],
