@@ -83,7 +83,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
     >
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(space-evenly)"
         data-h2-gap="base(x1)"
       >
