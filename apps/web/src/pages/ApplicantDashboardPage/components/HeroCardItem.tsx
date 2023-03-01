@@ -8,39 +8,42 @@ import {
 import { Link } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 
-export type Color = "default" | "error" | "success";
-
-const hydrogenColorMap: Record<Color, Record<string, string>> = {
+export type TextColor = "default" | "error" | "success";
+const textColorMap: Record<TextColor, Record<string, string>> = {
   default: {
     "data-h2-color": "base:all(black)",
   },
   error: {
-    "data-h2-color": "base:all(red)",
+    "data-h2-color": "base:all(error.darker)",
   },
   success: {
-    "data-h2-color": "base:all(dt-success)",
+    "data-h2-color": "base:all(success)",
   },
 };
 
-const cssColorMap: Record<Color, Record<string, string>> = {
+export type IconColor = "default" | "error" | "success" | "tertiary.dark";
+const iconColorMap: Record<IconColor, Record<string, string>> = {
   default: {
-    color: "black",
+    color: "rgba(var(--h2-color-black), 1)",
   },
   error: {
-    color: "red",
+    color: "rgba(var(--h2-color-error), 1)",
   },
   success: {
-    color: "green",
+    color: "rgba(var(--h2-color-success), 1)",
+  },
+  "tertiary.dark": {
+    color: "rgba(var(--h2-color-tertiary-dark), 1)",
   },
 };
 
 export interface HeroCardItemProps {
   line: string;
-  lineColor?: Color;
+  lineColor?: TextColor;
   subLine?: string;
-  subLineColor?: Color;
+  subLineColor?: TextColor;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
-  iconColor?: Color;
+  iconColor?: IconColor;
   href?: string;
 }
 
@@ -65,21 +68,21 @@ export const HeroCardItem = ({
         style={{
           width: "1.5em",
           height: "1.5em",
-          ...cssColorMap[iconColor],
+          ...iconColorMap[iconColor],
         }}
       />
 
       <div>
         {href ? (
-          <Link href={href} {...{ ...hydrogenColorMap[lineColor] }}>
+          <Link href={href} {...{ ...textColorMap[lineColor] }}>
             {line}
           </Link>
         ) : (
-          <p {...{ ...hydrogenColorMap[lineColor] }}>{line}</p>
+          <p {...{ ...textColorMap[lineColor] }}>{line}</p>
         )}
         <p
           data-h2-font-size="base(caption)"
-          {...{ ...hydrogenColorMap[subLineColor] }}
+          {...{ ...textColorMap[subLineColor] }}
         >
           {subLine}
         </p>
@@ -171,7 +174,7 @@ export const HeroCardExperienceItem = ({
   return (
     <HeroCardItem
       icon={icon}
-      iconColor="error"
+      iconColor="tertiary.dark"
       line={sectionName}
       subLine={intl.formatMessage(
         {

@@ -23,7 +23,8 @@ export const colorMap: Record<Color, Record<string, string>> = {
       "base:all(black) base:all:admin(white) base:all:iap(white)",
   },
   tertiary: {
-    "data-h2-background-color": "base(tertiary) base:dark:iap(tertiary.light)",
+    "data-h2-background-color":
+      "base(tertiary.lighter) base:dark:iap(tertiary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quaternary: {
@@ -54,14 +55,13 @@ export const HeroCard = ({
 }: HeroCardProps) => {
   return (
     <div
-      data-h2-background-color="base(white)"
+      data-h2-background-color="base:all(white)"
       data-h2-radius="base(s)"
       data-h2-shadow="base(s)"
       data-h2-flex-grow="base(1)"
       role={ariaRole}
     >
       <div
-        className="card-link__header"
         data-h2-display="base(block)"
         data-h2-font-size="base(h6, 1) desktop(h5, 1)"
         data-h2-font-weight="base(700)"
