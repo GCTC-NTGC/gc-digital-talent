@@ -105,6 +105,18 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether the user can suspend an application
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function suspendApplication(User $user, PoolCandidate $poolCandidate)
+    {
+        return $user->id === $poolCandidate->user_id;
+    }
+
+    /**
      * Determine whether the user can delete an application
      *
      * @param  \App\Models\User  $user
