@@ -1616,6 +1616,8 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+
+  # search requests
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
   ): PoolCandidateSearchRequest @create @can(ability: "create")
@@ -1626,6 +1628,11 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
+  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
+
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
