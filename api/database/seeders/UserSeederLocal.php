@@ -17,14 +17,18 @@ class UserSeederLocal extends Seeder
     public function run()
     {
         // shared auth users for testing
-        User::factory()->create([
+        User::factory()->afterCreating(function ($user) {
+            $user->attachRoles(["base_user", "applicant", "request_responder", "platform_admin"]);
+        })->create([
             'first_name' => 'Admin',
             'last_name' => 'Test',
             'email' => 'admin@test.com',
             'sub' => 'admin@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
+            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT],
         ]);
-        User::factory()->create([
+        User::factory()->afterCreating(function ($user) {
+            $user->attachRoles(["base_user", "applicant"]);
+        })->create([
             'first_name' => 'Applicant',
             'last_name' => 'Test',
             'email' => 'applicant@test.com',
