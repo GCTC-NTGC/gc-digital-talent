@@ -539,7 +539,7 @@ type Role {
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @can(ability: "viewAnyTeamMembers", model: "Team")
+    @can(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
