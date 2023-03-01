@@ -1,23 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
+import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { type PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+import { type PoolCandidate } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
 import type {
   ArchiveActionProps,
   DeleteActionProps,
 } from "./ApplicationActions";
-import { canBeArchived, canBeDeleted, isDraft } from "./utils";
-import { type BorderMapKey, borderKeyMap, borderMap } from "./maps";
+import {
+  canBeArchived,
+  canBeDeleted,
+  formatClosingDate,
+  formatSubmittedAt,
+  isDraft,
+  isExpired,
+  isPlaced,
+} from "./utils";
 import useMutations from "./useMutations";
 
 export type Application = Omit<PoolCandidate, "pool" | "user">;
@@ -26,12 +30,14 @@ export interface ApplicationCardProps {
   application: Application;
   onDelete: DeleteActionProps["onDelete"];
   onArchive: ArchiveActionProps["onArchive"];
+  headingLevel?: HeadingProps["level"];
 }
 
 const ApplicationCard = ({
   application,
   onDelete,
   onArchive,
+  headingLevel = "h2",
 }: ApplicationCardProps) => {
   const intl = useIntl();
 
@@ -40,92 +46,120 @@ const ApplicationCard = ({
     application.status,
     application.archivedAt,
   );
+  const isApplicantPlaced = isPlaced(application.status);
   const applicationCanBeDeleted = canBeDeleted(application.status);
-
-  let borderKey: BorderMapKey = "dt-gray";
-  if (!application.archivedAt && application.status) {
-    borderKey = borderKeyMap[application.status];
-  }
-
-  const border = borderMap[borderKey];
+  const recruitmentIsExpired = isExpired(
+    application.poolAdvertisement?.closingDate,
+  );
+  const submittedAt = formatSubmittedAt(application.submittedAt, intl);
+  const closingDate = formatClosingDate(
+    application.poolAdvertisement?.closingDate,
+    intl,
+  );
 
   return (
-    <div data-h2-shadow="base(s)" {...border}>
+    <div
+      data-h2-background-color="base(white)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(rounded)"
+      data-h2-shadow="base(s)"
+    >
       <div
-        data-h2-padding="base(x1)"
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-gap="base(0, x.5)"
         data-h2-justify-content="base(space-between)"
       >
-        <div>
-          <h2 data-h2-font-size="base(h5)" data-h2-margin="base(0, 0, x0.5, 0)">
-            {application.poolAdvertisement
-              ? getFullPoolAdvertisementTitleHtml(
-                  intl,
-                  application.poolAdvertisement,
-                )
-              : ""}
-          </h2>
-          <div data-h2-display="base(flex)" data-h2-gap="base(x0.5)">
-            <ApplicationActions.ContinueAction
-              show={applicationIsDraft}
-              application={application}
-            />
-            <ApplicationActions.SeeAdvertisementAction
-              show={notEmpty(application.poolAdvertisement)}
-              advertisement={application.poolAdvertisement}
-            />
-            <ApplicationActions.DeleteAction
-              onDelete={onDelete}
-              show={applicationCanBeDeleted}
-              application={application}
-            />
-            <ApplicationActions.ArchiveAction
-              onArchive={onArchive}
-              show={applicationCanBeArchived}
-              application={application}
-            />
-          </div>
-        </div>
-        <div data-h2-text-align="l-tablet(right)">
-          <div data-h2-margin="base(0, 0, x0.5, 0)">
-            {applicationIsDraft && application.poolAdvertisement ? (
-              <p
-                data-h2-font-weight="base(800)"
-                data-h2-color="base(dt-primary)"
-              >
-                {application.poolAdvertisement.closingDate
-                  ? relativeClosingDate({
-                      closingDate: parseDateTimeUtc(
-                        application.poolAdvertisement.closingDate,
-                      ),
-                      intl,
-                    })
-                  : ""}
-              </p>
-            ) : (
-              <p>
-                {intl.formatMessage(
-                  getPoolCandidateStatus(
-                    application?.status || PoolCandidateStatus.NewApplication,
-                  ),
-                )}
-              </p>
+        <Heading
+          level={headingLevel}
+          size="h6"
+          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-flex-grow="base(1)"
+        >
+          {application.poolAdvertisement
+            ? getFullPoolAdvertisementTitleHtml(
+                intl,
+                application.poolAdvertisement,
+              )
+            : ""}
+        </Heading>
+        <p data-h2-font-size="base(0.8rem)" data-h2-text-align="base(right)">
+          {intl.formatMessage(
+            {
+              defaultMessage: "ID: {id}",
+              id: "hEXXG0",
+              description: "Label for application ID",
+            },
+            { id: application.id },
+          )}
+        </p>
+      </div>
+      <p data-h2-margin="base(x1, 0)">
+        {applicationIsDraft
+          ? intl.formatMessage(
+              {
+                defaultMessage:
+                  "Apply by: <strong><red>{closingDate}</red></strong>",
+                description:
+                  "Text notifying user of closing date for an application",
+                id: "eqVWC6",
+              },
+              { closingDate },
+            )
+          : intl.formatMessage(
+              {
+                defaultMessage: "Applied on: <strong>{submittedAt}</strong>",
+                description:
+                  "Text notifying user of the date they submitted an application",
+                id: "3Q8D5y",
+              },
+              { submittedAt },
             )}
-          </div>
-          <p>
+      </p>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-gap="base(x1)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-margin="base(x1, 0, 0, 0)"
+      >
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-gap="base(x1)"
+        >
+          <ApplicationActions.SeeAdvertisementAction
+            show={notEmpty(application.poolAdvertisement)}
+            advertisement={application.poolAdvertisement}
+          />
+          <ApplicationActions.ViewAction
+            show={!applicationIsDraft}
+            application={application}
+          />
+          <ApplicationActions.SupportAction
+            show={!recruitmentIsExpired && !isApplicantPlaced}
+          />
+          <ApplicationActions.DeleteAction
+            onDelete={onDelete}
+            show={applicationCanBeDeleted}
+            application={application}
+          />
+          <ApplicationActions.ArchiveAction
+            onArchive={onArchive}
+            show={applicationCanBeArchived}
+            application={application}
+          />
+        </div>
+        <ApplicationActions.ContinueAction
+          show={applicationIsDraft && !recruitmentIsExpired}
+          application={application}
+        />
+        {!applicationIsDraft && (
+          <Pill color="blue" mode="outline">
             {intl.formatMessage(
-              {
-                defaultMessage: "ID: {id}",
-                id: "hEXXG0",
-                description: "Label for application ID",
-              },
-              {
-                id: application.id,
-              },
+              getPoolCandidateStatus(application.status || ""),
             )}
-          </p>
-        </div>
+          </Pill>
+        )}
       </div>
     </div>
   );
