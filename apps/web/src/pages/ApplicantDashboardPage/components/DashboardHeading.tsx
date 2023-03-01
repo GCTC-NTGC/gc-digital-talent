@@ -99,10 +99,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         >
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "About me",
-              id: "sqQgmS",
-              description:
-                "applicant dashboard card section name for the 'about me' profile section",
+              defaultMessage: "About Me",
+              id: "4sJvia",
+              description: "Title of the About link section",
             })}
             status={deriveSectionStatus(
               aboutSectionHasEmptyRequiredFields(user),
@@ -113,10 +112,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Language information",
-              id: "u8bR0p",
-              description:
-                "applicant dashboard card section name for the 'language information' profile section",
+              defaultMessage: "Language Information",
+              id: "B9x0ZV",
+              description: "Title of the Language Information link section",
             })}
             status={deriveSectionStatus(
               languageInformationSectionHasEmptyRequiredFields(user),
@@ -127,10 +125,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Government information",
-              id: "DKDv8/",
-              description:
-                "applicant dashboard card section name for the 'government information' profile section",
+              defaultMessage: "Government Information",
+              id: "Nc4sjC",
+              description: "Title of the Government Information link section",
             })}
             status={deriveSectionStatus(
               governmentInformationSectionHasEmptyRequiredFields(user),
@@ -140,10 +137,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Work location",
-              id: "Tsgge3",
-              description:
-                "applicant dashboard card section name for the 'work location' profile section",
+              defaultMessage: "Work Location",
+              id: "9WxeNz",
+              description: "Title of the Work Location link section",
             })}
             status={deriveSectionStatus(
               workLocationSectionHasEmptyRequiredFields(user),
@@ -154,10 +150,9 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "zj1jRy",
-              description:
-                "applicant dashboard card section name for the 'work preferences' profile section",
+              defaultMessage: "Work Preferences",
+              id: "0DzlCc",
+              description: "Title of the Work Preferences link section",
             })}
             status={deriveSectionStatus(
               workPreferencesSectionHasEmptyRequiredFields(user),
@@ -167,10 +162,10 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <HeroCardProfileItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Diversity, equity, and inclusion",
-              id: "bvNo9B",
+              defaultMessage: "Diversity, equity and inclusion",
+              id: "e2R6fy",
               description:
-                "applicant dashboard card section name for the 'diversity, equity inclusion' profile section",
+                "Title of the Diversity, equity and inclusion link section",
             })}
             status={deriveSectionStatus(
               diversityEquityInclusionSectionHasEmptyRequiredFields(user),
@@ -192,9 +187,8 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
               defaultMessage: "Work experience",
-              id: "W8jG78",
-              description:
-                "applicant dashboard card section name for work experiences",
+              id: "giUfys",
+              description: "Title for work experience section",
             })}
             itemCount={user.workExperiences?.length}
             icon={BriefcaseIcon}
@@ -202,19 +196,17 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
               defaultMessage: "Education experience",
-              id: "Fyn0LW",
-              description:
-                "applicant dashboard card section name for education experiences",
+              id: "u6LIbY",
+              description: "Title for education experience section",
             })}
             itemCount={user.educationExperiences?.length}
             icon={BookOpenIcon}
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Community experience",
-              id: "tZjWCz",
-              description:
-                "applicant dashboard card section name for community experiences",
+              defaultMessage: "Volunteer and community experience",
+              id: "Rz7WtH",
+              description: "Title for community experience section",
             })}
             itemCount={user.communityExperiences?.length}
             icon={UsersIcon}
@@ -222,18 +214,17 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
               defaultMessage: "Personal experience",
-              id: "uHUKNz",
-              description:
-                "applicant dashboard card section name for personal experiences",
+              id: "wTFUPE",
+              description: "Title for personal experience section",
             })}
             itemCount={user.personalExperiences?.length}
             icon={LightBulbIcon}
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
-              defaultMessage: "Awards",
-              id: "xi/PTs",
-              description: "applicant dashboard card section name for awards",
+              defaultMessage: "Award",
+              id: "+ikQY0",
+              description: "Title for award section",
             })}
             itemCount={user.awardExperiences?.length}
             icon={StarIcon}
