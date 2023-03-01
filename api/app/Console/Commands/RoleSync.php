@@ -47,13 +47,13 @@ class RoleSync extends Command
             $rolesToSync = [$baseUserRole, $applicantRole];
             $attachTeamRole = false;
 
-            $user->syncRoles($rolesToSync);
-
             // Add admin roles if user has the legacy admin role
             if (in_array(ApiEnums::ROLE_ADMIN, $user->legacy_roles)) {
                 array_push($rolesToSync, $requestResponderRole, $superAdminRole);
                 $attachTeamRole = true;
             }
+
+            $user->syncRoles($rolesToSync);
 
             if ($attachTeamRole) {
                 // Attach the pool_operator role to DCM team
