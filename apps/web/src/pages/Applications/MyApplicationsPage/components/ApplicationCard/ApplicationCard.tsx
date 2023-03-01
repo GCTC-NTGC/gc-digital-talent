@@ -3,7 +3,10 @@ import { useIntl } from "react-intl";
 
 import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
+import {
+  getPoolCandidateStatus,
+  getPoolCandidateStatusLabel,
+} from "@gc-digital-talent/i18n";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate } from "~/api/generated";
@@ -56,6 +59,7 @@ const ApplicationCard = ({
     application.poolAdvertisement?.closingDate,
     intl,
   );
+  const status = getPoolCandidateStatusLabel(application.status);
 
   return (
     <div
@@ -153,13 +157,11 @@ const ApplicationCard = ({
           show={applicationIsDraft && !recruitmentIsExpired}
           application={application}
         />
-        {!applicationIsDraft && (
+        {!applicationIsDraft && status ? (
           <Pill color="blue" mode="outline">
-            {intl.formatMessage(
-              getPoolCandidateStatus(application.status || ""),
-            )}
+            {intl.formatMessage(status)}
           </Pill>
-        )}
+        ) : null}
       </div>
     </div>
   );
