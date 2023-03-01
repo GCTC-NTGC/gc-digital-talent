@@ -1747,7 +1747,7 @@ type Mutation {
     @guard
     @can(ability: "archive", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-    @can(ability: "create", find: "id")
+    @can(ability: "create")
   deleteApplication(id: ID!): Boolean
     @guard
     @can(ability: "delete", find: "id", model: "PoolCandidate")
