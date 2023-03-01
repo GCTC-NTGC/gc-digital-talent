@@ -6542,10 +6542,6 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "3sw5qd": {
-    "defaultMessage": "Commentaires généraux",
-    "description": "Label for the team's key input"
-  },
   "OOnxtm": {
     "defaultMessage": "Nom de l’organisation (en français)",
     "description": "Label for the French team display name input"
@@ -6585,5 +6581,13 @@
   "ytHvhD": {
     "defaultMessage": "Ministères",
     "description": "Label for the team departments input"
+  },
+  "WX6NnA": {
+    "defaultMessage": "Créer une nouvelle équipe",
+    "description": "Button text for the create team form submit button"
+  },
+  "XaYhX3": {
+    "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
+    "description": "Descriptive text for the create team page in the admin portal."
   }
 }
