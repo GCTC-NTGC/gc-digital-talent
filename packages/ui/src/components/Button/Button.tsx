@@ -227,7 +227,7 @@ export const colorMap: Record<
     inline: {
       "data-h2-border": "base(1px solid transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(tm-red)",
+      "data-h2-color": "base(tm-red.dark)",
     },
     tableHeader: {},
   },
