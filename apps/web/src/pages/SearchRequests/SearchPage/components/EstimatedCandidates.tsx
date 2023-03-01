@@ -87,7 +87,7 @@ const EstimatedCandidates: React.FunctionComponent<
           >
             <p
               data-h2-text-align="base(center)"
-              data-h2-color="base(white)"
+              data-h2-color="base(black)"
               data-h2-font-size="base(h5, 1.3)"
               data-h2-font-weight="base(700)"
             >
