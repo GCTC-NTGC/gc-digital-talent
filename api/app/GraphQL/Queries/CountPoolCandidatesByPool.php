@@ -34,6 +34,9 @@ final class CountPoolCandidatesByPool
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
         PoolCandidate::scopeAvailable($queryBuilder);
 
+        // suspended candidates filter
+        PoolCandidate::scopeNotSuspended($queryBuilder);
+
         // expiry status filter (filter active pool candidates)
         PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
 
