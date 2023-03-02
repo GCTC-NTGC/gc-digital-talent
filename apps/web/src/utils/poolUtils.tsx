@@ -52,8 +52,8 @@ export const isAdvertisementVisible = (
 ) => {
   let visible =
     roleAssignments
-      .map((a) => a?.role?.name as RoleName)
-      .includes("platform_admin") ?? false;
+      .map((a) => a?.role?.name)
+      .includes(RoleName.PlatformAdmin) ?? false;
   if (status !== AdvertisementStatus.Draft) {
     visible = true;
   }

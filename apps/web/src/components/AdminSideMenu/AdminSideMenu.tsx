@@ -72,7 +72,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "dashboard",
       href: paths.adminDashboard(),
       icon: HomeIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Dashboard",
         id: "ZDmkKD",
@@ -83,7 +83,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
         id: "wCBE9S",
@@ -94,7 +94,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Users",
         id: "154pGu",
@@ -105,7 +105,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Requests",
         id: "QftM3f",
@@ -116,7 +116,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "classifications",
       href: paths.classificationTable(),
       icon: TagIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Classifications",
         id: "gk7uJQ",
@@ -127,7 +127,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Teams",
         id: "GJsuQg",
@@ -138,7 +138,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "departments",
       href: paths.departmentTable(),
       icon: BuildingOfficeIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Departments",
         id: "HQOsq2",
@@ -149,7 +149,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "skill-families",
       href: paths.skillFamilyTable(),
       icon: UserGroupIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Skill Families",
         id: "4fOu5j",
@@ -160,7 +160,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "skills",
       href: paths.skillTable(),
       icon: AcademicCapIcon,
-      roles: ["platform_admin"],
+      roles: [RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Skills",
         id: "UC+4MX",

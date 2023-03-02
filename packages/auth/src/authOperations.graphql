@@ -3,10 +3,13 @@ query getCurrentAuthorizedUser {
     id
     email
     roleAssignments {
+      id
       role {
+        id
         name
       }
       team {
+        id
         name
       }
     }

@@ -89,8 +89,8 @@ const Layout = () => {
     ];
     if (
       user?.roleAssignments
-        ?.map((a) => a.role?.name as RoleName)
-        .includes("platform_admin")
+        ?.map((a) => a.role?.name)
+        .includes(RoleName.PlatformAdmin)
     ) {
       menuItems = [
         ...menuItems,

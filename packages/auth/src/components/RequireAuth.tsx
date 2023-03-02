@@ -25,7 +25,7 @@ const RequireAuth = ({
   const { roleAssignments, isLoaded } = useAuthorization();
   const navigate = useNavigate();
 
-  const userRoleNames = roleAssignments?.map((a) => a.role?.name as RoleName);
+  const userRoleNames = roleAssignments?.map((a) => a.role?.name);
 
   const isAuthorized =
     isLoaded &&
