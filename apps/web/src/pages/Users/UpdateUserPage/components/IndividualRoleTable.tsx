@@ -4,14 +4,21 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Role, User } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import {
+  Role,
+  RoleAssignment,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
+  User,
+} from "~/api/generated";
 
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
+import { UpdateUserFunc } from "../types";
 
 const roleCell = (displayName: string) => {
   return (
@@ -21,8 +28,12 @@ const roleCell = (displayName: string) => {
   );
 };
 
-const actionCell = (role: Role, userName: React.ReactNode) => (
-  <RemoveIndividualRoleDialog role={role} userName={userName} />
+const actionCell = (role: Role, user: User, onUpdateUser: UpdateUserFunc) => (
+  <RemoveIndividualRoleDialog
+    role={role}
+    user={user}
+    onUpdateUser={onUpdateUser}
+  />
 );
 
 type RoleCell = Cell<Role>;
@@ -30,11 +41,13 @@ type RoleCell = Cell<Role>;
 interface IndividualRoleTableProps {
   user: User;
   availableRoles: Array<Role>;
+  onUpdateUser: UpdateUserFunc;
 }
 
 export const IndividualRoleTable = ({
   user,
   availableRoles,
+  onUpdateUser,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
@@ -50,7 +63,7 @@ export const IndividualRoleTable = ({
         accessor: (d) => `Actions ${d.id}`,
         disableGlobalFilter: true,
         Cell: ({ row: { original: role } }: RoleCell) =>
-          actionCell(role, userName),
+          actionCell(role, user, onUpdateUser),
       },
       {
         Header: intl.formatMessage({
@@ -63,26 +76,20 @@ export const IndividualRoleTable = ({
           roleCell(getLocalizedName(role.displayName, intl)),
       },
     ],
-    [intl, userName],
+    [intl, onUpdateUser, user],
   );
 
   // TO DO: Update to user roles
-  const data = useMemo(() => availableRoles.filter(notEmpty), [availableRoles]);
+  const data = useMemo(() => {
+    const roles = user.roleAssignments
+      ?.filter(notEmpty)
+      .map((assignment) => assignment.role)
+      .filter(notEmpty);
+    return roles || [];
+  }, [user.roleAssignments]);
 
-  const handleAddRoles = async (_: any) => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Role(s) added successfully!",
-            id: "EAIXQ4",
-            description:
-              "Alert message displayed to user when roles were added to a user",
-          }),
-        );
-      }, 1000);
-    });
+  const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
+    return onUpdateUser(user.id, values);
   };
 
   return (

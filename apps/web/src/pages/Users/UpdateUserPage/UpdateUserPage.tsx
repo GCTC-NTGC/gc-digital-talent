@@ -329,6 +329,7 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "legacyRoles",
+          "roles",
         ]),
       },
     }).then((result) => {
@@ -353,12 +354,13 @@ const UpdateUserPage = () => {
         {userData?.user ? (
           <>
             <UpdateUserForm
-              initialUser={userData?.user}
+              initialUser={userData.user}
               handleUpdateUser={handleUpdateUser}
             />
             <UserRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
             />
           </>
         ) : (

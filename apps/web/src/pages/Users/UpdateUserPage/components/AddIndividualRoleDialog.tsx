@@ -5,16 +5,21 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
-import { Role, Scalars, UpdateUserAsAdminInput } from "~/api/generated";
+import {
+  Role,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
+} from "~/api/generated";
 
 type FormValues = {
-  roles: Array<Scalars["UUID"]>;
+  roles: Array<string>;
 };
 
 export type IndividualRoleSubmitData = Partial<UpdateUserAsAdminInput>;
@@ -22,7 +27,9 @@ export type IndividualRoleSubmitData = Partial<UpdateUserAsAdminInput>;
 interface AddIndividualRoleDialogProps {
   userName: React.ReactNode;
   availableRoles: Array<Role>;
-  onAddRoles: (submitData: IndividualRoleSubmitData) => Promise<void>;
+  onAddRoles: (
+    submitData: UpdateUserAsAdminInput,
+  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
 const AddIndividualRoleDialog = ({
@@ -45,13 +52,23 @@ const AddIndividualRoleDialog = ({
   } = methods;
 
   const handleAddRoles = async (formValues: FormValues) => {
-    await onAddRoles({
-      // roles: {
-      //   attach: {
-      //     role: [formValues.roles],
-      //   },
-      // },
-    }).then(() => setIsOpen(false));
+    return onAddRoles({
+      roles: {
+        attach: {
+          roles: formValues.roles,
+        },
+      },
+    }).then(() => {
+      setIsOpen(false);
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Role(s) added successfully",
+          id: "/17wgm",
+          description:
+            "Message displayed to user when one or more roles have been added to a user",
+        }),
+      );
+    });
   };
 
   const label = intl.formatMessage({

@@ -3,19 +3,23 @@ import { useIntl } from "react-intl";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
-
-import { Role } from "~/api/generated";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
+import { Role, User } from "~/api/generated";
+import { getFullNameHtml } from "~/utils/nameUtils";
+import { UpdateUserFunc } from "../types";
+
 interface RemoveIndividualRoleDialogProps {
-  userName: React.ReactNode;
+  user: User;
   role: Role;
+  onUpdateUser: UpdateUserFunc;
 }
 
 const RemoveIndividualRoleDialog = ({
-  userName,
+  user,
   role,
+  onUpdateUser,
 }: RemoveIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
@@ -23,23 +27,28 @@ const RemoveIndividualRoleDialog = ({
 
   const handleRemove = async () => {
     setIsDeleting(true);
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
+    return onUpdateUser(user.id, {
+      roles: {
+        detach: {
+          roles: [role.id],
+        },
+      },
+    })
+      .then(() => {
+        setIsOpen(false);
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Role removed successfully!",
-            id: "qAABge",
+            defaultMessage: "Role removed successfully",
+            id: "XcS2q2",
             description:
-              "Alert message displayed to user when a role was removed from a user",
+              "Message displayed to user when a role has been removed from a user",
           }),
         );
-      }, 1000);
-    })
-      .then(() => setIsOpen(false))
+      })
       .finally(() => setIsDeleting(false));
   };
 
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
   const roleDisplayName = getLocalizedName(role.displayName, intl);
 
   const label = intl.formatMessage(
