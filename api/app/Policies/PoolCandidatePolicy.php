@@ -42,11 +42,10 @@ class PoolCandidatePolicy
             return $user?->isAbleTo("view-any-draftApplication");
         }
 
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        $userBelongsToTeam = $user?->rolesTeams->contains($candidatePoolTeam->id);
+        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
 
         // User is part of owning team, so can view
-        if ($userBelongsToTeam) {
+        if ($candidatePoolTeam) {
             return $user?->isAbleTo("view-team-submittedApplication", $candidatePoolTeam, true);
         }
 
@@ -83,9 +82,13 @@ class PoolCandidatePolicy
             $user?->isAbleTo("submit-own-application");
         }
 
-        if ($user->teams()->pools()->where('id', $poolCandidate->pool_id)->sole()) {
-            return $user?->isAbleTo("update-team-applicationStatus");
+        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
+
+        if ($candidatePoolTeam) {
+            return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam, true);
         }
+
+        return false;
     }
 
     /**
@@ -173,5 +176,22 @@ class PoolCandidatePolicy
     public function forceDelete(?User $user, PoolCandidate $poolCandidate)
     {
         return $user?->id === $poolCandidate->user_id && $user?->isAbleTo("delete-own-draftApplication");
+    }
+
+    /**
+     * Determine if User owns the Pool for the PoolCandidate
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \App\Models\Team|bool
+     */
+    private function userBelongsToPoolCandidatePool(?User $user, PoolCandidate $poolCandidate)
+    {
+        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
+        if($user?->rolesTeams->contains($candidatePoolTeam->id)) {
+            return $candidatePoolTeam;
+        }
+
+        return false;
     }
 }
