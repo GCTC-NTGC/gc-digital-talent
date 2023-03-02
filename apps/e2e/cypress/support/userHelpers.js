@@ -18,7 +18,7 @@ export function createApplicant({
   sub,
   skill,
   genericJobTitle,
-  userAlias,
+  userAlias
 }) {
   cy.createUser({
     email: email ? `cypress.user.${Date.now().valueOf()}@example.org` : null,
@@ -63,4 +63,18 @@ export function createApplicant({
       ],
     },
   }).as(userAlias);
+}
+
+export function addRolesToUser(userId, roles = []) {
+  cy.getRoles().then($roles => {
+    const roleIds = $roles.filter(role => roles.includes(role.name))
+      .map(role => role.id);
+    cy.updateUser(userId, {
+      roles: {
+        sync: {
+          roles: roleIds
+        }
+      }
+    });
+  });
 }

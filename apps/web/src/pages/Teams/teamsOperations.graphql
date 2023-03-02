@@ -26,6 +26,17 @@ query ListTeams {
   }
 }
 
+query ListRoles {
+  roles {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
+  }
+}
+
 query GetTeam($teamId: UUID!) {
   team(id: $teamId) {
     ...team
