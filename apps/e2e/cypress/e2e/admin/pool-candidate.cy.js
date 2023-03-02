@@ -96,7 +96,12 @@ describe("Pool Candidates", () => {
 
     cy.wait("@gqlgetPoolsQuery");
 
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("cypress");
+
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+      .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
@@ -190,7 +195,12 @@ describe("Pool Candidates", () => {
 
     cy.wait("@gqlgetPoolsQuery");
 
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("cypress");
+
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+      .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
