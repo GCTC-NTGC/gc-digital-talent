@@ -96,7 +96,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-helmet": "^6.1.6",
     "@types/react-table": "^7.7.13",
-    "babel-plugin-formatjs": "^10.3.36",
+    "babel-plugin-formatjs": "^10.4.0",
     "core-js": "^3.29.0",
     "eslint": "^8.34.0",
     "eslint-config-custom": "*",
