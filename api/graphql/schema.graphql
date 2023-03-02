@@ -131,6 +131,8 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
+  # teams and roles
+  roleAssignments: [RoleAssignment!] @hasMany
 }
 
 enum ProvinceOrTerritory {
@@ -524,6 +526,9 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @canOnParent(ability: "viewAnyTeamMembers")
 }
 
 type Role {
@@ -532,6 +537,17 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @can(ability: "viewAnyRoleAssignments", model: "Role")
+}
+
+# This model represents the polymorphic role_user table and allows querying the team relationship
+type RoleAssignment {
+  id: ID!
+  role: Role @belongsTo
+  team: Team @belongsTo
+  user: UserPublicProfile @morphTo
 }
 
 enum PoolCandidateSearchStatus {
@@ -1145,6 +1161,8 @@ input UpdateUserAsAdminInput
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput
@@ -1551,6 +1569,18 @@ input UpdatePoolAdvertisementInput {
     @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+}
+
+input RolesInput
+  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
+  roles: [ID!]!
+  team: ID
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput
+  detach: RolesInput
+  sync: RolesInput
 }
 
 type Mutation {
