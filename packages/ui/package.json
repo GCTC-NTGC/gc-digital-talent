@@ -27,7 +27,7 @@
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/i18n": "*",
-    "@headlessui/react": "^1.7.11",
+    "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.15",
     "@radix-ui/react-accordion": "^1.0.1",
     "@radix-ui/react-alert-dialog": "^1.0.2",
