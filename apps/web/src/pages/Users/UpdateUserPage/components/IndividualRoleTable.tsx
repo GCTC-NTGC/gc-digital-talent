@@ -4,17 +4,10 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import {
-  Role,
-  RoleAssignment,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
-  User,
-} from "~/api/generated";
+import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
 
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
