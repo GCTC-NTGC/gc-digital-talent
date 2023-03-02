@@ -36,7 +36,7 @@
     "@types/jest": "^29.4.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "eslint": "^7.32.0",
+    "eslint": "^8.35.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
     "rimraf": "^4.1.3",

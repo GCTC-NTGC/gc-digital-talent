@@ -50,7 +50,7 @@
     "@types/lodash": "4.14.191",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "eslint": "^7.32.0",
+    "eslint": "^8.35.0",
     "eslint-config-custom": "*",
     "jest": "^29.4.2",
     "jest-environment-jsdom": "^29.4.2",
