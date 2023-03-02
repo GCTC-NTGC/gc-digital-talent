@@ -1,9 +1,9 @@
 #! /bin/bash
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+parent_path=~/gc-digital-talent/maintenance/scripts
 source ${parent_path}/lib/common.sh
 
-cd /var/www/html/api
+cd ~/gc-digital-talent/api
 composer install --prefer-dist
 php artisan migrate
 php artisan lighthouse:print-schema --write

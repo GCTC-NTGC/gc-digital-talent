@@ -1,6 +1,6 @@
 #! /bin/bash
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+parent_path=~/gc-digital-talent/maintenance/scripts
 source ${parent_path}/lib/common.sh
 
 ${parent_path}/refresh_api.sh
