@@ -154,6 +154,10 @@ describe("Pool Candidates", () => {
               userAlias: "testUser",
             });
 
+            cy.get("@testUser").then((testUser) => {
+              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+            });
+
             // fetch the dcmId for its team from database, needed for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
