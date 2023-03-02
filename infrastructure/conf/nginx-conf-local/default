@@ -59,6 +59,11 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/phpinfo.php;
     }
+    location = /xdebuginfo.php {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/xdebuginfo.php;
+    }
     location = /graphql {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
