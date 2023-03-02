@@ -42,6 +42,14 @@ class PoolCandidatePolicy
             return $user?->isAbleTo("view-any-draftApplication");
         }
 
+        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
+        $userBelongsToTeam = $user?->rolesTeams()->where('id', $candidatePoolTeam->id)->first();
+
+        // User is part of owning team, so can view
+        if ($userBelongsToTeam) {
+            return $user?->isAbleTo("view-team-submittedApplication", $candidatePoolTeam, true);
+        }
+
         // If owner is not current user or application is not draft,
         // Check if they can view any submitted application
         return $user?->isAbleTo("view-any-submittedApplication");
@@ -75,11 +83,9 @@ class PoolCandidatePolicy
             $user?->isAbleTo("submit-own-application");
         }
 
-        /**
-         * TO DO: Applications not associated with teams yet
-         * so we will need to update this once they are
-         */
-        return $user?->isAbleTo("update-team-applicationStatus");
+        if ($user->teams()->pools()->where('id', $poolCandidate->pool_id)->sole()) {
+            return $user?->isAbleTo("update-team-applicationStatus");
+        }
     }
 
     /**
