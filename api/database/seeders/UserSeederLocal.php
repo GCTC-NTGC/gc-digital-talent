@@ -39,7 +39,9 @@ class UserSeederLocal extends Seeder
         $testTeam = Team::where('name', 'test-team')->sole();
 
         // shared auth users for testing
-        User::factory()->create([
+        User::factory()->afterCreating(function ($user) {
+            $user->attachRoles(["base_user", "applicant", "request_responder", "platform_admin"]);
+        })->create([
             'first_name' => 'Admin',
             'last_name' => 'Test',
             'email' => 'admin@test.com',

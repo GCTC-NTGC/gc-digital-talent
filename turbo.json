@@ -32,8 +32,7 @@
     },
     "check-intl": {
       "dependsOn": ["build:intl-cli", "intl-compile", "intl-extract"],
-      "inputs": ["src/lang/fr.json", "src/lang/en.json", "src/lang/*{Compiled}.json"],
-      "outputs": ["src/lang/untranslated.json"]
+      "cache": false
     },
     "storybook": {
       "dependsOn": ["codegen", "intl-compile"],
