@@ -1,6 +1,22 @@
 {
     "configurations": [
         {
+            "name": "Listen for PHP Xdebug from webserver",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/home/site/wwwroot/": "${workspaceFolder}"
+            }
+            // For configuration, see the infrastructure/conf/xdebug.ini file.
+        },
+        {
+            "name": "Listen for PHP Xdebug locally",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+        },
+        {
             "type": "node",
             "name": "jest-common",
             "request": "launch",
