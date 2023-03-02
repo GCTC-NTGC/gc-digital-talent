@@ -43,7 +43,7 @@ class PoolCandidatePolicy
         }
 
         $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        $userBelongsToTeam = $user?->rolesTeams()->where('id', $candidatePoolTeam->id)->first();
+        $userBelongsToTeam = $user?->rolesTeams->contains($candidatePoolTeam->id);
 
         // User is part of owning team, so can view
         if ($userBelongsToTeam) {
