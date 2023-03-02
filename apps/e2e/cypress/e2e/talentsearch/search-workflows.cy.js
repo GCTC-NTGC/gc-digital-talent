@@ -1,7 +1,7 @@
 import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
-import { createApplicant } from "../../support/userHelpers";
+import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
@@ -71,6 +71,10 @@ describe("Talent Search Workflow Tests", () => {
               skill,
               genericJobTitle,
               userAlias: "testUser",
+            });
+
+            cy.get("@testUser").then((testUser) => {
+              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
