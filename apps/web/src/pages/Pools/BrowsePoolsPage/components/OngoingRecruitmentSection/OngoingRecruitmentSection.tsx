@@ -92,9 +92,9 @@ const OngoingRecruitmentSection = ({
   });
 
   const quickFilterStream = methods.watch("quickFilter");
-  const { loggedInUser, isLoaded } = useAuthorization();
+  const { user, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
-    pause: !isLoaded || !loggedInUser,
+    pause: !isLoaded || !user,
   });
 
   const mySkillIdsWithDuplicates = skillsData?.me?.experiences

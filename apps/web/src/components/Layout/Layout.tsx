@@ -5,6 +5,7 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import { RoleName } from "@gc-digital-talent/auth/src/const";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
@@ -13,7 +14,6 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
-import { LegacyRole } from "~/api/generated";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -41,7 +41,7 @@ const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const { loggedInUser } = useAuthorization();
+  const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
   let menuItems = [
@@ -68,10 +68,10 @@ const Layout = () => {
     </MenuLink>,
   ];
 
-  if (loggedIn && loggedInUser?.id) {
+  if (loggedIn && user?.id) {
     menuItems = [
       ...menuItems,
-      <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
+      <MenuLink key="myApplications" to={paths.applications(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My applications",
           id: "ioghLh",
@@ -79,7 +79,7 @@ const Layout = () => {
             "Label displayed on the users pool applications menu item.",
         })}
       </MenuLink>,
-      <MenuLink key="myProfile" to={paths.profile(loggedInUser.id)}>
+      <MenuLink key="myProfile" to={paths.profile(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My profile",
           id: "5lBIzg",
@@ -88,9 +88,9 @@ const Layout = () => {
       </MenuLink>,
     ];
     if (
-      loggedInUser?.legacyRoles &&
-      loggedInUser.legacyRoles.length > 0 &&
-      loggedInUser.legacyRoles.includes(LegacyRole.Admin)
+      user?.roleAssignments
+        ?.map((a) => a.role?.name as RoleName)
+        .includes("platform_admin")
     ) {
       menuItems = [
         ...menuItems,

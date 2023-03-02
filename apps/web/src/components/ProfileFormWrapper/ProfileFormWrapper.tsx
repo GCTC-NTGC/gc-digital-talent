@@ -32,7 +32,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { loggedInUser } = useAuthorization();
+  const { user } = useAuthorization();
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
     links = [
@@ -42,9 +42,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
           id: "tlsomU",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
-        url: loggedInUser?.id
-          ? paths.profile(loggedInUser.id)
-          : paths.myProfile(),
+        url: user?.id ? paths.profile(user.id) : paths.myProfile(),
       },
       ...links,
     ];
