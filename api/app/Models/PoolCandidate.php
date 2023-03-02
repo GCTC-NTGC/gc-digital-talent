@@ -208,13 +208,12 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        return $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]);
-    }
-
-    public static function scopeNotSuspended(Builder $query): Builder
-    {
-        return $query->whereDate('suspended_at', '>=', date("Y-m-d"))
+        $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
+            ->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', date("Y-m-d"))
                     ->orWhereNull('suspended_at');
+            });
+        return $query;
     }
 
     public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
