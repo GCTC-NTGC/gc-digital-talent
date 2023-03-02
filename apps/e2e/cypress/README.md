@@ -23,8 +23,8 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
     - This detailed output is printed **only for failing tests**.
   - **Check the status and logs of containers.**
     - On failed CI runs, we list the status of containers (e.g., one may have
-      crashed), and print out the logs of important containers (e.g., Apache
-      logs of PHP container).
+      crashed), and print out the logs of important containers (e.g., Nginx
+      logs of the webserver container).
       [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/e2e-tests.yml#L85-L91)
 - When you need to debug locally, these tips can help:
   - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
@@ -163,7 +163,7 @@ See: https://docs.cypress.io/guides/guides/web-security
       - with the above change, our Laravel API app will unfortunately become
         suspicious of Cypress, and its default security policies cause other
         issues with session cookies. To resolve, you'll want to set these
-        envvars in `frontend/.apache_env`:
+        environment variables in `/api/.env`:
         - `SESSION_SAME_SITE_COOKIE=none`
         - `SESSION_SECURE_COOKIE=false`
 - mitigations of this issue in our setup
@@ -176,7 +176,7 @@ See: https://docs.cypress.io/guides/guides/web-security
    [`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
    [`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
    [`apps/e2e/cypress/integration/`]: /apps/e2e/cypress/integration/
-   [`frontend/.apache_env`]: /frontend/.apache_env
+   [`/api/.env`]: /api/.env
    [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
    [`apps/e2e/`]: /apps/e2e/
    [`apps/e2e/cypress.config.js`]: /apps/e2e/cypress.config.js
