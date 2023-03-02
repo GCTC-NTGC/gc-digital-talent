@@ -53,11 +53,9 @@ class PoolCandidateFactory extends Factory
             $candidateStatus = $results[0]->pool_candidate_status;
             if ($candidateStatus !='DRAFT' && $candidateStatus != 'DRAFT_EXPIRED'){
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
-                $suspendedDate = $this->faker->optional()->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
                                 'submitted_at' => $submittedDate,
-                                'suspended_at' => $suspendedDate,
                                 'signature' => $fakeSignature,
                                 ]);
             }
@@ -65,7 +63,7 @@ class PoolCandidateFactory extends Factory
     }
 
     /**
-     * Pool Candidates are available in search if they are not expired and have the AVAILABLE status.
+     * Pool Candidates are available in search if they are not expired, not suspended, and have the AVAILABLE status.
      *
      * @return void
      */
@@ -75,6 +73,7 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+                'suspended_at' => null,
             ];
         });
     }

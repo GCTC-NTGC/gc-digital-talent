@@ -192,13 +192,18 @@ class DatabaseSeeder extends Seeder
 
     private function seedPoolCandidate(User $user, Pool $pool)
     {
+        $faker = Faker\Factory::create();
+
         // create a pool candidate in the pool
         PoolCandidate::factory()->count(1)->sequence(fn () => [
             'pool_id' => $pool->id,
             'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) {
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
             if ($candidate->submitted_at) {
                 $candidate->createSnapshot();
+
+                $candidate->suspended_at = $faker->optional($weight = 25)->dateTimeBetween('-3 months', 'now');
+                $candidate->save();
             }
         })->create();
     }
