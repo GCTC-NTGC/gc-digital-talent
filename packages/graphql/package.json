@@ -19,7 +19,7 @@
     "@graphql-codegen/add": "^4.0.1",
     "@graphql-codegen/cli": "^3.2.0",
     "@graphql-codegen/typescript": "^3.0.1",
-    "@graphql-codegen/typescript-operations": "^2.5.13",
+    "@graphql-codegen/typescript-operations": "^3.0.1",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "rimraf": "^4.1.2",
     "tsup": "^6.6.0",
