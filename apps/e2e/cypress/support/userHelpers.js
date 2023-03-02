@@ -70,6 +70,7 @@ export function addRolesToUser(userId, roles = []) {
     const roleIds = $roles.filter(role => roles.includes(role.name))
       .map(role => role.id);
     cy.updateUser(userId, {
+      legacyRoles: undefined,
       roles: {
         sync: {
           roles: roleIds
