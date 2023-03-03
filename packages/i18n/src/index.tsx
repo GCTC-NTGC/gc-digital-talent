@@ -75,6 +75,7 @@ import {
   GenericJobTitlesSorted,
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
+  getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
 
 import { STORED_LOCALE } from "./const";
@@ -152,6 +153,7 @@ export {
   poolCandidatePriorities,
   getAbbreviations,
   getCandidateExpiryFilterStatus,
+  getPoolCandidateStatusLabel,
 };
 
 export type { Locales, Messages };
