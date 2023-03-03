@@ -3889,15 +3889,15 @@
   },
   "S0ghpc": {
     "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Inactive' status"
   },
   "ye47Rz": {
     "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status"
   },
   "SOZVtc": {
     "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Active' status"
   },
   "+5da+V": {
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",

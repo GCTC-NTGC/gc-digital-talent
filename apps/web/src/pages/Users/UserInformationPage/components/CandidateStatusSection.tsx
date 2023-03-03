@@ -29,7 +29,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
               "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
             id: "SOZVtc",
             description:
-              "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please",
+              "Text in view user page saying they currently have the 'Active' status",
           })}
         {user.jobLookingStatus === JobLookingStatus.OpenToOpportunities &&
           intl.formatMessage({
@@ -37,7 +37,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
               "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
             id: "ye47Rz",
             description:
-              "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please",
+              "Text in view user page saying they currently have the 'Open to opportunities' status",
           })}
         {user.jobLookingStatus === JobLookingStatus.Inactive &&
           intl.formatMessage({
@@ -45,7 +45,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
               "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
             id: "S0ghpc",
             description:
-              "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
+              "Text in view user page saying they currently have the 'Inactive' status",
           })}
       </Well>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
