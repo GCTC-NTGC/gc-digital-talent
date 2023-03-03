@@ -61,7 +61,7 @@ type RouteParams = {
   userId: Scalars["ID"];
 };
 
-const ADminUserProfilePage = () => {
+const AdminUserProfilePage = () => {
   const { userId } = useParams<RouteParams>();
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
