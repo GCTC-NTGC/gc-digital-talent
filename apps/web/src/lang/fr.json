@@ -6589,5 +6589,61 @@
   "l7Wu86": {
     "defaultMessage": "Modifier le bassin de candidats",
     "description": "Title for the edit pool page"
+  },
+  "+hrTzd": {
+    "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas respecté la date limite de soumission ainsi que les candidatures qui ont été entièrement évaluées.",
+    "description": "Text describing that the historical applications section is used for"
+  },
+  "5isFkb": {
+    "defaultMessage": "Candidatures préliminaires",
+    "description": "Title for the draft applications section"
+  },
+  "ItdSG1": {
+    "defaultMessage": "<strong>Les candidatures préliminaires</strong> correspondent à des demandes que vous avez commencées, mais que vous n’avez pas encore soumises.",
+    "description": "Explainer for draft applications"
+  },
+  "KBa7RY": {
+    "defaultMessage": "Toutes les candidatures qui ne sont plus actives apparaîtront ici.",
+    "description": "Text displayed in historical applications section when there are no historical applications."
+  },
+  "MTSArs": {
+    "defaultMessage": "Historique des candidatures",
+    "description": "Title for the historical applications section"
+  },
+  "O63upZ": {
+    "defaultMessage": "Vérifiez nos offres pour soumettre une candidature.",
+    "description": "Link text to browse opportunities when there are no draft applications"
+  },
+  "U5WfKm": {
+    "defaultMessage": "Les candidatures de cette section vous permettront de suivre leur évolution.",
+    "description": "Text describing that the submitted applications section is used for"
+  },
+  "W/s+MH": {
+    "defaultMessage": "Les candidatures en cours de traitement apparaissent ici.",
+    "description": "Text displayed in draft applications section when there are no drafts."
+  },
+  "X35OfB": {
+    "defaultMessage": "Cette section répertorie toutes vos candidatures aux processus de recrutement. Les candidatures sont classées en trois catégories distinctes :",
+    "description": "Text explaining there are three different groups of applications"
+  },
+  "acCyP9": {
+    "defaultMessage": "Les candidatures soumises",
+    "description": "Title for the submitted applications section"
+  },
+  "jBUwoU": {
+    "defaultMessage": "<strong>Les candidatures soumises</strong> sont en attente d’évaluation ou sont en cours d’examen.",
+    "description": "Explainer for submitted applications"
+  },
+  "tqIOKb": {
+    "defaultMessage": "Après avoir soumis une candidature, celle-ci apparaîtra ici.",
+    "description": "Text displayed in submitted applications section when there are no submitted applications."
+  },
+  "v8gO9Z": {
+    "defaultMessage": "L’<strong>historique de vos candidatures</strong> comprend les candidatures qui sont complètes ou qui n’ont pas respecté la date limite de soumission.",
+    "description": "Explainer for application history section"
+  },
+  "wzScZA": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Title for the list of a users applications"
   }
 }
