@@ -1,5 +1,5 @@
 {
-  "6hQQIY": {
+  "aRTIWM": {
     "defaultMessage": "{itemCount, plural, =0 {0 items} =1 {1 item} other {# items} } ajouté",
     "description": "context message to describe number of experience items added"
   },
@@ -23,11 +23,11 @@
     "defaultMessage": "Toutes les sections sont remplies",
     "description": "Context message that all sections are complete"
   },
-  "naaQ+q": {
+  "9ePTF1": {
     "defaultMessage": "Mon cv et mon expérience",
     "description": "applicant dashboard card title for résumé card"
   },
-  "pqrVnW": {
+  "HvBs2+": {
     "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
     "description": "Subtitle for applicant dashboard hero"
   }

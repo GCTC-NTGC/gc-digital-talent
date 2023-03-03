@@ -179,11 +179,11 @@ export const HeroCardExperienceItem = ({
       subLine={intl.formatMessage(
         {
           defaultMessage: `{itemCount, plural,
-          =0 {0 items}
-          =1 {1 item}
-          other {# items}
-        } added`,
-          id: "6hQQIY",
+          =0 {0 items added}
+          =1 {1 item added}
+          other {# items added}
+        }`,
+          id: "aRTIWM",
           description:
             "context message to describe number of experience items added",
         },
