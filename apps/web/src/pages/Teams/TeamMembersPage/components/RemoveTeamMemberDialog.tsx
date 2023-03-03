@@ -20,12 +20,11 @@ const RemoveTeamMemberDialog = ({
   team,
 }: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserAsAdminMutation();
-  const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
+  const [{ fetching }, executeMutation] = useUpdateUserAsAdminMutation();
+
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleRemove = async () => {
-    setIsDeleting(true);
     await executeMutation({
       id: user.id,
       user: {
@@ -59,8 +58,7 @@ const RemoveTeamMemberDialog = ({
               "Alert displayed to user when an error occurs while removing a team member",
           }),
         );
-      })
-      .finally(() => setIsDeleting(false));
+      });
   };
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
@@ -137,9 +135,9 @@ const RemoveTeamMemberDialog = ({
             mode="solid"
             color="red"
             onClick={handleRemove}
-            disabled={isDeleting}
+            disabled={fetching}
           >
-            {isDeleting ? intl.formatMessage(commonMessages.saving) : label}
+            {fetching ? intl.formatMessage(commonMessages.saving) : label}
           </Button>
         </Dialog.Footer>
       </Dialog.Content>
