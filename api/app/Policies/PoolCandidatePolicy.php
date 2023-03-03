@@ -119,7 +119,7 @@ class PoolCandidatePolicy
     }
 
     /**
-     * Determine whether the user can suspend the model.
+     * Determine whether the user can count the number of items in the model.
      *
      * Note: Everyone needs to be able to count applicants
      * for now

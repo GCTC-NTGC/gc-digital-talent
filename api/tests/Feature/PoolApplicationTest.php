@@ -261,14 +261,14 @@ class PoolApplicationTest extends TestCase
     public function testArchivingApplication(): void
     {
         // Create pool candidates
-        $achievableApplication = PoolCandidate::factory()->create([
+        $archivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
             'submitted_at' => config('constants.past_date'),
             'user_id' => $this->applicantUser->id
         ]);
 
         // this one is archived
-        $notAchievableApplication = PoolCandidate::factory()->create([
+        $notArchivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
             'archived_at' => config('constants.past_date'),
             'submitted_at' => config('constants.past_date'),
@@ -277,12 +277,12 @@ class PoolApplicationTest extends TestCase
 
         // This user does not own the application so cannot archive
         $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $achievableApplication->id])
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Owner can archive
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $achievableApplication->id])
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertJson(
                 fn (AssertableJson $json) =>
                 $json->has(
@@ -298,7 +298,7 @@ class PoolApplicationTest extends TestCase
 
         // Owner cannot archive certain applications
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $notAchievableApplication->id])
+            ->graphQL($this->archiveMutationDocument, ["id" => $notArchivableApplication->id])
             ->assertJson([
                 'errors' => [[
                     'message' => 'AlreadyArchived',
