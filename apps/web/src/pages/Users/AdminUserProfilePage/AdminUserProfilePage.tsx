@@ -86,4 +86,4 @@ const ADminUserProfilePage = () => {
   );
 };
 
-export default ADminUserProfilePage;
+export default AdminUserProfilePage;
