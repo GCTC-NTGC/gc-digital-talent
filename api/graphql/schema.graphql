@@ -1595,7 +1595,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @can(ability: "update", find: "id", injectArgs: true)
   deleteUser(id: ID!): User
     @delete(globalId: false)
     @guard
