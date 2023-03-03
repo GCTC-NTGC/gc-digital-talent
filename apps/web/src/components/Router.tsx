@@ -904,7 +904,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
               path: "dashboard",
               element: (
                 <RequireAuth
-                  roles={[RoleName.PlatformAdmin]}
+                  roles={[
+                    RoleName.PoolOperator,
+                    RoleName.RequestResponder,
+                    RoleName.PlatformAdmin,
+                  ]}
                   loginPath={loginPath}
                 >
                   <AdminDashboardPage />
@@ -954,7 +958,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "profile",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[
+                            RoleName.PoolOperator,
+                            RoleName.RequestResponder,
+                            RoleName.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <ViewUserPageV2 />
@@ -965,7 +973,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "placement",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[
+                            RoleName.PoolOperator,
+                            RoleName.RequestResponder,
+                            RoleName.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UserPlacementPage />
@@ -994,7 +1006,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[RoleName.PoolOperator, RoleName.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1019,7 +1031,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[
+                            RoleName.PoolOperator,
+                            RoleName.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <ViewTeamPage />
@@ -1041,7 +1056,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "members",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[
+                            RoleName.PoolOperator,
+                            RoleName.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <TeamMembersPage />
@@ -1059,7 +1077,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[RoleName.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1070,7 +1088,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[RoleName.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <CreatePoolPage />
@@ -1084,7 +1102,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[
+                            RoleName.PoolOperator,
+                            RoleName.RequestResponder,
+                          ]}
                           loginPath={loginPath}
                         >
                           <ViewPoolPage />
@@ -1095,7 +1116,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[RoleName.PoolOperator]}
                           loginPath={loginPath}
                         >
                           <EditPoolPage />
@@ -1109,7 +1130,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[
+                                RoleName.PoolOperator,
+                                RoleName.RequestResponder,
+                              ]}
                               loginPath={loginPath}
                             >
                               <IndexPoolCandidatePage />
@@ -1123,7 +1147,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               index: true,
                               element: (
                                 <RequireAuth
-                                  roles={[RoleName.PlatformAdmin]}
+                                  roles={[RoleName.PoolOperator]}
                                   loginPath={loginPath}
                                 >
                                   <ViewPoolCandidatePage />
@@ -1142,7 +1166,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
               path: "candidates/:poolCandidateId/application",
               element: (
                 <RequireAuth
-                  roles={[RoleName.PlatformAdmin]}
+                  roles={[RoleName.PoolOperator]}
                   loginPath={loginPath}
                 >
                   <ViewPoolCandidatePage />
@@ -1156,7 +1180,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[RoleName.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <IndexSearchRequestPage />
@@ -1167,7 +1191,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":searchRequestId",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[RoleName.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <ViewSearchRequestPage />
