@@ -65,7 +65,7 @@ export function createApplicant({
   }).as(userAlias);
 }
 
-export function addRolesToUser(userId, roles = []) {
+export function addRolesToUser(userId, roles = [], team = undefined) {
   cy.getRoles().then($roles => {
     const roleIds = $roles.filter(role => roles.includes(role.name))
       .map(role => role.id);
@@ -73,7 +73,8 @@ export function addRolesToUser(userId, roles = []) {
       legacyRoles: undefined,
       roles: {
         sync: {
-          roles: roleIds
+          roles: roleIds,
+          team: team
         }
       }
     });
