@@ -76,7 +76,7 @@ class PoolCandidatePolicy
         $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
 
         if ($candidatePoolTeam) {
-            return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam, true);
+            return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam);
         }
 
         return false;
