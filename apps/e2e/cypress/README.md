@@ -87,13 +87,13 @@ constrain them to a subset of test suite.
 Examples:
 
 ```
-# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.spec.js`
-#   - apps/e2e/talentsearch/foo.secrets.spec.js
-#   - apps/e2e/admin/bar.secrets.spec.js
+# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.cy.js`
+#   - apps/e2e/talentsearch/foo.secrets.cy.js
+#   - apps/e2e/admin/bar.secrets.cy.js
 TEST_FILTER=secrets npm run e2e:run:all
 
-# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.spec.js`
-#   - apps/e2e/talentsearch/static-pages.spec.js
+# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.cy.js`
+#   - apps/e2e/talentsearch/static-pages.cy.js
 TEST_FILTER=static-pages npm run e2e:run:all
 ```
 
@@ -128,7 +128,7 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
 <sup>Click through into linked files for tips relevant to our usage.</sup>
 
 - helpful terms
-  - a "test _file_": `cypress/e2e/foo/bar.spec.js`
+  - a "test _file_": `cypress/e2e/foo/bar.cy.js`
   - a "test" (BDD term): `it('does something', () => { ... })`
     - tests a unit of functionality with isolation
   - a "context" (BDD term): `context('Foo', () => { ... })` (alias of `describe()`)
