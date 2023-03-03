@@ -42,12 +42,8 @@ class PoolCandidatePolicy
             return $user?->isAbleTo("view-any-draftApplication");
         }
 
-        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
-
-        // User is part of owning team, so can view
-        if ($candidatePoolTeam) {
-            return $user?->isAbleTo("view-team-submittedApplication", $candidatePoolTeam, true);
-        }
+        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
+        return $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam);
 
         // If owner is not current user or application is not draft,
         // Check if they can view any submitted application
@@ -60,9 +56,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(?User $user)
+    public function create(User $user)
     {
-        return $user?->isAbleTo([
+        return $user->isAbleTo([
             "create-own-draftApplication",
             "create-any-application"
         ]);
@@ -77,10 +73,6 @@ class PoolCandidatePolicy
      */
     public function update(?User $user, PoolCandidate $poolCandidate)
     {
-        // Only update an owner can do is submission, so check that
-        if ($user?->id === $poolCandidate->user_id) {
-            $user?->isAbleTo("submit-own-application");
-        }
 
         $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
 
