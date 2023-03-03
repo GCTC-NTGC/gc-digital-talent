@@ -117,7 +117,7 @@ app and explore.
 
 It works best with `TEST_FILTER`, which defaults to "language-selection" if not set.
 
-For example, this will run the `talentsearch/static-pages.spec.js`
+For example, this will run the `cypress/e2e/talentsearch/static-pages.spec.js`
 test in the Chrome browser, and leave it open (success or failure):
 
 ```
