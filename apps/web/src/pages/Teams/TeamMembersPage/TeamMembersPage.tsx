@@ -8,21 +8,28 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
-import { Maybe, Role, Scalars, Team, User } from "~/api/generated";
-import useRoutes from "~/hooks/useRoutes";
+import {
+  Maybe,
+  Role,
+  Scalars,
+  Team,
+  useGetTeamQuery,
+  useListRolesQuery,
+} from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
 
-const actionCell = (user: User, team: Team, roles: Array<Role>) => (
+const actionCell = (user: TeamMember, team: Team, roles: Array<Role>) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25)"
   >
     <EditTeamMemberDialog user={user} team={team} availableRoles={roles} />
-    <RemoveTeamMemberDialog user={user} team={team} roles={roles} />
+    <RemoveTeamMemberDialog user={user} team={team} />
   </div>
 );
 
@@ -43,28 +50,28 @@ const emailLinkCell = (email: Maybe<string>, intl: IntlShape) => {
 };
 
 const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
-  const rolePills = roles
-    ?.filter(notEmpty)
-    .filter((r) => r.isTeamBased)
-    .map((role) => (
-      <Pill color="neutral" mode="solid" key={role.id}>
-        {getLocalizedName(role.displayName, intl)}
-      </Pill>
-    ));
+  const rolePills = roles?.filter(notEmpty).map((role) => (
+    <Pill color="neutral" mode="solid" key={role.id}>
+      {getLocalizedName(role.displayName, intl)}
+    </Pill>
+  ));
 
-  return rolePills ? <span>{rolePills}</span> : null;
+  return rolePills ? (
+    <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
+      {rolePills}
+    </span>
+  ) : null;
 };
 
-type TeamMemberCell = Cell<User>;
+type TeamMemberCell = Cell<TeamMember>;
 interface TeamMembersProps {
-  members: Array<User>;
+  members: Array<TeamMember>;
   roles: Array<Role>;
   team: Team;
 }
 
 const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team members",
@@ -72,7 +79,7 @@ const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
     description: "Page title for the view team members page",
   });
 
-  const columns = React.useMemo<ColumnsOf<User>>(
+  const columns = React.useMemo<ColumnsOf<TeamMember>>(
     () => [
       {
         Header: intl.formatMessage({
@@ -81,10 +88,9 @@ const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
           description: "Title displayed for the team table actions column",
         }),
         accessor: (d) => `Actions ${d.id}`,
-        Cell: ({ row: { original: user } }: TeamMemberCell) =>
-          actionCell(user, team, roles),
+        Cell: ({ row: { original: member } }: TeamMemberCell) =>
+          actionCell(member, team, roles),
         disableGlobalFilter: true,
-        disableSortBy: true,
       },
       {
         Header: intl.formatMessage({
@@ -113,8 +119,8 @@ const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
             "Title displayed for the team members table roles column.",
         }),
         accessor: (d) => d.id, // TO DO: Update with real role shape
-        Cell: ({ row: { original: user } }: TeamMemberCell) =>
-          roleCell([], intl),
+        Cell: ({ row: { original: member } }: TeamMemberCell) =>
+          roleCell(member.roles, intl),
       },
     ],
     [intl, roles, team],
@@ -137,52 +143,22 @@ type RouteParams = {
 
 const TeamMembersPage = () => {
   const { teamId } = useParams<RouteParams>();
-  // const [{ data, fetching, error }] = useListMembersQuery({
-  //   variables: { id: teamId || "" },
-  // });
-  const [{ data, fetching, error }] = [
-    {
-      fetching: false,
-      error: undefined,
-      data: {
-        team: {
-          users: [
-            {
-              id: "id",
-              firstName: "John",
-              lastName: "Doe",
-              email: "john@doe.com",
-              roles: [
-                {
-                  name: "team_admin",
-                  displayName: {
-                    en: "Team Administrator (EN)",
-                    fr: "Team Administrator (EN)",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-    },
-  ];
+  const [{ data, fetching, error }] = useGetTeamQuery({
+    variables: { teamId: teamId || "" },
+  });
+  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
+    useListRolesQuery();
 
-  const team = {
-    id: "ID",
-    name: "team",
-    displayName: {
-      en: "Team (EN)",
-      fr: "Team (FR)",
-    },
-  };
-
-  const users = data?.team?.users;
+  const team = data?.team;
+  const roles = rolesData?.roles
+    .filter(notEmpty)
+    .filter((role) => role.isTeamBased);
+  const users = groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
 
   return (
-    <Pending fetching={fetching} error={error}>
-      {users ? (
-        <TeamMembers members={users} roles={[]} team={team} />
+    <Pending fetching={fetching || rolesFetching} error={error || rolesError}>
+      {team && users ? (
+        <TeamMembers members={users} roles={roles || []} team={team} />
       ) : (
         <ThrowNotFound />
       )}

@@ -13,11 +13,12 @@ import {
 
 import { Role, Team, User } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { TeamMember } from "~/utils/teamUtils";
 
 import { TeamMemberFormValues } from "./types";
 
 interface EditTeamMemberDialogProps {
-  user: User;
+  user: TeamMember;
   team: Team;
   availableRoles: Array<Role>;
   // onSave: (submitData: TeamMemberSubmitData) => Promise<void>;

@@ -5,35 +5,66 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { Role, Team, User } from "~/api/generated";
+import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { TeamMember } from "~/utils/teamUtils";
+import { toast } from "@gc-digital-talent/toast";
 
 interface RemoveTeamMemberDialogProps {
-  user: User;
+  user: TeamMember;
   team: Team;
-  roles: Array<Role>;
-  // onSave: (submitData: TeamMemberSubmitData) => Promise<void>;
 }
 
 const RemoveTeamMemberDialog = ({
   user,
   team,
-  roles,
-}: // onSave,
-RemoveTeamMemberDialogProps) => {
+}: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
+  const [, executeMutation] = useUpdateUserAsAdminMutation();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleRemove = async () => {
-    // await executeMutation({
-    // }).then(() => setIsOpen(false));
+    setIsDeleting(true);
+    await executeMutation({
+      id: user.id,
+      user: {
+        roles: {
+          detach: {
+            roles: user.roles.map((role) => role.id),
+            team: team.id,
+          },
+        },
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          setIsOpen(false);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Member removed from team successfully",
+              id: "guzGyX",
+              description:
+                "Alert displayed to user when a team member is removed",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Member removed from team failed",
+            id: "7Mbt01",
+            description:
+              "Alert displayed to user when an error occurs while removing a team member",
+          }),
+        );
+      })
+      .finally(() => setIsDeleting(false));
   };
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
   const teamName = getLocalizedName(team.displayName, intl);
-  const filteredRoles = roles.filter(notEmpty);
 
   const label = intl.formatMessage({
     defaultMessage: "Remove member",
@@ -64,7 +95,7 @@ RemoveTeamMemberDialogProps) => {
             },
           )}
         </p>
-        {filteredRoles.length ? (
+        {user.roles.length ? (
           <>
             <p data-h2-margin="base(x1, 0)">
               {intl.formatMessage({
@@ -77,10 +108,12 @@ RemoveTeamMemberDialogProps) => {
             </p>
             <ul
               data-h2-display="base(flex)"
+              data-h2-flex-wrap="base(wrap)"
               data-h2-list-style="base(none)"
+              data-h2-padding="base(0)"
               data-h2-gap="base(x.25)"
             >
-              {filteredRoles.map((role) => (
+              {user.roles.map((role) => (
                 <li key={role.id}>
                   <Pill mode="solid" color="neutral">
                     {getLocalizedName(role.displayName, intl)}
@@ -100,7 +133,12 @@ RemoveTeamMemberDialogProps) => {
               })}
             </Button>
           </Dialog.Close>
-          <Button mode="solid" color="red" type="submit" disabled={isDeleting}>
+          <Button
+            mode="solid"
+            color="red"
+            onClick={handleRemove}
+            disabled={isDeleting}
+          >
             {isDeleting ? intl.formatMessage(commonMessages.saving) : label}
           </Button>
         </Dialog.Footer>
