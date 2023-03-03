@@ -2,6 +2,7 @@ import { getFeatureFlags } from "./utils";
 
 export type FeatureFlags = {
   ongoingRecruitments: boolean;
+  applicantDashboard: boolean;
 };
 
 const useFeatureFlags = (): FeatureFlags => {

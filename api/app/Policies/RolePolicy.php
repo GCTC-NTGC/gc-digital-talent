@@ -22,4 +22,16 @@ class RolePolicy
         }
         return false;
     }
+
+    /**
+     * Determine whether the user can view the role assignments of the role.
+     * Likely to be updated later to allow the platform admin view the assignments regardless of team.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyRoleAssignments(User $user)
+    {
+        return $user->isAdmin();
+    }
 }
