@@ -71,7 +71,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        {/* Preferred exam language */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
