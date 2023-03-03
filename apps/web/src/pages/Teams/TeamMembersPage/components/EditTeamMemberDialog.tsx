@@ -5,32 +5,33 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
-import { Role, Team, User } from "~/api/generated";
+import { Role, Team, useUpdateUserAsAdminMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
 import { TeamMemberFormValues } from "./types";
+import { getTeamBasedRoleOptions } from "./utils";
 
 interface EditTeamMemberDialogProps {
   user: TeamMember;
   team: Team;
   availableRoles: Array<Role>;
-  // onSave: (submitData: TeamMemberSubmitData) => Promise<void>;
 }
 
 const EditTeamMemberDialog = ({
   user,
   team,
   availableRoles,
-}: // onSave,
-EditTeamMemberDialogProps) => {
+}: EditTeamMemberDialogProps) => {
   const intl = useIntl();
+  const [, executeMutation] = useUpdateUserAsAdminMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
@@ -47,9 +48,46 @@ EditTeamMemberDialogProps) => {
   } = methods;
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
-    // await executeMutation({
-    // }).then(() => setIsOpen(false));
+    await executeMutation({
+      id: formValues.user,
+      user: {
+        roles: {
+          attach: {
+            roles: formValues.roles,
+            team: formValues.team,
+          },
+        },
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          setIsOpen(false);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Member roles updated successfully",
+              id: "ALIgEC",
+              description:
+                "Alert displayed to user when a team member's roles have been updated",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Member role update failed",
+            id: "Ly2bBb",
+            description:
+              "Alert displayed to user when an error occurs while editing a team member's roles",
+          }),
+        );
+      });
   };
+
+  const filteredRoles = availableRoles.filter(
+    (role) => !!user.roles.some((userRole) => userRole.id !== role.id),
+  );
+  const roleOptions = getTeamBasedRoleOptions(filteredRoles, intl);
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
@@ -135,10 +173,7 @@ EditTeamMemberDialogProps) => {
                 id: "eW7I5E",
                 description: "Placeholder text for role selection input",
               })}
-              options={availableRoles.map((role) => ({
-                label: getLocalizedName(role.displayName, intl),
-                value: role.id,
-              }))}
+              options={roleOptions}
             />
             <Dialog.Footer>
               <Dialog.Close>

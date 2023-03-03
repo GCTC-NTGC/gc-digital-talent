@@ -5,34 +5,39 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
-import { Role, Team, User } from "~/api/generated";
+import {
+  Role,
+  Team,
+  User,
+  useUpdateUserAsAdminMutation,
+} from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { TeamMemberFormValues } from "./types";
+import { getTeamBasedRoleOptions } from "./utils";
 
 interface AddTeamMemberDialogProps {
-  user: User;
   team: Team;
   availableUsers: Array<User>;
   availableRoles: Array<Role>;
-  // onSave: (submitData: TeamMemberSubmitData) => Promise<void>;
 }
 
 const AddTeamMemberDialog = ({
-  user,
   team,
   availableRoles,
   availableUsers,
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
+  const [, executeMutation] = useUpdateUserAsAdminMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
@@ -49,11 +54,43 @@ AddTeamMemberDialogProps) => {
   } = methods;
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
-    // await executeMutation({
-    // }).then(() => setIsOpen(false));
+    await executeMutation({
+      id: formValues.user,
+      user: {
+        roles: {
+          attach: {
+            roles: formValues.roles,
+            team: formValues.team,
+          },
+        },
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          setIsOpen(false);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Member added successfully",
+              id: "AKQeBC",
+              description:
+                "Alert displayed to user when a team member's roles have been updated",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Member role update failed",
+            id: "Ly2bBb",
+            description:
+              "Alert displayed to user when an error occurs while editing a team member's roles",
+          }),
+        );
+      });
   };
 
-  const userName = getFullNameLabel(user.firstName, user.lastName, intl);
+  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
 
   const label = intl.formatMessage({
     defaultMessage: "Add new member",
@@ -130,10 +167,7 @@ AddTeamMemberDialogProps) => {
                 id: "eW7I5E",
                 description: "Placeholder text for role selection input",
               })}
-              options={availableRoles.map((role) => ({
-                label: getLocalizedName(role.displayName, intl),
-                value: role.id,
-              }))}
+              options={roleOptions}
             />
             <Dialog.Footer>
               <Dialog.Close>
