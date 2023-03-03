@@ -6629,5 +6629,37 @@
   "wzScZA": {
     "defaultMessage": "Mes candidatures",
     "description": "Title for the list of a users applications"
+  },
+  "aRTIWM": {
+    "defaultMessage": "{itemCount, plural, =0 {0 items} =1 {1 item} other {# items} } ajouté",
+    "description": "context message to describe number of experience items added"
+  },
+  "JMe3n2": {
+    "defaultMessage": "Des sections obligatoires sont manquantes",
+    "description": "Context message that some required sections are missing"
+  },
+  "Q/f5AF": {
+    "defaultMessage": "Bienvenue, {firstName}",
+    "description": "Title displayed in the hero section of the Search page."
+  },
+  "XvfBqb": {
+    "defaultMessage": "L’information de mon profil",
+    "description": "applicant dashboard card title for profile card"
+  },
+  "bHIq0J": {
+    "defaultMessage": "Sections facultatives de disponibles",
+    "description": "Context message that some optional sections are available"
+  },
+  "dd/lhx": {
+    "defaultMessage": "Toutes les sections sont remplies",
+    "description": "Context message that all sections are complete"
+  },
+  "9ePTF1": {
+    "defaultMessage": "Mon cv et mon expérience",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "HvBs2+": {
+    "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
+    "description": "Subtitle for applicant dashboard hero"
   }
 }
