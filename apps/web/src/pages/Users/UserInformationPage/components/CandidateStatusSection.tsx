@@ -27,7 +27,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
-            id: "SOZVtc",
+            id: "uv0RmD",
             description:
               "Text in view user page saying they currently have the 'Active' status",
           })}
@@ -35,7 +35,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
-            id: "ye47Rz",
+            id: "BqQrcn",
             description:
               "Text in view user page saying they currently have the 'Open to opportunities' status",
           })}
@@ -43,7 +43,7 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
-            id: "S0ghpc",
+            id: "4pAtT5",
             description:
               "Text in view user page saying they currently have the 'Inactive' status",
           })}
