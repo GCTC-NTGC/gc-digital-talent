@@ -113,6 +113,8 @@ describe("Talent Search Workflow Tests", () => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@publishedTestPoolAdvertisement1").then((poolAdvertisement) => {
+
+
           cy.createApplication(testUser.id, poolAdvertisement.id).then(
             (poolCandidate) => {
               cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
@@ -126,6 +128,9 @@ describe("Talent Search Workflow Tests", () => {
 
     // admin approve the application
     cy.loginByRole("admin");
+    cy.getMe().then((adminUser) => {
+        addRolesToUser(adminUser.id, ['pool_operator'], dcmId);
+    });
     cy.get("@poolCandidateId").then((poolCandidateId) => {
       cy.updatePoolCandidateAsAdmin(poolCandidateId, {
         status: PoolCandidateStatus.QualifiedAvailable,
