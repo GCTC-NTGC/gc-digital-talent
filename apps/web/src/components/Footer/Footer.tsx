@@ -98,7 +98,7 @@ const Footer = ({ width }: FooterProps) => {
                   href={route}
                   data-h2-background-color="base:focus-visible(focus)"
                   data-h2-outline="base(none)"
-                  data-h2-color="base:hover(secondary.dark) base:focus-visible(black)"
+                  data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
                 >
                   {label}
                 </a>
