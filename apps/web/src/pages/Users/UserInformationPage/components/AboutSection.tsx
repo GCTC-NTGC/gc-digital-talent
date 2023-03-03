@@ -88,7 +88,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        {/* Phone */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
@@ -110,7 +109,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             )}
           </p>
         </div>
-        {/* Current location */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
@@ -129,7 +127,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        {/* CAF status */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
@@ -147,7 +144,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               </p>
             )}
         </div>
-        {/* Citizenship */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
