@@ -6506,6 +6506,34 @@
     "defaultMessage": "Brève description de l’équipe (en anglais)",
     "description": "Short description for a team in English"
   },
+  "10Ous+": {
+    "defaultMessage": "Supprimer cette application<hidden> ({name})</hidden>",
+    "description": "Link text to delete a specific application"
+  },
+  "3Q8D5y": {
+    "defaultMessage": "Appliquée le : <strong>{submittedAt}</strong>",
+    "description": "Text notifying user of the date they submitted an application"
+  },
+  "51B5l9": {
+    "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "JM30M7": {
+    "defaultMessage": "Consulter cette application<hidden> {name}</hidden>",
+    "description": "Link text to view a specific application"
+  },
+  "eqVWC6": {
+    "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
+    "description": "Text notifying user of closing date for an application"
+  },
+  "rXdaZW": {
+    "defaultMessage": "Obtenir du soutien",
+    "description": "Link text to direct a user to the support page"
+  },
+  "si/wtm": {
+    "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
+    "description": "Link text to see an applications advertisement"
+  },
   "1cPlHY": {
     "defaultMessage": "Nom de l’organisation (en anglais)",
     "description": "Label for the English team display name input"
@@ -6553,18 +6581,6 @@
   "ytHvhD": {
     "defaultMessage": "Ministères",
     "description": "Label for the team departments input"
-  },
-  "1lmME7": {
-    "defaultMessage": "Supprimer<hidden> la candidature {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
-  "60Ee78": {
-    "defaultMessage": "Continuer ma candidature<hidden> {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
-  "HXNJ6Z": {
-    "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
-    "description": "Link text to see an applications advertisement"
   },
   "WX6NnA": {
     "defaultMessage": "Créer une nouvelle équipe",
