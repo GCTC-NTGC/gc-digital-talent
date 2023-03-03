@@ -29,7 +29,6 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           </p>
           <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
         </div>
-        {/* Email */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
