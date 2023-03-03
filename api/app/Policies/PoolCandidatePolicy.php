@@ -14,10 +14,9 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
+    public function viewAny()
     {
         // We don't want anyone to view any application
         return false;
@@ -30,16 +29,16 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, PoolCandidate $poolCandidate)
+    public function view(User $user, PoolCandidate $poolCandidate)
     {
         // If the user owns the application, we do not care about status
-        if ($user?->id === $poolCandidate->user_id) {
+        if ($user->id === $poolCandidate->user_id) {
             return $user?->isAbleTo("view-own-application");
         }
 
         // Check if user can view draft applications
         if ($poolCandidate->isDraft()) {
-            return $user?->isAbleTo("view-any-draftApplication");
+            return $user->isAbleTo("view-any-draftApplication");
         }
 
         $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
@@ -47,7 +46,7 @@ class PoolCandidatePolicy
 
         // If owner is not current user or application is not draft,
         // Check if they can view any submitted application
-        return $user?->isAbleTo("view-any-submittedApplication");
+        return $user->isAbleTo("view-any-submittedApplication");
     }
 
     /**
@@ -90,9 +89,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function submit(?User $user, PoolCandidate $poolCandidate)
+    public function submit(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("submit-own-application");
+        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("submit-own-application");
     }
 
     /**
@@ -102,9 +101,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function archive(?User $user, PoolCandidate $poolCandidate)
+    public function archive(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("archive-own-submittedApplication");
+        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("archive-own-submittedApplication");
     }
 
     /**
@@ -114,9 +113,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function suspend(?User $user, PoolCandidate $poolCandidate)
+    public function suspend(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("suspend-own-submittedApplication");
+        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("suspend-own-submittedApplication");
     }
 
     /**
@@ -125,11 +124,10 @@ class PoolCandidatePolicy
      * Note: Everyone needs to be able to count applicants
      * for now
      *
-     * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function count(?User $user)
+    public function count()
     {
         return true;
     }
@@ -141,9 +139,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(?User $user, PoolCandidate $poolCandidate)
+    public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return $user?->id === $poolCandidate->user_id && $user?->isAbleTo("delete-own-draftApplication");
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo("delete-own-draftApplication");
     }
 
     /**
