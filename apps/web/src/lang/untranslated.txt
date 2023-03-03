@@ -1,0 +1,34 @@
+{
+  "6hQQIY": {
+    "defaultMessage": "{itemCount, plural, =0 {0 items} =1 {1 item} other {# items} } added",
+    "description": "context message to describe number of experience items added"
+  },
+  "JMe3n2": {
+    "defaultMessage": "Required sections missing",
+    "description": "Context message that some required sections are missing"
+  },
+  "Q/f5AF": {
+    "defaultMessage": "Welcome back, {firstName}",
+    "description": "Title displayed in the hero section of the Search page."
+  },
+  "XvfBqb": {
+    "defaultMessage": "My profile information",
+    "description": "applicant dashboard card title for profile card"
+  },
+  "bHIq0J": {
+    "defaultMessage": "Optional sections available",
+    "description": "Context message that some optional sections are available"
+  },
+  "dd/lhx": {
+    "defaultMessage": "All sections complete",
+    "description": "Context message that all sections are complete"
+  },
+  "naaQ+q": {
+    "defaultMessage": "My résumé and experience",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "pqrVnW": {
+    "defaultMessage": "Find new opportunities, update your résumé experience, or track applications.",
+    "description": "Subtitle for applicant dashboard hero"
+  }
+}
