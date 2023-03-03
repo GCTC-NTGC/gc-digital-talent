@@ -1659,7 +1659,7 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
 
-  # search requests
+  # SearchRequest mutations
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
   ): PoolCandidateSearchRequest @create @can(ability: "create")
