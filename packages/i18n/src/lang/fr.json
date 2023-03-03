@@ -1161,5 +1161,33 @@
   "C8nrGM": {
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
+  },
+  "+HxUqd": {
+    "defaultMessage": "En attente d’évaluation des compétences",
+    "description": "Status for an application that ie having skills reviewed"
+  },
+  "4KRs8G": {
+    "defaultMessage": "La date de soumission est dépassée",
+    "description": "Status for an application that where the recruitment has expired"
+  },
+  "4TmwRU": {
+    "defaultMessage": "Candidature reçue",
+    "description": "Status for an application that has been submitted"
+  },
+  "UayO6H": {
+    "defaultMessage": "Qualifié",
+    "description": "Status for an application where the applicant has qualified"
+  },
+  "njJCTd": {
+    "defaultMessage": "Sélectionné",
+    "description": "Status for an application that has been screened out of eligibility"
+  },
+  "nm1YKH": {
+    "defaultMessage": "Évaluation en cours",
+    "description": "Status for an application that where applicant is being assessed"
+  },
+  "wK5+0z": {
+    "defaultMessage": "En cours de révision",
+    "description": "Status for an application that is being reviewed"
   }
 }
