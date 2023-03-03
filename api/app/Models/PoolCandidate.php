@@ -387,4 +387,14 @@ class PoolCandidate extends Model
         });
         return $query;
     }
+
+    /**
+     * Determine if a PoolCandidate is in draft mode
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return !$this->submitted_at || in_array($this->pool_candidate_status, [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED]);
+    }
 }

@@ -38,7 +38,7 @@ class PoolCandidatePolicy
         }
 
         // Check if user can view draft applications
-        if (!$poolCandidate->submitted_at || in_array($poolCandidate->pool_candidate_status, [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED])) {
+        if ($poolCandidate->isDraft()) {
             return $user?->isAbleTo("view-any-draftApplication");
         }
 
