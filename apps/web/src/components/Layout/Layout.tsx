@@ -87,10 +87,15 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
+    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
     if (
-      user?.roleAssignments
-        ?.map((a) => a.role?.name)
-        .includes(RoleName.PlatformAdmin)
+      [
+        RoleName.PoolOperator,
+        RoleName.RequestResponder,
+        RoleName.PlatformAdmin,
+      ].some((authorizedRoleName) =>
+        userRoleNames?.includes(authorizedRoleName),
+      )
     ) {
       menuItems = [
         ...menuItems,

@@ -72,7 +72,11 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "dashboard",
       href: paths.adminDashboard(),
       icon: HomeIcon,
-      roles: [RoleName.PlatformAdmin],
+      roles: [
+        RoleName.PoolOperator,
+        RoleName.RequestResponder,
+        RoleName.PlatformAdmin,
+      ],
       text: intl.formatMessage({
         defaultMessage: "Dashboard",
         id: "ZDmkKD",
@@ -83,7 +87,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [RoleName.PlatformAdmin],
+      roles: [RoleName.PoolOperator],
       text: intl.formatMessage({
         defaultMessage: "Pools",
         id: "wCBE9S",
@@ -105,7 +109,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
-      roles: [RoleName.PlatformAdmin],
+      roles: [RoleName.RequestResponder],
       text: intl.formatMessage({
         defaultMessage: "Requests",
         id: "QftM3f",
@@ -127,7 +131,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
-      roles: [RoleName.PlatformAdmin],
+      roles: [RoleName.PoolOperator, RoleName.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Teams",
         id: "GJsuQg",
