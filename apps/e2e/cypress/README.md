@@ -87,12 +87,12 @@ constrain them to a subset of test suite.
 Examples:
 
 ```
-# Equivalent to matching specs with `apps/e2e/**/*secrets*.spec.js`
+# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.spec.js`
 #   - apps/e2e/talentsearch/foo.secrets.spec.js
 #   - apps/e2e/admin/bar.secrets.spec.js
 TEST_FILTER=secrets npm run e2e:run:all
 
-# Equivalent to matching spec with `apps/e2e/**/*static-pages*.spec.js`
+# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.spec.js`
 #   - apps/e2e/talentsearch/static-pages.spec.js
 TEST_FILTER=static-pages npm run e2e:run:all
 ```
@@ -117,7 +117,7 @@ app and explore.
 
 It works best with `TEST_FILTER`, which defaults to "language-selection" if not set.
 
-For example, this will run the `cypress/e2e/talentsearch/static-pages.spec.js`
+For example, this will run the `cypress/e2e/talentsearch/static-pages.cy.js`
 test in the Chrome browser, and leave it open (success or failure):
 
 ```
