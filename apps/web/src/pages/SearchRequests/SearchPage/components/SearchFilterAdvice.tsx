@@ -37,7 +37,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#operationalRequirementFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
@@ -59,7 +59,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#educationRequirementFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
@@ -78,7 +78,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#workingLanguageFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
@@ -97,7 +97,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#employmentDurationFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
@@ -116,7 +116,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#employmentEquityFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
@@ -138,7 +138,7 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#skillFilter"
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(

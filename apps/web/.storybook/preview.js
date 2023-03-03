@@ -7,7 +7,8 @@ import {
   MockGraphqlDecorator,
   RouterDecorator,
   ThemeDecorator,
-  theme
+  themeKey,
+  themeMode
 } from "storybook-helpers"
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
 import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json"
@@ -54,7 +55,8 @@ setIntlConfig({
 })
 
 export const globalTypes = {
-  theme
+  themeKey,
+  themeMode
 }
 
 export const decorators = [
@@ -64,7 +66,7 @@ export const decorators = [
   ThemeDecorator,
   RouterDecorator,
   (Story) => (
-    <div data-h2-font-family="base(sans)">
+    <div data-h2-color="base(black)" data-h2-background="base(background)" data-h2-font-family="base(sans)">
       <Story />
     </div>
   ),

@@ -29,8 +29,8 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
     <div data-h2-margin="base(0, 0, 0, auto)">
       <Link
         type="button"
-        mode="solid"
-        color="blue"
+        mode="inline"
+        color="secondary"
         href={paths.reviewApplication(application.id)}
       >
         {intl.formatMessage(
@@ -63,8 +63,9 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   return (
     <Link
       href={paths.reviewApplication(application.id)}
-      data-h2-font-weight="base(700)"
-      data-h2-color="base(tm-blue.dark)"
+      mode="inline"
+      type="button"
+      color="secondary"
     >
       {intl.formatMessage(
         {
@@ -97,9 +98,10 @@ const SeeAdvertisementAction = ({
 
   return (
     <Link
+      mode="inline"
+      type="button"
+      color="secondary"
       href={paths.pool(advertisement.id)}
-      data-h2-font-weight="base(700)"
-      data-h2-color="base(tm-blue.dark)"
     >
       {intl.formatMessage(
         {
@@ -125,11 +127,7 @@ const SupportAction = ({ show }: SupportActionProps) => {
   }
 
   return (
-    <Link
-      href={paths.support()}
-      data-h2-font-weight="base(700)"
-      data-h2-color="base(tm-blue.dark)"
-    >
+    <Link href={paths.support()} mode="inline" type="button" color="secondary">
       {intl.formatMessage({
         defaultMessage: "Get support",
         id: "rXdaZW",
@@ -158,7 +156,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="red">
+        <Button mode="inline" type="button" color="error">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -245,7 +243,7 @@ const ArchiveAction = ({
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="black">
+        <Button mode="inline" type="button" color="secondary">
           {intl.formatMessage(
             {
               defaultMessage: "Archive<hidden> application {name}</hidden>",

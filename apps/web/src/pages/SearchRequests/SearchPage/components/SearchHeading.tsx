@@ -14,7 +14,7 @@ const SearchHeading: React.FunctionComponent = () => {
         description: "Title displayed in the hero section of the Search page.",
       })}
     >
-      <h2 data-h2-color="base(dt-black)" data-h2-margin="base(0, 0, x1, 0)">
+      <h2 data-h2-color="base(black)" data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "About the Digital Talent Pool",
           id: "9hdbFi",

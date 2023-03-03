@@ -10,6 +10,9 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: SearchRequestTable,
   title: "Tables/Search Request Table",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof SearchRequestTable>;
 
 const Template: ComponentStory<typeof SearchRequestTable> = (args) => {

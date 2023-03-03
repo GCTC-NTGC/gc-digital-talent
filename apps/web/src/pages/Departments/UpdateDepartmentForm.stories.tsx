@@ -11,6 +11,9 @@ const mockDepartments = fakeDepartments();
 export default {
   component: UpdateDepartmentForm,
   title: "Forms/Update Department Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateDepartmentForm>;
 
 const Template: ComponentStory<typeof UpdateDepartmentForm> = (args) => {

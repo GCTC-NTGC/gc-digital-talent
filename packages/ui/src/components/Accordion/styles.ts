@@ -1,14 +1,14 @@
 import { AccordionMode, AccordionStyles } from "./types";
 
 const cardStyles: AccordionStyles = {
-  "data-h2-background-color": "base(white)",
+  "data-h2-background-color": "base:selectors[>.Accordion__Item](foreground)",
   "data-h2-color":
-    "base:selectors[>.Accordion__Item .Accordion__Separator](dt-gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
+    "base:selectors[>.Accordion__Item .Accordion__Separator](gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
   "data-h2-border-left": `
-  base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x.5 solid tm-blue)
-  base:selectors[>.Accordion__Item > .Accordion__Content](x.5 solid tm-blue)
-  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Header > .Accordion__Trigger](x.5 solid tm-purple)
-  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Content](x.5 solid tm-purple)
+  base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x.5 solid secondary)
+  base:selectors[>.Accordion__Item > .Accordion__Content](x.5 solid secondary)
+  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Header > .Accordion__Trigger](x.5 solid primary)
+  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Content](x.5 solid primary)
   `,
   "data-h2-height":
     "base:selectors[>.Accordion__Item .Accordion__Separator](1px)",
@@ -18,7 +18,7 @@ const cardStyles: AccordionStyles = {
   `,
   "data-h2-padding": `
       base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x1 x2 x1 x1)
-      base:selectors[>.Accordion__Item > .Accordion__Content](0 0 x1 x2)
+      base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3)
   `,
   "data-h2-radius":
     "base:selectors[>.Accordion__Item](0px, rounded, rounded, 0px)",
@@ -27,9 +27,9 @@ const cardStyles: AccordionStyles = {
 
 const simpleStyles: AccordionStyles = {
   "data-h2-color": `
-    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](tm-blue.dark)
-    base:selectors[>.Accordion__Item  > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](tm-blue.dark)
-    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](tm-blue.dark)
+    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](secondary.dark)
+    base:selectors[>.Accordion__Item  > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](secondary.dark)
+    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](secondary.dark)
   `,
   "data-h2-display":
     "base:selectors[>.Accordion__Item .Accordion__Separator](none)",

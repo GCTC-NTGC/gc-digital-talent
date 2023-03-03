@@ -34,7 +34,7 @@ const Scrollbar = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Scrollbar
-    data-h2-background-color="base(dt-gray.lighter) base:hover(dt-gray.light)"
+    data-h2-background-color="base(gray.lighter) base:hover(gray.light)"
     data-h2-display="base(flex)"
     data-h2-padding="base(x.1)"
     data-h2-flex-direction="base:selectors[[data-orientation='horizontal']](column)"
@@ -55,7 +55,7 @@ const Thumb = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Thumb>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Thumb
-    data-h2-background-color="base(dt-primary)"
+    data-h2-background-color="base(primary)"
     data-h2-content="base:selectors[::before]('')"
     data-h2-flex="base(1)"
     data-h2-height="base:selectors[::before](100%)"
@@ -77,7 +77,7 @@ const Corner = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Corner
-    data-h2-background-color="base(dt-primary)"
+    data-h2-background-color="base(primary)"
     ref={forwardedRef}
     {...props}
   />

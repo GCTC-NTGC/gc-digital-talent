@@ -18,9 +18,9 @@ const layoutStyles = {
 };
 
 const buttonStyles = {
-  "data-h2-background-color": "base(transparent) base:hover(dt-gray.lightest)",
+  "data-h2-background-color": "base(transparent) base:hover(gray.lightest)",
   "data-h2-border":
-    "base(2px solid transparent) base:focus-visible(2px solid tm-blue)",
+    "base(2px solid transparent) base:focus-visible(2px solid secondary)",
   "data-h2-radius": "base(input)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-outline": "base(none)",
@@ -29,7 +29,7 @@ const buttonStyles = {
 const iconStyles = {
   "data-h2-height": "base(1em)",
   "data-h2-width": "base(1em)",
-  "data-h2-color": "base(dt-gray)",
+  "data-h2-color": "base(gray)",
 };
 
 interface ActionsProps {
@@ -73,12 +73,12 @@ const Actions = ({
         </button>
       )}
       <Separator
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         orientation="vertical"
         decorative
       />
       <ComboboxPrimitive.Button
-        data-h2-background-color="base(transparent) base:hover(dt-gray.lightest)"
+        data-h2-background-color="base(transparent) base:hover(gray.lightest)"
         data-h2-flex-shrink="base(0)"
         data-h2-padding="base(x.25)"
         data-h2-radius="base(input)"

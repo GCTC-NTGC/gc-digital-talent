@@ -75,7 +75,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="solid"
+                          mode="outline"
                           color="secondary"
                           type="button"
                           data-h2-display="base(inline-flex)"
@@ -93,7 +93,7 @@ function TableHeader<T extends Record<string, unknown>>({
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
-                        <Dialog.Header color="ts-primary">
+                        <Dialog.Header>
                           {intl.formatMessage({
                             defaultMessage: "Table columns",
                             id: "YH6bFU",
@@ -101,61 +101,64 @@ function TableHeader<T extends Record<string, unknown>>({
                               "Dialog title for the admin tables columns toggle.",
                           })}
                         </Dialog.Header>
-                        <FormProvider {...methods}>
-                          <Fieldset
-                            name="visibleColumns"
-                            legend={intl.formatMessage({
-                              defaultMessage: "Visible columns",
-                              id: "H9rxOR",
-                              description:
-                                "Legend for the column toggle in admin tables.",
-                            })}
-                          >
-                            <div data-h2-margin="base(x.125, 0)">
-                              <IndeterminateCheckbox
-                                checked={hiddenColumnIds.length === 0}
-                                indeterminate={
-                                  hiddenColumnIds.length > 0 &&
-                                  hiddenColumnIds.length < columns.length
-                                }
-                                onChange={() => {
-                                  if (onColumnHiddenChange) {
-                                    onColumnHiddenChange({
-                                      setHidden: hiddenColumnIds.length === 0,
-                                    });
+                        <Dialog.Body>
+                          <FormProvider {...methods}>
+                            <Fieldset
+                              name="visibleColumns"
+                              legend={intl.formatMessage({
+                                defaultMessage: "Visible columns",
+                                id: "H9rxOR",
+                                description:
+                                  "Legend for the column toggle in admin tables.",
+                              })}
+                            >
+                              <div data-h2-margin="base(x.125, 0)">
+                                <IndeterminateCheckbox
+                                  checked={hiddenColumnIds.length === 0}
+                                  indeterminate={
+                                    hiddenColumnIds.length > 0 &&
+                                    hiddenColumnIds.length < columns.length
                                   }
-                                }}
-                              />
-                            </div>
-                            {columns.map((column) => (
-                              <div
-                                key={column.id}
-                                data-h2-margin="base(x.125, 0)"
-                              >
-                                <label htmlFor={column.id}>
-                                  <input
-                                    id={column.id}
-                                    type="checkbox"
-                                    checked={
-                                      !hiddenColumnIds.includes(column.id)
+                                  onChange={() => {
+                                    if (onColumnHiddenChange) {
+                                      onColumnHiddenChange({
+                                        setHidden: hiddenColumnIds.length === 0,
+                                      });
                                     }
-                                    onChange={() => {
-                                      if (onColumnHiddenChange) {
-                                        onColumnHiddenChange({
-                                          columnId: column.id,
-                                          setHidden: !hiddenColumnIds.includes(
-                                            column.id,
-                                          ),
-                                        });
-                                      }
-                                    }}
-                                  />{" "}
-                                  {column.label}
-                                </label>
+                                  }}
+                                />
                               </div>
-                            ))}
-                          </Fieldset>
-                        </FormProvider>
+                              {columns.map((column) => (
+                                <div
+                                  key={column.id}
+                                  data-h2-margin="base(x.125, 0)"
+                                >
+                                  <label htmlFor={column.id}>
+                                    <input
+                                      id={column.id}
+                                      type="checkbox"
+                                      checked={
+                                        !hiddenColumnIds.includes(column.id)
+                                      }
+                                      onChange={() => {
+                                        if (onColumnHiddenChange) {
+                                          onColumnHiddenChange({
+                                            columnId: column.id,
+                                            setHidden:
+                                              !hiddenColumnIds.includes(
+                                                column.id,
+                                              ),
+                                          });
+                                        }
+                                      }}
+                                    />{" "}
+                                    {column.label}
+                                  </label>
+                                </div>
+                              ))}
+                            </Fieldset>
+                          </FormProvider>
+                        </Dialog.Body>
                       </Dialog.Content>
                     </Dialog.Root>
                   </div>

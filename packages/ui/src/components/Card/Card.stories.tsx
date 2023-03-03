@@ -9,49 +9,30 @@ export default {
   title: "Components/Card",
 } as Meta;
 
-interface SpacerProps {
-  children: React.ReactNode;
-}
-
-const Spacer = ({ children }: SpacerProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-align-items="base(center)"
-    style={{ padding: "1rem" }}
-  >
-    {children}
-  </div>
-);
-
 const Template: Story = () => {
   faker.seed(0);
   return (
     <div
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-around)"
-      style={{ margin: "-1rem" }}
+      data-h2-display="base(grid)"
+      data-h2-padding="base(x2)"
+      data-h2-grid-template-columns="base(repeat(5, minmax(0, 1fr)))"
+      data-h2-gap="base(x2)"
     >
-      <Spacer>
-        <Card title="TS Primary">
-          <p>{faker.lorem.sentences(1)}</p>
-        </Card>
-      </Spacer>
-      <Spacer>
-        <Card title="TS Secondary" color="ts-secondary">
-          <p>{faker.lorem.sentences(1)}</p>
-        </Card>
-      </Spacer>
-      <Spacer>
-        <Card title="IA Primary" color="ia-primary">
-          <p>{faker.lorem.sentences(1)}</p>
-        </Card>
-      </Spacer>
-      <Spacer>
-        <Card title="IA Secondary" color="ia-secondary">
-          <p>{faker.lorem.sentences(1)}</p>
-        </Card>
-      </Spacer>
+      <Card title="Primary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </Card>
+      <Card title="Secondary" color="secondary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </Card>
+      <Card title="Tertiary" color="tertiary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </Card>
+      <Card title="Quaternary" color="quaternary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </Card>
+      <Card title="Quinary" color="quinary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </Card>
     </div>
   );
 };

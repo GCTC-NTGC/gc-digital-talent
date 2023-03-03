@@ -17,7 +17,7 @@ export default {
 
 const Template: Story = () => (
   <div
-    data-h2-background-color="base(dt-white) base:dark(black)"
+    data-h2-background-color="base(white) base:dark(black)"
     data-h2-padding="base(x1)"
     data-h2-height="base(100%)"
     data-h2-width="base(100%)"

@@ -20,19 +20,19 @@ export interface CardFlatProps {
 
 const colorMap: Record<CardColor, Record<string, string>> = {
   yellow: {
-    "data-h2-border-left": "base(x.25 solid tm-yellow)",
+    "data-h2-border-left": "base(x.25 solid quaternary)",
   },
   red: {
-    "data-h2-border-left": "base(x.25 solid tm-red)",
+    "data-h2-border-left": "base(x.25 solid tertiary)",
   },
   blue: {
-    "data-h2-border-left": "base(x.25 solid tm-blue)",
+    "data-h2-border-left": "base(x.25 solid secondary)",
   },
   black: {
     "data-h2-border-left": "base(x.25 solid black)",
   },
   purple: {
-    "data-h2-border-left": "base(x.25 solid tm-purple)",
+    "data-h2-border-left": "base(x.25 solid primary)",
   },
 };
 
@@ -48,17 +48,17 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
       <Heading
         level="h3"
         data-h2-font-size="base(h6)"
-        data-h2-margin="base(0, 0, x0.25, 0)"
+        data-h2-margin="base(0, 0, 0, 0)"
       >
         {title}
       </Heading>
       {children && (
-        <div data-h2-flex-grow="base(1)" data-h2-margin="base(x1, 0)">
+        <div data-h2-flex-grow="base(1)" data-h2-margin-top="base(x.5)">
           {children}
         </div>
       )}
       {link && (
-        <div>
+        <div data-h2-margin-top="base(x1)">
           <LinkEl
             color={color}
             type="button"
