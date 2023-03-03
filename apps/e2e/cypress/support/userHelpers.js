@@ -72,7 +72,7 @@ export function addRolesToUser(userId, roles = [], team = undefined) {
     cy.updateUser(userId, {
       legacyRoles: undefined,
       roles: {
-        sync: {
+        attach: {
           roles: roleIds,
           team: team
         }

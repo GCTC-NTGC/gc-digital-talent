@@ -81,7 +81,8 @@ describe("Talent Search Workflow Tests", () => {
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
-            })
+              addRolesToUser(adminUserId, ['pool_operator'], dcm);
+            });
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification1").then((classification) => {
@@ -128,9 +129,6 @@ describe("Talent Search Workflow Tests", () => {
 
     // admin approve the application
     cy.loginByRole("admin");
-    cy.getMe().then((adminUser) => {
-        addRolesToUser(adminUser.id, ['pool_operator'], dcmId);
-    });
     cy.get("@poolCandidateId").then((poolCandidateId) => {
       cy.updatePoolCandidateAsAdmin(poolCandidateId, {
         status: PoolCandidateStatus.QualifiedAvailable,
