@@ -5,6 +5,7 @@ const fs = require("fs");
 const yargs = require("yargs");
 const path = require("path");
 const yaml = require("js-yaml");
+const os = require("os");
 
 const { argv } = yargs(process.argv.slice(2))
   .option("dir", {
@@ -101,7 +102,7 @@ let outputFr = null;
  * @returns undefined
  */
 const saveJson = (file: string, obj: Record<string, unknown>) =>
-  fs.writeFile(file, JSON.stringify(obj, null, 2), {}, () => {
+  fs.writeFile(file, JSON.stringify(obj, null, 2) + os.EOL, {}, () => {
     /** Do nothing */
   });
 
