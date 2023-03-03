@@ -202,7 +202,7 @@ class PoolApplicationTest extends TestCase
         $this->assertEquals(1, $applicationCollectionCount);
     }
 
-    public function testUserCannotApplyToDraftApplication(): void
+    public function testUserCannotApplyToDraftPool(): void
     {
         $pool = Pool::factory()->create([
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
@@ -230,7 +230,7 @@ class PoolApplicationTest extends TestCase
             ->assertJson($result);
     }
 
-    public function testUserCannotApplyToExpiredApplication(): void
+    public function testUserCannotApplyToExpiredPool(): void
     {
         $pool = Pool::factory()->create([
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
