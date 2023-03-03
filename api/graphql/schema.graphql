@@ -956,21 +956,33 @@ type Query {
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
     @find
     @guard
-    @can(ability: "view", model: "PoolCandidateSearchRequest", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
-    @can(ability: "view", model: "PoolCandidateSearchRequest", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
