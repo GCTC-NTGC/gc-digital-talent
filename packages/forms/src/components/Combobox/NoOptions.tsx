@@ -22,7 +22,7 @@ const NoOptions = ({ fetching }: NoOptionsProps) => {
     >
       {fetching ? (
         <ArrowPathIcon
-          data-h2-color="base(dt-gray)"
+          data-h2-color="base(gray)"
           data-h2-height="base(x1)"
           data-h2-width="base(x1)"
           className="animate-spin"

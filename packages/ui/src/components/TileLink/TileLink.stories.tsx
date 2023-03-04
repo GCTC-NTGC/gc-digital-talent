@@ -15,30 +15,32 @@ export default {
       name: "Label",
       type: { name: "string", required: true },
     },
-    color: {
-      name: "Colour",
-      options: [
-        "primary",
-        "secondary",
-        "cta",
-        "white",
-        "black",
-        "ia-primary",
-        "ia-secondary",
-        "yellow",
-        "red",
-        "blue",
-      ],
-    },
   },
 } as Meta;
 
 const TemplateTileLink: Story = (args) => {
-  const { label, color } = args;
+  const { label } = args;
 
   return (
-    <div style={{ width: 250 }}>
-      <TileLink color={color} href="#">
+    <div
+      data-h2-display="base(grid)"
+      data-h2-padding="base(x2)"
+      data-h2-grid-template-columns="base(repeat(5, minmax(0, 1fr)))"
+      data-h2-gap="base(x2)"
+    >
+      <TileLink color="primary" href="#">
+        {label}
+      </TileLink>
+      <TileLink color="secondary" href="#">
+        {label}
+      </TileLink>
+      <TileLink color="tertiary" href="#">
+        {label}
+      </TileLink>
+      <TileLink color="quaternary" href="#">
+        {label}
+      </TileLink>
+      <TileLink color="quinary" href="#">
         {label}
       </TileLink>
     </div>

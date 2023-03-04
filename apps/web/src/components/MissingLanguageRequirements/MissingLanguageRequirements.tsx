@@ -44,7 +44,7 @@ const MissingLanguageRequirementsBlock = ({
       data-h2-radius="base(rounded)"
       {...rest}
     >
-      <span data-h2-margin="base(0, x1, 0, 0)">{icon}</span>
+      <span data-h2-margin="base(x.15, x1, 0, 0)">{icon}</span>
       <div>
         <Heading
           level={headingLevel}
@@ -95,7 +95,8 @@ const MissingLanguageRequirements = ({
 
   return missingLanguageRequirements.length ? (
     <MissingLanguageRequirementsBlock
-      data-h2-background-color="base(dt-error.light.05)"
+      data-h2-background-color="base(foreground)"
+      data-h2-shadow="base(medium)"
       data-h2-margin="base(0, 0, x.5, 0)"
       pillType={{ color: "error", mode: "outline" }}
       headingLevel={headingLevel}
@@ -112,7 +113,12 @@ const MissingLanguageRequirements = ({
         description:
           "Text that appears when a user is missing a language requirement on their profile.",
       })}
-      icon={<ExclamationTriangleIcon style={{ width: "1.2rem" }} />}
+      icon={
+        <ExclamationTriangleIcon
+          style={{ width: "1.2rem" }}
+          data-h2-color="base(error)"
+        />
+      }
       missingLanguageRequirements={missingLanguageRequirements}
     />
   ) : null;

@@ -62,7 +62,7 @@ export const IndexPoolCandidatePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       <div
-        data-h2-background-color="base(dt-gray.light)"
+        data-h2-background-color="base(gray.light)"
         data-h2-padding="base(x1, x1, x1, x1)"
       >
         <AdminBreadcrumbs crumbs={crumbs} />

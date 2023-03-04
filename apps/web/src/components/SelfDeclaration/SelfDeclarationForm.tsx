@@ -117,7 +117,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background-color="base(ia-secondary)"
+          data-h2-background-color="base(secondary)"
           data-h2-margin="base(x2, 0)"
         />
         <div data-h2-text-align="base(center)">

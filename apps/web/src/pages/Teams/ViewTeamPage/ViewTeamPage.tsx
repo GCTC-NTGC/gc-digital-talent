@@ -39,14 +39,14 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
       <hr
         data-h2-margin="base(x2, 0, 0, 0)"
         data-h2-height="base(1px)"
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-border="base(none)"
       />
       <ViewTeam team={team} />
       <hr
         data-h2-margin="base(x2, 0, 0, 0)"
         data-h2-height="base(1px)"
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-border="base(none)"
       />
     </>

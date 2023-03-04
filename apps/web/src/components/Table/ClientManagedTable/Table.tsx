@@ -117,8 +117,8 @@ const HeaderWrapper = <T extends object>({
       })}
       type="button"
       data-h2-location="base(0)"
-      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
-      data-h2-color="base(dt-white)"
+      data-h2-background-color="base(transparent) base:hover(secondary.lightest.35) base:focus-visible(focus)"
+      data-h2-color="base(white)"
       data-h2-display="base(flex)"
       data-h2-radius="base(s)"
       data-h2-padding="base(x.25, x.5)"
@@ -258,7 +258,7 @@ function Table<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="solid"
+                          mode="outline"
                           color="secondary"
                           type="button"
                           data-h2-display="base(inline-flex)"
@@ -276,7 +276,7 @@ function Table<T extends Record<string, unknown>>({
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
-                        <Dialog.Header color="ts-primary">
+                        <Dialog.Header>
                           {intl.formatMessage({
                             defaultMessage: "Table columns",
                             id: "YH6bFU",
@@ -284,40 +284,42 @@ function Table<T extends Record<string, unknown>>({
                               "Dialog title for the admin tables columns toggle.",
                           })}
                         </Dialog.Header>
-                        <FormProvider {...methods}>
-                          <Fieldset
-                            name="visibleColumns"
-                            legend={intl.formatMessage({
-                              defaultMessage: "Visible columns",
-                              id: "H9rxOR",
-                              description:
-                                "Legend for the column toggle in admin tables.",
-                            })}
-                          >
-                            <div data-h2-margin="base(x.125, 0)">
-                              <IndeterminateCheckbox
-                                {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                                  typeof IndeterminateCheckbox
-                                >)}
-                              />
-                            </div>
-                            {allColumns.map((column) => (
-                              <div
-                                key={column.id}
-                                data-h2-margin="base(x.125, 0)"
-                              >
-                                <label htmlFor={column.Header?.toString()}>
-                                  <input
-                                    id={column.Header?.toString()}
-                                    type="checkbox"
-                                    {...column.getToggleHiddenProps()}
-                                  />
-                                  {` ${column.Header}`}
-                                </label>
+                        <Dialog.Body>
+                          <FormProvider {...methods}>
+                            <Fieldset
+                              name="visibleColumns"
+                              legend={intl.formatMessage({
+                                defaultMessage: "Visible columns",
+                                id: "H9rxOR",
+                                description:
+                                  "Legend for the column toggle in admin tables.",
+                              })}
+                            >
+                              <div data-h2-margin="base(x.125, 0)">
+                                <IndeterminateCheckbox
+                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                    typeof IndeterminateCheckbox
+                                  >)}
+                                />
                               </div>
-                            ))}
-                          </Fieldset>
-                        </FormProvider>
+                              {allColumns.map((column) => (
+                                <div
+                                  key={column.id}
+                                  data-h2-margin="base(x.125, 0)"
+                                >
+                                  <label htmlFor={column.Header?.toString()}>
+                                    <input
+                                      id={column.Header?.toString()}
+                                      type="checkbox"
+                                      {...column.getToggleHiddenProps()}
+                                    />
+                                    {` ${column.Header}`}
+                                  </label>
+                                </div>
+                              ))}
+                            </Fieldset>
+                          </FormProvider>
+                        </Dialog.Body>
                       </Dialog.Content>
                     </Dialog.Root>
                   </div>
@@ -347,9 +349,9 @@ function Table<T extends Record<string, unknown>>({
       <div data-h2-radius="base(s)">
         {/* Table body */}
         <div
-          data-h2-radius="base(s, s, 0px, 0px)"
-          data-h2-border-right="base(1px solid dt-secondary)"
-          data-h2-border-left="base(1px solid dt-secondary)"
+          data-h2-radius="base(rounded, rounded, 0px, 0px)"
+          data-h2-border-right="base(1px solid black.darkest)"
+          data-h2-border-left="base(1px solid black.darkest)"
           data-h2-overflow="base(auto)"
           data-h2-max-width="base(100%)"
         >
@@ -375,7 +377,7 @@ function Table<T extends Record<string, unknown>>({
                     <th
                       {...column.getHeaderProps()}
                       key={column.id}
-                      data-h2-background-color="base(dt-secondary.light)"
+                      data-h2-background-color="base(black.9)"
                       data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
@@ -394,7 +396,10 @@ function Table<T extends Record<string, unknown>>({
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody
+              data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)"
+              {...getTableBodyProps()}
+            >
               {page.map((row) => {
                 prepareRow(row);
                 return (
@@ -418,8 +423,8 @@ function Table<T extends Record<string, unknown>>({
         </div>
         {/* Table footer */}
         <div
-          data-h2-background-color="base(dt-secondary.light)"
-          data-h2-radius="base(0px, 0px, s, s)"
+          data-h2-background-color="base(black.9)"
+          data-h2-radius="base(0px, 0px, rounded, rounded)"
         >
           {/* <p>
             {intl.formatMessage({
@@ -445,7 +450,7 @@ function Table<T extends Record<string, unknown>>({
                       id: "hlcd+5",
                     })}
                     color="white"
-                    mode="outline"
+                    mode="solid"
                   />
                 )}
               </div>

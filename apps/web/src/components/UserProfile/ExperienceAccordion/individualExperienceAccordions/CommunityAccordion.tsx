@@ -32,7 +32,7 @@ export const CommunityContent = ({
       </p>
       <p>{project}</p>
       <hr
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray.lighter)"
         data-h2-height="base(1px)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"
@@ -40,7 +40,7 @@ export const CommunityContent = ({
       />
       <SkillList skills={skills} />
       <hr
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray.lighter)"
         data-h2-height="base(1px)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"
@@ -110,7 +110,7 @@ const CommunityAccordion = ({
         {editUrl && (
           <div>
             <hr
-              data-h2-background-color="base(dt-gray)"
+              data-h2-background-color="base(gray.lighter)"
               data-h2-height="base(1px)"
               data-h2-width="base(100%)"
               data-h2-border="base(none)"

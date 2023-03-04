@@ -111,7 +111,7 @@ const LoginPage: React.FC = () => {
             <p>
               <Link
                 href={paths.home()}
-                mode="outline"
+                mode="inline"
                 color="secondary"
                 type="button"
               >

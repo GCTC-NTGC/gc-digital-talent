@@ -11,6 +11,9 @@ const mockFamilies = fakeSkillFamilies();
 export default {
   component: CreateSkillForm,
   title: "Forms/Create Skill Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof CreateSkillForm>;
 
 const Template: ComponentStory<typeof CreateSkillForm> = (args) => {
