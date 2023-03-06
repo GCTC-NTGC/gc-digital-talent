@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 // Note: Commented out until we have dark mode styles properly implemented
-// import ThemeProvider from "../Theme";
+import { ThemeProvider } from "@gc-digital-talent/theme";
 
 export interface ContextContainerProps {
   messages: Messages;
@@ -29,13 +29,13 @@ const ContextContainer: React.FC<ContextContainerProps> = ({
     <LocaleProvider>
       <AuthenticationProvider>
         <LanguageProvider messages={messages}>
-          {/* <ThemeProvider> */}
-          <ClientProvider>
-            <AppInsightsProvider>
-              <AuthorizationProvider>{children}</AuthorizationProvider>
-            </AppInsightsProvider>
-          </ClientProvider>
-          {/* </ThemeProvider> */}
+          <ThemeProvider>
+            <ClientProvider>
+              <AppInsightsProvider>
+                <AuthorizationProvider>{children}</AuthorizationProvider>
+              </AppInsightsProvider>
+            </ClientProvider>
+          </ThemeProvider>
         </LanguageProvider>
       </AuthenticationProvider>
     </LocaleProvider>

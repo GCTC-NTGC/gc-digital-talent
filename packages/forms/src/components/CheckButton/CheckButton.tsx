@@ -8,22 +8,22 @@ import "./check-button.css";
 
 const borderMap = {
   black: {
-    "data-h2-border": "base(1px solid dt-black)",
+    "data-h2-border": "base(1px solid black)",
   },
   white: {
-    "data-h2-border": "base(1px solid dt-gray.light)",
+    "data-h2-border": "base(1px solid gray.light)",
   },
 };
 
 const colorMap = {
   black: {
-    "data-h2-color": "base(dt-black)",
+    "data-h2-color": "base(black)",
     "data-h2-background-color":
-      "base(transparent) base:hover(dt-primary.light.25)",
+      "base(transparent) base:hover(primary.light.25)",
   },
   white: {
-    "data-h2-color": "base(dt-gray.light)",
-    "data-h2-background-color": "base(transparent) base:hover(dt-white.25)",
+    "data-h2-color": "base(gray.light)",
+    "data-h2-background-color": "base(transparent) base:hover(white.25)",
   },
 };
 

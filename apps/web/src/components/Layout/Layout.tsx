@@ -6,6 +6,7 @@ import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { RoleName } from "@gc-digital-talent/auth/src/const";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
@@ -23,7 +24,7 @@ export const LogoutButton = React.forwardRef<
   LogoutButtonProps
 >(({ children, ...rest }, forwardedRef) => (
   <button
-    data-h2-color="base(dt-primary)"
+    data-h2-color="base(black) base:hover(primary)"
     data-h2-font-size="base(normal)"
     data-h2-text-decoration="base(underline)"
     style={{
@@ -40,6 +41,11 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme("default", "light");
+  }, [setTheme]);
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -162,7 +168,7 @@ const Layout = () => {
         className="container"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-height="base(100vh)"
+        data-h2-min-height="base(100vh)"
         data-h2-margin="base(0)"
         data-h2-color="base(black) base:dark(white)"
       >

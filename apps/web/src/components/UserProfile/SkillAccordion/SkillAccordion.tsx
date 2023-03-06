@@ -74,7 +74,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
 
     return (
       <>
-        <p data-h2-color="base(dt-primary)">{title}</p>
+        <p data-h2-color="base(primary)">{title}</p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {getDateRange({ endDate, startDate, intl })}
         </p>
@@ -103,7 +103,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-color="base(dt-primary)"> {areaOfStudy} </span>
+          <span data-h2-color="base(primary)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
@@ -118,10 +118,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         </p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          <span
-            data-h2-color="base(dt-primary)"
-            data-h2-font-style="base(italic)"
-          >
+          <span data-h2-color="base(primary)" data-h2-font-style="base(italic)">
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
         </p>
@@ -191,7 +188,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         </p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
@@ -247,7 +244,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         </p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
@@ -294,7 +291,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>{division}</p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >

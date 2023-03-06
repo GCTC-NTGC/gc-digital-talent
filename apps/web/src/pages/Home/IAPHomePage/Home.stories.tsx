@@ -12,6 +12,7 @@ export default {
       default: "white",
       values: [{ name: "white", value: "#fff" }],
     },
+    themeKey: "iap", // Set the default theme to IAP
   },
 } as Meta;
 

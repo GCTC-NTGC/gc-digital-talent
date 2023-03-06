@@ -103,7 +103,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                   })}
                 </p>
                 <p data-h2-font-size="base(h6)" data-h2-font-weight="base(700)">
-                  <Link data-h2-color="base(dt-primary)" href={paths.browse()}>
+                  <Link data-h2-color="base(primary)" href={paths.browse()}>
                     {intl.formatMessage({
                       defaultMessage:
                         "Check our available opportunities to start an application.",

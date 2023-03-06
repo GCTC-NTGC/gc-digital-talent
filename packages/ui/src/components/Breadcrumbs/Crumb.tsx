@@ -30,6 +30,7 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
         data-h2-display="base(inline-block)"
         data-h2-margin="base(0, 0, 0, x.5)"
         data-h2-vertical-align="base(middle)"
+        data-h2-stroke="base(tertiary)"
       >
         <ChevronRightIcon />
       </span>
