@@ -31,7 +31,10 @@ class OpenIdBearerTokenService
 
     public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
     {
-        $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
+        $this->unsecuredConfig = Configuration::forSymmetricSigner(
+            new Signer\Blake2b(),
+            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
+            ); // need a config to parse the token and get the key id
         $this->clock = $clock;
         $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
@@ -85,7 +88,9 @@ class OpenIdBearerTokenService
         $pem = RSAKey::createFromJWK($jwk)->toPEM();
         $config = Configuration::forAsymmetricSigner(
             $signer,
-            InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
+            InMemory::base64Encoded(
+                'hiG8DlOKvtih6AxlZn5XKImZ06yu8I3mkOzaJrEuW8yAv8Jnkw330uMt8AEqQ5LB'
+            ),
             InMemory::plainText($pem),
         );
 

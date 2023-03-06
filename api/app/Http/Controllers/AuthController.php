@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Key\InMemory;
 
 class AuthController extends Controller
 {
@@ -70,7 +72,10 @@ class AuthController extends Controller
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json("id_token");
 
-        $config = Configuration::forUnsecuredSigner();
+        $config = Configuration::forSymmetricSigner(
+            new Signer\Blake2b(),
+            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
+            );
         assert($config instanceof Configuration);
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
