@@ -10,6 +10,7 @@ import {
   SkipLink,
   SideMenuContentWrapper,
 } from "@gc-digital-talent/ui";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
@@ -52,6 +53,11 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme("admin", "light");
+  }, [setTheme]);
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -104,7 +110,7 @@ const AdminLayout = () => {
             <main
               id="main"
               data-h2-flex-grow="base(1)"
-              data-h2-background-color="base(dt-gray.15)"
+              data-h2-background-color="base(background)"
             >
               <div data-h2-min-height="base(100%)">
                 <div data-h2-container="base(center, full, x2)">

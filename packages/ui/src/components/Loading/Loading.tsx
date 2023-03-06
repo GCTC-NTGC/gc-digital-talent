@@ -25,7 +25,7 @@ const Loading = ({
 }: LoadingProps): JSX.Element => {
   const inlineWrapper = {
     inline: {
-      "data-h2-background-color": "base(dt-white)",
+      "data-h2-background-color": "base(white)",
       "data-h2-padding": "base(x.25)",
       "data-h2-radius": "base(100%)",
     },
@@ -39,7 +39,7 @@ const Loading = ({
     },
     full: {
       "data-h2-position": "base(fixed)",
-      "data-h2-background-color": "base(dt-white.95)",
+      "data-h2-background-color": "base(white.95)",
       "data-h2-location": "base(0)",
       "data-h2-z-index": "base(9999)",
     },

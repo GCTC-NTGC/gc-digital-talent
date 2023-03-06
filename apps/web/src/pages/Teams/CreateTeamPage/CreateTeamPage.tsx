@@ -62,7 +62,7 @@ const CreateTeamPage = () => {
       <hr
         data-h2-margin="base(x1, 0, x1, 0)"
         data-h2-height="base(1px)"
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray)"
         data-h2-border="base(none)"
       />
       <CreateTeamForm departments={departments} onSubmit={handleSubmit} />

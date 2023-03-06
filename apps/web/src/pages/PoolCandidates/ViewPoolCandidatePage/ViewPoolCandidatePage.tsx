@@ -167,7 +167,7 @@ export const ViewPoolCandidate = ({
       <TableOfContents.Content>
         {subTitle}
         <pre
-          data-h2-background-color="base(dt-gray.light)"
+          data-h2-background-color="base(gray.light)"
           data-h2-overflow="base(scroll auto)"
         >
           {JSON.stringify(parsedSnapshot, null, 2)}

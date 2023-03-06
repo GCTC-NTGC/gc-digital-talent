@@ -22,6 +22,7 @@ export default {
   title: "Tables/Pool Candidates Table",
   component: PoolCandidatesTable,
   parameters: {
+    themeKey: "admin",
     apiResponses: {
       GetPoolCandidatesPaginated: {
         data: {

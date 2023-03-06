@@ -1,4 +1,4 @@
-import { isPast, parseISO } from "date-fns";
+import { isPast } from "date-fns";
 import { IntlShape } from "react-intl";
 
 import {
@@ -24,7 +24,7 @@ export const isPlaced = (status: Maybe<PoolCandidateStatus>): boolean => {
 };
 
 export const isExpired = (expirationDate: Maybe<string>): boolean => {
-  return expirationDate ? isPast(parseISO(expirationDate)) : false;
+  return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
 };
 
 export const canBeArchived = (
