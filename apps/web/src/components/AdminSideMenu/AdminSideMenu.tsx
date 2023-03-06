@@ -13,9 +13,8 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
 import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
-import { RoleName, ROLE_NAME } from "@gc-digital-talent/auth/src/const";
 
 import useRoutes from "~/hooks/useRoutes";
 import LoginOrLogout from "./LoginOrLogout";

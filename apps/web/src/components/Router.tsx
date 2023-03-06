@@ -2,8 +2,11 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
-import { RequireAuth, POST_LOGOUT_URI_KEY } from "@gc-digital-talent/auth";
-import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
+import {
+  RequireAuth,
+  POST_LOGOUT_URI_KEY,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";

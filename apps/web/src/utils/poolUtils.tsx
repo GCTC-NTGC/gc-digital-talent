@@ -14,7 +14,7 @@ import {
 } from "~/api/generated";
 
 import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { wrapAbbr } from "./nameUtils";
 
 /**

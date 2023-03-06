@@ -4,8 +4,11 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
-import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
+import {
+  useAuthentication,
+  useAuthorization,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
