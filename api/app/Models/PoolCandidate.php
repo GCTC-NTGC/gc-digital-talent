@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -251,8 +252,12 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeNotDraft(Builder $query, bool $notDraft = true): Builder
+    public function scopeNotDraft(Builder $query, $where, bool $notDraft = true): Builder
     {
+        Log::debug([
+            'notDraft' => $notDraft,
+            'where' => $where,
+        ]);
         $user = Auth::user();
         $canViewAny = $user && $user->isAbleTo("view-any-submittedApplication");
 
