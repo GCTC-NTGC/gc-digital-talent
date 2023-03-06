@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -31,22 +32,30 @@ class PoolCandidatePolicy
      */
     public function view(User $user, PoolCandidate $poolCandidate)
     {
+
         // If the user owns the application, we do not care about status
-        if ($user->id === $poolCandidate->user_id) {
-            return $user?->isAbleTo("view-own-application");
+        if ($user->id === $poolCandidate->user_id && $user?->isAbleTo("view-own-application")) {
+            return true;
         }
 
-        // Check if user can view draft applications
-        if ($poolCandidate->isDraft()) {
+        $isDraft = $poolCandidate->isDraft();
+
+        // Exit early if the user can view non-draft
+        if ($isDraft) {
             return $user->isAbleTo("view-any-draftApplication");
         }
 
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        return $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam);
+        if($user->isAbleTo("view-any-submittedApplication")) {
+            return true;
+        }
 
-        // If owner is not current user or application is not draft,
-        // Check if they can view any submitted application
-        return $user->isAbleTo("view-any-submittedApplication");
+        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
+        if ($candidatePoolTeam) {
+            return $user->isAbleTo("view-team-submittedApplication", $candidatePoolTeam);
+        }
+
+        // Noting passed for deny access
+        return false;
     }
 
     /**
@@ -162,7 +171,7 @@ class PoolCandidatePolicy
     private function userBelongsToPoolCandidatePool(?User $user, PoolCandidate $poolCandidate)
     {
         $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        if($user?->rolesTeams->contains($candidatePoolTeam->id)) {
+        if ($user?->rolesTeams->contains($candidatePoolTeam->id)) {
             return $candidatePoolTeam;
         }
 

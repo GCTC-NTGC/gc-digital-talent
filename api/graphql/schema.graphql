@@ -898,8 +898,10 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
-    @all
+  poolCandidates(
+    includeIds: [ID] @in(key: "id")
+  ): [PoolCandidate]!
+    @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
   poolCandidatesPaginated(

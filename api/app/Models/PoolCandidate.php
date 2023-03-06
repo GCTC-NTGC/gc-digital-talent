@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Helpers\ApiEnums;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -250,9 +251,16 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeNotDraft(Builder $query): Builder
+    public function scopeNotDraft(Builder $query, bool $notDraft = true): Builder
     {
-        return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
+        $user = Auth::user();
+        $canViewAny = $user && $user->isAbleTo("view-any-submittedApplication");
+
+        if(!$canViewAny || $notDraft) {
+            return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
+        }
+
+        return $query;
     }
 
    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
