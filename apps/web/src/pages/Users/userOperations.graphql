@@ -28,6 +28,7 @@ query User($id: UUID!) {
       role {
         id
         name
+        isTeamBased
         displayName {
           en
           fr

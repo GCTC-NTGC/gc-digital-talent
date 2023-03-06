@@ -16,7 +16,9 @@ import {
   Role,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
+  User,
 } from "~/api/generated";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
   roles: Array<string>;
@@ -25,7 +27,7 @@ type FormValues = {
 export type IndividualRoleSubmitData = Partial<UpdateUserAsAdminInput>;
 
 interface AddIndividualRoleDialogProps {
-  userName: React.ReactNode;
+  user: User;
   availableRoles: Array<Role>;
   onAddRoles: (
     submitData: UpdateUserAsAdminInput,
@@ -33,12 +35,13 @@ interface AddIndividualRoleDialogProps {
 }
 
 const AddIndividualRoleDialog = ({
-  userName,
+  user,
   availableRoles,
   onAddRoles,
 }: AddIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -77,6 +80,20 @@ const AddIndividualRoleDialog = ({
     description: "Label for the form to add a role to a user",
   });
 
+  const roleOptions = availableRoles
+    .filter((role) => {
+      return !(
+        !role.isTeamBased ||
+        !user?.roleAssignments?.some(
+          (assignment) => assignment.role?.id === role.id,
+        )
+      );
+    })
+    .map((role) => ({
+      label: getLocalizedName(role.displayName, intl),
+      value: role.id,
+    }));
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -113,10 +130,7 @@ const AddIndividualRoleDialog = ({
                 id: "eW7I5E",
                 description: "Placeholder text for role selection input",
               })}
-              options={availableRoles.map((role) => ({
-                label: getLocalizedName(role.displayName, intl),
-                value: role.id,
-              }))}
+              options={roleOptions}
             />
             <Dialog.Footer>
               <Dialog.Close>

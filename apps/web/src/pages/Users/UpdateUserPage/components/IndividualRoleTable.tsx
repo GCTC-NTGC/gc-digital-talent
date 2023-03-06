@@ -6,7 +6,6 @@ import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
 
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
@@ -43,7 +42,6 @@ export const IndividualRoleTable = ({
   onUpdateUser,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
   const columns = useMemo<ColumnsOf<Role>>(
     () => [
@@ -72,10 +70,10 @@ export const IndividualRoleTable = ({
     [intl, onUpdateUser, user],
   );
 
-  // TO DO: Update to user roles
   const data = useMemo(() => {
     const roles = user.roleAssignments
       ?.filter(notEmpty)
+      .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
     return roles || [];
@@ -91,7 +89,7 @@ export const IndividualRoleTable = ({
       columns={columns}
       addDialog={
         <AddIndividualRoleDialog
-          userName={userName}
+          user={user}
           availableRoles={availableRoles}
           onAddRoles={handleAddRoles}
         />
