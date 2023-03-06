@@ -120,7 +120,10 @@ class PoolCandidatePolicy
      */
     public function archive(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("archive-own-submittedApplication");
+        return $poolCandidate->submitted_at &&
+            !$poolCandidate->archived_at &&
+            $user->id === $poolCandidate->user_id &&
+            $user->isAbleTo("archive-own-submittedApplication");
     }
 
     /**
@@ -132,7 +135,9 @@ class PoolCandidatePolicy
      */
     public function suspend(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("suspend-own-submittedApplication");
+        return $poolCandidate->submitted_at &&
+            $user->id === $poolCandidate->user_id &&
+            $user->isAbleTo("suspend-own-submittedApplication");
     }
 
     /**
@@ -158,7 +163,9 @@ class PoolCandidatePolicy
      */
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->id === $poolCandidate->user_id && $user->isAbleTo("delete-own-draftApplication");
+        return !$poolCandidate->submitted_at &&
+            $user->id === $poolCandidate->user_id &&
+            $user->isAbleTo("suspend-own-submittedApplication");
     }
 
     /**
