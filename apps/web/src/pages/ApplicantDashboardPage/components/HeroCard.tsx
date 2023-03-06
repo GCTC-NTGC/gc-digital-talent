@@ -69,18 +69,20 @@ export const HeroCard = ({
         data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
-        <div data-h2-display="base(flex)">
-          <Link href={href}>{title}</Link>
-          <div data-h2-flex-grow="base(1)" />
-          <Link href={href}>
+        <Link href={href}>
+          <span
+            data-h2-flex-grid="base(center, 0, 0)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <span>{title}</span>
             <ChevronDoubleRightIcon
               style={{
                 width: "1em",
                 height: "1em",
               }}
             />
-          </Link>
-        </div>
+          </span>
+        </Link>
       </div>
       <div data-h2-padding="base(x1)">{children}</div>
     </div>
