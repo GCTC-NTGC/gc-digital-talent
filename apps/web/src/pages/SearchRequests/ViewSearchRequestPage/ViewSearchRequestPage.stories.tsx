@@ -10,6 +10,9 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: ViewSearchRequest,
   title: "Pages/View Search Request Page",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof ViewSearchRequest>;
 
 const Template: ComponentStory<typeof ViewSearchRequest> = (args) => {

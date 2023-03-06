@@ -64,7 +64,7 @@ const Footer = ({ width }: FooterProps) => {
   return (
     <footer
       className="footer"
-      data-h2-background-color="base(black.lightest.10) base:dark(black.light)"
+      data-h2-background-color="base(foreground)"
       data-h2-border-top="base(1px solid black.20)"
       data-h2-padding="base(x2, 0)"
       data-h2-margin="base(auto, 0, 0, 0)"
@@ -98,7 +98,7 @@ const Footer = ({ width }: FooterProps) => {
                   href={route}
                   data-h2-background-color="base:focus-visible(focus)"
                   data-h2-outline="base(none)"
-                  data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+                  data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
                 >
                   {label}
                 </a>

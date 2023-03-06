@@ -17,9 +17,9 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
 
   return candidateCount > 0 ? (
     <div
-      data-h2-background-color="base(dt-white)"
-      data-h2-shadow="base(m)"
-      data-h2-border-left="base(x1 solid dt-secondary.light)"
+      data-h2-background-color="base(foreground)"
+      data-h2-shadow="base(medium)"
+      data-h2-border-left="base(x.5 solid primary)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-radius="base(0, s, s, 0)"
     >
@@ -31,10 +31,12 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
     </div>
   ) : (
     <div
-      data-h2-shadow="base(m)"
+      data-h2-background="base(foreground)"
+      data-h2-shadow="base(medium)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border-left="base(x1 solid tm-blue)"
+      data-h2-border-left="base(x.5 solid primary)"
+      data-h2-radius="base(0, s, s, 0)"
     >
       <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
@@ -74,12 +76,12 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
       <Separator
         orientation="horizontal"
         data-h2-margin="base(x1 0)"
-        data-h2-background="base(black.30)"
+        data-h2-background="base(gray.lighter)"
       />
 
       <Button
-        color="cta"
-        mode="solid"
+        color="secondary"
+        mode="outline"
         onClick={() =>
           handleSubmit(
             candidateCount,

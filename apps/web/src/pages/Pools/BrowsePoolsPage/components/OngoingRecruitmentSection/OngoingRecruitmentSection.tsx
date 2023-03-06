@@ -1015,16 +1015,11 @@ const OngoingRecruitmentSection = ({
       </p>
 
       <div>
-        <Accordion.Root
-          data-h2-margin="base(0)"
-          data-h2-padding="base(0)"
-          type="multiple"
-        >
+        <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
               <Accordion.Trigger
                 subtitle={stream.summary}
-                data-h2-font-size="base(h4)"
                 headerAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
@@ -1055,14 +1050,11 @@ const OngoingRecruitmentSection = ({
                       (classification) => classification.poolAdvertisement?.id,
                     )
                     .map((classification) => (
-                      <div
-                        key={`${classification.title}`}
-                        data-h2-padding="base(0,0,x1, 0)"
-                      >
+                      <div key={`${classification.title}`}>
                         <h4
-                          data-h2-font-size="base(h6)"
+                          data-h2-font-size="base(copy)"
                           data-h2-font-weight="base(700)"
-                          data-h2-padding="base(0,0,x0.75, 0)"
+                          data-h2-margin="base(x1, 0)"
                         >
                           {classification.title}
                         </h4>
@@ -1074,7 +1066,7 @@ const OngoingRecruitmentSection = ({
                             href={paths.pool(
                               classification.poolAdvertisement.id,
                             )}
-                            color="blue"
+                            color="secondary"
                             type="button"
                             mode="solid"
                             data-h2-font-weight="base(700)"

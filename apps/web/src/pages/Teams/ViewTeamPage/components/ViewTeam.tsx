@@ -42,10 +42,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
           >
             <span>{team.displayName?.en ?? ""}</span>
@@ -60,10 +60,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
           >
             <span>{team.displayName?.fr ?? ""}</span>
@@ -89,10 +89,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
           >
             <span>{team.name}</span>
@@ -107,10 +107,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
           >
             <span>{team?.contactEmail ?? ""}</span>
@@ -125,10 +125,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-white)"
+            data-h2-background-color="base(white)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
             data-h2-min-height="base(x6)"
           >
@@ -144,10 +144,10 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(dt-white)"
+            data-h2-background-color="base(white)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
-            data-h2-border="base(2px solid dt-gray)"
+            data-h2-border="base(2px solid gray)"
             data-h2-radius="base(rounded)"
             data-h2-min-height="base(x6)"
           >

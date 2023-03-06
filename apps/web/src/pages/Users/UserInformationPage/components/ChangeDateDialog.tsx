@@ -87,7 +87,7 @@ const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-primary">
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Expiry Date",
             id: "zDO6tt",
@@ -95,97 +95,99 @@ const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
               "title for change expiry date dialog on view-user page",
           })}
         </Dialog.Header>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "You're about to change the expiry date for this user:",
-            id: "JjTGYe",
-            description:
-              "First section of text on the change candidate expiry date dialog",
-          })}
-        </p>
-        <p data-h2-font-weight="base(800)">
-          - {getFullNameHtml(user.firstName, user.lastName, intl)}
-        </p>
-        <p data-h2-margin="base(x1, 0, 0, 0)">
-          {intl.formatMessage({
-            defaultMessage: "On the following pool:",
-            id: "jIlwJ8",
-            description:
-              "Second section of text on the change candidate expiry date dialog",
-          })}
-        </p>
-        <p data-h2-font-weight="base(800)">
-          - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
-        </p>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(submitForm)}>
-            <p data-h2-margin="base(x1, 0, 0, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Set an expiry date for this candidate on this pool:",
-                id: "9NDM+k",
-                description:
-                  "Third section of text on the add user to pool dialog",
-              })}
-            </p>
-            <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <Input
-                id="changeDateDialog-expiryDate"
-                label={intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "WAO4vD",
+        <Dialog.Body>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You're about to change the expiry date for this user:",
+              id: "JjTGYe",
+              description:
+                "First section of text on the change candidate expiry date dialog",
+            })}
+          </p>
+          <p data-h2-font-weight="base(800)">
+            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+          </p>
+          <p data-h2-margin="base(x1, 0, 0, 0)">
+            {intl.formatMessage({
+              defaultMessage: "On the following pool:",
+              id: "jIlwJ8",
+              description:
+                "Second section of text on the change candidate expiry date dialog",
+            })}
+          </p>
+          <p data-h2-font-weight="base(800)">
+            - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
+          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(submitForm)}>
+              <p data-h2-margin="base(x1, 0, 0, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Set an expiry date for this candidate on this pool:",
+                  id: "9NDM+k",
                   description:
-                    "Label displayed on the date field of the change candidate expiry date dialog",
+                    "Third section of text on the add user to pool dialog",
                 })}
-                type="date"
-                name="expiryDate"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                  min: {
-                    value: currentDate(),
-                    message: intl.formatMessage(errorMessages.futureDate),
-                  },
-                }}
-              />
-            </div>
-            <Dialog.Footer>
-              <Dialog.Close>
-                <Button type="button" mode="outline" color="secondary">
-                  <span data-h2-text-decoration="base(underline)">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "tiF/jI",
-                      description: "Close dialog button",
-                    })}
-                  </span>
-                </Button>
-              </Dialog.Close>
+              </p>
+              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+                <Input
+                  id="changeDateDialog-expiryDate"
+                  label={intl.formatMessage({
+                    defaultMessage: "Expiry date",
+                    id: "WAO4vD",
+                    description:
+                      "Label displayed on the date field of the change candidate expiry date dialog",
+                  })}
+                  type="date"
+                  name="expiryDate"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    min: {
+                      value: currentDate(),
+                      message: intl.formatMessage(errorMessages.futureDate),
+                    },
+                  }}
+                />
+              </div>
+              <Dialog.Footer>
+                <Dialog.Close>
+                  <Button type="button" mode="outline" color="secondary">
+                    <span data-h2-text-decoration="base(underline)">
+                      {intl.formatMessage({
+                        defaultMessage: "Cancel and go back",
+                        id: "tiF/jI",
+                        description: "Close dialog button",
+                      })}
+                    </span>
+                  </Button>
+                </Dialog.Close>
 
-              <Button
-                disabled={fetching}
-                type="submit"
-                mode="solid"
-                color="secondary"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-              >
-                {fetching ? (
-                  intl.formatMessage(commonMessages.saving)
-                ) : (
-                  <span data-h2-text-decoration="base(underline)">
-                    {intl.formatMessage({
-                      defaultMessage: "Change date",
-                      id: "gvomlw",
-                      description:
-                        "Confirmation button for change expiry date dialog",
-                    })}
-                  </span>
-                )}
-              </Button>
-            </Dialog.Footer>
-          </form>
-        </FormProvider>
+                <Button
+                  disabled={fetching}
+                  type="submit"
+                  mode="solid"
+                  color="secondary"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                >
+                  {fetching ? (
+                    intl.formatMessage(commonMessages.saving)
+                  ) : (
+                    <span data-h2-text-decoration="base(underline)">
+                      {intl.formatMessage({
+                        defaultMessage: "Change date",
+                        id: "gvomlw",
+                        description:
+                          "Confirmation button for change expiry date dialog",
+                      })}
+                    </span>
+                  )}
+                </Button>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

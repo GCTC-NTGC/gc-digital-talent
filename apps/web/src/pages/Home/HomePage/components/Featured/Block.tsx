@@ -57,7 +57,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           href={content.link.path}
           data-h2-background-color="base:focus-visible(focus)"
           data-h2-outline="base(none)"
-          data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+          data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
         >
           {content.link.label}
         </a>

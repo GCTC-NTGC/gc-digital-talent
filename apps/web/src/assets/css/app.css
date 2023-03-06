@@ -53,14 +53,6 @@ button:not(disabled) {
   border-collapse: collapse;
 }
 
-[data-h2] table tbody tr:nth-of-type(odd) {
-  background-color: rgba(71, 62, 114, 0.12);
-}
-
-[data-h2] table tbody tr:nth-of-type(even) {
-  background-color: #fafafa;
-}
-
 [data-h2] body {
   position: absolute;
   margin: 0px;
@@ -70,8 +62,6 @@ button:not(disabled) {
 }
 
 [data-h2] .container {
-  height: 100vh;
-  margin: 0;
   display: flex;
   flex-direction: column;
 }

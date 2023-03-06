@@ -66,8 +66,8 @@ function TableFooter({
 
   return (
     <div
-      data-h2-background-color="base(dt-secondary.light)"
-      data-h2-radius="base(0px, 0px, s, s)"
+      data-h2-background-color="base(black.9)"
+      data-h2-radius="base(0px, 0px, rounded, rounded)"
     >
       <div data-h2-padding="base(x1, x1)">
         <div data-h2-flex-grid="base(center, x2, 0)">
@@ -133,7 +133,7 @@ function TableFooter({
                 id: "hlcd+5",
               })}
               color="white"
-              mode="outline"
+              mode="solid"
             />
           </div>
         </div>

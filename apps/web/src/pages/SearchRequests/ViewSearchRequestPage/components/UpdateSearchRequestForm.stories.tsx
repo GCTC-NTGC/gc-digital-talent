@@ -11,6 +11,9 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: UpdateSearchRequestForm,
   title: "Forms/Update Search Request Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateSearchRequestForm>;
 
 const Template: ComponentStory<typeof UpdateSearchRequestForm> = (args) => {

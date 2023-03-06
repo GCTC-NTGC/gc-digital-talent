@@ -20,21 +20,6 @@ const ExternalLink: React.FC = (props) => (
   </svg>
 );
 
-interface SpacerProps {
-  children: React.ReactNode;
-}
-
-const Spacer = ({ children }: SpacerProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-align-items="base(center)"
-    style={{ padding: "1rem" }}
-  >
-    {children}
-  </div>
-);
-
 export default {
   component: CardLink,
   title: "Components/Card Link",
@@ -59,25 +44,26 @@ const Template: Story = (args) => {
   const { label, icon } = args;
   return (
     <div
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-around)"
-      style={{ margin: "-1rem" }}
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(repeat(5, minmax(0, 1fr)))"
+      data-h2-gap="base(x2)"
+      data-h2-padding="base(x2)"
     >
-      <Spacer>
-        <CardLink color="ts-primary" label={label} href="#" icon={icon}>
-          TS Primary
-        </CardLink>
-      </Spacer>
-      <Spacer>
-        <CardLink color="ia-primary" label={label} href="#" icon={icon}>
-          IA Primary
-        </CardLink>
-      </Spacer>
-      <Spacer>
-        <CardLink color="ia-secondary" label={label} href="#" icon={icon}>
-          IA Secondary
-        </CardLink>
-      </Spacer>
+      <CardLink color="primary" label={label} href="#" icon={icon}>
+        Primary
+      </CardLink>
+      <CardLink color="secondary" label={label} href="#" icon={icon}>
+        Secondary
+      </CardLink>
+      <CardLink color="tertiary" label={label} href="#" icon={icon}>
+        Tertiary
+      </CardLink>
+      <CardLink color="quaternary" label={label} href="#" icon={icon}>
+        Quaternary
+      </CardLink>
+      <CardLink color="quinary" label={label} href="#" icon={icon}>
+        Quinary
+      </CardLink>
     </div>
   );
 };

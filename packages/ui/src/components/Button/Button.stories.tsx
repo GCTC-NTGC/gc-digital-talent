@@ -30,35 +30,63 @@ export default {
 const colors: Array<Color> = [
   "primary",
   "secondary",
-  "cta",
-  "white",
-  "black",
-  "ia-primary",
-  "ia-secondary",
-  "yellow",
-  "red",
-  "blue",
+  "tertiary",
+  "quaternary",
+  "quinary",
 ];
+const stoplight: Array<Color> = ["success", "warning", "error"];
+const black: Array<Color> = ["black"];
+const white: Array<Color> = ["white"];
 
 const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
   args,
 ) => {
   const { label, mode, block, disabled } = args;
   return (
-    <>
-      {colors.map((color) => (
-        <p key={color}>
-          <Button color={color} mode={mode} block={block} disabled={disabled}>
-            <span>{label}</span>
-          </Button>
-        </p>
-      ))}
-    </>
+    <div data-h2-display="base(flex)">
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {colors.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Button color={color} mode={mode} block={block} disabled={disabled}>
+              <span>{label}</span>
+            </Button>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {stoplight.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Button color={color} mode={mode} block={block} disabled={disabled}>
+              <span>{label}</span>
+            </Button>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {black.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Button color={color} mode={mode} block={block} disabled={disabled}>
+              <span>{label}</span>
+            </Button>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(black)">
+        {white.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Button color={color} mode={mode} block={block} disabled={disabled}>
+              <span>{label}</span>
+            </Button>
+          </p>
+        ))}
+      </div>
+    </div>
   );
 };
 
 export const SolidButton = Template.bind({});
 export const OutlineButton = Template.bind({});
+export const InlineButton = Template.bind({});
 export const BlockButton = Template.bind({});
 export const DisabledButton = Template.bind({});
 
@@ -69,6 +97,11 @@ SolidButton.args = {
 
 OutlineButton.args = {
   mode: "outline",
+  onClick: action("Button clicked"),
+};
+
+InlineButton.args = {
+  mode: "inline",
   onClick: action("Button clicked"),
 };
 

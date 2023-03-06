@@ -17,7 +17,7 @@ const Trigger = React.forwardRef<
 
 const contentStyles = {
   "data-h2-font-family": "base(sans)",
-  "data-h2-background-color": "base(dt-white)",
+  "data-h2-background-color": "base(white)",
   "data-h2-padding": "base(x.5)",
   "data-h2-radius": "base(s)",
   "data-h2-shadow": "base(s)",
@@ -40,7 +40,7 @@ const StyledArrow = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    style={{ fill: `rgba(var(--h2-color-dt-white), 1)` }}
+    style={{ fill: `rgba(var(--h2-color-white), 1)` }}
     ref={forwardedRef}
     {...props}
   />
@@ -87,9 +87,8 @@ const itemStyleProps = {
     fontSize: "0.85rem",
   },
   "data-h2-align-items": "base(center)",
-  "data-h2-background-color": "base(transparent) base:hover(dt-secondary.15)",
-  "data-h2-color":
-    "base(dt-secondary.dark) base:selectors[[data-disabled]](dt-gray)",
+  "data-h2-background-color": "base(transparent) base:hover(secondary.15)",
+  "data-h2-color": "base(secondary.dark) base:selectors[[data-disabled]](gray)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",
@@ -135,7 +134,7 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
-    data-h2-color="base(dt-gray)"
+    data-h2-color="base(gray)"
     ref={forwardedRef}
     {...props}
   />
@@ -146,7 +145,7 @@ const Separator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
-    data-h2-color="base(dt-gray)"
+    data-h2-color="base(gray)"
     data-h2-margin="base(x.25, 0, x.25, 0)"
     style={{ height: 1 }}
     ref={forwardedRef}

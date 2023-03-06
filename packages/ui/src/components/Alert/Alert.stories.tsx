@@ -25,7 +25,11 @@ const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
   ...args
 }) => {
   return (
-    <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+    <div
+      data-h2-padding="base(x2)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+    >
       {types.map((type) => (
         <React.Fragment key={type}>
           <Alert.Root {...args} type={type}>
