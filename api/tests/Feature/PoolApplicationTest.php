@@ -31,7 +31,6 @@ class PoolApplicationTest extends TestCase
     protected $responderRole;
     protected $uuid;
     protected $toBeDeleted;
-    protected $teamName = "application-test-team";
 
     protected $queryDocument =
     /** @lang GraphQL */
@@ -103,10 +102,6 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
-
         $this->guestUser = User::factory()->create([
             'email' => 'guest-user@test.com',
             'sub' => 'guest-user@test.com',
@@ -138,6 +133,9 @@ class PoolApplicationTest extends TestCase
             "request_responder"
         ]);
 
+        $team = Team::factory()->create([
+            'name' => "pool-application-test-team",
+        ]);
         $this->teamUser = User::factory()->create([
             'email' => 'team-user@test.com',
             'sub' => 'team-user@test.com',
@@ -147,7 +145,7 @@ class PoolApplicationTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator", $this->teamName);
+        $this->teamUser->attachRole("pool_operator",  $team);
     }
 
     public function testApplicationCreation(): void
