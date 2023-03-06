@@ -13,6 +13,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { addRolesToUser } from "../../support/userHelpers";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application Workflow Tests", () => {
@@ -86,8 +87,11 @@ describe("Submit Application Workflow Tests", () => {
             },
           });
         })
-        .its("sub")
-        .as("testUserSub");
+        .as("testUser");
+    });
+
+    cy.get("@testUser").then((testUser) => {
+      addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
     });
 
     // fetch the dcmId for its team from database, needed for pool creation
@@ -132,8 +136,8 @@ describe("Submit Application Workflow Tests", () => {
         });
       });
 
-    cy.get("@testUserSub").then((sub) => {
-      cy.loginBySubject(sub);
+    cy.get("@testUser").then((user) => {
+      cy.loginBySubject(user.sub);
     });
     cy.visit("/en/browse/pools");
 
