@@ -28,7 +28,7 @@ class PoolApplicationTest extends TestCase
     protected $guestUser;
     protected $applicantUser;
     protected $teamUser;
-    protected $adminUser;
+    protected $responderRole;
     protected $uuid;
     protected $toBeDeleted;
     protected $teamName = "application-test-team";
@@ -127,16 +127,15 @@ class PoolApplicationTest extends TestCase
         // Add generic job title for submission
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
-        $this->adminUser = User::factory()->create([
+        $this->responderRole = User::factory()->create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->syncRoles([
+        $this->responderRole->syncRoles([
             "guest",
             "base_user",
             "applicant",
-            "request_responder",
-            "platform_admin"
+            "request_responder"
         ]);
 
         $this->teamUser = User::factory()->create([
@@ -280,7 +279,7 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        $this->actingAs($this->adminUser, "api")
+        $this->actingAs($this->responderRole, "api")
             ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
