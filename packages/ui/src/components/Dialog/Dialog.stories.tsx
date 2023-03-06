@@ -22,7 +22,7 @@ export default {
 
 const Template: ComponentStory<typeof Dialog.Header> = (args) => {
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
-  const { children, color, subtitle } = args;
+  const { children, subtitle } = args;
   faker.seed(0);
   return (
     <>
@@ -31,15 +31,15 @@ const Template: ComponentStory<typeof Dialog.Header> = (args) => {
           <Button>Open Dialog</Button>
         </Dialog.Trigger>
         <Dialog.Content container={container || undefined}>
-          <Dialog.Header color={color} subtitle={subtitle}>
-            {children}
-          </Dialog.Header>
-          <p>{faker.lorem.sentences(3)}</p>
-          <Dialog.Footer>
-            <Dialog.Close>
-              <Button color="cta">Close</Button>
-            </Dialog.Close>
-          </Dialog.Footer>
+          <Dialog.Header subtitle={subtitle}>{children}</Dialog.Header>
+          <Dialog.Body>
+            <p>{faker.lorem.sentences(3)}</p>
+            <Dialog.Footer>
+              <Dialog.Close>
+                <Button color="primary">Close</Button>
+              </Dialog.Close>
+            </Dialog.Footer>
+          </Dialog.Body>
         </Dialog.Content>
       </Dialog.Root>
       <div ref={setContainer} />
@@ -57,22 +57,4 @@ WithSubtitle.args = {
   children: "Basic Dialog",
   subtitle:
     "A dialog is a window overlaid on either the primary window or another dialog window.",
-};
-
-export const ColorSecondary = Template.bind({});
-ColorSecondary.args = {
-  children: "Secondary Dialog",
-  color: "ts-secondary",
-};
-
-export const ColorIAPPrimary = Template.bind({});
-ColorIAPPrimary.args = {
-  children: "IAP Primary Dialog",
-  color: "ia-primary",
-};
-
-export const ColorIAPSecondary = Template.bind({});
-ColorIAPSecondary.args = {
-  children: "IAP Secondary Dialog",
-  color: "ia-secondary",
 };

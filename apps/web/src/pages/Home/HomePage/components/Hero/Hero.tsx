@@ -31,7 +31,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
 
   return (
     <div
-      data-h2-background-color="base(black)"
+      data-h2-background-color="base(black.darkest)"
       data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
       data-h2-padding-bottom="
       base(calc(50vh + 3%))

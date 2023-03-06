@@ -17,6 +17,9 @@ export default {
     user: baseUser,
     pools: basePools,
   },
+  parameters: {
+    themeKey: "admin",
+  },
 } as Meta;
 
 const TemplateInfoTab: Story = (args) => {

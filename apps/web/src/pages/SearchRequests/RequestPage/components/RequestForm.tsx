@@ -226,7 +226,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-margin="base(0, 0, x1, 0)">
+      <h2
+        data-h2-font-size="base(h4)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Request Form",
           id: "LOYv+/",
@@ -365,7 +369,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <h2 data-h2-margin="base(x2, 0, x1, 0)">
+          <h2
+            data-h2-font-size="base(h4)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x2, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",
@@ -393,14 +401,20 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
+          <hr
+            data-h2-height="base(1px)"
+            data-h2-border="base(none)"
+            data-h2-background="base(gray.lighter)"
+            data-h2-margin="base(x2, 0)"
+          />
           <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, x2, 0)">
             <div
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Link
-                color="primary"
-                mode="outline"
+                color="secondary"
+                mode="inline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
                 state={{
@@ -420,7 +434,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Submit
-                color="cta"
+                color="primary"
                 mode="solid"
                 text={intl.formatMessage({
                   defaultMessage: "Submit Request",

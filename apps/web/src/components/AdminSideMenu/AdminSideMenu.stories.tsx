@@ -15,6 +15,9 @@ import AdminSideMenu, { AdminSideMenuProps } from "./AdminSideMenu";
 export default {
   component: AdminSideMenu,
   title: "Components/Admin Side Menu",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof AdminSideMenu>;
 
 interface TemplateProps extends AdminSideMenuProps {

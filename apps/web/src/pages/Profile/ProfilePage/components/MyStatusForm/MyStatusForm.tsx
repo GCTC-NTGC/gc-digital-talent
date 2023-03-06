@@ -64,7 +64,7 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
   };
 
   const disabledColor: Record<string, unknown> = !isFormActive
-    ? { "data-h2-color": "base(dt-gray.dark)" }
+    ? { "data-h2-color": "base(gray.dark)" }
     : {};
 
   return (
@@ -87,12 +87,12 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
         </div>
         {!isFormActive && (
           <div
-            data-h2-color="base(dt-primary)"
-            data-h2-border="base(1px solid dt-primary.light)"
+            data-h2-color="base(primary.darker)"
+            data-h2-border="base(1px solid primary.darker)"
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(input)"
-            data-h2-background-color="base(dt-primary.light.10)"
+            data-h2-background-color="base(primary.lightest)"
           >
             <p
               data-h2-font-weight="base(700)"

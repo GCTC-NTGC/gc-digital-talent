@@ -142,11 +142,11 @@ const SkillPicker = ({
           type="text"
           autoComplete="off"
           {...methods.register("query")}
-          data-h2-background-color="base(white) base:focus-visible(dt-primary.lighter.10)"
+          data-h2-background-color="base(white) base:focus-visible(primary.lighter.10)"
           data-h2-outline="base(none)"
-          data-h2-shadow="base:focus-visible(s, dt-primary.30)"
+          data-h2-shadow="base:focus-visible(s, primary.30)"
           data-h2-flex-grow="base(1)"
-          data-h2-border="base(1px solid dt-primary) base:focus-visible(1px solid dt-primary.dark)"
+          data-h2-border="base(1px solid primary) base:focus-visible(1px solid primary.dark)"
           data-h2-radius="base(0, input, input, 0)"
           data-h2-padding="base(x.5, x1)"
           placeholder={intl.formatMessage({
@@ -160,9 +160,9 @@ const SkillPicker = ({
       <p
         aria-live="polite"
         aria-atomic="true"
-        data-h2-font-size="base(h6)"
+        data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x.75, 0, x.5, 0)"
+        data-h2-margin="base(x1.5, 0, x.5, 0)"
       >
         {intl.formatMessage(
           {
@@ -197,7 +197,7 @@ const SkillPicker = ({
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div
-            data-h2-padding="base(x.5, x1, x.5, x.5)"
+            data-h2-padding="base(x1)"
             role={filteredSkills.length > 0 ? "list" : undefined}
           >
             {filteredSkills.length > 0 ? (
@@ -215,7 +215,7 @@ const SkillPicker = ({
                   />
                   {index + 1 !== filteredSkills.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
@@ -229,7 +229,7 @@ const SkillPicker = ({
                 data-h2-margin="base(x2, 0)"
                 data-h2-text-align="base(center)"
                 data-h2-font-style="base(italic)"
-                data-h2-color="base(dt-gray)"
+                data-h2-color="base(gray)"
               >
                 {intl.formatMessage({
                   defaultMessage: "No skills found.",
@@ -248,7 +248,7 @@ const SkillPicker = ({
       <Heading
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x.75, 0, x.5, 0)"
+        data-h2-margin="base(x1.5, 0, x.5, 0)"
         id={skipToHeadingId}
         tabIndex={-1}
       >
@@ -271,7 +271,10 @@ const SkillPicker = ({
           ))}
         </Chips>
       ) : (
-        <p data-h2-margin="base(x1, 0)" data-h2-font-style="base(italic)">
+        <p
+          data-h2-margin="base(x.5, 0, x1, 0)"
+          data-h2-font-style="base(italic)"
+        >
           {intl.formatMessage({
             id: "/78DsY",
             defaultMessage: "You have not selected any skills.",

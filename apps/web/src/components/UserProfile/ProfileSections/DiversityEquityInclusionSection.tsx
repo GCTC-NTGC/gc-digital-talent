@@ -119,7 +119,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                         <li>
                           <span
                             data-h2-font-weight="base(700)"
-                            data-h2-color="base(dt-primary)"
+                            data-h2-color="base(primary)"
                           >
                             {intl.formatMessage(
                               {
@@ -221,7 +221,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             )}
             <p
               data-h2-padding="base(x1, 0, 0, 0)"
-              data-h2-color="base(ia-gray.dark)"
+              data-h2-color="base(gray.darker)"
             >
               {intl.formatMessage({
                 defaultMessage:

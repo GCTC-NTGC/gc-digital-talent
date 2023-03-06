@@ -127,7 +127,7 @@ const Trigger = React.forwardRef<
                 <span
                   className="Accordion__Subtitle"
                   data-h2-display="base(block)"
-                  data-h2-font-size="base(h6, 1)"
+                  data-h2-font-size="base(copy)"
                   data-h2-margin="base(x.25, 0, 0, 0)"
                 >
                   {subtitle}
@@ -170,7 +170,7 @@ const Content = React.forwardRef<
     <>
       <hr
         className="Accordion__Separator"
-        data-h2-background-color="base(dt-gray)"
+        data-h2-background-color="base(gray.lighter)"
         data-h2-width="base(100%)"
         data-h2-border="base(none)"
       />

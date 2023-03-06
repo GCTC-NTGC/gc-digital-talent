@@ -217,7 +217,7 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <Submit color="blue" />
+            <Submit color="primary" />
           </form>
         </FormProvider>
       </div>

@@ -9,58 +9,33 @@ export default {
   title: "Components/Card Flat",
 } as Meta;
 
-interface SpacerProps {
-  children: React.ReactNode;
-}
-
-const Spacer = ({ children }: SpacerProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-align-items="base(center)"
-    style={{ padding: "1rem" }}
-  >
-    {children}
-  </div>
-);
-
 const Template: Story = () => {
   faker.seed(0);
   return (
     <div
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-around)"
-      style={{ margin: "-1rem" }}
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(repeat(4, minmax(0, 1fr)))"
+      data-h2-gap="base(x2)"
     >
-      <Spacer>
-        <CardFlat title="Yellow" color="yellow">
-          <p>{faker.lorem.sentences(1)}</p>
-        </CardFlat>
-      </Spacer>
-      <Spacer>
-        <CardFlat title="Red" color="red">
-          <p>{faker.lorem.sentences(1)}</p>
-        </CardFlat>
-      </Spacer>
-      <Spacer>
-        <CardFlat title="Blue" color="blue">
-          <p>{faker.lorem.sentences(1)}</p>
-        </CardFlat>
-      </Spacer>
-      <Spacer>
-        <CardFlat title="Black" color="black">
-          <p>{faker.lorem.sentences(1)}</p>
-        </CardFlat>
-      </Spacer>
-      <Spacer>
-        <CardFlat
-          title="Purple"
-          color="purple"
-          link={{ href: "#", label: "With link" }}
-        >
-          <p>{faker.lorem.sentences(1)}</p>
-        </CardFlat>
-      </Spacer>
+      <CardFlat title="Yellow" color="yellow">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat title="Red" color="red">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat title="Blue" color="blue">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat title="Black" color="black">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Purple"
+        color="purple"
+        link={{ href: "#", label: "With link" }}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
     </div>
   );
 };

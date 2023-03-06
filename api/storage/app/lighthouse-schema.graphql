@@ -603,6 +603,7 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -1004,10 +1005,10 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter
-  poolCandidateFilters: [PoolCandidateFilter]!
-  applicantFilter(id: ID!): ApplicantFilter
-  applicantFilters: [ApplicantFilter]!
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")

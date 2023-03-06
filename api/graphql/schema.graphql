@@ -956,21 +956,33 @@ type Query {
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
     @find
     @guard
-    @can(ability: "view", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
-    @can(ability: "view", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -1646,6 +1658,8 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+
+  # SearchRequest mutations
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
   ): PoolCandidateSearchRequest @create @can(ability: "create")
@@ -1656,6 +1670,11 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
+  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
+
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
