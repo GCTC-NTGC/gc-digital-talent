@@ -280,6 +280,10 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        $this->actingAs($this->adminUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
         // Owner can archive
         $this->actingAs($this->applicantUser, "api")
             ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
