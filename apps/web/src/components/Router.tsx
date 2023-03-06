@@ -978,7 +978,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":userId",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <UserLayout />
@@ -1070,7 +1070,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":teamId",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <TeamLayout />
@@ -1149,7 +1149,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":poolId",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                      ]}
                       loginPath={loginPath}
                     >
                       <PoolLayout />
