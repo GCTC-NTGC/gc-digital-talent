@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import {
   NotFound,
@@ -15,7 +14,6 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
 import {
   PoolAdvertisement,
   Scalars,
@@ -202,13 +200,6 @@ export const EditPoolForm = ({
           description: "Page title for the edit pool page",
         })}
       />
-      <PageHeader icon={Squares2X2Icon}>
-        {intl.formatMessage({
-          defaultMessage: "Edit pool advertisement",
-          id: "/6voUd",
-          description: "Header for page to edit pool advertisements",
-        })}
-      </PageHeader>
       <AdminBreadcrumbs crumbs={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>

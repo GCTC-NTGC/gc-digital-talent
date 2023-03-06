@@ -66,7 +66,6 @@ const AdminBreadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
                 href={link.url}
-                key={link.url}
                 {...(isCurrent
                   ? {
                       "data-h2-font-weight": "base(700)",

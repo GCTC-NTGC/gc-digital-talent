@@ -43,7 +43,7 @@ export interface ChangeStatusDialogProps {
   pools: Pool[];
 }
 
-export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
+const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
   selectedCandidate,
   user,
   pools,

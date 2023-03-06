@@ -26,6 +26,14 @@ query User($id: UUID!) {
   }
 }
 
+query UserName($userId: UUID!) {
+  user(id: $userId) {
+    id
+    firstName
+    lastName
+  }
+}
+
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     sub
