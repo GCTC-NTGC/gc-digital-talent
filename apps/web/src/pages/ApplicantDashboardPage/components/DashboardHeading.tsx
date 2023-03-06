@@ -47,6 +47,15 @@ import {
   hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
 } from "../../../components/UserProfile/ProfileSections/RoleSalarySection";
 
+function deriveSectionStatus(
+  isMissingRequiredFields: boolean,
+  isMissingOptionalFields: boolean,
+): ProfileItemStatus {
+  if (isMissingRequiredFields) return "has-empty-required-fields";
+  if (isMissingOptionalFields) return "has-empty-optional-fields";
+  return "all-sections-complete";
+}
+
 export interface DashboardHeadingProps {
   user: User;
 }
@@ -54,15 +63,6 @@ export interface DashboardHeadingProps {
 export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  function deriveSectionStatus(
-    isMissingRequiredFields: boolean,
-    isMissingOptionalFields: boolean,
-  ): ProfileItemStatus {
-    if (isMissingRequiredFields) return "has-empty-required-fields";
-    if (isMissingOptionalFields) return "has-empty-optional-fields";
-    return "all-sections-complete";
-  }
 
   return (
     <Hero
