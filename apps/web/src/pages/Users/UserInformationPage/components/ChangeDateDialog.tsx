@@ -26,7 +26,7 @@ export interface ChangeDateDialogProps {
   user: Applicant;
 }
 
-export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
+const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
   selectedCandidate,
   user,
 }) => {

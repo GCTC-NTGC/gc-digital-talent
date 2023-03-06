@@ -297,6 +297,14 @@ const CreateUserPage = React.lazy(() =>
       ),
   ),
 );
+const UserLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
+      ),
+  ),
+);
 const UpdateUserPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -305,22 +313,23 @@ const UpdateUserPage = React.lazy(() =>
       ),
   ),
 );
-const ViewUserPage = React.lazy(() =>
+const AdminUserProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPage/ViewUserPage"
+        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
       ),
   ),
 );
-const ViewUserPageV2 = React.lazy(() =>
+const UserInformationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPageV2/ViewUserPage"
+        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
       ),
   ),
 );
+
 const UserPlacementPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -344,6 +353,14 @@ const CreateTeamPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
+      ),
+  ),
+);
+const TeamLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
       ),
   ),
 );
@@ -438,6 +455,14 @@ const EditPoolPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
+      ),
+  ),
+);
+const PoolLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
       ),
   ),
 );
@@ -951,6 +976,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":userId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <UserLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
@@ -959,7 +992,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPage />
+                          <UserInformationPage />
                         </RequireAuth>
                       ),
                     },
@@ -974,7 +1007,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPageV2 />
+                          <AdminUserProfilePage />
                         </RequireAuth>
                       ),
                     },
@@ -1035,6 +1068,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":teamId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <TeamLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
@@ -1106,6 +1147,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":poolId",
+                  element: (
+                    <RequireAuth
+                      roles={[LegacyRole.Admin]}
+                      loginPath={loginPath}
+                    >
+                      <PoolLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
