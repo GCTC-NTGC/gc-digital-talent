@@ -26,17 +26,52 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
+    <div data-h2-margin="base(0, 0, 0, auto)">
+      <Link
+        type="button"
+        mode="inline"
+        color="secondary"
+        href={paths.reviewApplication(application.id)}
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage: "Continue this application<hidden> {name}</hidden>",
+            id: "51B5l9",
+            description: "Link text to continue a specific application",
+          },
+          {
+            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          },
+        )}
+      </Link>
+    </div>
+  );
+};
+export interface ViewActionProps extends ActionProps {
+  application: Application;
+}
+
+const ViewAction = ({ show, application }: ViewActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const { poolAdvertisement } = application;
+
+  if (!show) {
+    return null;
+  }
+
+  return (
     <Link
+      href={paths.reviewApplication(application.id)}
       mode="inline"
       type="button"
       color="secondary"
-      href={paths.reviewApplication(application.id)}
     >
       {intl.formatMessage(
         {
-          defaultMessage: "Continue my application<hidden> {name}</hidden>",
-          id: "60Ee78",
-          description: "Link text to continue a specific application",
+          defaultMessage: "View this application<hidden> {name}</hidden>",
+          id: "JM30M7",
+          description: "Link text to view a specific application",
         },
         {
           name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
@@ -70,14 +105,34 @@ const SeeAdvertisementAction = ({
     >
       {intl.formatMessage(
         {
-          defaultMessage: "See advertisement<hidden> {name}</hidden>",
-          id: "HXNJ6Z",
+          defaultMessage: "See job ad<hidden> {name}</hidden>",
+          id: "si/wtm",
           description: "Link text to see an applications advertisement",
         },
         {
           name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
         },
       )}
+    </Link>
+  );
+};
+export type SupportActionProps = ActionProps;
+
+const SupportAction = ({ show }: SupportActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link href={paths.support()} mode="inline" type="button" color="secondary">
+      {intl.formatMessage({
+        defaultMessage: "Get support",
+        id: "rXdaZW",
+        description: "Link text to direct a user to the support page",
+      })}
     </Link>
   );
 };
@@ -104,9 +159,10 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <Button mode="inline" type="button" color="error">
           {intl.formatMessage(
             {
-              defaultMessage: "Delete<hidden> application {name}</hidden>",
-              id: "1lmME7",
-              description: "Link text to continue a specific application",
+              defaultMessage:
+                "Delete this application<hidden> ({name})</hidden>",
+              id: "10Ous+",
+              description: "Link text to delete a specific application",
             },
             {
               name,
@@ -127,18 +183,16 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
           )}
         </AlertDialog.Title>
         <AlertDialog.Description>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Are you sure you would like to delete application {name}?",
-                id: "5pZFQ3",
-                description:
-                  "Question displayed when user attempts to delete an application",
-              },
-              { name },
-            )}
-          </p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Are you sure you would like to delete application {name}?",
+              id: "5pZFQ3",
+              description:
+                "Question displayed when user attempts to delete an application",
+            },
+            { name },
+          )}
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
@@ -212,18 +266,16 @@ const ArchiveAction = ({
           })}
         </AlertDialog.Title>
         <AlertDialog.Description>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Are you sure you would like to archive application {name}?",
-                id: "Z0PCOW",
-                description:
-                  "Question displayed when user attempts to archive an application",
-              },
-              { name },
-            )}
-          </p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Are you sure you would like to archive application {name}?",
+              id: "Z0PCOW",
+              description:
+                "Question displayed when user attempts to archive an application",
+            },
+            { name },
+          )}
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
@@ -255,4 +307,6 @@ export default {
   SeeAdvertisementAction,
   DeleteAction,
   ArchiveAction,
+  SupportAction,
+  ViewAction,
 };

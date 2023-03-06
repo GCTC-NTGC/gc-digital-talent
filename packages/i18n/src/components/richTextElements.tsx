@@ -30,7 +30,7 @@ export const hidden = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 export const heavyPrimary = (text: React.ReactNode) => (
-  <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
+  <span data-h2-color="base(primary.dark)" data-h2-font-weight="base(700)">
     {text}
   </span>
 );
@@ -40,7 +40,7 @@ export const heavyPrimary = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 export const primary = (text: React.ReactNode) => (
-  <span data-h2-color="base(primary)">{text}</span>
+  <span data-h2-color="base(primary.dark)">{text}</span>
 );
 
 /**
