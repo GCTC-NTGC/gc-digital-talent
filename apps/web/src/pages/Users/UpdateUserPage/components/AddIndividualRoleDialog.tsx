@@ -103,62 +103,64 @@ const AddIndividualRoleDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "You are about to add a new role to the following user: <strong>{userName}</strong>",
-              id: "TvUVa0",
-              description: "Lead in text for the add role to user form.",
-            },
-            { userName },
-          )}
-        </p>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleAddRoles)}>
-            <MultiSelectField
-              id="roles"
-              name="roles"
-              label={intl.formatMessage({
-                defaultMessage: "Individual roles",
-                id: "tuXnJB",
-                description: "Label for the input to add roles to a user",
-              })}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select roles...",
-                id: "eW7I5E",
-                description: "Placeholder text for role selection input",
-              })}
-              options={roleOptions}
-            />
-            <Dialog.Footer>
-              <Dialog.Close>
-                <Button mode="outline" color="secondary">
-                  {intl.formatMessage({
-                    defaultMessage: "Cancel and go back",
-                    id: "tiF/jI",
-                    description: "Close dialog button",
-                  })}
-                </Button>
-              </Dialog.Close>
-              <Button
-                mode="solid"
-                color="secondary"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting
-                  ? intl.formatMessage(commonMessages.saving)
-                  : intl.formatMessage({
-                      defaultMessage: "Save changes",
-                      id: "UGk7lG",
-                      description: "Button to save the roles to a user",
+        <Dialog.Body>
+          <p data-h2-margin="base(0, 0 ,x1, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "You are about to add a new role to the following user: <strong>{userName}</strong>",
+                id: "TvUVa0",
+                description: "Lead in text for the add role to user form.",
+              },
+              { userName },
+            )}
+          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(handleAddRoles)}>
+              <MultiSelectField
+                id="roles"
+                name="roles"
+                label={intl.formatMessage({
+                  defaultMessage: "Individual roles",
+                  id: "tuXnJB",
+                  description: "Label for the input to add roles to a user",
+                })}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select roles...",
+                  id: "eW7I5E",
+                  description: "Placeholder text for role selection input",
+                })}
+                options={roleOptions}
+              />
+              <Dialog.Footer>
+                <Dialog.Close>
+                  <Button mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel and go back",
+                      id: "tiF/jI",
+                      description: "Close dialog button",
                     })}
-              </Button>
-            </Dialog.Footer>
-          </form>
-        </FormProvider>
+                  </Button>
+                </Dialog.Close>
+                <Button
+                  mode="solid"
+                  color="secondary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Save changes",
+                        id: "UGk7lG",
+                        description: "Button to save the roles to a user",
+                      })}
+                </Button>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

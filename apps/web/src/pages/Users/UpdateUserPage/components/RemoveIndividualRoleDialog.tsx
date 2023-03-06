@@ -72,57 +72,60 @@ const RemoveIndividualRoleDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "You are about to remove a role from the following user: <strong>{userName}</strong>",
-              id: "Hy2UdW",
-              description: "Lead in text for the remove role from user dialog",
-            },
-            { userName },
-          )}
-        </p>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage: "They will lose the following role:",
-            id: "HYYYtr",
-            description:
-              "Text notifying user which role will be removed from the user",
-          })}
-        </p>
-        <p data-h2-margin="base(x1, 0)">
-          <Pill mode="solid" color="blue">
-            {roleDisplayName}
-          </Pill>
-        </p>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage: "Do you wish to continue?",
-            id: "vRLrmc",
-            description:
-              "Question posed to user before committing a destructive act",
-          })}
-        </p>
-        <Dialog.Footer>
-          <Dialog.Close>
-            <Button mode="outline" color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+        <Dialog.Body>
+          <p data-h2-margin="base(0, 0 ,x1, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "You are about to remove a role from the following user: <strong>{userName}</strong>",
+                id: "Hy2UdW",
+                description:
+                  "Lead in text for the remove role from user dialog",
+              },
+              { userName },
+            )}
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "They will lose the following role:",
+              id: "HYYYtr",
+              description:
+                "Text notifying user which role will be removed from the user",
+            })}
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            <Pill mode="solid" color="blue">
+              {roleDisplayName}
+            </Pill>
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Do you wish to continue?",
+              id: "vRLrmc",
+              description:
+                "Question posed to user before committing a destructive act",
+            })}
+          </p>
+          <Dialog.Footer>
+            <Dialog.Close>
+              <Button mode="outline" color="secondary">
+                {intl.formatMessage({
+                  defaultMessage: "Cancel and go back",
+                  id: "tiF/jI",
+                  description: "Close dialog button",
+                })}
+              </Button>
+            </Dialog.Close>
+            <Button
+              mode="solid"
+              color="red"
+              onClick={handleRemove}
+              disabled={isDeleting}
+            >
+              {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
             </Button>
-          </Dialog.Close>
-          <Button
-            mode="solid"
-            color="red"
-            onClick={handleRemove}
-            disabled={isDeleting}
-          >
-            {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
-          </Button>
-        </Dialog.Footer>
+          </Dialog.Footer>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );
