@@ -21,15 +21,15 @@ const DefaultChildren = () => (
       <Button>Open Dialog</Button>
     </Dialog.Trigger>
     <Dialog.Content>
-      <Dialog.Header color="ia-primary" subtitle="Dialog Subtitle">
-        Dialog Title
-      </Dialog.Header>
-      <p>{faker.lorem.sentences(3)}</p>
-      <Dialog.Footer>
-        <Dialog.Close>
-          <Button color="cta">Close Action</Button>
-        </Dialog.Close>
-      </Dialog.Footer>
+      <Dialog.Header subtitle="Dialog Subtitle">Dialog Title</Dialog.Header>
+      <Dialog.Body>
+        <p>{faker.lorem.sentences(3)}</p>
+        <Dialog.Footer>
+          <Dialog.Close>
+            <Button color="cta">Close Action</Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Body>
     </Dialog.Content>
   </>
 );
@@ -102,7 +102,7 @@ describe("Dialog", () => {
             <IconButton icon={PlusIcon}>Open Dialog</IconButton>
           </Dialog.Trigger>
           <Dialog.Content>
-            <Dialog.Header color="ia-primary" subtitle="Dialog Subtitle">
+            <Dialog.Header subtitle="Dialog Subtitle">
               Dialog Title
             </Dialog.Header>
             <p>{faker.lorem.sentences(3)}</p>

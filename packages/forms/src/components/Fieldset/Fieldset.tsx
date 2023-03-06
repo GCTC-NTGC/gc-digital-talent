@@ -102,8 +102,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span
                 data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-color": "base(dt-error.dark)" }
-                  : { "data-h2-color": "base(dt-gray.dark)" })}
+                  ? { "data-h2-color": "base(error.dark)" }
+                  : { "data-h2-color": "base(gray.dark)" })}
               >
                 (
                 {required
@@ -130,12 +130,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="base(dt-primary)"
+                  data-h2-color="base(primary)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="base(dt-primary)"
+                  data-h2-color="base(primary)"
                 />
               )}
             </button>
@@ -145,6 +145,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
       <div
         {...stateStyles}
         data-h2-radius="base(input)"
+        data-h2-background="base(white)"
         data-h2-padding="base(x.5, x.75, x.75, x.75)"
       >
         {children}

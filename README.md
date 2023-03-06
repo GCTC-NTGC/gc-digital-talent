@@ -6,7 +6,7 @@ The GC Digital Talent app is divided into multiple services, each treated as its
 - `/api`, the API service
 - `/apps`, (new) location for frontend applications
 - `/packages`, code shared by multiple other workspaces
-- `/apps/e2e`, e2e testing with [`Cypress`](/apps/e2e/README.md)
+- `/apps/e2e`, e2e testing with [`Cypress`](/apps/e2e/cypress/README.md)
   
 - `/tc-report`, containing static content generated with Jekyll, mostly the Talent Cloud report. This used to be maintained in a [separate repo](https://github.com/GCTC-NTGC/tc-report), but now the entire project has been imported into this repo. See [`/tc-report/README.md`](/tc-report/README.md) for instructions on how to run Jekyll and re-generate the site content.
 - `/infrastructure`, support files for the docker infrastructure to run the project
@@ -29,7 +29,7 @@ We do several types of testing: (internal documentation linked when available)
 - _visual regression_ Testing
   - **Storybook** (ReactJS components)
 - _end-to-end_ testing with **Cypress** (full app in-browser)
-  - See [`apps/e2e/README.md`](/apps/e2e/README.md): custom commands, usage tips, plugins, etc.
+  - See [`apps/e2e/cypress/README.md`](/apps/e2e/cypress/README.md): custom commands, usage tips, plugins, etc.
 - security checks (aka _security regression_ testing)
   - CodeQL (JavaScript, ~~TypeScript~~)
 

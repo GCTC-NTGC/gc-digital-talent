@@ -21,6 +21,9 @@ const mockPaginatorInfo = {
 export default {
   component: UserTable,
   title: "Tables/User Table",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UserTable>;
 
 const Template: ComponentStory<typeof UserTable> = () => {

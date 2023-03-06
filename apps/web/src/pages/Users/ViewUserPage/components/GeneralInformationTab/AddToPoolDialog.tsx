@@ -169,121 +169,125 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-primary">
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Add user to pool",
             id: "bqaNWT",
             description: "title for add to pool dialog on view-user page",
           })}
         </Dialog.Header>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "You're about to add this user to a different pool:",
-            id: "8Y+eEc",
-            description: "First section of text on the add user to pool dialog",
-          })}
-        </p>
-        <p data-h2-font-weight="base(800)">
-          - {getFullNameHtml(user.firstName, user.lastName, intl)}
-        </p>
-        <p data-h2-margin="base(x1, 0, 0, 0)">
-          {intl.formatMessage({
-            defaultMessage: "Choose pool:",
-            id: "K3LEpl",
-            description:
-              "Second section of text on the add user to pool dialog",
-          })}
-        </p>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(submitForm)}>
-            <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <MultiSelectField
-                id="addToPoolDialog-pools"
-                name="pools"
-                label={intl.formatMessage({
-                  defaultMessage: "Pools",
-                  id: "aJVlIF",
+        <Dialog.Body>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You're about to add this user to a different pool:",
+              id: "8Y+eEc",
+              description:
+                "First section of text on the add user to pool dialog",
+            })}
+          </p>
+          <p data-h2-font-weight="base(800)">
+            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+          </p>
+          <p data-h2-margin="base(x1, 0, 0, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Choose pool:",
+              id: "K3LEpl",
+              description:
+                "Second section of text on the add user to pool dialog",
+            })}
+          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(submitForm)}>
+              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+                <MultiSelectField
+                  id="addToPoolDialog-pools"
+                  name="pools"
+                  label={intl.formatMessage({
+                    defaultMessage: "Pools",
+                    id: "aJVlIF",
+                    description:
+                      "Label displayed on the pools field of the add user to pool dialog",
+                  })}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select a pool...",
+                    id: "X198m3",
+                    description:
+                      "Placeholder displayed on the pool field of the add user to pool dialog.",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  options={poolOptions}
+                />
+              </div>
+              <p data-h2-margin="base(x1, 0, 0, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Set an expiry date for this candidate on this pool:",
+                  id: "9NDM+k",
                   description:
-                    "Label displayed on the pools field of the add user to pool dialog",
+                    "Third section of text on the add user to pool dialog",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select a pool...",
-                  id: "X198m3",
-                  description:
-                    "Placeholder displayed on the pool field of the add user to pool dialog.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                options={poolOptions}
-              />
-            </div>
-            <p data-h2-margin="base(x1, 0, 0, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Set an expiry date for this candidate on this pool:",
-                id: "9NDM+k",
-                description:
-                  "Third section of text on the add user to pool dialog",
-              })}
-            </p>
-            <div data-h2-margin="base(x.5, 0, x.125, 0)">
-              <Input
-                id="addToPoolDialog-expiryDate"
-                label={intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "sICXeM",
-                  description:
-                    "Label displayed on the date field of the add user to pool dialog",
-                })}
-                type="date"
-                name="expiryDate"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                  min: {
-                    value: currentDate(),
-                    message: intl.formatMessage(errorMessages.futureDate),
-                  },
-                }}
-              />
-            </div>
-            <Dialog.Footer>
-              <Dialog.Close>
-                <Button type="button" mode="outline" color="secondary">
-                  <span data-h2-text-decoration="base(underline)">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "tiF/jI",
-                      description: "Close dialog button",
-                    })}
-                  </span>
-                </Button>
-              </Dialog.Close>
+              </p>
+              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+                <Input
+                  id="addToPoolDialog-expiryDate"
+                  label={intl.formatMessage({
+                    defaultMessage: "Expiry date",
+                    id: "sICXeM",
+                    description:
+                      "Label displayed on the date field of the add user to pool dialog",
+                  })}
+                  type="date"
+                  name="expiryDate"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    min: {
+                      value: currentDate(),
+                      message: intl.formatMessage(errorMessages.futureDate),
+                    },
+                  }}
+                />
+              </div>
+              <Dialog.Footer>
+                <Dialog.Close>
+                  <Button type="button" mode="outline" color="secondary">
+                    <span data-h2-text-decoration="base(underline)">
+                      {intl.formatMessage({
+                        defaultMessage: "Cancel and go back",
+                        id: "tiF/jI",
+                        description: "Close dialog button",
+                      })}
+                    </span>
+                  </Button>
+                </Dialog.Close>
 
-              <Button
-                disabled={fetching}
-                type="submit"
-                mode="solid"
-                color="secondary"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-              >
-                {fetching ? (
-                  intl.formatMessage(commonMessages.saving)
-                ) : (
-                  <span data-h2-text-decoration="base(underline)">
-                    {intl.formatMessage({
-                      defaultMessage: "Add to new pool",
-                      id: "yypk6/",
-                      description: "Confirmation button for add to pool dialog",
-                    })}
-                  </span>
-                )}
-              </Button>
-            </Dialog.Footer>
-          </form>
-        </FormProvider>
+                <Button
+                  disabled={fetching}
+                  type="submit"
+                  mode="solid"
+                  color="secondary"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                >
+                  {fetching ? (
+                    intl.formatMessage(commonMessages.saving)
+                  ) : (
+                    <span data-h2-text-decoration="base(underline)">
+                      {intl.formatMessage({
+                        defaultMessage: "Add to new pool",
+                        id: "yypk6/",
+                        description:
+                          "Confirmation button for add to pool dialog",
+                      })}
+                    </span>
+                  )}
+                </Button>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

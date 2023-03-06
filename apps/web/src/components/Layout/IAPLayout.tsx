@@ -5,6 +5,7 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+import { useTheme } from "@gc-digital-talent/theme";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
@@ -37,6 +38,11 @@ const Layout = () => {
   const intl = useIntl();
   const location = useLocation();
   const paths = useRoutes();
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme("iap", "light");
+  }, [setTheme]);
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -75,7 +81,8 @@ const Layout = () => {
           className="container"
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
-          style={{ height: "100vh", margin: "0" }}
+          data-h2-min-height="base(100vh)"
+          data-h2-margin="base(0)"
         >
           <div>
             <Header />

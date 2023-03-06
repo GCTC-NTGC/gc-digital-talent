@@ -19,58 +19,57 @@ export type Color =
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-background-color": "base(dt-primary)",
+    "data-h2-background-color": "base(primary)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   "primary.dark": {
-    "data-h2-background-color": "base(dt-primary.dark)",
+    "data-h2-background-color": "base(primary.dark)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   secondary: {
-    "data-h2-background-color":
-      "base(dt-secondary) base:dark(dt-secondary.lighter)",
+    "data-h2-background-color": "base(secondary) base:dark(secondary.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:dark:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   cta: {
-    "data-h2-background-color": "base(dt-accent)",
+    "data-h2-background-color": "base(tertiary)",
     "data-h2-color":
-      "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   white: {
     "data-h2-background-color": "base(white) base:dark(black.lighter)",
     "data-h2-color":
-      "base:children[>*](dt-black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   black: {
-    "data-h2-background-color": "base(dt-black) base:dark(dt-black.lighter)",
+    "data-h2-background-color": "base(black) base:dark(black.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-primary)",
+    "data-h2-background-color": "base(primary)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "base(ia-secondary)",
+    "data-h2-background-color": "base(secondary)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   yellow: {
-    "data-h2-background-color": "base(tm-yellow)",
+    "data-h2-background-color": "base(quaternary)",
     "data-h2-color":
       "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   red: {
-    "data-h2-background-color": "base(tm-red)",
+    "data-h2-background-color": "base(tertiary)",
     "data-h2-color":
       "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
   blue: {
-    "data-h2-background-color": "base(tm-blue)",
+    "data-h2-background-color": "base(secondary)",
     "data-h2-color":
       "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },

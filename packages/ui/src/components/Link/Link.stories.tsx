@@ -25,12 +25,13 @@ export default {
 const colors: Array<Color> = [
   "primary",
   "secondary",
-  "cta",
-  "white",
-  "black",
-  "ia-primary",
-  "ia-secondary",
+  "tertiary",
+  "quaternary",
+  "quinary",
 ];
+const stoplight: Array<Color> = ["success", "warning", "error"];
+const black: Array<Color> = ["black"];
+const white: Array<Color> = ["white"];
 
 const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
   const { label, ...rest } = args;
@@ -45,15 +46,44 @@ const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
 const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
   const { label, ...rest } = args;
   return (
-    <>
-      {colors.map((color) => (
-        <p key={color}>
-          <Link color={color} {...rest}>
-            <span>{label}</span>
-          </Link>
-        </p>
-      ))}
-    </>
+    <div data-h2-display="base(flex)">
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {colors.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Link color={color} {...rest}>
+              <span>{label}</span>
+            </Link>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {stoplight.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Link color={color} {...rest}>
+              <span>{label}</span>
+            </Link>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {black.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Link color={color} {...rest}>
+              <span>{label}</span>
+            </Link>
+          </p>
+        ))}
+      </div>
+      <div data-h2-padding="base(x1)" data-h2-background="base(black)">
+        {white.map((color) => (
+          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+            <Link color={color} {...rest}>
+              <span>{label}</span>
+            </Link>
+          </p>
+        ))}
+      </div>
+    </div>
   );
 };
 

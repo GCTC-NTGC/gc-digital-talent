@@ -227,7 +227,7 @@ export const ReviewApplication: React.FunctionComponent<
                   >
                     <Link
                       href={paths.signAndSubmit(applicationId)}
-                      color="cta"
+                      color="primary"
                       mode="solid"
                       type="button"
                       disabled={!isApplicationComplete ?? false}
@@ -245,7 +245,7 @@ export const ReviewApplication: React.FunctionComponent<
                     </Link>
                     <Link
                       href={paths.applications(applicant.id)}
-                      color="black"
+                      color="secondary"
                       mode="inline"
                       type="button"
                     >

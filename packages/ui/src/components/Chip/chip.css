@@ -4,13 +4,13 @@
 }
 
 .Chip__Dismiss--primary:focus-visible {
-  outline-color: rgba(var(--h2-color-dt-primary), 1);
+  outline-color: rgba(var(--h2-color-primary), 1);
 }
 
 .Chip__Dismiss--secondary:focus-visible {
-  outline-color: rgba(var(--h2-color-dt-secondary), 1);
+  outline-color: rgba(var(--h2-color-secondary), 1);
 }
 
 .Chip__Dismiss--gray:focus-visible {
-  outline-color: rgba(var(--h2-color-dt-gray), 1);
+  outline-color: rgba(var(--h2-color-gray), 1);
 }

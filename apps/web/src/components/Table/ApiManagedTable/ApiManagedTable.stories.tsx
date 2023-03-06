@@ -81,6 +81,9 @@ export default {
       },
     },
   },
+  parameters: {
+    themeKey: "admin",
+  },
 } as Meta<ApiManageTableProps>;
 
 const allColumnIds = columns.map((c) => c.id);
@@ -112,7 +115,13 @@ const Template: Story<ApiManageTableProps> = (args) => {
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
         filterComponent={
-          <Button onClick={() => action("onOpenFilters")()}>Filters</Button>
+          <Button
+            color="secondary"
+            mode="outline"
+            onClick={() => action("onOpenFilters")()}
+          >
+            Filters
+          </Button>
         }
         onSearchChange={(term, type) => {
           setSearchState({

@@ -38,10 +38,14 @@ const Template: ComponentStory<typeof AlertDialog.Root> = ({ defaultOpen }) => {
           </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Cancel>
-              <Button color="white">Cancel</Button>
+              <Button color="secondary" mode="inline">
+                Cancel
+              </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button color="cta">Action</Button>
+              <Button color="primary" mode="solid">
+                Action
+              </Button>
             </AlertDialog.Action>
           </AlertDialog.Footer>
         </AlertDialog.Content>

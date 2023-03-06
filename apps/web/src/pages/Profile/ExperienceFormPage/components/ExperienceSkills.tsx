@@ -93,14 +93,14 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
 
   return (
     <>
-      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "2. Skills displayed during this experience",
           id: "pYGf4h",
           description: "Title for skills on Experience form",
         })}
       </h2>
-      <p>
+      <p data-h2-margin="base(0, 0, x2, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Select skills that match the abilities you displayed during this experience period. You will explain how you used them in the next step.",
@@ -126,7 +126,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                data-h2-background-color="base(dt-gray.50)"
+                data-h2-background-color="base(gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
                 decorative
@@ -147,7 +147,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                   />
                   {index + 1 !== technicalEssentialSkills?.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
@@ -171,7 +171,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                data-h2-background-color="base(dt-gray.50)"
+                data-h2-background-color="base(gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
                 decorative
@@ -192,7 +192,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                   />
                   {index + 1 !== technicalNonessentialSkills?.length ? (
                     <Separator
-                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-background-color="base(gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
