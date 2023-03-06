@@ -50,6 +50,17 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether the user can create draft models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function createDraft(User $user)
+    {
+        return $user->isAbleTo("create-any-application");
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
@@ -57,10 +68,7 @@ class PoolCandidatePolicy
      */
     public function create(User $user)
     {
-        return $user->isAbleTo([
-            "create-own-draftApplication",
-            "create-any-application"
-        ]);
+        return $user->isAbleTo("create-any-application");
     }
 
     /**
