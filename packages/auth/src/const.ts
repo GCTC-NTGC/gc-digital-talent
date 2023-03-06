@@ -4,7 +4,7 @@ export const ID_TOKEN = "id_token";
 
 export const POST_LOGOUT_URI_KEY = "post_logout_uri";
 
-// These come from api/config/rolepermission.php
+// These constants come from api/config/rolepermission.php
 export const ROLE_NAME = {
   Guest: "guest",
   BaseUser: "base_user",
