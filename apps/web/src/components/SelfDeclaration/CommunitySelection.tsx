@@ -91,7 +91,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
             </span>
             <span
               data-h2-font-size="base(caption)"
-              data-h2-color="base(dt-error.dark)"
+              data-h2-color="base(error.dark)"
               data-h2-display="base(inline-block)"
               data-h2-font-weight="base(400)"
               data-h2-margin="base(0, 0, 0, x.125)"

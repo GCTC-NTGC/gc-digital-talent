@@ -63,7 +63,7 @@ describe("Pools", () => {
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /edit pool advertisement/i })
+    cy.findByRole("heading", { name: /edit pool/i })
       .should("exist")
       .and("be.visible");
 

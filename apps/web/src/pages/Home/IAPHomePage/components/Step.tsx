@@ -16,13 +16,13 @@ const Step: React.FC<StepProps> = ({ position, title, children }) => (
         data-h2-font-weight="base(800)"
         data-h2-display="base(inline-block)"
         data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-color="base(light.ia-primary)"
+        data-h2-color="base(primary.light)"
       >
         {position}
       </span>
       <span data-h2-display="base(block)">{title}</span>
     </Heading>
-    <div data-h2-color="base(ia-white)" data-h2-margin="base(x1, 0, 0, 0)">
+    <div data-h2-color="base(white)" data-h2-margin="base(x1, 0, 0, 0)">
       {children}
     </div>
   </div>

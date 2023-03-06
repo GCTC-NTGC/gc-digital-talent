@@ -35,13 +35,13 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
-
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
    */
   return (
     <motion.div
+      data-h2-background="base(white) base:dark(background)"
       data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -56,7 +56,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-flex-direction="base(column)"
       >
         <div
-          data-h2-background="base(ia-primary-dark-to-transparent)"
+          data-h2-background="base(primary-transparent-linear)"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
@@ -74,7 +74,7 @@ const Home: React.FunctionComponent = () => {
         />
         <div
           className="hero-logo"
-          data-h2-background-color="base(ia-primary.hero) p-tablet(transparent)"
+          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
@@ -127,7 +127,7 @@ const Home: React.FunctionComponent = () => {
           >
             <div
               data-h2-padding="p-tablet(x2) l-tablet(x3)"
-              data-h2-background-color="base(ia-white)"
+              data-h2-background-color="base(white) base:dark(background)"
               data-h2-radius="base(iap-home-card)"
             >
               <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
@@ -141,7 +141,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x8)"
                       data-h2-width="base(x8)"
-                      data-h2-background-color="base(ia-primary)"
+                      data-h2-background-color="base(primary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(-x1.5, -x1, auto, auto)"
@@ -150,7 +150,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x15)"
                       data-h2-width="base(x15)"
-                      data-h2-background-color="base(ia-secondary)"
+                      data-h2-background-color="base(secondary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(auto, auto, -x3, -x5.5)"
@@ -348,7 +348,7 @@ const Home: React.FunctionComponent = () => {
                     className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
-                    data-h2-color="base(ia-secondary)"
+                    data-h2-color="base(secondary)"
                     data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
                   <div
@@ -448,7 +448,7 @@ const Home: React.FunctionComponent = () => {
         <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
             light
-            data-h2-color="base(ia-white)"
+            data-h2-color="base(white)"
             data-h2-text-align="base(center)"
           >
             {intl.formatMessage({
@@ -485,13 +485,13 @@ const Home: React.FunctionComponent = () => {
               <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
                 <div
                   data-h2-height="base(100%)"
-                  data-h2-background-color="base(ia-secondary.light)"
+                  data-h2-background-color="base(secondary.light)"
                   data-h2-padding="base(x2) p-tablet(x3)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
                   <Heading
                     light
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                     data-h2-font-size="base(h3, 1)"
                   >
                     <span data-h2-display="base(block)">
@@ -516,10 +516,7 @@ const Home: React.FunctionComponent = () => {
                       })}
                     </span>
                   </Heading>
-                  <p
-                    data-h2-color="base(ia-white)"
-                    data-h2-margin="base(x1, 0)"
-                  >
+                  <p data-h2-color="base(white)" data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Apply today to start your journey to a career in Information Technology.",
@@ -536,7 +533,7 @@ const Home: React.FunctionComponent = () => {
       </div>
       {/* Coming soon section */}
       <div
-        data-h2-background-color="base(ia-secondary)"
+        data-h2-background-color="base(secondary)"
         data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
         data-h2-position="base(relative)"
       >
@@ -549,7 +546,7 @@ const Home: React.FunctionComponent = () => {
         >
           <RadiatingCircles
             className=""
-            data-h2-color="base(ia-primary)"
+            data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
@@ -605,7 +602,7 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
               {intl.formatMessage({
@@ -718,7 +715,7 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
               {intl.formatMessage(
@@ -830,11 +827,11 @@ const Home: React.FunctionComponent = () => {
                 <Triangle
                   className=""
                   data-h2-width="base(100%)"
-                  data-h2-color="base(light.ia-secondary)"
+                  data-h2-color="base(secondary.light)"
                 />
               </div>
               <div
-                data-h2-background-color="base(ia-secondary.light)"
+                data-h2-background-color="base(secondary.light)"
                 data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
                 data-h2-position="base(relative)"
                 data-h2-text-align="base(center) p-tablet(left)"
@@ -862,7 +859,7 @@ const Home: React.FunctionComponent = () => {
                 >
                   <div
                     data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                   >
                     <Heading color="white" light>
                       {intl.formatMessage({

@@ -2013,8 +2013,8 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
-  "eSPoJw": {
-    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation>",
+  "MS9dB9": {
+    "defaultMessage": "Talents numériques du GC",
     "description": "Application title"
   },
   "NjHXGh": {
@@ -2977,10 +2977,6 @@
     "defaultMessage": "Créer une classification",
     "description": "Heading displayed above the Create Classification form."
   },
-  "DguVoT": {
-    "defaultMessage": "Mettre à jour l’utilisateur",
-    "description": "Title displayed on the update a user form."
-  },
   "Duswz0": {
     "defaultMessage": "Résultats du candidat",
     "description": "Heading for the candidate results section of the single search request view."
@@ -3219,10 +3215,6 @@
   "lo2bSB": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
-  },
-  "mv+9jt": {
-    "defaultMessage": "Renseignements sur l’utilisateur",
-    "description": "Heading for the user information section"
   },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
@@ -3536,10 +3528,6 @@
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkPreferences section."
   },
-  "/no0jA": {
-    "defaultMessage": "Profil du candidat",
-    "description": "Tabs title for the individual user profile."
-  },
   "1pk/7X": {
     "defaultMessage": "Information linguistiques",
     "description": "Title of the Language Information content section"
@@ -3639,10 +3627,6 @@
   "DUK/pz": {
     "defaultMessage": "Accueil",
     "description": "Breadcrumb title for the home page link."
-  },
-  "EK90Iy": {
-    "defaultMessage": "Renseignements généraux",
-    "description": "Tabs title for the individual user general info."
   },
   "EdUZaX": {
     "defaultMessage": "Candidats",
@@ -3752,14 +3736,6 @@
     "defaultMessage": "Sélectionner un bassin...",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
   },
-  "XtBhGo": {
-    "defaultMessage": "Détails sur le candidat",
-    "description": "Title for the page when viewing an individual user."
-  },
-  "YtEDfa": {
-    "defaultMessage": "Accueil",
-    "description": "Breadcrumb title for the home link."
-  },
   "ZDmkKD": {
     "defaultMessage": "Tableau de bord",
     "description": "Label displayed on the dashboard menu item."
@@ -3791,10 +3767,6 @@
   "crzWxb": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
-  },
-  "eMXL0K": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Breadcrumb title for the all users table link."
   },
   "eickbr": {
     "defaultMessage": "Minorité visible",
@@ -3915,17 +3887,17 @@
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
   },
-  "S0ghpc": {
+  "4pAtT5": {
     "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Inactive' status"
   },
-  "ye47Rz": {
+  "BqQrcn": {
     "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status"
   },
-  "SOZVtc": {
+  "uv0RmD": {
     "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
+    "description": "Text in view user page saying they currently have the 'Active' status"
   },
   "+5da+V": {
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
@@ -3938,10 +3910,6 @@
   "+umNAP": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Header for page to create pool advertisements"
-  },
-  "/6voUd": {
-    "defaultMessage": "Modifier l'annonce du bassin",
-    "description": "Header for page to edit pool advertisements"
   },
   "/QUq6L": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
@@ -4026,10 +3994,6 @@
   "ASNC88": {
     "defaultMessage": "Exigence en matière de sécurité",
     "description": "Label displayed on the edit pool form security requirement field."
-  },
-  "B/VlGq": {
-    "defaultMessage": "Gérer les candidats",
-    "description": "Link text for button to manage candidates of a specific pool"
   },
   "BQsJSG": {
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
@@ -4246,10 +4210,6 @@
   "de2F/x": {
     "defaultMessage": "Annonce du bassin",
     "description": "Label for pool advertisement url field"
-  },
-  "dmGvCL": {
-    "defaultMessage": "Modifier l'annonce du bassin",
-    "description": "Link text for button to edit a specific pool"
   },
   "eGEusj": {
     "defaultMessage": "Transférable",
@@ -4697,10 +4657,6 @@
   "QIh0q7": {
     "defaultMessage": "Niveau de compréhension",
     "description": "CSV Header, Comprehension Level column"
-  },
-  "RDgQ0h": {
-    "defaultMessage": "De {poolName}",
-    "description": "Subtitle on pool candidates page indicating which pool candidates are from"
   },
   "RXoZOS": {
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
@@ -5751,10 +5707,6 @@
     "defaultMessage": "Ajoutez une nouvelle expérience à votre CV",
     "description": "Heading for the Add Experience dialog"
   },
-  "BkH0qC": {
-    "defaultMessage": "Profil d’utilisateur",
-    "description": "Page title for the view user profile page"
-  },
   "/WvEvL": {
     "defaultMessage": "Information relative au stage",
     "description": "Page title for the user placement information page"
@@ -6506,6 +6458,34 @@
     "defaultMessage": "Brève description de l’équipe (en anglais)",
     "description": "Short description for a team in English"
   },
+  "10Ous+": {
+    "defaultMessage": "Supprimer cette application<hidden> ({name})</hidden>",
+    "description": "Link text to delete a specific application"
+  },
+  "3Q8D5y": {
+    "defaultMessage": "Appliquée le : <strong>{submittedAt}</strong>",
+    "description": "Text notifying user of the date they submitted an application"
+  },
+  "51B5l9": {
+    "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "JM30M7": {
+    "defaultMessage": "Consulter cette application<hidden> {name}</hidden>",
+    "description": "Link text to view a specific application"
+  },
+  "eqVWC6": {
+    "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
+    "description": "Text notifying user of closing date for an application"
+  },
+  "rXdaZW": {
+    "defaultMessage": "Obtenir du soutien",
+    "description": "Link text to direct a user to the support page"
+  },
+  "si/wtm": {
+    "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
+    "description": "Link text to see an applications advertisement"
+  },
   "1cPlHY": {
     "defaultMessage": "Nom de l’organisation (en anglais)",
     "description": "Label for the English team display name input"
@@ -6554,18 +6534,6 @@
     "defaultMessage": "Ministères",
     "description": "Label for the team departments input"
   },
-  "1lmME7": {
-    "defaultMessage": "Supprimer<hidden> la candidature {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
-  "60Ee78": {
-    "defaultMessage": "Continuer ma candidature<hidden> {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
-  "HXNJ6Z": {
-    "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
-    "description": "Link text to see an applications advertisement"
-  },
   "WX6NnA": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Button text for the create team form submit button"
@@ -6573,5 +6541,109 @@
   "XaYhX3": {
     "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
     "description": "Descriptive text for the create team page in the admin portal."
+  },
+  "05m1mY": {
+    "defaultMessage": "Modifier les informations de l’équipe",
+    "description": "Title for the team edit page"
+  },
+  "9i2N/g": {
+    "defaultMessage": "Modifier le compte utilisateur",
+    "description": "Title for the user edit page"
+  },
+  "Cjp2F6": {
+    "defaultMessage": "Informations sur le bassin",
+    "description": "Title for the pool info page"
+  },
+  "Rl+0Er": {
+    "defaultMessage": "Afficher les candidats",
+    "description": "Title for the edit pool page"
+  },
+  "SFk84j": {
+    "defaultMessage": "Informations sur l’utilisateur",
+    "description": "Link text for the user information page link"
+  },
+  "SLedtO": {
+    "defaultMessage": "Profil de l’utilisateur",
+    "description": "Title for the user profile page"
+  },
+  "UHH1Oh": {
+    "defaultMessage": "Informations sur l’équipe",
+    "description": "Title for the team information page"
+  },
+  "VxJ5Dz": {
+    "defaultMessage": "Membres de l’équipe",
+    "description": "Title for the list of team members page"
+  },
+  "X4TOhW": {
+    "defaultMessage": "Candidats",
+    "description": "Page title for the admin pool candidates index page"
+  },
+  "ZfCeq/": {
+    "defaultMessage": "Afficher les membres de l’équipe",
+    "description": "Link text the list of team members page"
+  },
+  "eP8dfW": {
+    "defaultMessage": "Afficher l’utilisateur",
+    "description": "Title for the user information page"
+  },
+  "l7Wu86": {
+    "defaultMessage": "Modifier le bassin",
+    "description": "Title for the edit pool page"
+  },
+  "+hrTzd": {
+    "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas respecté la date limite de soumission ainsi que les candidatures qui ont été entièrement évaluées.",
+    "description": "Text describing that the historical applications section is used for"
+  },
+  "5isFkb": {
+    "defaultMessage": "Candidatures préliminaires",
+    "description": "Title for the draft applications section"
+  },
+  "ItdSG1": {
+    "defaultMessage": "<strong>Les candidatures préliminaires</strong> correspondent à des demandes que vous avez commencées, mais que vous n’avez pas encore soumises.",
+    "description": "Explainer for draft applications"
+  },
+  "KBa7RY": {
+    "defaultMessage": "Toutes les candidatures qui ne sont plus actives apparaîtront ici.",
+    "description": "Text displayed in historical applications section when there are no historical applications."
+  },
+  "MTSArs": {
+    "defaultMessage": "Historique des candidatures",
+    "description": "Title for the historical applications section"
+  },
+  "O63upZ": {
+    "defaultMessage": "Vérifiez nos offres pour soumettre une candidature.",
+    "description": "Link text to browse opportunities when there are no draft applications"
+  },
+  "U5WfKm": {
+    "defaultMessage": "Les candidatures de cette section vous permettront de suivre leur évolution.",
+    "description": "Text describing that the submitted applications section is used for"
+  },
+  "W/s+MH": {
+    "defaultMessage": "Les candidatures en cours de traitement apparaissent ici.",
+    "description": "Text displayed in draft applications section when there are no drafts."
+  },
+  "X35OfB": {
+    "defaultMessage": "Cette section répertorie toutes vos candidatures aux processus de recrutement. Les candidatures sont classées en trois catégories distinctes :",
+    "description": "Text explaining there are three different groups of applications"
+  },
+  "acCyP9": {
+    "defaultMessage": "Les candidatures soumises",
+    "description": "Title for the submitted applications section"
+  },
+  "jBUwoU": {
+    "defaultMessage": "<strong>Les candidatures soumises</strong> sont en attente d’évaluation ou sont en cours d’examen.",
+    "description": "Explainer for submitted applications"
+  },
+  "tqIOKb": {
+    "defaultMessage": "Après avoir soumis une candidature, celle-ci apparaîtra ici.",
+    "description": "Text displayed in submitted applications section when there are no submitted applications."
+  },
+  "v8gO9Z": {
+    "defaultMessage": "L’<strong>historique de vos candidatures</strong> comprend les candidatures qui sont complètes ou qui n’ont pas respecté la date limite de soumission.",
+    "description": "Explainer for application history section"
+  },
+  "wzScZA": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Title for the list of a users applications"
   }
 }

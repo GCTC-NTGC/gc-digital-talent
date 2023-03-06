@@ -131,6 +131,8 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
+  # teams and roles
+  roleAssignments: [RoleAssignment!] @hasMany
 }
 
 enum ProvinceOrTerritory {
@@ -524,6 +526,9 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @can(ability: "viewAny")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @canOnParent(ability: "viewAnyTeamMembers")
 }
 
 type Role {
@@ -532,6 +537,17 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  roleAssignments: [RoleAssignment!]
+    @hasMany
+    @can(ability: "viewAnyRoleAssignments", model: "Role")
+}
+
+# This model represents the polymorphic role_user table and allows querying the team relationship
+type RoleAssignment {
+  id: ID!
+  role: Role @belongsTo
+  team: Team @belongsTo
+  user: UserPublicProfile @morphTo
 }
 
 enum PoolCandidateSearchStatus {
@@ -933,28 +949,40 @@ type Query {
   countPoolCandidatesByPool(
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
-  classification(id: UUID! @eq): Classification @find
-  classifications: [Classification]! @all
-  department(id: UUID! @eq): Department @find
-  departments: [Department]! @all
+  classification(id: UUID! @eq): Classification @find @can(ability: "view")
+  classifications: [Classification]! @all @can(ability: "viewAny")
+  department(id: UUID! @eq): Department @find @can(ability: "view")
+  departments: [Department]! @all @can(ability: "viewAny")
   poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
     @find
     @guard
-    @can(ability: "view", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
-    @can(ability: "view", query: true)
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -974,10 +1002,10 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
-  skillFamily(id: UUID! @eq): SkillFamily @find
-  skillFamilies: [SkillFamily]! @all
-  skill(id: UUID! @eq): Skill @find
-  skills: [Skill]! @all
+  skillFamily(id: UUID! @eq): SkillFamily @find @can(ability: "view")
+  skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
+  skill(id: UUID! @eq): Skill @find @can(ability: "view")
+  skills: [Skill]! @all @can(ability: "viewAny")
   genericJobTitle(id: UUID! @eq): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
@@ -1144,6 +1172,8 @@ input UpdateUserAsAdminInput
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput
@@ -1552,6 +1582,18 @@ input UpdatePoolAdvertisementInput {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
+input RolesInput
+  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
+  roles: [ID!]!
+  team: ID
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput
+  detach: RolesInput
+  sync: RolesInput
+}
+
 type Mutation {
   createUser(user: CreateUserInput! @spread): User
     @create
@@ -1616,6 +1658,8 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+
+  # SearchRequest mutations
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
   ): PoolCandidateSearchRequest @create @can(ability: "create")
@@ -1626,6 +1670,11 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
+  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
+
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard

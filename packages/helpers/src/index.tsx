@@ -20,6 +20,7 @@ import {
   emptyToNull,
   emptyToUndefined,
   uniqueItems,
+  groupBy,
 } from "./utils/util";
 
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
@@ -44,4 +45,5 @@ export {
   sanitizeUrl,
   isUuidError,
   useIsSmallScreen,
+  groupBy,
 };

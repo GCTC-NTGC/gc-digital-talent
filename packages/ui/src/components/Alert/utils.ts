@@ -13,66 +13,58 @@ import { AlertType } from "./types";
 
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-border":
-      "base(0.25rem solid tm-green.darker) base:dark(0.25rem solid tm-green.lightest)",
+    "data-h2-border": "base(3px solid success.darker)",
   },
   warning: {
-    "data-h2-border":
-      "base(0.25rem solid tm-yellow.darker) base:dark(0.25rem solid tm-yellow.lightest)",
+    "data-h2-border": "base(3px solid warning.darker)",
   },
   info: {
-    "data-h2-border":
-      "base(0.25rem solid tm-blue.darker) base:dark(0.25rem solid tm-blue.lightest)",
+    "data-h2-border": "base(3px solid secondary.darker)",
   },
   error: {
-    "data-h2-border":
-      "base(0.25rem solid tm-red.darker) base:dark(0.25rem solid tm-red.lightest)",
+    "data-h2-border": "base(3px solid error.darker)",
   },
 };
 
 export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-green.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(success.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-green.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(success.darker)  base:focus-visible(black)",
   },
   warning: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-yellow.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(warning.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-yellow.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(warning.darker)  base:focus-visible(black)",
   },
   info: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-blue.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(secondary.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-blue.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(secondary.darker)  base:focus-visible(black)",
   },
   error: {
     "data-h2-background-color":
-      "base(transparent) base:hover(tm-red.lightest) base:focus-visible(tm-yellow.light)",
+      "base(transparent) base:hover(error.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(tm-red.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(error.darker)  base:focus-visible(black)",
   },
 };
 
 export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color":
-      "base(tm-green.darker) base:dark(tm-green.lightest)",
+    "data-h2-background-color": "base(success.darker)",
   },
   warning: {
-    "data-h2-background-color":
-      "base(tm-yellow.darker) base:dark(tm-yellow.lightest)",
+    "data-h2-background-color": "base(warning.darker)",
   },
   info: {
-    "data-h2-background-color":
-      "base(tm-blue.darker) base:dark(tm-blue.lightest)",
+    "data-h2-background-color": "base(secondary.darker)",
   },
   error: {
-    "data-h2-background-color":
-      "base(tm-red.darker) base:dark(tm-red.lightest)",
+    "data-h2-background-color": "base(error.darker)",
   },
 };
 
@@ -88,20 +80,20 @@ export const iconMap: Record<
 
 export const iconStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color": "base(tm-green.lightest)",
-    "data-h2-color": "base(tm-green.darker)",
+    "data-h2-background-color": "base:all(success.lightest)",
+    "data-h2-color": "base:all(success.darker)",
   },
   warning: {
-    "data-h2-background-color": "base(tm-yellow.lightest)",
-    "data-h2-color": "base(tm-yellow.darker)",
+    "data-h2-background-color": "base:all(warning.lightest)",
+    "data-h2-color": "base:all(warning.darker)",
   },
   info: {
-    "data-h2-background-color": "base(tm-blue.lightest)",
-    "data-h2-color": "base(tm-blue.darker)",
+    "data-h2-background-color": "base:all(secondary.lightest)",
+    "data-h2-color": "base:all(secondary.darker)",
   },
   error: {
-    "data-h2-background-color": "base(tm-red.lightest)",
-    "data-h2-color": "base(tm-red.darker)",
+    "data-h2-background-color": "base:all(error.lightest)",
+    "data-h2-color": "base:all(error.darker)",
   },
 };
 

@@ -18,7 +18,7 @@ const AwardFormFields = ({ labels }: SubExperienceFormProps) => {
 
   return (
     <div>
-      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Award Details",
           id: "i55f5L",

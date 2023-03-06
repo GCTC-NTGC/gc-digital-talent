@@ -52,7 +52,7 @@ const Opportunities = () => {
           alt=""
         />
         <div
-          data-h2-background="base(tm-linear-divider)"
+          data-h2-background="base(main-linear)"
           data-h2-location="base(0, 0, auto, 0)"
           data-h2-display="base(block)"
           data-h2-height="base(x1)"

@@ -31,7 +31,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
 
   return (
     <div
-      data-h2-background-color="base(black)"
+      data-h2-background-color="base(black.darkest)"
       data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
       data-h2-padding-bottom="
       base(calc(50vh + 3%))
@@ -52,17 +52,11 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-text-align="base(center) p-tablet(left)"
         >
           <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "<abbreviation>GC</abbreviation> Digital Talent",
-                id: "eSPoJw",
-                description: "Application title",
-              },
-              {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
+            {intl.formatMessage({
+              defaultMessage: "GC Digital Talent",
+              id: "MS9dB9",
+              description: "Application title",
+            })}
           </Heading>
           <p
             data-h2-font-size="base(h6, 1.4)"
