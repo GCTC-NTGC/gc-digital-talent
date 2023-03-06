@@ -102,7 +102,7 @@ const AddIndividualRoleDialog = ({
         </IconButton>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-secondary">{label}</Dialog.Header>
+        <Dialog.Header>{label}</Dialog.Header>
         <p data-h2-margin="base(x1, 0)">
           {intl.formatMessage(
             {
