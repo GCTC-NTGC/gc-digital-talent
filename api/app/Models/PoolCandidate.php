@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 
 /**
  * Class PoolCandidate
@@ -210,7 +211,7 @@ class PoolCandidate extends Model
     {
         $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', date("Y-m-d"))
+                $query->whereDate('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         return $query;
