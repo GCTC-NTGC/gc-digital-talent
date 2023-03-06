@@ -5,11 +5,14 @@ export const ID_TOKEN = "id_token";
 export const POST_LOGOUT_URI_KEY = "post_logout_uri";
 
 // These come from api/config/rolepermission.php
-export enum RoleName {
-  Guest = "guest",
-  BaseUser = "base_user",
-  Applicant = "applicant",
-  PoolOperator = "pool_operator",
-  RequestResponder = "request_responder",
-  PlatformAdmin = "platform_admin",
-}
+export const ROLE_NAME = {
+  Guest: "guest",
+  BaseUser: "base_user",
+  Applicant: "applicant",
+  PoolOperator: "pool_operator",
+  RequestResponder: "request_responder",
+  PlatformAdmin: "platform_admin",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+export type RoleName = ObjectValues<typeof ROLE_NAME>;

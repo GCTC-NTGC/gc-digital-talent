@@ -5,7 +5,7 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
-import { RoleName } from "@gc-digital-talent/auth/src/const";
+import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -96,9 +96,9 @@ const Layout = () => {
     const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
     if (
       [
-        RoleName.PoolOperator,
-        RoleName.RequestResponder,
-        RoleName.PlatformAdmin,
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
       ].some((authorizedRoleName) =>
         userRoleNames?.includes(authorizedRoleName),
       )

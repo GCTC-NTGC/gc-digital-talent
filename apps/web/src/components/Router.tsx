@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { RequireAuth, POST_LOGOUT_URI_KEY } from "@gc-digital-talent/auth";
-import { RoleName } from "@gc-digital-talent/auth/src/const";
+import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -617,7 +617,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               path: "create-account",
               element: (
-                <RequireAuth roles={[RoleName.Applicant]} loginPath={loginPath}>
+                <RequireAuth
+                  roles={[ROLE_NAME.Applicant]}
+                  loginPath={loginPath}
+                >
                   <CreateAccountPage />
                 </RequireAuth>
               ),
@@ -632,7 +635,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "me",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.Applicant]}
+                      roles={[ROLE_NAME.Applicant]}
                       loginPath={loginPath}
                     >
                       <ProfileRedirect />
@@ -649,7 +652,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <ProfilePage />
@@ -660,7 +663,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "about-me/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <AboutMePage />
@@ -671,7 +674,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "government-info/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <GovernmentInfoPage />
@@ -682,7 +685,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "language-info/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <LanguageInfoPage />
@@ -693,7 +696,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "work-location/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <WorkLocationPage />
@@ -704,7 +707,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "work-preferences/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <WorkPreferencesPage />
@@ -715,7 +718,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "employment-equity/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <EmploymentEquityPage />
@@ -726,7 +729,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "role-salary-expectations/edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <RoleSalaryPage />
@@ -740,7 +743,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               index: true,
                               element: (
                                 <RequireAuth
-                                  roles={[RoleName.Applicant]}
+                                  roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ExperienceAndSkillsPage />
@@ -754,7 +757,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   path: "create",
                                   element: (
                                     <RequireAuth
-                                      roles={[RoleName.Applicant]}
+                                      roles={[ROLE_NAME.Applicant]}
                                       loginPath={loginPath}
                                     >
                                       <ExperienceFormPage />
@@ -768,7 +771,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                       path: "edit",
                                       element: (
                                         <RequireAuth
-                                          roles={[RoleName.Applicant]}
+                                          roles={[ROLE_NAME.Applicant]}
                                           loginPath={loginPath}
                                         >
                                           <ExperienceFormPage edit />
@@ -787,7 +790,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "applications",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.Applicant]}
+                          roles={[ROLE_NAME.Applicant]}
                           loginPath={loginPath}
                         >
                           <MyApplicationsPage />
@@ -819,7 +822,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "create-application",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <CreateApplicationPage />
@@ -840,7 +843,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "submit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <SignAndSubmitPage />
@@ -851,7 +854,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "apply",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <ReviewApplicationPage />
@@ -867,7 +870,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               path: "talent/profile/*",
               element: (
-                <RequireAuth roles={[RoleName.Applicant]} loginPath={loginPath}>
+                <RequireAuth
+                  roles={[ROLE_NAME.Applicant]}
+                  loginPath={loginPath}
+                >
                   <TalentRedirect />
                 </RequireAuth>
               ),
@@ -905,9 +911,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
               element: (
                 <RequireAuth
                   roles={[
-                    RoleName.PoolOperator,
-                    RoleName.RequestResponder,
-                    RoleName.PlatformAdmin,
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
                   ]}
                   loginPath={loginPath}
                 >
@@ -922,7 +928,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
@@ -933,7 +939,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <CreateUserPage />
@@ -947,7 +953,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <ViewUserPage />
@@ -959,9 +965,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: (
                         <RequireAuth
                           roles={[
-                            RoleName.PoolOperator,
-                            RoleName.RequestResponder,
-                            RoleName.PlatformAdmin,
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
                         >
@@ -974,9 +980,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: (
                         <RequireAuth
                           roles={[
-                            RoleName.PoolOperator,
-                            RoleName.RequestResponder,
-                            RoleName.PlatformAdmin,
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
                         >
@@ -988,7 +994,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <UpdateUserPage />
@@ -1006,7 +1012,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PoolOperator, RoleName.PlatformAdmin]}
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1017,7 +1023,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PlatformAdmin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <CreateTeamPage />
@@ -1032,8 +1038,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: (
                         <RequireAuth
                           roles={[
-                            RoleName.PoolOperator,
-                            RoleName.PlatformAdmin,
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
                         >
@@ -1045,7 +1051,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <UpdateTeamPage />
@@ -1057,8 +1063,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: (
                         <RequireAuth
                           roles={[
-                            RoleName.PoolOperator,
-                            RoleName.PlatformAdmin,
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
                         >
@@ -1077,7 +1083,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PoolOperator]}
+                      roles={[ROLE_NAME.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1088,7 +1094,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.PoolOperator]}
+                      roles={[ROLE_NAME.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <CreatePoolPage />
@@ -1103,8 +1109,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: (
                         <RequireAuth
                           roles={[
-                            RoleName.PoolOperator,
-                            RoleName.RequestResponder,
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
                           ]}
                           loginPath={loginPath}
                         >
@@ -1116,7 +1122,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PoolOperator]}
+                          roles={[ROLE_NAME.PoolOperator]}
                           loginPath={loginPath}
                         >
                           <EditPoolPage />
@@ -1131,8 +1137,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           element: (
                             <RequireAuth
                               roles={[
-                                RoleName.PoolOperator,
-                                RoleName.RequestResponder,
+                                ROLE_NAME.PoolOperator,
+                                ROLE_NAME.RequestResponder,
                               ]}
                               loginPath={loginPath}
                             >
@@ -1147,7 +1153,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               index: true,
                               element: (
                                 <RequireAuth
-                                  roles={[RoleName.PoolOperator]}
+                                  roles={[ROLE_NAME.PoolOperator]}
                                   loginPath={loginPath}
                                 >
                                   <ViewPoolCandidatePage />
@@ -1166,7 +1172,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
               path: "candidates/:poolCandidateId/application",
               element: (
                 <RequireAuth
-                  roles={[RoleName.PoolOperator]}
+                  roles={[ROLE_NAME.PoolOperator]}
                   loginPath={loginPath}
                 >
                   <ViewPoolCandidatePage />
@@ -1180,7 +1186,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[RoleName.RequestResponder]}
+                      roles={[ROLE_NAME.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <IndexSearchRequestPage />
@@ -1191,7 +1197,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":searchRequestId",
                   element: (
                     <RequireAuth
-                      roles={[RoleName.RequestResponder]}
+                      roles={[ROLE_NAME.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <ViewSearchRequestPage />
@@ -1210,7 +1216,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexClassificationPage />
@@ -1221,7 +1227,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateClassificationPage />
@@ -1235,7 +1241,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateClassificationPage />
@@ -1253,7 +1259,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexDepartmentPage />
@@ -1264,7 +1270,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateDepartmentPage />
@@ -1278,7 +1284,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateDepartmentPage />
@@ -1296,7 +1302,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexSkillPage />
@@ -1307,7 +1313,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[RoleName.PlatformAdmin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateSkillPage />
@@ -1321,7 +1327,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateSkillPage />
@@ -1337,7 +1343,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <IndexSkillFamilyPage />
@@ -1348,7 +1354,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "create",
                           element: (
                             <RequireAuth
-                              roles={[RoleName.PlatformAdmin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <CreateSkillFamilyPage />
@@ -1362,7 +1368,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               path: "edit",
                               element: (
                                 <RequireAuth
-                                  roles={[RoleName.PlatformAdmin]}
+                                  roles={[ROLE_NAME.PlatformAdmin]}
                                   loginPath={loginPath}
                                 >
                                   <UpdateSkillFamilyPage />

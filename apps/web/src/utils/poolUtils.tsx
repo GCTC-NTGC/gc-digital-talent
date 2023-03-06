@@ -14,7 +14,7 @@ import {
 } from "~/api/generated";
 
 import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { RoleName } from "@gc-digital-talent/auth/src/const";
+import { ROLE_NAME } from "@gc-digital-talent/auth/src/const";
 import { wrapAbbr } from "./nameUtils";
 
 /**
@@ -53,7 +53,7 @@ export const isAdvertisementVisible = (
   let visible =
     roleAssignments
       .map((a) => a?.role?.name)
-      .includes(RoleName.PlatformAdmin) ?? false;
+      .includes(ROLE_NAME.PlatformAdmin) ?? false;
   if (status !== AdvertisementStatus.Draft) {
     visible = true;
   }
