@@ -30,7 +30,7 @@ class AuditQueryMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        if (!is_null($user) && $user->isAdmin())
+        if (!is_null($user) && ( $user->isAdmin() || $user->isPlatformAdmin() ))
         {
             $message = 'GraphQL request from admin user ['.$user['email'].']';
             $this->logger->info(

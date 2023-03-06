@@ -115,7 +115,10 @@ class User extends Model implements Authenticatable
     {
         return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
+    public function isPlatformAdmin(): bool
+    {
+        return is_array($this->roles) && in_array('platform_admin', $this->roles);
+    }
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
