@@ -357,6 +357,14 @@ const UpdateUserPage = () => {
               initialUser={userData.user}
               handleUpdateUser={handleUpdateUser}
             />
+            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Roles and permissions",
+                id: "m54J0C",
+                description:
+                  "Heading for updating a users roles and permissions",
+              })}
+            </Heading>
             <UserRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}

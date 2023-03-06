@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pill } from "@gc-digital-talent/ui";
+import { Heading, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
@@ -84,17 +84,26 @@ export const IndividualRoleTable = ({
   };
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      addDialog={
-        <AddIndividualRoleDialog
-          user={user}
-          availableRoles={availableRoles}
-          onAddRoles={handleAddRoles}
-        />
-      }
-    />
+    <>
+      <Heading level="h3" size="h4">
+        {intl.formatMessage({
+          defaultMessage: "Individual roles",
+          id: "Yg2TIH",
+          description: "Heading for updating a users individual roles",
+        })}
+      </Heading>
+      <Table
+        data={data}
+        columns={columns}
+        addDialog={
+          <AddIndividualRoleDialog
+            user={user}
+            availableRoles={availableRoles}
+            onAddRoles={handleAddRoles}
+          />
+        }
+      />
+    </>
   );
 };
 
