@@ -1,58 +1,41 @@
 import React from "react";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Separator } from "@gc-digital-talent/ui";
 
-export interface PageHeaderProps {
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
-  subtitle?: React.ReactNode;
-  children?: React.ReactNode;
+import Navigation from "./Navigation";
+import PageTitle, { PageTitleProps } from "./PageTitle";
+import { PageNavInfo } from "./types";
+
+export interface PageHeaderProps<T> extends PageTitleProps {
+  navItems?: Map<T, PageNavInfo>;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
+const PageHeader = <T,>({
   icon,
   subtitle,
   children,
+  navItems,
   ...rest
-}) => {
-  const Icon = icon || null;
+}: PageHeaderProps<T>) => {
+  const subNavItems = navItems
+    ? Array.from(navItems.values()).map((item) => ({
+        url: item.link.url,
+        label: item.link.label || item.title,
+        icon: item.icon,
+      }))
+    : [];
 
-  if (subtitle) {
-    return (
-      <>
-        <Heading level="h1" {...rest}>
-          {Icon && (
-            <Icon
-              className="page-header__icon"
-              data-h2-margin="base(0, x1, 0, 0)"
-              data-h2-width="base(x2)"
-              data-h2-vertical-align="base(middle)"
-            />
-          )}
-          <span data-h2-vertical-align="base(middle)">{children}</span>
-        </Heading>
-        <Heading
-          level="h2"
-          data-h2-padding="base(0, 0, x1, 0) p-tablet(0, 0, x1, x3)"
-          data-h2-margin="base(x1, 0, x.5, 0)"
-          {...rest}
-        >
-          {subtitle}
-        </Heading>
-      </>
-    );
-  }
   return (
-    <Heading level="h1" {...rest}>
-      {Icon && (
-        <Icon
-          className="page-header__icon"
-          data-h2-margin="base(0, x1, 0, 0)"
-          data-h2-width="base(x2)"
-          data-h2-vertical-align="base(middle)"
-        />
-      )}
-      <span data-h2-vertical-align="base(middle)">{children}</span>
-    </Heading>
+    <>
+      <PageTitle {...{ icon, subtitle, ...rest }}>{children}</PageTitle>
+      {subNavItems && subNavItems.length ? (
+        <Navigation items={subNavItems} />
+      ) : null}
+      <Separator
+        data-h2-background-color="base(black.lightest)"
+        data-h2-margin="base(x1, 0, x2, 0)"
+      />
+    </>
   );
 };
 
