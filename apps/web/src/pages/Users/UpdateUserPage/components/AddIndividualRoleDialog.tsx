@@ -82,8 +82,8 @@ const AddIndividualRoleDialog = ({
 
   const roleOptions = availableRoles
     .filter((role) => {
-      return !(
-        !role.isTeamBased ||
+      return (
+        !role.isTeamBased &&
         !user?.roleAssignments?.some(
           (assignment) => assignment.role?.id === role.id,
         )
