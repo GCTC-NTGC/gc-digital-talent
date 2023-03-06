@@ -101,7 +101,7 @@ let outputFr = null;
  * @returns undefined
  */
 const saveJson = (file: string, obj: Record<string, unknown>) =>
-  fs.writeFile(file, JSON.stringify(obj, null, 2) + "\n", {}, () => {
+  fs.writeFile(file, `${JSON.stringify(obj, null, 2)}"\n"`, {}, () => {
     /** Do nothing */
   });
 
