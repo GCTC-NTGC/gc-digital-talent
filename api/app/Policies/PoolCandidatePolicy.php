@@ -163,9 +163,9 @@ class PoolCandidatePolicy
      */
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return !$poolCandidate->submitted_at &&
+        return $poolCandidate->isDraft() &&
             $user->id === $poolCandidate->user_id &&
-            $user->isAbleTo("suspend-own-submittedApplication");
+            $user->isAbleTo("delete-own-submittedApplication");
     }
 
     /**
