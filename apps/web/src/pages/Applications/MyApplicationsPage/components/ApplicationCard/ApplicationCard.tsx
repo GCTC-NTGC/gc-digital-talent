@@ -60,10 +60,10 @@ const ApplicationCard = ({
 
   return (
     <div
-      data-h2-background-color="base(white)"
+      data-h2-background="base(foreground)"
+      data-h2-shadow="base(medium)"
+      data-h2-radius="base(0px rounded rounded 0px)"
       data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      data-h2-shadow="base(s)"
     >
       <div
         data-h2-display="base(flex)"
@@ -155,7 +155,7 @@ const ApplicationCard = ({
           application={application}
         />
         {!applicationIsDraft && status ? (
-          <Pill color="blue" mode="outline">
+          <Pill color="secondary" mode="outline">
             {intl.formatMessage(status)}
           </Pill>
         ) : null}

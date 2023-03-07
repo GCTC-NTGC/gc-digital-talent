@@ -100,9 +100,9 @@ const ExperienceAndSkillsPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const { loggedInUser } = useAuthorization();
+  const { user } = useAuthorization();
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
-    variables: { id: loggedInUser?.id || "" },
+    variables: { id: user?.id || "" },
   });
 
   const experiences = data?.applicant?.experiences?.filter(notEmpty);

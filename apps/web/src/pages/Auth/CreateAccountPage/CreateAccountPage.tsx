@@ -266,7 +266,7 @@ export const CreateAccountForm: React.FunctionComponent<
               <div
                 data-h2-margin="base(x2, 0)"
                 data-h2-padding="base(x2, 0)"
-                data-h2-border-top="base(1px solid dt-gray.light)"
+                data-h2-border-top="base(1px solid gray.light)"
                 data-h2-display="base(flex)"
                 data-h2-justify-content="base(flex-end)"
               >
@@ -296,7 +296,7 @@ const CreateAccount: React.FunctionComponent = () => {
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
-  const meId = authContext.loggedInUser?.id;
+  const meId = authContext.user?.id;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -357,7 +357,7 @@ const CreateAccount: React.FunctionComponent = () => {
   };
 
   // OK to navigate to profile once we have a user ID and an email
-  const shouldNavigate = meId && authContext.loggedInEmail;
+  const shouldNavigate = meId && authContext.email;
   const navigationTarget = from || paths.profile(meId || "");
   React.useEffect(() => {
     if (shouldNavigate) {

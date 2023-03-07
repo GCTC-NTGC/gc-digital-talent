@@ -8,37 +8,59 @@ import type { Color } from "../Button";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-border-left": "base(.5rem solid dt-primary)",
+    "data-h2-border-left": "base(x.5 solid primary)",
   },
   secondary: {
-    "data-h2-border-left": "base(.5rem solid dt-secondary)",
+    "data-h2-border-left":
+      "base(x.5 solid secondary) base:dark:admin(x.5 solid secondary.lighter) base:dark:iap(x.5 solid secondary.light)",
+  },
+  tertiary: {
+    "data-h2-border-left":
+      "base(x.5 solid tertiary) base:dark:iap(x.5 solid tertiary.light)",
+  },
+  quaternary: {
+    "data-h2-border-left":
+      "base(x.5 solid quaternary) base:dark:iap(x.5 solid quaternary.light)",
+  },
+  quinary: {
+    "data-h2-border-left":
+      "base(x.5 solid quinary) base:dark:iap(x.5 solid quinary.light)",
+  },
+  success: {
+    "data-h2-border-left": "base(x.5 solid success)",
+  },
+  warning: {
+    "data-h2-border-left": "base(x.5 solid warning)",
+  },
+  error: {
+    "data-h2-border-left": "base(x.5 solid error)",
   },
   cta: {
-    "data-h2-border-left": "base(.5rem solid dt-accent.dark)",
+    "data-h2-border-left": "base(x.5 solid tertiary.dark)",
   },
   white: {
-    "data-h2-border-left": "base(.5rem solid dt-white)",
+    "data-h2-border-left": "base(x.5 solid white)",
   },
   black: {
-    "data-h2-border-left": "base(.5rem solid dt-black)",
+    "data-h2-border-left": "base(x.5 solid black)",
   },
   "ia-primary": {
-    "data-h2-border-left": "base(.5rem solid ia-primary)",
+    "data-h2-border-left": "base(x.5 solid primary)",
   },
   "ia-secondary": {
-    "data-h2-border-left": "base(.5rem solid ia-secondary)",
+    "data-h2-border-left": "base(x.5 solid secondary)",
   },
   yellow: {
-    "data-h2-border-left": "base(.5rem solid tm-yellow)",
+    "data-h2-border-left": "base(x.5 solid quaternary)",
   },
   red: {
-    "data-h2-border-left": "base(.5rem solid tm-red)",
+    "data-h2-border-left": "base(x.5 solid tertiary)",
   },
   blue: {
-    "data-h2-border-left": "base(.5rem solid tm-blue)",
+    "data-h2-border-left": "base(x.5 solid secondary)",
   },
   purple: {
-    "data-h2-border-left": "base(.5rem solid tm-purple)",
+    "data-h2-border-left": "base(x.5 solid primary)",
   },
 };
 
@@ -55,13 +77,14 @@ interface LinkProps extends Omit<TileLinkProps, "title" | "href" | "ref"> {
 
 const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
   const linkProps = {
-    "data-h2-background-color": "base(dt-white)",
+    "data-h2-background-color": "base(foreground)",
     "data-h2-display": "base(flex)",
     "data-h2-align-items": "base(flex-end)",
-    "data-h2-shadow": "base(m) base:hover(xl)",
+    "data-h2-shadow": "base(medium) base:hover(larger)",
     "data-h2-padding": "base(x.5)",
     "data-h2-justify-content": "base(space-between)",
     "data-h2-transition": "base(box-shadow .2s ease 0s)",
+    "data-h2-radius": "base(0px, rounded, rounded, 0px)",
     ...colorMap[color],
     ...rest,
   };
@@ -96,10 +119,8 @@ const TileLink: React.FC<TileLinkProps> = ({
         data-h2-overflow="base(hidden)"
         data-h2-padding="base(x3, 0, 0, 0)"
         data-h2-width="base(100%)"
-        style={{
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-        }}
+        data-h2-text-overflow="base(ellipsis)"
+        data-h2-white-space="base(nowrap)"
       >
         {children}
       </span>

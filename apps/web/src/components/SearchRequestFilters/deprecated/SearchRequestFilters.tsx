@@ -25,11 +25,11 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
     input: string | React.ReactNode | string[] | null | undefined,
   ) => {
     return input && !isEmpty(input) ? (
-      <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
+      <p data-h2-display="base(inline)" data-h2-color="base(black)">
         {input}
       </p>
     ) : (
-      <ul data-h2-color="base(dt-black)">
+      <ul data-h2-color="base(black)">
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -52,11 +52,11 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           {title}:
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(black)">
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(black)">
             {content && !isEmpty(content)
               ? content
               : intl.formatMessage({
@@ -76,7 +76,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           {title}
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <ul data-h2-color="base(dt-black)">
+          <ul data-h2-color="base(black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}

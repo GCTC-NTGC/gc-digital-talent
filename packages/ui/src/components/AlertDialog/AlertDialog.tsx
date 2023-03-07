@@ -10,7 +10,7 @@ const StyledOverlay = React.forwardRef<
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Overlay
     data-h2-position="base(fixed)"
-    data-h2-background-color="base(black.85)"
+    data-h2-background-color="base(black.light.9)"
     data-h2-location="base(0)"
     style={{ zIndex: 9998 }}
     ref={forwardedRef}
@@ -24,14 +24,14 @@ const StyledContent = React.forwardRef<
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Content
     data-h2-font-family="base(sans)"
-    data-h2-background-color="base(dt-white)"
+    data-h2-background-color="base(foreground)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
     data-h2-position="base(fixed)"
     data-h2-location="base(50%, auto, auto, 50%)"
-    data-h2-radius="base(s)"
+    data-h2-radius="base(rounded)"
     data-h2-transform="base(translate(-50%, -50%))"
-    data-h2-shadow="base(s)"
+    data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
     data-h2-width="base(90vw)"
     style={{
       top: 0,
@@ -81,8 +81,8 @@ const Title = React.forwardRef<
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Title
     data-h2-font-weight="base(700)"
-    data-h2-font-size="base(h3)"
-    data-h2-margin="base(0, 0, x.5, 0)"
+    data-h2-font-size="base(h4)"
+    data-h2-margin="base(0, 0, x1, 0)"
     ref={forwardedRef}
     {...props}
   />
@@ -118,16 +118,21 @@ interface AlertDialogFooterProps {
 }
 
 const Footer = ({ children }: AlertDialogFooterProps) => (
-  <div
-    data-h2-align-items="base(center)"
-    data-h2-border-top="base(1px solid dt-gray.dark)"
-    data-h2-display="base(flex)"
-    data-h2-justify-content="base(flex-end)"
-    data-h2-margin="base(x1, 0, 0, 0)"
-    data-h2-padding="base(x1, 0, 0, 0)"
-    style={{ gap: "0 0.5rem" }}
-  >
-    {children}
+  <div data-h2-padding="base(x1 0 0 0)">
+    <hr
+      data-h2-border="base(none)"
+      data-h2-height="base(1px)"
+      data-h2-background="base(gray.lighter)"
+      data-h2-margin="base(0 0 x1 0)"
+    />
+    <div
+      data-h2-align-items="base(center)"
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(flex-end)"
+      data-h2-gap="base(0 x.5)"
+    >
+      {children}
+    </div>
   </div>
 );
 

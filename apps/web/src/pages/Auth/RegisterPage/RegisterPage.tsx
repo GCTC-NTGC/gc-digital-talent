@@ -105,7 +105,12 @@ const RegisterPage: React.FC = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <ExternalLink href={loginPath}>
+              <ExternalLink
+                href={loginPath}
+                mode="inline"
+                type="link"
+                color="secondary"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Log in instead",
                   id: "rUFZwt",

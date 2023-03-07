@@ -32,6 +32,9 @@ export default {
     onExtend: action("onExtend"),
     onArchive: action("onArchive"),
   },
+  parameters: {
+    themeKey: "admin",
+  },
 } as Meta;
 
 const TemplateEditPoolForm: Story<EditPoolFormProps> = (

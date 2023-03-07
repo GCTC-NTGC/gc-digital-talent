@@ -7,13 +7,14 @@ import {
   AdvertisementStatus,
   Maybe,
   PoolCandidate,
-  LegacyRole,
   Scalars,
   PoolStream,
   PoolAdvertisement,
   Classification,
 } from "~/api/generated";
 
+import { RoleAssignment } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { wrapAbbr } from "./nameUtils";
 
 /**
@@ -41,15 +42,18 @@ export const poolMatchesClassification = (
  * Determine if the advertisement can be
  * viewed based on user roles and status
  *
- * @param roles
+ * @param roleAssignments
  * @param status
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roles: Maybe<LegacyRole>[],
+  roleAssignments: Maybe<RoleAssignment>[],
   status?: Maybe<AdvertisementStatus>,
 ) => {
-  let visible = roles.includes(LegacyRole.Admin) ?? false;
+  let visible =
+    roleAssignments
+      .map((a) => a?.role?.name)
+      .includes(ROLE_NAME.PlatformAdmin) ?? false;
   if (status !== AdvertisementStatus.Draft) {
     visible = true;
   }

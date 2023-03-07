@@ -68,7 +68,7 @@ const Hero = ({
   return (
     <>
       <div
-        data-h2-background-color="base(black)"
+        data-h2-background-color="base(rgba(0, 0, 0, 1))"
         data-h2-overflow="base(hidden)"
         data-h2-position="base(relative)"
         {...padding}
@@ -119,18 +119,10 @@ const Hero = ({
           <div
             data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
             data-h2-position="base(relative)"
-            data-h2-margin="base(-x4, auto, 0, auto)"
+            data-h2-margin="base(-x5, auto, 0, auto)"
             data-h2-z-index="base(4)"
           >
-            <div
-              data-h2-background-color="base(white)"
-              data-h2-radius="base(rounded)"
-              data-h2-padding="base(x2, x1)"
-              data-h2-shadow="base(s)"
-              {...textAlignment}
-            >
-              {children}
-            </div>
+            {children}
           </div>
         </>
       ) : (

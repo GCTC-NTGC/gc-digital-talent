@@ -63,9 +63,9 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
 
   let fontColor = {};
   if (color === "black") {
-    fontColor = { "data-h2-color": "base(dt-black)" };
+    fontColor = { "data-h2-color": "base(black)" };
   } else if (color === "white") {
-    fontColor = { "data-h2-color": "base(dt-white)" };
+    fontColor = { "data-h2-color": "base(white)" };
   }
 
   const lastPage = paginationRange[paginationRange.length - 1];
@@ -104,7 +104,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   })}
                   onClick={previousPage}
                   data-testid="leftArrowButton"
-                  data-h2-padding="base(x.85)"
+                  data-h2-padding="base(x.75)"
                   data-h2-position="base(relative)"
                 >
                   <ArrowLeftIcon
@@ -161,13 +161,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                       )}
                       aria-current={current}
                       onClick={() => onCurrentPageChange(Number(pageNumber))}
-                      data-h2-padding="base(x.85)"
+                      data-h2-padding="base(x.75)"
                       data-h2-position="base(relative)"
                     >
                       <span
                         data-h2-position="base(center)"
                         data-h2-display="base(block)"
-                        data-h2-height="base(x1)"
+                        data-h2-font-size="base(caption)"
                       >
                         {pageNumber}
                       </span>
@@ -194,7 +194,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   })}
                   onClick={nextPage}
                   data-testid="rightArrowButton"
-                  data-h2-padding="base(x.85)"
+                  data-h2-padding="base(x.75)"
                   data-h2-position="base(relative)"
                 >
                   <ArrowRightIcon

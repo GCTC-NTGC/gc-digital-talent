@@ -1,7 +1,17 @@
 query getCurrentAuthorizedUser {
   me {
     id
-    legacyRoles
     email
+    roleAssignments {
+      id
+      role {
+        id
+        name
+      }
+      team {
+        id
+        name
+      }
+    }
   }
 }

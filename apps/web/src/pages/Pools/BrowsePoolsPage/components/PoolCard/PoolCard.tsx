@@ -77,7 +77,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
       >
         <div
           className="recruitment-flag"
-          data-h2-background-color="base(tm-blue)"
+          data-h2-background-color="base(secondary)"
           data-h2-padding="base(x2, x.5, x1, x.5)"
           // data-h2-padding="base(x2, x.5, x2.5, x.5)"
           // style={{
@@ -85,7 +85,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           // }}
         >
           <span
-            data-h2-color="base(black)"
+            data-h2-color="base(black) base:admin(white) base:iap(white)"
             data-h2-font-weight="base(700)"
             data-h2-font-size="base(h6) l-tablet(h4, 1.2)"
             data-h2-layer="base(2, relative)"
@@ -114,7 +114,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           <div
             data-h2-flex-grow="p-tablet(1)"
             data-h2-height="base(x.25)"
-            data-h2-background-color="base(tm-blue)"
+            data-h2-background-color="base(secondary)"
           />
         </div>
         <div

@@ -10,6 +10,9 @@ const mockPools = fakePools();
 export default {
   component: PoolTable,
   title: "Tables/Pool Table",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof PoolTable>;
 
 const Template: ComponentStory<typeof PoolTable> = (args) => {

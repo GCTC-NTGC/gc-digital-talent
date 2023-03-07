@@ -10,6 +10,9 @@ import SelfDeclarationForm from "./SelfDeclarationForm";
 export default {
   component: SelfDeclarationForm,
   title: "Forms/Self-Declaration Form",
+  parameters: {
+    themeKey: "iap",
+  },
 } as ComponentMeta<typeof SelfDeclarationForm>;
 
 const Template: ComponentStory<typeof SelfDeclarationForm> = () => (

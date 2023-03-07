@@ -274,17 +274,16 @@ export const PoolAdvertisementPoster = ({
       <SEO title={fullTitle} />
       <Hero title={fullTitle} crumbs={links} />
       <div
-        data-h2-background-color="base(dt-white)"
+        data-h2-background-color="base(white)"
         data-h2-shadow="base(m)"
         data-h2-padding="base(x1, 0)"
       >
-        <div data-h2-container="base(center, medium, 0)">
+        <div data-h2-container="base(center, large, x1)">
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-justify-content="base(space-between)"
             data-h2-align-items="base(center) p-tablet(flex-end)"
-            data-h2-margin="base(x1, 0, 0, 0)"
           >
             <div>
               <PoolInfoCard
@@ -842,7 +841,7 @@ const PoolAdvertisementPage = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.loggedInUserRoles?.filter(notEmpty) || [],
+    auth?.roleAssignments?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 
