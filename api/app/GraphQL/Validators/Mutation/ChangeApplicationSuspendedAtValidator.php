@@ -21,7 +21,7 @@ final class ChangeApplicationSuspendedAtValidator extends Validator
     public function messages(): array
     {
         return  [
-            'submitted_at' => 'Must be submitted',
+            'submitted_at' => 'The application must be submitted.',
         ];
     }
 }

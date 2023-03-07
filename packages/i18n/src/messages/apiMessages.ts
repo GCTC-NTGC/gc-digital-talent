@@ -75,6 +75,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the given skill closing date must be after today.",
     },
 
+    "validator:submitted_at": {
+      defaultMessage: "The application must be submitted.",
+      id: "csLjMi",
+      description:
+        "Error message that the given application must already be submitted.",
+    },
+
     // pool updating
     UpdatePoolClosingDate: {
       defaultMessage: "The pool must have a closing date after today.",
