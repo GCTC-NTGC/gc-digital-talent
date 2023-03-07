@@ -13,6 +13,17 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 
 class AuthController extends Controller
 {
+    public function fastSigner(): Configuration {
+        // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
+        // due to being dropped by Lcobucci, this is the recommended fast replacement
+        // https://lcobucci-jwt.readthedocs.io/en/latest/upgrading/#v4x-to-v5x
+
+        return Configuration::forSymmetricSigner(
+            new Signer\Blake2b(),
+            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
+            );
+    }
+
     public function login(Request $request)
     {
         $state = Str::random(40);
@@ -72,10 +83,8 @@ class AuthController extends Controller
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json("id_token");
 
-        $config = Configuration::forSymmetricSigner(
-            new Signer\Blake2b(),
-            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
-            );
+        $config = $this->fastSigner();
+
         assert($config instanceof Configuration);
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);

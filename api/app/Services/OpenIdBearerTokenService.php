@@ -29,12 +29,20 @@ class OpenIdBearerTokenService
     private string $configUri;
     private DateInterval $allowableClockSkew;
 
-    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
-    {
-        $this->unsecuredConfig = Configuration::forSymmetricSigner(
+    public function fastSigner(): Configuration {
+        // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
+        // due to being dropped by Lcobucci, this is the recommended fast replacement
+        // https://lcobucci-jwt.readthedocs.io/en/latest/upgrading/#v4x-to-v5x
+
+        return Configuration::forSymmetricSigner(
             new Signer\Blake2b(),
             InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
-            ); // need a config to parse the token and get the key id
+            );
+    }
+
+    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
+    {
+        $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
