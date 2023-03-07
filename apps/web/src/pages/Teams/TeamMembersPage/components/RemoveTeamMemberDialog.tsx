@@ -73,73 +73,75 @@ const RemoveTeamMemberDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="red" mode="outline" aria-label={label}>
+        <Button color="error" mode="outline" aria-label={label}>
           <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-secondary">{label}</Dialog.Header>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "You are about to remove <strong>{userName}</strong> from the team <strong>{teamName}</strong>.",
-              id: "/esEW+",
-              description: "Help text for the remove team membership dialog",
-            },
-            {
-              userName,
-              teamName,
-            },
-          )}
-        </p>
-        {user.roles.length ? (
-          <>
-            <p data-h2-margin="base(x1, 0)">
-              {intl.formatMessage({
+        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Body>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage(
+              {
                 defaultMessage:
-                  "They will love all of the following team roles:",
-                id: "nAyAWe",
-                description:
-                  "Lead text for the list of roles the user will lose",
-              })}
-            </p>
-            <ul
-              data-h2-display="base(flex)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-list-style="base(none)"
-              data-h2-padding="base(0)"
-              data-h2-gap="base(x.25)"
+                  "You are about to remove <strong>{userName}</strong> from the team <strong>{teamName}</strong>.",
+                id: "/esEW+",
+                description: "Help text for the remove team membership dialog",
+              },
+              {
+                userName,
+                teamName,
+              },
+            )}
+          </p>
+          {user.roles.length ? (
+            <>
+              <p data-h2-margin="base(x1, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "They will love all of the following team roles:",
+                  id: "nAyAWe",
+                  description:
+                    "Lead text for the list of roles the user will lose",
+                })}
+              </p>
+              <ul
+                data-h2-display="base(flex)"
+                data-h2-flex-wrap="base(wrap)"
+                data-h2-list-style="base(none)"
+                data-h2-padding="base(0)"
+                data-h2-gap="base(x.25)"
+              >
+                {user.roles.map((role) => (
+                  <li key={role.id}>
+                    <Pill mode="solid" color="neutral">
+                      {getLocalizedName(role.displayName, intl)}
+                    </Pill>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+          <Dialog.Footer>
+            <Dialog.Close>
+              <Button mode="outline" color="secondary">
+                {intl.formatMessage({
+                  defaultMessage: "Cancel and go back",
+                  id: "tiF/jI",
+                  description: "Close dialog button",
+                })}
+              </Button>
+            </Dialog.Close>
+            <Button
+              mode="solid"
+              color="error"
+              onClick={handleRemove}
+              disabled={fetching}
             >
-              {user.roles.map((role) => (
-                <li key={role.id}>
-                  <Pill mode="solid" color="neutral">
-                    {getLocalizedName(role.displayName, intl)}
-                  </Pill>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : null}
-        <Dialog.Footer>
-          <Dialog.Close>
-            <Button mode="outline" color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+              {fetching ? intl.formatMessage(commonMessages.saving) : label}
             </Button>
-          </Dialog.Close>
-          <Button
-            mode="solid"
-            color="red"
-            onClick={handleRemove}
-            disabled={fetching}
-          >
-            {fetching ? intl.formatMessage(commonMessages.saving) : label}
-          </Button>
-        </Dialog.Footer>
+          </Dialog.Footer>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

@@ -13,12 +13,15 @@ import {
   Role,
   Scalars,
   Team,
+  useAllUsersQuery,
   useGetTeamQuery,
   useListRolesQuery,
+  User,
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 
+import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
 
@@ -66,11 +69,17 @@ const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
 type TeamMemberCell = Cell<TeamMember>;
 interface TeamMembersProps {
   members: Array<TeamMember>;
+  availableUsers: Array<User>;
   roles: Array<Role>;
   team: Team;
 }
 
-const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
+const TeamMembers = ({
+  members,
+  roles,
+  team,
+  availableUsers,
+}: TeamMembersProps) => {
   const intl = useIntl();
 
   const pageTitle = intl.formatMessage({
@@ -132,7 +141,17 @@ const TeamMembers = ({ members, roles, team }: TeamMembersProps) => {
     <>
       <SEO title={pageTitle} />
       <Heading level="h2">{pageTitle}</Heading>
-      <Table data={data} columns={columns} />
+      <Table
+        data={data}
+        columns={columns}
+        addDialog={
+          <AddTeamMemberDialog
+            team={team}
+            availableRoles={roles}
+            availableUsers={availableUsers}
+          />
+        }
+      />
     </>
   );
 };
@@ -148,17 +167,30 @@ const TeamMembersPage = () => {
   });
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
+  const [{ data: userData, fetching: userFetching, error: userError }] =
+    useAllUsersQuery();
 
   const team = data?.team;
   const roles = rolesData?.roles
     .filter(notEmpty)
     .filter((role) => role.isTeamBased);
   const users = groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
+  const availableUsers = userData?.users
+    ?.filter(notEmpty)
+    .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
 
   return (
-    <Pending fetching={fetching || rolesFetching} error={error || rolesError}>
+    <Pending
+      fetching={fetching || rolesFetching || userFetching}
+      error={error || rolesError || userError}
+    >
       {team && users ? (
-        <TeamMembers members={users} roles={roles || []} team={team} />
+        <TeamMembers
+          members={users}
+          availableUsers={availableUsers || []}
+          roles={roles || []}
+          team={team}
+        />
       ) : (
         <ThrowNotFound />
       )}

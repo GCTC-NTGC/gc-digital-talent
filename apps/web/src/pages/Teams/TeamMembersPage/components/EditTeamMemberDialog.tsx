@@ -110,99 +110,101 @@ const EditTeamMemberDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-secondary">{label}</Dialog.Header>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage: "Change or remove this membership's permissions.",
-            id: "qPxrKm",
-            description: "Help text for the edit team membership form",
-          })}
-        </p>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleSave)}>
-            {/** Note: Only one option since we are editing this user */}
-            <input type="hidden" name="user" value={user.id} />
-            <Select
-              id="userDisplay"
-              name="userDisplay"
-              disabled
-              label={intl.formatMessage({
-                defaultMessage: "Manager name",
-                id: "1BEtoY",
-                description:
-                  "Label for the user select field on team membership form",
-              })}
-              options={[
-                {
-                  value: user.id,
-                  label: userName,
-                },
-              ]}
-            />
-            {/** Note: Only one option since we are editing this team's users */}
-            <input type="hidden" name="team" value={team.id} />
-            <Select
-              id="teamDisplay"
-              name="teamDisplay"
-              disabled
-              label={intl.formatMessage({
-                defaultMessage: "Team",
-                id: "0AaeXe",
-                description:
-                  "Label for the team select field on team membership form",
-              })}
-              options={[
-                {
-                  value: team.id,
-                  label: getLocalizedName(team.displayName, intl),
-                },
-              ]}
-            />
-            <MultiSelectField
-              id="roles"
-              name="roles"
-              label={intl.formatMessage({
-                defaultMessage: "Membership roles",
-                id: "cOJVBW",
-                description:
-                  "Label for the input to add roles to a user's team membership",
-              })}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select roles...",
-                id: "eW7I5E",
-                description: "Placeholder text for role selection input",
-              })}
-              options={roleOptions}
-            />
-            <Dialog.Footer>
-              <Dialog.Close>
-                <Button mode="outline" color="secondary">
-                  {intl.formatMessage({
-                    defaultMessage: "Cancel and go back",
-                    id: "tiF/jI",
-                    description: "Close dialog button",
-                  })}
-                </Button>
-              </Dialog.Close>
-              <Button
-                mode="solid"
-                color="secondary"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting
-                  ? intl.formatMessage(commonMessages.saving)
-                  : intl.formatMessage({
-                      defaultMessage: "Save changes",
-                      id: "xDqygb",
-                      description:
-                        "Button to save the permissions for a user's team membership",
+        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Body>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Change or remove this membership's permissions.",
+              id: "qPxrKm",
+              description: "Help text for the edit team membership form",
+            })}
+          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(handleSave)}>
+              {/** Note: Only one option since we are editing this user */}
+              <input type="hidden" name="user" value={user.id} />
+              <Select
+                id="userDisplay"
+                name="userDisplay"
+                disabled
+                label={intl.formatMessage({
+                  defaultMessage: "Manager name",
+                  id: "1BEtoY",
+                  description:
+                    "Label for the user select field on team membership form",
+                })}
+                options={[
+                  {
+                    value: user.id,
+                    label: userName,
+                  },
+                ]}
+              />
+              {/** Note: Only one option since we are editing this team's users */}
+              <input type="hidden" name="team" value={team.id} />
+              <Select
+                id="teamDisplay"
+                name="teamDisplay"
+                disabled
+                label={intl.formatMessage({
+                  defaultMessage: "Team",
+                  id: "0AaeXe",
+                  description:
+                    "Label for the team select field on team membership form",
+                })}
+                options={[
+                  {
+                    value: team.id,
+                    label: getLocalizedName(team.displayName, intl),
+                  },
+                ]}
+              />
+              <MultiSelectField
+                id="roles"
+                name="roles"
+                label={intl.formatMessage({
+                  defaultMessage: "Membership roles",
+                  id: "cOJVBW",
+                  description:
+                    "Label for the input to add roles to a user's team membership",
+                })}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Select roles...",
+                  id: "eW7I5E",
+                  description: "Placeholder text for role selection input",
+                })}
+                options={roleOptions}
+              />
+              <Dialog.Footer>
+                <Dialog.Close>
+                  <Button mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel and go back",
+                      id: "tiF/jI",
+                      description: "Close dialog button",
                     })}
-              </Button>
-            </Dialog.Footer>
-          </form>
-        </FormProvider>
+                  </Button>
+                </Dialog.Close>
+                <Button
+                  mode="solid"
+                  color="secondary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Save changes",
+                        id: "xDqygb",
+                        description:
+                          "Button to save the permissions for a user's team membership",
+                      })}
+                </Button>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );
