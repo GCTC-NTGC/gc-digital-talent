@@ -100,7 +100,7 @@ class Pool extends Model
     }
     public function publishedPoolCandidates(): HasMany
     {
-        return $this->hasMany(PoolCandidate::class)->notDraft([], true);
+        return $this->hasMany(PoolCandidate::class)->notDraft();
     }
 
     public function essentialSkills(): BelongsToMany
