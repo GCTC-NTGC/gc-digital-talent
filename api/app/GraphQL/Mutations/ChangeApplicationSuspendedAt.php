@@ -27,6 +27,12 @@ final class ChangeApplicationSuspendedAt
 
         $isSuspended = $args['isSuspended'];
         $dateNow = Carbon::now();
+
+        // Don't replace the suspension date if already set
+        if ($isSuspended && !is_null($application->suspended_at)) {
+            return $application;
+        }
+
         $newSuspendedAt = $isSuspended ? $dateNow : null;
         $application->update(['suspended_at' => $newSuspendedAt]);
         return $application;
