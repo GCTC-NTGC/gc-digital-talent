@@ -23,6 +23,7 @@ module.exports = merge(base(basePath), {
       "~": path.resolve(basePath, "./src/"),
     }
   },
+  stats: "errors-warnings",
   // TO DO: We should be able to remove this after merging all apps
   output: {
     publicPath: "/", // final path for routing
