@@ -190,7 +190,7 @@ class PoolCandidatePolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operator can update a pool candidate
+     * Assert that only pool operator can update a published pool candidate
      *
      * @return void
      */
@@ -198,6 +198,17 @@ class PoolCandidatePolicyTest extends TestCase
     {
         $this->assertTrue($this->poolOperatorUser->can('update', $this->poolCandidate));
 
+        $this->assertFalse($this->guestUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->requestResponderUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('update', $this->poolCandidate));
+
+        // make candidate draft
+        $this->poolCandidate->submitted_at = null;
+        $this->poolCandidate->save();
+
+        $this->assertFalse($this->poolOperatorUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->candidateUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('update', $this->poolCandidate));

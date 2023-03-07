@@ -93,7 +93,8 @@ class PoolCandidatePolicy
 
         $candidatePoolTeam = $poolCandidate->pool->team;
         $contains = $user->roleAssignments->contains('team_id', $candidatePoolTeam->id);
-        if ($contains && $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam)) {
+        $isDraft = $poolCandidate->isDraft();
+        if ($contains && $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam) && !$isDraft) {
             return true;
         }
 
