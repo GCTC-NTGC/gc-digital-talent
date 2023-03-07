@@ -255,8 +255,7 @@ class PoolCandidate extends Model
     public function scopeNotDraft(Builder $query, $where, bool $notDraft = true): Builder
     {
         if($notDraft) {
-            $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED'])
-                ->whereNotNull("submitted_at")
+            $query->whereNotNull("submitted_at")
                 ->where('submitted_at', '<=', now());
         }
 
@@ -403,6 +402,6 @@ class PoolCandidate extends Model
      */
     public function isDraft()
     {
-        return !$this->submitted_at || in_array($this->pool_candidate_status, [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED]);
+        return is_null($this->submitted_at) || $this->submitted_at->isFuture();
     }
 }
