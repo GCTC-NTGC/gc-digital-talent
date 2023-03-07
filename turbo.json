@@ -9,6 +9,7 @@
         "outputs": ["src/assets/css/hydrogen.css"]
     },
     "codegen": {
+      "inputs": ["src/**/*.graphql", "../../packages/**/src/**/*.graphql"],
       "outputs": ["src/api/generated.ts", "src/index.ts"]
     },
     "dev": {
