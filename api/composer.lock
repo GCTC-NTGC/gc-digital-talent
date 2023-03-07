@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a5ab0167ae630c381957517baebcb47",
+    "content-hash": "cdf13e5b8023823062835f7a0b136a4f",
     "packages": [
         {
             "name": "brick/math",
@@ -2398,40 +2398,41 @@
             "time": "2022-10-20T19:34:29+00:00"
         },
         {
-            "name": "mll-lab/laravel-graphql-playground",
-            "version": "v2.6.0",
+            "name": "mll-lab/laravel-graphiql",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mll-lab/laravel-graphql-playground.git",
-                "reference": "f3c56d80220211cdb736356ffe9a14ebcfc0ec88"
+                "url": "https://github.com/mll-lab/laravel-graphiql.git",
+                "reference": "2631a8881f9aaf7d85ab5684be803ada1b91f158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphql-playground/zipball/f3c56d80220211cdb736356ffe9a14ebcfc0ec88",
-                "reference": "f3c56d80220211cdb736356ffe9a14ebcfc0ec88",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/2631a8881f9aaf7d85ab5684be803ada1b91f158",
+                "reference": "2631a8881f9aaf7d85ab5684be803ada1b91f158",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9",
-                "illuminate/contracts": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9",
-                "illuminate/support": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9",
+                "illuminate/console": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
+                "illuminate/contracts": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
+                "illuminate/support": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
                 "php": "^7.1 || ^8"
             },
             "require-dev": {
-                "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9",
-                "localheinz/composer-normalize": "^1.3"
+                "ergebnis/composer-normalize": "^2.29",
+                "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
+                "mll-lab/php-cs-fixer-config": "^4.4"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "MLL\\GraphQLPlayground\\GraphQLPlaygroundServiceProvider"
+                        "MLL\\GraphiQL\\GraphiQLServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "MLL\\GraphQLPlayground\\": "src/"
+                    "MLL\\GraphiQL\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2444,17 +2445,17 @@
                     "email": "benedikt@franke.tech"
                 }
             ],
-            "description": "Easily integrate GraphQL Playground into your Laravel project",
+            "description": "Easily integrate GraphiQL into your Laravel project",
             "keywords": [
+                "graphiql",
                 "graphql",
-                "graphql-playground",
                 "laravel"
             ],
             "support": {
-                "issues": "https://github.com/mll-lab/laravel-graphql-playground/issues",
-                "source": "https://github.com/mll-lab/laravel-graphql-playground/tree/v2.6.0"
+                "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v1.2.0"
             },
-            "time": "2022-02-08T15:58:46+00:00"
+            "time": "2023-02-02T14:45:05+00:00"
         },
         {
             "name": "monolog/monolog",
