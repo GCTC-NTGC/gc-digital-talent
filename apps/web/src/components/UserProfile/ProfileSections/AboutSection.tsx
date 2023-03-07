@@ -13,27 +13,86 @@ import {
 import { getFullNameHtml } from "~/utils/nameUtils";
 import type { Applicant } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "telephone"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "currentCity"
+  | "currentProvince"
+  | "citizenship"
+  | "armedForcesStatus"
+>;
+
 interface AboutSectionProps {
-  applicant: Pick<
-    Applicant,
-    | "firstName"
-    | "lastName"
-    | "email"
-    | "telephone"
-    | "preferredLang"
-    | "preferredLanguageForInterview"
-    | "preferredLanguageForExam"
-    | "currentCity"
-    | "currentProvince"
-    | "citizenship"
-    | "armedForcesStatus"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({
-  editPath,
-  applicant: {
+export function hasAllEmptyFields({
+  firstName,
+  lastName,
+  telephone,
+  email,
+  preferredLang,
+  currentCity,
+  currentProvince,
+  citizenship,
+  armedForcesStatus,
+}: PartialApplicant): boolean {
+  return !!(
+    !firstName &&
+    !lastName &&
+    !email &&
+    !telephone &&
+    !preferredLang &&
+    !currentCity &&
+    !currentProvince &&
+    !citizenship &&
+    armedForcesStatus === null
+  );
+}
+
+export function hasEmptyRequiredFields({
+  firstName,
+  lastName,
+  telephone,
+  email,
+  preferredLang,
+  preferredLanguageForInterview,
+  currentCity,
+  currentProvince,
+  citizenship,
+  armedForcesStatus,
+}: PartialApplicant): boolean {
+  return (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !telephone ||
+    !preferredLang ||
+    !preferredLanguageForInterview ||
+    !preferredLanguageForInterview ||
+    !currentCity ||
+    !currentProvince ||
+    !citizenship ||
+    armedForcesStatus === null
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+  // no optional fields
+  return false;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ editPath, applicant }) => {
+  const intl = useIntl();
+  const {
     firstName,
     lastName,
     telephone,
@@ -45,9 +104,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     currentProvince,
     citizenship,
     armedForcesStatus,
-  },
-}) => {
-  const intl = useIntl();
+  } = applicant;
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
@@ -219,17 +276,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           ""
         )}
       </div>
-      {(!firstName ||
-        !lastName ||
-        !email ||
-        !telephone ||
-        !preferredLang ||
-        !preferredLanguageForInterview ||
-        !preferredLanguageForInterview ||
-        !currentCity ||
-        !currentProvince ||
-        !citizenship ||
-        armedForcesStatus === null) && (
+      {hasEmptyRequiredFields(applicant) && (
         <div data-h2-margin="base(x1, 0, 0, 0)">
           <p>
             {editPath && (
