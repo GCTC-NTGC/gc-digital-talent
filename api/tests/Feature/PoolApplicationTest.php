@@ -125,8 +125,8 @@ class PoolApplicationTest extends TestCase
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
         $this->responderUser = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
+            'email' => 'request-responder-user@test.com',
+            'sub' => 'request-responder-user@test.com',
         ]);
         $this->responderUser->syncRoles([
             "guest",
