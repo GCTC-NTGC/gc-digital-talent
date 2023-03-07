@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\Team;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -15,34 +16,44 @@ class PoolCandidateSearchTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
 
+    protected $teamUser;
+    protected $team;
+    protected $teamName = "application-test-team";
+    protected $pool;
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->seed(RolePermissionSeeder::class);
+
         $this->bootRefreshesSchemaCache();
 
-        // Create admin user we run tests as
-        // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
+        $this->team = Team::factory()->create([
+            'name' => $this->teamName,
+        ]);
+
+        $this->pool = Pool::factory()->create([
+            'team_id' => $this->team->id
+        ]);
+
+        $this->teamUser = User::factory()->create([
+            'email' => 'team-user@test.com',
+            'sub' => 'team-user@test.com',
+        ]);
+        $this->teamUser->syncRoles([
+            "guest",
+            "base_user",
+            "applicant"
+        ]);
+        $this->teamUser->attachRole("pool_operator", $this->team);
     }
 
     public function testPoolCandidatesSearchFilter(): void
     {
-        //
-        // recycled from testSortingStatusThenPriority on ApplicantTest.php
-        //
-
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
-        ]);
-
         // DRAFT, NOT PRESENT
         $candidateOne = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
@@ -57,7 +68,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
         // NEW APPLICATION, NO PRIORITY SO SECOND
         $candidateTwo = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
@@ -73,7 +84,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
         // APPLICATION REVIEW, NO PRIORITY SO THIRD
         $candidateThree = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
@@ -91,7 +102,7 @@ class PoolCandidateSearchTest extends TestCase
         // NEW APPLICATION, VETERAN SO FIRST
         // has diploma and is woman
         $candidateFour = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
@@ -108,7 +119,7 @@ class PoolCandidateSearchTest extends TestCase
         // QUALIFIED AVAILABLE, HAS ENTITLEMENT FOURTH
         // has diploma and is woman
         $candidateFive = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
@@ -123,22 +134,25 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
 
-        // Assert the order is correct
-        // candidate one not present due to being DRAFT
-        $this->graphQL(/** @lang Graphql */ '
-            query poolCandidatesPaginated {
-              poolCandidatesPaginated (orderBy: [
-                    { column: "status_weight", order: ASC }
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  ])
-                {
-                    data
-                    {
+        $query = /** @lang GraphQL */
+        '
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (orderBy: [
+                  { column: "status_weight", order: ASC }
+                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                ], where: $where) {
+                    data {
                         id
                     }
                 }
             }
-            ')->assertJson([
+        ';
+
+        // Assert the order is correct
+        // candidate one not present due to being DRAFT
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($query, ['where' => []])
+            ->assertJson([
             "data" => [
                 "poolCandidatesPaginated" => [
                     "data" => [
@@ -154,22 +168,8 @@ class PoolCandidateSearchTest extends TestCase
         // Assert that
         // PoolCandidates are filtered out by data on User, must have Diploma and be Woman
         // Candidate Four always precedes Candidate Five due to ORDERING
-        $this->graphQL(/** @lang Graphql */ '
-            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
-              poolCandidatesPaginated (
-                    where: $where
-                    orderBy: [
-                    { column: "status_weight", order: ASC }
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  ])
-                {
-                    data
-                    {
-                        id
-                    }
-                }
-            }
-            ',
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($query,
             [
                 'where' => [
                     'applicantFilter' => [
@@ -183,8 +183,7 @@ class PoolCandidateSearchTest extends TestCase
                     ]
 
                 ]
-            ]
-            )->assertJson([
+            ])->assertJson([
             "data" => [
                 "poolCandidatesPaginated" => [
                     "data" => [
@@ -198,13 +197,9 @@ class PoolCandidateSearchTest extends TestCase
 
     public function testPoolCandidatesSearchExpiryFilter(): void
     {
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
-        ]);
 
         $candidateActive = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
             'user_id' => User::factory([
@@ -212,7 +207,7 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
         $candidateActive2 = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
             'user_id' => User::factory([
@@ -220,7 +215,7 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
         $candidateExpired = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
             'user_id' => User::factory([
@@ -228,7 +223,7 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
         $candidateNullExpiry = PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $this->pool->id,
             'expiry_date' => null,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
             'user_id' => User::factory([
@@ -236,29 +231,31 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
 
-        // Assert that ACTIVE returns 3
-        $this->graphQL(/** @lang Graphql */ '
+        $query = /** @lang GraphQL */
+        '
             query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
-              poolCandidatesPaginated (
-                    where: $where
-                    orderBy: [
-                    { column: "status_weight", order: ASC }
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  ])
-                {
-                    paginatorInfo
-                    {
+                poolCandidatesPaginated (
+                  where: $where
+                  orderBy: [
+                  { column: "status_weight", order: ASC }
+                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                ]) {
+                    paginatorInfo {
                         count
                     }
                 }
             }
-            ',
+        ';
+
+        // Assert that ACTIVE returns 3
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
             [
                 'where' => [
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
                 ]
             ]
-            )->assertJson([
+        )->assertJson([
             "data" => [
                 "poolCandidatesPaginated" => [
                     "paginatorInfo" => [
@@ -269,28 +266,14 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // Assert that EXPIRED returns 1
-        $this->graphQL(/** @lang Graphql */ '
-            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
-              poolCandidatesPaginated (
-                    where: $where
-                    orderBy: [
-                    { column: "status_weight", order: ASC }
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  ])
-                {
-                    paginatorInfo
-                    {
-                        count
-                    }
-                }
-            }
-            ',
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
             [
                 'where' => [
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
                 ]
             ]
-            )->assertJson([
+        )->assertJson([
             "data" => [
                 "poolCandidatesPaginated" => [
                     "paginatorInfo" => [
@@ -301,28 +284,14 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // Assert that ALL returns 4 (all candidates)
-        $this->graphQL(/** @lang Graphql */ '
-            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
-              poolCandidatesPaginated (
-                    where: $where
-                    orderBy: [
-                    { column: "status_weight", order: ASC }
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  ])
-                {
-                    paginatorInfo
-                    {
-                        count
-                    }
-                }
-            }
-            ',
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
             [
                 'where' => [
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
                 ]
             ]
-            )->assertJson([
+        )->assertJson([
             "data" => [
                 "poolCandidatesPaginated" => [
                     "paginatorInfo" => [

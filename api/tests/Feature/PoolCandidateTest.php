@@ -3,6 +3,7 @@
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -18,10 +19,37 @@ class PoolCandidateTest extends TestCase
   use MakesGraphQLRequests;
   use RefreshesSchemaCache;
 
+  protected $teamUser;
+  protected $team;
+  protected $teamName = "application-test-team";
+  protected $pool;
+
   protected function setUp(): void
   {
     parent::setUp();
+
+    $this->seed(RolePermissionSeeder::class);
+
     $this->bootRefreshesSchemaCache();
+
+    $this->team = Team::factory()->create([
+        'name' => $this->teamName,
+    ]);
+
+    $this->pool = Pool::factory()->create([
+        'team_id' => $this->team->id
+    ]);
+
+    $this->teamUser = User::factory()->create([
+        'email' => 'team-user@test.com',
+        'sub' => 'team-user@test.com',
+    ]);
+    $this->teamUser->syncRoles([
+        "guest",
+        "base_user",
+        "applicant"
+    ]);
+    $this->teamUser->attachRole("pool_operator", $this->team);
   }
 
   public function testFilterByClassification(): void
@@ -1039,326 +1067,297 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 
-  public function testFilterByExpiryDate(): void
-  {
-    // Create admin user we run tests as
-    $newUser = new User;
-    $newUser->email = 'admin@test.com';
-    $newUser->sub = 'admin@test.com';
-    $newUser->legacy_roles = ['ADMIN'];
-    $newUser->save();
+    public function testFilterByExpiryDate(): void
+    {
 
-    // Create some expired users
-    $expiredCandidates = PoolCandidate::factory()->count(2)
-    ->state(new Sequence(
-      ['id' => UuidHelpers::integerToUuid(1)],
-      ['id' => UuidHelpers::integerToUuid(2)],
-    ))
-    ->create([
-      'expiry_date' => '2000-05-13',
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-    ]);
+        // Create some expired users
+        $expiredCandidates = PoolCandidate::factory()->count(2)
+            ->state(new Sequence(
+                ['id' => UuidHelpers::integerToUuid(1)],
+                ['id' => UuidHelpers::integerToUuid(2)],
+            ))
+            ->create([
+                'expiry_date' => config('constants.past_date'),
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                'pool_id' => $this->pool->id
+            ]);
 
-    // Create some valid users
-    $futureCandidates = PoolCandidate::factory()->count(4)
-    ->state(new Sequence(
-      ['id' => UuidHelpers::integerToUuid(3)],
-      ['id' => UuidHelpers::integerToUuid(4)],
-      ['id' => UuidHelpers::integerToUuid(5)],
-      ['id' => UuidHelpers::integerToUuid(6)],
-    ))
-    ->create([
-      'expiry_date' => '3000-05-13',
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-    ]);
-    $todayCandidate = PoolCandidate::factory()->create([
-      'id' => UuidHelpers::integerToUuid(7),
-      'expiry_date' => date("Y-m-d"),
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-    ]);
-    $futureCandidates->concat($todayCandidate);
-    $nullCandidates = PoolCandidate::factory()->count(3)
-    ->state(new Sequence(
-      ['id' => UuidHelpers::integerToUuid(8)],
-      ['id' => UuidHelpers::integerToUuid(9)],
-      ['id' => UuidHelpers::integerToUuid(10)],
-    ))
-    ->create([
-      'expiry_date' => null,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-    ]);
-    $futureCandidates->concat($nullCandidates);
+        // Create some valid users
+        $futureCandidates = PoolCandidate::factory()->count(4)
+            ->state(new Sequence(
+                ['id' => UuidHelpers::integerToUuid(3)],
+                ['id' => UuidHelpers::integerToUuid(4)],
+                ['id' => UuidHelpers::integerToUuid(5)],
+                ['id' => UuidHelpers::integerToUuid(6)],
+            ))
+            ->create([
+                'expiry_date' => config('constants.far_future_date'),
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            ]);
 
-    $allCandidates = $expiredCandidates;
-    $allCandidates->concat($futureCandidates);
+        $todayCandidate = PoolCandidate::factory()->create([
+            'id' => UuidHelpers::integerToUuid(7),
+            'expiry_date' => date("Y-m-d"),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_id' => $this->pool->id
+        ]);
 
-    // Assert countPoolCandidates query ignores expired candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates {
-        countPoolCandidates
-      }
-    ')->assertJson([
-      'data' => [
-        'countPoolCandidates' => 8
-      ]
-    ]);
+        $futureCandidates->concat($todayCandidate);
 
-    // Assert searchPoolCandidates query with no parameters returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!]) {
-        searchPoolCandidates(orderBy: $orderBy) {
-          id
-        }
-      }
-    ', [
-      'orderBy' => [
-          [
-          'column' => 'id',
-          'order' => 'ASC'
-          ]
-      ]
-    ])->assertJson([
-      'data' => [
-        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
-      ]
-    ]);
+        $nullCandidates = PoolCandidate::factory()->count(3)
+            ->state(new Sequence(
+                ['id' => UuidHelpers::integerToUuid(8)],
+                ['id' => UuidHelpers::integerToUuid(9)],
+                ['id' => UuidHelpers::integerToUuid(10)],
+            ))
+            ->create([
+                'expiry_date' => null,
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                'pool_id' => $this->pool->id
+            ]);
+        $futureCandidates->concat($nullCandidates);
 
-    // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
-        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
-          id
-        }
-      }
-    ', [
-      'orderBy' => [
-          [
-            'column' => 'id',
-            'order' => 'ASC'
-          ]
-      ],
-      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
-    ])->assertJson([
-      'data' => [
-        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
-      ]
-    ]);
+        $allCandidates = $expiredCandidates;
+        $allCandidates->concat($futureCandidates);
 
-    // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
-        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
-          id
-        }
-      }
-    ', [
-      'orderBy' => [
-          [
-          'column' => 'id',
-          'order' => 'ASC'
-          ]
-      ],
-      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED
-    ])->assertJson([
-      'data' => [
-        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
-      ]
-    ]);
+        // Assert countPoolCandidates query ignores expired candidates
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL(
+            /** @lang GraphQL */
+            '
+            query countPoolCandidates {
+                 countPoolCandidates
+            }
+        '
+        )->assertJson([
+            'data' => [
+                'countPoolCandidates' => 8
+            ]
+        ]);
 
-    // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
-        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
-          id
-        }
-      }
-    ', [
-      'orderBy' => [
-          [
-          'column' => 'id',
-          'order' => 'ASC'
-          ]
-      ],
-      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL
-    ])->assertJson([
-      'data' => [
-        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
-      ]
-    ]);
-  }
+        // Assert searchPoolCandidates query with no parameters returns correct candidates
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL(
+            /** @lang GraphQL */
+            '
+                query searchPoolCandidates($orderBy: [OrderByClause!]) {
+                    searchPoolCandidates(orderBy: $orderBy) {
+                        id
+                    }
+                }
+            ',
+            [
+                'orderBy' => [
+                    [
+                        'column' => 'id',
+                        'order' => 'ASC'
+                    ]
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+            ]
+        ]);
 
-  public function testPoolCandidateStatusAccessor(): void
-  {
-    // Create admin user we run tests as
-    $newUser = new User;
-    $newUser->email = 'admin@test.com';
-    $newUser->sub = 'admin@test.com';
-    $newUser->legacy_roles = ['ADMIN'];
-    $newUser->save();
+        $expiryQuery =
+            /** @lang GraphQL */
+            '
+            query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
+                 searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
+                    id
+                }
+            }
+        ';
 
-    // 1
-    // not submitted, expiry date in the future DRAFT
-    $candidateOne = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
-      'submitted_at' => null,
-      'expiry_date' => config('constants.far_future_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    ]);
-    // set status to EXPIRED manually despite not being submitted
-    // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
-    $candidateOne->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
-    $candidateOne->save();
-
-    // 2
-    // not submitted, expiry date in the past, DRAFT EXPIRED
-    $candidateTwo = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
-      'submitted_at' => null,
-      'expiry_date' => config('constants.past_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-    ]);
-    // set status to EXPIRED manually despite not being submitted
-    $candidateTwo->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
-    $candidateTwo->save();
-
-    // 3
-    // expired and submitted applicant that has a PLACED status
-    $candidateThree = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-      'submitted_at' => config('constants.past_date'),
-      'expiry_date' => config('constants.past_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-    ]);
-
-    // 4
-    // expired and submitted applicant that lacks a PLACED status
-    $candidateFour = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
-      'submitted_at' => config('constants.past_date'),
-      'expiry_date' => config('constants.past_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
-    ]);
-
-    // 5
-    // unexpired and submitted
-    $candidateFive = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
-      'submitted_at' => config('constants.past_date'),
-      'expiry_date' => config('constants.far_future_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
-    ]);
-
-    // 6
-    // unexpired and submitted
-    $candidateSix = PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
-      'submitted_at' => config('constants.past_date'),
-      'expiry_date' => config('constants.far_future_date'),
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
-    ]);
-
-    // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
-    // $this->graphQL(/** @lang Graphql */ '
-    //   query poolCandidate($id: ID!) {
-    //       poolCandidate(id: $id) {
-    //           status
-    //       }
-    //   }
-    //   ', [
-    //     'id' => $candidateOne->id,
-    //     ])->assertJson([
-    //    "data" => [
-    //       "poolCandidate" => [
-    //           "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
-    //       ]
-    //   ]
-    // ]);
-
-    // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
-    // $this->graphQL(/** @lang Graphql */ '
-    //   query poolCandidate($id: ID!) {
-    //       poolCandidate(id: $id) {
-    //           status
-    //       }
-    //   }
-    //   ', [
-    //     'id' => $candidateTwo->id,
-    //     ])->assertJson([
-    //    "data" => [
-    //       "poolCandidate" => [
-    //           "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
-    //       ]
-    //   ]
-    // ]);
-
-    // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
-    $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: UUID!) {
-          poolCandidate(id: $id) {
-              status
-          }
-      }
-      ', [
-        'id' => $candidateThree->id,
+        // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($expiryQuery, [
+            'orderBy' => [
+                [
+                    'column' => 'id',
+                    'order' => 'ASC'
+                ]
+            ],
+            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
         ])->assertJson([
-       "data" => [
-          "poolCandidate" => [
-              "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-          ]
-      ]
-    ]);
+            'data' => [
+                'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+            ]
+        ]);
 
-    // Assert candidate 4 is EXPIRED, despite being set as UNDER_ASSESSMENT an override occurs due to being past expiry
-    // $this->graphQL(/** @lang Graphql */ '
-    //   query poolCandidate($id: ID!) {
-    //       poolCandidate(id: $id) {
-    //           status
-    //       }
-    //   }
-    //   ', [
-    //     'id' => $candidateFour->id,
-    //     ])->assertJson([
-    //    "data" => [
-    //       "poolCandidate" => [
-    //           "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
-    //       ]
-    //   ]
-    // ]);
-
-    // Assert candidate 5 is NEW_APPLICATION as it was set
-    $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: UUID!) {
-          poolCandidate(id: $id) {
-              status
-          }
-      }
-      ', [
-        'id' => $candidateFive->id,
+        // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($expiryQuery, [
+            'orderBy' => [
+                [
+                    'column' => 'id',
+                    'order' => 'ASC'
+                ]
+            ],
+            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED
         ])->assertJson([
-       "data" => [
-          "poolCandidate" => [
-              "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
-          ]
-      ]
-    ]);
+            'data' => [
+                'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
+            ]
+        ]);
 
-    // Assert candidate 6 is APPLICATION_REVIEW as it was set
-    $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: UUID!) {
-          poolCandidate(id: $id) {
-              status
-          }
-      }
-      ', [
-        'id' => $candidateSix->id,
+        // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($expiryQuery, [
+            'orderBy' => [
+                [
+                    'column' => 'id',
+                    'order' => 'ASC'
+                ]
+            ],
+            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL
         ])->assertJson([
-       "data" => [
-          "poolCandidate" => [
-              "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
-          ]
-      ]
-    ]);
-  }
+            'data' => [
+                'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
+            ]
+        ]);
+    }
+
+    public function testPoolCandidateStatusAccessor(): void
+    {
+        $query =
+        /** @lang GraphQL */
+        '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    status
+                }
+            }
+        ';
+
+        // 1
+        // not submitted, expiry date in the future DRAFT
+        $candidateOne = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'submitted_at' => null,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id
+        ]);
+        // set status to EXPIRED manually despite not being submitted
+        // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
+        $candidateOne->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+        $candidateOne->save();
+
+        // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
+        // $this->actingAs($this->teamUser, "api")
+        // ->graphQL($query, ['id' => $candidateOne->id])
+        //     ->assertJson([
+        //         "data" => [
+        //             "poolCandidate" => [
+        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        //             ]
+        //         ]
+        //     ]);
+
+        // 2
+        // not submitted, expiry date in the past, DRAFT EXPIRED
+        $candidateTwo = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+            'submitted_at' => null,
+            'expiry_date' => config('constants.past_date'),
+            'pool_id' => $this->pool->id
+        ]);
+        // set status to EXPIRED manually despite not being submitted
+        $candidateTwo->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+        $candidateTwo->save();
+
+        // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
+        // $this->actingAs($this->teamUser, "api")
+        // ->graphQL($query, ['id' => $candidateTwo->id])
+        //     ->assertJson([
+        //         "data" => [
+        //             "poolCandidate" => [
+        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+        //             ]
+        //         ]
+        //     ]);
+
+        // 3
+        // expired and submitted applicant that has a PLACED status
+        $candidateThree = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.past_date'),
+            'pool_id' => $this->pool->id
+        ]);
+
+        // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($query, ['id' => $candidateThree->id])
+            ->assertJson([
+                "data" => [
+                    "poolCandidate" => [
+                        "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                    ]
+                ]
+            ]);
+
+        // 4
+        // expired and submitted applicant that lacks a PLACED status
+        $candidateFour = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.past_date'),
+            'pool_id' => $this->pool->id
+        ]);
+
+        // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
+        // $this->actingAs($this->teamUser, "api")
+        // ->graphQL($query, ['id' => $candidateFour->id])
+        //     ->assertJson([
+        //         "data" => [
+        //             "poolCandidate" => [
+        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+        //             ]
+        //         ]
+        //     ]);
+
+        // 5
+        // unexpired and submitted
+        $candidateFive = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id
+        ]);
+
+        // Assert candidate 5 is NEW_APPLICATION as it was set
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($query, ['id' => $candidateFive->id])
+            ->assertJson([
+                "data" => [
+                    "poolCandidate" => [
+                        "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                    ]
+                ]
+            ]);
+
+        // 6
+        // unexpired and submitted
+        $candidateSix = PoolCandidate::factory()->create([
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id
+        ]);
+
+        // Assert candidate 6 is APPLICATION_REVIEW as it was set
+        $this->actingAs($this->teamUser, "api")
+        ->graphQL($query, ['id' => $candidateSix->id])
+            ->assertJson([
+                "data" => [
+                    "poolCandidate" => [
+                        "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                    ]
+                ]
+            ]);
+    }
 
   public function testAllStatuses(): void
   {
