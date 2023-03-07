@@ -200,7 +200,6 @@ return [
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
         //\Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,,
         MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class,
-        \Fideloper\Proxy\TrustedProxyServiceProvider::class,
         \Laravel\Tinker\TinkerServiceProvider::class,
 
         App\Providers\GraphQLServiceProvider::class,
