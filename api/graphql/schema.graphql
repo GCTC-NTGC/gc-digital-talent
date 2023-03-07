@@ -1795,7 +1795,7 @@ type Mutation {
   archiveApplication(id: ID!): PoolCandidate
     @guard
     @can(ability: "archiveApplication", find: "id")
-  changeApplicationSuspendedAt(id: ID!, setSuspended: Boolean!): PoolCandidate
+  changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @can(ability: "suspendApplication", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate

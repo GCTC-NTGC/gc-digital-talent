@@ -17,7 +17,7 @@ final class ChangeApplicationSuspendedAt
      */
     public function __invoke($_, array $args)
     {
-        // grab the specific application, validate to ensure the has been submitted
+        // grab the specific application, validate to ensure it has been submitted
         $application = PoolCandidate::find($args['id']);
         $suspensionValidator = new ChangeApplicationSuspendedAtValidator;
         $validator = Validator::make($application->toArray(), $suspensionValidator->rules(), $suspensionValidator->messages());
@@ -25,9 +25,9 @@ final class ChangeApplicationSuspendedAt
             throw new ValidationException($validator->errors()->first(), $validator);
         }
 
-        $setSuspended = $args['setSuspended'];
+        $isSuspended = $args['isSuspended'];
         $dateNow = Carbon::now();
-        $newSuspendedAt = $setSuspended ? $dateNow : null;
+        $newSuspendedAt = $isSuspended ? $dateNow : null;
         $application->update(['suspended_at' => $newSuspendedAt]);
         return $application;
     }
