@@ -10,18 +10,63 @@ import {
 
 import { Applicant, BilingualEvaluation } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  | "lookingForEnglish"
+  | "lookingForFrench"
+  | "lookingForBilingual"
+  | "bilingualEvaluation"
+  | "estimatedLanguageAbility"
+  | "writtenLevel"
+  | "comprehensionLevel"
+  | "verbalLevel"
+>;
+
+export function hasAllEmptyFields({
+  lookingForEnglish,
+  lookingForFrench,
+  lookingForBilingual,
+  bilingualEvaluation,
+}: PartialApplicant): boolean {
+  return (
+    !lookingForEnglish &&
+    !lookingForFrench &&
+    !lookingForBilingual &&
+    !bilingualEvaluation
+  );
+}
+
+export function hasEmptyRequiredFields({
+  lookingForEnglish,
+  lookingForFrench,
+  lookingForBilingual,
+  bilingualEvaluation,
+  writtenLevel,
+  comprehensionLevel,
+  verbalLevel,
+}: PartialApplicant): boolean {
+  return !!(
+    (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
+    (lookingForBilingual &&
+      (!bilingualEvaluation ||
+        ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+          bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
+          (!comprehensionLevel || !writtenLevel || !verbalLevel))))
+  );
+}
+
+export function hasEmptyOptionalFields({
+  bilingualEvaluation,
+  estimatedLanguageAbility,
+}: PartialApplicant): boolean {
+  return (
+    bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+    !estimatedLanguageAbility
+  );
+}
+
 const LanguageInformationSection: React.FunctionComponent<{
-  applicant: Pick<
-    Applicant,
-    | "lookingForEnglish"
-    | "lookingForFrench"
-    | "lookingForBilingual"
-    | "bilingualEvaluation"
-    | "estimatedLanguageAbility"
-    | "writtenLevel"
-    | "comprehensionLevel"
-    | "verbalLevel"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -180,28 +225,18 @@ const LanguageInformationSection: React.FunctionComponent<{
               </p>
             </div>
           )}
-        {!lookingForEnglish &&
-          !lookingForFrench &&
-          !lookingForBilingual &&
-          !bilingualEvaluation &&
-          editPath && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  id: "SCCX7B",
-                  description:
-                    "Message for when no data exists for the section",
-                })}
-              </p>
-            </div>
-          )}
-        {((!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
-          (lookingForBilingual &&
-            (!bilingualEvaluation ||
-              ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-                bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
-                (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
+        {hasAllEmptyFields(applicant) && editPath && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+          </div>
+        )}
+        {hasEmptyRequiredFields(applicant) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {editPath && (

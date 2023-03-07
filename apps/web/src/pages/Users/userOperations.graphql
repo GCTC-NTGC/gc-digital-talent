@@ -36,6 +36,7 @@ query UserName($userId: UUID!) {
 
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
+    id
     sub
     legacyRoles
 

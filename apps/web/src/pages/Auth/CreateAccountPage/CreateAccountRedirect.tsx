@@ -21,7 +21,7 @@ const CreateAccountRedirect = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
-  const { loggedInEmail, isLoaded: authorizationLoaded } = useAuthorization();
+  const { email, isLoaded: authorizationLoaded } = useAuthorization();
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 
@@ -33,12 +33,7 @@ const CreateAccountRedirect = () => {
      *  - User has no email associated with account
      *  - User is not trying to go to the welcome page directly already
      */
-    if (
-      loggedIn &&
-      authorizationLoaded &&
-      empty(loggedInEmail) &&
-      isToCreateAccount
-    ) {
+    if (loggedIn && authorizationLoaded && empty(email) && isToCreateAccount) {
       navigate(
         {
           pathname: paths.createAccount(),
@@ -52,7 +47,7 @@ const CreateAccountRedirect = () => {
   }, [
     loggedIn,
     authorizationLoaded,
-    loggedInEmail,
+    email,
     isToCreateAccount,
     pathname,
     navigate,
