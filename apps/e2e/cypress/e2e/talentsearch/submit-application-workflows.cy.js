@@ -137,7 +137,6 @@ describe("Submit Application Workflow Tests", () => {
       });
 
     cy.get("@testUser").then((user) => {
-      console.log(user);
       cy.loginBySubject(user.sub);
     });
     cy.visit("/en/browse/pools");

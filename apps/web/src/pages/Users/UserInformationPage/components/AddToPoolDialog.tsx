@@ -34,10 +34,7 @@ export interface AddToPoolDialogProps {
   pools: Pool[];
 }
 
-export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
-  user,
-  pools,
-}) => {
+const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({ user, pools }) => {
   const intl = useIntl();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();

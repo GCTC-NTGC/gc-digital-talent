@@ -6,6 +6,7 @@ atag
 Authenticatable
 Behavioural
 BEHAVIOURAL
+Canonicalizing
 chra
 chrc
 codegen

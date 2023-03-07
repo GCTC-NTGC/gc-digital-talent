@@ -2,7 +2,11 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
-import { RequireAuth, POST_LOGOUT_URI_KEY } from "@gc-digital-talent/auth";
+import {
+  RequireAuth,
+  POST_LOGOUT_URI_KEY,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -12,7 +16,6 @@ import AdminLayout from "~/components/Layout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
-import { LegacyRole } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 /** Home */
@@ -294,6 +297,14 @@ const CreateUserPage = React.lazy(() =>
       ),
   ),
 );
+const UserLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
+      ),
+  ),
+);
 const UpdateUserPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -302,22 +313,23 @@ const UpdateUserPage = React.lazy(() =>
       ),
   ),
 );
-const ViewUserPage = React.lazy(() =>
+const AdminUserProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPage/ViewUserPage"
+        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
       ),
   ),
 );
-const ViewUserPageV2 = React.lazy(() =>
+const UserInformationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewUserPage" */ "../pages/Users/ViewUserPageV2/ViewUserPage"
+        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
       ),
   ),
 );
+
 const UserPlacementPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -341,6 +353,14 @@ const CreateTeamPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
+      ),
+  ),
+);
+const TeamLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
       ),
   ),
 );
@@ -435,6 +455,14 @@ const EditPoolPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
+      ),
+  ),
+);
+const PoolLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
       ),
   ),
 );
@@ -618,7 +646,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
               path: "create-account",
               element: (
                 <RequireAuth
-                  roles={[LegacyRole.Applicant]}
+                  roles={[ROLE_NAME.Applicant]}
                   loginPath={loginPath}
                 >
                   <CreateAccountPage />
@@ -635,7 +663,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "me",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Applicant]}
+                      roles={[ROLE_NAME.Applicant]}
                       loginPath={loginPath}
                     >
                       <ProfileRedirect />
@@ -652,7 +680,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <ProfilePage />
@@ -663,7 +691,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "about-me/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <AboutMePage />
@@ -674,7 +702,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "government-info/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <GovernmentInfoPage />
@@ -685,7 +713,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "language-info/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <LanguageInfoPage />
@@ -696,7 +724,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "work-location/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <WorkLocationPage />
@@ -707,7 +735,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "work-preferences/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <WorkPreferencesPage />
@@ -718,7 +746,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "employment-equity/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <EmploymentEquityPage />
@@ -729,7 +757,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "role-salary-expectations/edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <RoleSalaryPage />
@@ -743,7 +771,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               index: true,
                               element: (
                                 <RequireAuth
-                                  roles={[LegacyRole.Applicant]}
+                                  roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ExperienceAndSkillsPage />
@@ -757,7 +785,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   path: "create",
                                   element: (
                                     <RequireAuth
-                                      roles={[LegacyRole.Applicant]}
+                                      roles={[ROLE_NAME.Applicant]}
                                       loginPath={loginPath}
                                     >
                                       <ExperienceFormPage />
@@ -771,7 +799,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                       path: "edit",
                                       element: (
                                         <RequireAuth
-                                          roles={[LegacyRole.Applicant]}
+                                          roles={[ROLE_NAME.Applicant]}
                                           loginPath={loginPath}
                                         >
                                           <ExperienceFormPage edit />
@@ -790,7 +818,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "applications",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Applicant]}
+                          roles={[ROLE_NAME.Applicant]}
                           loginPath={loginPath}
                         >
                           <MyApplicationsPage />
@@ -822,7 +850,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "create-application",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <CreateApplicationPage />
@@ -843,7 +871,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "submit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <SignAndSubmitPage />
@@ -854,7 +882,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "apply",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Applicant]}
+                              roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <ReviewApplicationPage />
@@ -871,7 +899,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
               path: "talent/profile/*",
               element: (
                 <RequireAuth
-                  roles={[LegacyRole.Applicant]}
+                  roles={[ROLE_NAME.Applicant]}
                   loginPath={loginPath}
                 >
                   <TalentRedirect />
@@ -909,7 +937,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               path: "dashboard",
               element: (
-                <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                <RequireAuth
+                  roles={[
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
+                  ]}
+                  loginPath={loginPath}
+                >
                   <AdminDashboardPage />
                 </RequireAuth>
               ),
@@ -921,7 +956,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
@@ -932,7 +967,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <CreateUserPage />
@@ -941,15 +976,23 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":userId",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <UserLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPage />
+                          <UserInformationPage />
                         </RequireAuth>
                       ),
                     },
@@ -957,10 +1000,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "profile",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
-                          <ViewUserPageV2 />
+                          <AdminUserProfilePage />
                         </RequireAuth>
                       ),
                     },
@@ -968,7 +1015,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "placement",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UserPlacementPage />
@@ -979,7 +1030,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <UpdateUserPage />
@@ -997,7 +1048,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1008,7 +1059,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <CreateTeamPage />
@@ -1017,12 +1068,23 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":teamId",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <TeamLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <ViewTeamPage />
@@ -1033,7 +1095,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <UpdateTeamPage />
@@ -1044,7 +1106,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "members",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <TeamMembersPage />
@@ -1062,7 +1127,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1073,7 +1138,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.PoolOperator]}
                       loginPath={loginPath}
                     >
                       <CreatePoolPage />
@@ -1082,12 +1147,26 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: ":poolId",
+                  element: (
+                    <RequireAuth
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                      ]}
+                      loginPath={loginPath}
+                    >
+                      <PoolLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                          ]}
                           loginPath={loginPath}
                         >
                           <ViewPoolPage />
@@ -1098,7 +1177,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PoolOperator]}
                           loginPath={loginPath}
                         >
                           <EditPoolPage />
@@ -1112,7 +1191,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[
+                                ROLE_NAME.PoolOperator,
+                                ROLE_NAME.RequestResponder,
+                              ]}
                               loginPath={loginPath}
                             >
                               <IndexPoolCandidatePage />
@@ -1126,7 +1208,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               index: true,
                               element: (
                                 <RequireAuth
-                                  roles={[LegacyRole.Admin]}
+                                  roles={[ROLE_NAME.PoolOperator]}
                                   loginPath={loginPath}
                                 >
                                   <ViewPoolCandidatePage />
@@ -1144,7 +1226,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               path: "candidates/:poolCandidateId/application",
               element: (
-                <RequireAuth roles={[LegacyRole.Admin]} loginPath={loginPath}>
+                <RequireAuth
+                  roles={[ROLE_NAME.PoolOperator]}
+                  loginPath={loginPath}
+                >
                   <ViewPoolCandidatePage />
                 </RequireAuth>
               ),
@@ -1156,7 +1241,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <IndexSearchRequestPage />
@@ -1167,7 +1252,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":searchRequestId",
                   element: (
                     <RequireAuth
-                      roles={[LegacyRole.Admin]}
+                      roles={[ROLE_NAME.RequestResponder]}
                       loginPath={loginPath}
                     >
                       <ViewSearchRequestPage />
@@ -1186,7 +1271,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexClassificationPage />
@@ -1197,7 +1282,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateClassificationPage />
@@ -1211,7 +1296,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateClassificationPage />
@@ -1229,7 +1314,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexDepartmentPage />
@@ -1240,7 +1325,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateDepartmentPage />
@@ -1254,7 +1339,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateDepartmentPage />
@@ -1272,7 +1357,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <IndexSkillPage />
@@ -1283,7 +1368,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "create",
                       element: (
                         <RequireAuth
-                          roles={[LegacyRole.Admin]}
+                          roles={[ROLE_NAME.PlatformAdmin]}
                           loginPath={loginPath}
                         >
                           <CreateSkillPage />
@@ -1297,7 +1382,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "edit",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <UpdateSkillPage />
@@ -1313,7 +1398,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           index: true,
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <IndexSkillFamilyPage />
@@ -1324,7 +1409,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           path: "create",
                           element: (
                             <RequireAuth
-                              roles={[LegacyRole.Admin]}
+                              roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
                               <CreateSkillFamilyPage />
@@ -1338,7 +1423,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               path: "edit",
                               element: (
                                 <RequireAuth
-                                  roles={[LegacyRole.Admin]}
+                                  roles={[ROLE_NAME.PlatformAdmin]}
                                   loginPath={loginPath}
                                 >
                                   <UpdateSkillFamilyPage />

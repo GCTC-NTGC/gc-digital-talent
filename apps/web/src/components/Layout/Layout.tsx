@@ -4,7 +4,11 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 // import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  useAuthentication,
+  useAuthorization,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -14,7 +18,6 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
-import { LegacyRole } from "~/api/generated";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -47,7 +50,7 @@ const Layout = () => {
     setTheme("default", "light");
   }, [setTheme]);
 
-  const { loggedInUser } = useAuthorization();
+  const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
   let menuItems = [
@@ -74,10 +77,10 @@ const Layout = () => {
     </MenuLink>,
   ];
 
-  if (loggedIn && loggedInUser?.id) {
+  if (loggedIn && user?.id) {
     menuItems = [
       ...menuItems,
-      <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
+      <MenuLink key="myApplications" to={paths.applications(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My applications",
           id: "ioghLh",
@@ -85,7 +88,7 @@ const Layout = () => {
             "Label displayed on the users pool applications menu item.",
         })}
       </MenuLink>,
-      <MenuLink key="myProfile" to={paths.profile(loggedInUser.id)}>
+      <MenuLink key="myProfile" to={paths.profile(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My profile",
           id: "5lBIzg",
@@ -93,10 +96,15 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
+    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
     if (
-      loggedInUser?.legacyRoles &&
-      loggedInUser.legacyRoles.length > 0 &&
-      loggedInUser.legacyRoles.includes(LegacyRole.Admin)
+      [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ].some((authorizedRoleName) =>
+        userRoleNames?.includes(authorizedRoleName),
+      )
     ) {
       menuItems = [
         ...menuItems,
