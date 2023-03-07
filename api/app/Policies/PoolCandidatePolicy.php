@@ -4,8 +4,6 @@ namespace App\Policies;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PoolCandidatePolicy
