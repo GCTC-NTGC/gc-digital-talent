@@ -102,8 +102,6 @@ AddTeamMemberDialogProps) => {
     description: "Label for the add member to team form",
   });
 
-  console.log(userOptions);
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -135,10 +133,7 @@ AddTeamMemberDialogProps) => {
                   description:
                     "Label for the user select field on team membership form",
                 })}
-                options={availableUsers.filter(notEmpty).map((u) => ({
-                  value: u.id,
-                  label: getFullNameLabel(u.firstName, u.lastName, intl),
-                }))}
+                options={userOptions}
               />
               {/** Note: Only one option since we are adding to this team's users */}
               <input type="hidden" name="team" value={team.id} />
