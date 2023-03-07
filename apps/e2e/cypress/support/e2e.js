@@ -24,7 +24,7 @@ import './genericJobTitleCommands'
 import './applicationCommands'
 
 before(() => {
-  cy.log('Need to run something before each test file? Add it to `cypress/support/index.js`')
+  cy.log('Need to run something before each test file? Add it to `cypress/support/e2e.js`')
 
   /* Tips
    * - Using `before()` and `beforeEach()` is helpful, as they act the same as

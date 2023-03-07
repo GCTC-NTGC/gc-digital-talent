@@ -1,17 +1,32 @@
 import React from "react";
-
-import { ThemeMode, SetModeFunc } from "../types";
+import {
+  ThemeMode,
+  SetModeFunc,
+  ThemeKey,
+  SetThemeKeyFunc,
+  SetThemeFunc,
+} from "../types";
 
 export interface ThemeState {
   mode: ThemeMode;
+  key: ThemeKey;
   isPref: boolean;
   setMode: SetModeFunc;
+  setThemeKey: SetThemeKeyFunc;
+  setTheme: SetThemeFunc;
 }
 
 export const defaultThemeState = {
   mode: "pref" as ThemeMode,
+  key: "default" as ThemeKey,
   isPref: true,
   setMode: () => {
+    // PASS
+  },
+  setThemeKey: () => {
+    // PASS
+  },
+  setTheme: () => {
     // PASS
   },
 };
@@ -20,7 +35,10 @@ export const ThemeContext = React.createContext<ThemeState>(defaultThemeState);
 
 export interface ThemeProviderProps {
   children: React.ReactNode;
-  override?: ThemeMode;
+  override?: {
+    key?: ThemeKey;
+    mode?: ThemeMode;
+  };
   themeSelector?: string;
 }
 
@@ -29,41 +47,93 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
+  const currentTheme = localStorage.theme ? JSON.parse(localStorage.theme) : {};
   const [isPref, setPref] = React.useState<boolean>(!localStorage.theme);
+  const [key, setKey] = React.useState<ThemeKey>(
+    currentTheme?.key || "default",
+  );
   const [mode, setMode] = React.useState<ThemeMode>(
-    localStorage.theme || "pref",
+    currentTheme?.mode || "pref",
   );
 
   const setDOMTheme = React.useCallback(
-    (newMode: ThemeMode) => {
+    (newKey: ThemeKey, newMode: ThemeMode) => {
       setMode(newMode);
+      setKey(newKey);
       const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
+      let themeString: string | undefined = "";
+      // TO DO: Add mode back once dark mode is done
+      if (newMode && newKey) {
+        // themeString = `${newKey} ${newMode}`;
+        themeString = newKey;
+      } else if (newKey) {
+        themeString = newKey;
+      } else if (newMode) {
+        // themeString = newMode;
+      } else {
+        themeString = undefined;
+      }
+
       hydrogen.forEach((item) => {
         if (item instanceof HTMLElement) {
           //  NOTE: We are setting DOM attrs here so it should be fine
           // eslint-disable-next-line no-param-reassign
-          item.dataset.h2 = newMode;
+          item.dataset.h2 = themeString;
         }
       });
     },
-    [themeSelector, setMode],
+    [themeSelector],
   );
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
       setPref(newMode === "pref");
       if (newMode !== "pref") {
-        localStorage.setItem("theme", String(newMode));
-        setDOMTheme(newMode);
+        localStorage.setItem(
+          "theme",
+          JSON.stringify({
+            key,
+            mode: newMode,
+          }),
+        );
+        setDOMTheme(key, newMode);
       } else {
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)",
         ).matches;
         localStorage.removeItem("theme");
-        setDOMTheme(prefersDark ? "dark" : "light");
+        setDOMTheme(key, prefersDark ? "dark" : "light");
       }
     },
-    [setDOMTheme, setPref],
+    [setDOMTheme, setPref, key],
+  );
+
+  const setCurrentKey = React.useCallback(
+    (newKey: ThemeKey) => {
+      setDOMTheme(newKey, mode);
+      localStorage.setItem(
+        "theme",
+        JSON.stringify({
+          mode,
+          key: newKey,
+        }),
+      );
+    },
+    [mode, setDOMTheme],
+  );
+
+  const setTheme = React.useCallback(
+    (newKey: ThemeKey, newMode: ThemeMode) => {
+      setDOMTheme(newKey, newMode);
+      localStorage.setItem(
+        "theme",
+        JSON.stringify({
+          mode: newMode,
+          key: newKey,
+        }),
+      );
+    },
+    [setDOMTheme],
   );
 
   React.useEffect(() => {
@@ -100,18 +170,27 @@ const ThemeProvider = ({
   }, [setCurrentMode]);
 
   React.useEffect(() => {
-    if (override) {
-      setCurrentMode(override);
+    if (override?.mode) {
+      setCurrentMode(override.mode);
     }
-  }, [override, setCurrentMode]);
+  }, [override?.mode, setCurrentMode]);
+
+  React.useEffect(() => {
+    if (override?.key) {
+      setCurrentKey(override.key);
+    }
+  }, [override?.key, setCurrentKey]);
 
   const theme = React.useMemo(
     () => ({
       mode,
+      key,
       setMode: setCurrentMode,
+      setThemeKey: setCurrentKey,
+      setTheme,
       isPref,
     }),
-    [mode, setCurrentMode, isPref],
+    [mode, key, setCurrentMode, setCurrentKey, isPref, setTheme],
   );
 
   return (

@@ -16,7 +16,7 @@ const InputUnsaved = ({ isVisible, ...rest }: InputUnsavedProps) => {
       data-h2-font-size="base(caption)"
       data-h2-display="base(inline-block)"
       data-h2-margin="base(0, 0, 0, x.125)"
-      data-h2-color="base(tm-blue.darkest)"
+      data-h2-color="base(secondary.darkest)"
       {...rest}
     >
       {intl.formatMessage(commonMessages.unSaved)}

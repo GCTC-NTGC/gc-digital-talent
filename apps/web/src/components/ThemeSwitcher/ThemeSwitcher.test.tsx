@@ -38,7 +38,13 @@ describe("ThemeSwitcher", () => {
       await screen.getByRole("radio", { name: /activate light mode/i }),
     );
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "light");
+    expect(window.localStorage.setItem).toHaveBeenCalledWith(
+      "theme",
+      JSON.stringify({
+        key: "default",
+        mode: "light",
+      }),
+    );
 
     expect(
       await screen.getByRole("radio", { name: /activate light mode/i }),
@@ -51,7 +57,13 @@ describe("ThemeSwitcher", () => {
       await screen.getByRole("radio", { name: /activate dark mode/i }),
     );
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "dark");
+    expect(window.localStorage.setItem).toHaveBeenCalledWith(
+      "theme",
+      JSON.stringify({
+        key: "default",
+        mode: "dark",
+      }),
+    );
 
     expect(
       await screen.getByRole("radio", { name: /activate dark mode/i }),

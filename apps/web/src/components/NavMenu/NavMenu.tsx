@@ -25,7 +25,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   const intl = useIntl();
   return (
     <div
-      data-h2-background-color="base(white) base:dark(black.light)"
+      data-h2-background-color="base(foreground)"
       data-h2-padding="base(x1, 0)"
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

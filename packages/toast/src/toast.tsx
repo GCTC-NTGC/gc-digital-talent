@@ -10,7 +10,9 @@ import { toast as toastify, ToastOptions } from "react-toastify";
 import ToastMessage from "./components/ToastMessage/ToastMessage";
 
 const iconStyles = {
-  "data-h2-width": "base(x2)",
+  "data-h2-width": "base(x1.5)",
+  "data-h2-stroke-width": "base(2px)",
+  "data-h2-margin": "p-tablet(x.2, 0, 0, 0)",
 };
 
 const toast = {

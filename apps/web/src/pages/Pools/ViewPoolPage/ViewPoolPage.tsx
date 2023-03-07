@@ -5,10 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   CheckIcon,
   ClipboardIcon,
-  CogIcon,
   ArrowTopRightOnSquareIcon,
-  UserGroupIcon,
-  Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
 import {
@@ -35,9 +32,7 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Scalars,
@@ -45,7 +40,6 @@ import {
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
 } from "~/api/generated";
-import Spacer from "~/components/Spacer/Spacer";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -66,7 +60,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const poolName = getFullPoolAdvertisementTitleHtml(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
@@ -158,75 +151,17 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     closingStringPacific = "";
   }
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "View pool",
+    id: "vINfxJ",
+    description: "Page title for the individual pool page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "View pool",
-          id: "vINfxJ",
-          description: "Page title for the individual pool page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
         <AdminBreadcrumbs crumbs={links} />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-margin="base(x2, 0)"
-        >
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolCandidateTable(pool.id)}
-              icon={UserGroupIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage candidates",
-                id: "B/VlGq",
-                description:
-                  "Link text for button to manage candidates of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          {/*
-          TODO - uncomment once something to link to exists and reimport TicketIcon
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href="#"
-              disabled
-              icon={TicketIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage requests",
-                id: "v2mXcp",
-                description:
-                  "Link text for button to manage requests of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          */}
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolUpdate(pool.id)}
-              icon={CogIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Edit pool advertisement",
-                id: "dmGvCL",
-                description: "Link text for button to edit a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-        </div>
         <FormProvider {...form}>
           <h2
             data-h2-margin="base(x2, 0, 0, 0)"

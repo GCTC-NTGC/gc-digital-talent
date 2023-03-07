@@ -18,7 +18,7 @@ const SkillListItem = ({ name, record }: SkillListItem) => {
     <li>
       {localizedName && (
         <p
-          data-h2-color="base(dt-primary)"
+          data-h2-color="base(primary)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >

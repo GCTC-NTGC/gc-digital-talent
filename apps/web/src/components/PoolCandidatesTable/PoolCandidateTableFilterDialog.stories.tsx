@@ -21,6 +21,7 @@ export default {
     isOpenDefault: true,
   },
   parameters: {
+    themeKey: "admin",
     apiResponses: {
       getFilterData: {
         data: {

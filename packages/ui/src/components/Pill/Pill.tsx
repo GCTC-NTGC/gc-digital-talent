@@ -4,11 +4,15 @@ export type PillSize = "sm" | "md" | "lg";
 export type PillColor =
   | "primary"
   | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
+  | "success"
+  | "warning"
+  | "error"
   | "neutral"
   | "blue"
-  | "green"
-  | "error"
-  | "warning";
+  | "green";
 export type PillMode = "solid" | "outline";
 
 export interface PillProps
@@ -22,95 +26,133 @@ export interface PillProps
   size?: PillSize;
 }
 
-const colorMap: Record<
-  PillColor,
-  Record<"solid" | "outline", Record<string, string>>
-> = {
+export const h2ChipColors = {
   primary: {
     solid: {
-      "data-h2-border": "base(1px solid dt-primary.dark)",
-      "data-h2-background-color": "base(dt-primary)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border":
+        "base(1px solid primary.light) base:admin(1px solid primary)",
+      "data-h2-background-color": "base(primary.light) base:admin(primary)",
+      "data-h2-color": "base(black) base:admin(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-primary.dark)",
-      "data-h2-background-color": "base(dt-primary.light.10)",
-      "data-h2-color": "base(dt-primary.dark)",
+      "data-h2-border": "base(1px solid primary.darker)",
+      "data-h2-background-color": "base(primary.lightest)",
+      "data-h2-color": "base(primary.darker)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(1px solid dt-secondary.dark)",
-      "data-h2-background-color": "base(dt-secondary.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid secondary)",
+      "data-h2-background-color": "base(secondary)",
+      "data-h2-color": "base(black) base:admin(white) base:iap(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-secondary.dark)",
-      "data-h2-background-color": "base(dt-secondary.light.10)",
-      "data-h2-color": "base(dt-secondary.dark)",
+      "data-h2-border": "base(1px solid secondary.darker)",
+      "data-h2-background-color": "base(secondary.lightest)",
+      "data-h2-color": "base(secondary.darker)",
     },
   },
-  blue: {
+  tertiary: {
     solid: {
-      "data-h2-border": "base(1px solid tm-blue.dark)",
-      "data-h2-background-color": "base(tm-blue.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid tertiary)",
+      "data-h2-background-color": "base(tertiary)",
+      "data-h2-color": "base(black) base:iap(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid tm-blue.dark)",
-      "data-h2-background-color": "base(tm-blue.light.10)",
-      "data-h2-color": "base(tm-blue.dark)",
+      "data-h2-border": "base(1px solid tertiary.darker)",
+      "data-h2-background-color": "base(tertiary.lightest)",
+      "data-h2-color": "base(tertiary.darker)",
     },
   },
-  green: {
+  quaternary: {
     solid: {
-      "data-h2-border": "base(1px solid tm-green.dark)",
-      "data-h2-background-color": "base(tm-green.light)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid quaternary)",
+      "data-h2-background-color": "base(quaternary)",
+      "data-h2-color": "base(black) base:iap(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid tm-green.dark)",
-      "data-h2-background-color": "base(tm-green.light.10)",
-      "data-h2-color": "base(tm-green.dark)",
+      "data-h2-border": "base(1px solid quaternary.darker)",
+      "data-h2-background-color": "base(quaternary.lightest)",
+      "data-h2-color": "base(quaternary.darker)",
     },
   },
-  neutral: {
+  quinary: {
     solid: {
-      /* not very visible - should probably be fixed before using */
-      "data-h2-border": "base(1px solid dt-gray.dark)",
-      "data-h2-background-color": "base(dt-gray.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid quinary)",
+      "data-h2-background-color": "base(quinary)",
+      "data-h2-color": "base(black) base:iap(white)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-gray.dark)",
-      "data-h2-background-color": "base(dt-gray.10)",
-      "data-h2-color": "base(dt-gray.dark)",
+      "data-h2-border": "base(1px solid quinary.darker)",
+      "data-h2-background-color": "base(quinary.lightest)",
+      "data-h2-color": "base(quinary.darker)",
     },
   },
-  error: {
+  success: {
     solid: {
-      "data-h2-border": "base(1px solid dt-error.dark)",
-      "data-h2-background-color": "base(dt-error.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid success.light)",
+      "data-h2-background-color": "base(success.light)",
+      "data-h2-color": "base(black)",
     },
     outline: {
-      "data-h2-border": "base(1px solid dt-error.dark)",
-      "data-h2-background-color": "base(dt-error.light.10)",
-      "data-h2-color": "base(dt-black.dark)",
+      "data-h2-border": "base(1px solid success.darker)",
+      "data-h2-background-color": "base(success.lightest)",
+      "data-h2-color": "base(success.darker)",
     },
   },
   warning: {
     solid: {
-      "data-h2-border": "base(1px solid tm-yellow.dark)",
-      "data-h2-background-color": "base(tm-yellow.dark)",
-      "data-h2-color": "base(dt-white)",
+      "data-h2-border": "base(1px solid warning)",
+      "data-h2-background-color": "base(warning)",
+      "data-h2-color": "base(black)",
     },
     outline: {
-      "data-h2-border": "base(1px solid tm-yellow.dark)",
-      "data-h2-background-color": "base(tm-yellow.light.10)",
-      "data-h2-color": "base(dt-black.dark)",
+      "data-h2-border": "base(1px solid warning.darker)",
+      "data-h2-background-color": "base(warning.lightest)",
+      "data-h2-color": "base(warning.darker)",
     },
   },
+  error: {
+    solid: {
+      "data-h2-border": "base(1px solid error.light)",
+      "data-h2-background-color": "base(error.light)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border": "base(1px solid error.darker)",
+      "data-h2-background-color": "base(error.lightest)",
+      "data-h2-color": "base(error.darker)",
+    },
+  },
+  neutral: {
+    solid: {
+      "data-h2-border": "base(1px solid gray.light)",
+      "data-h2-background-color": "base(gray.light)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border": "base(1px solid gray.darker)",
+      "data-h2-background-color": "base(gray.lightest)",
+      "data-h2-color": "base(gray.darker)",
+    },
+  },
+};
+
+const colorMap: Record<
+  PillColor,
+  Record<"solid" | "outline", Record<string, string>>
+> = {
+  primary: h2ChipColors.primary,
+  secondary: h2ChipColors.secondary,
+  tertiary: h2ChipColors.tertiary,
+  quaternary: h2ChipColors.quaternary,
+  quinary: h2ChipColors.quinary,
+  success: h2ChipColors.success,
+  warning: h2ChipColors.warning,
+  error: h2ChipColors.error,
+  blue: h2ChipColors.secondary,
+  green: h2ChipColors.quinary,
+  neutral: h2ChipColors.neutral,
 };
 
 const sizeMap: Record<PillSize, Record<string, string>> = {

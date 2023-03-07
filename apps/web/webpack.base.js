@@ -23,7 +23,7 @@ module.exports = merge(base(basePath), {
       "~": path.resolve(basePath, "./src/"),
     }
   },
-  // TO DO: We should be able to remove this after merging all apps
+  stats: "errors-warnings",
   output: {
     publicPath: "/", // final path for routing
     filename: "[name].[contenthash].js", // file hashing for cache busting

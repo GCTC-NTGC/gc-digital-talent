@@ -13,10 +13,12 @@ class SkillFamilyPolicy
     /**
      * Determine whether the user can view any models.
      *
+     * Note: This action is possible for everyone, including anonymous users
+     *
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user = null)
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -24,11 +26,13 @@ class SkillFamilyPolicy
     /**
      * Determine whether the user can view the model.
      *
+     * Note: This action is possible for everyone, including anonymous users
+     *
      * @param  \App\Models\User|null  $user
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user = null)
+    public function view(?User $user)
     {
         return true;
     }
@@ -41,7 +45,7 @@ class SkillFamilyPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("create-any-skillFamily");
     }
 
     /**
@@ -51,9 +55,9 @@ class SkillFamilyPolicy
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, SkillFamily $skillFamily)
+    public function update(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("update-any-skillFamily");
     }
 
     /**
@@ -63,9 +67,9 @@ class SkillFamilyPolicy
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, SkillFamily $skillFamily)
+    public function delete(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -75,9 +79,9 @@ class SkillFamilyPolicy
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, SkillFamily $skillFamily)
+    public function restore(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 
     /**
@@ -87,8 +91,8 @@ class SkillFamilyPolicy
      * @param  \App\Models\SkillFamily  $skillFamily
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, SkillFamily $skillFamily)
+    public function forceDelete(User $user)
     {
-        return false;
+        return $user->isAbleTo("delete-any-skillFamily");
     }
 }
