@@ -8,20 +8,16 @@ use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
-use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Signer\Key\InMemory;
+use App\Services\OpenIdBearerTokenService;
 
 class AuthController extends Controller
 {
-    public function fastSigner(): Configuration {
-        // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
-        // due to being dropped by Lcobucci, this is the recommended fast replacement
-        // https://lcobucci-jwt.readthedocs.io/en/latest/upgrading/#v4x-to-v5x
+    protected $fastSigner;
 
-        return Configuration::forSymmetricSigner(
-            new Signer\Blake2b(),
-            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
-            );
+    public function __construct(OpenIdBearerTokenService $service)
+    {
+        // inject signer method from service file
+        $this->fastSigner = $service->fastSigner();
     }
 
     public function login(Request $request)
@@ -83,7 +79,7 @@ class AuthController extends Controller
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json("id_token");
 
-        $config = $this->fastSigner();
+        $config = $this->fastSigner;
 
         assert($config instanceof Configuration);
         $token = $config->parser()->parse($idToken);
