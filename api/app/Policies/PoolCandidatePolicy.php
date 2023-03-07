@@ -48,6 +48,7 @@ class PoolCandidatePolicy
                 return true;
             }
 
+            $poolCandidate->loadMissing('pool', 'pool.team');
             $candidatePoolTeam = $poolCandidate->pool->team;
             $contains = $user->roleAssignments->contains('team_id', $candidatePoolTeam->id);
             if ($contains && $user->isAbleTo("view-team-submittedApplication", $candidatePoolTeam)) {
@@ -91,6 +92,7 @@ class PoolCandidatePolicy
     public function update(User $user, PoolCandidate $poolCandidate)
     {
 
+        $poolCandidate->loadMissing('pool', 'pool.team');
         $candidatePoolTeam = $poolCandidate->pool->team;
         $contains = $user->roleAssignments->contains('team_id', $candidatePoolTeam->id);
         $isDraft = $poolCandidate->isDraft();
