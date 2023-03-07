@@ -13,6 +13,8 @@ import {
   REFRESH_TOKEN,
   ID_TOKEN,
   POST_LOGOUT_URI_KEY,
+  ROLE_NAME,
+  RoleName,
 } from "./const";
 
 export {
@@ -27,4 +29,12 @@ export {
   apiRoutes,
 };
 
-export { ACCESS_TOKEN, REFRESH_TOKEN, ID_TOKEN, POST_LOGOUT_URI_KEY };
+export {
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+  ID_TOKEN,
+  POST_LOGOUT_URI_KEY,
+  ROLE_NAME,
+};
+
+export type { RoleName };
