@@ -6,7 +6,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -27,6 +26,7 @@ class PoolCandidatePolicyTest extends TestCase
     protected $basePool;
     protected $teamPool;
     protected $poolCandidate;
+    protected $unOwnedPoolCandidate;
 
     protected function setUp(): void
     {
@@ -52,7 +52,6 @@ class PoolCandidatePolicyTest extends TestCase
             'email' => 'pool-operator-user@test.com',
             'sub' => 'pool-operator-user@test.com',
         ]);
-        $this->poolOperatorUser->syncRoles($baseRoles);
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser->attachRole("pool_operator", $this->team);
 
@@ -61,7 +60,6 @@ class PoolCandidatePolicyTest extends TestCase
             'sub' => 'request-responder-user@test.com',
         ]);
         $this->requestResponderUser->syncRoles([
-            ...$baseRoles,
             "request_responder"
         ]);
 
@@ -70,8 +68,6 @@ class PoolCandidatePolicyTest extends TestCase
             'sub' => 'platform-admin-user@test.com',
         ]);
         $this->adminUser->syncRoles([
-            ...$baseRoles,
-            "request_responder",
             "platform_admin"
         ]);
 
@@ -89,6 +85,16 @@ class PoolCandidatePolicyTest extends TestCase
         $this->poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->candidateUser->id,
             'pool_id' => $this->teamPool->id
+        ]);
+
+        $noTeamUser = User::factory()->create();
+        $noUsersTeam = Team::factory()->create();
+        $noTeamPool = Pool::factory(['team_id' => $noUsersTeam->id])->create();
+
+        $this->unOwnedPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $noTeamPool->id,
+            'user_id' => $noTeamUser->id,
+            'submitted_at' => config('constants.past_date'),
         ]);
     }
 
@@ -116,7 +122,6 @@ class PoolCandidatePolicyTest extends TestCase
     public function testViewDraft()
     {
         $this->poolCandidate->submitted_at = null;
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
         $this->poolCandidate->save();
 
         $this->assertTrue($this->candidateUser->can('view', $this->poolCandidate));
@@ -131,40 +136,40 @@ class PoolCandidatePolicyTest extends TestCase
     /**
      * Assert that the following can view a submitted pool candidate:
      *
-     * owner, pool operator, request responder, admin
+     * owner, pool operator, request responder
      *
      * @return void
      */
     public function testViewSubmitted()
     {
         $this->poolCandidate->submitted_at = config('constants.past_date');
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
         $this->poolCandidate->save();
 
         $this->assertTrue($this->candidateUser->can('view', $this->poolCandidate));
         $this->assertTrue($this->poolOperatorUser->can('view', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('view', $this->poolCandidate));
-        $this->assertTrue($this->adminUser->can('view', $this->poolCandidate));
 
+        $this->assertFalse($this->adminUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('view', $this->poolCandidate));
+        // Pool operator cannot view submitted applications not in their teams pool
+        $this->assertFalse($this->poolOperatorUser->can('view', $this->unOwnedPoolCandidate));
     }
 
     /**
-     * Assert that only guest cannot create a draft pool candidate
+     * Assert that only applicant can create a draft pool candidate
      *
      * @return void
      */
     public function testCreateDraft()
     {
-
         $this->assertTrue($this->candidateUser->can('createDraft', PoolCandidate::class));
         $this->assertTrue($this->applicantUser->can('createDraft', PoolCandidate::class));
-        $this->assertTrue($this->poolOperatorUser->can('createDraft', PoolCandidate::class));
-        $this->assertTrue($this->requestResponderUser->can('createDraft', PoolCandidate::class));
-        $this->assertTrue($this->adminUser->can('createDraft', PoolCandidate::class));
 
         $this->assertFalse($this->guestUser->can('createDraft', PoolCandidate::class));
+        $this->assertFalse($this->poolOperatorUser->can('createDraft', PoolCandidate::class));
+        $this->assertFalse($this->requestResponderUser->can('createDraft', PoolCandidate::class));
+        $this->assertFalse($this->adminUser->can('createDraft', PoolCandidate::class));
     }
 
     /**

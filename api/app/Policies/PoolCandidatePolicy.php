@@ -43,13 +43,16 @@ class PoolCandidatePolicy
             return $user->isAbleTo("view-any-draftApplication");
         }
 
-        if(!$isDraft && $user->isAbleTo("view-any-submittedApplication")) {
-            return true;
-        }
+        if(!$isDraft) {
+            if($user->isAbleTo("view-any-submittedApplication")) {
+                return true;
+            }
 
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        if ($candidatePoolTeam) {
-            return $user->isAbleTo("view-team-submittedApplication", $candidatePoolTeam);
+            $candidatePoolTeam = $poolCandidate->pool->team;
+            $contains = $user->roleAssignments->contains('team_id', $candidatePoolTeam->id);
+            if ($contains && $user->isAbleTo("view-team-submittedApplication", $candidatePoolTeam)) {
+                return true;
+            }
         }
 
         // Noting passed for deny access
@@ -85,13 +88,13 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(?User $user, PoolCandidate $poolCandidate)
+    public function update(User $user, PoolCandidate $poolCandidate)
     {
 
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-
-        if ($user?->rolesTeams->contains($candidatePoolTeam->id)) {
-            return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam);
+        $candidatePoolTeam = $poolCandidate->pool->team;
+        $contains = $user->roleAssignments->contains('team_id', $candidatePoolTeam->id);
+        if ($contains && $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam)) {
+            return true;
         }
 
         return false;
