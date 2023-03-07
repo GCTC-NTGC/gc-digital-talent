@@ -43,7 +43,7 @@ class PoolCandidatePolicy
             return $user->isAbleTo("view-any-draftApplication");
         }
 
-        if($user->isAbleTo("view-any-submittedApplication")) {
+        if(!$isDraft && $user->isAbleTo("view-any-submittedApplication")) {
             return true;
         }
 
@@ -88,9 +88,9 @@ class PoolCandidatePolicy
     public function update(?User $user, PoolCandidate $poolCandidate)
     {
 
-        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
+        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
 
-        if ($candidatePoolTeam) {
+        if ($user?->rolesTeams->contains($candidatePoolTeam->id)) {
             return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam);
         }
 
@@ -99,6 +99,11 @@ class PoolCandidatePolicy
 
     /**
      * Determine whether the user can submit the model.
+     *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be submitted is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
@@ -112,6 +117,11 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can archive the model.
      *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be archived is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
+     *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
@@ -123,6 +133,11 @@ class PoolCandidatePolicy
 
     /**
      * Determine whether the user can suspend the model.
+     *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be suspended is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
@@ -150,6 +165,11 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can delete the model.
      *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be deleted is done during data validation
+     *
+     * If using this  policy method, please validate all data as well.
+     *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
@@ -157,22 +177,5 @@ class PoolCandidatePolicy
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
         return $user->id === $poolCandidate->user_id && $user->isAbleTo("delete-own-draftApplication");
-    }
-
-    /**
-     * Determine if User owns the Pool for the PoolCandidate
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\PoolCandidate  $poolCandidate
-     * @return \App\Models\Team|bool
-     */
-    private function userBelongsToPoolCandidatePool(?User $user, PoolCandidate $poolCandidate)
-    {
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        if ($user?->rolesTeams->contains($candidatePoolTeam->id)) {
-            return $candidatePoolTeam;
-        }
-
-        return false;
     }
 }
