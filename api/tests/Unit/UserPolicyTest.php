@@ -64,7 +64,6 @@ class UserPolicyTest extends TestCase
         $this->requestResponder->syncRoles([
             "guest",
             "base_user",
-            "applicant",
             "request_responder"
         ]);
 
@@ -75,7 +74,6 @@ class UserPolicyTest extends TestCase
         $this->poolOperator->syncRoles([
             "guest",
             "base_user",
-            "applicant"
         ]);
         $this->team = Team::factory()->create([
             'name' => 'test-team'
@@ -89,7 +87,6 @@ class UserPolicyTest extends TestCase
         $this->platformAdmin->syncRoles([
             "guest",
             "base_user",
-            "applicant",
             "platform_admin"
         ]);
     }
