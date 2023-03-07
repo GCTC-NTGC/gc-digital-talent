@@ -92,7 +92,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         data-h2-gap="base(x1)"
       >
         <HeroCard
-          ariaRole="navigation"
+          asNav
           color="secondary"
           title={intl.formatMessage({
             defaultMessage: "My profile information",
@@ -192,7 +192,6 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
         </HeroCard>
         <HeroCard
-          ariaRole="navigation"
           color="tertiary"
           title={intl.formatMessage({
             defaultMessage: "My resume and experience",

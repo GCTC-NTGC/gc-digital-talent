@@ -58,7 +58,7 @@ export const HeroCardItem = ({
 }: HeroCardItemProps) => {
   const Icon = icon || ExclamationCircleIcon;
   return (
-    <div
+    <li
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(row)"
       data-h2-gap="base(x0.5)"
@@ -87,7 +87,7 @@ export const HeroCardItem = ({
           {subLine}
         </p>
       </div>
-    </div>
+    </li>
   );
 };
 

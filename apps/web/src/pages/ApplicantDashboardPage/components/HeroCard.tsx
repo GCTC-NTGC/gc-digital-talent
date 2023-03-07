@@ -43,7 +43,7 @@ export interface HeroCardProps {
   title: string;
   href: string;
   children?: React.ReactNode;
-  ariaRole?: React.AriaRole;
+  asNav?: boolean;
 }
 
 export const HeroCard = ({
@@ -51,15 +51,16 @@ export const HeroCard = ({
   title,
   href,
   children,
-  ariaRole,
+  asNav,
 }: HeroCardProps) => {
+  const Wrapper = asNav ? "nav" : "div";
   return (
-    <div
+    <Wrapper
       data-h2-background-color="base:all(white)"
       data-h2-radius="base(s)"
       data-h2-shadow="base(s)"
       data-h2-flex-grow="base(1)"
-      role={ariaRole}
+      aria-label={title}
     >
       <div
         data-h2-display="base(block)"
@@ -84,8 +85,10 @@ export const HeroCard = ({
           </span>
         </Link>
       </div>
-      <div data-h2-padding="base(x1)">{children}</div>
-    </div>
+      <ul data-h2-padding="base(x1)" data-h2-list-style="base(none)">
+        {children}
+      </ul>
+    </Wrapper>
   );
 };
 
