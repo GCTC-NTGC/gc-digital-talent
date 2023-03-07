@@ -98,6 +98,10 @@ class Pool extends Model
     {
         return $this->hasMany(PoolCandidate::class);
     }
+    public function publishedPoolCandidates(): HasMany
+    {
+        return $this->hasMany(PoolCandidate::class)->notDraft([], true);
+    }
 
     public function essentialSkills(): BelongsToMany
     {

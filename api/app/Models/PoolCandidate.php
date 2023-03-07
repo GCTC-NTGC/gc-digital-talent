@@ -252,7 +252,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeNotDraft(Builder $query, $where, bool $notDraft = true): Builder
+    public function scopeNotDraft(Builder $query, $where = [], bool $notDraft = true): Builder
     {
         if($notDraft) {
             $query->whereNotNull("submitted_at")

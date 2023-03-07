@@ -318,7 +318,7 @@ type Pool {
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate] @hasMany(relation: "publishedPoolCandidates") @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   status: PoolStatus
     @rename(attribute: "pool_status")
