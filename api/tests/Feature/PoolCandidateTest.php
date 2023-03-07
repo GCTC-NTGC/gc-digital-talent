@@ -948,6 +948,7 @@ class PoolCandidateTest extends TestCase
             ->create([
                 'expiry_date' => config('constants.far_future_date'),
                 'pool_id' => $this->pool->id,
+                'submitted_at' => config('constants.past_date'),
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             ]);
 
@@ -955,7 +956,8 @@ class PoolCandidateTest extends TestCase
             'id' => UuidHelpers::integerToUuid(7),
             'expiry_date' => date("Y-m-d"),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
+            'submitted_at' => config('constants.past_date'),
         ]);
 
         $futureCandidates->concat($todayCandidate);
@@ -969,7 +971,8 @@ class PoolCandidateTest extends TestCase
             ->create([
                 'expiry_date' => null,
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-                'pool_id' => $this->pool->id
+                'pool_id' => $this->pool->id,
+                'submitted_at' => config('constants.past_date'),
             ]);
         $futureCandidates->concat($nullCandidates);
 
