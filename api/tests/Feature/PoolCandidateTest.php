@@ -947,6 +947,7 @@ class PoolCandidateTest extends TestCase
             ))
             ->create([
                 'expiry_date' => config('constants.far_future_date'),
+                'pool_id' => $this->pool->id,
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             ]);
 
