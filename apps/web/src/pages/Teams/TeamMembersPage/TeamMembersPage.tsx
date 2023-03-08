@@ -86,7 +86,11 @@ const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
 const roleAccessor = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
   const nonEmptyRoles = roles?.filter(notEmpty);
 
-  return orderBy(nonEmptyRoles, intl).join(", ");
+  return nonEmptyRoles
+    ? orderRoles(nonEmptyRoles, intl)
+        .map((role) => getLocalizedName(role.displayName, intl))
+        .join(", ")
+    : "";
 };
 
 type TeamMemberCell = Cell<TeamMember>;
