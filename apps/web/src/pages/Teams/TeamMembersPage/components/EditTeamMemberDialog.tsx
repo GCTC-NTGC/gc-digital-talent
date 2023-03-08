@@ -38,7 +38,7 @@ const EditTeamMemberDialog = ({
     defaultValues: {
       user: user.id,
       team: team.id,
-      roles: [],
+      roles: user.roles.map((role) => role.id),
     },
   });
 
@@ -52,7 +52,7 @@ const EditTeamMemberDialog = ({
       id: formValues.user,
       user: {
         roles: {
-          attach: {
+          sync: {
             roles: formValues.roles,
             team: formValues.team,
           },
@@ -84,10 +84,7 @@ const EditTeamMemberDialog = ({
       });
   };
 
-  const filteredRoles = availableRoles.filter(
-    (role) => !!user.roles.some((userRole) => userRole.id !== role.id),
-  );
-  const roleOptions = getTeamBasedRoleOptions(filteredRoles, intl);
+  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
