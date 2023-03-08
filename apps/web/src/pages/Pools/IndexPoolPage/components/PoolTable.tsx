@@ -134,6 +134,40 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
+// data manipulation functions
+// roles assignments array to teams array
+const createTeamsArray = (
+  roleAssignmentArray: Maybe<RoleAssignment[]>,
+): Team[] | null => {
+  if (roleAssignmentArray) {
+    let teamsArray: Team[] = [];
+    roleAssignmentArray.forEach((roleAssignmentInstance) => {
+      if (roleAssignmentInstance.team) {
+        teamsArray = [...teamsArray, roleAssignmentInstance.team];
+      }
+    });
+    return teamsArray;
+  }
+  return null;
+};
+// teams array to pools array
+const createPoolsArray = (teamsArray: Maybe<Team[]>): Pool[] | null => {
+  if (teamsArray) {
+    let poolsArray: Pool[] = [];
+    teamsArray.forEach((team) => {
+      if (team.pools) {
+        team.pools.forEach((pool) => {
+          if (pool) {
+            poolsArray = [...poolsArray, pool];
+          }
+        });
+      }
+    });
+    return poolsArray;
+  }
+  return null;
+};
+
 interface PoolTableProps {
   pools: Pool[];
 }
@@ -365,40 +399,6 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
 };
 
 const PoolTableApi = () => {
-  // data manipulation functions
-  // roles assignments to team collection
-  const createTeamsArray = (
-    roleAssignmentArray: Maybe<RoleAssignment[]>,
-  ): Team[] | null => {
-    if (roleAssignmentArray) {
-      let teamsArray: Team[] = [];
-      roleAssignmentArray.forEach((roleAssignmentInstance) => {
-        if (roleAssignmentInstance.team) {
-          teamsArray = [...teamsArray, roleAssignmentInstance.team];
-        }
-      });
-      return teamsArray;
-    }
-    return null;
-  };
-  // teams to pool collection
-  const createPoolsArray = (teamsArray: Maybe<Team[]>): Pool[] | null => {
-    if (teamsArray) {
-      let poolsArray: Pool[] = [];
-      teamsArray.forEach((team) => {
-        if (team.pools) {
-          team.pools.forEach((pool) => {
-            if (pool) {
-              poolsArray = [...poolsArray, pool];
-            }
-          });
-        }
-      });
-      return poolsArray;
-    }
-    return null;
-  };
-
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const teamsArray = createTeamsArray(data?.me?.roleAssignments);
