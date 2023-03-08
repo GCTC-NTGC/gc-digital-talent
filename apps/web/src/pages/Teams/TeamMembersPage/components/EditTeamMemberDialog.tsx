@@ -9,6 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
+  formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
@@ -191,12 +192,7 @@ const EditTeamMemberDialog = ({
                 >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Save changes",
-                        id: "xDqygb",
-                        description:
-                          "Button to save the permissions for a user's team membership",
-                      })}
+                    : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
               </Dialog.Footer>
             </form>
