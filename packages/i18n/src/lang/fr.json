@@ -1193,5 +1193,9 @@
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
     "description": "Submitting text for delete button."
+  },
+  "WGoaKQ": {
+    "defaultMessage": "Enregistrer les modifications",
+    "description": "Text for submit button on edit forms"
   }
 }
