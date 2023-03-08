@@ -3,7 +3,9 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class UserPolicy
 {
@@ -66,8 +68,18 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User $model, array $injected)
     {
+        /**
+         * If a user is assigning a role here, check all actions
+         * and fail early
+         */
+        if (isset($injected["roles"])) {
+            if (!$user->isAbleTo("assign-any-role")) {
+                return false;
+            }
+        }
+
         return $user->isAdmin() || $user->id === $model->id;
     }
 
@@ -80,8 +92,8 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if($user->isAdmin()){
-            if($user->id !== $model->id){
+        if ($user->isAdmin()) {
+            if ($user->id !== $model->id) {
                 return true;
             } else {
                 return false; // Do not allow user to delete their own model.

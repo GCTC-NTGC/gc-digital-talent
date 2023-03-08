@@ -99,8 +99,12 @@ class DatabaseSeeder extends Seeder
                     $user->expectedClassifications()->sync([]);
                 }
 
-                // create a pool candidate in the pool
-                $this->seedPoolCandidate($user, $pool);
+                // create a pool candidate in the pool - are they suspended?
+                if (rand(0, 4) == 4) {
+                    $this->seedSuspendedCandidate($user, $pool);
+                } else {
+                    $this->seedPoolCandidate($user, $pool);
+                }
             })
             ->create();
 
@@ -201,14 +205,25 @@ class DatabaseSeeder extends Seeder
     private function seedPoolCandidate(User $user, Pool $pool)
     {
         // create a pool candidate in the pool
-        PoolCandidate::factory()->count(1)->sequence(fn () => [
-            'pool_id' => $pool->id,
-            'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) {
-            if ($candidate->submitted_at) {
-                $candidate->createSnapshot();
-            }
-        })->create();
+        PoolCandidate::factory()->for($user)->for($pool)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create();
+    }
+
+    private function seedSuspendedCandidate(User $user, Pool $pool)
+    {
+        // create a suspended pool candidate in the pool
+        PoolCandidate::factory()->suspended()->for($user)->for($pool)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create();
     }
 
     private function seedPools()

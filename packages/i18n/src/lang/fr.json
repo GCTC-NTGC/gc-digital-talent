@@ -1197,5 +1197,9 @@
   "WGoaKQ": {
     "defaultMessage": "Enregistrer les modifications",
     "description": "Text for submit button on edit forms"
+  },
+  "mhZmff": {
+    "defaultMessage": "La demande doit être soumise.",
+    "description": "Error message that the given application must already be submitted."
   }
 }

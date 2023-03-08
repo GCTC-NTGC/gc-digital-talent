@@ -735,6 +735,27 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]);
         }
 
+        $user2 = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+        $user3 = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool,
+            'user_id' => $user2,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'expiry_date' => config('constants.far_future_date'),
+            'suspended_at' => config('constants.far_future_date')
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool,
+            'user_id' => $user3,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'expiry_date' => config('constants.far_future_date'),
+            'suspended_at' => config('constants.past_date')
+        ]);
+
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -753,7 +774,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
+                        'candidateCount' => 3
                     ]
                 ]
             ]
