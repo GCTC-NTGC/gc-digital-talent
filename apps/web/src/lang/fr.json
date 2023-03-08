@@ -6805,5 +6805,9 @@
   "qPxrKm": {
     "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
     "description": "Help text for the edit team membership form"
+  },
+  "1BEtoY": {
+    "defaultMessage": "Nom du gestionnaire",
+    "description": "Label for the user select field on team membership form"
   }
 }
