@@ -6677,5 +6677,81 @@
   "HvBs2+": {
     "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
     "description": "Subtitle for applicant dashboard hero"
+  },
+  "+e2nr6": {
+    "defaultMessage": "Ajouter un nouveau membre",
+    "description": "Label for the add member to team form"
+  },
+  "/esEW+": {
+    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
+    "description": "Help text for the remove team membership dialog"
+  },
+  "0AaeXe": {
+    "defaultMessage": "Équipe",
+    "description": "Label for the team select field on team membership form"
+  },
+  "2JIgrl": {
+    "defaultMessage": "Do you wish to continue?",
+    "description": "Message displayed to users before removing a member from a team"
+  },
+  "3/lHSy": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed for the team members table email column."
+  },
+  "4Washm": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Title displayed for the team members table roles column."
+  },
+  "7Mbt01": {
+    "defaultMessage": "Le retrait du membre de l’équipe a échoué",
+    "description": "Alert displayed to user when an error occurs while removing a team member"
+  },
+  "AKQeBC": {
+    "defaultMessage": "Membre ajouté avec succès",
+    "description": "Alert displayed to user when a team member's roles have been updated"
+  },
+  "ALIgEC": {
+    "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
+    "description": "Alert displayed to user when a team member's roles have been updated"
+  },
+  "AUOq9D": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the team members table Name column."
+  },
+  "DyHeaZ": {
+    "defaultMessage": "Retirer le membre",
+    "description": "Label for the dialog to remove a users team membership"
+  },
+  "Ly2bBb": {
+    "defaultMessage": "La mise à jour du rôle du membre a échoué",
+    "description": "Alert displayed to user when an error occurs while editing a team member's roles"
+  },
+  "Mz61q/": {
+    "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
+    "description": "Help text for user field on the add member to team form"
+  },
+  "cOJVBW": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Label for the input to add roles to a user's team membership"
+  },
+  "eW7I5E": {
+    "defaultMessage": "Sélectionner les rôles...",
+    "description": "Placeholder text for role selection input"
+  },
+  "guzGyX": {
+    "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
+    "description": "Alert displayed to user when a team member is removed"
+  },
+  "o1M2Kc": {
+    "defaultMessage": "Il ou elle perdra tous les rôles suivants au sein de l’équipe ",
+    "description": "Lead text for the list of roles the user will lose"
+  },
+  "oVgVhK": {
+    "defaultMessage": "Modifier l’adhésion pour {userName}",
+    "description": "Label for the form to edit a users team membership"
+  },
+  "qPxrKm": {
+    "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
+    "description": "Help text for the edit team membership form"
   }
 }
