@@ -6645,5 +6645,65 @@
   "wzScZA": {
     "defaultMessage": "Mes candidatures",
     "description": "Title for the list of a users applications"
+  },
+  "/17wgm": {
+    "defaultMessage": "Rôle(s) ajouté(s) avec succès",
+    "description": "Message displayed to user when one or more roles have been added to a user"
+  },
+  "2lNHxh": {
+    "defaultMessage": "Ajouter un nouveau rôle",
+    "description": "Label for the form to add a role to a user"
+  },
+  "HYYYtr": {
+    "defaultMessage": "L’utilisateur perdra le rôle suivant :",
+    "description": "Text notifying user which role will be removed from the user"
+  },
+  "Hy2UdW": {
+    "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the remove role from user dialog"
+  },
+  "S8ra2P": {
+    "defaultMessage": "Actions",
+    "description": "Title displayed for the role table actions column"
+  },
+  "TvUVa0": {
+    "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the add role to user form."
+  },
+  "UGk7lG": {
+    "defaultMessage": "Enregistrer les changements",
+    "description": "Button to save the roles to a user"
+  },
+  "XcS2q2": {
+    "defaultMessage": "Rôle retiré avec succès",
+    "description": "Message displayed to user when a role has been removed from a user"
+  },
+  "Yg2TIH": {
+    "defaultMessage": "Rôles individuels",
+    "description": "Heading for updating a users individual roles"
+  },
+  "eW7I5E": {
+    "defaultMessage": "Sélectionner les rôles...",
+    "description": "Placeholder text for role selection input"
+  },
+  "fyidgo": {
+    "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
+    "description": "Label for the form to remove a role from a user"
+  },
+  "m54J0C": {
+    "defaultMessage": "Rôles et permissions",
+    "description": "Heading for updating a users roles and permissions"
+  },
+  "tuXnJB": {
+    "defaultMessage": "Rôles individuels",
+    "description": "Label for the input to add roles to a user"
+  },
+  "uBmoxQ": {
+    "defaultMessage": "Role",
+    "description": "Title displayed for the role table display name column"
+  },
+  "vRLrmc": {
+    "defaultMessage": "Voulez-vous continuer?",
+    "description": "Question posed to user before committing a destructive act"
   }
 }
