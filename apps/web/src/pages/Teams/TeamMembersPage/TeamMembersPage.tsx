@@ -1,6 +1,7 @@
 import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
+import orderBy from "lodash/orderBy";
 
 import { Heading, Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -24,6 +25,19 @@ import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
+
+const orderRoles = (roles: Array<Role>, intl: IntlShape) => {
+  return orderBy(roles, ({ displayName }) => {
+    const value = getLocalizedName(displayName, intl);
+
+    return value
+      ? value
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLocaleLowerCase()
+      : value;
+  });
+};
 
 const actionCell = (user: TeamMember, team: Team, roles: Array<Role>) => (
   <div
@@ -53,17 +67,26 @@ const emailLinkCell = (email: Maybe<string>, intl: IntlShape) => {
 };
 
 const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
-  const rolePills = roles?.filter(notEmpty).map((role) => (
-    <Pill color="neutral" mode="solid" key={role.id}>
-      {getLocalizedName(role.displayName, intl)}
-    </Pill>
-  ));
+  const nonEmptyRoles = roles?.filter(notEmpty);
+  const rolePills = nonEmptyRoles
+    ? orderRoles(nonEmptyRoles, intl).map((role) => (
+        <Pill color="neutral" mode="solid" key={role.id}>
+          {getLocalizedName(role.displayName, intl)}
+        </Pill>
+      ))
+    : null;
 
   return rolePills ? (
     <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
       {rolePills}
     </span>
   ) : null;
+};
+
+const roleAccessor = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
+  const nonEmptyRoles = roles?.filter(notEmpty);
+
+  return orderBy(nonEmptyRoles, intl).join(", ");
 };
 
 type TeamMemberCell = Cell<TeamMember>;
@@ -127,7 +150,7 @@ const TeamMembers = ({
           description:
             "Title displayed for the team members table roles column.",
         }),
-        accessor: (d) => d.id,
+        accessor: (d) => roleAccessor(d.roles, intl),
         Cell: ({ row: { original: member } }: TeamMemberCell) =>
           roleCell(member.roles, intl),
       },
