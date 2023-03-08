@@ -23,6 +23,18 @@ query User($id: UUID!) {
     preferredLanguageForInterview
     preferredLanguageForExam
     legacyRoles
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        isTeamBased
+        displayName {
+          en
+          fr
+        }
+      }
+    }
   }
 }
 
