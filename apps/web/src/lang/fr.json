@@ -4638,10 +4638,6 @@
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
   },
-  "OunUSG": {
-    "defaultMessage": "Enregistrer les modifications",
-    "description": "Text for the pool candidate application status submit button"
-  },
   "P5+9Wy": {
     "defaultMessage": "Bassin publié avec succès!",
     "description": "Message displayed to user after pool is published"
@@ -6669,10 +6665,6 @@
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
-  },
-  "UGk7lG": {
-    "defaultMessage": "Enregistrer les changements",
-    "description": "Button to save the roles to a user"
   },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
