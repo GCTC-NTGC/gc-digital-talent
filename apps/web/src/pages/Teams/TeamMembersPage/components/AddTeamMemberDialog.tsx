@@ -141,6 +141,7 @@ AddTeamMemberDialogProps) => {
                 id="teamDisplay"
                 name="teamDisplay"
                 disabled
+                hideOptional
                 label={intl.formatMessage({
                   defaultMessage: "Team",
                   id: "0AaeXe",
