@@ -68,11 +68,59 @@ const Hero = ({
   return (
     <>
       <div
-        data-h2-background-color="base(rgba(0, 0, 0, 1))"
+        data-h2-background="base(rgba(0, 0, 0, 1)) base:iap(linear-gradient(90deg, primary, rgb(104, 23, 53)))"
         data-h2-overflow="base(hidden)"
         data-h2-position="base(relative)"
         {...padding}
       >
+        <div
+          data-h2-display="base(none) base:iap(block)"
+          data-h2-position="base(absolute)"
+          data-h2-location="base(auto, 0, 0, auto)"
+          data-h2-transform="base(translate(65%, 75%))"
+        >
+          <div
+            data-h2-height="base(x30)"
+            data-h2-width="base(x30)"
+            data-h2-background-color="base(secondary.darker)"
+            data-h2-radius="base(circle)"
+          >
+            &nbsp;
+          </div>
+        </div>
+        <div
+          data-h2-display="base(none) base:iap(block)"
+          data-h2-position="base(absolute)"
+          data-h2-location="base(0, auto, auto, 0)"
+          data-h2-transform="base(translate(-75%, -65%))"
+        >
+          <div
+            data-h2-height="base(x30)"
+            data-h2-width="base(x30)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+          >
+            &nbsp;
+          </div>
+          <div
+            data-h2-height="base(x25)"
+            data-h2-width="base(x25)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+            data-h2-position="base(center)"
+          >
+            &nbsp;
+          </div>
+          <div
+            data-h2-height="base(x20)"
+            data-h2-width="base(x20)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+            data-h2-position="base(center)"
+          >
+            &nbsp;
+          </div>
+        </div>
         <div
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(3, relative)"
@@ -104,6 +152,7 @@ const Hero = ({
           />
         ) : (
           <BackgroundGraphic
+            data-h2-display="base(block) base:iap(none)"
             data-h2-position="base(absolute)"
             data-h2-location="base(0, 0, auto, auto)"
             data-h2-height="base(auto)"
