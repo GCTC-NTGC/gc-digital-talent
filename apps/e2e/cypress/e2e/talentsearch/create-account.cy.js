@@ -1,4 +1,12 @@
+import { aliasMutation } from "../../support/graphql-test-utils";
+
 describe("Create account tests", () => {
+  beforeEach(() => {
+    cy.intercept("POST", "/graphql", (req) => {
+      aliasMutation(req, "CreateAccount");
+    });
+  });
+
   it("Logging in as a new user goes to create-account and then to profile", () => {
     const uniqueTestId = (
       Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1
@@ -45,6 +53,7 @@ describe("Create account tests", () => {
     });
     cy.findByRole("button", { name: "Save and go to my profile" }).click();
 
+    cy.wait("@gqlCreateAccountMutation");
     // should go to the profile page
     cy.findByRole("heading", {
       name: `Cypress ${uniqueTestId}'s profile`,

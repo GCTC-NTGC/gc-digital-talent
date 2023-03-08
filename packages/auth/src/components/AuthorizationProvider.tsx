@@ -15,9 +15,9 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
 
   return (
     <AuthorizationContainer
-      userRoles={data?.me?.legacyRoles}
+      roleAssignments={data?.me?.roleAssignments}
       email={data?.me?.email}
-      currentUser={data?.me}
+      user={data?.me}
       isLoaded={isLoaded}
     >
       <Pending fetching={!isLoaded}>{children}</Pending>

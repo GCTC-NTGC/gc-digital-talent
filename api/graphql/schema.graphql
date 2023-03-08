@@ -112,7 +112,7 @@ type User {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
-  poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
+  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -269,7 +269,7 @@ type Applicant {
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
+  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -318,7 +318,7 @@ type Pool {
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
+  poolCandidates: [PoolCandidate] @hasMany(relation: "publishedPoolCandidates") @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   status: PoolStatus
     @rename(attribute: "pool_status")
@@ -899,10 +899,12 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
-    @all
+  poolCandidates(
+    includeIds: [ID] @in(key: "id")
+  ): [PoolCandidate]!
+    @all(scopes: ["notDraft"])
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "view", resolved: true)
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderBy: _
@@ -930,10 +932,11 @@ type Query {
       scopes: ["notDraft", "availableForOpportunities"]
     )
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "view", resolved: true)
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
     @deprecated(reason: "Replaced by countApplicants")
+    @can(ability: "count", model: "PoolCandidate")
     @count(model: "PoolCandidate", scopes: ["expiryFilter", "available"])
   # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
   searchPoolCandidates(
@@ -944,7 +947,7 @@ type Query {
     @all(scopes: ["expiryFilter", "available"])
     @orderBy(column: "created_at", direction: DESC)
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "view", resolved: true)
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
@@ -1604,11 +1607,11 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @can(ability: "update", find: "id", injectArgs: true)
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @can(ability: "update", find: "id", injectArgs: true)
   deleteUser(id: ID!): User
     @delete(globalId: false)
     @guard
@@ -1794,15 +1797,18 @@ type Mutation {
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate
     @guard
-    @can(ability: "archiveApplication", find: "id")
+    @can(ability: "archive", find: "id")
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
-    @can(ability: "suspendApplication", find: "id")
+    @can(ability: "suspend", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
+    @can(ability: "createDraft")
   deleteApplication(id: ID!): Boolean
     @guard
-    @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
+    @can(ability: "delete", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
+    @guard
+    @can(ability: "submit", find: "id")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team

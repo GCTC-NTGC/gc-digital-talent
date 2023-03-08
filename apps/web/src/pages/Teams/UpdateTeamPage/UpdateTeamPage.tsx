@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -15,7 +14,6 @@ import {
   useUpdateTeamMutation,
 } from "~/api/generated";
 
-import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
@@ -67,12 +65,6 @@ const EditTeamPage = () => {
       {team ? (
         <>
           <SEO title={pageTitle} />
-          <PageHeader
-            icon={BuildingOffice2Icon}
-            subtitle={getLocalizedName(team.displayName, intl)}
-          >
-            {pageTitle}
-          </PageHeader>
           <UpdateTeamForm
             team={team}
             departments={departments}

@@ -33,6 +33,22 @@ fragment pool on Pool {
   processNumber
 }
 
+query GetBasicPoolInfo($poolId: UUID!) {
+  pool(id: $poolId) {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+  }
+}
+
 query getPools {
   pools {
     id

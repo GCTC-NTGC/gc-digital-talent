@@ -84,6 +84,8 @@ const getRoutes = (lang: Locales) => {
     userTable: () => path.join(adminUrl, "users"),
     userCreate: () => path.join(adminUrl, "users", "create"),
     userView: (userId: string) => path.join(adminUrl, "users", userId),
+    userProfile: (userId: string) =>
+      path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
 
