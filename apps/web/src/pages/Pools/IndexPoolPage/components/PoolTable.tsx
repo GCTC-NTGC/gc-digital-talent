@@ -17,11 +17,13 @@ import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
-  GetPoolsQuery,
   Maybe,
   Pool,
   Scalars,
-  useGetPoolsQuery,
+  GetMePoolsQuery,
+  useGetMePoolsQuery,
+  Team,
+  RoleAssignment,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -29,7 +31,13 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type Data = NonNullable<
+  FromArray<
+    NonNullable<
+      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
+    >["pools"]
+  >
+>;
 type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -127,7 +135,7 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
 };
 
 interface PoolTableProps {
-  pools: GetPoolsQuery["pools"];
+  pools: Pool[];
 }
 
 export const PoolTable = ({ pools }: PoolTableProps) => {
@@ -357,12 +365,48 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
 };
 
 const PoolTableApi = () => {
-  const [result] = useGetPoolsQuery();
+  // data manipulation functions
+  // roles assignments to team collection
+  const createTeamsArray = (
+    roleAssignmentArray: Maybe<RoleAssignment[]>,
+  ): Team[] | null => {
+    if (roleAssignmentArray) {
+      let teamsArray: Team[] = [];
+      roleAssignmentArray.forEach((roleAssignmentInstance) => {
+        if (roleAssignmentInstance.team) {
+          teamsArray = [...teamsArray, roleAssignmentInstance.team];
+        }
+      });
+      return teamsArray;
+    }
+    return null;
+  };
+  // teams to pool collection
+  const createPoolsArray = (teamsArray: Maybe<Team[]>): Pool[] | null => {
+    if (teamsArray) {
+      let poolsArray: Pool[] = [];
+      teamsArray.forEach((team) => {
+        if (team.pools) {
+          team.pools.forEach((pool) => {
+            if (pool) {
+              poolsArray = [...poolsArray, pool];
+            }
+          });
+        }
+      });
+      return poolsArray;
+    }
+    return null;
+  };
+
+  const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
+  const teamsArray = createTeamsArray(data?.me?.roleAssignments);
+  const poolsArray = createPoolsArray(teamsArray);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={data?.pools ?? []} />
+      <PoolTable pools={poolsArray ?? []} />
     </Pending>
   );
 };
