@@ -205,31 +205,25 @@ class DatabaseSeeder extends Seeder
     private function seedPoolCandidate(User $user, Pool $pool)
     {
         // create a pool candidate in the pool
-        PoolCandidate::factory()->for($user)
+        PoolCandidate::factory()->for($user)->for($pool)
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
                     $candidate->createSnapshot();
                 }
             })
-            ->create([
-                'pool_id' => $pool->id,
-                'user_id' => $user->id,
-            ]);
+            ->create();
     }
 
     private function seedSuspendedCandidate(User $user, Pool $pool)
     {
         // create a suspended pool candidate in the pool
-        PoolCandidate::factory()->suspended()->for($user)
+        PoolCandidate::factory()->suspended()->for($user)->for($pool)
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
                     $candidate->createSnapshot();
                 }
             })
-            ->create([
-                'pool_id' => $pool->id,
-                'user_id' => $user->id,
-            ]);
+            ->create();
     }
 
     private function seedPools()
