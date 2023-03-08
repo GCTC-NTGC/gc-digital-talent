@@ -10,6 +10,7 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
@@ -22,7 +23,6 @@ import {
   Scalars,
   GetMePoolsQuery,
   useGetMePoolsQuery,
-  Team,
   RoleAssignment,
 } from "~/api/generated";
 import Table, {
@@ -134,38 +134,23 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
-// data manipulation functions
-// roles assignments array to teams array
-const createTeamsArray = (
+// roles assignments to teams to pools array
+const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Team[] | null => {
-  if (roleAssignmentArray) {
-    let teamsArray: Team[] = [];
-    roleAssignmentArray.forEach((roleAssignmentInstance) => {
-      if (roleAssignmentInstance.team) {
-        teamsArray = [...teamsArray, roleAssignmentInstance.team];
-      }
-    });
-    return teamsArray;
-  }
-  return null;
-};
-// teams array to pools array
-const createPoolsArray = (teamsArray: Maybe<Team[]>): Pool[] | null => {
-  if (teamsArray) {
-    let poolsArray: Pool[] = [];
-    teamsArray.forEach((team) => {
-      if (team.pools) {
-        team.pools.forEach((pool) => {
-          if (pool) {
-            poolsArray = [...poolsArray, pool];
-          }
-        });
-      }
-    });
-    return poolsArray;
-  }
-  return null;
+): Pool[] => {
+  const flattenedTeams = roleAssignmentArray?.flatMap(
+    (roleAssign) => roleAssign.team,
+  );
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => team?.pools);
+  const filteredFlattenedPools = unpackMaybes(flattenedPools);
+
+  // clear out any duplicate pools that may have accumulated
+  // https://stackoverflow.com/a/56757215
+  const poolsArray = filteredFlattenedPools.filter(
+    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
+  );
+  return poolsArray;
 };
 
 interface PoolTableProps {
@@ -401,8 +386,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
 const PoolTableApi = () => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
-  const teamsArray = createTeamsArray(data?.me?.roleAssignments);
-  const poolsArray = createPoolsArray(teamsArray);
+  const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
 
   return (
     <Pending fetching={fetching} error={error}>
