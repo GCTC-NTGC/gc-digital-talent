@@ -127,7 +127,7 @@ const TeamMembers = ({
           description:
             "Title displayed for the team members table roles column.",
         }),
-        accessor: (d) => d.id, // TO DO: Update with real role shape
+        accessor: (d) => d.id,
         Cell: ({ row: { original: member } }: TeamMemberCell) =>
           roleCell(member.roles, intl),
       },
