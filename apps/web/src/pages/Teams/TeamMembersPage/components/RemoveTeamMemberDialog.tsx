@@ -99,8 +99,8 @@ const RemoveTeamMemberDialog = ({
               <p data-h2-margin="base(x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "They will love all of the following team roles:",
-                  id: "nAyAWe",
+                    "They will lose all of the following team roles:",
+                  id: "o1M2Kc",
                   description:
                     "Lead text for the list of roles the user will lose",
                 })}
