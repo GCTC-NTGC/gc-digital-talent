@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Traits\LaratrustUserTrait;
 
@@ -65,6 +66,8 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Model implements Authenticatable
 {
+
+    use Authorizable;
     use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
@@ -115,7 +118,6 @@ class User extends Model implements Authenticatable
     {
         return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {

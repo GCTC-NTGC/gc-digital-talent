@@ -29,9 +29,20 @@ class OpenIdBearerTokenService
     private string $configUri;
     private DateInterval $allowableClockSkew;
 
+    public function fastSigner(): Configuration {
+        // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
+        // due to being dropped by Lcobucci, this is the recommended fast replacement
+        // https://lcobucci-jwt.readthedocs.io/en/latest/upgrading/#v4x-to-v5x
+
+        return Configuration::forSymmetricSigner(
+            new Signer\Blake2b(),
+            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
+            );
+    }
+
     public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
     {
-        $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
+        $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
@@ -83,9 +94,14 @@ class OpenIdBearerTokenService
         }
 
         $pem = RSAKey::createFromJWK($jwk)->toPEM();
+        // Private key is only used for generating tokens, which is not being done here
+        // None support was dropped so used a key from Lcobucci docs
+        // https://lcobucci-jwt.readthedocs.io/en/stable/quick-start/#parsing-tokens
         $config = Configuration::forAsymmetricSigner(
             $signer,
-            InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
+            InMemory::base64Encoded(
+                'hiG8DlOKvtih6AxlZn5XKImZ06yu8I3mkOzaJrEuW8yAv8Jnkw330uMt8AEqQ5LB'
+            ),
             InMemory::plainText($pem),
         );
 

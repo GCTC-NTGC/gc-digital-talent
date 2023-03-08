@@ -1,7 +1,7 @@
 import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
-import { createApplicant } from "../../support/userHelpers";
+import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
@@ -73,11 +73,16 @@ describe("Talent Search Workflow Tests", () => {
               userAlias: "testUser",
             });
 
+            cy.get("@testUser").then((testUser) => {
+              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+            });
+
             // fetch the dcmId for its team from database, needed for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
-            })
+              addRolesToUser(adminUserId, ['pool_operator'], dcm);
+            });
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification1").then((classification) => {
@@ -109,6 +114,8 @@ describe("Talent Search Workflow Tests", () => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@publishedTestPoolAdvertisement1").then((poolAdvertisement) => {
+
+
           cy.createApplication(testUser.id, poolAdvertisement.id).then(
             (poolCandidate) => {
               cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
