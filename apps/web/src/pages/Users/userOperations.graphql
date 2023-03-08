@@ -619,15 +619,3 @@ query selectedUsers($ids: [ID]!) {
     }
   }
 }
-
-query ListRoles {
-  roles {
-    id
-    name
-    isTeamBased
-    displayName {
-      en
-      fr
-    }
-  }
-}

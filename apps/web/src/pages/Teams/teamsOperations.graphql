@@ -30,6 +30,7 @@ query ListRoles {
   roles {
     id
     name
+    isTeamBased
     displayName {
       en
       fr
