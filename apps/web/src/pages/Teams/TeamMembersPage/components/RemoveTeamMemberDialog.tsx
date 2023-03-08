@@ -122,6 +122,14 @@ const RemoveTeamMemberDialog = ({
               </ul>
             </>
           ) : null}
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Do you wish to continue?",
+              id: "2JIgrl",
+              description:
+                "Message displayed to users before removing a member from a team",
+            })}
+          </p>
           <Dialog.Footer>
             <Dialog.Close>
               <Button mode="outline" color="secondary">
