@@ -94,6 +94,9 @@ class OpenIdBearerTokenService
         }
 
         $pem = RSAKey::createFromJWK($jwk)->toPEM();
+        // Private key is only used for generating tokens, which is not being done here
+        // None support was dropped so used a key from Lcobucci docs
+        // https://lcobucci-jwt.readthedocs.io/en/stable/quick-start/#parsing-tokens
         $config = Configuration::forAsymmetricSigner(
             $signer,
             InMemory::base64Encoded(
