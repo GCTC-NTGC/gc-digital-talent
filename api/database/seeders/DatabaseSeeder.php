@@ -204,32 +204,32 @@ class DatabaseSeeder extends Seeder
 
     private function seedPoolCandidate(User $user, Pool $pool)
     {
-        $faker = Faker\Factory::create();
-
         // create a pool candidate in the pool
-        PoolCandidate::factory()->count(1)->sequence(fn () => [
-            'pool_id' => $pool->id,
-            'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
-            if ($candidate->submitted_at) {
-                $candidate->createSnapshot();
-            }
-        })->create();
+        PoolCandidate::factory()->for($user)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create([
+                'pool_id' => $pool->id,
+                'user_id' => $user->id,
+            ]);
     }
 
     private function seedSuspendedCandidate(User $user, Pool $pool)
     {
-        $faker = Faker\Factory::create();
-
-        // create a pool candidate in the pool
-        PoolCandidate::factory()->count(1)->suspended()->sequence(fn () => [
-            'pool_id' => $pool->id,
-            'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
-            if ($candidate->submitted_at) {
-                $candidate->createSnapshot();
-            }
-        })->create();
+        // create a suspended pool candidate in the pool
+        PoolCandidate::factory()->suspended()->for($user)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create([
+                'pool_id' => $pool->id,
+                'user_id' => $user->id,
+            ]);
     }
 
     private function seedPools()
