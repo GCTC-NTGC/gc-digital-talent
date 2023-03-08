@@ -99,8 +99,12 @@ class DatabaseSeeder extends Seeder
                     $user->expectedClassifications()->sync([]);
                 }
 
-                // create a pool candidate in the pool
-                $this->seedPoolCandidate($user, $pool);
+                // create a pool candidate in the pool - are they suspended?
+                if (rand(0, 4) == 4) {
+                    $this->seedSuspendedCandidate($user, $pool);
+                } else {
+                    $this->seedPoolCandidate($user, $pool);
+                }
             })
             ->create();
 
@@ -209,9 +213,21 @@ class DatabaseSeeder extends Seeder
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
             if ($candidate->submitted_at) {
                 $candidate->createSnapshot();
+            }
+        })->create();
+    }
 
-                $candidate->suspended_at = $faker->optional($weight = 25)->dateTimeBetween('-3 months', 'now');
-                $candidate->save();
+    private function seedSuspendedCandidate(User $user, Pool $pool)
+    {
+        $faker = Faker\Factory::create();
+
+        // create a pool candidate in the pool
+        PoolCandidate::factory()->count(1)->suspended()->sequence(fn () => [
+            'pool_id' => $pool->id,
+            'user_id' => $user->id,
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
+            if ($candidate->submitted_at) {
+                $candidate->createSnapshot();
             }
         })->create();
     }
