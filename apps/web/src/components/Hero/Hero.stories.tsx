@@ -51,5 +51,15 @@ Centered.args = {
 export const Overlap = Template.bind({});
 Overlap.args = {
   centered: true,
-  children: <p data-h2-font-size="base(h4)">Replace Me</p>,
+  children: (
+    <div
+      data-h2-background-color="base(white)"
+      data-h2-radius="base(rounded)"
+      data-h2-padding="base(x2, x1)"
+      data-h2-shadow="base(s)"
+      data-h2-text-align="base(center)"
+    >
+      <p data-h2-font-size="base(h4)">Replace Me</p>
+    </div>
+  ),
 };
