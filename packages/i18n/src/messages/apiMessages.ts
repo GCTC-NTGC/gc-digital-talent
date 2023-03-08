@@ -77,7 +77,7 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
 
     "validator:submitted_at": {
       defaultMessage: "The application must be submitted.",
-      id: "csLjMi",
+      id: "mhZmff",
       description:
         "Error message that the given application must already be submitted.",
     },
