@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Database\Helpers\ApiEnums;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -252,7 +254,11 @@ class PoolCandidate extends Model
 
     public function scopeNotDraft(Builder $query): Builder
     {
-        return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
+
+        $query->whereNotNull("submitted_at")
+            ->where('submitted_at', '<=', now());
+
+        return $query;
     }
 
    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
@@ -386,5 +392,15 @@ class PoolCandidate extends Model
             User::scopeAvailableForOpportunities($userQuery);
         });
         return $query;
+    }
+
+    /**
+     * Determine if a PoolCandidate is in draft mode
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return is_null($this->submitted_at) || $this->submitted_at->isFuture();
     }
 }
