@@ -5,7 +5,6 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
