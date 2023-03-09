@@ -1817,4 +1817,8 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+  deleteTeam(id: UUID!): Team
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
 }
