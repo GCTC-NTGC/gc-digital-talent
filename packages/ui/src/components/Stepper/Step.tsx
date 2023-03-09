@@ -1,23 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/24/solid";
-
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { StepState, IconType } from "./types";
-import { iconColorMap, linkStyleMap } from "./styles";
-
-const getIconFromState = (state: StepState, defaultIcon: IconType) => {
-  const iconMap = new Map<StepState, IconType>([
-    ["active", MapPinIcon],
-    ["completed", CheckIcon],
-    ["disabled", defaultIcon],
-    ["error", FlagIcon],
-  ]);
-
-  return iconMap.get(state);
-};
+import {
+  iconColorMap,
+  linkStyleMap,
+  getIconFromState,
+  messageMap,
+} from "./utils";
 
 export interface StepProps {
   children: React.ReactNode;
@@ -32,16 +23,7 @@ const Step = ({ children, href, icon, last = false, state }: StepProps) => {
   const Icon = getIconFromState(state, icon);
   const iconStyles = iconColorMap.get(state);
   const linkStyles = linkStyleMap.get(state);
-  let message = null;
-  if (state === "completed") {
-    message = uiMessages.stepCompleted;
-  }
-  if (state === "active") {
-    message = uiMessages.stepActive;
-  }
-  if (state === "error") {
-    message = uiMessages.stepError;
-  }
+  const message = messageMap.get(state);
 
   return (
     <li>
