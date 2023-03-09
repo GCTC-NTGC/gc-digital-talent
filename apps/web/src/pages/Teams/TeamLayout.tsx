@@ -38,7 +38,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
           description: "Title for the list of team members page",
         }),
         link: {
-          url: "#",
+          url: paths.teamMembers(team.id),
           label: intl.formatMessage({
             defaultMessage: "View team members",
             id: "ZfCeq/",
