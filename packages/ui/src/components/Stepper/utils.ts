@@ -105,7 +105,6 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
     "disabled",
     {
       "data-h2-text-decoration": "base(none)",
-      "data-h2-pointer-events": "base(none)",
     },
   ],
   [
