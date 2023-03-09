@@ -38,6 +38,8 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
 import UserRoleTable from "./components/IndividualRoleTable";
+// eslint-disable-next-line import/no-named-as-default
+import TeamRoleTable from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -355,6 +357,11 @@ const UpdateUserPage = () => {
               })}
             </Heading>
             <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
+            <TeamRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}
