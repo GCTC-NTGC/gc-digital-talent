@@ -15,7 +15,7 @@ import { useTheme } from "@gc-digital-talent/theme";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 
-import SEO from "~/components/SEO/SEO";
+import SEO, { Favicon } from "~/components/SEO/SEO";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 
@@ -80,6 +80,7 @@ const AdminLayout = () => {
 
   return (
     <>
+      <Favicon project="admin" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",

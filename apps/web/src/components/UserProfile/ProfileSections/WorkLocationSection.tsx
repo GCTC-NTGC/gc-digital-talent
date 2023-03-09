@@ -8,8 +8,29 @@ import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { Applicant } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  "locationPreferences" | "locationExemptions"
+>;
+
+function anyCriteriaSelected(applicant: PartialApplicant): boolean {
+  return !isEmpty(applicant.locationPreferences);
+}
+
+export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
+export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
+export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+  return !applicant.locationExemptions;
+}
+
 const WorkLocationSection: React.FunctionComponent<{
-  applicant: Pick<Applicant, "locationPreferences" | "locationExemptions">;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -21,12 +42,10 @@ const WorkLocationSection: React.FunctionComponent<{
     ? insertBetween(", ", regionPreferencesSquished)
     : "";
 
-  const anyCriteriaSelected = !isEmpty(regionPreferences);
-
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {anyCriteriaSelected && (
+        {anyCriteriaSelected(applicant) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               <span data-h2-display="base(block)">
@@ -56,7 +75,7 @@ const WorkLocationSection: React.FunctionComponent<{
             </p>
           </div>
         )}
-        {!anyCriteriaSelected && editPath && (
+        {hasEmptyRequiredFields(applicant) && editPath && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -82,7 +101,7 @@ const WorkLocationSection: React.FunctionComponent<{
             </div>
           </>
         )}
-        {!anyCriteriaSelected && !editPath && (
+        {hasAllEmptyFields(applicant) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

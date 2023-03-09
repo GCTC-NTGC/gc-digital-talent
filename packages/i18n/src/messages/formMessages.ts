@@ -66,6 +66,11 @@ const formMessages = defineMessages({
     id: "IRCKBP",
     description: "Message displayed when combobox has no options available",
   },
+  saveChanges: {
+    defaultMessage: "Save changes",
+    id: "WGoaKQ",
+    description: "Text for submit button on edit forms",
+  },
 });
 
 export default formMessages;

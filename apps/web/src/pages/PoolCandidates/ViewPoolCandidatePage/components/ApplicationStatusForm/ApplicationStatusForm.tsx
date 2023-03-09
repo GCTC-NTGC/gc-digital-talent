@@ -15,6 +15,7 @@ import { Pending, NotFound, Heading, Well } from "@gc-digital-talent/ui";
 import {
   getPoolCandidateStatus,
   commonMessages,
+  formMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
@@ -209,12 +210,7 @@ export const ApplicationStatusForm = ({
             <Submit
               color="primary"
               isSubmitting={isSubmitting}
-              text={intl.formatMessage({
-                id: "OunUSG",
-                defaultMessage: "Save changes",
-                description:
-                  "Text for the pool candidate application status submit button",
-              })}
+              text={intl.formatMessage(formMessages.saveChanges)}
               isSubmittingText={intl.formatMessage({
                 defaultMessage: "Saving...",
                 id: "4Czd5U",

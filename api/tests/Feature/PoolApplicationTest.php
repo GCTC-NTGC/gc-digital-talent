@@ -6,6 +6,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\Team;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -15,75 +16,39 @@ use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class PoolApplicationTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
+    use WithFaker;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->bootRefreshesSchemaCache();
-    }
+    protected $guestUser;
+    protected $applicantUser;
+    protected $teamUser;
+    protected $responderUser;
+    protected $uuid;
+    protected $toBeDeleted;
 
-    public function testApplicationCreation(): void
-    {
-        // the user applying
-        // default, the test is run by Admin, auth_default_user in phpunit.xml
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-        $newUser->save();
+    protected $unauthorizedMessage = 'This action is unauthorized.';
 
-        // create an unexpired Pool instance
-        Pool::factory()->create([
-            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
-        ]);
-
-        // Assert creating a pool application succeeds
-        // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                    user {
-                        id
-                    }
-                    pool {
-                        id
-                    }
-                    status
-                }
+    protected $queryDocument =
+    /** @lang GraphQL */
+    '
+        query poolCandidate($id: UUID!) {
+            poolCandidate(id: $id) {
+                status
             }
-        '
-        )->assertJson([
-            'data' => [
-                'createApplication' => [
-                    'user' => [
-                        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-                    ],
-                    'pool' => [
-                        'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-                    ],
-                    'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
-                ]
-            ]
-        ]);
+        }
+    ';
 
-        // rerun the query above, it should successfully return the same result
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+    protected $createMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation createApplication($userId: ID!, $poolId: ID!){
+            createApplication(userId: $userId, poolId: $poolId) {
                 user {
                     id
                 }
@@ -91,24 +56,143 @@ class PoolApplicationTest extends TestCase
                     id
                 }
                 status
-                }
             }
-        '
-        )->assertJson([
+        }
+    ';
+
+    protected $archiveMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation archiveApplication($id: ID!) {
+            archiveApplication(id: $id) {
+                archivedAt
+            }
+        }
+    ';
+
+    protected $deleteMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation deleteApplication($id: ID!) {
+            deleteApplication(id: $id)
+        }
+    ';
+
+    protected $submitMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation submitTest($id: ID!, $sig: String!) {
+            submitApplication(id: $id, signature: $sig) {
+                submittedAt
+                signature
+                status
+            }
+        }
+    ';
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Run necessary seeders
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
+        $this->seed(RolePermissionSeeder::class);
+
+        $this->setUpFaker();
+        $this->bootRefreshesSchemaCache();
+
+        $this->guestUser = User::factory()->create([
+            'email' => 'guest-user@test.com',
+            'sub' => 'guest-user@test.com',
+        ]);
+        $this->guestUser->syncRoles([
+            "guest",
+        ]);
+
+        $this->applicantUser = User::factory()->create([
+            'email' => 'applicant-user@test.com',
+            'sub' => 'applicant-user@test.com',
+        ]);
+        $this->applicantUser->syncRoles([
+            "guest",
+            "base_user",
+            "applicant"
+        ]);
+        // Add generic job title for submission
+        $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+
+        $this->responderUser = User::factory()->create([
+            'email' => 'request-responder-user@test.com',
+            'sub' => 'request-responder-user@test.com',
+        ]);
+        $this->responderUser->syncRoles([
+            "guest",
+            "base_user",
+            "applicant",
+            "request_responder"
+        ]);
+
+        $team = Team::factory()->create([
+            'name' => "pool-application-test-team",
+        ]);
+        $this->teamUser = User::factory()->create([
+            'email' => 'team-user@test.com',
+            'sub' => 'team-user@test.com',
+        ]);
+        $this->teamUser->syncRoles([
+            "guest",
+            "base_user",
+            "applicant"
+        ]);
+        $this->teamUser->attachRole("pool_operator",  $team);
+    }
+
+    public function testApplicationCreation(): void
+    {
+        // create an unexpired Pool instance
+        $pool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.far_future_date'),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+        ]);
+
+        $variables = [
+            'userId' => $this->applicantUser->id,
+            'poolId' => $pool->id
+        ];
+
+        $result = [
             'data' => [
                 'createApplication' => [
                     'user' => [
-                        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+                        'id' => $this->applicantUser->id,
                     ],
                     'pool' => [
-                        'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+                        'id' => $pool->id,
                     ],
+                    'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
                 ]
-            ],
-            'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_EXISTS,
-            ]]
-        ]);
+            ]
+        ];
+
+        // Guest users cannot create applications
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->createMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        // Assert creating a pool application succeeds
+        // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->createMutationDocument, $variables)
+            ->assertJson($result);
+
+        // rerun the query above, it should successfully return the same result
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->createMutationDocument, $variables)
+            ->assertJson($result);
 
         // despite running the query twice, only one PoolCandidate entry should exist
         // assert count of applications is equal to 1
@@ -117,174 +201,114 @@ class PoolApplicationTest extends TestCase
         $this->assertEquals(1, $applicationCollectionCount);
     }
 
-    public function testUserCannotApplyToDraftApplication(): void
+    public function testUserCannotApplyToDraftPool(): void
     {
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-        $newUser->save();
-
-        Pool::factory()->create([
+        $pool = Pool::factory()->create([
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "3ecf840d-b0ed-4207-8fc4-f45c4a865eaf") {
-                    user {
-                        id
-                    }
-                    pool {
-                        id
-                    }
-                    status
-                }
-            }
-            '
-        )->assertJson([
+        $variables = [
+            'userId' => $this->applicantUser->id,
+            'poolId' => $pool->id
+        ];
+
+        $result = [
             'data' => [
                 'createApplication' => null
             ],
             'errors' => [[
                 'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
             ]]
-        ]);
+        ];
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->createMutationDocument, $variables)
+            ->assertJson($result);
     }
 
-    public function testUserCannotApplyToExpiredApplication(): void
+    public function testUserCannotApplyToExpiredPool(): void
     {
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-        $newUser->save();
-
-        Pool::factory()->create([
+        $pool = Pool::factory()->create([
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "f755f7da-c490-4fe1-a1f0-a6c233796442") {
-                    user {
-                        id
-                    }
-                    pool {
-                        id
-                    }
-                    status
-                }
-            }
-            '
-        )->assertJson([
+        $variables = [
+            'userId' => $this->applicantUser->id,
+            'poolId' => $pool->id
+        ];
+
+        $result = [
             'data' => [
                 'createApplication' => null
             ],
             'errors' => [[
                 'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
             ]]
-        ]);
+        ];
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->createMutationDocument, $variables)
+            ->assertJson($result);
     }
 
     public function testArchivingApplication(): void
     {
         // Create pool candidates
-        PoolCandidate::factory()->create([
+        $archivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
             'submitted_at' => config('constants.past_date'),
+            'user_id' => $this->applicantUser->id
         ]);
+
         // this one is archived
-        PoolCandidate::factory()->create([
+        $notArchivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'archived_at' => config('constants.past_date'),
             'submitted_at' => config('constants.past_date'),
+            'user_id' => $this->applicantUser->id
         ]);
 
-        // TODO: FIGURE OUT HOW TO UNIT TEST POLICIES EFFECTIVELY
-        // Assert that policy makes the mutation successfully fail
-        // $this->graphQL(/** @lang Graphql */ '
-        //   mutation archivalTest($id: ID!) {
-        //     archiveApplication(id: $id) {
-        //       id
-        //       archivedAt
-        //     }
-        //   }
-        // ', [
-        //   'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        // ])->assertJson([
-        //   'errors' => [[
-        //     'message' => 'Unauthenticated.',
-        //   ]]
-        // ]);
+        // This user does not own the application so cannot archive
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
-        // Create admin user we run tests as
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
+        // Request responders may not archive applications they do not own
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
-        // Assert expired object can be archived
-        // Successful archiving returns type string in multiple HAS statements, failed returns NULL
-        // given date is dynamically set with Carbon::now(), it will never return the same value, so must test that a non-null string is set
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-            ]
-        )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
-                'data',
-                fn ($json) =>
+        // Owner can archive
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertJson(
+                fn (AssertableJson $json) =>
                 $json->has(
-                    'archiveApplication',
+                    'data',
                     fn ($json) =>
-                    $json->whereType('archivedAt', 'string')
+                    $json->has(
+                        'archiveApplication',
+                        fn ($json) =>
+                        $json->whereType('archivedAt', 'string')
+                    )
                 )
-            )
-        );
+            );
 
-        // Assert already archived object cannot be re-archived
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'AlreadyArchived',
-            ]]
-        ]);
+
+        // Owner cannot archive certain applications
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $notArchivableApplication->id])
+            ->assertJson([
+                'errors' => [[
+                    'message' => 'AlreadyArchived',
+                ]]
+            ]);
     }
 
     public function testArchivingApplicationStatuses(): void
@@ -305,320 +329,150 @@ class PoolApplicationTest extends TestCase
             ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
         ];
 
-        // Create admin user we run tests as
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
+        $shared = [
+            'user_id' => $this->applicantUser->id,
+            'expiry_date' => config('constants.far_future_date'),
+        ];
+        $sharedSubmitted = [
+            ...$shared,
+            'submitted_at' => config('constants.past_date'),
+        ];
 
         // Create pool candidates
         // submitted at statuses for ones other than draft/draft-expired, and future expiry dates for unexpired
         $candidateOne = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[0],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateTwo = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[1],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateThree = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[2],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateFour = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[3],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateFive = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[4],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateSix = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[5],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateSeven = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[6],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         // these two are draft and draft-expired so no submitted_at and the latter expired
         $candidateEight = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[7],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
-            'expiry_date' => config('constants.far_future_date'),
+            ...$shared
         ]);
         $candidateNine = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[8],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
-            'expiry_date' => config('constants.past_date'),
+            ...$shared
         ]);
         $candidateTen = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[9],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateEleven = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[10],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
         $candidateTwelve = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[11],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
+            ...$sharedSubmitted
         ]);
+
+        $result = [
+            'errors' => [[
+                'message' => 'pool candidate status InvalidValueArchival',
+            ]]
+        ];
 
         // Assert un-expired object cannot be archived, 12 different ones that should fail
         // just running through each of them one at a time
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateOne->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateTwo->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateOne->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateThree->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateTwo->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateFour->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateThree->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateFive->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateFour->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateSix->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ',
-            [
-                'id' => $candidateSeven->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateFive->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => $candidateEight->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateSix->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => $candidateNine->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateSeven->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => $candidateTen->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateEight->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => $candidateEleven->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateNine->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation archivalTest($id: ID!) {
-        archiveApplication(id: $id) {
-          archivedAt
-        }
-      }
-    ',
-            [
-                'id' => $candidateTwelve->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateTen->id]
+            )->assertJson($result);
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateEleven->id]
+            )->assertJson($result);
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->archiveMutationDocument,
+                ['id' => $candidateTwelve->id]
+            )->assertJson($result);
     }
 
     public function testApplicationSubmit(): void
     {
-        // need some generic job titles for a complete profile
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        // create incomplete user
-        $newUser = User::factory()->create([
-            'armed_forces_status' => null,
-        ]);
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-        $newUser->save();
-
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
@@ -627,98 +481,77 @@ class PoolApplicationTest extends TestCase
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
+        $submitArgs = [
+            'id' => $newPoolCandidate->id,
+            'sig' => 'SIGNED',
+        ];
+
+        // Assert users who do not own the pool candidate cannot submit
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        // make user incomplete
+        $this->applicantUser->armed_forces_status = null;
+        $this->applicantUser->save();
+
         // assert incomplete user cannot submit application
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-          signature
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
+                ]]
+            ]);
 
         // make user now complete
-        $newUser->armed_forces_status = ApiEnums::ARMED_FORCES_VETERAN;
-        $newUser->save();
+        $this->applicantUser->armed_forces_status = ApiEnums::ARMED_FORCES_VETERAN;
+        $this->applicantUser->save();
 
         // assert complete user can submit application
         // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ]
-        )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
-                'data',
-                fn ($json) =>
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument, $submitArgs)
+            ->assertJson(
+                fn (AssertableJson $json) =>
                 $json->has(
-                    'submitApplication',
+                    'data',
                     fn ($json) =>
-                    $json->whereType('submittedAt', 'string')
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json->has('signature')
+                            ->has("status")
+                            ->has('submittedAt')
+                            ->whereType('submittedAt', 'string')
+                    )
                 )
-            )
-        );
+            );
 
         // assert user cannot re-submit application
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'AlreadySubmitted',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument, $submitArgs)
+            ->assertJson([
+                'errors' => [[
+                    'message' => 'AlreadySubmitted',
+                ]]
+            ]);
     }
 
     public function testApplicationSubmitSignature(): void
     {
-        // re-make complete user, attach pool candidate
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        $newUser = User::factory()->create();
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-        $newUser->save();
-
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
@@ -726,87 +559,66 @@ class PoolApplicationTest extends TestCase
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
         // assert empty signature submission errors
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => '',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => '',
+                ]
+            )->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
+                ]]
+            ]);
 
         // assert null signature submission errors
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => null,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => null,
+                ]
+            )->assertJson([
+                'errors' => [[
+                    'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
+                ]]
+            ]);
 
         // assert query above re-submitted with a filled signature field this time succeeds
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNATURE',
-            ]
-        )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
-                'data',
-                fn ($json) =>
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'SIGNATURE',
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) =>
                 $json->has(
-                    'submitApplication',
+                    'data',
                     fn ($json) =>
-                    $json->whereType('submittedAt', 'string')
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json->has('submittedAt')
+                            ->has("status")
+                            ->has('signature')
+                            ->whereType('submittedAt', 'string')
+                    )
                 )
-            )
-        );
+            );
     }
 
     public function testApplicationSubmitSkills(): void
     {
-        // need some generic job titles for a complete profile
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
@@ -815,93 +627,64 @@ class PoolApplicationTest extends TestCase
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
 
-        // create complete user
-        $newUser = User::factory()->create();
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-        $newUser->save();
-
         // create an experience with no skills, then attach it to the user
-        $firstExperience = AwardExperience::factory()->create([
-            'user_id' => $newUser->id,
+        AwardExperience::factory()->create([
+            'user_id' => $this->applicantUser->id,
         ]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
         // assert user cannot submit application with missing essential skills
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-          signature
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'SIGNED',
+                ]
+            )->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
+                ]]
+            ]);
 
         // create another experience, then attach it to the user, and then connect the essential skill to it
         $secondExperience = AwardExperience::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
         ]);
         $secondExperience->skills()->sync($essentialSkills);
 
         // assert user can now submit application as the essential skill is present
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          submittedAt
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ]
-        )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
-                'data',
-                fn ($json) =>
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'SIGNED',
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) =>
                 $json->has(
-                    'submitApplication',
+                    'data',
                     fn ($json) =>
-                    $json->whereType('submittedAt', 'string')
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json->has('signature')
+                            ->has("status")
+                            ->has('submittedAt')
+                            ->whereType('submittedAt', 'string')
+                    )
                 )
-            )
-        );
+            );
     }
 
     public function testApplicationSubmitStatus(): void
     {
-        // re-make complete user, attach pool candidate
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        $newUser = User::factory()->create();
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-        $newUser->save();
-
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->addDays(1),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
@@ -909,46 +692,26 @@ class PoolApplicationTest extends TestCase
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(id: $id, signature: $sig) {
-          status
-        }
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'sign',
-            ]
-        )->assertJson([
-            "data" => [
-                "submitApplication" => [
-                    "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
                 ]
-            ]
-        ]);
+            )->assertJsonFragment([
+                "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            ]);
     }
 
     public function testApplicationSubmitClosingDate(): void
     {
-        // re-make complete user, attach pool candidate
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        $newUser = User::factory()->create();
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
-
         //Closed Pool
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->subDays(1),
@@ -957,139 +720,112 @@ class PoolApplicationTest extends TestCase
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
-        $graphDoc = /** @lang Graphql */ '
-            mutation submitTest($id: ID!, $sig: String!) {
-                submitApplication(id: $id, signature: $sig) {
-                    submittedAt
-                }
-            }
-        ';
-
         // assert status
-        $this->graphQL(
-            $graphDoc,
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'sign',
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => ApiEnums::POOL_CANDIDATE_POOL_CLOSED,
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_POOL_CLOSED,
+                ]]
+            ]);
 
         $newPool->closing_date = Carbon::now()->addDays(1);
         $newPool->save();
 
-        $this->graphQL(
-            $graphDoc,
-            [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'sign',
-            ]
-        )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
-                'data',
-                fn ($json) =>
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) =>
                 $json->has(
-                    'submitApplication',
+                    'data',
                     fn ($json) =>
-                    $json->whereType('submittedAt', 'string')
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json
+                            ->has("signature")
+                            ->has("status")
+                            ->has("submittedAt")
+                            ->whereType('submittedAt', 'string')
+                    )
                 )
-            )
-        );
-
+            );
     }
 
     public function testApplicationDeletion(): void
     {
-        // re-make complete user, attach pool candidate
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-
-        $newUser = User::factory()->create();
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
-        $newUser->save();
-
         $newPool = Pool::factory()->create([]);
         $newPool->essentialSkills()->sync([]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $newUser->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'expiry_date' => config('constants.far_future_date'),
         ]);
 
+        $variables = ['id' => $newPoolCandidate->id];
+
         // Assert candidate exists
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      query poolCandidate($id: UUID!) {
-          poolCandidate(id: $id) {
-              status
-          }
-      }
-      ',
-            [
-                'id' => $newPoolCandidate->id,
-            ]
-        )->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->queryDocument, $variables)
+            ->assertJson([
+                "data" => [
+                    "poolCandidate" => [
+                        "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+
+        // Assert non-owners cannot delete application
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // run deletion mutation and assert it returns true, indicating success
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $newPoolCandidate->id,
-            ]
-        )->assertJson([
-            "data" => [
-                "deleteApplication" => "true",
-            ]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)->assertJson([
+                "data" => [
+                    "deleteApplication" => "true",
+                ]
+            ]);
 
         // Assert candidate no longer exists
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      query poolCandidate($id: UUID!) {
-          poolCandidate(id: $id) {
-              status
-          }
-      }
-      ',
-            [
-                'id' => $newPoolCandidate->id,
-            ]
-        )->assertJson([
-            "data" => [
-                "poolCandidate" => null,
-            ]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->queryDocument, $variables)
+            ->assertJson([
+                "data" => [
+                    "poolCandidate" => null,
+                ]
+            ]);
     }
 
     public function testApplicationDeletionStatuses(): void
     {
+
         // RECYCLING FROM ABOVE TESTS
         // array of statuses that should fail the test, as they should not allow deletion
         $statusesThatShouldFail = [
@@ -1109,324 +845,180 @@ class PoolApplicationTest extends TestCase
             ApiEnums::CANDIDATE_STATUS_REMOVED,
         ];
 
-        // Create admin user we run tests as
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
-
         // Create pool candidates
         $candidateOne = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[0],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateTwo = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[1],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateThree = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[2],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateFour = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[3],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateFive = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[4],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateSix = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[5],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateSeven = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[6],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateEight = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[7],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateNine = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[8],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateTen = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[9],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateEleven = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[10],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateTwelve = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[11],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
         $candidateThirteen = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[12],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a23',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
         ]);
         $candidateFourteen = PoolCandidate::factory()->create([
             'pool_candidate_status' => $statusesThatShouldFail[13],
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a24',
+            'user_id' => $this->applicantUser->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
         ]);
 
-        // Assert submitted object cannot be deleted, 14 different ones that should fail
-        // just running through each of them one at a time
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateOne->id,
-            ]
-        )->assertJson([
+        $result = [
             'errors' => [[
                 'message' => 'pool candidate status InvalidValueDeletion',
             ]]
-        ]);
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateTwo->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        ];
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateThree->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateOne->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateFour->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateTwo->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateFive->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateThree->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateSix->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateFour->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateSeven->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateFive->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateEight->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateSix->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateNine->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateSeven->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateTen->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateEight->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateEleven->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateNine->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateTwelve->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateTen->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateThirteen->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateEleven->id]
+            )->assertJson($result);
 
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateTwelve->id]
+            )->assertJson($result);
 
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-      mutation deleteTest($id: ID!) {
-        deleteApplication(id: $id)
-      }
-    ',
-            [
-                'id' => $candidateFourteen->id,
-            ]
-        )->assertJson([
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueDeletion',
-            ]]
-        ]);
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateThirteen->id]
+            )->assertJson($result);
 
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->deleteMutationDocument,
+                ['id' => $candidateFourteen->id]
+            )->assertJson($result);
     }
 }

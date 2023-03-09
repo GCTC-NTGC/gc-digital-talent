@@ -14,11 +14,31 @@ import {
   PositionDuration,
 } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  "acceptedOperationalRequirements" | "positionDuration"
+>;
+
+export function hasAllEmptyFields({
+  positionDuration,
+}: PartialApplicant): boolean {
+  return isEmpty(positionDuration);
+}
+
+export function hasEmptyRequiredFields({
+  positionDuration,
+}: PartialApplicant): boolean {
+  return isEmpty(positionDuration);
+}
+
+export function hasEmptyOptionalFields({
+  acceptedOperationalRequirements,
+}: PartialApplicant): boolean {
+  return isEmpty(acceptedOperationalRequirements);
+}
+
 const WorkPreferencesSection: React.FunctionComponent<{
-  applicant: Pick<
-    Applicant,
-    "acceptedOperationalRequirements" | "positionDuration"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -71,7 +91,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {(positionDuration === null || positionDuration?.length === 0) && (
+        {hasEmptyRequiredFields(applicant) && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -214,7 +234,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
           </div>
         )}
 
-        {!anyCriteriaSelected && !editPath && (
+        {hasAllEmptyFields(applicant) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

@@ -7,6 +7,26 @@ import { commonMessages, getGenericJobTitles } from "@gc-digital-talent/i18n";
 
 import { Applicant } from "~/api/generated";
 
+type PartialApplicant = Pick<Applicant, "expectedGenericJobTitles">;
+
+function anyCriteriaSelected({ expectedGenericJobTitles }: PartialApplicant) {
+  return !isEmpty(expectedGenericJobTitles);
+}
+
+export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
+export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+  // no optional fields
+  return false;
+}
+
 const RoleSalarySection: React.FunctionComponent<{
   applicant: Pick<Applicant, "expectedGenericJobTitles">;
   editPath?: string;
@@ -21,12 +41,10 @@ const RoleSalarySection: React.FunctionComponent<{
       ))
     : null;
 
-  const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
-
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {anyCriteriaSelected && (
+        {anyCriteriaSelected(applicant) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -41,7 +59,7 @@ const RoleSalarySection: React.FunctionComponent<{
             </ul>
           </div>
         )}
-        {!anyCriteriaSelected && editPath && (
+        {hasAllEmptyFields(applicant) && editPath && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -69,7 +87,7 @@ const RoleSalarySection: React.FunctionComponent<{
             </div>
           </>
         )}
-        {!anyCriteriaSelected && !editPath && (
+        {hasAllEmptyFields(applicant) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
