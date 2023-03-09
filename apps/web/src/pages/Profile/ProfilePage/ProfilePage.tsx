@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import Hero from "~/components/Hero/Hero";
@@ -39,6 +40,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     workUrl: (id: string) => paths.editExperience(userId, "work", id),
   };
   const intl = useIntl();
+  const featureFlags = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "My profile",
@@ -76,8 +78,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
       <UserProfile
         applicant={profileDataInput as Applicant}
         sections={{
-          myStatus: { isVisible: true, override: <MyStatusApi /> },
-          hiringPools: { isVisible: false },
+          myStatus: {
+            isVisible: !featureFlags.applicantDashboard,
+            override: <MyStatusApi />,
+          },
           about: { isVisible: true, editUrl: paths.aboutMe(userId) },
           language: {
             isVisible: true,
@@ -107,7 +111,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           },
           roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
           skillsExperience: {
-            isVisible: true,
+            isVisible: !featureFlags.applicantDashboard,
             editUrl: paths.skillsAndExperiences(userId),
             override: (
               <ExperienceSection
