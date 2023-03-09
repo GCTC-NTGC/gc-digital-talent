@@ -48,8 +48,8 @@ class DepartmentTest extends TestCase
         ]);
         $this->adminUser->attachRole("platform_admin");
 
-        $this->uuid = $this->faker->UUID();
-        $this->toBeDeletedUUID = $this->faker->UUID();
+        $this->uuid = $this->faker->unique()->UUID();
+        $this->toBeDeletedUUID = $this->faker->unique()->UUID();
 
         Department::factory()->create([
             'id' => $this->uuid
