@@ -99,18 +99,14 @@ const Hero = ({
             data-h2-width="base(x30)"
             data-h2-border="base(x.25 solid secondary.darker)"
             data-h2-radius="base(circle)"
-          >
-            &nbsp;
-          </div>
+          />
           <div
             data-h2-height="base(x25)"
             data-h2-width="base(x25)"
             data-h2-border="base(x.25 solid secondary.darker)"
             data-h2-radius="base(circle)"
             data-h2-position="base(center)"
-          >
-            &nbsp;
-          </div>
+          />
           <div
             data-h2-height="base(x20)"
             data-h2-width="base(x20)"
