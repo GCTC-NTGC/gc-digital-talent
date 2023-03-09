@@ -1,4 +1,4 @@
-import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import { MessageDescriptor } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -54,6 +54,34 @@ export const iconColorMap = new Map<StepState, Record<string, string>>([
     {
       "data-h2-background-color": "base(error.light)",
       "data-h2-color": "base(black)",
+    },
+  ],
+]);
+
+export const tailColorMap = new Map<StepState, Record<string, string>>([
+  [
+    "active",
+    {
+      "data-h2-background-color": "base(black.lightest)",
+    },
+  ],
+
+  [
+    "completed",
+    {
+      "data-h2-background-color": "base(success.light)",
+    },
+  ],
+  [
+    "disabled",
+    {
+      "data-h2-background-color": "base(black.lightest)",
+    },
+  ],
+  [
+    "error",
+    {
+      "data-h2-background-color": "base(error)",
     },
   ],
 ]);

@@ -8,6 +8,7 @@ import {
   linkStyleMap,
   getIconFromState,
   messageMap,
+  tailColorMap,
 } from "./utils";
 
 export interface StepProps {
@@ -22,6 +23,7 @@ const Step = ({ children, href, icon, last = false, state }: StepProps) => {
   const intl = useIntl();
   const Icon = getIconFromState(state, icon);
   const iconStyles = iconColorMap.get(state);
+  const tailStyles = tailColorMap.get(state);
   const linkStyles = linkStyleMap.get(state);
   const message = messageMap.get(state);
 
@@ -71,7 +73,7 @@ const Step = ({ children, href, icon, last = false, state }: StepProps) => {
                   data-h2-transform="base(translateX(-50%))"
                   data-h2-height="base(x.75)"
                   data-h2-width="base(x.15)"
-                  {...(iconStyles || {})}
+                  {...(tailStyles || {})}
                 />
               )}
             </span>
