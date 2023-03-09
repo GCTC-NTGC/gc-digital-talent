@@ -5159,8 +5159,8 @@
     "defaultMessage": "Parcourir les emplois en <abbreviation>TI</abbreviation>",
     "description": "Link text for IT jobs in government call to action"
   },
-  "2MQK8R": {
-    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en <abbreviation>TI</abbreviation> de présenter une demande en ligne.",
+  "BSSYnh": {
+    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
   },
   "2aBKgf": {
@@ -5187,28 +5187,28 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "7Kb+Uh": {
-    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+  "qZvV7b": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage title for Indigenous Apprenticeship Program"
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
   },
-  "9FKjvW": {
-    "defaultMessage": "En collaboration avec le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en <abbreviation>TI</abbreviation> et en technologie, ce qui permettra :",
+  "Dzyk1q": {
+    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "9Nf78m": {
-    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada?",
+  "p2sBh3": {
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
-  "BxAUGH": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la <abbreviation>TI</abbreviation> et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+  "EqVMCE": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
   "CIwCa3": {
@@ -5223,8 +5223,8 @@
     "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
     "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
   },
-  "Ea8q/H": {
-    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada",
+  "L9yjr3": {
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
   "F5kDhX": {
@@ -5295,8 +5295,8 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description, ignore things in <> tags please"
   },
-  "RCV8Us": {
-    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en <abbreviation>TI</abbreviation> destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
+  "J2uivT": {
+    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
     "description": "Paragraph one for the self-declaration explanation dialog"
   },
   "S02Y/P": {
@@ -5307,12 +5307,12 @@
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "b3v0nI": {
-    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (<abbreviation>TI</abbreviation>).",
+  "pWoAv0": {
+    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (<abbreviation>TI</abbreviation>).",
     "description": "First paragraph about the program"
   },
-  "W2G590": {
-    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> vous convient-il?",
+  "DgMIfz": {
+    "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
     "description": "Application box heading part one"
   },
   "WgGDug": {
@@ -5323,16 +5323,16 @@
     "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la <abbreviation>TI</abbreviation> et les relations avec les clients et fournisseurs.",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
-  "Zd1x6H": {
-    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones + Portail des talents autochtones",
+  "osGGIt": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
   },
   "bNBhvY": {
     "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
     "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
   },
-  "cMDC/P": {
-    "defaultMessage": "Répondre à la forte demande de talents autochtones en <abbreviation>TI</abbreviation>.",
+  "Xhfkfg": {
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
     "description": "Talent portal strategy item 1 content"
   },
   "drDPf3": {
@@ -5343,8 +5343,8 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'enterprise architecture' IT work stream"
   },
-  "gxOExQ": {
-    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la <abbreviation>TI</abbreviation>!",
+  "yZMQ6j": {
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
   },
   "hKKYYL": {
@@ -5379,8 +5379,8 @@
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
     "description": "Text describing where to get help with the self-declaration form"
   },
-  "pRGDLn": {
-    "defaultMessage": "Apprenti en <abbreviation>TI</abbreviation> du Gouvernement du Canada",
+  "49UIne": {
+    "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
   "tM1de5": {

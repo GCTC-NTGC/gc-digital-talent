@@ -3,8 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-import { wrapAbbr } from "~/utils/nameUtils";
-
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
@@ -29,18 +27,13 @@ const SelfDeclarationDialog = ({ children, btnProps }: BasicDialogProps) => {
         </Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "We recognize the importance of Indigenous voices in the federal government. The goal of the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples is to amplify Indigenous voices by creating opportunities for First Nations, Inuit, and Métis peoples to join the federal public service.",
-                id: "RCV8Us",
-                description:
-                  "Paragraph one for the self-declaration explanation dialog",
-              },
-              {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "We recognize the importance of Indigenous voices in the federal government. The goal of the IT Apprenticeship Program for Indigenous Peoples is to amplify Indigenous voices by creating opportunities for First Nations, Inuit, and Métis peoples to join the federal public service.",
+              id: "J2uivT",
+              description:
+                "Paragraph one for the self-declaration explanation dialog",
+            })}
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
