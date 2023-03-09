@@ -27,6 +27,7 @@ type Option<V> = { value: V; label: string };
 
 type FormValues = {
   classification: string[];
+  team: string;
 };
 
 interface CreatePoolFormProps {
@@ -37,14 +38,14 @@ interface CreatePoolFormProps {
     teamId: string,
     data: CreatePoolAdvertisementInput,
   ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
-  teamId: string; // currently API wrapper feeds in the dcm team by default
+  teamsArray: Team[];
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   userId,
   classificationsArray,
   handleCreatePool,
-  teamId,
+  teamsArray,
 }) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(userId, teamId, formValuesToSubmitData(data))
+    await handleCreatePool(userId, data.team, formValuesToSubmitData(data))
       .then((result) => {
         if (result) {
           navigate(paths.poolUpdate(result.id));
@@ -114,6 +115,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
+  const teamOptions: Option<string>[] = teamsArray
+    .map(({ id, displayName }) => ({
+      value: id,
+      label: getLocalizedName(displayName, intl),
+    }))
+    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+
   return (
     <section data-h2-container="base(left, small, 0)">
       <PageHeader icon={Squares2X2Icon}>
@@ -157,6 +165,25 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                   "Placeholder displayed on the pool form classification field.",
               })}
               options={classificationOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="team"
+              label={intl.formatMessage({
+                defaultMessage: "The team that the pool belongs to",
+                id: "DuTk5E",
+                description:
+                  "Label displayed for selecting what team a new pool belongs to.",
+              })}
+              name="team"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a team...",
+                id: "hr/i9h",
+                description: "Placeholder displayed for team selection input.",
+              })}
+              options={teamOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -220,8 +247,6 @@ const CreatePoolPage = () => {
   const classificationsData = unpackMaybes(lookupData?.classifications);
   const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
 
-  const dcmTeamId = "";
-
   const [, executeMutation] = useCreatePoolAdvertisementMutation();
   const handleCreatePool = (
     userId: string,
@@ -251,7 +276,7 @@ const CreatePoolPage = () => {
           userId={userIdQuery}
           classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
-          teamId={dcmTeamId}
+          teamsArray={teamsArray}
         />
       </Pending>
     </>
