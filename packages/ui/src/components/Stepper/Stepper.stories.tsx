@@ -18,7 +18,7 @@ export default {
 } as ComponentMeta<typeof Stepper>;
 
 faker.seed(0);
-const defaultSteps: Array<StepType> = [
+export const defaultSteps: Array<StepType> = [
   {
     href: "#step-one",
     label: faker.lorem.words(1),
@@ -38,13 +38,13 @@ const defaultSteps: Array<StepType> = [
     completed: true,
   },
   {
-    href: "#step-three",
+    href: "#step-four",
     label: faker.lorem.words(1),
     icon: DevicePhoneMobileIcon,
     completed: true,
   },
   {
-    href: "#step-four",
+    href: "#step-five",
     label: faker.lorem.words(1),
     icon: EnvelopeIcon,
     completed: true,
