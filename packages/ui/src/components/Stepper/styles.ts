@@ -4,8 +4,9 @@ export const iconColorMap = new Map<StepState, Record<string, string>>([
   [
     "active",
     {
-      "data-h2-background-color": "base(primary)",
-      "data-h2-color": "base(black)",
+      "data-h2-background-color":
+        "base(primary.light) base:admin(primary) base:iap(secondary)",
+      "data-h2-color": "base(black) base:admin(white) base:iap(white)",
     },
   ],
 
@@ -19,14 +20,14 @@ export const iconColorMap = new Map<StepState, Record<string, string>>([
   [
     "disabled",
     {
-      "data-h2-background-color": "base(black.lightest)",
+      "data-h2-background-color": "base(gray.light)",
       "data-h2-color": "base(black)",
     },
   ],
   [
     "error",
     {
-      "data-h2-background-color": "base(error)",
+      "data-h2-background-color": "base(error.light)",
       "data-h2-color": "base(black)",
     },
   ],
