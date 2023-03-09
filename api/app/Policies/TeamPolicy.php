@@ -18,7 +18,7 @@ class TeamPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-team");
     }
 
     /**
@@ -31,7 +31,7 @@ class TeamPolicy
      */
     public function view(User $user, Team $team = null)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-team");
     }
 
     /**
@@ -42,7 +42,7 @@ class TeamPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("create-any-team");
     }
 
     /**
@@ -54,7 +54,18 @@ class TeamPolicy
      */
     public function update(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("update-any-team");
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(User $user)
+    {
+        return $user->isAbleTo("delete-any-team");
     }
 
     /**
@@ -66,6 +77,18 @@ class TeamPolicy
      */
     public function viewAnyTeamMembers(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-teamMembers");
+    }
+
+    /**
+     * Determine whether the user can view a specific teams, team members.
+     * Likely to be updated later to allow the team admin and teammates to view their own team
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamMembers(User $user)
+    {
+        return $user->isAbleTo("view-team-teamMembers");
     }
 }
