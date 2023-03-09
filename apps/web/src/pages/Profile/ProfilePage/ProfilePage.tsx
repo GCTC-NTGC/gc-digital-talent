@@ -21,11 +21,6 @@ export interface ProfilePageProps {
   profileDataInput: User;
 }
 
-// styling a text bit with red colour within intls
-export function redText(msg: string) {
-  return <span data-h2-color="base(error)">{msg}</span>;
-}
-
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
