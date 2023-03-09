@@ -29,7 +29,7 @@ server {
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
 
-    # permanent redirect within the same domain with relative path
+    # Permanent redirect within the same domain with relative path
     location = /en/talent/search {
         absolute_redirect off;
         return 301 /en/search;
@@ -37,6 +37,12 @@ server {
     location = /fr/talent/search {
         absolute_redirect off;
         return 301 /fr/search;
+    }
+
+    # Permanent redirect for IAP french vanity url
+    location = /apprentis-autochtone-ti {
+        absolute_redirect off;
+        return 301 /fr/indigenous-it-apprentice;
     }
 
     # api
@@ -189,13 +195,6 @@ server {
     # rewrite talent static files to "web/dist"
     location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
         rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
-    }
-
-    # rewrite possible lang prefix then "apprenti-autochtonne-ti" to web index.html
-    location ~ "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
-        rewrite "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
