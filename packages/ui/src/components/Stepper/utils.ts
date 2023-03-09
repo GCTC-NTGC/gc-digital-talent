@@ -1,4 +1,29 @@
-import { StepState } from "./types";
+import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/24/solid";
+import { MessageDescriptor } from "react-intl";
+
+import { uiMessages } from "@gc-digital-talent/i18n";
+
+import { IconType, StepState } from "./types";
+
+export const getIconFromState = (state: StepState, defaultIcon: IconType) => {
+  const iconMap = new Map<StepState, IconType>([
+    ["active", MapPinIcon],
+    ["completed", CheckIcon],
+    ["disabled", defaultIcon],
+    ["error", FlagIcon],
+  ]);
+
+  return iconMap.get(state);
+};
+
+export const messageMap = new Map<
+  Omit<StepState, "disabled">,
+  MessageDescriptor
+>([
+  ["active", uiMessages.stepActive],
+  ["completed", uiMessages.stepCompleted],
+  ["error", uiMessages.stepError],
+]);
 
 export const iconColorMap = new Map<StepState, Record<string, string>>([
   [
