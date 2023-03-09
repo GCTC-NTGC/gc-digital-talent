@@ -14,18 +14,25 @@ class UserRoleTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
 
+    protected $platformAdmin;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->bootRefreshesSchemaCache();
 
-        // Create admin user we run tests as
-        // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
+        $this->seed(RolePermissionSeeder::class);
+
+        $this->platformAdmin = User::factory()->create([
+            'email' => 'admin@test.com',
+            'sub' => 'admin@test.com',
+            'legacy_roles' => ['ADMIN'],
+        ]);
+        $this->platformAdmin->syncRoles([
+            "guest",
+            "base_user",
+            "platform_admin"
+        ]);
     }
 
     // Create a user added with a test role and team.  Assert that the admin can query the user's role.
@@ -34,7 +41,7 @@ class UserRoleTest extends TestCase
         $role = Role::factory()->create(['is_team_based' => false]);
         $user = User::create()->syncRoles([$role]);
 
-        $this->graphQL(
+        $this->actingAs($this->platformAdmin)->graphQL(
             /** @lang GraphQL */
             '
             query user($id: UUID!) {
@@ -64,6 +71,8 @@ class UserRoleTest extends TestCase
     // Create a team with 3 users.  Assert that an admin can query for the team's users.
     public function testAdminCanSeeTeamUsers()
     {
+        // Delete pre-existing teams to simplify test
+        Team::truncate();
         $role = Role::factory()->create(['is_team_based' => true]);
         $team = Team::factory()->create();
         $users = User::factory()->count(3)
@@ -72,11 +81,11 @@ class UserRoleTest extends TestCase
             })
             ->create();
 
-        $this->graphQL(
+        $this->actingAs($this->platformAdmin)->graphQL(
             /** @lang GraphQL */
             '
             query roles {
-                roles {
+                teams {
                   id
                   roleAssignments {
                     user { id }
@@ -86,8 +95,8 @@ class UserRoleTest extends TestCase
         '
         )->assertSimilarJson([
             'data' => [
-                'roles' => [[
-                    'id' => $role->id,
+                'teams' => [[
+                    'id' => $team->id,
                     'roleAssignments' =>
                     $users->map(function ($u) {
                         return [
@@ -95,9 +104,64 @@ class UserRoleTest extends TestCase
                                 'id' => $u->id
                             ],
                         ];
-                    })->toArray()
-                ]]
-            ]
+                    })->toArray(),
+                ],
+                // [
+                //     'id' => Role::where('name', 'platform_admin')->sole()->id,
+                //     'roleAssignments' => [
+                //         'user' => ['id' => $this->platformAdmin->id]
+                //     ]
+                // ]]
+            ]]
+        ]);
+    }
+
+    // Create several users with different roles.  Assert that an admin can see the users in each role.
+    public function testAdminCanSeeRoleUsers()
+    {
+        // Delete most pre-existing roles to simplify test
+        Team::where('name', '!=', 'platform_admin')->delete(); // We need to keep the admin role to run the query
+        $teamRole = Role::factory()->create(['is_team_based' => true]);
+        $team = Team::factory()->create();
+        $user = User::factory()
+            ->afterCreating(function ($user) use ($teamRole, $team) {
+                $user->syncRoles([$teamRole], $team);
+            })
+            ->create();
+
+
+        $this->actingAs($this->platformAdmin)->graphQL(
+            /** @lang GraphQL */
+            '
+            query roles {
+                teams {
+                  id
+                  roleAssignments {
+                    user { id }
+                  }
+                }
+              }
+        '
+        )->assertSimilarJson([
+            'data' => [
+                'teams' => [[
+                    'id' => $team->id,
+                    'roleAssignments' =>
+                    $users->map(function ($u) {
+                        return [
+                            'user' => [
+                                'id' => $u->id
+                            ],
+                        ];
+                    })->toArray(),
+                ],
+                // [
+                //     'id' => Role::where('name', 'platform_admin')->sole()->id,
+                //     'roleAssignments' => [
+                //         'user' => ['id' => $this->platformAdmin->id]
+                //     ]
+                // ]]
+            ]]
         ]);
     }
 
@@ -112,7 +176,7 @@ class UserRoleTest extends TestCase
             $user->syncRoles([$role], $team);
         });
 
-        $this->graphQL(
+        $this->actingAs($this->platformAdmin)->graphQL(
             /** @lang GraphQL */
             '
             query user($id: UUID!) {
@@ -149,7 +213,7 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => false]);
         $user = User::factory()->create()->syncRoles([$oldRole]);
 
-        $this->graphQL(
+        $this->actingAs($this->platformAdmin)->graphQL(
             /** @lang GraphQL */
             '
             mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -195,7 +259,7 @@ class UserRoleTest extends TestCase
         $newTeam = Team::factory()->create();
         $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
 
-        $this->graphQL(
+        $this->actingAs($this->platformAdmin)->graphQL(
             /** @lang GraphQL */
             '
                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -243,7 +307,7 @@ class UserRoleTest extends TestCase
          $team = Team::factory()->create();
          $user = User::factory()->create();
 
-         $this->graphQL(
+         $this->actingAs($this->platformAdmin)->graphQL(
              /** @lang GraphQL */
              '
                  mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -279,7 +343,7 @@ class UserRoleTest extends TestCase
             $role = Role::factory()->create(['is_team_based' => true]);
             $user = User::factory()->create();
 
-            $this->graphQL(
+            $this->actingAs($this->platformAdmin)->graphQL(
                 /** @lang GraphQL */
                 '
                     mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
