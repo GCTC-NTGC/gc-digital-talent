@@ -35,9 +35,18 @@ export default {
 } as ComponentMeta<typeof Stepper>;
 
 const Template: ComponentStory<typeof Stepper> = (args) => {
-  const { label, steps, currentIndex } = args;
+  const { label, steps, currentIndex, preventDisable } = args;
 
-  return <Stepper steps={steps} label={label} currentIndex={currentIndex} />;
+  return (
+    <div data-h2-max-width="base(18rem)">
+      <Stepper
+        preventDisable={preventDisable}
+        steps={steps}
+        label={label}
+        currentIndex={currentIndex}
+      />
+    </div>
+  );
 };
 
 export const Default = Template.bind({});
@@ -45,4 +54,5 @@ Default.args = {
   label: "Default Stepper",
   steps: defaultSteps,
   currentIndex: 2,
+  preventDisable: true,
 };

@@ -34,6 +34,8 @@ interface StepperProps {
   headingLevel?: HeadingLevel;
   label: string;
   steps: Array<StepType>;
+  // Allows users to skip steps when true
+  preventDisable?: boolean;
 }
 
 const Stepper = ({
@@ -41,6 +43,7 @@ const Stepper = ({
   headingLevel = "h2",
   label,
   steps,
+  preventDisable,
 }: StepperProps) => {
   const intl = useIntl();
   const maxIndex = steps.length - 1;
@@ -72,6 +75,7 @@ const Stepper = ({
               icon={icon}
               state={deriveStepState(stepIndex, index, completed, error)}
               last={stepIndex === maxIndex}
+              preventDisable={preventDisable}
             >
               {stepLabel}
             </Step>

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React, { useState, useCallback } from "react";
+import React from "react";
 
 import { screen } from "@testing-library/react";
 
@@ -32,11 +32,11 @@ describe("Stepper", () => {
   });
 
   it("should render active step", async () => {
-    renderStepper(defaultProps);
+    renderStepper({ ...defaultProps, currentIndex: defaultSteps.length - 1 });
 
     // 5 total steps, default index set should be 4th step
     const step = await screen.findByRole("link", {
-      name: "Current: Step Four",
+      name: "Current: Step Five",
     });
 
     expect(step).toBeInTheDocument();
