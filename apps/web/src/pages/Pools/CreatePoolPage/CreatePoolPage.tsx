@@ -6,12 +6,7 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  commonMessages,
-  getGenericJobTitlesWithClassification,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending, AdminBreadcrumbs, Link } from "@gc-digital-talent/ui";
 
 import PageHeader from "~/components/PageHeader/PageHeader";
@@ -22,9 +17,11 @@ import {
   useCreatePoolAdvertisementMutation,
   CreatePoolAdvertisementMutation,
   useGetMePoolCreationQuery,
-  GenericJobTitleKey,
   Classification,
+  Maybe,
+  Team,
 } from "~/api/generated";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 type Option<V> = { value: V; label: string };
 
@@ -32,15 +29,8 @@ type FormValues = {
   classification: string[];
 };
 
-interface GenericJobTitle {
-  key: GenericJobTitleKey;
-  id: string;
-  classificationId: string;
-}
-
 interface CreatePoolFormProps {
   userId: string;
-  genericJobTitles: GenericJobTitle[];
   classificationsArray: Classification[];
   handleCreatePool: (
     userId: string,
@@ -52,7 +42,6 @@ interface CreatePoolFormProps {
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   userId,
-  genericJobTitles,
   classificationsArray,
   handleCreatePool,
   teamId,
@@ -116,22 +105,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       url: paths.poolCreate(),
     },
   ];
-
-  // NOTICE NOTICE NOTICE NOTICE NOTICE
-  // how the CreatePool will function, in example, Generic Job Classifications vs regular Classifications is undecided so code segments are left in despite being unused
-  // TODO RESOLVE THIS
-
-  // create the options for the select input, and ensure classification Ids are attached to each option
-  // take care not to try and attach generic job title Id instead, wrong Id throws confusing sql errors
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const jobTitleOptions: Option<string>[] = genericJobTitles.map(
-    ({ key, classificationId }) => ({
-      value: classificationId,
-      label:
-        intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
-        intl.formatMessage(commonMessages.nameNotLoaded),
-    }),
-  );
 
   // recycled from EditPool
   const classificationOptions: Option<string>[] = classificationsArray
@@ -219,45 +192,35 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   );
 };
 
+const roleAssignmentsToTeams = (
+  roleAssignmentArray: Maybe<RoleAssignment[]>,
+): Team[] => {
+  const flattenedTeams = roleAssignmentArray?.flatMap(
+    (roleAssign) => roleAssign.team,
+  );
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+
+  // clear out any duplicate teams that could arise from multiple team-based roles per team
+  // https://stackoverflow.com/a/56757215
+  const teamsArray = filteredFlattenedTeams.filter(
+    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
+  );
+  return teamsArray;
+};
+
 const CreatePoolPage = () => {
   const intl = useIntl();
   const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
-  // current user -> type change to only string
+  // current user
   const userIdQueryUntyped = lookupData?.me?.id;
-  const restrictUserType = (user: string | undefined): string => {
-    if (user) {
-      return user;
-    }
-    return "";
-  };
-  const userIdQuery = restrictUserType(userIdQueryUntyped);
+  const userIdQuery = userIdQueryUntyped || "";
 
-  // get rid of all those annoying Maybes, make sure classifications isn't a maybe either
-  const jobTitlesData = unpackMaybes(lookupData?.genericJobTitles);
-  const jobTitlesMapped = jobTitlesData
-    ? jobTitlesData.map((jobTitle) => {
-        return {
-          key: jobTitle.key,
-          id: jobTitle.id,
-          classificationId: jobTitle.classification
-            ? jobTitle.classification.id
-            : "",
-        };
-      })
-    : [];
-
-  // fetched all classifications
   const classificationsData = unpackMaybes(lookupData?.classifications);
+  const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
 
-  // find the dcm team in order to pass it into the pool creation component
-  // this will be changed later when pool creation is updated to incorporate team selection
-  const teamsData = unpackMaybes(lookupData?.teams);
-  const dcmTeam = teamsData.filter(
-    (team) => team.name === "digital-community-management",
-  );
-  const dcmTeamId = dcmTeam && dcmTeam.length > 0 ? dcmTeam[0].id : "";
+  const dcmTeamId = "";
 
   const [, executeMutation] = useCreatePoolAdvertisementMutation();
   const handleCreatePool = (
@@ -286,7 +249,6 @@ const CreatePoolPage = () => {
       <Pending fetching={fetching} error={error}>
         <CreatePoolForm
           userId={userIdQuery}
-          genericJobTitles={jobTitlesMapped}
           classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
           teamId={dcmTeamId}
