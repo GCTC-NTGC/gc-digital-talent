@@ -5211,25 +5211,25 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
-  "CIwCa3": {
+  "7xDPj5": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-03 advisor description, ignore things in <> tags please"
+    "description": "IT-03 advisor description"
   },
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
   },
-  "EGXG1j": {
+  "O8m3JS": {
     "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-04 manager selection"
   },
   "L9yjr3": {
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
-  "F5kDhX": {
+  "SPECr8": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+    "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "FtJRWS": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des <abbreviation>TI</abbreviation> dans l’ensemble du gouvernement.",
@@ -5259,9 +5259,9 @@
     "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
     "description": "Description for the experience and skills page in applicant profile."
   },
-  "L6sIvM": {
+  "FEEa2S": {
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-03 leader selection"
   },
   "LOvD2e": {
     "defaultMessage": "Vous recherchez des talents en <abbreviation>TI</abbreviation> de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
@@ -5279,9 +5279,9 @@
     "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "OheHgg": {
+  "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+    "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
@@ -5291,9 +5291,9 @@
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
   },
-  "QdYrqI": {
+  "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-03 team lead path description, ignore things in <> tags please"
+    "description": "IT-03 team lead path description"
   },
   "J2uivT": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
@@ -5327,9 +5327,9 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
   },
-  "bNBhvY": {
+  "dofE/5": {
     "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-04 senior advisor selection"
   },
   "Xhfkfg": {
     "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
@@ -5363,13 +5363,13 @@
     "defaultMessage": "Explorer les occasions en matière de <abbreviation>TI</abbreviation> au sein du gouvernement fédéral",
     "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
-  "jZDflg": {
+  "WTdmxR": {
     "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-03 advisor selection"
   },
-  "oUDpNl": {
+  "YVuyjO": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-04 manager path description, ignore things in <> tags please"
+    "description": "IT-04 manager path description"
   },
   "oZ03/b": {
     "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme <abbreviation>TI</abbreviation> (technologie de l'information). Examinez les niveaux suivants dans la classification <abbreviation>TI</abbreviation> et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
@@ -5391,9 +5391,9 @@
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
   },
-  "uT/A3r": {
+  "SngY7e": {
     "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur <abbreviation>TI-02</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-02 selection"
   },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
@@ -5403,9 +5403,9 @@
     "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'security' IT work stream"
   },
-  "xIwrND": {
+  "X+Y+qq": {
     "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur <abbreviation>TI-01</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-01 selection"
   },
   "y+HB+k": {
     "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
@@ -6070,9 +6070,9 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
-  "vpAafL": {
+  "G3K1/H": {
     "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
-    "description": "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please."
+    "description": "Message indicating the user has not been marked as part of an equity group"
   },
   "w+L6oa": {
     "defaultMessage": "Par date",
@@ -6174,9 +6174,9 @@
     "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
     "description": "Link text for editing skills and experiences on profile."
   },
-  "GThNuu": {
+  "TwSvmH": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
-    "description": "would not accept job line before a list, ignore things in <> please"
+    "description": "would not accept job line before a list"
   },
   "VOheZB": {
     "defaultMessage": "<primary>{role}</primary> à {organization}",
@@ -6394,9 +6394,9 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
-  "f8ZHHW": {
+  "K4O5hP": {
     "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
-    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+    "description": "Final paragraph in the employment equity profile section"
   },
   "1GWQal": {
     "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",

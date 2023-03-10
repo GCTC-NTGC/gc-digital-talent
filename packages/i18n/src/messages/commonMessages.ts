@@ -50,9 +50,8 @@ const commonMessages = defineMessages({
   },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
-    id: "ZcvDAo",
-    description:
-      "Message that there are required fields missing. Please ignore things in <> tags.",
+    id: "EdAaI7",
+    description: "Message that there are required fields missing",
   },
   nameNotLoaded: {
     defaultMessage: "Error: name not loaded",

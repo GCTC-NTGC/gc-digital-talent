@@ -226,9 +226,8 @@ export const DialogLevelThreeLead = ({ children }: DialogLevelsProps) => {
               {
                 defaultMessage:
                   "<strong>Management Path</strong>: <abbreviation>IT</abbreviation> Team Leads (<abbreviation>IT-03</abbreviation>) are responsible for supervising work and project teams for <abbreviation>IT</abbreviation> services and operations in their field of expertise to support service delivery to clients and stakeholders. <abbreviation>IT</abbreviation> Team Leads are found in all work streams.",
-                id: "QdYrqI",
-                description:
-                  "IT-03 team lead path description, ignore things in <> tags please",
+                id: "t+WUYM",
+                description: "IT-03 team lead path description",
               },
               {
                 abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
@@ -287,9 +286,8 @@ export const DialogLevelThreeAdvisor = ({ children }: DialogLevelsProps) => {
               {
                 defaultMessage:
                   "<strong>Individual Contributor</strong>: <abbreviation>IT</abbreviation> Technical Advisors (<abbreviation>IT-03</abbreviation>) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery to clients and stakeholders. <abbreviation>IT</abbreviation> Technical Advisors are found in all work streams.",
-                id: "CIwCa3",
-                description:
-                  "IT-03 advisor description, ignore things in <> tags please",
+                id: "7xDPj5",
+                description: "IT-03 advisor description",
               },
               {
                 abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
@@ -348,9 +346,8 @@ export const DialogLevelFourLead = ({ children }: DialogLevelsProps) => {
               {
                 defaultMessage:
                   "<strong>Management Path</strong>: <abbreviation>IT</abbreviation> Managers (<abbreviation>IT-04</abbreviation>) are responsible for managing the development and delivery of <abbreviation>IT</abbreviation> services and/or operations through subordinate team leaders, technical advisors, and project teams, for service delivery to clients and stakeholders. <abbreviation>IT</abbreviation> Managers are found in all work streams.",
-                id: "oUDpNl",
-                description:
-                  "IT-04 manager path description, ignore things in <> tags please",
+                id: "YVuyjO",
+                description: "IT-04 manager path description",
               },
               {
                 abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
@@ -409,9 +406,9 @@ export const DialogLevelFourAdvisor = ({ children }: DialogLevelsProps) => {
               {
                 defaultMessage:
                   "<strong>Individual Contributor</strong>: <abbreviation>IT</abbreviation> Senior Advisors (<abbreviation>IT-04</abbreviation>) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders. <abbreviation>IT</abbreviation> Senior Advisors are primarily found in six work streams:",
-                id: "F5kDhX",
+                id: "SPECr8",
                 description:
-                  "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please",
+                  "IT-04 senior advisor description precursor to work stream list",
               },
               {
                 abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
