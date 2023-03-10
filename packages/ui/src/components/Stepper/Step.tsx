@@ -68,6 +68,7 @@ const Step = ({
         data-h2-display="base(flex)"
         data-h2-gap="base(0, x.25)"
         data-h2-justify-content="base(flex-start)"
+        data-h2-outline="base(none)"
         data-h2-position="base(relative)"
       >
         {message && (
@@ -77,7 +78,7 @@ const Step = ({
         )}
         {Icon && (
           <span
-            className="Step__Icon"
+            className="Step__Icon Step__Flair"
             data-h2-align-items="base(center)"
             data-h2-display="base(flex)"
             data-h2-flex-shrink="base(0)"
@@ -92,7 +93,7 @@ const Step = ({
         )}
         {!last && (
           <span
-            className="Step__Tail"
+            className="Step__Tail Step__Flair"
             data-h2-align-self="base(stretch)"
             data-h2-display="base(block)"
             data-h2-height="base(100%)"
