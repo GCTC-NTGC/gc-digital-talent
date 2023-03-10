@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "h2-build && turbo run build --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
-    "build:fresh": "npm run build -- --force --no-cache",
+    "build:fresh": "turbo run build  --filter='./apps/*' --filter='!@gc-digital-talent/e2e' --force",
     "build:all": "turbo run build",
     "build:packages": "turbo run build --filter='./packages/*'",
     "build:css": "h2-build",
