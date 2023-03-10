@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Traits\LaratrustUserTrait;
+use Carbon\Carbon;
 
 /**
  * Class User
@@ -231,7 +232,7 @@ class User extends Model implements Authenticatable
      * Filters users by the Pools they are in.
      *
      * @param Builder $query
-     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and filterOutSuspended fields
      * @return Builder
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
@@ -260,6 +261,16 @@ class User extends Model implements Authenticatable
                             if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
+                            $query->where(function ($query) use ($filter) {
+                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+                                    $query->where(function ($query) {
+                                        $query->whereDate('suspended_at', '>=', Carbon::now())
+                                            ->orWhereNull('suspended_at');
+                                    });
+                                } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                    $query->whereDate('suspended_at', '<', Carbon::now());
+                                }
+                            });
                             return $query;
                         };
                     };
@@ -277,8 +288,8 @@ class User extends Model implements Authenticatable
     }
     /**
      * Return applicants with PoolCandidates in any of the given pools.
-     * Only consider pool candidates who still available,
-     * ie not expired and with the AVAILABLE status.
+     * Only consider pool candidates who are available,
+     * ie not expired, with the AVAILABLE status, and applications not suspended
      *
      * @param Builder $query
      * @param array $poolIds
@@ -294,7 +305,8 @@ class User extends Model implements Authenticatable
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL],
+                'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
             ];
         }
         return self::scopePoolFilters($query, $poolFilters);

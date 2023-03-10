@@ -796,10 +796,17 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
+}
+
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ALL
 }
 
 input PoolCandidateFilterInput {
