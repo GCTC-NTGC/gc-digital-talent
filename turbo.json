@@ -9,7 +9,7 @@
       "outputMode": "new-only"
     },
     "build:css": {
-      "inputs": ["src/**"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
       "outputs": ["src/assets/css/hydrogen.css"]
     },
     "codegen": {
@@ -19,7 +19,7 @@
     },
     "dev": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
-      "inputs": ["src/**", "package.json"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json"],
       "outputs": ["dist/**"],
       "outputMode": "new-only"
     },
@@ -34,19 +34,19 @@
       "outputMode": "new-only"
     },
     "intl-extract": {
-      "inputs": ["src/**"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
       "outputs": ["src/lang/en.json"],
       "outputMode": "new-only"
     },
     "intl-compile": {
-      "inputs": ["src/**"],
-      "dependsOn": ["^intl-compile", "intl-extract"],
+      "inputs": ["src/lang/en.json", "src/lang/fr.json"],
+      "dependsOn": ["intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"],
       "outputMode": "new-only"
     },
     "check-intl": {
-      "inputs": ["src/**"],
-      "dependsOn": ["build:intl-cli", "intl-compile", "intl-extract"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/lang/en.json", "src/lang/fr.json"],
+      "dependsOn": ["build:intl-cli", "intl-compile"],
       "cache": false,
       "outputMode": "new-only"
     },
