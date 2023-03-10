@@ -24,4 +24,4 @@ git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
 npm run build -- --force --no-cache
-chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
+chmod -Rf a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
