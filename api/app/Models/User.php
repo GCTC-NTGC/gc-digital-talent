@@ -232,7 +232,7 @@ class User extends Model implements Authenticatable
      * Filters users by the Pools they are in.
      *
      * @param Builder $query
-     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and filterOutSuspended fields
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
      * @return Builder
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
