@@ -6,16 +6,15 @@ import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
 import UpdateUserPage from "./UpdateUserPage";
 
 const availableRoles = fakeRoles();
+const teamsData = fakeTeams(10);
 
 const userData = {
   ...fakeUsers(1)[0],
   roleAssignments: [
     { id: "assignment1", role: availableRoles[0] },
-    { id: "assignment2", role: availableRoles[2] },
+    { id: "assignment2", role: availableRoles[2], team: teamsData[0] },
   ],
 };
-
-const teamsData = fakeTeams(10);
 
 export default {
   component: UpdateUserPage,

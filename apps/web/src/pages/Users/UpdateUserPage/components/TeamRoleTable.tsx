@@ -6,13 +6,18 @@ import { Heading, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
-import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
+import {
+  Role,
+  RoleAssignment,
+  UpdateUserAsAdminInput,
+  User,
+} from "~/api/generated";
 
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import { UpdateUserFunc } from "../types";
 
-const roleCell = (displayName: string) => {
+const roleAssignmentCell = (displayName: string) => {
   return (
     <Pill color="neutral" mode="solid">
       {displayName}
@@ -20,15 +25,20 @@ const roleCell = (displayName: string) => {
   );
 };
 
-const actionCell = (role: Role, user: User, onUpdateUser: UpdateUserFunc) => (
-  <RemoveIndividualRoleDialog
-    role={role}
-    user={user}
-    onUpdateUser={onUpdateUser}
-  />
-);
+const actionCell = (
+  roleAssignment: RoleAssignment,
+  user: User,
+  onUpdateUser: UpdateUserFunc,
+) =>
+  roleAssignment?.role && (
+    <RemoveIndividualRoleDialog
+      role={roleAssignment.role}
+      user={user}
+      onUpdateUser={onUpdateUser}
+    />
+  );
 
-type RoleCell = Cell<Role>;
+type RoleAssignmentCell = Cell<RoleAssignment>;
 
 interface TeamRoleTableProps {
   user: User;
@@ -43,18 +53,31 @@ export const TeamRoleTable = ({
 }: TeamRoleTableProps) => {
   const intl = useIntl();
 
-  const columns = useMemo<ColumnsOf<Role>>(
+  const columns = useMemo<ColumnsOf<RoleAssignment>>(
     () => [
+      // {
+      //   Header: intl.formatMessage({
+      //     defaultMessage: "Actions",
+      //     id: "S8ra2P",
+      //     description: "Title displayed for the role table actions column",
+      //   }),
+      //   accessor: (ra) => `Actions ${ra.role?.id}`,
+      //   disableGlobalFilter: true,
+      //   Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
+      //     actionCell(roleAssignment, user, onUpdateUser),
+      // },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "S8ra2P",
-          description: "Title displayed for the role table actions column",
+          defaultMessage: "Team",
+          id: "3IZ3mN",
+          description: "Title displayed for the role table display team column",
         }),
-        accessor: (d) => `Actions ${d.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: role } }: RoleCell) =>
-          actionCell(role, user, onUpdateUser),
+        accessor: (roleAssignment) =>
+          getLocalizedName(roleAssignment.team?.displayName, intl),
+        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
+          roleAssignmentCell(
+            getLocalizedName(roleAssignment.team?.displayName, intl),
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -62,21 +85,22 @@ export const TeamRoleTable = ({
           id: "uBmoxQ",
           description: "Title displayed for the role table display name column",
         }),
-        accessor: (role) => getLocalizedName(role.displayName, intl),
-        Cell: ({ row: { original: role } }: RoleCell) =>
-          roleCell(getLocalizedName(role.displayName, intl)),
+        accessor: (roleAssignment) =>
+          getLocalizedName(roleAssignment.role?.displayName, intl),
+        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
+          roleAssignmentCell(
+            getLocalizedName(roleAssignment.role?.displayName, intl),
+          ),
       },
     ],
     [intl, onUpdateUser, user],
   );
 
   const data = useMemo(() => {
-    const roles = user.roleAssignments
+    const roleAssignments = user.roleAssignments
       ?.filter(notEmpty)
-      .filter((assignment) => assignment.role?.isTeamBased)
-      .map((assignment) => assignment.role)
-      .filter(notEmpty);
-    return roles || [];
+      .filter((assignment) => assignment.role?.isTeamBased);
+    return roleAssignments || [];
   }, [user.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
