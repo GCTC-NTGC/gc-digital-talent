@@ -57,7 +57,9 @@
     "build-storybook": {
       "outputs": ["dist/**", "storybook-static/**"]
     },
-    "test": {},
+    "test": {
+      "outputMode": "new-only"
+    },
     "clean": {
       "cache": false
     },
