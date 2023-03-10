@@ -3,13 +3,7 @@ import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 import { StepState, IconType } from "./types";
-import {
-  iconColorMap,
-  linkStyleMap,
-  getIconFromState,
-  messageMap,
-  tailColorMap,
-} from "./utils";
+import { linkStyleMap, getIconFromState, messageMap } from "./utils";
 
 interface StepLinkProps {
   children: React.ReactNode;
@@ -62,8 +56,6 @@ const Step = ({
 }: StepProps) => {
   const intl = useIntl();
   const Icon = getIconFromState(state, icon);
-  const iconStyles = iconColorMap.get(state);
-  const tailStyles = tailColorMap.get(state);
   const message = messageMap.get(state);
 
   return (
@@ -85,6 +77,7 @@ const Step = ({
         )}
         {Icon && (
           <span
+            className="Step__Icon"
             data-h2-align-items="base(center)"
             data-h2-display="base(flex)"
             data-h2-flex-shrink="base(0)"
@@ -93,24 +86,25 @@ const Step = ({
             data-h2-width="base(x1.25)"
             data-h2-position="base(relative)"
             data-h2-radius="base(circle)"
-            {...(iconStyles || {})}
           >
             <Icon data-h2-height="base(x.5)" data-h2-width="base(x.5)" />
-            {!last && (
-              <span
-                data-h2-display="base(block)"
-                data-h2-position="base(absolute)"
-                data-h2-top="base(100%)"
-                data-h2-left="base(50%)"
-                data-h2-transform="base(translateX(-50%))"
-                data-h2-height="base(calc(100% + x.5))"
-                data-h2-width="base(x.15)"
-                {...(tailStyles || {})}
-              />
-            )}
           </span>
         )}
+        {!last && (
+          <span
+            className="Step__Tail"
+            data-h2-align-self="base(stretch)"
+            data-h2-display="base(block)"
+            data-h2-height="base(100%)"
+            data-h2-left="base(x.5)"
+            data-h2-position="base(absolute)"
+            data-h2-top="base(x1.25)"
+            data-h2-transform="base(translateX(50%))"
+            data-h2-width="base(x.15)"
+          />
+        )}
         <span
+          className="Step__Text"
           data-h2-flex-item="base(content)"
           data-h2-margin="base(x.1, 0, 0, 0)"
         >

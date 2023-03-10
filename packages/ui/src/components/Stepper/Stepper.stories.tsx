@@ -2,10 +2,22 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { ComponentStory, ComponentMeta, DecoratorFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";
 import { StepType } from "./types";
+
+faker.seed(0);
+
+const longLabelSteps = defaultSteps.map((step, index) => {
+  return index === 3
+    ? {
+        ...step,
+        label: faker.lorem.words(20),
+      }
+    : step;
+});
 
 const ReactRouterDecorator: DecoratorFn = (Story, options) => {
   const { args } = options;
@@ -53,6 +65,14 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Default Stepper",
   steps: defaultSteps,
+  currentIndex: 2,
+  preventDisable: true,
+};
+
+export const WithLongLabel = Template.bind({});
+WithLongLabel.args = {
+  label: "Default Stepper",
+  steps: longLabelSteps,
   currentIndex: 2,
   preventDisable: true,
 };

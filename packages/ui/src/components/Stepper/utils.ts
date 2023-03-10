@@ -25,71 +25,21 @@ export const messageMap = new Map<
   ["error", uiMessages.stepError],
 ]);
 
-export const iconColorMap = new Map<StepState, Record<string, string>>([
-  [
-    "active",
-    {
-      "data-h2-background-color":
-        "base(primary.light) base:admin(primary) base:iap(secondary)",
-      "data-h2-color": "base(black) base:admin(white) base:iap(white)",
-    },
-  ],
-
-  [
-    "completed",
-    {
-      "data-h2-background-color": "base(success.light)",
-      "data-h2-color": "base(black)",
-    },
-  ],
-  [
-    "disabled",
-    {
-      "data-h2-background-color": "base(gray.light)",
-      "data-h2-color": "base(black)",
-    },
-  ],
-  [
-    "error",
-    {
-      "data-h2-background-color": "base(error.light)",
-      "data-h2-color": "base(black)",
-    },
-  ],
-]);
-
-export const tailColorMap = new Map<StepState, Record<string, string>>([
-  [
-    "active",
-    {
-      "data-h2-background-color": "base(black.lightest)",
-    },
-  ],
-
-  [
-    "completed",
-    {
-      "data-h2-background-color": "base(success.light)",
-    },
-  ],
-  [
-    "disabled",
-    {
-      "data-h2-background-color": "base(black.lightest)",
-    },
-  ],
-  [
-    "error",
-    {
-      "data-h2-background-color": "base(error)",
-    },
-  ],
-]);
-
 export const linkStyleMap = new Map<StepState, Record<string, string>>([
   [
     "active",
     {
+      "data-h2-background-color": `
+        base:children[.Step__Icon](primary.light)
+        base:admin:children[.Step__Icon](primary)
+        base:iap:children[.Step__Icon](secondary)
+        base:children[.Step__Tail](black.lightest)
+      `,
+      "data-h2-color": `
+        base:children[.Step__Icon](black)
+        base:admin:children[.Step__Icon](white)
+        base:iap:children[.Step__Icon](white)
+      `,
       "data-h2-font-weight": "base(700)",
       "data-h2-text-decoration": "base(none)",
     },
@@ -98,18 +48,30 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
   [
     "completed",
     {
+      "data-h2-background-color": `
+        base:children[.Step__Icon](success.light)
+        base:children[.Step__Tail](success.light)
+      `,
       "data-h2-text-decoration": "base(underline)",
     },
   ],
   [
     "disabled",
     {
+      "data-h2-background-color": `
+        base:children[.Step__Icon](gray.light)
+        base:children[.Step__Tail](black.lightest)
+      `,
       "data-h2-text-decoration": "base(none)",
     },
   ],
   [
     "error",
     {
+      "data-h2-background-color": `
+        base:children[.Step__Icon](error.light)
+        base:children[.Step__Tail](error.light)
+      `,
       "data-h2-text-decoration": "base(underline)",
     },
   ],

@@ -5,11 +5,8 @@ import {
   DevicePhoneMobileIcon,
   EnvelopeIcon,
 } from "@heroicons/react/20/solid";
-import { faker } from "@faker-js/faker";
 
 import { StepType } from "./types";
-
-faker.seed(0);
 
 // eslint-disable-next-line import/prefer-default-export
 export const defaultSteps: Array<StepType> = [
@@ -33,7 +30,7 @@ export const defaultSteps: Array<StepType> = [
   },
   {
     href: "/step-four",
-    label: faker.lorem.sentence(),
+    label: "Step Four",
     icon: DevicePhoneMobileIcon,
     completed: true,
   },
