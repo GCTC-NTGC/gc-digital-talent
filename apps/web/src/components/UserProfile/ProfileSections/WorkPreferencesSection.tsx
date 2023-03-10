@@ -190,9 +190,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
-                id: "GThNuu",
-                description:
-                  "would not accept job line before a list, ignore things in <> please",
+                id: "TwSvmH",
+                description: "would not accept job line before a list",
               })}
             </p>
             <ul data-h2-padding="base(0, 0, 0, x1)">
@@ -223,9 +222,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
-                id: "GThNuu",
-                description:
-                  "would not accept job line before a list, ignore things in <> please",
+                id: "TwSvmH",
+                description: "would not accept job line before a list",
               })}
             </p>
             <ul data-h2-padding="base(0, 0, 0, x1)">
