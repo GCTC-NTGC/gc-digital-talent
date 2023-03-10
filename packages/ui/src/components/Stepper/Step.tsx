@@ -60,7 +60,53 @@ const Step = ({
 
   return (
     <li>
-      <StepLink
+      <a
+        href="https://google.com"
+        title=""
+        data-h2-display="base(block)"
+        data-h2-width="base(100%)"
+        data-h2-padding-left="base(x1.5)"
+        data-h2-position="base(relative)"
+      >
+        <div
+          data-h2-position="base(absolute)"
+          data-h2-location="base(0, auto, auto, 0)"
+          data-h2-width="base(x1.5)"
+          data-h2-height="base(100%)"
+        >
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-location="base(-x.1, auto, auto, 50%)"
+            data-h2-transform="base(translate(-50%, 0))"
+            data-h2-height="base(calc(100% + x.85))"
+            data-h2-width="base(x.15)"
+            data-h2-background="base(gray.light)"
+          />
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-location="base(-x.1, auto, auto, 50%)"
+            data-h2-transform="base(translate(-50%, 0))"
+            data-h2-background="base(primary.light)"
+            data-h2-radius="base(circle)"
+            data-h2-height="base(x1.25)"
+            data-h2-width="base(x1.25)"
+          >
+            {Icon && (
+              <Icon
+                data-h2-position="base(absolute)"
+                data-h2-location="base(50%, auto, auto, 50%)"
+                data-h2-transform="base(translate(-50%, -50%))"
+                data-h2-height="base(x.65)"
+                data-h2-width="base(x.65)"
+              />
+            )}
+          </div>
+        </div>
+        <div data-h2-margin-left="base(x.5)">
+          <p>{children}</p>
+        </div>
+      </a>
+      {/* <StepLink
         href={href}
         state={state}
         preventDisable={preventDisable}
@@ -111,7 +157,7 @@ const Step = ({
         >
           {children}
         </span>
-      </StepLink>
+      </StepLink> */}
     </li>
   );
 };
