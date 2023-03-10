@@ -29,14 +29,14 @@ const actionCell = (
   roleAssignment: RoleAssignment,
   user: User,
   onUpdateUser: UpdateUserFunc,
-) =>
-  roleAssignment?.role && (
-    <RemoveIndividualRoleDialog
-      role={roleAssignment.role}
-      user={user}
-      onUpdateUser={onUpdateUser}
-    />
-  );
+) => (
+  <RemoveIndividualRoleDialog
+    // We expect this to never be undefined, so coerce.
+    role={roleAssignment.role as Role}
+    user={user}
+    onUpdateUser={onUpdateUser}
+  />
+);
 
 type RoleAssignmentCell = Cell<RoleAssignment>;
 
@@ -55,17 +55,17 @@ export const TeamRoleTable = ({
 
   const columns = useMemo<ColumnsOf<RoleAssignment>>(
     () => [
-      // {
-      //   Header: intl.formatMessage({
-      //     defaultMessage: "Actions",
-      //     id: "S8ra2P",
-      //     description: "Title displayed for the role table actions column",
-      //   }),
-      //   accessor: (ra) => `Actions ${ra.role?.id}`,
-      //   disableGlobalFilter: true,
-      //   Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
-      //     actionCell(roleAssignment, user, onUpdateUser),
-      // },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Actions",
+          id: "S8ra2P",
+          description: "Title displayed for the role table actions column",
+        }),
+        accessor: (ra) => `Actions ${ra.role?.id}`,
+        disableGlobalFilter: true,
+        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
+          actionCell(roleAssignment, user, onUpdateUser),
+      },
       {
         Header: intl.formatMessage({
           defaultMessage: "Team",
