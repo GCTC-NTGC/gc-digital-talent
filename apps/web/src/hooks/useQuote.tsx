@@ -1,8 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { wrapAbbr } from "~/utils/nameUtils";
-
 export interface Quote {
   content: React.ReactNode | string;
   author: string | React.ReactNode;
@@ -13,17 +11,11 @@ const useQuote = (): Quote => {
 
   const quotes: Quote[] = [
     {
-      author: intl.formatMessage(
-        {
-          defaultMessage:
-            "Government of Canada <abbreviation>IT</abbreviation> Apprentice",
-          id: "pRGDLn",
-          description: "author of testimonial number one",
-        },
-        {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-        },
-      ),
+      author: intl.formatMessage({
+        defaultMessage: "Government of Canada IT Apprentice",
+        id: "49UIne",
+        description: "author of testimonial number one",
+      }),
       content: intl.formatMessage(
         {
           defaultMessage:
