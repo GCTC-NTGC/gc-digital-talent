@@ -208,6 +208,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             itemCount={user.workExperiences?.length}
             icon={BriefcaseIcon}
+            color="primary"
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
@@ -217,6 +218,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             itemCount={user.educationExperiences?.length}
             icon={BookOpenIcon}
+            color="secondary"
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
@@ -226,6 +228,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             itemCount={user.communityExperiences?.length}
             icon={UsersIcon}
+            color="tertiary"
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
@@ -235,6 +238,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             itemCount={user.personalExperiences?.length}
             icon={LightBulbIcon}
+            color="quaternary"
           />
           <HeroCardExperienceItem
             sectionName={intl.formatMessage({
@@ -244,6 +248,7 @@ export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             itemCount={user.awardExperiences?.length}
             icon={StarIcon}
+            color="quinary"
           />
         </HeroCard>
       </div>

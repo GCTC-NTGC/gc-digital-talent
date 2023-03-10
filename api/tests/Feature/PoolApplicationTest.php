@@ -28,10 +28,11 @@ class PoolApplicationTest extends TestCase
     protected $guestUser;
     protected $applicantUser;
     protected $teamUser;
-    protected $adminUser;
+    protected $responderUser;
     protected $uuid;
     protected $toBeDeleted;
-    protected $teamName = "application-test-team";
+
+    protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $queryDocument =
     /** @lang GraphQL */
@@ -103,10 +104,6 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
-
         $this->guestUser = User::factory()->create([
             'email' => 'guest-user@test.com',
             'sub' => 'guest-user@test.com',
@@ -127,18 +124,20 @@ class PoolApplicationTest extends TestCase
         // Add generic job title for submission
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
+        $this->responderUser = User::factory()->create([
+            'email' => 'request-responder-user@test.com',
+            'sub' => 'request-responder-user@test.com',
         ]);
-        $this->adminUser->syncRoles([
+        $this->responderUser->syncRoles([
             "guest",
             "base_user",
             "applicant",
-            "request_responder",
-            "platform_admin"
+            "request_responder"
         ]);
 
+        $team = Team::factory()->create([
+            'name' => "pool-application-test-team",
+        ]);
         $this->teamUser = User::factory()->create([
             'email' => 'team-user@test.com',
             'sub' => 'team-user@test.com',
@@ -148,7 +147,7 @@ class PoolApplicationTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator", $this->teamName);
+        $this->teamUser->attachRole("pool_operator",  $team);
     }
 
     public function testApplicationCreation(): void
@@ -182,7 +181,7 @@ class PoolApplicationTest extends TestCase
         // Guest users cannot create applications
         $this->actingAs($this->guestUser, "api")
             ->graphQL($this->createMutationDocument, $variables)
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert creating a pool application succeeds
         // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
@@ -202,7 +201,7 @@ class PoolApplicationTest extends TestCase
         $this->assertEquals(1, $applicationCollectionCount);
     }
 
-    public function testUserCannotApplyToDraftApplication(): void
+    public function testUserCannotApplyToDraftPool(): void
     {
         $pool = Pool::factory()->create([
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
@@ -230,7 +229,7 @@ class PoolApplicationTest extends TestCase
             ->assertJson($result);
     }
 
-    public function testUserCannotApplyToExpiredApplication(): void
+    public function testUserCannotApplyToExpiredPool(): void
     {
         $pool = Pool::factory()->create([
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
@@ -261,14 +260,14 @@ class PoolApplicationTest extends TestCase
     public function testArchivingApplication(): void
     {
         // Create pool candidates
-        $achievableApplication = PoolCandidate::factory()->create([
+        $archivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
             'submitted_at' => config('constants.past_date'),
             'user_id' => $this->applicantUser->id
         ]);
 
         // this one is archived
-        $notAchievableApplication = PoolCandidate::factory()->create([
+        $notArchivableApplication = PoolCandidate::factory()->create([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
             'archived_at' => config('constants.past_date'),
             'submitted_at' => config('constants.past_date'),
@@ -277,12 +276,17 @@ class PoolApplicationTest extends TestCase
 
         // This user does not own the application so cannot archive
         $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $achievableApplication->id])
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        // Request responders may not archive applications they do not own
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Owner can archive
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $achievableApplication->id])
+            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
             ->assertJson(
                 fn (AssertableJson $json) =>
                 $json->has(
@@ -296,9 +300,10 @@ class PoolApplicationTest extends TestCase
                 )
             );
 
+
         // Owner cannot archive certain applications
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $notAchievableApplication->id])
+            ->graphQL($this->archiveMutationDocument, ["id" => $notArchivableApplication->id])
             ->assertJson([
                 'errors' => [[
                     'message' => 'AlreadyArchived',
@@ -328,7 +333,10 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'expiry_date' => config('constants.far_future_date'),
         ];
-        $sharedSubmitted = [...$shared,             'submitted_at' => config('constants.past_date'),];
+        $sharedSubmitted = [
+            ...$shared,
+            'submitted_at' => config('constants.past_date'),
+        ];
 
         // Create pool candidates
         // submitted at statuses for ones other than draft/draft-expired, and future expiry dates for unexpired
@@ -478,16 +486,31 @@ class PoolApplicationTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
+        $submitArgs = [
+            'id' => $newPoolCandidate->id,
+            'sig' => 'SIGNED',
+        ];
+
+        // Assert users who do not own the pool candidate cannot submit
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
         // make user incomplete
         $this->applicantUser->armed_forces_status = null;
         $this->applicantUser->save();
 
         // assert incomplete user cannot submit application
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->submitMutationDocument,  [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ])->assertJson([
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
                 'errors' => [[
                     'message' => ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE,
                 ]]
@@ -500,10 +523,8 @@ class PoolApplicationTest extends TestCase
         // assert complete user can submit application
         // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->submitMutationDocument, [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ])->assertJson(
+            ->graphQL($this->submitMutationDocument, $submitArgs)
+            ->assertJson(
                 fn (AssertableJson $json) =>
                 $json->has(
                     'data',
@@ -521,10 +542,8 @@ class PoolApplicationTest extends TestCase
 
         // assert user cannot re-submit application
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->submitMutationDocument, [
-                'id' => $newPoolCandidate->id,
-                'sig' => 'SIGNED',
-            ])->assertJson([
+            ->graphQL($this->submitMutationDocument, $submitArgs)
+            ->assertJson([
                 'errors' => [[
                     'message' => 'AlreadySubmitted',
                 ]]
@@ -772,6 +791,19 @@ class PoolApplicationTest extends TestCase
                     ]
                 ]
             ]);
+
+        // Assert non-owners cannot delete application
+        $this->actingAs($this->guestUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        $this->actingAs($this->responderUser, "api")
+            ->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // run deletion mutation and assert it returns true, indicating success
         $this->actingAs($this->applicantUser, "api")

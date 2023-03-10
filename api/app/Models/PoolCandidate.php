@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Database\Helpers\ApiEnums;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 
 /**
  * Class PoolCandidate
@@ -23,6 +26,7 @@ use App\Http\Resources\UserResource;
  * @property int $status_weight
  * @property int $pool_id
  * @property int $user_id
+ * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -44,6 +48,7 @@ class PoolCandidate extends Model
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
+        'suspended_at' => 'datetime',
         'profile_snapshot' => 'json'
     ];
 
@@ -55,6 +60,7 @@ class PoolCandidate extends Model
     protected $fillable = [
         'archived_at',
         'submitted_at',
+        'suspended_at',
         'user_id',
         'pool_id',
         'signature',
@@ -205,7 +211,12 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        return $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]);
+        $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
+            ->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())
+                    ->orWhereNull('suspended_at');
+            });
+        return $query;
     }
 
     public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
@@ -252,7 +263,11 @@ class PoolCandidate extends Model
 
     public function scopeNotDraft(Builder $query): Builder
     {
-        return $query->whereNotNull('submitted_at')->where('submitted_at', '<=', now());
+
+        $query->whereNotNull("submitted_at")
+            ->where('submitted_at', '<=', now());
+
+        return $query;
     }
 
    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
@@ -386,5 +401,15 @@ class PoolCandidate extends Model
             User::scopeAvailableForOpportunities($userQuery);
         });
         return $query;
+    }
+
+    /**
+     * Determine if a PoolCandidate is in draft mode
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return is_null($this->submitted_at) || $this->submitted_at->isFuture();
     }
 }

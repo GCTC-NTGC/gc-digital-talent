@@ -87,11 +87,7 @@ const Content = React.forwardRef<
               <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
             </button>
           </StyledClose>
-          <div
-            data-h2-radius="base(rounded)"
-            data-h2-overflow="base(hidden)"
-            data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          >
+          <div data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))">
             {children}
           </div>
         </StyledContent>
@@ -145,6 +141,7 @@ const Header = ({ subtitle, children }: DialogHeaderProps) => (
       data-h2-overflow="base(hidden)"
       data-h2-background="base(black)"
       data-h2-color="base(white)"
+      data-h2-radius="base(rounded rounded 0 0)"
     >
       <div data-h2-position="base(relative)">
         <StyledTitle>{children}</StyledTitle>
@@ -183,7 +180,11 @@ interface DialogBodyProps {
 }
 
 const Body = ({ children }: DialogBodyProps) => (
-  <div data-h2-background="base(foreground)" data-h2-padding="base(x1)">
+  <div
+    data-h2-background="base(foreground)"
+    data-h2-padding="base(x1)"
+    data-h2-radius="base(0 0 rounded rounded)"
+  >
     {children}
   </div>
 );

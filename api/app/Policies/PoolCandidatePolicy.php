@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PoolCandidatePolicy
@@ -14,10 +13,9 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
+    public function viewAny()
     {
         // We don't want anyone to view any application
         return false;
@@ -30,28 +28,46 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, PoolCandidate $poolCandidate)
+    public function view(User $user, PoolCandidate $poolCandidate)
     {
+
         // If the user owns the application, we do not care about status
-        if ($user?->id === $poolCandidate->user_id) {
-            return $user?->isAbleTo("view-own-application");
+        if ($user->id === $poolCandidate->user_id && $user?->isAbleTo("view-own-application")) {
+            return true;
         }
 
-        // Check if user can view draft applications
-        if (!$poolCandidate->submitted_at || in_array($poolCandidate->pool_candidate_status, [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED])) {
-            return $user?->isAbleTo("view-any-draftApplication");
+        $isDraft = $poolCandidate->isDraft();
+
+        // Exit early if user can view any draft application
+        if ($isDraft) {
+            return $user->isAbleTo("view-any-draftApplication");
         }
 
-        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
+        if(!$isDraft) {
+            if($user->isAbleTo("view-any-submittedApplication")) {
+                return true;
+            }
 
-        // User is part of owning team, so can view
-        if ($candidatePoolTeam) {
-            return $user?->isAbleTo("view-team-submittedApplication", $candidatePoolTeam, true);
+            $poolCandidate->loadMissing('pool.team');
+            $candidatePoolTeam = $poolCandidate->pool->team;
+            if ($user->isAbleTo("view-team-submittedApplication", $candidatePoolTeam)) {
+                return true;
+            }
         }
 
-        // If owner is not current user or application is not draft,
-        // Check if they can view any submitted application
-        return $user?->isAbleTo("view-any-submittedApplication");
+        // Noting passed for deny access
+        return false;
+    }
+
+    /**
+     * Determine whether the user can create draft models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function createDraft(User $user)
+    {
+        return $user->isAbleTo("create-own-draftApplication");
     }
 
     /**
@@ -60,12 +76,9 @@ class PoolCandidatePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(?User $user)
+    public function create(User $user)
     {
-        return $user?->isAbleTo([
-            "create-own-draftApplication",
-            "create-any-application"
-        ]);
+        return $user->isAbleTo("create-any-application");
     }
 
     /**
@@ -75,17 +88,14 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(?User $user, PoolCandidate $poolCandidate)
+    public function update(User $user, PoolCandidate $poolCandidate)
     {
-        // Only update an owner can do is submission, so check that
-        if ($user?->id === $poolCandidate->user_id) {
-            $user?->isAbleTo("submit-own-application");
-        }
 
-        $candidatePoolTeam = $this->userBelongsToPoolCandidatePool($user, $poolCandidate);
-
-        if ($candidatePoolTeam) {
-            return $user?->isAbleTo("update-team-applicationStatus", $candidatePoolTeam, true);
+        $poolCandidate->loadMissing('pool.team');
+        $candidatePoolTeam = $poolCandidate->pool->team;
+        $isDraft = $poolCandidate->isDraft();
+        if ($user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam) && !$isDraft) {
+            return true;
         }
 
         return false;
@@ -94,50 +104,64 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can submit the model.
      *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be submitted is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
+     *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function submit(?User $user, PoolCandidate $poolCandidate)
+    public function submit(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("submit-own-application");
+        return  $user->id === $poolCandidate->user_id && $user->isAbleTo("submit-own-application");
     }
 
     /**
      * Determine whether the user can archive the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\PoolCandidate  $poolCandidate
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function archive(?User $user, PoolCandidate $poolCandidate)
-    {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("archive-own-submittedApplication");
-    }
-
-    /**
-     * Determine whether the user can suspend the model.
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be archived is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function suspend(?User $user, PoolCandidate $poolCandidate)
+    public function archive(User $user, PoolCandidate $poolCandidate)
     {
-        return  $user?->id === $poolCandidate->user_id && $user?->isAbleTo("suspend-own-submittedApplication");
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo("archive-own-submittedApplication");
     }
 
     /**
      * Determine whether the user can suspend the model.
+     *
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be suspended is done during data validation.
+     *
+     * If using this  policy method, please validate all data as well.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function suspend(User $user, PoolCandidate $poolCandidate)
+    {
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo("suspend-own-submittedApplication");
+    }
+
+    /**
+     * Determine whether the user can count the number of items in the model.
      *
      * Note: Everyone needs to be able to count applicants
      * for now
      *
-     * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function count(?User $user)
+    public function count()
     {
         return true;
     }
@@ -145,53 +169,17 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\PoolCandidate  $poolCandidate
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(?User $user, PoolCandidate $poolCandidate)
-    {
-        return $user?->id === $poolCandidate->user_id && $user?->isAbleTo("delete-own-draftApplication");
-    }
-
-    /**
-     * Determine whether the user can restore the model.
+     * Note: This is checking authorization, checking if the application
+     * is in a state to be deleted is done during data validation
+     *
+     * If using this  policy method, please validate all data as well.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(?User $user, PoolCandidate $poolCandidate)
+    public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return $user?->id === $poolCandidate->user_id && $user?->isAbleTo("delete-own-draftApplication");
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\PoolCandidate  $poolCandidate
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(?User $user, PoolCandidate $poolCandidate)
-    {
-        return $user?->id === $poolCandidate->user_id && $user?->isAbleTo("delete-own-draftApplication");
-    }
-
-    /**
-     * Determine if User owns the Pool for the PoolCandidate
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\PoolCandidate  $poolCandidate
-     * @return \App\Models\Team|bool
-     */
-    private function userBelongsToPoolCandidatePool(?User $user, PoolCandidate $poolCandidate)
-    {
-        $candidatePoolTeam = $poolCandidate->with('pool.team')->get()->pluck('pool.team')->first();
-        if($user?->rolesTeams->contains($candidatePoolTeam->id)) {
-            return $candidatePoolTeam;
-        }
-
-        return false;
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo("delete-own-draftApplication");
     }
 }

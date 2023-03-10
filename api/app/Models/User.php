@@ -66,6 +66,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Model implements Authenticatable
 {
+
     use Authorizable;
     use LaratrustUserTrait;
     use HasFactory;
@@ -117,7 +118,6 @@ class User extends Model implements Authenticatable
     {
         return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {

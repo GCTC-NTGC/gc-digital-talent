@@ -318,7 +318,7 @@ type Pool {
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate] @hasMany(relation: "publishedPoolCandidates") @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   status: PoolStatus
     @rename(attribute: "pool_status")
@@ -438,6 +438,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
+  suspendedAt: DateTime @rename(attribute: "suspended_at")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -898,8 +899,10 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
-    @all
+  poolCandidates(
+    includeIds: [ID] @in(key: "id")
+  ): [PoolCandidate]!
+    @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
   poolCandidatesPaginated(
@@ -1605,11 +1608,11 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @can(ability: "update", find: "id", injectArgs: true)
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @can(ability: "update", find: "id", injectArgs: true)
   deleteUser(id: ID!): User
     @delete(globalId: false)
     @guard
@@ -1796,8 +1799,11 @@ type Mutation {
   archiveApplication(id: ID!): PoolCandidate
     @guard
     @can(ability: "archive", find: "id")
+  changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
+    @guard
+    @can(ability: "suspend", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-    @can(ability: "create")
+    @can(ability: "createDraft")
   deleteApplication(id: ID!): Boolean
     @guard
     @can(ability: "delete", find: "id", model: "PoolCandidate")

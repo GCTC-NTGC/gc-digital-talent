@@ -23,8 +23,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
       "base:all(black) base:all:admin(white) base:all:iap(white)",
   },
   tertiary: {
-    "data-h2-background-color":
-      "base(tertiary.lighter) base:dark:iap(tertiary.light)",
+    "data-h2-background-color": "base(tertiary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quaternary: {
@@ -70,17 +69,19 @@ export const HeroCard = ({
         data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
-        <Link href={href}>
+        <Link
+          href={href}
+          data-h2-transform="base:hover:children[svg](translate(20%, 0))"
+          data-h2-transition="base:children[svg](transform .2s ease)"
+        >
           <span
             data-h2-flex-grid="base(center, 0, 0)"
             data-h2-justify-content="base(space-between)"
           >
             <span>{title}</span>
             <ChevronDoubleRightIcon
-              style={{
-                width: "1em",
-                height: "1em",
-              }}
+              data-h2-height="base(x1)"
+              data-h2-width="base(x1)"
             />
           </span>
         </Link>

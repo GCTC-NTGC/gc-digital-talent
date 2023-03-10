@@ -18,7 +18,26 @@ fragment team on Team {
     en
     fr
   }
+  roleAssignments {
+    id
+    role {
+      id
+      name
+      isTeamBased
+      displayName {
+        en
+        fr
+      }
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
 }
+
 
 query ListTeams {
   teams {
@@ -30,6 +49,7 @@ query ListRoles {
   roles {
     id
     name
+    isTeamBased
     displayName {
       en
       fr

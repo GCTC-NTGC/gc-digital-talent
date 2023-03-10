@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { OperationContext } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -18,12 +19,11 @@ import {
   getLanguage,
   getRole,
 } from "@gc-digital-talent/i18n";
-import { emptyToNull } from "@gc-digital-talent/helpers";
-import { NotFound, Pending } from "@gc-digital-talent/ui";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
+  useListRolesQuery,
   Language,
   LegacyRole,
   Scalars,
@@ -33,6 +33,11 @@ import {
   useUpdateUserAsAdminMutation,
   useUserQuery,
 } from "~/api/generated";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+
+import UserRoleTable from "./components/IndividualRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -275,6 +280,11 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Role"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 type RouteParams = {
   userId: Scalars["ID"];
 };
@@ -282,8 +292,11 @@ type RouteParams = {
 const UpdateUserPage = () => {
   const intl = useIntl();
   const { userId } = useParams<RouteParams>();
+  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
+    useListRolesQuery();
   const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId || "" },
+    context,
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();
@@ -305,6 +318,7 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "legacyRoles",
+          "roles",
         ]),
       },
     }).then((result) => {
@@ -313,6 +327,8 @@ const UpdateUserPage = () => {
       }
       return Promise.reject(result.error);
     });
+
+  const availableRoles = rolesData?.roles.filter(notEmpty);
 
   return (
     <>
@@ -323,12 +339,27 @@ const UpdateUserPage = () => {
           description: "Page title for the user edit page",
         })}
       />
-      <Pending fetching={fetching} error={error}>
+      <Pending fetching={fetching || rolesFetching} error={error || rolesError}>
         {userData?.user ? (
-          <UpdateUserForm
-            initialUser={userData?.user}
-            handleUpdateUser={handleUpdateUser}
-          />
+          <>
+            <UpdateUserForm
+              initialUser={userData.user}
+              handleUpdateUser={handleUpdateUser}
+            />
+            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Roles and permissions",
+                id: "m54J0C",
+                description:
+                  "Heading for updating a users roles and permissions",
+              })}
+            </Heading>
+            <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
+          </>
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

@@ -4,7 +4,9 @@ namespace App\Policies;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Models\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class UserPolicy
 {
@@ -63,8 +65,18 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User $model, array $injected)
     {
+        /**
+         * If a user is assigning a role here, check all actions
+         * and fail early
+         */
+        if (isset($injected["roles"])) {
+            if (!$user->isAbleTo("assign-any-role")) {
+                return false;
+            }
+        }
+        // TODO: what if a user isAbleTo assign-any-role but not update-any-user? How do we handle that situation?
         return $user->isAbleTo('update-any-user')
             || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
     }
