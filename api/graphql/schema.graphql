@@ -893,6 +893,7 @@ type Query {
     @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
+    @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]! @all @can(ability: "viewAny")
   poolCandidate(id: UUID! @eq): PoolCandidate
@@ -1616,18 +1617,6 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
-  createPool(pool: CreatePoolInput! @spread): Pool
-    @create
-    @guard
-    @can(ability: "create")
-  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
-    @update
-    @guard
-    @can(ability: "update", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(globalId: false)
-    @guard
-    @can(ability: "delete", find: "id")
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @create @guard @can(ability: "create")
@@ -1756,7 +1745,19 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
 
-  # PoolAdvertisement mutations
+  # Pool/PoolAdvertisement mutations
+  createPool(pool: CreatePoolInput! @spread): Pool
+    @create
+    @guard
+    @can(ability: "create")
+  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
+    @update
+    @guard
+    @can(ability: "update", find: "id")
+  deletePool(id: ID!): Pool
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")

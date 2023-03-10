@@ -9,6 +9,9 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\Log;
+// Log::debug($pool->team);
+
 class PoolPolicy
 {
     use HandlesAuthorization;
@@ -21,7 +24,7 @@ class PoolPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-pool");
     }
 
     /**
@@ -33,7 +36,11 @@ class PoolPolicy
      */
     public function view(User $user, Pool $pool)
     {
-        return $user->isAdmin();
+        if ($user->isAbleTo("view-team-pool", $pool->team)) {
+            return true;
+        }
+
+        return $user->isAbleTo("view-any-pool");
     }
 
     /**
@@ -45,14 +52,26 @@ class PoolPolicy
      */
     public function viewAdvertisement(User $user = null, Pool $pool)
     {
-        if ($pool->advertisement_status != ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
+        if($pool->isPublished() && $user->isAbleTo("view-any-publishedPoolAdvertisement")) {
             return true;
         }
-        // check if a user is logged in or anonymous, anonymous may never look at DRAFT
-        if ($user) {
-            return $user->isAdmin();
+
+        if ($user->isAbleTo("view-team-pool", $pool->team)) {
+            return true;
         }
-        return false;
+
+        return $user->isAbleTo("view-any-pool");
+    }
+
+    /**
+     * Determine whether the user can view all published poolAdvertisements. All except DRAFT are viewable to all
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyPublishedAdvertisement(User $user = null)
+    {
+        return $user->isAbleTo("view-any-publishedPoolAdvertisement");
     }
 
     /**

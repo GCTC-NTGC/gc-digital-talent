@@ -589,9 +589,6 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
-  createPool(pool: CreatePoolInput!): Pool
-  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
-  deletePool(id: ID!): Pool
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -623,6 +620,9 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
+  createPool(pool: CreatePoolInput!): Pool
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  deletePool(id: ID!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
