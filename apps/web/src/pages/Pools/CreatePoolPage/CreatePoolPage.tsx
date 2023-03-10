@@ -172,8 +172,8 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             <Select
               id="team"
               label={intl.formatMessage({
-                defaultMessage: "The team that the pool belongs to",
-                id: "DuTk5E",
+                defaultMessage: "Parent team",
+                id: "mOS8rj",
                 description:
                   "Label displayed for selecting what team a new pool belongs to.",
               })}

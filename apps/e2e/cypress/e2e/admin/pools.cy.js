@@ -57,7 +57,7 @@ describe("Pools", () => {
       });
 
     // Set team
-    cy.findByRole("combobox", { name: /the team that the pool belongs to/i})
+    cy.findByRole("combobox", { name: /parent team/i})
       .select("Digital Community Management")
       .within(() => {
         cy.get("option:selected")
