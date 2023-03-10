@@ -5,6 +5,7 @@ use App\Models\Role;
 use App\Models\Team;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -96,7 +97,7 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
-            query roles {
+            query teams {
                 teams {
                   id
                   roleAssignments {
@@ -118,12 +119,6 @@ class UserRoleTest extends TestCase
                         ];
                     })->toArray(),
                 ],
-                // [
-                //     'id' => Role::where('name', 'platform_admin')->sole()->id,
-                //     'roleAssignments' => [
-                //         'user' => ['id' => $this->platformAdmin->id]
-                //     ]
-                // ]]
             ]]
         ]);
     }
@@ -131,22 +126,15 @@ class UserRoleTest extends TestCase
     // Create several users with different roles.  Assert that an admin can see the users in each role.
     public function testAdminCanSeeRoleUsers()
     {
-        // Delete most pre-existing roles to simplify test
-        Team::where('name', '!=', 'platform_admin')->delete(); // We need to keep the admin role to run the query
-        $teamRole = Role::factory()->create(['is_team_based' => true]);
-        $team = Team::factory()->create();
-        $user = User::factory()
-            ->afterCreating(function ($user) use ($teamRole, $team) {
-                $user->syncRoles([$teamRole], $team);
-            })
-            ->create();
-
+        $platformAdminRole = Role::where('name', 'platform_admin')->sole();
+        $baseRole = Role::where('name', 'base_user')->sole();
+        $roleCount = Role::count();
 
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
             query roles {
-                teams {
+                roles {
                   id
                   roleAssignments {
                     user { id }
@@ -154,27 +142,30 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertSimilarJson([
-            'data' => [
-                'teams' => [[
-                    'id' => $team->id,
-                    'roleAssignments' =>
-                    $users->map(function ($u) {
-                        return [
-                            'user' => [
-                                'id' => $u->id
-                            ],
-                        ];
-                    })->toArray(),
-                ],
-                // [
-                //     'id' => Role::where('name', 'platform_admin')->sole()->id,
-                //     'roleAssignments' => [
-                //         'user' => ['id' => $this->adminUser->id]
-                //     ]
-                // ]]
-            ]]
-        ]);
+        )->assertJson(fn (AssertableJson $json) =>
+            $json->has('data.roles', $roleCount) // Returns all the roles
+        )->assertJsonFragment(
+            [
+                'id' => $platformAdminRole->id, // Check that platform_admin role has one user
+                'roleAssignments' => [[
+                    'user' => [
+                        'id' => $this->adminUser->id
+                    ],
+                ]],
+            ],
+        )->assertJsonFragment(
+            [
+                'id' => $baseRole->id, // Check that base_role has two users.
+                'roleAssignments' => [[
+                    'user' => [
+                        'id' => $this->baseUser->id
+                    ],
+                    'user' => [
+                        'id' => $this->adminUser->id
+                    ],
+                ]],
+            ]
+            );
     }
 
     // Create a user added with several teams.  Assert that the admin can query the user's teams.
