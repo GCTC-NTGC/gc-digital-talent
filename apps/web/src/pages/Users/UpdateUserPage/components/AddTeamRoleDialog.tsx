@@ -90,9 +90,7 @@ const AddTeamRoleDialog = ({
   });
 
   const roleOptions = availableRoles
-    .filter((role) => {
-      return role.isTeamBased;
-    })
+    .filter((role) => role.isTeamBased)
     .map((role) => ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,
