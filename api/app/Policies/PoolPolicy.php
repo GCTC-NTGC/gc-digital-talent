@@ -9,9 +9,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
 
-use Illuminate\Support\Facades\Log;
-// Log::debug($pool->team);
-
 class PoolPolicy
 {
     use HandlesAuthorization;
@@ -52,7 +49,10 @@ class PoolPolicy
      */
     public function viewAdvertisement(User $user = null, Pool $pool)
     {
-        if($pool->isPublished() && $user->isAbleTo("view-any-publishedPoolAdvertisement")) {
+        if (
+            $pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT
+            && $user->isAbleTo("view-any-publishedPoolAdvertisement")
+        ) {
             return true;
         }
 
@@ -64,7 +64,7 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can view all published poolAdvertisements. All except DRAFT are viewable to all
+     * Determine whether the user can view all published poolAdvertisements.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -75,26 +75,30 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create pools.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("create-team-pool");
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update draft pools.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Pool $pool)
+    public function updateDraft(User $user, Pool $pool)
     {
-        return $user->isAdmin();
+        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
+            return false;
+        }
+
+        return $user->isAbleTo("update-team-draftPool", $pool->team);
     }
 
     /**
@@ -116,7 +120,7 @@ class PoolPolicy
             return Response::deny("Expiry date must be a future date.");
         }
 
-        return $user->isAdmin();
+        return $user->isAbleTo("publish-any-pool");
     }
 
     /**

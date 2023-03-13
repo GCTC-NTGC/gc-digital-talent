@@ -167,4 +167,79 @@ class PoolPolicyTest extends TestCase
         $this->assertTrue($this->requestResponderUser->can('viewAdvertisement', $this->teamPool));
         $this->assertTrue($this->adminUser->can('viewAdvertisement', $this->teamPool));
     }
+
+    /**
+     * Assert that only pool operators can create pools
+     *
+     * @return void
+     */
+    public function testCreate()
+    {
+        $this->assertTrue($this->poolOperatorUser->can('create', Pool::class));
+
+        $this->assertFalse($this->guestUser->can('create', Pool::class));
+        $this->assertFalse($this->applicantUser->can('create', Pool::class));
+        $this->assertFalse($this->requestResponderUser->can('create', Pool::class));
+        $this->assertFalse($this->adminUser->can('create', Pool::class));
+    }
+
+    /**
+     * Assert that only pool operators can update draft pools
+     *
+     * @return void
+     */
+    public function testUpdateDraft()
+    {
+        $this->teamPool->published_at = null;
+        $this->teamPool->save();
+
+        $this->assertTrue($this->poolOperatorUser->can('updateDraft', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('updateDraft', $this->teamPool));
+
+        // Pool operator cannot update other teams draft pools
+        $this->unOwnedPool->published_at = null;
+        $this->unOwnedPool->save();
+
+        $this->assertFalse($this->poolOperatorUser->can('updateDraft', $this->unOwnedPool));
+    }
+
+    /**
+     * Assert that no one can update published pools
+     *
+     * @return void
+     */
+    public function testUpdatePublished()
+    {
+        $this->teamPool->published_at = config('constants.past_date');
+        $this->teamPool->save();
+
+        $this->assertFalse($this->guestUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->poolOperatorUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('updateDraft', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('updateDraft', $this->teamPool));
+    }
+
+    /**
+     * Assert that only platform admins can publish pools
+     *
+     * @return void
+     */
+    public function testPublish()
+    {
+        $this->teamPool->published_at = null;
+        $this->teamPool->closing_date = config('constants.far_future_date');
+        $this->teamPool->save();
+
+        $this->assertTrue($this->adminUser->can('publish', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('publish', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('publish', $this->teamPool));
+        $this->assertFalse($this->poolOperatorUser->can('publish', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('publish', $this->teamPool));
+    }
 }

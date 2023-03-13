@@ -1750,14 +1750,6 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
-  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
-    @update
-    @guard
-    @can(ability: "update", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(globalId: false)
-    @guard
-    @can(ability: "delete", find: "id")
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
@@ -1766,13 +1758,17 @@ type Mutation {
     @create(model: "Pool")
     @guard
     @can(ability: "create", model: "Pool")
+  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
+    @update
+    @guard
+    @can(ability: "updateDraft", find: "id")
   updatePoolAdvertisement(
     id: ID!
     poolAdvertisement: UpdatePoolAdvertisementInput! @spread
   ): PoolAdvertisement
     @update(model: "Pool")
     @guard
-    @can(ability: "update", find: "id", model: "Pool")
+    @can(ability: "updateDraft", find: "id", model: "Pool")
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "publish", find: "id", model: "Pool")
@@ -1790,6 +1786,10 @@ type Mutation {
   closePoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
+  deletePool(id: ID!): Pool
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
     @delete(model: "Pool", globalId: false)
     @guard

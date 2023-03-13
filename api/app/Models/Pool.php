@@ -149,14 +149,4 @@ class Pool extends Model
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
         return $query;
     }
-
-    /**
-     * Determine if a Pool has been published
-     *
-     * @return bool
-     */
-    public function isPublished()
-    {
-        return !is_null($this->published_at) && $this->published_at->isPast();
-    }
 }
