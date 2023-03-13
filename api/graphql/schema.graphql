@@ -126,7 +126,7 @@ type User {
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Pool Manager info
-  pools: [Pool] @hasMany # Pools a user owns
+  pools: [Pool] @hasMany @can(ability: "viewAny", resolved: true) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
@@ -424,8 +424,8 @@ enum PublishingGroup {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo
-  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
+  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool") @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
@@ -580,7 +580,7 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: [Pool] @belongsToMany
+  pools: [Pool] @belongsToMany @can(ability: "viewAny", resolved: true)
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -599,7 +599,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
-  pools: [Pool] @belongsToMany
+  pools: [Pool] @belongsToMany @can(ability: "viewAny", resolved: true)
 }
 
 type PoolCandidateSearchRequest {
@@ -857,7 +857,7 @@ input PoolCandidateSearchInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool!
+  pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
