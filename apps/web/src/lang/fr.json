@@ -6430,10 +6430,6 @@
     "defaultMessage": "Brève description de l’équipe (en français)",
     "description": "Short description for a team in French"
   },
-  "QC23B1": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "Rg0SpL": {
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
@@ -6441,10 +6437,6 @@
   "VJYI6K": {
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
-  },
-  "W0BVd+": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Name of an organization/team in French field."
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -6482,29 +6474,13 @@
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
   },
-  "1cPlHY": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Label for the English team display name input"
-  },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "OOnxtm": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Label for the French team display name input"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
-  },
-  "RtDf2h": {
-    "defaultMessage": "Brève description de l’organisation (en français)",
-    "description": "Label for the French team description input"
-  },
-  "TCQhlo": {
-    "defaultMessage": "Brève description de l’organisation (en anglais)",
-    "description": "Label for the English team description input"
   },
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
@@ -6805,6 +6781,30 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "Vf+lsG": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Label for the French team display name input"
+  },
+  "XNBegf": {
+    "defaultMessage": "Brève description de l’équipe (Français)",
+    "description": "Label for the French team description input"
+  },
+  "YjMfWZ": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "aGBFm5": {
+    "defaultMessage": "Brève description de l’équipe (Anglais)",
+    "description": "Label for the English team description input"
+  },
+  "n4pt+y": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Label for the English team display name input"
+  },
+  "rdYjIb": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Name of an organization/team in English field."
   },
   "hr/i9h": {
     "defaultMessage": "Sélectionnez une équipe...",
