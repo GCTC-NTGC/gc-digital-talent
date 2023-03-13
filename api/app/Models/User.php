@@ -289,7 +289,7 @@ class User extends Model implements Authenticatable
     /**
      * Return applicants with PoolCandidates in any of the given pools.
      * Only consider pool candidates who are available,
-     * ie not expired, with the AVAILABLE status, and applications not suspended
+     * ie not expired, with the AVAILABLE status, and the application is not suspended
      *
      * @param Builder $query
      * @param array $poolIds
