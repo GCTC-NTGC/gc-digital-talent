@@ -861,6 +861,7 @@ input PoolCandidateSearchInput {
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
+  suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
 }
 
 type CandidateSearchPoolResult {

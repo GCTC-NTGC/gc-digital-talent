@@ -261,6 +261,20 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeSuspendedStatus(Builder $query, ?string $suspendedStatus)
+    {
+        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
+        if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+            $query->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())
+                    ->orWhereNull('suspended_at');
+            });
+        } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+            $query->whereDate('suspended_at', '<', Carbon::now());
+        }
+        return $query;
+    }
+
     public function scopeNotDraft(Builder $query): Builder
     {
 
