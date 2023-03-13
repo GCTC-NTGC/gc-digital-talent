@@ -6482,29 +6482,13 @@
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
   },
-  "1cPlHY": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Label for the English team display name input"
-  },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "OOnxtm": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Label for the French team display name input"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
-  },
-  "RtDf2h": {
-    "defaultMessage": "Brève description de l’organisation (en français)",
-    "description": "Label for the French team description input"
-  },
-  "TCQhlo": {
-    "defaultMessage": "Brève description de l’organisation (en anglais)",
-    "description": "Label for the English team description input"
   },
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
@@ -6785,10 +6769,6 @@
   "cOJVBW": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
-  },
-  "eW7I5E": {
-    "defaultMessage": "Sélectionner les rôles...",
-    "description": "Placeholder text for role selection input"
   },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
