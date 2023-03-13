@@ -1,5 +1,4 @@
 name: Blocking Issues
-uses: Levi-Lesches/blocking-issues@v2.0.1
 
 on:
   issues:
@@ -13,7 +12,7 @@ jobs:
     name: Checks for blocking issues
 
     steps:
-      - uses: Levi-Lesches/blocking-issues@v2
+      - uses: Levi-Lesches/blocking-issues@v2.0.1
         with:
           # Optional: Choose an existing label to use instead of creating a new one.
           # If the label cannot be found, the default one will be created and used.
