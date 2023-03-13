@@ -137,7 +137,9 @@ const AddTeamRoleDialog = ({
                   description:
                     "Label for the input to select team of a team role",
                 })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Select team...",
                   id: "ZdOvlC",
