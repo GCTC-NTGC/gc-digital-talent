@@ -6805,5 +6805,13 @@
   "rdYjIb": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
     "description": "Name of an organization/team in English field."
+  },
+  "hr/i9h": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder displayed for team selection input."
+  },
+  "mOS8rj": {
+    "defaultMessage": "Équipe principale",
+    "description": "Label displayed for selecting what team a new pool belongs to."
   }
 }
