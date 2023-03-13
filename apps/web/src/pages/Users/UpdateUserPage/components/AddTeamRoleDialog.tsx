@@ -4,7 +4,10 @@ import { useIntl } from "react-intl";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
-import { SelectFieldV2 as SelectField } from "@gc-digital-talent/forms";
+import {
+  MultiSelectField,
+  SelectFieldV2 as SelectField,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -140,7 +143,7 @@ const AddTeamRoleDialog = ({
                 isLoading={teamsFetching}
                 options={teamOptions}
               />
-              <SelectField
+              <MultiSelectField
                 id="roles"
                 name="roles"
                 label={intl.formatMessage({
