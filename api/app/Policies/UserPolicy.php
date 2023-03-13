@@ -119,6 +119,9 @@ class UserPolicy
             || (
                 $user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams($model, $user->rolesTeams()->pluck('id')
+            ) || (
+                $user->isAbleTo('view-own-applicantProfile')
+                && $user->id === $model->id
             )
         );
     }
