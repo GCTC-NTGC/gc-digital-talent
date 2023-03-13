@@ -6430,10 +6430,6 @@
     "defaultMessage": "Brève description de l’équipe (en français)",
     "description": "Short description for a team in French"
   },
-  "QC23B1": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "Rg0SpL": {
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
@@ -6441,10 +6437,6 @@
   "VJYI6K": {
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
-  },
-  "W0BVd+": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Name of an organization/team in French field."
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -6789,5 +6781,29 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "Vf+lsG": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Label for the French team display name input"
+  },
+  "XNBegf": {
+    "defaultMessage": "Brève description de l’équipe (Français)",
+    "description": "Label for the French team description input"
+  },
+  "YjMfWZ": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "aGBFm5": {
+    "defaultMessage": "Brève description de l’équipe (Anglais)",
+    "description": "Label for the English team description input"
+  },
+  "n4pt+y": {
+    "defaultMessage": "Nom de l’équipe (Anglais))",
+    "description": "Label for the English team display name input"
+  },
+  "rdYjIb": {
+    "defaultMessage": "Nom de l’équipe (Anglais))",
+    "description": "Name of an organization/team in English field."
   }
 }
