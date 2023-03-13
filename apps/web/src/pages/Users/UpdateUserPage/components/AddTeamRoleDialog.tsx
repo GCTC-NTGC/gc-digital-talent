@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { PlusIcon } from "@heroicons/react/24/outline";
@@ -59,6 +59,8 @@ const AddTeamRoleDialog = ({
 
   const {
     handleSubmit,
+    watch,
+    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -95,6 +97,16 @@ const AddTeamRoleDialog = ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,
     }));
+
+  const teamId = watch("team");
+  useEffect(() => {
+    const roleAssignments = user.roleAssignments || [];
+    const activeRoleIds = roleAssignments
+      .filter((ra) => ra.team?.id === teamId)
+      .map((r) => r.role?.id)
+      .filter(notEmpty);
+    setValue("roles", activeRoleIds);
+  }, [user.roleAssignments, teamId, setValue]);
 
   const [{ data: teamsData, fetching: teamsFetching }] = useListTeamsQuery();
 
