@@ -110,6 +110,7 @@ export const ApplicationStatusForm = ({
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Heading
               level="h3"
+              size="h2"
               data-h2-font-size="base(h6)"
               data-h2-margin="base(0, 0, x0.25, 0)"
               data-h2-display="base(flex)"
@@ -163,6 +164,7 @@ export const ApplicationStatusForm = ({
             />
             <Heading
               level="h3"
+              size="h2"
               data-h2-font-size="base(h6)"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
