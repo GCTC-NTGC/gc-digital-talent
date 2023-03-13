@@ -208,23 +208,6 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that no one can update published pools
-     *
-     * @return void
-     */
-    public function testUpdatePublished()
-    {
-        $this->teamPool->published_at = config('constants.past_date');
-        $this->teamPool->save();
-
-        $this->assertFalse($this->guestUser->can('updateDraft', $this->teamPool));
-        $this->assertFalse($this->applicantUser->can('updateDraft', $this->teamPool));
-        $this->assertFalse($this->poolOperatorUser->can('updateDraft', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('updateDraft', $this->teamPool));
-        $this->assertFalse($this->adminUser->can('updateDraft', $this->teamPool));
-    }
-
-    /**
      * Assert that only platform admins can publish pools
      *
      * @return void
@@ -241,5 +224,76 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->applicantUser->can('publish', $this->teamPool));
         $this->assertFalse($this->poolOperatorUser->can('publish', $this->teamPool));
         $this->assertFalse($this->requestResponderUser->can('publish', $this->teamPool));
+    }
+
+    /**
+     * Assert that only pool operators can update a pools closing date
+     *
+     * @return void
+     */
+    public function testChangeClosingDate()
+    {
+        $this->assertTrue($this->poolOperatorUser->can('changePoolClosingDate', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('changePoolClosingDate', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('changePoolClosingDate', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('changePoolClosingDate', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('changePoolClosingDate', $this->teamPool));
+        // Pool operator cannot update other teams pools closing dates
+        $this->assertFalse($this->poolOperatorUser->can('changePoolClosingDate', $this->unOwnedPool));
+    }
+
+    /**
+     * Assert that only pool operators can close a pool advertisement
+     *
+     * @return void
+     */
+    public function testCloseAdvertisement()
+    {
+        $this->assertTrue($this->poolOperatorUser->can('closePoolAdvertisement', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('closePoolAdvertisement', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('closePoolAdvertisement', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('closePoolAdvertisement', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('closePoolAdvertisement', $this->teamPool));
+        // Pool operator cannot close other teams pool advertisements
+        $this->assertFalse($this->poolOperatorUser->can('closePoolAdvertisement', $this->unOwnedPool));
+    }
+
+    /**
+     * Assert that only pool operators can delete a draft pool
+     *
+     * @return void
+     */
+    public function testDeleteDraft()
+    {
+        $this->teamPool->published_at = null;
+        $this->teamPool->save();
+
+        $this->assertTrue($this->poolOperatorUser->can('deleteDraft', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
+        // Pool operator cannot close other teams pool advertisements
+        $this->assertFalse($this->poolOperatorUser->can('deleteDraft', $this->unOwnedPool));
+    }
+
+    /**
+     * Assert that no one can delete a published pool
+     *
+     * @return void
+     */
+    public function testDeletePublished()
+    {
+        $this->teamPool->published_at = config('constants.past_date');
+        $this->teamPool->save();
+
+        $this->assertFalse($this->guestUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->poolOperatorUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
     }
 }

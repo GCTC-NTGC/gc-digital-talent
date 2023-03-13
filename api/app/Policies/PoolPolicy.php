@@ -130,9 +130,9 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function changePoolClosingDate(User $user)
+    public function changePoolClosingDate(User $user, Pool $pool)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("update-team-poolClosingDate", $pool->team);
     }
 
     /**
@@ -142,9 +142,9 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function closePoolAdvertisement(User $user)
+    public function closePoolAdvertisement(User $user, Pool $pool)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("update-team-poolClosingDate", $pool->team);
     }
 
     /**
@@ -154,35 +154,11 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Pool $pool)
+    public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return Response::deny("You cannot delete a Pool Advertisement once it's been published.");
         }
-        return $user->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Pool $pool)
-    {
-        return $user->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Pool $pool)
-    {
-        return false;
+        return $user->isAbleTo("delete-team-draftPool", $pool->team);
     }
 }
