@@ -28,6 +28,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
   roles: Array<string>;
+  team: string | null;
 };
 
 export type TeamRoleSubmitData = Partial<UpdateUserAsAdminInput>;
@@ -52,6 +53,7 @@ const AddTeamRoleDialog = ({
   const methods = useForm<FormValues>({
     defaultValues: {
       roles: [],
+      team: null,
     },
   });
 
@@ -65,6 +67,7 @@ const AddTeamRoleDialog = ({
       roles: {
         attach: {
           roles: formValues.roles,
+          team: formValues.team,
         },
       },
     }).then(() => {
