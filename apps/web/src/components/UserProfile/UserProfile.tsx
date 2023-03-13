@@ -8,13 +8,13 @@ import {
   BoltIcon,
   MapPinIcon,
   HandThumbUpIcon,
-  UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { TableOfContents, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { Applicant } from "~/api/generated";
 
@@ -26,7 +26,7 @@ import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import ExperienceSection from "./ExperienceSection";
-import CandidatePoolsSection from "./ProfileSections/CandidatePoolsSection";
+import { StatusItem } from "../infoItem";
 
 interface SectionControl {
   isVisible: boolean;
@@ -122,6 +122,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
 }) => {
   const intl = useIntl();
   const { experiences } = applicant;
+  const featureFlags = useFeatureFlags();
 
   type SectionKeys = keyof UserProfileProps["sections"];
 
@@ -142,88 +143,104 @@ const UserProfile: React.FC<UserProfileProps> = ({
               })}
             </TableOfContents.AnchorLink>
           )}
-          {showSection("hiringPools") && (
-            <TableOfContents.AnchorLink id="pools-section">
-              {intl.formatMessage({
-                defaultMessage: "My Hiring Pools",
-                id: "xUl9pz",
-                description: "Title of the My Hiring Pools section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
           {showSection("about") && (
             <TableOfContents.AnchorLink id="about-section">
-              {intl.formatMessage({
-                defaultMessage: "About Me",
-                id: "4sJvia",
-                description: "Title of the About link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "About Me",
+                  id: "4sJvia",
+                  description: "Title of the About link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("employmentEquity") && (
             <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
-              {intl.formatMessage({
-                defaultMessage: "Diversity, equity and inclusion",
-                id: "e2R6fy",
-                description:
-                  "Title of the Diversity, equity and inclusion link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Diversity, equity and inclusion",
+                  id: "e2R6fy",
+                  description:
+                    "Title of the Diversity, equity and inclusion link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("language") && (
             <TableOfContents.AnchorLink id="language-section">
-              {intl.formatMessage({
-                defaultMessage: "Language Information",
-                id: "B9x0ZV",
-                description: "Title of the Language Information link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Language Information",
+                  id: "B9x0ZV",
+                  description: "Title of the Language Information link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("government") && (
             <TableOfContents.AnchorLink id="government-section">
-              {intl.formatMessage({
-                defaultMessage: "Government Information",
-                id: "Nc4sjC",
-                description: "Title of the Government Information link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Government Information",
+                  id: "Nc4sjC",
+                  description:
+                    "Title of the Government Information link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("workLocation") && (
             <TableOfContents.AnchorLink id="work-location-section">
-              {intl.formatMessage({
-                defaultMessage: "Work Location",
-                id: "9WxeNz",
-                description: "Title of the Work Location link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Work Location",
+                  id: "9WxeNz",
+                  description: "Title of the Work Location link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("workPreferences") && (
             <TableOfContents.AnchorLink id="work-preferences-section">
-              {intl.formatMessage({
-                defaultMessage: "Work Preferences",
-                id: "0DzlCc",
-                description: "Title of the Work Preferences link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Work Preferences",
+                  id: "0DzlCc",
+                  description: "Title of the Work Preferences link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("roleSalary") && (
             <TableOfContents.AnchorLink id="role-and-salary-section">
-              {intl.formatMessage({
-                defaultMessage: "Role and salary expectations",
-                id: "95OYVk",
-                description:
-                  "Title of the Role and salary expectations link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Role and salary expectations",
+                  id: "95OYVk",
+                  description:
+                    "Title of the Role and salary expectations link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
           {showSection("skillsExperience") && (
             <TableOfContents.AnchorLink id="skills-and-experience-section">
-              {intl.formatMessage({
-                defaultMessage: "My skills and experience",
-                id: "fqIEKE",
-                description:
-                  "Title of the My skills and experience link section",
-              })}
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "My skills and experience",
+                  id: "fqIEKE",
+                  description:
+                    "Title of the My skills and experience link section",
+                })}
+                status={featureFlags.applicantDashboard ? "success" : undefined}
+              />
             </TableOfContents.AnchorLink>
           )}
         </TableOfContents.Navigation>
@@ -257,39 +274,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
               )}
             </HeadingWrapper>
             {sections.myStatus?.override ? sections.myStatus.override : null}
-          </TableOfContents.Section>
-        )}
-        {showSection("hiringPools") && (
-          <TableOfContents.Section id="pools-section">
-            <HeadingWrapper show={!!sections.hiringPools?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={UserGroupIcon}>
-                  {intl.formatMessage({
-                    defaultMessage: "My hiring pools",
-                    id: "fNOekV",
-                    description: "Title of the my hiring pools content section",
-                  })}
-                </TableOfContents.Heading>
-              </div>
-              {sections.hiringPools?.editUrl && (
-                <EditUrlLink
-                  link={sections.hiringPools.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit My Hiring Pools",
-                    id: "l/MbFR",
-                    description: "Text on link to update a users hiring pools.",
-                  })}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.hiringPools?.override ? (
-              sections.hiringPools.override
-            ) : (
-              <CandidatePoolsSection applicant={applicant} />
-            )}
           </TableOfContents.Section>
         )}
         {showSection("about") && (
