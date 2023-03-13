@@ -24,12 +24,14 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/storage": "*",
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "^2.0.16",
+    "date-fns": "^2.29.3",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
