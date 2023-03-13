@@ -9,7 +9,7 @@
       "outputMode": "new-only"
     },
     "build:css": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "../../hydrogen.config.json"],
       "outputs": ["src/assets/css/hydrogen.css"]
     },
     "codegen": {
