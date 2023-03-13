@@ -369,18 +369,29 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create an applicant user.  Assert that they cannot query the teams.
-    public function testApplicantCannotQueryTeams()
+    // Create an applicant user.  Assert that they cannot query any team members.
+    public function testApplicantCannotQueryTeamMembers()
     {
-        $this->actingAs($this->baseUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                query teams {
-                    teams {
-                      id
+        $team = Team::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'name' => 'team1',
+        ]);
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                    /** @lang Graphql */ '
+                query team($id: UUID!) {
+                    team(id: $id) {
+                        id
+                        roleAssignments {
+                        id
+                        user {
+                            id
+                        }
+                        }
                     }
-                  }
-            '
+                }
+            ',
+                [ 'id' => $team->id ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
