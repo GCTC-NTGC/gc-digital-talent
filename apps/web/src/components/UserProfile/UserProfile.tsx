@@ -18,15 +18,38 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { Applicant } from "~/api/generated";
 
-import AboutSection from "./ProfileSections/AboutSection";
-import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
-import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
-import WorkLocationSection from "./ProfileSections/WorkLocationSection";
-import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
-import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
-import RoleSalarySection from "./ProfileSections/RoleSalarySection";
+import AboutSection, {
+  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as aboutSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/AboutSection";
+import LanguageInformationSection, {
+  hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection, {
+  hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as governmentInformationSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
+import WorkLocationSection, {
+  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as workLocationSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/WorkLocationSection";
+import WorkPreferencesSection, {
+  hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as workPreferencesSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection, {
+  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
+import RoleSalarySection, {
+  hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
+  hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
+} from "~/components/UserProfile/ProfileSections/RoleSalarySection";
+
 import ExperienceSection from "./ExperienceSection";
 import { StatusItem } from "../infoItem";
+import { Status } from "../infoItem/StatusItem";
 
 interface SectionControl {
   isVisible: boolean;
@@ -130,6 +153,16 @@ const UserProfile: React.FC<UserProfileProps> = ({
     return sections[key] && sections[key]?.isVisible;
   };
 
+  const sectionStatus = (
+    hasEmptyRequiredFields: (applicant: Applicant) => boolean,
+    hasEmptyOptionalFields: (applicant: Applicant) => boolean,
+  ): Status | undefined => {
+    if (!featureFlags.applicantDashboard) return undefined;
+    if (hasEmptyRequiredFields(applicant)) return "error";
+    if (hasEmptyOptionalFields(applicant)) return "partial";
+    return "success";
+  };
+
   return (
     <Container show={isNavigationVisible}>
       {isNavigationVisible && (
@@ -151,7 +184,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   id: "4sJvia",
                   description: "Title of the About link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  aboutSectionHasEmptyRequiredFields,
+                  aboutSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -164,7 +200,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   description:
                     "Title of the Diversity, equity and inclusion link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  diversityEquityInclusionSectionHasEmptyRequiredFields,
+                  diversityEquityInclusionSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -176,7 +215,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   id: "B9x0ZV",
                   description: "Title of the Language Information link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  languageInformationSectionHasEmptyRequiredFields,
+                  languageInformationSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -189,7 +231,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   description:
                     "Title of the Government Information link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  governmentInformationSectionHasEmptyRequiredFields,
+                  governmentInformationSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -201,7 +246,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   id: "9WxeNz",
                   description: "Title of the Work Location link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  workLocationSectionHasEmptyRequiredFields,
+                  workLocationSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -213,7 +261,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   id: "0DzlCc",
                   description: "Title of the Work Preferences link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  workPreferencesSectionHasEmptyRequiredFields,
+                  workPreferencesSectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -226,21 +277,21 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   description:
                     "Title of the Role and salary expectations link section",
                 })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
+                status={sectionStatus(
+                  roleSalarySectionHasEmptyRequiredFields,
+                  roleSalarySectionHasEmptyOptionalFields,
+                )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("skillsExperience") && (
             <TableOfContents.AnchorLink id="skills-and-experience-section">
-              <StatusItem
-                title={intl.formatMessage({
-                  defaultMessage: "My skills and experience",
-                  id: "fqIEKE",
-                  description:
-                    "Title of the My skills and experience link section",
-                })}
-                status={featureFlags.applicantDashboard ? "success" : undefined}
-              />
+              {intl.formatMessage({
+                defaultMessage: "My skills and experience",
+                id: "fqIEKE",
+                description:
+                  "Title of the My skills and experience link section",
+              })}
             </TableOfContents.AnchorLink>
           )}
         </TableOfContents.Navigation>
