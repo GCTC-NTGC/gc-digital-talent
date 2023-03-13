@@ -129,23 +129,17 @@ query getMePoolCreation {
   me {
     legacyRoles
     id
-  }
-  genericJobTitles {
-    name {
-      en
-      fr
-    }
-    key
-    classification {
-      name {
-        en
-        fr
-      }
-      group
-      level
+    roleAssignments {
       id
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
     }
-    id
   }
   classifications {
     name {
@@ -154,10 +148,6 @@ query getMePoolCreation {
     }
     level
     group
-    id
-  }
-  teams {
-    name
     id
   }
 }
