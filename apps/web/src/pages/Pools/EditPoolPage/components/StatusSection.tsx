@@ -7,8 +7,7 @@ import {
   MegaphoneIcon,
 } from "@heroicons/react/24/outline";
 
-import TableOfContents from "@common/components/TableOfContents";
-import { heavyPrimary } from "@common/helpers/format";
+import { TableOfContents, Well } from "@gc-digital-talent/ui";
 
 import { PoolAdvertisement, AdvertisementStatus } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -61,16 +60,11 @@ const StatusSection = ({
         {/* Draft status */}
         {poolAdvertisement.advertisementStatus === AdvertisementStatus.Draft ? (
           <>
-            <div
-              data-h2-background-color="base(dt-gray.light)"
-              data-h2-padding="base(x.5)"
-              data-h2-radius="base(s)"
-              style={{ flexGrow: 2 }} // to push buttons to the right side
-            >
+            <Well data-h2-flex-grow="base(2)">
               <div
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
-                style={{ gap: "0.5rem" }}
+                data-h2-gap="base(x.5)"
               >
                 <PencilIcon
                   style={{
@@ -80,14 +74,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Draft</heavyPrimary>",
-                      id: "4yBTfg",
-                      description: "Status name of a pool in DRAFT status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Draft</heavyPrimary>",
+                    id: "4yBTfg",
+                    description: "Status name of a pool in DRAFT status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -97,7 +88,7 @@ const StatusSection = ({
                   })}
                 </span>
               </div>
-            </div>
+            </Well>
             <PublishDialog
               closingDate={poolAdvertisement.closingDate}
               onPublish={onPublish}
@@ -111,7 +102,7 @@ const StatusSection = ({
         AdvertisementStatus.Published ? (
           <>
             <div
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -129,14 +120,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Published</heavyPrimary>",
-                      id: "NwpZNj",
-                      description: "Status name of a pool in PUBLISHED status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Published</heavyPrimary>",
+                    id: "NwpZNj",
+                    description: "Status name of a pool in PUBLISHED status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -165,7 +153,7 @@ const StatusSection = ({
         AdvertisementStatus.Closed ? (
           <>
             <div
-              data-h2-background-color="base(dt-gray.light)"
+              data-h2-background-color="base(gray.light)"
               data-h2-padding="base(x.5)"
               data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -183,14 +171,11 @@ const StatusSection = ({
                   }}
                 />
                 <span>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "<heavyPrimary>Closed</heavyPrimary>",
-                      id: "VCl+IZ",
-                      description: "Status name of a pool in CLOSED status",
-                    },
-                    { heavyPrimary },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Closed</heavyPrimary>",
+                    id: "VCl+IZ",
+                    description: "Status name of a pool in CLOSED status",
+                  })}
                 </span>
                 <span>
                   {intl.formatMessage({
@@ -215,7 +200,7 @@ const StatusSection = ({
         {poolAdvertisement.advertisementStatus ===
         AdvertisementStatus.Archived ? (
           <div
-            data-h2-background-color="base(dt-gray.light)"
+            data-h2-background-color="base(gray.light)"
             data-h2-padding="base(x.5)"
             data-h2-radius="base(s)"
             style={{ flexGrow: 2 }} // to push buttons to the right side
@@ -233,14 +218,11 @@ const StatusSection = ({
                 }}
               />
               <span>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
-                    id: "+5da+V",
-                    description: "Status name of a pool in ARCHIVED status",
-                  },
-                  { heavyPrimary },
-                )}
+                {intl.formatMessage({
+                  defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
+                  id: "+5da+V",
+                  description: "Status name of a pool in ARCHIVED status",
+                })}
               </span>
               <span>
                 {intl.formatMessage({

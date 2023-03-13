@@ -10,9 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 
-import Dialog from "@common/components/Dialog";
-import { IconButton } from "@common/components/Button";
-import { Link } from "@common/components";
+import { Dialog, IconButton, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -164,7 +162,6 @@ const AddExperienceDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
-          color="black"
           subtitle={intl.formatMessage({
             defaultMessage:
               "Get started by selecting the type of experience you would like to add.",
@@ -178,77 +175,79 @@ const AddExperienceDialog = ({
             description: "Heading for the Add Experience dialog",
           })}
         </Dialog.Header>
-        <div data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Before you start describing your experience, first we would like to know what category it falls into. There are five options to choose from, you can add as many experiences to each category as you want.",
-            id: "MhgtB6",
-            description: "Instructions for the Add Experience dialog",
-          })}
-        </div>
-        <div
-          data-h2-margin="base(0, x0.5)"
-          data-h2-flex-grid="base(stretch, x2, x1)"
-        >
-          {experienceSections.map(({ icon: Icon, ...section }) => (
-            <div
-              key={section.title}
-              data-h2-margin-bottom="base(x2)"
-              data-h2-flex-item="base(1of1) p-tablet(1of2)"
-            >
+        <Dialog.Body>
+          <div data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Before you start describing your experience, first we would like to know what category it falls into. There are five options to choose from, you can add as many experiences to each category as you want.",
+              id: "MhgtB6",
+              description: "Instructions for the Add Experience dialog",
+            })}
+          </div>
+          <div
+            data-h2-margin="base(0, x0.5)"
+            data-h2-flex-grid="base(stretch, x2, x1)"
+          >
+            {experienceSections.map(({ icon: Icon, ...section }) => (
               <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-justify-content="base(space-between)"
-                data-h2-height="base(100%)"
+                key={section.title}
+                data-h2-margin-bottom="base(x2)"
+                data-h2-flex-item="base(1of1) p-tablet(1of2)"
               >
-                <div>
-                  <div data-h2-margin="base(x0.5, 0)">
-                    <h3
-                      data-h2-font-weight="base(700)"
-                      data-h2-font-size="base(normal)"
-                      data-h2-display="base(flex)"
-                      data-h2-align-items="base(center)"
-                    >
-                      <span
-                        data-h2-display="base(inline-block)"
-                        data-h2-height="base(x1)"
-                        data-h2-width="base(x1)"
-                        data-h2-vertical-align="base(middle)"
-                        data-h2-margin="base(0, x0.5, 0, 0)"
-                      >
-                        <Icon />
-                      </span>
-                      {section.title}
-                    </h3>
-                  </div>
-                  <div data-h2-margin-bottom="base(x0.5)">
-                    {section.description}
-                  </div>
-                </div>
-                <Link
-                  type="button"
-                  color="blue"
-                  href={section.buttonPath}
-                  block
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-justify-content="base(space-between)"
+                  data-h2-height="base(100%)"
                 >
-                  {section.buttonText}
-                </Link>
+                  <div>
+                    <div data-h2-margin="base(x0.5, 0)">
+                      <h3
+                        data-h2-font-weight="base(700)"
+                        data-h2-font-size="base(normal)"
+                        data-h2-display="base(flex)"
+                        data-h2-align-items="base(center)"
+                      >
+                        <span
+                          data-h2-display="base(inline-block)"
+                          data-h2-height="base(x1)"
+                          data-h2-width="base(x1)"
+                          data-h2-vertical-align="base(middle)"
+                          data-h2-margin="base(0, x0.5, 0, 0)"
+                        >
+                          <Icon />
+                        </span>
+                        {section.title}
+                      </h3>
+                    </div>
+                    <div data-h2-margin-bottom="base(x0.5)">
+                      {section.description}
+                    </div>
+                  </div>
+                  <Link
+                    type="button"
+                    color="blue"
+                    href={section.buttonPath}
+                    block
+                  >
+                    {section.buttonText}
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <Dialog.Footer>
-          <Dialog.Close>
-            <IconButton color="purple" icon={ArrowLeftIcon}>
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
-            </IconButton>
-          </Dialog.Close>
-        </Dialog.Footer>
+            ))}
+          </div>
+          <Dialog.Footer>
+            <Dialog.Close>
+              <IconButton color="purple" icon={ArrowLeftIcon}>
+                {intl.formatMessage({
+                  defaultMessage: "Cancel and go back",
+                  id: "tiF/jI",
+                  description: "Close dialog button",
+                })}
+              </IconButton>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

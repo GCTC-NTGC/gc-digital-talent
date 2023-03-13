@@ -2,7 +2,9 @@ import HelmetDecorator from "./decorators/HelmetDecorator";
 import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
 import OverlayOrDialogDecorator from "./decorators/OverlayOrDialogDecorator";
 import RouterDecorator from "./decorators/RouterDecorator";
-import ThemeDecorator, {theme} from "./decorators/ThemeDecorator";
+import ThemeDecorator, {themeKey, themeMode} from "./decorators/ThemeDecorator";
+
+import { widthOf, heightOf } from "./utils";
 
 export {
   HelmetDecorator,
@@ -10,5 +12,11 @@ export {
   OverlayOrDialogDecorator,
   RouterDecorator,
   ThemeDecorator,
-  theme
+  themeKey,
+  themeMode
 };
+
+export {
+  widthOf,
+  heightOf
+}

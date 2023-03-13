@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Traits\LaratrustUserTrait;
 
@@ -65,6 +66,8 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Model implements Authenticatable
 {
+
+    use Authorizable;
     use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
@@ -115,7 +118,6 @@ class User extends Model implements Authenticatable
     {
         return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
@@ -136,6 +138,11 @@ class User extends Model implements Authenticatable
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
+    }
+    // A relationship to the custom roleAssignments pivot model
+    public function roleAssignments(): HasMany
+    {
+        return $this->hasMany(RoleAssignment::class);
     }
     public function getExperiencesAttribute()
     {
@@ -710,5 +717,37 @@ RAWSQL2;
             }
 
             // in all other cases the field stays null, so cases where all fields tested are false/null for instance
+    }
+
+    // Prepares the parameters for Laratrust and then calls the function to modify the roles
+    private function callRolesFunction($rolesInput, $functionName)
+    {
+        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the array of IDs to an array of key-value pairs where the key is 'id'.
+        $roleIdObjects = array_map(function ($id) {
+            return ['id' => $id];
+        }, $rolesInput['roles']);
+
+        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the ID to a key-value pair where the key is 'id'.
+        if (array_key_exists('team', $rolesInput))
+            $teamIdObject = ['id' => $rolesInput['team']];
+        else
+            $teamIdObject = null;
+
+        return $this->$functionName($roleIdObjects, $teamIdObject);
+    }
+
+    public function setRolesAttribute($roleAssignmentHasMany)
+    {
+        if(array_key_exists('attach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+        }
+
+        if(array_key_exists('detach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+        }
+
+        if(array_key_exists('sync', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
+        }
     }
 }

@@ -14,6 +14,7 @@ use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\PoolSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -31,12 +32,21 @@ class ApplicantFilterTest extends TestCase
 
         $this->bootRefreshesSchemaCache();
 
-        // Create admin user we run tests as
+        $this->seed(RolePermissionSeeder::class);
+
+        // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
+        $newUser = User::create([
+            'email' => 'admin@test.com',
+            'sub' => 'admin@test.com',
+        ]);
         $newUser->legacy_roles = ['ADMIN'];
+        $newUser->syncRoles([
+            "guest",
+            "base_user",
+            "request_responder",
+            "platform_admin",
+        ]);
         $newUser->save();
     }
 

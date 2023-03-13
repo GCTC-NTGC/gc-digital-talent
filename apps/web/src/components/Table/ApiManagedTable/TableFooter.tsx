@@ -2,11 +2,15 @@ import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
 
-import Pagination from "@common/components/Pagination";
-import Pending from "@common/components/Pending";
-import { Button } from "@common/components";
-import { DownloadCsv, type DownloadCsvProps } from "@common/components/Link";
-import { toast } from "@common/components/Toast";
+import {
+  Pending,
+  Button,
+  DownloadCsv,
+  type DownloadCsvProps,
+} from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+
+import Pagination from "~/components/Pagination";
 
 import { PaginatorInfo } from "~/api/generated";
 
@@ -62,8 +66,8 @@ function TableFooter({
 
   return (
     <div
-      data-h2-background-color="base(dt-secondary.light)"
-      data-h2-radius="base(0px, 0px, s, s)"
+      data-h2-background-color="base(black.9)"
+      data-h2-radius="base(0px, 0px, rounded, rounded)"
     >
       <div data-h2-padding="base(x1, x1)">
         <div data-h2-flex-grid="base(center, x2, 0)">
@@ -129,7 +133,7 @@ function TableFooter({
                 id: "hlcd+5",
               })}
               color="white"
-              mode="outline"
+              mode="solid"
             />
           </div>
         </div>

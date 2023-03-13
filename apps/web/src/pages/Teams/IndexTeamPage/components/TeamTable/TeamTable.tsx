@@ -1,10 +1,9 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import Pending from "@common/components/Pending";
-import { Link } from "@common/components";
-import useLocale from "@common/hooks/useLocale";
-import { notEmpty } from "@common/helpers/util";
+import { Pending, Link } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Maybe, Team, useListTeamsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";

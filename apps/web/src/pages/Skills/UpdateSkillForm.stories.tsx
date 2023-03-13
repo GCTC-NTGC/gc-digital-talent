@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
+import { fakeSkills, fakeSkillFamilies } from "@gc-digital-talent/fake-data";
 
 import { UpdateSkillForm } from "./UpdateSkillPage";
 
@@ -12,6 +12,9 @@ const mockSkillFamilies = fakeSkillFamilies();
 export default {
   component: UpdateSkillForm,
   title: "Forms/Update Skill Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateSkillForm>;
 
 const Template: ComponentStory<typeof UpdateSkillForm> = (args) => {

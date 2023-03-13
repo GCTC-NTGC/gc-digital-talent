@@ -4,17 +4,17 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
-import { notEmpty } from "@common/helpers/util";
-import { FromArray } from "@common/types/utilityTypes";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pending } from "@gc-digital-talent/ui";
 import {
   getJobLookingStatus,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
-} from "@common/constants/localizedConstants";
-import Pending from "@common/components/Pending";
-import printStyles from "@common/constants/printStyles";
+} from "@gc-digital-talent/i18n";
+
+import { FromArray } from "~/types/utility";
 
 import {
   PoolCandidateSearchInput,
@@ -35,6 +35,7 @@ import {
   CandidateExpiryFilter,
 } from "~/api/generated";
 
+import printStyles from "~/styles/printStyles";
 import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
@@ -125,7 +126,7 @@ const statusAccessor = (
 ) => {
   if (status === PoolCandidateStatus.NewApplication) {
     return (
-      <span data-h2-color="base(dt-accent)" data-h2-font-weight="base(700)">
+      <span data-h2-color="base(tertiary)" data-h2-font-weight="base(700)">
         {status
           ? intl.formatMessage(getPoolCandidateStatus(status as string))
           : ""}
@@ -161,7 +162,7 @@ const priorityAccessor = (
 ) => {
   if (priority === 10 || priority === 20) {
     return (
-      <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
+      <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
         {priority
           ? intl.formatMessage(getPoolCandidatePriorities(priority))
           : ""}

@@ -2,11 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
-import Heading from "@common/components/Heading";
-import { BasicForm, RadioGroup } from "@common/components/form";
-
-import errorMessages from "@common/messages/errorMessages";
-import Separator from "@common/components/Separator";
+import { Heading, Separator } from "@gc-digital-talent/ui";
+import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
 import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
@@ -119,7 +117,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background-color="base(ia-secondary)"
+          data-h2-background-color="base(secondary)"
           data-h2-margin="base(x2, 0)"
         />
         <div data-h2-text-align="base(center)">

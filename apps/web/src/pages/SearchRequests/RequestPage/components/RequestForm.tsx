@@ -3,24 +3,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import SEO from "@common/components/SEO/SEO";
-import { Input, Select, Submit, TextArea } from "@common/components/form";
-import { Link } from "@common/components";
-import { errorMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { toast } from "@common/components/Toast";
-import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
+import {
+  Input,
+  Select,
+  Submit,
+  TextArea,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms";
+import { Link, Pending } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
   setInSessionStorage,
-} from "@common/helpers/storageUtils";
-import { EquitySelections } from "@common/api/generated";
-import Pending from "@common/components/Pending";
-import { objectsToSortedOptions } from "@common/helpers/formUtils";
+} from "@gc-digital-talent/storage";
 
+import SEO from "~/components/SEO/SEO";
+import { SearchRequestFilters } from "~/components/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import {
+  EquitySelections,
   Department,
   CreatePoolCandidateSearchRequestInput,
   useGetPoolCandidateSearchRequestDataQuery,
@@ -222,7 +226,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-margin="base(0, 0, x1, 0)">
+      <h2
+        data-h2-font-size="base(h4)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Request Form",
           id: "LOYv+/",
@@ -361,7 +369,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <h2 data-h2-margin="base(x2, 0, x1, 0)">
+          <h2
+            data-h2-font-size="base(h4)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x2, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",
@@ -389,14 +401,20 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
+          <hr
+            data-h2-height="base(1px)"
+            data-h2-border="base(none)"
+            data-h2-background="base(gray.lighter)"
+            data-h2-margin="base(x2, 0)"
+          />
           <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, x2, 0)">
             <div
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Link
-                color="primary"
-                mode="outline"
+                color="secondary"
+                mode="inline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
                 state={{
@@ -416,7 +434,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Submit
-                color="cta"
+                color="primary"
                 mode="solid"
                 text={intl.formatMessage({
                   defaultMessage: "Submit Request",

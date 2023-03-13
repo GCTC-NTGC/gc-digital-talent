@@ -3,7 +3,9 @@ import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
-
+import { useSearchParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import {
   useTable,
   useGlobalFilter,
@@ -12,13 +14,12 @@ import {
   usePagination,
   HeaderGroup,
 } from "react-table";
-import { Button, Link } from "@common/components";
-import Pagination from "@common/components/Pagination";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
-import Dialog from "@common/components/Dialog";
-import { Fieldset } from "@common/components/inputPartials";
-import { FormProvider, useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { Fieldset } from "@gc-digital-talent/forms";
+
+import Pagination from "~/components/Pagination";
+
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";
@@ -35,6 +36,7 @@ export interface TableProps<
     path: string;
     label: React.ReactNode;
   };
+  addDialog?: React.ReactNode;
   filterColumns?: boolean;
   search?: boolean;
   pagination?: boolean;
@@ -116,8 +118,8 @@ const HeaderWrapper = <T extends object>({
       })}
       type="button"
       data-h2-location="base(0)"
-      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
-      data-h2-color="base(dt-white)"
+      data-h2-background-color="base(transparent) base:hover(secondary.lightest.35) base:focus-visible(focus)"
+      data-h2-color="base(white)"
       data-h2-display="base(flex)"
       data-h2-radius="base(s)"
       data-h2-padding="base(x.25, x.5)"
@@ -142,6 +144,7 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
+  addDialog,
   filterColumns = true,
   search = true,
   pagination = true,
@@ -257,7 +260,7 @@ function Table<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="solid"
+                          mode="outline"
                           color="secondary"
                           type="button"
                           data-h2-display="base(inline-flex)"
@@ -275,7 +278,7 @@ function Table<T extends Record<string, unknown>>({
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
-                        <Dialog.Header color="ts-primary">
+                        <Dialog.Header>
                           {intl.formatMessage({
                             defaultMessage: "Table columns",
                             id: "YH6bFU",
@@ -283,40 +286,42 @@ function Table<T extends Record<string, unknown>>({
                               "Dialog title for the admin tables columns toggle.",
                           })}
                         </Dialog.Header>
-                        <FormProvider {...methods}>
-                          <Fieldset
-                            name="visibleColumns"
-                            legend={intl.formatMessage({
-                              defaultMessage: "Visible columns",
-                              id: "H9rxOR",
-                              description:
-                                "Legend for the column toggle in admin tables.",
-                            })}
-                          >
-                            <div data-h2-margin="base(x.125, 0)">
-                              <IndeterminateCheckbox
-                                {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                                  typeof IndeterminateCheckbox
-                                >)}
-                              />
-                            </div>
-                            {allColumns.map((column) => (
-                              <div
-                                key={column.id}
-                                data-h2-margin="base(x.125, 0)"
-                              >
-                                <label htmlFor={column.Header?.toString()}>
-                                  <input
-                                    id={column.Header?.toString()}
-                                    type="checkbox"
-                                    {...column.getToggleHiddenProps()}
-                                  />
-                                  {` ${column.Header}`}
-                                </label>
+                        <Dialog.Body>
+                          <FormProvider {...methods}>
+                            <Fieldset
+                              name="visibleColumns"
+                              legend={intl.formatMessage({
+                                defaultMessage: "Visible columns",
+                                id: "H9rxOR",
+                                description:
+                                  "Legend for the column toggle in admin tables.",
+                              })}
+                            >
+                              <div data-h2-margin="base(x.125, 0)">
+                                <IndeterminateCheckbox
+                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                    typeof IndeterminateCheckbox
+                                  >)}
+                                />
                               </div>
-                            ))}
-                          </Fieldset>
-                        </FormProvider>
+                              {allColumns.map((column) => (
+                                <div
+                                  key={column.id}
+                                  data-h2-margin="base(x.125, 0)"
+                                >
+                                  <label htmlFor={column.Header?.toString()}>
+                                    <input
+                                      id={column.Header?.toString()}
+                                      type="checkbox"
+                                      {...column.getToggleHiddenProps()}
+                                    />
+                                    {` ${column.Header}`}
+                                  </label>
+                                </div>
+                              ))}
+                            </Fieldset>
+                          </FormProvider>
+                        </Dialog.Body>
                       </Dialog.Content>
                     </Dialog.Root>
                   </div>
@@ -324,20 +329,26 @@ function Table<T extends Record<string, unknown>>({
               </div>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(content)">
-              {addBtn && (
-                <Link
-                  mode="solid"
-                  color="primary"
-                  type="button"
-                  data-h2-display="base(inline-flex)"
-                  data-h2-align-items="base(center)"
-                  style={{ textDecoration: "none" }}
-                  href={addBtn.path}
-                >
-                  <ButtonIcon icon={PlusIcon} />
-                  <span>{addBtn.label}</span>
-                </Link>
-              )}
+              <div
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(flex-end)"
+              >
+                {addBtn && (
+                  <Link
+                    mode="solid"
+                    color="primary"
+                    type="button"
+                    data-h2-display="base(inline-flex)"
+                    data-h2-align-items="base(center)"
+                    style={{ textDecoration: "none" }}
+                    href={addBtn.path}
+                  >
+                    <ButtonIcon icon={PlusIcon} />
+                    <span>{addBtn.label}</span>
+                  </Link>
+                )}
+                {addDialog || null}
+              </div>
             </div>
           </div>
         </div>
@@ -346,9 +357,9 @@ function Table<T extends Record<string, unknown>>({
       <div data-h2-radius="base(s)">
         {/* Table body */}
         <div
-          data-h2-radius="base(s, s, 0px, 0px)"
-          data-h2-border-right="base(1px solid dt-secondary)"
-          data-h2-border-left="base(1px solid dt-secondary)"
+          data-h2-radius="base(rounded, rounded, 0px, 0px)"
+          data-h2-border-right="base(1px solid black.darkest)"
+          data-h2-border-left="base(1px solid black.darkest)"
           data-h2-overflow="base(auto)"
           data-h2-max-width="base(100%)"
         >
@@ -374,7 +385,7 @@ function Table<T extends Record<string, unknown>>({
                     <th
                       {...column.getHeaderProps()}
                       key={column.id}
-                      data-h2-background-color="base(dt-secondary.light)"
+                      data-h2-background-color="base(black.9)"
                       data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
@@ -393,7 +404,10 @@ function Table<T extends Record<string, unknown>>({
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody
+              data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)"
+              {...getTableBodyProps()}
+            >
               {page.map((row) => {
                 prepareRow(row);
                 return (
@@ -417,8 +431,8 @@ function Table<T extends Record<string, unknown>>({
         </div>
         {/* Table footer */}
         <div
-          data-h2-background-color="base(dt-secondary.light)"
-          data-h2-radius="base(0px, 0px, s, s)"
+          data-h2-background-color="base(black.9)"
+          data-h2-radius="base(0px, 0px, rounded, rounded)"
         >
           {/* <p>
             {intl.formatMessage({
@@ -444,7 +458,7 @@ function Table<T extends Record<string, unknown>>({
                       id: "hlcd+5",
                     })}
                     color="white"
-                    mode="outline"
+                    mode="solid"
                   />
                 )}
               </div>

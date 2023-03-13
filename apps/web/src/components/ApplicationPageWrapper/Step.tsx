@@ -1,6 +1,6 @@
 import React from "react";
 
-import Link from "@common/components/Link";
+import { Link } from "@gc-digital-talent/ui";
 
 export interface StepProps {
   path: string;
@@ -13,7 +13,7 @@ const Step = ({ path, label, disabled, ...rest }: StepProps) => (
     href={path}
     mode={disabled ? "solid" : "outline"}
     type="button"
-    color="black"
+    color="secondary"
     disabled={disabled}
     {...rest}
   >

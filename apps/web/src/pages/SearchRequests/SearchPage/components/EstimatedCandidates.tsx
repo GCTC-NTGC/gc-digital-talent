@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { ScrollToLink } from "@common/components/Link";
+import { ScrollToLink } from "@gc-digital-talent/ui";
 
 import Spinner from "~/components/Spinner/Spinner";
 
@@ -75,19 +75,19 @@ const EstimatedCandidates: React.FunctionComponent<
         data-h2-location="p-tablet(0, auto, auto, auto)"
       >
         <div
-          data-h2-background-color="base(dt-white)"
+          data-h2-background-color="base(white)"
           data-h2-overflow="base(hidden)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(l)"
         >
           <div
-            data-h2-background-color="base(dt-secondary)"
+            data-h2-background-color="base(secondary)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(s, s, 0, 0)"
           >
             <p
               data-h2-text-align="base(center)"
-              data-h2-color="base(dt-white)"
+              data-h2-color="base(black)"
               data-h2-font-size="base(h5, 1.3)"
               data-h2-font-weight="base(700)"
             >
@@ -115,7 +115,7 @@ const EstimatedCandidates: React.FunctionComponent<
             <p>
               <ScrollToLink
                 to="results"
-                data-h2-color="base(dt-black) base:hover(dt-primary)"
+                data-h2-color="base(black) base:hover(primary)"
                 data-h2-transition="base:hover(color .2s ease 0s)"
                 data-h2-display="base(inline-block)"
               >

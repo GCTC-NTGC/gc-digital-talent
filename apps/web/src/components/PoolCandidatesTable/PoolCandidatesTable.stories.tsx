@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { fakePoolCandidates } from "@common/fakeData";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
 import PoolCandidatesTable from "./PoolCandidatesTable";
 
@@ -22,6 +22,7 @@ export default {
   title: "Tables/Pool Candidates Table",
   component: PoolCandidatesTable,
   parameters: {
+    themeKey: "admin",
     apiResponses: {
       GetPoolCandidatesPaginated: {
         data: {

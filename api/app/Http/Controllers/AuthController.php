@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
+use App\Services\OpenIdBearerTokenService;
 
 class AuthController extends Controller
 {
+    protected $fastSigner;
+
+    public function __construct(OpenIdBearerTokenService $service)
+    {
+        // inject signer method from service file
+        $this->fastSigner = $service->fastSigner();
+    }
+
     public function login(Request $request)
     {
         $state = Str::random(40);
@@ -70,7 +79,8 @@ class AuthController extends Controller
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json("id_token");
 
-        $config = Configuration::forUnsecuredSigner();
+        $config = $this->fastSigner;
+
         assert($config instanceof Configuration);
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);

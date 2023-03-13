@@ -2,11 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 
-import { getLocale, localizeSalaryRange } from "@common/helpers/localize";
+import { getLocale, localizeSalaryRange } from "@gc-digital-talent/i18n";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
 import type { Maybe, PoolAdvertisement } from "~/api/generated";
 
@@ -39,9 +39,10 @@ const PoolInfoCard = ({
 
   return (
     <div
-      data-h2-background-color="base(dt-gray.light)"
+      data-h2-background-color="base(background.dark)"
+      data-h2-border="base(1px solid background.darker)"
       data-h2-radius="base(s)"
-      data-h2-padding="base(x.5)"
+      data-h2-padding="base(x1)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-align-items="base(flex-start)"

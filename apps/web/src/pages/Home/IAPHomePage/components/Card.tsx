@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
     >
       {title}
     </Heading>
-    <div data-h2-color="base(ia-white)">{children}</div>
+    <div data-h2-color="base(white)">{children}</div>
   </div>
 );
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { fakeUsers } from "@common/fakeData";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
 
 import UserTable from "./UserTable";
 import UserTableFilterDialogMeta from "./UserTableFilterDialog/UserTableFilterDialog.stories";
@@ -21,6 +21,9 @@ const mockPaginatorInfo = {
 export default {
   component: UserTable,
   title: "Tables/User Table",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UserTable>;
 
 const Template: ComponentStory<typeof UserTable> = () => {

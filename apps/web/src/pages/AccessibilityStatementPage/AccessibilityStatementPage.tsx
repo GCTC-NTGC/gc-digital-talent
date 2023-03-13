@@ -1,15 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero";
-import Heading from "@common/components/Heading";
-import { ExternalLink } from "@common/components/Link";
-import imageUrl from "@common/helpers/imageUrl";
-import { getLocale, Locales } from "@common/helpers/localize";
-import { wrapAbbr } from "@common/helpers/nameUtils";
+import { Heading, ExternalLink } from "@gc-digital-talent/ui";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
@@ -214,14 +213,10 @@ const AccessibilityStatementPage = () => {
         })}
         crumbs={crumbs}
       />
-      <div
-        data-h2-background-color="base(white) base:dark(black.light)"
-        data-h2-color="base(black) base:dark(white)"
-        data-h2-padding="base(x3, 0)"
-      >
+      <div data-h2-padding="base(x3, 0)">
         <div
           data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x.5, 0, 0, 0)"
+          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
           <p>
             {intl.formatMessage(
@@ -613,7 +608,7 @@ const AccessibilityStatementPage = () => {
         </div>
       </div>
       <div
-        data-h2-background="base(tm-linear-divider)"
+        data-h2-background-image="base(main-linear)"
         data-h2-display="base(block)"
         data-h2-height="base(x1)"
       />

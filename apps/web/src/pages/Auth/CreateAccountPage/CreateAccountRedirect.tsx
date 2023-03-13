@@ -6,12 +6,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import {
-  AuthenticationContext,
-  AuthorizationContext,
-} from "@common/components/Auth";
-import { empty } from "@common/helpers/util";
-import Loading from "@common/components/Pending/Loading";
+import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import { empty } from "@gc-digital-talent/helpers";
+import { Loading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -23,9 +20,8 @@ import useRoutes from "~/hooks/useRoutes";
 const CreateAccountRedirect = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { loggedIn } = React.useContext(AuthenticationContext);
-  const { loggedInEmail, isLoaded: authorizationLoaded } =
-    React.useContext(AuthorizationContext);
+  const { loggedIn } = useAuthentication();
+  const { email, isLoaded: authorizationLoaded } = useAuthorization();
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 
@@ -37,12 +33,7 @@ const CreateAccountRedirect = () => {
      *  - User has no email associated with account
      *  - User is not trying to go to the welcome page directly already
      */
-    if (
-      loggedIn &&
-      authorizationLoaded &&
-      empty(loggedInEmail) &&
-      isToCreateAccount
-    ) {
+    if (loggedIn && authorizationLoaded && empty(email) && isToCreateAccount) {
       navigate(
         {
           pathname: paths.createAccount(),
@@ -56,7 +47,7 @@ const CreateAccountRedirect = () => {
   }, [
     loggedIn,
     authorizationLoaded,
-    loggedInEmail,
+    email,
     isToCreateAccount,
     pathname,
     navigate,

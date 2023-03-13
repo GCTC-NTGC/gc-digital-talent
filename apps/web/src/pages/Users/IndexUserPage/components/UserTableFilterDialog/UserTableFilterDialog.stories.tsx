@@ -4,7 +4,11 @@ import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
-import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
+import {
+  fakeSkills,
+  fakePools,
+  fakeClassifications,
+} from "@gc-digital-talent/fake-data";
 
 import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { FormValues } from "./UserTableFilterDialog";
@@ -17,6 +21,7 @@ export default {
     isOpenDefault: true,
   },
   parameters: {
+    themeKey: "admin",
     apiResponses: {
       getFilterData: {
         data: {

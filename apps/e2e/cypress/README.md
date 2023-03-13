@@ -3,8 +3,8 @@
 We use a framework called Cypress to run end-to-end tests against an actual
 version of the website running in the browser. (Chrome, Firefox, or Edge)
 
-:gear: Configuration: [`frontend/cypress.json`][]  
-:open_file_folder: Folder: [`frontend/cypress/`][]  
+:gear: Configuration: [`apps/e2e/cypress.config.ts`][]  
+:open_file_folder: Folder: [`apps/e2e/`][]  
 :cloud: CI workflow: [config][e2e-config] | [run logs][e2e-runs]
 
 ![](https://i.imgur.com/t3p6Alo.png)
@@ -23,8 +23,8 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
     - This detailed output is printed **only for failing tests**.
   - **Check the status and logs of containers.**
     - On failed CI runs, we list the status of containers (e.g., one may have
-      crashed), and print out the logs of important containers (e.g., Apache
-      logs of PHP container).
+      crashed), and print out the logs of important containers (e.g., Nginx
+      logs of the webserver container).
       [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/e2e-tests.yml#L85-L91)
 - When you need to debug locally, these tips can help:
   - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
@@ -47,9 +47,9 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
 
 ## Plugins and Helpers
 
-### [`frontend/cypress/support/graphql-test-utils.js`](/frontend/cypress/support/graphql-test-utils.js)
+### [`apps/e2e/cypress/support/graphql-test-utils.js`](/apps/e2e/cypress/support/graphql-test-utils.js)
 
-See the official Cypress docs: [Working with GraphQL](https://docs.cypress.io/guides/testing-strategies/working-with-graphql)
+See the official Cypress docs: [Working with GraphQL](https://docs.cypress.io/guides/end-to-end-testing/working-with-graphql)
 
 ### [`@testing-library/cypress`](https://testing-library.com/docs/cypress-testing-library/intro/)
 
@@ -71,7 +71,7 @@ See official documentation linked above for examples.
 
 These commands exist via NPM scripts:
 
-(Type `npm run` in `frontend/` to list all commands.)
+(Type `npm run` in `/` to list all commands.)
 
 ### `npm run e2e:open`
 
@@ -87,13 +87,13 @@ constrain them to a subset of test suite.
 Examples:
 
 ```
-# Equivalent to matching specs with `apps/e2e/integration/**/*secrets*.spec.js`
-#   - apps/e2e/integration/talentsearch/foo.secrets.spec.js
-#   - apps/e2e/integration/admin/bar.secrets.spec.js
+# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.cy.js`
+#   - apps/e2e/talentsearch/foo.secrets.cy.js
+#   - apps/e2e/admin/bar.secrets.cy.js
 TEST_FILTER=secrets npm run e2e:run:all
 
-# Equivalent to matching spec with `apps/e2e/integration/**/*static-pages*.spec.js`
-#   - apps/e2e/integration/talentsearch/static-pages.spec.js
+# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.cy.js`
+#   - apps/e2e/talentsearch/static-pages.cy.js
 TEST_FILTER=static-pages npm run e2e:run:all
 ```
 
@@ -117,7 +117,7 @@ app and explore.
 
 It works best with `TEST_FILTER`, which defaults to "language-selection" if not set.
 
-For example, this will run the `integration/talentsearch/static-pages.spec.js`
+For example, this will run the `cypress/e2e/talentsearch/static-pages.cy.js`
 test in the Chrome browser, and leave it open (success or failure):
 
 ```
@@ -128,16 +128,16 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
 <sup>Click through into linked files for tips relevant to our usage.</sup>
 
 - helpful terms
-  - a "test _file_": `cypress/integration/foo/bar.spec.js`
+  - a "test _file_": `cypress/e2e/foo/bar.cy.js`
   - a "test" (BDD term): `it('does something', () => { ... })`
     - tests a unit of functionality with isolation
   - a "context" (BDD term): `context('Foo', () => { ... })` (alias of `describe()`)
     - a set of tests or other contexts
 - `cypress/support/`: for utility functions (some auto-loaded, some manually imported in appropriate test files)
-  - [`cypress/support/index.js`][]: for things that need to run before each test or test file (auto-loaded)
+  - [`cypress/support/e2e.js`][]: for things that need to run before each test or test file (auto-loaded)
   - [`cypress/support/commands.js`][]: for **custom commands** ([official docs][command-docs]) (auto-loaded)
   - [`cypress/support/graphql-test-utils.js`][]: an example util file imported in specific test files.
-- [`frontend/cypress/integration/`][]: for writing our tests
+- [`apps/e2e/cypress/`][]: for writing our tests
   - try to keep tests in folder according to actual app. if tests must
     straddle, consider keeping them in the root test directory
   - helper functions (e.g., `onDashboard(() => { ... })`)
@@ -158,12 +158,12 @@ See: https://docs.cypress.io/guides/guides/web-security
     - `www.example.com` vs `auth.example.com` (this is ok)
   - general work-arounds
     - using `cy.request()` instead of `cy.visit()`
-    - set `chromeWebSecurity:false` in `cypress.json` (still has caveats, and
+    - set `chromeWebSecurity:false` in `cypress.config.ts` (still has caveats, and
       mitigation only works for Chrome browser)
       - with the above change, our Laravel API app will unfortunately become
         suspicious of Cypress, and its default security policies cause other
         issues with session cookies. To resolve, you'll want to set these
-        envvars in `frontend/.apache_env`:
+        environment variables in `/api/.env`:
         - `SESSION_SAME_SITE_COOKIE=none`
         - `SESSION_SECURE_COOKIE=false`
 - mitigations of this issue in our setup
@@ -172,13 +172,13 @@ See: https://docs.cypress.io/guides/guides/web-security
     thing', () => { ... })` and add comment with `chromeWebSecurity:false`
 
 <!-- Links -->
-   [`cypress/support/index.js`]: /frontend/cypress/support/index.js
-   [`cypress/support/commands.js`]: /frontend/cypress/support/commands.js
-   [`cypress/support/graphql-test-utils.js`]: /frontend/cypress/support/graphql-test-utils.js
-   [`frontend/cypress/integration/`]: /frontend/cypress/integration/
-   [`frontend/.apache_env`]: /frontend/.apache_env
+   [`cypress/support/e2e.js`]: /apps/e2e/cypress/support/e2e.js
+   [`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
+   [`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
+   [`apps/e2e/cypress/`]: /apps/e2e/cypress/
+   [`/api/.env`]: /api/.env
    [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
-   [`frontend/cypress/`]: /frontend/cypress/
-   [`frontend/cypress.json`]: /frontend/cypress.json
+   [`apps/e2e/`]: /apps/e2e/
+   [`apps/e2e/cypress.config.ts`]: /apps/e2e/cypress.config.ts
    [e2e-config]: /.github/workflows/e2e-tests.yml
    [e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml

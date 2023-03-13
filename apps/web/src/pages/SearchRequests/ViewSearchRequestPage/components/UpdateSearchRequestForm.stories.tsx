@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import fakeSearchRequests from "@common/fakeData/fakeSearchRequests";
+import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
 import { UpdateSearchRequestForm } from "./UpdateSearchRequest";
 
@@ -11,6 +11,9 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: UpdateSearchRequestForm,
   title: "Forms/Update Search Request Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateSearchRequestForm>;
 
 const Template: ComponentStory<typeof UpdateSearchRequestForm> = (args) => {

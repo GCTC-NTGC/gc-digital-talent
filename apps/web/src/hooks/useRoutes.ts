@@ -1,7 +1,6 @@
 import path from "path-browserify";
 
-import useLocale from "@common/hooks/useLocale";
-import { Locales } from "@common/helpers/localize";
+import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 
@@ -85,6 +84,8 @@ const getRoutes = (lang: Locales) => {
     userTable: () => path.join(adminUrl, "users"),
     userCreate: () => path.join(adminUrl, "users", "create"),
     userView: (userId: string) => path.join(adminUrl, "users", userId),
+    userProfile: (userId: string) =>
+      path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
 
@@ -92,6 +93,8 @@ const getRoutes = (lang: Locales) => {
     teamTable: () => path.join(adminUrl, "teams"),
     teamCreate: () => path.join(adminUrl, "teams", "create"),
     teamView: (teamId: string) => path.join(adminUrl, "teams", teamId),
+    teamMembers: (teamId: string) =>
+      path.join(adminUrl, "teams", teamId, "members"),
     teamUpdate: (teamId: string) =>
       path.join(adminUrl, "teams", teamId, "edit"),
 

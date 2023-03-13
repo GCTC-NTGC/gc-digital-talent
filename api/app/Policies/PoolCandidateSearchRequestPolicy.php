@@ -18,7 +18,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-searchRequest");
     }
 
     /**
@@ -30,16 +30,17 @@ class PoolCandidateSearchRequestPolicy
      */
     public function view(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("view-any-searchRequest");
     }
 
     /**
      * Determine whether the user can create models.
+     * Note: This action is possible for everyone, including anonymous users
      *
      * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user = null)
+    public function create(?User $user)
     {
         return true;
     }
@@ -53,7 +54,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function update(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("update-any-searchRequest");
     }
 
     /**
@@ -65,7 +66,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function delete(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("delete-any-searchRequest");
     }
 
     /**
@@ -77,7 +78,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function restore(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("delete-any-searchRequest");
     }
 
     /**

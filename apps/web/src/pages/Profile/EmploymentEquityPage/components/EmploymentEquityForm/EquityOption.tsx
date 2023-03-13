@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
-import { Button } from "@common/components";
+import { Button } from "@gc-digital-talent/ui";
 
 import {
   DisabilityDialog,
@@ -61,44 +60,39 @@ const EquityOption = ({
     },
   );
 
-  const iconSize = "1rem";
-  const Icon = isAdded ? MinusIcon : PlusIcon;
-
   return (
     <div
-      data-h2-margin="base(x.125, 0, 0, 0)"
-      data-h2-padding="base(x.5)"
-      data-h2-shadow="base(m)"
+      data-h2-margin="base(x.25, 0, 0, 0)"
+      data-h2-background="base(foreground)"
+      data-h2-padding="base(x1)"
+      data-h2-shadow="base(small)"
       data-h2-radius="base(0px, s, s, 0px)"
       data-h2-overflow="base(hidden)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(space-between)"
       {...(isAdded
-        ? { "data-h2-border-left": "base(.5rem solid dt-primary.dark)" }
-        : { "data-h2-border-left": "base(.5rem solid dt-primary)" })}
+        ? { "data-h2-border-left": "base(.5rem solid primary)" }
+        : { "data-h2-border-left": "base(.5rem solid secondary)" })}
     >
-      <span>{title}</span>
-      <span style={{ flexShrink: 0 }}>
-        <Dialog isAdded={isAdded} onSave={onSave}>
-          <Button
-            type="button"
-            mode="outline"
-            color={isAdded ? "secondary" : "primary"}
-          >
-            <span
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
+      <div data-h2-flex-grid="base(center, x1)">
+        <span data-h2-flex-item="base(fill)">{title}</span>
+        <span data-h2-flex-item="base(content)">
+          <Dialog isAdded={isAdded} onSave={onSave}>
+            <Button
+              type="button"
+              mode="inline"
+              color={isAdded ? "primary" : "secondary"}
+              block
             >
-              <Icon
-                style={{ height: iconSize, width: iconSize }}
-                data-h2-margin="base(0, x.125, 0, 0)"
-              />
-              <span>{isAdded ? removeText : addText}</span>
-            </span>
-          </Button>
-        </Dialog>
-      </span>
+              <span
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-justify-content="base(center)"
+              >
+                <span>{isAdded ? removeText : addText}</span>
+              </span>
+            </Button>
+          </Dialog>
+        </span>
+      </div>
     </div>
   );
 };

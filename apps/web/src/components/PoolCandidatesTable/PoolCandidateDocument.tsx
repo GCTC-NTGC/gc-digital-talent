@@ -11,17 +11,17 @@ import {
 } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
-import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
-import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
-import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
-import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
-import { notEmpty } from "@common/helpers/util";
-import PrintExperienceByType from "@common/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { PoolCandidate } from "~/api/generated";
+import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
+import WorkLocationSection from "~/components/UserProfile/ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "~/components/UserProfile/ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection from "~/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
+import RoleSalarySection from "~/components/UserProfile/ProfileSections/RoleSalarySection";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
+import { PoolCandidate } from "~/api/generated";
 
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 

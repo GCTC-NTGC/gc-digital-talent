@@ -7,6 +7,9 @@ import { CreateUserForm } from "./CreateUserPage";
 export default {
   component: CreateUserForm,
   title: "Forms/Create User Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof CreateUserForm>;
 
 const Template: ComponentStory<typeof CreateUserForm> = () => (

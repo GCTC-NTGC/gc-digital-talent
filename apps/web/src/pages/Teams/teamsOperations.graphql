@@ -1,20 +1,71 @@
-query ListTeams {
-  teams {
+fragment team on Team {
+  id
+  name
+  contactEmail
+  displayName {
+    en
+    fr
+  }
+  departments {
     id
-    name
-    contactEmail
-    displayName {
+    departmentNumber
+    name {
       en
       fr
     }
-    departments {
+  }
+  description {
+    en
+    fr
+  }
+  roleAssignments {
+    id
+    role {
       id
-      departmentNumber
-      name {
+      name
+      isTeamBased
+      displayName {
         en
         fr
       }
     }
+    user {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+}
+
+
+query ListTeams {
+  teams {
+    ...team
+  }
+}
+
+query ListRoles {
+  roles {
+    id
+    name
+    isTeamBased
+    displayName {
+      en
+      fr
+    }
+  }
+}
+
+query GetTeam($teamId: UUID!) {
+  team(id: $teamId) {
+    ...team
+  }
+}
+
+mutation UpdateTeam($teamId: UUID!, $team: UpdateTeamInput!) {
+  updateTeam(id: $teamId, team: $team) {
+    id
   }
 }
 
@@ -39,5 +90,21 @@ query ViewTeam($id: UUID!) {
         fr
       }
     }
+  }
+}
+
+query TeamName($id: UUID!) {
+  team(id: $id) {
+    id
+    displayName {
+      en
+      fr
+    }
+  }
+}
+
+mutation CreateTeam($team: CreateTeamInput!) {
+  createTeam(team: $team) {
+    id
   }
 }

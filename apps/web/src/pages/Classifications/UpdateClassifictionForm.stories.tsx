@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeClassifications } from "@common/fakeData";
+import { fakeClassifications } from "@gc-digital-talent/fake-data";
 
 import { UpdateClassificationForm } from "./UpdateClassificationPage";
 
@@ -11,6 +11,9 @@ const mockClassifications = fakeClassifications();
 export default {
   component: UpdateClassificationForm,
   title: "Forms/Update Classification Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateClassificationForm>;
 
 const Template: ComponentStory<typeof UpdateClassificationForm> = (args) => {

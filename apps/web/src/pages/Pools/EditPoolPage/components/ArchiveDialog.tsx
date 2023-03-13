@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
-import Button from "@common/components/Button";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 type ArchiveDialogProps = {
   onArchive: () => void;
@@ -58,15 +57,17 @@ const ArchiveDialog = ({ onArchive }: ArchiveDialogProps): JSX.Element => {
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-secondary">
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Archive",
             id: "Hqt/ej",
             description: "Heading for the archive pool dialog",
           })}
         </Dialog.Header>
-        {/* todo */}
-        <Dialog.Footer>{Footer}</Dialog.Footer>
+        <Dialog.Body>
+          {/* todo */}
+          <Dialog.Footer>{Footer}</Dialog.Footer>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

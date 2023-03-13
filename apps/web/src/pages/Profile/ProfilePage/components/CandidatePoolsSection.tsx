@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@common/components/Well";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { Well } from "@gc-digital-talent/ui";
 
 import { PoolCandidate } from "~/api/generated";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 const CandidatePoolsSection: React.FunctionComponent<{
   poolCandidates: PoolCandidate[];
@@ -14,7 +14,7 @@ const CandidatePoolsSection: React.FunctionComponent<{
   return (
     <Well>
       {(!poolCandidates || poolCandidates.length === 0) && (
-        <p data-h2-color="base(dt-gray.dark)">
+        <p data-h2-color="base(gray.dark)">
           {intl.formatMessage({
             defaultMessage:
               "You have not been accepted into any hiring pools yet.",

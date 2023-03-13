@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeDepartments } from "@common/fakeData";
+import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
 import { UpdateDepartmentForm } from "./UpdateDepartmentPage";
 
@@ -11,6 +11,9 @@ const mockDepartments = fakeDepartments();
 export default {
   component: UpdateDepartmentForm,
   title: "Forms/Update Department Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateDepartmentForm>;
 
 const Template: ComponentStory<typeof UpdateDepartmentForm> = (args) => {

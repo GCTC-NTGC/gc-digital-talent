@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
-import SEO from "@common/components/SEO/SEO";
-import PageHeader from "@common/components/PageHeader/PageHeader";
+import SEO from "~/components/SEO/SEO";
+import PageHeader from "~/components/PageHeader/PageHeader";
 
 import TeamTableApi from "./components/TeamTable/TeamTable";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeUsers } from "@common/fakeData";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
 
 import { UpdateUserForm } from "./UpdateUserPage";
 
@@ -16,6 +16,9 @@ const flawedUserData = [
 export default {
   component: UpdateUserForm,
   title: "Forms/Update User Form",
+  parameters: {
+    themeKey: "admin",
+  },
 } as ComponentMeta<typeof UpdateUserForm>;
 
 const Template: ComponentStory<typeof UpdateUserForm> = (args) => {

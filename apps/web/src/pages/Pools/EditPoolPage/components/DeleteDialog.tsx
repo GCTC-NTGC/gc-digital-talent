@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
-import { Button } from "@common/components";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 type DeleteDialogProps = {
   onDelete: () => void;
@@ -58,28 +57,30 @@ const DeleteDialog = ({ onDelete }: DeleteDialogProps): JSX.Element => {
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header color="ts-secondary">
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Delete",
             id: "iOgr3Z",
             description: "Heading for the delete pool dialog",
           })}
         </Dialog.Header>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "You're about to delete this pool.",
-            id: "grrIC7",
-            description: "First paragraph for delete pool dialog",
-          })}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Are you sure you want to continue?",
-            id: "/QUq6L",
-            description: "Second paragraph for Delete pool dialog",
-          })}
-        </p>
-        <Dialog.Footer>{Footer}</Dialog.Footer>
+        <Dialog.Body>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You're about to delete this pool.",
+              id: "grrIC7",
+              description: "First paragraph for delete pool dialog",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you want to continue?",
+              id: "/QUq6L",
+              description: "Second paragraph for Delete pool dialog",
+            })}
+          </p>
+          <Dialog.Footer>{Footer}</Dialog.Footer>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

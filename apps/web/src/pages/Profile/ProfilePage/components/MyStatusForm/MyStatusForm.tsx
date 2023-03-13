@@ -3,13 +3,10 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
-import { errorMessages } from "@common/messages";
-import { toast } from "@common/components/Toast";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getJobLookingStatus } from "@common/constants/localizedConstants";
-import { BasicForm, RadioGroup } from "@common/components/form";
-import Pending from "@common/components/Pending";
-import { ThrowNotFound } from "@common/components/NotFound";
+import { errorMessages, getJobLookingStatus } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { enumToOptions, BasicForm, RadioGroup } from "@gc-digital-talent/forms";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -67,7 +64,7 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
   };
 
   const disabledColor: Record<string, unknown> = !isFormActive
-    ? { "data-h2-color": "base(dt-gray.dark)" }
+    ? { "data-h2-color": "base(gray.dark)" }
     : {};
 
   return (
@@ -90,12 +87,12 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
         </div>
         {!isFormActive && (
           <div
-            data-h2-color="base(dt-primary)"
-            data-h2-border="base(1px solid dt-primary.light)"
+            data-h2-color="base(primary.darker)"
+            data-h2-border="base(1px solid primary.darker)"
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(input)"
-            data-h2-background-color="base(dt-primary.light.10)"
+            data-h2-background-color="base(primary.lightest)"
           >
             <p
               data-h2-font-weight="base(700)"

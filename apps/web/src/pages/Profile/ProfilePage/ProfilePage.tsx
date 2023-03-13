@@ -1,22 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { notEmpty } from "@common/helpers/util";
-import { getFullNameHtml } from "@common/helpers/nameUtils";
-import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import SEO from "@common/components/SEO/SEO";
-import UserProfile from "@common/components/UserProfile";
-import type { Applicant } from "@common/api/generated";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { getFullNameHtml } from "~/utils/nameUtils";
+import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
-
+import { Applicant, useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
+import UserProfile from "~/components/UserProfile";
+import SEO from "~/components/SEO/SEO";
+import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
+import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import MyStatusApi from "./components/MyStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
@@ -25,7 +22,7 @@ export interface ProfilePageProps {
 
 // styling a text bit with red colour within intls
 export function redText(msg: string) {
-  return <span data-h2-color="base(dt-error)">{msg}</span>;
+  return <span data-h2-color="base(error)">{msg}</span>;
 }
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({

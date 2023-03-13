@@ -3,14 +3,19 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
-import SEO from "@common/components/SEO/SEO";
-import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
-import { Button } from "@common/components";
-import Footer from "@common/components/Footer";
-import Header from "@common/components/Header";
-import SkipLink from "@common/components/Link/SkipLink";
-import { SideMenuContentWrapper } from "@common/components/SideMenu";
-import useLocalStorage from "@common/hooks/useLocalStorage";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
+import {
+  Button,
+  SkipLink,
+  SideMenuContentWrapper,
+} from "@gc-digital-talent/ui";
+import { useTheme } from "@gc-digital-talent/theme";
+
+import Footer from "~/components/Footer";
+import Header from "~/components/Header";
+
+import SEO, { Favicon } from "~/components/SEO/SEO";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 
@@ -48,6 +53,11 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme("admin", "light");
+  }, [setTheme]);
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -70,6 +80,7 @@ const AdminLayout = () => {
 
   return (
     <>
+      <Favicon project="admin" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",
@@ -100,7 +111,7 @@ const AdminLayout = () => {
             <main
               id="main"
               data-h2-flex-grow="base(1)"
-              data-h2-background-color="base(dt-gray.15)"
+              data-h2-background-color="base(background)"
             >
               <div data-h2-min-height="base(100%)">
                 <div data-h2-container="base(center, full, x2)">

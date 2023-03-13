@@ -6,10 +6,13 @@ import {
   fakeClassifications,
   fakeSkills,
   fakePoolAdvertisements,
-} from "@common/fakeData";
+} from "@gc-digital-talent/fake-data";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 
-import { AdvertisementStatus } from "@common/api/generated";
-import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@common/helpers/dateUtils";
+import { AdvertisementStatus } from "~/api/generated";
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
@@ -28,6 +31,9 @@ export default {
     onClose: action("onClose"),
     onExtend: action("onExtend"),
     onArchive: action("onArchive"),
+  },
+  parameters: {
+    themeKey: "admin",
   },
 } as Meta;
 

@@ -2,16 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import PageHeader from "@common/components/PageHeader";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import Pending from "@common/components/Pending";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { AdminBreadcrumbs, Pending } from "@gc-digital-talent/ui";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { Scalars, useGetPoolAdvertisementQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
+import SEO from "~/components/SEO/SEO";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -30,67 +27,49 @@ export const IndexPoolCandidatePage = () => {
 
   const crumbs = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "My Pools",
         id: "XYLd6G",
         description: "Breadcrumb for the My Pools page",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title:
+      label:
         getFullPoolAdvertisementTitleHtml(intl, data?.poolAdvertisement) ||
         intl.formatMessage({
           defaultMessage: "Pool name not found",
           id: "HGMl3y",
           description: "Breadcrumb to pool page if pool name not found",
         }),
-      href: data?.poolAdvertisement
+      url: data?.poolAdvertisement
         ? paths.poolView(data.poolAdvertisement.id)
         : paths.poolTable(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "All Candidates",
         id: "v8vbWP",
         description: "Breadcrumb for the All Candidates page",
       }),
+      url: data?.poolAdvertisement
+        ? paths.poolCandidateTable(data?.poolAdvertisement.id)
+        : "#",
     },
   ];
 
   return (
     <Pending fetching={fetching} error={error}>
-      <div
-        data-h2-background-color="base(dt-gray.light)"
-        data-h2-padding="base(x1, x1, x1, x1)"
-      >
-        <Breadcrumbs links={crumbs} />
-      </div>
-      <PageHeader
-        icon={Squares2X2Icon}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage: "From {poolName}",
-            id: "RDgQ0h",
-            description:
-              "Subtitle on pool candidates page indicating which pool candidates are from",
-          },
-          {
-            poolName: getFullPoolAdvertisementTitleHtml(
-              intl,
-              data?.poolAdvertisement,
-            ),
-          },
-        )}
-      >
-        {intl.formatMessage({
+      <SEO
+        title={intl.formatMessage({
           id: "EHVt0j",
           defaultMessage: "Pool Candidates",
           description:
             "Title displayed above the Pool Candidate Table component.",
         })}
-      </PageHeader>
-      <p>
+      />
+      <AdminBreadcrumbs crumbs={crumbs} />
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This table shows a list of all applicants to this pool. Use the review button to manage an applicant.",

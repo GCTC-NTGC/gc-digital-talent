@@ -36,8 +36,6 @@ To refresh each sub-project after they have been setup run one of the refresh sc
 
 - `docker-compose run --rm maintenance bash refresh_api.sh`
 - `docker-compose run --rm maintenance bash refresh_frontend.sh`
-- `docker-compose run --rm maintenance bash refresh_common.sh`
-- `docker-compose run --rm maintenance bash refresh_admin.sh`
 
 Or refresh all of them in order:
 

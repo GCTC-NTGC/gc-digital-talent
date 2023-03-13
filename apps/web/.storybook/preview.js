@@ -2,20 +2,20 @@
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
-import defaultRichTextElements from "@common/helpers/format";
 import {
   HelmetDecorator,
   MockGraphqlDecorator,
   RouterDecorator,
   ThemeDecorator,
-  theme
+  themeKey,
+  themeMode
 } from "storybook-helpers"
+import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
+import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json"
 
 import frCompiled from "../src/lang/frCompiled.json";
-import frCommonCompiled from "../../../frontend/common/src/lang/frCompiled.json"
 
-import "../../../frontend/common/src/css/hydrogen.css"
-import "../../../frontend/common/src/css/common.css"
+import "../src/assets/css/hydrogen.css"
 import "../src/assets/css/app.css"
 
 export const parameters = {
@@ -55,7 +55,8 @@ setIntlConfig({
 })
 
 export const globalTypes = {
-  theme
+  themeKey,
+  themeMode
 }
 
 export const decorators = [
@@ -65,7 +66,7 @@ export const decorators = [
   ThemeDecorator,
   RouterDecorator,
   (Story) => (
-    <div data-h2-font-family="base(sans)">
+    <div data-h2-color="base(black)" data-h2-background="base(background)" data-h2-font-family="base(sans)">
       <Story />
     </div>
   ),

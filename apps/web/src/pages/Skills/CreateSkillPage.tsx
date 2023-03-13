@@ -4,17 +4,18 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 
-import { toast } from "@common/components/Toast";
-import { Input, TextArea, Submit } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
-import { keyStringRegex } from "@common/constants/regularExpressions";
-import { errorMessages } from "@common/messages";
-import Pending from "@common/components/Pending";
-import Heading from "@common/components/Heading/Heading";
-import SEO from "@common/components/SEO/SEO";
-import MultiSelectField from "@common/components/form/MultiSelect/MultiSelectField";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Input,
+  TextArea,
+  Submit,
+  MultiSelectField,
+} from "@gc-digital-talent/forms";
+import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
+import { Pending, Heading } from "@gc-digital-talent/ui";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,

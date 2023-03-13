@@ -3,19 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { PoolCandidateSearchRequest } from "@common/api/generated";
-import { Button } from "@common/components";
-import { Submit, TextArea } from "@common/components/form";
-import { toast } from "@common/components/Toast";
-import Heading from "@common/components/Heading/Heading";
-import { commonMessages } from "@common/messages";
+import { Button, Heading } from "@gc-digital-talent/ui";
+import { Submit, TextArea } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import useRoutes from "~/hooks/useRoutes";
 import {
+  PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
   UpdatePoolCandidateSearchRequestInput,
   useUpdatePoolCandidateSearchRequestMutation,
 } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 
@@ -121,7 +120,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
             <div
-              data-h2-border-bottom="base(1px solid dt-gray)"
+              data-h2-border-bottom="base(1px solid gray)"
               data-h2-margin="base(0, 0, x1, 0)"
               data-h2-padding="base(0, 0, x1, 0)"
             >
@@ -158,8 +157,8 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
             </div>
             <div data-h2-margin="base(0, 0, x1, 0)">
               <Button
-                color="primary"
-                mode="outline"
+                color="secondary"
+                mode="inline"
                 onClick={() => {
                   navigate(paths.searchRequestTable());
                 }}

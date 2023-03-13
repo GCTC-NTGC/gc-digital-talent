@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
-import { Link, Button } from "@common/components";
+import { Link, Button } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 
@@ -24,7 +24,8 @@ const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
     >
       <Link
         href={editPath}
-        mode="outline"
+        mode="solid"
+        data-h2-padding="base(x.5)"
         color="secondary"
         type="button"
         aria-label={intl.formatMessage(
@@ -36,10 +37,15 @@ const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
           { label },
         )}
       >
-        <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <PencilIcon
+          data-h2-display="base(block)"
+          data-h2-height="base(x.75)"
+          data-h2-width="base(x.75)"
+        />
       </Link>
       <Button
-        mode="outline"
+        mode="solid"
+        data-h2-padding="base(x.5)"
         color="secondary"
         aria-label={intl.formatMessage(
           {
@@ -50,7 +56,11 @@ const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
           { label },
         )}
       >
-        <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <TrashIcon
+          data-h2-display="base(block)"
+          data-h2-height="base(x.75)"
+          data-h2-width="base(x.75)"
+        />
       </Button>
     </div>
   );

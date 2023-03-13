@@ -2,15 +2,17 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { toast } from "@common/components/Toast";
-import { Input, Submit, TextArea } from "@common/components/form";
-import { errorMessages } from "@common/messages";
-import { getFullNameLabel } from "@common/helpers/nameUtils";
-import Pending from "@common/components/Pending";
-import Button from "@common/components/Button";
-import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
-import { messages as apiMessages } from "@common/messages/apiMessages";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Input,
+  Submit,
+  TextArea,
+  SelectFieldV2,
+} from "@gc-digital-talent/forms";
+import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
+import { Pending, Button } from "@gc-digital-talent/ui";
 
+import { getFullNameLabel } from "~/utils/nameUtils";
 import { useGetMeQuery, User } from "~/api/generated";
 import {
   API_SUPPORT_ENDPOINT,
@@ -215,7 +217,7 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <Submit color="blue" />
+            <Submit color="primary" />
           </form>
         </FormProvider>
       </div>

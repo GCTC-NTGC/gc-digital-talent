@@ -5,36 +5,34 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   CheckIcon,
   ClipboardIcon,
-  CogIcon,
   ArrowTopRightOnSquareIcon,
-  UserGroupIcon,
-  Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import PageHeader from "@common/components/PageHeader";
-import { commonMessages } from "@common/messages";
-import { getLocalizedName } from "@common/helpers/localize";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Chip, { Chips } from "@common/components/Chip";
-import Link, { IconLink } from "@common/components/Link";
-import { Input } from "@common/components/form";
-import { IconButton } from "@common/components/Button";
 import {
+  AdminBreadcrumbs,
+  Pending,
+  Chip,
+  Chips,
+  IconButton,
+  NotFound,
+  Link,
+  IconLink,
+} from "@gc-digital-talent/ui";
+import {
+  commonMessages,
+  getLocalizedName,
   getAdvertisementStatus,
   getLanguageRequirement,
   getPoolStream,
   getSecurityClearance,
-} from "@common/constants/localizedConstants";
+} from "@gc-digital-talent/i18n";
+import { Input } from "@gc-digital-talent/forms";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-} from "@common/helpers/dateUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import SEO from "@common/components/SEO/SEO";
+} from "@gc-digital-talent/date-helpers";
 
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Scalars,
@@ -42,7 +40,6 @@ import {
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
 } from "~/api/generated";
-import Spacer from "~/components/Spacer/Spacer";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -63,7 +60,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const poolName = getFullPoolAdvertisementTitleHtml(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
@@ -109,23 +105,23 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
 
   const links = [
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Home",
         id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
-      href: paths.home(),
+      url: paths.home(),
     },
     {
-      title: intl.formatMessage({
+      label: intl.formatMessage({
         defaultMessage: "Pools",
         id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
-      href: paths.poolTable(),
+      url: paths.poolTable(),
     },
     {
-      title: intl.formatMessage(
+      label: intl.formatMessage(
         {
           defaultMessage: `Pool ID #{id}`,
           id: "fp7Nll",
@@ -133,8 +129,9 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
         },
         { id: pool.id },
       ),
+      url: paths.poolView(pool.id),
     },
-  ] as BreadcrumbsProps["links"];
+  ];
 
   let closingStringLocal;
   let closingStringPacific;
@@ -154,75 +151,17 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     closingStringPacific = "";
   }
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "View pool",
+    id: "vINfxJ",
+    description: "Page title for the individual pool page",
+  });
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "View pool",
-          id: "vINfxJ",
-          description: "Page title for the individual pool page",
-        })}
-      />
+      <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
-        <Breadcrumbs links={links} />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-margin="base(x2, 0)"
-        >
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolCandidateTable(pool.id)}
-              icon={UserGroupIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage candidates",
-                id: "B/VlGq",
-                description:
-                  "Link text for button to manage candidates of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          {/*
-          TODO - uncomment once something to link to exists and reimport TicketIcon
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href="#"
-              disabled
-              icon={TicketIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Manage requests",
-                id: "v2mXcp",
-                description:
-                  "Link text for button to manage requests of a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-          */}
-          <Spacer>
-            <IconLink
-              mode="solid"
-              color="secondary"
-              type="button"
-              href={paths.poolUpdate(pool.id)}
-              icon={CogIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Edit pool advertisement",
-                id: "dmGvCL",
-                description: "Link text for button to edit a specific pool",
-              })}
-            </IconLink>
-          </Spacer>
-        </div>
+        <AdminBreadcrumbs crumbs={links} />
         <FormProvider {...form}>
           <h2
             data-h2-margin="base(x2, 0, 0, 0)"

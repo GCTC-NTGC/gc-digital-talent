@@ -3,9 +3,8 @@ import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import DropdownMenu from "@common/components/DropdownMenu";
+import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
-import { Button } from "@common/components";
 import type { SearchColumn, SearchState } from "./helpers";
 
 export interface SearchFormProps {
@@ -74,7 +73,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
               data-h2-gap="base(0, x.25)"
               data-h2-radius="base(s, 0, 0, s)"
               data-h2-margin-right="base(0)"
-              style={{ borderRightWidth: 0 }}
             >
               <span>{column ? column.label : allTableMsg}</span>
               <ChevronDownIcon
@@ -120,8 +118,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="base(1px solid dt-secondary)"
-        data-h2-background-color="base(dt-white)"
+        data-h2-border="base(1px solid secondary)"
+        data-h2-background-color="base(white)"
         data-h2-padding="base(x.25, x.5)"
         data-h2-margin-left="base(0)"
         {...(showDropdown

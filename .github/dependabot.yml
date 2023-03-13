@@ -9,7 +9,7 @@ updates:
 
   # TODO: Remove as final step of #5065
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/packages"
     schedule:
       interval: "weekly"
       day: "thursday"

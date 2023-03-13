@@ -1,21 +1,23 @@
 import React from "react";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
-
-import Heading from "@common/components/Heading";
-import { PoolStream, Skill } from "@common/api/generated";
-import Accordion from "@common/components/Accordion";
-import { Link, Pill } from "@common/components";
-import { FAR_FUTURE_DATE } from "@common/helpers/dateUtils";
-import { Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
-import { AuthorizationContext } from "@common/components/Auth";
-import { getId, notEmpty, uniqueItems } from "@common/helpers/util";
 
-import { PoolAdvertisement, useMySkillsQuery } from "~/api/generated";
+import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { Select } from "@gc-digital-talent/forms";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+
+import {
+  PoolStream,
+  Skill,
+  PoolAdvertisement,
+  useMySkillsQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component
@@ -90,9 +92,9 @@ const OngoingRecruitmentSection = ({
   });
 
   const quickFilterStream = methods.watch("quickFilter");
-  const { loggedInUser, isLoaded } = React.useContext(AuthorizationContext);
+  const { user, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
-    pause: !isLoaded || !loggedInUser,
+    pause: !isLoaded || !user,
   });
 
   const mySkillIdsWithDuplicates = skillsData?.me?.experiences
@@ -1013,16 +1015,11 @@ const OngoingRecruitmentSection = ({
       </p>
 
       <div>
-        <Accordion.Root
-          data-h2-margin="base(0)"
-          data-h2-padding="base(0)"
-          type="multiple"
-        >
+        <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
               <Accordion.Trigger
                 subtitle={stream.summary}
-                data-h2-font-size="base(h4)"
                 headerAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
@@ -1053,14 +1050,11 @@ const OngoingRecruitmentSection = ({
                       (classification) => classification.poolAdvertisement?.id,
                     )
                     .map((classification) => (
-                      <div
-                        key={`${classification.title}`}
-                        data-h2-padding="base(0,0,x1, 0)"
-                      >
+                      <div key={`${classification.title}`}>
                         <h4
-                          data-h2-font-size="base(h6)"
+                          data-h2-font-size="base(copy)"
                           data-h2-font-weight="base(700)"
-                          data-h2-padding="base(0,0,x0.75, 0)"
+                          data-h2-margin="base(x1, 0)"
                         >
                           {classification.title}
                         </h4>
@@ -1072,7 +1066,7 @@ const OngoingRecruitmentSection = ({
                             href={paths.pool(
                               classification.poolAdvertisement.id,
                             )}
-                            color="blue"
+                            color="secondary"
                             type="button"
                             mode="solid"
                             data-h2-font-weight="base(700)"

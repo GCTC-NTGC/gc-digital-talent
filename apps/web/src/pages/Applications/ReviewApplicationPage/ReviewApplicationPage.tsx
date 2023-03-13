@@ -3,23 +3,18 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 
-import UserProfile from "@common/components/UserProfile";
-import Pending from "@common/components/Pending";
-import { ThrowNotFound } from "@common/components/NotFound";
-import MissingSkills from "@common/components/MissingSkills";
-import MissingLanguageRequirements from "@common/components/MissingLanguageRequirements";
-import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import SEO from "@common/components/SEO/SEO";
-import Well from "@common/components/Well";
-import { navigationMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
-import { Link } from "@common/components";
-import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { categorizeSkill, getMissingSkills } from "@common/helpers/skillUtils";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
-import { getMissingLanguageRequirements } from "@common/helpers/languageUtils";
-import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
+import { Pending, ThrowNotFound, Well, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import UserProfile from "~/components/UserProfile";
+import MissingSkills from "~/components/MissingSkills";
+import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
+import ExperienceSection from "~/components/UserProfile/ExperienceSection";
+import SEO from "~/components/SEO/SEO";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Applicant,
@@ -28,8 +23,9 @@ import {
   SkillCategory,
   useGetReviewApplicationPageDataQuery,
 } from "~/api/generated";
-
 import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
+import { categorizeSkill, getMissingSkills } from "~/utils/skillUtils";
+import { flattenExperienceSkills } from "~/types/experience";
 
 interface ReviewApplicationProps {
   applicant: Applicant;
@@ -231,7 +227,7 @@ export const ReviewApplication: React.FunctionComponent<
                   >
                     <Link
                       href={paths.signAndSubmit(applicationId)}
-                      color="cta"
+                      color="primary"
                       mode="solid"
                       type="button"
                       disabled={!isApplicationComplete ?? false}
@@ -249,7 +245,7 @@ export const ReviewApplication: React.FunctionComponent<
                     </Link>
                     <Link
                       href={paths.applications(applicant.id)}
-                      color="black"
+                      color="secondary"
                       mode="inline"
                       type="button"
                     >

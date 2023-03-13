@@ -4,13 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import omit from "lodash/omit";
 
-import Button from "@common/components/Button/Button";
-import Heading from "@common/components/Heading/Heading";
-import Separator from "@common/components/Separator/Separator";
-import { unpackMaybes } from "@common/helpers/formUtils";
-import Pending from "@common/components/Pending";
-import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
-import { notEmpty } from "@common/helpers/util";
+import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   CountApplicantsQueryVariables,
   Maybe,
@@ -24,6 +21,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
+import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
 
 import { LocationState } from "~/types/searchRequest";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -128,10 +126,12 @@ const ResultsDisplay = ({
     </div>
   ) : (
     <div
-      data-h2-shadow="base(m)"
+      data-h2-background="base(foreground)"
+      data-h2-shadow="base(medium)"
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-padding="base(x1)"
-      data-h2-border-left="base(x1 solid tm-blue)"
+      data-h2-border-left="base(x.5 solid primary)"
+      data-h2-radius="base(0, s, s, 0)"
     >
       <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
@@ -176,7 +176,7 @@ const ResultsDisplay = ({
       />
 
       <Button
-        color="blue"
+        color="secondary"
         mode="outline"
         onClick={() =>
           handleSubmit(
@@ -280,13 +280,13 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 
   return (
     <div data-h2-padding="base(0, 0, x3, 0)">
-      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-flex-grid="base(stretch, x3)">
           <div data-h2-flex-item="base(1of1) p-tablet(3of5)">
             <div>
               <h2
                 data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-color="base(dt-black)"
+                data-h2-color="base(black)"
                 data-h2-font-weight="base(300)"
               >
                 {intl.formatMessage({
@@ -326,13 +326,13 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
         </div>
       </div>
       <div
-        data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         id="results"
       >
         <hr
           data-h2-margin="base(x3, 0, 0, 0)"
           data-h2-height="base(1px)"
-          data-h2-background-color="base(dt-gray)"
+          data-h2-background-color="base(gray)"
           data-h2-border="base(none)"
         />
         <div>
@@ -455,7 +455,7 @@ const SearchContainerApi = () => {
     ?.flatMap((pool) => pool?.classifications)
     .filter(notEmpty);
 
-  const ITClassifications = NonExecutiveITClassifications();
+  const ITClassifications = nonExecutiveITClassifications();
   const searchableClassifications = ITClassifications.filter(
     (classification) => {
       return availableClassifications?.some(

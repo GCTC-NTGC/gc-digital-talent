@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import { useForm, useWatch } from "react-hook-form";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { Button } from "@common/components";
-import { TextArea } from "@common/components/form";
-import Well from "@common/components/Well";
-import WordCounter from "@common/components/WordCounter/WordCounter";
-import { countNumberOfWords } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
-import { errorMessages } from "@common/messages";
+import { Button, Well } from "@gc-digital-talent/ui";
+import {
+  TextArea,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
+import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 
@@ -36,7 +36,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
 
   return (
     <section>
-      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "3. Skills in detail",
           id: "AtZhfR",
@@ -54,9 +54,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         })}
       </p>
       <ul
-        data-h2-margin="base(x.5, 0, x1, 0)"
+        data-h2-margin="base(x.5, 0, x2, 0) base:children[>li](x.5, 0, 0, 0)"
         data-h2-padding="base(0, 0, 0, x1)"
-        data-h2-color="base(dt-gray.dark)"
         data-h2-font-style="base(italic)"
       >
         <li>
@@ -108,7 +107,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   {index + 1}. {name[locale]}
                 </p>
                 <Button
-                  color="secondary"
+                  color="error"
                   mode="inline"
                   data-h2-padding="base(0)"
                   data-h2-text-decoration="base(underline)"

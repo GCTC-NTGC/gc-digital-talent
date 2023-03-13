@@ -1,21 +1,26 @@
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-
-import { toast } from "@common/components/Toast";
-import { Input, Select, Submit, TextArea } from "@common/components/form";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import Heading from "@common/components/Heading";
-import Well from "@common/components/Well";
 import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
-import { strToFormDate } from "@common/helpers/dateUtils";
-import { commonMessages } from "@common/messages";
-import { emptyToNull } from "@common/helpers/util";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
 
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Input,
+  Select,
+  Submit,
+  TextArea,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import { Pending, NotFound, Heading, Well } from "@gc-digital-talent/ui";
+import {
+  getPoolCandidateStatus,
+  commonMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { emptyToNull } from "@gc-digital-talent/helpers";
+
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -205,14 +210,9 @@ export const ApplicationStatusForm = ({
               )}
             />
             <Submit
-              color="cta"
+              color="primary"
               isSubmitting={isSubmitting}
-              text={intl.formatMessage({
-                id: "OunUSG",
-                defaultMessage: "Save changes",
-                description:
-                  "Text for the pool candidate application status submit button",
-              })}
+              text={intl.formatMessage(formMessages.saveChanges)}
               isSubmittingText={intl.formatMessage({
                 defaultMessage: "Saving...",
                 id: "4Czd5U",

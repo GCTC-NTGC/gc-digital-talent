@@ -14,11 +14,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "~/*": ["./*"],
-      "@common/*": ["../../../frontend/common/src/*"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "node_modules",

@@ -2,11 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import imageUrl from "@common/helpers/imageUrl";
+import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useQuote from "~/hooks/useQuote";
 
-import { wrapAbbr } from "@common/helpers/nameUtils";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -35,13 +34,13 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
-
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
    */
   return (
     <motion.div
+      data-h2-background="base(white) base:dark(background)"
       data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -57,7 +56,7 @@ const Home: React.FunctionComponent = () => {
         data-h2-flex-direction="base(column)"
       >
         <div
-          data-h2-background="base(ia-primary-dark-to-transparent)"
+          data-h2-background="base(primary-transparent-linear)"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
@@ -75,7 +74,7 @@ const Home: React.FunctionComponent = () => {
         />
         <div
           className="hero-logo"
-          data-h2-background-color="base(ia-primary.hero) p-tablet(transparent)"
+          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
@@ -89,18 +88,13 @@ const Home: React.FunctionComponent = () => {
               alt=""
             />
             <span data-h2-visually-hidden="base(invisible)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples. Apply today to get started on your <abbreviation>IT</abbreviation> career journey.",
-                  id: "7Kb+Uh",
-                  description:
-                    "Homepage title for Indigenous Apprenticeship Program",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
+                id: "qZvV7b",
+                description:
+                  "Homepage title for Indigenous Apprenticeship Program",
+              })}
             </span>
           </h1>
         </div>
@@ -128,7 +122,7 @@ const Home: React.FunctionComponent = () => {
           >
             <div
               data-h2-padding="p-tablet(x2) l-tablet(x3)"
-              data-h2-background-color="base(ia-white)"
+              data-h2-background-color="base(white) base:dark(background)"
               data-h2-radius="base(iap-home-card)"
             >
               <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
@@ -142,7 +136,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x8)"
                       data-h2-width="base(x8)"
-                      data-h2-background-color="base(ia-primary)"
+                      data-h2-background-color="base(primary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(-x1.5, -x1, auto, auto)"
@@ -151,7 +145,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x15)"
                       data-h2-width="base(x15)"
-                      data-h2-background-color="base(ia-secondary)"
+                      data-h2-background-color="base(secondary)"
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-location="base(auto, auto, -x3, -x5.5)"
@@ -196,18 +190,12 @@ const Home: React.FunctionComponent = () => {
                     })}
                   </Heading>
                   <p data-h2-margin="base(x2, 0, x1, 0)">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "The <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (<abbreviation>IT</abbreviation>).",
-                        id: "b3v0nI",
-                        description: "First paragraph about the program",
-                      },
-                      {
-                        abbreviation: (text: React.ReactNode) =>
-                          wrapAbbr(text, intl),
-                      },
-                    )}
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The IT Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
+                      id: "pWoAv0",
+                      description: "First paragraph about the program",
+                    })}
                   </p>
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
@@ -349,7 +337,7 @@ const Home: React.FunctionComponent = () => {
                     className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
-                    data-h2-color="base(ia-secondary)"
+                    data-h2-color="base(secondary)"
                     data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
                   <div
@@ -449,7 +437,7 @@ const Home: React.FunctionComponent = () => {
         <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
             light
-            data-h2-color="base(ia-white)"
+            data-h2-color="base(white)"
             data-h2-text-align="base(center)"
           >
             {intl.formatMessage({
@@ -486,28 +474,22 @@ const Home: React.FunctionComponent = () => {
               <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
                 <div
                   data-h2-height="base(100%)"
-                  data-h2-background-color="base(ia-secondary.light)"
+                  data-h2-background-color="base(secondary.light)"
                   data-h2-padding="base(x2) p-tablet(x3)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
                   <Heading
                     light
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                     data-h2-font-size="base(h3, 1)"
                   >
                     <span data-h2-display="base(block)">
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Is the <abbreviation>IT</abbreviation> Apprenticeship Program right for you?",
-                          id: "W2G590",
-                          description: "Application box heading part one",
-                        },
-                        {
-                          abbreviation: (text: React.ReactNode) =>
-                            wrapAbbr(text, intl),
-                        },
-                      )}
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Is the IT Apprenticeship Program right for you?",
+                        id: "DgMIfz",
+                        description: "Application box heading part one",
+                      })}
                     </span>
                     <span>
                       {intl.formatMessage({
@@ -517,10 +499,7 @@ const Home: React.FunctionComponent = () => {
                       })}
                     </span>
                   </Heading>
-                  <p
-                    data-h2-color="base(ia-white)"
-                    data-h2-margin="base(x1, 0)"
-                  >
+                  <p data-h2-color="base(white)" data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Apply today to start your journey to a career in Information Technology.",
@@ -537,7 +516,7 @@ const Home: React.FunctionComponent = () => {
       </div>
       {/* Coming soon section */}
       <div
-        data-h2-background-color="base(ia-secondary)"
+        data-h2-background-color="base(secondary)"
         data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
         data-h2-position="base(relative)"
       >
@@ -550,7 +529,7 @@ const Home: React.FunctionComponent = () => {
         >
           <RadiatingCircles
             className=""
-            data-h2-color="base(ia-primary)"
+            data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
@@ -584,17 +563,12 @@ const Home: React.FunctionComponent = () => {
               color="white"
               data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
             >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
-                  id: "Zd1x6H",
-                  description: "heading for indigenous talent portal section",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
+                id: "osGGIt",
+                description: "heading for indigenous talent portal section",
+              })}
             </Heading>
             <Heading as="h3" color="white">
               {intl.formatMessage({
@@ -606,7 +580,7 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
               {intl.formatMessage({
@@ -657,18 +631,12 @@ const Home: React.FunctionComponent = () => {
                 })}
               >
                 <p data-h2-margin="base(x1, 0, 0, 0)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "We want to learn about you and about your interest/passion in the area of <abbreviation>IT</abbreviation>!",
-                      id: "gxOExQ",
-                      description: "How it works, step 2 content sentence 1",
-                    },
-                    {
-                      abbreviation: (text: React.ReactNode) =>
-                        wrapAbbr(text, intl),
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "We want to learn about you and about your interest/passion in the area of IT!",
+                    id: "yZMQ6j",
+                    description: "How it works, step 2 content sentence 1",
+                  })}
                 </p>
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
@@ -719,21 +687,16 @@ const Home: React.FunctionComponent = () => {
             </Heading>
             <p
               data-h2-margin="base(x1, auto, 0, auto)"
-              data-h2-color="base(ia-white)"
+              data-h2-color="base(white)"
               data-h2-max-width="base(38rem)"
             >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "In collaboration with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on <abbreviation>IT</abbreviation> and technology talent, which will:",
-                  id: "9FKjvW",
-                  description:
-                    "Description for strategy for the indigenous talent portal",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "In collaboration with the IT Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on IT and technology talent, which will:",
+                id: "Dzyk1q",
+                description:
+                  "Description for strategy for the indigenous talent portal",
+              })}
             </p>
           </div>
           <div data-h2-flex-grid="base(flex-start, x3, x2)">
@@ -747,18 +710,12 @@ const Home: React.FunctionComponent = () => {
                 })}
               >
                 <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Address the great demand for Indigenous talent in <abbreviation>IT</abbreviation>.",
-                      id: "cMDC/P",
-                      description: "Talent portal strategy item 1 content",
-                    },
-                    {
-                      abbreviation: (text: React.ReactNode) =>
-                        wrapAbbr(text, intl),
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Address the great demand for Indigenous talent in IT.",
+                    id: "Xhfkfg",
+                    description: "Talent portal strategy item 1 content",
+                  })}
                 </p>
               </Card>
             </div>
@@ -831,11 +788,11 @@ const Home: React.FunctionComponent = () => {
                 <Triangle
                   className=""
                   data-h2-width="base(100%)"
-                  data-h2-color="base(light.ia-secondary)"
+                  data-h2-color="base(secondary.light)"
                 />
               </div>
               <div
-                data-h2-background-color="base(ia-secondary.light)"
+                data-h2-background-color="base(secondary.light)"
                 data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
                 data-h2-position="base(relative)"
                 data-h2-text-align="base(center) p-tablet(left)"
@@ -863,7 +820,7 @@ const Home: React.FunctionComponent = () => {
                 >
                   <div
                     data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
-                    data-h2-color="base(ia-white)"
+                    data-h2-color="base(white)"
                   >
                     <Heading color="white" light>
                       {intl.formatMessage({

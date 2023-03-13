@@ -9,16 +9,18 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 
-import { toast } from "@common/components/Toast";
-import { Link } from "@common/components";
-import { Input, Submit } from "@common/components/form";
-import { ThrowNotFound } from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import SEO from "@common/components/SEO/SEO";
-import TableOfContents from "@common/components/TableOfContents";
-import { errorMessages } from "@common/messages";
-import { getFullPoolAdvertisementTitleHtml } from "@common/helpers/poolUtils";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Link,
+  ThrowNotFound,
+  Pending,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
+import { Input, Submit } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
+import SEO from "~/components/SEO/SEO";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   PoolAdvertisement,
@@ -27,7 +29,6 @@ import {
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
 } from "~/api/generated";
-
 import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 
 const ImportantInfo = () => {
@@ -183,7 +184,7 @@ const SignatureForm = ({
         </div>
         <div data-h2-text-align="base(center) p-tablet(left)">
           <Submit
-            color="cta"
+            color="primary"
             text={
               <span
                 data-h2-display="base(flex)"
@@ -206,7 +207,7 @@ const SignatureForm = ({
           />
           <Link
             href={paths.reviewApplication(applicationId)}
-            color="black"
+            color="secondary"
             mode="inline"
             type="button"
           >

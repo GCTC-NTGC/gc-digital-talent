@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { toast } from "@common/components/Toast";
-import Well from "@common/components/Well";
-import type { IndigenousCommunity, Maybe } from "@common/api/generated";
+import { toast } from "@gc-digital-talent/toast";
+import { Well } from "@gc-digital-talent/ui";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-} from "@common/constants";
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 import Spinner from "~/components/Spinner/Spinner";
+import type { IndigenousCommunity, Maybe } from "~/api/generated";
 
-import { notEmpty } from "@common/helpers/util";
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "../../types";
 import IndigenousEquityOption from "../IndigenousEquityOption";
@@ -90,11 +90,11 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
     <div data-h2-position="base(relative)">
       <div
         data-h2-layer="base(1, relative)"
-        data-h2-flex-grid="l-tablet(normal, x3)"
+        data-h2-flex-grid="l-tablet(normal, x2)"
       >
         <div data-h2-flex-item="l-tablet(1of2)">
           <h2
-            data-h2-font-size="base(h4, 1)"
+            data-h2-font-size="base(h5, 1)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -174,7 +174,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
         </div>
         <div data-h2-flex-item="l-tablet(1of2)">
           <h2
-            data-h2-font-size="base(h4, 1)"
+            data-h2-font-size="base(h5, 1)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -254,18 +254,12 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
       {isDisabled && (
         <div
           data-h2-position="base(absolute)"
-          data-h2-background-color="base(dt-white)"
+          data-h2-background-color="base(background)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(center)"
-          style={{
-            bottom: 0,
-            left: 0,
-            opacity: 0.6,
-            right: 0,
-            top: 0,
-            zIndex: 2,
-          }}
+          data-h2-location="base(x2, -x1, -x1, -x1)"
+          data-h2-z-index="base(2)"
         >
           <Spinner />
         </div>
