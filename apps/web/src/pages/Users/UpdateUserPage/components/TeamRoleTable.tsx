@@ -1,28 +1,49 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Heading, Pill } from "@gc-digital-talent/ui";
+import { Heading, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import {
+  LocalizedString,
+  Maybe,
   Role,
   RoleAssignment,
+  Team,
   UpdateUserAsAdminInput,
   User,
 } from "~/api/generated";
 
+import useRoutes from "~/hooks/useRoutes";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import { UpdateUserFunc } from "../types";
 
-const roleAssignmentCell = (displayName: string) => {
-  return (
+function useLocalizedName(name: Maybe<LocalizedString>) {
+  const intl = useIntl();
+  return getLocalizedName(name, intl);
+}
+
+type RoleCellProps = { role: Maybe<Role> };
+const RoleCell = ({ role }: RoleCellProps) => {
+  const roleName = useLocalizedName(role?.displayName);
+  return role ? (
     <Pill color="neutral" mode="solid">
-      {displayName}
+      {roleName}
     </Pill>
-  );
+  ) : null;
+};
+
+type TeamCellProps = { team: Maybe<Team> };
+const TeamCell = ({ team }: TeamCellProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const teamName = getLocalizedName(team?.displayName, intl);
+
+  return team ? <Link href={paths.teamView(team.id)}>{teamName}</Link> : null;
 };
 
 const actionCell = (
@@ -74,10 +95,11 @@ export const TeamRoleTable = ({
         }),
         accessor: (roleAssignment) =>
           getLocalizedName(roleAssignment.team?.displayName, intl),
-        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
-          roleAssignmentCell(
-            getLocalizedName(roleAssignment.team?.displayName, intl),
-          ),
+        Cell: ({
+          row: {
+            original: { team },
+          },
+        }: RoleAssignmentCell) => <TeamCell team={team} />,
       },
       {
         Header: intl.formatMessage({
@@ -87,10 +109,11 @@ export const TeamRoleTable = ({
         }),
         accessor: (roleAssignment) =>
           getLocalizedName(roleAssignment.role?.displayName, intl),
-        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
-          roleAssignmentCell(
-            getLocalizedName(roleAssignment.role?.displayName, intl),
-          ),
+        Cell: ({
+          row: {
+            original: { role },
+          },
+        }: RoleAssignmentCell) => <RoleCell role={role} />,
       },
     ],
     [intl, onUpdateUser, user],
