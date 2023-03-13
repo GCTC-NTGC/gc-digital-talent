@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 // Note: ignore to stop merging date-fns imports
 // eslint-disable-next-line import/no-duplicates
-import { add, format, getDaysInMonth, isDate, parseISO } from "date-fns";
+import { add, format, getDaysInMonth, isDate, parse, parseISO } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
@@ -138,6 +138,10 @@ export const strToFormDate = (value: string) => {
   return format(parsed, DATE_FORMAT_STRING);
 };
 
+export const formDateStringToDate = (value: string, fallback?: Date) => {
+  return parse(value, DATE_FORMAT_STRING, fallback || new Date());
+};
+
 // Convert a DateTime from one zone to another
 export const convertDateTimeZone = (
   sourceDateTime: Scalars["DateTime"],
@@ -164,40 +168,3 @@ export const convertDateTimeToDate = (
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
   toDate(d, { timeZone: "UTC" });
-
-export const dateTimeToSeparatedStrings = (
-  d?: Scalars["DateTime"],
-): SeparatedDateString | null => {
-  const parsedDate = d ? strToFormDate(d) : false;
-  if (parsedDate) {
-    const separated = parsedDate.split("-"); // YYYY-MM-DD
-    return {
-      year: separated[0],
-      month: separated[1],
-      day: separated[2],
-    };
-  }
-
-  return null;
-};
-
-export const dateRangeToSeparatedStrings = (
-  min?: Scalars["DateTime"],
-  max?: Scalars["DateTime"],
-): SeparatedDateRange => {
-  return {
-    min: dateTimeToSeparatedStrings(min),
-    max: dateTimeToSeparatedStrings(max),
-  };
-};
-
-export const getDaysInMonthFromString = (
-  d?: Scalars["DateTime"],
-): number | null => {
-  const parsedDate = d ? parseDateTimeUtc(d) : false;
-  if (parsedDate && isDate(parsedDate)) {
-    return getDaysInMonth(parsedDate);
-  }
-
-  return null;
-};

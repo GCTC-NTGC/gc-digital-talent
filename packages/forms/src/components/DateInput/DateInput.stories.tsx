@@ -34,6 +34,6 @@ WithinRange.args = {
   name: "date",
   dateRange: {
     min: "2023-03-01",
-    max: "2023-04-01",
+    max: "2024-04-01",
   },
 };

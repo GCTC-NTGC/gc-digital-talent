@@ -3,14 +3,19 @@ import { useIntl } from "react-intl";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
-import { dateMessages } from "@gc-digital-talent/i18n";
-import { dateRangeToSeparatedStrings } from "@gc-digital-talent/date-helpers";
-
 import { Scalars } from "@gc-digital-talent/graphql";
+import { dateMessages } from "@gc-digital-talent/i18n";
+import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
+
 import useFieldState from "../../hooks/useFieldState";
 import Fieldset from "../Fieldset";
 import Input from "../Input";
 import Select from "../Select";
+
+import { getDateValidation } from "./validation";
 
 export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
@@ -77,12 +82,13 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [year, month, day] = watch([ID.YEAR, ID.MONTH, ID.DAY]);
 
-  const dateConstraints = dateRangeToSeparatedStrings(
-    dateRange?.min,
-    dateRange?.max,
-  );
+  const dateConstraints = {
+    min: dateRange?.min ? formDateStringToDate(dateRange.min) : null,
+    max: dateRange?.max ? formDateStringToDate(dateRange.max) : null,
+  };
 
   useEffect(() => {
+    // Updates the hidden input to get a properly formatted date we can validate
     setValue(name, `${year}-${month}-${day}`);
   }, [year, month, day, setValue, name]);
 
@@ -100,7 +106,13 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
       isUnsaved={isUnsaved}
       {...rest}
     >
-      <input type="hidden" {...register(name, { ...rules })} />
+      <input
+        type="hidden"
+        {...register(name, {
+          ...rules,
+          validate: getDateValidation(dateConstraints, intl),
+        })}
+      />
       <div
         data-h2-align-items="base(flex-start)"
         data-h2-display="base(flex)"
@@ -115,10 +127,46 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             name={ID.YEAR}
             label="Year"
             placeholder="YYYY"
-            min={dateConstraints?.min?.year ?? 0}
-            max={dateConstraints?.max?.year ?? undefined}
+            min={
+              dateConstraints.min
+                ? formatDate({
+                    date: dateConstraints.min,
+                    formatString: "yyyy",
+                    intl,
+                  })
+                : 0
+            }
+            max={
+              dateConstraints.max
+                ? formatDate({
+                    date: dateConstraints.max,
+                    formatString: "yyyy",
+                    intl,
+                  })
+                : undefined
+            }
             rules={{
-              ...rules,
+              required: true,
+              min: dateConstraints.min
+                ? parseInt(
+                    formatDate({
+                      date: dateConstraints.min,
+                      formatString: "yyyy",
+                      intl,
+                    }),
+                    10,
+                  )
+                : undefined,
+              max: dateConstraints.max
+                ? parseInt(
+                    formatDate({
+                      date: dateConstraints.max,
+                      formatString: "yyyy",
+                      intl,
+                    }),
+                    10,
+                  )
+                : undefined,
             }}
           />
         </div>
@@ -129,6 +177,9 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             label="Month"
             doNotSort
             nullSelection={intl.formatMessage(dateMessages.selectAMonth)}
+            rules={{
+              required: true,
+            }}
             options={[
               {
                 value: "01",
@@ -191,7 +242,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             min={1}
             max={31}
             rules={{
-              ...rules,
+              required: true,
             }}
           />
         </div>

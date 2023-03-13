@@ -1,24 +1,79 @@
-import { parse, isDate } from "date-fns";
+import { isAfter, isValid, isEqual, isBefore } from "date-fns";
+import { IntlShape } from "react-intl";
+import { Validate } from "react-hook-form";
+
 import {
-  SeparatedDateRange,
-  SeparatedDateString,
-} from "@gc-digital-talent/date-helpers/dist/types";
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
-export type SegmentIds = Record<"year" | "month" | "day", string>;
+export type SegmentIds = Record<"YEAR" | "MONTH" | "DAY", string>;
 
-const validateIsDate = <T>(value: string) => {
-  return isDate(value);
+export type DateConstraint = {
+  min: Date | null;
+  max: Date | null;
 };
 
 export const getDateValidation = <T>(
-  segmentIds: SegmentIds,
-  constraints: SeparatedDateRange,
-) => ({
-  isDate: validateIsDate<T>,
-});
-
-export const getYearValidation = <T>(max?: SeparatedDateString) => {
-  return (value: string) => {
-    parseInt(value) > max?.year;
+  constraints: DateConstraint,
+  intl: IntlShape,
+) => {
+  // Note: This comes from `react-hook-form`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let validation: Validate<any> | Record<string, Validate<any>> | undefined = {
+    isDate: (value: string) => {
+      return (
+        isValid(formDateStringToDate(value)) ||
+        intl.formatMessage(errorMessages.invalidDate)
+      );
+    },
   };
+
+  if (constraints.min) {
+    validation = {
+      ...validation,
+      isAfterMin: (value: string) => {
+        if (!constraints.min) {
+          return true;
+        }
+        const parsedDate = formDateStringToDate(value);
+        return (
+          isAfter(parsedDate, constraints.min) ||
+          isEqual(parsedDate, constraints.min) ||
+          intl.formatMessage(errorMessages.minDate, {
+            date: formatDate({
+              date: constraints.min,
+              formatString: "yyyy-MM-dd",
+              intl,
+            }),
+          })
+        );
+      },
+    };
+  }
+  if (constraints.max) {
+    validation = {
+      ...validation,
+      isBeforeMax: (value: string) => {
+        if (!constraints.max) {
+          return true;
+        }
+        const parsedDate = formDateStringToDate(value);
+        return (
+          isBefore(parsedDate, constraints.max) ||
+          isEqual(parsedDate, constraints.max) ||
+          intl.formatMessage(errorMessages.maxDate, {
+            date: formatDate({
+              date: constraints.max,
+              formatString: "yyyy-MM-dd",
+              intl,
+            }),
+          })
+        );
+      },
+    };
+  }
+
+  return validation;
 };
