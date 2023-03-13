@@ -6786,10 +6786,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
   },
-  "eW7I5E": {
-    "defaultMessage": "Sélectionner les rôles...",
-    "description": "Placeholder text for role selection input"
-  },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
@@ -6809,5 +6805,13 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "hr/i9h": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder displayed for team selection input."
+  },
+  "mOS8rj": {
+    "defaultMessage": "Équipe principale",
+    "description": "Label displayed for selecting what team a new pool belongs to."
   }
 }
