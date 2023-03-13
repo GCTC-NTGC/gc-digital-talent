@@ -32,4 +32,3 @@ module.exports = merge(base(basePath), {
     clean: true, // delete existing files on recompile
   },
 });
-

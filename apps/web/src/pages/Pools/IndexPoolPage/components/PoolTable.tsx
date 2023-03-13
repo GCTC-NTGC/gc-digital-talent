@@ -10,6 +10,7 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
@@ -17,11 +18,12 @@ import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
-  GetPoolsQuery,
   Maybe,
   Pool,
   Scalars,
-  useGetPoolsQuery,
+  GetMePoolsQuery,
+  useGetMePoolsQuery,
+  RoleAssignment,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -29,7 +31,13 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type Data = NonNullable<
+  FromArray<
+    NonNullable<
+      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
+    >["pools"]
+  >
+>;
 type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -126,8 +134,27 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
+// roles assignments to teams to pools array
+const roleAssignmentsToPools = (
+  roleAssignmentArray: Maybe<RoleAssignment[]>,
+): Pool[] => {
+  const flattenedTeams = roleAssignmentArray?.flatMap(
+    (roleAssign) => roleAssign.team,
+  );
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => team?.pools);
+  const filteredFlattenedPools = unpackMaybes(flattenedPools);
+
+  // clear out any duplicate pools that may have accumulated
+  // https://stackoverflow.com/a/56757215
+  const poolsArray = filteredFlattenedPools.filter(
+    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
+  );
+  return poolsArray;
+};
+
 interface PoolTableProps {
-  pools: GetPoolsQuery["pools"];
+  pools: Pool[];
 }
 
 export const PoolTable = ({ pools }: PoolTableProps) => {
@@ -357,12 +384,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
 };
 
 const PoolTableApi = () => {
-  const [result] = useGetPoolsQuery();
+  const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
+  const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={data?.pools ?? []} />
+      <PoolTable pools={poolsArray ?? []} />
     </Pending>
   );
 };

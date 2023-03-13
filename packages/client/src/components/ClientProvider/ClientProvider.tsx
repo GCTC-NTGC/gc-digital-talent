@@ -178,13 +178,15 @@ const ClientProvider: React.FC<{
                   toastId: "rate-limit", // limits toasts for rate limit to one.
                 });
 
-              logger.error(
-                JSON.stringify({
-                  message: "ClientProvider onError",
-                  error,
-                  operation,
-                }),
-              );
+              if (error.graphQLErrors || error.networkError) {
+                logger.error(
+                  JSON.stringify({
+                    message: "ClientProvider onError",
+                    error,
+                    operation,
+                  }),
+                );
+              }
             },
           }),
           dedupExchange,

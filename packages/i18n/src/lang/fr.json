@@ -457,9 +457,9 @@
     "defaultMessage": "m'exige de <strong>voyager</strong>.",
     "description": "The operational requirement described as travel as required."
   },
-  "ZcvDAo": {
+  "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
-    "description": "Message that there are required fields missing. Please ignore things in <> tags."
+    "description": "Message that there are required fields missing"
   },
   "9rn/MG": {
     "defaultMessage": "exige <strong>des quarts de travail</strong>.",

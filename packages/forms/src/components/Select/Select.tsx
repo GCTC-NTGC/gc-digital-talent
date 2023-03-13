@@ -47,6 +47,8 @@ export interface SelectProps
   trackUnsaved?: boolean;
   /** Determine if it should sort options in alphanumeric ascending order */
   doNotSort?: boolean;
+  /** Hides the (optional) label if true */
+  hideOptional?: boolean;
 }
 
 function sortOptions(options: OptGroupOrOption[]) {
@@ -89,6 +91,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   rules,
   context,
   nullSelection,
+  hideOptional,
   trackUnsaved = true,
   doNotSort = false,
   ...rest
@@ -127,6 +130,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         trackUnsaved={trackUnsaved}
         onContextToggle={setContextVisible}
         descriptionIds={descriptionIds}
+        hideOptional={hideOptional}
       >
         <select
           data-h2-padding="base(x.25, x.5)"

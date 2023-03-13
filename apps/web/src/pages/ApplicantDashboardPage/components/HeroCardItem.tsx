@@ -21,19 +21,43 @@ const textColorMap: Record<TextColor, Record<string, string>> = {
   },
 };
 
-export type IconColor = "default" | "error" | "success" | "tertiary.dark";
+export type IconColor =
+  | "default"
+  | "gray"
+  | "error"
+  | "success"
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary";
 const iconColorMap: Record<IconColor, Record<string, string>> = {
   default: {
-    color: "rgba(var(--h2-color-black), 1)",
+    "data-h2-color": "base(black)",
+  },
+  gray: {
+    "data-h2-color": "base(gray.darker)",
   },
   error: {
-    color: "rgba(var(--h2-color-error), 1)",
+    "data-h2-color": "base(error)",
   },
   success: {
-    color: "rgba(var(--h2-color-success), 1)",
+    "data-h2-color": "base(success)",
   },
-  "tertiary.dark": {
-    color: "rgba(var(--h2-color-tertiary-dark), 1)",
+  primary: {
+    "data-h2-color": "base(gray.darker) base:hover(primary)",
+  },
+  secondary: {
+    "data-h2-color": "base(gray.darker) base:hover(secondary)",
+  },
+  tertiary: {
+    "data-h2-color": "base(gray.darker) base:hover(tertiary)",
+  },
+  quaternary: {
+    "data-h2-color": "base(gray.darker) base:hover(quaternary)",
+  },
+  quinary: {
+    "data-h2-color": "base(gray.darker) base:hover(quinary)",
   },
 };
 
@@ -62,14 +86,16 @@ export const HeroCardItem = ({
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(row)"
       data-h2-gap="base(x0.5)"
-      data-h2-margin-bottom="base(x0.25)"
+      data-h2-border-top="base:selectors[:not(:first-child)](1px solid gray.lighter)"
+      data-h2-margin-top="base:selectors[:not(:first-child)](x.5)"
+      data-h2-padding-top="base:selectors[:not(:first-child)](x.5)"
     >
       <Icon
-        style={{
-          width: "1.5em",
-          height: "1.5em",
-          ...iconColorMap[iconColor],
-        }}
+        data-h2-height="base(x.75)"
+        data-h2-width="base(x.75)"
+        data-h2-margin-top="base(x.15)"
+        data-h2-transition="base(color .2s ease)"
+        {...iconColorMap[iconColor]}
       />
 
       <div>
@@ -163,18 +189,20 @@ export interface HeroCardExperienceItemProps {
   sectionName: string;
   itemCount?: number;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  color?: IconColor;
 }
 
 export const HeroCardExperienceItem = ({
   sectionName,
   itemCount = 0,
   icon,
+  color,
 }: HeroCardExperienceItemProps) => {
   const intl = useIntl();
   return (
     <HeroCardItem
       icon={icon}
-      iconColor="tertiary.dark"
+      iconColor={color}
       line={sectionName}
       subLine={intl.formatMessage(
         {
