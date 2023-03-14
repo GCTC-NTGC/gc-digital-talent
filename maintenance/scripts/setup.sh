@@ -23,5 +23,5 @@ cp .env.example .env --preserve=all
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
-npm run build
+npm run build:fresh
 chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
