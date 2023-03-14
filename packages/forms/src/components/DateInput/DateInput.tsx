@@ -15,7 +15,9 @@ import Fieldset from "../Fieldset";
 import Input from "../Input";
 import Select from "../Select";
 
+import getSegmentValues from "./utils";
 import getDateValidation from "./validation";
+import { DateSegment, DATE_SEGMENT } from "./types";
 
 export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
@@ -44,6 +46,7 @@ export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
     /** Set a maximum date */
     max?: Scalars["Date"];
   };
+  show?: Array<DateSegment>;
 }
 
 /**
@@ -60,6 +63,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   hideOptional,
   hideLegend,
   dateRange,
+  show = [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
   trackUnsaved = true,
   ...rest
 }) => {
@@ -88,9 +92,10 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   };
 
   useEffect(() => {
+    const newValue = getSegmentValues({ year, month, day }, show);
     // Updates the hidden input to get a properly formatted date we can validate
-    setValue(name, `${year}-${month}-${day}`);
-  }, [year, month, day, setValue, name]);
+    setValue(name, newValue);
+  }, [year, month, day, setValue, name, show]);
 
   return (
     <Fieldset
@@ -120,132 +125,138 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         data-h2-gap="base(x1, 0) p-tablet(0, x1)"
         data-h2-justify-content="base(flex-start)"
       >
-        <div>
-          <Input
-            type="number"
-            id={ID.YEAR}
-            name={ID.YEAR}
-            label="Year"
-            placeholder="YYYY"
-            min={
-              dateConstraints.min
-                ? formatDate({
-                    date: dateConstraints.min,
-                    formatString: "yyyy",
-                    intl,
-                  })
-                : 0
-            }
-            max={
-              dateConstraints.max
-                ? formatDate({
-                    date: dateConstraints.max,
-                    formatString: "yyyy",
-                    intl,
-                  })
-                : undefined
-            }
-            rules={{
-              required: true,
-              min: dateConstraints.min
-                ? parseInt(
-                    formatDate({
+        {show.includes(DATE_SEGMENT.Year) && (
+          <div>
+            <Input
+              type="number"
+              id={ID.YEAR}
+              name={ID.YEAR}
+              label="Year"
+              placeholder="YYYY"
+              min={
+                dateConstraints.min
+                  ? formatDate({
                       date: dateConstraints.min,
                       formatString: "yyyy",
                       intl,
-                    }),
-                    10,
-                  )
-                : undefined,
-              max: dateConstraints.max
-                ? parseInt(
-                    formatDate({
+                    })
+                  : 0
+              }
+              max={
+                dateConstraints.max
+                  ? formatDate({
                       date: dateConstraints.max,
                       formatString: "yyyy",
                       intl,
-                    }),
-                    10,
-                  )
-                : undefined,
-            }}
-          />
-        </div>
-        <div data-h2-flex-shrink="base(0)">
-          <Select
-            id={ID.MONTH}
-            name={ID.MONTH}
-            label="Month"
-            doNotSort
-            nullSelection={intl.formatMessage(dateMessages.selectAMonth)}
-            rules={{
-              required: true,
-            }}
-            options={[
-              {
-                value: "01",
-                label: intl.formatMessage(dateMessages.january),
-              },
-              {
-                value: "02",
-                label: intl.formatMessage(dateMessages.february),
-              },
-              {
-                value: "03",
-                label: intl.formatMessage(dateMessages.march),
-              },
-              {
-                value: "04",
-                label: intl.formatMessage(dateMessages.april),
-              },
-              {
-                value: "05",
-                label: intl.formatMessage(dateMessages.may),
-              },
-              {
-                value: "06",
-                label: intl.formatMessage(dateMessages.june),
-              },
-              {
-                value: "07",
-                label: intl.formatMessage(dateMessages.july),
-              },
-              {
-                value: "08",
-                label: intl.formatMessage(dateMessages.august),
-              },
-              {
-                value: "09",
-                label: intl.formatMessage(dateMessages.september),
-              },
-              {
-                value: "10",
-                label: intl.formatMessage(dateMessages.october),
-              },
-              {
-                value: "11",
-                label: intl.formatMessage(dateMessages.november),
-              },
-              {
-                value: "12",
-                label: intl.formatMessage(dateMessages.december),
-              },
-            ]}
-          />
-        </div>
-        <div>
-          <Input
-            type="number"
-            id={ID.DAY}
-            name={ID.DAY}
-            label="Day"
-            placeholder="DD"
-            min={1}
-            max={31}
-            rules={{
-              required: true,
-            }}
-          />
-        </div>
+                    })
+                  : undefined
+              }
+              rules={{
+                required: true,
+                min: dateConstraints.min
+                  ? parseInt(
+                      formatDate({
+                        date: dateConstraints.min,
+                        formatString: "yyyy",
+                        intl,
+                      }),
+                      10,
+                    )
+                  : undefined,
+                max: dateConstraints.max
+                  ? parseInt(
+                      formatDate({
+                        date: dateConstraints.max,
+                        formatString: "yyyy",
+                        intl,
+                      }),
+                      10,
+                    )
+                  : undefined,
+              }}
+            />
+          </div>
+        )}
+        {show.includes(DATE_SEGMENT.Month) && (
+          <div data-h2-flex-shrink="base(0)">
+            <Select
+              id={ID.MONTH}
+              name={ID.MONTH}
+              label="Month"
+              doNotSort
+              nullSelection={intl.formatMessage(dateMessages.selectAMonth)}
+              rules={{
+                required: true,
+              }}
+              options={[
+                {
+                  value: "01",
+                  label: intl.formatMessage(dateMessages.january),
+                },
+                {
+                  value: "02",
+                  label: intl.formatMessage(dateMessages.february),
+                },
+                {
+                  value: "03",
+                  label: intl.formatMessage(dateMessages.march),
+                },
+                {
+                  value: "04",
+                  label: intl.formatMessage(dateMessages.april),
+                },
+                {
+                  value: "05",
+                  label: intl.formatMessage(dateMessages.may),
+                },
+                {
+                  value: "06",
+                  label: intl.formatMessage(dateMessages.june),
+                },
+                {
+                  value: "07",
+                  label: intl.formatMessage(dateMessages.july),
+                },
+                {
+                  value: "08",
+                  label: intl.formatMessage(dateMessages.august),
+                },
+                {
+                  value: "09",
+                  label: intl.formatMessage(dateMessages.september),
+                },
+                {
+                  value: "10",
+                  label: intl.formatMessage(dateMessages.october),
+                },
+                {
+                  value: "11",
+                  label: intl.formatMessage(dateMessages.november),
+                },
+                {
+                  value: "12",
+                  label: intl.formatMessage(dateMessages.december),
+                },
+              ]}
+            />
+          </div>
+        )}
+        {show.includes(DATE_SEGMENT.Day) && (
+          <div>
+            <Input
+              type="number"
+              id={ID.DAY}
+              name={ID.DAY}
+              label="Day"
+              placeholder="DD"
+              min={1}
+              max={31}
+              rules={{
+                required: true,
+              }}
+            />
+          </div>
+        )}
       </div>
     </Fieldset>
   );
