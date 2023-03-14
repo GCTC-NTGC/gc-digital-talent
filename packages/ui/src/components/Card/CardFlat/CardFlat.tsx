@@ -47,6 +47,7 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
     >
       <Heading
         level="h3"
+        size="h2"
         data-h2-font-size="base(h6)"
         data-h2-margin="base(0, 0, 0, 0)"
       >

@@ -387,7 +387,6 @@ class UserRoleTest extends TestCase
     // Create an applicant user.  Assert that they cannot perform and roles-and-teams mutation.
     public function testApplicantCannotMutateRolesAndTeams()
     {
-        $this->markTestSkipped("Testing");
         $oldRole = Role::factory()->create(['is_team_based' => true]);
         $newRole = Role::factory()->create(['is_team_based' => true]);
         $oldTeam = Team::factory()->create();

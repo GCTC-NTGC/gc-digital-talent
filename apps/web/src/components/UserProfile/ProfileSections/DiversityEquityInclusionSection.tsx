@@ -74,9 +74,9 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "You have not identified as a member of any employment equity groups.",
-                id: "vpAafL",
+                id: "G3K1/H",
                 description:
-                  "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+                  "Message indicating the user has not been marked as part of an equity group",
               })}
             </p>
             <p data-h2-margin="base(x.5, 0, 0, 0)">
@@ -251,9 +251,9 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "You have identified as a member of an employment equity group.<strong> You can add additional employment equity groups to your profile by editing this section if they apply to you.</strong>",
-                id: "f8ZHHW",
+                id: "K4O5hP",
                 description:
-                  "Final paragraph in the employment equity profile section, ignore things in <> please",
+                  "Final paragraph in the employment equity profile section",
               })}
             </p>
           </div>
