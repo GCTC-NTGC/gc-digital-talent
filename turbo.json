@@ -39,13 +39,13 @@
       "outputMode": "new-only"
     },
     "intl-compile": {
-      "inputs": ["src/lang/en.json", "src/lang/fr.json"],
+      "inputs": ["src/lang/en.json", "src/lang/fr.json", "src/lang/crg.json", "src/lang/crk.json", "src/lang/ojw.json", "src/lang/mic.json"],
       "dependsOn": ["intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"],
       "outputMode": "new-only"
     },
     "check-intl": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/lang/en.json", "src/lang/fr.json"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/lang/en.json", "src/lang/fr.json", "src/lang/crg.json", "src/lang/crk.json", "src/lang/ojw.json", "src/lang/mic.json"],
       "dependsOn": ["build:intl-cli", "intl-compile"],
       "cache": false,
       "outputMode": "new-only"
