@@ -97,6 +97,15 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
     setValue(name, newValue);
   }, [year, month, day, setValue, name, show]);
 
+  let monthSpan = {
+    "data-h2-grid-column": "base(2 / span 1)",
+  };
+  if (!show.includes(DATE_SEGMENT.Day)) {
+    monthSpan = {
+      "data-h2-grid-column": "base(2 / span 2)",
+    };
+  }
+
   return (
     <Fieldset
       legend={legend}
@@ -119,11 +128,9 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         })}
       />
       <div
-        data-h2-align-items="base(flex-start)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-gap="base(x1, 0) p-tablet(0, x1)"
-        data-h2-justify-content="base(flex-start)"
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(100%) p-tablet(calc(x4 + 4ch) 1fr calc(x4 + 2ch))"
+        data-h2-gap="base(x.5)"
       >
         {show.includes(DATE_SEGMENT.Year) && (
           <div>
@@ -178,7 +185,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
           </div>
         )}
         {show.includes(DATE_SEGMENT.Month) && (
-          <div data-h2-flex-shrink="base(0)">
+          <div {...monthSpan}>
             <Select
               id={ID.MONTH}
               name={ID.MONTH}
