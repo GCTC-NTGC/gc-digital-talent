@@ -14,7 +14,7 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 const Heading: React.FC<HeadingProps> = ({
   level = "h2",
-  size = "h2",
+  size,
   Icon,
   color,
   children,

@@ -117,8 +117,8 @@ const UpdateTeamForm = ({
             name="description.en"
             rows={TEXT_AREA_ROWS}
             label={intl.formatMessage({
-              defaultMessage: "Organization's short description (English)",
-              id: "TCQhlo",
+              defaultMessage: "Team's short description (English)",
+              id: "aGBFm5",
               description: "Label for the English team description input",
             })}
             rules={{
@@ -140,8 +140,8 @@ const UpdateTeamForm = ({
             name="description.fr"
             rows={TEXT_AREA_ROWS}
             label={intl.formatMessage({
-              defaultMessage: "Organization's short description (French)",
-              id: "RtDf2h",
+              defaultMessage: "Team's short description (French)",
+              id: "XNBegf",
               description: "Label for the French team description input",
             })}
             rules={{

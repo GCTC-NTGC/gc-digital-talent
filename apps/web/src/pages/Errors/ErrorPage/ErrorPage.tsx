@@ -50,6 +50,7 @@ const ErrorPage = () => {
         >
           <Heading
             level="h1"
+            size="h2"
             data-h2-font-size="base(h4, 1.4)"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(0)"

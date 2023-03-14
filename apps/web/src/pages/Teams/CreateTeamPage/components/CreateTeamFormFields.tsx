@@ -40,8 +40,8 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
           name="displayName.en"
           onBlur={handleDisplayBlur}
           label={intl.formatMessage({
-            defaultMessage: "Organization's name (English)",
-            id: "1cPlHY",
+            defaultMessage: "Team's name (English)",
+            id: "n4pt+y",
             description: "Label for the English team display name input",
           })}
           rules={{
@@ -56,8 +56,8 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
           name="displayName.fr"
           onBlur={handleDisplayBlur}
           label={intl.formatMessage({
-            defaultMessage: "Organization's name (French)",
-            id: "OOnxtm",
+            defaultMessage: "Team's name (French)",
+            id: "Vf+lsG",
             description: "Label for the French team display name input",
           })}
           rules={{
