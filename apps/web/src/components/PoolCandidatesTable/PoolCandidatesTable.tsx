@@ -33,6 +33,7 @@ import {
   PoolAdvertisement,
   Maybe,
   CandidateExpiryFilter,
+  CandidateSuspendedFilter,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -52,6 +53,7 @@ import {
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
 import {
   stringToEnumCandidateExpiry,
+  stringToEnumCandidateSuspended,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
@@ -108,6 +110,9 @@ function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus
       ? [input.expiryStatus]
       : [CandidateExpiryFilter.Active],
+    suspendedStatus: input?.suspendedStatus
+      ? [input.suspendedStatus]
+      : [CandidateSuspendedFilter.Active],
   };
 }
 
@@ -276,6 +281,9 @@ const PoolCandidatesTable: React.FC<{
         expiryStatus: initialFilterInput?.expiryStatus
           ? initialFilterInput.expiryStatus
           : CandidateExpiryFilter.Active,
+        suspendedStatus: initialFilterInput?.suspendedStatus
+          ? initialFilterInput.suspendedStatus
+          : CandidateSuspendedFilter.Active,
       },
     }),
     [initialFilterInput],
@@ -362,6 +370,7 @@ const PoolCandidatesTable: React.FC<{
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
+      suspendedStatus: fancyFilterState?.suspendedStatus,
     };
   };
 
@@ -407,6 +416,9 @@ const PoolCandidatesTable: React.FC<{
       }),
       expiryStatus: data.expiryStatus[0]
         ? stringToEnumCandidateExpiry(data.expiryStatus[0])
+        : undefined,
+      suspendedStatus: data.suspendedStatus[0]
+        ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
     };
 

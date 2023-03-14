@@ -75,6 +75,7 @@ import {
   GenericJobTitlesSorted,
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
+  getCandidateSuspendedFilterStatus,
   getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
 
@@ -153,6 +154,7 @@ export {
   poolCandidatePriorities,
   getAbbreviations,
   getCandidateExpiryFilterStatus,
+  getCandidateSuspendedFilterStatus,
   getPoolCandidateStatusLabel,
 };
 
