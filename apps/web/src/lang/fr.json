@@ -5982,10 +5982,6 @@
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "fNOekV": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the my hiring pools content section"
-  },
   "fqIEKE": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Title of the My skills and experience link section"
@@ -6005,10 +6001,6 @@
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
-  },
-  "l/MbFR": {
-    "defaultMessage": "Modifier mes bassins d'embauche",
-    "description": "Text on link to update a users hiring pools."
   },
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -6085,10 +6077,6 @@
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
     "description": "Pluralization for zero or multiple experiences"
-  },
-  "xUl9pz": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the My Hiring Pools section"
   },
   "xjtRjr": {
     "defaultMessage": "Aucune information n'a été fournie.",
