@@ -857,7 +857,7 @@ input PoolCandidateSearchInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool! @can(ability: "view", resolved: true)
+  pool: PoolAdvertisement! @can(ability: "viewAdvertisement", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 

@@ -19,11 +19,13 @@ class PoolTest extends TestCase
     parent::setUp();
     $this->bootRefreshesSchemaCache();
 
+    $this->seed(RolePermissionSeeder::class);
+
     $newUser = new User;
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
-    $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
+    $newUser->syncRoles(["guest", "base_user", "platform_admin"]);
   }
 
   public function testPoolAdvertisementAccessor(): void
