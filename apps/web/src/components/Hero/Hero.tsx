@@ -133,10 +133,9 @@ const Hero = ({
           <div data-h2-color="base(white)" {...textAlignment}>
             <Heading
               ref={headingRef}
-              tabIndex={-1}
               level="h1"
+              size="h2"
               data-h2-margin="base(0)"
-              data-h2-outline="base(none)"
             >
               {title}
             </Heading>

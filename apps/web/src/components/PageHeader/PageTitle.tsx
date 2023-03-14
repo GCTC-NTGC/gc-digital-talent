@@ -19,6 +19,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
       <>
         <Heading
           level="h1"
+          size="h2"
           data-h2-font-weight="base(400)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
@@ -47,7 +48,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
     );
   }
   return (
-    <Heading level="h1" {...rest}>
+    <Heading level="h1" size="h2" {...rest}>
       {Icon && (
         <Icon
           className="page-header__icon"

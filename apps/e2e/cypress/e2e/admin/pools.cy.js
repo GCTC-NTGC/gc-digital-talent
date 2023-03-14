@@ -56,6 +56,14 @@ describe("Pools", () => {
           .should('have.text', "IT-01 (Information Technology)");
       });
 
+    // Set team
+    cy.findByRole("combobox", { name: /parent team/i})
+      .select("Digital Community Management")
+      .within(() => {
+        cy.get("option:selected")
+          .should('have.text', "Digital Community Management");
+      });
+
     // Submit form
     cy.findByRole("button", { name: /create new pool/i })
       .click();
