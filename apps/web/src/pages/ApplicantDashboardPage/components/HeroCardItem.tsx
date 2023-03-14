@@ -5,7 +5,7 @@ import {
   BaseInfoItemIconColor,
   BaseInfoItem,
   StatusItem,
-} from "~/components/infoItem";
+} from "~/components/InfoItem";
 
 export type ProfileItemStatus =
   | "has-empty-required-fields"

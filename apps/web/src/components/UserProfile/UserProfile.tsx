@@ -48,8 +48,8 @@ import RoleSalarySection, {
 } from "~/components/UserProfile/ProfileSections/RoleSalarySection";
 
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem } from "../infoItem";
-import { Status } from "../infoItem/StatusItem";
+import { StatusItem } from "../InfoItem";
+import { Status } from "../InfoItem/StatusItem";
 
 interface SectionControl {
   isVisible: boolean;
