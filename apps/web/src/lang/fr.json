@@ -5228,7 +5228,7 @@
     "description": "Heading for the Learn more dialog"
   },
   "SPECr8": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "FtJRWS": {
@@ -6430,10 +6430,6 @@
     "defaultMessage": "Brève description de l’équipe (en français)",
     "description": "Short description for a team in French"
   },
-  "QC23B1": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "Rg0SpL": {
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
@@ -6441,10 +6437,6 @@
   "VJYI6K": {
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
-  },
-  "W0BVd+": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Name of an organization/team in French field."
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -6482,29 +6474,13 @@
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
   },
-  "1cPlHY": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Label for the English team display name input"
-  },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "OOnxtm": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Label for the French team display name input"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
-  },
-  "RtDf2h": {
-    "defaultMessage": "Brève description de l’organisation (en français)",
-    "description": "Label for the French team description input"
-  },
-  "TCQhlo": {
-    "defaultMessage": "Brève description de l’organisation (en anglais)",
-    "description": "Label for the English team description input"
   },
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
@@ -6522,7 +6498,7 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
-  "jzax3k": {
+  "IrvQbY": {
     "defaultMessage": "Sélectionnez un ou plusieurs ministères...",
     "description": "Placeholder text for the team departments input"
   },
@@ -6786,10 +6762,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
   },
-  "eW7I5E": {
-    "defaultMessage": "Sélectionner les rôles...",
-    "description": "Placeholder text for role selection input"
-  },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
@@ -6809,5 +6781,37 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "Vf+lsG": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Label for the French team display name input"
+  },
+  "XNBegf": {
+    "defaultMessage": "Brève description de l’équipe (Français)",
+    "description": "Label for the French team description input"
+  },
+  "YjMfWZ": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "aGBFm5": {
+    "defaultMessage": "Brève description de l’équipe (Anglais)",
+    "description": "Label for the English team description input"
+  },
+  "n4pt+y": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Label for the English team display name input"
+  },
+  "rdYjIb": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "hr/i9h": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder displayed for team selection input."
+  },
+  "mOS8rj": {
+    "defaultMessage": "Équipe principale",
+    "description": "Label displayed for selecting what team a new pool belongs to."
   }
 }

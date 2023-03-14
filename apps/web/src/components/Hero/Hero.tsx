@@ -122,7 +122,7 @@ const Hero = ({
           data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
-            <Heading level="h1" data-h2-margin="base(0)">
+            <Heading level="h1" size="h2" data-h2-margin="base(0)">
               {title}
             </Heading>
             {subtitle && (
