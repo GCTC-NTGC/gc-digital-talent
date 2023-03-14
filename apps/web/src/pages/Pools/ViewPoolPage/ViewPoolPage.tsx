@@ -9,7 +9,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 import {
-  AdminBreadcrumbs,
   Pending,
   Chip,
   Chips,
@@ -40,6 +39,7 @@ import {
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -103,36 +103,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     return `${protocol}//${host}${path}`;
   };
 
-  const links = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
-      url: paths.poolTable(),
-    },
-    {
-      label: intl.formatMessage(
-        {
-          defaultMessage: `Pool ID #{id}`,
-          id: "fp7Nll",
-          description: "Current pool breadcrumb text",
-        },
-        { id: pool.id },
-      ),
-      url: paths.poolView(pool.id),
-    },
-  ];
-
   let closingStringLocal;
   let closingStringPacific;
   if (pool.closingDate) {
@@ -161,7 +131,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     <>
       <SEO title={pageTitle} />
       <div data-h2-container="base(left, medium, 0)">
-        <AdminBreadcrumbs crumbs={links} />
         <FormProvider {...form}>
           <h2
             data-h2-margin="base(x2, 0, 0, 0)"
@@ -697,30 +666,62 @@ type RouteParams = {
 
 const ViewPoolPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
   });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.home(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Pools",
+        id: "3fAkvM",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      url: routes.poolTable(),
+    },
+    ...(poolId
+      ? [
+          {
+            label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+            url: routes.poolView(poolId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.poolAdvertisement ? (
-        <ViewPool pool={data.poolAdvertisement} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Pool {poolId} not found.",
-                id: "Sb2fEr",
-                description: "Message displayed for pool not found.",
-              },
-              { poolId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending fetching={fetching} error={error}>
+        {data?.poolAdvertisement ? (
+          <ViewPool pool={data.poolAdvertisement} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Pool {poolId} not found.",
+                  id: "Sb2fEr",
+                  description: "Message displayed for pool not found.",
+                },
+                { poolId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 
