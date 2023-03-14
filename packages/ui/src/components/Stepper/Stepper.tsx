@@ -22,7 +22,7 @@ const deriveStepState = (
     return "error";
   }
 
-  if (completed && stepIndex !== currentIndex) {
+  if (completed) {
     return "completed";
   }
 
