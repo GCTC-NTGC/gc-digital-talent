@@ -8,17 +8,9 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-export type SegmentIds = Record<"YEAR" | "MONTH" | "DAY", string>;
+import { DateConstraint } from "./types";
 
-export type DateConstraint = {
-  min: Date | null;
-  max: Date | null;
-};
-
-export const getDateValidation = <T>(
-  constraints: DateConstraint,
-  intl: IntlShape,
-) => {
+const getDateValidation = (constraints: DateConstraint, intl: IntlShape) => {
   // Note: This comes from `react-hook-form`
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let validation: Validate<any> | Record<string, Validate<any>> | undefined = {
@@ -77,3 +69,5 @@ export const getDateValidation = <T>(
 
   return validation;
 };
+
+export default getDateValidation;

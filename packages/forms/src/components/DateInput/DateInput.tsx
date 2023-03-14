@@ -15,7 +15,7 @@ import Fieldset from "../Fieldset";
 import Input from "../Input";
 import Select from "../Select";
 
-import { getDateValidation } from "./validation";
+import getDateValidation from "./validation";
 
 export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
