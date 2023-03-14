@@ -75,8 +75,8 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
             description: "Label for the team departments input",
           })}
           placeholder={intl.formatMessage({
-            defaultMessage: "Select on or more departments...",
-            id: "jzax3k",
+            defaultMessage: "Select one or more departments...",
+            id: "IrvQbY",
             description: "Placeholder text for the team departments input",
           })}
           rules={{
