@@ -1591,160 +1591,6 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByJobLookingStatus(): void
-    {
-        // Create initial data.
-        User::factory()->count(5)->create([
-            'job_looking_status' => null,
-        ]);
-        $availableStatus = 'ACTIVELY_LOOKING';
-        $openStatus = 'OPEN_TO_OPPORTUNITIES';
-        $inactiveStatus = 'INACTIVE';
-
-        // Create a few with a op_req 1
-        User::factory()->count(3)->create([
-            'job_looking_status' => $availableStatus,
-        ]);
-
-        // Create a few with op_req 1 and 2
-        User::factory()->count(2)->create([
-            'job_looking_status' => $openStatus,
-        ]);
-
-        // Assert query with no jobLookingStatus filter will return all users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 11
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with empty jobLookingStatus filter will return all users
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => []
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 11
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with one jobLookingStatus filter will return correct user count
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$availableStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 3
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with two jobLookingStatus filters will return correct user count
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$availableStatus, $openStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 5
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with an unused jobLookingStatus filter will return zero
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$inactiveStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
-        ]);
-    }
-
     public function testFilterByProfileComplete(): void
     {
         // need some generic job titles for a complete profile
@@ -2453,7 +2299,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         PoolCandidate::factory()->count(5)->create([
@@ -2464,7 +2309,6 @@ class UserTest extends TestCase
                 'looking_for_english' => false,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
         // Should appear in searches, but in pool 2.
@@ -2476,7 +2320,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         // Expired in pool - should not appear in searches
@@ -2488,7 +2331,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         // Already placed - should not appear in searches
@@ -2500,7 +2342,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
         // User status inactive - should not appear in searches
@@ -2512,7 +2353,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_INACTIVE
             ])
         ]);
 
@@ -2534,7 +2374,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                'countApplicants' => 13
+                'countApplicants' => 14 // including base admin user
             ]
         ]);
 
@@ -2556,7 +2396,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 8
+                'countApplicants' => 9 //including base admin user
             ]
         ]);
     }

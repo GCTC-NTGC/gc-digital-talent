@@ -39,7 +39,7 @@ type Applicant {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1500,7 +1500,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
