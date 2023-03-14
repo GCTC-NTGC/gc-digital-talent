@@ -1,6 +1,21 @@
 import { defineMessages } from "react-intl";
 
 const dateMessages = defineMessages({
+  year: {
+    defaultMessage: "Year",
+    id: "iSfiWx",
+    description: "Label for a year input field",
+  },
+  month: {
+    defaultMessage: "Month",
+    id: "L05/+D",
+    description: "Label for a month input field",
+  },
+  day: {
+    defaultMessage: "Day",
+    id: "a5edSg",
+    description: "Label for a day of the month input field",
+  },
   selectAMonth: {
     defaultMessage: "Select a month...",
     id: "cbKlUG",

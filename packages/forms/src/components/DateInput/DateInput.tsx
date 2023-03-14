@@ -131,7 +131,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
               type="number"
               id={ID.YEAR}
               name={ID.YEAR}
-              label="Year"
+              label={intl.formatMessage(dateMessages.year)}
               placeholder="YYYY"
               min={
                 dateConstraints.min
@@ -182,7 +182,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             <Select
               id={ID.MONTH}
               name={ID.MONTH}
-              label="Month"
+              label={intl.formatMessage(dateMessages.month)}
               doNotSort
               nullSelection={intl.formatMessage(dateMessages.selectAMonth)}
               rules={{
@@ -247,7 +247,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
               type="number"
               id={ID.DAY}
               name={ID.DAY}
-              label="Day"
+              label={intl.formatMessage(dateMessages.day)}
               placeholder="DD"
               min={1}
               max={31}
