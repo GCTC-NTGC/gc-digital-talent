@@ -73,12 +73,11 @@ const Stepper = ({
               key={href}
               href={href}
               icon={icon}
+              label={stepLabel}
               state={deriveStepState(stepIndex, index, completed, error)}
               last={stepIndex === maxIndex}
               preventDisable={preventDisable}
-            >
-              {stepLabel}
-            </Step>
+            />
           ),
         )}
       </ol>

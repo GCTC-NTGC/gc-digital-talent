@@ -7,7 +7,7 @@ export type IconType = React.FC<React.SVGProps<SVGSVGElement>>;
 export type StepType = {
   href: string;
   icon: IconType;
-  label: React.ReactNode;
+  label: string;
   completed?: boolean;
   error?: boolean;
 };

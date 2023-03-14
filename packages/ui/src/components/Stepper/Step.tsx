@@ -41,13 +41,14 @@ const StepLink = ({
     </Link>
   );
 };
-export interface StepProps extends StepLinkProps {
+export interface StepProps extends Omit<StepLinkProps, "children"> {
   icon: IconType;
   last?: boolean;
+  label: string;
 }
 
 const Step = ({
-  children,
+  label,
   href,
   icon,
   preventDisable,
@@ -70,11 +71,6 @@ const Step = ({
         data-h2-position="base(relative)"
         data-h2-outline="base(none)"
       >
-        {message && (
-          <span data-h2-visually-hidden="base(hidden)">
-            {intl.formatMessage(message)}
-          </span>
-        )}
         <span
           data-h2-position="base(absolute)"
           data-h2-location="base(0, auto, auto, 0)"
@@ -118,7 +114,7 @@ const Step = ({
           data-h2-display="base(inline-block)"
           data-h2-margin-left="base(x.5)"
         >
-          {children}
+          {message ? intl.formatMessage(message, { label }) : label}
         </span>
       </StepLink>
     </li>
