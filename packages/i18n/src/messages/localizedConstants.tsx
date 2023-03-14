@@ -627,18 +627,18 @@ export const getCandidateExpiryFilterStatus = (
 export const candidateSuspendedFilterStatuses = defineMessages({
   [CandidateSuspendedFilter.Active]: {
     defaultMessage: "Active",
-    id: "fllpiT",
-    description: "Active candidacy status",
+    id: "SuKmqa",
+    description: "Active status",
   },
   [CandidateSuspendedFilter.All]: {
     defaultMessage: "All",
-    id: "JTrTBC",
-    description: "All candidacy statuses",
+    id: "qQtJDw",
+    description: "All statuses",
   },
   [CandidateSuspendedFilter.Suspended]: {
     defaultMessage: "Suspended",
-    id: "sOhOol",
-    description: "Suspended candidacy status",
+    id: "zafWLP",
+    description: "Suspended status",
   },
 });
 

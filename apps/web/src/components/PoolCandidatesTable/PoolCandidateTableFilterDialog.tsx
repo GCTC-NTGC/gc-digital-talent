@@ -209,8 +209,8 @@ const PoolCandidateTableFilterDialog = ({
                   id="suspendedStatus"
                   label={formatMessage({
                     defaultMessage: "Candidacy Status",
-                    description: "Candidacy status",
-                    id: "YIUIzi",
+                    description: "Candidacy status label",
+                    id: "/LGiVB",
                   })}
                   options={optionsData.suspendedStatus}
                 />
