@@ -26,18 +26,15 @@ export const defaultSteps: Array<StepType> = [
     href: "/step-three",
     label: "Step Three",
     icon: CakeIcon,
-    completed: true,
   },
   {
     href: "/step-four",
     label: "Step Four",
     icon: DevicePhoneMobileIcon,
-    completed: true,
   },
   {
     href: "/step-five",
     label: "Step Five",
     icon: EnvelopeIcon,
-    completed: true,
   },
 ];

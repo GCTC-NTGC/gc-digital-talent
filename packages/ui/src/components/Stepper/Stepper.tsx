@@ -14,19 +14,19 @@ const deriveStepState = (
   completed = false,
   error = false,
 ): StepState => {
-  if (stepIndex > currentIndex) {
-    return "disabled";
-  }
-
-  if (stepIndex === currentIndex) {
+  if (currentIndex === stepIndex) {
     return "active";
   }
 
-  if (completed && !error) {
+  if (error) {
+    return "error";
+  }
+
+  if (completed && stepIndex !== currentIndex) {
     return "completed";
   }
 
-  return "error";
+  return "disabled";
 };
 
 interface StepperProps {
