@@ -1004,6 +1004,47 @@ class ApplicantTest extends TestCase
         ]);
     }
 
+    public function testCountApplicantsQuerySuspended(): void
+    {
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+        PoolCandidate::factory()->count(5)->availableInSearch()->create([
+            'pool_id' => $pool1,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+        PoolCandidate::factory()->count(4)->suspended()->create([
+            'pool_id' => $pool1,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
+
+        // assert count applicants ignores the four suspended candidates
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+        [
+            'where' => [
+                'pools' => [
+                    ['id' => $pool1['id']]
+                ],
+            ]
+        ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 5
+            ]
+        ]);
+    }
+
     public function testPriorityWeight(): void
     {
         // test generated property that exists on type User and Applicant from model User.php
