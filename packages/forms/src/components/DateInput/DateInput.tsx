@@ -118,6 +118,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
       hideLegend={hideLegend}
       trackUnsaved={trackUnsaved}
       isUnsaved={isUnsaved}
+      flat
       {...rest}
     >
       <input
@@ -133,7 +134,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         data-h2-gap="base(x.5)"
       >
         {show.includes(DATE_SEGMENT.Year) && (
-          <div>
+          <div data-h2-margin="base(-x.75, 0)">
             <Input
               type="number"
               id={ID.YEAR}
@@ -185,7 +186,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
           </div>
         )}
         {show.includes(DATE_SEGMENT.Month) && (
-          <div {...monthSpan}>
+          <div {...monthSpan} data-h2-margin="base(-x.75, 0)">
             <Select
               id={ID.MONTH}
               name={ID.MONTH}
@@ -249,7 +250,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
           </div>
         )}
         {show.includes(DATE_SEGMENT.Day) && (
-          <div>
+          <div data-h2-margin="base(-x.75, 0)">
             <Input
               type="number"
               id={ID.DAY}
