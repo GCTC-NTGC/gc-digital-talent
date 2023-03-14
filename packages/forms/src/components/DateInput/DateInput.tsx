@@ -120,7 +120,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         data-h2-gap="base(x1, 0) p-tablet(0, x1)"
         data-h2-justify-content="base(flex-start)"
       >
-        <div data-h2-flex-grow="base(2)">
+        <div>
           <Input
             type="number"
             id={ID.YEAR}
@@ -170,7 +170,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             }}
           />
         </div>
-        <div data-h2-flex-shrink="base(0)" data-h2-flex-grow="base(4)">
+        <div data-h2-flex-shrink="base(0)">
           <Select
             id={ID.MONTH}
             name={ID.MONTH}
@@ -232,7 +232,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
             ]}
           />
         </div>
-        <div data-h2-flex-grow="base(1)">
+        <div>
           <Input
             type="number"
             id={ID.DAY}
