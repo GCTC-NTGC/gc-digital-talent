@@ -1558,7 +1558,7 @@ input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
-  suspendedStatus: CandidateSuspendedFilter = ALL
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 type UserPublicProfile {
