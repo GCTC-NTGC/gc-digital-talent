@@ -4752,10 +4752,6 @@
     "defaultMessage": "Notes",
     "description": "CSV Header, Notes column"
   },
-  "fLSDYW": {
-    "defaultMessage": "Disponibilité",
-    "description": "Title displayed for the Pool Candidates table Availability column."
-  },
   "gDSeKw": {
     "defaultMessage": "Date de réception :",
     "description": "Date Received label and colon"
