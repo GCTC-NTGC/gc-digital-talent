@@ -62,6 +62,7 @@ export interface BaseInfoItemProps {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
   iconColor?: IconColor;
   titleHref?: string;
+  hiddenContextPrefix?: string;
 }
 
 export const BaseInfoItem = ({
@@ -72,8 +73,22 @@ export const BaseInfoItem = ({
   icon,
   iconColor = "success",
   titleHref,
+  hiddenContextPrefix,
 }: BaseInfoItemProps) => {
   const Icon = icon;
+
+  // combine the context prefix for a11y if available
+  const combinedTitle = (
+    <>
+      {hiddenContextPrefix ? (
+        <span data-h2-visually-hidden="base(invisible)">
+          {`${hiddenContextPrefix} - `}
+        </span>
+      ) : null}
+      {title}
+    </>
+  );
+
   return (
     <li
       data-h2-display="base(flex)"
@@ -96,10 +111,10 @@ export const BaseInfoItem = ({
       <div>
         {titleHref ? (
           <Link href={titleHref} {...{ ...textColorMap[titleColor] }}>
-            {title}
+            {combinedTitle}
           </Link>
         ) : (
-          <p {...{ ...textColorMap[titleColor] }}>{title}</p>
+          <p {...{ ...textColorMap[titleColor] }}>{combinedTitle}</p>
         )}
 
         <p

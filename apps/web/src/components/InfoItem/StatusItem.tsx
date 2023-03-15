@@ -4,6 +4,8 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/solid";
+import { useIntl } from "react-intl";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { BaseInfoItem } from "./BaseInfoItem";
 
 export type Status = "default" | "error" | "partial" | "success";
@@ -21,6 +23,7 @@ export const StatusItem = ({
   status = "default",
   titleHref,
 }: StatusItemProps) => {
+  const intl = useIntl();
   switch (status) {
     case "error":
       return (
@@ -32,6 +35,7 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="error"
           titleHref={titleHref}
+          hiddenContextPrefix={intl.formatMessage(commonMessages.error)}
         />
       );
     case "partial":
@@ -42,6 +46,7 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="default"
           titleHref={titleHref}
+          hiddenContextPrefix={intl.formatMessage(commonMessages.partial)}
         />
       );
     case "success":
@@ -52,6 +57,7 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="success"
           titleHref={titleHref}
+          hiddenContextPrefix={intl.formatMessage(commonMessages.success)}
         />
       );
     default:
