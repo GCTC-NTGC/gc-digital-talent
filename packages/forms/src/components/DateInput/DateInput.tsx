@@ -100,21 +100,21 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   }, [year, month, day, setValue, name, show]);
 
   let monthSpan = {
-    "data-h2-grid-column": "base(2 / span 1)",
+    "data-h2-grid-column": "p-tablet(2 / span 1)",
   };
   if (!show.includes(DATE_SEGMENT.Year)) {
     monthSpan = {
-      "data-h2-grid-column": "base(1 / span 2)",
+      "data-h2-grid-column": "p-tablet(1 / span 2)",
     };
   }
   if (!show.includes(DATE_SEGMENT.Day)) {
     monthSpan = {
-      "data-h2-grid-column": "base(2 / span 2)",
+      "data-h2-grid-column": "p-tablet(2 / span 2)",
     };
   }
   if (!show.includes(DATE_SEGMENT.Day) && !show.includes(DATE_SEGMENT.Year)) {
     monthSpan = {
-      "data-h2-grid-column": "base(1 / span 3)",
+      "data-h2-grid-column": "p-tablet(1 / span 3)",
     };
   }
 
