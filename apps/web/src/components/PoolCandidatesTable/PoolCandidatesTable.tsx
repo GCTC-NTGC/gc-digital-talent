@@ -4,10 +4,11 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
-  getJobLookingStatus,
+  getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
@@ -19,7 +20,6 @@ import { FromArray } from "~/types/utility";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  JobLookingStatus,
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
@@ -180,16 +180,45 @@ const priorityAccessor = (
     </span>
   );
 };
-const availabilityAccessor = (
-  status: JobLookingStatus | null | undefined,
+
+const candidacyStatusAccessor = (
+  suspendedAt: string | null | undefined,
   intl: IntlShape,
-) => (
-  <span>
-    {status
-      ? intl.formatMessage(getJobLookingStatus(status as string, "short"))
-      : ""}
-  </span>
-);
+) => {
+  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
+  const getSuspendedStatus = (
+    suspendedTime: Date,
+    currentTime: Date,
+  ): CandidateSuspendedFilter => {
+    if (suspendedTime >= currentTime) {
+      return CandidateSuspendedFilter.Active;
+    }
+    return CandidateSuspendedFilter.Suspended;
+  };
+
+  if (suspendedAt) {
+    const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
+    const currentTime = new Date();
+    return (
+      <span>
+        {intl.formatMessage(
+          getCandidateSuspendedFilterStatus(
+            getSuspendedStatus(parsedSuspendedTime, currentTime),
+          ),
+        )}
+      </span>
+    );
+  }
+
+  return (
+    <span>
+      {intl.formatMessage(
+        getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
+      )}
+    </span>
+  );
+};
+
 const viewAccessor = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
@@ -518,15 +547,12 @@ const PoolCandidatesTable: React.FC<{
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Availability",
-          id: "fLSDYW",
-          description:
-            "Title displayed for the Pool Candidates table Availability column.",
+          defaultMessage: "Candidacy Status",
+          description: "Candidacy status label",
+          id: "/LGiVB",
         }),
-        id: "availability",
-        accessor: ({ user }) =>
-          availabilityAccessor(user.jobLookingStatus, intl),
-        sortColumnName: "JOB_LOOKING_STATUS",
+        id: "candidacyStatus",
+        accessor: (d) => candidacyStatusAccessor(d.suspendedAt, intl),
       },
       {
         label: intl.formatMessage({
