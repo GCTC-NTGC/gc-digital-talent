@@ -336,7 +336,10 @@ const PoolCandidatesTable: React.FC<{
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
   const sortOrder = useMemo(() => {
-    if (sortingRule?.column.sortColumnName === "submitted_at") {
+    if (
+      sortingRule?.column.sortColumnName === "submitted_at" ||
+      sortingRule?.column.sortColumnName === "suspended_at"
+    ) {
       return {
         column: sortingRule.column.sortColumnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -553,6 +556,7 @@ const PoolCandidatesTable: React.FC<{
         }),
         id: "candidacyStatus",
         accessor: (d) => candidacyStatusAccessor(d.suspendedAt, intl),
+        sortColumnName: "suspended_at",
       },
       {
         label: intl.formatMessage({
