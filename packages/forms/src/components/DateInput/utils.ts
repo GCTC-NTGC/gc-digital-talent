@@ -19,7 +19,18 @@ const getSegmentValues: GetDateSegmentValues = ({ year, month, day }, show) => {
   const newMonth = show.includes(DATE_SEGMENT.Month) ? month : "01";
   const newDay = show.includes(DATE_SEGMENT.Day) ? day : "01";
 
-  return `${newYear}-${newMonth}-${newDay}`;
+  let values: string[] = [];
+  if (newYear) {
+    values = [...values, newYear];
+  }
+  if (newMonth) {
+    values = [...values, newMonth];
+  }
+  if (newDay) {
+    values = [...values, newDay];
+  }
+
+  return values.join("-");
 };
 
 export default getSegmentValues;

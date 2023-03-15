@@ -94,7 +94,9 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   useEffect(() => {
     const newValue = getSegmentValues({ year, month, day }, show);
     // Updates the hidden input to get a properly formatted date we can validate
-    setValue(name, newValue);
+    if (newValue) {
+      setValue(name, newValue);
+    }
   }, [year, month, day, setValue, name, show]);
 
   let monthSpan = {
@@ -126,7 +128,14 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         data-testid="hidden-date"
         {...register(name, {
           ...rules,
-          validate: getDateValidation(dateConstraints, intl),
+          validate: getDateValidation(
+            dateConstraints,
+            name,
+            !!rules.required,
+            { year, month, day },
+            intl,
+          ),
+          deps: [ID.YEAR, ID.MONTH, ID.DAY],
         })}
       />
       <div
@@ -142,6 +151,8 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
               name={ID.YEAR}
               label={intl.formatMessage(dateMessages.year)}
               placeholder="YYYY"
+              hideOptional
+              trackUnsaved={false}
               min={
                 dateConstraints.min
                   ? formatDate({
@@ -161,7 +172,6 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
                   : undefined
               }
               rules={{
-                required: true,
                 min: dateConstraints.min
                   ? parseInt(
                       formatDate({
@@ -193,10 +203,10 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
               name={ID.MONTH}
               label={intl.formatMessage(dateMessages.month)}
               doNotSort
+              hideOptional
               nullSelection={intl.formatMessage(dateMessages.selectAMonth)}
-              rules={{
-                required: true,
-              }}
+              rules={rules}
+              trackUnsaved={false}
               options={[
                 {
                   value: "01",
@@ -258,11 +268,11 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
               name={ID.DAY}
               label={intl.formatMessage(dateMessages.day)}
               placeholder="DD"
+              hideOptional
+              trackUnsaved={false}
               min={1}
               max={31}
-              rules={{
-                required: true,
-              }}
+              rules={rules}
             />
           </div>
         )}

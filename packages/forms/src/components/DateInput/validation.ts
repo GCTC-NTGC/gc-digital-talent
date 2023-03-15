@@ -1,6 +1,6 @@
 import { isAfter, isValid, isEqual, isBefore } from "date-fns";
 import { IntlShape } from "react-intl";
-import { Validate } from "react-hook-form";
+import { FieldValues, Validate } from "react-hook-form";
 
 import {
   formatDate,
@@ -10,13 +10,30 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { DateConstraint } from "./types";
 
-const getDateValidation = (constraints: DateConstraint, intl: IntlShape) => {
+const getDateValidation = (
+  constraints: DateConstraint,
+  name: string,
+  required: boolean,
+  currentValues: {
+    year?: string;
+    month?: string;
+    day?: string;
+  },
+  intl: IntlShape,
+) => {
   // Note: This comes from `react-hook-form`
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let validation: Validate<any> | Record<string, Validate<any>> | undefined = {
     isDate: (value: string) => {
+      const isOptionAndEmpty =
+        !required &&
+        !currentValues.year &&
+        !currentValues.month &&
+        !currentValues.day;
+
       return (
         isValid(formDateStringToDate(value)) ||
+        isOptionAndEmpty ||
         intl.formatMessage(errorMessages.invalidDate)
       );
     },
