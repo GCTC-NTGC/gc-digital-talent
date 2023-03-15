@@ -25,13 +25,22 @@ export default {
   },
 } as ComponentMeta<typeof DateInput>;
 
-const Template: ComponentStory<typeof DateInput> = (args) => {
+const Template: ComponentStory<typeof DateInput & { defaultValue?: string }> = (
+  args,
+) => {
+  const { defaultValue, ...rest } = args;
   return (
     <Form
-      options={{ mode: "onSubmit" }}
+      {...(defaultValue && {
+        options: {
+          defaultValues: {
+            [rest.name]: defaultValue,
+          },
+        },
+      })}
       onSubmit={(data) => action("Submit Form")(data)}
     >
-      <DateInput {...args} />
+      <DateInput {...rest} />
       <Submit />
     </Form>
   );
@@ -41,6 +50,13 @@ export const Default = Template.bind({});
 Default.args = {
   legend: "Date",
   name: "date",
+};
+
+export const WithDefaultValue = Template.bind({});
+WithDefaultValue.args = {
+  legend: "Date",
+  name: "date",
+  defaultValue: "2023-02-03",
 };
 
 export const Required = Template.bind({});

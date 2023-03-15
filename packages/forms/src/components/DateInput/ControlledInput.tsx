@@ -15,6 +15,7 @@ import {
   getMonthSpan,
   inputStyles,
   setComputedValue,
+  splitSegments,
 } from "./utils";
 
 interface ControlledInputProps {
@@ -26,9 +27,13 @@ interface ControlledInputProps {
 
 const ControlledInput = ({
   field: { onChange, value, name },
+  formState: { defaultValues },
   show,
 }: ControlledInputProps) => {
   const intl = useIntl();
+  const { year, month, day } = splitSegments(
+    defaultValues ? defaultValues[name] : undefined,
+  );
   const ID = {
     YEAR: `${name}Year`,
     MONTH: `${name}Month`,
@@ -62,6 +67,8 @@ const ControlledInput = ({
 
   const months = getMonthOptions(intl);
 
+  console.log(month);
+
   return (
     <div
       data-h2-display="base(grid)"
@@ -78,6 +85,7 @@ const ControlledInput = ({
             name={ID.YEAR}
             type="number"
             onChange={handleYearChange}
+            defaultValue={year}
             {...inputStyles}
           />
         </div>
@@ -91,14 +99,15 @@ const ControlledInput = ({
             id={ID.MONTH}
             name={ID.MONTH}
             onChange={handleMonthChange}
+            defaultValue={month || ""}
             {...inputStyles}
           >
-            <option disabled>
+            <option disabled value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
-            {months.map((month, index) => (
-              <option value={index + 1} key={month}>
-                {month}
+            {months.map((monthName, index) => (
+              <option value={`${index + 1}`.padStart(2, "0")} key={monthName}>
+                {monthName}
               </option>
             ))}
           </select>
@@ -114,6 +123,7 @@ const ControlledInput = ({
             name={ID.DAY}
             type="number"
             onChange={handleDayChange}
+            defaultValue={day}
             {...inputStyles}
           />
         </div>
