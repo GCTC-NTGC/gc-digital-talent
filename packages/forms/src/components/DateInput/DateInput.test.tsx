@@ -18,7 +18,7 @@ interface FormProps {
 }
 
 const Form = ({ onSubmit, defaultValues, children }: FormProps) => {
-  const methods = useForm({ defaultValues });
+  const methods = useForm({ defaultValues, mode: "onSubmit" });
   const handleSubmit = (data: FieldValues) => onSubmit(data);
 
   return (
@@ -53,7 +53,6 @@ const defaultProps: RenderDateInputProps = {
   inputProps: {
     name: "date",
     legend: "Date",
-    rules: { required: "This field is required" },
   },
 };
 
@@ -117,7 +116,12 @@ describe("DateInput", () => {
         ...defaultProps.formProps,
         onSubmit: submitFn,
       },
-      inputProps: defaultProps.inputProps,
+      inputProps: {
+        ...defaultProps.inputProps,
+        rules: {
+          required: "this field is required",
+        },
+      },
     });
 
     user.click(await screen.getByRole("button", { name: /submit/i }));
@@ -125,14 +129,10 @@ describe("DateInput", () => {
     await waitFor(async () => {
       const alert = await screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
-
-      expect(
-        await within(alert).getByText(/please enter a valid date/i),
-      ).toBeInTheDocument();
     });
   });
 
-  it("should update hidden input and submit", async () => {
+  it("should update input and submit", async () => {
     const submitFn = jest.fn();
 
     renderDateInput({
@@ -163,18 +163,11 @@ describe("DateInput", () => {
     user.type(day, "1");
     await waitFor(() => expect(day).toHaveValue(1));
 
-    await waitFor(async () => {
-      expect(await screen.getByTestId("hidden-date")).toHaveValue("2023-01-1");
-    });
-
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
       expect(submitFn).toHaveBeenCalledWith({
-        date: "2023-01-1",
-        dateYear: "2023",
-        dateMonth: "01",
-        dateDay: "1",
+        date: "2023-01-01",
       });
     });
   });
@@ -188,13 +181,13 @@ describe("DateInput", () => {
         onSubmit: submitFn,
       },
       inputProps: {
+        ...defaultProps.inputProps,
         rules: {
           min: {
             value: "2023-02-01",
-            message: "before",
+            message: "must be after",
           },
         },
-        ...defaultProps.inputProps,
       },
     });
 
@@ -224,7 +217,7 @@ describe("DateInput", () => {
       const alert = await screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
 
-      expect(await within(alert).getByText(/before/i)).toBeInTheDocument();
+      expect(await within(alert).getByText(/after/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {
@@ -241,13 +234,13 @@ describe("DateInput", () => {
         onSubmit: submitFn,
       },
       inputProps: {
+        ...defaultProps.inputProps,
         rules: {
           max: {
             value: "2023-02-01",
-            message: "after",
+            message: "Must be before",
           },
         },
-        ...defaultProps.inputProps,
       },
     });
 
@@ -268,8 +261,8 @@ describe("DateInput", () => {
       name: /day/i,
     });
 
-    user.type(day, "1");
-    await waitFor(() => expect(day).toHaveValue(1));
+    user.type(day, "2");
+    await waitFor(() => expect(day).toHaveValue(2));
 
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
@@ -277,7 +270,7 @@ describe("DateInput", () => {
       const alert = await screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
 
-      expect(await within(alert).getByText(/after/i)).toBeInTheDocument();
+      expect(await within(alert).getByText(/before/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {

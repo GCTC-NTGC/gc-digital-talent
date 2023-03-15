@@ -73,7 +73,6 @@ WithinRange.args = {
   legend: "Date",
   name: "date",
   rules: {
-    required: "This field is required",
     min: {
       value: "2023-01-01",
       message: "Must be after 2023-01-01",

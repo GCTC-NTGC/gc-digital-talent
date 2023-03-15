@@ -67,6 +67,16 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
+  const isValidDate = (value: string) => {
+    const { year, month, day } = splitSegments(value);
+    const isOptionalAndEmpty = !rules.required && !year && !month && !day;
+    return (
+      isValid(formDateStringToDate(value)) ||
+      isOptionalAndEmpty ||
+      intl.formatMessage(errorMessages.invalidDate)
+    );
+  };
+
   return (
     <Fieldset
       legend={legend}
@@ -87,15 +97,8 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         name={name}
         rules={{
           ...rules,
-          validate: (value: string) => {
-            const { year, month, day } = splitSegments(value);
-            const isOptionalAndEmpty =
-              !rules.required && !year && !month && !day;
-            return (
-              isValid(formDateStringToDate(value)) ||
-              isOptionalAndEmpty ||
-              intl.formatMessage(errorMessages.invalidDate)
-            );
+          validate: {
+            isValidDate,
           },
         }}
         render={(props) => <ControlledInput {...props} show={show} />}
