@@ -36,6 +36,8 @@ import {
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 
@@ -291,6 +293,7 @@ type RouteParams = {
 
 const UpdateUserPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { userId } = useParams<RouteParams>();
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
@@ -330,8 +333,51 @@ const UpdateUserPage = () => {
 
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.admin(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Users",
+        id: "Y7eGtg",
+        description: "Breadcrumb title for the users page link.",
+      }),
+      url: routes.userTable(),
+    },
+    ...(userId
+      ? [
+          {
+            label: getFullNameLabel(
+              userData?.user?.firstName,
+              userData?.user?.lastName,
+              intl,
+            ),
+            url: routes.userView(userId),
+          },
+        ]
+      : []),
+    ...(userId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit",
+              id: "4vGdg/",
+              description: "Edit user breadcrumb text",
+            }),
+            url: routes.userUpdate(userId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",
@@ -377,7 +423,7 @@ const UpdateUserPage = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 
