@@ -25,6 +25,7 @@ import {
   useCreateSkillMutation,
   useAllSkillFamiliesQuery,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type Option<V> = { value: V; label: string };
 
@@ -279,6 +280,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 
 const CreateSkillPage: React.FunctionComponent = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [lookupResult] = useAllSkillFamiliesQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
@@ -292,8 +294,35 @@ const CreateSkillPage: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Skills",
+        id: "ynjzua",
+        description: "Breadcrumb title for the skills page link.",
+      }),
+      url: routes.skillTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create",
+        id: "CBMS0u",
+        description: "Breadcrumb title for the create skill page link.",
+      }),
+      url: routes.skillCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create Skill",
@@ -307,7 +336,7 @@ const CreateSkillPage: React.FunctionComponent = () => {
           families={families}
         />
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 
