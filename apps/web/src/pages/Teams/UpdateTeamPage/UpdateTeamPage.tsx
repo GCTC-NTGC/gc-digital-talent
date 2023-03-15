@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -15,12 +15,15 @@ import {
 } from "~/api/generated";
 
 import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
 const EditTeamPage = () => {
   const intl = useIntl();
   const { teamId } = useParams();
+  const routes = useRoutes();
   const [{ data: teamData, fetching: teamFetching, error: teamError }] =
     useGetTeamQuery({
       variables: {
@@ -57,35 +60,78 @@ const EditTeamPage = () => {
     });
   };
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Teams",
+        id: "P+KWP7",
+        description: "Breadcrumb title for the teams page link.",
+      }),
+      url: routes.teamTable(),
+    },
+    ...(teamId
+      ? [
+          {
+            label: getLocalizedName(teamData?.team?.displayName, intl),
+            url: routes.teamView(teamId),
+          },
+        ]
+      : []),
+    ...(teamId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit",
+              id: "QU8FkQ",
+              description: "Breadcrumb title for the edit team page link.",
+            }),
+            url: routes.teamUpdate(teamId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <Pending
-      fetching={teamFetching || departmentsFetching}
-      error={teamError || departmentsError}
-    >
-      {team ? (
-        <>
-          <SEO title={pageTitle} />
-          <UpdateTeamForm
-            team={team}
-            departments={departments}
-            onSubmit={handleSubmit}
-          />
-        </>
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Team {teamId} not found.",
-                id: "VJYI6K",
-                description: "Message displayed for team not found.",
-              },
-              { teamId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending
+        fetching={teamFetching || departmentsFetching}
+        error={teamError || departmentsError}
+      >
+        {team ? (
+          <>
+            <SEO title={pageTitle} />
+            <UpdateTeamForm
+              team={team}
+              departments={departments}
+              onSubmit={handleSubmit}
+            />
+          </>
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Team {teamId} not found.",
+                  id: "VJYI6K",
+                  description: "Message displayed for team not found.",
+                },
+                { teamId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 
