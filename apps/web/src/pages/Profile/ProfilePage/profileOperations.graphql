@@ -146,7 +146,7 @@ query getMe {
       user {
         id
       }
-      pool {
+      poolAdvertisement {
         id
         name {
           en

@@ -424,7 +424,7 @@ enum PublishingGroup {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
+  pool: Pool @belongsTo @can(ability: "view", resolved: true)
   poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool") @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
 

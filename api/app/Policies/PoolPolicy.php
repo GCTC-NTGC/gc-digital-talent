@@ -49,11 +49,12 @@ class PoolPolicy
      */
     public function viewAdvertisement(User $user = null, Pool $pool)
     {
-        if (
-            $pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT
-            && $user->isAbleTo("view-any-publishedPoolAdvertisement")
-        ) {
+        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
+        }
+
+        if (is_null($user)) {
+            return false;
         }
 
         if ($user->isAbleTo("view-team-pool", $pool->team)) {
@@ -71,7 +72,7 @@ class PoolPolicy
      */
     public function viewAnyPublishedAdvertisement(User $user = null)
     {
-        return $user->isAbleTo("view-any-publishedPoolAdvertisement");
+        return true;
     }
 
     /**

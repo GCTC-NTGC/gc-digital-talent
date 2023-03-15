@@ -38,9 +38,7 @@ import WorkTasksSection, {
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
 } from "./components/OtherRequirementsSection";
-import StatusSection, {
-  type ExtendSubmitData,
-} from "./components/StatusSection";
+import StatusSection from "./components/StatusSection";
 import EssentialSkillsSection, {
   type EssentialSkillsSubmitData,
 } from "./components/EssentialSkillsSection";
@@ -54,7 +52,6 @@ export type PoolSubmitData =
   | AssetSkillsSubmitData
   | ClosingDateSubmitData
   | EssentialSkillsSubmitData
-  | ExtendSubmitData
   | OtherRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
@@ -68,7 +65,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
 }
 
@@ -348,7 +345,7 @@ export const EditPoolPage = () => {
             onPublish={() => mutations.publish(poolId)}
             onDelete={() => mutations.delete(poolId)}
             onClose={() => mutations.close(poolId)}
-            onExtend={(extendData) => mutations.update(poolId, extendData)}
+            onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
             onArchive={() => logger.warning("onArchive not yet implemented")}
           />
         </EditPoolContext.Provider>
