@@ -58,15 +58,6 @@ const defaultProps: RenderDateInputProps = {
   },
 };
 
-const expectAlert = async (text: string | RegExp) => {
-  await waitFor(async () => {
-    const alert = await screen.getByRole("alert");
-    expect(alert).toBeInTheDocument();
-
-    expect(await within(alert).getByText(text)).toBeInTheDocument();
-  });
-};
-
 describe("DateInput", () => {
   const user = userEvent.setup();
 
@@ -132,7 +123,14 @@ describe("DateInput", () => {
 
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
-    expectAlert(/please enter a valid date/i);
+    await waitFor(async () => {
+      const alert = await screen.getByRole("alert");
+      expect(alert).toBeInTheDocument();
+
+      expect(
+        await within(alert).getByText(/please enter a valid date/i),
+      ).toBeInTheDocument();
+    });
   });
 
   it("should update hidden input and submit", async () => {
@@ -217,7 +215,16 @@ describe("DateInput", () => {
 
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
-    expectAlert(/the date must be after or equal to 2023-02-01/i);
+    await waitFor(async () => {
+      const alert = await screen.getByRole("alert");
+      expect(alert).toBeInTheDocument();
+
+      expect(
+        await within(alert).getByText(
+          /the date must be after or equal to 2023-02-01/i,
+        ),
+      ).toBeInTheDocument();
+    });
 
     await waitFor(async () => {
       expect(submitFn).not.toHaveBeenCalled();
@@ -258,7 +265,16 @@ describe("DateInput", () => {
     user.type(day, "01");
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
-    expectAlert(/the date must be before or equal to 2023-01-31/i);
+    await waitFor(async () => {
+      const alert = await screen.getByRole("alert");
+      expect(alert).toBeInTheDocument();
+
+      expect(
+        await within(alert).getByText(
+          /the date must be before or equal to 2023-01-31/i,
+        ),
+      ).toBeInTheDocument();
+    });
 
     await waitFor(async () => {
       expect(submitFn).not.toHaveBeenCalled();
@@ -294,7 +310,14 @@ describe("DateInput", () => {
     user.type(day, "30");
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
-    expectAlert(/please enter a valid date/i);
+    await waitFor(async () => {
+      const alert = await screen.getByRole("alert");
+      expect(alert).toBeInTheDocument();
+
+      expect(
+        await within(alert).getByText(/please enter a valid date/i),
+      ).toBeInTheDocument();
+    });
 
     await waitFor(async () => {
       expect(submitFn).not.toHaveBeenCalled();
