@@ -89,8 +89,8 @@ const EditTeamPage = () => {
       ? [
           {
             label: intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "QU8FkQ",
+              defaultMessage: "Edit<hidden> team</hidden>",
+              id: "s7Hnlg",
               description: "Breadcrumb title for the edit team page link.",
             }),
             url: routes.teamUpdate(teamId),

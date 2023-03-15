@@ -155,8 +155,8 @@ const CreateDepartmentPage: React.FunctionComponent = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Create",
-        id: "erC5vH",
+        defaultMessage: "Create<hidden> department</hidden>",
+        id: "1XaX86",
         description: "Breadcrumb title for the create department page link.",
       }),
       url: routes.departmentCreate(),

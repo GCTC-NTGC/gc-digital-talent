@@ -298,8 +298,8 @@ const UpdateSkillFamilyPage = () => {
       ? [
           {
             label: intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "c/5Kjx",
+              defaultMessage: "Edit<hidden> skill family</hidden>",
+              id: "5SKmte",
               description:
                 "Breadcrumb title for the edit skill family page link.",
             }),

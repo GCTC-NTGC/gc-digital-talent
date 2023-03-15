@@ -179,8 +179,8 @@ const UpdateDepartmentPage = () => {
       ? [
           {
             label: intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "mCQsVp",
+              defaultMessage: "Edit<hidden> department</hidden>",
+              id: "FYIbdJ",
               description:
                 "Breadcrumb title for the edit department page link.",
             }),

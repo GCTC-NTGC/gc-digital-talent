@@ -313,8 +313,8 @@ const CreateSkillPage: React.FunctionComponent = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Create",
-        id: "CBMS0u",
+        defaultMessage: "Create<hidden> skill</hidden>",
+        id: "9QxHnD",
         description: "Breadcrumb title for the create skill page link.",
       }),
       url: routes.skillCreate(),

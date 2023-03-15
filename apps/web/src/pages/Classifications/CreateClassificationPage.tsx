@@ -226,8 +226,8 @@ const CreateClassification: React.FunctionComponent = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Create",
-        id: "3hdlPP",
+        defaultMessage: "Create<hidden> classification</hidden>",
+        id: "E8BMJW",
         description:
           "Breadcrumb title for the create classification page link.",
       }),

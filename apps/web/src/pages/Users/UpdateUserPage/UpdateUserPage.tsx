@@ -366,8 +366,8 @@ const UpdateUserPage = () => {
       ? [
           {
             label: intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "4vGdg/",
+              defaultMessage: "Edit<hidden> user</hidden>",
+              id: "0WIPpI",
               description: "Edit user breadcrumb text",
             }),
             url: routes.userUpdate(userId),

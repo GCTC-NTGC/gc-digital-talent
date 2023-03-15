@@ -260,8 +260,8 @@ const UpdateClassification = () => {
       ? [
           {
             label: intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "/PK2kZ",
+              defaultMessage: "Edit<hidden> classification</hidden>",
+              id: "ow4z7W",
               description:
                 "Breadcrumb title for the edit classification page link.",
             }),

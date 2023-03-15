@@ -69,8 +69,8 @@ const CreateTeamPage = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Create",
-        id: "SJ9IUg",
+        defaultMessage: "Create<hidden> team</hidden>",
+        id: "o7SM7j",
         description: "Breadcrumb title for the create team page link.",
       }),
       url: routes.teamCreate(),

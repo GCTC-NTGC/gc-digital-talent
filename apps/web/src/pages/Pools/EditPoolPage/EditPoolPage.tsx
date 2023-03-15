@@ -321,8 +321,8 @@ export const EditPoolPage = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "dCsb6i",
+        defaultMessage: "Edit<hidden> pool</hidden>",
+        id: "D6HIId",
         description: "Edit pool breadcrumb text",
       }),
       url: routes.poolUpdate(poolId),

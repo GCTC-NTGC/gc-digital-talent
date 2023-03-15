@@ -287,8 +287,8 @@ const CreateSkillFamilyPage = () => {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Create",
-        id: "7hjEQu",
+        defaultMessage: "Create<hidden> skill family</hidden>",
+        id: "PQXvrU",
         description: "Breadcrumb title for the create skill family page link.",
       }),
       url: routes.skillFamilyCreate(),
