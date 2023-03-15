@@ -201,17 +201,20 @@ describe("DateInput", () => {
     });
 
     user.type(year, "2023");
+    await waitFor(() => expect(year).toHaveValue(2023));
 
     const january = await screen.getByRole("option", { name: /january/i });
     const month = await screen.getByRole("combobox", { name: /month/i });
 
     user.selectOptions(month, january);
+    await waitFor(() => expect(month).toHaveValue("01"));
 
     const day = await screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
     user.type(day, "31");
+    await waitFor(() => expect(day).toHaveValue(31));
 
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
@@ -252,17 +255,21 @@ describe("DateInput", () => {
     });
 
     user.type(year, "2023");
+    await waitFor(() => expect(year).toHaveValue(2023));
 
     const february = await screen.getByRole("option", { name: /february/i });
     const month = await screen.getByRole("combobox", { name: /month/i });
 
     user.selectOptions(month, february);
+    await waitFor(() => expect(month).toHaveValue("02"));
 
     const day = await screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
-    user.type(day, "01");
+    user.type(day, "1");
+    await waitFor(() => expect(day).toHaveValue(1));
+
     user.click(await screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
