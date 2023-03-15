@@ -67,8 +67,6 @@ const ControlledInput = ({
 
   const months = getMonthOptions(intl);
 
-  console.log(month);
-
   return (
     <div
       data-h2-display="base(grid)"
