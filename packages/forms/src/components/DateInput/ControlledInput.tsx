@@ -1,4 +1,3 @@
-import { dateMessages } from "@gc-digital-talent/i18n";
 import React from "react";
 import {
   ControllerFieldState,
@@ -7,6 +6,9 @@ import {
   UseFormStateReturn,
 } from "react-hook-form";
 import { useIntl } from "react-intl";
+
+import { dateMessages } from "@gc-digital-talent/i18n";
+
 import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,

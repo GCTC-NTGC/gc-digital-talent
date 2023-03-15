@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
+import { isValid } from "date-fns";
 import {
   FieldError,
   RegisterOptions,
@@ -11,12 +12,10 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
-import { isValid } from "date-fns";
 import useFieldState from "../../hooks/useFieldState";
 import Fieldset from "../Fieldset";
-
-import { DateSegment, DATE_SEGMENT } from "./types";
 import ControlledInput from "./ControlledInput";
+import { DateSegment, DATE_SEGMENT } from "./types";
 import { splitSegments } from "./utils";
 
 export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
