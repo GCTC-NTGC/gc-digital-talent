@@ -1,0 +1,58 @@
+{
+  "0WIPpI": {
+    "defaultMessage": "Edit<hidden> user</hidden>",
+    "description": "Edit user breadcrumb text"
+  },
+  "1XaX86": {
+    "defaultMessage": "Create<hidden> department</hidden>",
+    "description": "Breadcrumb title for the create department page link."
+  },
+  "5SKmte": {
+    "defaultMessage": "Edit<hidden> skill family</hidden>",
+    "description": "Breadcrumb title for the edit skill family page link."
+  },
+  "9QxHnD": {
+    "defaultMessage": "Create<hidden> skill</hidden>",
+    "description": "Breadcrumb title for the create skill page link."
+  },
+  "D6HIId": {
+    "defaultMessage": "Edit<hidden> pool</hidden>",
+    "description": "Edit pool breadcrumb text"
+  },
+  "E8BMJW": {
+    "defaultMessage": "Create<hidden> classification</hidden>",
+    "description": "Breadcrumb title for the create classification page link."
+  },
+  "FYIbdJ": {
+    "defaultMessage": "Edit<hidden> department</hidden>",
+    "description": "Breadcrumb title for the edit department page link."
+  },
+  "I0VGC0": {
+    "defaultMessage": "Placement",
+    "description": "User placement breadcrumb text"
+  },
+  "M2LfhH": {
+    "defaultMessage": "Edit<hidden> skill</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
+  "PQXvrU": {
+    "defaultMessage": "Create<hidden> skill family</hidden>",
+    "description": "Breadcrumb title for the create skill family page link."
+  },
+  "nfZQ89": {
+    "defaultMessage": "Members",
+    "description": "Breadcrumb title for the team members page link."
+  },
+  "o7SM7j": {
+    "defaultMessage": "Create<hidden> team</hidden>",
+    "description": "Breadcrumb title for the create team page link."
+  },
+  "ow4z7W": {
+    "defaultMessage": "Edit<hidden> classification</hidden>",
+    "description": "Breadcrumb title for the edit classification page link."
+  },
+  "s7Hnlg": {
+    "defaultMessage": "Edit<hidden> team</hidden>",
+    "description": "Breadcrumb title for the edit team page link."
+  }
+}
