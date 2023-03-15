@@ -102,9 +102,19 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   let monthSpan = {
     "data-h2-grid-column": "base(2 / span 1)",
   };
+  if (!show.includes(DATE_SEGMENT.Year)) {
+    monthSpan = {
+      "data-h2-grid-column": "base(1 / span 2)",
+    };
+  }
   if (!show.includes(DATE_SEGMENT.Day)) {
     monthSpan = {
       "data-h2-grid-column": "base(2 / span 2)",
+    };
+  }
+  if (!show.includes(DATE_SEGMENT.Day) && !show.includes(DATE_SEGMENT.Year)) {
+    monthSpan = {
+      "data-h2-grid-column": "base(1 / span 3)",
     };
   }
 
