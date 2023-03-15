@@ -105,6 +105,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         >
           <Heading
             level={headingLevel}
+            size="h2"
             data-h2-font-size="base(h4, 1.2)"
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}

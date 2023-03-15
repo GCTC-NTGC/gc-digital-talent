@@ -796,10 +796,17 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
+}
+
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 input PoolCandidateFilterInput {
@@ -1604,6 +1611,7 @@ type Mutation {
     @guard
     @can(ability: "create")
     @throttle(maxAttempts: 100)
+    @deprecated(reason: "The ability of admins to create new users will soon be removed.") #TODO: update UserPolicy.create when this mutation is removed.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
