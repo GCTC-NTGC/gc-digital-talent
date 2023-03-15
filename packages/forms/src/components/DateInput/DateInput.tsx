@@ -90,7 +90,8 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
           ...rules,
           validate: (value: string) => {
             const { year, month, day } = splitSegments(value);
-            const isOptionalAndEmpty = !year && !month && !day;
+            const isOptionalAndEmpty =
+              !rules.required && !year && !month && !day;
             return (
               isValid(formDateStringToDate(value)) ||
               isOptionalAndEmpty ||
