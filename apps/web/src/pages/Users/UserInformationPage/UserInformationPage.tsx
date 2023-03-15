@@ -120,7 +120,7 @@ const UserInformationPage = () => {
         id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
-      url: routes.admin(),
+      url: routes.adminDashboard(),
     },
     {
       label: intl.formatMessage({
