@@ -15,6 +15,7 @@ import {
   useCreateClassificationMutation,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -196,6 +197,7 @@ export const CreateClassificationForm: React.FunctionComponent<
 
 const CreateClassification: React.FunctionComponent = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [, executeMutation] = useCreateClassificationMutation();
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
@@ -205,8 +207,36 @@ const CreateClassification: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Classifications",
+        id: "kyMlnN",
+        description: "Breadcrumb title for the classifications page link.",
+      }),
+      url: routes.classificationTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create",
+        id: "3hdlPP",
+        description:
+          "Breadcrumb title for the create classification page link.",
+      }),
+      url: routes.classificationCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create classification",
@@ -217,7 +247,7 @@ const CreateClassification: React.FunctionComponent = () => {
       <CreateClassificationForm
         handleCreateClassification={handleCreateClassification}
       />
-    </>
+    </AdminContentWrapper>
   );
 };
 
