@@ -6813,5 +6813,9 @@
   "mOS8rj": {
     "defaultMessage": "Équipe principale",
     "description": "Label displayed for selecting what team a new pool belongs to."
+  },
+  "/LGiVB": {
+    "defaultMessage": "Statut de la candidature ",
+    "description": "Candidacy status label"
   }
 }
