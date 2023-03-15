@@ -51,7 +51,6 @@ const defaultProps: RenderDateInputProps = {
     },
   },
   inputProps: {
-    idPrefix: "date",
     name: "date",
     legend: "Date",
     rules: { required: "This field is required" },
@@ -189,8 +188,11 @@ describe("DateInput", () => {
         onSubmit: submitFn,
       },
       inputProps: {
-        dateRange: {
-          min: "2023-02-01",
+        rules: {
+          min: {
+            value: "2023-02-01",
+            message: "before",
+          },
         },
         ...defaultProps.inputProps,
       },
@@ -222,11 +224,7 @@ describe("DateInput", () => {
       const alert = await screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
 
-      expect(
-        await within(alert).getByText(
-          /the date must be after or equal to 2023-02-01/i,
-        ),
-      ).toBeInTheDocument();
+      expect(await within(alert).getByText(/before/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {
@@ -243,8 +241,11 @@ describe("DateInput", () => {
         onSubmit: submitFn,
       },
       inputProps: {
-        dateRange: {
-          max: "2023-01-31",
+        rules: {
+          max: {
+            value: "2023-02-01",
+            message: "after",
+          },
         },
         ...defaultProps.inputProps,
       },
@@ -276,11 +277,7 @@ describe("DateInput", () => {
       const alert = await screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
 
-      expect(
-        await within(alert).getByText(
-          /the date must be before or equal to 2023-01-31/i,
-        ),
-      ).toBeInTheDocument();
+      expect(await within(alert).getByText(/after/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {

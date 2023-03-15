@@ -27,7 +27,10 @@ export default {
 
 const Template: ComponentStory<typeof DateInput> = (args) => {
   return (
-    <Form onSubmit={(data) => action("Submit Form")(data)}>
+    <Form
+      options={{ mode: "onSubmit" }}
+      onSubmit={(data) => action("Submit Form")(data)}
+    >
       <DateInput {...args} />
       <Submit />
     </Form>
@@ -36,25 +39,38 @@ const Template: ComponentStory<typeof DateInput> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  idPrefix: "date",
   legend: "Date",
   name: "date",
 };
 
-export const WithinRange = Template.bind({});
-WithinRange.args = {
-  idPrefix: "date",
+export const Required = Template.bind({});
+Required.args = {
   legend: "Date",
   name: "date",
-  dateRange: {
-    min: "2023-03-01",
-    max: "2024-04-01",
+  rules: {
+    required: "This field is required",
+  },
+};
+
+export const WithinRange = Template.bind({});
+WithinRange.args = {
+  legend: "Date",
+  name: "date",
+  rules: {
+    required: "This field is required",
+    min: {
+      value: "2023-01-01",
+      message: "Must be after 2023-01-01",
+    },
+    max: {
+      value: "2024-01-01",
+      message: "Must be before 2024-01-01",
+    },
   },
 };
 
 export const OnlyYearAndMonth = Template.bind({});
 OnlyYearAndMonth.args = {
-  idPrefix: "date",
   legend: "Date",
   name: "date",
   show: [DATE_SEGMENT.Year, DATE_SEGMENT.Month],
