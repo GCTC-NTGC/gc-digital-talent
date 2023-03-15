@@ -123,6 +123,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
     >
       <input
         type="hidden"
+        data-testid="hidden-date"
         {...register(name, {
           ...rules,
           validate: getDateValidation(dateConstraints, intl),
