@@ -228,6 +228,10 @@ return [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.'
         ],
+        'view-own-applicantProfile' => [
+            'en' => 'View own Applicant Profile.',
+            'fr' => 'Voir son propre profil de candidat.'
+        ],
         'view-team-applicantProfile' => [
             'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
             'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
@@ -521,7 +525,10 @@ return [
             ],
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
-            ]
+            ],
+            'applicantProfile' => [
+                'own' => ['view']
+            ],
         ],
 
         'pool_operator' => [

@@ -196,6 +196,10 @@ class PoolCandidatePolicyTest extends TestCase
      */
     public function testUpdate()
     {
+        // Ensure candidate is not draft
+        $this->poolCandidate->submitted_at = config('constants.past_date');
+        $this->poolCandidate->save();
+
         $this->assertTrue($this->poolOperatorUser->can('update', $this->poolCandidate));
 
         $this->assertFalse($this->guestUser->can('update', $this->poolCandidate));
