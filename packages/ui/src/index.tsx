@@ -23,7 +23,7 @@ import Collapsible from "./components/Collapsible";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
-import Heading, { HeadingProps } from "./components/Heading";
+import Heading, { HeadingProps, HeadingRef } from "./components/Heading";
 import Link, {
   DownloadCsv,
   ExternalLink,
@@ -82,6 +82,7 @@ export type {
   CardLinkProps,
   ChipProps,
   HeadingProps,
+  HeadingRef,
   ExternalLinkProps,
   DownloadCsvProps,
   LinkProps,
