@@ -84,6 +84,7 @@ const ControlledInput = ({
             type="number"
             onChange={handleYearChange}
             defaultValue={year}
+            placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
             {...inputStyles}
           />
         </div>
@@ -122,6 +123,7 @@ const ControlledInput = ({
             type="number"
             onChange={handleDayChange}
             defaultValue={day}
+            placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
             {...inputStyles}
           />
         </div>

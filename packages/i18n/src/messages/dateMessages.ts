@@ -81,6 +81,14 @@ const dateMessages = defineMessages({
     id: "y4oBW4",
     description: "Name of the twelfth month",
   },
+  yearPlaceholder: {
+    defaultMessage: "YYYY",
+    description: "Placeholder for a year input"
+  },
+  dayPlaceholder: {
+    defaultMessage: "DD",
+    description: "Placeholder for a day input"
+  },
 });
 
 export default dateMessages;
