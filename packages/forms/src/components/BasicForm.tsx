@@ -55,12 +55,6 @@ function BasicForm<TFieldValues extends FieldValues>({
     ...options,
     defaultValues: options?.defaultValues,
   });
-  console.log({
-    mode: "onChange",
-    shouldFocusError: false,
-    ...options,
-    defaultValues: options?.defaultValues,
-  });
   if (cacheKey) {
     // Whenever form values change, update cache.
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
