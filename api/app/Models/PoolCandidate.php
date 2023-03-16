@@ -389,21 +389,6 @@ class PoolCandidate extends Model
     }
 
     /**
-     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public static function scopeAvailableForOpportunities(Builder $query): Builder
-    {
-
-        $query->whereHas('user', function (Builder $userQuery) {
-            User::scopeAvailableForOpportunities($userQuery);
-        });
-        return $query;
-    }
-
-    /**
      * Determine if a PoolCandidate is in draft mode
      *
      * @return bool

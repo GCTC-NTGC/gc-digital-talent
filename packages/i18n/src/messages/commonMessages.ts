@@ -58,6 +58,21 @@ const commonMessages = defineMessages({
     id: "DdOEWx",
     description: "Message when name value not found",
   },
+  error: {
+    defaultMessage: "error",
+    id: "ACO2Uz",
+    description: "Message for the error status",
+  },
+  partial: {
+    defaultMessage: "partial success",
+    id: "qVI4xG",
+    description: "Message for the partial success status",
+  },
+  success: {
+    defaultMessage: "success",
+    id: "99cWuv",
+    description: "Message for the success status",
+  },
 });
 
 export default commonMessages;

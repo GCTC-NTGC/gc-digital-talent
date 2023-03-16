@@ -9,6 +9,9 @@ import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
 import { Applicant, Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import useRoutes from "~/hooks/useRoutes";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import UserProfilePrintButton from "./components/UserProfilePrintButton";
 
@@ -64,14 +67,54 @@ type RouteParams = {
 const AdminUserProfilePage = () => {
   const { userId } = useParams<RouteParams>();
   const intl = useIntl();
+  const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId || "" },
   });
 
   const user = lookupData?.applicant;
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Users",
+        id: "Y7eGtg",
+        description: "Breadcrumb title for the users page link.",
+      }),
+      url: routes.userTable(),
+    },
+    ...(userId
+      ? [
+          {
+            label: getFullNameLabel(user?.firstName, user?.lastName, intl),
+            url: routes.userView(userId),
+          },
+        ]
+      : []),
+    ...(userId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Profile",
+              id: "1wONOC",
+              description: "User profile breadcrumb text",
+            }),
+            url: routes.userProfile(userId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Candidate details",
@@ -82,7 +125,7 @@ const AdminUserProfilePage = () => {
       <Pending fetching={fetching} error={error}>
         {user ? <AdminUserProfile user={user} /> : <ThrowNotFound />}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 
