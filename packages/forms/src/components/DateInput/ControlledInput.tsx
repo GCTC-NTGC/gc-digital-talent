@@ -54,7 +54,7 @@ const ControlledInput = ({
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.value, DATE_SEGMENT.Year);
+    handleChange(e.target.value.padStart(4, "0"), DATE_SEGMENT.Year);
   };
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
