@@ -2,14 +2,14 @@ import { dateMessages } from "@gc-digital-talent/i18n";
 import { format } from "date-fns";
 import { IntlShape } from "react-intl";
 
-import { DateSegment, DATE_SEGMENT } from "./types";
+import { DateSegment, DATE_SEGMENT, SegmentObject } from "./types";
 
-type SegmentObject = {
-  year?: string;
-  month?: string;
-  day?: string;
-};
-
+/**
+ * Split the form value into each segment
+ *
+ * @param value string|undefined  The inputs value
+ * @returns SegmentObject         An object that contains keys for each segment
+ */
 export const splitSegments = (value?: string): SegmentObject => {
   if (!value) {
     return {};
@@ -24,6 +24,10 @@ export const splitSegments = (value?: string): SegmentObject => {
   };
 };
 
+/**
+ * Different values used to compute a
+ * final segment value
+ */
 type ComputedSegmentValues = {
   // The new value (if we are updating this segment)
   new: string | null;
@@ -47,8 +51,8 @@ type GetComputedSegmentValue = (args: GetComputedSegmentValueArgs) => string;
  * Computes the value based on the current state of
  * the input
  *
- * @param
- * @returns
+ * @param args GetComputedSegmentValueArgs
+ * @returns string
  */
 const getComputedSegmentValue: GetComputedSegmentValue = ({ values, show }) => {
   if (values.new) {
@@ -75,6 +79,7 @@ type SetComputedValueFunc = (args: SetComputedValueArgs) => string | undefined;
 /**
  * Sets a segment value, updating the entire date
  *
+ * @param args  SetComputedValueArgs
  * @returns string
  */
 export const setComputedValue: SetComputedValueFunc = ({
@@ -112,27 +117,29 @@ export const setComputedValue: SetComputedValueFunc = ({
     show: show.includes(DATE_SEGMENT.Day),
   });
 
-  let values: string[] = [];
-  if (newYear) {
-    values = [...values, newYear];
-  }
-  if (newMonth) {
-    values = [...values, newMonth];
-  }
-  if (newDay) {
-    values = [...values, newDay];
-  }
-
-  return values.join("-");
+  return [newYear, newMonth, newDay].join("-");
 };
 
+// Shared styles for each component
 export const inputStyles = {
   "data-h2-padding": "base(x.25, x.5)",
   "data-h2-radius": "base(input)",
   "data-h2-width": "base(100%)",
   "data-h2-min-height": "base(40px)",
+  "data-h2-border":
+    "base(2px solid gray) base:focus-visible(2px solid secondary)",
+  "data-h2-background-color": "base(white)",
+  "data-h2-outline": "base(none)",
 };
 
+/**
+ * Get the column span attribute for the month
+ * select input based on what other items are
+ * being shown to the user
+ *
+ * @param show  Array<DateSegment>
+ * @returns Record<string, string>
+ */
 export const getMonthSpan = (show: Array<DateSegment>) => {
   let monthSpan = {
     "data-h2-grid-column": "p-tablet(2 / span 1)",
@@ -156,6 +163,13 @@ export const getMonthSpan = (show: Array<DateSegment>) => {
   return monthSpan;
 };
 
+/**
+ * Array of the names of the months
+ * in order (used by the month select)
+ *
+ * @param intl IntlShape
+ * @returns Array<string>
+ */
 export const getMonthOptions = (intl: IntlShape) => [
   intl.formatMessage(dateMessages.january),
   intl.formatMessage(dateMessages.february),

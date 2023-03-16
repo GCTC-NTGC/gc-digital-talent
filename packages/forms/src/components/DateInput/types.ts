@@ -7,15 +7,8 @@ export const DATE_SEGMENT = {
 type ObjectValues<T> = T[keyof T];
 export type DateSegment = ObjectValues<typeof DATE_SEGMENT>;
 
-export type SegmentIds = Record<DateSegment, string>;
-
-export type DateConstraint = {
-  min: Date | null;
-  max: Date | null;
+export type SegmentObject = {
+  year?: string;
+  month?: string;
+  day?: string;
 };
-
-export interface DateInputSegmentProps {
-  onChange: (newValue: string) => void;
-  value: string;
-  show: Array<DateSegment>;
-}
