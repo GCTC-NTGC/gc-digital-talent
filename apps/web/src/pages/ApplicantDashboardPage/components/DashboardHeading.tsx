@@ -60,7 +60,7 @@ export interface DashboardHeadingProps {
   user: User;
 }
 
-export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
+const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

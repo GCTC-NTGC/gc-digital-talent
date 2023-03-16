@@ -18,6 +18,7 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -45,6 +46,7 @@ const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { setTheme } = useTheme();
+  const { applicantDashboard } = useFeatureFlags();
 
   React.useEffect(() => {
     setTheme("default", "light");
@@ -77,7 +79,26 @@ const Layout = () => {
     </MenuLink>,
   ];
 
-  if (loggedIn && user?.id) {
+  let authLinks = [
+    <MenuLink key="login-info" to={paths.login()}>
+      {intl.formatMessage({
+        defaultMessage: "Login",
+        id: "md7Klw",
+        description: "Label displayed on the login link menu item.",
+      })}
+    </MenuLink>,
+    <MenuLink key="register" to={paths.register()}>
+      {intl.formatMessage({
+        defaultMessage: "Register",
+        id: "LMGaDQ",
+        description: "Label displayed on the register link menu item.",
+      })}
+    </MenuLink>,
+  ];
+
+  if (loggedIn && user) {
+    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
+
     menuItems = [
       ...menuItems,
       <MenuLink key="myApplications" to={paths.applications(user.id)}>
@@ -96,7 +117,6 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
-    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
     if (
       [
         ROLE_NAME.PoolOperator,
@@ -117,26 +137,6 @@ const Layout = () => {
         </MenuLink>,
       ];
     }
-  }
-
-  let authLinks = [
-    <MenuLink key="login-info" to={paths.login()}>
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
-    </MenuLink>,
-    <MenuLink key="register" to={paths.register()}>
-      {intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
-    </MenuLink>,
-  ];
-
-  if (loggedIn) {
     authLinks = [
       <LogoutConfirmation key="logout">
         <LogoutButton>
@@ -148,6 +148,25 @@ const Layout = () => {
         </LogoutButton>
       </LogoutConfirmation>,
     ];
+
+    if (
+      applicantDashboard &&
+      [ROLE_NAME.Applicant].some((authorizedRoleName) =>
+        userRoleNames?.includes(authorizedRoleName),
+      )
+    ) {
+      authLinks = [
+        <MenuLink key="dashboard" to={paths.dashboard()}>
+          {intl.formatMessage({
+            defaultMessage: "My dashboard",
+            id: "LRZeax",
+            description:
+              "Label displayed on the applicant dashboard menu item.",
+          })}
+        </MenuLink>,
+        ...authLinks,
+      ];
+    }
   }
 
   return (

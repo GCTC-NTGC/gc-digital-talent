@@ -215,6 +215,9 @@ const getRoutes = (lang: Locales) => {
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
 
+    // Applicant Dashboard
+    dashboard: () => path.join(baseUrl, "dashboard"),
+
     /**
      * Deprecated
      *

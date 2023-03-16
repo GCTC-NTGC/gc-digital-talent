@@ -113,6 +113,14 @@ const CreateAccountPage = React.lazy(() =>
       ),
   ),
 );
+const ApplicantDashboardPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+      ),
+  ),
+);
 const ProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -650,6 +658,17 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   loginPath={loginPath}
                 >
                   <CreateAccountPage />
+                </RequireAuth>
+              ),
+            },
+            {
+              path: "dashboard",
+              element: (
+                <RequireAuth
+                  roles={[ROLE_NAME.Applicant]}
+                  loginPath={loginPath}
+                >
+                  <ApplicantDashboardPage />
                 </RequireAuth>
               ),
             },
