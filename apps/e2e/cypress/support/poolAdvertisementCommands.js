@@ -2,19 +2,20 @@ import {
   CreatePoolAdvertisementDocument,
   UpdatePoolAdvertisementDocument,
   PublishPoolAdvertisementDocument,
-} from "admin/src/js/api/generated";
+} from "@gc-digital-talent/web/src/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;
 }
 
-Cypress.Commands.add("createPoolAdvertisement", (userId, classificationIds) => {
+Cypress.Commands.add("createPoolAdvertisement", (userId, teamId, classificationIds) => {
   // there are no optional fields on the variables for this mutation
   cy.graphqlRequest({
     operationName: "createPoolAdvertisement",
     query: getGqlString(CreatePoolAdvertisementDocument),
     variables: {
       userId: userId,
+      teamId: teamId,
       poolAdvertisement: {
         classifications: {
           sync: classificationIds,

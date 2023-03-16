@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero/Hero";
-import SEO from "@common/components/SEO/SEO";
-import { BreadcrumbsProps } from "@common/components/Breadcrumbs/v2/Breadcrumbs";
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+import { BreadcrumbsProps } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
+
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -14,7 +15,7 @@ import SaveButton from "./SaveButton";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["crumbs"];
-  description?: string;
+  description?: React.ReactNode;
   title: string;
   metaTitle?: string; // Used to override <head><title /></head>
   children?: React.ReactNode;
@@ -31,7 +32,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { loggedInUser } = useAuthorizationContext();
+  const { user } = useAuthorization();
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
     links = [
@@ -41,9 +42,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
           id: "tlsomU",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
-        url: loggedInUser?.id
-          ? paths.profile(loggedInUser.id)
-          : paths.myProfile(),
+        url: user?.id ? paths.profile(user.id) : paths.myProfile(),
       },
       ...links,
     ];

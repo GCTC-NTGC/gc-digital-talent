@@ -157,6 +157,12 @@ type CandidateSearchPoolResult {
   candidateCount: Int!
 }
 
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
+}
+
 enum CitizenshipStatus {
   CITIZEN
   PERMANENT_RESIDENT
@@ -282,10 +288,12 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   poolCandidateFilter: PoolCandidateFilterBelongsTo
   applicantFilter: ApplicantFilterBelongsTo
+  wasEmpty: Boolean
 }
 
 input CreatePoolInput {
   owner: UserBelongsTo!
+  team: TeamBelongsTo
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -313,10 +321,18 @@ input CreateSkillInput {
   keywords: SkillKeywordsInput
 }
 
+input CreateTeamInput {
+  name: String!
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
+}
+
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  roles: [Role] = []
+  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
@@ -375,10 +391,15 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  teams: [Team]
 }
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+input DepartmentBelongsToMany {
+  sync: [ID!]
 }
 
 type EducationExperience implements Experience {
@@ -544,6 +565,14 @@ enum LanguageAbility {
   BILINGUAL
 }
 
+enum LegacyRole {
+  """A user who has administrator privileges"""
+  ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
+}
+
 type LocalizedString {
   en: String
   fr: String
@@ -562,7 +591,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User
+  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -580,6 +609,7 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -599,16 +629,19 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
+  changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  createTeam(team: CreateTeamInput!): Team
+  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -747,6 +780,7 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: UserPublicProfile
+  team: Team
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -766,6 +800,7 @@ type PoolAdvertisement {
   id: ID!
   key: KeyString
   owner: UserPublicProfile
+  team: Team
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
@@ -813,6 +848,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
 }
@@ -863,6 +899,7 @@ input PoolCandidateSearchInput {
   name: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
+  expiryStatus: CandidateExpiryFilter
 }
 
 type PoolCandidateSearchRequest {
@@ -878,6 +915,7 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
   doneDate: DateTime
+  wasEmpty: Boolean
 }
 
 enum PoolCandidateSearchStatus {
@@ -975,10 +1013,10 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter
-  poolCandidateFilters: [PoolCandidateFilter]!
-  applicantFilter(id: ID!): ApplicantFilter
-  applicantFilters: [ApplicantFilter]!
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
@@ -988,6 +1026,9 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  team(id: UUID!): Team
+  teams: [Team]!
+  roles: [Role]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1045,12 +1086,31 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   CURRENT_CITY
 }
 
-enum Role {
-  """A user who has administrator privileges"""
-  ADMIN
+type Role {
+  id: ID!
+  name: String!
+  displayName: LocalizedString
+  description: LocalizedString
+  isTeamBased: Boolean
+  roleAssignments: [RoleAssignment!]
+}
 
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
+type RoleAssignment {
+  id: ID!
+  role: Role
+  team: Team
+  user: UserPublicProfile
+}
+
+input RoleAssignmentHasMany {
+  attach: RolesInput
+  detach: RolesInput
+  sync: RolesInput
+}
+
+input RolesInput {
+  roles: [ID!]!
+  team: ID
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1194,6 +1254,21 @@ enum SortOrder {
   DESC
 }
 
+type Team {
+  id: ID!
+  name: String!
+  displayName: LocalizedString
+  description: LocalizedString
+  departments: [Department]
+  contactEmail: Email
+  pools: [Pool]
+  roleAssignments: [RoleAssignment!]
+}
+
+input TeamBelongsTo {
+  connect: ID!
+}
+
 """
 Specify if you want to include or exclude trashed results from a query.
 """
@@ -1259,6 +1334,7 @@ input UpdatePoolCandidateSearchRequestInput {
 
 input UpdatePoolInput {
   owner: UserBelongsTo
+  team: TeamBelongsTo
   name: LocalizedStringInput
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1284,11 +1360,19 @@ input UpdateSkillInput {
   keywords: SkillKeywordsInput
 }
 
+input UpdateTeamInput {
+  name: String
+  displayName: LocalizedStringInput
+  description: LocalizedStringInput
+  departments: DepartmentBelongsToMany
+  contactEmail: Email
+}
+
 """When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
@@ -1333,6 +1417,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+  roles: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {
@@ -1386,7 +1471,7 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  roles: [Role]
+  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String
@@ -1441,6 +1526,7 @@ type User {
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
+  roleAssignments: [RoleAssignment!]
 }
 
 input UserBelongsTo {
@@ -1472,6 +1558,7 @@ input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 type UserPublicProfile {

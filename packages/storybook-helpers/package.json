@@ -7,17 +7,24 @@
     "main.js"
   ],
   "dependencies": {
+    "@gc-digital-talent/theme": "*",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/addon-viewport": "^6.5.14",
     "@storybook/addons": "^6.5.14",
-    "@storybook/builder-webpack5": "^6.5.13",
-    "@storybook/manager-webpack5": "^6.5.14",
-    "@storybook/react": "^6.5.14",
-    "chromatic": "^6.15.0",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "chromatic": "^6.17.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.7.0",
+    "react-helmet-async": "^1.3.0",
+    "react-router-dom": "^6.8.1",
     "storybook-addon-intl": "^2.4.1",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
     "urql": "^3.0.3",
-    "wonka": "^6.1.2"
+    "wonka": "^6.2.3"
   }
 }

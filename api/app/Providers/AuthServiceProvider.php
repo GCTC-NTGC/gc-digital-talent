@@ -12,6 +12,7 @@ use App\Models\PersonalExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\AwardExperience;
+use App\Models\Role;
 
 use App\Policies\ClassificationPolicy;
 use App\Policies\DepartmentPolicy;
@@ -71,9 +72,9 @@ class AuthServiceProvider extends ServiceProvider
      * Get the associated user model for a request or abort if something goes wrong with the lookup
      *
      */
-    public function resolveUserOrAbort($bearerToken, $tokenService): ?User {
-        if($bearerToken)
-        {
+    public function resolveUserOrAbort($bearerToken, $tokenService): ?User
+    {
+        if ($bearerToken) {
             try {
                 $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
                 $sub = $claims->get('sub');
@@ -92,15 +93,18 @@ class AuthServiceProvider extends ServiceProvider
             // By this point we have verified that the token is legitimate
 
             $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
-            if($userMatch) {
+            if ($userMatch) {
                 return $userMatch;
             } else {
                 // No user found for given subscriber - lets auto-register them
                 $newUser = new User;
                 $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
                 $newUser->sub = $sub;
-                $newUser->roles = [ApiEnums::ROLE_APPLICANT]; // every new user is automatically an APPLICANT
+                $newUser->legacy_roles = [ApiEnums::LEGACY_ROLE_APPLICANT]; // every new user is automatically an APPLICANT
                 $newUser->save();
+                $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
+                    Role::where('name', 'base_user')->sole(),
+                    Role::where('name', 'applicant')->sole()], null);
                 return $newUser;
             }
         }

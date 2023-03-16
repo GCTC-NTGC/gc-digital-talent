@@ -1,0 +1,140 @@
+query AllSkills {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+}
+
+query Skill($id: UUID!) {
+  skill(id: $id) {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+}
+
+query GetUpdateSkillData($id: UUID!) {
+  skillFamilies {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+
+  skill(id: $id) {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+}
+
+mutation UpdateSkill($id: ID!, $skill: UpdateSkillInput!) {
+  updateSkill(id: $id, skill: $skill) {
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+  }
+}
+
+mutation CreateSkill($skill: CreateSkillInput!) {
+  createSkill(skill: $skill) {
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+  }
+}

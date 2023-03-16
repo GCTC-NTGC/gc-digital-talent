@@ -12,7 +12,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
+use Laratrust\Traits\LaratrustUserTrait;
+use Carbon\Carbon;
 
 /**
  * Class User
@@ -24,7 +27,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $roles
+ * @property array $legacy_roles
  * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
@@ -64,6 +67,9 @@ use Illuminate\Support\Facades\DB;
 
 class User extends Model implements Authenticatable
 {
+
+    use Authorizable;
+    use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
@@ -71,12 +77,17 @@ class User extends Model implements Authenticatable
     protected $keyType = 'string';
 
     protected $casts = [
-        'roles' => 'array',
+        'legacy_roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
+    ];
+
+    protected $fillable = [
+        'email',
+        'sub'
     ];
 
     public function pools(): HasMany
@@ -106,9 +117,8 @@ class User extends Model implements Authenticatable
 
     public function isAdmin(): bool
     {
-        return is_array($this->roles) && in_array('ADMIN', $this->roles);
+        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
@@ -129,6 +139,11 @@ class User extends Model implements Authenticatable
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
+    }
+    // A relationship to the custom roleAssignments pivot model
+    public function roleAssignments(): HasMany
+    {
+        return $this->hasMany(RoleAssignment::class);
     }
     public function getExperiencesAttribute()
     {
@@ -217,7 +232,7 @@ class User extends Model implements Authenticatable
      * Filters users by the Pools they are in.
      *
      * @param Builder $query
-     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
      * @return Builder
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
@@ -246,6 +261,14 @@ class User extends Model implements Authenticatable
                             if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
+                            $query->where(function ($query) use ($filter) {
+                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+                                    $query->whereDate('suspended_at', '>=', Carbon::now())
+                                        ->orWhereNull('suspended_at');
+                                } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                    $query->whereDate('suspended_at', '<', Carbon::now());
+                                }
+                            });
                             return $query;
                         };
                     };
@@ -263,8 +286,8 @@ class User extends Model implements Authenticatable
     }
     /**
      * Return applicants with PoolCandidates in any of the given pools.
-     * Only consider pool candidates who still available,
-     * ie not expired and with the AVAILABLE status.
+     * Only consider pool candidates who are available,
+     * ie not expired, with the AVAILABLE status, and the application is not suspended
      *
      * @param Builder $query
      * @param array $poolIds
@@ -280,7 +303,8 @@ class User extends Model implements Authenticatable
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL],
+                'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
             ];
         }
         return self::scopePoolFilters($query, $poolFilters);
@@ -703,5 +727,37 @@ RAWSQL2;
             }
 
             // in all other cases the field stays null, so cases where all fields tested are false/null for instance
+    }
+
+    // Prepares the parameters for Laratrust and then calls the function to modify the roles
+    private function callRolesFunction($rolesInput, $functionName)
+    {
+        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the array of IDs to an array of key-value pairs where the key is 'id'.
+        $roleIdObjects = array_map(function ($id) {
+            return ['id' => $id];
+        }, $rolesInput['roles']);
+
+        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the ID to a key-value pair where the key is 'id'.
+        if (array_key_exists('team', $rolesInput))
+            $teamIdObject = ['id' => $rolesInput['team']];
+        else
+            $teamIdObject = null;
+
+        return $this->$functionName($roleIdObjects, $teamIdObject);
+    }
+
+    public function setRolesAttribute($roleAssignmentHasMany)
+    {
+        if(array_key_exists('attach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+        }
+
+        if(array_key_exists('detach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+        }
+
+        if(array_key_exists('sync', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
+        }
     }
 }

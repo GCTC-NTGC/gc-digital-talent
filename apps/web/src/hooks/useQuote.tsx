@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 export interface Quote {
   content: React.ReactNode | string;
-  author: string;
+  author: string | React.ReactNode;
 }
 
 const useQuote = (): Quote => {

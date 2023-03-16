@@ -8,14 +8,11 @@ module.exports = {
     repoBranchBase: process.env.PR_BRANCH_BASE || process.env.PUSH_BRANCH_BASE,
     repoCurrentBranch: process.env.PR_BRANCH || process.env.PUSH_BRANCH,
   },
+  normalizeFilenames: /^.+?(\..+?)\.\w+$/,
   files: [
     {
-      path: "frontend/admin/dist/app.*.js",
-      maxSize: "325 kB",
-    },
-    {
       path: "apps/web/dist/app.*.js",
-      maxSize: "250 kB",
+      maxSize: "470 kB",
     },
   ]
 };

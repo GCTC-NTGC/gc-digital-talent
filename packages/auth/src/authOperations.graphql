@@ -1,0 +1,17 @@
+query getCurrentAuthorizedUser {
+  me {
+    id
+    email
+    roleAssignments {
+      id
+      role {
+        id
+        name
+      }
+      team {
+        id
+        name
+      }
+    }
+  }
+}

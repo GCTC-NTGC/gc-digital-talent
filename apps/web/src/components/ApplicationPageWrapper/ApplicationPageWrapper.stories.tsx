@@ -2,7 +2,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@common/helpers/dateUtils";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
+
 import ApplicationPageWrapper from "./ApplicationPageWrapper";
 
 type ApplicationPageWrapperComponent = typeof ApplicationPageWrapper;
@@ -13,6 +17,7 @@ export default {
 } as ComponentMeta<ApplicationPageWrapperComponent>;
 
 const Template: ComponentStory<ApplicationPageWrapperComponent> = (args) => {
+  faker.seed(0);
   return (
     <ApplicationPageWrapper {...args}>
       <p>{faker.lorem.sentences(10)}</p>

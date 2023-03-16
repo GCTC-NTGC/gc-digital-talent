@@ -12,7 +12,8 @@ import {
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
-} from "@gc-digital-talent/common/src/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
+import { addRolesToUser } from "../../support/userHelpers";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application Workflow Tests", () => {
@@ -52,7 +53,7 @@ describe("Submit Application Workflow Tests", () => {
           cy.createUser({
             email: `cypress.user.${uniqueTestId}@example.org`,
             sub: `cypress.sub.${uniqueTestId}`,
-            roles: ["APPLICANT"],
+            legacyRoles: ["APPLICANT"],
             currentProvince: ProvinceOrTerritory.Ontario,
             currentCity: "Test City",
             telephone: "+10123456789",
@@ -86,15 +87,24 @@ describe("Submit Application Workflow Tests", () => {
             },
           });
         })
-        .its("sub")
-        .as("testUserSub");
+        .as("testUser");
     });
+
+    cy.get("@testUser").then((testUser) => {
+      addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+    });
+
+    // fetch the dcmId for its team from database, needed for pool creation
+    let dcmId;
+    cy.getDCM().then((dcm) => {
+      dcmId = dcm;
+    })
 
     cy.getMe()
       .its("id")
       .then((adminUserId) => {
         cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPoolAdvertisement(adminUserId, [testClassificationId])
+          cy.createPoolAdvertisement(adminUserId, dcmId, [testClassificationId])
             .its("id")
             .as("testPoolAdvertisementId")
             .then((testPoolAdvertisementId) => {
@@ -126,14 +136,14 @@ describe("Submit Application Workflow Tests", () => {
         });
       });
 
-    cy.get("@testUserSub").then((sub) => {
-      cy.loginBySubject(sub);
+    cy.get("@testUser").then((user) => {
+      cy.loginBySubject(user.sub);
     });
     cy.visit("/en/browse/pools");
 
     // Browse pools page - placeholder so it could change
     cy.wait("@gqlbrowsePoolAdvertisementsQuery");
-    cy.findByRole("heading", { name: /browse it jobs/i })
+    cy.findByRole("heading", { name: /browse i t jobs/i })
       .should("exist")
       .and("be.visible");
     cy.get("@testPoolAdvertisementId").then((testPoolAdvertisementId) => {

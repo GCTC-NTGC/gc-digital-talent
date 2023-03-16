@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import imageUrl from "@common/helpers/imageUrl";
 
-import Hero from "@common/components/Hero";
-import useTheme from "@common/hooks/useTheme";
+import { useTheme } from "@gc-digital-talent/theme";
+import { imageUrl } from "@gc-digital-talent/helpers";
+
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import SupportForm from "./SupportForm";
+import SupportForm from "./components/SupportForm/SupportForm";
 
 const flourishTopLight = imageUrl("/", "support_top_light.png");
 const flourishTopDark = imageUrl("/", "support_top_dark.png");

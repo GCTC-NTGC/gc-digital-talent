@@ -43,7 +43,10 @@ class StoreApplicationSnapshot
             'personalExperiences',
             'personalExperiences.skills',
             'workExperiences',
-            'workExperiences.skills'
+            'workExperiences.skills',
+            'poolCandidates',
+            'poolCandidates.pool',
+            'poolCandidates.pool.classifications',
         ])->findOrFail($poolCandidate->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

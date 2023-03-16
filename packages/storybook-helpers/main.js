@@ -1,5 +1,6 @@
 const path = require("path");
 const TsTransformer = require("@formatjs/ts-transformer");
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const transform = TsTransformer.transform;
 const shell = require("shelljs");
 const fs = require("fs");
@@ -24,11 +25,11 @@ const reactIntlTransformRule = {
 
 module.exports = (basePath) => {
   return {
-    "staticDirs": [ { from: '../public', to: '/indigenous-it-apprentice' } ],
+    "staticDirs": [{ from: '../public', to: '/' }],
 
     "stories": [
-      "../src/**/*.stories.mdx",
-      "../src/**/*.stories.@(js|jsx|ts|tsx)"
+      "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
     "addons": [
       "@storybook/addon-links",
@@ -36,30 +37,36 @@ module.exports = (basePath) => {
       "storybook-addon-intl"
     ],
     "core": {
-      builder: {
-        name: 'webpack5',
-        options: {
-          lazyCompilation: true,
-        },
-      },
+      "builder": "webpack5"
     },
     webpackFinal: async (config, { configType }) => {
       // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
       // You can change the configuration based on that.
       // 'PRODUCTION' is used when building the static version of storybook.
 
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "@common": path.resolve(basePath, '../../frontend/common/src'),
-      }
+      config.resolve.extensions = [
+        ...config.resolve.extensions,
+        ".tsx", ".ts", ".js"
+      ];
 
       config.module.rules = [
         ...config.module.rules,
         reactIntlTransformRule,
       ];
 
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "~": path.resolve(__dirname, "../../apps/web/src/"),
+      }
+
+      config.resolve.plugins = [
+        ...(config.resolve.plugins || []),
+        new TsconfigPathsPlugin({
+          extensions: config.resolve.extensions,
+        }),
+      ];
+
       // Run Hydrogen on Webpack's compiler hooks
-      // Note that this version is unique from the other workspaces because we're already inside the common folder
       config.plugins.push(
         {
           apply: (compiler) => {
@@ -73,10 +80,12 @@ module.exports = (basePath) => {
             // Run on the invalid hook so that the file time is updated before the next compile
             compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
               shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
-              var f = path.resolve('common/src/css/hydrogen.css')
+              var f = path.resolve('../apps/web/src/assets/css/hydrogen.css')
               var now = Date.now() / 1000
               var then = now - 100
-              fs.utimes(f, then, then, function (err) { if (err) throw err })
+              if (f) {
+                fs.utimes(f, then, then, function (err) { if (err) throw err })
+              }
             })
           },
         }

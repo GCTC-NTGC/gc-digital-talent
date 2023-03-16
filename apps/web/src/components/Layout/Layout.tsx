@@ -2,17 +2,20 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
-import SEO, { Favicon } from "@common/components/SEO/SEO";
-import MenuLink from "@common/components/Link/MenuLink";
-import SkipLink from "@common/components/Link/SkipLink";
-import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import useAuth from "@common/hooks/useAuth";
+import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+// import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
+import {
+  useAuthentication,
+  useAuthorization,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
+import { useTheme } from "@gc-digital-talent/theme";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-
-import Footer from "@common/components/Footer";
-import NavMenu from "@common/components/NavMenu";
-import Header from "@common/components/Header";
+import SEO, { Favicon } from "~/components/SEO/SEO";
+import NavMenu from "~/components/NavMenu";
+import Header from "~/components/Header";
+import Footer from "~/components/Footer";
+import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -24,7 +27,7 @@ export const LogoutButton = React.forwardRef<
   LogoutButtonProps
 >(({ children, ...rest }, forwardedRef) => (
   <button
-    data-h2-color="base(dt-primary)"
+    data-h2-color="base(black) base:hover(primary)"
     data-h2-font-size="base(normal)"
     data-h2-text-decoration="base(underline)"
     style={{
@@ -41,9 +44,14 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { setTheme } = useTheme();
 
-  const { loggedInUser } = useAuthorizationContext();
-  const { loggedIn } = useAuth();
+  React.useEffect(() => {
+    setTheme("default", "light");
+  }, [setTheme]);
+
+  const { user } = useAuthorization();
+  const { loggedIn } = useAuthentication();
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>
@@ -69,10 +77,10 @@ const Layout = () => {
     </MenuLink>,
   ];
 
-  if (loggedIn && loggedInUser?.id) {
+  if (loggedIn && user?.id) {
     menuItems = [
       ...menuItems,
-      <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
+      <MenuLink key="myApplications" to={paths.applications(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My applications",
           id: "ioghLh",
@@ -80,7 +88,7 @@ const Layout = () => {
             "Label displayed on the users pool applications menu item.",
         })}
       </MenuLink>,
-      <MenuLink key="myProfile" to={paths.profile(loggedInUser.id)}>
+      <MenuLink key="myProfile" to={paths.profile(user.id)}>
         {intl.formatMessage({
           defaultMessage: "My profile",
           id: "5lBIzg",
@@ -88,6 +96,27 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
+    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
+    if (
+      [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ].some((authorizedRoleName) =>
+        userRoleNames?.includes(authorizedRoleName),
+      )
+    ) {
+      menuItems = [
+        ...menuItems,
+        <MenuLink key="adminDashboard" to={paths.adminDashboard()}>
+          {intl.formatMessage({
+            defaultMessage: "Admin",
+            id: "wHX/8C",
+            description: "Title tag for Admin site",
+          })}
+        </MenuLink>,
+      ];
+    }
   }
 
   let authLinks = [
@@ -142,7 +171,7 @@ const Layout = () => {
         className="container"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-height="base(100vh)"
+        data-h2-min-height="base(100vh)"
         data-h2-margin="base(0)"
         data-h2-color="base(black) base:dark(white)"
       >

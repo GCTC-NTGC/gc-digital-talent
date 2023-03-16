@@ -12,7 +12,7 @@ The frontend [React](https://reactjs.org/) projects uses environment variables i
 
 ### Build-Time Variables
 
-The **frontend** subprojects (admin) have `.env` files that are copied from `.env.example` template files like the Laravel project. When the frontend projects are built using [webpack](https://webpack.js.org/), variables from the `.env` file are defined in the resulting bundle using [DefinePlugin](https://webpack.js.org/plugins/define-plugin/). These values are "baked into" the bundle and if there are any variable changes, the subproject must be rebuilt to reflect them.
+The **apps** subprojects (./) have `.env` files that are copied from `.env.example` template files like the Laravel project. When the app projects are built using [webpack](https://webpack.js.org/), variables from the `.env` file are defined in the resulting bundle using [DefinePlugin](https://webpack.js.org/plugins/define-plugin/). These values are "baked into" the bundle and if there are any variable changes, the subproject must be rebuilt to reflect them.
 
 ### Run-Time Variables
 

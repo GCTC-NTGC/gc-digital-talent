@@ -2,7 +2,12 @@ import React from "react";
 
 import { HireIcon, JobIcon, ProfileIcon, HomeIcon, SupportIcon } from "./Icons";
 
-type CallToActionContext = "hire" | "job" | "profile" | "home" | "support";
+export type CallToActionContext =
+  | "hire"
+  | "job"
+  | "profile"
+  | "home"
+  | "support";
 export interface CallToActionProps {
   type: string;
   context: CallToActionContext;
@@ -15,38 +20,43 @@ export interface CallToActionProps {
 const stylesMap: Record<CallToActionContext, Record<string, string>> = {
   hire: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-blue) base:children[div:first-child]:hover(tm-blue.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](secondary) base:hover:children[div:first-child](secondary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-blue) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
-    "data-h2-color": "base:children[*](black)",
+      "base:children[div:first-child](3px solid secondary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+    "data-h2-color":
+      "base(black) base:children[>div:first-child]:admin(white) base:children[>div:first-child]:admin:hover(black) base:children[>div:first-child]:iap(white) base:children[>div:first-child]:iap:hover(black)",
   },
   job: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-yellow) base:children[div:first-child]:hover(tm-yellow.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quaternary) base:hover:children[div:first-child](quaternary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-yellow) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
-    "data-h2-color": "base:children[*](black)",
+      "base:children[div:first-child](3px solid quaternary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+    "data-h2-color":
+      "base(black) base:children[>div:first-child]:iap(white) base:children[>div:first-child]:iap:hover(black)",
   },
   profile: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-green) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
-    "data-h2-color": "base:children[*](black)",
+      "base:children[div:first-child](3px solid quinary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+    "data-h2-color":
+      "base(black) base:children[>div:first-child]:iap(white) base:children[>div:first-child]:iap:hover(black)",
   },
   home: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](quinary) base:hover:children[div:first-child](quinary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-green) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
-    "data-h2-color": "base:children[*](black)",
+      "base:children[div:first-child](3px solid quinary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+    "data-h2-color":
+      "base(black) base:children[>div:first-child]:iap(white) base:children[>div:first-child]:iap:hover(black)",
   },
   support: {
     "data-h2-background-color":
-      "base(white) base:children[div:first-child](tm-purple) base:children[div:first-child]:hover(tm-purple.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](primary) base:hover:children[div:first-child](primary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid tm-purple) base:children[div:not(:first-child)](3px solid white) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
-    "data-h2-color": "base:children[*](black)",
+      "base:children[div:first-child](3px solid primary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+    "data-h2-color":
+      "base(black) base:children[>div:first-child]:admin(white) base:children[>div:first-child]:admin:hover(black)",
   },
 };
 
@@ -80,7 +90,8 @@ const CallToAction: React.FC<CallToActionProps> = ({
           data-h2-padding="base(0)"
           data-h2-overflow="base(hidden)"
           data-h2-radius="base(rounded)"
-          data-h2-shadow="base(medium)"
+          data-h2-shadow="base(medium) base:hover(larger)"
+          data-h2-transition="base(all ease .2s) base:children[*](all ease .2s)"
         >
           <div
             data-h2-align-self="base(stretch)"
@@ -96,6 +107,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
             data-h2-padding="base(x.5, x1)"
             data-h2-font-weight="base(700)"
             data-h2-text-decoration="base(underline)"
+            data-h2-width="base(100%)"
           >
             {content.label}
           </div>
@@ -112,7 +124,8 @@ const CallToAction: React.FC<CallToActionProps> = ({
           data-h2-padding="base(0)"
           data-h2-overflow="base(hidden)"
           data-h2-radius="base(rounded)"
-          data-h2-shadow="base(medium)"
+          data-h2-shadow="base(medium) base:hover(larger)"
+          data-h2-transition="base(all ease .2s) base:children[*](all ease .2s)"
         >
           <div
             data-h2-align-self="base(stretch)"
@@ -128,6 +141,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
             <span
               data-h2-font-weight="base(700)"
               data-h2-text-decoration="base(underline)"
+              data-h2-width="base(100%)"
             >
               {content.label}
             </span>

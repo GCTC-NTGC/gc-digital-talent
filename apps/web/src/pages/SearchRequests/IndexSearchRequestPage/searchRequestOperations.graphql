@@ -1,0 +1,24 @@
+query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
+  searchPoolCandidates(where: $poolCandidateFilter) {
+    id
+    user {
+      id
+      email
+      firstName
+      lastName
+      expectedClassifications {
+        id
+        group
+        level
+      }
+      acceptedOperationalRequirements
+      isWoman
+      hasDisability
+      isVisibleMinority
+      isIndigenous
+    }
+    pool {
+      id
+    }
+  }
+}

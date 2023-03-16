@@ -20,6 +20,7 @@ use UnexpectedValueException;
  * @property string $job_title
  * @property string $additional_comments
  * @property string $pool_candidate_filter_id
+ * @property boolean $was_empty
  * @property string $status
  * @property string $admin_notes
  * @property Illuminate\Support\Carbon $created_at

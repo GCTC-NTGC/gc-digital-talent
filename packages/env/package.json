@@ -1,0 +1,24 @@
+{
+  "name": "@gc-digital-talent/env",
+  "license": "AGPL-3.0",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "rimraf dist && env NODE_ENV=production tsup",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup",
+    "watch": "tsup --watch",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "rimraf": "^4.4.0",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5"
+  }
+}

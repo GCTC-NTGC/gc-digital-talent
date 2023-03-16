@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Models\Role;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
-use Database\Helpers\ApiEnums;
 use Lcobucci\JWT\Token\DataSet;
 use Tests\TestCase;
 use Mockery\MockInterface;
@@ -24,7 +24,7 @@ class AuthServiceProviderTest extends TestCase
      */
     private $mockAuthProvider;
 
-     /**
+    /**
      * @var AuthServiceProvider
      */
     private $provider;
@@ -38,15 +38,14 @@ class AuthServiceProviderTest extends TestCase
 
         $this->mockApp = Mockery::mock(ArrayAccess::class);
         $this->mockApp
-                    ->shouldReceive('offsetGet')
-                    ->with('auth')
-                    ->andReturn($this->mockAuthProvider);
+            ->shouldReceive('offsetGet')
+            ->with('auth')
+            ->andReturn($this->mockAuthProvider);
 
-         $this->provider = new AuthServiceProvider($this->mockApp);
-
+        $this->provider = new AuthServiceProvider($this->mockApp);
     }
 
-     /**
+    /**
      * @test
      * The test checks a an HttpException with status 401 is thrown if an exception occurs during token validation
      */
@@ -55,8 +54,8 @@ class AuthServiceProviderTest extends TestCase
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
-                                        ->with($fakeToken)
-                                        ->andThrow(new Exception);
+            ->with($fakeToken)
+            ->andThrow(new Exception);
 
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
@@ -75,8 +74,8 @@ class AuthServiceProviderTest extends TestCase
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
-                                        ->with($fakeToken)
-                                        ->andThrow(new Error);
+            ->with($fakeToken)
+            ->andThrow(new Error);
 
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
@@ -93,6 +92,8 @@ class AuthServiceProviderTest extends TestCase
      */
     public function testUserIsAutoCreatedWhenMissing()
     {
+        $this->seed(RolePermissionSeeder::class);
+
         $testSub = 'test-sub';
 
         // DataSet is a final class, and so we need to use it as a proxied partial mock.
@@ -102,8 +103,8 @@ class AuthServiceProviderTest extends TestCase
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
-                            ->with($fakeToken)
-                            ->andReturn($mockClaims);
+            ->with($fakeToken)
+            ->andReturn($mockClaims);
 
         // starting off, they shouldn't exist
         $this->assertDatabaseMissing('users', ['sub' => $testSub]);
@@ -112,10 +113,21 @@ class AuthServiceProviderTest extends TestCase
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
 
         // they should exist now, but should not be admin
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode([ApiEnums::ROLE_APPLICANT])]);
+        $newUser = User::where('sub', $testSub)->sole();
+        $this->assertModelExists($newUser);
+
+        $expectedRoleNames = [
+            Role::where('name', 'base_user')->sole()->name,
+            Role::where('name', 'applicant')->sole()->name,
+        ];
+        $actualRoleNames = $newUser->roles->map(function ($role) {
+            return $role->name;
+        })->toArray();
+
+        $this->assertEqualsCanonicalizing($actualRoleNames, $expectedRoleNames);
     }
 
-     /**
+    /**
      * @test
      * The test checks that a user is not automatically created if it already exists(by sub)
      */
@@ -129,8 +141,8 @@ class AuthServiceProviderTest extends TestCase
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
-                            ->with($fakeToken)
-                            ->andReturn($mockClaims);
+            ->with($fakeToken)
+            ->andReturn($mockClaims);
 
         // starting off, they shouldn't exist
         $this->assertDatabaseMissing('users', ['sub' => $testSub]);
@@ -138,14 +150,14 @@ class AuthServiceProviderTest extends TestCase
         // manually add the user with the sub
         $existingUser = new User;
         $existingUser->sub = $testSub;
-        $existingUser->roles = $testRoles;
+        $existingUser->legacy_roles = $testRoles;
         $existingUser->save();
 
         // they should exist now
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode($testRoles)]);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'legacy_roles' => json_encode($testRoles)]);
         // this should not recreate them - that would wipe out the test role on our test user
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
         // make sure our test user did not get roles wiped
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode($testRoles)]);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'legacy_roles' => json_encode($testRoles)]);
     }
 }

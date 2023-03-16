@@ -9,7 +9,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -18,19 +18,19 @@ class CountPoolCandidatesByPoolTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->bootClearsSchemaCache();
+        $this->bootRefreshesSchemaCache();
 
         // Create admin user we run tests as
         $newUser = new User;
         $newUser->email = 'admin@test.com';
         $newUser->sub = 'admin@test.com';
-        $newUser->roles = ['ADMIN'];
+        $newUser->legacy_roles = ['ADMIN'];
         $newUser->save();
     }
 
@@ -735,6 +735,27 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]);
         }
 
+        $user2 = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+        $user3 = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool,
+            'user_id' => $user2,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'expiry_date' => config('constants.far_future_date'),
+            'suspended_at' => config('constants.far_future_date')
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool,
+            'user_id' => $user3,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'expiry_date' => config('constants.far_future_date'),
+            'suspended_at' => config('constants.past_date')
+        ]);
+
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -753,7 +774,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
+                        'candidateCount' => 3
                     ]
                 ]
             ]

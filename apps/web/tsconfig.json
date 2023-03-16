@@ -1,7 +1,11 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "tsconfig/app.json",
   "compilerOptions": {
     "baseUrl": "./src",
+    "paths": {
+      "@gc-digital-talent/*": ["../../../packages/*/src"],
+      "~/*": ["./*"],
+    },
   },
   "include": ["src/**/*"],
   "exclude": [

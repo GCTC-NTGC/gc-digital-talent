@@ -1,8 +1,14 @@
 import { aliasQuery } from "../../support/graphql-test-utils";
+
+const AUTH_SERVER_ROOT = 'http://localhost:8000/oxauth';
+
 describe('Auth flows (development)', () => {
   // Helpers
   const onAuthLoginPage = () => {
-    cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
+    cy.url().should('contain', AUTH_SERVER_ROOT + '/authorize')
+  }
+  const onLoginInfoPage = () => {
+      cy.url().should('contain', '/en/login-info')
   }
 
   const loginViaUI = (role) => {
@@ -35,7 +41,7 @@ describe('Auth flows (development)', () => {
         '/en/admin/settings/skills/families',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
-        onAuthLoginPage()
+        onLoginInfoPage()
       })
 
     })
@@ -43,7 +49,7 @@ describe('Auth flows (development)', () => {
     it('redirects app login page to auth login page', () => {
       cy.request({ url: '/login', followRedirect: false }).then((req) => {
         expect(req.redirectedToUrl)
-          .to.include(Cypress.config().authServerRoot + '/authorize')
+          .to.include(AUTH_SERVER_ROOT + '/authorize')
       })
     })
 
@@ -105,7 +111,8 @@ describe('Auth flows (development)', () => {
     it('redirects back to referring page after login', () => {
       const initialPath = '/en/admin/users'
       cy.visit(initialPath)
-
+      onLoginInfoPage()
+      cy.findByRole('link', { name: /Continue to G C Key and Login/i}).click()
       onAuthLoginPage()
       loginViaUI('admin')
 

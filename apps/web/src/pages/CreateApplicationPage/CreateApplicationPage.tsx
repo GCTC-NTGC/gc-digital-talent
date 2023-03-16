@@ -3,12 +3,14 @@ import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import { Id, toast as toastify } from "react-toastify";
 
-import Loading from "@common/components/Pending/Loading";
-import { toast } from "@common/components/Toast";
-import { notEmpty } from "@common/helpers/util";
-import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import { AuthorizationContext } from "@common/components/Auth";
-import { errorMessages } from "@common/messages";
+import { Loading } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  tryFindMessageDescriptor,
+  errorMessages,
+} from "@gc-digital-talent/i18n";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars, useCreateApplicationMutation } from "~/api/generated";
@@ -28,7 +30,7 @@ const CreateApplication = () => {
   const errorToastId = React.useRef<Id>("");
   const paths = useRoutes();
   const navigate = useNavigate();
-  const auth = React.useContext(AuthorizationContext);
+  const auth = useAuthorization();
   const [
     { fetching: creating, data: mutationData, operation },
     executeMutation,
@@ -76,7 +78,7 @@ const CreateApplication = () => {
    * isVisible - Should't run it if user cannot view it
    * !hasApplied - Users can only apply to a single pool advertisement
    */
-  const userId = auth.loggedInUser?.id;
+  const userId = auth.user?.id;
   const hasMutationData = notEmpty(mutationData);
   const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;

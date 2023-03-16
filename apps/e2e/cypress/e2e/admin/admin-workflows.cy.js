@@ -44,32 +44,25 @@ describe("Admin Workflow Tests", () => {
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
-      .findByRole("link", {name: /view applicant test/i})
+      .findByRole("link", { name: /view applicant test/i })
       .should("exist")
       .and("be.visible")
       .click();
 
     // exercise profile page
-    cy.findByRole("heading", { name: /Candidate Details/i })
+    cy.findByRole("heading", { name: /view user/i })
       .should("exist")
       .and("be.visible");
+
+    cy.findByRole("link", { name: /user profile/i })
+      .should("exist")
+      .and("be.visible")
+      .click();
 
     cy.findByRole("button", { name: /Print Profile/i })
       .should("exist")
       .and("be.visible")
       .and("be.enabled");
-
-    cy.findByRole("tab", { name: /General Information/i }).click();
-
-    cy.findByRole("heading", { name: /About/i })
-      .should("exist")
-      .and("be.visible");
-
-    cy.findByRole("tab", { name: /Candidate Profile/i }).click();
-
-    cy.findByRole("heading", { name: /About/i })
-      .should("exist")
-      .and("be.visible");
   });
 
   it("Searches for a user and edits the phone number", () => {
@@ -103,7 +96,7 @@ describe("Admin Workflow Tests", () => {
     // show hidden telephone column
     cy.findByRole("button", { name: /Columns/i }).click();
     cy.findByRole("checkbox", { name: /Telephone/i }).click();
-    cy.findByRole("button", { ariaLabel: /Close dialog/i }).type('{esc}');
+    cy.findByRole("dialog", { ariaLabel: /table columns/i }).type('{esc}');
 
     // check that the expected new phone number shows
     cy.findByRole("table")
@@ -138,8 +131,8 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
-    cy.findByRole("button", {name: /filters/i}).click();
-    cy.findByRole("button", {name: /Show results/i}).click();
+    cy.findByRole("button", { name: /filters/i }).click();
+    cy.findByRole("button", { name: /Show results/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
   });
 });

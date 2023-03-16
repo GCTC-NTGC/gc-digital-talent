@@ -1,0 +1,35 @@
+query getAboutMe {
+  me {
+    id
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    telephone
+    firstName
+    lastName
+    email
+    armedForcesStatus
+    citizenship
+    isProfileComplete
+  }
+}
+
+mutation UpdateUserAboutMe($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    id
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    telephone
+    firstName
+    lastName
+    email
+    isProfileComplete
+    armedForcesStatus
+    citizenship
+  }
+}

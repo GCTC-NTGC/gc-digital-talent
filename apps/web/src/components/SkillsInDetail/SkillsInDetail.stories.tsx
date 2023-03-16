@@ -2,16 +2,15 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 
-import { fakeSkills } from "@common/fakeData";
-import Form from "@common/components/form/BasicForm";
-import Submit from "@common/components/form/Submit";
+import { fakeSkills } from "@gc-digital-talent/fake-data";
+import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import { FormSkills } from "~/pages/ExperienceFormPage/types";
+import { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
 import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/SkillsInDetail",
+  title: "Components/Skills In Detail",
   args: {
     skills: [],
     handleDelete: action("Remove from experience"),
@@ -21,10 +20,10 @@ export default {
 const TemplateSkillsInDetail: Story<SkillsInDetailProps> = (args) => {
   const { skills } = args;
   return (
-    <Form onSubmit={action("submit")}>
+    <BasicForm onSubmit={action("submit")}>
       <SkillsInDetail {...args} />
       {skills.length !== 0 && <Submit />}
-    </Form>
+    </BasicForm>
   );
 };
 
@@ -38,6 +37,7 @@ NoSkills.args = {
 
 FewSkills.args = {
   skills: fakeSkills(2).map((skill) => ({
+    id: skill.id,
     skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",
@@ -46,6 +46,7 @@ FewSkills.args = {
 
 ManySkills.args = {
   skills: fakeSkills(5).map((skill) => ({
+    id: skill.id,
     skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",

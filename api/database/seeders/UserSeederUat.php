@@ -24,7 +24,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Wanda',
                 'last_name' => 'Maximoff',
                 'email' => 'usertester923@gmail.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -33,7 +33,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Tristan',
                 'last_name' => "O'Rourke",
                 'email' => "tristan.o'rourke@tbs-sct.gc.ca",
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -42,7 +42,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Peter',
                 'last_name' => 'Giles',
                 'email' => 'peter.giles@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -51,7 +51,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Biruntha',
                 'last_name' => 'Sasikumar',
                 'email' => 'biruntha.sasikumar@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -60,7 +60,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Maddy',
                 'last_name' => 'Test',
                 'email' => 'testing@gmail.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -69,7 +69,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Yonathan',
                 'last_name' => 'Kidanemariam',
                 'email' => 'Yonathan.Kidanemariam@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -78,7 +78,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Julie',
                 'last_name' => 'Harrison',
                 'email' => 'julie.harrison@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -87,7 +87,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Corinne',
                 'last_name' => 'Fraser',
                 'email' => 'corinne.fraser@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -96,7 +96,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Eric',
                 'last_name' => 'Sizer',
                 'email' => 'eric.sizer@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -105,7 +105,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Biruntha',
                 'last_name' => 'Sasikumar',
                 'email' => 'ts@test.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -114,7 +114,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Jamie',
                 'last_name' => 'Estey',
                 'email' => 'jamie.estey@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -123,7 +123,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Brinda',
                 'last_name' => 'Sasikumar',
                 'email' => 'ad@test.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -132,7 +132,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'UAUser',
                 'last_name' => 'Test1',
                 'email' => 'madeleine.daigle@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -141,7 +141,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Marie Madeleine',
                 'last_name' => 'Daigle',
                 'email' => 'maddy.daigle@gmail.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -150,7 +150,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Jerbo',
                 'last_name' => 'Testcandon',
                 'email' => 'jerryescandon@gmail.com',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -159,7 +159,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Rosalie',
                 'last_name' => 'McGrath',
                 'email' => 'rosalie.mcgrath@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -168,7 +168,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Gray',
                 'last_name' => "O'Byrne",
                 'email' => 'gray.obyrne@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -177,7 +177,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Daria',
                 'last_name' => 'Petrova',
                 'email' => 'daria.petrova@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -186,7 +186,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Security',
                 'last_name' => 'Test',
                 'email' => 'secuity@test.test',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
         User::updateOrCreate(
@@ -195,7 +195,7 @@ class UserSeederUat extends Seeder
                 'first_name' => 'Jamie',
                 'last_name' => 'Estey',
                 'email' => 'Jamie.estey@tbs-sct.gc.ca',
-                'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+                'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
             ]
         );
     }

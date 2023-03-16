@@ -6,6 +6,7 @@ use App\Models\PoolCandidate;
 use App\Rules\PoolClosed;
 use App\Rules\UserProfileComplete;
 use App\Rules\HasEssentialSkills;
+use App\Rules\HasLanguageRequirements;
 use Database\Helpers\ApiEnums;
 
 final class SubmitApplicationValidator extends Validator
@@ -32,7 +33,8 @@ final class SubmitApplicationValidator extends Validator
             //
             'user_id' => [
                 new UserProfileComplete,
-                new HasEssentialSkills($this->application->pool)
+                new HasEssentialSkills($this->application->pool),
+                new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [new PoolClosed],
             'submitted_at' => ['prohibited', 'nullable'],

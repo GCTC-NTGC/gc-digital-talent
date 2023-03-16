@@ -3,7 +3,7 @@
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
@@ -12,17 +12,17 @@ class PoolTest extends TestCase
 {
   use RefreshDatabase;
   use MakesGraphQLRequests;
-  use ClearsSchemaCache;
+  use RefreshesSchemaCache;
 
   protected function setUp(): void
   {
     parent::setUp();
-    $this->bootClearsSchemaCache();
+    $this->bootRefreshesSchemaCache();
 
     $newUser = new User;
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
-    $newUser->roles = ['ADMIN'];
+    $newUser->legacy_roles = ['ADMIN'];
     $newUser->save();
   }
 

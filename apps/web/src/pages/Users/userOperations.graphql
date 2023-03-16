@@ -1,0 +1,621 @@
+query AllUsers {
+  users {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+  }
+}
+
+query User($id: UUID!) {
+  user(id: $id) {
+    id
+    email
+    sub
+    firstName
+    lastName
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    legacyRoles
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        isTeamBased
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+}
+
+query UserName($userId: UUID!) {
+  user(id: $userId) {
+    id
+    firstName
+    lastName
+  }
+}
+
+mutation CreateUser($user: CreateUserInput!) {
+  createUser(user: $user) {
+    id
+    sub
+    legacyRoles
+
+    firstName
+    lastName
+    email
+    telephone
+    currentProvince
+    currentCity
+
+    languageAbility
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+
+    isWoman
+    hasDisability
+    isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
+
+    jobLookingStatus
+
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    positionDuration
+  }
+}
+
+mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    id
+    sub
+    firstName
+    lastName
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+
+    languageAbility
+    preferredLang
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+
+    isWoman
+    hasDisability
+    isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
+
+    jobLookingStatus
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    positionDuration
+  }
+}
+
+mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
+  updateUserAsAdmin(id: $id, user: $user) {
+    id
+    sub
+    legacyRoles
+
+    firstName
+    lastName
+    telephone
+    currentProvince
+    currentCity
+
+    languageAbility
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+
+    isWoman
+    hasDisability
+    isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
+
+    jobLookingStatus
+
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    positionDuration
+  }
+}
+
+query GetViewUserData($id: UUID!) {
+  applicant(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    citizenship
+    armedForcesStatus
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    jobLookingStatus
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
+    hasDisability
+    isVisibleMinority
+    isWoman
+    expectedSalary
+    poolCandidates {
+      id
+      status
+      expiryDate
+      notes
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      applicant {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+    advertisementStatus
+  }
+}
+
+query AllUsersPaginated(
+  $where: UserFilterInput
+  $first: Int
+  $page: Int
+  $orderBy: [OrderByClause!]
+) {
+  usersPaginated(where: $where, first: $first, page: $page, orderBy: $orderBy) {
+    data {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      jobLookingStatus
+      createdDate
+      updatedDate
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
+  }
+}
+
+query selectedUsers($ids: [ID]!) {
+  applicants(includeIds: $ids) {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    isWoman
+    isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
+    isVisibleMinority
+    hasDisability
+    citizenship
+    armedForcesStatus
+    expectedSalary
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      applicant {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    poolCandidates {
+      status
+      expiryDate
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+      }
+      id
+    }
+  }
+}

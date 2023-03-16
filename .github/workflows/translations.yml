@@ -5,13 +5,13 @@ on:
     branches: [ main ]
     paths:
       - .github/workflows/translations.yml
-      - frontend/**
+      - packages/**
       - apps/**
   pull_request:
     paths:
       - .github/workflows/translations.yml
       - apps/**
-      - frontend/**
+      - packages/**
 
 jobs:
   run-linters:
@@ -36,38 +36,41 @@ jobs:
         working-directory: ./
         run: npm install
 
+      - name: "Setup cli"
+        working-directory: ./
+        run: npm run build:intl-cli
+
       - name: "Extract English files: all workspaces"
         working-directory: ./
-        run: npm run intl-extract --workspaces
+        run: npm run intl-extract
 
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
-          npm run check-intl-admin --workspace=frontend/common
-          npm run check-intl-common --workspace=frontend/common
-          npm run check-intl-web --workspace=frontend/common
+          npm run check-intl:i18n
+          npm run check-intl:web
 
-      - name: "Verify no untranslated file: admin"
+      - name: "Verify no untranslated file: i18n"
         if: always()
-        working-directory: frontend/admin/src/js/lang
+        working-directory: packages/i18n/src/lang
         run: >
           if test -f "untranslated.json"; then
-            echo ":x: Admin has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: i18n has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: Admin is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: i18n is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
-      - name: "Verify no untranslated file: common"
+      - name: "Verify no orphaned strings: i18n"
         if: always()
-        working-directory: frontend/common/src/lang
+        working-directory: packages/i18n/src/lang
         run: >
-          if test -f "untranslated.json"; then
-            echo ":x: Common has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+          if [[ "$(git status --porcelain)" == *packages/i18n/src/lang/fr.json* ]]; then
+            echo ":x: i18n has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: Common is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: i18n is tidy" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
@@ -75,11 +78,23 @@ jobs:
         if: always()
         working-directory: apps/web/src/lang
         run: >
-          if test -f ".untranslated.json"; then
+          if test -f "untranslated.json"; then
             echo ":x: Web has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
             echo ":heavy_check_mark: Web is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify no orphaned strings: web"
+        if: always()
+        working-directory: apps/web/src/lang
+        run: >
+          if [[ "$(git status --porcelain)" == *apps/web/src/lang/fr.json* ]]; then
+            echo ":x: Web has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Web is tidy" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
@@ -90,7 +105,7 @@ jobs:
           name: untranslated
           path: |
             apps/**/lang/untranslated.json
-            frontend/**/lang/untranslated.json
-            !frontend/node_modules/**
+            packages/**/lang/untranslated.json
+            !packages/node_modules/**
           if-no-files-found: ignore
 

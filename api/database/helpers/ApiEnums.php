@@ -89,10 +89,43 @@ class ApiEnums
         ];
     }
 
+    const CANDIDATE_SUSPENDED_FILTER_ACTIVE = 'ACTIVE';
+    const CANDIDATE_SUSPENDED_FILTER_SUSPENDED = 'SUSPENDED';
+    const CANDIDATE_SUSPENDED_FILTER_ALL = 'ALL';
+    /**
+     * A collection of enums for CandidateSuspendedFilter
+     * @return string[]
+     */
+    public static function candidateSuspendedFilters(): array
+    {
+        return [
+            self::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+            self::CANDIDATE_SUSPENDED_FILTER_SUSPENDED,
+            self::CANDIDATE_SUSPENDED_FILTER_ALL,
+        ];
+    }
+
+    const LEGACY_ROLE_ADMIN = 'ADMIN';
+    const LEGACY_ROLE_APPLICANT = 'APPLICANT';
+    /**
+     * A collection of enums for Legacy Role in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function legacyRoles(): array
+    {
+        return [
+            self::LEGACY_ROLE_ADMIN,
+            self::LEGACY_ROLE_APPLICANT,
+        ];
+    }
+
+    // IMPORTANT
+    // THE FOLLOWING ENUMS ARE DISTINCT FROM TEAMS ROLES AND EXIST TO MAINTAIN MIGRATION REVERSAL
+    // THEY ARE NOT TO BE USED GOING FORWARD, SUPPLANTED BY LEGACY ROLES
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_APPLICANT = 'APPLICANT';
     /**
-     * A collection of enums for Role in factories and seeders
      *
      * @return string[]
      */
@@ -377,6 +410,7 @@ class ApiEnums
     const POOL_CANDIDATE_POOL_CLOSED = 'POOL_CLOSED';
     const POOL_CANDIDATE_PROFILE_INCOMPLETE = 'PROFILE_INCOMPLETE';
     const POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS = 'MISSING_ESSENTIAL_SKILLS';
+    const POOL_CANDIDATE_MISSING_LANGUAGE_REQUIREMENTS = 'MISSING_LANGUAGE_REQUIREMENTS';
     const POOL_CANDIDATE_SIGNATURE_REQUIRED = 'SIGNATURE_REQUIRED';
 
     public static function poolCandidateErrors(): array
@@ -387,6 +421,7 @@ class ApiEnums
             self::POOL_CANDIDATE_POOL_CLOSED,
             self::POOL_CANDIDATE_PROFILE_INCOMPLETE,
             self::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
+            self::POOL_CANDIDATE_MISSING_LANGUAGE_REQUIREMENTS,
             self::POOL_CANDIDATE_SIGNATURE_REQUIRED
         ];
     }

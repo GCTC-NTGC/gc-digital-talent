@@ -10,10 +10,35 @@
   }
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+button {
+  border: none;
+}
+
 .reset-ul {
   list-style: none;
   padding: 0;
 }
+
+.button {
+  border: none;
+  cursor: pointer;
+  overflow-wrap: break-word;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 50%;
+}
+
 
 p {
   white-space: pre-wrap;
@@ -21,4 +46,30 @@ p {
 
 button:not(disabled) {
   cursor: pointer;
+}
+
+[data-h2] table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+[data-h2] body {
+  position: absolute;
+  margin: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+
+[data-h2] .container {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-h2] .content-inner {
+  height: 100%;
+}
+
+[data-h2] .dashboard {
+  flex-grow: 1;
 }

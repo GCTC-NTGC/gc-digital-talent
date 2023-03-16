@@ -1,0 +1,49 @@
+query MyApplications {
+  me {
+    id
+    poolCandidates {
+      id
+      status
+      archivedAt
+      submittedAt
+      poolAdvertisement {
+        id
+        closingDate
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+    }
+  }
+}
+
+mutation DeleteApplication($id: ID!) {
+  deleteApplication(id: $id)
+}
+
+mutation ArchiveApplication($id: ID!) {
+  archiveApplication(id: $id) {
+    id
+  }
+}

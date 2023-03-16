@@ -6,15 +6,16 @@ import {
 } from "@gc-digital-talent/web/src/api/generated";
 import {
   FAR_FUTURE_DATE,
-} from "@gc-digital-talent/common/src/helpers/dateUtils";
+} from "@gc-digital-talent/date-helpers";
 
 export function createAndPublishPoolAdvertisement({
   adminUserId,
+  teamId,
   englishName,
   classification,
   poolAdvertisementAlias,
 }) {
-  cy.createPoolAdvertisement(adminUserId, [classification.id]).then(
+  cy.createPoolAdvertisement(adminUserId, teamId, [classification.id]).then(
     (createdPoolAdvertisement) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);

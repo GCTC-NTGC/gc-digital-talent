@@ -32,6 +32,7 @@ services:
     volumes:
       - ./:/home/site/wwwroot
       - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
+      - ./infrastructure/conf/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     ports:
       - 8000:8080
     environment:
@@ -39,6 +40,8 @@ services:
       - ROBOTS_FILENAME=dev.robots.txt
     # Uncomment to test out post deployment script
     # command: ./infrastructure/bin/post_deployment.sh .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   maintenance:
     build: ./infrastructure/maintenance-container
@@ -48,9 +51,11 @@ services:
       replicas: 0
     volumes:
       - maintenancedata:/root
+      - ./.git:/var/www/html/.git
+      - ./.gitignore:/var/www/html/.gitignore
+      - ./.gitattributes:/var/www/html/.gitattributes
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
-      - ./frontend:/var/www/html/frontend
       - ./apps:/var/www/html/apps
       - ./packages:/var/www/html/packages
       - ./tc-report:/var/www/html/tc-report
@@ -59,8 +64,6 @@ services:
       - ./node_modules:/var/www/html/node_modules
       - ./turbo.json:/var/www/html/turbo.json
       - ./hydrogen.config.json:/var/www/html/hydrogen.config.json
-      - ./.env:/var/www/html/.env
-      - ./.env.example:/var/www/html/.env.example
 
   # We proxy the auth server through apache, so it's at localhost.
   # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration

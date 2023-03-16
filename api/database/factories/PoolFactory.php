@@ -6,6 +6,7 @@ use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
@@ -33,6 +34,7 @@ class PoolFactory extends Factory
             'key' => KeyStringHelpers::toKeyString($name),
             'description' => ['en' => $this->faker->paragraph(), 'fr' => $this->faker->paragraph()],
             'user_id' => User::factory(),
+            'team_id' => Team::factory(),
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],

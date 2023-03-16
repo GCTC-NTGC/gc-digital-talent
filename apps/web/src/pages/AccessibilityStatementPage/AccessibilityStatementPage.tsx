@@ -1,14 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Hero from "@common/components/Hero";
-import Heading from "@common/components/Heading";
-import { ExternalLink } from "@common/components/Link";
-import imageUrl from "@common/helpers/imageUrl";
-import { getLocale, Locales } from "@common/helpers/localize";
+import { Heading, ExternalLink } from "@gc-digital-talent/ui";
+import { imageUrl } from "@gc-digital-talent/helpers";
+import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
@@ -213,22 +213,23 @@ const AccessibilityStatementPage = () => {
         })}
         crumbs={crumbs}
       />
-      <div
-        data-h2-background-color="base(white) base:dark(black.light)"
-        data-h2-color="base(black) base:dark(white)"
-        data-h2-padding="base(x3, 0)"
-      >
+      <div data-h2-padding="base(x3, 0)">
         <div
           data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x.5, 0, 0, 0)"
+          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
           <p>
-            {intl.formatMessage({
-              id: "s2+FXu",
-              defaultMessage:
-                "GC Digital Talent  is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
-              description: "Opening paragraph for accessibility statement",
-            })}
+            {intl.formatMessage(
+              {
+                id: "rnPvJN",
+                defaultMessage:
+                  "<abbreviation>GC</abbreviation> Digital Talent  is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
+                description: "Opening paragraph for accessibility statement",
+              },
+              {
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+              },
+            )}
           </p>
           <Heading level="h2" size="h3" data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
@@ -241,13 +242,14 @@ const AccessibilityStatementPage = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "The GC Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
-                id: "tu2Z17",
+                  "The <abbreviation>GC</abbreviation> Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
+                id: "a3c78j",
                 description: "Paragraph describing accessibility standards",
               },
               {
                 digitalStandardsLink: (chunks: React.ReactNode) =>
                   digitalStandardsLink(locale, chunks),
+                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>
@@ -606,7 +608,7 @@ const AccessibilityStatementPage = () => {
         </div>
       </div>
       <div
-        data-h2-background="base(tm-linear-divider)"
+        data-h2-background-image="base(main-linear)"
         data-h2-display="base(block)"
         data-h2-height="base(x1)"
       />

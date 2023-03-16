@@ -1,7 +1,0 @@
-query getMe {
-  me {
-    id
-    roles
-    email
-  }
-}

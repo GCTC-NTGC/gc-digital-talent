@@ -57,7 +57,7 @@ class UserFactory extends Factory
             'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
             'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
 
-            'roles' => [],
+            'legacy_roles' => [],
             'job_looking_status' => $this->faker->randomElement([
                 'ACTIVELY_LOOKING',
                 'OPEN_TO_OPPORTUNITIES',

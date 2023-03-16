@@ -1,0 +1,197 @@
+fragment pool on Pool {
+  id
+  owner {
+    id
+    firstName
+    lastName
+    email
+  }
+  name {
+    en
+    fr
+  }
+  description {
+    en
+    fr
+  }
+  keyTasks {
+    en
+    fr
+  }
+  status
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+  }
+  operationalRequirements
+  stream
+  processNumber
+}
+
+query GetBasicPoolInfo($poolId: UUID!) {
+  pool(id: $poolId) {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+  }
+}
+
+query getPools {
+  pools {
+    id
+    owner {
+      id
+      email
+      firstName
+      lastName
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    advertisementStatus
+    stream
+    processNumber
+    createdDate
+  }
+}
+
+mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+  updatePool(id: $id, pool: $pool) {
+    owner {
+      id
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    status
+    classifications {
+      id
+      group
+      level
+    }
+    operationalRequirements
+    stream
+    processNumber
+  }
+}
+
+mutation createPoolAdvertisement(
+  $userId: ID!
+  $teamId: ID!
+  $poolAdvertisement: CreatePoolAdvertisementInput!
+) {
+  createPoolAdvertisement(
+    userId: $userId
+    teamId: $teamId
+    poolAdvertisement: $poolAdvertisement
+  ) {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query getMePoolCreation {
+  me {
+    legacyRoles
+    id
+    roleAssignments {
+      id
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+  classifications {
+    name {
+      en
+      fr
+    }
+    level
+    group
+    id
+  }
+}
+
+# Note: unsure where this is used but it is needed by
+# cypress
+fragment genericJobTitle on GenericJobTitle {
+  id
+  key
+  name {
+    en
+    fr
+  }
+  classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+}
+
+query getGenericJobTitle($id: UUID!) {
+  genericJobTitle(id: $id) {
+    ...genericJobTitle
+  }
+}
+query GetGenericJobTitles {
+  genericJobTitles {
+    ...genericJobTitle
+  }
+}
+
+query allTeams {
+  teams {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
+  }
+}

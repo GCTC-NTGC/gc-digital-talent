@@ -11,6 +11,7 @@ use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Skill;
 use App\Models\SkillFamily;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\AwardExperience;
@@ -37,11 +38,23 @@ class DatabaseSeeder extends Seeder
 
         $this->truncateTables();
 
+        // seed a test team and random teams
+        Team::factory()->create([
+            'name' => 'test-team',
+            'display_name' => [
+                'en' => 'Test Team',
+                'fr' => 'Équipe de test',
+            ],
+        ]);
+        Team::factory()->count(9)->create();
+
+        $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
+        $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
@@ -51,7 +64,7 @@ class DatabaseSeeder extends Seeder
         $this->seedPools();
 
         User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
+            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->count(150)
             ->afterCreating(function (User $user) use ($faker) {
@@ -63,7 +76,7 @@ class DatabaseSeeder extends Seeder
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $digitalTalentPool = Pool::where('key', "digital_careers")->first();
+                $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
@@ -86,12 +99,16 @@ class DatabaseSeeder extends Seeder
                     $user->expectedClassifications()->sync([]);
                 }
 
-                // create a pool candidate in the pool
-                $this->seedPoolCandidate($user, $pool);
+                // create a pool candidate in the pool - are they suspended?
+                if (rand(0, 4) == 4) {
+                    $this->seedSuspendedCandidate($user, $pool);
+                } else {
+                    $this->seedPoolCandidate($user, $pool);
+                }
             })
             ->create();
 
-        $applicant = User::where('email', 'applicant@test.com')->first();
+        $applicant = User::where('sub', 'applicant@test.com')->sole();
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 
@@ -188,14 +205,25 @@ class DatabaseSeeder extends Seeder
     private function seedPoolCandidate(User $user, Pool $pool)
     {
         // create a pool candidate in the pool
-        PoolCandidate::factory()->count(1)->sequence(fn () => [
-            'pool_id' => $pool->id,
-            'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) {
-            if ($candidate->submitted_at) {
-                $candidate->createSnapshot();
-            }
-        })->create();
+        PoolCandidate::factory()->for($user)->for($pool)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create();
+    }
+
+    private function seedSuspendedCandidate(User $user, Pool $pool)
+    {
+        // create a suspended pool candidate in the pool
+        PoolCandidate::factory()->suspended()->for($user)->for($pool)
+            ->afterCreating(function (PoolCandidate $candidate) {
+                if ($candidate->submitted_at) {
+                    $candidate->createSnapshot();
+                }
+            })
+            ->create();
     }
 
     private function seedPools()

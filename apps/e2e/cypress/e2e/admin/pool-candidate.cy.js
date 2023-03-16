@@ -1,6 +1,6 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
-import { createApplicant } from "../../support/userHelpers";
+import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
   const loginAndGoToPoolsPage = () => {
@@ -18,7 +18,7 @@ describe("Pool Candidates", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "GetPoolCandidateStatus");
       aliasQuery(req, "getPoolCandidateSnapshot");
-      aliasQuery(req, "getPools");
+      aliasQuery(req, "getMePools");
       aliasQuery(req, "GetPoolCandidatesPaginated");
 
       aliasMutation(req, "UpdatePoolCandidateStatus");
@@ -56,10 +56,21 @@ describe("Pool Candidates", () => {
               userAlias: "testUser",
             });
 
+            cy.get("@testUser").then((testUser) => {
+              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+            });
+
+            // fetch the dcmId for its team from database, needed for pool creation
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+            })
+
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
@@ -87,9 +98,14 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlgetPoolsQuery");
+    cy.wait("@gqlgetMePoolsQuery");
+
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("cypress");
 
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+      .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
@@ -143,10 +159,21 @@ describe("Pool Candidates", () => {
               userAlias: "testUser",
             });
 
+            cy.get("@testUser").then((testUser) => {
+              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+            });
+
+            // fetch the dcmId for its team from database, needed for pool creation
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+            })
+
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
@@ -174,9 +201,14 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlgetPoolsQuery");
+    cy.wait("@gqlgetMePoolsQuery");
+
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("cypress");
 
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+      .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 

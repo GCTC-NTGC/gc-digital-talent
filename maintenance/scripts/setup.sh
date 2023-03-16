@@ -7,6 +7,7 @@ source ${parent_path}/lib/common.sh
 cd /var/www/html/api
 cp .env.example .env --preserve=all
 ${parent_path}/update_env_appkey.sh .env
+touch ./storage/logs/laravel.log
 composer install --prefer-dist
 php artisan key:generate
 php artisan migrate:fresh --seed
@@ -15,15 +16,12 @@ php artisan config:clear
 chown -R www-data ./storage ./vendor
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
-# copy out new .env files
-cd /var/www/html/frontend
-cp ./admin/.env.example ./admin/.env --preserve=all
-
-cd /var/www/html
-cp ./.env.example ./.env --preserve=all
+cd /var/www/html/apps/web
+cp .env.example .env --preserve=all
 
 # build projects
+git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
-npm run build
-chmod -R a+r,a+w node_modules apps/web/.turbo frontend/admin/.turbo frontend/common/.turbo
+npm run build:fresh
+chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo

@@ -9,18 +9,17 @@
     "e2e:run:inspect": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
   },
   "dependencies": {
-    "admin": "*",
-    "@gc-digital-talent/common": "*",
-    "web": "*"
+    "@gc-digital-talent/date-helpers": "*",
+    "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.7",
-    "cy-verify-downloads": "^0.1.11",
+    "cy-verify-downloads": "^0.1.12",
     "cypress": "^10.11.0",
     "cypress-multi-reporters": "^1.6.2",
-    "cypress-terminal-report": "^5.0.0",
+    "cypress-terminal-report": "^5.0.2",
     "eslint-plugin-cypress": "^2.12.1",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.4",
     "tsconfig": "*"
   }
 }

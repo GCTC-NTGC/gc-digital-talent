@@ -13,13 +13,11 @@ on:
     paths:
       - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
-      - frontend/**
       - apps/**
   pull_request:
     paths:
       - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
-      - frontend/**
       - apps/**
 
 jobs:
@@ -72,7 +70,7 @@ jobs:
         # if: ${{ always() }}
 
       - name: Install Bundlewatch
-        run: npm install -g bundlewatch@0.2.6
+        run: npm install -g bundlewatch@0.3.3
 
       - name: "Run Bundlewatch"
         env:

@@ -18,3 +18,8 @@ export type SimplePool = Pick<
   classifications?: Maybe<Array<Maybe<SimpleClassification>>>;
   owner?: Maybe<SimpleOwner>;
 };
+
+export interface EditPoolSectionMetadata {
+  id: string;
+  title: string;
+}

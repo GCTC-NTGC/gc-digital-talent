@@ -1,9 +1,13 @@
 alertdialog
 Analyser
+archivable
 Assertable
 atag
 Authenticatable
+Authorizable
+Behavioural
 BEHAVIOURAL
+Canonicalizing
 chra
 chrc
 codegen
@@ -25,13 +29,16 @@ Freshdesk
 FRESHDESK
 Gatineau
 gctalent
+headlessui
 heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk
 jwks
+Laratrust
 Laravel
 Laravelista
 Lcobucci
+licences
 lightgold
 lightgray
 lightnavy
@@ -51,6 +58,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+rolepermission
 skillset
 subcomponents
 subquery
@@ -59,6 +67,7 @@ TELEWORK
 testid
 textbox
 toastify
+Typenames
 Unencrypted
 unlocalized
 urql

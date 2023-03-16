@@ -56,6 +56,14 @@ describe("Pools", () => {
           .should('have.text', "IT-01 (Information Technology)");
       });
 
+    // Set team
+    cy.findByRole("combobox", { name: /parent team/i})
+      .select("Digital Community Management")
+      .within(() => {
+        cy.get("option:selected")
+          .should('have.text', "Digital Community Management");
+      });
+
     // Submit form
     cy.findByRole("button", { name: /create new pool/i })
       .click();
@@ -63,7 +71,7 @@ describe("Pools", () => {
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /edit pool advertisement/i })
+    cy.findByRole("heading", { name: /edit pool/i })
       .should("exist")
       .and("be.visible");
 
@@ -131,8 +139,9 @@ describe("Pools", () => {
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
-    editLinks.first().click();
+      cy.findAllByRole("link", { name: /edit test pool en/i })
+        .first()
+        .click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
@@ -161,8 +170,9 @@ describe("Pools", () => {
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
-    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
-    editLinks.first().click();
+    cy.findAllByRole("link", { name: /edit test pool en/i })
+      .first()
+      .click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
