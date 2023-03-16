@@ -37,7 +37,10 @@ const WorkPreferencesFormApi: React.FunctionComponent<
       {data?.poolCandidate ? (
         <WorkPreferencesForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: {id: data.poolCandidate.id}
+          }}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (

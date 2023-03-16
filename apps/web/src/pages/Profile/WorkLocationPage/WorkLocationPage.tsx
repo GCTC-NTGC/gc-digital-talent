@@ -39,7 +39,10 @@ const WorkLocationApi: React.FunctionComponent<WorkLocationApiProps> = ({
       {data?.poolCandidate ? (
         <WorkLocationForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: {id: data.poolCandidate.id}
+          }}
           handleWorkLocationPreference={handleWorkLocation}
         />
       ) : (

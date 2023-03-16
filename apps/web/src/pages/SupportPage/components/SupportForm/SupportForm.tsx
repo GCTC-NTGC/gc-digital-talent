@@ -13,7 +13,7 @@ import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
 import { Pending, Button } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { useGetMeQuery, User } from "~/api/generated";
+import { GetMeQuery, useGetMeQuery, User } from "~/api/generated";
 import {
   API_SUPPORT_ENDPOINT,
   TALENTSEARCH_SUPPORT_EMAIL,
@@ -274,7 +274,28 @@ const SupportFormApi = () => {
       );
       return Promise.reject(response.status);
     });
+
+  const dataToUser = (input: GetMeQuery): User | null => {
+    if (input) {
+      if (input.me) {
+        return {
+          ...input.me,
+          poolCandidates: input.me.poolCandidates?.map((candidate) => {
+            if (candidate) {
+              return {
+                ...candidate,
+                pool: {id: candidate.poolAdvertisement?.id || ""}
+              }
+            }
+            return null;
+          })
+        };
+      }
+    }
+    return null;
+  };
   const [{ data, fetching, error }] = useGetMeQuery();
+  const userData = data ? dataToUser(data) : null;
   const [showSupportForm, setShowSupportForm] = React.useState(true);
 
   return (
@@ -282,7 +303,7 @@ const SupportFormApi = () => {
       <SupportForm
         showSupportForm={showSupportForm}
         onFormToggle={setShowSupportForm}
-        currentUser={data?.me ?? null}
+        currentUser={userData}
         handleCreateTicket={handleCreateTicket}
       />
     </Pending>

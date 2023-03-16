@@ -64,7 +64,7 @@ const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
   // all the user's pools by pool ID
   const userPools = new Map(
     userPoolCandidatesSafe.map((poolCandidate) => [
-      poolCandidate.pool?.id,
+      poolCandidate.pool.id,
       {
         poolCandidate,
         pool: poolCandidate.pool,
@@ -74,7 +74,7 @@ const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
 
   // all the user's pool IDs
   const userPoolIds = userPoolCandidatesSafe.map(
-    (poolCandidate) => poolCandidate.pool?.id,
+    (poolCandidate) => poolCandidate.pool.id,
   );
 
   const requestMutation = async (
@@ -280,7 +280,7 @@ const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
                   })}
                   options={pools
                     .filter((pool) => userPoolIds.includes(pool.id)) // only show pools with user's candidates in them
-                    .filter((pool) => selectedCandidate.pool?.id !== pool.id) // don't show the pool of the currently selected candidate as an additional option
+                    .filter((pool) => selectedCandidate.pool.id !== pool.id) // don't show the pool of the currently selected candidate as an additional option
                     .filter(
                       (pool) =>
                         pool.advertisementStatus ===

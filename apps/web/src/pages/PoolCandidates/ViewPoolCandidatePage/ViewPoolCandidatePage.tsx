@@ -60,7 +60,7 @@ export const ViewPoolCandidate = ({
     },
     {
       label: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
-      url: paths.poolView(poolCandidate.pool?.id || ""),
+      url: paths.poolView(poolCandidate.pool.id),
     },
     {
       label: intl.formatMessage({
@@ -68,7 +68,7 @@ export const ViewPoolCandidate = ({
         id: "e9FNqp",
         description: "Breadcrumb title for the All Candidates page link.",
       }),
-      url: paths.poolCandidateTable(poolCandidate.pool?.id || ""),
+      url: paths.poolCandidateTable(poolCandidate.pool.id),
     },
     {
       label: `${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`,
@@ -230,7 +230,7 @@ export const ViewPoolCandidate = ({
           color="primary"
           data-h2-display="base(inline-flex)"
           data-h2-align-items="base(center)"
-          href={paths.poolCandidateTable(poolCandidate.pool?.id || "")}
+          href={paths.poolCandidateTable(poolCandidate.pool.id)}
         >
           <ArrowLeftCircleIcon
             style={{ height: "1em", width: "1rem" }}

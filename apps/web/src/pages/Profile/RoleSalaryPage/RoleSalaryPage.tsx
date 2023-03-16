@@ -36,7 +36,10 @@ const RoleSalaryFormApi: React.FunctionComponent<RoleSalaryFormApiProps> = ({
       {data?.poolCandidate ? (
         <RoleSalaryForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: {id: data.poolCandidate.id}
+          }}
           updateRoleSalary={updateRoleSalary}
         />
       ) : (

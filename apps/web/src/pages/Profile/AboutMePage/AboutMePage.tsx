@@ -40,7 +40,10 @@ const AboutMeFormApi: React.FunctionComponent<AboutMeFormApiProps> = ({
       {data?.poolCandidate ? (
         <AboutMeForm
           initialUser={initialUser}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: {id: data.poolCandidate.id}
+          }}
           onUpdateAboutMe={onUpdateAboutMe}
         />
       ) : (

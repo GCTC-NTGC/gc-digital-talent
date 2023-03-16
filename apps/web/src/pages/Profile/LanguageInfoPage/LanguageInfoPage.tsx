@@ -35,7 +35,10 @@ const LanguageInformationFormApi: React.FunctionComponent<
       {data?.poolCandidate ? (
         <LanguageInformationForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: {id: data.poolCandidate.id}
+          }}
           submitHandler={submitHandler}
         />
       ) : (
