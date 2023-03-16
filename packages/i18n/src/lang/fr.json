@@ -1305,5 +1305,13 @@
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
     "description": "Prefix when a step has an error."
+  },
+  "4MKYKl": {
+    "defaultMessage": "aaaa",
+    "description": "Placeholder for a year input"
+  },
+  "T5b8Q7": {
+    "defaultMessage": "jj",
+    "description": "Placeholder for a day input"
   }
 }
