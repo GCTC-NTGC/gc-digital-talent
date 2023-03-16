@@ -90,7 +90,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
+                  data-h2-font-size="base(h6)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -102,7 +102,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in draft applications section when there are no drafts.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)" data-h2-font-weight="base(700)">
+                <p data-h2-font-weight="base(700)">
                   <Link data-h2-color="base(primary)" href={paths.browse()}>
                     {intl.formatMessage({
                       defaultMessage:
@@ -138,7 +138,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
+                  data-h2-font-size="base(h6)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -150,7 +150,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in submitted applications section when there are no submitted applications.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Applications in this section will allow you to track their progress.",
@@ -184,7 +184,6 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -196,7 +195,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in historical applications section when there are no historical applications.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "This section will include applications that have missed the submission deadline as well as applications that have been fully assessed.",

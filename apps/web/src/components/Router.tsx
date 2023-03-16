@@ -117,7 +117,7 @@ const ApplicantDashboardPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/Applications/ApplicantDashboardPage/ApplicantDashboardPage"
       ),
   ),
 );
