@@ -31,19 +31,26 @@ const RequestPage = () => {
     <div data-h2-padding-bottom="base(x1) p-tablet(x3)">
       <Hero
         centered
-        contentAlignment="left"
         title={intl.formatMessage({
           defaultMessage: "Search the Digital Talent Pool",
           id: "NXzsK4",
           description: "Main heading displayed at the top of request page.",
         })}
       >
-        <CreateRequest
-          applicantFilter={applicantFilter as ApplicantFilterInput}
-          searchFormInitialValues={initialValues}
-          candidateCount={candidateCount}
-          selectedClassifications={selectedClassifications}
-        />
+        <div
+          data-h2-background-color="base(white)"
+          data-h2-radius="base(rounded)"
+          data-h2-padding="base(x1) p-tablet(x2)"
+          data-h2-shadow="base(large)"
+          data-h2-text-align="base(left)"
+        >
+          <CreateRequest
+            applicantFilter={applicantFilter as ApplicantFilterInput}
+            searchFormInitialValues={initialValues}
+            candidateCount={candidateCount}
+            selectedClassifications={selectedClassifications}
+          />
+        </div>
       </Hero>
     </div>
   );

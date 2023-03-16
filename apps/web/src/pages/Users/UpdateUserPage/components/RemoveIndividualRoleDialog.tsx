@@ -87,8 +87,8 @@ const RemoveIndividualRoleDialog = ({
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "They will lose the following role:",
-              id: "HYYYtr",
+              defaultMessage: "The user will lose the following role:",
+              id: "VsV4Vu",
               description:
                 "Text notifying user which role will be removed from the user",
             })}

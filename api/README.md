@@ -9,7 +9,7 @@
 5. Ensure pdo_pgsql is enabled in php by uncommenting the line `extension=pdo_pgsql` in your php.ini file.
 6. Run `php artisan migrate:fresh` to create database tables, and `php artisan db:seed` if you want to create test data.
 7. Start a development server with `php -S localhost:8000 -t public`
-8. Visit http://localhost:8000/graphql-playground to explore the API.
+8. Visit http://localhost:8000/graphiql to explore the API.
 
 ### Running with Docker containers
 

@@ -1,30 +1,36 @@
 import React from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 
-import { LegacyRole } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 
 import useAuthentication from "../hooks/useAuthentication";
 import useAuthorization from "../hooks/useAuthorization";
+import { RoleName } from "../const";
 
 interface RequireAuthProps {
   children: React.ReactNode;
-  roles: Array<LegacyRole>;
+  roles: Array<RoleName>;
   loginPath: string;
 }
 
-const RequireAuth = ({ children, roles, loginPath }: RequireAuthProps) => {
+const RequireAuth = ({
+  children,
+  roles: authorizedRoleNames,
+  loginPath,
+}: RequireAuthProps) => {
   const location = useLocation();
   const logger = useLogger();
   const { loggedIn } = useAuthentication();
-  const { loggedInUserRoles, isLoaded } = useAuthorization();
+  const { roleAssignments, isLoaded } = useAuthorization();
   const navigate = useNavigate();
+
+  const userRoleNames = roleAssignments?.map((a) => a.role?.name);
 
   const isAuthorized =
     isLoaded &&
-    roles.some((authorizedRole: LegacyRole) =>
-      loggedInUserRoles?.includes(authorizedRole),
+    authorizedRoleNames.some((authorizedRoleName) =>
+      userRoleNames?.includes(authorizedRoleName),
     );
 
   React.useEffect(() => {

@@ -9,6 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
+  formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
@@ -151,11 +152,7 @@ const AddIndividualRoleDialog = ({
                 >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Save changes",
-                        id: "UGk7lG",
-                        description: "Button to save the roles to a user",
-                      })}
+                    : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
               </Dialog.Footer>
             </form>

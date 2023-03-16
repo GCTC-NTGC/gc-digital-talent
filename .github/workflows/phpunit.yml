@@ -42,4 +42,4 @@ jobs:
 
       - name: PHPUnit tests
         working-directory: api
-        run: vendor/bin/phpunit --verbose
+        run: php artisan test

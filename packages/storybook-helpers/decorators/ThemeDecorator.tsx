@@ -90,6 +90,7 @@ const ThemeDecorator = (
       <div id="override-theme-light" data-h2>
         <ThemeProvider
           override={{
+            key,
             mode: "light",
           }}
           themeSelector="#override-theme-light[data-h2]"
@@ -102,6 +103,7 @@ const ThemeDecorator = (
       <div id="override-theme-dark" data-h2>
         <ThemeProvider
           override={{
+            key,
             mode: "dark",
           }}
           themeSelector="#override-theme-dark[data-h2]"

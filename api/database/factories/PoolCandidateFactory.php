@@ -38,6 +38,7 @@ class PoolCandidateFactory extends Factory
             ]),
             'notes' => $this->faker->paragraphs(3, true),
             'submitted_at' => null,
+            'suspended_at' => null,
             'signature' => null,
         ];
     }
@@ -63,7 +64,7 @@ class PoolCandidateFactory extends Factory
     }
 
     /**
-     * Pool Candidates are available in search if they are not expired and have the AVAILABLE status.
+     * Pool Candidates are available in search if they are not expired, not suspended, and have the AVAILABLE status.
      *
      * @return void
      */
@@ -73,6 +74,22 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+            ];
+        });
+    }
+
+    /**
+     * Pool Candidates should only be suspended if they have been submitted
+     *
+     * @return void
+     */
+    public function suspended()
+    {
+        return $this->state(function () {
+            return [
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+                'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now')
             ];
         });
     }

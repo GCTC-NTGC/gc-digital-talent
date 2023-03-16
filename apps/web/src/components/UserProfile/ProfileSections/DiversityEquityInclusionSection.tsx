@@ -11,11 +11,41 @@ import {
 
 import { Applicant, IndigenousCommunity } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
+>;
+
+function anyCriteriaSelected({
+  isWoman,
+  hasDisability,
+  isVisibleMinority,
+  indigenousCommunities,
+}: PartialApplicant): boolean {
+  return !!(
+    isWoman ||
+    isVisibleMinority ||
+    hasDisability ||
+    (indigenousCommunities && indigenousCommunities.length > 0)
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
+  // no required fields for this section
+  return false;
+}
+
+export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
+export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
+  return !anyCriteriaSelected(applicant);
+}
+
 const DiversityEquityInclusionSection: React.FunctionComponent<{
-  applicant: Pick<
-    Applicant,
-    "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -26,11 +56,6 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     unpackMaybes(indigenousCommunities).filter(
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
-  const anyCriteriaSelected =
-    isWoman ||
-    isVisibleMinority ||
-    hasDisability ||
-    (indigenousCommunities && indigenousCommunities.length > 0);
 
   const pledgeLink = (text: React.ReactNode) => {
     return editPath ? (
@@ -43,15 +68,15 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {!anyCriteriaSelected && editPath && (
+        {!anyCriteriaSelected(applicant) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
                 defaultMessage:
                   "You have not identified as a member of any employment equity groups.",
-                id: "vpAafL",
+                id: "G3K1/H",
                 description:
-                  "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+                  "Message indicating the user has not been marked as part of an equity group",
               })}
             </p>
             <p data-h2-margin="base(x.5, 0, 0, 0)">
@@ -67,7 +92,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             </p>
           </div>
         )}
-        {!anyCriteriaSelected && !editPath && (
+        {!anyCriteriaSelected(applicant) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -80,7 +105,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             </p>
           </div>
         )}
-        {anyCriteriaSelected && (
+        {anyCriteriaSelected(applicant) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -226,9 +251,9 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "You have identified as a member of an employment equity group.<strong> You can add additional employment equity groups to your profile by editing this section if they apply to you.</strong>",
-                id: "f8ZHHW",
+                id: "K4O5hP",
                 description:
-                  "Final paragraph in the employment equity profile section, ignore things in <> please",
+                  "Final paragraph in the employment equity profile section",
               })}
             </p>
           </div>

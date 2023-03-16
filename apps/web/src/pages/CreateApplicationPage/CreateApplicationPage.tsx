@@ -78,7 +78,7 @@ const CreateApplication = () => {
    * isVisible - Should't run it if user cannot view it
    * !hasApplied - Users can only apply to a single pool advertisement
    */
-  const userId = auth.loggedInUser?.id;
+  const userId = auth.user?.id;
   const hasMutationData = notEmpty(mutationData);
   const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;

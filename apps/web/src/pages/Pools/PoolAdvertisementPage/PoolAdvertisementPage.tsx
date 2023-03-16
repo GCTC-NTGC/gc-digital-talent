@@ -841,7 +841,7 @@ const PoolAdvertisementPage = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.loggedInUserRoles?.filter(notEmpty) || [],
+    auth?.roleAssignments?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 

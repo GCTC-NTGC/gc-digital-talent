@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Traits\LaratrustUserTrait;
+use Carbon\Carbon;
 
 /**
  * Class User
@@ -65,6 +67,8 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Model implements Authenticatable
 {
+
+    use Authorizable;
     use LaratrustUserTrait;
     use HasFactory;
     use SoftDeletes;
@@ -115,7 +119,6 @@ class User extends Model implements Authenticatable
     {
         return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
     }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
@@ -229,7 +232,7 @@ class User extends Model implements Authenticatable
      * Filters users by the Pools they are in.
      *
      * @param Builder $query
-     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
      * @return Builder
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
@@ -258,6 +261,14 @@ class User extends Model implements Authenticatable
                             if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
+                            $query->where(function ($query) use ($filter) {
+                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+                                    $query->whereDate('suspended_at', '>=', Carbon::now())
+                                        ->orWhereNull('suspended_at');
+                                } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                    $query->whereDate('suspended_at', '<', Carbon::now());
+                                }
+                            });
                             return $query;
                         };
                     };
@@ -275,8 +286,8 @@ class User extends Model implements Authenticatable
     }
     /**
      * Return applicants with PoolCandidates in any of the given pools.
-     * Only consider pool candidates who still available,
-     * ie not expired and with the AVAILABLE status.
+     * Only consider pool candidates who are available,
+     * ie not expired, with the AVAILABLE status, and the application is not suspended
      *
      * @param Builder $query
      * @param array $poolIds
@@ -292,7 +303,8 @@ class User extends Model implements Authenticatable
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL],
+                'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
             ];
         }
         return self::scopePoolFilters($query, $poolFilters);
@@ -340,24 +352,6 @@ class User extends Model implements Authenticatable
                     $query->whereJsonContains('location_preferences', $workRegion);
                 } else {
                     $query->orWhereJsonContains('location_preferences', $workRegion);
-                }
-            }
-        });
-        return $query;
-    }
-    public static function scopeJobLookingStatus(Builder $query, ?array $statuses): Builder
-    {
-        if (empty($statuses)) {
-            return $query;
-        }
-        // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
-        $query->where(function ($query) use ($statuses) {
-            foreach ($statuses as $index => $status) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere
-                    $query->where('job_looking_status', $status);
-                } else {
-                    $query->orWhere('job_looking_status', $status);
                 }
             }
         });
@@ -642,18 +636,6 @@ RAWSQL2;
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
-        return $query;
-    }
-
-    /**
-     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public static function scopeAvailableForOpportunities(Builder $query): Builder
-    {
-        $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
 

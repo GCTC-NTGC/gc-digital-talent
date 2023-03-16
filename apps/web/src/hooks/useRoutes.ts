@@ -88,11 +88,15 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
+    userPlacement: (userId: string) =>
+      path.join(adminUrl, "users", userId, "placement"),
 
     // Admin - Teams
     teamTable: () => path.join(adminUrl, "teams"),
     teamCreate: () => path.join(adminUrl, "teams", "create"),
     teamView: (teamId: string) => path.join(adminUrl, "teams", teamId),
+    teamMembers: (teamId: string) =>
+      path.join(adminUrl, "teams", teamId, "members"),
     teamUpdate: (teamId: string) =>
       path.join(adminUrl, "teams", teamId, "edit"),
 

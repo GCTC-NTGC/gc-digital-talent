@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Heading,
+  type HeadingRef,
   Breadcrumbs,
   type BreadcrumbsProps,
   Flourish,
@@ -39,7 +40,6 @@ export interface HeroProps {
   crumbs?: BreadcrumbsProps["crumbs"];
   children?: React.ReactNode;
   centered?: boolean;
-  contentAlignment?: "center" | "left" | "right";
 }
 
 const Hero = ({
@@ -49,8 +49,8 @@ const Hero = ({
   crumbs,
   children,
   centered = false,
-  contentAlignment = "center",
 }: HeroProps) => {
+  const headingRef = React.useRef<HeadingRef>(null);
   const showImg = imgPath && !centered && !children;
   const breadCrumbs =
     crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null;
@@ -67,26 +67,76 @@ const Hero = ({
   } else if (children) {
     padding = paddingMap.get("overlap");
   }
-  let alignment = { "data-h2-text-align": "base(center)" };
-  if (contentAlignment && contentAlignment === "left") {
-    alignment = { "data-h2-text-align": "base(left)" };
-  } else if (contentAlignment && contentAlignment === "right") {
-    alignment = { "data-h2-text-align": "base(right)" };
-  }
+
+  React.useEffect(() => {
+    if (headingRef.current) {
+      headingRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
       <div
-        data-h2-background-color="base(rgba(0, 0, 0, 1))"
+        data-h2-background="base(rgba(0, 0, 0, 1)) base:iap(linear-gradient(90deg, primary, rgb(104, 23, 53)))"
         data-h2-overflow="base(hidden)"
         data-h2-position="base(relative)"
         {...padding}
       >
         <div
+          data-h2-display="base(none) base:iap(block)"
+          data-h2-position="base(absolute)"
+          data-h2-location="base(auto, 0, 0, auto)"
+          data-h2-transform="base(translate(65%, 75%))"
+        >
+          <div
+            data-h2-height="base(x30)"
+            data-h2-width="base(x30)"
+            data-h2-background-color="base(secondary.darker)"
+            data-h2-radius="base(circle)"
+          >
+            &nbsp;
+          </div>
+        </div>
+        <div
+          data-h2-display="base(none) base:iap(block)"
+          data-h2-position="base(absolute)"
+          data-h2-location="base(0, auto, auto, 0)"
+          data-h2-transform="base(translate(-75%, -65%))"
+        >
+          <div
+            data-h2-height="base(x30)"
+            data-h2-width="base(x30)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+          />
+          <div
+            data-h2-height="base(x25)"
+            data-h2-width="base(x25)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+            data-h2-position="base(center)"
+          />
+          <div
+            data-h2-height="base(x20)"
+            data-h2-width="base(x20)"
+            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-radius="base(circle)"
+            data-h2-position="base(center)"
+          >
+            &nbsp;
+          </div>
+        </div>
+        <div
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
-            <Heading level="h1" data-h2-margin="base(0)">
+            <Heading
+              ref={headingRef}
+              level="h1"
+              size="h2"
+              data-h2-margin="base(0)"
+            >
               {title}
             </Heading>
             {subtitle && (
@@ -112,6 +162,7 @@ const Hero = ({
           />
         ) : (
           <BackgroundGraphic
+            data-h2-display="base(block) base:iap(none)"
             data-h2-position="base(absolute)"
             data-h2-location="base(0, 0, auto, auto)"
             data-h2-height="base(auto)"
@@ -127,18 +178,10 @@ const Hero = ({
           <div
             data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
             data-h2-position="base(relative)"
-            data-h2-margin="base(-x4, auto, 0, auto)"
+            data-h2-margin="base(-x5, auto, 0, auto)"
             data-h2-z-index="base(4)"
           >
-            <div
-              data-h2-background-color="base(white)"
-              data-h2-radius="base(rounded)"
-              data-h2-padding="base(x1) p-tablet(x2)"
-              data-h2-shadow="base(large)"
-              {...alignment}
-            >
-              {children}
-            </div>
+            {children}
           </div>
         </>
       ) : (

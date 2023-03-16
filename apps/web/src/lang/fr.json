@@ -2350,7 +2350,7 @@
     "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
   },
   "OMDX09": {
-    "defaultMessage": "Préparez-vous en mettant à jour votre profil.",
+    "defaultMessage": "Préparez-vous en mettant à jour votre profil",
     "description": "Link text to update your profile for executive jobs in government"
   },
   "OdjW9z": {
@@ -3959,10 +3959,6 @@
     "defaultMessage": "Enregistrer les autres exigences",
     "description": "Text on a button to save the pool other requirements"
   },
-  "7N+tQw": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "7aG86f": {
     "defaultMessage": "Sélectionnez une classification...",
     "description": "Placeholder displayed on the pool form classification field."
@@ -4046,10 +4042,6 @@
   "H9rxOR": {
     "defaultMessage": "Colonnes visibles",
     "description": "Legend for the column toggle in admin tables."
-  },
-  "Hn6YgE": {
-    "defaultMessage": "Modifier le bassin",
-    "description": "Edit pool breadcrumb text"
   },
   "Hqt/ej": {
     "defaultMessage": "Archive",
@@ -4235,10 +4227,6 @@
     "defaultMessage": "Courriel",
     "description": "Label for user table search dropdown (email)."
   },
-  "fp7Nll": {
-    "defaultMessage": "ID du bassin #{id}",
-    "description": "Current pool breadcrumb text"
-  },
   "fvJnoC": {
     "defaultMessage": "Exigence linguistique : {languageRequirement}",
     "description": "Pool advertisement language requirement"
@@ -4262,10 +4250,6 @@
   "iOgr3Z": {
     "defaultMessage": "Supprimer",
     "description": "Heading for the delete pool dialog"
-  },
-  "iQzlmB": {
-    "defaultMessage": "Nouveau bassin",
-    "description": "New pool breadcrumb text"
   },
   "j3m2Ca": {
     "defaultMessage": "Emplacement précis (précisez ci-dessous)",
@@ -4431,10 +4415,6 @@
     "defaultMessage": "Statut de la demande",
     "description": "Title for admins to edit an applications status."
   },
-  "0Y4Dt4": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "114gjj": {
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
@@ -4599,10 +4579,6 @@
     "defaultMessage": "Courriel",
     "description": "CSV Header, Email column"
   },
-  "HGMl3y": {
-    "defaultMessage": "Nom du bassin non trouvé",
-    "description": "Breadcrumb to pool page if pool name not found"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -4637,10 +4613,6 @@
   },
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
-  },
-  "OunUSG": {
-    "defaultMessage": "Enregistrer les modifications",
-    "description": "Text for the pool candidate application status submit button"
   },
   "P5+9Wy": {
     "defaultMessage": "Bassin publié avec succès!",
@@ -4694,10 +4666,6 @@
     "defaultMessage": "Affichage",
     "description": "Title displayed for the Pool Candidates table View column."
   },
-  "XYLd6G": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb for the My Pools page"
-  },
   "Xo0M3N": {
     "defaultMessage": "Province actuelle",
     "description": "CSV Header, Current Province column"
@@ -4743,10 +4711,6 @@
   "drwKS5": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
-  },
-  "e9FNqp": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb title for the All Candidates page link."
   },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
@@ -4866,10 +4830,6 @@
   "ukL9do": {
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
-  },
-  "v8vbWP": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb for the All Candidates page"
   },
   "vgOfaa": {
     "defaultMessage": "Sélectionnez un volet/un titre de poste...",
@@ -5163,8 +5123,8 @@
     "defaultMessage": "Parcourir les emplois en <abbreviation>TI</abbreviation>",
     "description": "Link text for IT jobs in government call to action"
   },
-  "2MQK8R": {
-    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en <abbreviation>TI</abbreviation> de présenter une demande en ligne.",
+  "BSSYnh": {
+    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
   },
   "2aBKgf": {
@@ -5191,49 +5151,49 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "7Kb+Uh": {
-    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+  "qZvV7b": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage title for Indigenous Apprenticeship Program"
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
   },
-  "9FKjvW": {
-    "defaultMessage": "En collaboration avec le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en <abbreviation>TI</abbreviation> et en technologie, ce qui permettra :",
+  "Dzyk1q": {
+    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "9Nf78m": {
-    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada?",
+  "p2sBh3": {
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
-  "BxAUGH": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la <abbreviation>TI</abbreviation> et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+  "EqVMCE": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
-  "CIwCa3": {
+  "7xDPj5": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-03 advisor description, ignore things in <> tags please"
+    "description": "IT-03 advisor description"
   },
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
   },
-  "EGXG1j": {
+  "O8m3JS": {
     "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-04 manager selection"
   },
-  "Ea8q/H": {
-    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les peuples autochtones du gouvernement du Canada",
+  "L9yjr3": {
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
-  "F5kDhX": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  "SPECr8": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
+    "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "FtJRWS": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des <abbreviation>TI</abbreviation> dans l’ensemble du gouvernement.",
@@ -5263,9 +5223,9 @@
     "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
     "description": "Description for the experience and skills page in applicant profile."
   },
-  "L6sIvM": {
+  "FEEa2S": {
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-03 leader selection"
   },
   "LOvD2e": {
     "defaultMessage": "Vous recherchez des talents en <abbreviation>TI</abbreviation> de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
@@ -5283,9 +5243,9 @@
     "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "OheHgg": {
+  "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+    "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
@@ -5295,12 +5255,12 @@
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
   },
-  "QdYrqI": {
+  "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-03 team lead path description, ignore things in <> tags please"
+    "description": "IT-03 team lead path description"
   },
-  "RCV8Us": {
-    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en <abbreviation>TI</abbreviation> destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
+  "J2uivT": {
+    "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
     "description": "Paragraph one for the self-declaration explanation dialog"
   },
   "S02Y/P": {
@@ -5311,12 +5271,12 @@
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "b3v0nI": {
-    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (<abbreviation>TI</abbreviation>).",
+  "pWoAv0": {
+    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
-  "W2G590": {
-    "defaultMessage": "Le Programme d’apprentissage en <abbreviation>TI</abbreviation> vous convient-il?",
+  "DgMIfz": {
+    "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
     "description": "Application box heading part one"
   },
   "WgGDug": {
@@ -5327,16 +5287,16 @@
     "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la <abbreviation>TI</abbreviation> et les relations avec les clients et fournisseurs.",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
-  "Zd1x6H": {
-    "defaultMessage": "Programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones + Portail des talents autochtones",
+  "osGGIt": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
   },
-  "bNBhvY": {
+  "dofE/5": {
     "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur <abbreviation>TI-04</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-04 senior advisor selection"
   },
-  "cMDC/P": {
-    "defaultMessage": "Répondre à la forte demande de talents autochtones en <abbreviation>TI</abbreviation>.",
+  "Xhfkfg": {
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
     "description": "Talent portal strategy item 1 content"
   },
   "drDPf3": {
@@ -5347,8 +5307,8 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'enterprise architecture' IT work stream"
   },
-  "gxOExQ": {
-    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la <abbreviation>TI</abbreviation>!",
+  "yZMQ6j": {
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
   },
   "hKKYYL": {
@@ -5367,13 +5327,13 @@
     "defaultMessage": "Explorer les occasions en matière de <abbreviation>TI</abbreviation> au sein du gouvernement fédéral",
     "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
-  "jZDflg": {
+  "WTdmxR": {
     "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-03 advisor selection"
   },
-  "oUDpNl": {
+  "YVuyjO": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
-    "description": "IT-04 manager path description, ignore things in <> tags please"
+    "description": "IT-04 manager path description"
   },
   "oZ03/b": {
     "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme <abbreviation>TI</abbreviation> (technologie de l'information). Examinez les niveaux suivants dans la classification <abbreviation>TI</abbreviation> et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
@@ -5383,8 +5343,8 @@
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
     "description": "Text describing where to get help with the self-declaration form"
   },
-  "pRGDLn": {
-    "defaultMessage": "Apprenti en <abbreviation>TI</abbreviation> du Gouvernement du Canada",
+  "49UIne": {
+    "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
   "tM1de5": {
@@ -5395,9 +5355,9 @@
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
   },
-  "uT/A3r": {
+  "SngY7e": {
     "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur <abbreviation>TI-02</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-02 selection"
   },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
@@ -5407,9 +5367,9 @@
     "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'security' IT work stream"
   },
-  "xIwrND": {
+  "X+Y+qq": {
     "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur <abbreviation>TI-01</abbreviation></openModal>",
-    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+    "description": "Checkbox label for Level IT-01 selection"
   },
   "y+HB+k": {
     "defaultMessage": "Gestion de la base de données de la <abbreviation>TI</abbreviation>",
@@ -5986,10 +5946,6 @@
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "fNOekV": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the my hiring pools content section"
-  },
   "fqIEKE": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Title of the My skills and experience link section"
@@ -6009,10 +5965,6 @@
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
-  },
-  "l/MbFR": {
-    "defaultMessage": "Modifier mes bassins d'embauche",
-    "description": "Text on link to update a users hiring pools."
   },
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -6074,9 +6026,9 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
-  "vpAafL": {
+  "G3K1/H": {
     "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
-    "description": "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please."
+    "description": "Message indicating the user has not been marked as part of an equity group"
   },
   "w+L6oa": {
     "defaultMessage": "Par date",
@@ -6089,10 +6041,6 @@
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
     "description": "Pluralization for zero or multiple experiences"
-  },
-  "xUl9pz": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the My Hiring Pools section"
   },
   "xjtRjr": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -6178,9 +6126,9 @@
     "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
     "description": "Link text for editing skills and experiences on profile."
   },
-  "GThNuu": {
+  "TwSvmH": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
-    "description": "would not accept job line before a list, ignore things in <> please"
+    "description": "would not accept job line before a list"
   },
   "VOheZB": {
     "defaultMessage": "<primary>{role}</primary> à {organization}",
@@ -6398,9 +6346,9 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
-  "f8ZHHW": {
+  "K4O5hP": {
     "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
-    "description": "Final paragraph in the employment equity profile section, ignore things in <> please"
+    "description": "Final paragraph in the employment equity profile section"
   },
   "1GWQal": {
     "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
@@ -6434,10 +6382,6 @@
     "defaultMessage": "Brève description de l’équipe (en français)",
     "description": "Short description for a team in French"
   },
-  "QC23B1": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "Rg0SpL": {
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
@@ -6445,10 +6389,6 @@
   "VJYI6K": {
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
-  },
-  "W0BVd+": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Name of an organization/team in French field."
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -6486,29 +6426,13 @@
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
   },
-  "1cPlHY": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Label for the English team display name input"
-  },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "OOnxtm": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Label for the French team display name input"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
-  },
-  "RtDf2h": {
-    "defaultMessage": "Brève description de l’organisation (en français)",
-    "description": "Label for the French team description input"
-  },
-  "TCQhlo": {
-    "defaultMessage": "Brève description de l’organisation (en anglais)",
-    "description": "Label for the English team description input"
   },
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
@@ -6526,7 +6450,7 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
-  "jzax3k": {
+  "IrvQbY": {
     "defaultMessage": "Sélectionnez un ou plusieurs ministères...",
     "description": "Placeholder text for the team departments input"
   },
@@ -6645,5 +6569,297 @@
   "wzScZA": {
     "defaultMessage": "Mes candidatures",
     "description": "Title for the list of a users applications"
+  },
+  "/17wgm": {
+    "defaultMessage": "Rôle(s) ajouté(s) avec succès",
+    "description": "Message displayed to user when one or more roles have been added to a user"
+  },
+  "2lNHxh": {
+    "defaultMessage": "Ajouter un nouveau rôle",
+    "description": "Label for the form to add a role to a user"
+  },
+  "VsV4Vu": {
+    "defaultMessage": "L’utilisateur perdra le rôle suivant :",
+    "description": "Text notifying user which role will be removed from the user"
+  },
+  "Hy2UdW": {
+    "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the remove role from user dialog"
+  },
+  "S8ra2P": {
+    "defaultMessage": "Actions",
+    "description": "Title displayed for the role table actions column"
+  },
+  "TvUVa0": {
+    "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the add role to user form."
+  },
+  "XcS2q2": {
+    "defaultMessage": "Rôle retiré avec succès",
+    "description": "Message displayed to user when a role has been removed from a user"
+  },
+  "Yg2TIH": {
+    "defaultMessage": "Rôles individuels",
+    "description": "Heading for updating a users individual roles"
+  },
+  "eW7I5E": {
+    "defaultMessage": "Sélectionner les rôles...",
+    "description": "Placeholder text for role selection input"
+  },
+  "fyidgo": {
+    "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
+    "description": "Label for the form to remove a role from a user"
+  },
+  "m54J0C": {
+    "defaultMessage": "Rôles et permissions",
+    "description": "Heading for updating a users roles and permissions"
+  },
+  "tuXnJB": {
+    "defaultMessage": "Rôles individuels",
+    "description": "Label for the input to add roles to a user"
+  },
+  "uBmoxQ": {
+    "defaultMessage": "Rôle",
+    "description": "Title displayed for the role table display name column"
+  },
+  "vRLrmc": {
+    "defaultMessage": "Voulez-vous continuer?",
+    "description": "Question posed to user before committing a destructive act"
+  },
+  "aRTIWM": {
+    "defaultMessage": "{itemCount, plural, =0 {0 items} =1 {1 item} other {# items} } ajouté",
+    "description": "context message to describe number of experience items added"
+  },
+  "JMe3n2": {
+    "defaultMessage": "Des sections obligatoires sont manquantes",
+    "description": "Context message that some required sections are missing"
+  },
+  "Q/f5AF": {
+    "defaultMessage": "Bienvenue, {firstName}",
+    "description": "Title displayed in the hero section of the Search page."
+  },
+  "XvfBqb": {
+    "defaultMessage": "L’information de mon profil",
+    "description": "applicant dashboard card title for profile card"
+  },
+  "bHIq0J": {
+    "defaultMessage": "Sections facultatives de disponibles",
+    "description": "Context message that some optional sections are available"
+  },
+  "dd/lhx": {
+    "defaultMessage": "Toutes les sections sont remplies",
+    "description": "Context message that all sections are complete"
+  },
+  "9ePTF1": {
+    "defaultMessage": "Mon cv et mon expérience",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "HvBs2+": {
+    "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
+    "description": "Subtitle for applicant dashboard hero"
+  },
+  "+e2nr6": {
+    "defaultMessage": "Ajouter un nouveau membre",
+    "description": "Label for the add member to team form"
+  },
+  "/esEW+": {
+    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
+    "description": "Help text for the remove team membership dialog"
+  },
+  "0AaeXe": {
+    "defaultMessage": "Équipe",
+    "description": "Label for the team select field on team membership form"
+  },
+  "2JIgrl": {
+    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "description": "Message displayed to users before removing a member from a team"
+  },
+  "3/lHSy": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed for the team members table email column."
+  },
+  "4Washm": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Title displayed for the team members table roles column."
+  },
+  "7Mbt01": {
+    "defaultMessage": "Le retrait du membre de l’équipe a échoué",
+    "description": "Alert displayed to user when an error occurs while removing a team member"
+  },
+  "AKQeBC": {
+    "defaultMessage": "Membre ajouté avec succès",
+    "description": "Alert displayed to user when a team member's roles have been updated"
+  },
+  "ALIgEC": {
+    "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
+    "description": "Alert displayed to user when a team member's roles have been updated"
+  },
+  "AUOq9D": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the team members table Name column."
+  },
+  "DyHeaZ": {
+    "defaultMessage": "Retirer le membre",
+    "description": "Label for the dialog to remove a users team membership"
+  },
+  "Ly2bBb": {
+    "defaultMessage": "La mise à jour du rôle du membre a échoué",
+    "description": "Alert displayed to user when an error occurs while editing a team member's roles"
+  },
+  "Mz61q/": {
+    "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
+    "description": "Help text for user field on the add member to team form"
+  },
+  "cOJVBW": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Label for the input to add roles to a user's team membership"
+  },
+  "guzGyX": {
+    "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
+    "description": "Alert displayed to user when a team member is removed"
+  },
+  "o1M2Kc": {
+    "defaultMessage": "Il ou elle perdra tous les rôles suivants au sein de l’équipe ",
+    "description": "Lead text for the list of roles the user will lose"
+  },
+  "oVgVhK": {
+    "defaultMessage": "Modifier l’adhésion pour {userName}",
+    "description": "Label for the form to edit a users team membership"
+  },
+  "qPxrKm": {
+    "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
+    "description": "Help text for the edit team membership form"
+  },
+  "1BEtoY": {
+    "defaultMessage": "Nom du gestionnaire",
+    "description": "Label for the user select field on team membership form"
+  },
+  "Vf+lsG": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Label for the French team display name input"
+  },
+  "XNBegf": {
+    "defaultMessage": "Brève description de l’équipe (Français)",
+    "description": "Label for the French team description input"
+  },
+  "YjMfWZ": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "aGBFm5": {
+    "defaultMessage": "Brève description de l’équipe (Anglais)",
+    "description": "Label for the English team description input"
+  },
+  "n4pt+y": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Label for the English team display name input"
+  },
+  "rdYjIb": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "hr/i9h": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder displayed for team selection input."
+  },
+  "mOS8rj": {
+    "defaultMessage": "Équipe principale",
+    "description": "Label displayed for selecting what team a new pool belongs to."
+  },
+  "1wONOC": {
+    "defaultMessage": "Profil",
+    "description": "User profile breadcrumb text"
+  },
+  "Ig9HmP": {
+    "defaultMessage": "Ministères",
+    "description": "Breadcrumb title for the departments page link."
+  },
+  "OgeWgx": {
+    "defaultMessage": "Créer un nouveau bassin",
+    "description": "Breadcrumb title for the create new pool page link."
+  },
+  "P+KWP7": {
+    "defaultMessage": "Équipes",
+    "description": "Breadcrumb title for the teams page link."
+  },
+  "Y7eGtg": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Breadcrumb title for the users page link."
+  },
+  "kyMlnN": {
+    "defaultMessage": "Classifications",
+    "description": "Breadcrumb title for the classifications page link."
+  },
+  "y0j4oU": {
+    "defaultMessage": "Demandes",
+    "description": "Breadcrumb title for the search requests table page link."
+  },
+  "yeXUjo": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Breadcrumb title for the skill families page link."
+  },
+  "ynjzua": {
+    "defaultMessage": "Compétences",
+    "description": "Breadcrumb title for the skills page link."
+  },
+  "zzf16k": {
+    "defaultMessage": "Candidats",
+    "description": "Breadcrumb for the All Candidates page"
+  },
+  "0WIPpI": {
+    "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
+    "description": "Edit user breadcrumb text"
+  },
+  "1XaX86": {
+    "defaultMessage": "Créer<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the create department page link."
+  },
+  "5SKmte": {
+    "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
+    "description": "Breadcrumb title for the edit skill family page link."
+  },
+  "9QxHnD": {
+    "defaultMessage": "Créer<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the create skill page link."
+  },
+  "D6HIId": {
+    "defaultMessage": "Modifier<hidden> le bassin</hidden>",
+    "description": "Edit pool breadcrumb text"
+  },
+  "E8BMJW": {
+    "defaultMessage": "Créer<hidden> une classification</hidden>",
+    "description": "Breadcrumb title for the create classification page link."
+  },
+  "FYIbdJ": {
+    "defaultMessage": "Modifier<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the edit department page link."
+  },
+  "I0VGC0": {
+    "defaultMessage": "Placement",
+    "description": "User placement breadcrumb text"
+  },
+  "M2LfhH": {
+    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
+  "PQXvrU": {
+    "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
+    "description": "Breadcrumb title for the create skill family page link."
+  },
+  "nfZQ89": {
+    "defaultMessage": "Membres",
+    "description": "Breadcrumb title for the team members page link."
+  },
+  "o7SM7j": {
+    "defaultMessage": "Créer<hidden> des équipes</hidden>",
+    "description": "Breadcrumb title for the create team page link."
+  },
+  "ow4z7W": {
+    "defaultMessage": "Modifier<hidden> la classification</hidden>",
+    "description": "Breadcrumb title for the edit classification page link."
+  },
+  "s7Hnlg": {
+    "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
+    "description": "Breadcrumb title for the edit team page link."
   }
 }

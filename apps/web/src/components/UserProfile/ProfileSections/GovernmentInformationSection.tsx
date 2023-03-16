@@ -12,16 +12,39 @@ import {
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Applicant, GovEmployeeType } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  | "isGovEmployee"
+  | "govEmployeeType"
+  | "department"
+  | "currentClassification"
+  | "hasPriorityEntitlement"
+  | "priorityNumber"
+>;
+
+export function hasAllEmptyFields({
+  isGovEmployee,
+  hasPriorityEntitlement,
+}: PartialApplicant): boolean {
+  return isGovEmployee === null && hasPriorityEntitlement === null;
+}
+
+export function hasEmptyRequiredFields({
+  isGovEmployee,
+  hasPriorityEntitlement,
+}: PartialApplicant): boolean {
+  return isGovEmployee === null || hasPriorityEntitlement === null;
+}
+
+export function hasEmptyOptionalFields({
+  hasPriorityEntitlement,
+  priorityNumber,
+}: PartialApplicant): boolean {
+  return !!(hasPriorityEntitlement && !priorityNumber);
+}
+
 const GovernmentInformationSection: React.FunctionComponent<{
-  applicant: Pick<
-    Applicant,
-    | "isGovEmployee"
-    | "govEmployeeType"
-    | "department"
-    | "currentClassification"
-    | "hasPriorityEntitlement"
-    | "priorityNumber"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -189,45 +212,40 @@ const GovernmentInformationSection: React.FunctionComponent<{
           )}
         </div>
       )}
-      {applicant.isGovEmployee === null &&
-        applicant.hasPriorityEntitlement === null &&
-        editPath && (
-          <div data-h2-flex-grid="base(flex-start, x2, x1)">
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  id: "SCCX7B",
-                  description:
-                    "Message for when no data exists for the section",
-                })}
-              </p>
-            </div>
+      {hasAllEmptyFields(applicant) && editPath && (
+        <div data-h2-flex-grid="base(flex-start, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
           </div>
-        )}
+        </div>
+      )}
 
-      {(applicant.isGovEmployee === null ||
-        applicant.hasPriorityEntitlement === null) &&
-        editPath && (
-          <div
-            data-h2-flex-grid="base(flex-start, x2, x1)"
-            data-h2-padding="base(x1, 0, 0, 0)"
-          >
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Edit your government information options.",
-                    id: "3pox8N",
-                    description:
-                      "Link text to edit government information on profile.",
-                  })}
-                </a>
-              </p>
-            </div>
+      {hasEmptyRequiredFields(applicant) && editPath && (
+        <div
+          data-h2-flex-grid="base(flex-start, x2, x1)"
+          data-h2-padding="base(x1, 0, 0, 0)"
+        >
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Edit your government information options.",
+                  id: "3pox8N",
+                  description:
+                    "Link text to edit government information on profile.",
+                })}
+              </a>
+            </p>
           </div>
-        )}
+        </div>
+      )}
 
       {applicant.isGovEmployee === null &&
         applicant.hasPriorityEntitlement === null &&

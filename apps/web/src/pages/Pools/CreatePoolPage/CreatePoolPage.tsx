@@ -6,14 +6,10 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  commonMessages,
-  getGenericJobTitlesWithClassification,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { Pending, AdminBreadcrumbs, Link } from "@gc-digital-talent/ui";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Pending, Link } from "@gc-digital-talent/ui";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -22,40 +18,35 @@ import {
   useCreatePoolAdvertisementMutation,
   CreatePoolAdvertisementMutation,
   useGetMePoolCreationQuery,
-  GenericJobTitleKey,
   Classification,
+  Maybe,
+  Team,
 } from "~/api/generated";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 type Option<V> = { value: V; label: string };
 
 type FormValues = {
   classification: string[];
+  team: string;
 };
-
-interface GenericJobTitle {
-  key: GenericJobTitleKey;
-  id: string;
-  classificationId: string;
-}
 
 interface CreatePoolFormProps {
   userId: string;
-  genericJobTitles: GenericJobTitle[];
   classificationsArray: Classification[];
   handleCreatePool: (
     userId: string,
     teamId: string,
     data: CreatePoolAdvertisementInput,
   ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
-  teamId: string; // currently API wrapper feeds in the dcm team by default
+  teamsArray: Team[];
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   userId,
-  genericJobTitles,
   classificationsArray,
   handleCreatePool,
-  teamId,
+  teamsArray,
 }) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -72,7 +63,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(userId, teamId, formValuesToSubmitData(data))
+    await handleCreatePool(userId, data.team, formValuesToSubmitData(data))
       .then((result) => {
         if (result) {
           navigate(paths.poolUpdate(result.id));
@@ -98,46 +89,18 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       });
   };
 
-  const links = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "My Pools",
-        id: "7N+tQw",
-        description: "Breadcrumb title for the pools page link.",
-      }),
-      url: paths.poolTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: `New Pool`,
-        id: "iQzlmB",
-        description: "New pool breadcrumb text",
-      }),
-      url: paths.poolCreate(),
-    },
-  ];
-
-  // NOTICE NOTICE NOTICE NOTICE NOTICE
-  // how the CreatePool will function, in example, Generic Job Classifications vs regular Classifications is undecided so code segments are left in despite being unused
-  // TODO RESOLVE THIS
-
-  // create the options for the select input, and ensure classification Ids are attached to each option
-  // take care not to try and attach generic job title Id instead, wrong Id throws confusing sql errors
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const jobTitleOptions: Option<string>[] = genericJobTitles.map(
-    ({ key, classificationId }) => ({
-      value: classificationId,
-      label:
-        intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
-        intl.formatMessage(commonMessages.nameNotLoaded),
-    }),
-  );
-
   // recycled from EditPool
   const classificationOptions: Option<string>[] = classificationsArray
     .map(({ id, group, level, name }) => ({
       value: id,
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+    }))
+    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+
+  const teamOptions: Option<string>[] = teamsArray
+    .map(({ id, displayName }) => ({
+      value: id,
+      label: getLocalizedName(displayName, intl),
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
@@ -150,7 +113,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
-      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -188,6 +150,25 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
+            <Select
+              id="team"
+              label={intl.formatMessage({
+                defaultMessage: "Parent team",
+                id: "mOS8rj",
+                description:
+                  "Label displayed for selecting what team a new pool belongs to.",
+              })}
+              name="team"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a team...",
+                id: "hr/i9h",
+                description: "Placeholder displayed for team selection input.",
+              })}
+              options={teamOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
             <Submit
               color="cta"
               text={intl.formatMessage({
@@ -219,45 +200,34 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   );
 };
 
+const roleAssignmentsToTeams = (
+  roleAssignmentArray: Maybe<RoleAssignment[]>,
+): Team[] => {
+  const flattenedTeams = roleAssignmentArray?.flatMap(
+    (roleAssign) => roleAssign.team,
+  );
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+
+  // clear out any duplicate teams that could arise from multiple team-based roles per team
+  // https://stackoverflow.com/a/56757215
+  const teamsArray = filteredFlattenedTeams.filter(
+    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
+  );
+  return teamsArray;
+};
+
 const CreatePoolPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
-  // current user -> type change to only string
+  // current user
   const userIdQueryUntyped = lookupData?.me?.id;
-  const restrictUserType = (user: string | undefined): string => {
-    if (user) {
-      return user;
-    }
-    return "";
-  };
-  const userIdQuery = restrictUserType(userIdQueryUntyped);
+  const userIdQuery = userIdQueryUntyped || "";
 
-  // get rid of all those annoying Maybes, make sure classifications isn't a maybe either
-  const jobTitlesData = unpackMaybes(lookupData?.genericJobTitles);
-  const jobTitlesMapped = jobTitlesData
-    ? jobTitlesData.map((jobTitle) => {
-        return {
-          key: jobTitle.key,
-          id: jobTitle.id,
-          classificationId: jobTitle.classification
-            ? jobTitle.classification.id
-            : "",
-        };
-      })
-    : [];
-
-  // fetched all classifications
   const classificationsData = unpackMaybes(lookupData?.classifications);
-
-  // find the dcm team in order to pass it into the pool creation component
-  // this will be changed later when pool creation is updated to incorporate team selection
-  const teamsData = unpackMaybes(lookupData?.teams);
-  const dcmTeam = teamsData.filter(
-    (team) => team.name === "digital-community-management",
-  );
-  const dcmTeamId = dcmTeam && dcmTeam.length > 0 ? dcmTeam[0].id : "";
+  const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
 
   const [, executeMutation] = useCreatePoolAdvertisementMutation();
   const handleCreatePool = (
@@ -274,8 +244,35 @@ const CreatePoolPage = () => {
       },
     );
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Pools",
+        id: "3fAkvM",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      url: routes.poolTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create new pool",
+        id: "OgeWgx",
+        description: "Breadcrumb title for the create new pool page link.",
+      }),
+      url: routes.poolCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create pool",
@@ -286,13 +283,12 @@ const CreatePoolPage = () => {
       <Pending fetching={fetching} error={error}>
         <CreatePoolForm
           userId={userIdQuery}
-          genericJobTitles={jobTitlesMapped}
           classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
-          teamId={dcmTeamId}
+          teamsArray={teamsArray}
         />
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

@@ -14,11 +14,31 @@ import {
   PositionDuration,
 } from "~/api/generated";
 
+type PartialApplicant = Pick<
+  Applicant,
+  "acceptedOperationalRequirements" | "positionDuration"
+>;
+
+export function hasAllEmptyFields({
+  positionDuration,
+}: PartialApplicant): boolean {
+  return isEmpty(positionDuration);
+}
+
+export function hasEmptyRequiredFields({
+  positionDuration,
+}: PartialApplicant): boolean {
+  return isEmpty(positionDuration);
+}
+
+export function hasEmptyOptionalFields({
+  acceptedOperationalRequirements,
+}: PartialApplicant): boolean {
+  return isEmpty(acceptedOperationalRequirements);
+}
+
 const WorkPreferencesSection: React.FunctionComponent<{
-  applicant: Pick<
-    Applicant,
-    "acceptedOperationalRequirements" | "positionDuration"
-  >;
+  applicant: PartialApplicant;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
@@ -71,7 +91,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {(positionDuration === null || positionDuration?.length === 0) && (
+        {hasEmptyRequiredFields(applicant) && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -170,9 +190,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
-                id: "GThNuu",
-                description:
-                  "would not accept job line before a list, ignore things in <> please",
+                id: "TwSvmH",
+                description: "would not accept job line before a list",
               })}
             </p>
             <ul data-h2-padding="base(0, 0, 0, x1)">
@@ -203,9 +222,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
-                id: "GThNuu",
-                description:
-                  "would not accept job line before a list, ignore things in <> please",
+                id: "TwSvmH",
+                description: "would not accept job line before a list",
               })}
             </p>
             <ul data-h2-padding="base(0, 0, 0, x1)">
@@ -214,7 +232,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
           </div>
         )}
 
-        {!anyCriteriaSelected && !editPath && (
+        {hasAllEmptyFields(applicant) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

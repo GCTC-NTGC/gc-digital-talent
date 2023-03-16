@@ -1,48 +1,49 @@
 import React from "react";
 
-import { Maybe, LegacyRole, User } from "@gc-digital-talent/graphql";
-
-export type PossibleUser = Maybe<User>;
-export type PossibleUserRoles = Maybe<Array<Maybe<LegacyRole>>>;
-export type MaybeEmail = Maybe<string>;
+import {
+  Maybe,
+  User,
+  Scalars,
+  RoleAssignment,
+} from "@gc-digital-talent/graphql";
 
 export interface AuthorizationState {
-  loggedInUserRoles: PossibleUserRoles;
-  loggedInEmail?: MaybeEmail;
-  loggedInUser?: PossibleUser;
+  roleAssignments: Maybe<Array<RoleAssignment>>;
+  email?: Maybe<Scalars["Email"]>;
+  user?: Maybe<User>;
   isLoaded: boolean;
 }
 
 export const AuthorizationContext = React.createContext<AuthorizationState>({
-  loggedInUserRoles: null,
-  loggedInEmail: null,
-  loggedInUser: null,
+  roleAssignments: null,
+  email: null,
+  user: null,
   isLoaded: false,
 });
 
 interface AuthorizationContainerProps {
-  userRoles?: PossibleUserRoles;
-  email?: MaybeEmail;
-  currentUser?: PossibleUser;
+  roleAssignments?: Maybe<Array<RoleAssignment>>;
+  email?: Maybe<Scalars["Email"]>;
+  user?: Maybe<User>;
   isLoaded: boolean;
   children?: React.ReactNode;
 }
 
 const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
-  userRoles,
+  roleAssignments,
   email,
-  currentUser,
+  user,
   isLoaded,
   children,
 }) => {
   const state = React.useMemo<AuthorizationState>(() => {
     return {
-      loggedInUserRoles: userRoles,
-      loggedInEmail: email,
-      loggedInUser: currentUser,
+      roleAssignments,
+      email,
+      user,
       isLoaded,
     };
-  }, [userRoles, email, currentUser, isLoaded]);
+  }, [roleAssignments, email, user, isLoaded]);
 
   return (
     <AuthorizationContext.Provider value={state}>

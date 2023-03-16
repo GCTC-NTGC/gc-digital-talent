@@ -3,8 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-import { wrapAbbr } from "~/utils/nameUtils";
-
 import Heading from "../Heading";
 import CloseButton from "./CloseButton";
 
@@ -26,17 +24,12 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Learn More About the Government of Canada <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples",
-              id: "Ea8q/H",
-              description: "Heading for the Learn more dialog",
-            },
-            {
-              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "Learn More About the Government of Canada IT Apprenticeship Program for Indigenous Peoples",
+            id: "L9yjr3",
+            description: "Heading for the Learn more dialog",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           <Heading
@@ -44,17 +37,12 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             data-h2-font-size="base(h6, 1.3)"
             data-h2-margin="base(0)"
           >
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Who can apply to become an apprentice as part of the Government of Canada <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples?",
-                id: "9Nf78m",
-                description: "Learn more dialog question one heading",
-              },
-              {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "Who can apply to become an apprentice as part of the Government of Canada IT Apprenticeship Program for Indigenous Peoples?",
+              id: "p2sBh3",
+              description: "Learn more dialog question one heading",
+            })}
           </Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({

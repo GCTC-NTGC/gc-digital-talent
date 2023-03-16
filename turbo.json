@@ -1,38 +1,54 @@
 {
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["package.json"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "intl-compile", "codegen"],
+      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
       "inputs": ["src/**", "package.json"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "outputMode": "new-only"
     },
     "build:css": {
-        "outputs": ["src/assets/css/hydrogen.css"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "../../hydrogen.config.json"],
+      "outputs": ["src/assets/css/hydrogen.css"]
     },
     "codegen": {
-      "outputs": ["src/api/generated.ts", "src/index.ts"]
+      "inputs": ["src/**/*.graphql", "../../packages/**/src/**/*.graphql"],
+      "outputs": ["src/api/generated.ts", "src/index.ts"],
+      "outputMode": "new-only"
     },
     "dev": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
-      "inputs": ["src/**", "package.json"],
-      "outputs": ["dist/**"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json"],
+      "outputs": ["dist/**"],
+      "outputMode": "new-only"
     },
     "watch": {
       "dependsOn": ["build:css", "intl-compile", "codegen"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "build:intl-cli": {
-      "outputs": ["dist/cli.js"]
+      "inputs": ["src/cli.ts"],
+      "outputs": ["dist/cli.js"],
+      "outputMode": "new-only"
     },
     "intl-extract": {
-      "outputs": ["src/lang/en.json"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": ["src/lang/en.json"],
+      "outputMode": "new-only"
     },
     "intl-compile": {
-      "dependsOn": ["^intl-compile", "intl-extract"],
-      "outputs": ["src/lang/*{Compiled}.json"]
+      "inputs": ["src/lang/en.json", "src/lang/fr.json"],
+      "dependsOn": ["intl-extract"],
+      "outputs": ["src/lang/*{Compiled}.json"],
+      "outputMode": "new-only"
     },
     "check-intl": {
-      "dependsOn": ["build:intl-cli", "intl-compile", "intl-extract"],
-      "cache": false
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/lang/en.json", "src/lang/fr.json"],
+      "dependsOn": ["build:intl-cli", "intl-compile"],
+      "cache": false,
+      "outputMode": "new-only"
     },
     "storybook": {
       "dependsOn": ["codegen", "intl-compile"],
@@ -42,8 +58,7 @@
       "outputs": ["dist/**", "storybook-static/**"]
     },
     "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": ["^build"]
+      "outputMode": "new-only"
     },
     "clean": {
       "cache": false

@@ -15,7 +15,7 @@ use Carbon\Carbon;
 /**
  * Class Pool
  *
- * @property int $id
+ * @property string $id
  * @property array $name
  * @property string $key
  * @property array $description
@@ -30,6 +30,7 @@ use Carbon\Carbon;
  * @property string $stream
  * @property string $process_number
  * @property string $publishing_group
+ * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $closing_date
@@ -97,6 +98,10 @@ class Pool extends Model
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+    public function publishedPoolCandidates(): HasMany
+    {
+        return $this->hasMany(PoolCandidate::class)->notDraft();
     }
 
     public function essentialSkills(): BelongsToMany

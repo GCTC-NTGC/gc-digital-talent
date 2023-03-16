@@ -20,13 +20,17 @@ export interface PendingProps extends LoadingProps {
 const Pending = ({
   fetching,
   error,
-  live,
+  live = "assertive",
   inline = false,
   children,
 }: PendingProps): JSX.Element => {
   const intl = useIntl();
   if (fetching) {
-    return <Loading inline={inline} live={live} />;
+    return (
+      <Loading inline={inline} live={live}>
+        {intl.formatMessage(commonMessages.loadingTitle)}
+      </Loading>
+    );
   }
 
   if (error) {
@@ -43,7 +47,9 @@ const Pending = ({
   return (
     <React.Suspense
       fallback={
-        <Loading>{intl.formatMessage(commonMessages.loadingTitle)}</Loading>
+        <Loading inline={inline} live={live}>
+          {intl.formatMessage(commonMessages.loadingTitle)}
+        </Loading>
       }
     >
       {children}

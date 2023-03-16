@@ -38,7 +38,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
           description: "Title for the list of team members page",
         }),
         link: {
-          url: "#",
+          url: paths.teamMembers(team.id),
           label: intl.formatMessage({
             defaultMessage: "View team members",
             id: "ZfCeq/",
@@ -100,9 +100,12 @@ const TeamLayout = () => {
 
   return (
     <>
-      <Pending fetching={fetching} error={error}>
-        {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
-      </Pending>
+      {/* This is above the AdminContentWrapper so it needs its own centering */}
+      <div data-h2-container="base(center, full, x2)">
+        <Pending fetching={fetching} error={error}>
+          {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
+        </Pending>
+      </div>
       <Outlet />
     </>
   );
