@@ -7,8 +7,9 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pending, AdminBreadcrumbs, Link } from "@gc-digital-talent/ui";
+import { Pending, Link } from "@gc-digital-talent/ui";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -88,25 +89,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       });
   };
 
-  const links = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "My Pools",
-        id: "7N+tQw",
-        description: "Breadcrumb title for the pools page link.",
-      }),
-      url: paths.poolTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: `New Pool`,
-        id: "iQzlmB",
-        description: "New pool breadcrumb text",
-      }),
-      url: paths.poolCreate(),
-    },
-  ];
-
   // recycled from EditPool
   const classificationOptions: Option<string>[] = classificationsArray
     .map(({ id, group, level, name }) => ({
@@ -131,7 +113,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
-      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -237,6 +218,7 @@ const roleAssignmentsToTeams = (
 
 const CreatePoolPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -262,8 +244,35 @@ const CreatePoolPage = () => {
       },
     );
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Pools",
+        id: "3fAkvM",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      url: routes.poolTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create new pool",
+        id: "OgeWgx",
+        description: "Breadcrumb title for the create new pool page link.",
+      }),
+      url: routes.poolCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create pool",
@@ -279,7 +288,7 @@ const CreatePoolPage = () => {
           teamsArray={teamsArray}
         />
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 
