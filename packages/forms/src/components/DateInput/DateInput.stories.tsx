@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { ComponentMeta, ComponentStory, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { isBefore, parseISO } from "date-fns";
+import { isAfter, parseISO } from "date-fns";
 
 import {
   formatDate,
@@ -52,13 +52,14 @@ const Template: ComponentStory<DefaultValueDateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   return (
     <Form
-      {...(defaultValue && {
-        options: {
-          defaultValues: {
-            [rest.name]: defaultValue,
-          },
-        },
-      })}
+      options={{
+        mode: "onSubmit",
+        defaultValues: defaultValue
+          ? {
+              [rest.name]: defaultValue,
+            }
+          : undefined,
+      }}
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <DateInput {...rest} />
@@ -106,7 +107,8 @@ const ValidationDependantInputs = ({
   legend,
   ...rest
 }: DateInputProps) => {
-  const watchFirstInput = useWatch({ name });
+  const { watch } = useFormContext();
+  const watchFirstInput = watch(name);
 
   return (
     <>
@@ -129,7 +131,7 @@ const ValidationDependantInputs = ({
 const ValidationDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
   return (
     <Form
-      options={{ mode: "onChange" }}
+      options={{ mode: "onSubmit" }}
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <ValidationDependantInputs {...args} />
@@ -141,12 +143,13 @@ const ValidationDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
 export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
-  const watchFirstInput = useWatch({ name });
+  const { watch } = useFormContext();
+  const watchFirstInput = watch(name);
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;
 
-  return inputDate && isBefore(new Date(), inputDate) ? (
+  return inputDate && isAfter(new Date(), inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
     <p data-h2-margin="base(x1, 0)">
@@ -159,7 +162,7 @@ const RenderDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
   const { name, ...rest } = args;
   return (
     <Form
-      options={{ mode: "onChange" }}
+      options={{ mode: "onSubmit" }}
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <DateInput name={name} {...rest} />
@@ -197,7 +200,7 @@ const AsyncTemplate: Story<AsyncArgs> = (args) => {
     <Pending fetching={fetching}>
       <Form
         options={{
-          mode: "onChange",
+          mode: "onSubmit",
           defaultValues: {
             [rest.name]: poolAdvertisement?.closingDate
               ? formatDate({

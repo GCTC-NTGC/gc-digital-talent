@@ -65,10 +65,11 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
 
   const isValidDate = (value: string) => {
     const { year, month, day } = splitSegments(value);
-    const isOptionalAndEmpty = !rules.required && !year && !month && !day;
+    const isOptionalAndEmpty =
+      Boolean(rules.required) && !year && !month && !day;
     return (
-      isValid(formDateStringToDate(value)) ||
       isOptionalAndEmpty ||
+      isValid(formDateStringToDate(value)) ||
       intl.formatMessage(errorMessages.invalidDate)
     );
   };
