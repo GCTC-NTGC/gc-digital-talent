@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 // Note: ignore to stop merging date-fns imports
 // eslint-disable-next-line import/no-duplicates
-import { add, format, getDaysInMonth, isDate, parse, parseISO } from "date-fns";
+import { add, format, parse, parseISO } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
@@ -9,11 +9,7 @@ import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import {
-  FormatDateOptions,
-  SeparatedDateRange,
-  SeparatedDateString,
-} from "./types";
+import { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_STRING,
   DATE_FORMAT_STRING,
