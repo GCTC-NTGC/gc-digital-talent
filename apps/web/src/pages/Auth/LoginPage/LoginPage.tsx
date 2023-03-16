@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
   const apiPaths = useApiRoutes();
   const [searchParams] = useSearchParams();
   const loginPath = apiPaths.login(
-    searchParams.get("from") ?? paths.myProfile(),
+    searchParams.get("from") ?? paths.dashboard(),
     getLocale(intl),
   );
 

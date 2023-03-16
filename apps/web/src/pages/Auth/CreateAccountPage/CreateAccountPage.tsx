@@ -358,7 +358,7 @@ const CreateAccount: React.FunctionComponent = () => {
 
   // OK to navigate to profile once we have a user ID and an email
   const shouldNavigate = meId && authContext.email;
-  const navigationTarget = from || paths.profile(meId || "");
+  const navigationTarget = from || paths.dashboard();
   React.useEffect(() => {
     if (shouldNavigate) {
       navigate(navigationTarget);

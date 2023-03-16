@@ -148,7 +148,7 @@ const LoggedOutPage: React.FC = () => {
                 mode="outline"
                 color="primary"
                 type="button"
-                href={paths.myProfile()}
+                href={paths.dashboard()}
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",
