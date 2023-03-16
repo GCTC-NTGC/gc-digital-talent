@@ -5,7 +5,7 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
-import { useGetMeQuery, User } from "~/api/generated";
+import { useApplicantInformationQuery, User } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
 import DashboardHeading from "./components/DashboardHeading";
@@ -41,7 +41,7 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
 
 const ApplicantDashboardPage = () => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useGetMeQuery();
+  const [{ data, fetching, error }] = useApplicantInformationQuery();
 
   return (
     <Pending fetching={fetching} error={error}>
