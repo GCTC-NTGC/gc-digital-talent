@@ -155,7 +155,7 @@ describe("Pools", () => {
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findByRole("link", { name: /pool id #/i })
+    cy.findByRole("link", { name: /pool information/i })
       .click();
 
     // Confirm process number has new value
