@@ -69,6 +69,27 @@ const uiMessages = defineMessages({
     id: "3Nd6dv",
     description: "Title for  pages table of contents.",
   },
+  stepTitle: {
+    defaultMessage: "Step {current} of {total}",
+    id: "WL3bq/",
+    description:
+      "Title for a list of steps indicating the current step of the total number of step",
+  },
+  stepCompleted: {
+    defaultMessage: "<hidden>Step completed, </hidden>{label}",
+    id: "9zyjjw",
+    description: "Prefix when a step has been completed.",
+  },
+  stepError: {
+    defaultMessage: "<hidden>Step error, </hidden>{label}",
+    id: "sfQN9S",
+    description: "Prefix when a step has an error.",
+  },
+  stepActive: {
+    defaultMessage: "<hidden>Step, current, </hidden>{label}",
+    id: "0bcof1",
+    description: "Prefix when a step is the currently active one.",
+  },
 });
 
 export default uiMessages;

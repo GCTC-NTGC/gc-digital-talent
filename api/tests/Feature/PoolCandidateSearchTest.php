@@ -58,7 +58,6 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -74,7 +73,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -90,7 +88,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -108,7 +105,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -125,7 +121,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -202,33 +197,25 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateActive2 = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateExpired = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateNullExpiry = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => null,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
 
         $query = /** @lang GraphQL */
