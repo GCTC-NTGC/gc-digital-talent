@@ -1,0 +1,28 @@
+
+# enable rewrite logging for debugging
+error_log /var/log/nginx/error.log notice;
+# rewrite_log on;
+
+server {
+    #proxy_cache cache;
+    #proxy_cache_valid 200 1s;
+
+    # on the servers, the pages are served on 8080 then reverse proxied upstream
+    listen 8080;
+    listen [::]:8080;
+    root /home/site/wwwroot/tc-report/_site;
+    index index.html;
+
+    server_name report.localhost;
+
+    # redirect server error pages
+    error_page   404  /404;
+
+    # Disable .git directory
+    location ~ /\.git {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}
+

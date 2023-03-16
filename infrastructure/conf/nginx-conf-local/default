@@ -172,17 +172,5 @@ server {
         expires 0;
         rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
     }
-
-    # fallback any other files to "tc-report/_site"
-    ## Must be second to last of the file!
-    location ~ "^/(.*\.(\w+))$" {
-        rewrite "^/(.*\.(\w+))$" /tc-report/_site/$1 break;
-    }
-
-    # fallback any other path to "tc-report/_site" index.html
-    ## Must be last of the file!
-    location ~ ^/(.*)$ {
-        rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
-    }
 }
 
