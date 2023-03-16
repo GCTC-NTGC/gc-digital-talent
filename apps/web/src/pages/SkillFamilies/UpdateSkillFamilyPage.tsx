@@ -36,6 +36,7 @@ import {
   useGetUpdateSkillFamilyDataQuery,
   Scalars,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type Option<V> = { value: V; label: string };
 
@@ -245,6 +246,7 @@ type RouteParams = {
 
 const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { skillFamilyId } = useParams<RouteParams>();
   const [{ data: lookupData, fetching, error }] =
     useGetUpdateSkillFamilyDataQuery({
@@ -275,8 +277,40 @@ const UpdateSkillFamilyPage = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Skill families",
+        id: "yeXUjo",
+        description: "Breadcrumb title for the skill families page link.",
+      }),
+      url: routes.skillFamilyTable(),
+    },
+    ...(skillFamilyId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit<hidden> skill family</hidden>",
+              id: "5SKmte",
+              description:
+                "Breadcrumb title for the edit skill family page link.",
+            }),
+            url: routes.skillFamilyUpdate(skillFamilyId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Edit skill family",
@@ -308,7 +342,7 @@ const UpdateSkillFamilyPage = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 
