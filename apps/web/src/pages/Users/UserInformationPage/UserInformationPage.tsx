@@ -13,6 +13,9 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import useRoutes from "~/hooks/useRoutes";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import AboutSection from "./components/AboutSection";
 import { UserInformationProps } from "./types";
@@ -102,6 +105,7 @@ type RouteParams = {
 const UserInformationPage = () => {
   const { userId } = useParams<RouteParams>();
   const intl = useIntl();
+  const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId || "" },
   });
@@ -109,8 +113,35 @@ const UserInformationPage = () => {
   const user = lookupData?.applicant;
   const pools = lookupData?.pools.filter(notEmpty);
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Users",
+        id: "Y7eGtg",
+        description: "Breadcrumb title for the users page link.",
+      }),
+      url: routes.userTable(),
+    },
+    ...(userId
+      ? [
+          {
+            label: getFullNameLabel(user?.firstName, user?.lastName, intl),
+            url: routes.userView(userId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Candidate details",
@@ -125,7 +156,7 @@ const UserInformationPage = () => {
           <ThrowNotFound />
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

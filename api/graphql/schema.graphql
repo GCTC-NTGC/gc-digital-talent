@@ -98,7 +98,9 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+  jobLookingStatus: JobLookingStatus
+    @rename(attribute: "job_looking_status")
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -268,7 +270,9 @@ type Applicant {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+  jobLookingStatus: JobLookingStatus
+    @rename(attribute: "job_looking_status")
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
@@ -831,7 +835,7 @@ input PoolCandidateFilterInput {
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  jobLookingStatus: [JobLookingStatus] @scope
+  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
@@ -893,7 +897,7 @@ type Query {
     @can(ability: "viewAnyApplicants", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["availableForOpportunities"])
+    @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
@@ -937,7 +941,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "availableForOpportunities"]
+      scopes: ["notDraft"]
     )
     @guard
     @can(ability: "view", resolved: true)
