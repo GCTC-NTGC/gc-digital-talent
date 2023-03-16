@@ -322,7 +322,9 @@ type Pool {
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate] @hasMany(relation: "publishedPoolCandidates") @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate]
+    @hasMany(relation: "publishedPoolCandidates")
+    @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   status: PoolStatus
     @rename(attribute: "pool_status")
@@ -865,6 +867,7 @@ input PoolCandidateSearchInput {
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
+  suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
 }
 
 type CandidateSearchPoolResult {
@@ -910,9 +913,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(
-    includeIds: [ID] @in(key: "id")
-  ): [PoolCandidate]!
+  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
@@ -1615,7 +1616,9 @@ type Mutation {
     @guard
     @can(ability: "create")
     @throttle(maxAttempts: 100)
-    @deprecated(reason: "The ability of admins to create new users will soon be removed.") #TODO: update UserPolicy.create when this mutation is removed.
+    @deprecated(
+      reason: "The ability of admins to create new users will soon be removed."
+    ) #TODO: update UserPolicy.create when this mutation is removed.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
