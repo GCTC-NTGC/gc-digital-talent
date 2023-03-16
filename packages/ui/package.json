@@ -44,7 +44,7 @@
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.9.4",
     "react-remove-scroll": "^2.5.5",
-    "react-router-dom": "^6.8.1",
+    "react-router-dom": "^6.9.0",
     "urql": "^3.0.3"
   },
   "devDependencies": {
@@ -71,7 +71,7 @@
     "jest-presets": "*",
     "react": "^18.2.0",
     "react-intl": "^6.2.10",
-    "react-router-dom": "^6.8.1",
+    "react-router-dom": "^6.9.0",
     "rimraf": "^4.4.0",
     "storybook-helpers": "*",
     "tsconfig": "*",
