@@ -41,9 +41,6 @@ final class CountPoolCandidatesByPool
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
 
-            // user status scope
-            User::scopeAvailableForOpportunities($userQuery);
-
             // hasDiploma
             if (array_key_exists('hasDiploma', $filters)) {
                 User::scopeHasDiploma($userQuery, $filters['hasDiploma']);

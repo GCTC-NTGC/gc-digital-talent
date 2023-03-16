@@ -3,6 +3,7 @@ import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Sidebar from "./Sidebar";
 
@@ -10,11 +11,25 @@ const Navigation: React.FC<{
   children?: React.ReactNode;
 }> = ({ children, ...rest }) => {
   const intl = useIntl();
+  const featureFlags = useFeatureFlags();
   const id = uniqueId();
+
+  const textAlignStyles = featureFlags.applicantDashboard
+    ? {
+        "data-h2-text-align": "base(left)",
+      }
+    : {
+        "data-h2-text-align": "base(left) l-tablet(right)",
+      };
+  const alignItemsStyles = featureFlags.applicantDashboard
+    ? {}
+    : {
+        "data-h2-align-items": "base(flex-start) l-tablet(flex-end)",
+      };
 
   return (
     <Sidebar>
-      <div data-h2-text-align="base(left) l-tablet(right)" {...rest}>
+      <div {...textAlignStyles} {...rest}>
         <h2
           id={`toc-heading-${id}`}
           data-h2-font-size="base(h5, 1)"
@@ -27,7 +42,7 @@ const Navigation: React.FC<{
           aria-labelledby={`toc-heading-${id}`}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
-          data-h2-align-items="base(flex-start) l-tablet(flex-end)"
+          {...alignItemsStyles}
         >
           {children}
         </nav>

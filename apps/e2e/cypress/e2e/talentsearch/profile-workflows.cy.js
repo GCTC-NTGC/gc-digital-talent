@@ -7,7 +7,7 @@ describe("User Profile Workflow Tests", () => {
 
     // make sure we end up on the profile page
     cy.wait("@gqlgetMeQuery");
-    cy.findByRole("heading", { name: /My Status/i })
+    cy.findByRole("heading", { name: /About Me/i })
       .should("exist")
       .and("be.visible");
     cy.url().should("contain", "/profile");

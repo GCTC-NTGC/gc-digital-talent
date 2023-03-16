@@ -357,24 +357,6 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function scopeJobLookingStatus(Builder $query, ?array $statuses): Builder
-    {
-        if (empty($statuses)) {
-            return $query;
-        }
-        // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
-        $query->where(function ($query) use ($statuses) {
-            foreach ($statuses as $index => $status) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere
-                    $query->where('job_looking_status', $status);
-                } else {
-                    $query->orWhere('job_looking_status', $status);
-                }
-            }
-        });
-        return $query;
-    }
     public static function scopeSkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
@@ -654,18 +636,6 @@ RAWSQL2;
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
-        return $query;
-    }
-
-    /**
-     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public static function scopeAvailableForOpportunities(Builder $query): Builder
-    {
-        $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
 
