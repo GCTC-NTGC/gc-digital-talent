@@ -58,11 +58,7 @@ class UserFactory extends Factory
             'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
 
             'legacy_roles' => [],
-            'job_looking_status' => $this->faker->randomElement([
-                'ACTIVELY_LOOKING',
-                'OPEN_TO_OPPORTUNITIES',
-                'INACTIVE',
-            ]),
+            'job_looking_status' => null,
             'current_province' => $this->faker->randomElement([
                 'BRITISH_COLUMBIA',
                 'ALBERTA',
@@ -146,15 +142,6 @@ class UserFactory extends Factory
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
             // mirroring migration where isIndigenous = false maps to []
         ];
-    }
-
-    public function activelyLooking()
-    {
-        return $this->state(function () {
-            return [
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-            ];
-        });
     }
 
     /**
