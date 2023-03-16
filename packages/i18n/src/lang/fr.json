@@ -1278,6 +1278,18 @@
     "defaultMessage": "Mai",
     "description": "Name of the fifth month"
   },
+  "99cWuv": {
+    "defaultMessage": "réussite",
+    "description": "Message for the success status"
+  },
+  "ACO2Uz": {
+    "defaultMessage": "erreur",
+    "description": "Message for the error status"
+  },
+  "qVI4xG": {
+    "defaultMessage": "réussite partielle",
+    "description": "Message for the partial success status"
+  },
   "0bcof1": {
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
     "description": "Prefix when a step is the currently active one."
