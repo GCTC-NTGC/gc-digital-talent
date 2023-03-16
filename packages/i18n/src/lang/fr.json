@@ -1201,5 +1201,33 @@
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
+  },
+  "99cWuv": {
+    "defaultMessage": "réussite",
+    "description": "Message for the success status"
+  },
+  "ACO2Uz": {
+    "defaultMessage": "erreur",
+    "description": "Message for the error status"
+  },
+  "qVI4xG": {
+    "defaultMessage": "réussite partielle",
+    "description": "Message for the partial success status"
+  },
+  "0bcof1": {
+    "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
+    "description": "Prefix when a step is the currently active one."
+  },
+  "9zyjjw": {
+    "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
+    "description": "Prefix when a step has been completed."
+  },
+  "WL3bq/": {
+    "defaultMessage": "Étape {current} de {label}",
+    "description": "Title for a list of steps indicating the current step of the total number of step"
+  },
+  "sfQN9S": {
+    "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
+    "description": "Prefix when a step has an error."
   }
 }
