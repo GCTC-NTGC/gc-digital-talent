@@ -1,13 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
-import { isValid } from "date-fns";
-import {
-  FieldError,
-  RegisterOptions,
-  useFormContext,
-  Controller,
-} from "react-hook-form";
+import omit from "lodash/omit";
+import { isAfter, isBefore, isValid } from "date-fns";
+import { FieldError, useFormContext, Controller } from "react-hook-form";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
@@ -15,7 +11,7 @@ import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 import useFieldState from "../../hooks/useFieldState";
 import Fieldset from "../Fieldset";
 import ControlledInput from "./ControlledInput";
-import { DateSegment, DATE_SEGMENT } from "./types";
+import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
 import { splitSegments } from "./utils";
 
 export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
@@ -25,7 +21,7 @@ export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
    * The form's value at this key should be of type Array<string|number>. */
   name: string;
   /** Set of validation rules and error messages to impose on all input elements. */
-  rules?: RegisterOptions;
+  rules?: DateRegisterOptions;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string below the inputs. */
   context?: string;
   /** If true, all input elements in this fieldset will be disabled. */
@@ -77,6 +73,26 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
     );
   };
 
+  const isAfterMin = (value: string) => {
+    if (!rules.min) {
+      return true;
+    }
+
+    const currentDate = formDateStringToDate(value);
+    const minDate = formDateStringToDate(rules.min.value);
+    return isAfter(currentDate, minDate) || rules.min.message;
+  };
+
+  const isBeforeMax = (value: string) => {
+    if (!rules.max) {
+      return true;
+    }
+
+    const currentDate = formDateStringToDate(value);
+    const maxDate = formDateStringToDate(rules.max.value);
+    return isBefore(currentDate, maxDate) || rules.max.message;
+  };
+
   return (
     <Fieldset
       legend={legend}
@@ -96,9 +112,11 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
         control={control}
         name={name}
         rules={{
-          ...rules,
+          ...omit(rules, "min", "max"),
           validate: {
             isValidDate,
+            isAfterMin,
+            isBeforeMax,
           },
         }}
         render={(props) => <ControlledInput {...props} show={show} />}

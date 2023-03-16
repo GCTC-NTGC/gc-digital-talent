@@ -1,6 +1,7 @@
-import { dateMessages } from "@gc-digital-talent/i18n";
 import { format } from "date-fns";
 import { IntlShape } from "react-intl";
+
+import { dateMessages } from "@gc-digital-talent/i18n";
 
 import { DateSegment, DATE_SEGMENT, SegmentObject } from "./types";
 
