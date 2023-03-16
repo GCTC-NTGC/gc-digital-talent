@@ -73,7 +73,7 @@ const ApplicationCard = ({
         <Heading
           level={headingLevel}
           size="h6"
-          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
           {application.poolAdvertisement
