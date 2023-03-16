@@ -14,6 +14,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -293,6 +294,7 @@ const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
@@ -358,7 +360,10 @@ const CreateAccount: React.FunctionComponent = () => {
 
   // OK to navigate to profile once we have a user ID and an email
   const shouldNavigate = meId && authContext.email;
-  const navigationTarget = from || paths.dashboard();
+  const fallbackTarget = applicantDashboard
+    ? paths.dashboard()
+    : paths.profile(meId ?? "");
+  const navigationTarget = from || fallbackTarget;
   React.useEffect(() => {
     if (shouldNavigate) {
       navigate(navigationTarget);
