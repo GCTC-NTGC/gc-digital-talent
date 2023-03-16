@@ -123,6 +123,7 @@ const ControlledInput = ({
             type="number"
             onChange={handleDayChange}
             defaultValue={day}
+            max={31}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
             {...inputStyles}
           />
