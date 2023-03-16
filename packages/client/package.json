@@ -33,7 +33,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.2.10",
+    "react-intl": "^6.3.0",
     "urql": "^3.0.3"
   },
   "devDependencies": {
