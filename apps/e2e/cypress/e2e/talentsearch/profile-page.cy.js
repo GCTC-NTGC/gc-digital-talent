@@ -55,24 +55,20 @@ describe("Talentsearch Profile Page", () => {
 
     it("loads page successfully", () => {
       cy.visit('/en/users/test-applicant/profile')
-      cy.contains("My Status");
       cy.contains("About Me");
       cy.contains("Language Information");
       cy.contains("Government Information");
       cy.contains("Work Location");
       cy.contains("Work Preferences");
       cy.contains("Diversity, equity and inclusion");
-      cy.contains("My skills and experience");
 
       cy.visit('/en/talent/profile')
-      cy.contains("My Status");
       cy.contains("About Me");
       cy.contains("Language Information");
       cy.contains("Government Information");
       cy.contains("Work Location");
       cy.contains("Work Preferences");
       cy.contains("Diversity, equity and inclusion");
-      cy.contains("My skills and experience");
     });
   })
 

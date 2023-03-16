@@ -15,6 +15,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import LatestRequestsTable from "./components/LatestRequestsTable";
 
 interface DashboardPageProps {
@@ -24,9 +25,19 @@ interface DashboardPageProps {
 const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: adminRoutes.adminDashboard(),
+    },
+  ];
 
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",
@@ -121,7 +132,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
         </span>
       </div>
       <LatestRequestsTable />
-    </>
+    </AdminContentWrapper>
   );
 };
 

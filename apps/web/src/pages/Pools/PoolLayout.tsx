@@ -104,9 +104,12 @@ const PoolLayout = () => {
 
   return (
     <>
-      <Pending fetching={fetching} error={error}>
-        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
-      </Pending>
+      {/* This is above the AdminContentWrapper so it needs its own centering */}
+      <div data-h2-container="base(center, full, x2)">
+        <Pending fetching={fetching} error={error}>
+          {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
+        </Pending>
+      </div>
       <Outlet />
     </>
   );
