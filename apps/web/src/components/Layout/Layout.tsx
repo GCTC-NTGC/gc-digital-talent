@@ -10,6 +10,7 @@ import {
   ROLE_NAME,
 } from "@gc-digital-talent/auth";
 import { useTheme } from "@gc-digital-talent/theme";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
@@ -18,7 +19,6 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
