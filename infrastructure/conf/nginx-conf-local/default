@@ -8,12 +8,12 @@ server {
     #proxy_cache_valid 200 1s;
 
     # on the servers, the pages are served on 8080 then reverse proxied upstream
-    listen 8080;
-    listen [::]:8080;
+    listen 8080 default_server;
+    listen [::]:8080 default_server;
     root /home/site/wwwroot;
-    index  index.php index.html index.htm;
+    index index.html index.htm;
 
-    #server_name localhost;
+    server_name _;
 
     # redirect server error pages
     error_page   404  /404;
@@ -58,57 +58,6 @@ server {
         proxy_set_header X-Forwarded-Proto http;
         proxy_set_header Host localhost:8000;
         break;
-    }
-
-    # api
-    location = /phpinfo.php {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/phpinfo.php;
-    }
-    location = /xdebuginfo.php {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/xdebuginfo.php;
-    }
-    location = /graphql {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /graphiql {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /login {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /register {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /auth-callback {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-        ## TUNE buffers to avoid "upstream sent too big headers" error ##
-        fastcgi_buffers 16 32k;
-        fastcgi_buffer_size 64k;
-        fastcgi_busy_buffers_size 64k;
-    }
-    location = /refresh {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location ~ "^/api(/(.*))?$" {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
 
     # rewrite root-level possible lang prefix to apps/web index.html

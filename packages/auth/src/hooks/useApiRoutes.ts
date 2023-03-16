@@ -5,7 +5,7 @@ export interface ApiRoutes {
   refreshAccessToken: () => string;
 }
 
-const apiRoot = (): string => "/";
+const apiRoot = (): string => "http://api.localhost:8000/"; // this should be an environment variable
 
 const apiRoutes = {
   login: (from?: string, locale?: string): string => {
@@ -15,7 +15,7 @@ const apiRoutes = {
     const searchString = searchTerms.join("&");
 
     const url =
-      path.join(apiRoot(), "login") + (searchString ? `?${searchString}` : "");
+      new URL("/login", apiRoot()) + (searchString ? `?${searchString}` : "");
 
     return url;
   },
