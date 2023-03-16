@@ -2,12 +2,13 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import ViewTeam from "./components/ViewTeam";
 
@@ -44,15 +45,42 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
 
 const ViewTeamPage = () => {
   const intl = useIntl();
-  const paths = useRoutes();
+  const routes = useRoutes();
 
   const { teamId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useViewTeamQuery({
     variables: { id: teamId || "" },
   });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Teams",
+        id: "P+KWP7",
+        description: "Breadcrumb title for the teams page link.",
+      }),
+      url: routes.teamTable(),
+    },
+    ...(teamId
+      ? [
+          {
+            label: getLocalizedName(data?.team?.displayName, intl),
+            url: routes.teamView(teamId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
         {data?.team ? (
           <ViewTeamContent team={data.team} />
@@ -78,7 +106,7 @@ const ViewTeamPage = () => {
           type="button"
           mode="solid"
           color="secondary"
-          href={paths.teamTable()}
+          href={routes.teamTable()}
         >
           {intl.formatMessage({
             defaultMessage: "Back to teams",
@@ -87,7 +115,7 @@ const ViewTeamPage = () => {
           })}
         </Link>
       </p>
-    </>
+    </AdminContentWrapper>
   );
 };
 

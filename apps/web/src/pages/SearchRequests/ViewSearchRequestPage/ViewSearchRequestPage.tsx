@@ -25,16 +25,15 @@ export const SingleSearchRequestPage = () => {
   return (
     <>
       <SEO title={pageTitle} />
-      <div data-h2-padding="base(0, 0, x3, 0)">
-        <div data-h2-container="base(center, large, x2)">
-          <header>
-            <Heading level="h1" size="h2">
-              {pageTitle}
-            </Heading>
-          </header>
-          <ViewSearchRequestApi searchRequestId={searchRequestId || ""} />
-        </div>
+      {/* This is above the AdminContentWrapper so it needs its own centering */}
+      <div data-h2-container="base(center, full, x2)">
+        <header>
+          <Heading level="h1" size="h2">
+            {pageTitle}
+          </Heading>
+        </header>
       </div>
+      <ViewSearchRequestApi searchRequestId={searchRequestId || ""} />
     </>
   );
 };
