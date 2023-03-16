@@ -1201,5 +1201,17 @@
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
+  },
+  "99cWuv": {
+    "defaultMessage": "réussite",
+    "description": "Message for the success status"
+  },
+  "ACO2Uz": {
+    "defaultMessage": "erreur",
+    "description": "Message for the error status"
+  },
+  "qVI4xG": {
+    "defaultMessage": "réussite partielle",
+    "description": "Message for the partial success status"
   }
 }
