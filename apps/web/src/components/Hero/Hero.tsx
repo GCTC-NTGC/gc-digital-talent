@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Heading,
+  type HeadingRef,
   Breadcrumbs,
   type BreadcrumbsProps,
   Flourish,
@@ -49,6 +50,7 @@ const Hero = ({
   children,
   centered = false,
 }: HeroProps) => {
+  const headingRef = React.useRef<HeadingRef>(null);
   const showImg = imgPath && !centered && !children;
   const breadCrumbs =
     crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null;
@@ -65,6 +67,13 @@ const Hero = ({
   } else if (children) {
     padding = paddingMap.get("overlap");
   }
+
+  React.useEffect(() => {
+    if (headingRef.current) {
+      headingRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
       <div
@@ -122,7 +131,12 @@ const Hero = ({
           data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
-            <Heading level="h1" size="h2" data-h2-margin="base(0)">
+            <Heading
+              ref={headingRef}
+              level="h1"
+              size="h2"
+              data-h2-margin="base(0)"
+            >
               {title}
             </Heading>
             {subtitle && (
