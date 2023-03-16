@@ -83,11 +83,13 @@ const dateMessages = defineMessages({
   },
   yearPlaceholder: {
     defaultMessage: "YYYY",
-    description: "Placeholder for a year input"
+    id: "4MKYKl",
+    description: "Placeholder for a year input",
   },
   dayPlaceholder: {
     defaultMessage: "DD",
-    description: "Placeholder for a day input"
+    id: "T5b8Q7",
+    description: "Placeholder for a day input",
   },
 });
 
