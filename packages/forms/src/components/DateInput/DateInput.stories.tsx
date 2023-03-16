@@ -1,11 +1,16 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { isBefore } from "date-fns";
 
-import DateInput from "./DateInput";
+import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
+
+import DateInput, { DateInputProps } from "./DateInput";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import { DATE_SEGMENT } from "./types";
+import { useWatch } from "react-hook-form";
+import Input from "../Input/Input";
 
 export default {
   component: DateInput,
@@ -25,9 +30,9 @@ export default {
   },
 } as ComponentMeta<typeof DateInput>;
 
-const Template: ComponentStory<typeof DateInput & { defaultValue?: string }> = (
-  args,
-) => {
+type DateInputArgs = typeof DateInput & { defaultValue?: string };
+
+const Template: ComponentStory<DateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   return (
     <Form
@@ -89,4 +94,84 @@ OnlyYearAndMonth.args = {
   legend: "Date",
   name: "date",
   show: [DATE_SEGMENT.Year, DATE_SEGMENT.Month],
+};
+
+const ValidationDependantInputs = ({
+  name,
+  id,
+  legend,
+  ...rest
+}: DateInputProps) => {
+  const watchFirstInput = useWatch({ name });
+
+  return (
+    <>
+      <DateInput {...{ name, id, legend }} {...rest} />
+      <DateInput
+        name={`${name}Two`}
+        id={`${id}Two`}
+        legend={`${legend} Two`}
+        rules={{
+          min: {
+            value: watchFirstInput,
+            message: `Must be after ${watchFirstInput}`,
+          },
+        }}
+      />
+    </>
+  );
+};
+
+const ValidationDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
+  const { defaultValue, ...rest } = args;
+  return (
+    <Form
+      options={{ mode: "onChange" }}
+      onSubmit={(data) => action("Submit Form")(data)}
+    >
+      <ValidationDependantInputs {...rest} />
+      <Submit />
+    </Form>
+  );
+};
+
+export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
+SecondComesAfterFirst.args = {
+  name: "date",
+  id: "date",
+  legend: "Date",
+};
+
+const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
+  const watchFirstInput = useWatch({ name });
+  const inputDate = watchFirstInput
+    ? formDateStringToDate(watchFirstInput)
+    : null;
+
+  return inputDate && isBefore(new Date(), inputDate) ? (
+    <Input type="text" id="signature" name="signature" label="Signature" />
+  ) : (
+    <p data-h2-margin="base(x1, 0)">Please select a date in the past to continue.</p>
+  );
+};
+
+const RenderDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
+  const { defaultValue, ...rest } = args;
+  return (
+    <Form
+      options={{ mode: "onChange" }}
+      onSubmit={(data) => action("Submit Form")(data)}
+    >
+      <DateInput {...rest} />
+      <RenderDependantInput name={rest.name} />
+      <Submit />
+    </Form>
+  );
+};
+
+export const HideInputWhenInvalid = RenderDependantTemplate.bind({});
+HideInputWhenInvalid.args = {
+  name: "date",
+  id: "date",
+  legend: "Date",
 };
