@@ -1141,6 +1141,10 @@
     "defaultMessage": "Actif",
     "description": "Active status"
   },
+  "zafWLP": {
+    "defaultMessage": "Suspendu",
+    "description": "Suspended status"
+  },
   "qQtJDw": {
     "defaultMessage": "Tous",
     "description": "All statuses"

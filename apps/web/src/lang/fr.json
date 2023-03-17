@@ -4720,10 +4720,6 @@
     "defaultMessage": "Notes",
     "description": "CSV Header, Notes column"
   },
-  "fLSDYW": {
-    "defaultMessage": "Disponibilité",
-    "description": "Title displayed for the Pool Candidates table Availability column."
-  },
   "gDSeKw": {
     "defaultMessage": "Date de réception :",
     "description": "Date Received label and colon"
@@ -6765,6 +6761,10 @@
   "mOS8rj": {
     "defaultMessage": "Équipe principale",
     "description": "Label displayed for selecting what team a new pool belongs to."
+  },
+  "/LGiVB": {
+    "defaultMessage": "Statut de la candidature ",
+    "description": "Candidacy status label"
   },
   "1wONOC": {
     "defaultMessage": "Profil",
