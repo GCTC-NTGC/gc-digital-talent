@@ -49,6 +49,7 @@ const ApplicationCard = ({
   const isApplicantPlaced = isPlaced(application.status);
   const applicationCanBeDeleted = canBeDeleted(application.status);
   const recruitmentIsExpired = isExpired(
+    application.status,
     application.poolAdvertisement?.closingDate,
   );
   const submittedAt = formatSubmittedAt(application.submittedAt, intl);
