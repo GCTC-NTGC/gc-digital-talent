@@ -59,7 +59,10 @@ const Chip: React.FC<ChipProps> = ({
         color={color}
         mode={mode}
         role="listitem"
-        data-h2-padding="base(x.25, x.5)"
+        data-h2-margin="base(0, x.25, 0, 0)"
+        data-h2-padding="base(x.5)"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
         {...rest}
       >
         {label}

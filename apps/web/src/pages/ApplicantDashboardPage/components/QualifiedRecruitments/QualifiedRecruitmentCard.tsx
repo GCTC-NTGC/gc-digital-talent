@@ -44,7 +44,7 @@ type FormValues = {
   isSuspended: boolean;
 };
 
-// TODO: Should the dialog component be pulled out into another file (?)
+// TODO: Should the dialog component be pulled out into another file?
 const QualifiedRecruitmentDialog = ({
   openDialogLabel,
   primaryBodyText,
@@ -73,14 +73,6 @@ const QualifiedRecruitmentDialog = ({
       .then((res) => {
         if (!res.error) {
           setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "INSERT SUCCESSFUL CONTENT HERE.",
-              id: "h0j1x7",
-              description:
-                "Alert displayed to user suspended at value has been successfully updated.",
-            }),
-          );
         }
       })
       .catch(() => {
