@@ -87,7 +87,7 @@ describe('Auth flows (development)', () => {
       cy.visit('/admin')
       // Click login button.
       // Limit to nav because two login buttons on main page.
-      cy.get('nav').within(() => {
+      cy.findByRole('navigation', { name: /Main Menu/i}).within(() => {
         cy.findByRole('button', { name: 'Logout' })
           .should('not.exist')
         cy.findByRole('link', { name: 'Login' })
@@ -100,7 +100,7 @@ describe('Auth flows (development)', () => {
 
       cy.url().should('equal', Cypress.config().baseUrl + '/en/admin/dashboard')
       // Confirm login status via button state.
-      cy.get('nav').within(() => {
+      cy.findByRole('navigation', { name: /Main Menu/i}).within(() => {
         cy.findByRole('link', { name: 'Login' })
           .should('not.exist')
         cy.findByRole('button', { name: 'Logout' })
