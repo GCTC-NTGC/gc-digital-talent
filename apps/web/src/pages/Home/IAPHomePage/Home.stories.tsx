@@ -1,12 +1,18 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "storybook-helpers";
+import {
+  widthOf,
+  heightOf,
+  NestedLanguageProviderDecorator,
+} from "storybook-helpers";
+
 import Home from "./Home";
 
 export default {
   component: Home,
   title: "Pages/Home Page/IAP",
+  decorators: [NestedLanguageProviderDecorator],
   parameters: {
     backgrounds: {
       default: "white",
