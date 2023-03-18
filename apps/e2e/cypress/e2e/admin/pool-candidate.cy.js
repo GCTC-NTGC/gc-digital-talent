@@ -109,11 +109,6 @@ describe("Pool Candidates", () => {
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
-
     cy.findAllByRole("link", { name: /view application/i })
       .eq(0)
       .click();
@@ -209,11 +204,6 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
       .should("exist")
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
-
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 

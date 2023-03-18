@@ -98,7 +98,9 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+  jobLookingStatus: JobLookingStatus
+    @rename(attribute: "job_looking_status")
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -271,7 +273,9 @@ type Applicant {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+  jobLookingStatus: JobLookingStatus
+    @rename(attribute: "job_looking_status")
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
@@ -321,7 +325,9 @@ type Pool {
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate] @hasMany(relation: "publishedPoolCandidates") @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate]
+    @hasMany(relation: "publishedPoolCandidates")
+    @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   status: PoolStatus
     @rename(attribute: "pool_status")
@@ -799,10 +805,17 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
+}
+
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 input PoolCandidateFilterInput {
@@ -825,7 +838,7 @@ input PoolCandidateFilterInput {
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  jobLookingStatus: [JobLookingStatus] @scope
+  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
@@ -857,6 +870,7 @@ input PoolCandidateSearchInput {
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
+  suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
 }
 
 type CandidateSearchPoolResult {
@@ -886,7 +900,7 @@ type Query {
     @can(ability: "viewAnyApplicants", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["availableForOpportunities"])
+    @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
@@ -903,9 +917,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(
-    includeIds: [ID] @in(key: "id")
-  ): [PoolCandidate]!
+  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
@@ -933,7 +945,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "availableForOpportunities"]
+      scopes: ["notDraft"]
     )
     @guard
     @can(ability: "view", resolved: true)
@@ -1608,6 +1620,9 @@ type Mutation {
     @guard
     @can(ability: "create")
     @throttle(maxAttempts: 100)
+    @deprecated(
+      reason: "The ability of admins to create new users will soon be removed."
+    ) #TODO: update UserPolicy.create when this mutation is removed.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard

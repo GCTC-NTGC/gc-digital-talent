@@ -4,10 +4,11 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
-  getJobLookingStatus,
+  getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
@@ -19,7 +20,6 @@ import { FromArray } from "~/types/utility";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  JobLookingStatus,
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
@@ -33,6 +33,7 @@ import {
   PoolAdvertisement,
   Maybe,
   CandidateExpiryFilter,
+  CandidateSuspendedFilter,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -52,6 +53,7 @@ import {
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
 import {
   stringToEnumCandidateExpiry,
+  stringToEnumCandidateSuspended,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
@@ -108,6 +110,9 @@ function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus
       ? [input.expiryStatus]
       : [CandidateExpiryFilter.Active],
+    suspendedStatus: input?.suspendedStatus
+      ? [input.suspendedStatus]
+      : [CandidateSuspendedFilter.Active],
   };
 }
 
@@ -175,16 +180,45 @@ const priorityAccessor = (
     </span>
   );
 };
-const availabilityAccessor = (
-  status: JobLookingStatus | null | undefined,
+
+const candidacyStatusAccessor = (
+  suspendedAt: string | null | undefined,
   intl: IntlShape,
-) => (
-  <span>
-    {status
-      ? intl.formatMessage(getJobLookingStatus(status as string, "short"))
-      : ""}
-  </span>
-);
+) => {
+  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
+  const getSuspendedStatus = (
+    suspendedTime: Date,
+    currentTime: Date,
+  ): CandidateSuspendedFilter => {
+    if (suspendedTime >= currentTime) {
+      return CandidateSuspendedFilter.Active;
+    }
+    return CandidateSuspendedFilter.Suspended;
+  };
+
+  if (suspendedAt) {
+    const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
+    const currentTime = new Date();
+    return (
+      <span>
+        {intl.formatMessage(
+          getCandidateSuspendedFilterStatus(
+            getSuspendedStatus(parsedSuspendedTime, currentTime),
+          ),
+        )}
+      </span>
+    );
+  }
+
+  return (
+    <span>
+      {intl.formatMessage(
+        getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
+      )}
+    </span>
+  );
+};
+
 const viewAccessor = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
@@ -237,7 +271,7 @@ const provinceAccessor = (
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["preferredLang"],
+  hiddenColumnIds: ["preferredLang", "candidacyStatus"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -276,6 +310,9 @@ const PoolCandidatesTable: React.FC<{
         expiryStatus: initialFilterInput?.expiryStatus
           ? initialFilterInput.expiryStatus
           : CandidateExpiryFilter.Active,
+        suspendedStatus: initialFilterInput?.suspendedStatus
+          ? initialFilterInput.suspendedStatus
+          : CandidateSuspendedFilter.Active,
       },
     }),
     [initialFilterInput],
@@ -299,7 +336,10 @@ const PoolCandidatesTable: React.FC<{
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
   const sortOrder = useMemo(() => {
-    if (sortingRule?.column.sortColumnName === "submitted_at") {
+    if (
+      sortingRule?.column.sortColumnName === "submitted_at" ||
+      sortingRule?.column.sortColumnName === "suspended_at"
+    ) {
       return {
         column: sortingRule.column.sortColumnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -362,6 +402,7 @@ const PoolCandidatesTable: React.FC<{
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
+      suspendedStatus: fancyFilterState?.suspendedStatus,
     };
   };
 
@@ -407,6 +448,9 @@ const PoolCandidatesTable: React.FC<{
       }),
       expiryStatus: data.expiryStatus[0]
         ? stringToEnumCandidateExpiry(data.expiryStatus[0])
+        : undefined,
+      suspendedStatus: data.suspendedStatus[0]
+        ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
     };
 
@@ -506,15 +550,13 @@ const PoolCandidatesTable: React.FC<{
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Availability",
-          id: "fLSDYW",
-          description:
-            "Title displayed for the Pool Candidates table Availability column.",
+          defaultMessage: "Candidacy Status",
+          description: "Candidacy status label",
+          id: "/LGiVB",
         }),
-        id: "availability",
-        accessor: ({ user }) =>
-          availabilityAccessor(user.jobLookingStatus, intl),
-        sortColumnName: "JOB_LOOKING_STATUS",
+        id: "candidacyStatus",
+        accessor: (d) => candidacyStatusAccessor(d.suspendedAt, intl),
+        sortColumnName: "suspended_at",
       },
       {
         label: intl.formatMessage({

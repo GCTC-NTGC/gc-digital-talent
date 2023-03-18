@@ -39,7 +39,7 @@ type Applicant {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -155,6 +155,12 @@ enum CandidateExpiryFilter {
 type CandidateSearchPoolResult {
   pool: PoolAdvertisement!
   candidateCount: Int!
+}
+
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
 }
 
 enum CitizenshipStatus {
@@ -585,7 +591,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User
+  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -894,6 +900,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
+  suspendedStatus: CandidateSuspendedFilter
 }
 
 type PoolCandidateSearchRequest {
@@ -1500,7 +1507,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1552,6 +1559,7 @@ input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 type UserPublicProfile {

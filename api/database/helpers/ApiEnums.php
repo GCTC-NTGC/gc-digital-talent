@@ -89,6 +89,22 @@ class ApiEnums
         ];
     }
 
+    const CANDIDATE_SUSPENDED_FILTER_ACTIVE = 'ACTIVE';
+    const CANDIDATE_SUSPENDED_FILTER_SUSPENDED = 'SUSPENDED';
+    const CANDIDATE_SUSPENDED_FILTER_ALL = 'ALL';
+    /**
+     * A collection of enums for CandidateSuspendedFilter
+     * @return string[]
+     */
+    public static function candidateSuspendedFilters(): array
+    {
+        return [
+            self::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+            self::CANDIDATE_SUSPENDED_FILTER_SUSPENDED,
+            self::CANDIDATE_SUSPENDED_FILTER_ALL,
+        ];
+    }
+
     const LEGACY_ROLE_ADMIN = 'ADMIN';
     const LEGACY_ROLE_APPLICANT = 'APPLICANT';
     /**

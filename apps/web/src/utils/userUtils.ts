@@ -1,5 +1,6 @@
 import {
   CandidateExpiryFilter,
+  CandidateSuspendedFilter,
   JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
@@ -71,6 +72,19 @@ export function stringToEnumCandidateExpiry(
     )
   ) {
     return selection as CandidateExpiryFilter;
+  }
+  return undefined;
+}
+
+export function stringToEnumCandidateSuspended(
+  selection: string,
+): CandidateSuspendedFilter | undefined {
+  if (
+    Object.values(CandidateSuspendedFilter).includes(
+      selection as CandidateSuspendedFilter,
+    )
+  ) {
+    return selection as CandidateSuspendedFilter;
   }
   return undefined;
 }

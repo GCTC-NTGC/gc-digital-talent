@@ -5,6 +5,7 @@ import { OperationResult } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   Exact,
@@ -80,6 +81,7 @@ const AboutMePage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
+  const featureFlags = useFeatureFlags();
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
@@ -100,7 +102,7 @@ const AboutMePage = () => {
             res.data?.updateUserAsUser?.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
+            if (!featureFlags.applicantDashboard) toast.success(message);
           }
           return res.data.updateUserAsUser;
         }
