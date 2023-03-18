@@ -254,6 +254,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             ? durationSelectionToEnum(values.employmentDuration)
             : null,
           locationPreferences: values.locationPreferences || [],
+          stream: values.stream ? values.stream : undefined,
           pools: pools
             ? pools
                 .filter(notEmpty)

@@ -600,6 +600,7 @@ type ApplicantFilter {
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   pools: [Pool] @belongsToMany
+  stream: [PoolStream]
 }
 
 type PoolCandidateSearchRequest {
@@ -843,6 +844,7 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  stream: PoolStream @scope
 }
 
 input PoolCandidateSearchInput {
@@ -1404,6 +1406,7 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
+  stream: PoolStream
 }
 
 input ApplicantFilterBelongsTo {
