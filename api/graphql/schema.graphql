@@ -1296,7 +1296,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
-  team: TeamBelongsTo @rename(attribute: "team")
+  team: TeamBelongsTo
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1749,7 +1749,7 @@ type Mutation {
   createPool(pool: CreatePoolInput! @spread): Pool
     @create
     @guard
-    @can(ability: "create")
+    @can(ability: "create", injectArgs: true)
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
@@ -1757,7 +1757,7 @@ type Mutation {
   ): PoolAdvertisement
     @create(model: "Pool")
     @guard
-    @can(ability: "create", model: "Pool")
+    @can(ability: "create", model: "Pool", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Pool;
 use App\Models\User;
+use App\Models\Team;
 use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -33,11 +34,7 @@ class PoolPolicy
      */
     public function view(User $user, Pool $pool)
     {
-        if ($user->isAbleTo("view-team-pool", $pool->team)) {
-            return true;
-        }
-
-        return $user->isAbleTo("view-any-pool");
+        return $user->isAbleTo("view-any-pool") || $user->isAbleTo("view-team-pool", $pool->team);
     }
 
     /**
@@ -49,6 +46,7 @@ class PoolPolicy
      */
     public function viewAdvertisement(User $user = null, Pool $pool)
     {
+        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
         }
@@ -57,11 +55,8 @@ class PoolPolicy
             return false;
         }
 
-        if ($user->isAbleTo("view-team-pool", $pool->team)) {
-            return true;
-        }
-
-        return $user->isAbleTo("view-any-pool");
+        // PoolAdvertisement is a subset of Pool, so if a user can view the pool, they can view the pool Advertisement.
+        return $this->view($user, $pool);
     }
 
     /**
@@ -70,7 +65,7 @@ class PoolPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyPublishedAdvertisement(User $user = null)
+    public function viewAnyPublishedAdvertisement()
     {
         return true;
     }
@@ -79,11 +74,36 @@ class PoolPolicy
      * Determine whether the user can create pools.
      *
      * @param  \App\Models\User  $user
+     * @param  $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *      We need to use this because the model hasn't been created yet so we can't read from it
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user, $request)
     {
-        return $user->isAbleTo("create-team-pool");
+        // The team id will be located in a different location depending on if this is called by
+        // the createPool or createPoolAdvertisement mutation
+        $team_id = null;
+        if (array_key_exists('team_id', $request)) {
+            $team_id = $request['team_id'];
+        } else if (array_key_exists('team', $request) && array_key_exists('connect', $request['team'])) {
+            $team_id = $request['team']['connect'];
+        }
+
+        // Failed to get the new pools team - reject
+        // This should only occur if the mutation structure has changed
+        if (is_null($team_id)) {
+            return Response::deny("Could not find team to create pool for.");
+        }
+
+        // Get the team to check against
+        $team = Team::find($team_id);
+
+        // Confirm the user can create pools for the team
+        if ($user->isAbleTo("create-team-pool", $team)) {
+            return true;
+        } else {
+            return Response::deny("Cannot create a pool for that team.");
+        }
     }
 
     /**
@@ -95,11 +115,8 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
-            return false;
-        }
-
-        return $user->isAbleTo("update-team-draftPool", $pool->team);
+        return $pool->getAdvertisementStatusAttribute() === ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT
+            && $user->isAbleTo("update-team-draftPool", $pool->team);
     }
 
     /**
