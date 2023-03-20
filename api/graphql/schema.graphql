@@ -268,8 +268,10 @@ type Applicant {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
+  jobLookingStatus: JobLookingStatus
+    @rename(attribute: "job_looking_status")
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
+  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft"]) @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
