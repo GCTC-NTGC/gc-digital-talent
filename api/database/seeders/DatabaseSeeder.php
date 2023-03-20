@@ -243,6 +243,8 @@ class DatabaseSeeder extends Seeder
             ->where('level', '<', 5)
             ->get();
 
+        $testTeamId = Team::where('name', 'test-team')->sole()['id'];
+
         foreach ($classifications as $classification) {
             foreach ($publishingGroups as $publishingGroup) {
                 foreach ($dates as $date) {
@@ -251,7 +253,9 @@ class DatabaseSeeder extends Seeder
                     })->create([
                         'closing_date' => $date,
                         'publishing_group' => $publishingGroup,
-                        'published_at' => $faker->dateTimeBetween('-1 year', 'now')
+                        'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
+                        'stream' => $faker->randomElement(ApiEnums::poolStreams()),
+                        'team_id' => $testTeamId,
                     ]);
                 }
             }
