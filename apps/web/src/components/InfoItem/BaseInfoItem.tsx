@@ -102,6 +102,7 @@ export const BaseInfoItem = ({
         <Icon
           data-h2-height="base(x.75)"
           data-h2-width="base(x.75)"
+          data-h2-min-width="base(x.75)"
           data-h2-margin-top="base(x.15)"
           data-h2-transition="base(color .2s ease)"
           {...iconColorMap[iconColor]}
