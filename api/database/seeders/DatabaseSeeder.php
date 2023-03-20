@@ -63,11 +63,13 @@ class DatabaseSeeder extends Seeder
         // Seed some expected values
         $this->seedPools();
 
+        $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
+
         User::factory([
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->count(150)
-            ->afterCreating(function (User $user) use ($faker) {
+            ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
 
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
@@ -76,7 +78,6 @@ class DatabaseSeeder extends Seeder
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
@@ -108,9 +109,11 @@ class DatabaseSeeder extends Seeder
             })
             ->create();
 
+        // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
+        $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
 
         // add experiences to all the users
         User::all()->each(function ($user) use ($faker) {
@@ -212,6 +215,24 @@ class DatabaseSeeder extends Seeder
                 }
             })
             ->create();
+    }
+
+    private function seedAwardExperienceForPool(User $user, Pool $pool)
+    {
+        // attach an award experience to a given user that has all the essential skills of a given pool
+        $faker = Faker\Factory::create();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
+
+        if (isset($essentialSkillIds) && count($essentialSkillIds) > 0){
+            $data = array_map(function () use ($faker) {
+                return ['details' => $faker->text()];
+            }, array_flip($essentialSkillIds)); // flip array from [index => 'id'], need id as keys
+
+            AwardExperience::factory()->for($user)
+                ->afterCreating(function ($model) use ($data) {
+                    $model->skills()->sync($data);
+                })->create();
+        }
     }
 
     private function seedSuspendedCandidate(User $user, Pool $pool)
