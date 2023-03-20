@@ -135,9 +135,10 @@ const Select: React.FunctionComponent<SelectProps> = ({
         <select
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
+          data-h2-width="base(100%)"
+          data-h2-min-height="base(40px)"
           {...stateStyles}
           id={id}
-          style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           aria-required={rules?.required ? "true" : undefined}

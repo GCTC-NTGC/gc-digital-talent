@@ -92,8 +92,9 @@ const Input: React.FunctionComponent<InputProps> = ({
         <input
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
+          data-h2-width="base(100%)"
+          data-h2-min-height="base(40px)"
           {...stateStyles}
-          style={{ width: "100%" }}
           id={id}
           {...register(name, rules)}
           onBlur={whitespaceTrimmer}

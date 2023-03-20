@@ -22,6 +22,7 @@ import {
 import {
   apiMessages,
   commonMessages,
+  dateMessages,
   errorMessages,
   navigationMessages,
   tryFindMessageDescriptor,
@@ -97,6 +98,7 @@ export {
   apiMessages,
   commonMessages,
   errorMessages,
+  dateMessages,
   navigationMessages,
   uiMessages,
   formMessages,
