@@ -28,7 +28,7 @@
     "check-integrity": "turbo run check-integrity --filter=@gc-digital-talent/tooling -- --dir $INIT_CWD --lock-file=\"package-lock.json\"",
     "clean": "turbo run clean",
     "intl-extract": "turbo run intl-extract",
-    "intl-compile": "turbo run intl-compile --verbosity=2",
+    "intl-compile": "turbo run intl-compile",
     "dev": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
