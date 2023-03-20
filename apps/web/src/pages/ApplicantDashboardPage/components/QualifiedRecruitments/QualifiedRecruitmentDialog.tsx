@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { toast } from "react-toastify";
+import { toast } from "@gc-digital-talent/toast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { useIntl } from "react-intl";
