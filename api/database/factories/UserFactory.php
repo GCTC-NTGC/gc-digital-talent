@@ -200,6 +200,11 @@ class UserFactory extends Factory
             $user->expectedGenericJobTitles()->saveMany(
                 GenericJobTitle::inRandomOrder()->take(1)->get()
             );
+
+            if($user->looking_for_bilingual == false && $user->looking_for_english == false && $user->looking_for_french == false){
+                $user->looking_for_english = true;
+                $user->save();
+            }
         });
     }
 }
