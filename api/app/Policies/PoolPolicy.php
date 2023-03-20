@@ -65,7 +65,7 @@ class PoolPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyPublishedAdvertisement()
+    public function viewAnyPublishedAdvertisement(User $user = null)
     {
         return true;
     }
