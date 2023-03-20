@@ -2,16 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { imageUrl } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import SupportForm from "./components/SupportForm/SupportForm";
+import flourishTopLight from "~/assets/img/support_top_light.png";
+import flourishTopDark from "~/assets/img/support_top_dark.png";
+import supportHeroImg from "~/assets/img/support_header.png";
 
-const flourishTopLight = imageUrl("/", "support_top_light.png");
-const flourishTopDark = imageUrl("/", "support_top_dark.png");
+import SupportForm from "./components/SupportForm/SupportForm";
 
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
@@ -41,7 +41,7 @@ export const SupportPage: React.FC = () => {
   return (
     <>
       <Hero
-        imgPath={imageUrl("/", "support_header.png")}
+        imgPath={supportHeroImg}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:

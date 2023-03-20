@@ -2,21 +2,25 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
+import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
+import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
+import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
+import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
+
 import "./hero.css";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
-    imageUrl("/", "hero-1-landscape.jpg"),
-    imageUrl("/", "hero-2-landscape.jpg"),
-    imageUrl("/", "hero-3-landscape.jpg"),
-    imageUrl("/", "hero-4-landscape.jpg"),
+    hero1Landscape,
+    hero2Landscape,
+    hero3Landscape,
+    hero4Landscape,
   ];
   return items[index ?? Math.floor(Math.random() * items.length)];
 };
