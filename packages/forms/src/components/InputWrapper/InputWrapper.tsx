@@ -27,7 +27,7 @@ export interface InputWrapperProps {
   onContextToggle?: (visible: boolean) => void;
 }
 
-const InputWrapper: React.FC<InputWrapperProps> = ({
+const InputWrapper = ({
   inputId,
   inputName,
   label,
@@ -44,7 +44,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   fillLabel = false,
   trackUnsaved = true,
   ...rest
-}) => {
+}: InputWrapperProps) => {
   const [contextVisible, setContextVisible] = useState(false);
   const fieldState = useFieldState(inputName || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

@@ -47,7 +47,9 @@ const CheckButton = ({
     onToggle();
   };
 
-  let Icon: string | React.FC<React.SVGProps<SVGSVGElement>> = "span";
+  let Icon:
+    | string
+    | React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>> = "span";
   if (indeterminate) {
     Icon = MinusIcon;
   }
