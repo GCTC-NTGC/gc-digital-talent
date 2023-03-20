@@ -50,7 +50,7 @@ const GovernmentInfoFormApi: React.FunctionComponent<
           initialData={initialData}
           application={{
             ...data.poolCandidate,
-            pool: {id: data.poolCandidate.id}
+            pool: { id: data.poolCandidate.id },
           }}
           submitHandler={submitHandler}
         />

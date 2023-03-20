@@ -38,7 +38,7 @@ const EmploymentEquityFormApi: React.FunctionComponent<
           isMutating={isMutating}
           application={{
             ...data.poolCandidate,
-            pool: {id: data.poolCandidate.id}
+            pool: { id: data.poolCandidate.id },
           }}
         />
       ) : (

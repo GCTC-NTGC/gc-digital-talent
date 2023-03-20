@@ -284,11 +284,11 @@ const SupportFormApi = () => {
             if (candidate) {
               return {
                 ...candidate,
-                pool: {id: candidate.poolAdvertisement?.id || ""}
-              }
+                pool: { id: candidate.poolAdvertisement?.id || "" },
+              };
             }
             return null;
-          })
+          }),
         };
       }
     }

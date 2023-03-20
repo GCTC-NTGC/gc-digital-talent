@@ -43,7 +43,7 @@ const AboutMeFormApi: React.FunctionComponent<AboutMeFormApiProps> = ({
           initialUser={initialUser}
           application={{
             ...data.poolCandidate,
-            pool: {id: data.poolCandidate.id}
+            pool: { id: data.poolCandidate.id },
           }}
           onUpdateAboutMe={onUpdateAboutMe}
         />
