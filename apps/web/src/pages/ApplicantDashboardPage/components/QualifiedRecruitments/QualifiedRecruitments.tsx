@@ -117,7 +117,7 @@ const QualifiedRecruitments = ({
         >
           {/* Active Recruitments */}
           <Accordion.Item value="active">
-            <Accordion.Trigger>
+            <Accordion.Trigger headerAs="h3">
               {intl.formatMessage({
                 defaultMessage: "Active recruitments",
                 id: "lfZeyc",
@@ -163,7 +163,7 @@ const QualifiedRecruitments = ({
             {/* Expired Recruitments */}
           </Accordion.Item>
           <Accordion.Item value="expired">
-            <Accordion.Trigger>
+            <Accordion.Trigger headerAs="h3">
               {intl.formatMessage({
                 defaultMessage: "Expired recruitments",
                 id: "6cH+cX",
