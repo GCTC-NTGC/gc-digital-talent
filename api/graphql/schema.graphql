@@ -600,7 +600,7 @@ type ApplicantFilter {
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   pools: [Pool] @belongsToMany
-  stream: [PoolStream]
+  stream: PoolStream
 }
 
 type PoolCandidateSearchRequest {
