@@ -85,7 +85,12 @@ const QualifiedRecruitmentDialog = ({
               <Dialog.Footer data-h2-justify-content="base(space-between)">
                 <Dialog.Close>
                   <Button color="secondary" mode="inline">
-                    Cancel
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel",
+                      id: "AVPPm0",
+                      description:
+                        "Label for close button on qualified recruitment card dialogs.",
+                    })}
                   </Button>
                 </Dialog.Close>
                 <Button
