@@ -4,13 +4,36 @@ import { useIntl } from "react-intl";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
-
 import SearchRequestTableApi from "~/components/SearchRequestTable/SearchRequestTable";
+import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 export const IndexSearchRequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
+  const routes = useRoutes();
+
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Requests",
+        id: "y0j4oU",
+        description:
+          "Breadcrumb title for the search requests table page link.",
+      }),
+      url: routes.searchRequestTable(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Talent requests",
@@ -26,7 +49,7 @@ export const IndexSearchRequestPage: React.FunctionComponent = () => {
         })}
       </PageHeader>
       <SearchRequestTableApi />
-    </>
+    </AdminContentWrapper>
   );
 };
 

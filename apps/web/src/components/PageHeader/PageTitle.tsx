@@ -5,7 +5,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import { IconType } from "./types";
 
 export interface PageTitleProps
-  extends Omit<React.HTMLProps<HTMLHeadingElement>, "size" | "color"> {
+  extends Omit<React.HTMLProps<HTMLHeadingElement>, "size" | "color" | "ref"> {
   icon?: IconType;
   subtitle?: React.ReactNode;
   children?: React.ReactNode;
@@ -19,6 +19,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
       <>
         <Heading
           level="h1"
+          size="h2"
           data-h2-font-weight="base(400)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
@@ -40,7 +41,6 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
           data-h2-padding="base(0) p-tablet(0, 0, 0, x3)"
           data-h2-margin="base(0, 0, x.5, 0)"
           data-h2-font-weight="base(700)"
-          {...rest}
         >
           {subtitle}
         </Heading>
@@ -48,7 +48,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
     );
   }
   return (
-    <Heading level="h1" {...rest}>
+    <Heading level="h1" size="h2" {...rest}>
       {Icon && (
         <Icon
           className="page-header__icon"

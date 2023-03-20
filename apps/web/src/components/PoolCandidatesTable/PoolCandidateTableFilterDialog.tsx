@@ -29,6 +29,7 @@ export type FormValues = {
   pools: Option["value"][];
   skills: Option["value"][];
   expiryStatus: Option["value"][];
+  suspendedStatus: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -200,6 +201,18 @@ const PoolCandidateTableFilterDialog = ({
                     id: "TQU5g8",
                   })}
                   options={optionsData.expiryStatus}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+                <SelectFieldV2
+                  forceArrayFormValue
+                  id="suspendedStatus"
+                  label={formatMessage({
+                    defaultMessage: "Candidacy Status",
+                    description: "Candidacy status label",
+                    id: "/LGiVB",
+                  })}
+                  options={optionsData.suspendedStatus}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

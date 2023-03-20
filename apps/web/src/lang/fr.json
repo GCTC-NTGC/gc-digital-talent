@@ -3959,10 +3959,6 @@
     "defaultMessage": "Enregistrer les autres exigences",
     "description": "Text on a button to save the pool other requirements"
   },
-  "7N+tQw": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "7aG86f": {
     "defaultMessage": "Sélectionnez une classification...",
     "description": "Placeholder displayed on the pool form classification field."
@@ -4046,10 +4042,6 @@
   "H9rxOR": {
     "defaultMessage": "Colonnes visibles",
     "description": "Legend for the column toggle in admin tables."
-  },
-  "Hn6YgE": {
-    "defaultMessage": "Modifier le bassin",
-    "description": "Edit pool breadcrumb text"
   },
   "Hqt/ej": {
     "defaultMessage": "Archive",
@@ -4235,10 +4227,6 @@
     "defaultMessage": "Courriel",
     "description": "Label for user table search dropdown (email)."
   },
-  "fp7Nll": {
-    "defaultMessage": "ID du bassin #{id}",
-    "description": "Current pool breadcrumb text"
-  },
   "fvJnoC": {
     "defaultMessage": "Exigence linguistique : {languageRequirement}",
     "description": "Pool advertisement language requirement"
@@ -4262,10 +4250,6 @@
   "iOgr3Z": {
     "defaultMessage": "Supprimer",
     "description": "Heading for the delete pool dialog"
-  },
-  "iQzlmB": {
-    "defaultMessage": "Nouveau bassin",
-    "description": "New pool breadcrumb text"
   },
   "j3m2Ca": {
     "defaultMessage": "Emplacement précis (précisez ci-dessous)",
@@ -4431,10 +4415,6 @@
     "defaultMessage": "Statut de la demande",
     "description": "Title for admins to edit an applications status."
   },
-  "0Y4Dt4": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "114gjj": {
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
@@ -4599,10 +4579,6 @@
     "defaultMessage": "Courriel",
     "description": "CSV Header, Email column"
   },
-  "HGMl3y": {
-    "defaultMessage": "Nom du bassin non trouvé",
-    "description": "Breadcrumb to pool page if pool name not found"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -4690,10 +4666,6 @@
     "defaultMessage": "Affichage",
     "description": "Title displayed for the Pool Candidates table View column."
   },
-  "XYLd6G": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb for the My Pools page"
-  },
   "Xo0M3N": {
     "defaultMessage": "Province actuelle",
     "description": "CSV Header, Current Province column"
@@ -4740,10 +4712,6 @@
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
-  "e9FNqp": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb title for the All Candidates page link."
-  },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
@@ -4751,10 +4719,6 @@
   "ev6HnY": {
     "defaultMessage": "Notes",
     "description": "CSV Header, Notes column"
-  },
-  "fLSDYW": {
-    "defaultMessage": "Disponibilité",
-    "description": "Title displayed for the Pool Candidates table Availability column."
   },
   "gDSeKw": {
     "defaultMessage": "Date de réception :",
@@ -4862,10 +4826,6 @@
   "ukL9do": {
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
-  },
-  "v8vbWP": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb for the All Candidates page"
   },
   "vgOfaa": {
     "defaultMessage": "Sélectionnez un volet/un titre de poste...",
@@ -5228,7 +5188,7 @@
     "description": "Heading for the Learn more dialog"
   },
   "SPECr8": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "FtJRWS": {
@@ -5982,10 +5942,6 @@
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "fNOekV": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the my hiring pools content section"
-  },
   "fqIEKE": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Title of the My skills and experience link section"
@@ -6005,10 +5961,6 @@
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
-  },
-  "l/MbFR": {
-    "defaultMessage": "Modifier mes bassins d'embauche",
-    "description": "Text on link to update a users hiring pools."
   },
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -6085,10 +6037,6 @@
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
     "description": "Pluralization for zero or multiple experiences"
-  },
-  "xUl9pz": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the My Hiring Pools section"
   },
   "xjtRjr": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -6430,10 +6378,6 @@
     "defaultMessage": "Brève description de l’équipe (en français)",
     "description": "Short description for a team in French"
   },
-  "QC23B1": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "Rg0SpL": {
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
@@ -6441,10 +6385,6 @@
   "VJYI6K": {
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
-  },
-  "W0BVd+": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Name of an organization/team in French field."
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -6482,29 +6422,13 @@
     "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
     "description": "Link text to see an applications advertisement"
   },
-  "1cPlHY": {
-    "defaultMessage": "Nom de l’organisation (en anglais)",
-    "description": "Label for the English team display name input"
-  },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
-  "OOnxtm": {
-    "defaultMessage": "Nom de l’organisation (en français)",
-    "description": "Label for the French team display name input"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
-  },
-  "RtDf2h": {
-    "defaultMessage": "Brève description de l’organisation (en français)",
-    "description": "Label for the French team description input"
-  },
-  "TCQhlo": {
-    "defaultMessage": "Brève description de l’organisation (en anglais)",
-    "description": "Label for the English team description input"
   },
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
@@ -6522,7 +6446,7 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
-  "jzax3k": {
+  "IrvQbY": {
     "defaultMessage": "Sélectionnez un ou plusieurs ministères...",
     "description": "Placeholder text for the team departments input"
   },
@@ -6786,10 +6710,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
   },
-  "eW7I5E": {
-    "defaultMessage": "Sélectionner les rôles...",
-    "description": "Placeholder text for role selection input"
-  },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
@@ -6809,5 +6729,137 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "Vf+lsG": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Label for the French team display name input"
+  },
+  "XNBegf": {
+    "defaultMessage": "Brève description de l’équipe (Français)",
+    "description": "Label for the French team description input"
+  },
+  "YjMfWZ": {
+    "defaultMessage": "Nom de l’équipe (Français)",
+    "description": "Name of an organization/team in French field."
+  },
+  "aGBFm5": {
+    "defaultMessage": "Brève description de l’équipe (Anglais)",
+    "description": "Label for the English team description input"
+  },
+  "n4pt+y": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Label for the English team display name input"
+  },
+  "rdYjIb": {
+    "defaultMessage": "Nom de l’équipe (Anglais)",
+    "description": "Name of an organization/team in English field."
+  },
+  "hr/i9h": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder displayed for team selection input."
+  },
+  "mOS8rj": {
+    "defaultMessage": "Équipe principale",
+    "description": "Label displayed for selecting what team a new pool belongs to."
+  },
+  "/LGiVB": {
+    "defaultMessage": "Statut de la candidature ",
+    "description": "Candidacy status label"
+  },
+  "1wONOC": {
+    "defaultMessage": "Profil",
+    "description": "User profile breadcrumb text"
+  },
+  "Ig9HmP": {
+    "defaultMessage": "Ministères",
+    "description": "Breadcrumb title for the departments page link."
+  },
+  "OgeWgx": {
+    "defaultMessage": "Créer un nouveau bassin",
+    "description": "Breadcrumb title for the create new pool page link."
+  },
+  "P+KWP7": {
+    "defaultMessage": "Équipes",
+    "description": "Breadcrumb title for the teams page link."
+  },
+  "Y7eGtg": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Breadcrumb title for the users page link."
+  },
+  "kyMlnN": {
+    "defaultMessage": "Classifications",
+    "description": "Breadcrumb title for the classifications page link."
+  },
+  "y0j4oU": {
+    "defaultMessage": "Demandes",
+    "description": "Breadcrumb title for the search requests table page link."
+  },
+  "yeXUjo": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Breadcrumb title for the skill families page link."
+  },
+  "ynjzua": {
+    "defaultMessage": "Compétences",
+    "description": "Breadcrumb title for the skills page link."
+  },
+  "zzf16k": {
+    "defaultMessage": "Candidats",
+    "description": "Breadcrumb for the All Candidates page"
+  },
+  "0WIPpI": {
+    "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
+    "description": "Edit user breadcrumb text"
+  },
+  "1XaX86": {
+    "defaultMessage": "Créer<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the create department page link."
+  },
+  "5SKmte": {
+    "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
+    "description": "Breadcrumb title for the edit skill family page link."
+  },
+  "9QxHnD": {
+    "defaultMessage": "Créer<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the create skill page link."
+  },
+  "D6HIId": {
+    "defaultMessage": "Modifier<hidden> le bassin</hidden>",
+    "description": "Edit pool breadcrumb text"
+  },
+  "E8BMJW": {
+    "defaultMessage": "Créer<hidden> une classification</hidden>",
+    "description": "Breadcrumb title for the create classification page link."
+  },
+  "FYIbdJ": {
+    "defaultMessage": "Modifier<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the edit department page link."
+  },
+  "I0VGC0": {
+    "defaultMessage": "Placement",
+    "description": "User placement breadcrumb text"
+  },
+  "M2LfhH": {
+    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
+  "PQXvrU": {
+    "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
+    "description": "Breadcrumb title for the create skill family page link."
+  },
+  "nfZQ89": {
+    "defaultMessage": "Membres",
+    "description": "Breadcrumb title for the team members page link."
+  },
+  "o7SM7j": {
+    "defaultMessage": "Créer<hidden> des équipes</hidden>",
+    "description": "Breadcrumb title for the create team page link."
+  },
+  "ow4z7W": {
+    "defaultMessage": "Modifier<hidden> la classification</hidden>",
+    "description": "Breadcrumb title for the edit classification page link."
+  },
+  "s7Hnlg": {
+    "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
+    "description": "Breadcrumb title for the edit team page link."
   }
 }

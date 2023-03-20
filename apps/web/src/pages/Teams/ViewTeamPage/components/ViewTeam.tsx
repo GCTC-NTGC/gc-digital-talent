@@ -36,8 +36,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <p>
             {intl.formatMessage({
-              defaultMessage: "Organization's name (English)",
-              id: "QC23B1",
+              defaultMessage: "Team's name (English)",
+              id: "rdYjIb",
               description: "Name of an organization/team in English field.",
             })}
           </p>
@@ -54,8 +54,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <p>
             {intl.formatMessage({
-              defaultMessage: "Organization's name (French)",
-              id: "W0BVd+",
+              defaultMessage: "Team's name (French)",
+              id: "YjMfWZ",
               description: "Name of an organization/team in French field.",
             })}
           </p>
