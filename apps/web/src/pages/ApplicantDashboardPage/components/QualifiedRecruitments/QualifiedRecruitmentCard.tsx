@@ -222,7 +222,7 @@ const QualifiedRecruitmentCard = ({
     <div
       data-h2-background="base(foreground)"
       data-h2-shadow="base(medium)"
-      data-h2-radius="base(0px rounded rounded 0px)"
+      data-h2-radius="base(rounded)"
       data-h2-padding="base(x1)"
       data-h2-margin="base(0, 0, x1, 0)"
     >
