@@ -54,7 +54,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // user (guest) not returned if no candidates
     // the guest has no candidates so should get no results
-    public function testThatEmptyDoesNotReturnTheAdmin()
+    public function testThatEmptyDoesNotReturnTheGuest()
     {
         $this->graphQL(
             /** @lang GraphQL */
