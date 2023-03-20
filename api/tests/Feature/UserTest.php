@@ -42,9 +42,9 @@ class UserTest extends TestCase
             'legacy_roles' => ['ADMIN'],
 
             // The following properties make sure this user doesn't match certain test queries, skewing results.
-            'looking_for_english' => false,
-            'looking_for_french' => false,
-            'looking_for_bilingual' => false,
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
             'expected_salary' => [],
             'job_looking_status' => null,
             'accepted_operational_requirements' => null,
@@ -683,10 +683,16 @@ class UserTest extends TestCase
 
     public function testFilterByLanguageAbility(): void
     {
-        User::factory()->count(5)->create([
-            'looking_for_english' => false,
-            'looking_for_french' => false,
-            'looking_for_bilingual' => false,
+        $noLanguageUser = User::factory()->create();
+        $noLanguageUser->looking_for_english = false;
+        $noLanguageUser->looking_for_french = false;
+        $noLanguageUser->looking_for_bilingual = false;
+        $noLanguageUser->save();
+
+        User::factory()->count(4)->create([
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
         ]);
 
         // Create new LanguageAbility and attach to 3 new pool users.
