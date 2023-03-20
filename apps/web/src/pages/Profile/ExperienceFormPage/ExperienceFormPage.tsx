@@ -70,6 +70,7 @@ export interface ExperienceFormProps {
   deleteExperience: () => void;
   cacheKey?: string;
   edit?: boolean;
+  returnPath: string;
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
@@ -82,14 +83,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   cacheKey,
   edit,
   poolAdvertisement,
+  returnPath,
 }) => {
   const intl = useIntl();
-  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
-
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? `?${applicationId}` : ``
-  }`;
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
@@ -358,7 +355,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? `?${applicationId}` : ``
+    applicationId ? `/?applicationId=${applicationId}` : ``
   }`;
 
   const [
@@ -507,6 +504,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           deleteExperience={handleDeleteExperience}
           cacheKey={cacheKey}
           edit={edit}
+          returnPath={returnPath}
         />
       ) : (
         <ThrowNotFound
