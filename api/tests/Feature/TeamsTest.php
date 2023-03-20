@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Department;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Team;
 use Database\Seeders\DepartmentSeeder;
@@ -21,10 +20,12 @@ class TeamsTest extends TestCase
   use WithFaker;
 
   protected $admin;
-  protected $toBeDeletedUUID;
+  protected $poolOperator1;
+  protected $poolOperator2;
   protected $team1;
   protected $team2;
   protected $team3;
+  protected $toBeDeletedUUID;
 
   protected function setUp(): void
   {
@@ -35,38 +36,43 @@ class TeamsTest extends TestCase
 
     Team::truncate(); // clear teams created in migrations before testing
 
+    // Create users
     $this->admin = User::factory()->create([
       'email' => 'admin-user@test.com',
       'sub' => 'admin-user@test.com',
-    ]);
-
-    $this->admin->syncRoles([
+    ])->syncRoles([
       "guest",
       "base_user",
       "applicant",
       "request_responder",
-      "platform_admin"
+      "platform_admin",
     ]);
 
+    $this->poolOperator1 = User::factory()->create([
+      'email' => 'poolOperator1@test.com',
+      'sub' => 'poolOperator1@test.com',
+    ]);
 
-    $this->seed(DepartmentSeeder::class);
+    $this->poolOperator2 = User::factory()->create([
+      'email' => 'poolOperator2@test.com',
+      'sub' => 'poolOperator2@test.com',
+    ]);
+
 
     // Create teams
-    $this->team1 = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-      'name' => 'team1',
-    ]);
-
-    $this->team2 = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-      'name' => 'team2',
-    ]);
-
+    $this->seed(DepartmentSeeder::class);
     $this->toBeDeletedUUID = $this->faker->UUID();
+
+    $this->team1 = Team::factory()->create(['name' => 'team1']);
+    $this->team2 = Team::factory()->create(['name' => 'team2']);
     $this->team3 = Team::factory()->create([
-      'id' => $this->toBeDeletedUUID,
+      'id' => $this->toBeDeletedUUID, // Need specific ID for delete team testing
       'name' => 'team3',
     ]);
+
+    // Attach pool operator users to teams.
+    $this->poolOperator1->attachRole("pool_operator", $this->team1);
+    $this->poolOperator2->attachRole("pool_operator", $this->team2);
   }
 
   public function testAllTeamsQuery(): void
@@ -215,8 +221,6 @@ class TeamsTest extends TestCase
     $this->seed(DepartmentSeeder::class);
     $departmentId = Department::inRandomOrder()->first()->id;
 
-    $teamOne = Team::factory()->create();
-
     // Assert team update successful across all input fields
     $this->actingAs($this->admin, "api")->graphQL(
       /** @lang GraphQL */
@@ -240,40 +244,38 @@ class TeamsTest extends TestCase
       }
       ',
       [
-        'id' => $teamOne->id,
+        'id' => $this->team1->id,
         'team' => [
-          'name'=> 'team one',
+          'name'=> 'new_team_name',
           'displayName' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Name EN',
+            'fr' => 'New Team Name FR',
           ],
           'description' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Description EN',
+            'fr' => 'New Team Description FR',
           ],
-          'contactEmail' => 'test@test.com',
+          'contactEmail' => 'newContactEmail@test.com',
           'departments' => [
-            "sync" => [$departmentId],
+            'sync' => [$departmentId],
           ],
         ]
       ]
     )->assertJson([
       'data' => [
         'updateTeam' => [
-          'name' => 'team one',
+          'name'=> 'new_team_name',
           'displayName' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Name EN',
+            'fr' => 'New Team Name FR',
           ],
           'description' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Description EN',
+            'fr' => 'New Team Description FR',
           ],
-          'contactEmail' => 'test@test.com',
+          'contactEmail' => 'newContactEmail@test.com',
           'departments' => [
-            [
-              'id' => $departmentId,
-            ],
+            ['id' => $departmentId],
           ],
         ]
       ]
@@ -305,61 +307,12 @@ class TeamsTest extends TestCase
     ]);
   }
 
-  public function testViewAnyTeamsPolicy(): void
+  public function testViewAnyTeamMembers(): void
   {
-    // Create new users and assign them to team
-    $poolOperator1 = User::factory()->create([
-      'email' => 'poolOperator1@test.com',
-      'sub' => 'poolOperator1@test.com',
-    ]);
-
-    $poolOperator1->syncRoles([
-      "guest",
-      "base_user",
-      "applicant",
-      "request_responder",
-      "platform_admin"
-    ]);
-
-    $poolOperator2 = User::factory()->create([
-      'email' => 'poolOperator2@test.com',
-      'sub' => 'poolOperator2@test.com',
-    ]);
-
-    $poolOperator2->syncRoles([
-      "guest",
-      "base_user",
-      "applicant",
-      "request_responder",
-      "platform_admin"
-    ]);
-
-    $poolOperator3 = User::factory()->create([
-      'email' => 'poolOperator3@test.com',
-      'sub' => 'poolOperator3@test.com',
-    ]);
-
-    $poolOperator3->syncRoles([
-      "guest",
-      "base_user",
-      "applicant",
-      "request_responder",
-      "platform_admin"
-    ]);
-
-    $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
-    $poolOperator1->attachRole(
-        $poolOperatorRole,
-        $this->team1
-    );
-    $poolOperator2->attachRole(
-        $poolOperatorRole,
-        $this->team1
-    );
-    $poolOperator3->attachRole(
-        $poolOperatorRole,
-        $this->team1
-    );
+    // Attach all users to team one
+    $this->admin->attachRole("pool_operator", $this->team1);
+    $this->poolOperator1->attachRole("pool_operator", $this->team1);
+    $this->poolOperator2->attachRole("pool_operator", $this->team1);
 
     // Assert all teams query contains expected results
     $query = $this->actingAs($this->admin, "api")
@@ -384,12 +337,27 @@ class TeamsTest extends TestCase
     assertEquals($teamMembersCount, 3);
 
     // assert every team member is present in the response
-    $query->assertJsonFragment(['id' => $poolOperator1->id]);
-    $query->assertJsonFragment(['id' => $poolOperator2->id]);
-    $query->assertJsonFragment(['id' => $poolOperator3->id]);
+    $query->assertJsonFragment(['id' => $this->admin->id]);
+    $query->assertJsonFragment(['id' => $this->poolOperator1->id]);
+    $query->assertJsonFragment(['id' => $this->poolOperator2->id]);
   }
 
+  public function testViewTeamTeamMembersPolicy()
+  {
+    // NOTE: This currently only tests the viewTeamTeamMembers policy and not any query,
+    // since one has been created yet.
 
-  // TODO: Create another test policy for view-team-teamMembers where we fetch roleAssignments (users) from a specific team (?).
+    // Assert a platform_admin can view any team.
+    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team1));
+    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team2));
+    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team3));
 
+    // Assert pool operator one can only view team members from their team.
+    $this->assertTrue($this->poolOperator1->can('viewTeamTeamMembers', $this->team1));
+    $this->assertFalse($this->poolOperator1->can('viewTeamTeamMembers', $this->team2));
+
+    // Assert pool operator two can only view team members from their team.
+    $this->assertTrue($this->poolOperator2->can('viewTeamTeamMembers', $this->team2));
+    $this->assertFalse($this->poolOperator2->can('viewTeamTeamMembers', $this->team1));
+  }
 }

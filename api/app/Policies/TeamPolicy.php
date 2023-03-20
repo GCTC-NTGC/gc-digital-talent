@@ -85,10 +85,11 @@ class TeamPolicy
      * Likely to be updated later to allow the team admin and teammates to view their own team
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Team/null $team
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewTeamMembers(User $user)
+    public function viewTeamTeamMembers(User $user, Team $team)
     {
-        return $user->isAbleTo("view-team-teamMembers");
+        return $this->viewAnyTeamMembers($user) || $user->isAbleTo("view-team-teamMembers", $team);
     }
 }
