@@ -114,11 +114,7 @@ const AdminLayout = () => {
               data-h2-background-color="base(background)"
             >
               <div data-h2-min-height="base(100%)">
-                <div data-h2-container="base(center, full, x2)">
-                  <div data-h2-padding="base(0, 0, x3, 0)">
-                    <Outlet />
-                  </div>
-                </div>
+                <Outlet />
               </div>
             </main>
             <Footer width="full" />

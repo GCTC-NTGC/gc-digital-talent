@@ -4,6 +4,7 @@ archivable
 Assertable
 atag
 Authenticatable
+Authorizable
 Behavioural
 BEHAVIOURAL
 Canonicalizing

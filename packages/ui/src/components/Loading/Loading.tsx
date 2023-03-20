@@ -47,6 +47,8 @@ const Loading = ({
 
   return (
     <div
+      role="alert"
+      aria-busy="true"
       {...typeMap[inline ? "inline" : "full"]}
       {...(live && {
         "aria-live": live,

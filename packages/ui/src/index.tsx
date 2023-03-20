@@ -3,10 +3,7 @@ import { Color, HeadingRank } from "./types";
 import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
-import Breadcrumbs, {
-  type BreadcrumbsProps,
-  AdminBreadcrumbs,
-} from "./components/Breadcrumbs";
+import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, {
   IconButton,
   type ButtonProps,
@@ -23,7 +20,7 @@ import Collapsible from "./components/Collapsible";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
-import Heading, { HeadingProps } from "./components/Heading";
+import Heading, { HeadingProps, HeadingRef } from "./components/Heading";
 import Link, {
   DownloadCsv,
   ExternalLink,
@@ -82,6 +79,7 @@ export type {
   CardLinkProps,
   ChipProps,
   HeadingProps,
+  HeadingRef,
   ExternalLinkProps,
   DownloadCsvProps,
   LinkProps,
@@ -110,7 +108,6 @@ export {
   Alert,
   AlertDialog,
   Breadcrumbs,
-  AdminBreadcrumbs,
   Button,
   IconButton,
   Card,
