@@ -24,7 +24,7 @@ class DepartmentFactory extends Factory
         $faker = $this->faker;
         return [
             'name' => ['en' => $faker->name, 'fr' => $faker->name],
-            'department_number' => $faker->randomNumber(),
+            'department_number' => $faker->randomNumber(5, true),
         ];
     }
 }

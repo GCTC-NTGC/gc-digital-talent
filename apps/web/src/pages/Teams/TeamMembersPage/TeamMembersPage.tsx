@@ -21,6 +21,8 @@ import {
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
+import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
@@ -188,6 +190,8 @@ type RouteParams = {
 };
 
 const TeamMembersPage = () => {
+  const intl = useIntl();
+  const routes = useRoutes();
   const { teamId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetTeamQuery({
     variables: { teamId: teamId || "" },
@@ -206,22 +210,63 @@ const TeamMembersPage = () => {
     ?.filter(notEmpty)
     .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Teams",
+        id: "P+KWP7",
+        description: "Breadcrumb title for the teams page link.",
+      }),
+      url: routes.teamTable(),
+    },
+    ...(teamId
+      ? [
+          {
+            label: getLocalizedName(data?.team?.displayName, intl),
+            url: routes.teamView(teamId),
+          },
+        ]
+      : []),
+    ...(teamId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Members",
+              id: "nfZQ89",
+              description: "Breadcrumb title for the team members page link.",
+            }),
+            url: routes.teamMembers(teamId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <Pending
-      fetching={fetching || rolesFetching || userFetching}
-      error={error || rolesError || userError}
-    >
-      {team && users ? (
-        <TeamMembers
-          members={users}
-          availableUsers={availableUsers || []}
-          roles={roles || []}
-          team={team}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending
+        fetching={fetching || rolesFetching || userFetching}
+        error={error || rolesError || userError}
+      >
+        {team && users ? (
+          <TeamMembers
+            members={users}
+            availableUsers={availableUsers || []}
+            roles={roles || []}
+            team={team}
+          />
+        ) : (
+          <ThrowNotFound />
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 

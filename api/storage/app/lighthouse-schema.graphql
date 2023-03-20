@@ -39,7 +39,7 @@ type Applicant {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -155,6 +155,12 @@ enum CandidateExpiryFilter {
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int!
+}
+
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
 }
 
 enum CitizenshipStatus {
@@ -894,6 +900,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
+  suspendedStatus: CandidateSuspendedFilter
 }
 
 type PoolCandidateSearchRequest {
@@ -1500,7 +1507,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1552,6 +1559,7 @@ input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!]
+  suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
 type UserPublicProfile {

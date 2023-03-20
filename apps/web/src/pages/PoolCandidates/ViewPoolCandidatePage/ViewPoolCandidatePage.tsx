@@ -9,10 +9,9 @@ import {
   Pending,
   Link,
   ToggleGroup,
-  AdminBreadcrumbs,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import PageHeader from "~/components/PageHeader";
 import UserProfile from "~/components/UserProfile";
 
@@ -26,6 +25,8 @@ import {
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { getFullNameLabel } from "~/utils/nameUtils";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 
 export interface ViewPoolCandidateProps {
@@ -48,33 +49,6 @@ export const ViewPoolCandidate = ({
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
-
-  const links = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "My pools",
-        id: "0Y4Dt4",
-        description: "Breadcrumb title for the pools page link.",
-      }),
-      url: paths.poolTable(),
-    },
-    {
-      label: getFullPoolAdvertisementTitleHtml(intl, poolCandidate.pool),
-      url: paths.poolView(poolCandidate.pool.id),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "All candidates",
-        id: "e9FNqp",
-        description: "Breadcrumb title for the All Candidates page link.",
-      }),
-      url: paths.poolCandidateTable(poolCandidate.pool.id),
-    },
-    {
-      label: `${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`,
-      url: paths.poolCandidateApplication(poolCandidate.id),
-    },
-  ];
 
   const parsedSnapshot: Maybe<Applicant> = JSON.parse(
     poolCandidate.profileSnapshot,
@@ -199,9 +173,6 @@ export const ViewPoolCandidate = ({
         })}
       </PageHeader>
       <Spacer>
-        <AdminBreadcrumbs crumbs={links} />
-      </Spacer>
-      <Spacer>
         <h3>{`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}</h3>
       </Spacer>
       <Spacer>
@@ -262,30 +233,87 @@ type RouteParams = {
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { poolCandidateId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
     variables: { poolCandidateId: poolCandidateId || "" },
   });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Pools",
+        id: "3fAkvM",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      url: routes.poolTable(),
+    },
+    ...(data?.poolCandidate?.pool.id
+      ? [
+          {
+            label: getLocalizedName(data.poolCandidate.pool.name, intl),
+            url: routes.poolView(data.poolCandidate.pool.id),
+          },
+        ]
+      : []),
+    ...(data?.poolCandidate?.pool.id
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Candidates",
+              id: "zzf16k",
+              description: "Breadcrumb for the All Candidates page",
+            }),
+            url: routes.poolCandidateTable(data.poolCandidate.pool.id),
+          },
+        ]
+      : []),
+    ...(poolCandidateId
+      ? [
+          {
+            label: getFullNameLabel(
+              data?.poolCandidate?.user.firstName,
+              data?.poolCandidate?.user.lastName,
+              intl,
+            ),
+            url: routes.poolCandidateApplication(poolCandidateId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate ? (
-        <ViewPoolCandidate poolCandidate={data.poolCandidate} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Candidate {poolCandidateId} not found.",
-                id: "GrfidX",
-                description: "Message displayed for pool candidate not found.",
-              },
-              { poolCandidateId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending fetching={fetching} error={error}>
+        {data?.poolCandidate ? (
+          <ViewPoolCandidate poolCandidate={data.poolCandidate} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Candidate {poolCandidateId} not found.",
+                  id: "GrfidX",
+                  description:
+                    "Message displayed for pool candidate not found.",
+                },
+                { poolCandidateId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 
