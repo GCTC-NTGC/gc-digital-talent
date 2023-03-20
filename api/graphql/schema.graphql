@@ -1311,7 +1311,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
-  team: TeamBelongsTo
+  team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput

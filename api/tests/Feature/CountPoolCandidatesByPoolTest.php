@@ -31,8 +31,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         // Create guest user we run tests as
         $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
+        $newUser->email = 'guest@test.com';
+        $newUser->sub = 'guest@test.com';
         $newUser->save();
         $newUser->syncRoles(["guest"]);
     }
@@ -52,8 +52,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ];
     }
 
-    // user (admin) not returned if no candidates
-    // the admin has no candidates so should get no results
+    // user (guest) not returned if no candidates
+    // the guest has no candidates so should get no results
     public function testThatEmptyDoesNotReturnTheAdmin()
     {
         $this->graphQL(

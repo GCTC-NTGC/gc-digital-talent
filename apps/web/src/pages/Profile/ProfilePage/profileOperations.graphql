@@ -140,27 +140,6 @@ query getMe {
         endDate
       }
     }
-    poolCandidates {
-      status
-      expiryDate
-      user {
-        id
-      }
-      poolAdvertisement {
-        id
-        name {
-          en
-          fr
-        }
-        stream
-        classifications {
-          id
-          group
-          level
-        }
-      }
-      id
-    }
     isProfileComplete
   }
 }

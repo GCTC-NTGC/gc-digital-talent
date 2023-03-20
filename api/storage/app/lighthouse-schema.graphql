@@ -293,7 +293,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
-  team: TeamBelongsTo
+  team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput

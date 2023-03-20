@@ -92,7 +92,7 @@ class PoolPolicy
         // Failed to get the new pools team - reject
         // This should only occur if the mutation structure has changed
         if (is_null($team_id)) {
-            return Response::deny("Could not find team to create pool for.");
+            return Response::deny("Pool must be associated with a team when it is created.");
         }
 
         // Get the team to check against

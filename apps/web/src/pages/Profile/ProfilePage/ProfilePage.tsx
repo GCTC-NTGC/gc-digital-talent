@@ -131,18 +131,7 @@ const ProfilePage: React.FunctionComponent = () => {
   const dataToUser = (input: GetMeQuery): User | undefined => {
     if (input) {
       if (input.me) {
-        return {
-          ...input.me,
-          poolCandidates: input.me.poolCandidates?.map((candidate) => {
-            if (candidate) {
-              return {
-                ...candidate,
-                pool: { id: candidate.poolAdvertisement?.id || "" },
-              };
-            }
-            return null;
-          }),
-        };
+        return input.me;
       }
     }
     return undefined;
