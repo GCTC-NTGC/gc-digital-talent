@@ -27,7 +27,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
       skills: mockSkills,
-      returnPath,
     });
 
     await axeTest(container);
@@ -40,7 +39,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
       skills: mockSkills,
-      returnPath,
     });
 
     await axeTest(container);
@@ -53,7 +51,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
       skills: mockSkills,
-      returnPath,
     });
 
     await axeTest(container);
@@ -66,7 +63,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
       skills: mockSkills,
-      returnPath,
     });
 
     await axeTest(container);
@@ -79,7 +75,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
       skills: mockSkills,
-      returnPath,
     });
 
     await axeTest(container);
@@ -94,7 +89,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -122,7 +116,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -146,7 +139,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -178,7 +170,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -207,7 +198,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -234,7 +224,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     expect(
@@ -251,7 +240,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
   });
 
@@ -264,7 +252,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     await act(() => {
@@ -294,7 +281,6 @@ describe("ExperienceForm", () => {
       deleteExperience: mockDelete,
       skills: mockSkills,
       experience: experience as ExperienceQueryData,
-      returnPath,
     });
 
     await act(() => {
@@ -313,7 +299,6 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      returnPath,
     });
 
     await act(() => {
@@ -336,7 +321,6 @@ it("delete should not render when edit is false", async () => {
     deleteExperience: mockDelete,
     skills: mockSkills,
     edit: false,
-    returnPath,
   });
 
   expect(screen.queryByText("Delete experience from My Profile")).toBeFalsy();
@@ -352,7 +336,6 @@ it("delete should render when edit is true and be called properly", async () => 
     deleteExperience: mockDelete,
     skills: mockSkills,
     edit: true,
-    returnPath,
   });
 
   // get and open Dialog Component

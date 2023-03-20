@@ -69,7 +69,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
               "Display Text for Diversity, equity and inclusion Page",
           }),
           url: `${paths.diversityEquityInclusion(user.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]
