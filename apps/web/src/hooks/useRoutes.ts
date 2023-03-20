@@ -9,33 +9,31 @@ const getRoutes = (lang: Locales) => {
   const adminUrl = path.join(baseUrl, "admin");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
-    applicationId ? path.join(`?applicationId=${applicationId}`) : "";
+    applicationId ? `?applicationId=${applicationId}` : "";
   const userEditUrl = (
     section: string,
     userId: string,
     applicationId?: string,
   ) =>
-    path.join(
+    `${path.join(
       userUrl(userId),
       "profile",
       section,
       "edit",
-      applicationParam(applicationId),
-    );
+    )}${applicationParam(applicationId)}`;
 
   const createExperienceUrl = (
     type: ExperienceType,
     userId: string,
     applicationId?: string,
   ) =>
-    path.join(
+    `${path.join(
       userUrl(userId),
       "profile",
       "experiences",
       type,
       "create",
-      applicationParam(applicationId),
-    );
+    )}${applicationParam(applicationId)}`;
 
   return {
     // Main Routes
