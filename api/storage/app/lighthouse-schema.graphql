@@ -72,7 +72,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
   skills: [Skill]
   pools: [Pool]
-  stream: [PoolStream]
+  stream: PoolStream
 }
 
 input ApplicantFilterBelongsTo {
