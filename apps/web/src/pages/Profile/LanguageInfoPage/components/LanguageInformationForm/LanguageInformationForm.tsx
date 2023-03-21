@@ -214,7 +214,7 @@ const LanguageInformationForm: React.FunctionComponent<{
             description: "Display Text for Language Information Form Page Link",
           }),
           url: `${paths.languageInformation(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

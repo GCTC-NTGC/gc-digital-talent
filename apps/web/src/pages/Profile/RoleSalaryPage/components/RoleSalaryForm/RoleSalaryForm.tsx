@@ -157,7 +157,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           }),
           url: initialData.me?.id
             ? `${paths.roleSalary(initialData.me.id)}${
-                applicationId ? `?${applicationId}` : ``
+                applicationId ? `?applicationId=${applicationId}` : ``
               }`
             : "#",
         },
