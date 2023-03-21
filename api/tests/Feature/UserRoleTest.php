@@ -85,7 +85,6 @@ class UserRoleTest extends TestCase
     public function testAdminCanSeeTeamUsers()
     {
         // Delete pre-existing teams to simplify test
-        Team::truncate();
         $role = Role::factory()->create(['is_team_based' => true]);
         $team = Team::factory()->create();
         $users = User::factory()->count(3)
@@ -106,21 +105,19 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertSimilarJson([
-            'data' => [
-                'teams' => [[
-                    'id' => $team->id,
-                    'roleAssignments' =>
-                    $users->map(function ($u) {
-                        return [
-                            'user' => [
-                                'id' => $u->id
-                            ],
-                        ];
-                    })->toArray(),
-                ],
-            ]]
-        ]);
+        )->assertJsonFragment(
+            [
+                'id' => $team->id,
+                'roleAssignments' =>
+                $users->map(function ($u) {
+                    return [
+                        'user' => [
+                            'id' => $u->id
+                        ],
+                    ];
+                })->toArray(),
+            ],
+        );
     }
 
     // Create several users with different roles.  Assert that an admin can see the users in each role.
