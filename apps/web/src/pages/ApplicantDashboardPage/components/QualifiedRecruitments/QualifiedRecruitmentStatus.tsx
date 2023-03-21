@@ -113,8 +113,8 @@ const QualifiedRecruitmentStatus = ({
             })}
             secondaryBodyText={intl.formatMessage({
               defaultMessage:
-                "If you’ve recently been placed or simply no longer want to be considered for opportunities related to this role, you can remove yourself from the list of candidates available for hire. This will NOT remove you from the recruitment itself and you can always re-enable your availability if you change your mind.",
-              id: "EWB2LC",
+                "If you’ve recently been placed or simply no longer want to be considered for opportunities related to this role, you can remove yourself from the list of candidates available for hire. This will <emphasize>not</emphasize> remove you from the recruitment itself and you can always re-enable your availability if you change your mind.",
+              id: "Y4kJYI",
               description:
                 "Dialog main body on change search results status from qualified recruitment section.",
             })}
