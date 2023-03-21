@@ -535,7 +535,7 @@ type Team {
   pools: [Pool] @hasMany @can(ability: "viewAny")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @canOnParent(ability: "viewAnyTeamMembers")
+    @canOnParent(ability: "viewTeamMembers")
 }
 
 type Role {
