@@ -24,18 +24,18 @@ import ExperienceAccordion, {
   ExperiencePaths,
 } from "./ExperienceAccordion/ExperienceAccordion";
 
-const ExperienceByType: React.FunctionComponent<{
-  title: string;
-  headingLevel?: HeadingRank;
-  icon: React.ReactNode;
-  experiences: Experience[];
-  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
-}> = ({
+const ExperienceByType = ({
   title,
   headingLevel = "h2",
   icon,
   experiences,
   experienceEditPaths,
+}: {
+  title: string;
+  headingLevel?: HeadingRank;
+  icon: React.ReactNode;
+  experiences: Experience[];
+  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
 }) => {
   return (
     <div className="experience-category">
@@ -68,9 +68,11 @@ export interface ExperienceSectionProps {
   editPaths?: ExperiencePaths;
 }
 
-const ExperienceByTypeListing: React.FunctionComponent<
-  ExperienceSectionProps
-> = ({ experiences, editPaths, headingLevel = "h2" }) => {
+const ExperienceByTypeListing = ({
+  experiences,
+  editPaths,
+  headingLevel = "h2",
+}: ExperienceSectionProps) => {
   const intl = useIntl();
 
   const awardExperiences =

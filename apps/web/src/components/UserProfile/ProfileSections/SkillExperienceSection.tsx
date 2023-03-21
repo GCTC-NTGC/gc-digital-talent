@@ -13,11 +13,15 @@ import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion
 
 export type PathFunc = (path: void | string, id: void | string) => string;
 
-const SkillExperienceSection: React.FunctionComponent<{
+const SkillExperienceSection = ({
+  applicant,
+  editPath,
+  applicantPaths,
+}: {
   applicant: Pick<Applicant, "experiences">;
   editPath?: string;
   applicantPaths?: Record<string, PathFunc>;
-}> = ({ applicant, editPath, applicantPaths }) => {
+}) => {
   const intl = useIntl();
   const { experiences } = applicant;
 

@@ -21,10 +21,7 @@ export interface ContextContainerProps {
   children: React.ReactNode;
 }
 
-const ContextContainer: React.FC<ContextContainerProps> = ({
-  messages,
-  children,
-}) => (
+const ContextContainer = ({ messages, children }: ContextContainerProps) => (
   <HelmetProvider>
     <LocaleProvider>
       <AuthenticationProvider>

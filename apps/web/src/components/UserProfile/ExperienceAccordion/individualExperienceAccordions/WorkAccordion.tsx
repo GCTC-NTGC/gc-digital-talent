@@ -65,11 +65,11 @@ type WorkAccordionProps = WorkExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
-const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
+const WorkAccordion = ({
   editUrl,
   headingLevel,
   ...rest
-}) => {
+}: WorkAccordionProps) => {
   const intl = useIntl();
   const { id, role, organization, startDate, endDate, skills } = rest;
 
