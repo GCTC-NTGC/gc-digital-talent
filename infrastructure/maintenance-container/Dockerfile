@@ -2,8 +2,7 @@ FROM ubuntu:22.04
 
 # point Cypress at the /root/cache no matter what user account is used
 # https://github.com/cypress-io/cypress/issues/25236#issuecomment-1362269095
-ENV CYPRESS_CACHE_FOLDER=~/.cache/Cypress
-
+# ENV CYPRESS_CACHE_FOLDER=~/.cache/Cypress
 
 # install apt packages
 # installing tzdata has an interactive prompt by default

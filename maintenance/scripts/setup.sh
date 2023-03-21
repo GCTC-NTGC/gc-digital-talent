@@ -19,10 +19,6 @@ chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 cd /var/www/html/apps/web
 cp .env.example .env --preserve=all
 
-# create cypress cache folder
-mkdir -p ${CYPRESS_CACHE_FOLDER}
-chmod a+r,a+w ${CYPRESS_CACHE_FOLDER}
-
 # build projects
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
