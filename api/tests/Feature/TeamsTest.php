@@ -22,6 +22,7 @@ class TeamsTest extends TestCase
   protected $admin;
   protected $poolOperator1;
   protected $poolOperator2;
+  protected $poolOperator3;
   protected $team1;
   protected $team2;
   protected $team3;
@@ -51,12 +52,17 @@ class TeamsTest extends TestCase
     $this->poolOperator1 = User::factory()->create([
       'email' => 'poolOperator1@test.com',
       'sub' => 'poolOperator1@test.com',
-    ]);
+    ])->syncRoles([ "guest", "base_user" ]);
 
     $this->poolOperator2 = User::factory()->create([
       'email' => 'poolOperator2@test.com',
       'sub' => 'poolOperator2@test.com',
-    ]);
+    ])->syncRoles([ "guest", "base_user" ]);
+
+    $this->poolOperator3 = User::factory()->create([
+      'email' => 'poolOperator3@test.com',
+      'sub' => 'poolOperator3@test.com',
+    ])->syncRoles([ "guest", "base_user" ]);
 
 
     // Create teams
@@ -307,57 +313,62 @@ class TeamsTest extends TestCase
     ]);
   }
 
-  public function testViewAnyTeamMembers(): void
+  public function testViewTeamMembers(): void
   {
-    // Attach all users to team one
-    $this->admin->attachRole("pool_operator", $this->team1);
     $this->poolOperator1->attachRole("pool_operator", $this->team1);
     $this->poolOperator2->attachRole("pool_operator", $this->team1);
-
-    // Assert all teams query contains expected results
-    $query = $this->actingAs($this->admin, "api")
-      ->graphQL(/** @lang Graphql */ '
-          query team($id: UUID!) {
-            team(id: $id) {
+    $this->poolOperator3->attachRole("pool_operator", $this->team2);
+    $viewAnyTeamMembers = /** @lang Graphql */ '
+        query team($id: UUID!) {
+          team(id: $id) {
+              id
+              roleAssignments {
                 id
-                roleAssignments {
+                user {
                   id
-                  user {
-                    id
-                  }
                 }
-            }
+              }
           }
-    ', [ 'id' => $this->team1->id ]);
+        }
+    ';
 
+    $variables = [ 'id' => $this->team1->id ];
+
+    // Assert user with role admin can query any team members, regardless of being on the team.
+    $query = $this->actingAs($this->admin, "api")
+                  ->graphQL($viewAnyTeamMembers, $variables)
+                  ->assertJsonFragment([
+                    'id' => $this->poolOperator1->id,
+                    'id' => $this->poolOperator2->id
+                  ]);
+
+    // assert pool operator three is not present in the response
+    $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
+
+    // assert the teams returned is an array of exactly two items
     $data = $query->original['data'];
-
-    // assert the teams returned is an array of exactly three items
     $teamMembersCount = count($data['team']['roleAssignments']);
-    assertEquals($teamMembersCount, 3);
+    assertEquals($teamMembersCount, 2);
 
-    // assert every team member is present in the response
-    $query->assertJsonFragment(['id' => $this->admin->id]);
-    $query->assertJsonFragment(['id' => $this->poolOperator1->id]);
-    $query->assertJsonFragment(['id' => $this->poolOperator2->id]);
-  }
+    // Assert pool operator can view team members of their team
+    $query = $this->actingAs($this->poolOperator1, "api")
+                  ->graphQL($viewAnyTeamMembers, $variables)
+                  ->assertJsonFragment([
+                    'id' => $this->poolOperator1->id,
+                    'id' => $this->poolOperator2->id,
+                  ]);
 
-  public function testViewTeamTeamMembersPolicy()
-  {
-    // NOTE: This currently only tests the viewTeamTeamMembers policy and not any query,
-    // since one has been created yet.
+    // assert pool operator three is not present in the response
+    $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
 
-    // Assert a platform_admin can view any team.
-    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team1));
-    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team2));
-    $this->assertTrue($this->admin->can('viewTeamTeamMembers', $this->team3));
+    // assert the teams returned is an array of exactly two items
+    $data = $query->original['data'];
+    $teamMembersCount = count($data['team']['roleAssignments']);
+    assertEquals($teamMembersCount, 2);
 
-    // Assert pool operator one can only view team members from their team.
-    $this->assertTrue($this->poolOperator1->can('viewTeamTeamMembers', $this->team1));
-    $this->assertFalse($this->poolOperator1->can('viewTeamTeamMembers', $this->team2));
-
-    // Assert pool operator two can only view team members from their team.
-    $this->assertTrue($this->poolOperator2->can('viewTeamTeamMembers', $this->team2));
-    $this->assertFalse($this->poolOperator2->can('viewTeamTeamMembers', $this->team1));
+    // Assert pool operator cannot view team members of a team they're not attached too.
+    $query = $this->actingAs($this->poolOperator3, "api")
+                  ->graphQL($viewAnyTeamMembers, $variables)
+                  ->assertGraphQLErrorMessage('This action is unauthorized.');
   }
 }
