@@ -74,7 +74,7 @@ export interface ExperienceFormProps {
   edit?: boolean;
 }
 
-export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
+export const ExperienceForm = ({
   userId,
   experienceId,
   applicationId,
@@ -86,7 +86,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   cacheKey,
   edit,
   poolAdvertisement,
-}) => {
+}: ExperienceFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

@@ -56,9 +56,12 @@ export interface CreateAccountFormProps {
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-export const CreateAccountForm: React.FunctionComponent<
-  CreateAccountFormProps
-> = ({ cacheKey, departments, classifications, handleCreateAccount }) => {
+export const CreateAccountForm = ({
+  cacheKey,
+  departments,
+  classifications,
+  handleCreateAccount,
+}: CreateAccountFormProps) => {
   const intl = useIntl();
   const govInfoLabels = getGovernmentInfoLabels(intl);
 

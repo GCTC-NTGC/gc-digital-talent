@@ -8,13 +8,13 @@ interface HeadingProps {
   children?: React.ReactNode;
 }
 
-const Heading: React.FC<HeadingProps> = ({
+const Heading = ({
   as = "h2",
   color = "pink",
   light,
   children,
   ...rest
-}) => {
+}: HeadingProps) => {
   const El = as;
 
   return (

@@ -29,10 +29,7 @@ export interface MyStatusFormProps {
   ) => Promise<UpdateMyStatusMutation["updateUserAsUser"]>;
 }
 
-const MyStatusForm: React.FC<MyStatusFormProps> = ({
-  initialData,
-  handleMyStatus,
-}) => {
+const MyStatusForm = ({ initialData, handleMyStatus }: MyStatusFormProps) => {
   const intl = useIntl();
 
   const isFormActive = initialData?.me?.isProfileComplete;
@@ -146,7 +143,7 @@ const MyStatusForm: React.FC<MyStatusFormProps> = ({
   );
 };
 
-const MyStatusApi: React.FunctionComponent = () => {
+const MyStatusApi = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();

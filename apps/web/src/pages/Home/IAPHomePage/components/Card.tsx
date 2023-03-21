@@ -8,7 +8,7 @@ interface CardProps {
   children?: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
+const Card = ({ title, Icon, children }: CardProps) => (
   <div data-h2-text-align="base(center)">
     {Icon && <Icon data-h2-width="base(x4)" />}
     <Heading

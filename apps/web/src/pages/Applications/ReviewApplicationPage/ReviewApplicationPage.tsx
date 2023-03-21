@@ -34,9 +34,12 @@ interface ReviewApplicationProps {
   closingDate: PoolAdvertisement["closingDate"];
 }
 
-export const ReviewApplication: React.FunctionComponent<
-  ReviewApplicationProps
-> = ({ applicant, poolAdvertisement, applicationId, closingDate }) => {
+export const ReviewApplication = ({
+  applicant,
+  poolAdvertisement,
+  applicationId,
+  closingDate,
+}: ReviewApplicationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const experiences =
