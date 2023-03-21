@@ -535,7 +535,7 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
-  pools: [Pool] @hasMany @can(ability: "viewAny")
+  pools: [Pool] @hasMany @can(ability: "view")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canOnParent(ability: "viewTeamMembers")
