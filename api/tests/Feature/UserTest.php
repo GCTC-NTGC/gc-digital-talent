@@ -683,12 +683,11 @@ class UserTest extends TestCase
 
     public function testFilterByLanguageAbility(): void
     {
-        $noLanguageUser = User::factory()->create();
-        $noLanguageUser->looking_for_english = false;
-        $noLanguageUser->looking_for_french = false;
-        $noLanguageUser->looking_for_bilingual = false;
-        $noLanguageUser->save();
-
+        User::factory()->count(1)->create([
+            'looking_for_english' => false,
+            'looking_for_french' => false,
+            'looking_for_bilingual' => false,
+        ]);
         User::factory()->count(4)->create([
             'looking_for_english' => null,
             'looking_for_french' => null,

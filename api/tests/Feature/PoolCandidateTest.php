@@ -545,15 +545,13 @@ class PoolCandidateTest extends TestCase
 
     public function testFilterByLanguageAbility(): void
     {
-        $noLanguageUser = User::factory()->create();
-        $noLanguageUser->looking_for_english = false;
-        $noLanguageUser->looking_for_french = false;
-        $noLanguageUser->looking_for_bilingual = false;
-        $noLanguageUser->save();
-
         // Create initial data.
         PoolCandidate::factory()->count(1)->create([
-            'user_id' => $noLanguageUser->id,
+            'user_id' => User::factory([
+                'looking_for_english' => false,
+                'looking_for_french' => false,
+                'looking_for_bilingual' => false,
+            ]),
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
         ]);

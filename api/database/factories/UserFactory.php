@@ -47,6 +47,13 @@ class UserFactory extends Factory
         $hasBeenEvaluated = $this->faker->boolean();
         $isDeclared = $this->faker->boolean();
 
+        $lookingEnglish = $this->faker->boolean();
+        $lookingFrench = $this->faker->boolean();
+        $lookingBilingual = $this->faker->boolean();
+        if (!$lookingEnglish && !$lookingFrench && !$lookingBilingual) {
+            $lookingEnglish = true;
+        }
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -75,9 +82,9 @@ class UserFactory extends Factory
                 'NUNAVUT',
             ]),
             'current_city' => $this->faker->city(),
-            'looking_for_english' => $this->faker->boolean(),
-            'looking_for_french' => $this->faker->boolean(),
-            'looking_for_bilingual' => $this->faker->boolean(),
+            'looking_for_english' => $lookingEnglish,
+            'looking_for_french' => $lookingFrench,
+            'looking_for_bilingual' => $lookingBilingual,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
                     'COMPLETED_ENGLISH',
                     'COMPLETED_FRENCH',
@@ -200,11 +207,6 @@ class UserFactory extends Factory
             $user->expectedGenericJobTitles()->saveMany(
                 GenericJobTitle::inRandomOrder()->take(1)->get()
             );
-
-            if($user->looking_for_bilingual === false && $user->looking_for_english === false && $user->looking_for_french === false){
-                $user->looking_for_english = true;
-                $user->save();
-            }
         });
     }
 }
