@@ -183,12 +183,11 @@ const getRoutes = (lang: Locales) => {
 
     // Experience & Skills Routes
     skillsAndExperiences: (userId: string, applicationId?: string) =>
-      path.join(
+      `${path.join(
         userUrl(userId),
         "profile",
         "experiences",
-        applicationParam(applicationId),
-      ),
+      )}${applicationParam(applicationId)}`,
     editExperience: (
       userId: string,
       type: ExperienceType,
