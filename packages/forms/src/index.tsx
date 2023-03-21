@@ -2,6 +2,7 @@ import Checkbox, { type CheckboxProps } from "./components/Checkbox";
 import CheckButton, { CheckButtonProps } from "./components/CheckButton";
 import Checklist, { type ChecklistProps } from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
+import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import Fieldset, { type FieldsetProps } from "./components/Fieldset";
 import Input, { type InputProps } from "./components/Input";
 import InputContext, {
@@ -50,6 +51,7 @@ import {
 } from "./utils";
 
 export {
+  DateInput,
   Checkbox,
   CheckButton,
   Checklist,
@@ -74,6 +76,7 @@ export {
 };
 
 export type {
+  DateInputProps,
   CheckboxProps,
   CheckButtonProps,
   ChecklistProps,

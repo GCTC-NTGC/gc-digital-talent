@@ -28,11 +28,11 @@ interface AboutMeFormApiProps {
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
-const AboutMeFormApi: React.FunctionComponent<AboutMeFormApiProps> = ({
+const AboutMeFormApi = ({
   applicationId,
   initialUser,
   onUpdateAboutMe,
-}) => {
+}: AboutMeFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 

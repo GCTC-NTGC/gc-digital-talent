@@ -50,11 +50,7 @@ const checkRole = (
   return visible;
 };
 
-const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
-  isOpen,
-  onToggle,
-  onDismiss,
-}) => {
+const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

@@ -25,9 +25,11 @@ interface LanguageInformationFormApiProps {
   submitHandler: LanguageInformationUpdateHandler;
 }
 
-const LanguageInformationFormApi: React.FunctionComponent<
-  LanguageInformationFormApiProps
-> = ({ applicationId, initialData, submitHandler }) => {
+const LanguageInformationFormApi = ({
+  applicationId,
+  initialData,
+  submitHandler,
+}: LanguageInformationFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -75,7 +77,7 @@ const ApiOrContent = ({
     />
   );
 
-const LanguageInformationFormPage: React.FunctionComponent = () => {
+const LanguageInformationFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");

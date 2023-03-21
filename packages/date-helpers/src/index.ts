@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 // Note: ignore to stop merging date-fns imports
 // eslint-disable-next-line import/no-duplicates
-import { add, format, parseISO } from "date-fns";
+import { add, format, parse, parseISO } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
@@ -132,6 +132,10 @@ export const strToFormDate = (value: string) => {
   const parsed = parseISO(value);
 
   return format(parsed, DATE_FORMAT_STRING);
+};
+
+export const formDateStringToDate = (value: string, fallback?: Date) => {
+  return parse(value, DATE_FORMAT_STRING, fallback || new Date());
 };
 
 // Convert a DateTime from one zone to another

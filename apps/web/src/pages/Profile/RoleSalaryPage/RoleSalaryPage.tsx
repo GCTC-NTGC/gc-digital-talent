@@ -24,11 +24,11 @@ interface RoleSalaryFormApiProps {
   updateRoleSalary: RoleSalaryUpdateHandler;
 }
 
-const RoleSalaryFormApi: React.FunctionComponent<RoleSalaryFormApiProps> = ({
+const RoleSalaryFormApi = ({
   applicationId,
   initialData,
   updateRoleSalary,
-}) => {
+}: RoleSalaryFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -76,7 +76,7 @@ const ApiOrContent = ({
     />
   );
 
-const RoleSalaryFormPage: React.FunctionComponent = () => {
+const RoleSalaryFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");

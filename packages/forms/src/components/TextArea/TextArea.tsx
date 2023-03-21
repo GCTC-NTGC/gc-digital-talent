@@ -26,7 +26,7 @@ export interface TextAreaProps
   hideOptional?: boolean;
 }
 
-const TextArea: React.FunctionComponent<TextAreaProps> = ({
+const TextArea = ({
   id,
   context,
   label,
@@ -37,7 +37,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   whitespaceTrim = true,
   hideOptional,
   ...rest
-}) => {
+}: TextAreaProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,

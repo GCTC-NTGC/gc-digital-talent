@@ -1,6 +1,6 @@
 import React from "react";
 
-const BarChart: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (props) => (
+const BarChart = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

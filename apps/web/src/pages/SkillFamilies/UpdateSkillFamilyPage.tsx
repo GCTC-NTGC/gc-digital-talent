@@ -53,9 +53,11 @@ interface UpdateSkillFamilyFormProps {
   ) => Promise<UpdateSkillFamilyMutation["updateSkillFamily"]>;
 }
 
-export const UpdateSkillFamilyForm: React.FunctionComponent<
-  UpdateSkillFamilyFormProps
-> = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
+export const UpdateSkillFamilyForm = ({
+  initialSkillFamily,
+  skills,
+  handleUpdateSkillFamily,
+}: UpdateSkillFamilyFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();

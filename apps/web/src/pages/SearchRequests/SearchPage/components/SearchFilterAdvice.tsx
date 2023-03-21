@@ -3,20 +3,20 @@ import { useIntl } from "react-intl";
 
 import { LanguageAbility, Maybe, PositionDuration } from "~/api/generated";
 
-const SearchFilterAdvice: React.FC<{
-  operationalRequirementFilterCount: number;
-  educationSelection: Maybe<boolean>;
-  workingLanguage: Maybe<LanguageAbility>;
-  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
-  equityFiltersActive: number;
-  skillCount: number;
-}> = ({
+const SearchFilterAdvice = ({
   operationalRequirementFilterCount,
   educationSelection,
   workingLanguage,
   employmentDuration,
   equityFiltersActive,
   skillCount,
+}: {
+  operationalRequirementFilterCount: number;
+  educationSelection: Maybe<boolean>;
+  workingLanguage: Maybe<LanguageAbility>;
+  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
+  equityFiltersActive: number;
+  skillCount: number;
 }) => {
   const intl = useIntl();
   if (

@@ -57,10 +57,10 @@ const grabSkillJustification = (
   return justification;
 };
 
-const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
+const SkillAccordion = ({
   skill,
   headingLevel = "h2",
-}) => {
+}: SkillAccordionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

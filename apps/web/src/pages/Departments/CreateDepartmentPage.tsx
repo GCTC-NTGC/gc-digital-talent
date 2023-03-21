@@ -25,9 +25,9 @@ interface CreateDepartmentProps {
   ) => Promise<CreateDepartmentMutation["createDepartment"]>;
 }
 
-export const CreateDepartmentForm: React.FunctionComponent<
-  CreateDepartmentProps
-> = ({ handleCreateDepartment }) => {
+export const CreateDepartmentForm = ({
+  handleCreateDepartment,
+}: CreateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -124,7 +124,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
   );
 };
 
-const CreateDepartmentPage: React.FunctionComponent = () => {
+const CreateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useCreateDepartmentMutation();

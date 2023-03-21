@@ -231,9 +231,11 @@ export interface GovernmentInfoFormFieldsProps {
 }
 
 // inner component
-export const GovernmentInfoFormFields: React.FunctionComponent<
-  GovernmentInfoFormFieldsProps
-> = ({ departments, classifications, labels }) => {
+export const GovernmentInfoFormFields = ({
+  departments,
+  classifications,
+  labels,
+}: GovernmentInfoFormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { watch, resetField } = useFormContext();
@@ -576,7 +578,7 @@ const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
               "Display Text for Government Information Form Page Link",
           }),
           url: `${paths.governmentInformation(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

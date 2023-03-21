@@ -32,9 +32,11 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   trackUnsaved?: boolean;
   /** If true, the field set has unsaved changes */
   isUnsaved?: boolean;
+  /** Strip basic styles to present a flat fieldset */
+  flat?: boolean;
 }
 
-const Fieldset: React.FC<FieldsetProps> = ({
+const Fieldset = ({
   legend,
   name,
   required,
@@ -45,9 +47,10 @@ const Fieldset: React.FC<FieldsetProps> = ({
   hideLegend,
   children,
   isUnsaved,
+  flat = false,
   trackUnsaved = true,
   ...rest
-}) => {
+}: FieldsetProps) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
   const fieldState = useFieldState(name ?? "");
@@ -90,6 +93,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               data-h2-font-size="base(caption)"
               data-h2-margin="base(0, x.125, 0, 0)"
               data-h2-color="base(inherit)"
+              {...(flat && { "data-h2-font-weight": "base(800)" })}
             >
               {legend}
             </span>
@@ -143,10 +147,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        {...stateStyles}
-        data-h2-radius="base(input)"
-        data-h2-background="base(white)"
-        data-h2-padding="base(x.5, x.75, x.75, x.75)"
+        {...(!flat && {
+          ...stateStyles,
+          "data-h2-radius": "base(input)",
+          "data-h2-background": "base(white)",
+          "data-h2-padding": "base(x.5, x.75, x.75, x.75)",
+        })}
       >
         {children}
       </div>

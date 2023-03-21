@@ -28,7 +28,7 @@ export interface PaginationProps {
   onPageSizeChange: (pageSize: number) => void;
 }
 
-const Pagination: React.FunctionComponent<PaginationProps> = ({
+const Pagination = ({
   totalCount,
   siblingCount = 1,
   currentPage,
@@ -40,7 +40,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   onCurrentPageChange,
   onPageSizeChange,
   ...rest
-}) => {
+}: PaginationProps) => {
   const intl = useIntl();
   const paginationRange = usePagination({
     currentPage,

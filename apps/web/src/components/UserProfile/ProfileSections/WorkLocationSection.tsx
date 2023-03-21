@@ -29,10 +29,13 @@ export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
   return !applicant.locationExemptions;
 }
 
-const WorkLocationSection: React.FunctionComponent<{
+const WorkLocationSection = ({
+  applicant,
+  editPath,
+}: {
   applicant: PartialApplicant;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
   // generate array of location preferences localized and formatted with spaces/commas
   const regionPreferencesSquished = applicant.locationPreferences?.map(

@@ -45,9 +45,10 @@ export interface TableProps<
   initialSortBy?: Array<{ id: string; desc: boolean }>;
 }
 
-const IndeterminateCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
-> = ({ indeterminate, ...rest }) => {
+const IndeterminateCheckbox = ({
+  indeterminate,
+  ...rest
+}: React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }) => {
   const intl = useIntl();
   const ref = React.useRef<HTMLInputElement>(null);
 

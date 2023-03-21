@@ -76,10 +76,13 @@ export interface UserProfileProps {
   headingLevel?: HeadingRank;
 }
 
-const HeadingWrapper: React.FC<{
+const HeadingWrapper = ({
+  children,
+  show,
+}: {
   children?: React.ReactNode;
   show: boolean;
-}> = ({ children, show }) => {
+}) => {
   if (!show && children) {
     return (
       <div data-h2-padding="base(x1, 0, x1, 0)">
@@ -95,10 +98,7 @@ const HeadingWrapper: React.FC<{
   );
 };
 
-const EditUrlLink: React.FC<{ link: string; text: string }> = ({
-  link,
-  text,
-}) => (
+const EditUrlLink = ({ link, text }: { link: string; text: string }) => (
   <div
     data-h2-flex-item="base(1of1) p-tablet(content)"
     data-h2-text-align="base(center) p-tablet(right)"
@@ -136,13 +136,13 @@ const Container = ({
   );
 };
 
-const UserProfile: React.FC<UserProfileProps> = ({
+const UserProfile = ({
   applicant,
   sections,
   subTitle,
   headingLevel = "h2",
   isNavigationVisible = true,
-}) => {
+}: UserProfileProps) => {
   const intl = useIntl();
   const { experiences } = applicant;
   const featureFlags = useFeatureFlags();
