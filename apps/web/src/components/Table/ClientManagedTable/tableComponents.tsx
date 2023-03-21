@@ -1,12 +1,14 @@
 import React, { HTMLAttributes } from "react";
 import { useIntl } from "react-intl";
 
-export const IndeterminateCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & {
-    indeterminate: boolean;
-    labelText?: string;
-  }
-> = ({ indeterminate, labelText, ...rest }) => {
+export const IndeterminateCheckbox = ({
+  indeterminate,
+  labelText,
+  ...rest
+}: React.HTMLProps<HTMLInputElement> & {
+  indeterminate: boolean;
+  labelText?: string;
+}) => {
   const intl = useIntl();
   const ref = React.useRef<HTMLInputElement>(null);
 

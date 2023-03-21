@@ -37,10 +37,13 @@ export function hasEmptyOptionalFields({
   return isEmpty(acceptedOperationalRequirements);
 }
 
-const WorkPreferencesSection: React.FunctionComponent<{
+const WorkPreferencesSection = ({
+  applicant,
+  editPath,
+}: {
   applicant: PartialApplicant;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
   const { acceptedOperationalRequirements, positionDuration } = applicant;
 

@@ -25,9 +25,7 @@ import { PoolCandidate } from "~/api/generated";
 
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 
-const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
   );

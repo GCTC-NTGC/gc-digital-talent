@@ -44,10 +44,13 @@ export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
   return !anyCriteriaSelected(applicant);
 }
 
-const DiversityEquityInclusionSection: React.FunctionComponent<{
+const DiversityEquityInclusionSection = ({
+  applicant,
+  editPath,
+}: {
   applicant: PartialApplicant;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =

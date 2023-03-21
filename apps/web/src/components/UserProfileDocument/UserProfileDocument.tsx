@@ -24,9 +24,7 @@ import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAbout
 
 import { Applicant } from "~/api/generated";
 
-const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
   );
@@ -37,12 +35,12 @@ export interface HeadingProps {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
-const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
+const Heading = ({
   icon,
   children,
   as = "h2",
   ...rest
-}) => {
+}: HeadingProps & HTMLAttributes<HTMLHeadingElement>) => {
   const El = as;
   const Icon = icon || null;
 

@@ -65,10 +65,13 @@ export function hasEmptyOptionalFields({
   );
 }
 
-const LanguageInformationSection: React.FunctionComponent<{
+const LanguageInformationSection = ({
+  applicant,
+  editPath,
+}: {
   applicant: PartialApplicant;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
 
   const {

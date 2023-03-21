@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-const Spinner: React.FC = () => {
+const Spinner = () => {
   const intl = useIntl();
   return (
     <span className="lds-dual-ring">
