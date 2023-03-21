@@ -3,8 +3,8 @@ FROM ubuntu:22.04
 # point Cypress at the /root/cache no matter what user account is used
 # https://github.com/cypress-io/cypress/issues/25236#issuecomment-1362269095
 ENV CYPRESS_CACHE_FOLDER=~/.cache/Cypress
-RUN touch CYPRESS_CACHE_FOLDER
-RUN chmod chmod a+r,a+w CYPRESS_CACHE_FOLDER
+RUN touch ${CYPRESS_CACHE_FOLDER}
+RUN chmod chmod a+r,a+w ${CYPRESS_CACHE_FOLDER}
 
 
 # install apt packages
