@@ -12,11 +12,11 @@ export interface WordCounterProps {
   wordLimit: number;
 }
 
-const WordCounter: React.FunctionComponent<WordCounterProps> = ({
+const WordCounter = ({
   text,
   wordLimit,
   ...rest
-}): React.ReactElement => {
+}: WordCounterProps): React.ReactElement => {
   const intl = useIntl();
   const numOfWords = countNumberOfWords(text);
   const wordsLeft = wordLimit - numOfWords;
