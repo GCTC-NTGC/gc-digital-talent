@@ -80,7 +80,7 @@ export const DepartmentTable = ({ departments }: DepartmentTableProps) => {
   );
 };
 
-const DepartmentTableApi: React.FunctionComponent = () => {
+const DepartmentTableApi = () => {
   const [result] = useDepartmentsQuery();
   const { data, fetching, error } = result;
 

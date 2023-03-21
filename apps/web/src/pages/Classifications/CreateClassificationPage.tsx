@@ -22,9 +22,9 @@ interface CreateClassificationFormProps {
   handleCreateClassification: (data: FormValues) => Promise<FormValues>;
 }
 
-export const CreateClassificationForm: React.FunctionComponent<
-  CreateClassificationFormProps
-> = ({ handleCreateClassification }) => {
+export const CreateClassificationForm = ({
+  handleCreateClassification,
+}: CreateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -195,7 +195,7 @@ export const CreateClassificationForm: React.FunctionComponent<
   );
 };
 
-const CreateClassification: React.FunctionComponent = () => {
+const CreateClassification = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useCreateClassificationMutation();

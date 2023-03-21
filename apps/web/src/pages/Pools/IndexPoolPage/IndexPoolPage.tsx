@@ -9,7 +9,7 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolTableApi from "./components/PoolTable";
 
-export const PoolPage: React.FC = () => {
+export const PoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 

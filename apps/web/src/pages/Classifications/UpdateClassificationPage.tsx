@@ -30,9 +30,10 @@ interface UpdateClassificationFormProps {
   ) => Promise<FormValues>;
 }
 
-export const UpdateClassificationForm: React.FunctionComponent<
-  UpdateClassificationFormProps
-> = ({ initialClassification, handleUpdateClassification }) => {
+export const UpdateClassificationForm = ({
+  initialClassification,
+  handleUpdateClassification,
+}: UpdateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

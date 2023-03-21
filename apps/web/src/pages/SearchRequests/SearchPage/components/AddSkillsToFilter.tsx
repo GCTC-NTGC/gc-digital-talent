@@ -12,10 +12,7 @@ export interface AddSkillsToFilterProps {
   linkId: string;
 }
 
-const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
-  allSkills,
-  linkId,
-}) => {
+const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const watchedSkills = watch("skills");

@@ -53,11 +53,11 @@ interface UpdateSkillFormProps {
   ) => Promise<UpdateSkillMutation["updateSkill"]>;
 }
 
-export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
+export const UpdateSkillForm = ({
   initialSkill,
   families,
   handleUpdateSkill,
-}) => {
+}: UpdateSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();

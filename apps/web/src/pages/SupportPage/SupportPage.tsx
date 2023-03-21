@@ -21,7 +21,7 @@ const getFlourishStyles = (isTop: boolean) => ({
     : "base(auto, auto, 0, 0)",
 });
 
-export const SupportPage: React.FC = () => {
+export const SupportPage = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useRoutes();
