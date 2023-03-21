@@ -21,7 +21,7 @@ cp .env.example .env --preserve=all
 
 # create cypress cache folder
 mkdir -p ${CYPRESS_CACHE_FOLDER}
-chmod chmod a+r,a+w ${CYPRESS_CACHE_FOLDER}
+chmod a+r,a+w ${CYPRESS_CACHE_FOLDER}
 
 # build projects
 git config --global --add safe.directory /var/www/html
