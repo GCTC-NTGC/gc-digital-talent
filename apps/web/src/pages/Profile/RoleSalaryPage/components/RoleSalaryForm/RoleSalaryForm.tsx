@@ -76,11 +76,11 @@ export interface RoleSalaryFormProps {
   updateRoleSalary: RoleSalaryUpdateHandler;
 }
 
-const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
+const RoleSalaryForm = ({
   initialData,
   application,
   updateRoleSalary,
-}) => {
+}: RoleSalaryFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

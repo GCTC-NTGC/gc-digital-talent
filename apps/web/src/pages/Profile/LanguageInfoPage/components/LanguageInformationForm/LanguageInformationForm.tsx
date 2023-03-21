@@ -97,11 +97,15 @@ export type LanguageInformationUpdateHandler = (
   data: UpdateUserAsUserInput,
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
-const LanguageInformationForm: React.FunctionComponent<{
+const LanguageInformationForm = ({
+  initialData,
+  application,
+  submitHandler,
+}: {
   initialData: User;
   application?: PoolCandidate;
   submitHandler: LanguageInformationUpdateHandler;
-}> = ({ initialData, application, submitHandler }) => {
+}) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

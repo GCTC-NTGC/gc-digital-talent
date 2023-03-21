@@ -33,7 +33,7 @@ const resolveMaybeArray = <T,>(value: Maybe<Array<Maybe<T>>>): Array<T> => {
   return value?.filter(notEmpty) ?? [];
 };
 
-const EquityOptions: React.FC<EquityOptionsProps> = ({
+const EquityOptions = ({
   hasDisability,
   indigenousCommunities,
   isVisibleMinority,
@@ -42,7 +42,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
   onRemove,
   onUpdate,
   isDisabled,
-}) => {
+}: EquityOptionsProps) => {
   const intl = useIntl();
 
   const resolvedDisability = resolveMaybe(hasDisability);

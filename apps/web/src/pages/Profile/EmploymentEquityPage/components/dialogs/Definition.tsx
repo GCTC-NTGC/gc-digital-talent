@@ -13,7 +13,7 @@ interface DefinitionProps {
   url: string;
 }
 
-const Definition: React.FC<DefinitionProps> = ({ url }) => {
+const Definition = ({ url }: DefinitionProps) => {
   const intl = useIntl();
 
   return (

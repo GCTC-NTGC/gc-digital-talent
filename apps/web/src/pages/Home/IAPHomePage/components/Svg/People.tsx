@@ -1,6 +1,6 @@
 import React from "react";
 
-const People: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (props) => (
+const People = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

@@ -23,12 +23,12 @@ export interface EmploymentEquityFormProps {
   onUpdate: EmploymentEquityUpdateHandler;
 }
 
-const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
+const EmploymentEquityForm = ({
   user,
   application,
   onUpdate,
   isMutating,
-}) => {
+}: EmploymentEquityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { id: applicationId, returnRoute } = useApplicationInfo(user.id);

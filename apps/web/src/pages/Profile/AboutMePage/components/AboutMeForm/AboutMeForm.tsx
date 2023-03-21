@@ -66,11 +66,11 @@ export interface AboutMeFormProps {
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
-const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
+const AboutMeForm = ({
   initialUser,
   application,
   onUpdateAboutMe,
-}) => {
+}: AboutMeFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
