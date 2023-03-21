@@ -202,7 +202,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             description: "Display text for About Me Form Page Link",
           }),
           url: `${paths.aboutMe(initialUser.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

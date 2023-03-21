@@ -18,7 +18,7 @@ export interface InputLabelProps {
   fillLabel?: boolean;
 }
 
-const InputLabel: React.FC<InputLabelProps> = ({
+const InputLabel = ({
   inputId,
   label,
   labelSize,
@@ -30,7 +30,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
   contextIsVisible = false,
   hideOptional = false,
   hideBottomMargin = false,
-}): React.ReactElement => {
+}: InputLabelProps): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
     contextToggleHandler(!contextIsActive);

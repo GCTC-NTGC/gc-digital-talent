@@ -62,6 +62,8 @@ import getExperienceFormLabels from "./labels";
 
 export interface ExperienceFormProps {
   userId: string;
+  experienceId?: string;
+  applicationId?: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
   poolAdvertisement?: PoolAdvertisement;
@@ -74,6 +76,8 @@ export interface ExperienceFormProps {
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   userId,
+  experienceId,
+  applicationId,
   experience,
   experienceType,
   onUpdateExperience,
@@ -84,12 +88,32 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const { id: applicationId } = useApplicationInfo(userId);
   const paths = useRoutes();
 
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    applicationId ? `?${applicationId}` : ``
+    applicationId ? `?applicationId=${applicationId}` : ``
   }`;
+
+  let currentPath = "#";
+  if (experience && experienceId) {
+    currentPath = paths.editExperience(userId, experienceType, experienceId);
+  } else {
+    if (experienceType === "award") {
+      currentPath = paths.createAward(userId);
+    }
+    if (experienceType === "community") {
+      currentPath = paths.createCommunity(userId);
+    }
+    if (experienceType === "education") {
+      currentPath = paths.createEducation(userId);
+    }
+    if (experienceType === "personal") {
+      currentPath = paths.createPersonal(userId);
+    }
+    if (experienceType === "work") {
+      currentPath = paths.createWork(userId);
+    }
+  }
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
@@ -112,7 +136,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             id: "mJ1HE4",
             description: "Display text for add experience form in breadcrumbs",
           }),
-      url: "#",
+      url: `${currentPath}${
+        applicationId ? `?applicationId=${applicationId}` : ``
+      }`,
     },
   ];
 
@@ -358,7 +384,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
-    applicationId ? `?${applicationId}` : ``
+    applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
   const [
@@ -496,6 +522,8 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           poolAdvertisement={
             applicationData?.poolCandidate?.poolAdvertisement || undefined
           }
+          experienceId={experienceId || ""}
+          applicationId={applicationId || undefined}
           experience={experience as ExperienceQueryData}
           experienceType={experienceType || "personal"}
           skills={
