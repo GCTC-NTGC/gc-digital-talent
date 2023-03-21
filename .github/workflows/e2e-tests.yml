@@ -35,7 +35,6 @@ jobs:
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
       NPM_VERSION: '8.3.0'
-      CYPRESS_CACHE_FOLDER: './cypress-cache'
     steps:
 
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
