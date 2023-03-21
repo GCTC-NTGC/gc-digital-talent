@@ -7,28 +7,31 @@ import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { useIntl } from "react-intl";
 
 interface QualifiedRecruitmentDialogProps {
-  openDialogLabel: string;
+  id: string;
   title: string;
+  isSuspended: boolean;
   primaryBodyText: string;
   secondaryBodyText: string;
+  openDialogLabel: string;
   closeButtonLabel: string;
-  id: string;
-  isSuspended: boolean;
+  successMessage: React.ReactNode;
+  errorMessage: React.ReactNode;
 }
 
 type FormValues = {
   isSuspended: boolean;
 };
 
-// TODO: Should the dialog component be pulled out into another file?
 const QualifiedRecruitmentDialog = ({
-  openDialogLabel,
+  id,
+  title,
+  isSuspended,
   primaryBodyText,
   secondaryBodyText,
+  openDialogLabel,
   closeButtonLabel,
-  title,
-  id,
-  isSuspended,
+  successMessage,
+  errorMessage,
 }: QualifiedRecruitmentDialogProps) => {
   const intl = useIntl();
   const [, executeMutation] = useChangeApplicationSuspendedAtMutation();
@@ -49,17 +52,11 @@ const QualifiedRecruitmentDialog = ({
       .then((res) => {
         if (!res.error) {
           setIsOpen(false);
+          toast.success(successMessage);
         }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "INSERT ERROR CONTENT HERE.",
-            id: "h2nLMI",
-            description:
-              "Alert displayed to user suspended at value has failed to update.",
-          }),
-        );
+        toast.error(errorMessage);
       });
   };
   return (

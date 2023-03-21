@@ -92,17 +92,11 @@ const QualifiedRecruitmentStatus = ({
           <QualifiedRecruitmentDialog
             id={id}
             isSuspended={!!suspendedAt}
-            closeButtonLabel={intl.formatMessage({
-              defaultMessage: "Yes, remove me from search results",
-              id: "wgRXhR",
+            title={intl.formatMessage({
+              defaultMessage: "Change your appearance in search results",
+              id: "FGF3sd",
               description:
-                "Dialog close button on change search results status from qualified recruitment section.",
-            })}
-            openDialogLabel={intl.formatMessage({
-              defaultMessage: "Remove me",
-              id: "2g1mfB",
-              description:
-                "Open dialog text on change search results status from qualified recruitment section.",
+                "Dialog title on change search results status from qualified recruitment section.",
             })}
             primaryBodyText={intl.formatMessage({
               defaultMessage:
@@ -118,11 +112,29 @@ const QualifiedRecruitmentStatus = ({
               description:
                 "Dialog main body on change search results status from qualified recruitment section.",
             })}
-            title={intl.formatMessage({
-              defaultMessage: "Change your appearance in search results",
-              id: "FGF3sd",
+            openDialogLabel={intl.formatMessage({
+              defaultMessage: "Remove me",
+              id: "2g1mfB",
               description:
-                "Dialog title on change search results status from qualified recruitment section.",
+                "Open dialog text on change search results status from qualified recruitment section.",
+            })}
+            closeButtonLabel={intl.formatMessage({
+              defaultMessage: "Yes, remove me from search results",
+              id: "wgRXhR",
+              description:
+                "Dialog close button on change search results status from qualified recruitment section.",
+            })}
+            successMessage={intl.formatMessage({
+              defaultMessage: "You have been removed from the search results.",
+              id: "H/btqJ",
+              description:
+                "Alert displayed to the user when qualified recruitment card dialog submits successfully.",
+            })}
+            errorMessage={intl.formatMessage({
+              defaultMessage: "Error: failed removing you from search results.",
+              id: "5BkrSp",
+              description:
+                "Alert displayed to the user when qualified recruitment card dialog fails.",
             })}
           />
           .
@@ -152,17 +164,11 @@ const QualifiedRecruitmentStatus = ({
         <QualifiedRecruitmentDialog
           id={id}
           isSuspended={!!suspendedAt}
-          closeButtonLabel={intl.formatMessage({
-            defaultMessage: "Yes, add me to search results",
-            id: "V8GyRL",
+          title={intl.formatMessage({
+            defaultMessage: "Change your appearance in search results",
+            id: "FGF3sd",
             description:
-              "Dialog close button on change search results status from qualified recruitment section.",
-          })}
-          openDialogLabel={intl.formatMessage({
-            defaultMessage: "I want to appear in results again",
-            id: "XHfbPp",
-            description:
-              "Open dialog text on change search results status from qualified recruitment section.",
+              "Dialog title on change search results status from qualified recruitment section.",
           })}
           primaryBodyText={intl.formatMessage({
             defaultMessage:
@@ -178,11 +184,29 @@ const QualifiedRecruitmentStatus = ({
             description:
               "Dialog main body on change search results status from qualified recruitment section.",
           })}
-          title={intl.formatMessage({
-            defaultMessage: "Change your appearance in search results",
-            id: "FGF3sd",
+          openDialogLabel={intl.formatMessage({
+            defaultMessage: "I want to appear in results again",
+            id: "XHfbPp",
             description:
-              "Dialog title on change search results status from qualified recruitment section.",
+              "Open dialog text on change search results status from qualified recruitment section.",
+          })}
+          closeButtonLabel={intl.formatMessage({
+            defaultMessage: "Yes, add me to search results",
+            id: "V8GyRL",
+            description:
+              "Dialog close button on change search results status from qualified recruitment section.",
+          })}
+          successMessage={intl.formatMessage({
+            defaultMessage: "You have been added to search results.",
+            id: "12rbnA",
+            description:
+              "Alert displayed to the user when qualified recruitment card dialog submits successfully.",
+          })}
+          errorMessage={intl.formatMessage({
+            defaultMessage: "Error: failed adding you to search results.",
+            id: "7DfdMY",
+            description:
+              "Alert displayed to the user when qualified recruitment card dialog fails.",
           })}
         />
         .
