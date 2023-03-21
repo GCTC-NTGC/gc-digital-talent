@@ -857,7 +857,7 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  stream: PoolStream @scope
+  stream: PoolStream
 }
 
 input PoolCandidateSearchInput {
