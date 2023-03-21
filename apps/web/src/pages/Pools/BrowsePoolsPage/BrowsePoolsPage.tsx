@@ -46,9 +46,7 @@ export interface BrowsePoolsProps {
   poolAdvertisements: PoolAdvertisement[];
 }
 
-export const BrowsePools: React.FC<BrowsePoolsProps> = ({
-  poolAdvertisements,
-}) => {
+export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -321,7 +319,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   );
 };
 
-const BrowsePoolsApi: React.FC = () => {
+const BrowsePoolsApi = () => {
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(

@@ -22,7 +22,7 @@ interface DashboardPageProps {
   currentUser?: User | null;
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
+const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const navigationCrumbs = [
@@ -136,7 +136,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
   );
 };
 
-const DashboardPageApi: React.FC = () => {
+const DashboardPageApi = () => {
   const [{ data, fetching, error }] = useMeQuery();
 
   return (

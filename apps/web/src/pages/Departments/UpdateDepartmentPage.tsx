@@ -31,9 +31,10 @@ interface UpdateDepartmentProps {
   ) => Promise<UpdateDepartmentMutation["updateDepartment"]>;
 }
 
-export const UpdateDepartmentForm: React.FunctionComponent<
-  UpdateDepartmentProps
-> = ({ initialDepartment, handleUpdateDepartment }) => {
+export const UpdateDepartmentForm = ({
+  initialDepartment,
+  handleUpdateDepartment,
+}: UpdateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

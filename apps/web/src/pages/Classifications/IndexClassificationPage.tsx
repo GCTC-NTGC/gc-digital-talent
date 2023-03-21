@@ -9,7 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import ClassificationTableApi from "./components/ClassificationTable";
 
-export const IndexClassificationPage: React.FC = () => {
+export const IndexClassificationPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 

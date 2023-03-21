@@ -109,7 +109,7 @@ export const SkillFamilyTable = ({ skillFamilies }: SkillFamilyTableProps) => {
   );
 };
 
-const SkillFamilyTableApi: React.FunctionComponent = () => {
+const SkillFamilyTableApi = () => {
   const [result] = useAllSkillFamiliesQuery();
   const { data, fetching, error } = result;
 

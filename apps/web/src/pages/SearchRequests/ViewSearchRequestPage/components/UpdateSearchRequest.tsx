@@ -26,9 +26,10 @@ interface UpdateSearchRequestFormProps {
   ) => Promise<FormValues>;
 }
 
-export const UpdateSearchRequestForm: React.FunctionComponent<
-  UpdateSearchRequestFormProps
-> = ({ initialSearchRequest, handleUpdateSearchRequest }) => {
+export const UpdateSearchRequestForm = ({
+  initialSearchRequest,
+  handleUpdateSearchRequest,
+}: UpdateSearchRequestFormProps) => {
   const intl = useIntl();
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const navigate = useNavigate();
@@ -187,9 +188,11 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   );
 };
 
-const UpdateSearchRequest: React.FunctionComponent<{
+const UpdateSearchRequest = ({
+  initialSearchRequest,
+}: {
   initialSearchRequest: PoolCandidateSearchRequest;
-}> = ({ initialSearchRequest }) => {
+}) => {
   const [, executeMutation] = useUpdatePoolCandidateSearchRequestMutation();
   const handleUpdateSearchRequest = (
     id: string,
