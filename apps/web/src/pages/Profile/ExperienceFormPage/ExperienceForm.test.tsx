@@ -12,7 +12,6 @@ import type { ExperienceQueryData, ExperienceType } from "./types";
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
 const mockExperiences = fakeExperiences(5);
-const returnPath = "";
 const mockCallback = jest.fn();
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
