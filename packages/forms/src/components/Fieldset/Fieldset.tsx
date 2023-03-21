@@ -36,7 +36,7 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   flat?: boolean;
 }
 
-const Fieldset: React.FC<FieldsetProps> = ({
+const Fieldset = ({
   legend,
   name,
   required,
@@ -50,7 +50,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
   flat = false,
   trackUnsaved = true,
   ...rest
-}) => {
+}: FieldsetProps) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
   const fieldState = useFieldState(name ?? "");
