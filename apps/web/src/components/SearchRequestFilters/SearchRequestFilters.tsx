@@ -12,6 +12,7 @@ import {
   getOperationalRequirement,
   getWorkRegion,
   getLocale,
+  poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -21,6 +22,7 @@ import {
   Maybe,
   Pool,
   PoolCandidateFilter,
+  PoolStream,
   PositionDuration,
 } from "~/api/generated";
 
@@ -144,6 +146,14 @@ const ApplicantFilters: React.FC<{
     .map((classification) =>
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
     );
+
+  // Search Request Summary Page
+  const streamFromApplicationFilter = applicantFilter?.stream;
+
+  // ViewRequest Form
+  const streamFromPool: Maybe<PoolStream>[] | undefined = pools?.map(
+    (pool) => pool?.stream,
+  );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
@@ -275,6 +285,14 @@ const ApplicantFilters: React.FC<{
             )}
           />
           <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Stream",
+              id: "Ua/X9Q",
+              description: "Title for stream on summary of filters section",
+            })}
+            content={streamFromApplicationFilter || streamFromPool}
+          />
+          <FilterBlock
             title={intl.formatMessage(
               {
                 defaultMessage: "Selected skills ({numOfSkills})",
@@ -388,7 +406,6 @@ const SearchRequestFilters: React.FunctionComponent<
 > = ({ filters, selectedClassifications }) => {
   const intl = useIntl();
   let poolCandidateFilter;
-
   // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
     return (
@@ -411,6 +428,12 @@ const SearchRequestFilters: React.FunctionComponent<
           classification?.level
         }`,
     );
+
+  const pools: Maybe<Maybe<Pool>[]> = poolCandidateFilter?.pools;
+  const streams: Maybe<PoolStream>[] | undefined = pools?.map(
+    (pool) => pool?.stream,
+  );
+
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
@@ -502,6 +525,14 @@ const SearchRequestFilters: React.FunctionComponent<
                   "Title for group and level on summary of filters section",
               })}
               content={classifications}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Stream",
+                id: "Ua/X9Q",
+                description: "Title for stream on summary of filters section",
+              })}
+              content={streams}
             />
             <FilterBlock
               title={intl.formatMessage({
