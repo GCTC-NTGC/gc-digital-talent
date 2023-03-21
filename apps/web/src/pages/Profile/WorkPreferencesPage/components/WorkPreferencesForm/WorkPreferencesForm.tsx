@@ -165,7 +165,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             description: "Display Text for Work Preferences Form Page Link",
           }),
           url: `${paths.workPreferences(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

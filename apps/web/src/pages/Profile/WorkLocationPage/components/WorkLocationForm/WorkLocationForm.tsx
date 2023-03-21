@@ -127,7 +127,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
               "Display Text for the current page in Work Location Preference Form Page",
           }),
           url: `${paths.workLocation(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

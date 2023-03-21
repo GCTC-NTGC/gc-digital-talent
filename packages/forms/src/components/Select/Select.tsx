@@ -83,7 +83,7 @@ function sortOptions(options: OptGroupOrOption[]) {
   );
 }
 
-const Select: React.FunctionComponent<SelectProps> = ({
+const Select = ({
   id,
   label,
   name,
@@ -95,7 +95,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   trackUnsaved = true,
   doNotSort = false,
   ...rest
-}) => {
+}: SelectProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
