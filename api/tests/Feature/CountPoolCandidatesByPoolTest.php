@@ -28,13 +28,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
-
-        // Create guest user we run tests as
-        $newUser = new User;
-        $newUser->email = 'guest@test.com';
-        $newUser->sub = 'guest@test.com';
-        $newUser->save();
-        $newUser->syncRoles(["guest"]);
     }
 
     public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true) {
@@ -52,10 +45,12 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ];
     }
 
-    // user (guest) not returned if no candidates
-    // the guest has no candidates so should get no results
-    public function testThatEmptyDoesNotReturnTheGuest()
+    // The user has no candidates so should get no results
+    public function testEmptyDoesNotReturnUserWithNoCandidates()
     {
+        // Create user to test for
+        User::factory()->create();
+
         $this->graphQL(
             /** @lang GraphQL */
             '
