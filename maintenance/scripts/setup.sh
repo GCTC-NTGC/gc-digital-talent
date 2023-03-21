@@ -20,7 +20,7 @@ cd /var/www/html/apps/web
 cp .env.example .env --preserve=all
 
 # create cypress cache folder
-mkdir ${CYPRESS_CACHE_FOLDER}
+mkdir -p ${CYPRESS_CACHE_FOLDER}
 chmod chmod a+r,a+w ${CYPRESS_CACHE_FOLDER}
 
 # build projects
