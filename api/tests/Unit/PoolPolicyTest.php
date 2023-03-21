@@ -21,6 +21,7 @@ class PoolPolicyTest extends TestCase
     protected $requestResponderUser;
     protected $adminUser;
     protected $team;
+    protected $otherTeam;
     protected $teamPool;
     protected $unOwnedPool;
 
@@ -71,9 +72,9 @@ class PoolPolicyTest extends TestCase
             'team_id' => $this->team->id,
         ]);
 
-        $noUsersTeam = Team::factory()->create();
+        $this->otherTeam = Team::factory()->create();
 
-        $this->unOwnedPool = Pool::factory(['team_id' => $noUsersTeam->id])->create();
+        $this->unOwnedPool = Pool::factory(['team_id' => $this->otherTeam->id])->create();
     }
 
 
@@ -175,12 +176,38 @@ class PoolPolicyTest extends TestCase
      */
     public function testCreate()
     {
-        $this->assertTrue($this->poolOperatorUser->can('create', Pool::class));
+        $createPoolInput = [
+            'team' => [
+                'connect' => $this->team->id,
+            ]
+        ];
+        $createAdvertisementInput = [
+            'team_id' => $this->team->id,
+        ];
 
-        $this->assertFalse($this->guestUser->can('create', Pool::class));
-        $this->assertFalse($this->applicantUser->can('create', Pool::class));
-        $this->assertFalse($this->requestResponderUser->can('create', Pool::class));
-        $this->assertFalse($this->adminUser->can('create', Pool::class));
+        $this->assertTrue($this->poolOperatorUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertTrue($this->poolOperatorUser->can('create', [Pool::class, $createAdvertisementInput]));
+
+        $this->assertFalse($this->guestUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertFalse($this->guestUser->can('create', [Pool::class, $createAdvertisementInput]));
+        $this->assertFalse($this->applicantUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertFalse($this->applicantUser->can('create', [Pool::class, $createAdvertisementInput]));
+        $this->assertFalse($this->requestResponderUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertFalse($this->requestResponderUser->can('create', [Pool::class, $createAdvertisementInput]));
+        $this->assertFalse($this->adminUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertFalse($this->adminUser->can('create', [Pool::class, $createAdvertisementInput]));
+
+        // Pool operator cannot create pools for other teams
+        $createOtherPoolInput = [
+            'team' => [
+                'connect' => $this->otherTeam->id,
+            ]
+        ];
+        $createOtherAdvertisementInput = [
+            'team_id' => $this->otherTeam->id,
+        ];
+        $this->assertFalse($this->poolOperatorUser->can('create', [Pool::class, $createOtherPoolInput]));
+        $this->assertFalse($this->poolOperatorUser->can('create', [Pool::class, $createOtherAdvertisementInput]));
     }
 
     /**
