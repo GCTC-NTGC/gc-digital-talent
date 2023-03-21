@@ -1,8 +1,10 @@
-import React, { SVGAttributes } from "react";
+import React from "react";
 
 interface IconLabelProps {
   label: React.ReactNode;
-  icon: React.FC<SVGAttributes<SVGSVGElement>>;
+  icon:
+    | ((props: React.HTMLAttributes<HTMLOrSVGElement>) => React.ReactElement)
+    | React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   children?: React.ReactNode;
 }
 

@@ -292,7 +292,7 @@ export const CreateAccountForm = ({
   );
 };
 
-const CreateAccount: React.FunctionComponent = () => {
+const CreateAccount = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

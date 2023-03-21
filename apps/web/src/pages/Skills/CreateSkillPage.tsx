@@ -278,7 +278,7 @@ export const CreateSkillForm = ({
   );
 };
 
-const CreateSkillPage: React.FunctionComponent = () => {
+const CreateSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [lookupResult] = useAllSkillFamiliesQuery();

@@ -18,7 +18,10 @@ interface EquityOptionProps {
   title: React.ReactNode;
 }
 
-const dialogMap: Record<EquityGroup, React.FC<IndigenousDialogProps>> = {
+const dialogMap: Record<
+  EquityGroup,
+  (props: IndigenousDialogProps) => JSX.Element
+> = {
   indigenous: IndigenousDialog,
 };
 

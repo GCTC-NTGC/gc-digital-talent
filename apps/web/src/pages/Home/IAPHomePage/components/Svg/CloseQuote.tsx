@@ -1,6 +1,6 @@
 import React from "react";
 
-const CloseQuote: React.FC = (props) => (
+const CloseQuote = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

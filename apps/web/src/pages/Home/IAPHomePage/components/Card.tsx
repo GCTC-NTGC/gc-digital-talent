@@ -4,7 +4,7 @@ import Heading from "./Heading";
 
 interface CardProps {
   title: string;
-  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
+  Icon?: (props: React.HTMLAttributes<HTMLOrSVGElement>) => React.ReactElement;
   children?: React.ReactNode;
 }
 
