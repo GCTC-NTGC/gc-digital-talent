@@ -59,7 +59,7 @@ class UserSeederLocal extends Seeder
             'sub' => 'platform@test.com',
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
-            ->syncRoles([$baseUserRole, $platformAdminRole], null);
+            ->syncRoles([$baseUserRole, $applicantRole, $platformAdminRole], null);
 
         User::factory()->create([
             'first_name' => 'Request',
@@ -68,7 +68,7 @@ class UserSeederLocal extends Seeder
             'sub' => 'request@test.com',
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
-            ->syncRoles([$baseUserRole, $requestResponderRole], null);
+            ->syncRoles([$baseUserRole, $applicantRole, $requestResponderRole], null);
 
         User::factory()->create([
             'first_name' => 'Pool',
@@ -79,7 +79,7 @@ class UserSeederLocal extends Seeder
          ])
             ->syncRoles([$poolOperatorRole], $dcmTeam)
             ->syncRoles([$poolOperatorRole], $testTeam)
-            ->syncRoles([$baseUserRole], null);
+            ->syncRoles([$baseUserRole, $applicantRole], null);
 
         User::factory()->create([
             'first_name' => 'Applicant',
