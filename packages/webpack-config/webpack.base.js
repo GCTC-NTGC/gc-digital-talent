@@ -11,7 +11,7 @@ const fs = require("fs");
 
 const meta = {
   title: "GC Digital Talent | Talent numérique du GC",
-  description: "Recruitment platform for digital jobs in the Government of Canada. Recrutement pour les emplois numériques au gouvernement du Canada.",
+  description: "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: "https://talent.canada.ca/",
   domain: "talent.canada.ca",
   image: "",
