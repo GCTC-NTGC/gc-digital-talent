@@ -27,7 +27,7 @@ const reviewLink = (locale: string, chunks: React.ReactNode) => {
   );
 };
 
-const UnderReview: React.FC = () => {
+const UnderReview = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

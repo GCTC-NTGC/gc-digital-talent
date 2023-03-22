@@ -31,7 +31,7 @@ const mailLink = (chunks: React.ReactNode) => (
   <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
 );
 
-const Home: React.FunctionComponent = () => {
+const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
   /**

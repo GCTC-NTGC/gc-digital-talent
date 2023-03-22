@@ -1,8 +1,6 @@
 import React from "react";
 
-const ThickCircle: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
-  props,
-) => (
+const ThickCircle = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

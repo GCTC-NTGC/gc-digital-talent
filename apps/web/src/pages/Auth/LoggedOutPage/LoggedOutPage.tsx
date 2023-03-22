@@ -19,7 +19,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-const LoggedOutPage: React.FC = () => {
+const LoggedOutPage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();

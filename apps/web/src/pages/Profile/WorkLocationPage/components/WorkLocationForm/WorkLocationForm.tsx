@@ -46,11 +46,11 @@ export interface WorkLocationFormProps {
   ) => Promise<CreateWorkLocationMutation["updateUserAsUser"]>;
 }
 
-const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
+const WorkLocationForm = ({
   initialData,
   application,
   handleWorkLocationPreference,
-}) => {
+}: WorkLocationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -127,7 +127,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
               "Display Text for the current page in Work Location Preference Form Page",
           }),
           url: `${paths.workLocation(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

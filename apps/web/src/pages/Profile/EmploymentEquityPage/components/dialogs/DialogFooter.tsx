@@ -4,7 +4,7 @@ import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-const DialogFooter: React.FC = () => {
+const DialogFooter = () => {
   const intl = useIntl();
   return (
     <div data-h2-flex-grid="base(center, x1)">

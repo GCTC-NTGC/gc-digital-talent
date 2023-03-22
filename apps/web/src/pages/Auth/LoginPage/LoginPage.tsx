@@ -17,7 +17,7 @@ const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
 );
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();

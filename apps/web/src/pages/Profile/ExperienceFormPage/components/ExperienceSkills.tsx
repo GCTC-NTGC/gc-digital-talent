@@ -18,10 +18,10 @@ export interface ExperienceSkillsProps {
   poolAdvertisement?: PoolAdvertisement;
 }
 
-const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
+const ExperienceSkills = ({
   skills,
   poolAdvertisement,
-}) => {
+}: ExperienceSkillsProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);

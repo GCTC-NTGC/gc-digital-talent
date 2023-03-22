@@ -36,11 +36,15 @@ type Data = NonNullable<
 
 type CandidateCell = Cell<PoolCandidate>;
 
-const TableEditButton: React.FC<{
+const TableEditButton = ({
+  poolCandidateId,
+  poolId,
+  label,
+}: {
   poolCandidateId?: string;
   poolId?: string;
   label?: string;
-}> = ({ poolCandidateId, poolId, label }) => {
+}) => {
   const intl = useIntl();
   const paths = useRoutes();
   return (
@@ -201,9 +205,9 @@ const employmentEquityAccessor = (user: Applicant, intl: IntlShape) =>
     .sort()
     .join("-");
 
-export const SingleSearchRequestTable: React.FunctionComponent<
-  SearchPoolCandidatesQuery
-> = ({ searchPoolCandidates }) => {
+export const SingleSearchRequestTable = ({
+  searchPoolCandidates,
+}: SearchPoolCandidatesQuery) => {
   const intl = useIntl();
 
   const columns = useMemo<ColumnsOf<Data>>(
@@ -483,9 +487,11 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   };
 };
 
-const SingleSearchRequestTableApi: React.FunctionComponent<{
+const SingleSearchRequestTableApi = ({
+  filter,
+}: {
   filter: AbstractFilter;
-}> = ({ filter }) => {
+}) => {
   const isLegacyFilter = isPoolCandidateFilter(filter);
 
   const poolCandidateFilterInput = isLegacyFilter

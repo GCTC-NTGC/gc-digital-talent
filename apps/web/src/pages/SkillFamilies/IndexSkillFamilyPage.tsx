@@ -9,7 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import SkillFamilyTableApi from "./components/SkillFamilyTable";
 
-const IndexSkillFamilyPage: React.FC = () => {
+const IndexSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 

@@ -23,9 +23,12 @@ interface EmploymentEquityFormApiProps {
   onUpdate: EmploymentEquityUpdateHandler;
 }
 
-const EmploymentEquityFormApi: React.FunctionComponent<
-  EmploymentEquityFormApiProps
-> = ({ applicationId, user, isMutating, onUpdate }) => {
+const EmploymentEquityFormApi = ({
+  applicationId,
+  user,
+  isMutating,
+  onUpdate,
+}: EmploymentEquityFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -76,7 +79,7 @@ const ApiOrContent = ({
     />
   );
 
-const EmploymentEquityFormPage: React.FC = () => {
+const EmploymentEquityFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");

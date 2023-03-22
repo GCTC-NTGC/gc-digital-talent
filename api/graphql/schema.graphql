@@ -273,7 +273,7 @@ type Applicant {
   jobLookingStatus: JobLookingStatus
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft"]) @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -535,7 +535,7 @@ type Team {
   pools: [Pool] @hasMany @can(ability: "viewAny")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @canOnParent(ability: "viewAnyTeamMembers")
+    @canOnParent(ability: "viewTeamMembers")
 }
 
 type Role {
@@ -1832,4 +1832,8 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+  deleteTeam(id: UUID!): Team
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
 }

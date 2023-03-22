@@ -10,13 +10,13 @@ interface FilterBlockProps {
   headingLevel?: HeadingRank;
 }
 
-const FilterBlock: React.FC<FilterBlockProps> = ({
+const FilterBlock = ({
   id,
   title,
   text,
   children,
   headingLevel = "h3",
-}) => {
+}: FilterBlockProps) => {
   const Heading = headingLevel;
   return (
     <div>

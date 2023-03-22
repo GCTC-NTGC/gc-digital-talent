@@ -33,7 +33,7 @@ export interface InputProps
   trackUnsaved?: boolean;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
+const Input = ({
   id,
   context,
   label,
@@ -46,7 +46,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   whitespaceTrim = true,
   trackUnsaved = true,
   ...rest
-}) => {
+}: InputProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
@@ -92,8 +92,9 @@ const Input: React.FunctionComponent<InputProps> = ({
         <input
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
+          data-h2-width="base(100%)"
+          data-h2-min-height="base(40px)"
           {...stateStyles}
-          style={{ width: "100%" }}
           id={id}
           {...register(name, rules)}
           onBlur={whitespaceTrimmer}

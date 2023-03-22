@@ -40,3 +40,7 @@ A set of assumptions which, when tested, verify that the bug was addressed.
 
 - [ ] Criteria 1
 - [ ] Criteria 2
+
+## 🛑 Blockers
+
+Blocked by {issue numbers}
