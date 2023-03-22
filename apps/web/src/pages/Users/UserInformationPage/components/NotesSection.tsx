@@ -6,7 +6,10 @@ import { Button, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+} from "~/utils/poolUtils";
 
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -112,7 +115,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitleHtml(
+                    })} - ${getFullPoolAdvertisementTitleLabel(
                       intl,
                       candidate.pool,
                     )}`}
