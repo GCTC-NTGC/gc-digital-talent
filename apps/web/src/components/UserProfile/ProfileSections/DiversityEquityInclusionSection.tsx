@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/forms";
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { Well, Link } from "@gc-digital-talent/ui";
 import {
   getEmploymentEquityStatement,
@@ -10,6 +9,11 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { Applicant, IndigenousCommunity } from "~/api/generated";
+
+import firstNationsIcon from "~/assets/img/first-nations-true.png";
+import inuitIcon from "~/assets/img/inuit-true.png";
+import metisIcon from "~/assets/img/metis-true.png";
+import otherIcon from "~/assets/img/other-true.png";
 
 type PartialApplicant = Pick<
   Applicant,
@@ -181,7 +185,7 @@ const DiversityEquityInclusionSection = ({
                             data-h2-height="base(4em)"
                             alt=""
                             key="first-nations-true"
-                            src={imageUrl("/", "first-nations-true.png")}
+                            src={firstNationsIcon}
                           />
                         );
                       case IndigenousCommunity.Inuit:
@@ -191,7 +195,7 @@ const DiversityEquityInclusionSection = ({
                             data-h2-height="base(4em)"
                             alt=""
                             key="inuit-true"
-                            src={imageUrl("/", "inuit-true.png")}
+                            src={inuitIcon}
                           />
                         );
                       case IndigenousCommunity.Metis:
@@ -201,7 +205,7 @@ const DiversityEquityInclusionSection = ({
                             data-h2-height="base(4em)"
                             alt=""
                             key="metis-true"
-                            src={imageUrl("/", "metis-true.png")}
+                            src={metisIcon}
                           />
                         );
                       case IndigenousCommunity.Other:
@@ -211,7 +215,7 @@ const DiversityEquityInclusionSection = ({
                             data-h2-height="base(4em)"
                             alt=""
                             key="other-true"
-                            src={imageUrl("/", "other-true.png")}
+                            src={otherIcon}
                           />
                         );
                       default:
