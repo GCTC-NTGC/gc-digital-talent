@@ -9,6 +9,15 @@ require('dotenv').config({ path: './.env' });
 const shell = require("shelljs");
 const fs = require("fs");
 
+const meta = {
+  title: "GC Digital Talent | Talent numérique du GC",
+  description: "Recruitment platform for digital jobs in the Government of Canada. Recrutement pour les emplois numériques au gouvernement du Canada.",
+  url: "https://talent.canada.ca/",
+  domain: "talent.canada.ca",
+  image: "",
+  type: "website"
+}
+
 module.exports = (basePath) => {
   return {
     plugins: [
@@ -45,8 +54,20 @@ module.exports = (basePath) => {
 
       // generate an index.html file based on given template
       new HtmlWebpackPlugin({
-        title: "GC Digital Talent",
+        title: meta.title,
         template: "./public/index.html",
+        meta: {
+          description: meta.description,
+          "og:url": meta.url,
+          "og:type": meta.type,
+          "og:title": meta.title,
+          "og:description": meta.description,
+          "og:image": meta.image,
+          "twitter:domain": meta.domain,
+          "twitter:url": meta.url,
+          "twitter:title": meta.title,
+          "twitter:image": meta.image,
+        }
       }),
 
       // generate an config file with the environment variables (not actually HTML but it's handy to reuse the plugin)
