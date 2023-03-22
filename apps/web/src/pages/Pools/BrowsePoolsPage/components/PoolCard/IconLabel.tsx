@@ -2,9 +2,7 @@ import React from "react";
 
 interface IconLabelProps {
   label: React.ReactNode;
-  icon:
-    | ((props: React.HTMLAttributes<HTMLOrSVGElement>) => React.ReactElement)
-    | React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   children?: React.ReactNode;
 }
 
