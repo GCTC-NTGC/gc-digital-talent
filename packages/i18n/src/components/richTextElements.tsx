@@ -68,7 +68,7 @@ export const underline = (text: React.ReactNode) => (
 );
 
 /**
- * Wraps text in em tag and increases font weight.
+ * Wraps text in a strong tag and increases font weight.
  * This meant for words that are important and need emphasizing.
  *
  *
