@@ -32,7 +32,7 @@ class SubmittedAtApplicationDates extends Command
     {
         $dateNow = Carbon::now();
         $candidatesToSubmit = PoolCandidate::where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION)
-            ->where('submitted_at', null);
+            ->where('submitted_at', null)->get();
 
         foreach ($candidatesToSubmit as $candidate) {
             $candidate->update(['submitted_at' => $dateNow]);
