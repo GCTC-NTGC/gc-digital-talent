@@ -170,14 +170,14 @@ const sizeMap: Record<PillSize, Record<string, string>> = {
   },
 };
 
-const Pill: React.FC<PillProps> = ({
+const Pill = ({
   children,
   color,
   mode,
   size = "md",
   block = false,
   ...rest
-}): React.ReactElement => {
+}: PillProps) => {
   return (
     <span
       {...(block
