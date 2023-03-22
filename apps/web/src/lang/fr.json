@@ -4669,9 +4669,9 @@
   "YojrdC": {
     "defaultMessage": "Employé du gouvernement"
   },
-  "Yr4DW5": {
+  "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
-    "description": "Label for the notes field on the pool candidate application"
+    "description": "Label for the notes field for a specific pool"
   },
   "Z2KhWS": {
     "defaultMessage": "Retourner à tous les candidats",
