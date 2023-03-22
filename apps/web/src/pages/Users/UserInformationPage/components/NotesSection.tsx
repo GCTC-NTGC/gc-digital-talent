@@ -6,10 +6,7 @@ import { Button, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 
-import {
-  getFullPoolAdvertisementTitleHtml,
-  getFullPoolAdvertisementTitleLabel,
-} from "~/utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -111,14 +108,20 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                   <TextArea
                     id={candidate.id}
                     name={candidate.id}
-                    label={`${intl.formatMessage({
-                      defaultMessage: "Notes",
-                      id: "CSDdh/",
-                      description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitleLabel(
-                      intl,
-                      candidate.pool,
-                    )}`}
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage: "Notes - {poolName}",
+                        id: "Yr4DW5",
+                        description:
+                          "Label for the notes field on the pool candidate application",
+                      },
+                      {
+                        poolName: getFullPoolAdvertisementTitleHtml(
+                          intl,
+                          candidate.pool,
+                        ),
+                      },
+                    )}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",
