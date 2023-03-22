@@ -3600,10 +3600,6 @@
     "defaultMessage": "Gérer les demandes",
     "description": "Text label for link to requests page on admin dashboard"
   },
-  "CSDdh/": {
-    "defaultMessage": "Notes",
-    "description": "Title for a pool candidates notes field"
-  },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "title for add to pool dialog on view-user page"
