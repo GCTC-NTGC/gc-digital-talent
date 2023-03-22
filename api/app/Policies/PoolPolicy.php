@@ -34,6 +34,7 @@ class PoolPolicy
      */
     public function view(User $user, Pool $pool)
     {
+        $pool->loadMissing('team');
         return $user->isAbleTo("view-any-pool") || $user->isAbleTo("view-team-pool", $pool->team);
     }
 
@@ -115,6 +116,7 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
+        $pool->loadMissing('team');
         return $pool->getAdvertisementStatusAttribute() === ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT
             && $user->isAbleTo("update-team-draftPool", $pool->team);
     }
@@ -150,6 +152,7 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
+        $pool->loadMissing('team');
         return $user->isAbleTo("update-team-poolClosingDate", $pool->team);
     }
 
@@ -162,6 +165,7 @@ class PoolPolicy
      */
     public function closePoolAdvertisement(User $user, Pool $pool)
     {
+        $pool->loadMissing('team');
         return $user->isAbleTo("update-team-poolClosingDate", $pool->team);
     }
 
@@ -174,6 +178,7 @@ class PoolPolicy
      */
     public function deleteDraft(User $user, Pool $pool)
     {
+        $pool->loadMissing('team');
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return Response::deny("You cannot delete a Pool Advertisement once it's been published.");
         }
