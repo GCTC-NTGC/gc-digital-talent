@@ -2,12 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
+import { formatInTimeZone } from "date-fns-tz";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { currentDate } from "@gc-digital-talent/date-helpers";
+import {
+  currentDate,
+  DATETIME_FORMAT_STRING,
+} from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -66,6 +70,13 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
 
+    const currentTime = new Date();
+    const formattedToUTC = formatInTimeZone(
+      currentTime,
+      "UTC",
+      DATETIME_FORMAT_STRING,
+    );
+
     const promises = poolsToUpdate.map((pool) => {
       return requestMutation({
         pool: {
@@ -75,6 +86,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
           connect: user.id,
         },
         expiryDate: formValues.expiryDate,
+        submittedAt: formattedToUTC,
       }).catch((err) => {
         throw err;
       });
