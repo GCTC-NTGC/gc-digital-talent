@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { HTMLAttributes, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
@@ -75,9 +75,11 @@ const IndeterminateCheckbox = ({
   );
 };
 
-const ButtonIcon: React.FC<{
-  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
-}> = ({ icon }) => {
+const ButtonIcon = ({
+  icon,
+}: {
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+}) => {
   const Icon = icon;
 
   return (

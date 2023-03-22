@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 
 import PageHeaderComponent from "./PageHeader";
 
-const HomeIcon: React.FC = (props) => (
+const HomeIcon = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"

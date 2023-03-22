@@ -523,13 +523,13 @@ export interface GovernmentInfoFormProps {
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
+const GovernmentInfoForm = ({
   departments,
   classifications,
   initialData,
   application,
   submitHandler,
-}) => {
+}: GovernmentInfoFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

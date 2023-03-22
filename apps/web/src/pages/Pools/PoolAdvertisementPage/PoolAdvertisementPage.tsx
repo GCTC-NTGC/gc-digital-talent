@@ -117,7 +117,7 @@ const Text = ({ children }: { children: React.ReactNode }) => (
 );
 interface IconTitleProps {
   children: React.ReactNode;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
 const IconTitle = ({ children, icon }: IconTitleProps) => {
