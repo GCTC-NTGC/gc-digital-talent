@@ -74,7 +74,7 @@ export const HeroCardProfileItem = ({
 export interface HeroCardExperienceItemProps {
   sectionName: string;
   itemCount?: number;
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   color?: BaseInfoItemIconColor;
 }
 

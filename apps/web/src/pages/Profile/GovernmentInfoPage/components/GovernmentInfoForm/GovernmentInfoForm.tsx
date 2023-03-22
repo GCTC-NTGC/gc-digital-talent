@@ -231,9 +231,11 @@ export interface GovernmentInfoFormFieldsProps {
 }
 
 // inner component
-export const GovernmentInfoFormFields: React.FunctionComponent<
-  GovernmentInfoFormFieldsProps
-> = ({ departments, classifications, labels }) => {
+export const GovernmentInfoFormFields = ({
+  departments,
+  classifications,
+  labels,
+}: GovernmentInfoFormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { watch, resetField } = useFormContext();
@@ -521,13 +523,13 @@ export interface GovernmentInfoFormProps {
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-const GovernmentInfoForm: React.FunctionComponent<GovernmentInfoFormProps> = ({
+const GovernmentInfoForm = ({
   departments,
   classifications,
   initialData,
   application,
   submitHandler,
-}) => {
+}: GovernmentInfoFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

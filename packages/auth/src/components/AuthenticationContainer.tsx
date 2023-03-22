@@ -154,12 +154,12 @@ interface AuthenticationContainerProps {
   children?: React.ReactNode;
 }
 
-const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
+const AuthenticationContainer = ({
   tokenRefreshPath,
   logoutUri,
   logoutRedirectUri,
   children,
-}) => {
+}: AuthenticationContainerProps) => {
   const [existingTokens, setTokens] = useState({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),

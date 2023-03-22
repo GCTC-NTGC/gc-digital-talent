@@ -52,10 +52,10 @@ interface CreateSkillFormProps {
   ) => Promise<CreateSkillMutation["createSkill"]>;
 }
 
-export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
+export const CreateSkillForm = ({
   families,
   handleCreateSkill,
-}) => {
+}: CreateSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
@@ -278,7 +278,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
   );
 };
 
-const CreateSkillPage: React.FunctionComponent = () => {
+const CreateSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [lookupResult] = useAllSkillFamiliesQuery();

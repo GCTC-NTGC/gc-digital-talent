@@ -87,7 +87,7 @@ export interface RequestFormProps {
   >;
 }
 
-export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
+export const RequestForm = ({
   departments,
   skills,
   classifications,
@@ -95,7 +95,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   candidateCount,
   selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
-}) => {
+}: RequestFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -450,16 +450,16 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   );
 };
 
-const RequestFormApi: React.FunctionComponent<{
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
-  searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<SimpleClassification>[];
-}> = ({
+const RequestFormApi = ({
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
   selectedClassifications,
+}: {
+  applicantFilter: Maybe<ApplicantFilterInput>;
+  candidateCount: Maybe<number>;
+  searchFormInitialValues?: SearchFormValues;
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }) => {
   const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();

@@ -2,13 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, ExternalLink } from "@gc-digital-talent/ui";
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+
+import heroImg from "~/assets/img/accessibility-statement-header.jpg";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
@@ -203,7 +204,7 @@ const AccessibilityStatementPage = () => {
   return (
     <>
       <Hero
-        imgPath={imageUrl("/", "accessibility-statement-header.jpg")}
+        imgPath={heroImg}
         title={pageTitle}
         subtitle={intl.formatMessage({
           defaultMessage:

@@ -4,7 +4,7 @@ interface RadiatingCircleProps {
   className: string; // Note: Not sure why we need this, but here it is
 }
 
-const RadiatingCircle: React.FC<RadiatingCircleProps> = (props) => (
+const RadiatingCircle = (props: RadiatingCircleProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

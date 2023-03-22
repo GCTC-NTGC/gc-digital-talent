@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import Hero from "~/components/Hero/Hero";
 
-const SearchHeading: React.FunctionComponent = () => {
+const SearchHeading = () => {
   const intl = useIntl();
   return (
     <Hero

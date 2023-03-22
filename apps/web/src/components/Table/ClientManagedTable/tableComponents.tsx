@@ -1,12 +1,14 @@
-import React, { HTMLAttributes } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 
-export const IndeterminateCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & {
-    indeterminate: boolean;
-    labelText?: string;
-  }
-> = ({ indeterminate, labelText, ...rest }) => {
+export const IndeterminateCheckbox = ({
+  indeterminate,
+  labelText,
+  ...rest
+}: React.HTMLProps<HTMLInputElement> & {
+  indeterminate: boolean;
+  labelText?: string;
+}) => {
   const intl = useIntl();
   const ref = React.useRef<HTMLInputElement>(null);
 
@@ -34,17 +36,17 @@ export const IndeterminateCheckbox: React.FC<
   );
 };
 
-export const Spacer: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => (
+export const Spacer = ({ children }: { children?: React.ReactNode }) => (
   <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
     {children}
   </div>
 );
 
-export const ButtonIcon: React.FC<{
-  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
-}> = ({ icon }) => {
+export const ButtonIcon = ({
+  icon,
+}: {
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+}) => {
   const Icon = icon;
 
   return (

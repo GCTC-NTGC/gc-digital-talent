@@ -43,11 +43,11 @@ export interface ChangeStatusDialogProps {
   pools: Pool[];
 }
 
-const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
+const ChangeStatusDialog = ({
   selectedCandidate,
   user,
   pools,
-}) => {
+}: ChangeStatusDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();

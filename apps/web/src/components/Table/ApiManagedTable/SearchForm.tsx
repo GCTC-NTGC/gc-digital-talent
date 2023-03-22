@@ -13,11 +13,7 @@ export interface SearchFormProps {
   initialData?: SearchState;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({
-  onChange,
-  searchBy,
-  initialData,
-}) => {
+const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
   const intl = useIntl();
 
   const initialColumn =

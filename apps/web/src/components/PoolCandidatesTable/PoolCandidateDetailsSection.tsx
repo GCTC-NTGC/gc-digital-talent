@@ -17,11 +17,9 @@ interface PoolCandidateDetailsSectionProps {
   >;
 }
 
-const PoolCandidateDetailsSection: React.FC<
-  PoolCandidateDetailsSectionProps
-> = ({
+const PoolCandidateDetailsSection = ({
   candidate: { status, notes, submittedAt, archivedAt, expiryDate, user },
-}) => {
+}: PoolCandidateDetailsSectionProps) => {
   const intl = useIntl();
 
   return (

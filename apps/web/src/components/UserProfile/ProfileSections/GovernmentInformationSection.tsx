@@ -43,10 +43,13 @@ export function hasEmptyOptionalFields({
   return !!(hasPriorityEntitlement && !priorityNumber);
 }
 
-const GovernmentInformationSection: React.FunctionComponent<{
+const GovernmentInformationSection = ({
+  applicant,
+  editPath,
+}: {
   applicant: PartialApplicant;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const govEmployeeTypeId =

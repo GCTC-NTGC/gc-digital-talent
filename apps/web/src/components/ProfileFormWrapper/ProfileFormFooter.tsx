@@ -9,11 +9,11 @@ export interface ProfileFormFooterProps {
   cancelLink?: CancelButtonProps;
 }
 
-const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
+const ProfileFormFooter = ({
   mode,
   children,
   cancelLink,
-}) => {
+}: ProfileFormFooterProps) => {
   const bottomButtons = () => {
     switch (mode) {
       case "bothButtons":

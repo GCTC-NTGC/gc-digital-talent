@@ -26,10 +26,10 @@ export interface ChangeDateDialogProps {
   user: Applicant;
 }
 
-const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
+const ChangeDateDialog = ({
   selectedCandidate,
   user,
-}) => {
+}: ChangeDateDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();

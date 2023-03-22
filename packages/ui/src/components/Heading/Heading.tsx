@@ -10,7 +10,7 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: HeadingLevel;
   size?: HeadingLevel;
   color?: Color;
-  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
+  Icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
 const Heading = React.forwardRef<HeadingRef, HeadingProps>(

@@ -61,10 +61,10 @@ interface UpdateUserFormProps {
   ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
-export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
+export const UpdateUserForm = ({
   initialUser,
   handleUpdateUser,
-}) => {
+}: UpdateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

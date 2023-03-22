@@ -23,9 +23,11 @@ import useRoutes from "~/hooks/useRoutes";
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
-const ManagerInfo: React.FunctionComponent<{
+const ManagerInfo = ({
+  searchRequest,
+}: {
   searchRequest: PoolCandidateSearchRequest;
-}> = ({ searchRequest }) => {
+}) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const {
@@ -225,9 +227,9 @@ interface SingleSearchRequestProps {
   searchRequest: PoolCandidateSearchRequest;
 }
 
-export const ViewSearchRequest: React.FunctionComponent<
-  SingleSearchRequestProps
-> = ({ searchRequest }) => {
+export const ViewSearchRequest = ({
+  searchRequest,
+}: SingleSearchRequestProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter, applicantFilter, wasEmpty } =
@@ -321,9 +323,11 @@ export const ViewSearchRequest: React.FunctionComponent<
   );
 };
 
-const ViewSearchRequestApi: React.FunctionComponent<{
+const ViewSearchRequestApi = ({
+  searchRequestId,
+}: {
   searchRequestId: string;
-}> = ({ searchRequestId }) => {
+}) => {
   const intl = useIntl();
   const routes = useRoutes();
   const [{ data: searchRequestData, fetching, error }] =

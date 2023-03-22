@@ -118,7 +118,17 @@ module.exports = {
     ],
     "@typescript-eslint/no-empty-function": "warn",
     "no-use-before-define": "off",
-    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/ban-types": [
+      "warn",
+      {
+        types: {
+          "React.FunctionComponent":
+            "https://github.com/facebook/create-react-app/pull/8177",
+          "React.FC":
+            "https://github.com/facebook/create-react-app/pull/8177"
+        },
+      },
+    ],
     "@typescript-eslint/no-use-before-define": "warn",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",

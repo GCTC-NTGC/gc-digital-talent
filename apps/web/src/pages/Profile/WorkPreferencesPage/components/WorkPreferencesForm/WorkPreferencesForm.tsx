@@ -67,11 +67,11 @@ const WithEllipsisPrefix = ({ children }: WithEllipsisPrefixProps) => {
   );
 };
 
-const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
+const WorkPreferencesForm = ({
   initialData,
   application,
   handleWorkPreferences,
-}) => {
+}: WorkPreferencesFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

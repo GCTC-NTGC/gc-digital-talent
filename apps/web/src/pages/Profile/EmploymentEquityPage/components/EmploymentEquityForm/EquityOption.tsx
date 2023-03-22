@@ -21,7 +21,10 @@ interface EquityOptionProps {
   title: React.ReactNode;
 }
 
-const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
+const dialogMap: Record<
+  EquityGroup,
+  (props: EquityDialogProps) => JSX.Element
+> = {
   disability: DisabilityDialog,
   minority: VisibleMinorityDialog,
   woman: WomanDialog,

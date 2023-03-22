@@ -190,7 +190,7 @@ interface ClassificationDefinitionProps {
   name: string;
 }
 
-const definitionMap: Record<string, React.FC> = {
+const definitionMap: Record<string, () => JSX.Element> = {
   [GenericJobTitleKey.TechnicianIt01]: LevelOne,
   [GenericJobTitleKey.AnalystIt02]: LevelTwo,
   [GenericJobTitleKey.TeamLeaderIt03]: LevelThreeLead,
