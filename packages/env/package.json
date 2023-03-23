@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "rimraf": "^4.4.0",
+    "rimraf": "^4.4.1",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   }
