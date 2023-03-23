@@ -35,7 +35,7 @@
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "react-select": "^5.7.0",
+    "react-select": "^5.7.2",
     "urql": "^3.0.4"
   },
   "devDependencies": {
