@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Pool
@@ -123,14 +124,12 @@ class Pool extends Model
         $currentTime = date("Y-m-d H:i:s");
         if ($closedDate != null) {
             $isClosed = $currentTime >= $closedDate ? true : false;
-        }
-        else {
+        } else {
             $isClosed = false;
         }
         if ($publishedDate != null) {
             $isPublished = $currentTime >= $publishedDate ? true : false;
-        }
-        else {
+        } else {
             $isPublished = false;
         }
 
@@ -148,6 +147,25 @@ class Pool extends Model
     public function scopeWasPublished(Builder $query, ?array $args)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        return $query;
+    }
+
+    public function scopeAvailableToQuery(Builder $query)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+
+        if ($user->isAbleTo("view-team-pool")) {
+            $teamIds = $user->rolesTeams()->get()->pluck('id');
+            return $query->whereHas('team', function (Builder $query) use ($teamIds) {
+                return $query->whereIn('id', $teamIds);
+            });
+        }
+
+        if ($user->isAbleTo("view-own-pool")) {
+            return $query->where('user_id', $userId);
+        }
+
         return $query;
     }
 }
