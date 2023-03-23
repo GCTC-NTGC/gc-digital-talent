@@ -2,6 +2,7 @@ import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 
+import { action } from "@storybook/addon-actions";
 import ToggleSection from "./ToggleSection";
 import Button from "../Button";
 
@@ -21,7 +22,10 @@ export default {
 } as ComponentMeta<typeof ToggleSection.Root>;
 
 const Template: ComponentStory<typeof ToggleSection.Root> = (args) => (
-  <ToggleSection.Root {...args}>
+  <ToggleSection.Root
+    {...args}
+    onOpenChange={(open) => action("onOpenToggle")(open)}
+  >
     <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
       Toggle Section
     </ToggleSection.Header>

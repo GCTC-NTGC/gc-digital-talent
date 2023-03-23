@@ -1,5 +1,6 @@
 import React from "react";
 import { Slot } from "@radix-ui/react-slot";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
 
 import Heading, { HeadingProps } from "../Heading";
@@ -50,8 +51,10 @@ const composeId = (name: string, contentId?: string) => {
 interface RootProps {
   /** Sets the section to be 'open' by default */
   defaultOpen?: boolean;
+  /** Controllable open state */
+  open?: boolean;
   /** Callback when the section has been 'opened */
-  onOpenToggle?: (open: boolean) => void;
+  onOpenChange?: (open: boolean) => void;
   children: React.ReactNode;
 }
 
@@ -60,18 +63,19 @@ interface RootProps {
  * and provides context to those components
  */
 const Root = React.forwardRef<HTMLDivElement, RootProps>(
-  ({ defaultOpen, onOpenToggle, children }, forwardedRef) => {
-    const [open, setOpen] = React.useState<boolean>(defaultOpen || false);
+  ({ defaultOpen, open: openProp, onOpenChange, children }, forwardedRef) => {
+    const [open = false, setOpen] = useControllableState({
+      prop: openProp,
+      defaultProp: defaultOpen,
+      onChange: onOpenChange,
+    });
 
     const handleOpenToggle = React.useCallback(() => {
       setOpen((prevOpen) => {
         const newOpen = !prevOpen;
-        if (onOpenToggle) {
-          onOpenToggle(newOpen);
-        }
         return newOpen;
       });
-    }, [onOpenToggle]);
+    }, [setOpen]);
 
     return (
       <ToggleSectionProvider

@@ -41,6 +41,7 @@
     "@radix-ui/react-tabs": "^1.0.3",
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-toggle-group": "^1.0.3",
+    "@radix-ui/react-use-controllable-state": "^1.0.0",
     "lodash": "4.17.21",
     "react-csv": "2.2.2",
     "react-dom": "^18.2.0",
