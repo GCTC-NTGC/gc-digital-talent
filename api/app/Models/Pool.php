@@ -166,6 +166,10 @@ class Pool extends Model
             return $query->where('user_id', $userId);
         }
 
+        if($user->isAbleTo("view-any-publishedPoolAdvertisement")) {
+            return  $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        }
+
         return $query;
     }
 }
