@@ -75,7 +75,7 @@
     "rimraf": "^4.4.0",
     "storybook-helpers": "*",
     "tsconfig": "*",
-    "tsup": "^6.6.0",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   }
 }
