@@ -57,7 +57,7 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator],
+      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
         id: "wCBE9S",
