@@ -276,7 +276,7 @@ type Applicant {
   jobLookingStatus: JobLookingStatus
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft"]) @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft", "availableToQuery"]) @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
