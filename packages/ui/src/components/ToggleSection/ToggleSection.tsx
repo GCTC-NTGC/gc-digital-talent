@@ -2,6 +2,8 @@ import React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
 
+import Heading, { HeadingProps } from "../Heading";
+
 import {
   ToggleSectionProvider,
   useToggleSectionContext,
@@ -34,7 +36,13 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
         onOpenToggle={handleOpenToggle}
         onOpenChange={setOpen}
       >
-        <div ref={forwardedRef} data-state={open ? "open" : "closed"}>
+        <div
+          ref={forwardedRef}
+          data-state={open ? "open" : "closed"}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1, 0)"
+        >
           {children}
         </div>
       </ToggleSectionProvider>
@@ -188,6 +196,30 @@ const Close = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
   },
 );
 
+interface HeaderProps extends HeadingProps {
+  toggle: React.ReactElement<typeof Toggle>;
+}
+
+const Header = React.forwardRef<HTMLHeadingElement, HeaderProps>(
+  ({ toggle, ...headingProps }, forwardedRef) => {
+    return (
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(center) l-tablet(flex-end)"
+        data-h2-justify-content="base(space-between)"
+      >
+        <Heading
+          ref={forwardedRef}
+          data-h2-margin="base(0)"
+          {...headingProps}
+        />
+        <div data-h2-flex-shrink="base(0)">{toggle}</div>
+      </div>
+    );
+  },
+);
+
 export default {
   Root,
   Trigger,
@@ -196,4 +228,6 @@ export default {
   Content,
   Open,
   Close,
+  Header,
+  useContext: useToggleSectionContext,
 };

@@ -1,9 +1,19 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import { AcademicCapIcon } from "@heroicons/react/24/solid";
 
 import ToggleSection from "./ToggleSection";
-import Heading from "../Heading";
 import Button from "../Button";
+
+const Toggle = () => {
+  const context = ToggleSection.useContext();
+
+  return (
+    <ToggleSection.Trigger>
+      <Button mode="inline">{context?.open ? "Close" : "Open"} Section</Button>
+    </ToggleSection.Trigger>
+  );
+};
 
 export default {
   component: ToggleSection.Root,
@@ -12,10 +22,9 @@ export default {
 
 const Template: ComponentStory<typeof ToggleSection.Root> = (args) => (
   <ToggleSection.Root {...args}>
-    <Heading>Toggle Section</Heading>
-    <ToggleSection.Trigger>
-      <Button mode="inline">Open/Close</Button>
-    </ToggleSection.Trigger>
+    <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+      Toggle Section
+    </ToggleSection.Header>
 
     <ToggleSection.Content data-h2-text-align="base(center)">
       <ToggleSection.InitialContent>
