@@ -9,7 +9,10 @@ import SEO from "~/components/SEO/SEO";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { checkRole } from "~/utils/teamUtils";
-import PoolTableApi from "./components/PoolTable";
+import {
+  PoolOperatorTableApi,
+  PoolAdminTableApi,
+} from "./components/PoolTable";
 
 export const PoolPage = () => {
   const intl = useIntl();
@@ -46,7 +49,7 @@ export const PoolPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
-      <PoolTableApi />
+      {isAdmin ? <PoolAdminTableApi /> : <PoolOperatorTableApi />}
     </AdminContentWrapper>
   );
 };
