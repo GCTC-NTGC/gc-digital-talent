@@ -421,7 +421,7 @@ class PoolCandidate extends Model
         $user = User::find($userId);
 
         if ($user->isAbleTo("view-any-submittedApplication")) {
-            return $query; //We filter out drafts in another scope
+            return  $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString());
         }
 
         if ($user->isAbleTo("view-team-submittedApplication")) {
@@ -433,6 +433,9 @@ class PoolCandidate extends Model
             });
         }
 
+        if ($user->isAbleTo("view-own-application")) {
+            return $query->where('user_id', $userId);
+        }
 
         return $query;
     }
