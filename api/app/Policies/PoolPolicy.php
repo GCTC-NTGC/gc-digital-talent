@@ -9,7 +9,6 @@ use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class PoolPolicy
 {
@@ -36,7 +35,7 @@ class PoolPolicy
     public function view(User $user, Pool $pool)
     {
         // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
-        Log::debug($pool->getAdvertisementStatusAttribute());
+
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
         }
