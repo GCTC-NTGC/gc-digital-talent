@@ -1127,7 +1127,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator]}
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
