@@ -82,14 +82,6 @@ jobs:
           name: cypress-screenshots
           path: apps/e2e/cypress/screenshots
 
-      # Test run video was always captured, so this action uses "always()" condition
-      - name: Save video artifacts
-        uses: actions/upload-artifact@v3.1.2
-        if: always()
-        with:
-          name: cypress-videos
-          path: apps/e2e/cypress/videos
-
       - name: Check status of containers
         if: failure()
         run: docker-compose ps
