@@ -58,7 +58,7 @@
     "react-router-dom": "^6.9.0",
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.12",
-    "react-toastify": "^9.1.1",
+    "react-toastify": "^9.1.2",
     "urql": "^3.0.4"
   },
   "devDependencies": {

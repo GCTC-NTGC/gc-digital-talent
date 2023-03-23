@@ -22,7 +22,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.16",
     "react-dom": "^18.2.0",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
