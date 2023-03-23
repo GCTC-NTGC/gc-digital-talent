@@ -156,7 +156,15 @@ class Pool extends Model
         $user = User::find($userId);
 
         if ($user->isAbleTo("view-team-pool")) {
-            $teamIds = $user->rolesTeams()->get()->pluck('id');
+            // Only add teams the user can view pools in to the query for `whereHAs`
+            $teams = $user->rolesTeams()->get();
+            $teamIds = [];
+            foreach($teams as $team) {
+                if($user->isAbleTo("view-team-pool", $team)) {
+                    $teamIds[] = $team->id;
+                }
+            }
+
             return $query->whereHas('team', function (Builder $query) use ($teamIds) {
                 return $query->whereIn('id', $teamIds);
             });
