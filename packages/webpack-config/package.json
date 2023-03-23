@@ -13,7 +13,7 @@
     "css-minimizer-webpack-plugin": "^4.2.2",
     "dotenv": "^16.0.3",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.7.4",
+    "mini-css-extract-plugin": "^2.7.5",
     "shelljs": "^0.8.5",
     "ts-loader": "^9.4.2",
     "webpack": "^5.76.3",
