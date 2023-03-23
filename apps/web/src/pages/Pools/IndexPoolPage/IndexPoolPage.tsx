@@ -1,17 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import { useAuthorization } from "@gc-digital-talent/auth/";
 
 import useRoutes from "~/hooks/useRoutes";
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { checkRole } from "~/utils/teamUtils";
 import PoolTableApi from "./components/PoolTable";
 
 export const PoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const { roleAssignments } = useAuthorization();
+  const isAdmin = checkRole(["platform_admin"], roleAssignments);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pools",
