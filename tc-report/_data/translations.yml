@@ -1,6 +1,9 @@
 site-title:
   en: GC Digital Talent
   fr: Talent Numérique du GC
+skipLink:
+  en: Skip to Main Content
+  fr: Passer au contenu principal
 navigation:
   en:
     - label: "&lt; Return to GC Digital Talent"
