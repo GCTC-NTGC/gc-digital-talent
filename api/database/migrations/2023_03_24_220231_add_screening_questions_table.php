@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign("pool_id")->references("id")->on("pools");
             $table->integer('sort_order')->nullable()->default(null);
             $table->jsonb('question');
+            $table->softDeletes();
             $table->timestamps();
         });
 
