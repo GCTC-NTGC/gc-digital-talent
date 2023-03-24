@@ -6857,5 +6857,45 @@
   "s7Hnlg": {
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
+  },
+  "2kXthI": {
+    "defaultMessage": "Rôles des équipes",
+    "description": "Heading for updating a users team roles"
+  },
+  "3IZ3mN": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the role table display team column"
+  },
+  "GaMSN8": {
+    "defaultMessage": "Équipe",
+    "description": "Label for the input to select team of a team role"
+  },
+  "Ibt1fL": {
+    "defaultMessage": "Ajouter une nouvelle adhésion",
+    "description": "Label for the form to add a team membership to a user"
+  },
+  "ZdOvlC": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder text for team selection input"
+  },
+  "b9/hHh": {
+    "defaultMessage": "Vous êtes sur le point d’ajouter une nouvelle adhésion d’équipe pour l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the add role to user form."
+  },
+  "cJqZoy": {
+    "defaultMessage": "Rôle de l’adhésion",
+    "description": "Label for the input to select role of a team role"
+  },
+  "sSnNWm": {
+    "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
+    "description": "Label for the form to remove a team role from a user"
+  },
+  "sriBTQ": {
+    "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
+    "description": "Follow in text for the remove team role from user dialog"
+  },
+  "x7vMC8": {
+    "defaultMessage": "Sélectionnez un rôle...",
+    "description": "Placeholder text for role selection input"
   }
 }
