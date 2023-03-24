@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
@@ -662,15 +662,21 @@ const createRoute = (locale: Locales, loginPath: string) =>
               ),
             },
             {
-              path: "dashboard",
+              path: "applicant",
               element: (
                 <RequireAuth
                   roles={[ROLE_NAME.Applicant]}
                   loginPath={loginPath}
                 >
-                  <ApplicantDashboardPage />
+                  <Outlet />
                 </RequireAuth>
               ),
+              children: [
+                {
+                  path: "dashboard",
+                  element: <ApplicantDashboardPage />,
+                },
+              ],
             },
             {
               path: "users",
