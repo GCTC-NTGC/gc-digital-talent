@@ -45,7 +45,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const Welcome = ({ application }: ApplicationPageProps) => {
+const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
@@ -53,6 +53,8 @@ const Welcome = ({ application }: ApplicationPageProps) => {
   return <Heading>{pageInfo.title}</Heading>;
 };
 
-const WelcomePage = () => <ApplicationApi PageComponent={Welcome} />;
+const ApplicationWelcomePage = () => (
+  <ApplicationApi PageComponent={ApplicationWelcome} />
+);
 
-export default WelcomePage;
+export default ApplicationWelcomePage;

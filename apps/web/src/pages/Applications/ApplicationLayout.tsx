@@ -15,7 +15,7 @@ import { PageNavInfo } from "~/types/pages";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
 import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
-import { getPageInfo as welcomePageInfo } from "./WelcomePage/WelcomePage";
+import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
 
 type PageNavKey =
   | "welcome"

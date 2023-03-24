@@ -243,6 +243,22 @@ const ReviewApplicationPage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationLayout" */ "../pages/Applications/ApplicationLayout"
+      ),
+  ),
+);
+const ApplicationWelcomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+      ),
+  ),
+);
 
 /** IAP Home Page */
 const IAPHomePage = React.lazy(() =>
@@ -890,6 +906,28 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                       ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "applications",
+              children: [
+                {
+                  path: ":applicationId",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <ApplicationLayout />
+                    </RequireAuth>
+                  ),
+                  children: [
+                    {
+                      path: "welcome",
+                      element: <ApplicationWelcomePage />,
                     },
                   ],
                 },
