@@ -30,8 +30,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
       {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Step 2",
-          id: "pXycdA",
+          defaultMessage: "Step 3",
+          id: "khjfel",
           description: "Breadcrumb link text for the application résumé page",
         }),
       },

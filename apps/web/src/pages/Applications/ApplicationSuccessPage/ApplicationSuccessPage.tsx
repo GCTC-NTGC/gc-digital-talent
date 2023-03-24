@@ -13,7 +13,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   paths,
   intl,
 }) => {
-  const path = paths.applicationReview(application.id);
+  const path = paths.applicationSuccess(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "We successfully received your application",

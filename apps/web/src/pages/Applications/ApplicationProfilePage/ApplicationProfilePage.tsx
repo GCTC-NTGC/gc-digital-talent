@@ -13,7 +13,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   paths,
   intl,
 }) => {
-  const path = paths.applicationQuestionsIntro(application.id);
+  const path = paths.applicationProfile(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "Review your profile",

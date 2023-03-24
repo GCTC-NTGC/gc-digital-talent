@@ -38,9 +38,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationResumeIntroduction = ({
-  application,
-}: ApplicationPageProps) => {
+const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
@@ -48,8 +46,8 @@ const ApplicationResumeIntroduction = ({
   return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };
 
-const ApplicationResumeIntroductionPage = () => (
-  <ApplicationApi PageComponent={ApplicationResumeIntroduction} />
+const ApplicationResumeAddPage = () => (
+  <ApplicationApi PageComponent={ApplicationResumeAdd} />
 );
 
-export default ApplicationResumeIntroductionPage;
+export default ApplicationResumeAddPage;

@@ -13,7 +13,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   paths,
   intl,
 }) => {
-  const path = paths.applicationEducation(application.id);
+  const path = paths.applicationQuestions(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "Screening questions",
