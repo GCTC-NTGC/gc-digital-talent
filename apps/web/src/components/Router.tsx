@@ -259,6 +259,62 @@ const ApplicationWelcomePage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationProfilePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationProfilePage" */ "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
+      ),
+  ),
+);
+const ApplicationResumePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumePage" */ "../pages/Applications/ApplicationResumePage/ApplicationResumePage"
+      ),
+  ),
+);
+const ApplicationEducationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationEducationPage" */ "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
+      ),
+  ),
+);
+const ApplicationSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+      ),
+  ),
+);
+const ApplicationQuestionsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationQuestionsPage" */ "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
+      ),
+  ),
+);
+const ApplicationReviewPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationReviewPage" */ "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
+      ),
+  ),
+);
+const ApplicationSuccessPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSuccessPage" */ "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
+      ),
+  ),
+);
 
 /** IAP Home Page */
 const IAPHomePage = React.lazy(() =>
@@ -928,6 +984,34 @@ const createRoute = (locale: Locales, loginPath: string) =>
                     {
                       path: "welcome",
                       element: <ApplicationWelcomePage />,
+                    },
+                    {
+                      path: "profile",
+                      element: <ApplicationProfilePage />,
+                    },
+                    {
+                      path: "resume",
+                      element: <ApplicationResumePage />,
+                    },
+                    {
+                      path: "education",
+                      element: <ApplicationEducationPage />,
+                    },
+                    {
+                      path: "skills",
+                      element: <ApplicationSkillsPage />,
+                    },
+                    {
+                      path: "questions",
+                      element: <ApplicationQuestionsPage />,
+                    },
+                    {
+                      path: "review",
+                      element: <ApplicationReviewPage />,
+                    },
+                    {
+                      path: "success",
+                      element: <ApplicationSuccessPage />,
                     },
                   ],
                 },
