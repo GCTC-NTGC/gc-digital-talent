@@ -354,7 +354,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate", "ownerEmail"],
+      hiddenCols: [
+        "id",
+        "description",
+        "createdDate",
+        "ownerEmail",
+        "ownerName",
+      ],
       initialSortBy: [
         {
           id: "createdDate",
