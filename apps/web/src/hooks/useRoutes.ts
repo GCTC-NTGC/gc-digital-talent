@@ -168,12 +168,40 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "applications", applicationId, "profile"),
     applicationResume: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "resume"),
+    applicationResumeIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "resume",
+        "introduction",
+      ),
+    applicationResumeAdd: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume", "add"),
+    applicationResumeView: (applicationId: string, experienceId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume", experienceId),
     applicationEducation: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "education"),
     applicationSkills: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "skills"),
+    applicationSkillsIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "skills",
+        "introduction",
+      ),
     applicationQuestions: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "questions"),
+    applicationQuestionsIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "questions",
+        "introduction",
+      ),
     applicationReview: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "review"),
     applicationSuccess: (applicationId: string) =>
