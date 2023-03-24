@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BreadcrumbsProps } from "@gc-digital-talent/ui";
+
 type PageNavLink = {
   label?: React.ReactNode;
   url: string;
@@ -10,10 +12,7 @@ export type PageNavInfo = {
   title: string;
   subtitle?: string;
   link: PageNavLink;
-  crumb?: {
-    label: React.ReactNode;
-    url: string;
-  };
+  crumbs?: BreadcrumbsProps["crumbs"];
 };
 
 export type PageNavMap<K> = Map<K, PageNavInfo>;

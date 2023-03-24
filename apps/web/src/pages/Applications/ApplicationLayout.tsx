@@ -27,7 +27,7 @@ type PageNavKey =
   | "education"
   | "skills"
   | "questions"
-  | "submit";
+  | "review";
 
 const deriveStepsFromPages = (pages: Map<PageNavKey, PageNavInfo>) => {
   return Array.from(pages.values()).map((page) => ({
@@ -60,6 +60,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   });
 
   const currentPage = useCurrentPage<PageNavKey>(pages);
+  const currentCrumbs = currentPage?.crumbs || [];
 
   const crumbs = useBreadcrumbs([
     {
@@ -79,12 +80,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
         application.poolAdvertisement,
       ),
     },
-    ...(currentPage?.crumb ? [currentPage?.crumb] : []),
+    ...currentCrumbs,
   ]);
 
   const steps = deriveStepsFromPages(pages);
-  const currentStep = steps.findIndex(
-    (step) => step.href === currentPage?.link.url,
+  const currentStep = Array.from(pages.keys()).findIndex((key) =>
+    currentPage?.link.url.includes(key),
   );
 
   return (

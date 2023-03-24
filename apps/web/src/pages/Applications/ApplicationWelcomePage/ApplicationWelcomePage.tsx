@@ -31,14 +31,16 @@ export const getPageInfo: GetApplicationPageInfo = ({
       description: "Subtitle for the application welcome page",
     }),
     icon: HeartIcon,
-    crumb: {
-      url: paths.applicationWelcome(application.id),
-      label: intl.formatMessage({
-        defaultMessage: "Step 1",
-        id: "n6ON28",
-        description: "Breadcrumb link text for the application welcome page",
-      }),
-    },
+    crumbs: [
+      {
+        url: paths.applicationWelcome(application.id),
+        label: intl.formatMessage({
+          defaultMessage: "Step 1",
+          id: "n6ON28",
+          description: "Breadcrumb link text for the application welcome page",
+        }),
+      },
+    ],
     link: {
       url: paths.applicationWelcome(application.id),
       label: intl.formatMessage({
