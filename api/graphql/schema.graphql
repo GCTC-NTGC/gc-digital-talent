@@ -1295,14 +1295,9 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
+  user: UserBelongsTo!
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus = NEW_APPLICATION

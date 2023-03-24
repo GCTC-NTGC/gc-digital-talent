@@ -225,11 +225,6 @@ input ConnectExperienceSkills {
   details: String
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -263,7 +258,7 @@ input CreatePoolAdvertisementInput {
 
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo!
+  user: UserBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
