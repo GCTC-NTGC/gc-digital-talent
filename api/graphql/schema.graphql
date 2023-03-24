@@ -276,7 +276,7 @@ type Applicant {
   jobLookingStatus: JobLookingStatus
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft", "availableToQuery"]) @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft", "authorizedToView"]) @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -589,7 +589,7 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: [Pool] @belongsToMany(scopes: ["availableToQuery"]) @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -608,7 +608,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
-  pools: [Pool] @belongsToMany(scopes: ["availableToQuery"]) @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
 }
 
 type PoolCandidateSearchRequest {
@@ -912,7 +912,7 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all(scopes: ["availableToQuery"]) @can(ability: "view", resolved: true)
+  pools: [Pool]! @all(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

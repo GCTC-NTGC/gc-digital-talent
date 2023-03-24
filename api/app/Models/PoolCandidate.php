@@ -415,7 +415,7 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAvailableToQuery(Builder $query)
+    public function scopeauthorizedToView(Builder $query)
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);

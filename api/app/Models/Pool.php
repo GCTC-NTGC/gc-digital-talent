@@ -150,7 +150,7 @@ class Pool extends Model
         return $query;
     }
 
-    public function scopeAvailableToQuery(Builder $query)
+    public function scopeauthorizedToView(Builder $query)
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
