@@ -3600,10 +3600,6 @@
     "defaultMessage": "Gérer les demandes",
     "description": "Text label for link to requests page on admin dashboard"
   },
-  "CSDdh/": {
-    "defaultMessage": "Notes",
-    "description": "Title for a pool candidates notes field"
-  },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "title for add to pool dialog on view-user page"
@@ -4673,9 +4669,9 @@
   "YojrdC": {
     "defaultMessage": "Employé du gouvernement"
   },
-  "Yr4DW5": {
+  "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
-    "description": "Label for the notes field on the pool candidate application"
+    "description": "Label for the notes field for a specific pool"
   },
   "Z2KhWS": {
     "defaultMessage": "Retourner à tous les candidats",

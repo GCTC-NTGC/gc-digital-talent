@@ -10,23 +10,15 @@ import {
   currentDate,
 } from "@gc-digital-talent/date-helpers";
 
-import {
-  PoolAdvertisement,
-  UpdatePoolAdvertisementInput,
-} from "~/api/generated";
+import { PoolAdvertisement, Scalars } from "~/api/generated";
 
 type FormValues = {
   endDate?: PoolAdvertisement["closingDate"];
 };
 
-export type ExtendSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "closingDate"
->;
-
 type ExtendDialogProps = {
   closingDate: PoolAdvertisement["closingDate"];
-  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
 };
 
 const ExtendDialog = ({
@@ -44,11 +36,9 @@ const ExtendDialog = ({
             "Canada/Pacific",
             "UTC",
           )
-        : null;
+        : "";
 
-      await onExtend({
-        closingDate: closingDateInUtc,
-      }).then(() => setOpen(false));
+      await onExtend(closingDateInUtc).then(() => setOpen(false));
     },
     [onExtend],
   );

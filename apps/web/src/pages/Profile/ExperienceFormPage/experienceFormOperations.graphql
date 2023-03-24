@@ -10,9 +10,6 @@ query getApplication($id: UUID!) {
     user {
       id
     }
-    pool {
-      id
-    }
     poolAdvertisement {
       id
       name {

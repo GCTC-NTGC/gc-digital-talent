@@ -153,7 +153,7 @@ enum CandidateExpiryFilter {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool!
+  pool: PoolAdvertisement!
   candidateCount: Int!
 }
 
@@ -293,7 +293,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
-  team: TeamBelongsTo
+  team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -595,9 +595,6 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
-  createPool(pool: CreatePoolInput!): Pool
-  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
-  deletePool(id: ID!): Pool
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -629,11 +626,14 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
+  createPool(pool: CreatePoolInput!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePool(id: ID!): Pool
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
@@ -1524,7 +1524,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  pools: [Pool]
+  pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int

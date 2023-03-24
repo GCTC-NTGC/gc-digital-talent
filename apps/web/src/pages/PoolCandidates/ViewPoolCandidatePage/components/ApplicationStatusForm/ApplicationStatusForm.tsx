@@ -197,9 +197,8 @@ export const ApplicationStatusForm = ({
               label={intl.formatMessage(
                 {
                   defaultMessage: "Notes - {poolName}",
-                  id: "Yr4DW5",
-                  description:
-                    "Label for the notes field on the pool candidate application",
+                  id: "9Aa5c0",
+                  description: "Label for the notes field for a specific pool",
                 },
                 {
                   poolName: getFullPoolAdvertisementTitleHtml(
