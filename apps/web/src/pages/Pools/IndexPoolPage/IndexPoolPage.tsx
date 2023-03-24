@@ -9,6 +9,7 @@ import SEO from "~/components/SEO/SEO";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { checkRole } from "~/utils/teamUtils";
+import { Pending } from "@gc-digital-talent/ui";
 import {
   PoolOperatorTableApi,
   PoolAdminTableApi,
@@ -17,7 +18,7 @@ import {
 export const PoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { roleAssignments } = useAuthorization();
+  const { roleAssignments, isLoaded } = useAuthorization();
   const isAdmin = checkRole(["platform_admin"], roleAssignments);
 
   const pageTitle = intl.formatMessage({
@@ -49,7 +50,9 @@ export const PoolPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
-      {isAdmin ? <PoolAdminTableApi /> : <PoolOperatorTableApi />}
+      <Pending fetching={!isLoaded}>
+        {isAdmin ? <PoolAdminTableApi /> : <PoolOperatorTableApi />}
+      </Pending>
     </AdminContentWrapper>
   );
 };
