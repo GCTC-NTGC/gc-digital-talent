@@ -21,7 +21,7 @@ export interface SideMenuProps {
   children?: React.ReactNode;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({
+const SideMenu = ({
   isOpen,
   label,
   onToggle,
@@ -29,7 +29,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
   header,
   footer,
   children,
-}) => {
+}: SideMenuProps) => {
   const intl = useIntl();
 
   const isSmallScreen = useIsSmallScreen();

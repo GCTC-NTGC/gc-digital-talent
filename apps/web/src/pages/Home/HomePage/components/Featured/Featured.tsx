@@ -1,11 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
+
+import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
+import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
+import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
+import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.png";
+import desktopGraphicsDark2 from "~/assets/img/Desktop_Graphics_dark_2.png";
+import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
 
 import Block from "./Block";
 
@@ -51,9 +57,7 @@ const Featured = () => {
         description: "Summary of the digital ambition featured item",
       }),
 
-      img: {
-        path: imageUrl("/", "check_it_out_digital_ambition.jpg"),
-      },
+      img: { path: digitalAmbitionImg },
       link: {
         path:
           locale === "en"
@@ -85,9 +89,7 @@ const Featured = () => {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       ),
-      img: {
-        path: imageUrl("/", "check_it_out_IAP_manager_callout.jpg"),
-      },
+      img: { path: iapManagerImg },
       link: {
         path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
         label: intl.formatMessage({
@@ -118,7 +120,7 @@ const Featured = () => {
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_light_2.png")}
+          src={desktopGraphicsLight2}
           alt=""
         />
         <img
@@ -129,7 +131,7 @@ const Featured = () => {
           data-h2-height="base(auto) p-tablet(50%)"
           data-h2-width="base(150%) p-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_dark_2.png")}
+          src={desktopGraphicsDark2}
           alt=""
         />
         <img
@@ -140,7 +142,7 @@ const Featured = () => {
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_light_3.png")}
+          src={desktopGraphicsLight3}
           alt=""
         />
         <img
@@ -151,7 +153,7 @@ const Featured = () => {
           data-h2-height="base(auto) desktop(90%)"
           data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_dark_3.png")}
+          src={desktopGraphicsDark3}
           alt=""
         />
       </div>

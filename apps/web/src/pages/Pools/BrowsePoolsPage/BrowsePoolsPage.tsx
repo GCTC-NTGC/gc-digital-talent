@@ -8,7 +8,6 @@ import {
   Link,
   Pending,
 } from "@gc-digital-talent/ui";
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -25,13 +24,14 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
-import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
+import browseHeroImg from "~/assets/img/browse_header.jpg";
+import flourishTopLight from "~/assets/img/browse_top_light.png";
+import flourishBottomLight from "~/assets/img/browse_bottom_light.png";
+import flourishTopDark from "~/assets/img/browse_top_dark.png";
+import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
 
-const flourishTopLight = imageUrl("/", "browse_top_light.png");
-const flourishBottomLight = imageUrl("/", "browse_bottom_light.png");
-const flourishTopDark = imageUrl("/", "browse_top_dark.png");
-const flourishBottomDark = imageUrl("/", "browse_bottom_dark.png");
+import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
+import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
@@ -98,7 +98,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
         })}
       />
       <Hero
-        imgPath={imageUrl("/", "browse_header.jpg")}
+        imgPath={browseHeroImg}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:

@@ -5,11 +5,13 @@ import { useLocation } from "react-router-dom";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Heading } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
-import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import CallToAction from "~/components/CallToAction/CallToAction";
+
+import darkPug from "~/assets/img/404_pug_dark.svg";
+import lightPug from "~/assets/img/404_pug_light.svg";
 
 const ErrorPage = () => {
   const intl = useIntl();
@@ -27,10 +29,7 @@ const ErrorPage = () => {
     }),
   );
 
-  const imgPath = imageUrl(
-    "/",
-    `404_pug_${mode === "dark" ? "dark" : "light"}.svg`,
-  );
+  const imgPath = mode === "dark" ? darkPug : lightPug;
 
   return (
     <>

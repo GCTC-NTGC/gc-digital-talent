@@ -9,16 +9,18 @@ import {
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
 
-import { PoolAdvertisement, AdvertisementStatus } from "~/api/generated";
+import {
+  PoolAdvertisement,
+  AdvertisementStatus,
+  Scalars,
+} from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";
 import DeleteDialog from "./DeleteDialog";
 import ArchiveDialog from "./ArchiveDialog";
-import ExtendDialog, { type ExtendSubmitData } from "./ExtendDialog";
-
-export type { ExtendSubmitData };
+import ExtendDialog from "./ExtendDialog";
 
 interface StatusSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -26,7 +28,7 @@ interface StatusSectionProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
+  onExtend: (submitData: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
 }
 

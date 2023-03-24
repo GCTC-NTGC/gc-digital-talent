@@ -2,9 +2,22 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import { imageUrl } from "@gc-digital-talent/helpers";
-
 import useQuote from "~/hooks/useQuote";
+
+import iapHeroImg from "~/assets/img/iap-hero.jpg";
+import logoEn from "~/assets/img/iap-logo-en.svg";
+import logoFr from "~/assets/img/iap-logo-fr.svg";
+import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
+import feathers from "~/assets/img/feathers.png";
+import manOnComputer from "~/assets/img/man-on-computer.jpg";
+import gloves from "~/assets/img/gloves.png";
+import applicant from "~/assets/img/applicant.jpg";
+import ulu from "~/assets/img/ulu.png";
+import quoteBg from "~/assets/img/quote-bg.jpg";
+import sash from "~/assets/img/sash.jpg";
+import lowerBack from "~/assets/img/lower-back.jpg";
+import iconWatermark from "~/assets/img/icon-watermark.svg";
+import indigenousWoman from "~/assets/img/indigenous-woman.png";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
@@ -34,6 +47,10 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
+  let logoImg = logoEn;
+  if (intl.locale === "fr") {
+    logoImg = logoFr;
+  }
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
@@ -69,7 +86,7 @@ const Home = () => {
           data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
           data-h2-order="base(2) p-tablet(1)"
-          src={imageUrl("/", "hero.jpg")}
+          src={iapHeroImg}
           alt=""
         />
         <div
@@ -82,11 +99,7 @@ const Home = () => {
           data-h2-width="base(100%) p-tablet(40vw)"
         >
           <h1>
-            <img
-              data-h2-width="base(100%)"
-              src={imageUrl("/", `logo-${intl.locale}.svg`)}
-              alt=""
-            />
+            <img data-h2-width="base(100%)" src={logoImg} alt="" />
             <span data-h2-visually-hidden="base(invisible)">
               {intl.formatMessage({
                 defaultMessage:
@@ -156,16 +169,13 @@ const Home = () => {
                       data-h2-width="p-tablet(100%)"
                       data-h2-position="base(relative)"
                       style={{
-                        backgroundImage: `url('${imageUrl(
-                          "/",
-                          "indigenous-woman-smiling.jpg",
-                        )}')`,
+                        backgroundImage: `url('${womanSmiling}')`,
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                       }}
                     />
                     <img
-                      src={imageUrl("/", "feathers.png")}
+                      src={feathers}
                       alt=""
                       data-h2-position="base(absolute)"
                       data-h2-width="base(150%)"
@@ -252,16 +262,13 @@ const Home = () => {
                     data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage: `url('${imageUrl(
-                        "/",
-                        "man-on-computer.jpg",
-                      )}')`,
+                      backgroundImage: `url('${manOnComputer}')`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                     }}
                   />
                   <img
-                    src={imageUrl("/", "gloves.png")}
+                    src={gloves}
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(140%)"
@@ -346,16 +353,13 @@ const Home = () => {
                     data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage: `url('${imageUrl(
-                        "/",
-                        "applicant.jpg",
-                      )}')`,
+                      backgroundImage: `url('${applicant}')`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                     }}
                   />
                   <img
-                    src={imageUrl("/", "ulu.png")}
+                    src={ulu}
                     alt=""
                     data-h2-display="base(block) p-tablet(none)"
                     data-h2-position="base(absolute)"
@@ -403,7 +407,7 @@ const Home = () => {
                   )}
                 </p>
                 <img
-                  src={imageUrl("/", "ulu.png")}
+                  src={ulu}
                   alt=""
                   data-h2-display="base(none) p-tablet(block)"
                   data-h2-position="base(absolute)"
@@ -429,7 +433,7 @@ const Home = () => {
         data-h2-margin="p-tablet(x2, 0, 0, 0)"
         data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
         style={{
-          backgroundImage: `url(${imageUrl("/", "quote-bg.jpg")})`,
+          backgroundImage: `url(${quoteBg})`,
           backgroundSize: "cover",
           backgroundPosition: "right 10% center",
         }}
@@ -453,7 +457,7 @@ const Home = () => {
       <div
         data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
         style={{
-          backgroundImage: `url(${imageUrl("/", "sash.jpg")})`,
+          backgroundImage: `url(${sash})`,
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -465,7 +469,7 @@ const Home = () => {
                 <div
                   data-h2-height="base(40vh) p-tablet(100%)"
                   style={{
-                    backgroundImage: `url(${imageUrl("/", "lower-back.jpg")})`,
+                    backgroundImage: `url(${lowerBack})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
@@ -805,7 +809,7 @@ const Home = () => {
                   data-h2-overflow="base(hidden)"
                 >
                   <img
-                    src={imageUrl("/", "icon-watermark.svg")}
+                    src={iconWatermark}
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-location="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
@@ -854,7 +858,7 @@ const Home = () => {
                       data-h2-display="base(block)"
                       data-h2-position="p-tablet(absolute)"
                       data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
-                      src={imageUrl("/", "indigenous-woman.png")}
+                      src={indigenousWoman}
                       alt=""
                     />
                   </div>

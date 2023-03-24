@@ -7,9 +7,7 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Sidebar from "./Sidebar";
 
-const Navigation: React.FC<{
-  children?: React.ReactNode;
-}> = ({ children, ...rest }) => {
+const Navigation = ({ children, ...rest }: { children?: React.ReactNode }) => {
   const intl = useIntl();
   const featureFlags = useFeatureFlags();
   const id = uniqueId();

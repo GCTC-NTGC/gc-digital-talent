@@ -9,7 +9,9 @@ import {
   useDeletePoolAdvertisementMutation,
   usePublishPoolAdvertisementMutation,
   useUpdatePoolAdvertisementMutation,
+  useChangePoolClosingDateMutation,
   UpdatePoolAdvertisementInput,
+  Scalars,
 } from "~/api/generated";
 
 const useMutations = () => {
@@ -40,6 +42,27 @@ const useMutations = () => {
     await executeUpdateMutation({ id, poolAdvertisement })
       .then((result) => {
         if (result.data?.updatePoolAdvertisement) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool updated successfully!",
+              id: "nPUAz5",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+        } else {
+          handleUpdateError();
+        }
+      })
+      .catch(handleUpdateError);
+  };
+
+  const [{ fetching: extendFetching }, executeExtendMutation] =
+    useChangePoolClosingDateMutation();
+
+  const extend = async (id: string, closingDate: Scalars["DateTime"]) => {
+    await executeExtendMutation({ id, closingDate })
+      .then((result) => {
+        if (result.data?.changePoolClosingDate) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool updated successfully!",
@@ -155,9 +178,14 @@ const useMutations = () => {
 
   return {
     isFetching:
-      updateFetching || publishFetching || closeFetching || deleteFetching,
+      updateFetching ||
+      extendFetching ||
+      publishFetching ||
+      closeFetching ||
+      deleteFetching,
     mutations: {
       update,
+      extend,
       publish,
       close,
       delete: deletePoolAdvertisement,

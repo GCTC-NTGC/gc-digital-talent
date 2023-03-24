@@ -87,10 +87,13 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   return false;
 };
 
-const ClientProvider: React.FC<{
+const ClientProvider = ({
+  client,
+  children,
+}: {
   client?: Client;
   children?: React.ReactNode;
-}> = ({ client, children }) => {
+}) => {
   const intl = useIntl();
   const authContext = useAuthentication();
   const logger = useLogger();
