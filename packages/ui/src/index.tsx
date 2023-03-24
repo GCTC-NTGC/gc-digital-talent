@@ -56,6 +56,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import Switch from "./components/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
@@ -96,6 +97,7 @@ export type {
   PillSize,
   SideMenuProps,
   SideMenuItemProps,
+  StepperProps,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -139,6 +141,7 @@ export {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  Stepper,
   Switch,
   TableOfContents,
   Tabs,

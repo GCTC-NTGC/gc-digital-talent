@@ -1,8 +1,8 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl, defineMessage } from "react-intl";
 import { Outlet } from "react-router-dom";
 
-import { TableOfContents } from "@gc-digital-talent/ui";
+import { TableOfContents, Stepper } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -12,7 +12,10 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { PageNavInfo } from "~/types/pages";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import {
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+} from "~/utils/poolUtils";
 
 import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
@@ -26,6 +29,14 @@ type PageNavKey =
   | "questions"
   | "submit";
 
+const deriveStepsFromPages = (pages: Map<PageNavKey, PageNavInfo>) => {
+  return Array.from(pages.values()).map((page) => ({
+    label: page.link.label || page.title,
+    href: page.link.url,
+    icon: page.icon,
+  }));
+};
+
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -34,10 +45,20 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     ["welcome", welcomePageInfo({ paths, intl, application })],
   ]);
 
-  const poolName = getFullPoolAdvertisementTitleHtml(
+  const poolNameHtml = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
   );
+  const poolName = getFullPoolAdvertisementTitleLabel(
+    intl,
+    application.poolAdvertisement,
+  );
+  const pageTitle = defineMessage({
+    defaultMessage: "Apply to {poolName}",
+    id: "K8CPir",
+    description: "Heading for the application page",
+  });
+
   const currentPage = useCurrentPage<PageNavKey>(pages);
 
   const crumbs = useBreadcrumbs([
@@ -53,34 +74,42 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       url: application.poolAdvertisement?.id
         ? paths.pool(application.poolAdvertisement.id)
         : "#",
-      label: intl.formatMessage({
-        defaultMessage: "Browse IT Jobs",
-        id: "l1fsXC",
-        description: "Breadcrumb link text for the browse pools page",
-      }),
+      label: getFullPoolAdvertisementTitleHtml(
+        intl,
+        application.poolAdvertisement,
+      ),
     },
     ...(currentPage?.crumb ? [currentPage?.crumb] : []),
   ]);
 
+  const steps = deriveStepsFromPages(pages);
+  const currentStep = steps.findIndex(
+    (step) => step.href === currentPage?.link.url,
+  );
+
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={intl.formatMessage(pageTitle, { poolName })} />
       <Hero
-        title={intl.formatMessage(
-          {
-            defaultMessage: "Apply to {poolName}",
-            id: "K8CPir",
-            description: "Heading for the application page",
-          },
-          { poolName },
-        )}
+        title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
         crumbs={crumbs}
         subtitle={currentPage?.subtitle}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-margin-top="base(x2)"
+      >
         <TableOfContents.Wrapper>
           <TableOfContents.Sidebar>
-            <p>Stepper here</p>
+            <Stepper
+              label={intl.formatMessage({
+                defaultMessage: "Application steps",
+                id: "y2Rl/m",
+                description: "Label for the application stepper navigation",
+              })}
+              currentIndex={currentStep}
+              steps={steps}
+            />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             <Outlet />

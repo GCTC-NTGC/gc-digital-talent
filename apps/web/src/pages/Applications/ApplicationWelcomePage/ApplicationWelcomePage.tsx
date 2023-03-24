@@ -14,11 +14,16 @@ export const getPageInfo: GetApplicationPageInfo = ({
   intl,
 }) => {
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Welcome, {name}",
-      id: "ttq9CR",
-      description: "Page title for the application welcome page",
-    }),
+    title: intl.formatMessage(
+      {
+        defaultMessage: "Welcome, {name}",
+        id: "ttq9CR",
+        description: "Page title for the application welcome page",
+      },
+      {
+        name: application.user.firstName,
+      },
+    ),
     subtitle: intl.formatMessage({
       defaultMessage:
         "Welcome to the beginning of your application. We're excited to meet you!",
@@ -50,7 +55,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
 
-  return <Heading>{pageInfo.title}</Heading>;
+  return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };
 
 const ApplicationWelcomePage = () => (
