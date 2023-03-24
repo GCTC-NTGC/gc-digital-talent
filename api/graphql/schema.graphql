@@ -1308,9 +1308,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
-  submittedAt: DateTime
-    @rename(attribute: "submitted_at")
-    @injectNow(name: "submittedAt")
+  submittedAt: DateTime @rename(attribute: "submitted_at")
 }
 
 input CreatePoolInput {
@@ -1641,7 +1639,11 @@ type Mutation {
     @can(ability: "delete", find: "id")
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @create @guard @can(ability: "create")
+  ): PoolCandidate
+    @create
+    @guard
+    @can(ability: "create")
+    @injectNow(name: "submitted_at")
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
