@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
@@ -8,56 +7,45 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import {
-  LocalizedString,
-  Maybe,
   Role,
   RoleAssignment,
-  Team,
   UpdateUserAsAdminInput,
   User,
 } from "~/api/generated";
 
 import useRoutes from "~/hooks/useRoutes";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
-import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
+import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 import { UpdateUserFunc } from "../types";
 
-function useLocalizedName(name: Maybe<LocalizedString>) {
-  const intl = useIntl();
-  return getLocalizedName(name, intl);
-}
-
-type RoleCellProps = { role: Maybe<Role> };
-const RoleCell = ({ role }: RoleCellProps) => {
-  const roleName = useLocalizedName(role?.displayName);
-  return role ? (
+const roleCell = (displayName: string) => {
+  return (
     <Pill color="neutral" mode="solid">
-      {roleName}
+      {displayName}
     </Pill>
-  ) : null;
-};
-
-type TeamCellProps = { team: Maybe<Team> };
-const TeamCell = ({ team }: TeamCellProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-  const teamName = getLocalizedName(team?.displayName, intl);
-
-  return team ? <Link href={paths.teamView(team.id)}>{teamName}</Link> : null;
+  );
 };
 
 const actionCell = (
   roleAssignment: RoleAssignment,
   user: User,
   onUpdateUser: UpdateUserFunc,
-) => (
-  <RemoveIndividualRoleDialog
-    // We expect this to never be undefined, so coerce.
-    role={roleAssignment.role as Role}
-    user={user}
-    onUpdateUser={onUpdateUser}
-  />
-);
+) => {
+  return roleAssignment.role && user && roleAssignment.team ? (
+    <RemoveTeamRoleDialog
+      role={roleAssignment.role}
+      user={user}
+      team={roleAssignment.team}
+      onUpdateUser={onUpdateUser}
+    />
+  ) : (
+    <>{JSON.stringify(roleAssignment)}</>
+  );
+};
+
+const teamCell = (displayName: string, href: string) => {
+  return <Link href={href}>{displayName}</Link>;
+};
 
 type RoleAssignmentCell = Cell<RoleAssignment>;
 
@@ -73,6 +61,7 @@ export const TeamRoleTable = ({
   onUpdateUser,
 }: TeamRoleTableProps) => {
   const intl = useIntl();
+  const routes = useRoutes();
 
   const columns = useMemo<ColumnsOf<RoleAssignment>>(
     () => [
@@ -99,7 +88,11 @@ export const TeamRoleTable = ({
           row: {
             original: { team },
           },
-        }: RoleAssignmentCell) => <TeamCell team={team} />,
+        }: RoleAssignmentCell) =>
+          teamCell(
+            getLocalizedName(team?.displayName, intl),
+            team ? routes.teamView(team.id) : "",
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -109,20 +102,18 @@ export const TeamRoleTable = ({
         }),
         accessor: (roleAssignment) =>
           getLocalizedName(roleAssignment.role?.displayName, intl),
-        Cell: ({
-          row: {
-            original: { role },
-          },
-        }: RoleAssignmentCell) => <RoleCell role={role} />,
+        Cell: ({ row: { original: roleAssignment } }: RoleAssignmentCell) =>
+          roleCell(getLocalizedName(roleAssignment.role?.displayName, intl)),
       },
     ],
-    [intl, onUpdateUser, user],
+    [intl, onUpdateUser, routes, user],
   );
 
   const data = useMemo(() => {
     const roleAssignments = user.roleAssignments
       ?.filter(notEmpty)
-      .filter((assignment) => assignment.role?.isTeamBased);
+      .filter((assignment) => assignment.role?.isTeamBased)
+      .filter(notEmpty);
     return roleAssignments || [];
   }, [user.roleAssignments]);
 
