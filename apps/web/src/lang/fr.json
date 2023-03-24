@@ -6934,7 +6934,7 @@
     "description": "Suspended recruitment status message on qualified recruitment card."
   },
   "dPoE9z": {
-    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien de soutien du centre d’assistance.",
+    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
     "description": "Dialog main body on change search results status from qualified recruitment section."
   },
   "eGPSG3": {
@@ -6962,7 +6962,7 @@
     "description": "Expired recruitment status message on qualified recruitment card."
   },
   "veIkpN": {
-    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien de soutien du centre d’assistance.",
+    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
     "description": "Dialog main body on change search results status from qualified recruitment section."
   },
   "wYe3P2": {
