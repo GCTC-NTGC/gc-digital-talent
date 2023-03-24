@@ -12,8 +12,8 @@ import {
   UpdateUserAsAdminInput,
   User,
 } from "~/api/generated";
-
 import useRoutes from "~/hooks/useRoutes";
+
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 import { UpdateUserFunc } from "../types";
@@ -38,9 +38,7 @@ const actionCell = (
       team={roleAssignment.team}
       onUpdateUser={onUpdateUser}
     />
-  ) : (
-    <>{JSON.stringify(roleAssignment)}</>
-  );
+  ) : null;
 };
 
 const teamCell = (displayName: string, href: string) => {

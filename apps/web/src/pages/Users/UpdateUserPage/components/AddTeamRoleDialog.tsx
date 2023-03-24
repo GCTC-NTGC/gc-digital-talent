@@ -23,7 +23,6 @@ import {
   User,
   useListTeamsQuery,
 } from "~/api/generated";
-
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
