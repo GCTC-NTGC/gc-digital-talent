@@ -1,24 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import { ThrowNotFound, Pending, TableOfContents } from "@gc-digital-talent/ui";
+import { TableOfContents } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import {
-  Maybe,
-  PoolAdvertisement,
-  PoolCandidate,
-  useGetApplicationPoolNameQuery,
-} from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
-import { HeartIcon } from "@heroicons/react/24/solid";
-import { getFullPoolAdvertisementTitleHtml } from "../../utils/poolUtils";
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+
+import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
+import { getPageInfo as welcomePageInfo } from "./WelcomePage/WelcomePage";
 
 type PageNavKey =
   | "welcome"
@@ -29,37 +26,12 @@ type PageNavKey =
   | "questions"
   | "submit";
 
-type PartialApplication = Pick<PoolCandidate, "id"> & {
-  poolAdvertisement?: Maybe<
-    Pick<PoolAdvertisement, "id" | "classifications" | "stream" | "name">
-  >;
-};
-
-interface ApplicationPageWrapperProps {
-  application: PartialApplication;
-}
-
-const ApplicationPageWrapper = ({
-  application,
-}: ApplicationPageWrapperProps) => {
+const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const pages = new Map<PageNavKey, PageNavInfo>([
-    [
-      "welcome",
-      {
-        icon: HeartIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Welcome",
-          id: "UfWQoF",
-          description: "Page title for the welcome page of an application",
-        }),
-        link: {
-          url: paths.applicationWelcome(application.id),
-        },
-      },
-    ],
+    ["welcome", welcomePageInfo({ paths, intl, application })],
   ]);
 
   const poolName = getFullPoolAdvertisementTitleHtml(
@@ -67,6 +39,28 @@ const ApplicationPageWrapper = ({
     application.poolAdvertisement,
   );
   const currentPage = useCurrentPage<PageNavKey>(pages);
+
+  const crumbs = useBreadcrumbs([
+    {
+      url: paths.browse(),
+      label: intl.formatMessage({
+        defaultMessage: "Browse IT Jobs",
+        id: "l1fsXC",
+        description: "Breadcrumb link text for the browse pools page",
+      }),
+    },
+    {
+      url: application.poolAdvertisement?.id
+        ? paths.pool(application.poolAdvertisement.id)
+        : "#",
+      label: intl.formatMessage({
+        defaultMessage: "Browse IT Jobs",
+        id: "l1fsXC",
+        description: "Breadcrumb link text for the browse pools page",
+      }),
+    },
+    ...(currentPage?.crumb ? [currentPage?.crumb] : []),
+  ]);
 
   return (
     <>
@@ -80,6 +74,8 @@ const ApplicationPageWrapper = ({
           },
           { poolName },
         )}
+        crumbs={crumbs}
+        subtitle={currentPage?.subtitle}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
@@ -95,25 +91,8 @@ const ApplicationPageWrapper = ({
   );
 };
 
-const ApplicationLayout = () => {
-  const { applicationId } = useParams();
-  const [{ data, fetching, error }] = useGetApplicationPoolNameQuery({
-    variables: {
-      id: applicationId || "",
-    },
-  });
-
-  const application = data?.poolCandidate;
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {application?.poolAdvertisement ? (
-        <ApplicationPageWrapper application={application} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
+const ApplicationLayout = () => (
+  <ApplicationApi PageComponent={ApplicationPageWrapper} />
+);
 
 export default ApplicationLayout;
