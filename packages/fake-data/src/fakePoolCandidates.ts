@@ -42,6 +42,7 @@ const generatePoolCandidate = (
       faker.date.past().toISOString().substring(0, 10),
     ),
     submittedAt: FAR_PAST_DATE,
+    suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
   };
 };
 
