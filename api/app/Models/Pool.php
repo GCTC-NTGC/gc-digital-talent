@@ -154,24 +154,30 @@ class Pool extends Model
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
+        if (!$user->isAbleTo("view-any-pool")) {
+            $query->where(function (Builder $query) use ($user) {
 
-        if ($user->isAbleTo("view-team-pool")) {
-            // Only add teams the user can view pools in to the query for `whereHAs`
-            $teams = $user->rolesTeams()->get();
-            $teamIds = [];
-            foreach($teams as $team) {
-                if($user->isAbleTo("view-team-pool", $team)) {
-                    $teamIds[] = $team->id;
+                if ($user->isAbleTo("view-team-pool")) {
+                    // Only add teams the user can view pools in to the query for `whereHAs`
+                    $teams = $user->rolesTeams()->get();
+                    $teamIds = [];
+                    foreach ($teams as $team) {
+                        if ($user->isAbleTo("view-team-pool", $team)) {
+                            $teamIds[] = $team->id;
+                        }
+                    }
+
+                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    });
                 }
-            }
 
-            return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                return $query->whereIn('id', $teamIds);
+                if ($user->isAbleTo("view-any-publishedPoolAdvertisement")) {
+                    $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
+                }
+
+                return $query;
             });
-        }
-
-        if($user->isAbleTo("view-any-publishedPoolAdvertisement")) {
-            return  $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
         }
 
         return $query;

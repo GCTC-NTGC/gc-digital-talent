@@ -419,22 +419,25 @@ class PoolCandidate extends Model
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
+        if (!$user->isAbleTo("view-any-application")) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo("view-any-submittedApplication")) {
+                    $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                }
 
-        if ($user->isAbleTo("view-any-submittedApplication")) {
-            return  $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString());
-        }
+                if ($user->isAbleTo("view-team-submittedApplication")) {
+                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                }
 
-        if ($user->isAbleTo("view-team-submittedApplication")) {
-            $teamIds = $user->rolesTeams()->get()->pluck('id');
-            return $query->whereHas('pool',  function (Builder $query) use ($teamIds) {
-                return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
-                });
+                if ($user->isAbleTo("view-own-application")) {
+                    $query->orWhere('user_id', $user->id);
+                }
             });
-        }
-
-        if ($user->isAbleTo("view-own-application")) {
-            return $query->where('user_id', $userId);
         }
 
         return $query;
