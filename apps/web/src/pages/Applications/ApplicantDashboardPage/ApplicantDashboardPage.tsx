@@ -5,18 +5,22 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
-import { useApplicantInformationQuery, User } from "~/api/generated";
+import { useApplicantInformationQuery } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
 import DashboardHeading from "./components/DashboardHeading";
 import ApplicationList from "../MyApplicationsPage/components/ApplicationList/ApplicationList";
+import QualifiedRecruitments from "./components/QualifiedRecruitments/QualifiedRecruitments";
+
+import { PartialUser } from "./types";
 
 interface ApplicantDashboardProps {
-  user: User;
+  user: PartialUser;
 }
 
 export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
   const intl = useIntl();
+  const applications = user.poolCandidates?.filter(notEmpty) ?? [];
 
   return (
     <>
@@ -30,9 +34,8 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
       <DashboardHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-          <ApplicationList
-            applications={user.poolCandidates?.filter(notEmpty) ?? []}
-          />
+          <ApplicationList applications={applications} />
+          <QualifiedRecruitments applications={applications} />
         </div>
       </section>
     </>

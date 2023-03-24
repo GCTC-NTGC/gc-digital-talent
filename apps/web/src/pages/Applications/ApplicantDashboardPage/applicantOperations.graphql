@@ -31,13 +31,6 @@ fragment application on PoolCandidate {
       maxSalary
     }
   }
-  # Note: This is a weird circular dependency but required by the API
-  pool {
-    id
-  }
-  user {
-    id
-  }
 }
 
 query ApplicantInformation {

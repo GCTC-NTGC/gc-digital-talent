@@ -47,6 +47,8 @@ import {
 } from "./HeroCardItem";
 import { HeroCard } from "./HeroCard";
 
+import { PartialUser } from "../types";
+
 function deriveSectionStatus(
   isMissingRequiredFields: boolean,
   isMissingOptionalFields: boolean,
@@ -57,7 +59,7 @@ function deriveSectionStatus(
 }
 
 export interface DashboardHeadingProps {
-  user: User;
+  user: PartialUser;
 }
 
 const DashboardHeading = ({ user }: DashboardHeadingProps) => {

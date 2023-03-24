@@ -37,8 +37,7 @@ export default {
   component: QualifiedRecruitments,
   title: "Pages/Applicant Dashboard/Qualified Recruitment",
   args: {
-    activeRecruitments,
-    expiredRecruitments,
+    applications: [...activeRecruitments, ...expiredRecruitments],
   },
 } as Meta;
 
@@ -49,6 +48,5 @@ const Template: Story = (args) => {
 export const DefaultQualifiedRecruitments = Template.bind({});
 export const NoQualifiedRecruitments = Template.bind({});
 NoQualifiedRecruitments.args = {
-  activeRecruitments: [],
-  expiredRecruitments: [],
+  applications: [],
 };

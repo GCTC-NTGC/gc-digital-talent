@@ -10,9 +10,10 @@ import ApplicationCard from "../ApplicationCard/ApplicationCard";
 import ApplicationGroup from "./ApplicationGroup";
 
 import { groupApplicationsByStatus } from "./utils";
+import { Application } from "../../../ApplicantDashboardPage/types";
 
 interface ApplicationListProps {
-  applications: Array<PoolCandidate>;
+  applications: Array<Application>;
 }
 
 const ApplicationList = ({ applications }: ApplicationListProps) => {
