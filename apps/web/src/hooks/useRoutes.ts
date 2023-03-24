@@ -162,6 +162,22 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "browse", "applications", applicationId, "submit"),
     reviewApplication: (applicationId: string) =>
       path.join(baseUrl, "browse", "applications", applicationId, "apply"),
+    applicationWelcome: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "welcome"),
+    applicationProfile: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "profile"),
+    applicationResume: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume"),
+    applicationEducation: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "education"),
+    applicationSkills: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "skills"),
+    applicationQuestions: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "questions"),
+    applicationReview: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "review"),
+    applicationSuccess: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "success"),
 
     // Profile Routes
     profile: (userId: string) => path.join(userUrl(userId), "profile"),

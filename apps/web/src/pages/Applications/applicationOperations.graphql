@@ -1,0 +1,30 @@
+query GetApplicationPoolName($id: UUID!) {
+  poolCandidate(id: $id) {
+    id
+    poolAdvertisement {
+      id
+      stream
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+}
