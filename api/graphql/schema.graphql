@@ -315,6 +315,13 @@ type UserPublicProfile {
   lastName: String @rename(attribute: "last_name")
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement! @belongsTo(relation: "pool")
+  question: LocalizedString!
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
@@ -338,6 +345,7 @@ type Pool {
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
+  screeningQuestions: [ScreeningQuestion] @hasMany
 }
 
 enum PoolStatus {
@@ -382,6 +390,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  screeningQuestions: [ScreeningQuestion] @hasMany
 }
 
 enum AdvertisementStatus {

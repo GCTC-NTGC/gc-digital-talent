@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('pool_id');
             $table->foreign("pool_id")->references("id")->on("pools");
             $table->integer('sort_order')->nullable()->default(null);
-            $table->jsonb('question')->nullable()->default(null);
+            $table->jsonb('question');
             $table->timestamps();
         });
 

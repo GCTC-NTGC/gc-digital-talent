@@ -795,6 +795,7 @@ type Pool {
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type PoolAdvertisement {
@@ -819,6 +820,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  screeningQuestions: [ScreeningQuestion]
 }
 
 enum PoolAdvertisementLanguage {
@@ -1170,6 +1172,13 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
+}
+
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement!
+  question: LocalizedString!
+  sortOrder: Int
 }
 
 enum SecurityStatus {
