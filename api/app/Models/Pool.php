@@ -114,6 +114,11 @@ class Pool extends Model
         return $this->belongsToMany(Skill::class, 'pools_nonessential_skills');
     }
 
+    public function screeningQuestions(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestion::class);
+    }
+
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
     public function getAdvertisementStatusAttribute()
     {
