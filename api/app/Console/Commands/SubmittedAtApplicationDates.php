@@ -31,12 +31,10 @@ class SubmittedAtApplicationDates extends Command
     public function handle()
     {
         $dateNow = Carbon::now();
-        $candidatesToSubmit = PoolCandidate::where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION)
-            ->where('submitted_at', null)->get();
 
-        foreach ($candidatesToSubmit as $candidate) {
-            $candidate->update(['submitted_at' => $dateNow]);
-        }
+        PoolCandidate::whereNotIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED])
+            ->where('submitted_at', null)
+            ->update(['submitted_at' => $dateNow]);
 
         return Command::SUCCESS;
     }
