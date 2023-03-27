@@ -1364,6 +1364,7 @@ input UpdatePoolInput {
 }
 
 input UpdateScreeningQuestionInput {
+  id: ID!
   question: LocalizedStringInput!
   sortOrder: Int
 }

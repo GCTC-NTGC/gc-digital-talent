@@ -1587,6 +1587,7 @@ input CreateScreeningQuestionInput {
 }
 
 input UpdateScreeningQuestionInput {
+  id: ID!
   question: LocalizedStringInput!
   sortOrder: Int @rename(attribute: "sort_order")
 }
