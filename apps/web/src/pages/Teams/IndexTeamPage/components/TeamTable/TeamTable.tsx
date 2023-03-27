@@ -201,8 +201,8 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
     return {
       initialSortBy: [
         {
-          id: "teamName",
-          desc: false,
+          id: "myRoles",
+          desc: true,
         },
       ],
     };
