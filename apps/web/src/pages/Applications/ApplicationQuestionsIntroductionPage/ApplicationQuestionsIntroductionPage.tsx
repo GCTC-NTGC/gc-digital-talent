@@ -13,12 +13,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
   paths,
   intl,
 }) => {
-  const path = paths.applicationQuestions(application.id);
+  const path = paths.applicationQuestionsIntro(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "sTij/C",
-      description: "Page title for the application screening questions page",
+      defaultMessage: "A few related questions",
+      id: "Tdr8r5",
+      description:
+        "Page title for the application screening questions introduction page",
     }),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
@@ -26,14 +27,15 @@ export const getPageInfo: GetApplicationPageInfo = ({
       description: "Subtitle for the application screening questions page",
     }),
     icon: PencilSquareIcon,
+    omitFromStepper: true,
     crumbs: [
       {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Step 6",
-          id: "wWnEgP",
+          defaultMessage: "Step 6 (Intro)",
+          id: "9MUsDL",
           description:
-            "Breadcrumb link text for the application screening questions page",
+            "Breadcrumb link text for the application screening questions introduction page",
         }),
       },
     ],
@@ -43,7 +45,9 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
+const ApplicationQuestionsIntroduction = ({
+  application,
+}: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
@@ -51,8 +55,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };
 
-const ApplicationQuestionsPage = () => (
-  <ApplicationApi PageComponent={ApplicationQuestions} />
+const ApplicationQuestionsIntroductionPage = () => (
+  <ApplicationApi PageComponent={ApplicationQuestionsIntroduction} />
 );
 
-export default ApplicationQuestionsPage;
+export default ApplicationQuestionsIntroductionPage;

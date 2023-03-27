@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { TableOfContents, Stepper } from "@gc-digital-talent/ui";
 
@@ -11,7 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { PageNavInfo } from "~/types/pages";
+import { ApplicationPageInfo } from "~/types/poolCandidate";
 import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
@@ -20,9 +20,12 @@ import {
 import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
 import { getPageInfo as profilePageInfo } from "./ApplicationProfilePage/ApplicationProfilePage";
+import { getPageInfo as resumeIntroductionPageInfo } from "./ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage";
 import { getPageInfo as resumePageInfo } from "./ApplicationResumePage/ApplicationResumePage";
 import { getPageInfo as educationPageInfo } from "./ApplicationEducationPage/ApplicationEducationPage";
+import { getPageInfo as skillsIntroductionPageInfo } from "./ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
 import { getPageInfo as skillsPageInfo } from "./ApplicationSkillsPage/ApplicationSkillsPage";
+import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
 import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
@@ -30,19 +33,24 @@ import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/Applica
 type PageNavKey =
   | "welcome"
   | "profile"
+  | "resume-intro"
   | "resume"
   | "education"
+  | "skills-intro"
   | "skills"
+  | "questions-intro"
   | "questions"
   | "review"
   | "success";
 
-const deriveStepsFromPages = (pages: Map<PageNavKey, PageNavInfo>) => {
-  const steps = Array.from(pages.values()).map((page) => ({
-    label: page.link.label || page.title,
-    href: page.link.url,
-    icon: page.icon,
-  }));
+const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
+  const steps = Array.from(pages.values())
+    .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
+    .map((page) => ({
+      label: page.link.label || page.title,
+      href: page.link.url,
+      icon: page.icon,
+    }));
 
   steps.pop(); // We do not want to show final step in the stepper
 
@@ -52,13 +60,20 @@ const deriveStepsFromPages = (pages: Map<PageNavKey, PageNavInfo>) => {
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { pathname } = useLocation();
 
-  const pages = new Map<PageNavKey, PageNavInfo>([
+  const pages = new Map<PageNavKey, ApplicationPageInfo>([
     ["welcome", welcomePageInfo({ paths, intl, application })],
     ["profile", profilePageInfo({ paths, intl, application })],
+    ["resume-intro", resumeIntroductionPageInfo({ paths, intl, application })],
     ["resume", resumePageInfo({ paths, intl, application })],
     ["education", educationPageInfo({ paths, intl, application })],
+    ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
     ["skills", skillsPageInfo({ paths, intl, application })],
+    [
+      "questions-intro",
+      questionsIntroductionPageInfo({ paths, intl, application }),
+    ],
     ["questions", questionsPageInfo({ paths, intl, application })],
     ["review", reviewPageInfo({ paths, intl, application })],
     ["success", successPageInfo({ paths, intl, application })],
@@ -78,8 +93,19 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     description: "Heading for the application page",
   });
 
-  const currentPage = useCurrentPage<PageNavKey>(pages);
+  const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
+  const steps = deriveStepsFromPages(pages);
+  const currentStep = steps.findIndex((step) =>
+    currentPage?.link.url.includes(step.href),
+  );
+
+  console.log({
+    currentPage,
+    steps,
+    currentCrumbs,
+    currentStep,
+  });
 
   const crumbs = useBreadcrumbs([
     {
@@ -101,11 +127,6 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     },
     ...currentCrumbs,
   ]);
-
-  const steps = deriveStepsFromPages(pages);
-  const currentStep = Array.from(pages.keys()).findIndex((key) =>
-    currentPage?.link.url.includes(key),
-  );
 
   return (
     <>

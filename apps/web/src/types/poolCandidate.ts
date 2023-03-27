@@ -11,6 +11,10 @@ type GetApplicationPageInfoArgs = {
   intl: IntlShape;
 };
 
+export type ApplicationPageInfo = PageNavInfo & {
+  omitFromStepper?: boolean;
+};
+
 export type GetApplicationPageInfo = (
   args: GetApplicationPageInfoArgs,
-) => PageNavInfo;
+) => ApplicationPageInfo;

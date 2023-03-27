@@ -268,6 +268,14 @@ const ApplicationProfilePage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationResumeIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeIntroductionPage" */ "../pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage"
+      ),
+  ),
+);
 const ApplicationResumePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -284,11 +292,27 @@ const ApplicationEducationPage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationSkillsIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSkillsIntroductionPage" */ "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
+      ),
+  ),
+);
 const ApplicationSkillsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+      ),
+  ),
+);
+const ApplicationQuestionsIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationQuestionsIntroductionPage" */ "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
       ),
   ),
 );
@@ -997,7 +1021,16 @@ const createRoute = (
                         },
                         {
                           path: "resume",
-                          element: <ApplicationResumePage />,
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationResumePage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationResumeIntroductionPage />,
+                            },
+                          ],
                         },
                         {
                           path: "education",
@@ -1005,11 +1038,29 @@ const createRoute = (
                         },
                         {
                           path: "skills",
-                          element: <ApplicationSkillsPage />,
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationSkillsPage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationSkillsIntroductionPage />,
+                            },
+                          ],
                         },
                         {
                           path: "questions",
-                          element: <ApplicationQuestionsPage />,
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationQuestionsPage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationQuestionsIntroductionPage />,
+                            },
+                          ],
                         },
                         {
                           path: "review",
