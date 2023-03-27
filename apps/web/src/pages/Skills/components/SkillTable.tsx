@@ -142,7 +142,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const SkillTableApi: React.FunctionComponent = () => {
+const SkillTableApi = () => {
   const [result] = useAllSkillsQuery({
     context,
   });

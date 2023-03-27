@@ -52,7 +52,7 @@ class PoolApplicationTest extends TestCase
                 user {
                     id
                 }
-                pool {
+                poolAdvertisement {
                     id
                 }
                 status
@@ -170,7 +170,7 @@ class PoolApplicationTest extends TestCase
                     'user' => [
                         'id' => $this->applicantUser->id,
                     ],
-                    'pool' => [
+                    'poolAdvertisement' => [
                         'id' => $pool->id,
                     ],
                     'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,

@@ -22,6 +22,7 @@ import {
 import {
   apiMessages,
   commonMessages,
+  dateMessages,
   errorMessages,
   navigationMessages,
   tryFindMessageDescriptor,
@@ -75,6 +76,7 @@ import {
   GenericJobTitlesSorted,
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
+  getCandidateSuspendedFilterStatus,
   getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
 
@@ -96,6 +98,7 @@ export {
   apiMessages,
   commonMessages,
   errorMessages,
+  dateMessages,
   navigationMessages,
   uiMessages,
   formMessages,
@@ -153,6 +156,7 @@ export {
   poolCandidatePriorities,
   getAbbreviations,
   getCandidateExpiryFilterStatus,
+  getCandidateSuspendedFilterStatus,
   getPoolCandidateStatusLabel,
 };
 

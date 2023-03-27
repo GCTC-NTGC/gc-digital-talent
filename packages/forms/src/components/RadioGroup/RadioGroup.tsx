@@ -41,7 +41,7 @@ export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
-const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
+const RadioGroup = ({
   idPrefix,
   legend,
   name,
@@ -55,7 +55,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   hideLegend,
   trackUnsaved = true,
   ...rest
-}) => {
+}: RadioGroupProps) => {
   const {
     register,
     formState: { errors },

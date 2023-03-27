@@ -38,10 +38,27 @@ fragment team on Team {
   }
 }
 
-
 query ListTeams {
   teams {
-    ...team
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    description {
+      en
+      fr
+    }
   }
 }
 

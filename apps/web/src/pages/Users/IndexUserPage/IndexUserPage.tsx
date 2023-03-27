@@ -9,7 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import UserTable from "./components/UserTable";
 
-export const IndexUserPage: React.FC = () => {
+export const IndexUserPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 

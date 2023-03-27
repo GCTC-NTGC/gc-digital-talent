@@ -25,9 +25,7 @@ import { PoolCandidate } from "~/api/generated";
 
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 
-const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
   );
@@ -35,15 +33,15 @@ const HeadingWrapper: React.FC<{ children?: React.ReactNode }> = ({
 
 export interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
+const Heading = ({
   icon,
   children,
   as = "h2",
   ...rest
-}) => {
+}: HeadingProps & HTMLAttributes<HTMLHeadingElement>) => {
   const El = as;
   const Icon = icon || null;
 

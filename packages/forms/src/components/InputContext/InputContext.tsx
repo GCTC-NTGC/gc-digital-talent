@@ -5,7 +5,7 @@ export interface InputContextProps {
   context: string | React.ReactNode;
 }
 
-const InputContext: React.FC<InputContextProps> = ({ context, isVisible }) => {
+const InputContext = ({ context, isVisible }: InputContextProps) => {
   return isVisible ? (
     <span
       data-h2-display="base(block)"

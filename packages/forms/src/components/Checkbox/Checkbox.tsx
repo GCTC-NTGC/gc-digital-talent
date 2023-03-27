@@ -31,7 +31,7 @@ export interface CheckboxProps
   isUnsaved?: boolean;
 }
 
-const Checkbox: React.FunctionComponent<CheckboxProps> = ({
+const Checkbox = ({
   id,
   label,
   name,
@@ -42,7 +42,7 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   boundingBoxLabel = label,
   trackUnsaved = true,
   ...rest
-}) => {
+}: CheckboxProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,

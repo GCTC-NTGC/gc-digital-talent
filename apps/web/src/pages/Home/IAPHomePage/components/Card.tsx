@@ -4,11 +4,11 @@ import Heading from "./Heading";
 
 interface CardProps {
   title: string;
-  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
+  Icon?: (props: React.HTMLAttributes<HTMLOrSVGElement>) => React.ReactElement;
   children?: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
+const Card = ({ title, Icon, children }: CardProps) => (
   <div data-h2-text-align="base(center)">
     {Icon && <Icon data-h2-width="base(x4)" />}
     <Heading

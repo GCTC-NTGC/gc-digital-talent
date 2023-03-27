@@ -1,6 +1,6 @@
 import React from "react";
 
-const Calendar: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (props) => (
+const Calendar = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

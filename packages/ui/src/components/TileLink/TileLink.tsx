@@ -104,13 +104,13 @@ const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
   );
 };
 
-const TileLink: React.FC<TileLinkProps> = ({
+const TileLink = ({
   href,
   color,
   external,
   children,
   ...rest
-}): React.ReactElement => {
+}: TileLinkProps) => {
   const url = sanitizeUrl(href);
   return (
     <Link href={url || "#"} external={external} color={color} {...rest}>

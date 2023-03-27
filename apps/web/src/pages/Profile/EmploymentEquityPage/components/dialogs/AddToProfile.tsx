@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-const AddToProfile: React.FC = () => {
+const AddToProfile = () => {
   const intl = useIntl();
 
   return (

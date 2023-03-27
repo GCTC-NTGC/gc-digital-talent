@@ -17,6 +17,7 @@ import {
   useLocale,
   commonMessages,
   getCandidateExpiryFilterStatus,
+  getCandidateSuspendedFilterStatus,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -30,6 +31,7 @@ import {
   PoolCandidateStatus,
   useGetFilterDataQuery,
   CandidateExpiryFilter,
+  CandidateSuspendedFilter,
 } from "~/api/generated";
 
 const context: Partial<OperationContext> = {
@@ -133,6 +135,12 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
     })),
+    suspendedStatus: enumToOptions(CandidateSuspendedFilter).map(
+      ({ value }) => ({
+        value,
+        label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
+      }),
+    ),
   };
 
   // Creates an object keyed with all fields, each with empty array.

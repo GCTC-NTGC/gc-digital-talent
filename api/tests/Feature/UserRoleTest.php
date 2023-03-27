@@ -85,7 +85,6 @@ class UserRoleTest extends TestCase
     public function testAdminCanSeeTeamUsers()
     {
         // Delete pre-existing teams to simplify test
-        Team::truncate();
         $role = Role::factory()->create(['is_team_based' => true]);
         $team = Team::factory()->create();
         $users = User::factory()->count(3)
@@ -106,21 +105,19 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertSimilarJson([
-            'data' => [
-                'teams' => [[
-                    'id' => $team->id,
-                    'roleAssignments' =>
-                    $users->map(function ($u) {
-                        return [
-                            'user' => [
-                                'id' => $u->id
-                            ],
-                        ];
-                    })->toArray(),
-                ],
-            ]]
-        ]);
+        )->assertJsonFragment(
+            [
+                'id' => $team->id,
+                'roleAssignments' =>
+                $users->map(function ($u) {
+                    return [
+                        'user' => [
+                            'id' => $u->id
+                        ],
+                    ];
+                })->toArray(),
+            ],
+        );
     }
 
     // Create several users with different roles.  Assert that an admin can see the users in each role.
@@ -419,18 +416,29 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create an applicant user.  Assert that they cannot query the teams.
-    public function testApplicantCannotQueryTeams()
+    // Create an applicant user.  Assert that they cannot query any team members.
+    public function testApplicantCannotQueryTeamMembers()
     {
-        $this->actingAs($this->baseUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                query teams {
-                    teams {
-                      id
+        $team = Team::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'name' => 'team1',
+        ]);
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                    /** @lang Graphql */ '
+                query team($id: UUID!) {
+                    team(id: $id) {
+                        id
+                        roleAssignments {
+                        id
+                        user {
+                            id
+                        }
+                        }
                     }
-                  }
-            '
+                }
+            ',
+                [ 'id' => $team->id ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 

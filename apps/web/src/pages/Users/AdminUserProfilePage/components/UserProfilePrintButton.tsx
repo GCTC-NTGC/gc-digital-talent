@@ -12,10 +12,13 @@ export interface UserProfilePrintButtonProps {
   applicant: Applicant;
 }
 
-const UserProfilePrintButton: React.FunctionComponent<{
+const UserProfilePrintButton = ({
+  applicant,
+  children,
+}: {
   applicant: Applicant;
   children?: React.ReactNode;
-}> = ({ applicant, children }) => {
+}) => {
   const intl = useIntl();
 
   const componentRef = useRef(null);

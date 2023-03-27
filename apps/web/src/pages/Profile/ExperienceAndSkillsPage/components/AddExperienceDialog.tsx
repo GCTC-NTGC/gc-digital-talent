@@ -21,7 +21,7 @@ type AddExperienceDialogProps = {
 };
 
 interface ExperienceSection {
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
   buttonText: string;

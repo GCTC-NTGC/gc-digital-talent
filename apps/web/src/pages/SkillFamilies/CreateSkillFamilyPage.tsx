@@ -56,9 +56,10 @@ interface CreateSkillFamilyFormProps {
   ) => Promise<CreateSkillFamilyMutation["createSkillFamily"]>;
 }
 
-export const CreateSkillFamilyForm: React.FunctionComponent<
-  CreateSkillFamilyFormProps
-> = ({ skills, handleCreateSkillFamily }) => {
+export const CreateSkillFamilyForm = ({
+  skills,
+  handleCreateSkillFamily,
+}: CreateSkillFamilyFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();

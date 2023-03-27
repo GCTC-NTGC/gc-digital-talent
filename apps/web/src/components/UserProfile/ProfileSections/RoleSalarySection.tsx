@@ -27,10 +27,13 @@ export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
   return false;
 }
 
-const RoleSalarySection: React.FunctionComponent<{
+const RoleSalarySection = ({
+  applicant,
+  editPath,
+}: {
   applicant: Pick<Applicant, "expectedGenericJobTitles">;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+}) => {
   const intl = useIntl();
   const { expectedGenericJobTitles } = applicant;
   const expectedClassificationArray = expectedGenericJobTitles

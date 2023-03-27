@@ -6,7 +6,7 @@ export interface SearchFormProps {
   onChange: (val: string | undefined) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
+const SearchForm = ({ onChange }: SearchFormProps) => {
   const intl = useIntl();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

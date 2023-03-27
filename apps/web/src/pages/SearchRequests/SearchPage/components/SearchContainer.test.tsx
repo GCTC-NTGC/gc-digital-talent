@@ -6,7 +6,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import {
   fakeClassifications,
-  fakePools,
+  fakePoolAdvertisements,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
@@ -44,11 +44,11 @@ const renderSearchContainer = ({
 const poolCandidateResults = [
   {
     candidateCount: 4,
-    pool: fakePools()[0],
+    pool: fakePoolAdvertisements()[0],
   },
   {
     candidateCount: 6,
-    pool: fakePools()[1],
+    pool: fakePoolAdvertisements()[1],
   },
 ];
 

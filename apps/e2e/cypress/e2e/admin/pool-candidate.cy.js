@@ -18,7 +18,7 @@ describe("Pool Candidates", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "GetPoolCandidateStatus");
       aliasQuery(req, "getPoolCandidateSnapshot");
-      aliasQuery(req, "getMePools");
+      aliasQuery(req, "allPools");
       aliasQuery(req, "GetPoolCandidatesPaginated");
 
       aliasMutation(req, "UpdatePoolCandidateStatus");
@@ -98,7 +98,7 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlgetMePoolsQuery");
+    cy.wait("@gqlallPoolsQuery");
 
     cy.findByRole("textbox", { name: /search/i })
       .clear()
@@ -106,11 +106,6 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
       .should("exist")
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
-
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
@@ -201,7 +196,7 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlgetMePoolsQuery");
+    cy.wait("@gqlallPoolsQuery");
 
     cy.findByRole("textbox", { name: /search/i })
       .clear()
@@ -209,11 +204,6 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
       .should("exist")
-      .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
-
-    cy.findAllByRole("button", { name: /availability/i })
-      .eq(0)
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
