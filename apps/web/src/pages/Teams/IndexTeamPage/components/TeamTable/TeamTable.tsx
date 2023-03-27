@@ -5,7 +5,12 @@ import { Pending, Link } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { Maybe, Team, useListTeamsQuery } from "~/api/generated";
+import {
+  Maybe,
+  Team,
+  useListTeamsQuery,
+  useMeRoleAssignmentsQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
@@ -135,12 +140,24 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
 };
 
 const TeamTableApi = () => {
-  const [{ data, fetching, error }] = useListTeamsQuery();
+  const [{ data: dataTeam, fetching: fetchingTeam, error: errorTeam }] =
+    useListTeamsQuery();
+  const [{ data: dataMe, fetching: fetchingMe, error: errorMe }] =
+    useMeRoleAssignmentsQuery();
 
-  const teams = data?.teams.filter(notEmpty);
+  const isFetching = fetchingTeam === true || fetchingMe === true;
+
+  const teams = dataTeam?.teams.filter(notEmpty);
+
+  const roleAssignments =
+    dataMe?.me && dataMe.me?.roleAssignments ? dataMe.me.roleAssignments : null;
+
+  if (roleAssignments && roleAssignments.length > 0) {
+    //
+  }
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={isFetching} error={errorTeam || errorMe}>
       <TeamTable teams={teams || []} />
     </Pending>
   );
