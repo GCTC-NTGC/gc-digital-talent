@@ -152,7 +152,7 @@ const QualifiedRecruitments = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h5)"
+                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >
@@ -164,7 +164,7 @@ const QualifiedRecruitments = ({
                         "Text displayed in active qualified recruitments section when empty.",
                     })}
                   </p>
-                  <p data-h2-font-size="base(h6)">
+                  <p data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Recruitments in this section are actively being hired from.",
@@ -198,7 +198,7 @@ const QualifiedRecruitments = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h5)"
+                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >
@@ -210,7 +210,7 @@ const QualifiedRecruitments = ({
                         "Text displayed in active qualified recruitments section when empty.",
                     })}
                   </p>
-                  <p data-h2-font-size="base(h6)">
+                  <p data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Recruitments in this section are no longer being considered for hiring purposes.",
