@@ -6,6 +6,7 @@ import { useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
+  LocalizedString,
   Maybe,
   Team,
   useListTeamsQuery,
@@ -17,12 +18,45 @@ import Table, {
   tableActionsAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 interface TeamTableProps {
   teams: Array<Team>;
+  myRolesTeams: Array<MyRoleTeam>;
 }
 
 type TeamCell = Cell<Team>;
+
+type MyRoleTeam = {
+  teamId: string;
+  roleName: LocalizedString;
+};
+
+const roleAssignmentsToTeamArray = (
+  roleAssignments: RoleAssignment[],
+): MyRoleTeam[] => {
+  //
+  let collection: Array<MyRoleTeam> = [];
+
+  roleAssignments.forEach((roleAssignment) => {
+    //
+    if (
+      roleAssignment?.role &&
+      roleAssignment.role.isTeamBased &&
+      roleAssignment?.team &&
+      roleAssignment.role.displayName
+    ) {
+      const newTeam: MyRoleTeam = {
+        teamId: roleAssignment.team.id,
+        roleName: roleAssignment.role.displayName,
+      };
+
+      collection = [newTeam, ...collection];
+    }
+  });
+
+  return collection;
+};
 
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
@@ -50,7 +84,7 @@ const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
   );
 };
 
-export const TeamTable = ({ teams }: TeamTableProps) => {
+export const TeamTable = ({ teams, myRolesTeams }: TeamTableProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
@@ -152,13 +186,16 @@ const TeamTableApi = () => {
   const roleAssignments =
     dataMe?.me && dataMe.me?.roleAssignments ? dataMe.me.roleAssignments : null;
 
+  let myRolesAndTeams: MyRoleTeam[] = [];
+
   if (roleAssignments && roleAssignments.length > 0) {
     //
+    myRolesAndTeams = roleAssignmentsToTeamArray(roleAssignments);
   }
 
   return (
     <Pending fetching={isFetching} error={errorTeam || errorMe}>
-      <TeamTable teams={teams || []} />
+      <TeamTable teams={teams || []} myRolesTeams={myRolesAndTeams || []} />
     </Pending>
   );
 };
