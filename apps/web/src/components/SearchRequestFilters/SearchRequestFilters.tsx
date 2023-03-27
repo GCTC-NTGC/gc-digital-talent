@@ -12,7 +12,6 @@ import {
   getOperationalRequirement,
   getWorkRegion,
   getLocale,
-  poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
