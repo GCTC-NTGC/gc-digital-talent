@@ -8,22 +8,22 @@ import {
   getPoolStream,
   getLocale,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
   Maybe,
   Pool,
   Scalars,
-  GetMePoolsQuery,
   useGetMePoolsQuery,
   RoleAssignment,
+  LocalizedString,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -31,14 +31,15 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<
-  FromArray<
-    NonNullable<
-      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
-    >["pools"]
-  >
->;
-type PoolCell = Cell<Pool>;
+type PoolWithTeam = Omit<Pool, "team"> & {
+  team?: {
+    id: string;
+    name: string;
+    displayName: Maybe<LocalizedString>;
+  };
+};
+type Data = PoolWithTeam;
+type PoolCell = Cell<PoolWithTeam>;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -66,12 +67,33 @@ function poolCandidatesLinkAccessor(
   );
 }
 
-function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
+function viewLinkAccessor(url: string, pool: PoolWithTeam, intl: IntlShape) {
   return (
     <Link href={url} type="link">
       {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
+}
+
+function viewTeamLinkAccessor(
+  url: Maybe<string>,
+  displayName: Maybe<LocalizedString>,
+  intl: IntlShape,
+) {
+  return url ? (
+    <Link href={url} type="link">
+      {intl.formatMessage(
+        {
+          defaultMessage: "<hidden>View team: </hidden>{teamName}",
+          id: "ActH9H",
+          description: "Text for a link to the Team table",
+        },
+        {
+          teamName: getLocalizedName(displayName, intl),
+        },
+      )}
+    </Link>
+  ) : null;
 }
 
 function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
@@ -86,7 +108,7 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
-const fullNameCell = (pool: Pool, intl: IntlShape) => {
+const fullNameCell = (pool: PoolWithTeam, intl: IntlShape) => {
   return (
     <span>
       {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
@@ -137,12 +159,24 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Pool[] => {
+): PoolWithTeam[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
+
   const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => team?.pools);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
+    return team?.pools
+      ? team?.pools.filter(notEmpty).map((pool) => ({
+          ...pool,
+          team: {
+            id: team.id,
+            name: team.name,
+            displayName: team.displayName,
+          },
+        }))
+      : null;
+  });
   const filteredFlattenedPools = unpackMaybes(flattenedPools);
 
   // clear out any duplicate pools that may have accumulated
@@ -154,7 +188,7 @@ const roleAssignmentsToPools = (
 };
 
 interface PoolTableProps {
-  pools: Pool[];
+  pools: PoolWithTeam[];
 }
 
 export const PoolTable = ({ pools }: PoolTableProps) => {
@@ -285,6 +319,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           }
           return 0;
         },
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Team",
+          id: "fCXZ4R",
+          description: "Title displayed for the Pool table Team column",
+        }),
+        accessor: (d) => `Team ${d.team?.id ? d.team.id : ""}`,
+        Cell: ({ row }: PoolCell) =>
+          viewTeamLinkAccessor(
+            paths.teamView(row.original.team?.id ? row.original.team?.id : ""),
+            row.original.team?.displayName,
+            intl,
+          ),
+        id: "team",
       },
       {
         Header: intl.formatMessage({

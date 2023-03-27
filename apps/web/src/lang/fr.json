@@ -6857,5 +6857,9 @@
   "s7Hnlg": {
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
+  },
+  "fCXZ4R": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the Pool table Team column"
   }
 }
