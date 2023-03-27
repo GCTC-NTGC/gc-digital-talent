@@ -36,7 +36,6 @@ class ApplicantTest extends TestCase
         $this->adminUser = User::factory()->create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN],
         ]);
         $this->adminUser->syncRoles([
             "guest",
@@ -72,7 +71,7 @@ class ApplicantTest extends TestCase
 
         // Assert empty filter returns all
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -89,7 +88,7 @@ class ApplicantTest extends TestCase
 
         // Assert pool1 filter returns only pool1
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -155,7 +154,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with only pools filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -176,7 +175,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with false equity filter will return same as above
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -203,7 +202,7 @@ class ApplicantTest extends TestCase
 
         // Assert query will OR filter the equity
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -228,7 +227,7 @@ class ApplicantTest extends TestCase
 
         // Assert query will correctly filter for LEGACY_IS_INDIGENOUS
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -293,7 +292,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with english filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -315,7 +314,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with french filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -337,7 +336,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with bilingual filter will return proper count, only the bilingual candidates
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -416,7 +415,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with just pool filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -437,7 +436,7 @@ class ApplicantTest extends TestCase
 
         // Assert query to test classification-salary
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -485,7 +484,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with false filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -507,7 +506,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with true diploma filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -555,7 +554,7 @@ class ApplicantTest extends TestCase
 
         // Assert empty location
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -577,7 +576,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with TELEWORK
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -634,7 +633,7 @@ class ApplicantTest extends TestCase
 
         // Assert null for position duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -656,7 +655,7 @@ class ApplicantTest extends TestCase
 
         // Assert temporary duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -678,7 +677,7 @@ class ApplicantTest extends TestCase
 
         // Assert temporary and permanent duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -735,7 +734,7 @@ class ApplicantTest extends TestCase
 
         // Assert empty operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -757,7 +756,7 @@ class ApplicantTest extends TestCase
 
         // Assert one operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -779,7 +778,7 @@ class ApplicantTest extends TestCase
 
         // Assert two operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -856,7 +855,7 @@ class ApplicantTest extends TestCase
 
         // Assert nothing for skills
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -877,7 +876,7 @@ class ApplicantTest extends TestCase
 
         // Assert empty skills array
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -899,7 +898,7 @@ class ApplicantTest extends TestCase
 
         // Assert one skill
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -923,7 +922,7 @@ class ApplicantTest extends TestCase
 
         // Assert two skills
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -948,7 +947,7 @@ class ApplicantTest extends TestCase
 
         // Assert unused skill
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -992,7 +991,7 @@ class ApplicantTest extends TestCase
 
         // assert count applicants ignores the four suspended candidates
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
