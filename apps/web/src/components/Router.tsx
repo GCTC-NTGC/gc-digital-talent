@@ -10,6 +10,7 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags, type FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -643,7 +644,7 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (locale: Locales, loginPath: string, featureFlags: FeatureFlags) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -967,7 +968,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
               ],
             },
-            {
+            (featureFlags.applicationRevamp ? {
               path: "applications",
               children: [
                 {
@@ -1016,7 +1017,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   ],
                 },
               ],
-            },
+            } : {}),
             {
               path: "talent/profile/*",
               element: (
@@ -1596,8 +1597,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
 
 const Router = () => {
   const { locale } = useLocale();
+  const featureFlags = useFeatureFlags();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const router = createRoute(locale, routes.login(), featureFlags);
   return <RouterProvider router={router} fallbackElement={<Loading />} />;
 };
 
