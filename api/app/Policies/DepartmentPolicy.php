@@ -20,7 +20,7 @@ class DepartmentPolicy
      */
     public function viewAny(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-department");
     }
 
     /**
@@ -34,7 +34,7 @@ class DepartmentPolicy
      */
     public function view(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-department");
     }
 
     /**

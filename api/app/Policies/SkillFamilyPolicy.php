@@ -20,7 +20,7 @@ class SkillFamilyPolicy
      */
     public function viewAny(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-skillFamily");
     }
 
     /**
@@ -34,7 +34,7 @@ class SkillFamilyPolicy
      */
     public function view(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-skillFamily");
     }
 
     /**

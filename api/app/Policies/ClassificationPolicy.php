@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Classification;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -20,7 +19,7 @@ class ClassificationPolicy
      */
     public function viewAny(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-classification");
     }
 
     /**
@@ -34,7 +33,7 @@ class ClassificationPolicy
      */
     public function view(?User $user)
     {
-        return true;
+        return $user->isAbleTo("view-any-classification");
     }
 
     /**
