@@ -56,6 +56,7 @@ type FormValues = {
     expectedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
+    stream?: ApplicantFilterInput["stream"];
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -131,6 +132,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
+          stream: applicantFilter?.stream,
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
