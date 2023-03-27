@@ -305,6 +305,11 @@ input CreatePoolInput {
   publishingGroup: PublishingGroup
 }
 
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
   name: LocalizedStringInput!
@@ -1329,6 +1334,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1355,6 +1361,17 @@ input UpdatePoolInput {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input UpdateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
 }
 
 input UpdateSkillFamilyInput {

@@ -1581,6 +1581,22 @@ input CreatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
 }
 
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
+input UpdateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
+}
+
 input UpdatePoolAdvertisementInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1609,6 +1625,7 @@ input UpdatePoolAdvertisementInput {
     @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input RolesInput
