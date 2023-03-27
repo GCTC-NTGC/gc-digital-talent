@@ -27,7 +27,7 @@ interface TeamTableProps {
 
 type TeamCell = Cell<Team>;
 
-type MyRoleTeam = {
+export type MyRoleTeam = {
   teamId: string;
   roleName: LocalizedString;
 };
@@ -158,6 +158,17 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "My Roles",
+          id: "aBNNL3",
+          description: "Title displayed for the teams table my roles column.",
+        }),
+        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, locale),
+        Cell: ({ row }: TeamCell) =>
+          myRolesCell(row.original.id, myRolesAndTeams, locale),
+        id: "myRoles",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Department",
           id: "BDo1aH",
           description: "Title displayed for the teams table department column.",
@@ -180,17 +191,6 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
         }),
         accessor: (d) => d.contactEmail,
         Cell: ({ value }: TeamCell) => emailLinkAccessor(value, intl),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "My Roles",
-          id: "aBNNL3",
-          description: "Title displayed for the teams table my roles column.",
-        }),
-        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, locale),
-        Cell: ({ row }: TeamCell) =>
-          myRolesCell(row.original.id, myRolesAndTeams, locale),
-        id: "myRoles",
       },
     ],
     [paths, intl, locale, myRolesAndTeams],
