@@ -614,7 +614,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
-  pools: [Pool] @belongsToMany(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
 type PoolCandidateSearchRequest {
