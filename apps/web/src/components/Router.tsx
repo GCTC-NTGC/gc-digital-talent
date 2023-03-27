@@ -1249,7 +1249,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator]}
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1274,6 +1274,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       roles={[
                         ROLE_NAME.PoolOperator,
                         ROLE_NAME.RequestResponder,
+                        ROLE_NAME.PlatformAdmin,
                       ]}
                       loginPath={loginPath}
                     >
@@ -1288,6 +1289,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           roles={[
                             ROLE_NAME.PoolOperator,
                             ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
                         >
@@ -1299,7 +1301,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PoolOperator]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <EditPoolPage />
