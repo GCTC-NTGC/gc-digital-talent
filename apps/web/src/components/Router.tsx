@@ -644,7 +644,11 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string, featureFlags: FeatureFlags) =>
+const createRoute = (
+  locale: Locales,
+  loginPath: string,
+  featureFlags: FeatureFlags,
+) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -968,56 +972,58 @@ const createRoute = (locale: Locales, loginPath: string, featureFlags: FeatureFl
                 },
               ],
             },
-            (featureFlags.applicationRevamp ? {
-              path: "applications",
-              children: [
-                {
-                  path: ":applicationId",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ApplicationLayout />
-                    </RequireAuth>
-                  ),
+            featureFlags.applicationRevamp
+              ? {
+                  path: "applications",
                   children: [
                     {
-                      path: "welcome",
-                      element: <ApplicationWelcomePage />,
-                    },
-                    {
-                      path: "profile",
-                      element: <ApplicationProfilePage />,
-                    },
-                    {
-                      path: "resume",
-                      element: <ApplicationResumePage />,
-                    },
-                    {
-                      path: "education",
-                      element: <ApplicationEducationPage />,
-                    },
-                    {
-                      path: "skills",
-                      element: <ApplicationSkillsPage />,
-                    },
-                    {
-                      path: "questions",
-                      element: <ApplicationQuestionsPage />,
-                    },
-                    {
-                      path: "review",
-                      element: <ApplicationReviewPage />,
-                    },
-                    {
-                      path: "success",
-                      element: <ApplicationSuccessPage />,
+                      path: ":applicationId",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ApplicationLayout />
+                        </RequireAuth>
+                      ),
+                      children: [
+                        {
+                          path: "welcome",
+                          element: <ApplicationWelcomePage />,
+                        },
+                        {
+                          path: "profile",
+                          element: <ApplicationProfilePage />,
+                        },
+                        {
+                          path: "resume",
+                          element: <ApplicationResumePage />,
+                        },
+                        {
+                          path: "education",
+                          element: <ApplicationEducationPage />,
+                        },
+                        {
+                          path: "skills",
+                          element: <ApplicationSkillsPage />,
+                        },
+                        {
+                          path: "questions",
+                          element: <ApplicationQuestionsPage />,
+                        },
+                        {
+                          path: "review",
+                          element: <ApplicationReviewPage />,
+                        },
+                        {
+                          path: "success",
+                          element: <ApplicationSuccessPage />,
+                        },
+                      ],
                     },
                   ],
-                },
-              ],
-            } : {}),
+                }
+              : {},
             {
               path: "talent/profile/*",
               element: (
