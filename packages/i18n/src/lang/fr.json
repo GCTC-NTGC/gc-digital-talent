@@ -1317,5 +1317,9 @@
   "T5b8Q7": {
     "defaultMessage": "jj",
     "description": "Placeholder for a day input"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
   }
 }
