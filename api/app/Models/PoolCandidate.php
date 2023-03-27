@@ -444,4 +444,14 @@ class PoolCandidate extends Model
 
         return $query;
     }
+
+    /**
+     * Take the new application step to connect and add it to the array, preserving uniqueness
+     */
+    public function setConnectSubmittedStepAttribute($applicationStep)
+    {
+        $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
+
+        $this->submitted_steps = $submittedSteps->values()->all();
+    }
 }
