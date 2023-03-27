@@ -90,6 +90,16 @@ input ApplicantFilterInput {
   skills: [IdInput]
 }
 
+enum ApplicationSteps {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
 enum ArmedForcesStatus {
   VETERAN
   MEMBER
@@ -847,6 +857,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
+  submittedSteps: [ApplicationSteps!]
 }
 
 type PoolCandidateFilter {

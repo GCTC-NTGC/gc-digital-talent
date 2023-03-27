@@ -435,6 +435,16 @@ enum PublishingGroup {
   OTHER
 }
 
+enum ApplicationSteps {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
@@ -457,6 +467,7 @@ type PoolCandidate {
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
+  submittedSteps: [ApplicationSteps!] @rename(attribute: "submitted_steps")
 }
 
 enum LanguageAbility {
