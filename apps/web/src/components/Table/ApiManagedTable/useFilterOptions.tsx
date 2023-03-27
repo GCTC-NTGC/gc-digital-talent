@@ -18,6 +18,7 @@ import {
   commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -33,6 +34,7 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "~/api/generated";
+import { PoolStream } from "@gc-digital-talent/graphql";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -78,6 +80,10 @@ export default function useFilterOptions(enableEducationType = false) {
         value: `${group}-${level}`,
         label: `${group}-0${level}`,
       })),
+    stream: enumToOptions(PoolStream).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolStream(value)),
+    })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
