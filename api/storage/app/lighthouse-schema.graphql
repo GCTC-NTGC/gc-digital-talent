@@ -263,7 +263,6 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
-  submittedAt: DateTime
 }
 
 input CreatePoolCandidateFilterInput {

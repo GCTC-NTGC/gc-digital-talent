@@ -1303,7 +1303,6 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
-  submittedAt: DateTime @rename(attribute: "submitted_at")
 }
 
 input CreatePoolInput {
