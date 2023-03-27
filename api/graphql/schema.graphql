@@ -1027,8 +1027,8 @@ type Query {
   skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @can(ability: "view")
   skills: [Skill]! @all @can(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle @find
-  genericJobTitles: [GenericJobTitle]! @all
+  genericJobTitle(id: UUID! @eq): GenericJobTitle @find @can(ability: "view")
+  genericJobTitles: [GenericJobTitle]! @all @can(ability: "viewAny")
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
