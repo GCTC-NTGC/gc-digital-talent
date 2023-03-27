@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { TableOfContents, Stepper } from "@gc-digital-talent/ui";
 
@@ -60,7 +60,6 @@ const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { pathname } = useLocation();
 
   const pages = new Map<PageNavKey, ApplicationPageInfo>([
     ["welcome", welcomePageInfo({ paths, intl, application })],
@@ -99,13 +98,6 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const currentStep = steps.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
-
-  console.log({
-    currentPage,
-    steps,
-    currentCrumbs,
-    currentStep,
-  });
 
   const crumbs = useBreadcrumbs([
     {
