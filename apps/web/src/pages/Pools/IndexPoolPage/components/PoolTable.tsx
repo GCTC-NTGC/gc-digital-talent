@@ -24,6 +24,7 @@ import {
   useGetMePoolsQuery,
   RoleAssignment,
   LocalizedString,
+  useAllPoolsQuery,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -31,15 +32,8 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type PoolWithTeam = Omit<Pool, "team"> & {
-  team?: {
-    id: string;
-    name: string;
-    displayName: Maybe<LocalizedString>;
-  };
-};
-type Data = PoolWithTeam;
-type PoolCell = Cell<PoolWithTeam>;
+type Data = Pool;
+type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -67,7 +61,7 @@ function poolCandidatesLinkAccessor(
   );
 }
 
-function viewLinkAccessor(url: string, pool: PoolWithTeam, intl: IntlShape) {
+function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={url} type="link">
       {getFullPoolAdvertisementTitleHtml(intl, pool)}
@@ -108,7 +102,7 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
-const fullNameCell = (pool: PoolWithTeam, intl: IntlShape) => {
+const fullNameCell = (pool: Pool, intl: IntlShape) => {
   return (
     <span>
       {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
@@ -159,7 +153,7 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): PoolWithTeam[] => {
+): Pool[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
@@ -169,11 +163,30 @@ const roleAssignmentsToPools = (
     return team?.pools
       ? team?.pools.filter(notEmpty).map((pool) => ({
           ...pool,
-          team: {
-            id: team.id,
-            name: team.name,
-            displayName: team.displayName,
-          },
+          team,
+        }))
+      : null;
+  });
+  const filteredFlattenedPools = unpackMaybes(flattenedPools);
+
+  // clear out any duplicate pools that may have accumulated
+  // https://stackoverflow.com/a/56757215
+  const poolsArray = filteredFlattenedPools.filter(
+    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
+  );
+  return poolsArray;
+};
+
+// pools to teams to pools with team array
+const poolsToPoolsWithTeam = (initialArray: Maybe<Pool[]>): Pool[] => {
+  const flattenedTeams = initialArray?.flatMap((pool) => pool.team);
+
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
+    return team?.pools
+      ? team?.pools.filter(notEmpty).map((pool) => ({
+          ...pool,
+          team,
         }))
       : null;
   });
@@ -188,7 +201,7 @@ const roleAssignmentsToPools = (
 };
 
 interface PoolTableProps {
-  pools: PoolWithTeam[];
+  pools: Pool[];
 }
 
 export const PoolTable = ({ pools }: PoolTableProps) => {
@@ -438,7 +451,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   );
 };
 
-const PoolTableApi = () => {
+export const PoolOperatorTableApi = () => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
@@ -450,4 +463,15 @@ const PoolTableApi = () => {
   );
 };
 
-export default PoolTableApi;
+export const PoolAdminTableApi = () => {
+  const [result] = useAllPoolsQuery();
+  const { data, fetching, error } = result;
+  const maybePools = unpackMaybes(data?.pools);
+  const poolsArray = poolsToPoolsWithTeam(maybePools);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={poolsArray ?? []} />
+    </Pending>
+  );
+};
