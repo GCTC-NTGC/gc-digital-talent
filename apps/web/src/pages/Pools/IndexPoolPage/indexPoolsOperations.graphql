@@ -5,6 +5,10 @@ query getMePools {
       team {
         id
         name
+        displayName {
+          en
+          fr
+        }
         pools {
           id
           owner {
