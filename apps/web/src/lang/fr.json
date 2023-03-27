@@ -6861,5 +6861,9 @@
   "s7Hnlg": {
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
+  },
+  "Ua/X9Q": {
+    "defaultMessage": "Flux",
+    "description": "Title for stream on summary of filters section"
   }
 }
