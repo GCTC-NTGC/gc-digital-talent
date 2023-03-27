@@ -8,8 +8,6 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 
-import { User } from "@gc-digital-talent/graphql";
-
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import {

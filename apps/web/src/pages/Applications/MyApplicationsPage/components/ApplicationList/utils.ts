@@ -1,6 +1,6 @@
 import { groupBy } from "@gc-digital-talent/helpers";
 
-import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidateStatus } from "~/api/generated";
 
 import { Application } from "../../../ApplicantDashboardPage/types";
 

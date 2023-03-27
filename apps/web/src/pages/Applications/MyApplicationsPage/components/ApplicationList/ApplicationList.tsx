@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 
-import { PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationCard from "../ApplicationCard/ApplicationCard";
