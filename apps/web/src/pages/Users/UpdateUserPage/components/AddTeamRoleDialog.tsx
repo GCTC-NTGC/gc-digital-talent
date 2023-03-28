@@ -4,10 +4,7 @@ import { useIntl } from "react-intl";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
-import {
-  MultiSelectField,
-  SelectFieldV2 as SelectField,
-} from "@gc-digital-talent/forms";
+import { MultiSelectField, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -108,7 +105,7 @@ const AddTeamRoleDialog = ({
     setValue("roles", activeRoleIds);
   }, [user.roleAssignments, teamId, setValue]);
 
-  const [{ data: teamsData, fetching: teamsFetching }] = useListTeamsQuery();
+  const [{ data: teamsData }] = useListTeamsQuery();
 
   const teamOptions = teamsData?.teams.filter(notEmpty).map((team) => ({
     label: getLocalizedName(team.displayName, intl),
@@ -138,7 +135,7 @@ const AddTeamRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <SelectField
+              <Select
                 id="team"
                 name="team"
                 label={intl.formatMessage({
@@ -155,8 +152,7 @@ const AddTeamRoleDialog = ({
                   id: "ZdOvlC",
                   description: "Placeholder text for team selection input",
                 })}
-                isLoading={teamsFetching}
-                options={teamOptions}
+                options={teamOptions ?? []}
               />
               <MultiSelectField
                 id="roles"
