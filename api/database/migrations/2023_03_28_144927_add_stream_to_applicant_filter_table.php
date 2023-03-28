@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('applicant_filter', function (Blueprint $table) {
+        Schema::table('applicant_filters', function (Blueprint $table) {
             $table->string('stream')->nullable();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('applicant_filter', function (Blueprint $table) {
+        Schema::table('applicant_filters', function (Blueprint $table) {
             $table->dropColumn('stream');
         });
     }
