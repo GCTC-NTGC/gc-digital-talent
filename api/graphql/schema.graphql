@@ -279,7 +279,7 @@ type Applicant {
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["notDraft"])
+    @hasMany(scopes: ["notDraft", "authorizedToView"])
     @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
@@ -917,7 +917,7 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all @can(ability: "viewAny")
+  pools: [Pool]! @all(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
