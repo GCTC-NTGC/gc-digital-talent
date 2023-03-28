@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
-import omit from "lodash/omit";
 
 import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
