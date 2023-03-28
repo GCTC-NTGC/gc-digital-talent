@@ -486,8 +486,7 @@ const SearchContainerApi = () => {
     navigate(paths.request(), {
       state: {
         applicantFilter: {
-          ...omit(applicantFilter, "expectedClassifications"),
-          expectedClassifications: [],
+          ...applicantFilter,
           pools: poolIds,
         },
         candidateCount,
