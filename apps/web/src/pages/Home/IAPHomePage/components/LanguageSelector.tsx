@@ -39,7 +39,7 @@ const LanguageSelector = () => {
     <div
       data-h2-background-color="base(secondary)"
       data-h2-color="base(white)"
-      data-h2-padding="base(x.5, 0)"
+      data-h2-padding="base(x.5)"
     >
       <div
         data-h2-align-items="base(center)"
