@@ -20,7 +20,7 @@ import Table, {
 } from "~/components/Table/ClientManagedTable";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
 
-interface TeamTableProps {
+export interface TeamTableProps {
   teams: Array<Team>;
   myRolesAndTeams: Array<MyRoleTeam>;
 }
@@ -35,7 +35,7 @@ export type MyRoleTeam = {
 // given an array of RoleAssignments
 // generate an array of MyRoleTeam objects for team-based roles, filtering out individual roles and empty
 // the returned array functions like a map
-const roleAssignmentsToRoleTeamArray = (
+export const roleAssignmentsToRoleTeamArray = (
   roleAssignments: RoleAssignment[],
 ): MyRoleTeam[] => {
   let collection: Array<MyRoleTeam> = [];
