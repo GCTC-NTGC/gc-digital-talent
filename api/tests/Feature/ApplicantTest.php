@@ -1502,9 +1502,7 @@ class ApplicantTest extends TestCase
         $pool = Pool::factory()->create([
             'user_id' => $this->adminUser->id,
         ]);
-        User::factory([
-            'legacy_roles' => [ApiEnums::ROLE_APPLICANT],
-        ])
+        User::factory()
             ->count(60)
             ->afterCreating(function (User $user) use ($pool) {
                 PoolCandidate::factory()->count(1)->sequence(fn () => [

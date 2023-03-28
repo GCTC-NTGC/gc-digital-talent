@@ -29,14 +29,6 @@ class SnapshotTest extends TestCase
     {
         parent::setUp();
         $this->bootRefreshesSchemaCache();
-
-        // Create admin user we run tests as
-        // Note: this extra user does change the results of a couple queries
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
     }
 
     /**
@@ -61,7 +53,7 @@ class SnapshotTest extends TestCase
 
         // get the just-created snapshot
         $actualSnapshot = $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query getSnapshot($poolCandidateId:ID!) {
                 poolCandidate(id: $poolCandidateId) {

@@ -168,6 +168,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
         $searchRequest1 = PoolCandidateSearchRequest::factory()->create();
 
         $querySearchRequest =
+        /** @lang GraphQL */
         '
             query poolCandidateSearchRequest($id: ID!) {
                 poolCandidateSearchRequest(id: $id) {
@@ -176,6 +177,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
             }
         ';
         $mutationUpdateSearchRequest =
+        /** @lang GraphQL */
         '
             mutation updatePoolCandidateSearchRequest($id: ID!, $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!) {
                 updatePoolCandidateSearchRequest(id: $id, poolCandidateSearchRequest: $poolCandidateSearchRequest) {
@@ -184,6 +186,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
             }
         ';
         $mutationDeleteSearchRequest =
+        /** @lang GraphQL */
         '
             mutation deletePoolCandidateSearchRequest($id: ID!) {
                 deletePoolCandidateSearchRequest(id: $id) {
