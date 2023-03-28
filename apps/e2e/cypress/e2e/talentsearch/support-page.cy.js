@@ -5,11 +5,21 @@ describe("Support page", () => {
   const details = "Test comments to send."
   const subject = "question"
 
+  beforeEach(() => {
+    cy.injectAxe();
+  });
+
+
   context('Support page', () => {
     it('should exist', () => {
       cy.visit('/en/support')
       cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist')
     })
+
+    it('should have no accessibility errors', () => {
+      cy.visit('/en/support');
+      cy.checkA11y();
+    });
   })
 
   context('Support form', () => {
@@ -25,8 +35,8 @@ describe("Support page", () => {
           subject
         },
       }).then((response) => {
-       // Note: normal to get a 500 status if the service (freshdesk) is not locally configured.
-        if(response.status === 404) // verify if route exists.
+        // Note: normal to get a 500 status if the service (freshdesk) is not locally configured.
+        if (response.status === 404) // verify if route exists.
           throw new Error("404: Not Found")
       })
     })

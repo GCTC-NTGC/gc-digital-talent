@@ -14,8 +14,10 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.7",
+    "axe-core": "^4.6.3",
     "cy-verify-downloads": "^0.1.13",
     "cypress": "^11.2.0",
+    "cypress-axe": "^1.4.0",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.0.2",
     "eslint-plugin-cypress": "^2.12.1",

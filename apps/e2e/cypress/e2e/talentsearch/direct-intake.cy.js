@@ -2,6 +2,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Talentsearch Direct Intake Page", () => {
   beforeEach(() => {
+    cy.injectAxe();
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "browsePoolAdvertisements");
     });
@@ -18,6 +19,11 @@ describe("Talentsearch Direct Intake Page", () => {
           .should("exist")
           .and("be.visible");
       })
+    })
+
+    it("has no accessibility errors", () => {
+      cy.visit('/en/browse/pools');
+      cy.checkA11y()
     })
   });
 });
