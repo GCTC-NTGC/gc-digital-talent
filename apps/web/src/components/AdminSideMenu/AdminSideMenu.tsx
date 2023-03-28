@@ -14,9 +14,9 @@ import {
 
 import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import { checkRole } from "~/utils/teamUtils";
 import LoginOrLogout from "./LoginOrLogout";
 
 export interface AdminSideMenuProps {
@@ -24,31 +24,6 @@ export interface AdminSideMenuProps {
   onToggle: () => void;
   onDismiss: () => void;
 }
-
-/**
- * Check to see if user contains one or more roles
- *
- * @param checkRoles              Roles to check for
- * @param userRoleAssignments     Users current role assignments
- * @returns boolean
- */
-const checkRole = (
-  checkRoles: RoleName[] | null,
-  userRoleAssignments: Maybe<RoleAssignment[]>,
-): boolean => {
-  if (!checkRoles) {
-    return true;
-  }
-  const visible = checkRoles.reduce((prev, curr) => {
-    if (userRoleAssignments?.map((a) => a.role?.name)?.includes(curr)) {
-      return true;
-    }
-
-    return prev;
-  }, false);
-
-  return visible;
-};
 
 const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
   const intl = useIntl();
@@ -82,7 +57,7 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator],
+      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
         id: "wCBE9S",

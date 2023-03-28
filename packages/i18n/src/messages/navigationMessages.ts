@@ -16,6 +16,11 @@ const navigationMessages = defineMessages({
     id: "g08hvq",
     description: "Breadcrumb back to review application page.",
   },
+  skipLink: {
+    defaultMessage: "Skip to main content",
+    id: "Srs7a4",
+    description: "Assistive technology skip link",
+  },
 });
 
 export default navigationMessages;

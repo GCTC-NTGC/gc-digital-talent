@@ -20,11 +20,11 @@
     "@gc-digital-talent/i18n": "*",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
-    "react-intl": "^6.3.0",
+    "react-intl": "^6.3.2",
     "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.40",
+    "@swc/core": "^1.3.42",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.5.0",
     "@types/react": "^18.0.27",
@@ -32,11 +32,11 @@
     "eslint": "^8.36.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
-    "jest-axe": "^7.0.0",
+    "jest-axe": "^7.0.1",
     "jest-presets": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
-    "tsup": "^6.6.0",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   }
 }
