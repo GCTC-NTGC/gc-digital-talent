@@ -6972,5 +6972,97 @@
   "wgRXhR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "+vHVZ2": {
+    "defaultMessage": "Dites-nous comment vous répondez aux exigences de compétences pour cette occasion.",
+    "description": "Subtitle for the application skills page"
+  },
+  "6esMaA": {
+    "defaultMessage": "Expérience ou formation minimale",
+    "description": "Page title for the application education page"
+  },
+  "79m9jN": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Page title for the application success page"
+  },
+  "7ET77N": {
+    "defaultMessage": "Parlons compétences",
+    "description": "Page title for the application skills introduction page"
+  },
+  "AtGnJW": {
+    "defaultMessage": "Compétences requises",
+    "description": "Page title for the application skills page"
+  },
+  "GTHuSJ": {
+    "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
+    "description": "Subtitle for the application screening questions page"
+  },
+  "ImTMRk": {
+    "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
+    "description": "Subtitle for the application profile  page"
+  },
+  "K8CPir": {
+    "defaultMessage": "Appliquer à {poolName}",
+    "description": "Heading for the application page"
+  },
+  "O6L+3N": {
+    "defaultMessage": "Examinez votre candidature et soumettez-la!",
+    "description": "Subtitle for the application review page"
+  },
+  "OkREUg": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé page"
+  },
+  "QDcEYJ": {
+    "defaultMessage": "Réviser et soumettre",
+    "description": "Link text for the application review page"
+  },
+  "Tdr8r5": {
+    "defaultMessage": "Quelques questions sur le sujet",
+    "description": "Page title for the application screening questions introduction page"
+  },
+  "VTYtzg": {
+    "defaultMessage": "Excellent travail! Passons à votre CV.",
+    "description": "Page title for the application résumé introduction page"
+  },
+  "Zd02bf": {
+    "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
+    "description": "Subtitle for the application welcome page"
+  },
+  "aFPUbm": {
+    "defaultMessage": "Passez en revue votre profil",
+    "description": "Page title for the application profile page"
+  },
+  "bQtRF+": {
+    "defaultMessage": "Réussite",
+    "description": "Breadcrumb link text for the application success page"
+  },
+  "fBabZh": {
+    "defaultMessage": "Ajoutez une expérience à votre CV",
+    "description": "Page title for the application résumé add experience page"
+  },
+  "gtns9R": {
+    "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
+    "description": "Subtitle for the application education  page"
+  },
+  "mxH830": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé introduction page"
+  },
+  "rR+M64": {
+    "defaultMessage": "Révisez votre demande",
+    "description": "Page title for the application review page"
+  },
+  "sTij/C": {
+    "defaultMessage": "Question de sélection",
+    "description": "Page title for the application screening questions page"
+  },
+  "sXjm+Z": {
+    "defaultMessage": "Passez en revue votre CV",
+    "description": "Page title for the application résumé page"
+  },
+  "zJdfyv": {
+    "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
+    "description": "Subtitle for the application success page"
   }
 }
