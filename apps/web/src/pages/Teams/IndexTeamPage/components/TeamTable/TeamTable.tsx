@@ -163,8 +163,9 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
       {
         Header: intl.formatMessage({
           defaultMessage: "My Roles",
-          id: "aBNNL3",
-          description: "Title displayed for the teams table my roles column.",
+          id: "+agJAH",
+          description:
+            "Label displayed for the table's My Roles column header.",
         }),
         accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, locale),
         Cell: ({ row }: TeamCell) =>
