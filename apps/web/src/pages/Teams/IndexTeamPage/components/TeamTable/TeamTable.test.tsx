@@ -98,11 +98,21 @@ describe("TeamTable", () => {
       myRolesAndTeams: transformedRoleAssignment,
     });
 
-    // role 1 pill should appear twice, role 2 pill appear once
-    const grabRole1 = screen.queryAllByText("Role 1");
-    expect(grabRole1).toHaveLength(2);
+    // find an expected team name in the table
+    // find an expected link for that team
+    const teamName = mockTeams[0]?.displayName?.en
+      ? mockTeams[0].displayName.en
+      : "";
+    const teamId = mockTeams[0].id;
 
-    const grabRole2 = screen.queryAllByText("Role 2");
-    expect(grabRole2).toHaveLength(1);
+    expect(screen.getByText(teamName)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: teamName })).toHaveAttribute(
+      "href",
+      `/en/admin/teams/${teamId}`,
+    );
+
+    // role 1 pill should appear twice, role 2 pill appear once
+    expect(screen.queryAllByText("Role 1")).toHaveLength(2);
+    expect(screen.queryAllByText("Role 2")).toHaveLength(1);
   });
 });

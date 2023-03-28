@@ -117,7 +117,11 @@ const myRolesCell = (
   );
 
   const rolesPillsArray = teamFiltered.map((roleTeam) => (
-    <Pill color="primary" mode="outline" key={teamId}>
+    <Pill
+      color="primary"
+      mode="outline"
+      key={`${teamId}-${roleTeam.roleName.en}`}
+    >
       {roleTeam.roleName[locale]}
     </Pill>
   ));
