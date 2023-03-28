@@ -1,9 +1,9 @@
 import React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
 
 import Heading, { HeadingProps } from "../Heading";
+import useControllableState from "../../hooks/useControllableState";
 
 import {
   ToggleSectionProvider,
@@ -64,9 +64,9 @@ interface RootProps {
  */
 const Root = React.forwardRef<HTMLDivElement, RootProps>(
   ({ defaultOpen, open: openProp, onOpenChange, children }, forwardedRef) => {
-    const [open = false, setOpen] = useControllableState({
-      prop: openProp,
-      defaultProp: defaultOpen,
+    const [open = false, setOpen] = useControllableState<boolean>({
+      controlledProp: openProp,
+      defaultValue: defaultOpen,
       onChange: onOpenChange,
     });
 
