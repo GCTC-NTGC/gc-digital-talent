@@ -1,8 +1,4 @@
 describe('Static pages', () => {
-  beforeEach(() => {
-    cy.injectAxe();
-  });
-
   context('Privacy Policy page', () => {
     it('should exist', () => {
       cy.visit('/en/privacy-notice')
@@ -11,6 +7,7 @@ describe('Static pages', () => {
 
     it('should have no accessibility errors', () => {
       cy.visit('/en/privacy-notice');
+      cy.injectAxe();
       cy.checkA11y();
     });
   })
@@ -23,6 +20,7 @@ describe('Static pages', () => {
 
     it('should have no accessibility errors', () => {
       cy.visit('/en/terms-and-conditions');
+      cy.injectAxe();
       cy.checkA11y();
     });
   })
@@ -35,6 +33,8 @@ describe('Static pages', () => {
 
     it('should have no accessibility errors', () => {
       cy.visit('/en/accessibility-statement');
+      cy.injectAxe();
+      cy.findByRole('heading', { name: 'Accessibility statement', level: 1 }).should('exist');
       cy.checkA11y();
     });
   })

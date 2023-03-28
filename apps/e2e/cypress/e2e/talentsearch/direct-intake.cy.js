@@ -2,7 +2,6 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Talentsearch Direct Intake Page", () => {
   beforeEach(() => {
-    cy.injectAxe();
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "browsePoolAdvertisements");
     });
@@ -23,6 +22,8 @@ describe("Talentsearch Direct Intake Page", () => {
 
     it("has no accessibility errors", () => {
       cy.visit('/en/browse/pools');
+      cy.injectAxe();
+      cy.wait("@gqlbrowsePoolAdvertisementsQuery");
       cy.checkA11y()
     })
   });

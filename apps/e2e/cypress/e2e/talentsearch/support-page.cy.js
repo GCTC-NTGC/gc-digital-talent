@@ -5,11 +5,6 @@ describe("Support page", () => {
   const details = "Test comments to send."
   const subject = "question"
 
-  beforeEach(() => {
-    cy.injectAxe();
-  });
-
-
   context('Support page', () => {
     it('should exist', () => {
       cy.visit('/en/support')
@@ -18,6 +13,8 @@ describe("Support page", () => {
 
     it('should have no accessibility errors', () => {
       cy.visit('/en/support');
+      cy.injectAxe();
+      cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist')
       cy.checkA11y();
     });
   })

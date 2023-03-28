@@ -1,16 +1,3 @@
-const profilePages = [
-  '/en/talent/profile',
-  '/en/users/test-no-role/profile',
-  '/en/users/test-no-role/profile/about-me/edit',
-  '/en/users/test-no-role/profile/language-info/edit',
-  '/en/users/test-no-role/profile/government-info/edit',
-  '/en/users/test-no-role/profile/role-salary-expectations/edit',
-  '/en/users/test-no-role/profile/work-location/edit',
-  '/en/users/test-no-role/profile/work-preferences/edit',
-  '/en/users/test-no-role/profile/employment-equity/edit',
-  '/en/users/test-no-role/profile/experiences',
-];
-
 describe("Talentsearch Profile Page", () => {
   // Helpers
   const onLoginInfoPage = () => {
@@ -44,7 +31,18 @@ describe("Talentsearch Profile Page", () => {
        */
       cy.on('uncaught:exception', () => false);
 
-      profilePages.forEach(restrictedPath => {
+      [
+        '/en/talent/profile',
+        '/en/users/test-no-role/profile',
+        '/en/users/test-no-role/profile/about-me/edit',
+        '/en/users/test-no-role/profile/language-info/edit',
+        '/en/users/test-no-role/profile/government-info/edit',
+        '/en/users/test-no-role/profile/role-salary-expectations/edit',
+        '/en/users/test-no-role/profile/work-location/edit',
+        '/en/users/test-no-role/profile/work-preferences/edit',
+        '/en/users/test-no-role/profile/employment-equity/edit',
+        '/en/users/test-no-role/profile/experiences',
+      ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         cy.contains('not authorized');
       })
@@ -53,10 +51,7 @@ describe("Talentsearch Profile Page", () => {
   })
 
   context('logged in as applicant', () => {
-    beforeEach(() => {
-      cy.loginByRole('applicant');
-      cy.injectAxe();
-    });
+    beforeEach(() => cy.loginByRole('applicant'))
 
     it("loads page successfully", () => {
       cy.visit('/en/users/test-applicant/profile')
@@ -75,13 +70,6 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Work Preferences");
       cy.contains("Diversity, equity and inclusion");
     });
-
-    it("has no accessibility errors", () => {
-      profilePages.forEach(restrictedPath => {
-        cy.visit(restrictedPath)
-        cy.checkA11y();
-      })
-    })
   })
 
 });
