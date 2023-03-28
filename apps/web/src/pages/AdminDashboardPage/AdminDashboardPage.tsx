@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import {
-  AcademicCapIcon,
   BoltIcon,
   HomeIcon,
   BuildingOfficeIcon,
   BuildingOffice2Icon,
-  TagIcon,
   TicketIcon,
   UserGroupIcon,
   UserIcon,
