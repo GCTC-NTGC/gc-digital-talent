@@ -12,14 +12,14 @@ import { UpdateUserFunc } from "../types";
 
 interface RemoveTeamRoleDialogProps {
   user: User;
-  role: Role;
+  roles: Role[];
   team: Team;
   onUpdateUser: UpdateUserFunc;
 }
 
 const RemoveTeamRoleDialog = ({
   user,
-  role,
+  roles,
   team,
   onUpdateUser,
 }: RemoveTeamRoleDialogProps) => {
@@ -32,7 +32,7 @@ const RemoveTeamRoleDialog = ({
     return onUpdateUser(user.id, {
       roles: {
         detach: {
-          roles: [role.id],
+          roles: roles.map((r) => r.id),
           team: team.id,
         },
       },
@@ -52,7 +52,8 @@ const RemoveTeamRoleDialog = ({
   };
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
-  const roleDisplayName = getLocalizedName(role.displayName, intl);
+  const roleDisplayName = (role: Role) =>
+    getLocalizedName(role.displayName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
 
   const label = intl.formatMessage(
@@ -81,8 +82,8 @@ const RemoveTeamRoleDialog = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "You are about to remove a role from the following user: <strong>{userName}</strong>",
-                id: "Hy2UdW",
+                  "You are about to remove this member: <strong>{userName}</strong>",
+                id: "JgwpTg",
                 description:
                   "Lead in text for the remove role from user dialog",
               },
@@ -103,16 +104,19 @@ const RemoveTeamRoleDialog = ({
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "The user will lose the following role:",
-              id: "VsV4Vu",
+              defaultMessage:
+                "The user will lose all the following team roles:",
+              id: "RTf/0v",
               description:
                 "Text notifying user which role will be removed from the user",
             })}
           </p>
           <p data-h2-margin="base(x1, 0)">
-            <Pill mode="solid" color="blue">
-              {roleDisplayName}
-            </Pill>
+            {roles.map((r) => (
+              <Pill mode="solid" color="blue" key={r.id}>
+                {roleDisplayName(r)}
+              </Pill>
+            ))}
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({

@@ -126,8 +126,8 @@ const AddTeamRoleDialog = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "You are about to add a new team membership to the following user: <strong>{userName}</strong>",
-                id: "b9/hHh",
+                  "You are about to add roles for the following user: <strong>{userName}</strong>",
+                id: "w2BYFi",
                 description: "Lead in text for the add role to user form.",
               },
               { userName },
@@ -158,8 +158,8 @@ const AddTeamRoleDialog = ({
                 id="roles"
                 name="roles"
                 label={intl.formatMessage({
-                  defaultMessage: "Membership role",
-                  id: "cJqZoy",
+                  defaultMessage: "Membership roles",
+                  id: "s5hTYo",
                   description:
                     "Label for the input to select role of a team role",
                 })}
