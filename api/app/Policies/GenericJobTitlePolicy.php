@@ -19,7 +19,7 @@ class GenericJobTitlePolicy
      */
     public function viewAny(?User $user)
     {
-        return $user->isAbleTo("view-any-genericJobTitle");
+        return true;
     }
 
     /**
