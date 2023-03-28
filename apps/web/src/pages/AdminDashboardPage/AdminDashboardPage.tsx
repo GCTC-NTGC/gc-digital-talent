@@ -16,10 +16,10 @@ import { Heading, Pending } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 
 import PageHeader from "~/components/PageHeader";
-
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
+import adminMenuMessages from "~/messages/adminMenuMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -111,11 +111,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Pools",
-                  id: "UDIbyD",
-                  description: "Link text for all pools page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.pools),
                 href: adminRoutes.allPools(),
                 icon: Squares2X2Icon,
               },
@@ -140,11 +136,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Requests",
-                  id: "iXeIFu",
-                  description: "Link text for search requests page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.requests),
                 href: adminRoutes.searchRequestTable(),
                 icon: TicketIcon,
               },
@@ -160,20 +152,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Users",
-                  id: "PWTK2O",
-                  description: "Link text for users page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.users),
                 href: adminRoutes.userTable(),
                 icon: UserIcon,
               },
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Teams",
-                  id: "jzRCtI",
-                  description: "Link text for all teams page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.teams),
                 href: adminRoutes.teamTable(),
                 icon: BuildingOffice2Icon,
               },
@@ -187,20 +171,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 icon: BuildingOfficeIcon,
               },
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Skills",
-                  id: "fHOYMF",
-                  description: "Link text for all skills page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.skills),
                 href: adminRoutes.skillTable(),
                 icon: BoltIcon,
               },
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Skill Families",
-                  id: "nAOQmM",
-                  description: "Link text for all skill families page",
-                }),
+                label: intl.formatMessage(adminMenuMessages.skillFamilies),
                 href: adminRoutes.skillFamilyTable(),
                 icon: UserGroupIcon,
               },
