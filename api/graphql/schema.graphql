@@ -128,7 +128,12 @@ type User {
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Pool Manager info
-  pools: [Pool] @hasMany # Pools a user owns
+  pools: [Pool]
+    @hasMany
+    @can(ability: "view", resolved: true)
+    @deprecated(
+      reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead."
+    ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
@@ -273,7 +278,9 @@ type Applicant {
   jobLookingStatus: JobLookingStatus
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate] @hasMany(scopes: ["notDraft"]) @can(ability: "view", resolved: true)
+  poolCandidates: [PoolCandidate]
+    @hasMany(scopes: ["notDraft", "authorizedToView"])
+    @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -430,8 +437,10 @@ enum PublishingGroup {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo
-  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
+  poolAdvertisement: PoolAdvertisement
+    @belongsTo(relation: "pool")
+    @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
@@ -532,10 +541,10 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
-  pools: [Pool] @hasMany @can(ability: "viewAny")
+  pools: [Pool] @hasMany @can(ability: "view", resolved: true)
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @canOnParent(ability: "viewAnyTeamMembers")
+    @canOnParent(ability: "viewTeamMembers")
 }
 
 type Role {
@@ -586,7 +595,7 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: [Pool] @belongsToMany
+  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -605,8 +614,8 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
-  pools: [Pool] @belongsToMany
   stream: PoolStream
+  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
 type PoolCandidateSearchRequest {
@@ -873,7 +882,7 @@ input PoolCandidateSearchInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool!
+  pool: PoolAdvertisement! @can(ability: "viewAdvertisement", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
@@ -898,8 +907,7 @@ type Query {
     @guard
     @can(ability: "viewAnyApplicants", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-  countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User")
+  countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
@@ -909,8 +917,9 @@ type Query {
     @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
+    @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all @can(ability: "viewAny")
+  pools: [Pool]! @all(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
@@ -940,11 +949,7 @@ type Query {
         ]
       )
   ): [PoolCandidate]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["notDraft"]
-    )
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
@@ -1292,14 +1297,9 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
+  user: UserBelongsTo!
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus = NEW_APPLICATION
@@ -1309,7 +1309,7 @@ input CreatePoolCandidateAsAdminInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo! @rename(attribute: "user")
-  team: TeamBelongsTo @rename(attribute: "team")
+  team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -1634,21 +1634,13 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
-  createPool(pool: CreatePoolInput! @spread): Pool
+  createPoolCandidateAsAdmin(
+    poolCandidate: CreatePoolCandidateAsAdminInput! @spread
+  ): PoolCandidate
     @create
     @guard
     @can(ability: "create")
-  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
-    @update
-    @guard
-    @can(ability: "update", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(globalId: false)
-    @guard
-    @can(ability: "delete", find: "id")
-  createPoolCandidateAsAdmin(
-    poolCandidate: CreatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @create @guard @can(ability: "create")
+    @injectNow(name: "submitted_at")
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
@@ -1774,7 +1766,11 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
 
-  # PoolAdvertisement mutations
+  # Pool/PoolAdvertisement mutations
+  createPool(pool: CreatePoolInput! @spread): Pool
+    @create
+    @guard
+    @can(ability: "create", injectArgs: true)
   createPoolAdvertisement(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
@@ -1782,14 +1778,19 @@ type Mutation {
   ): PoolAdvertisement
     @create(model: "Pool")
     @guard
-    @can(ability: "create", model: "Pool")
+    @can(ability: "create", model: "Pool", injectArgs: true)
+  updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
+    @update
+    @guard
+    @can(ability: "updateDraft", find: "id")
+    @deprecated(reason: "Should use updatePoolAdvertisement instead.")
   updatePoolAdvertisement(
     id: ID!
     poolAdvertisement: UpdatePoolAdvertisementInput! @spread
   ): PoolAdvertisement
     @update(model: "Pool")
     @guard
-    @can(ability: "update", find: "id", model: "Pool")
+    @can(ability: "updateDraft", find: "id", model: "Pool")
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "publish", find: "id", model: "Pool")
@@ -1807,10 +1808,14 @@ type Mutation {
   closePoolAdvertisement(id: ID!): PoolAdvertisement
     @guard
     @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
+  deletePool(id: ID!): Pool
+    @delete(globalId: false)
+    @guard
+    @can(ability: "deleteDraft", find: "id")
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
     @delete(model: "Pool", globalId: false)
     @guard
-    @can(ability: "delete", find: "id", model: "Pool")
+    @can(ability: "deleteDraft", find: "id", model: "Pool")
 
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate
@@ -1835,4 +1840,8 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+  deleteTeam(id: UUID!): Team
+    @delete(globalId: false)
+    @guard
+    @can(ability: "delete", find: "id")
 }

@@ -29,15 +29,13 @@ interface GovernmentInfoFormApiProps {
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-const GovernmentInfoFormApi: React.FunctionComponent<
-  GovernmentInfoFormApiProps
-> = ({
+const GovernmentInfoFormApi = ({
   applicationId,
   departments,
   classifications,
   initialData,
   submitHandler,
-}) => {
+}: GovernmentInfoFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -48,7 +46,10 @@ const GovernmentInfoFormApi: React.FunctionComponent<
           departments={departments}
           classifications={classifications}
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           submitHandler={submitHandler}
         />
       ) : (

@@ -116,22 +116,22 @@ class UserPolicy
     public function viewApplicant(User $user, User $model)
     {
         return $user->isAbleTo('view-any-applicantProfile')
-            || (
-                $user->isAbleTo('view-team-applicantProfile')
-                && $this->applicantHasAppliedToPoolInTeams($model, $user->rolesTeams()->pluck('id')
-            ) || (
-                $user->isAbleTo('view-own-applicantProfile')
-                && $user->id === $model->id
-            )
-        );
+            || ($user->isAbleTo('view-team-applicantProfile')
+                && $this->applicantHasAppliedToPoolInTeams(
+                    $model,
+                    $user->rolesTeams()->get()->pluck('id')
+                ) || ($user->isAbleTo('view-own-applicantProfile')
+                    && $user->id === $model->id
+                )
+            );
     }
 
     protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)
     {
         return PoolCandidate::where('user_id', $applicant->id)
             ->notDraft()
-            ->whereExists(function ($query) use ($teamIds) {
-                return $query->pool()->whereIn('team_id', $teamIds);
+            ->whereHas('pool', function ($query) use ($teamIds) {
+                return $query->whereIn('team_id', $teamIds);
             })
             ->exists();
     }

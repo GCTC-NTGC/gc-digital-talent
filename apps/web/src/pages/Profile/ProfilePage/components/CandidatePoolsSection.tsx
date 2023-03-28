@@ -6,9 +6,11 @@ import { Well } from "@gc-digital-talent/ui";
 import { PoolCandidate } from "~/api/generated";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 
-const CandidatePoolsSection: React.FunctionComponent<{
+const CandidatePoolsSection = ({
+  poolCandidates,
+}: {
   poolCandidates: PoolCandidate[];
-}> = ({ poolCandidates }) => {
+}) => {
   const intl = useIntl();
 
   return (

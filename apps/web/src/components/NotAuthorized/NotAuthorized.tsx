@@ -5,10 +5,7 @@ export interface NotAuthorizedProps {
   children: React.ReactNode;
 }
 
-const NotAuthorized: React.FC<NotAuthorizedProps> = ({
-  headingMessage,
-  children,
-}) => {
+const NotAuthorized = ({ headingMessage, children }: NotAuthorizedProps) => {
   return (
     <div data-h2-margin="base(x3, 0)">
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

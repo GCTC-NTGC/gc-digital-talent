@@ -1,11 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { imageUrl } from "@gc-digital-talent/helpers";
-
 import useRoutes from "~/hooks/useRoutes";
 
 import CallToAction from "~/components/CallToAction/CallToAction";
+
+import profileHeroImg from "~/assets/img/hero-profile.jpg";
 
 import "./profile.css";
 
@@ -33,7 +33,7 @@ const Profile = () => {
           data-h2-width="base(100%)"
           className="profile-bg-image"
           style={{
-            backgroundImage: `url('${imageUrl("/", "hero-profile.jpg")}')`,
+            backgroundImage: `url('${profileHeroImg}')`,
           }}
         />
         <div

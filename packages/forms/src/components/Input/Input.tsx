@@ -33,7 +33,7 @@ export interface InputProps
   trackUnsaved?: boolean;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
+const Input = ({
   id,
   context,
   label,
@@ -46,7 +46,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   whitespaceTrim = true,
   trackUnsaved = true,
   ...rest
-}) => {
+}: InputProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,

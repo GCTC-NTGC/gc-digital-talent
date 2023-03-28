@@ -3,7 +3,6 @@ import {
   phoneNumberRegex,
 } from "./constants/regularExpressions";
 
-import imageUrl from "./utils/imageUrl";
 import lazyRetry from "./utils/lazyRetry";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
@@ -40,7 +39,6 @@ export {
   emptyToNull,
   emptyToUndefined,
   uniqueItems,
-  imageUrl,
   lazyRetry,
   sanitizeUrl,
   isUuidError,

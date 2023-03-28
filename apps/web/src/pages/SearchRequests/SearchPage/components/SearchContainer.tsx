@@ -217,7 +217,7 @@ const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 
-const SearchContainer: React.FC<SearchContainerProps> = ({
+const SearchContainer = ({
   applicantFilter,
   classifications,
   updatePending,
@@ -227,7 +227,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   totalCandidateCount,
   onUpdateApplicantFilter,
   onSubmit,
-}) => {
+}: SearchContainerProps) => {
   const intl = useIntl();
 
   const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;

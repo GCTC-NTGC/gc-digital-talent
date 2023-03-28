@@ -4,11 +4,11 @@ export interface SectionProps {
   id: string;
 }
 
-const Section: React.FC<SectionProps & HTMLAttributes<HTMLDivElement>> = ({
+const Section = ({
   id,
   children,
   ...rest
-}) => (
+}: SectionProps & HTMLAttributes<HTMLDivElement>) => (
   <div id={id} {...rest}>
     {children}
   </div>

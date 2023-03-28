@@ -137,7 +137,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const ClassificationTableApi: React.FunctionComponent = () => {
+const ClassificationTableApi = () => {
   const [result] = useGetClassificationsQuery({
     context,
   });

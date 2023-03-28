@@ -160,7 +160,7 @@ export const SearchRequestTable = ({
   );
 };
 
-const SearchRequestTableApi: React.FunctionComponent = () => {
+const SearchRequestTableApi = () => {
   const [result] = useGetPoolCandidateSearchRequestsQuery();
   const { data, fetching, error } = result;
 

@@ -3600,10 +3600,6 @@
     "defaultMessage": "Gérer les demandes",
     "description": "Text label for link to requests page on admin dashboard"
   },
-  "CSDdh/": {
-    "defaultMessage": "Notes",
-    "description": "Title for a pool candidates notes field"
-  },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "title for add to pool dialog on view-user page"
@@ -4673,9 +4669,9 @@
   "YojrdC": {
     "defaultMessage": "Employé du gouvernement"
   },
-  "Yr4DW5": {
+  "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
-    "description": "Label for the notes field on the pool candidate application"
+    "description": "Label for the notes field for a specific pool"
   },
   "Z2KhWS": {
     "defaultMessage": "Retourner à tous les candidats",
@@ -6865,5 +6861,120 @@
   "Ua/X9Q": {
     "defaultMessage": "Flux",
     "description": "Title for stream on summary of filters section"
+  },
+  "12rbnA": {
+    "defaultMessage": "Vous avez été ajouté aux résultats de la recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+  },
+  "2g1mfB": {
+    "defaultMessage": "Retirez-moi",
+    "description": "Open dialog text on change search results status from qualified recruitment section."
+  },
+  "5BkrSp": {
+    "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+  },
+  "6cH+cX": {
+    "defaultMessage": "Recrutements expirés",
+    "description": "Heading for expired recruitments accordion on the applicant dashboard."
+  },
+  "7DfdMY": {
+    "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+  },
+  "7NnNrW": {
+    "defaultMessage": "Compétences évaluées :"
+  },
+  "A5CLzi": {
+    "defaultMessage": "Les recrutements dans cette section ne sont plus pris en compte à des fins d’embauche.",
+    "description": "Additional text displayed in active qualified recruitments section when empty."
+  },
+  "AVPPm0": {
+    "defaultMessage": "Annuler",
+    "description": "Label for close button on qualified recruitment card dialogs."
+  },
+  "Cx0rjV": {
+    "defaultMessage": "Les recrutements qui ne sont plus actifs s’afficheront ici.",
+    "description": "Text displayed in active qualified recruitments section when empty."
+  },
+  "EGwR9h": {
+    "defaultMessage": "En vous rajoutant aux résultats de ce processus de recrutement, les gestionnaires pourront de nouveau demander votre profil dans le cadre des demandes de talents. Vous pouvez toujours vous retirer de nouveau ultérieurement.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "FGF3sd": {
+    "defaultMessage": "Modifier votre apparence dans les résultats de recherche",
+    "description": "Dialog title on change search results status from qualified recruitment section."
+  },
+  "H/btqJ": {
+    "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+  },
+  "SQDh+g": {
+    "defaultMessage": "Félicitations! Vous avez été embauché à la suite de ce processus. À ce titre, vous ne figurerez plus dans les demandes de talents pour ce recrutement.",
+    "description": "Placed recruitment status message on qualified recruitment card."
+  },
+  "TDikDt": {
+    "defaultMessage": "Vous figurez activement dans les résultats de l’évaluation des talents pour ce recrutement.",
+    "description": "Not suspended recruitment status message on qualified recruitment card."
+  },
+  "V8GyRL": {
+    "defaultMessage": "Oui, ajoutez-moi aux résultats de recherche",
+    "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "VUjh3i": {
+    "defaultMessage": "Les recrutements dans lesquels vous avez été accepté s’afficheront ici.",
+    "description": "Text displayed in active qualified recruitments section when empty."
+  },
+  "XHfbPp": {
+    "defaultMessage": "Je veux figurer de nouveau dans les résultats",
+    "description": "Open dialog text on change search results status from qualified recruitment section."
+  },
+  "Y4kJYI": {
+    "defaultMessage": "Si vous avez récemment été recruté ou si vous ne souhaitez tout simplement plus être pris en compte pour les possibilités liées à ce poste, vous pouvez vous retirer de la liste des candidats disponibles à l’embauche. Cela ne vous empêchera <emphasize>pas</emphasize> de participer au recrutement et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "bqWmTD": {
+    "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
+    "description": "Suspended recruitment status message on qualified recruitment card."
+  },
+  "dPoE9z": {
+    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "eGPSG3": {
+    "defaultMessage": "Les recrutements de cette section donnent lieu à des embauches.",
+    "description": "Additional text displayed in active qualified recruitments section when empty."
+  },
+  "jdTHer": {
+    "defaultMessage": "Les recrutements <strong>actifs</strong> sont des processus qui font actuellement l’objet d’une embauche. Vous pouvez contrôler si votre profil s’affiche lorsqu’un responsable demande des évaluations des talents à ce groupe de personnes.",
+    "description": "Active list item for my qualified recruitments section on the applicant dashboard."
+  },
+  "lfZeyc": {
+    "defaultMessage": "Recrutements actifs",
+    "description": "Heading for active recruitments accordion on the applicant dashboard."
+  },
+  "qU2ffO": {
+    "defaultMessage": "Les recrutements sont des bassins de talents dans lesquels les gestionnaires du gouvernement du Canada peuvent embaucher. Cette section répertorie tous les recrutements dont vous faites partie, classés en deux groupes :",
+    "description": "Description for my qualified recruitments section on the applicant dashboard."
+  },
+  "qYjmRp": {
+    "defaultMessage": "Les recrutements <strong>expirés</strong> sont des processus qui ont pris fin soit parce qu’ils sont devenus obsolètes, soit parce qu’un nouveau recrutement plus récent les a remplacés. Vous ne figurerez pas dans les résultats liés aux recrutements expirés.",
+    "description": "Expired list item for my qualified recruitments section on the applicant dashboard."
+  },
+  "sfa4iJ": {
+    "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
+    "description": "Expired recruitment status message on qualified recruitment card."
+  },
+  "veIkpN": {
+    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "wYe3P2": {
+    "defaultMessage": "Mes recrutements qualifiés",
+    "description": "Heading for my qualified recruitments section on the applicant dashboard."
+  },
+  "wgRXhR": {
+    "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
+    "description": "Dialog close button on change search results status from qualified recruitment section."
   }
 }

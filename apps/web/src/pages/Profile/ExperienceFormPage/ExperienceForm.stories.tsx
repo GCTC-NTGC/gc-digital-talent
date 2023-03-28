@@ -45,7 +45,6 @@ const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
     deleteExperience={() => {
       /* do nothing */
     }}
-    returnPath=""
   />
 );
 

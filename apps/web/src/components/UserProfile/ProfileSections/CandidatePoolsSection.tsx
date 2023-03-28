@@ -11,9 +11,7 @@ interface CandidatePoolsSectionProps {
   applicant: Applicant;
 }
 
-const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
-  applicant,
-}) => {
+const CandidatePoolsSection = ({ applicant }: CandidatePoolsSectionProps) => {
   const intl = useIntl();
   const poolCandidates = unpackMaybes(applicant.poolCandidates);
 

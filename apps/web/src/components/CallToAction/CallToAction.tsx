@@ -69,11 +69,11 @@ const iconMap: Record<CallToActionContext, React.ReactNode> = {
 };
 
 // Create the page component
-const CallToAction: React.FC<CallToActionProps> = ({
+const CallToAction = ({
   type,
   context,
   content,
-}): React.ReactElement => {
+}: CallToActionProps): React.ReactElement => {
   const styles = stylesMap[context];
   const icon = iconMap[context];
 

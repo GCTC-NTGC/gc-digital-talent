@@ -22,14 +22,14 @@ export interface ProfileFormWrapperProps {
   prefixBreadcrumbs?: boolean;
 }
 
-const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
+const ProfileFormWrapper = ({
   crumbs,
   description,
   title,
   metaTitle,
   children,
   prefixBreadcrumbs = true,
-}) => {
+}: ProfileFormWrapperProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { user } = useAuthorization();

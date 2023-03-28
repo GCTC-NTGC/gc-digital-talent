@@ -9,7 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import DepartmentTableApi from "./components/DepartmentTable";
 
-export const DepartmentPage: React.FC = () => {
+export const DepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const pageTitle = intl.formatMessage({

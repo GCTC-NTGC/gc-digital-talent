@@ -90,7 +90,7 @@ export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
   return false;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ editPath, applicant }) => {
+const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
   const intl = useIntl();
   const {
     firstName,

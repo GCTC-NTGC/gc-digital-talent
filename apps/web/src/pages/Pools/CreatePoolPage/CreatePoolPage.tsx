@@ -42,12 +42,12 @@ interface CreatePoolFormProps {
   teamsArray: Team[];
 }
 
-export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
+export const CreatePoolForm = ({
   userId,
   classificationsArray,
   handleCreatePool,
   teamsArray,
-}) => {
+}: CreatePoolFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();

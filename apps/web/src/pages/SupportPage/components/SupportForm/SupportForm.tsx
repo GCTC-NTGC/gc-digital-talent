@@ -30,7 +30,7 @@ interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
   handleCreateTicket: (data: FormValues) => Promise<number | null | void>;
-  currentUser?: User | null;
+  currentUser?: Pick<User, "firstName" | "lastName" | "email"> | null;
 }
 
 interface SupportFormSuccessProps {
@@ -274,6 +274,7 @@ const SupportFormApi = () => {
       );
       return Promise.reject(response.status);
     });
+
   const [{ data, fetching, error }] = useGetMeQuery();
   const [showSupportForm, setShowSupportForm] = React.useState(true);
 

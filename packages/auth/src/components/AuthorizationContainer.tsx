@@ -29,13 +29,13 @@ interface AuthorizationContainerProps {
   children?: React.ReactNode;
 }
 
-const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
+const AuthorizationContainer = ({
   roleAssignments,
   email,
   user,
   isLoaded,
   children,
-}) => {
+}: AuthorizationContainerProps) => {
   const state = React.useMemo<AuthorizationState>(() => {
     return {
       roleAssignments,

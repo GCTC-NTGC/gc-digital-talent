@@ -8,11 +8,11 @@ import SearchPools, { type SearchPoolsProps } from "./SearchPools";
 
 type CandidateResultsProps = SearchPoolsProps;
 
-const CandidateResults: React.FC<CandidateResultsProps> = ({
+const CandidateResults = ({
   candidateCount,
   pool,
   handleSubmit,
-}) => {
+}: CandidateResultsProps) => {
   const intl = useIntl();
 
   return candidateCount > 0 ? (

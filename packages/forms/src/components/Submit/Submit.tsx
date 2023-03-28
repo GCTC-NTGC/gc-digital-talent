@@ -15,7 +15,7 @@ export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
   disabled?: boolean;
 }
 
-const Submit: React.FunctionComponent<SubmitProps> = ({
+const Submit = ({
   text,
   submittedText,
   isSubmittingText,
@@ -24,7 +24,7 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
   isSubmitting: overrideSubmitting,
   disabled,
   ...rest
-}) => {
+}: SubmitProps) => {
   const intl = useIntl();
   const defaultText = intl.formatMessage(formMessages.submit);
   const defaultSubmittedText = intl.formatMessage(formMessages.submitted);

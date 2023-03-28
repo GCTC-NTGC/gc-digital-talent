@@ -67,11 +67,11 @@ const WithEllipsisPrefix = ({ children }: WithEllipsisPrefixProps) => {
   );
 };
 
-const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
+const WorkPreferencesForm = ({
   initialData,
   application,
   handleWorkPreferences,
-}) => {
+}: WorkPreferencesFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -152,7 +152,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          url: paths.pool(application.pool.id),
+          url: paths.pool(application.poolAdvertisement?.id || ""),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
@@ -165,7 +165,7 @@ const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             description: "Display Text for Work Preferences Form Page Link",
           }),
           url: `${paths.workPreferences(initialData.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

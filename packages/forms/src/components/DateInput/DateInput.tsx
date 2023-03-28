@@ -40,7 +40,7 @@ export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
-const DateInput: React.FunctionComponent<DateInputProps> = ({
+const DateInput = ({
   legend,
   name,
   rules = {},
@@ -51,7 +51,7 @@ const DateInput: React.FunctionComponent<DateInputProps> = ({
   show = [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
   trackUnsaved = true,
   ...rest
-}) => {
+}: DateInputProps) => {
   const intl = useIntl();
   const {
     control,
