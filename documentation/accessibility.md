@@ -40,7 +40,7 @@ In the following example, we have a `<nav>` element where we capture an `onKeyDo
 
 ### `cypress-axe`
 
-We are doing automated a11y testing in our E2E testing with [`cypress-axe`](https://www.npmjs.com/package/cypress-axe). When writing tests your cypress tests, it is considered best practices to add `cy.checkA11y()` when changing the state of the application. Some examples (non-exhaustive) of when to check a11y with cypress are:
+We are doing automated a11y testing in our E2E testing with [`cypress-axe`](https://www.npmjs.com/package/cypress-axe). When writing tests your cypress tests, it is considered best practice to add `cy.checkA11y()` when changing the state of the application. Some examples (non-exhaustive) of when to check a11y with cypress are:
 
  - Initial loading of a page/component
  - After navigating to a new page
