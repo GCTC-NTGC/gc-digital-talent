@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Pool
@@ -128,14 +129,12 @@ class Pool extends Model
         $currentTime = date("Y-m-d H:i:s");
         if ($closedDate != null) {
             $isClosed = $currentTime >= $closedDate ? true : false;
-        }
-        else {
+        } else {
             $isClosed = false;
         }
         if ($publishedDate != null) {
             $isPublished = $currentTime >= $publishedDate ? true : false;
-        }
-        else {
+        } else {
             $isPublished = false;
         }
 
@@ -153,6 +152,39 @@ class Pool extends Model
     public function scopeWasPublished(Builder $query, ?array $args)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        return $query;
+    }
+
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if (!$user->isAbleTo("view-any-pool")) {
+            $query->where(function (Builder $query) use ($user) {
+
+                if ($user->isAbleTo("view-team-pool")) {
+                    // Only add teams the user can view pools in to the query for `whereHAs`
+                    $teams = $user->rolesTeams()->get();
+                    $teamIds = [];
+                    foreach ($teams as $team) {
+                        if ($user->isAbleTo("view-team-pool", $team)) {
+                            $teamIds[] = $team->id;
+                        }
+                    }
+
+                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    });
+                }
+
+                if ($user->isAbleTo("view-any-publishedPoolAdvertisement")) {
+                    $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
+                }
+
+                return $query;
+            });
+        }
+
         return $query;
     }
 }
