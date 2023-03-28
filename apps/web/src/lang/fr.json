@@ -6976,5 +6976,8 @@
   "wgRXhR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "GwbTAz": {
+    "defaultMessage": "Volets"
   }
 }
