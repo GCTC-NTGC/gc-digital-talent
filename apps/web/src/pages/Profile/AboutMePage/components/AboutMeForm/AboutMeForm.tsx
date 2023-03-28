@@ -66,11 +66,11 @@ export interface AboutMeFormProps {
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
-const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
+const AboutMeForm = ({
   initialUser,
   application,
   onUpdateAboutMe,
-}) => {
+}: AboutMeFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -189,7 +189,7 @@ const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          url: paths.pool(application.pool.id),
+          url: paths.pool(application.poolAdvertisement?.id || ""),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),

@@ -8,7 +8,7 @@ interface StepProps {
   children?: React.ReactNode;
 }
 
-const Step: React.FC<StepProps> = ({ position, title, children }) => (
+const Step = ({ position, title, children }: StepProps) => (
   <div data-h2-text-align="base(center)">
     <Heading as="h4" data-h2-font-size="base(h3, 1)" color="white">
       <span

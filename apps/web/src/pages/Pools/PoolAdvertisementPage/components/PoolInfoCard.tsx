@@ -19,7 +19,7 @@ export interface PoolInfoCardProps {
   };
 }
 
-const P: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+const P = ({ children }: { children?: React.ReactNode }) => (
   <p
     data-h2-display="base(flex)"
     data-h2-align-items="base(center)"

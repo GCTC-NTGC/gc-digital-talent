@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import CardLink from "./CardLink";
 
-const ExternalLink: React.FC = (props) => (
+const ExternalLink = (props: () => React.ReactElement) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"

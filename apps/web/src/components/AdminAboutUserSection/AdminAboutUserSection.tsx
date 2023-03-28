@@ -17,9 +17,9 @@ interface AdminAboutUserSectionProps {
   >;
 }
 
-const AdminAboutUserSection: React.FC<AdminAboutUserSectionProps> = ({
+const AdminAboutUserSection = ({
   applicant: { firstName, lastName, citizenship, armedForcesStatus },
-}) => {
+}: AdminAboutUserSectionProps) => {
   const intl = useIntl();
 
   return (

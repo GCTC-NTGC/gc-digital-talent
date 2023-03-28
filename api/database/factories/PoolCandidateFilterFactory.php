@@ -52,7 +52,7 @@ class PoolCandidateFilterFactory extends Factory
     {
         return $this->afterCreating(function (PoolCandidateFilter $filter) {
             $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $pools = Pool::inRandomOrder()->limit(1)->get();
+            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(1)->get();
             $filter->classifications()->saveMany($classifications);
             $filter->pools()->saveMany($pools);
         });

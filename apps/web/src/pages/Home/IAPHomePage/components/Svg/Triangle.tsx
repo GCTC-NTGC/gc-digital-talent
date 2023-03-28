@@ -4,7 +4,7 @@ interface TriangleProps {
   className: string;
 }
 
-const Triangle: React.FC<TriangleProps> = (props) => (
+const Triangle = (props: TriangleProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

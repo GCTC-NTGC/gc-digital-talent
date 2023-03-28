@@ -108,14 +108,20 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                   <TextArea
                     id={candidate.id}
                     name={candidate.id}
-                    label={`${intl.formatMessage({
-                      defaultMessage: "Notes",
-                      id: "CSDdh/",
-                      description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitleHtml(
-                      intl,
-                      candidate.pool,
-                    )}`}
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage: "Notes - {poolName}",
+                        id: "9Aa5c0",
+                        description:
+                          "Label for the notes field for a specific pool",
+                      },
+                      {
+                        poolName: getFullPoolAdvertisementTitleHtml(
+                          intl,
+                          candidate.pool,
+                        ),
+                      },
+                    )}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",

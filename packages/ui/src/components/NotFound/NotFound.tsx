@@ -5,7 +5,7 @@ export interface NotFoundProps {
   children: React.ReactNode;
 }
 
-const NotFound: React.FC<NotFoundProps> = ({ headingMessage, children }) => {
+const NotFound = ({ headingMessage, children }: NotFoundProps) => {
   return (
     <div data-h2-margin="base(x3, 0)">
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

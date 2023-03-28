@@ -8,7 +8,7 @@ import SearchRequestTableApi from "~/components/SearchRequestTable/SearchRequest
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
-export const IndexSearchRequestPage: React.FunctionComponent = () => {
+export const IndexSearchRequestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 

@@ -27,9 +27,11 @@ interface WorkPreferencesFormApiProps {
   ) => Promise<UpdateWorkPreferencesMutation["updateUserAsUser"]>;
 }
 
-const WorkPreferencesFormApi: React.FunctionComponent<
-  WorkPreferencesFormApiProps
-> = ({ applicationId, initialData, handleWorkPreferences }) => {
+const WorkPreferencesFormApi = ({
+  applicationId,
+  initialData,
+  handleWorkPreferences,
+}: WorkPreferencesFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -38,7 +40,10 @@ const WorkPreferencesFormApi: React.FunctionComponent<
       {data?.poolCandidate ? (
         <WorkPreferencesForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (
@@ -78,7 +83,7 @@ const ApiOrContent = ({
     />
   );
 
-export const WorkPreferencesPage: React.FunctionComponent = () => {
+export const WorkPreferencesPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");

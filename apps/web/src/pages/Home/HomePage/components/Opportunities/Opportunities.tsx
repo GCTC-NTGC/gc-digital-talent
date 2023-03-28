@@ -6,11 +6,13 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 // Local assets
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+
+import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.png";
+import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.png";
 
 // Create the page component
 const Opportunities = () => {
@@ -37,7 +39,7 @@ const Opportunities = () => {
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_light_1.png")}
+          src={desktopGraphicsLight1}
           alt=""
         />
         <img
@@ -48,7 +50,7 @@ const Opportunities = () => {
           data-h2-height="base(auto) l-tablet(40%)"
           data-h2-width="base(250%) l-tablet(auto)"
           data-h2-max-width="base(initial)"
-          src={imageUrl("/", "Desktop_Graphics_dark_1.png")}
+          src={desktopGraphicsDark1}
           alt=""
         />
         <div

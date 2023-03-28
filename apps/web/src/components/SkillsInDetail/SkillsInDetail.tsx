@@ -23,11 +23,11 @@ export interface SkillsInDetailProps {
   onDelete: (id: string) => void;
 }
 
-const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
+const SkillsInDetail = ({
   skills,
   required,
   onDelete,
-}) => {
+}: SkillsInDetailProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { register } = useForm();

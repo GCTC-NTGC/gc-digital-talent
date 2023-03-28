@@ -82,7 +82,7 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->skills()->saveMany($skills);
 
-            $pools = Pool::inRandomOrder()->limit(
+            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);

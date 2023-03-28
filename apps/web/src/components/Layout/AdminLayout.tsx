@@ -23,11 +23,7 @@ interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   show: boolean;
 }
 
-const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
-  show,
-  onClick,
-  children,
-}) => (
+const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) => (
   <div
     data-h2-visually-hidden="base(visible) l-tablet(hidden)"
     data-h2-position="base(fixed)"

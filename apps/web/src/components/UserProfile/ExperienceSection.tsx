@@ -28,12 +28,12 @@ export interface ExperienceSectionProps {
   headingLevel?: HeadingRank;
 }
 
-const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
+const ExperienceSection = ({
   experiences,
   experienceEditPaths,
   editPath,
   headingLevel = "h3",
-}) => {
+}: ExperienceSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

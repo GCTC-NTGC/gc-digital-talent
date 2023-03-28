@@ -33,13 +33,13 @@ const ChipDismiss = (props: React.ComponentProps<"button">) => (
   />
 );
 
-const Chip: React.FC<ChipProps> = ({
+const Chip = ({
   color,
   mode,
   onDismiss,
   label,
   ...rest
-}): React.ReactElement => {
+}: ChipProps): React.ReactElement => {
   const intl = useIntl();
   const wrapperProps = onDismiss
     ? {

@@ -88,8 +88,8 @@ class PoolCandidate extends Model
         // pointing to the classification scope on the User model
         // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
         $query->whereHas('user', function ($query) use ($classifications) {
-                User::scopeClassifications($query, $classifications);
-            });
+            User::scopeClassifications($query, $classifications);
+        });
         return $query;
     }
 
@@ -284,10 +284,10 @@ class PoolCandidate extends Model
         return $query;
     }
 
-   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-   // pool_candidate_status database value passed into accessor as an argument
-   public function getPoolCandidateStatusAttribute($candidateStatus)
-   {
+    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+    // pool_candidate_status database value passed into accessor as an argument
+    public function getPoolCandidateStatusAttribute($candidateStatus)
+    {
         // pull info
         $submittedAt = $this->submitted_at;
         $expiryDate = $this->expiry_date;
@@ -373,7 +373,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration): Builder
     {
 
         if (empty($positionDuration)) {
@@ -410,5 +410,36 @@ class PoolCandidate extends Model
     public function isDraft()
     {
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
+    }
+
+    /**
+     * Scope the query to PoolCandidate's the current user can view
+     */
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if (!$user->isAbleTo("view-any-application")) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo("view-any-submittedApplication")) {
+                    $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                }
+
+                if ($user->isAbleTo("view-team-submittedApplication")) {
+                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                }
+
+                if ($user->isAbleTo("view-own-application")) {
+                    $query->orWhere('user_id', $user->id);
+                }
+            });
+        }
+
+        return $query;
     }
 }

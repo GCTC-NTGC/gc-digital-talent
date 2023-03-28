@@ -6,7 +6,7 @@ type PageNavLink = {
 };
 
 export type PageNavInfo = {
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   title: string;
   link: PageNavLink;
 };

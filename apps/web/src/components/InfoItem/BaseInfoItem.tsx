@@ -59,7 +59,7 @@ export interface BaseInfoItemProps {
   titleColor?: TextColor;
   subTitle?: string;
   subTitleColor?: TextColor;
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   iconColor?: IconColor;
   titleHref?: string;
   hiddenContextPrefix?: string;

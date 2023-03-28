@@ -40,9 +40,7 @@ const formValuesToData = (values: FormValues): CreateUserInput => ({
   sub: emptyToUndefined(values.sub),
 });
 
-export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
-  handleCreateUser,
-}) => {
+export const CreateUserForm = ({ handleCreateUser }: CreateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -257,7 +255,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   );
 };
 
-const CreateUserPage: React.FunctionComponent = () => {
+const CreateUserPage = () => {
   const [, executeMutation] = useCreateUserMutation();
   const handleCreateUser = (data: CreateUserInput) =>
     executeMutation({ user: data }).then((result) => {

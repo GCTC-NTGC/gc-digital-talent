@@ -21,9 +21,7 @@ export interface ProfilePageProps {
   profileDataInput: User;
 }
 
-export const ProfileForm: React.FC<ProfilePageProps> = ({
-  profileDataInput,
-}) => {
+export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
   const { id: userId, experiences } = profileDataInput;
   const paths = useRoutes();
 
@@ -122,7 +120,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   );
 };
 
-const ProfilePage: React.FunctionComponent = () => {
+const ProfilePage = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;

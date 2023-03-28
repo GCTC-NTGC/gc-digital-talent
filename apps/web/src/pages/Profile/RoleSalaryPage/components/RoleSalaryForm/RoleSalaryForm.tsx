@@ -76,11 +76,11 @@ export interface RoleSalaryFormProps {
   updateRoleSalary: RoleSalaryUpdateHandler;
 }
 
-const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
+const RoleSalaryForm = ({
   initialData,
   application,
   updateRoleSalary,
-}) => {
+}: RoleSalaryFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -143,7 +143,7 @@ const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          url: paths.pool(application.pool.id),
+          url: paths.pool(application.poolAdvertisement?.id || ""),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),

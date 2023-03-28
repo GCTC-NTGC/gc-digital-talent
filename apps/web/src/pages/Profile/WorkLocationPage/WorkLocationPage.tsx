@@ -27,11 +27,11 @@ interface WorkLocationApiProps {
   ) => Promise<CreateWorkLocationMutation["updateUserAsUser"]>;
 }
 
-const WorkLocationApi: React.FunctionComponent<WorkLocationApiProps> = ({
+const WorkLocationApi = ({
   applicationId,
   initialData,
   handleWorkLocation,
-}) => {
+}: WorkLocationApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -40,7 +40,10 @@ const WorkLocationApi: React.FunctionComponent<WorkLocationApiProps> = ({
       {data?.poolCandidate ? (
         <WorkLocationForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           handleWorkLocationPreference={handleWorkLocation}
         />
       ) : (

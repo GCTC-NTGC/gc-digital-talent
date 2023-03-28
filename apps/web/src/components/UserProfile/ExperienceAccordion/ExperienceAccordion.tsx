@@ -34,11 +34,11 @@ export interface AccordionProps {
   headingLevel?: HeadingRank;
 }
 
-const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
+const ExperienceAccordion = ({
   experience,
   editPaths,
   headingLevel = "h2",
-}) => {
+}: AccordionProps) => {
   const intl = useIntl();
 
   // experience type is required with 5 possibilities, build different accordion around which type it is

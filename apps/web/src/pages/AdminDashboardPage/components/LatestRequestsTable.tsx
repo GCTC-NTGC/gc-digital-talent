@@ -6,7 +6,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { useLatestRequestsQuery } from "~/api/generated";
 import { SearchRequestTable } from "~/components/SearchRequestTable/SearchRequestTable";
 
-const LatestRequestsTable: React.FC = () => {
+const LatestRequestsTable = () => {
   const [{ data, fetching, error }] = useLatestRequestsQuery();
 
   const poolCandidateSearchRequests =

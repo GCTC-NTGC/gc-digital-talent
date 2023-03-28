@@ -287,12 +287,15 @@ const defaultState = {
   },
 };
 
-const PoolCandidatesTable: React.FC<{
+const PoolCandidatesTable = ({
+  initialFilterInput,
+  currentPool,
+}: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<
     Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
   >;
-}> = ({ initialFilterInput, currentPool }) => {
+}) => {
   const intl = useIntl();
   const paths = useRoutes();
   // Note: Need to memoize to prevent infinite

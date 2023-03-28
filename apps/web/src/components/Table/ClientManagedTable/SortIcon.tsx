@@ -6,10 +6,7 @@ interface SortIconProps {
   size?: string | number;
 }
 
-const SortIcon: React.FC<SortIconProps> = ({
-  isSortedDesc,
-  size = "0.75rem",
-}) => {
+const SortIcon = ({ isSortedDesc, size = "0.75rem" }: SortIconProps) => {
   const iconStyles = {
     width: size,
     height: size,

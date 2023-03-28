@@ -1,4 +1,4 @@
-import React, { SVGAttributes } from "react";
+import React from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
@@ -18,7 +18,7 @@ const commonStyles = {
 };
 
 interface SideMenuItemChildProps {
-  icon: React.FC<SVGAttributes<SVGSVGElement>>;
+  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   children: React.ReactNode;
 }
 
@@ -58,12 +58,7 @@ export interface SideMenuItemProps
   href?: string;
 }
 
-const SideMenuItem: React.FC<SideMenuItemProps> = ({
-  icon,
-  children,
-  href,
-  ...rest
-}: SideMenuItemProps) => {
+const SideMenuItem = ({ icon, children, href, ...rest }: SideMenuItemProps) => {
   const url = sanitizeUrl(href);
 
   return (

@@ -46,11 +46,11 @@ export interface WorkLocationFormProps {
   ) => Promise<CreateWorkLocationMutation["updateUserAsUser"]>;
 }
 
-const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
+const WorkLocationForm = ({
   initialData,
   application,
   handleWorkLocationPreference,
-}) => {
+}: WorkLocationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -113,7 +113,7 @@ const WorkLocationForm: React.FC<WorkLocationFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          url: paths.pool(application.pool.id),
+          url: paths.pool(application.poolAdvertisement?.id || ""),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),

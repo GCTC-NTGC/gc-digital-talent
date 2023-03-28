@@ -8,7 +8,7 @@ interface ErrorMessageProps {
   error: CombinedError;
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
+const ErrorMessage = ({ error }: ErrorMessageProps) => {
   const intl = useIntl();
   return (
     <p aria-live="polite">
