@@ -49,3 +49,48 @@ const Template: ComponentStory<typeof ToggleSection.Root> = (args) => (
 );
 
 export const Default = Template.bind({});
+
+const NestedTemplate: ComponentStory<typeof ToggleSection.Root> = (args) => (
+  <ToggleSection.Root
+    {...args}
+    onOpenChange={(open) => action("onOpenToggle")(open)}
+  >
+    <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+      Toggle Section
+    </ToggleSection.Header>
+
+    <ToggleSection.Content data-h2-text-align="base(center)">
+      <ToggleSection.InitialContent>
+        <p>Initial Content Here</p>
+        <ToggleSection.Open>
+          <Button mode="inline">Open Main Content</Button>
+        </ToggleSection.Open>
+
+        <ToggleSection.Root>
+          <ToggleSection.Trigger>
+            <Button mode="inline">Toggle Nested Content</Button>
+          </ToggleSection.Trigger>
+
+          <ToggleSection.Content data-h2-text-align="base(center)">
+            <ToggleSection.InitialContent>
+              <p>Nested Initial Content Here</p>
+            </ToggleSection.InitialContent>
+
+            <ToggleSection.OpenContent>
+              <p>Nested Open Content Here</p>
+            </ToggleSection.OpenContent>
+          </ToggleSection.Content>
+        </ToggleSection.Root>
+      </ToggleSection.InitialContent>
+
+      <ToggleSection.OpenContent>
+        <p>Open Content Here</p>
+        <ToggleSection.Close>
+          <Button mode="inline">Close</Button>
+        </ToggleSection.Close>
+      </ToggleSection.OpenContent>
+    </ToggleSection.Content>
+  </ToggleSection.Root>
+);
+
+export const Nested = NestedTemplate.bind({});
