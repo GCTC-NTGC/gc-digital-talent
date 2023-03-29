@@ -72,4 +72,7 @@
     "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g",
     "/\"[A-Za-z0-9+\\/]{6}\\\": {/g"
   ],
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
 }
