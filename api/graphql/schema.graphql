@@ -1656,7 +1656,7 @@ type Mutation {
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @update @guard @can(ability: "update", find: "id")
+  ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
   deletePoolCandidate(id: ID!): PoolCandidate
     @delete(globalId: false)
     @guard
@@ -1846,8 +1846,8 @@ type Mutation {
     @can(ability: "submit", find: "id")
   updateApplication(id: ID!, application: UpdateApplicationInput! @spread): PoolCandidate
     @update(model: "PoolCandidate")
-    # @guard
-    # @can(ability: "update", find: "id", model: "PoolCandidate")
+    @guard
+    @can(ability: "update", find: "id", model: "PoolCandidate")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
