@@ -56,19 +56,18 @@ class SkillFamilyTest extends TestCase
     }
 
     /**
-     * Test base user can view any
+     * Test guest user can view any
      *
      * @return void
      */
     public function test_view_any_skill_family()
     {
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL('query { skillFamilies { id } }')
+        $this->graphQL('query { skillFamilies { id } }')
             ->assertJsonFragment([ 'id' => $this->uuid ]);
     }
 
     /**
-     * Test base user can view any
+     * Test guest user can view one
      *
      * @return void
      */
@@ -86,8 +85,7 @@ class SkillFamilyTest extends TestCase
             }
         ';
 
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, $variables)
+        $this->graphQL($query, $variables)
             ->assertJsonFragment($variables);
     }
 

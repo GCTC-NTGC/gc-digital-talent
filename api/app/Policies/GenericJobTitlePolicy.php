@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClassificationPolicy
+class GenericJobTitlePolicy
 {
     use HandlesAuthorization;
 
@@ -44,7 +44,7 @@ class ClassificationPolicy
      */
     public function create(User $user)
     {
-        return $user->isAbleTo("create-any-classification");
+        return $user->isAbleTo("create-any-genericJobTitle");
     }
 
     /**
@@ -56,7 +56,7 @@ class ClassificationPolicy
      */
     public function update(User $user)
     {
-        return $user->isAbleTo("update-any-classification");
+        return $user->isAbleTo("update-any-genericJobTitle");
     }
 
     /**
@@ -68,7 +68,7 @@ class ClassificationPolicy
      */
     public function delete(User $user)
     {
-        return $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-genericJobTitle");
     }
 
     /**
@@ -80,7 +80,7 @@ class ClassificationPolicy
      */
     public function restore(User $user)
     {
-        return $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-genericJobTitle");
     }
 
     /**
@@ -92,6 +92,6 @@ class ClassificationPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user->isAbleTo("delete-any-classification");
+        return $user->isAbleTo("delete-any-genericJobTitle");
     }
 }

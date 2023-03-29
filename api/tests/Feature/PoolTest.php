@@ -14,6 +14,8 @@ class PoolTest extends TestCase
   use MakesGraphQLRequests;
   use RefreshesSchemaCache;
 
+  protected $adminUser;
+
   protected function setUp(): void
   {
     parent::setUp();
@@ -21,11 +23,15 @@ class PoolTest extends TestCase
 
     $this->seed(RolePermissionSeeder::class);
 
-    $newUser = new User;
-    $newUser->email = 'admin@test.com';
-    $newUser->sub = 'admin@test.com';
-    $newUser->save();
-    $newUser->syncRoles(["guest", "base_user", "platform_admin"]);
+    $this->adminUser = User::factory()->create([
+        'email' => 'admin@test.com',
+        'sub' => 'admin@test.com',
+    ]);
+    $this->adminUser->syncRoles([
+        "guest",
+        "base_user",
+        "platform_admin"
+    ]);
   }
 
   public function testPoolAdvertisementAccessor(): void
@@ -53,7 +59,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 1 will return accessor as published
-    $this->graphQL(/** @lang Graphql */ '
+    $this->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
@@ -68,7 +74,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 2 will return accessor as closed
-    $this->graphQL(/** @lang Graphql */ '
+    $this->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
@@ -83,7 +89,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 3 will return accessor as draft
-    $this->graphQL(/** @lang Graphql */ '
+    $this->actingAs($this->adminUser, "api")->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
                 advertisementStatus
@@ -98,7 +104,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 4 will return accessor as draft
-    $this->graphQL(/** @lang Graphql */ '
+    $this->actingAs($this->adminUser, "api")->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
                 advertisementStatus
@@ -131,7 +137,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 1 will still be published
-    $this->graphQL(/** @lang Graphql */ '
+    $this->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
@@ -146,7 +152,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query with pool 2 will return as closed
-    $this->graphQL(/** @lang Graphql */ '
+    $this->graphQL(/** @lang GraphQL */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
@@ -174,7 +180,7 @@ class PoolTest extends TestCase
     ]);
 
     // Assert query will return only the published pool
-    $this->graphQL(/** @lang Graphql */ '
+    $this->graphQL(/** @lang GraphQL */ '
         query browsePools {
             publishedPoolAdvertisements {
               id
