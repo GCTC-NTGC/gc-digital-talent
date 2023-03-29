@@ -92,7 +92,7 @@ Wrapper components could be added at multiple levels, sometimes within a Form/Ta
 
 ### Sections
 
-Section components are containers for breaking large pages into smaller pieces.  They are named with the **Section** suffix, like `AboutMeSection`.
+Section components are containers for breaking large pages into smaller pieces.  They are named with the **Section** suffix, like `AboutSection`.
 
 # GraphQL
 
