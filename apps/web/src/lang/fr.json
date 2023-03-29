@@ -6958,31 +6958,35 @@
     "description": "Dialog close button on change search results status from qualified recruitment section."
   },
   "293bsq": {
-    "defaultMessage": "Managing a recruitment process",
+    "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
   },
   "7nxtBm": {
-    "defaultMessage": "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
+    "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
     "description": "Subtitle for the admin dashboard page"
   },
   "N3uD4m": {
-    "defaultMessage": "My Teams",
+    "defaultMessage": "Mes équipes",
     "description": "Link text for current users teams page"
   },
   "hxaIWa": {
-    "defaultMessage": "Departments and Agencies",
+    "defaultMessage": "Ministères et organismes",
     "description": "Link text for all departments page"
   },
   "ijUT7N": {
-    "defaultMessage": "Responding to talent requests",
+    "defaultMessage": "Réponse aux demandes en matière de talents",
     "description": "Heading for request responder dashboard links"
   },
   "ipSk4R": {
-    "defaultMessage": "Maintaining the platform",
+    "defaultMessage": "Maintenance de la plateforme",
     "description": "Heading for platform dashboard links"
   },
   "m4hoPL": {
-    "defaultMessage": "Groups and Classifications",
+    "defaultMessage": "Groupes et classifications",
     "description": "Link text for all classifications page"
+  },
+  "wHnGAK": {
+    "defaultMessage": "Sur quoi travaillez-vous aujourd’hui?",
+    "description": "Heading for the sections of links available to the current user"
   }
 }
