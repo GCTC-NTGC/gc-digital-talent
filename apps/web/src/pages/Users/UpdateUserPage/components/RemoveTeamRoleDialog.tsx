@@ -6,22 +6,29 @@ import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { Role, Team, User } from "~/api/generated";
+import {
+  Role,
+  Team,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
+  User,
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { UpdateUserFunc } from "../types";
 
 interface RemoveTeamRoleDialogProps {
   user: User;
   roles: Role[];
   team: Team;
-  onUpdateUser: UpdateUserFunc;
+  onRemoveRoles: (
+    submitData: UpdateUserAsAdminInput,
+  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
 const RemoveTeamRoleDialog = ({
   user,
   roles,
   team,
-  onUpdateUser,
+  onRemoveRoles,
 }: RemoveTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
@@ -29,7 +36,7 @@ const RemoveTeamRoleDialog = ({
 
   const handleRemove = async () => {
     setIsDeleting(true);
-    return onUpdateUser(user.id, {
+    return onRemoveRoles({
       roles: {
         detach: {
           roles: roles.map((r) => r.id),
@@ -45,6 +52,16 @@ const RemoveTeamRoleDialog = ({
             id: "XcS2q2",
             description:
               "Message displayed to user when a role has been removed from a user",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Member role update failed",
+            id: "Ly2bBb",
+            description:
+              "Alert displayed to user when an error occurs while editing a team member's roles",
           }),
         );
       })

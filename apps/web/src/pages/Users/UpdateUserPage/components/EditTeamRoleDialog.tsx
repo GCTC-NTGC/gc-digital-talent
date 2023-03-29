@@ -15,11 +15,11 @@ import {
 
 import {
   Role,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
   User,
   Team,
   Scalars,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
 } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
