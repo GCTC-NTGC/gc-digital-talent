@@ -6,13 +6,24 @@ import { Heading, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
-import { Role, Team, UpdateUserAsAdminInput, User } from "~/api/generated";
+import {
+  Role,
+  Team,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
+  User,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import groupBy from "lodash/groupBy";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 import { UpdateUserFunc } from "../types";
+import EditTeamRoleDialog from "./EditTeamRoleDialog";
+
+type UpdateUserHandler = (
+  submitData: UpdateUserAsAdminInput,
+) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 
 const rolesCell = (displayNames: string[]) => (
   <>
@@ -30,13 +41,24 @@ const actionCell = (
   teamAssignment: TeamAssignment,
   user: User,
   onUpdateUser: UpdateUserFunc,
+  handleEditRoles: UpdateUserHandler,
+  availableRoles: Role[],
 ) => (
-  <RemoveTeamRoleDialog
-    roles={teamAssignment.roles}
-    user={user}
-    team={teamAssignment.team}
-    onUpdateUser={onUpdateUser}
-  />
+  <>
+    <EditTeamRoleDialog
+      initialRoles={teamAssignment.roles}
+      user={user}
+      team={teamAssignment.team}
+      onEditRoles={handleEditRoles}
+      allRoles={availableRoles}
+    />
+    <RemoveTeamRoleDialog
+      roles={teamAssignment.roles}
+      user={user}
+      team={teamAssignment.team}
+      onUpdateUser={onUpdateUser}
+    />
+  </>
 );
 
 const teamCell = (displayName: string, href: string) => {
@@ -74,7 +96,13 @@ export const TeamRoleTable = ({
         accessor: (teamAssignment) => `Actions ${teamAssignment.team.id}`,
         disableGlobalFilter: true,
         Cell: ({ row: { original: teamAssignment } }: TeamAssignmentCell) =>
-          actionCell(teamAssignment, user, onUpdateUser),
+          actionCell(
+            teamAssignment,
+            user,
+            onUpdateUser,
+            handleEditRoles,
+            availableRoles,
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -114,7 +142,7 @@ export const TeamRoleTable = ({
           ),
       },
     ],
-    [intl, onUpdateUser, routes, user],
+    [availableRoles, intl, onUpdateUser, routes, user],
   );
 
   const data = useMemo(() => {
@@ -143,7 +171,7 @@ export const TeamRoleTable = ({
     });
   }, [user.roleAssignments]);
 
-  const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
+  const handleEditRoles = async (values: UpdateUserAsAdminInput) => {
     return onUpdateUser(user.id, values);
   };
 
@@ -163,7 +191,7 @@ export const TeamRoleTable = ({
           <AddTeamRoleDialog
             user={user}
             availableRoles={availableRoles}
-            onAddRoles={handleAddRoles}
+            onAddRoles={handleEditRoles}
           />
         }
       />
