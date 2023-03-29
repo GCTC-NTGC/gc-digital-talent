@@ -93,3 +93,15 @@ Wrapper components could be added at multiple levels, sometimes within a Form/Ta
 ### Sections
 
 Section components are containers for breaking large pages into smaller pieces.  They are named with the **Section** suffix, like `AboutMeSection`.
+
+# GraphQL
+
+## Authorization
+
+In GraphQL, queries can be built dynamically based on the types exposed in the schema.  This provides some challenges to ensuring that the user is authorized to receive all the data returned from the query.
+
+### Guidelines
+1. Avoid duplicating types to customize the authorization rules for different roles.  Prefer use of the `can` directive for field-level restrictions above the base authorization level.  If more than 20% of the fields require a `can` directive then we'll discuss duplicating the model or extracting a child model.
+2. When a field represents a relationship to an array of child models, apply a scope directive to pre-filter the relationship results from the database and also apply a `can` directive with `resolve:true` to run a regular policy on each result.
+3. Querying an array of child models should return partial results if some of the children rows are filtered out by a scope directive or policy.  It should not return an error.
+4. Partial results should not reveal that they are partial.  They should not return nulls or placeholder values.
