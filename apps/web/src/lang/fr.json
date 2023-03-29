@@ -6972,5 +6972,9 @@
   "wgRXhR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "+agJAH": {
+    "defaultMessage": "Mes rôles",
+    "description": "Label displayed for the table's My Roles column header."
   }
 }
