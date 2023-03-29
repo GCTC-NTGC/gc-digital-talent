@@ -85,7 +85,7 @@ class TeamsTest extends TestCase
   {
     // Assert all teams query contains expected results
     $query = $this->actingAs($this->admin, "api")
-      ->graphQL(/** @lang Graphql */ '
+      ->graphQL(/** @lang GraphQL */ '
       query teams {
           teams {
               id
@@ -318,7 +318,7 @@ class TeamsTest extends TestCase
     $this->poolOperator1->attachRole("pool_operator", $this->team1);
     $this->poolOperator2->attachRole("pool_operator", $this->team1);
     $this->poolOperator3->attachRole("pool_operator", $this->team2);
-    $viewAnyTeamMembers = /** @lang Graphql */ '
+    $viewAnyTeamMembers = /** @lang GraphQL */ '
         query team($id: UUID!) {
           team(id: $id) {
               id

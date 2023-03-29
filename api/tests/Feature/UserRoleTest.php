@@ -34,13 +34,11 @@ class UserRoleTest extends TestCase
         $this->baseUser = User::factory()->create([
             'email' => 'base-user@test.com',
             'sub' => 'base-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])->syncRoles($this->baseRoles);
 
         $this->adminUser = User::factory()->create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN]
         ])->syncRoles([
             ...$this->baseRoles,
             "request_responder",
@@ -425,15 +423,15 @@ class UserRoleTest extends TestCase
         ]);
         $this->actingAs($this->baseUser, 'api')
             ->graphQL(
-                    /** @lang Graphql */ '
+                    /** @lang GraphQL */ '
                 query team($id: UUID!) {
                     team(id: $id) {
                         id
-                        roleAssignments {
-                        id
-                        user {
+                            roleAssignments {
                             id
-                        }
+                            user {
+                                id
+                            }
                         }
                     }
                 }
