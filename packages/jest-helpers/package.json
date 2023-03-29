@@ -29,7 +29,7 @@
     "@types/jest": "^29.5.0",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.10",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "jest-axe": "^7.0.1",
