@@ -22,8 +22,9 @@ describe("Talentsearch Direct Intake Page", () => {
 
     it("has no accessibility errors", () => {
       cy.visit('/en/browse/pools');
-      cy.injectAxe();
       cy.wait("@gqlbrowsePoolAdvertisementsQuery");
+      cy.injectAxe();
+      cy.findByRole("heading", { name: /browse i t jobs/i }).should('exist');
       cy.checkA11y()
     })
   });
