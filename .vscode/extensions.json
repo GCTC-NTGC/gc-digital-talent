@@ -3,6 +3,7 @@
     "streetsidesoftware.code-spell-checker",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "xdebug.php-debug"
+    "xdebug.php-debug",
+    "bmewburn.vscode-intelephense-client"
   ]
 }
