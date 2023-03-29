@@ -311,7 +311,9 @@ const UpdateUserPage = () => {
       id,
       user: {
         id,
-        email: emptyToNull(data.email),
+        // Do not include email in the request if it is not part of form data
+        // to prevent accidentally setting it to null
+        email: data.email !== undefined ? emptyToNull(data.email) : undefined,
         ...pick(data, [
           "firstName",
           "lastName",
