@@ -51,8 +51,8 @@ class SnapshotTest extends TestCase
 
         // get what the snapshot should look like
         $expectedSnapshot = $this->actingAs($user, "api")
-                                ->graphQL($snapshotQuery, ["userId" => $user->id])
-                                ->json("data.user");
+            ->graphQL($snapshotQuery, ["userId" => $user->id])
+            ->json("data.user");
 
         assertNotNull($expectedSnapshot);
 
@@ -123,7 +123,7 @@ class SnapshotTest extends TestCase
         // build array $snapshotSkills that contains all the skills ids found on the snapshot
         $snapshotSkillIds = [];
         $snapshotExperiences = $snapshot['experiences'];
-        foreach ($snapshotExperiences as $experience){
+        foreach ($snapshotExperiences as $experience) {
             $experienceSkills = $experience['skills'];
             foreach ($experienceSkills as $skill) {
                 array_push($snapshotSkillIds, $skill['id']);

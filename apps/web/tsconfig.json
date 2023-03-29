@@ -4,8 +4,8 @@
     "baseUrl": "./src",
     "paths": {
       "@gc-digital-talent/*": ["../../../packages/*/src"],
-      "~/*": ["./*"],
-    },
+      "~/*": ["./*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": [
@@ -15,5 +15,5 @@
     "!node_modules/@types",
     "*/node_modules",
     "!*/node_modules/@types"
-  ],
+  ]
 }

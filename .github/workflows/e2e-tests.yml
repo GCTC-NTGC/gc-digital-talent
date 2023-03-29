@@ -34,9 +34,8 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      NPM_VERSION: '8.3.0'
+      NPM_VERSION: "8.3.0"
     steps:
-
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
       - name: reclaim space on runner
         run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
@@ -56,7 +55,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Upgrade to latest npm
@@ -93,6 +92,6 @@ jobs:
         if: failure()
         run: docker-compose ps
 
-      - name: 'Check logs: web server container'
+      - name: "Check logs: web server container"
         if: failure()
         run: docker-compose logs webserver

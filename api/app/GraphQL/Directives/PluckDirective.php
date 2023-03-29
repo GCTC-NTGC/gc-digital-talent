@@ -13,7 +13,9 @@ final class PluckDirective extends BaseDirective implements ArgDirectiveForArray
 
     public static function definition(): string
     {
-        return /** @lang GraphQL */ <<<'GRAPHQL'
+        return
+            /** @lang GraphQL */
+            <<<'GRAPHQL'
 
 """
 Transforms an input field before resolving.

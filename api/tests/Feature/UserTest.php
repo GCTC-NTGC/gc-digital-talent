@@ -2796,7 +2796,8 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testNullFiltersEqualToUndefined(): void {
+    public function testNullFiltersEqualToUndefined(): void
+    {
         // Create users to test filters on
         User::factory(60)->create();
 

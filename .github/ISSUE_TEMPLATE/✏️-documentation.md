@@ -3,7 +3,7 @@ name: "✏️ Documentation"
 about: Updates or addition to the documentation
 title: "✏️ Documentation"
 labels: documentation
-assignees: ''
+assignees: ""
 ---
 
 ## ✏️ Documentation

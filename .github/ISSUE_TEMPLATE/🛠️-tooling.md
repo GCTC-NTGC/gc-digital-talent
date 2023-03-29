@@ -3,7 +3,7 @@ name: "🛠️ Tooling"
 about: Updates to the CI pipeline
 title: "🛠️ Tooling"
 labels: tooling
-assignees: ''
+assignees: ""
 ---
 
 ## 🛠️ Tooling

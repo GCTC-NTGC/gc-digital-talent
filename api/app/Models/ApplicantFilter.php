@@ -58,10 +58,10 @@ class ApplicantFilter extends Model
     public function getEquityAttribute()
     {
         return [
-            "is_woman"=>$this->is_woman,
-            "has_disability"=>$this->has_disability,
-            "is_indigenous"=>$this->is_indigenous,
-            "is_visible_minority"=>$this->is_visible_minority
+            "is_woman" => $this->is_woman,
+            "has_disability" => $this->has_disability,
+            "is_indigenous" => $this->is_indigenous,
+            "is_visible_minority" => $this->is_visible_minority
         ];
     }
 
