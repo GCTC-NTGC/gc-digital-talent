@@ -7093,10 +7093,6 @@
     "defaultMessage": "Étape 3 (Intro)",
     "description": "Breadcrumb link text for the application résumé introduction page"
   },
-  "IEYl//": {
-    "defaultMessage": "Étape 2 (ajouter de l’expérience)",
-    "description": "Breadcrumb link text for the application résumé add experience page"
-  },
   "IGR8Dw": {
     "defaultMessage": "Étape 2",
     "description": "Breadcrumb link text for the application profile page"
@@ -7144,5 +7140,17 @@
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
     "description": "Label for the application stepper navigation"
+  },
+  "8hnUdh": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Breadcrumb link text for the application résumé add experience page"
+  },
+  "WiUlEh": {
+    "defaultMessage": "Edit your experience",
+    "description": "Page title for the application résumé edit experience page"
+  },
+  "dTJT+y": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Breadcrumb link text for the application résumé edit experience page"
   }
 }
