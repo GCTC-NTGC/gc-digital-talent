@@ -21,8 +21,9 @@ import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
+import { useGetBasicApplicationInfoQuery } from "~/api/generated";
 
-import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
+import { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
 import { getPageInfo as profilePageInfo } from "./ApplicationProfilePage/ApplicationProfilePage";
 import { getPageInfo as resumeIntroductionPageInfo } from "./ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage";
@@ -36,7 +37,6 @@ import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuest
 import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
-import { useGetBasicApplicationInfoQuery } from "../../api/generated";
 
 type PageNavKey =
   | "welcome"
@@ -119,12 +119,6 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const currentStep = steps.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
-
-  console.log({
-    currentCrumbs,
-    currentPage,
-    currentStep,
-  });
 
   const crumbs = useBreadcrumbs([
     {
