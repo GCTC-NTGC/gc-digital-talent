@@ -48,7 +48,7 @@ const DirectivePage = () => {
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
-          <Heading Icon={MapIcon} size="h3">
+          <Heading Icon={MapIcon} size="h3" color="red">
             {intl.formatMessage({
               defaultMessage: "What is the Directive on Digital Talent?",
               id: "GdOQeo",
@@ -83,7 +83,7 @@ const DirectivePage = () => {
             })}
           </p>
           <p>
-            <ExternalLink type="button" color="primary" href="#">
+            <ExternalLink type="button" color="primary" mode="solid" href="#">
               {intl.formatMessage({
                 defaultMessage: "Read the directive",
                 id: "cKAuyx",
@@ -91,7 +91,7 @@ const DirectivePage = () => {
               })}
             </ExternalLink>
           </p>
-          <Heading Icon={ChartPieIcon} size="h3">
+          <Heading Icon={ChartPieIcon} size="h3" color="blue">
             {intl.formatMessage({
               defaultMessage: "Key components of the directive",
               id: "uxIN3Z",
@@ -204,7 +204,7 @@ const DirectivePage = () => {
               </Accordion.Item>
             </Accordion.Root>
           </div>
-          <Heading Icon={ChartPieIcon} size="h3">
+          <Heading Icon={ChartPieIcon} size="h3" color="purple">
             {intl.formatMessage({
               defaultMessage: "Complete your mandatory forms",
               id: "XVWN/C",
