@@ -8,8 +8,6 @@ import {
   Flourish,
 } from "@gc-digital-talent/ui";
 import BackgroundGraphic from "./BackgroundPattern";
-import CallToActionLink from "../CallToAction/CallToActionLink";
-import CallToActionButton from "../CallToAction/CallToActionButton";
 
 import "./hero.css";
 

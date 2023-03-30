@@ -1,8 +1,7 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { IntlShape } from "react-intl";
 
-import { Locales } from "@gc-digital-talent/i18n";
-import { CardFlatProps, CardLinkProps } from "@gc-digital-talent/ui";
+import { CardFlatProps } from "@gc-digital-talent/ui";
 
 interface GetFormLinkArgs {
   formName: React.ReactNode;
