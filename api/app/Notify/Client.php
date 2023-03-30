@@ -165,17 +165,17 @@ class Client
     {
         $payload = ['template_id' => $template];
 
-        if($type === "email") {
+        if ($type === "email") {
             $payload['email_address'] = $to;
-        } else if($type === "sms") {
+        } else if ($type === "sms") {
             $payload['phone_number'] = $to;
         }
 
-        if(count($personalisation)) {
+        if (count($personalisation)) {
             $payload['personalisation'] = $personalisation;
         }
 
-        if(!is_null($reference) && $reference !== '') {
+        if (!is_null($reference) && $reference !== '') {
             $payload['reference'] = $reference;
         }
 
@@ -197,11 +197,11 @@ class Client
 
         $payload = $this->buildPayload('email', $to, $template, $personalisation, $reference);
 
-        if(!is_null($replyTo) && $replyTo !== '') {
+        if (!is_null($replyTo) && $replyTo !== '') {
             $payload['email_reply_to_id'] = $replyTo;
         }
 
-        if(!is_null($attachment)) {
+        if (!is_null($attachment)) {
             $payload['personalisation']['attachment'] = $this->buildEmailAttachmentFile($attachment);
         }
 
@@ -221,7 +221,7 @@ class Client
     {
         $payload = $this->buildPayload('sms', $to, $template, $personalisation, $reference);
 
-        if(!is_null($sender) && $sender !== '') {
+        if (!is_null($sender) && $sender !== '') {
             $payload['sms_sender_id'] = $sender;
         }
 
@@ -246,14 +246,14 @@ class Client
             'rows' => $rows,
         ];
 
-        if(!is_null($scheduleFor)) {
-            if(!$scheduleFor->isFuture()) {
+        if (!is_null($scheduleFor)) {
+            if (!$scheduleFor->isFuture()) {
                 throw new NotFutureDateException("Schedule for date must be a date in the future.");
             }
             $payload['schedule_for'] = $scheduleFor->toIso8601String();
         }
 
-        if(!is_null($replyTo) && $replyTo !== '') {
+        if (!is_null($replyTo) && $replyTo !== '') {
             $payload['reply_to_id'] = $replyTo;
         }
 
@@ -275,14 +275,14 @@ class Client
 
         $normalizedRows = [['email address']];
 
-        if(isset($rows[0]['personalisation'])) {
+        if (isset($rows[0]['personalisation'])) {
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
         }
 
         $errors = [];
 
-        foreach($rows as $index => $row) {
-            if(!isset($row['email'])) {
+        foreach ($rows as $index => $row) {
+            if (!isset($row['email'])) {
                 $errors[] = $index + 1;
                 continue;
             }
@@ -293,7 +293,7 @@ class Client
             );
         }
 
-        if(!empty($errors)) {
+        if (!empty($errors)) {
             $errorString = implode(", ", $errors);
             throw new InvalidBulkRowDataException("Key 'email' not found in row(s) $errorString.");
         }
@@ -316,14 +316,14 @@ class Client
 
         $normalizedRows = [['phone number']];
 
-        if(isset($rows[0]['personalisation'])) {
+        if (isset($rows[0]['personalisation'])) {
             array_push($normalizedRows[0], ...$this->buildBulkPersonalisationHeaders($rows[0]['personalisation']));
         }
 
         $errors = [];
 
-        foreach($rows as $index => $row) {
-            if(!isset($row['phone_number'])) {
+        foreach ($rows as $index => $row) {
+            if (!isset($row['phone_number'])) {
                 $errors[] = $index + 1;
                 continue;
             }
@@ -334,7 +334,7 @@ class Client
             );
         }
 
-        if(!empty($errors)) {
+        if (!empty($errors)) {
             $errorString = implode(", ", $errors);
             throw new InvalidBulkRowDataException("Key 'phone_number' not found in row(s) $errorString.");
         }
@@ -352,11 +352,11 @@ class Client
     {
         $personalisationHeaders = [];
 
-        if(empty($personalisation)) {
+        if (empty($personalisation)) {
             throw new InvalidBulkRowDataException("No data found in personalisation key.");
         }
 
-        foreach($personalisation as $header => $value) {
+        foreach ($personalisation as $header => $value) {
             array_push($personalisationHeaders, $header);
         }
 
@@ -374,7 +374,7 @@ class Client
 
         $personalisationData = [];
 
-        foreach($personalisation as $value) {
+        foreach ($personalisation as $value) {
             array_push($personalisationData, $value);
         }
 
@@ -398,7 +398,7 @@ class Client
             'Accept' => 'application/json',
         ];
 
-        if(count($additionalHeaders)) {
+        if (count($additionalHeaders)) {
             $headers = array_merge($headers, $additionalHeaders);
         }
 
@@ -415,11 +415,11 @@ class Client
      */
     private function buildEmailAttachmentFile($attachment)
     {
-        if(!isset($attachment['filename']) || !isset($attachment['file'])) {
+        if (!isset($attachment['filename']) || !isset($attachment['file'])) {
             throw new EmailAttachmentException("Missing attachment filename or file.");
         }
 
-        if(base64_decode($attachment['file'], true) === false) {
+        if (base64_decode($attachment['file'], true) === false) {
             throw new EmailAttachmentException("Attachment file must be base64 encoded.");
         }
 

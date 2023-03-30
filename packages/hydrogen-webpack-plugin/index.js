@@ -5,7 +5,7 @@ const fs = require("fs");
 class HydrogenPlugin {
   static defaultOptions = {
     // Full path of the hydrogen output file
-    outputFile: './css/hydrogen.css',
+    outputFile: "./css/hydrogen.css",
   };
 
   constructor(options = {}) {
@@ -16,13 +16,15 @@ class HydrogenPlugin {
     const pluginName = HydrogenPlugin.name;
 
     compiler.hooks.invalid.tap(pluginName, () => {
-        shell.exec(`h2-build`);
-        var f = path.resolve(this.options.outputFile);
-        var now = Date.now() / 1000
-        var then = now - 100
-        fs.utimes(f, then, then, function (err) { if (err) throw err })
+      shell.exec(`h2-build`);
+      var f = path.resolve(this.options.outputFile);
+      var now = Date.now() / 1000;
+      var then = now - 100;
+      fs.utimes(f, then, then, function (err) {
+        if (err) throw err;
+      });
     });
   }
 }
 
-module.exports = HydrogenPlugin
+module.exports = HydrogenPlugin;

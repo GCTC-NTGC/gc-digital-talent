@@ -1,9 +1,18 @@
 describe("Support page", () => {
+  const name = "Test Person";
+  const email = "test@test.tld";
+  const details = "Test comments to send.";
+  const subject = "question";
 
-  const name = "Test Person"
-  const email = "test@test.tld"
-  const details = "Test comments to send."
-  const subject = "question"
+  context("Support page", () => {
+    it("should exist", () => {
+      cy.visit("/en/support");
+      cy.findByRole("heading", {
+        name: "Contact and support",
+        level: 1,
+      }).should("exist");
+    });
+  });
 
   context('Support page', () => {
     it('should exist', () => {
@@ -14,7 +23,7 @@ describe("Support page", () => {
     it('should have no accessibility errors', () => {
       cy.visit('/en/support');
       cy.injectAxe();
-      cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist')
+      cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist');
       cy.checkA11y();
     });
   })
@@ -29,13 +38,14 @@ describe("Support page", () => {
           name,
           email,
           details,
-          subject
+          subject,
         },
       }).then((response) => {
         // Note: normal to get a 500 status if the service (freshdesk) is not locally configured.
-        if (response.status === 404) // verify if route exists.
-          throw new Error("404: Not Found")
-      })
-    })
-  })
-})
+        if (response.status === 404)
+          // verify if route exists.
+          throw new Error("404: Not Found");
+      });
+    });
+  });
+});

@@ -3,7 +3,7 @@
 - Step by step testing instructions
 - At least one peer review acceptance
 - Chromatic testing by design
-- Definition of done checklist from issue template (eventually) 
+- Definition of done checklist from issue template (eventually)
 - If the route to a live page has been changed, a Permanent Redirect (301) has also been added to the nginx conf file
 - Build pipeline successful, including:
   - JavaScript linting
@@ -16,6 +16,5 @@
   - Security scans (eventually)
   - Visual regression testing (eventually)
   - Zero axe errors
-
 
 For more information about accessibility refer to the [accessibility guidelines](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/documentation/accessibility.md).

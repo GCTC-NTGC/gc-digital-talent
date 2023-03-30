@@ -30,8 +30,8 @@ class PoolCandidateFactory extends Factory
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
-                                                            $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
-                                                            ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
+                $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
+                ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory([
                 'published_at' => config('constants.past_date'),
@@ -52,13 +52,13 @@ class PoolCandidateFactory extends Factory
             $candidateId = $poolCandidate->id;
             $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
             $candidateStatus = $results[0]->pool_candidate_status;
-            if ($candidateStatus !='DRAFT' && $candidateStatus != 'DRAFT_EXPIRED'){
+            if ($candidateStatus != 'DRAFT' && $candidateStatus != 'DRAFT_EXPIRED') {
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
-                                'submitted_at' => $submittedDate,
-                                'signature' => $fakeSignature,
-                                ]);
+                    'submitted_at' => $submittedDate,
+                    'signature' => $fakeSignature,
+                ]);
             }
         });
     }

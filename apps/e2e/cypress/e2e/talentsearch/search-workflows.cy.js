@@ -74,14 +74,14 @@ describe("Talent Search Workflow Tests", () => {
             });
 
             cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
-              addRolesToUser(adminUserId, ['pool_operator'], dcm);
+              addRolesToUser(adminUserId, ["pool_operator"], dcm);
             });
 
             // create, update, and publish a new pool advertisement for testing matching
@@ -99,7 +99,7 @@ describe("Talent Search Workflow Tests", () => {
             cy.get("@testClassification2").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
-                teamId:dcmId,
+                teamId: dcmId,
                 englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
                 classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
@@ -114,8 +114,6 @@ describe("Talent Search Workflow Tests", () => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@publishedTestPoolAdvertisement1").then((poolAdvertisement) => {
-
-
           cy.createApplication(testUser.id, poolAdvertisement.id).then(
             (poolCandidate) => {
               cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
