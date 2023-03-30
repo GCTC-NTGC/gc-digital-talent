@@ -90,6 +90,16 @@ input ApplicantFilterInput {
   skills: [IdInput]
 }
 
+enum ApplicationStep {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
 enum ArmedForcesStatus {
   VETERAN
   MEMBER
@@ -225,11 +235,6 @@ input ConnectExperienceSkills {
   details: String
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -263,7 +268,7 @@ input CreatePoolAdvertisementInput {
 
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo!
+  user: UserBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
@@ -303,6 +308,11 @@ input CreatePoolInput {
   status: PoolStatus = NOT_TAKING_APPLICATIONS
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
 }
 
 input CreateSkillFamilyInput {
@@ -640,6 +650,7 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -795,6 +806,7 @@ type Pool {
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type PoolAdvertisement {
@@ -819,6 +831,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  screeningQuestions: [ScreeningQuestion]
 }
 
 enum PoolAdvertisementLanguage {
@@ -852,6 +865,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
+  submittedSteps: [ApplicationStep!]
 }
 
 type PoolCandidateFilter {
@@ -1172,6 +1186,13 @@ enum SalaryRange {
   _100K_PLUS
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement!
+  question: LocalizedString!
+  sortOrder: Int
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
@@ -1288,6 +1309,10 @@ enum Trashed {
 """128 bit universally unique identifier (UUID)"""
 scalar UUID
 
+input UpdateApplicationInput {
+  insertSubmittedStep: ApplicationStep
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1320,6 +1345,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1346,6 +1372,18 @@ input UpdatePoolInput {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input UpdateScreeningQuestionInput {
+  id: ID!
+  question: LocalizedStringInput
+  sortOrder: Int
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
 }
 
 input UpdateSkillFamilyInput {

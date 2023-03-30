@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Policies\UserPolicy;
@@ -13,6 +14,9 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\MocksResolvers;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertSame;
+use function PHPUnit\Framework\assertNotNull;
 
 class DirectivesTest extends TestCase
 {
@@ -171,8 +175,8 @@ class DirectivesTest extends TestCase
         });
 
         $this->schema =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         type PoolCandidate {
             id: ID
             user: User @belongsTo(relation: "user")
@@ -211,7 +215,8 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($admin)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $adminResponse = $this->actingAs($admin, 'api')->graphQL($query);
-        $adminResponse->assertJson(fn (AssertableJson $json) =>
+        $adminResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
@@ -223,7 +228,8 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($applicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $applicantResponse = $this->actingAs($applicant, 'api')->graphQL($query);
-        $applicantResponse->assertJson(fn (AssertableJson $json) =>
+        $applicantResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
@@ -234,10 +240,55 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($otherApplicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(false);
         $otherResponse = $this->actingAs($otherApplicant, 'api')->graphQL($query);
-        $otherResponse->assertJson(fn (AssertableJson $json) =>
+        $otherResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->where('data.user.poolCandidates', null)
                 ->where('errors.0.message', 'This action is unauthorized.')
                 ->etc()
         );
+    }
+
+    public function testInjectNow(): void
+    {
+
+        $this->mockResolver(function ($root, array $args) {
+            return $args["date"];
+        });
+
+        $this->schema =
+            /** @lang GraphQL */
+            '
+        input TestInput {
+            id: ID
+        }
+        type Query {
+            testQuery(t: TestInput): ID @mock
+        }
+        type Mutation {
+            testMutation(t: TestInput): ID @mock @injectNow(name: "date")
+        }
+        ';
+
+        $executionTime = Carbon::now();
+
+        $response = $this->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation testMutation($t: TestInput) {
+                testMutation(t: $t)
+            }
+        ',
+            [
+                't' => [
+                    'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+                ]
+            ]
+        );
+
+        $dateReturned = $response->json('data.testMutation');
+
+        // assert current datetime was injected and it is identical to the time recording before running the mutation, to the second
+        assertNotNull($dateReturned);
+        assertSame($dateReturned, $executionTime->toDateTimeString());
     }
 }

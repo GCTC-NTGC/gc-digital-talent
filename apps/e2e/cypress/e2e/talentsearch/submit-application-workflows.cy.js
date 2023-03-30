@@ -91,14 +91,14 @@ describe("Submit Application Workflow Tests", () => {
     });
 
     cy.get("@testUser").then((testUser) => {
-      addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+      addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
     });
 
     // fetch the dcmId for its team from database, needed for pool creation
     let dcmId;
     cy.getDCM().then((dcm) => {
       dcmId = dcm;
-    })
+    });
 
     cy.getMe()
       .its("id")

@@ -25,9 +25,9 @@ class RolePermissionSeeder extends Seeder
         $roleMap = $config['roles'];
         $seeders = $config['seeders'];
 
-        foreach($seeders as $roleKey => $resources) {
+        foreach ($seeders as $roleKey => $resources) {
             $roleArray = $roleMap[$roleKey];
-            if(!$roleArray) {
+            if (!$roleArray) {
                 $this->command->error("Role with key $roleKey does not exist in role map");
             }
 
@@ -49,27 +49,27 @@ class RolePermissionSeeder extends Seeder
 
             $permissions = [];
 
-            foreach($resources as $resourceKey => $scopes) {
+            foreach ($resources as $resourceKey => $scopes) {
                 $resource = $resourceMap[$resourceKey];
-                if(!$resource) {
+                if (!$resource) {
                     $this->command->error("Resource with key $resourceKey does not exist in resource map");
                 }
 
-                foreach($scopes as $scopeKey => $actions) {
+                foreach ($scopes as $scopeKey => $actions) {
                     $scope = $scopeMap[$scopeKey];
-                    if(!$scope) {
+                    if (!$scope) {
                         $this->command->error("Scope with key $scopeKey does not exist in scope map");
                     }
 
-                    foreach($actions as $actionKey) {
+                    foreach ($actions as $actionKey) {
                         $action = $actionMap[$actionKey];
-                        if(!$action) {
+                        if (!$action) {
                             $this->command->error("Action with key $actionKey does not exist in action map");
                         }
 
                         $permissionKey = "$action-$scope-$resource";
                         $permission = $permissionMap[$permissionKey];
-                        if(!$permission) {
+                        if (!$permission) {
                             $this->command->error("Action with key $permissionKey does not exist in permission map");
                         }
 

@@ -14,7 +14,9 @@ class CanOnParentDirective extends CanDirectiveOriginal
 {
     public static function definition(): string
     {
-        return /** @lang GraphQL */ <<<'GRAPHQL'
+        return
+            /** @lang GraphQL */
+            <<<'GRAPHQL'
 """
 Check a Laravel Policy to ensure the current user is authorized to access a field.
 

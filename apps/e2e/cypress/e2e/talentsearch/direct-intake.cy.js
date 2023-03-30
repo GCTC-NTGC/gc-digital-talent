@@ -7,17 +7,23 @@ describe("Talentsearch Direct Intake Page", () => {
     });
   });
 
-  context('Anonymous visitor', () => {
-    it('renders page', () => {
-      [
-        '/en/browse/pools',
-      ].forEach(restrictedPath => {
-        cy.visit(restrictedPath)
+  context("Anonymous visitor", () => {
+    it("renders page", () => {
+      ["/en/browse/pools"].forEach((restrictedPath) => {
+        cy.visit(restrictedPath);
         cy.wait("@gqlbrowsePoolAdvertisementsQuery");
         cy.findByRole("heading", { name: /browse i t jobs/i })
           .should("exist")
           .and("be.visible");
       })
+    })
+
+    it("has no accessibility errors", () => {
+      cy.visit('/en/browse/pools');
+      cy.wait("@gqlbrowsePoolAdvertisementsQuery");
+      cy.injectAxe();
+      cy.findByRole("heading", { name: /browse i t jobs/i }).should('exist');
+      cy.checkA11y()
     })
   });
 });

@@ -1182,7 +1182,11 @@ const createRoute = (
                   path: ":userId",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <UserLayout />
@@ -1193,7 +1197,11 @@ const createRoute = (
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UserInformationPage />

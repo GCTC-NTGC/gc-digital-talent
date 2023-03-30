@@ -129,8 +129,9 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated (orderBy: [
                   { column: "status_weight", order: ASC }
@@ -148,46 +149,48 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, ['where' => []])
             ->assertJson([
-            "data" => [
-                "poolCandidatesPaginated" => [
-                    "data" => [
-                        ["id" => $candidateFour->id,],
-                        ["id" => $candidateTwo->id,],
-                        ["id" => $candidateThree->id,],
-                        ["id" => $candidateFive->id,],
+                "data" => [
+                    "poolCandidatesPaginated" => [
+                        "data" => [
+                            ["id" => $candidateFour->id,],
+                            ["id" => $candidateTwo->id,],
+                            ["id" => $candidateThree->id,],
+                            ["id" => $candidateFive->id,],
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert that
         // PoolCandidates are filtered out by data on User, must have Diploma and be Woman
         // Candidate Four always precedes Candidate Five due to ORDERING
         $this->actingAs($this->teamUser, "api")
-            ->graphQL($query,
-            [
-                'where' => [
-                    'applicantFilter' => [
-                      'hasDiploma' => true,
-                      'equity' => [
-                          'isWoman' => true,
-                          'hasDisability' => false,
-                          'isIndigenous' => false,
-                          'isVisibleMinority' => false,
-                      ],
-                    ]
+            ->graphQL(
+                $query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'hasDiploma' => true,
+                            'equity' => [
+                                'isWoman' => true,
+                                'hasDisability' => false,
+                                'isIndigenous' => false,
+                                'isVisibleMinority' => false,
+                            ],
+                        ]
 
-                ]
-            ])->assertJson([
-            "data" => [
-                "poolCandidatesPaginated" => [
-                    "data" => [
-                        ["id" => $candidateFour->id,],
-                        ["id" => $candidateFive->id,],
                     ]
                 ]
-            ]
-        ]);
+            )->assertJson([
+                "data" => [
+                    "poolCandidatesPaginated" => [
+                        "data" => [
+                            ["id" => $candidateFour->id,],
+                            ["id" => $candidateFive->id,],
+                        ]
+                    ]
+                ]
+            ]);
     }
 
     public function testPoolCandidatesSearchExpiryFilter(): void
@@ -218,8 +221,9 @@ class PoolCandidateSearchTest extends TestCase
             'user_id' => User::factory()
         ]);
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated (
                   where: $where

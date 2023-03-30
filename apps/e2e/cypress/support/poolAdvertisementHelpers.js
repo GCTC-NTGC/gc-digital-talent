@@ -4,9 +4,7 @@ import {
   PublishingGroup,
   SecurityStatus,
 } from "@gc-digital-talent/web/src/api/generated";
-import {
-  FAR_FUTURE_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 export function createAndPublishPoolAdvertisement({
   adminUserId,
@@ -21,7 +19,9 @@ export function createAndPublishPoolAdvertisement({
         cy.log(skill);
         cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
           name: {
-            en: englishName ? englishName : `Cypress Test Pool EN ${Date.now().valueOf()}`,
+            en: englishName
+              ? englishName
+              : `Cypress Test Pool EN ${Date.now().valueOf()}`,
             fr: `Cypress Test Pool FR ${Date.now().valueOf()}`,
           },
           stream: PoolStream.BusinessAdvisoryServices,

@@ -86,9 +86,9 @@ class UserFactory extends Factory
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                    'COMPLETED_ENGLISH',
-                    'COMPLETED_FRENCH',
-                    ]) : 'NOT_COMPLETED',
+                'COMPLETED_ENGLISH',
+                'COMPLETED_FRENCH',
+            ]) : 'NOT_COMPLETED',
 
             'comprehension_level' => $hasBeenEvaluated ? $this->faker->randomElement(
                 $evaluatedLanguageAbility
@@ -144,7 +144,7 @@ class UserFactory extends Factory
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
-            'priority_number' => $hasPriorityEntitlement? $this->faker->word() : null,
+            'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
             // mirroring migration where isIndigenous = false maps to []
@@ -173,7 +173,7 @@ class UserFactory extends Factory
             WorkExperience::factory(),
         ];
         return $this->afterCreating(function (User $user) use ($types, $count) {
-            for($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 $type = $this->faker->randomElement($types);
                 $type->create([
                     'user_id' => $user->id,
@@ -194,7 +194,7 @@ class UserFactory extends Factory
                 $user->refresh();
             }
             // Tale $count random skills and assign each to a random experience of this user.
-            foreach(Skill::inRandomOrder()->take($count)->get() as $skill) {
+            foreach (Skill::inRandomOrder()->take($count)->get() as $skill) {
                 $experience = $this->faker->randomElement($user->experiences);
                 $experience->skills()->save($skill);
             }
