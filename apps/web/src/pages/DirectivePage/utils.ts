@@ -19,8 +19,8 @@ const getFormLinks = ({
     {
       label: intl.formatMessage(
         {
-          defaultMessage: "Download <hidden>{formName} </hidden>Form (EN)",
-          id: "cPhUHL",
+          defaultMessage: "Download <hidden>{formName} </hidden>form (EN)",
+          id: "YDJiAT",
           description: "Link text for an English form download",
         },
         { formName },
@@ -31,8 +31,8 @@ const getFormLinks = ({
     {
       label: intl.formatMessage(
         {
-          defaultMessage: "Download <hidden>{formName} </hidden>Form (FR)",
-          id: "W/CsjU",
+          defaultMessage: "Download <hidden>{formName} </hidden>form (FR)",
+          id: "000m9d",
           description: "Link text for an French form download",
         },
         { formName },

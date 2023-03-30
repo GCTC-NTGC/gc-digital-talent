@@ -59,8 +59,8 @@ const DirectivePage = () => {
   ]);
 
   const readDirectiveMessage = intl.formatMessage({
-    defaultMessage: "Read the directive",
-    id: "cKAuyx",
+    defaultMessage: "Read the Directive",
+    id: "RDAVsP",
     description: "Link text to read the entire directive.",
   });
 
