@@ -112,9 +112,8 @@ const RemoveTeamRoleDialog = ({
               {
                 defaultMessage:
                   "From the following team: <strong>{teamDisplayName}</strong>",
-                id: "sriBTQ",
-                description:
-                  "Follow in text for the remove team role from user dialog",
+                id: "86qwfg",
+                description: "Follow in text for the team being updated",
               },
               { teamDisplayName },
             )}

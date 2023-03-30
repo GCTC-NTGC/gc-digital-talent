@@ -46,8 +46,8 @@ const EditTeamRoleDialog = ({
 }: EditTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
-  const teamName = getLocalizedName(team.displayName, intl);
+  const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const teamDisplayName = getLocalizedName(team.displayName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -99,7 +99,7 @@ const EditTeamRoleDialog = ({
       description: "Label for the form to edit a users team membership",
     },
     {
-      userName,
+      userName: userDisplayName,
     },
   );
 
@@ -125,22 +125,22 @@ const EditTeamRoleDialog = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "You are about to update roles for the following user: <strong>{userName}</strong>",
-                id: "r/d2Kh",
+                  "You are about to update roles for the following user: <strong>{userDisplayName}</strong>",
+                id: "jfED66",
                 description: "Lead in text for the add role to user form.",
               },
-              { userName },
+              { userDisplayName },
             )}
           </p>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "From the following team: <strong>{teamName}</strong>",
-                id: "Nn+g0P",
-                description: "Follow up text for the add role to user form.",
+                  "From the following team: <strong>{teamDisplayName}</strong>",
+                id: "86qwfg",
+                description: "Follow in text for the team being updated",
               },
-              { teamName },
+              { teamDisplayName },
             )}
           </p>
           <FormProvider {...methods}>
