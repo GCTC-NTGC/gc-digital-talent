@@ -8,6 +8,8 @@ import {
   Flourish,
 } from "@gc-digital-talent/ui";
 import BackgroundGraphic from "./BackgroundPattern";
+import CallToActionLink from "../CallToAction/CallToActionLink";
+import CallToActionButton from "../CallToAction/CallToActionButton";
 
 import "./hero.css";
 
@@ -40,6 +42,7 @@ export interface HeroProps {
   crumbs?: BreadcrumbsProps["crumbs"];
   children?: React.ReactNode;
   centered?: boolean;
+  linkSlot?: React.ReactNode;
 }
 
 const Hero = ({
@@ -48,6 +51,7 @@ const Hero = ({
   subtitle,
   crumbs,
   children,
+  linkSlot,
   centered = false,
 }: HeroProps) => {
   const headingRef = React.useRef<HeadingRef>(null);
@@ -147,6 +151,18 @@ const Hero = ({
               >
                 {subtitle}
               </p>
+            )}
+            {linkSlot && (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(flex-start)"
+                data-h2-margin="base(x1.5, 0, 0, 0)"
+                data-h2-gap="base(x1)"
+                data-h2-justify-content="base(center) p-tablet(flex-start)"
+                data-h2-flex-wrap="base(wrap) p-tablet(initial)"
+              >
+                {linkSlot}
+              </div>
             )}
           </div>
         </div>

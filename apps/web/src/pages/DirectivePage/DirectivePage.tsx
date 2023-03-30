@@ -1,6 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { MapIcon, ChartPieIcon } from "@heroicons/react/24/outline";
+import {
+  MapIcon,
+  ChartPieIcon,
+  NewspaperIcon,
+  MagnifyingGlassCircleIcon,
+} from "@heroicons/react/24/outline";
 
 import {
   Heading,
@@ -11,6 +16,7 @@ import {
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
+import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -31,6 +37,13 @@ const DirectivePage = () => {
       url: paths.directive(),
     },
   ]);
+
+  const readDirectiveMessage = intl.formatMessage({
+    defaultMessage: "Read the directive",
+    id: "cKAuyx",
+    description: "Link text to read the entire directive.",
+  });
+
   return (
     <>
       <Hero
@@ -42,6 +55,24 @@ const DirectivePage = () => {
           description: "Subtitle for the digital talent directive page",
         })}
         crumbs={crumbs}
+        linkSlot={
+          <>
+            <CallToActionLink href="#" color="quaternary" Icon={NewspaperIcon}>
+              {readDirectiveMessage}
+            </CallToActionLink>
+            <CallToActionLink
+              href="#"
+              color="secondary"
+              Icon={MagnifyingGlassCircleIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Find talent",
+                id: "NKr2Rg",
+                description: "Link text for find talent (search) page",
+              })}
+            </CallToActionLink>
+          </>
+        }
       />
       <div data-h2-padding="base(x3, 0)">
         <div
@@ -84,11 +115,7 @@ const DirectivePage = () => {
           </p>
           <p>
             <ExternalLink type="button" color="primary" mode="solid" href="#">
-              {intl.formatMessage({
-                defaultMessage: "Read the directive",
-                id: "cKAuyx",
-                description: "Link text to read the entire directive.",
-              })}
+              {readDirectiveMessage}
             </ExternalLink>
           </p>
           <Heading Icon={ChartPieIcon} size="h3" color="blue">
