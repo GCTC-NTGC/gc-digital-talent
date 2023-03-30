@@ -13,16 +13,33 @@ import {
   Accordion,
   CardFlat,
 } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
+const policyLink = (locale: Locales, chunks: React.ReactNode) => (
+  <ExternalLink
+    newTab
+    href={
+      locale === "en"
+        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32603"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32603"
+    }
+  >
+    {chunks}
+  </ExternalLink>
+);
+
+const contactLink = (chunks: React.ReactNode) => (
+  <a href="mailto:GCTalentGC@tbs-sct.gc.ca">{chunks}</a>
+);
+
 const DirectivePage = () => {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({
@@ -61,7 +78,7 @@ const DirectivePage = () => {
               {readDirectiveMessage}
             </CallToActionLink>
             <CallToActionLink
-              href="#"
+              href={paths.search()}
               color="secondary"
               Icon={MagnifyingGlassCircleIcon}
             >
@@ -87,13 +104,19 @@ const DirectivePage = () => {
             })}
           </Heading>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "The Directive on Digital Talent was introduced on April 1, 2023, under the authorities in the Policy on Service and Digital. It focuses on data collection, planning, and interdepartmental coordination in an effort to improve talent sourcing and talent management outcomes across the GC digital community.",
-              id: "zccwvF",
-              description:
-                "First paragraph describing the directive on digital talent",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "The Directive on Digital Talent was introduced on April 1, 2023, under the authorities in the <policyLink>Policy on Service and Digital</policyLink>. It focuses on data collection, planning, and interdepartmental coordination in an effort to improve talent sourcing and talent management outcomes across the GC digital community.",
+                id: "k4Rl18",
+                description:
+                  "First paragraph describing the directive on digital talent",
+              },
+              {
+                policyLink: (chunks: React.ReactNode) =>
+                  policyLink(locale, chunks),
+              },
+            )}
           </p>
           <p>
             {intl.formatMessage({
@@ -105,13 +128,18 @@ const DirectivePage = () => {
             })}
           </p>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Want to coordinate a presentation for your department? Contact us.",
-              id: "hwEVqS",
-              description:
-                "Third paragraph describing the directive on digital talent",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Want to coordinate a presentation for your department? <contactLink>Contact us</contactLink>.",
+                id: "TmDejD",
+                description:
+                  "Third paragraph describing the directive on digital talent",
+              },
+              {
+                contactLink,
+              },
+            )}
           </p>
           <p>
             <ExternalLink type="button" color="primary" mode="solid" href="#">
@@ -120,10 +148,10 @@ const DirectivePage = () => {
           </p>
           <Heading Icon={ChartPieIcon} size="h3" color="blue">
             {intl.formatMessage({
-              defaultMessage: "Key components of the directive",
-              id: "uxIN3Z",
+              defaultMessage: "Key components",
+              id: "joXPYW",
               description:
-                "Heading for section describing the different components of the directive",
+                "Heading for section describing the different components",
             })}
           </Heading>
           <div data-h2-margin="base(x2, 0)">
@@ -161,8 +189,9 @@ const DirectivePage = () => {
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
-                      defaultMessage: "...",
-                      id: "Oz/LcD",
+                      defaultMessage:
+                        "The Directive on Digital Talent provides addition clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It aims to provide practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
+                      id: "Vi+Hk0",
                       description:
                         "The directives digital talent and sourcing component",
                     })}
@@ -181,8 +210,9 @@ const DirectivePage = () => {
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
-                      defaultMessage: "...",
-                      id: "nPAtt1",
+                      defaultMessage:
+                        "The Directive on Digital Talent introduces steps for enhanced interdepartmental coordination on talent development and upskilling, as well as steps to improve equity advancement. The intention of the Directive is to approach the GC digital talent as a cohesive and evolving community.",
+                      id: "hBVKqk",
                       description:
                         "The directives digital talent and development component",
                     })}
@@ -201,8 +231,9 @@ const DirectivePage = () => {
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
-                      defaultMessage: "...",
-                      id: "pgKS6I",
+                      defaultMessage:
+                        "The Directive on Digital Talent provides clarification on existing Policy on Service and Digital requirements related to CIO appointments and talent management. The intention is to continue to advance support for executive career pathways, with a focus on modern digital government service delivery.",
+                      id: "Z9xByk",
                       description:
                         "The directives digital executive roles and structures component",
                     })}
@@ -221,8 +252,9 @@ const DirectivePage = () => {
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
-                      defaultMessage: "...",
-                      id: "/QN/i6",
+                      defaultMessage:
+                        "The Directive on Digital Talent provides clarification that departments are expected to use flexibilities and best practices that exist in various policy instruments to ensure that there is a strong, sustainable talent base, including a focus on hiring.",
+                      id: "/BWol9",
                       description:
                         "The directives digital enabling conditions component",
                     })}
@@ -248,8 +280,8 @@ const DirectivePage = () => {
             <CardFlat
               color="yellow"
               title={intl.formatMessage({
-                defaultMessage: "Department-specific Recruitment Form",
-                id: "Get6gb",
+                defaultMessage: "Department-Specific Recruitment Form",
+                id: "x0SRaQ",
                 description:
                   "Heading for the department-specific recruitment form",
               })}
@@ -257,8 +289,8 @@ const DirectivePage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Mandatory reporting. This is now required when you want to run a recruitment for digital talent that will create a pool of candidates. No extra approvals – just let us know what you're planning!",
-                  id: "WjyU29",
+                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a recruitment for digital talent that will create a pool of candidates. No extra approvals - just let us know what you're planning!",
+                  id: "0DILS7",
                   description:
                     "Description for the department-specific recruitment form",
                 })}
@@ -276,8 +308,8 @@ const DirectivePage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Mandatory reporting. This is now required when you want to run a procurement process for digital talent, especially if you're planning to contract because you're having trouble finding the right talent to hire. No extra approvals – just let us know what you're planning!",
-                  id: "oHCw55",
+                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a procurement process for digital talent, especially if you’re planning to contract because you’re having trouble finding the right talent to hire. No extra approvals - just let us know what you're planning!",
+                  id: "fpdcE/",
                   description:
                     "Description for the digital Services contracting form",
                 })}
@@ -294,8 +326,8 @@ const DirectivePage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Mandatory reporting. This is now required when you plan a new or expanded digital initiative that will add 10 or more full-time equivalent positions to your department. We want to help make sure that fully qualified, ready-to-hire talent is there when you need it.",
-                  id: "6UMVOJ",
+                    "<strong>Mandatory reporting</strong>. This is now required when you plan a new or expanded digital initiative that will add 10 or more full-time equivalent positions to your department. We want to help make sure that fully qualified, ready-to-hire talent is there when you need it.",
+                  id: "ydjXm7",
                   description: "Description for the forward talent plan form",
                 })}
               </p>
