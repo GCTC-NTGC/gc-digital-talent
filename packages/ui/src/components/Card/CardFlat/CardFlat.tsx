@@ -8,7 +8,11 @@ export interface CardFlatProps {
   color: CardColor;
   title: React.ReactNode;
   children?: React.ReactNode;
-  links?: Array<Omit<CardFlatLinkProps, "color">>;
+  links?: Array<
+    Omit<CardFlatLinkProps, "color"> & {
+      [key: `data-${string}`]: unknown;
+    }
+  >;
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {

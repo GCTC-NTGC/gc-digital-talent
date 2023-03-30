@@ -27,6 +27,7 @@ const getFormLinks = ({
       ),
       href: files.en,
       mode: intl.locale === "en" ? "solid" : "inline",
+      "data-h2-padding": "base(x.5, x1)",
     },
     {
       label: intl.formatMessage(
@@ -39,6 +40,7 @@ const getFormLinks = ({
       ),
       href: files.fr,
       mode: intl.locale === "en" ? "inline" : "solid",
+      "data-h2-padding": "base(x.5, x1)",
     },
   ];
 
