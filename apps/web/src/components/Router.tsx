@@ -1051,7 +1051,7 @@ const createRoute = (
                               element: <ApplicationResumeAddPage />,
                             },
                             {
-                              path: ":experienceId/edit",
+                              path: ":experienceId",
                               element: <ApplicationResumeEditPage />,
                             },
                           ],
