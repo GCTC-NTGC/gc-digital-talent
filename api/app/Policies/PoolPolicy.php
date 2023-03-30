@@ -34,6 +34,12 @@ class PoolPolicy
      */
     public function view(User $user, Pool $pool)
     {
+        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
+
+        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
+            return true;
+        }
+
         $pool->loadMissing('team');
         return $user->isAbleTo("view-any-pool") || $user->isAbleTo("view-team-pool", $pool->team);
     }

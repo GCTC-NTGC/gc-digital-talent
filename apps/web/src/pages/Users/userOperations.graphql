@@ -47,7 +47,7 @@ query User($id: UUID!) {
 }
 
 query UserName($userId: UUID!) {
-  user(id: $userId) {
+  applicant(id: $userId) {
     id
     firstName
     lastName

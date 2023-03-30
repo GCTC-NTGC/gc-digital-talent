@@ -81,8 +81,8 @@ const ThemeDecorator = (
   const showDark = hasDarkMode && isChromatic();
   const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
 
-  if(key === "fallback") {
-    key = parameters.themeKey || "default"
+  if (key === "fallback") {
+    key = parameters.themeKey || "default";
   }
 
   return showDark ? (

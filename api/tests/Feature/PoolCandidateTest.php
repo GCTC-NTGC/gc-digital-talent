@@ -24,7 +24,8 @@ class PoolCandidateTest extends TestCase
     protected $teamName = "application-test-team";
     protected $pool;
 
-    protected $countQuery = /** @lang GraphQL */
+    protected $countQuery =
+    /** @lang GraphQL */
     '
         query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)

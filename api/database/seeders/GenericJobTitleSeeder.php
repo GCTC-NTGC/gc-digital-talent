@@ -16,7 +16,7 @@ class GenericJobTitleSeeder extends Seeder
      */
     public function run()
     {
-      $genericJobTitles = [
+        $genericJobTitles = [
             [
                 'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
                 'name' => [
@@ -61,7 +61,7 @@ class GenericJobTitleSeeder extends Seeder
                 'classification' => [
                     'group' => 'IT',
                     'level' => 3,
-                    ],
+                ],
             ],
             [
                 'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
@@ -91,12 +91,12 @@ class GenericJobTitleSeeder extends Seeder
 
         foreach ($genericJobTitles as $genericJobTitle) {
             $identifier = [
-               'key' => $genericJobTitle['key'],
+                'key' => $genericJobTitle['key'],
             ];
             $classificationId = Classification::where([
-                    'group' => $genericJobTitle['classification']['group'],
-                    'level' => $genericJobTitle['classification']['level']
-                ])->first()->id;
+                'group' => $genericJobTitle['classification']['group'],
+                'level' => $genericJobTitle['classification']['level']
+            ])->first()->id;
 
             $finalValue = array_merge($genericJobTitle, ['classification_id' => $classificationId]);
             unset($finalValue['classification']);
@@ -104,4 +104,3 @@ class GenericJobTitleSeeder extends Seeder
         }
     }
 }
-

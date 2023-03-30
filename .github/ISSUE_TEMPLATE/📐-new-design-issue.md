@@ -3,8 +3,7 @@ name: "\U0001F4D0 New design issue"
 about: An issue template to help kickstart a design-related task.
 title: "\U0001F4D0 Generic design issue"
 labels: design, updates in progress
-assignees: ''
-
+assignees: ""
 ---
 
 # ⚙️ Summary
