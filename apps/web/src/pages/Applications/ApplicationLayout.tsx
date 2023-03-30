@@ -157,7 +157,6 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
               })}
               currentIndex={currentStep}
               steps={steps}
-              preventDisable
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
