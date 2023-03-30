@@ -112,7 +112,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             links={[
               {
                 label: intl.formatMessage(adminMenuMessages.pools),
-                href: adminRoutes.allPools(),
+                href: adminRoutes.poolTable(),
                 icon: Squares2X2Icon,
               },
               {
