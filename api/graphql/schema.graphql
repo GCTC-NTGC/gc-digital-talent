@@ -444,6 +444,16 @@ enum PublishingGroup {
   OTHER
 }
 
+enum ApplicationStep {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
@@ -466,6 +476,7 @@ type PoolCandidate {
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
+  submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
 }
 
 enum LanguageAbility {
@@ -1638,6 +1649,10 @@ input RoleAssignmentHasMany {
   detach: RolesInput
   sync: RolesInput
 }
+input UpdateApplicationInput {
+  # can only connect a step, not disconnect or sync
+  insertSubmittedStep: ApplicationStep
+}
 
 type Mutation {
   createUser(user: CreateUserInput! @spread): User
@@ -1670,7 +1685,7 @@ type Mutation {
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @update @guard @can(ability: "update", find: "id")
+  ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
   deletePoolCandidate(id: ID!): PoolCandidate
     @delete(globalId: false)
     @guard
@@ -1858,6 +1873,10 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
     @can(ability: "submit", find: "id")
+  updateApplication(id: ID!, application: UpdateApplicationInput! @spread): PoolCandidate
+    @update(model: "PoolCandidate")
+    @guard
+    @can(ability: "update", find: "id", model: "PoolCandidate")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team

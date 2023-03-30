@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -40,6 +39,11 @@ class PoolCandidateFactory extends Factory
             'submitted_at' => null,
             'suspended_at' => null,
             'signature' => null,
+            'submitted_steps' => array_slice(
+                ApiEnums::applicationSteps(),
+                0,
+                $this->faker->numberBetween(0, count(ApiEnums::applicationSteps()) - 1)
+            )
         ];
     }
 
@@ -74,6 +78,7 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+                'submitted_steps' => ApiEnums::applicationSteps(),
             ];
         });
     }
@@ -89,7 +94,8 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now')
+                'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
+                'submitted_steps' => ApiEnums::applicationSteps(),
             ];
         });
     }

@@ -262,6 +262,10 @@ return [
             'en' => 'Begin my own Application to any Pool',
             'fr' => 'Créer sa propre candidature provisoire'
         ],
+        'update-own-draftApplication' => [
+            'en' => 'Update my own draft Application',
+            'fr' => 'Mise à jour de mon candidature provisoire'
+        ],
         'submit-own-application' => [
             'en' => 'Submit my own Application',
             'fr' => 'Soumettre ma propre candidature'
@@ -545,7 +549,7 @@ return [
                 'own' => ['view', 'submit']
             ],
             'draftApplication' => [
-                'own' => ['create', 'delete']
+                'own' => ['create', 'delete', 'update']
             ],
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
