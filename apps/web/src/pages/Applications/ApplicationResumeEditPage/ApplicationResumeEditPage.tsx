@@ -26,10 +26,18 @@ export const getPageInfo: GetApplicationPageInfo = ({
     omitFromStepper: true,
     crumbs: [
       {
+        url: paths.applicationResume(application.id),
+        label: intl.formatMessage({
+          defaultMessage: "Step 3",
+          id: "khjfel",
+          description: "Breadcrumb link text for the application résumé page",
+        }),
+      },
+      {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Step 2 (Edit experience)",
-          id: "iFUbxh",
+          defaultMessage: "Edit Experience",
+          id: "dTJT+y",
           description:
             "Breadcrumb link text for the application résumé edit experience page",
         }),

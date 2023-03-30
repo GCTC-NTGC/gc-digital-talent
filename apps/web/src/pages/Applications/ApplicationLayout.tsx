@@ -75,6 +75,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const pages = new Map<PageNavKey, ApplicationPageInfo>([
     ["welcome", welcomePageInfo({ paths, intl, application })],
     ["profile", profilePageInfo({ paths, intl, application })],
+    ["resume", resumePageInfo({ paths, intl, application })],
     ["resume-intro", resumeIntroductionPageInfo({ paths, intl, application })],
     ["resume-add", resumeAddPageInfo({ paths, intl, application })],
     [
@@ -86,15 +87,14 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
         resourceId: experienceId,
       }),
     ],
-    ["resume", resumePageInfo({ paths, intl, application })],
     ["education", educationPageInfo({ paths, intl, application })],
-    ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
     ["skills", skillsPageInfo({ paths, intl, application })],
+    ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
+    ["questions", questionsPageInfo({ paths, intl, application })],
     [
       "questions-intro",
       questionsIntroductionPageInfo({ paths, intl, application }),
     ],
-    ["questions", questionsPageInfo({ paths, intl, application })],
     ["review", reviewPageInfo({ paths, intl, application })],
     ["success", successPageInfo({ paths, intl, application })],
   ]);
@@ -119,6 +119,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const currentStep = steps.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
+
+  console.log({
+    currentCrumbs,
+    currentPage,
+    currentStep,
+  });
 
   const crumbs = useBreadcrumbs([
     {
