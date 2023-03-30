@@ -1003,7 +1003,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   path: ":userId",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <UserLayout />
@@ -1014,7 +1018,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       index: true,
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.RequestResponder,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UserInformationPage />

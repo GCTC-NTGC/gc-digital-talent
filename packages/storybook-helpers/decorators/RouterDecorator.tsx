@@ -20,7 +20,7 @@ const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
     defaultPath
       ? {
           initialEntries: defaultPath.initialEntries,
-          initialIndex: 0
+          initialIndex: 0,
         }
       : undefined,
   );

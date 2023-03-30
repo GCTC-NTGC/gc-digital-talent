@@ -10,7 +10,7 @@ generates:
       - typescript-operations
       - typescript-urql
     config:
-      content: '/* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */'
+      content: "/* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */"
       scalars:
         Date: string
         DateTime: string

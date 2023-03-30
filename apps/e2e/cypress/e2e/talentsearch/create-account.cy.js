@@ -27,7 +27,9 @@ describe("Create account tests", () => {
     cy.findByRole("textbox", { name: /Last Name/i }).then((textbox) => {
       cy.wrap(textbox).type(uniqueTestId);
     });
-    cy.findByRole("textbox", { name: /Which email do you like to be contacted at/i }).then((textbox) => {
+    cy.findByRole("textbox", {
+      name: /Which email do you like to be contacted at/i,
+    }).then((textbox) => {
       cy.wrap(textbox).type(`cypress-${uniqueTestId}@example.org`);
     });
     cy.findByRole("group", {
