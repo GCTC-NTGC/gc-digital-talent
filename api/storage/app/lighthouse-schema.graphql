@@ -300,6 +300,11 @@ input CreatePoolInput {
   publishingGroup: PublishingGroup
 }
 
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
   name: LocalizedStringInput!
@@ -790,6 +795,7 @@ type Pool {
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type PoolAdvertisement {
@@ -814,6 +820,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  screeningQuestions: [ScreeningQuestion]
 }
 
 enum PoolAdvertisementLanguage {
@@ -1167,6 +1174,13 @@ enum SalaryRange {
   _100K_PLUS
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement!
+  question: LocalizedString!
+  sortOrder: Int
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
@@ -1315,6 +1329,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1341,6 +1356,18 @@ input UpdatePoolInput {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input UpdateScreeningQuestionInput {
+  id: ID!
+  question: LocalizedStringInput
+  sortOrder: Int
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
 }
 
 input UpdateSkillFamilyInput {

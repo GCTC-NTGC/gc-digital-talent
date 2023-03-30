@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
@@ -64,6 +65,15 @@ class PoolFactory extends Factory
                 $pool->stream = $this->faker->randomElement(ApiEnums::poolStreams());
                 $pool->save();
             }
+
+            ScreeningQuestion::factory()
+                ->count(3)
+                ->sequence(
+                    ['sort_order' => 1],
+                    ['sort_order' => 2],
+                    ['sort_order' => 3],
+                )
+                ->create(['pool_id' => $pool->id]);
         });
     }
 }

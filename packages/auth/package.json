@@ -23,6 +23,7 @@
   "dependencies": {
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/graphql": "*",
+    "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/logger": "*",
     "@gc-digital-talent/ui": "*",

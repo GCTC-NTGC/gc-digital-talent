@@ -3568,10 +3568,6 @@
     "defaultMessage": "Accueil",
     "description": "Title for homepage on the talent cloud admin portal."
   },
-  "7B+1RO": {
-    "defaultMessage": "Sur cette page, vous pouvez trouver une liste des bassins actifs avec quelques détails sur leur statut.",
-    "description": "Description of the content found on the admin portal dashboard page."
-  },
   "8Y+eEc": {
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
     "description": "First section of text on the add user to pool dialog"
@@ -3595,10 +3591,6 @@
   "BnSa6Y": {
     "defaultMessage": "Échec de la mise à jour du statut",
     "description": "Toast for failed status update on view-user page"
-  },
-  "Bvj3zI": {
-    "defaultMessage": "Gérer les demandes",
-    "description": "Text label for link to requests page on admin dashboard"
   },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -3656,10 +3648,6 @@
     "defaultMessage": "Ministères",
     "description": "Label displayed on the departments menu item."
   },
-  "HgQThJ": {
-    "defaultMessage": "Gérer les bassins",
-    "description": "Text label for link to pools page on admin dashboard"
-  },
   "HrXZ6X": {
     "defaultMessage": "Autochtone",
     "description": "Text on view-user page that the user is indigenous"
@@ -3707,10 +3695,6 @@
   "TxEV7S": {
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
-  },
-  "U5HvOH": {
-    "defaultMessage": "Gérer les utilisateurs",
-    "description": "Text label for link to users page on admin dashboard"
   },
   "UC+4MX": {
     "defaultMessage": "Compétences",
@@ -6980,5 +6964,37 @@
   "LRZeax": {
     "defaultMessage": "Mon tableau de bord",
     "description": "Label displayed on the applicant dashboard menu item."
+  },
+  "293bsq": {
+    "defaultMessage": "Gestion d’un processus de recrutement",
+    "description": "Heading for pool operator dashboard links"
+  },
+  "7nxtBm": {
+    "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
+    "description": "Subtitle for the admin dashboard page"
+  },
+  "N3uD4m": {
+    "defaultMessage": "Mes équipes",
+    "description": "Link text for current users teams page"
+  },
+  "hxaIWa": {
+    "defaultMessage": "Ministères et organismes",
+    "description": "Link text for all departments page"
+  },
+  "ijUT7N": {
+    "defaultMessage": "Réponse aux demandes en matière de talents",
+    "description": "Heading for request responder dashboard links"
+  },
+  "ipSk4R": {
+    "defaultMessage": "Maintenance de la plateforme",
+    "description": "Heading for platform dashboard links"
+  },
+  "m4hoPL": {
+    "defaultMessage": "Groupes et classifications",
+    "description": "Link text for all classifications page"
+  },
+  "wHnGAK": {
+    "defaultMessage": "Sur quoi travaillez-vous aujourd’hui?",
+    "description": "Heading for the sections of links available to the current user"
   }
 }

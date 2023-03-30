@@ -6,7 +6,7 @@ describe("Admin Workflow Tests", () => {
     cy.visit("/en/admin");
 
     // make sure we end up on the dashboard
-    cy.findByRole("heading", { name: /Welcome back/i })
+    cy.findByRole("heading", { name: /welcome back/i })
       .should("exist")
       .and("be.visible");
     cy.url().should("contain", "/dashboard");
@@ -37,7 +37,7 @@ describe("Admin Workflow Tests", () => {
 
   it("Searches for a user and reviews the profile", () => {
     // find the applicant user to review
-    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.findAllByRole("link", { name: /users/i }).eq(0).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
     searchForUser("Applicant", "applicant@test.com");
@@ -67,7 +67,7 @@ describe("Admin Workflow Tests", () => {
 
   it("Searches for a user and edits the phone number", () => {
     // find the applicant user to edit
-    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.findAllByRole("link", { name: /users/i }).eq(0).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
@@ -107,7 +107,7 @@ describe("Admin Workflow Tests", () => {
   });
 
   it("Selects a user and downloads a CSV", () => {
-    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.findAllByRole("link", { name: /users/i }).eq(0).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
     searchForUser("Applicant", "applicant@test.com");
@@ -127,7 +127,7 @@ describe("Admin Workflow Tests", () => {
 
   it("Opens filter dialog and triggers GraphQL query", () => {
     // find the applicant user to review
-    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.findAllByRole("link", { name: /users/i }).eq(0).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
     cy.findByRole("button", { name: /filters/i }).click();
