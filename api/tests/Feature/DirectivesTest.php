@@ -175,8 +175,8 @@ class DirectivesTest extends TestCase
         });
 
         $this->schema =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         type PoolCandidate {
             id: ID
             user: User @belongsTo(relation: "user")
@@ -215,7 +215,8 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($admin)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $adminResponse = $this->actingAs($admin, 'api')->graphQL($query);
-        $adminResponse->assertJson(fn (AssertableJson $json) =>
+        $adminResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
@@ -227,7 +228,8 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($applicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(true);
         $applicantResponse = $this->actingAs($applicant, 'api')->graphQL($query);
-        $applicantResponse->assertJson(fn (AssertableJson $json) =>
+        $applicantResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
@@ -238,14 +240,16 @@ class DirectivesTest extends TestCase
             ->with(Mockery::on($isUser($otherApplicant)), (Mockery::on($isUser($applicant))))
             ->andReturn(false);
         $otherResponse = $this->actingAs($otherApplicant, 'api')->graphQL($query);
-        $otherResponse->assertJson(fn (AssertableJson $json) =>
+        $otherResponse->assertJson(
+            fn (AssertableJson $json) =>
             $json->where('data.user.poolCandidates', null)
                 ->where('errors.0.message', 'This action is unauthorized.')
                 ->etc()
         );
     }
 
-    public function testInjectNow(): void {
+    public function testInjectNow(): void
+    {
 
         $this->mockResolver(function ($root, array $args) {
             return $args["date"];

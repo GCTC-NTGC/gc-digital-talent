@@ -14,9 +14,11 @@ import {
 
 import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import adminMenuMessages from "~/messages/adminMenuMessages";
+import { checkRole } from "~/utils/teamUtils";
+
 import LoginOrLogout from "./LoginOrLogout";
 
 export interface AdminSideMenuProps {
@@ -24,31 +26,6 @@ export interface AdminSideMenuProps {
   onToggle: () => void;
   onDismiss: () => void;
 }
-
-/**
- * Check to see if user contains one or more roles
- *
- * @param checkRoles              Roles to check for
- * @param userRoleAssignments     Users current role assignments
- * @returns boolean
- */
-const checkRole = (
-  checkRoles: RoleName[] | null,
-  userRoleAssignments: Maybe<RoleAssignment[]>,
-): boolean => {
-  if (!checkRoles) {
-    return true;
-  }
-  const visible = checkRoles.reduce((prev, curr) => {
-    if (userRoleAssignments?.map((a) => a.role?.name)?.includes(curr)) {
-      return true;
-    }
-
-    return prev;
-  }, false);
-
-  return visible;
-};
 
 const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
   const intl = useIntl();
@@ -72,99 +49,63 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
         ROLE_NAME.RequestResponder,
         ROLE_NAME.PlatformAdmin,
       ],
-      text: intl.formatMessage({
-        defaultMessage: "Dashboard",
-        id: "ZDmkKD",
-        description: "Label displayed on the dashboard menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.dashboard),
     },
     {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator],
-      text: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "wCBE9S",
-        description: "Label displayed on the Pools menu item.",
-      }),
+      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      text: intl.formatMessage(adminMenuMessages.pools),
     },
     {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "154pGu",
-        description: "Label displayed on the Users menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.users),
     },
     {
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
       roles: [ROLE_NAME.RequestResponder],
-      text: intl.formatMessage({
-        defaultMessage: "Requests",
-        id: "QftM3f",
-        description: "Label displayed on the requests menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.requests),
     },
     {
       key: "classifications",
       href: paths.classificationTable(),
       icon: TagIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Classifications",
-        id: "gk7uJQ",
-        description: "Label displayed on the classifications menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.classifications),
     },
     {
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
       roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "GJsuQg",
-        description: "Label displayed on the teams menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.teams),
     },
     {
       key: "departments",
       href: paths.departmentTable(),
       icon: BuildingOfficeIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Departments",
-        id: "HQOsq2",
-        description: "Label displayed on the departments menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.departments),
     },
     {
       key: "skill-families",
       href: paths.skillFamilyTable(),
       icon: UserGroupIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Skill Families",
-        id: "4fOu5j",
-        description: "Label displayed on the skill families menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.skillFamilies),
     },
     {
       key: "skills",
       href: paths.skillTable(),
       icon: AcademicCapIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "UC+4MX",
-        description: "Label displayed on the skills menu item.",
-      }),
+      text: intl.formatMessage(adminMenuMessages.skills),
     },
   ];
 

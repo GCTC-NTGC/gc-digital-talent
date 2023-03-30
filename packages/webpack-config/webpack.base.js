@@ -5,23 +5,23 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
-require('dotenv').config({ path: './.env' });
+require("dotenv").config({ path: "./.env" });
 const shell = require("shelljs");
 const fs = require("fs");
 
 const meta = {
   title: "GC Digital Talent | Talent numérique du GC",
-  description: "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
+  description:
+    "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: "https://talent.canada.ca/",
   domain: "talent.canada.ca",
   image: "",
-  type: "website"
-}
+  type: "website",
+};
 
 module.exports = (basePath) => {
   return {
     plugins: [
-
       // process and copy CSS files
       new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
 
@@ -33,7 +33,11 @@ module.exports = (basePath) => {
             from: "**/*",
             globOptions: {
               dot: true,
-              ignore: ["**/public/index.html", "**/.DS_Store", "**/public/config.ejs"],
+              ignore: [
+                "**/public/index.html",
+                "**/.DS_Store",
+                "**/public/config.ejs",
+              ],
             },
           },
         ],
@@ -43,12 +47,22 @@ module.exports = (basePath) => {
       new DefinePlugin({
         "process.env": {
           API_URI: JSON.stringify(process.env.API_URI),
-          TALENTSEARCH_APP_URL: JSON.stringify(process.env.TALENTSEARCH_APP_URL),
-          TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
+          TALENTSEARCH_APP_URL: JSON.stringify(
+            process.env.TALENTSEARCH_APP_URL,
+          ),
+          TALENTSEARCH_APP_DIR: JSON.stringify(
+            process.env.TALENTSEARCH_APP_DIR,
+          ),
           BUILD_DATE: JSON.stringify(new Date()),
-          API_SUPPORT_ENDPOINT: JSON.stringify(process.env.API_SUPPORT_ENDPOINT),
-          TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(process.env.TALENTSEARCH_SUPPORT_EMAIL),
-          TALENTSEARCH_RECRUITMENT_EMAIL: JSON.stringify(process.env.TALENTSEARCH_RECRUITMENT_EMAIL),
+          API_SUPPORT_ENDPOINT: JSON.stringify(
+            process.env.API_SUPPORT_ENDPOINT,
+          ),
+          TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(
+            process.env.TALENTSEARCH_SUPPORT_EMAIL,
+          ),
+          TALENTSEARCH_RECRUITMENT_EMAIL: JSON.stringify(
+            process.env.TALENTSEARCH_RECRUITMENT_EMAIL,
+          ),
         },
       }),
 
@@ -67,7 +81,7 @@ module.exports = (basePath) => {
           "twitter:url": meta.url,
           "twitter:title": meta.title,
           "twitter:image": meta.image,
-        }
+        },
       }),
 
       // generate an config file with the environment variables (not actually HTML but it's handy to reuse the plugin)
@@ -86,10 +100,10 @@ module.exports = (basePath) => {
           test: /\.ts(x?)$/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: "babel-loader",
               options: {
-                "filename": ".babelrc"
-              }
+                filename: ".babelrc",
+              },
             },
             {
               loader: "ts-loader",
@@ -116,18 +130,18 @@ module.exports = (basePath) => {
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
+          type: "asset/resource",
         },
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: [".tsx", ".ts", ".js"],
     },
     /**
-   * Optimizations only run in production mode
-   *
-   * Ref: https://webpack.js.org/configuration/optimization/
-   */
+     * Optimizations only run in production mode
+     *
+     * Ref: https://webpack.js.org/configuration/optimization/
+     */
     optimization: {
       minimizer: [
         `...`, // Includes default minimizers
@@ -141,5 +155,5 @@ module.exports = (basePath) => {
       path: path.resolve(basePath, "dist"), // output folder
       clean: true, // delete existing files on recompile
     },
-  }
-}
+  };
+};

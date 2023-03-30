@@ -1,6 +1,6 @@
 const path = require("path");
 const TsTransformer = require("@formatjs/ts-transformer");
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const transform = TsTransformer.transform;
 const shell = require("shelljs");
 const fs = require("fs");
@@ -25,19 +25,19 @@ const reactIntlTransformRule = {
 
 module.exports = (basePath) => {
   return {
-    "staticDirs": [{ from: '../public', to: '/' }],
+    staticDirs: [{ from: "../public", to: "/" }],
 
-    "stories": [
+    stories: [
       "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
     ],
-    "addons": [
+    addons: [
       "@storybook/addon-links",
       "@storybook/addon-essentials",
-      "storybook-addon-intl"
+      "storybook-addon-intl",
     ],
-    "core": {
-      "builder": "webpack5"
+    core: {
+      builder: "webpack5",
     },
     webpackFinal: async (config, { configType }) => {
       // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -46,18 +46,17 @@ module.exports = (basePath) => {
 
       config.resolve.extensions = [
         ...config.resolve.extensions,
-        ".tsx", ".ts", ".js"
+        ".tsx",
+        ".ts",
+        ".js",
       ];
 
-      config.module.rules = [
-        ...config.module.rules,
-        reactIntlTransformRule,
-      ];
+      config.module.rules = [...config.module.rules, reactIntlTransformRule];
 
       config.resolve.alias = {
         ...config.resolve.alias,
         "~": path.resolve(__dirname, "../../apps/web/src/"),
-      }
+      };
 
       config.resolve.plugins = [
         ...(config.resolve.plugins || []),
@@ -67,31 +66,35 @@ module.exports = (basePath) => {
       ];
 
       // Run Hydrogen on Webpack's compiler hooks
-      config.plugins.push(
-        {
-          apply: (compiler) => {
-            // Build Hydrogen
-            // Run on the environment hook to catch the initial compile and non-watch compiles
-            compiler.hooks.environment.tap('environment', () => {
-              shell.cd('..');
-              shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
-            })
-            // Build Hydrogen and manipulate it's modified time
-            // Run on the invalid hook so that the file time is updated before the next compile
-            compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
-              shell.exec('node ../node_modules/@hydrogen-css/hydrogen/bin/build.js');
-              var f = path.resolve('../apps/web/src/assets/css/hydrogen.css')
-              var now = Date.now() / 1000
-              var then = now - 100
-              if (f) {
-                fs.utimes(f, then, then, function (err) { if (err) throw err })
-              }
-            })
-          },
-        }
-      )
+      config.plugins.push({
+        apply: (compiler) => {
+          // Build Hydrogen
+          // Run on the environment hook to catch the initial compile and non-watch compiles
+          compiler.hooks.environment.tap("environment", () => {
+            shell.cd("..");
+            shell.exec(
+              "node ../node_modules/@hydrogen-css/hydrogen/bin/build.js",
+            );
+          });
+          // Build Hydrogen and manipulate it's modified time
+          // Run on the invalid hook so that the file time is updated before the next compile
+          compiler.hooks.invalid.tap("invalid", (fileName, changeTime) => {
+            shell.exec(
+              "node ../node_modules/@hydrogen-css/hydrogen/bin/build.js",
+            );
+            var f = path.resolve("../apps/web/src/assets/css/hydrogen.css");
+            var now = Date.now() / 1000;
+            var then = now - 100;
+            if (f) {
+              fs.utimes(f, then, then, function (err) {
+                if (err) throw err;
+              });
+            }
+          });
+        },
+      });
 
       return config;
     },
-  }
-}
+  };
+};

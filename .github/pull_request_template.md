@@ -18,5 +18,3 @@ Assist reviewers with steps they can take to test that the PR does what it says 
 ## 📸 Screenshot
 
 Add a screenshot (if possible).
-
-

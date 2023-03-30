@@ -1,22 +1,30 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import {
+  BoltIcon,
   HomeIcon,
+  BuildingOfficeIcon,
+  BuildingOffice2Icon,
   TicketIcon,
+  UserGroupIcon,
   UserIcon,
   Squares2X2Icon,
+  PuzzlePieceIcon,
 } from "@heroicons/react/24/outline";
 
-import { IconLink, Pending } from "@gc-digital-talent/ui";
+import { Heading, Pending } from "@gc-digital-talent/ui";
+import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
+import adminMenuMessages from "~/messages/adminMenuMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import LatestRequestsTable from "./components/LatestRequestsTable";
+
+import LinkWell from "./components/LinkWell";
 
 interface DashboardPageProps {
   currentUser?: User | null;
@@ -25,6 +33,7 @@ interface DashboardPageProps {
 const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
+  const { roleAssignments } = useAuthorization();
   const navigationCrumbs = [
     {
       label: intl.formatMessage({
@@ -45,7 +54,15 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           description: "Title tag for Admin site",
         })}
       />
-      <PageHeader icon={HomeIcon}>
+      <PageHeader
+        icon={HomeIcon}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
+          id: "7nxtBm",
+          description: "Subtitle for the admin dashboard page",
+        })}
+      >
         {intl.formatMessage(
           {
             defaultMessage: "Welcome back, {name}",
@@ -68,70 +85,114 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           },
         )}
       </PageHeader>
-      <p>
+      <Heading
+        size="h4"
+        data-h2-font-weight="base(bold)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage({
-          defaultMessage:
-            "On this page you can find a list of active pools along with a few details about their status.",
-          id: "7B+1RO",
+          defaultMessage: "What are you working on today?",
+          id: "wHnGAK",
           description:
-            "Description of the content found on the admin portal dashboard page.",
+            "Heading for the sections of links available to the current user",
         })}
-      </p>
+      </Heading>
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-margin="base(x2, 0, 0, 0)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1, 0)"
       >
-        <span data-h2-margin="base(0, x.5, x.5, 0)">
-          <IconLink
-            mode="solid"
-            color="secondary"
-            type="button"
-            href={adminRoutes.poolTable()}
-            icon={Squares2X2Icon}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Manage pools",
-              id: "HgQThJ",
-              description:
-                "Text label for link to pools page on admin dashboard",
+        {hasRole("pool_operator", roleAssignments) && (
+          <LinkWell
+            title={intl.formatMessage({
+              defaultMessage: "Managing a recruitment process",
+              id: "293bsq",
+              description: "Heading for pool operator dashboard links",
             })}
-          </IconLink>
-        </span>
-        <span data-h2-margin="base(0, x.5, x.5, 0)">
-          <IconLink
-            mode="solid"
-            color="secondary"
-            type="button"
-            href={adminRoutes.userTable()}
-            icon={UserIcon}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Manage users",
-              id: "U5HvOH",
-              description:
-                "Text label for link to users page on admin dashboard",
+            links={[
+              {
+                label: intl.formatMessage(adminMenuMessages.pools),
+                href: adminRoutes.poolTable(),
+                icon: Squares2X2Icon,
+              },
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "My Teams",
+                  id: "N3uD4m",
+                  description: "Link text for current users teams page",
+                }),
+                href: adminRoutes.teamTable(),
+                icon: BuildingOffice2Icon,
+              },
+            ]}
+          />
+        )}
+        {hasRole("request_responder", roleAssignments) && (
+          <LinkWell
+            title={intl.formatMessage({
+              defaultMessage: "Responding to talent requests",
+              id: "ijUT7N",
+              description: "Heading for request responder dashboard links",
             })}
-          </IconLink>
-        </span>
-        <span data-h2-margin="base(0, x.5, x.5, 0)">
-          <IconLink
-            mode="solid"
-            color="secondary"
-            type="button"
-            href={adminRoutes.searchRequestTable()}
-            icon={TicketIcon}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Manage requests",
-              id: "Bvj3zI",
-              description:
-                "Text label for link to requests page on admin dashboard",
+            links={[
+              {
+                label: intl.formatMessage(adminMenuMessages.requests),
+                href: adminRoutes.searchRequestTable(),
+                icon: TicketIcon,
+              },
+            ]}
+          />
+        )}
+        {hasRole("platform_admin", roleAssignments) && (
+          <LinkWell
+            title={intl.formatMessage({
+              defaultMessage: "Maintaining the platform",
+              id: "ipSk4R",
+              description: "Heading for platform dashboard links",
             })}
-          </IconLink>
-        </span>
+            links={[
+              {
+                label: intl.formatMessage(adminMenuMessages.users),
+                href: adminRoutes.userTable(),
+                icon: UserIcon,
+              },
+              {
+                label: intl.formatMessage(adminMenuMessages.teams),
+                href: adminRoutes.teamTable(),
+                icon: BuildingOffice2Icon,
+              },
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Departments and Agencies",
+                  id: "hxaIWa",
+                  description: "Link text for all departments page",
+                }),
+                href: adminRoutes.departmentTable(),
+                icon: BuildingOfficeIcon,
+              },
+              {
+                label: intl.formatMessage(adminMenuMessages.skills),
+                href: adminRoutes.skillTable(),
+                icon: BoltIcon,
+              },
+              {
+                label: intl.formatMessage(adminMenuMessages.skillFamilies),
+                href: adminRoutes.skillFamilyTable(),
+                icon: UserGroupIcon,
+              },
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Groups and Classifications",
+                  id: "m4hoPL",
+                  description: "Link text for all classifications page",
+                }),
+                href: adminRoutes.classificationTable(),
+                icon: PuzzlePieceIcon,
+              },
+            ]}
+          />
+        )}
       </div>
-      <LatestRequestsTable />
     </AdminContentWrapper>
   );
 };

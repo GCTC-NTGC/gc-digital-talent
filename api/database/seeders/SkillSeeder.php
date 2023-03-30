@@ -2321,13 +2321,13 @@ class SkillSeeder extends Seeder
                 // could be more than one if skill is part of multiple skill families
                 $skillFamilyMatches = array_filter(
                     $skillsToSkillFamiiesProvidedData,
-                    function($skillFamilyRecord) use ($model) {
+                    function ($skillFamilyRecord) use ($model) {
                         return trim($skillFamilyRecord['skill_name_en']) == $model['name']['en'];
                     }
                 );
 
                 $skillFamilyIds = array_map(
-                    function($record) {
+                    function ($record) {
                         $skillFamilyName = trim($record['skill_family_name_en']);
                         return SkillFamily::firstWhere('name->en', $skillFamilyName)->id;
                     },

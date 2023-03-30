@@ -3,7 +3,7 @@ name: "🧪 Tests"
 about: Updates/additions to the existing tests (Unit, e2e, etc.)
 title: "🧪 Tests"
 labels: tests
-assignees: ''
+assignees: ""
 ---
 
 ## 🧪 Tests

@@ -1,18 +1,24 @@
-import { defineConfig } from "cypress"
+import { defineConfig } from "cypress";
 
 const extendedTimeout = 60000;
 
 export default defineConfig({
-  defaultCommandTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 8000,
-  pageLoadTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 60000,
+  defaultCommandTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS
+    ? extendedTimeout
+    : 8000,
+  pageLoadTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS
+    ? extendedTimeout
+    : 60000,
   requestTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 5000,
-  responseTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS ? extendedTimeout : 30000,
+  responseTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS
+    ? extendedTimeout
+    : 30000,
   retries: {
     runMode: 3,
   },
-  reporter: 'cypress-multi-reporters',
+  reporter: "cypress-multi-reporters",
   reporterOptions: {
-    configFile: 'cypress/reporters-config.json',
+    configFile: "cypress/reporters-config.json",
   },
   viewportWidth: 1920,
   viewportHeight: 1080,
@@ -22,10 +28,10 @@ export default defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.js')(on, config)
+      return require("./cypress/plugins/index.js")(on, config);
     },
     experimentalSessionAndOrigin: true,
-    excludeSpecPattern: '**/examples/*.spec.js',
-    baseUrl: 'http://localhost:8000',
+    excludeSpecPattern: "**/examples/*.spec.js",
+    baseUrl: "http://localhost:8000",
   },
-})
+});

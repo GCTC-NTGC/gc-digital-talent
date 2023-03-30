@@ -319,6 +319,13 @@ type UserPublicProfile {
   lastName: String @rename(attribute: "last_name")
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement! @belongsTo(relation: "pool")
+  question: LocalizedString!
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
@@ -342,6 +349,7 @@ type Pool {
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
+  screeningQuestions: [ScreeningQuestion] @hasMany
 }
 
 enum PoolStatus {
@@ -386,6 +394,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  screeningQuestions: [ScreeningQuestion] @hasMany
 }
 
 enum AdvertisementStatus {
@@ -435,6 +444,16 @@ enum PublishingGroup {
   OTHER
 }
 
+enum ApplicationStep {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
@@ -457,6 +476,7 @@ type PoolCandidate {
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
+  submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
 }
 
 enum LanguageAbility {
@@ -917,7 +937,9 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
+  pools: [Pool]!
+    @all(scopes: ["authorizedToView"])
+    @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
@@ -1027,8 +1049,8 @@ type Query {
   skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @can(ability: "view")
   skills: [Skill]! @all @can(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle @find
-  genericJobTitles: [GenericJobTitle]! @all
+  genericJobTitle(id: UUID! @eq): GenericJobTitle @find @can(ability: "view")
+  genericJobTitles: [GenericJobTitle]! @all @can(ability: "viewAny")
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
@@ -1568,6 +1590,23 @@ input CreatePoolAdvertisementInput {
   classifications: ClassificationBelongsToMany
 }
 
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
+input UpdateScreeningQuestionInput {
+  id: ID!
+  question: LocalizedStringInput
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
+}
+
 input UpdatePoolAdvertisementInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1596,6 +1635,7 @@ input UpdatePoolAdvertisementInput {
     @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input RolesInput
@@ -1608,6 +1648,10 @@ input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
   sync: RolesInput
+}
+input UpdateApplicationInput {
+  # can only connect a step, not disconnect or sync
+  insertSubmittedStep: ApplicationStep
 }
 
 type Mutation {
@@ -1641,7 +1685,7 @@ type Mutation {
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @update @guard @can(ability: "update", find: "id")
+  ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
   deletePoolCandidate(id: ID!): PoolCandidate
     @delete(globalId: false)
     @guard
@@ -1829,6 +1873,13 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
     @can(ability: "submit", find: "id")
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput! @spread
+  ): PoolCandidate
+    @update(model: "PoolCandidate")
+    @guard
+    @can(ability: "update", find: "id", model: "PoolCandidate")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team

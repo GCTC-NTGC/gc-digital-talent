@@ -23,6 +23,8 @@ import {
   Scalars,
   GetMePoolsQuery,
   useGetMePoolsQuery,
+  AllPoolsQuery,
+  useAllPoolsQuery,
   RoleAssignment,
 } from "~/api/generated";
 import Table, {
@@ -31,13 +33,17 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<
-  FromArray<
-    NonNullable<
-      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
-    >["pools"]
-  >
->;
+type Data =
+  | NonNullable<
+      FromArray<
+        NonNullable<
+          FromArray<
+            NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]
+          >["team"]
+        >["pools"]
+      >
+    >
+  | NonNullable<FromArray<AllPoolsQuery["pools"]>>;
 type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -383,7 +389,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   );
 };
 
-const PoolTableApi = () => {
+export const PoolOperatorTableApi = () => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
@@ -395,4 +401,14 @@ const PoolTableApi = () => {
   );
 };
 
-export default PoolTableApi;
+export const PoolAdminTableApi = () => {
+  const [result] = useAllPoolsQuery();
+  const { data, fetching, error } = result;
+  const poolsArray = unpackMaybes(data?.pools);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={poolsArray ?? []} />
+    </Pending>
+  );
+};

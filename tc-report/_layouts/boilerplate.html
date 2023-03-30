@@ -2,7 +2,7 @@
 <html lang="{{ page.lang }}">
   {% include head.html %}
   <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <a href="#mainContent" title="" class="skip-link">{{ site.data.translations.skipLink[page.lang] }}</a>
     {{ content }}
     <script type="text/javascript" src="{{ '/js/app.js' | prepend: site.asset_url }}"></script>
   </body>

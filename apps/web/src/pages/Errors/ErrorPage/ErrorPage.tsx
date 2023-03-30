@@ -10,8 +10,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import CallToAction from "~/components/CallToAction/CallToAction";
 
-import darkPug from "~/assets/img/404_pug_dark.svg";
-import lightPug from "~/assets/img/404_pug_light.svg";
+import darkPug from "~/assets/img/404_pug_dark.png";
+import lightPug from "~/assets/img/404_pug_light.png";
 
 const ErrorPage = () => {
   const intl = useIntl();

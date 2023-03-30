@@ -33,9 +33,9 @@ class AuthController extends Controller
         );
 
         $requestedLocale = $request->input('locale');
-        if(strcasecmp($requestedLocale, 'en') == 0)
+        if (strcasecmp($requestedLocale, 'en') == 0)
             $ui_locales = 'en-CA en';
-        else if(strcasecmp($requestedLocale, 'fr') == 0)
+        else if (strcasecmp($requestedLocale, 'fr') == 0)
             $ui_locales = 'fr-CA fr';
         else
             $ui_locales = $requestedLocale;
@@ -96,12 +96,12 @@ class AuthController extends Controller
 
         $from = $request->session()->pull('from');
 
-        if($from != filter_var($from, FILTER_SANITIZE_URL))
+        if ($from != filter_var($from, FILTER_SANITIZE_URL))
             $from = null; // Contains unsanitary characters. Throw it away.
-        if(substr($from, 0, 1) != '/')
+        if (substr($from, 0, 1) != '/')
             $from = null; // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('oauth.post_login_redirect');
+        $navigateToUri = strlen($from) > 0 ? config('app.url') . $from : config('oauth.post_login_redirect');
         return redirect($navigateToUri . '?' . $query);
     }
 
@@ -110,11 +110,11 @@ class AuthController extends Controller
         $refreshToken = $request->query('refresh_token');
         $response = Http::asForm()
             ->post(config('oauth.token_uri'), [
-                    'grant_type' => 'refresh_token',
-                    'client_id' => config('oauth.client_id'),
-                    'client_secret' => config('oauth.client_secret'),
-                    'refresh_token' => $refreshToken,
-                ]);
+                'grant_type' => 'refresh_token',
+                'client_id' => config('oauth.client_id'),
+                'client_secret' => config('oauth.client_secret'),
+                'refresh_token' => $refreshToken,
+            ]);
         return response($response);
     }
 }

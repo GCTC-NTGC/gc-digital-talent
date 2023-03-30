@@ -14,7 +14,9 @@ class InjectNowDirective extends BaseDirective implements FieldMiddleware
 {
     public static function definition(): string
     {
-        return /** @lang GraphQL */ <<<'GRAPHQL'
+        return
+            /** @lang GraphQL */
+            <<<'GRAPHQL'
 """
 Inject the current DateTime into the arguments.
 """
@@ -35,7 +37,7 @@ GRAPHQL;
     public function handleField(FieldValue $fieldValue, \Closure $next): FieldValue
     {
         $argumentName = $this->directiveArgValue('name');
-        if (! $argumentName) {
+        if (!$argumentName) {
             throw new DefinitionException(
                 "The `inject` directive on {$fieldValue->getParentName()} [{$fieldValue->getFieldName()}] must have a `name` argument"
             );
