@@ -16,7 +16,6 @@ interface ApplicationApiProps {
 const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {
   const { applicationId } = useParams();
   const [{ data, fetching, error }] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
     variables: {
       id: applicationId || "",
     },
