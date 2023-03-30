@@ -7092,5 +7092,13 @@
   "ydjXm7": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
     "description": "Description for the forward talent plan form"
+  },
+  "jO2uif": {
+    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
+  "sGPKUt": {
+    "defaultMessage": "Veuillez consulter la Directive",
+    "description": "Link text to read the directive on digital talent"
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 // Define the interface
 export interface FeatureBlockProps {
@@ -11,6 +11,7 @@ export interface FeatureBlockProps {
       path: string;
     };
     link: {
+      external?: boolean;
       path: string;
       label: string;
     };
@@ -19,6 +20,13 @@ export interface FeatureBlockProps {
 
 // Create the page component
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
+  const LinkEl = content.link.external ? "a" : Link;
+  const linkStyles = {
+    "data-h2-background-color": "base:focus-visible(focus)",
+    "data-h2-outline": "base(none)",
+    "data-h2-color": "base:hover(secondary.darker) base:focus-visible(black)",
+  };
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -54,14 +62,9 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         {content.summary}
       </p>
       <div data-h2-padding="base(0, x1, x1, x1)">
-        <a
-          href={content.link.path}
-          data-h2-background-color="base:focus-visible(focus)"
-          data-h2-outline="base(none)"
-          data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
-        >
+        <LinkEl href={content.link.path} {...linkStyles}>
           {content.link.label}
-        </a>
+        </LinkEl>
       </div>
     </div>
   );
