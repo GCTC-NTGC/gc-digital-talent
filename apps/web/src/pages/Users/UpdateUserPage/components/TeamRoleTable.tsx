@@ -43,7 +43,7 @@ const actionCell = (
   handleUserUpdate: UpdateUserHandler,
   availableRoles: Role[],
 ) => (
-  <>
+  <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
     <EditTeamRoleDialog
       initialRoles={teamAssignment.roles}
       user={user}
@@ -57,7 +57,7 @@ const actionCell = (
       team={teamAssignment.team}
       onRemoveRoles={handleUserUpdate}
     />
-  </>
+  </div>
 );
 
 const teamCell = (displayName: string, href: string) => {
