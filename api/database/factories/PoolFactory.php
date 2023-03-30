@@ -61,7 +61,7 @@ class PoolFactory extends Factory
             $pool->essentialSkills()->saveMany($skills->slice(0, 5));
             $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));
 
-            if(isset($pool->published_at)) {
+            if (isset($pool->published_at)) {
                 $pool->stream = $this->faker->randomElement(ApiEnums::poolStreams());
                 $pool->save();
             }

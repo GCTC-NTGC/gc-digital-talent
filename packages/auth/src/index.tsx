@@ -8,6 +8,8 @@ import useAuthentication from "./hooks/useAuthentication";
 import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
 
+import hasRole from "./utils/hasRole";
+
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
@@ -27,6 +29,7 @@ export {
   useAuthorization,
   useApiRoutes,
   apiRoutes,
+  hasRole,
 };
 
 export {

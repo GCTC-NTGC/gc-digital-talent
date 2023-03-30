@@ -41,5 +41,4 @@ class Classification extends Model
     {
         return $this->hasMany(GenericJobTitle::class);
     }
-
 }

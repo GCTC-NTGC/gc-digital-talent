@@ -223,7 +223,7 @@ class DatabaseSeeder extends Seeder
         $faker = Faker\Factory::create();
         $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
 
-        if (isset($essentialSkillIds) && count($essentialSkillIds) > 0){
+        if (isset($essentialSkillIds) && count($essentialSkillIds) > 0) {
             $data = array_map(function () use ($faker) {
                 return ['details' => $faker->text()];
             }, array_flip($essentialSkillIds)); // flip array from [index => 'id'], need id as keys

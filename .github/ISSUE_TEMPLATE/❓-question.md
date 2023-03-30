@@ -3,7 +3,7 @@ name: "❓ Question"
 about: Ask a question about a feature, proposal, or if you just need help!
 title: "❓ Question"
 labels: question
-assignees: ''
+assignees: ""
 ---
 
 ## ❓ Question

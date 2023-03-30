@@ -1,62 +1,53 @@
 {
-    "configurations": [
-        {
-            "name": "Listen for PHP Xdebug from webserver",
-            "type": "php",
-            "request": "launch",
-            "port": 9003,
-            "pathMappings": {
-                "/home/site/wwwroot/": "${workspaceFolder}"
-            }
-            // For configuration, see the infrastructure/conf/xdebug.ini file.
-        },
-        {
-            "name": "Listen for PHP Xdebug locally",
-            "type": "php",
-            "request": "launch",
-            "port": 9003,
-        },
-        {
-            "type": "node",
-            "name": "jest-common",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "disableOptimisticBPs": true,
-            "program":"${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-            "cwd": "${workspaceFolder}/frontend/common",
-            "args": [
-                "--runInBand",
-                "--watchAll=false"
-            ]
-        },
-        {
-            "type": "node",
-            "name": "jest-admin",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "disableOptimisticBPs": true,
-            "program":"${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-            "cwd": "${workspaceFolder}/frontend/admin",
-            "args": [
-                "--runInBand",
-                "--watchAll=false"
-            ]
-        },
-        {
-            "type": "node",
-            "name": "jest-talentsearch",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "disableOptimisticBPs": true,
-            "program":"${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-            "cwd": "${workspaceFolder}/frontend/talentsearch",
-            "args": [
-                "--runInBand",
-                "--watchAll=false"
-            ]
-        }
-    ]
+  "configurations": [
+    {
+      "name": "Listen for PHP Xdebug from webserver",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/home/site/wwwroot/": "${workspaceFolder}"
+      }
+      // For configuration, see the infrastructure/conf/xdebug.ini file.
+    },
+    {
+      "name": "Listen for PHP Xdebug locally",
+      "type": "php",
+      "request": "launch",
+      "port": 9003
+    },
+    {
+      "type": "node",
+      "name": "jest-common",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
+      "cwd": "${workspaceFolder}/frontend/common",
+      "args": ["--runInBand", "--watchAll=false"]
+    },
+    {
+      "type": "node",
+      "name": "jest-admin",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
+      "cwd": "${workspaceFolder}/frontend/admin",
+      "args": ["--runInBand", "--watchAll=false"]
+    },
+    {
+      "type": "node",
+      "name": "jest-talentsearch",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
+      "cwd": "${workspaceFolder}/frontend/talentsearch",
+      "args": ["--runInBand", "--watchAll=false"]
+    }
+  ]
 }
