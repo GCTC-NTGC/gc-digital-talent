@@ -15,7 +15,5 @@ module.exports = {
     "^.+\\.(css|less)$": path.join(__dirname, "../../mocks/css.js"),
   },
   preset: "ts-jest",
-  setupFilesAfterEnv: [
-    path.join(__dirname, "../../setup.js")
-  ],
+  setupFilesAfterEnv: [path.join(__dirname, "../../setup.js")],
 };

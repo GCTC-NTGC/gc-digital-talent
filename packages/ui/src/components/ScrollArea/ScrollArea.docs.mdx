@@ -8,11 +8,11 @@ This is a styled version of [@radix-ui/scroll-area](https://www.radix-ui.com/doc
 
 ## Subcomponents
 
- - `ScrollArea.Root`
- - `ScrollArea.Viewport`
- - `ScrollArea.Scrollbar`
- - `ScrollArea.Thumb`
- - `ScrollArea.Corner`
+- `ScrollArea.Root`
+- `ScrollArea.Viewport`
+- `ScrollArea.Scrollbar`
+- `ScrollArea.Thumb`
+- `ScrollArea.Corner`
 
 ## Usage
 
@@ -27,7 +27,7 @@ import ScrollArea from "@gc-digital-talent/ui/ScrollArea";
 const ScrollAreaExample = () => {
   const [value, setValue] = React.useState<string>("");
   return (
-   <ScrollArea.Root style={{ height: 150,  width: 320, }}>
+    <ScrollArea.Root style={{ height: 150, width: 320 }}>
       <ScrollArea.Viewport data-h2-background-color="base(white)">
         <div data-h2-padding="base(x.25, x.5)">
           {ITEMS.map((item) => (
@@ -40,9 +40,9 @@ const ScrollAreaExample = () => {
       </ScrollArea.Scrollbar>
     </ScrollArea.Root>
   );
-}
+};
 ```
 
 ## Links
 
- - [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area)
+- [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area)

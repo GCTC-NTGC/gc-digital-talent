@@ -65,7 +65,7 @@ class PoolCandidateSearchRequest extends Model
     public function getStatusAttribute(): string
     {
         $thisDoneAt = $this->done_at;
-        if(!is_null($thisDoneAt) && $thisDoneAt->isPast())
+        if (!is_null($thisDoneAt) && $thisDoneAt->isPast())
             return ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE;
         else
             return ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING;
@@ -73,12 +73,11 @@ class PoolCandidateSearchRequest extends Model
 
     public function setStatusAttribute($statusInput): void
     {
-        if($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE)
+        if ($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE)
             $this->done_at = CarbonImmutable::now();
-        else if($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING)
+        else if ($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING)
             $this->done_at = null;
         else
             throw new UnexpectedValueException("status");
-
     }
 }

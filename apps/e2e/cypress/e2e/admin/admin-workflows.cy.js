@@ -96,7 +96,7 @@ describe("Admin Workflow Tests", () => {
     // show hidden telephone column
     cy.findByRole("button", { name: /Columns/i }).click();
     cy.findByRole("checkbox", { name: /Telephone/i }).click();
-    cy.findByRole("dialog", { ariaLabel: /table columns/i }).type('{esc}');
+    cy.findByRole("dialog", { ariaLabel: /table columns/i }).type("{esc}");
 
     // check that the expected new phone number shows
     cy.findByRole("table")
@@ -120,10 +120,9 @@ describe("Admin Workflow Tests", () => {
 
     cy.wait("@gqlselectedUsersQuery");
 
-    cy.findByRole("link", { name: /download csv/i })
-      .click();
+    cy.findByRole("link", { name: /download csv/i }).click();
 
-    cy.verifyDownload('.csv', { contains: true });
+    cy.verifyDownload(".csv", { contains: true });
   });
 
   it("Opens filter dialog and triggers GraphQL query", () => {

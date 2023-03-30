@@ -917,7 +917,9 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all(scopes: ["authorizedToView"]) @can(ability: "view", resolved: true)
+  pools: [Pool]!
+    @all(scopes: ["authorizedToView"])
+    @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

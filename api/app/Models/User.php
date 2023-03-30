@@ -253,7 +253,7 @@ class User extends Model implements Authenticatable
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                                    ->orWhereNull('expiry_date');
+                                        ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                                     $query->whereDate('expiry_date', '<', date("Y-m-d"));
                                 }
@@ -272,7 +272,7 @@ class User extends Model implements Authenticatable
                             return $query;
                         };
                     };
-                    foreach($poolFilters as $index => $filter) {
+                    foreach ($poolFilters as $index => $filter) {
                         if ($index == 0) {
                             $query->where($makePoolFilterClause($filter));
                         } else {
@@ -539,7 +539,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration): Builder
     {
         if (empty($positionDuration)) {
             return $query;
@@ -640,7 +640,8 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
-    public function getWouldAcceptTemporaryAttribute() {
+    public function getWouldAcceptTemporaryAttribute()
+    {
         $positionDuration = $this->position_duration;
 
         if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
@@ -655,7 +656,8 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of to be deprecated isIndigenous field */
-    public function getIsIndigenousAttribute() {
+    public function getIsIndigenousAttribute()
+    {
         $indigenousCommunities = $this->indigenous_communities;
 
         if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
@@ -670,9 +672,10 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
-    public function getLanguageAbilityAttribute($languageAbility = null) {
+    public function getLanguageAbilityAttribute($languageAbility = null)
+    {
         // if the field exists, say for migration purposes, must stop accessor overriding
-        if($languageAbility !== null){
+        if ($languageAbility !== null) {
             return $languageAbility;
         }
 
@@ -680,23 +683,23 @@ RAWSQL2;
         $lookingForFrench = $this->looking_for_french;
         $lookingForBilingual = $this->looking_for_bilingual;
 
-            // only english case
-            if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
-                return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
-            }
+        // only english case
+        if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+            return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+        }
 
-            // only french case
-            if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
-               return ApiEnums::LANGUAGE_ABILITY_FRENCH;
-            }
+        // only french case
+        if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+            return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+        }
 
-            // bilingual case just depends on the one field being true
-            // or ignore the field if english and french are both true
-            if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-                return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
-            }
+        // bilingual case just depends on the one field being true
+        // or ignore the field if english and french are both true
+        if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
+            return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+        }
 
-            // in all other cases the field stays null, so cases where all fields tested are false/null for instance
+        // in all other cases the field stays null, so cases where all fields tested are false/null for instance
     }
 
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
@@ -718,15 +721,15 @@ RAWSQL2;
 
     public function setRolesAttribute($roleAssignmentHasMany)
     {
-        if(array_key_exists('attach', $roleAssignmentHasMany)) {
+        if (array_key_exists('attach', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
         }
 
-        if(array_key_exists('detach', $roleAssignmentHasMany)) {
+        if (array_key_exists('detach', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
         }
 
-        if(array_key_exists('sync', $roleAssignmentHasMany)) {
+        if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
     }
