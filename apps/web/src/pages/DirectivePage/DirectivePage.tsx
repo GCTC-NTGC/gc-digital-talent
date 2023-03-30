@@ -20,6 +20,8 @@ import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
+import getFormLinks from "./utils";
+
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
     newTab
@@ -59,6 +61,45 @@ const DirectivePage = () => {
     defaultMessage: "Read the directive",
     id: "cKAuyx",
     description: "Link text to read the entire directive.",
+  });
+
+  const departmentFormLinks = getFormLinks({
+    intl,
+    files: {
+      en: "#",
+      fr: "#",
+    },
+    formName: intl.formatMessage({
+      defaultMessage: "Department-Specific Recruitment",
+      id: "uJyWDM",
+      description: "Short name for Department-Specific Recruitment Form",
+    }),
+  });
+
+  const contractingFormLinks = getFormLinks({
+    intl,
+    files: {
+      en: "#",
+      fr: "#",
+    },
+    formName: intl.formatMessage({
+      defaultMessage: "Digital Services Contracting",
+      id: "X3bPom",
+      description: "Short name for Digital Services Contracting Form",
+    }),
+  });
+
+  const talentPlanFormLinks = getFormLinks({
+    intl,
+    files: {
+      en: "#",
+      fr: "#",
+    },
+    formName: intl.formatMessage({
+      defaultMessage: "Forward Talent Plan",
+      id: "G0RoYe",
+      description: "Short name for Forward Talent Plan Form",
+    }),
   });
 
   return (
@@ -285,6 +326,7 @@ const DirectivePage = () => {
                 description:
                   "Heading for the department-specific recruitment form",
               })}
+              links={departmentFormLinks}
             >
               <p>
                 {intl.formatMessage({
@@ -304,6 +346,7 @@ const DirectivePage = () => {
                 description:
                   "Heading for the digital Services contracting form",
               })}
+              links={contractingFormLinks}
             >
               <p>
                 {intl.formatMessage({
@@ -322,6 +365,7 @@ const DirectivePage = () => {
                 id: "sKAo0/",
                 description: "Heading for the forward talent plan form",
               })}
+              links={talentPlanFormLinks}
             >
               <p>
                 {intl.formatMessage({
