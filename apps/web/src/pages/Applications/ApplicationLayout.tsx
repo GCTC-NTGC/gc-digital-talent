@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 import { TableOfContents, Stepper } from "@gc-digital-talent/ui";
 
@@ -21,6 +21,8 @@ import ApplicationApi, { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
 import { getPageInfo as profilePageInfo } from "./ApplicationProfilePage/ApplicationProfilePage";
 import { getPageInfo as resumeIntroductionPageInfo } from "./ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage";
+import { getPageInfo as resumeAddPageInfo } from "./ApplicationResumeAddPage/ApplicationResumeAddPage";
+import { getPageInfo as resumeEditPageInfo } from "./ApplicationResumeEditPage/ApplicationResumeEditPage";
 import { getPageInfo as resumePageInfo } from "./ApplicationResumePage/ApplicationResumePage";
 import { getPageInfo as educationPageInfo } from "./ApplicationEducationPage/ApplicationEducationPage";
 import { getPageInfo as skillsIntroductionPageInfo } from "./ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
@@ -34,6 +36,8 @@ type PageNavKey =
   | "welcome"
   | "profile"
   | "resume-intro"
+  | "resume-add"
+  | "resume-edit"
   | "resume"
   | "education"
   | "skills-intro"
@@ -60,11 +64,22 @@ const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { experienceId } = useParams();
 
   const pages = new Map<PageNavKey, ApplicationPageInfo>([
     ["welcome", welcomePageInfo({ paths, intl, application })],
     ["profile", profilePageInfo({ paths, intl, application })],
     ["resume-intro", resumeIntroductionPageInfo({ paths, intl, application })],
+    ["resume-add", resumeAddPageInfo({ paths, intl, application })],
+    [
+      "resume-edit",
+      resumeEditPageInfo({
+        paths,
+        intl,
+        application,
+        resourceId: experienceId,
+      }),
+    ],
     ["resume", resumePageInfo({ paths, intl, application })],
     ["education", educationPageInfo({ paths, intl, application })],
     ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
@@ -142,6 +157,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
               })}
               currentIndex={currentStep}
               steps={steps}
+              preventDisable
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>

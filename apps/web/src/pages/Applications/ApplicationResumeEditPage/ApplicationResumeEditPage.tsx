@@ -6,19 +6,21 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { useParams } from "react-router-dom";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
   paths,
+  resourceId,
   intl,
 }) => {
-  const path = paths.applicationResumeAdd(application.id);
+  const path = paths.applicationResumeEdit(application.id, resourceId ?? "");
   return {
     title: intl.formatMessage({
-      defaultMessage: "Add an experience to your résumé",
-      id: "fBabZh",
-      description: "Page title for the application résumé add experience page",
+      defaultMessage: "Edit your experience",
+      id: "WiUlEh",
+      description: "Page title for the application résumé edit experience page",
     }),
     icon: StarIcon,
     omitFromStepper: true,
@@ -26,10 +28,10 @@ export const getPageInfo: GetApplicationPageInfo = ({
       {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Step 2 (add experience)",
-          id: "IEYl//",
+          defaultMessage: "Step 2 (Edit experience)",
+          id: "iFUbxh",
           description:
-            "Breadcrumb link text for the application résumé add experience page",
+            "Breadcrumb link text for the application résumé edit experience page",
         }),
       },
     ],
@@ -39,16 +41,22 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
+const ApplicationResumeEdit = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { experienceId } = useParams();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    resourceId: experienceId,
+  });
 
   return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };
 
-const ApplicationResumeAddPage = () => (
-  <ApplicationApi PageComponent={ApplicationResumeAdd} />
+const ApplicationResumeEditPage = () => (
+  <ApplicationApi PageComponent={ApplicationResumeEdit} />
 );
 
-export default ApplicationResumeAddPage;
+export default ApplicationResumeEditPage;

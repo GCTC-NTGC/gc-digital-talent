@@ -1,13 +1,14 @@
 import { IntlShape } from "react-intl";
 
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
 
-type GetApplicationPageInfoArgs = {
+export type GetApplicationPageInfoArgs = {
   application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
+  resourceId?: Scalars["ID"];
   intl: IntlShape;
 };
 

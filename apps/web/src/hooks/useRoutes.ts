@@ -178,8 +178,15 @@ const getRoutes = (lang: Locales) => {
       ),
     applicationResumeAdd: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "resume", "add"),
-    applicationResumeView: (applicationId: string, experienceId: string) =>
-      path.join(baseUrl, "applications", applicationId, "resume", experienceId),
+    applicationResumeEdit: (applicationId: string, experienceId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "resume",
+        experienceId,
+        "edit",
+      ),
     applicationEducation: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "education"),
     applicationSkills: (applicationId: string) =>

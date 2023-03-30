@@ -284,6 +284,22 @@ const ApplicationResumePage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationResumeAddPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeAddPage" */ "../pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage"
+      ),
+  ),
+);
+const ApplicationResumeEditPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeEditPage" */ "../pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage"
+      ),
+  ),
+);
 const ApplicationEducationPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1029,6 +1045,14 @@ const createRoute = (
                             {
                               path: "introduction",
                               element: <ApplicationResumeIntroductionPage />,
+                            },
+                            {
+                              path: "add",
+                              element: <ApplicationResumeAddPage />,
+                            },
+                            {
+                              path: ":experienceId/edit",
+                              element: <ApplicationResumeEditPage />,
                             },
                           ],
                         },
