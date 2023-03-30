@@ -138,7 +138,12 @@ const DirectivePage = () => {
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
-          <Heading Icon={MapIcon} size="h3" color="red">
+          <Heading
+            Icon={MapIcon}
+            size="h3"
+            color="red"
+            data-h2-margin="base(0, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage: "What is the Directive on Digital Talent?",
               id: "GdOQeo",
@@ -188,7 +193,12 @@ const DirectivePage = () => {
               {readDirectiveMessage}
             </ExternalLink>
           </p>
-          <Heading Icon={ChartPieIcon} size="h3" color="blue">
+          <Heading
+            Icon={ChartPieIcon}
+            size="h3"
+            color="blue"
+            data-h2-margin="base(x3, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage: "Key components",
               id: "joXPYW",
@@ -196,7 +206,7 @@ const DirectivePage = () => {
                 "Heading for section describing the different components",
             })}
           </Heading>
-          <div data-h2-margin="base(x2, 0)">
+          <div>
             <Accordion.Root type="multiple">
               <Accordion.Item value="planning-reporting">
                 <Accordion.Trigger headerAs="h3">
@@ -305,7 +315,12 @@ const DirectivePage = () => {
               </Accordion.Item>
             </Accordion.Root>
           </div>
-          <Heading Icon={BookmarkSquareIcon} size="h3" color="purple">
+          <Heading
+            Icon={BookmarkSquareIcon}
+            size="h3"
+            color="purple"
+            data-h2-margin="base(x3, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage: "Complete your mandatory forms",
               id: "XVWN/C",

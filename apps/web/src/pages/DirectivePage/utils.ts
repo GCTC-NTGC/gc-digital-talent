@@ -26,7 +26,7 @@ const getFormLinks = ({
         { formName },
       ),
       href: files.en,
-      mode: intl.locale === "en" ? "solid" : "outline",
+      mode: intl.locale === "en" ? "solid" : "inline",
     },
     {
       label: intl.formatMessage(
@@ -38,7 +38,7 @@ const getFormLinks = ({
         { formName },
       ),
       href: files.fr,
-      mode: intl.locale === "en" ? "outline" : "solid",
+      mode: intl.locale === "en" ? "inline" : "solid",
     },
   ];
 
