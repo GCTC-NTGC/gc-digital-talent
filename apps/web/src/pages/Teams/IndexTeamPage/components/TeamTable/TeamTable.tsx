@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import { Pending, Link, Pill } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -88,20 +88,15 @@ const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
 const myRolesAccessor = (
   teamId: string,
   myRoleTeams: MyRoleTeam[],
-  locale: "en" | "fr",
+  intl: IntlShape,
 ) => {
   // pull out roles associated with the (row's) team id passed in for generating searchable string
   const teamFiltered = myRoleTeams.filter(
     (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
   );
-
-  let accessorString = "";
-
-  if (teamFiltered.length > 0) {
-    teamFiltered.forEach((roleTeam) => {
-      accessorString = `${accessorString} ${roleTeam.roleName[locale]}`;
-    });
-  }
+  const accessorString = teamFiltered
+    .map((roleTeam) => getLocalizedName(roleTeam.roleName, intl))
+    .join(", ");
 
   return accessorString;
 };
@@ -109,7 +104,7 @@ const myRolesAccessor = (
 const myRolesCell = (
   teamId: string,
   myRoleTeams: MyRoleTeam[],
-  locale: "en" | "fr",
+  intl: IntlShape,
 ) => {
   // pull out roles associated with the (row's) team id passed in for generating UI elements
   const teamFiltered = myRoleTeams.filter(
@@ -122,7 +117,7 @@ const myRolesCell = (
       mode="outline"
       key={`${teamId}-${roleTeam.roleName.en}`}
     >
-      {roleTeam.roleName[locale]}
+      {getLocalizedName(roleTeam.roleName, intl)}
     </Pill>
   ));
 
@@ -167,9 +162,9 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
           description:
             "Label displayed for the table's My Roles column header.",
         }),
-        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, locale),
+        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, intl),
         Cell: ({ row }: TeamCell) =>
-          myRolesCell(row.original.id, myRolesAndTeams, locale),
+          myRolesCell(row.original.id, myRolesAndTeams, intl),
         id: "myRoles",
       },
       {
@@ -236,16 +231,13 @@ const TeamTableApi = () => {
   const [{ data: dataMe, fetching: fetchingMe, error: errorMe }] =
     useMeRoleAssignmentsQuery();
 
-  const isFetching = fetchingTeam === true || fetchingMe === true;
+  const isFetching = fetchingTeam || fetchingMe;
 
   const teams = dataTeam?.teams.filter(notEmpty);
 
-  const roleAssignments =
-    dataMe?.me && dataMe.me?.roleAssignments ? dataMe.me.roleAssignments : null;
-
   let myRolesAndTeams: MyRoleTeam[] = [];
-  if (roleAssignments && roleAssignments.length > 0) {
-    myRolesAndTeams = roleAssignmentsToRoleTeamArray(roleAssignments);
+  if (dataMe?.me?.roleAssignments) {
+    myRolesAndTeams = roleAssignmentsToRoleTeamArray(dataMe.me.roleAssignments);
   }
 
   return (
