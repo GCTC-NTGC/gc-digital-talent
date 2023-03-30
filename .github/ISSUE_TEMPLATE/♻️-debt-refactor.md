@@ -3,7 +3,7 @@ name: "♻️ Debt/Refactor"
 about: Something that needs to be improved or removed (without affecting expected functionality)
 title: "♻️ Debt/Refactor"
 labels: debt
-assignees: ''
+assignees: ""
 ---
 
 ## ♻️ Debt/Refactor

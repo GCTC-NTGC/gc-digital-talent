@@ -43,8 +43,8 @@ class PoolCandidatePolicy
             return $user->isAbleTo("view-any-draftApplication");
         }
 
-        if(!$isDraft) {
-            if($user->isAbleTo("view-any-submittedApplication")) {
+        if (!$isDraft) {
+            if ($user->isAbleTo("view-any-submittedApplication")) {
                 return true;
             }
 

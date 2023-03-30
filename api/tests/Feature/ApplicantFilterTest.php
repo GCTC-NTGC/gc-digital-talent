@@ -382,7 +382,6 @@ class ApplicantFilterTest extends TestCase
                 ],
             ],
         ]);
-
     }
 
     /**
@@ -409,11 +408,9 @@ class ApplicantFilterTest extends TestCase
         $filterLanguage = null; // run through fields and assign the enum for the first one that is true
         if ($candidate->looking_for_english) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
-        }
-        elseif ($candidate->looking_for_french) {
+        } elseif ($candidate->looking_for_french) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
-        }
-        elseif ($candidate->looking_for_bilingual) {
+        } elseif ($candidate->looking_for_bilingual) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
         }
         $filter = ApplicantFilter::factory()->create(

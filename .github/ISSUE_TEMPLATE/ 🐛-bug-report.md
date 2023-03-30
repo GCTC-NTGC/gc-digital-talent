@@ -3,7 +3,7 @@ name: "🐛 Bug Report"
 about: Report a bug to fix errors or improve UX
 title: "🐛 Bug Report"
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 ## 🐛 Bug

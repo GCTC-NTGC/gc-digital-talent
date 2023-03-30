@@ -137,7 +137,8 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertJson(fn (AssertableJson $json) =>
+        )->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.roles', $roleCount) // Returns all the roles
         )->assertJsonFragment(
             [
@@ -160,7 +161,7 @@ class UserRoleTest extends TestCase
                     ],
                 ]],
             ]
-            );
+        );
     }
 
     // Create a user added with several teams.  Assert that the admin can query the user's teams.
@@ -410,7 +411,7 @@ class UserRoleTest extends TestCase
                  }
            '
         )->assertJsonFragment([
-            [ "id" => $role->id ]
+            ["id" => $role->id]
         ]);
     }
 
@@ -423,7 +424,8 @@ class UserRoleTest extends TestCase
         ]);
         $this->actingAs($this->baseUser, 'api')
             ->graphQL(
-                    /** @lang GraphQL */ '
+                /** @lang GraphQL */
+                '
                 query team($id: UUID!) {
                     team(id: $id) {
                         id
@@ -436,8 +438,8 @@ class UserRoleTest extends TestCase
                     }
                 }
             ',
-                [ 'id' => $team->id ]
-        )->assertGraphQLErrorMessage('This action is unauthorized.');
+                ['id' => $team->id]
+            )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     // Create an applicant user.  Assert that they cannot perform and roles-and-teams mutation.
