@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('screening_questions', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('pool_id');
             $table->foreign("pool_id")->references("id")->on("pools");
             $table->integer('sort_order')->nullable()->default(null);
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::statement('ALTER TABLE screening_questions ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
