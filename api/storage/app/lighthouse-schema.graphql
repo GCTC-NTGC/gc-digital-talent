@@ -1296,7 +1296,7 @@ enum Trashed {
 scalar UUID
 
 input UpdateApplicationInput {
-  connectSubmittedStep: ApplicationStep
+  insertSubmittedStep: ApplicationStep
 }
 
 input UpdateClassificationInput {

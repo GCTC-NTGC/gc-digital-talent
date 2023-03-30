@@ -1622,7 +1622,7 @@ input RoleAssignmentHasMany {
 }
 input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
-  connectSubmittedStep: ApplicationStep
+  insertSubmittedStep: ApplicationStep
 }
 
 type Mutation {

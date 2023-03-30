@@ -99,7 +99,7 @@ class PoolCandidateUpdateTest extends TestCase
             mutation($id: ID!) {
                 updateApplication (
                     id: $id
-                    application: {connectSubmittedStep: WELCOME}
+                    application: {insertSubmittedStep: WELCOME}
                 ) {
                     submittedSteps
                 }
