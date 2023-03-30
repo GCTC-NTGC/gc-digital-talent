@@ -2,7 +2,12 @@ import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useParams } from "react-router-dom";
 
-import { TableOfContents, Stepper } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  Stepper,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -31,6 +36,7 @@ import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuest
 import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
+import { useGetBasicApplicationInfoQuery } from "../../api/generated";
 
 type PageNavKey =
   | "welcome"
@@ -168,8 +174,26 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationLayout = () => (
-  <ApplicationApi PageComponent={ApplicationPageWrapper} />
-);
+const ApplicationLayout = () => {
+  const { applicationId } = useParams();
+  const [{ data, fetching, error }] = useGetBasicApplicationInfoQuery({
+    requestPolicy: "cache-first",
+    variables: {
+      id: applicationId || "",
+    },
+  });
+
+  const application = data?.poolCandidate;
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {application?.poolAdvertisement ? (
+        <ApplicationPageWrapper application={application} />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationLayout;
