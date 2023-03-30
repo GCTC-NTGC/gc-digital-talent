@@ -5,6 +5,7 @@ import {
   ChartPieIcon,
   NewspaperIcon,
   MagnifyingGlassCircleIcon,
+  BookmarkSquareIcon,
 } from "@heroicons/react/24/outline";
 
 import {
@@ -304,7 +305,7 @@ const DirectivePage = () => {
               </Accordion.Item>
             </Accordion.Root>
           </div>
-          <Heading Icon={ChartPieIcon} size="h3" color="purple">
+          <Heading Icon={BookmarkSquareIcon} size="h3" color="purple">
             {intl.formatMessage({
               defaultMessage: "Complete your mandatory forms",
               id: "XVWN/C",
