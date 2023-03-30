@@ -66,12 +66,14 @@ class PoolFactory extends Factory
                 $pool->save();
             }
 
-            for ($i = 1; $i < 4; $i++) {
-                ScreeningQuestion::factory()->create([
-                    'pool_id' => $pool->id,
-                    'sort_order' => $i,
-                ]);
-            }
+            ScreeningQuestion::factory()
+                ->count(3)
+                ->sequence(
+                    ['sort_order' => 1],
+                    ['sort_order' => 2],
+                    ['sort_order' => 3],
+                )
+                ->create(['pool_id' => $pool->id]);
         });
     }
 }
