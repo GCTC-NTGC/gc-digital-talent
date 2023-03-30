@@ -102,7 +102,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1, 0)"
       >
-        {hasRole("pool_operator", roleAssignments || []) && (
+        {hasRole("pool_operator", roleAssignments) && (
           <LinkWell
             title={intl.formatMessage({
               defaultMessage: "Managing a recruitment process",
@@ -127,7 +127,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             ]}
           />
         )}
-        {hasRole("request_responder", roleAssignments || []) && (
+        {hasRole("request_responder", roleAssignments) && (
           <LinkWell
             title={intl.formatMessage({
               defaultMessage: "Responding to talent requests",
@@ -143,7 +143,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             ]}
           />
         )}
-        {hasRole("platform_admin", roleAssignments || []) && (
+        {hasRole("platform_admin", roleAssignments) && (
           <LinkWell
             title={intl.formatMessage({
               defaultMessage: "Maintaining the platform",
