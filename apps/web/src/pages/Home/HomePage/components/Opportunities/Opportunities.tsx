@@ -92,22 +92,24 @@ const Opportunities = () => {
                 description:
                   "Heading for the digital government job opportunities",
               })}
-              link={{
-                href: paths.allPools(),
-                label: intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Browse <abbreviation>IT</abbreviation> jobs",
-                    id: "0mAZsV",
-                    description:
-                      "Link text for IT jobs in government call to action",
-                  },
-                  {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
-                  },
-                ),
-              }}
+              links={[
+                {
+                  href: paths.allPools(),
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Browse <abbreviation>IT</abbreviation> jobs",
+                      id: "0mAZsV",
+                      description:
+                        "Link text for IT jobs in government call to action",
+                    },
+                    {
+                      abbreviation: (text: React.ReactNode) =>
+                        wrapAbbr(text, intl),
+                    },
+                  ),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -133,17 +135,19 @@ const Opportunities = () => {
                 description:
                   "Heading for the Indigenous Apprenticeship Program on home page",
               })}
-              link={{
-                href: `/${locale}/indigenous-it-apprentice`,
-                external: true,
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-                  description:
-                    "Link text to apply for the Indigenous Apprenticeship Program",
-                  id: "w3Kkk2",
-                }),
-              }}
+              links={[
+                {
+                  href: `/${locale}/indigenous-it-apprentice`,
+                  external: true,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                    description:
+                      "Link text to apply for the Indigenous Apprenticeship Program",
+                    id: "w3Kkk2",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -168,22 +172,24 @@ const Opportunities = () => {
                 id: "9KOwXq",
                 description: "Heading for executive jobs in government",
               })}
-              link={{
-                href: paths.myProfile(),
-                label: loggedIn
-                  ? intl.formatMessage({
-                      defaultMessage: "Get ready by updating your profile",
-                      id: "OMDX09",
-                      description:
-                        "Link text to update your profile for executive jobs in government",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Get ready by creating a profile",
-                      id: "qLYONf",
-                      description:
-                        "Link text to create a profile for executive jobs in government",
-                    }),
-              }}
+              links={[
+                {
+                  href: paths.myProfile(),
+                  label: loggedIn
+                    ? intl.formatMessage({
+                        defaultMessage: "Get ready by updating your profile",
+                        id: "OMDX09",
+                        description:
+                          "Link text to update your profile for executive jobs in government",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Get ready by creating a profile",
+                        id: "qLYONf",
+                        description:
+                          "Link text to create a profile for executive jobs in government",
+                      }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage({

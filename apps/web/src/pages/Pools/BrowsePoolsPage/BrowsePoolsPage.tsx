@@ -247,18 +247,20 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
                   abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
                 },
               )}
-              link={{
-                href: `${paths.home()}/indigenous-it-apprentice`,
-                mode: "outline",
-                external: true,
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-                  description:
-                    "Link text to go to IAP homepage on Browse IT jobs page",
-                  id: "07BM9O",
-                }),
-              }}
+              links={[
+                {
+                  href: `${paths.home()}/indigenous-it-apprentice`,
+                  mode: "outline",
+                  external: true,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                    description:
+                      "Link text to go to IAP homepage on Browse IT jobs page",
+                    id: "07BM9O",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -284,16 +286,18 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
                 description:
                   "Title for to go to the search page on Browse IT jobs page",
               })}
-              link={{
-                href: paths.search(),
-                mode: "outline",
-                label: intl.formatMessage({
-                  defaultMessage: "Visit the talent search page",
-                  id: "BhfG7a",
-                  description:
-                    "Link text to go to the search page on browse IT jobs page",
-                }),
-              }}
+              links={[
+                {
+                  href: paths.search(),
+                  mode: "outline",
+                  label: intl.formatMessage({
+                    defaultMessage: "Visit the talent search page",
+                    id: "BhfG7a",
+                    description:
+                      "Link text to go to the search page on browse IT jobs page",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(

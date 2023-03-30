@@ -32,7 +32,17 @@ const Template: Story = () => {
       <CardFlat
         title="Purple"
         color="purple"
-        link={{ href: "#", label: "With link" }}
+        links={[{ href: "#", label: "With link" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Purple"
+        color="purple"
+        links={[
+          { href: "#", label: "With link" },
+          { href: "#", label: "Second link", mode: "outline" },
+        ]}
       >
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
