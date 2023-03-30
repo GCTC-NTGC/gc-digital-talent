@@ -1360,7 +1360,7 @@ input UpdatePoolInput {
 
 input UpdateScreeningQuestionInput {
   id: ID!
-  question: LocalizedStringInput!
+  question: LocalizedStringInput
   sortOrder: Int
 }
 
