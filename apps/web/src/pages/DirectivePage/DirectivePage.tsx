@@ -242,8 +242,8 @@ const DirectivePage = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent provides addition clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It aims to provide practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
-                      id: "Vi+Hk0",
+                        "The Directive on Digital Talent provides additional clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It aims to provide practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
+                      id: "L1tQMY",
                       description:
                         "The directives digital talent and sourcing component",
                     })}
