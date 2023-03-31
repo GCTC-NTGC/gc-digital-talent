@@ -40,6 +40,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import UserRoleTable from "./components/IndividualRoleTable";
+import { TeamRoleTable } from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -403,6 +404,11 @@ const UpdateUserPage = () => {
               })}
             </Heading>
             <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
+            <TeamRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}
