@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require("dotenv").config({ path: "./.env" });
 const shell = require("shelljs");
@@ -91,6 +92,13 @@ module.exports = (basePath) => {
         inject: false,
         environment: process.env,
         minify: false, // minify in production causes this to fail
+      }),
+
+      new CompressionPlugin({
+        algorithm: "gzip",
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8,
       }),
     ],
     module: {
