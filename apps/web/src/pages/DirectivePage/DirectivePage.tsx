@@ -58,6 +58,11 @@ const DirectivePage = () => {
     },
   ]);
 
+  const directiveUrl =
+    locale === "en"
+      ? "https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=32749"
+      : "https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=32749";
+
   const readDirectiveMessage = intl.formatMessage({
     defaultMessage: "Read the Directive",
     id: "RDAVsP",
@@ -136,7 +141,11 @@ const DirectivePage = () => {
         crumbs={crumbs}
         linkSlot={
           <>
-            <CallToActionLink href="#" color="quaternary" Icon={NewspaperIcon}>
+            <CallToActionLink
+              href={directiveUrl}
+              color="quaternary"
+              Icon={NewspaperIcon}
+            >
               {readDirectiveMessage}
             </CallToActionLink>
             <CallToActionLink
@@ -209,7 +218,12 @@ const DirectivePage = () => {
             )}
           </p>
           <p>
-            <ExternalLink type="button" color="primary" mode="solid" href="#">
+            <ExternalLink
+              type="button"
+              color="primary"
+              mode="solid"
+              href={directiveUrl}
+            >
               {readDirectiveMessage}
             </ExternalLink>
           </p>
