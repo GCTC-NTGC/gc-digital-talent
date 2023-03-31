@@ -2321,10 +2321,6 @@
     "defaultMessage": "Soumettez un nouveau message",
     "description": "Support form success action"
   },
-  "CbzWqJ": {
-    "defaultMessage": "L’Ambition numérique décrit l’engagement du gouvernement du Canada à créer des services numériques modernes et accessibles. La réalisation de ces priorités permettra au gouvernement de fournir des services et des programmes axés sur le numérique, centrés sur l’utilisateur et sans obstacle.",
-    "description": "Summary of the digital ambition featured item"
-  },
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
@@ -2332,10 +2328,6 @@
   "vNFHWp": {
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
-  },
-  "Gil1Zj": {
-    "defaultMessage": "Lisez l’Ambition numérique",
-    "description": "Link text to read the Digital Ambition"
   },
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
@@ -2432,10 +2424,6 @@
   "szLvj0": {
     "defaultMessage": "Votre courriel",
     "description": "Support form email field label"
-  },
-  "tTuBmE": {
-    "defaultMessage": "L’Ambition numérique",
-    "description": "Title for the digital ambition featured item"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
