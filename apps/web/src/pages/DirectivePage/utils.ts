@@ -9,6 +9,14 @@ interface GetFormLinkArgs {
   intl: IntlShape;
 }
 
+/**
+ * Gets English and French form link props and reverses
+ * them so the active language is the first item
+ * in an array and injects form name in the link as hidden
+ * text
+ *
+ * @returns CardFlatProps["links"] A tuple of the link props
+ */
 export const getFormLinks = ({
   formName,
   files,
@@ -59,6 +67,13 @@ interface GetGenericLinksArgs {
   intl: IntlShape;
 }
 
+/**
+ * Gets English and French link props and reverses
+ * them so the active language is the first item
+ * in an array
+ *
+ * @returns Array<ExternalLinkProps> A tuple of the link props
+ */
 export const getGenericLinks = ({
   labels,
   files,
