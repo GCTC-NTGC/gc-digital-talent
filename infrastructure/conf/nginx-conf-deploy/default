@@ -45,6 +45,12 @@ server {
         return 301 /fr/indigenous-it-apprentice;
     }
 
+    # enable serving gzip-ed files
+    gzip on;
+    gzip_types text/plain text/css application/xml application/javascript;
+    gzip_proxied no-cache no-store private expired auth;
+    gzip_min_length 1000;
+
     # api
     location = /graphql {
         fastcgi_pass 127.0.0.1:9000;
