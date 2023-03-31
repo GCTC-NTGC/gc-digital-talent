@@ -136,7 +136,7 @@ module.exports = (basePath) => {
           test: /\.(pdf|doc|docx)$/i,
           type: "asset/resource",
           generator: {
-            filename: '[name][ext]'
+            filename: 'documents/[name][ext]'
           }
         },
       ],
