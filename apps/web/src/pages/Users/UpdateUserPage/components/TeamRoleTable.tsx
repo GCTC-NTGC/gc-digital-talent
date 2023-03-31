@@ -31,7 +31,7 @@ type RoleTeamPair = {
 };
 
 const rolesCell = (displayNames: string[]) => (
-  <>
+  <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
     {displayNames.map((displayName) => {
       return (
         <Pill color="neutral" mode="solid" key={displayName}>
@@ -39,7 +39,7 @@ const rolesCell = (displayNames: string[]) => (
         </Pill>
       );
     })}
-  </>
+  </div>
 );
 
 const actionCell = (
