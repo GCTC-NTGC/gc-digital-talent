@@ -6842,6 +6842,10 @@
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
   },
+  "fCXZ4R": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the Pool table Team column"
+  },
   "3IZ3mN": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the role table display team column"
@@ -6980,6 +6984,10 @@
   "wgRXhR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "ActH9H": {
+    "defaultMessage": "<hidden>Consulter l’équipe : </hidden>{teamName}",
+    "description": "Text for a link to the Team table"
   },
   "+agJAH": {
     "defaultMessage": "Mes rôles",

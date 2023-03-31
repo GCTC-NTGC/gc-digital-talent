@@ -5,6 +5,10 @@ query getMePools {
       team {
         id
         name
+        displayName {
+          en
+          fr
+        }
         pools {
           id
           owner {
@@ -62,5 +66,39 @@ query allPools {
     stream
     processNumber
     createdDate
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+      pools {
+        id
+        owner {
+          id
+          email
+          firstName
+          lastName
+        }
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        advertisementStatus
+        stream
+        processNumber
+        createdDate
+      }
+    }
   }
 }
