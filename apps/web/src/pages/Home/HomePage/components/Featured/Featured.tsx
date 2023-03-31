@@ -17,7 +17,6 @@ import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
 
 import Block from "./Block";
 
-// Create the page component
 const Featured = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -74,7 +73,6 @@ const Featured = () => {
     },
   };
 
-  // This array is just a temporary data object representing the content required by the feature blocks. This data will need to be migrated to wherever makes sense, and we'll also need dynamic routes and translated strings
   const featured = [
     {
       key: "directive-on-digital-talent",
@@ -132,7 +130,7 @@ const Featured = () => {
       },
     },
   ];
-  // Return the component
+
   return (
     <div data-h2-layer="base(2, relative)">
       <div
@@ -216,5 +214,4 @@ const Featured = () => {
   );
 };
 
-// Export the component
 export default Featured;
