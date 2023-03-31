@@ -22,7 +22,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.intercept("POST", "/graphql", function (req) {
       aliasQuery(req, "browsePoolAdvertisements");
       aliasQuery(req, "getPoolAdvertisement");
-      aliasQuery(req, "getReviewApplicationPageData");
+      aliasQuery(req, "GetApplication");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
 
@@ -161,7 +161,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlcreateApplicationMutation");
 
     // Review my profile page
-    cy.wait("@gqlgetReviewApplicationPageDataQuery");
+    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /My application profile/i })
       .should("exist")
       .and("be.visible");

@@ -10,6 +10,7 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags, type FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -248,6 +249,118 @@ const ReviewApplicationPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/Applications/ReviewApplicationPage/ReviewApplicationPage"
+      ),
+  ),
+);
+const ApplicationLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationLayout" */ "../pages/Applications/ApplicationLayout"
+      ),
+  ),
+);
+const ApplicationWelcomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+      ),
+  ),
+);
+const ApplicationProfilePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationProfilePage" */ "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
+      ),
+  ),
+);
+const ApplicationResumeIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeIntroductionPage" */ "../pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage"
+      ),
+  ),
+);
+const ApplicationResumePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumePage" */ "../pages/Applications/ApplicationResumePage/ApplicationResumePage"
+      ),
+  ),
+);
+const ApplicationResumeAddPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeAddPage" */ "../pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage"
+      ),
+  ),
+);
+const ApplicationResumeEditPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationResumeEditPage" */ "../pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage"
+      ),
+  ),
+);
+const ApplicationEducationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationEducationPage" */ "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
+      ),
+  ),
+);
+const ApplicationSkillsIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSkillsIntroductionPage" */ "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
+      ),
+  ),
+);
+const ApplicationSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+      ),
+  ),
+);
+const ApplicationQuestionsIntroductionPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationQuestionsIntroductionPage" */ "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
+      ),
+  ),
+);
+const ApplicationQuestionsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationQuestionsPage" */ "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
+      ),
+  ),
+);
+const ApplicationReviewPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationReviewPage" */ "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
+      ),
+  ),
+);
+const ApplicationSuccessPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSuccessPage" */ "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
       ),
   ),
 );
@@ -579,7 +692,11 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (
+  locale: Locales,
+  loginPath: string,
+  featureFlags: FeatureFlags,
+) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -907,6 +1024,93 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
               ],
             },
+            featureFlags.applicationRevamp
+              ? {
+                  path: "applications",
+                  children: [
+                    {
+                      path: ":applicationId",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ApplicationLayout />
+                        </RequireAuth>
+                      ),
+                      children: [
+                        {
+                          path: "welcome",
+                          element: <ApplicationWelcomePage />,
+                        },
+                        {
+                          path: "profile",
+                          element: <ApplicationProfilePage />,
+                        },
+                        {
+                          path: "resume",
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationResumePage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationResumeIntroductionPage />,
+                            },
+                            {
+                              path: "add",
+                              element: <ApplicationResumeAddPage />,
+                            },
+                            {
+                              path: ":experienceId",
+                              element: <ApplicationResumeEditPage />,
+                            },
+                          ],
+                        },
+                        {
+                          path: "education",
+                          element: <ApplicationEducationPage />,
+                        },
+                        {
+                          path: "skills",
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationSkillsPage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationSkillsIntroductionPage />,
+                            },
+                          ],
+                        },
+                        {
+                          path: "questions",
+                          children: [
+                            {
+                              index: true,
+                              element: <ApplicationQuestionsPage />,
+                            },
+                            {
+                              path: "introduction",
+                              element: <ApplicationQuestionsIntroductionPage />,
+                            },
+                          ],
+                        },
+                        {
+                          path: "review",
+                          element: <ApplicationReviewPage />,
+                        },
+                        {
+                          path: "success",
+                          element: <ApplicationSuccessPage />,
+                        },
+                      ],
+                    },
+                  ],
+                }
+              : {},
             {
               path: "talent/profile/*",
               element: (
@@ -1494,8 +1698,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
 
 const Router = () => {
   const { locale } = useLocale();
+  const featureFlags = useFeatureFlags();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const router = createRoute(locale, routes.login(), featureFlags);
   return <RouterProvider router={router} fallbackElement={<Loading />} />;
 };
 
