@@ -70,28 +70,28 @@ describe("Static pages", () => {
       // Open accordion
       cy.findByRole("button", { name: /enabling conditions/i }).click();
 
-      cy.findByRole("link", { name: /download the guidance (en)/i }).click();
+      cy.findByRole("link", { name: /download the guidance \(en\)/i }).click();
       cy.verifyDownload("Enabling_Conditions_Guidance_EN.docx", { contains: true });
 
-      cy.findByRole("link", { name: /download the guidance (fr)/i }).click();
+      cy.findByRole("link", { name: /download the guidance \(fr\)/i }).click();
       cy.verifyDownload("Orientation_sur_les_conditions_habilitantes_FR.docx", { contains: true });
 
-      cy.findByRole("link", { name: /department-specific recruitment form (en)/i }).click();
+      cy.findByRole("link", { name: /department-specific recruitment form \(en\)/i }).click();
       cy.verifyDownload("Digital_Recruitment_Template_EN.docx", { contains: true });
 
-      cy.findByRole("link", { name: /department-specific recruitment form (fr)/i }).click();
+      cy.findByRole("link", { name: /department-specific recruitment form \(fr\)/i }).click();
       cy.verifyDownload("Modele_de_recrutement_numerique_FR.docx", { contains: true });
 
-      cy.findByRole("link", { name: /digital services contracting form (en)/i }).click();
+      cy.findByRole("link", { name: /digital services contracting form \(en\)/i }).click();
       cy.verifyDownload("Digital_Contracting_Questionnaire_EN.docx", { contains: true });
 
-      cy.findByRole("link", { name: /digital services contracting form (fr)/i }).click();
+      cy.findByRole("link", { name: /digital services contracting form \(fr\)/i }).click();
       cy.verifyDownload("Questionnaire_d'octroi_de_contrats_numeriques_FR.docx", { contains: true });
 
-      cy.findByRole("link", { name: /forward talent plan form (en)/i }).click();
+      cy.findByRole("link", { name: /forward talent plan form \(en\)/i }).click();
       cy.verifyDownload("Forward_Talent_Plan_EN.docx", { contains: true });
 
-      cy.findByRole("link", { name: /forward talent plan form (fr)/i }).click();
+      cy.findByRole("link", { name: /forward talent plan form \(fr\)/i }).click();
       cy.verifyDownload("Plan_prospectif_sur_les_talents_FR.docx", { contains: true });
     });
   });
