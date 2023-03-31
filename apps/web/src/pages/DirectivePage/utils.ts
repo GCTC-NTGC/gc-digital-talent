@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { CardFlatProps } from "@gc-digital-talent/ui";
+import { CardFlatProps, ExternalLinkProps } from "@gc-digital-talent/ui";
 
 interface GetFormLinkArgs {
   formName: React.ReactNode;
@@ -9,7 +9,7 @@ interface GetFormLinkArgs {
   intl: IntlShape;
 }
 
-const getFormLinks = ({
+export const getFormLinks = ({
   formName,
   files,
   intl,
@@ -46,4 +46,34 @@ const getFormLinks = ({
   return intl.locale === "en" ? links : links.reverse();
 };
 
-export default getFormLinks;
+interface GetGenericLinksArgs {
+  labels: {
+    en: React.ReactNode;
+    fr: React.ReactNode;
+  };
+  files: { en: string; fr: string };
+  intl: IntlShape;
+}
+
+export const getGenericLinks = ({
+  labels,
+  files,
+  intl,
+}: GetGenericLinksArgs) => {
+  const links: Array<ExternalLinkProps> = [
+    {
+      children: labels.en,
+      href: files.en,
+      mode: intl.locale === "en" ? "solid" : "inline",
+      "data-h2-padding": "base(x.5, x1)",
+    },
+    {
+      children: labels.fr,
+      href: files.fr,
+      mode: intl.locale === "en" ? "inline" : "solid",
+      "data-h2-padding": "base(x.5, x1)",
+    },
+  ];
+
+  return intl.locale === "en" ? links : links.reverse();
+};

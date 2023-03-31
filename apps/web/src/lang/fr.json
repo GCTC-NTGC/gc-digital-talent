@@ -7284,5 +7284,17 @@
   "uJyWDM": {
     "defaultMessage": "Recrutement particulier à un ministère",
     "description": "Short name for Department-Specific Recruitment Form"
+  },
+  "POvUB0": {
+    "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
+    "description": "Lead-in text for the directive guidance document"
+  },
+  "ft6q8G": {
+    "defaultMessage": "Télécharger le guide (FR)",
+    "description": "Link text for French guidance resource download"
+  },
+  "wMp4x6": {
+    "defaultMessage": "Télécharger le guide (EN)",
+    "description": "Link text for English guidance resource download"
   }
 }

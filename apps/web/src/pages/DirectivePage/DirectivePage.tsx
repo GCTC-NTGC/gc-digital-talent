@@ -21,7 +21,7 @@ import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import getFormLinks from "./utils";
+import { getFormLinks, getGenericLinks } from "./utils";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <ExternalLink
@@ -101,6 +101,26 @@ const DirectivePage = () => {
       id: "G0RoYe",
       description: "Short name for Forward Talent Plan Form",
     }),
+  });
+
+  const guidanceLinks = getGenericLinks({
+    intl,
+    files: {
+      en: "#",
+      fr: "#",
+    },
+    labels: {
+      en: intl.formatMessage({
+        defaultMessage: "Download the guidance (EN)",
+        id: "wMp4x6",
+        description: "Link text for English guidance resource download",
+      }),
+      fr: intl.formatMessage({
+        defaultMessage: "Download the guidance (FR)",
+        id: "ft6q8G",
+        description: "Link text for French guidance resource download",
+      }),
+    },
   });
 
   return (
@@ -311,6 +331,30 @@ const DirectivePage = () => {
                         "The directives digital enabling conditions component",
                     })}
                   </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "In addition to the support in the Directive itself, check out the guidance on enabling human resources support for digital talent.",
+                      id: "POvUB0",
+                      description:
+                        "Lead-in text for the directive guidance document",
+                    })}
+                  </p>
+                  <div
+                    data-h2-margin-top="base(x1)"
+                    data-h2-display="base(flex)"
+                    data-h2-flex-wrap="base(wrap)"
+                    data-h2-gap="base(x.25)"
+                  >
+                    {guidanceLinks.map((guidanceLink) => (
+                      <ExternalLink
+                        key={guidanceLink.href}
+                        type="button"
+                        color="primary"
+                        {...guidanceLink}
+                      />
+                    ))}
+                  </div>
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
