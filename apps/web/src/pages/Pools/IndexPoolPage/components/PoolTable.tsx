@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import uniqBy from "lodash/uniqBy";
 
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -168,12 +169,7 @@ const roleAssignmentsToPools = (
       : null;
   });
   const filteredFlattenedPools = unpackMaybes(flattenedPools);
-
-  // clear out any duplicate pools that may have accumulated
-  // https://stackoverflow.com/a/56757215
-  const poolsArray = filteredFlattenedPools.filter(
-    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
-  );
+  const poolsArray = uniqBy(filteredFlattenedPools, "id");
   return poolsArray;
 };
 
@@ -191,12 +187,7 @@ const poolsToPoolsWithTeam = (initialArray: Maybe<Pool[]>): Pool[] => {
       : null;
   });
   const filteredFlattenedPools = unpackMaybes(flattenedPools);
-
-  // clear out any duplicate pools that may have accumulated
-  // https://stackoverflow.com/a/56757215
-  const poolsArray = filteredFlattenedPools.filter(
-    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
-  );
+  const poolsArray = uniqBy(filteredFlattenedPools, "id");
   return poolsArray;
 };
 
