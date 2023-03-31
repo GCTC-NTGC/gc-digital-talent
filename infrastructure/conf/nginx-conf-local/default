@@ -62,7 +62,7 @@ server {
 
     # enable serving gzip-ed files
     gzip on;
-    gzip_types text/plain text/css application/xml application/javascript;
+    gzip_types text/plain text/css application/xml application/javascript application/json;
     gzip_proxied no-cache no-store private expired auth;
     gzip_min_length 1000;
 
