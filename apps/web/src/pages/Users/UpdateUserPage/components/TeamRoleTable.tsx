@@ -1,14 +1,14 @@
 import React, { useMemo, useCallback } from "react";
 import { useIntl } from "react-intl";
-import groupBy from "lodash/groupBy";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import {
   Role,
+  Scalars,
   Team,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
@@ -24,6 +24,11 @@ import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 type UpdateUserHandler = (
   submitData: UpdateUserAsAdminInput,
 ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+
+type RoleTeamPair = {
+  role: Role;
+  team: Team;
+};
 
 const rolesCell = (displayNames: string[]) => (
   <>
@@ -146,14 +151,10 @@ export const TeamRoleTable = ({
   );
 
   const data = useMemo(() => {
-    const roleTeamPairs: {
-      role: Role;
-      team: Team;
-    }[] = (user.roleAssignments ?? [])
+    const roleTeamPairs: RoleTeamPair[] = (user.roleAssignments ?? [])
       .map((assignment) => {
         if (assignment.team && assignment.role && assignment.role.isTeamBased)
           return {
-            teamId: assignment.team.id,
             role: assignment.role,
             team: assignment.team,
           };
@@ -161,12 +162,18 @@ export const TeamRoleTable = ({
       })
       .filter(notEmpty);
 
-    const pairsGroupedByTeam = groupBy(roleTeamPairs, "team.id");
+    const pairsGroupedByTeam = groupBy<
+      Scalars["ID"],
+      RoleTeamPair,
+      (arg: RoleTeamPair) => Scalars["ID"]
+    >(roleTeamPairs, (pair) => {
+      return pair.team.id;
+    });
 
-    return Object.keys(pairsGroupedByTeam).map((index) => {
+    return Object.values(pairsGroupedByTeam).map((teamGroupOfPairs) => {
       return {
-        team: pairsGroupedByTeam[index][0].team,
-        roles: pairsGroupedByTeam[index].map((entry) => entry.role),
+        team: teamGroupOfPairs[0].team, // team will be the same for every entry in group
+        roles: teamGroupOfPairs.map((pair) => pair.role),
       };
     });
   }, [user.roleAssignments]);
