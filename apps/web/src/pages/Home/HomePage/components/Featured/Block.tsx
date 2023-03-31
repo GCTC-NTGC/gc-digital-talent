@@ -9,6 +9,7 @@ export interface FeatureBlockProps {
     summary: React.ReactNode;
     img: {
       path: string;
+      position?: string;
     };
     link: {
       external?: boolean;
@@ -54,7 +55,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         data-h2-height="base(x10) desktop(x12)"
         style={{
           backgroundImage: `url('${content.img.path}')`,
-          backgroundPosition: "center",
+          backgroundPosition: content.img.position || "center",
           backgroundSize: "cover",
         }}
       />

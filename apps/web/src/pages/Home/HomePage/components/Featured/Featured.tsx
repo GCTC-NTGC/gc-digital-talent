@@ -7,6 +7,7 @@ import { getLocale } from "@gc-digital-talent/i18n";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 
+import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
 import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
 import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
 import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
@@ -89,7 +90,7 @@ const Featured = () => {
         description: "Summary of the directive on digital talent featured item",
       }),
 
-      img: { path: digitalAmbitionImg },
+      img: { path: glassesOnBooks, position: "bottom right" },
       link: {
         path: paths.directive(),
         label: intl.formatMessage({
