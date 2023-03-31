@@ -21,6 +21,15 @@ import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
+import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
+import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
+import recruitmentEn from "~/assets/documents/Digital_Recruitment_Template_EN.docx";
+import recruitmentFr from "~/assets/documents/Modele_de_recrutement_numerique_FR.docx";
+import guidanceEn from "~/assets/documents/Enabling_Conditions_Guidance_EN.docx";
+import guidanceFr from "~/assets/documents/Orientation_sur_les_conditions_habilitantes_FR.docx";
+import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
+import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
+
 import { getFormLinks, getGenericLinks } from "./utils";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
@@ -72,8 +81,8 @@ const DirectivePage = () => {
   const departmentFormLinks = getFormLinks({
     intl,
     files: {
-      en: "#",
-      fr: "#",
+      en: recruitmentEn,
+      fr: recruitmentFr,
     },
     formName: intl.formatMessage({
       defaultMessage: "Department-Specific Recruitment",
@@ -85,8 +94,8 @@ const DirectivePage = () => {
   const contractingFormLinks = getFormLinks({
     intl,
     files: {
-      en: "#",
-      fr: "#",
+      en: contractingEn,
+      fr: contractingFr,
     },
     formName: intl.formatMessage({
       defaultMessage: "Digital Services Contracting",
@@ -98,8 +107,8 @@ const DirectivePage = () => {
   const talentPlanFormLinks = getFormLinks({
     intl,
     files: {
-      en: "#",
-      fr: "#",
+      en: talentPlanEn,
+      fr: talentPlanFr,
     },
     formName: intl.formatMessage({
       defaultMessage: "Forward Talent Plan",
@@ -111,8 +120,8 @@ const DirectivePage = () => {
   const guidanceLinks = getGenericLinks({
     intl,
     files: {
-      en: "#",
-      fr: "#",
+      en: guidanceEn,
+      fr: guidanceFr,
     },
     labels: {
       en: intl.formatMessage({
