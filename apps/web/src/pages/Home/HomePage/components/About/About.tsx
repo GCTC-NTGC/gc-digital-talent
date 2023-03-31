@@ -50,6 +50,7 @@ const About = () => {
                 links={[
                   {
                     external: true,
+                    mode: "solid",
                     href:
                       locale === "en"
                         ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
@@ -90,6 +91,7 @@ const About = () => {
                 links={[
                   {
                     external: true,
+                    mode: "solid",
                     href:
                       locale === "en"
                         ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
@@ -130,6 +132,7 @@ const About = () => {
                   {
                     href: `/${locale}/talent-cloud/report`,
                     external: true,
+                    mode: "solid",
                     label: intl.formatMessage({
                       defaultMessage:
                         "Learn more<hidden> about how the platform was created</hidden>",

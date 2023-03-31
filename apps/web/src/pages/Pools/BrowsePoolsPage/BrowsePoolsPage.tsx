@@ -234,7 +234,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
             data-h2-gap="base(x2) p-tablet(x3)"
           >
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage(
                 {
                   defaultMessage:
@@ -279,7 +279,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Hire talent for your team",
                 id: "jTN0bg",

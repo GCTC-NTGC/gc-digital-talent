@@ -16,20 +16,23 @@ export interface CardFlatProps {
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {
-  yellow: {
-    "data-h2-border-left": "base(x.25 solid quaternary)",
+  primary: {
+    "data-h2-border-left": "base(x.25 solid primary)",
   },
-  red: {
+  secondary: {
+    "data-h2-border-left": "base(x.25 solid secondary)",
+  },
+  tertiary: {
     "data-h2-border-left": "base(x.25 solid tertiary)",
   },
-  blue: {
-    "data-h2-border-left": "base(x.25 solid secondary)",
+  quaternary: {
+    "data-h2-border-left": "base(x.25 solid quaternary)",
+  },
+  quinary: {
+    "data-h2-border-left": "base(x.25 solid quinary)",
   },
   black: {
     "data-h2-border-left": "base(x.25 solid black)",
-  },
-  purple: {
-    "data-h2-border-left": "base(x.25 solid primary)",
   },
 };
 

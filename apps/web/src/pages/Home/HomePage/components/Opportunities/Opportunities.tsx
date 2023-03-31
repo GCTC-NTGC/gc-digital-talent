@@ -85,7 +85,7 @@ const Opportunities = () => {
             data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
           >
             <CardFlat
-              color="yellow"
+              color="quaternary"
               title={intl.formatMessage({
                 defaultMessage: "Jobs in digital government",
                 id: "+cBKDC",
@@ -128,7 +128,7 @@ const Opportunities = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="blue"
+              color="secondary"
               title={intl.formatMessage({
                 defaultMessage: "Indigenous Apprenticeship Program",
                 id: "XR37x0",
@@ -138,7 +138,6 @@ const Opportunities = () => {
               links={[
                 {
                   href: `/${locale}/indigenous-it-apprentice`,
-                  external: true,
                   label: intl.formatMessage({
                     defaultMessage:
                       "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
@@ -166,7 +165,7 @@ const Opportunities = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="red"
+              color="tertiary"
               title={intl.formatMessage({
                 defaultMessage: "Executives in digital government",
                 id: "9KOwXq",

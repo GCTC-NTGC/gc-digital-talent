@@ -17,28 +17,34 @@ const Template: Story = () => {
       data-h2-grid-template-columns="base(repeat(4, minmax(0, 1fr)))"
       data-h2-gap="base(x2)"
     >
-      <CardFlat title="Yellow" color="yellow">
+      <CardFlat title="Primary" color="primary">
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
-      <CardFlat title="Red" color="red">
+      <CardFlat title="Secondary" color="secondary">
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
-      <CardFlat title="Blue" color="blue">
+      <CardFlat title="Tertiary" color="tertiary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat title="Quaternary" color="quaternary">
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat title="Quinary" color="quinary">
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
       <CardFlat title="Black" color="black">
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
       <CardFlat
-        title="Purple"
-        color="purple"
+        title="Link"
+        color="primary"
         links={[{ href: "#", label: "With link" }]}
       >
         <p>{faker.lorem.sentences(1)}</p>
       </CardFlat>
       <CardFlat
-        title="Purple"
-        color="purple"
+        title="Two Links"
+        color="primary"
         links={[
           { href: "#", label: "With link" },
           { href: "#", label: "Second link", mode: "outline" },

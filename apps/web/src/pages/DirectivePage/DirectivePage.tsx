@@ -402,7 +402,7 @@ const DirectivePage = () => {
             data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
           >
             <CardFlat
-              color="yellow"
+              color="quaternary"
               title={intl.formatMessage({
                 defaultMessage: "Department-Specific Recruitment Form",
                 id: "x0SRaQ",
@@ -422,7 +422,7 @@ const DirectivePage = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="blue"
+              color="secondary"
               title={intl.formatMessage({
                 defaultMessage: "Digital Services Contracting Form",
                 id: "QVWGaL",
@@ -442,7 +442,7 @@ const DirectivePage = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="red"
+              color="tertiary"
               title={intl.formatMessage({
                 defaultMessage: "Forward Talent Plan Form",
                 id: "sKAo0/",
