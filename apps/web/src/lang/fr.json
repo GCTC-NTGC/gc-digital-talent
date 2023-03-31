@@ -7254,7 +7254,7 @@
     "description": "Link text to read the directive on digital talent"
   },
   "000m9d": {
-    "defaultMessage": "Télécharger <hidden>{formName} </hidden>form (FR)",
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (FR)",
     "description": "Link text for an French form download"
   },
   "G0RoYe": {
@@ -7266,7 +7266,7 @@
     "description": "Short name for Digital Services Contracting Form"
   },
   "YDJiAT": {
-    "defaultMessage": "Télécharger <hidden>{formName} </hidden>form (EN)",
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (EN)",
     "description": "Link text for an English form download"
   },
   "uJyWDM": {
