@@ -51,6 +51,14 @@ const AccessibilityPage = React.lazy(() =>
       ),
   ),
 );
+const DirectivePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
+      ),
+  ),
+);
 
 /** Search */
 const SearchPage = React.lazy(() =>
@@ -593,6 +601,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               path: "accessibility-statement",
               element: <AccessibilityPage />,
+            },
+            {
+              path: "directive-on-digital-talent",
+              element: <DirectivePage />,
             },
             {
               path: "search",

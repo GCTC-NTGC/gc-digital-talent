@@ -2321,10 +2321,6 @@
     "defaultMessage": "Soumettez un nouveau message",
     "description": "Support form success action"
   },
-  "CbzWqJ": {
-    "defaultMessage": "L’Ambition numérique décrit l’engagement du gouvernement du Canada à créer des services numériques modernes et accessibles. La réalisation de ces priorités permettra au gouvernement de fournir des services et des programmes axés sur le numérique, centrés sur l’utilisateur et sans obstacle.",
-    "description": "Summary of the digital ambition featured item"
-  },
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
@@ -2332,10 +2328,6 @@
   "vNFHWp": {
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
-  },
-  "Gil1Zj": {
-    "defaultMessage": "Lisez l’Ambition numérique",
-    "description": "Link text to read the Digital Ambition"
   },
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
@@ -2432,10 +2424,6 @@
   "szLvj0": {
     "defaultMessage": "Votre courriel",
     "description": "Support form email field label"
-  },
-  "tTuBmE": {
-    "defaultMessage": "L’Ambition numérique",
-    "description": "Title for the digital ambition featured item"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
@@ -6988,5 +6976,313 @@
   "wHnGAK": {
     "defaultMessage": "Sur quoi travaillez-vous aujourd’hui?",
     "description": "Heading for the sections of links available to the current user"
+  },
+  "+vHVZ2": {
+    "defaultMessage": "Dites-nous comment vous répondez aux exigences de compétences pour cette occasion.",
+    "description": "Subtitle for the application skills page"
+  },
+  "6esMaA": {
+    "defaultMessage": "Expérience ou formation minimale",
+    "description": "Page title for the application education page"
+  },
+  "79m9jN": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Page title for the application success page"
+  },
+  "7ET77N": {
+    "defaultMessage": "Parlons compétences",
+    "description": "Page title for the application skills introduction page"
+  },
+  "AtGnJW": {
+    "defaultMessage": "Compétences requises",
+    "description": "Page title for the application skills page"
+  },
+  "GTHuSJ": {
+    "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
+    "description": "Subtitle for the application screening questions page"
+  },
+  "ImTMRk": {
+    "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
+    "description": "Subtitle for the application profile  page"
+  },
+  "K8CPir": {
+    "defaultMessage": "Appliquer à {poolName}",
+    "description": "Heading for the application page"
+  },
+  "O6L+3N": {
+    "defaultMessage": "Examinez votre candidature et soumettez-la!",
+    "description": "Subtitle for the application review page"
+  },
+  "OkREUg": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé page"
+  },
+  "QDcEYJ": {
+    "defaultMessage": "Réviser et soumettre",
+    "description": "Link text for the application review page"
+  },
+  "Tdr8r5": {
+    "defaultMessage": "Quelques questions sur le sujet",
+    "description": "Page title for the application screening questions introduction page"
+  },
+  "VTYtzg": {
+    "defaultMessage": "Excellent travail! Passons à votre CV.",
+    "description": "Page title for the application résumé introduction page"
+  },
+  "Zd02bf": {
+    "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
+    "description": "Subtitle for the application welcome page"
+  },
+  "aFPUbm": {
+    "defaultMessage": "Passez en revue votre profil",
+    "description": "Page title for the application profile page"
+  },
+  "bQtRF+": {
+    "defaultMessage": "Réussite",
+    "description": "Breadcrumb link text for the application success page"
+  },
+  "fBabZh": {
+    "defaultMessage": "Ajoutez une expérience à votre CV",
+    "description": "Page title for the application résumé add experience page"
+  },
+  "gtns9R": {
+    "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
+    "description": "Subtitle for the application education  page"
+  },
+  "mxH830": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé introduction page"
+  },
+  "rR+M64": {
+    "defaultMessage": "Révisez votre demande",
+    "description": "Page title for the application review page"
+  },
+  "sTij/C": {
+    "defaultMessage": "Question de sélection",
+    "description": "Page title for the application screening questions page"
+  },
+  "sXjm+Z": {
+    "defaultMessage": "Passez en revue votre CV",
+    "description": "Page title for the application résumé page"
+  },
+  "zJdfyv": {
+    "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
+    "description": "Subtitle for the application success page"
+  },
+  "/tscgU": {
+    "defaultMessage": "Étape 5",
+    "description": "Breadcrumb link text for the application skills page"
+  },
+  "9MUsDL": {
+    "defaultMessage": "Étape 6 (Intro)",
+    "description": "Breadcrumb link text for the application screening questions introduction page"
+  },
+  "G06TVY": {
+    "defaultMessage": "Étape 3 (Intro)",
+    "description": "Breadcrumb link text for the application résumé introduction page"
+  },
+  "IGR8Dw": {
+    "defaultMessage": "Étape 2",
+    "description": "Breadcrumb link text for the application profile page"
+  },
+  "NlfaES": {
+    "defaultMessage": "Étape 5 (Intro)",
+    "description": "Breadcrumb link text for the application skills introduction page"
+  },
+  "b5m9Ja": {
+    "defaultMessage": "Étape 7",
+    "description": "Breadcrumb link text for the application review page"
+  },
+  "dlJCeM": {
+    "defaultMessage": "Exigences en matière d’éducation",
+    "description": "Link text for the application education page"
+  },
+  "khjfel": {
+    "defaultMessage": "Étape 3",
+    "description": "Breadcrumb link text for the application résumé page"
+  },
+  "l1fsXC": {
+    "defaultMessage": "Naviguer les emplois en TI",
+    "description": "Breadcrumb link text for the browse pools page"
+  },
+  "n6ON28": {
+    "defaultMessage": "Étape 1",
+    "description": "Breadcrumb link text for the application welcome page"
+  },
+  "sde2Dj": {
+    "defaultMessage": "Bienvenue",
+    "description": "Link text for the application welcome page"
+  },
+  "ttq9CR": {
+    "defaultMessage": "Bienvenue, {name}",
+    "description": "Page title for the application welcome page"
+  },
+  "w7F00q": {
+    "defaultMessage": "Étape 4",
+    "description": "Breadcrumb link text for the application education page"
+  },
+  "wWnEgP": {
+    "defaultMessage": "Étape 6",
+    "description": "Breadcrumb link text for the application screening questions page"
+  },
+  "y2Rl/m": {
+    "defaultMessage": "Étapes relatives à l’application",
+    "description": "Label for the application stepper navigation"
+  },
+  "8hnUdh": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Breadcrumb link text for the application résumé add experience page"
+  },
+  "WiUlEh": {
+    "defaultMessage": "Modifiez votre expérience",
+    "description": "Page title for the application résumé edit experience page"
+  },
+  "dTJT+y": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Breadcrumb link text for the application résumé edit experience page"
+  },
+  "/BWol9": {
+    "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
+    "description": "The directives digital enabling conditions component"
+  },
+  "0DILS7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez organiser un recrutement de talents numériques qui créera un bassin de candidats. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the department-specific recruitment form"
+  },
+  "1pbvy+": {
+    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau du directeur général de l’information des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
+    "description": "The directives planning and reporting component"
+  },
+  "8yB2Bm": {
+    "defaultMessage": "Conditions favorables",
+    "description": "Heading for the directives digital enabling conditions component"
+  },
+  "C03OK7": {
+    "defaultMessage": "Établissement d’un bassin de talents numériques",
+    "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "GdOQeo": {
+    "defaultMessage": "Quelle est la Directive sur les talents numériques?",
+    "description": "Heading for section describing the directive"
+  },
+  "NKr2Rg": {
+    "defaultMessage": "Trouver des talents",
+    "description": "Link text for find talent (search) page"
+  },
+  "QVWGaL": {
+    "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
+    "description": "Heading for the digital Services contracting form"
+  },
+  "TmDejD": {
+    "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
+    "description": "Third paragraph describing the directive on digital talent"
+  },
+  "L1tQMY": {
+    "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
+    "description": "The directives digital talent and sourcing component"
+  },
+  "WieVH/": {
+    "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
+    "description": "Second paragraph describing the directive on digital talent"
+  },
+  "XVWN/C": {
+    "defaultMessage": "Remplir les formulaires obligatoires",
+    "description": "Heading for section for the downloadable forms section"
+  },
+  "Z9xByk": {
+    "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des DPI et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
+    "description": "The directives digital executive roles and structures component"
+  },
+  "c/u1K+": {
+    "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
+    "description": "Subtitle for the digital talent directive page"
+  },
+  "RDAVsP": {
+    "defaultMessage": "Lire la Directive",
+    "description": "Link text to read the entire directive."
+  },
+  "cktAfD": {
+    "defaultMessage": "Planification et établissement de rapports",
+    "description": "Heading for the directives planning and reporting component"
+  },
+  "e/nr9L": {
+    "defaultMessage": "Rôles et structures numériques des cadres",
+    "description": "Heading for the directives digital executive roles and structures component"
+  },
+  "fpdcE/": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the digital Services contracting form"
+  },
+  "hBVKqk": {
+    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
+    "description": "The directives digital talent and development component"
+  },
+  "joXPYW": {
+    "defaultMessage": "Composantes clés",
+    "description": "Heading for section describing the different components"
+  },
+  "k4Rl18": {
+    "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
+    "description": "First paragraph describing the directive on digital talent"
+  },
+  "mpa5Fd": {
+    "defaultMessage": "Développement des talents numériques",
+    "description": "Heading for the directives digital talent and development component"
+  },
+  "sKAo0/": {
+    "defaultMessage": "Envoyer le formulaire du plan pour les talents",
+    "description": "Heading for the forward talent plan form"
+  },
+  "x0SRaQ": {
+    "defaultMessage": "Formulaire de recrutement propre à un ministère",
+    "description": "Heading for the department-specific recruitment form"
+  },
+  "xXwUGs": {
+    "defaultMessage": "Directive sur les talents numériques",
+    "description": "Title for the digital talent directive page"
+  },
+  "ydjXm7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
+    "description": "Description for the forward talent plan form"
+  },
+  "jO2uif": {
+    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
+  "sGPKUt": {
+    "defaultMessage": "Veuillez consulter la Directive",
+    "description": "Link text to read the directive on digital talent"
+  },
+  "000m9d": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (FR)",
+    "description": "Link text for an French form download"
+  },
+  "G0RoYe": {
+    "defaultMessage": "Faire suivre le plan de talents",
+    "description": "Short name for Forward Talent Plan Form"
+  },
+  "X3bPom": {
+    "defaultMessage": "Octroi de contrat pour des services numériques",
+    "description": "Short name for Digital Services Contracting Form"
+  },
+  "YDJiAT": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (EN)",
+    "description": "Link text for an English form download"
+  },
+  "uJyWDM": {
+    "defaultMessage": "Recrutement particulier à un ministère",
+    "description": "Short name for Department-Specific Recruitment Form"
+  },
+  "POvUB0": {
+    "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
+    "description": "Lead-in text for the directive guidance document"
+  },
+  "ft6q8G": {
+    "defaultMessage": "Télécharger le guide (FR)",
+    "description": "Link text for French guidance resource download"
+  },
+  "wMp4x6": {
+    "defaultMessage": "Télécharger le guide (EN)",
+    "description": "Link text for English guidance resource download"
   }
 }

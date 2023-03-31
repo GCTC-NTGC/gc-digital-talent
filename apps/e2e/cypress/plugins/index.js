@@ -9,8 +9,6 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const { isFileExist, findFiles } = require("cy-verify-downloads");
-
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
@@ -32,6 +30,4 @@ module.exports = (on, config) => {
     on,
     reporterOptions,
   );
-
-  on("task", { isFileExist, findFiles });
 };

@@ -9,9 +9,14 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 import type { Color } from "../Button";
 import useCommonLinkStyles from "./useCommonLinkStyles";
 
+type DataAttributes = {
+  [key: `data-${string}`]: unknown;
+};
+
 export interface LinkProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
-    Omit<RouterLinkProps, "to"> {
+    Omit<RouterLinkProps, "to">,
+    DataAttributes {
   /** The style colour of the link */
   href?: string;
   color?: Color;
