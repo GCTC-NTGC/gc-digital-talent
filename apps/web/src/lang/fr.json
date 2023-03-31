@@ -6981,6 +6981,10 @@
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
   },
+  "+agJAH": {
+    "defaultMessage": "Mes rôles",
+    "description": "Label displayed for the table's My Roles column header."
+  },
   "jfED66": {
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
     "description": "Lead in text for the add role to user form."
