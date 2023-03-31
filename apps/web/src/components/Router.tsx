@@ -663,15 +663,19 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "applicant",
-              element: (
-                <RequireAuth
-                  roles={[ROLE_NAME.Applicant]}
-                  loginPath={loginPath}
-                >
-                  <Outlet />
-                </RequireAuth>
-              ),
+              element: <CreateAccountRedirect />,
               children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <Outlet />
+                    </RequireAuth>
+                  ),
+                },
                 {
                   path: "dashboard",
                   element: <ApplicantDashboardPage />,
