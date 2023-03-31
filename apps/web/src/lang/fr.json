@@ -7208,5 +7208,17 @@
   "dTJT+y": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Breadcrumb link text for the application résumé edit experience page"
+  },
+  "7pCluO": {
+    "defaultMessage": "Sélectionnez une exigence linguistique",
+    "description": "Placeholder for language requirement field"
+  },
+  "PVo1xK": {
+    "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
+    "description": "Placeholder for security requirement field"
+  },
+  "Y0WLp5": {
+    "defaultMessage": "Sélectionnez un groupe des publications",
+    "description": "Placeholder for publishing group field"
   }
 }
