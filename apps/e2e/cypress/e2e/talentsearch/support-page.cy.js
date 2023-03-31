@@ -14,7 +14,21 @@ describe("Support page", () => {
     });
   });
 
-  context("Support form", () => {
+  context('Support page', () => {
+    it('should exist', () => {
+      cy.visit('/en/support')
+      cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist')
+    })
+
+    it('should have no accessibility errors', () => {
+      cy.visit('/en/support');
+      cy.injectAxe();
+      cy.findByRole('heading', { name: 'Contact and support', level: 1 }).should('exist');
+      cy.checkA11y();
+    });
+  })
+
+  context('Support form', () => {
     it("should send POST request to existing api endpoint", () => {
       cy.request({
         method: "POST",
