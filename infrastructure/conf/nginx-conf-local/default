@@ -119,13 +119,13 @@ server {
     }
 
     # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /tc-report/_site/$1 break;
+    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;
     }
 
      # rewrite talent static files to "apps/web/dist"
-    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
+        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "admin" to admin index.html
@@ -213,8 +213,8 @@ server {
     }
 
     # rewrite talent static files to "web/dist"
-    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
+        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
