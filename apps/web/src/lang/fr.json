@@ -7100,5 +7100,25 @@
   "sGPKUt": {
     "defaultMessage": "Veuillez consulter la Directive",
     "description": "Link text to read the directive on digital talent"
+  },
+  "000m9d": {
+    "defaultMessage": "Télécharger <hidden>{formName} </hidden>form (FR)",
+    "description": "Link text for an French form download"
+  },
+  "G0RoYe": {
+    "defaultMessage": "Faire suivre le plan de talents",
+    "description": "Short name for Forward Talent Plan Form"
+  },
+  "X3bPom": {
+    "defaultMessage": "Octroi de contrat pour des services numériques",
+    "description": "Short name for Digital Services Contracting Form"
+  },
+  "YDJiAT": {
+    "defaultMessage": "Télécharger <hidden>{formName} </hidden>form (EN)",
+    "description": "Link text for an English form download"
+  },
+  "uJyWDM": {
+    "defaultMessage": "Recrutement particulier à un ministère",
+    "description": "Short name for Department-Specific Recruitment Form"
   }
 }
