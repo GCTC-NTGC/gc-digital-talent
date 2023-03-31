@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Classification;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

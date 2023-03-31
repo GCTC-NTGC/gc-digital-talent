@@ -1,14 +1,18 @@
 <?php
+
 namespace App\GraphQL\Operators;
 
 use \Nuwave\Lighthouse\WhereConditions\Operator;
 use \Nuwave\Lighthouse\WhereConditions\SQLOperator;
 
-class PostgreSQLOperator extends SQLOperator implements Operator {
+class PostgreSQLOperator extends SQLOperator implements Operator
+{
 
     public function enumDefinition(): string
     {
-        return /** @lang GraphQL */ <<<'GRAPHQL'
+        return
+            /** @lang GraphQL */
+            <<<'GRAPHQL'
 "The available SQL operators that are used to filter query results."
 enum SQLOperator {
     "Equal operator (`=`)"

@@ -69,7 +69,7 @@ class ClassificationTest extends TestCase
     {
         $this->actingAs($this->baseUser, 'api')
             ->graphQL('query { classifications { id } }')
-            ->assertJsonFragment([ 'id' => $this->uuid ]);
+            ->assertJsonFragment(['id' => $this->uuid]);
     }
 
     /**
@@ -80,10 +80,11 @@ class ClassificationTest extends TestCase
     public function test_view_classification()
     {
 
-        $variables = [ 'id' => $this->uuid ];
+        $variables = ['id' => $this->uuid];
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query GetClassification($id: UUID!) {
                 classification(id: $id) {
                     id
@@ -114,8 +115,9 @@ class ClassificationTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation UpdateClassification($id: ID!, $classification: UpdateClassificationInput!) {
                 updateClassification(id: $id, classification: $classification) {
                     id
@@ -128,12 +130,12 @@ class ClassificationTest extends TestCase
         ';
 
         $this->actingAs($this->baseUser, 'api')
-            ->graphQL($mutation, $variables )
+            ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->actingAs($this->adminUser, 'api')
-            ->graphQL($mutation, $variables )
-            ->assertJsonFragment([ 'id' => $this->uuid, 'name' => $variables['classification']['name'] ]);
+            ->graphQL($mutation, $variables)
+            ->assertJsonFragment(['id' => $this->uuid, 'name' => $variables['classification']['name']]);
     }
 
     /**
@@ -154,8 +156,9 @@ class ClassificationTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation Create($classification: CreateClassificationInput!) {
                 createClassification(classification: $classification) {
                     id
@@ -173,8 +176,7 @@ class ClassificationTest extends TestCase
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['name' => $variables['classification']['name'] ]);
-
+            ->assertJsonFragment(['name' => $variables['classification']['name']]);
     }
 
     /**
@@ -184,10 +186,11 @@ class ClassificationTest extends TestCase
      */
     public function test_delete_classification()
     {
-        $variables = [ 'id' => $this->toBeDeletedUUID ];
+        $variables = ['id' => $this->toBeDeletedUUID];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation Delete($id: ID!) {
                 deleteClassification(id: $id) {
                     id
@@ -201,6 +204,6 @@ class ClassificationTest extends TestCase
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['id' => $this->toBeDeletedUUID ]);
+            ->assertJsonFragment(['id' => $this->toBeDeletedUUID]);
     }
 }

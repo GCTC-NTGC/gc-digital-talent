@@ -30,16 +30,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
     }
 
-    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true) {
+    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true)
+    {
         return [
             'pool_id' => $pool,
             'user_id' => $user,
             'pool_candidate_status' => $available ? ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE : ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date') ,
+            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
 
-    public function poolData(?bool $published = true) {
+    public function poolData(?bool $published = true)
+    {
         return [
             'published_at' => $published ? config('constants.past_date') : null,
         ];

@@ -2,7 +2,7 @@ name: Translations
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - .github/workflows/translations.yml
       - packages/**
@@ -25,9 +25,9 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: './.nvmrc'
-          cache: 'npm'
-          cache-dependency-path: './package-lock.json'
+          node-version-file: "./.nvmrc"
+          cache: "npm"
+          cache-dependency-path: "./package-lock.json"
 
       - name: Upgrade npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
@@ -108,4 +108,3 @@ jobs:
             packages/**/lang/untranslated.json
             !packages/node_modules/**
           if-no-files-found: ignore
-

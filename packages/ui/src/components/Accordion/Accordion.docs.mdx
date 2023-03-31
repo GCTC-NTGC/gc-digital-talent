@@ -8,17 +8,17 @@ This is a styled version of [@radix-ui/accordion](https://www.radix-ui.com/docs/
 
 ## Subcomponents
 
- - `Accordion.Root`
- - `Accordion.Item`
- - `Accordion.Trigger`
- - `Accordion.Content`
+- `Accordion.Root`
+- `Accordion.Item`
+- `Accordion.Trigger`
+- `Accordion.Content`
 
 ## Usage
 
 There are two main types of `Accordion` which are defined by the `type` prop. Those are, single and multiple.
 
 <Story id="components-accordion--default" />
-<div style={{height: "1rem"}} />
+<div style={{ height: "1rem" }} />
 
 ### Single
 
@@ -89,6 +89,7 @@ type RootProps = React.ComponentPropsWithoutRef<
   mode?: AccordionMode;
 };
 ```
+
 - `mode`: Determine how the accordion is displayed
   - See: [Accordion Design File](https://github.com/GCTC-NTGC/gc-digital-talent/discussions/5522)
 
@@ -110,13 +111,13 @@ interface AccordionTriggerProps
 }
 ```
 
- - `Icon`: Appears at the far right of the trigger
- - `context`: Provide additional context that appears at the end of the trigger
- - `subtitle`: Appears directly below the title (defined by `children`)
- - `headerAs`: Defines the heading rank for the trigger
-   - See: [WAI Headings](https://www.w3.org/WAI/tutorials/page-structure/headings/)
+- `Icon`: Appears at the far right of the trigger
+- `context`: Provide additional context that appears at the end of the trigger
+- `subtitle`: Appears directly below the title (defined by `children`)
+- `headerAs`: Defines the heading rank for the trigger
+  - See: [WAI Headings](https://www.w3.org/WAI/tutorials/page-structure/headings/)
 
 ## Links
 
- - [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion)
- - [Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
+- [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion)
+- [Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)

@@ -57,9 +57,11 @@ This offers the familiar `findByRole()`, `findByLabelText()` etc queries from
 React's `@testing-library`
 
 ```js
-cy.findByRole('button', {name: /Button Text/i}).should('exist')
-cy.findByRole('button', {name: /Non-existing Button Text/i}).should('not.exist')
-cy.findByLabelText(/Label text/i, {timeout: 7000}).should('exist')
+cy.findByRole("button", { name: /Button Text/i }).should("exist");
+cy.findByRole("button", { name: /Non-existing Button Text/i }).should(
+  "not.exist",
+);
+cy.findByLabelText(/Label text/i, { timeout: 7000 }).should("exist");
 ```
 
 Note: `get*()` queries are not available, as they're not compatible with how
@@ -125,6 +127,7 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
 ```
 
 ## Tips & Tricks
+
 <sup>Click through into linked files for tips relevant to our usage.</sup>
 
 - helpful terms
@@ -147,6 +150,7 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
     - consider keeping them **as close to implementation as possible**, hoisting only as far as needed
 
 ## Advanced: Cross-origin security and limitations
+
 See: https://docs.cypress.io/guides/guides/web-security
 
 - Cypress isn't designed to access websites off the primary domain
@@ -169,16 +173,17 @@ See: https://docs.cypress.io/guides/guides/web-security
 - mitigations of this issue in our setup
   - we'll keep `chromeWebSecurity:true` for our CI runs
   - when a test needs security disabled to work, we'll use `it.skip('does
-    thing', () => { ... })` and add comment with `chromeWebSecurity:false`
+thing', () => { ... })` and add comment with `chromeWebSecurity:false`
 
 <!-- Links -->
-   [`cypress/support/e2e.js`]: /apps/e2e/cypress/support/e2e.js
-   [`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
-   [`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
-   [`apps/e2e/cypress/`]: /apps/e2e/cypress/
-   [`/api/.env`]: /api/.env
-   [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
-   [`apps/e2e/`]: /apps/e2e/
-   [`apps/e2e/cypress.config.ts`]: /apps/e2e/cypress.config.ts
-   [e2e-config]: /.github/workflows/e2e-tests.yml
-   [e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml
+
+[`cypress/support/e2e.js`]: /apps/e2e/cypress/support/e2e.js
+[`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
+[`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
+[`apps/e2e/cypress/`]: /apps/e2e/cypress/
+[`/api/.env`]: /api/.env
+[command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
+[`apps/e2e/`]: /apps/e2e/
+[`apps/e2e/cypress.config.ts`]: /apps/e2e/cypress.config.ts
+[e2e-config]: /.github/workflows/e2e-tests.yml
+[e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml
