@@ -62,6 +62,27 @@ query ListTeams {
   }
 }
 
+query MeRoleAssignments {
+  me {
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+        isTeamBased
+      }
+      team {
+        id
+        name
+      }
+    }
+  }
+}
+
 query ListRoles {
   roles {
     id
