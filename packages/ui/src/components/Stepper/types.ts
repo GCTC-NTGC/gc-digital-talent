@@ -9,7 +9,7 @@ export type IconType = React.ForwardRefExoticComponent<
 export type StepType = {
   href: string;
   icon: IconType;
-  label: string;
+  label: React.ReactNode;
   completed?: boolean;
   error?: boolean;
 };

@@ -29,7 +29,7 @@ const deriveStepState = (
   return "disabled";
 };
 
-interface StepperProps {
+export interface StepperProps {
   currentIndex: number;
   headingLevel?: HeadingLevel;
   label: string;

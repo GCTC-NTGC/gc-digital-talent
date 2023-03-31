@@ -29,6 +29,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property array $submitted_steps
  */
 
 class PoolCandidate extends Model
@@ -49,7 +50,8 @@ class PoolCandidate extends Model
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
         'suspended_at' => 'datetime',
-        'profile_snapshot' => 'json'
+        'profile_snapshot' => 'json',
+        'submitted_steps' => 'array',
     ];
 
     /**
@@ -441,5 +443,15 @@ class PoolCandidate extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * Take the new application step to insert and add it to the array, preserving uniqueness
+     */
+    public function setInsertSubmittedStepAttribute($applicationStep)
+    {
+        $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
+
+        $this->submitted_steps = $submittedSteps->values()->all();
     }
 }
