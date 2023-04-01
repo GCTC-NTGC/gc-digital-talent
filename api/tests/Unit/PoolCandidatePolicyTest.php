@@ -200,11 +200,11 @@ class PoolCandidatePolicyTest extends TestCase
         $this->poolCandidate->save();
 
         $this->assertTrue($this->poolOperatorUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertTrue($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
 
         $this->assertFalse($this->guestUser->can('updateAsAdmin', $this->poolCandidate));
         $this->assertFalse($this->candidateUser->can('updateAsAdmin', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updateAsAdmin', $this->poolCandidate));
 
         // make candidate draft
