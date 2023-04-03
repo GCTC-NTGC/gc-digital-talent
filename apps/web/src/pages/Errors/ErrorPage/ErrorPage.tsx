@@ -8,7 +8,8 @@ import { useLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
-import CallToAction from "~/components/CallToAction/CallToAction";
+import CallToActionLink from "~/components/CallToAction/CallToActionLink";
+import { HomeIcon, SupportIcon } from "~/components/CallToAction/Icons";
 
 import darkPug from "~/assets/img/404_pug_dark.png";
 import lightPug from "~/assets/img/404_pug_light.png";
@@ -83,31 +84,28 @@ const ErrorPage = () => {
             data-h2-justify-content="base(center)"
             data-h2-flex-wrap="base(wrap) p-tablet(initial)"
           >
-            <CallToAction
-              type="link"
-              context="home"
-              content={{
-                path: paths.home(),
-                label: intl.formatMessage({
-                  defaultMessage: "Go to the homepage",
-                  id: "i9E0ka",
-                  description: "Link text to go to the homepage from a 404",
-                }),
-              }}
-            />
-            <CallToAction
-              type="link"
-              context="support"
-              content={{
-                path: paths.support(),
-                label: intl.formatMessage({
-                  defaultMessage: "Report a missing page",
-                  id: "kfzKrV",
-                  description:
-                    "Link text to go report a missing page on the 404",
-                }),
-              }}
-            />
+            <CallToActionLink
+              Icon={HomeIcon}
+              color="quinary"
+              href={paths.home()}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Go to the homepage",
+                id: "i9E0ka",
+                description: "Link text to go to the homepage from a 404",
+              })}
+            </CallToActionLink>
+            <CallToActionLink
+              Icon={SupportIcon}
+              color="primary"
+              href={paths.support()}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Report a missing page",
+                id: "kfzKrV",
+                description: "Link text to go report a missing page on the 404",
+              })}
+            </CallToActionLink>
           </div>
         </div>
       </div>
