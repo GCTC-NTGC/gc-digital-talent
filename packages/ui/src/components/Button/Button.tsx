@@ -462,7 +462,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`button ${classNames}`}
+        className={classNames ? `button ${classNames}` : "button"}
         // eslint-disable-next-line react/button-has-type
         type={type || "button"}
         disabled={disabled}
