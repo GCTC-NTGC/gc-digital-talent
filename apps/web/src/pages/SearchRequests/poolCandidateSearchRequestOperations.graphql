@@ -95,6 +95,11 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         level
       }
     }
+    classifications {
+      id
+      group
+      level
+    }
   }
 }
 query getPoolCandidateSearchRequests {

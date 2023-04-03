@@ -589,6 +589,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
+  stream: PoolStream
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -614,6 +615,8 @@ type ApplicantFilter {
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
+  classifications: [Classification]
+    @belongsToMany(relation: "classifications")
   stream: PoolStream
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
@@ -829,6 +832,7 @@ input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
+  stream: PoolStream
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -857,6 +861,8 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
+  classifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   hasDiploma: Boolean @scope
