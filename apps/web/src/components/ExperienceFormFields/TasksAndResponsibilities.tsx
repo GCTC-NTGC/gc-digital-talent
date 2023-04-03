@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import {
@@ -19,8 +19,8 @@ const FIELD_NAME = "details";
 
 const TasksAndResponsibilities = () => {
   const intl = useIntl();
-  const { watch } = useFormContext();
-  const [currentValue, type] = watch([FIELD_NAME, "type"]);
+  const type = useWatch({ name: "type" });
+  const currentValue = useWatch({ name: FIELD_NAME });
 
   return (
     <>

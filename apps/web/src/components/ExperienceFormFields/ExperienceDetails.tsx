@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -16,8 +16,7 @@ import NullExperienceType from "./NullExperienceType";
 
 const ExperienceDetails = () => {
   const intl = useIntl();
-  const { watch } = useFormContext();
-  const type = watch("type");
+  const type = useWatch({ name: "type" });
   const labels = getExperienceFormLabels(intl, type);
 
   return (
