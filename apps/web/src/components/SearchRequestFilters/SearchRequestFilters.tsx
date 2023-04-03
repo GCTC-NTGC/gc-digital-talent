@@ -12,6 +12,7 @@ import {
   getOperationalRequirement,
   getWorkRegion,
   getLocale,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -130,19 +131,12 @@ const ApplicantFilters = ({
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
   );
 
-  const pools = applicantFilter?.pools?.filter(notEmpty);
   const classifications = applicantFilter?.classifications || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
     );
-
-  const streamFromApplicationFilter = applicantFilter?.stream;
-
-  const streamFromPool: Maybe<PoolStream>[] | undefined = pools?.map(
-    (pool) => pool?.stream,
-  );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
@@ -279,7 +273,11 @@ const ApplicantFilters = ({
               id: "Ua/X9Q",
               description: "Title for stream on summary of filters section",
             })}
-            content={streamFromApplicationFilter || streamFromPool}
+            content={
+              applicantFilter?.stream
+                ? intl.formatMessage(getPoolStream(applicantFilter?.stream))
+                : ""
+            }
           />
           <FilterBlock
             title={intl.formatMessage(
@@ -419,9 +417,12 @@ const SearchRequestFilters = ({
         }`,
     );
 
-  const pools: Maybe<Maybe<Pool>[]> = poolCandidateFilter?.pools;
-  const streams: Maybe<PoolStream>[] | undefined = pools?.map(
-    (pool) => pool?.stream,
+  const pools: Pool[] | undefined = poolCandidateFilter
+    ? poolCandidateFilter?.pools?.filter(notEmpty)
+    : [];
+
+  const streams = pools?.map((pool) =>
+    pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : "",
   );
 
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
