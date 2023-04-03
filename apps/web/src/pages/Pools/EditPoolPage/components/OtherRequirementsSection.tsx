@@ -168,6 +168,11 @@ const OtherRequirementsSection = ({
                     "Label displayed on the edit pool form language requirement field.",
                 })}
                 name="languageRequirement"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a language requirement",
+                  id: "7pCluO",
+                  description: "Placeholder for language requirement field",
+                })}
                 options={enumToOptions(PoolAdvertisementLanguage, [
                   PoolAdvertisementLanguage.Various,
                   PoolAdvertisementLanguage.English,
@@ -194,6 +199,11 @@ const OtherRequirementsSection = ({
                     "Label displayed on the edit pool form security requirement field.",
                 })}
                 name="securityRequirement"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a security requirement",
+                  id: "PVo1xK",
+                  description: "Placeholder for security requirement field",
+                })}
                 options={enumToOptions(SecurityStatus, [
                   SecurityStatus.Reliability,
                   SecurityStatus.Secret,
@@ -292,6 +302,11 @@ const OtherRequirementsSection = ({
                     "Label displayed on the edit pool form publishing group field.",
                 })}
                 name="publishingGroup"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a publishing group",
+                  id: "Y0WLp5",
+                  description: "Placeholder for publishing group field",
+                })}
                 options={enumToOptions(PublishingGroup).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getPublishingGroup(value)),

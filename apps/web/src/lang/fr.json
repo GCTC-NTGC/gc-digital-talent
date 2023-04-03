@@ -7209,6 +7209,18 @@
     "defaultMessage": "Modifier l'expérience",
     "description": "Breadcrumb link text for the application résumé edit experience page"
   },
+  "7pCluO": {
+    "defaultMessage": "Sélectionnez une exigence linguistique",
+    "description": "Placeholder for language requirement field"
+  },
+  "PVo1xK": {
+    "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
+    "description": "Placeholder for security requirement field"
+  },
+  "Y0WLp5": {
+    "defaultMessage": "Sélectionnez un groupe des publications",
+    "description": "Placeholder for publishing group field"
+  },
   "/BWol9": {
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
     "description": "The directives digital enabling conditions component"
