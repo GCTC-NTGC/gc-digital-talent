@@ -22,7 +22,6 @@ import {
   Maybe,
   Pool,
   PoolCandidateFilter,
-  PoolStream,
   PositionDuration,
 } from "~/api/generated";
 
