@@ -88,9 +88,6 @@ const Pagination = ({
               {/* left navigation arrow */}
               <li data-h2-display="base(inline-block)">
                 <Button
-                  classNames={
-                    isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
-                  }
                   color={color}
                   mode={mode}
                   type="button"
@@ -144,7 +141,6 @@ const Pagination = ({
                     data-h2-display="base(inline-block)"
                   >
                     <Button
-                      classNames={lessThanTwoItems ? "disabled" : ""}
                       data-testid="pagination"
                       color={color}
                       mode={`${current ? "solid" : mode}`}
@@ -178,9 +174,6 @@ const Pagination = ({
               {/* right navigation arrow */}
               <li data-h2-display="base(inline-block)">
                 <Button
-                  classNames={
-                    isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
-                  }
                   color={color}
                   mode={mode}
                   type="button"

@@ -29,7 +29,6 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset";
-  classNames?: string;
 }
 
 export const h2ButtonColors = {
@@ -444,7 +443,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       mode = "solid",
       disabled,
       block = false,
-      classNames,
       ...rest
     },
     ref,
@@ -462,7 +460,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={classNames ? `button ${classNames}` : "button"}
         // eslint-disable-next-line react/button-has-type
         type={type || "button"}
         disabled={disabled}
@@ -471,6 +468,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-h2-font-weight="base(700)"
         data-h2-transition="base:hover(background .2s ease 0s)"
         data-h2-cursor="base(pointer)"
+        data-h2-overflow-wrap="base(break-word)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}
