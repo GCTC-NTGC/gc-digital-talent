@@ -46,3 +46,24 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[svg](primary)",
   },
 };
+
+export const iconSize: Record<HeadingLevel, Record<string, string>> = {
+  h1: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h1))",
+  },
+  h2: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h2))",
+  },
+  h3: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h3))",
+  },
+  h4: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h4))",
+  },
+  h5: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h5))",
+  },
+  h6: {
+    "data-h2-width": "base:children[svg](var(--h2-font-size-h6))",
+  },
+};

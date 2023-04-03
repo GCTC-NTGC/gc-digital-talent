@@ -274,6 +274,10 @@ return [
             'en' => 'Update the status of Applications submitted to this Team\'s Pools',
             'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.'
         ],
+        'update-any-applicationStatus' => [
+            'en' => 'Update the status of any submitted Applications',
+            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.'
+        ],
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
             'fr' => 'Supprimer sa propre candidature provisoire'
@@ -592,6 +596,9 @@ return [
             ],
             'applicantProfile' => [
                 'any' => ['view'],
+            ],
+            'applicationStatus' => [
+                'any' => ['update']
             ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete']

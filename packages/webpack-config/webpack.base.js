@@ -132,6 +132,13 @@ module.exports = (basePath) => {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: "asset/resource",
         },
+        {
+          test: /\.(pdf|doc|docx)$/i,
+          type: "asset/resource",
+          generator: {
+            filename: 'documents/[name][ext]'
+          }
+        },
       ],
     },
     resolve: {
