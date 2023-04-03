@@ -116,7 +116,6 @@ describe("useFilterOptions", () => {
     it.skip("performs 3 API client queries", () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const result = renderHookWithProviders({});
-      // TODO: Refactor to access function mock and check if Urql client is being called appropriately.
       // expect(mockClient.executeQuery).toBeCalledTimes(3);
     });
 
