@@ -82,7 +82,8 @@ const Pagination = ({
             <ul
               data-h2-display="base(flex)"
               data-h2-gap="base(x.25)"
-              className="reset-ul"
+              data-h2-list-style="base(none)"
+              data-h2-padding="base(0)"
               {...rest}
             >
               {/* left navigation arrow */}

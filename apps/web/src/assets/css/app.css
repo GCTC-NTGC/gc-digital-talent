@@ -23,11 +23,6 @@ button {
   border: none;
 }
 
-.reset-ul {
-  list-style: none;
-  padding: 0;
-}
-
 p {
   white-space: pre-wrap;
 }
