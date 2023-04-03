@@ -25,7 +25,6 @@ import {
   PoolCandidate,
   OperationalRequirement,
   Applicant,
-  PoolStream,
 } from "~/api/generated";
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
