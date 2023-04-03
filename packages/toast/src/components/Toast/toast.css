@@ -98,7 +98,8 @@
   display: flex;
   align-items: flex-start;
   align-self: stretch;
-  padding: calc(var(--h2-base-whitespace) * .5rem) calc(var(--h2-base-whitespace) * 1rem);
+  padding: calc(var(--h2-base-whitespace) * 0.5rem)
+    calc(var(--h2-base-whitespace) * 1rem);
   position: relative;
 }
 

@@ -57,14 +57,14 @@ describe("Pool Candidates", () => {
             });
 
             cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
-            })
+            });
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
@@ -104,7 +104,12 @@ describe("Pool Candidates", () => {
       .clear()
       .type("cypress");
 
-    cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+    cy.findByRole("link", {
+      name: new RegExp(
+        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        "i",
+      ),
+    })
       .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
@@ -155,14 +160,14 @@ describe("Pool Candidates", () => {
             });
 
             cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
-            })
+            });
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
@@ -202,7 +207,12 @@ describe("Pool Candidates", () => {
       .clear()
       .type("cypress");
 
-    cy.findByRole("link", {name: new RegExp(`View Candidates for Cypress Test Pool EN ${uniqueTestId}`, "i")})
+    cy.findByRole("link", {
+      name: new RegExp(
+        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        "i",
+      ),
+    })
       .should("exist")
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
@@ -230,5 +240,4 @@ describe("Pool Candidates", () => {
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });
-
 });

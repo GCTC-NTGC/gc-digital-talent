@@ -1,6 +1,6 @@
-# Comes from apps/web/src/pages/ProfilePage/profileOperations.graphql
+# Comes from apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql
 # Should match the getMe query from that file to take accurate snapshots
-query getProfile($userId: ID!) {
+query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
     sub

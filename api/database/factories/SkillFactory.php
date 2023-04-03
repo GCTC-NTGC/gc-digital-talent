@@ -26,15 +26,15 @@ class SkillFactory extends Factory
         $keywordsEN = [];
         $keywordsFR = [];
         foreach ($keywords as $index => $value) {
-            $keywordsEN[$index] = $value.' EN';
-            $keywordsFR[$index] = $value.' FR';
+            $keywordsEN[$index] = $value . ' EN';
+            $keywordsFR[$index] = $value . ' FR';
         }
 
         $name = $this->faker->unique()->jobTitle();
         return [
-            'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
+            'name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],
             'key' => KeyStringHelpers::toKeyString($name),
-            'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+            'description' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'keywords' => ['en' => $keywordsEN, 'fr' => $keywordsFR],
         ];
     }

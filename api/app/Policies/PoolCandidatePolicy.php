@@ -43,8 +43,8 @@ class PoolCandidatePolicy
             return $user->isAbleTo("view-any-draftApplication");
         }
 
-        if(!$isDraft) {
-            if($user->isAbleTo("view-any-submittedApplication")) {
+        if (!$isDraft) {
+            if ($user->isAbleTo("view-any-submittedApplication")) {
                 return true;
             }
 
@@ -82,7 +82,27 @@ class PoolCandidatePolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether an admin user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate)
+    {
+
+        $poolCandidate->loadMissing('pool.team');
+        $candidatePoolTeam = $poolCandidate->pool->team;
+        $isDraft = $poolCandidate->isDraft();
+        if ($user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam) && !$isDraft) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether a user can update the model.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PoolCandidate  $poolCandidate
@@ -90,11 +110,9 @@ class PoolCandidatePolicy
      */
     public function update(User $user, PoolCandidate $poolCandidate)
     {
-
-        $poolCandidate->loadMissing('pool.team');
-        $candidatePoolTeam = $poolCandidate->pool->team;
+        $isOwn = $user->id == $poolCandidate->user_id;
         $isDraft = $poolCandidate->isDraft();
-        if ($user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam) && !$isDraft) {
+        if ($user->isAbleTo("update-own-draftApplication") && $isOwn && $isDraft) {
             return true;
         }
 

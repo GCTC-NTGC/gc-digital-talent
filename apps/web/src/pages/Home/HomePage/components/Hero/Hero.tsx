@@ -6,7 +6,8 @@ import { Heading } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import CallToAction from "~/components/CallToAction/CallToAction";
+import CallToActionLink from "~/components/CallToAction/CallToActionLink";
+import { HireIcon, JobIcon } from "~/components/CallToAction/Icons";
 
 import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
 import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
@@ -88,30 +89,28 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
           data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         >
-          <CallToAction
-            type="link"
-            context="job"
-            content={{
-              path: paths.allPools(),
-              label: intl.formatMessage({
-                defaultMessage: "Looking for a job?",
-                id: "Tk2HJy",
-                description: "Link text for applicant call to action",
-              }),
-            }}
-          />
-          <CallToAction
-            type="link"
-            context="hire"
-            content={{
-              path: paths.search(),
-              label: intl.formatMessage({
-                defaultMessage: "Looking to hire?",
-                id: "1wFFIx",
-                description: "Link text for hiring manager call to action",
-              }),
-            }}
-          />
+          <CallToActionLink
+            color="quaternary"
+            Icon={JobIcon}
+            href={paths.allPools()}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Looking for a job?",
+              id: "Tk2HJy",
+              description: "Link text for applicant call to action",
+            })}
+          </CallToActionLink>
+          <CallToActionLink
+            color="secondary"
+            Icon={HireIcon}
+            href={paths.search()}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Looking to hire?",
+              id: "1wFFIx",
+              description: "Link text for hiring manager call to action",
+            })}
+          </CallToActionLink>
         </div>
       </div>
     </div>

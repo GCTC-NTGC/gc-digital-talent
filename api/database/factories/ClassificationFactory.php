@@ -25,7 +25,7 @@ class ClassificationFactory extends Factory
         return [
             'group' => $faker->name,
             'name' => ['en' => $faker->name, 'fr' => $faker->name],
-            'level' => $faker->numberBetween(0,5),
+            'level' => $faker->numberBetween(0, 5),
             'min_salary' => $faker->randomElement([50000, 60000, 70000]),
             'max_salary' => $faker->randomElement([80000, 90000, 100000]),
         ];

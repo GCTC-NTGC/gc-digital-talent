@@ -186,11 +186,41 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->applicantUser->can('create', PoolCandidate::class));
         $this->assertFalse($this->poolOperatorUser->can('create', PoolCandidate::class));
         $this->assertFalse($this->requestResponderUser->can('create', PoolCandidate::class));
-
     }
 
     /**
      * Assert that only pool operator can update a published pool candidate
+     *
+     * @return void
+     */
+    public function testUpdateAsAdmin()
+    {
+        // Ensure candidate is not draft
+        $this->poolCandidate->submitted_at = config('constants.past_date');
+        $this->poolCandidate->save();
+
+        $this->assertTrue($this->poolOperatorUser->can('updateAsAdmin', $this->poolCandidate));
+
+        $this->assertFalse($this->guestUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('updateAsAdmin', $this->poolCandidate));
+
+        // make candidate draft
+        $this->poolCandidate->submitted_at = null;
+        $this->poolCandidate->save();
+
+        $this->assertFalse($this->poolOperatorUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->guestUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('updateAsAdmin', $this->poolCandidate));
+    }
+
+    /**
+     * Assert that only owner can update a draft pool candidate
      *
      * @return void
      */
@@ -200,7 +230,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->poolCandidate->submitted_at = config('constants.past_date');
         $this->poolCandidate->save();
 
-        $this->assertTrue($this->poolOperatorUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->poolOperatorUser->can('update', $this->poolCandidate));
 
         $this->assertFalse($this->guestUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->candidateUser->can('update', $this->poolCandidate));
@@ -214,7 +244,7 @@ class PoolCandidatePolicyTest extends TestCase
 
         $this->assertFalse($this->poolOperatorUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('update', $this->poolCandidate));
-        $this->assertFalse($this->candidateUser->can('update', $this->poolCandidate));
+        $this->assertTrue($this->candidateUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->requestResponderUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('update', $this->poolCandidate));

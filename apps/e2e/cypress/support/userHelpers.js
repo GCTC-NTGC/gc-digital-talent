@@ -4,7 +4,7 @@ import {
   ProvinceOrTerritory,
   WorkRegion,
 } from "@gc-digital-talent/web/src/api/generated";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers"
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   JobLookingStatus,
   LanguageAbility,
@@ -18,7 +18,7 @@ export function createApplicant({
   sub,
   skill,
   genericJobTitle,
-  userAlias
+  userAlias,
 }) {
   cy.createUser({
     email: email ? `cypress.user.${Date.now().valueOf()}@example.org` : null,
@@ -66,17 +66,18 @@ export function createApplicant({
 }
 
 export function addRolesToUser(userId, roles = [], team = undefined) {
-  cy.getRoles().then($roles => {
-    const roleIds = $roles.filter(role => roles.includes(role.name))
-      .map(role => role.id);
+  cy.getRoles().then(($roles) => {
+    const roleIds = $roles
+      .filter((role) => roles.includes(role.name))
+      .map((role) => role.id);
     cy.updateUser(userId, {
       legacyRoles: undefined,
       roles: {
         attach: {
           roles: roleIds,
-          team: team
-        }
-      }
+          team: team,
+        },
+      },
     });
   });
 }
