@@ -1,6 +1,6 @@
 # Environment Variables
 
-Environment variables are created and used in many places throughout the repo.  This document covers the use of environment variables in a development environment.  Environment management in production is out of scope.
+Environment variables are created and used in many places throughout the repo. This document covers the use of environment variables in a development environment. Environment management in production is out of scope.
 
 ## Laravel
 

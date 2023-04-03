@@ -46,7 +46,7 @@ final class UUID extends ScalarType
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {
-        if (! $valueNode instanceof StringValueNode) {
+        if (!$valueNode instanceof StringValueNode) {
             throw new Error(
                 "Query error: Can only parse strings, got {$valueNode->kind}",
                 $valueNode
@@ -65,7 +65,7 @@ final class UUID extends ScalarType
      */
     private function isValidUuid($value, string $exceptionClass)
     {
-        if(!Str::isUuid($value)) {
+        if (!Str::isUuid($value)) {
             throw new $exceptionClass(
                 Utils::printSafeJson('validation.uuid')
             );

@@ -4,6 +4,7 @@ use App\Services\OpenIdBearerTokenService;
 use Lcobucci\Clock\FrozenClock;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
+
 class OpenIdBearerTokenTest extends TestCase
 {
     /**
@@ -14,19 +15,19 @@ class OpenIdBearerTokenTest extends TestCase
     protected DateInterval $allowableClockSkew;
 
     const fakeRootUrl = 'http://test.com';
-    const fakeConfigUrl = self::fakeRootUrl.'/config';
-    const fakeJwksUrl = self::fakeRootUrl.'/jwks';
-    const fakeIntrospectionUrl = self::fakeRootUrl.'/introspection';
+    const fakeConfigUrl = self::fakeRootUrl . '/config';
+    const fakeJwksUrl = self::fakeRootUrl . '/jwks';
+    const fakeIntrospectionUrl = self::fakeRootUrl . '/introspection';
 
     protected function setUp(): void
     {
         parent::setUp(); // initializes Http facade
 
         Http::fake([
-            self::fakeConfigUrl => Http::response('{ '.
-                '"issuer" : "'.self::fakeRootUrl.'", '.
-                '"jwks_uri" : "'.self::fakeJwksUrl.'",'.
-                '"introspection_endpoint" : "'.self::fakeIntrospectionUrl.'"'.
+            self::fakeConfigUrl => Http::response('{ ' .
+                '"issuer" : "' . self::fakeRootUrl . '", ' .
+                '"jwks_uri" : "' . self::fakeJwksUrl . '",' .
+                '"introspection_endpoint" : "' . self::fakeIntrospectionUrl . '"' .
                 '}'),
             self::fakeJwksUrl => Http::response(file_get_contents('tests/Unit/resources/jwks.json')),
         ]);
@@ -46,7 +47,7 @@ class OpenIdBearerTokenTest extends TestCase
     protected function setIntrospectionResponse(bool $isActive)
     {
         Http::fake([
-            self::fakeIntrospectionUrl => Http::response('{ "active": '.($isActive ? 'true' : 'false').' } '),
+            self::fakeIntrospectionUrl => Http::response('{ "active": ' . ($isActive ? 'true' : 'false') . ' } '),
         ]);
     }
 

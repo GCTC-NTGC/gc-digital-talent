@@ -129,7 +129,15 @@
       "options": {
         "cwd": "${workspaceFolder}/tc-report"
       },
-      "args": ["run", "--rm", "--volume=\"${PWD}:/srv/jekyll\"", "-it", "jekyll/jekyll", "jekyll", "build"],
+      "args": [
+        "run",
+        "--rm",
+        "--volume=\"${PWD}:/srv/jekyll\"",
+        "-it",
+        "jekyll/jekyll",
+        "jekyll",
+        "build"
+      ],
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -147,7 +155,16 @@
       "options": {
         "cwd": "${workspaceFolder}/tc-report"
       },
-      "args": ["run", "--rm", "--volume=\"${PWD}:/srv/jekyll\"", "-it", "jekyll/jekyll", "jekyll", "build", "--watch"],
+      "args": [
+        "run",
+        "--rm",
+        "--volume=\"${PWD}:/srv/jekyll\"",
+        "-it",
+        "jekyll/jekyll",
+        "jekyll",
+        "build",
+        "--watch"
+      ],
       "presentation": {
         "echo": true,
         "reveal": "always",

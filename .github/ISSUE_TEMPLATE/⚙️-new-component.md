@@ -3,8 +3,7 @@ name: "⚙️ New component"
 about: An issue template for component epics.
 title: "⚙️ New component"
 labels: design, updates in progress
-assignees: ''
-
+assignees: ""
 ---
 
 # ⚙️ Summary
@@ -16,6 +15,7 @@ assignees: ''
 **For all layout and spacing guidance, including how this component should respond on smaller devices, please see the Figma file.**
 
 ## ✅ Design checklist
+
 - [ ] Default component
 - [ ] Dark mode component
 - [ ] Component variants
@@ -30,6 +30,7 @@ assignees: ''
 - [ ] Dark mode focus states (if applicable)
 
 ## ✅ Accessibility checklist
+
 - [ ] Tap targets are adequate on smaller screens
 - [ ] Color contrast for all modes and states has been checked and cleared
 - [ ] Zoom has been considered as layout changes occur

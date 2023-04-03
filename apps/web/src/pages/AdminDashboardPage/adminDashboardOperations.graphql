@@ -7,8 +7,6 @@ query me {
   }
 }
 
-
-
 fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   id
   fullName

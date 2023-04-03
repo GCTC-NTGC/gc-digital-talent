@@ -57,6 +57,7 @@ return [
     'resources' => [
         'classification' => 'classification',
         'department' => 'department',
+        'genericJobTitle' => 'genericJobTitle',
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
         'user' => 'user',
@@ -118,6 +119,23 @@ return [
         'delete-any-department' => [
             'en' => 'Delete Any Department',
             'fr' => 'Supprimer tout ministère'
+        ],
+
+        'view-any-genericJobTitle' => [
+            'en' => 'View Any Generic Job Title',
+            'fr' => 'Visionner tout titre générique de l\'emploi'
+        ],
+        'create-any-genericJobTitle' => [
+            'en' => 'Create Any Generic Job Title',
+            'fr' => 'Créer tout titre générique de l\'emploi'
+        ],
+        'update-any-genericJobTitle' => [
+            'en' => 'Update Any Generic Job Title',
+            'fr' => 'Mettre à jour tout titre générique de l\'emploi'
+        ],
+        'delete-any-genericJobTitle' => [
+            'en' => 'Delete Any Generic Job Title',
+            'fr' => 'Supprimer tout titre générique de l\emploi'
         ],
 
         'view-any-skill' => [
@@ -243,6 +261,10 @@ return [
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
             'fr' => 'Créer sa propre candidature provisoire'
+        ],
+        'update-own-draftApplication' => [
+            'en' => 'Update my own draft Application',
+            'fr' => 'Mise à jour de mon candidature provisoire'
         ],
         'submit-own-application' => [
             'en' => 'Submit my own Application',
@@ -460,6 +482,9 @@ return [
             'department' => [
                 'any' => ['view']
             ],
+            'genericJobTitle' => [
+                'any' => ['view']
+            ],
             'skill' => [
                 'any' => ['view']
             ],
@@ -488,6 +513,9 @@ return [
                 'any' => ['view']
             ],
             'department' => [
+                'any' => ['view']
+            ],
+            'genericJobTitle' => [
                 'any' => ['view']
             ],
             'skill' => [
@@ -521,7 +549,7 @@ return [
                 'own' => ['view', 'submit']
             ],
             'draftApplication' => [
-                'own' => ['create', 'delete']
+                'own' => ['create', 'delete', 'update']
             ],
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
@@ -575,6 +603,9 @@ return [
                 'any' => ['create', 'update', 'delete']
             ],
             'department' => [
+                'any' => ['create', 'update', 'delete']
+            ],
+            'genericJobTitle' => [
                 'any' => ['create', 'update', 'delete']
             ],
             'skill' => [

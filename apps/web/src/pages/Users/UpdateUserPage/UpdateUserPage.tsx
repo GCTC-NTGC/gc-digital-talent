@@ -40,6 +40,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import UserRoleTable from "./components/IndividualRoleTable";
+import { TeamRoleTable } from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -311,7 +312,9 @@ const UpdateUserPage = () => {
       id,
       user: {
         id,
-        email: emptyToNull(data.email),
+        // Do not include email in the request if it is not part of form data
+        // to prevent accidentally setting it to null
+        email: data.email !== undefined ? emptyToNull(data.email) : undefined,
         ...pick(data, [
           "firstName",
           "lastName",
@@ -401,6 +404,11 @@ const UpdateUserPage = () => {
               })}
             </Heading>
             <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
+            <TeamRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}

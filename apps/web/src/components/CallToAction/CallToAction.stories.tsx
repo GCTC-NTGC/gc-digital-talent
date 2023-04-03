@@ -1,27 +1,31 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 
-import CallToAction from "./CallToAction";
-import type { CallToActionContext } from "./CallToAction";
+import CallToActionLink from "./CallToActionLink";
+import CallToActionButton from "./CallToActionButton";
+import type { Color, CallToActionProps } from "./types";
+import { HireIcon, JobIcon, ProfileIcon, HomeIcon, SupportIcon } from "./Icons";
+
+const colors = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "quaternary",
+  "quinary",
+] as Array<Color>;
+
+const iconMap = new Map<Color, CallToActionProps<HTMLElement>["Icon"]>([
+  ["primary", SupportIcon],
+  ["secondary", HireIcon],
+  ["tertiary", HomeIcon],
+  ["quaternary", JobIcon],
+  ["quinary", ProfileIcon],
+]);
 
 export default {
-  component: CallToAction,
+  component: CallToActionLink,
   title: "Components/CallToAction",
-  args: {
-    content: {
-      path: "#",
-      label: "Test call-to-action",
-    },
-  },
 } as Meta;
-
-const contextMap: Array<CallToActionContext> = [
-  "hire",
-  "job",
-  "profile",
-  "home",
-  "support",
-];
 
 const Template: Story = (args) => {
   const { content } = args;
@@ -40,13 +44,17 @@ const Template: Story = (args) => {
         data-h2-max-width="base(x15)"
       >
         <p>Link variation</p>
-        {contextMap.map((context) => (
-          <CallToAction
-            key=""
+        {colors.map((color) => (
+          <CallToActionLink
+            key={color}
+            color={color}
             type="link"
-            context={context}
+            Icon={iconMap.get(color) || HomeIcon}
             content={content}
-          />
+            href="#"
+          >
+            Call to Action Link
+          </CallToActionLink>
         ))}
       </div>
       <div
@@ -56,13 +64,16 @@ const Template: Story = (args) => {
         data-h2-max-width="base(x15)"
       >
         <p>Button variation</p>
-        {contextMap.map((context) => (
-          <CallToAction
-            key=""
-            type="button"
-            context={context}
+        {colors.map((color) => (
+          <CallToActionButton
+            key={color}
+            color={color}
+            type="link"
+            Icon={iconMap.get(color) || HomeIcon}
             content={content}
-          />
+          >
+            Call to Action Button
+          </CallToActionButton>
         ))}
       </div>
     </div>
