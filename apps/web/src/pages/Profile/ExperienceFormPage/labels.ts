@@ -3,7 +3,7 @@ import { ExperienceType } from "./types";
 
 const getExperienceFormLabels = (
   intl: IntlShape,
-  experienceType: ExperienceType,
+  experienceType?: ExperienceType,
 ) => {
   let currentRole = intl.formatMessage({
     defaultMessage: "Current Role",
@@ -55,6 +55,11 @@ const getExperienceFormLabels = (
   }
 
   return {
+    type: intl.formatMessage({
+      defaultMessage: "Experience type",
+      id: "chnoRd",
+      description: "Label for the type of experience a user is creating",
+    }),
     awardTitle: intl.formatMessage({
       defaultMessage: "Award Title",
       id: "qeD2p/",

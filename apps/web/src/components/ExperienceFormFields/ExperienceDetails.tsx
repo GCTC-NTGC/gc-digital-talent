@@ -1,0 +1,42 @@
+import React from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
+
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Heading } from "@gc-digital-talent/ui";
+
+import NullExperienceType from "./NullExperienceType";
+
+const ExperienceDetails = () => {
+  const intl = useIntl();
+  const { watch } = useFormContext();
+  const type = watch("type");
+
+  return (
+    <>
+      <Heading level="h3" size="h5">
+        {intl.formatMessage({
+          defaultMessage: "Experience Details",
+          id: "PyAtIt",
+          description: "Heading for the details section of the experience form",
+        })}
+      </Heading>
+      <div data-h2-margin="base(0, 0, x2, 0)">
+        {notEmpty(type) ? (
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Please provide related details about the experience.",
+              id: "CB2LXg",
+              description: "Help text for the experience details section",
+            })}
+          </p>
+        ) : (
+          <NullExperienceType />
+        )}
+      </div>
+    </>
+  );
+};
+
+export default ExperienceDetails;
