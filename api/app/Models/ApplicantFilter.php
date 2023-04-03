@@ -46,10 +46,6 @@ class ApplicantFilter extends Model
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
     }
-    public function streams(): BelongsToMany
-    {
-        return $this->belongsToMany(PoolStream::class, 'applicant_filter_stream');
-    }
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'applicant_filter_skill');
