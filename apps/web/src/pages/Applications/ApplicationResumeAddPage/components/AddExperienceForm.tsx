@@ -8,6 +8,7 @@ import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
+import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { Scalars } from "~/api/generated";
 import {
   FormValues,
@@ -31,9 +32,14 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const methods = useForm<ExperienceFormValues>();
+  const type = methods.watch("type");
+  const { executeMutation, getMutationArgs } = useExperienceMutations(
+    "update",
+    type,
+  );
 
-  const handleSubmit: SubmitHandler<ExperienceFormValues> = (data) => {
-    console.log(data);
+  const handleSubmit: SubmitHandler<ExperienceFormValues> = (formValues) => {
+    const submitData = experienceFormValuesToSubmitData(formValues);
   };
 
   return (
