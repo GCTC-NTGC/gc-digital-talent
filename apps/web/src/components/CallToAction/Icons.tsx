@@ -1,6 +1,8 @@
 import React from "react";
 
-export const HireIcon = () => (
+type IconProps = React.SVGProps<SVGSVGElement>;
+
+export const HireIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -8,6 +10,7 @@ export const HireIcon = () => (
     strokeWidth="2"
     stroke="currentColor"
     className="w-6 h-6"
+    {...props}
   >
     <path
       strokeLinecap="round"
@@ -17,7 +20,7 @@ export const HireIcon = () => (
   </svg>
 );
 
-export const JobIcon = () => (
+export const JobIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -25,6 +28,7 @@ export const JobIcon = () => (
     strokeWidth="2"
     stroke="currentColor"
     className="w-6 h-6"
+    {...props}
   >
     <path
       strokeLinecap="round"
@@ -34,7 +38,7 @@ export const JobIcon = () => (
   </svg>
 );
 
-export const ProfileIcon = () => (
+export const ProfileIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -42,6 +46,7 @@ export const ProfileIcon = () => (
     strokeWidth="2"
     stroke="currentColor"
     className="w-6 h-6"
+    {...props}
   >
     <path
       strokeLinecap="round"
@@ -51,14 +56,15 @@ export const ProfileIcon = () => (
   </svg>
 );
 
-export const HomeIcon = () => (
+export const HomeIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth="1.5"
+    strokeWidth="2"
     stroke="currentColor"
     className="w-6 h-6"
+    {...props}
   >
     <path
       strokeLinecap="round"
@@ -68,14 +74,15 @@ export const HomeIcon = () => (
   </svg>
 );
 
-export const SupportIcon = () => (
+export const SupportIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth="1.5"
+    strokeWidth="2"
     stroke="currentColor"
     className="w-6 h-6"
+    {...props}
   >
     <path
       strokeLinecap="round"
