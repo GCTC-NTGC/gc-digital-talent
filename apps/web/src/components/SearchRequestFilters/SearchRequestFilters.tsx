@@ -131,24 +131,15 @@ const ApplicantFilters = ({
   );
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
-  const classifications: Classification[] =
-    pools?.reduce(
-      (previousValue: Classification[], currentValue: Maybe<Pool>) => {
-        const cls = currentValue?.classifications?.filter(notEmpty) || [];
-        return [...previousValue, ...cls];
-      },
-      [],
-    ) || [];
+  const classifications = applicantFilter?.classifications || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
     );
 
-  // Search Request Summary Page
   const streamFromApplicationFilter = applicantFilter?.stream;
 
-  // ViewRequest Form
   const streamFromPool: Maybe<PoolStream>[] | undefined = pools?.map(
     (pool) => pool?.stream,
   );

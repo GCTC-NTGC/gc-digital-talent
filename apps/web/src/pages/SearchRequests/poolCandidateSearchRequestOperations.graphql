@@ -100,6 +100,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
       group
       level
     }
+    stream
   }
 }
 query getPoolCandidateSearchRequests {

@@ -82,7 +82,6 @@ input ApplicantFilterBelongsTo {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  classifications: [ClassificationFilterInput]
   expectedClassifications: [ClassificationFilterInput]
   hasDiploma: Boolean
   languageAbility: LanguageAbility

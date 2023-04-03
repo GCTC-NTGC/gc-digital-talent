@@ -25,6 +25,7 @@ import {
   PoolCandidate,
   OperationalRequirement,
   Applicant,
+  PoolStream,
 } from "~/api/generated";
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
@@ -393,6 +394,7 @@ const transformPoolCandidateFilterToFilterInput = (
             })
         : []),
     ],
+    stream: inputFilter?.stream,
     operationalRequirements: inputFilter?.operationalRequirements,
     pools: [
       ...(inputFilter?.pools
@@ -457,6 +459,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
+    stream: identity,
   };
 
   const emptyFilter: ApplicantFilterInput = {};

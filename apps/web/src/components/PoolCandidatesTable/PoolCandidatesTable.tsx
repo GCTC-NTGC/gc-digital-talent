@@ -284,6 +284,7 @@ const defaultState = {
       skills: [],
       hasDiploma: undefined,
       languageAbility: undefined,
+      stream: undefined,
     },
     poolCandidateStatus: [],
     priorityWeight: [],
@@ -446,6 +447,7 @@ const PoolCandidatesTable = ({
           return { id };
         }),
       },
+      stream: data.stream,
       poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);
       }),

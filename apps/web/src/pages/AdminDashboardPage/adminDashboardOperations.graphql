@@ -111,6 +111,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
       group
       level
     }
+    stream
   }
 }
 
