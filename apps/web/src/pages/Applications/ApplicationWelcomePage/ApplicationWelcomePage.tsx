@@ -49,6 +49,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application welcome page",
       }),
     },
+    prerequisites: [],
   };
 };
 

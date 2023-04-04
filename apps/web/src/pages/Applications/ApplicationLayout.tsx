@@ -21,7 +21,11 @@ import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
-import { useGetBasicApplicationInfoQuery } from "~/api/generated";
+import {
+  ApplicationStep,
+  Maybe,
+  useGetBasicApplicationInfoQuery,
+} from "~/api/generated";
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
@@ -37,6 +41,7 @@ import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuest
 import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
+import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
 
 type PageNavKey =
   | "welcome"
@@ -53,6 +58,17 @@ type PageNavKey =
   | "review"
   | "success";
 
+// what page should we go to if we're missing a step?
+const submittedStepNav = new Map<ApplicationStep, PageNavKey>([
+  [ApplicationStep.Welcome, "welcome"],
+  [ApplicationStep.ReviewYourProfile, "profile"],
+  [ApplicationStep.ReviewYourResume, "resume-intro"],
+  [ApplicationStep.EducationRequirements, "education"],
+  [ApplicationStep.SkillRequirements, "skills-intro"],
+  [ApplicationStep.ScreeningQuestions, "questions-intro"],
+  [ApplicationStep.ReviewAndSubmit, "review"],
+]);
+
 const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
@@ -66,6 +82,33 @@ const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
 
   return steps;
 };
+
+// check if the current page should be disabled and figure out where to return the user to
+function checkForDisabledPage(
+  currentPageUrl: string | undefined,
+  pages: Map<PageNavKey, ApplicationPageInfo>,
+  submittedSteps: Maybe<ApplicationStep[]>,
+): { isOnDisabledPage: boolean; pageToReturnTo?: PageNavKey } {
+  // copied from useCurrentPage, but I need the full ApplicationPageInfo
+  const currentPageInfo = Array.from(pages.values()).find(
+    (page) => page.link.url === currentPageUrl,
+  );
+  const missingPrerequisites = currentPageInfo?.prerequisites.filter(
+    (currentPagePrerequisite) =>
+      !submittedSteps?.includes(currentPagePrerequisite),
+  );
+  if (!missingPrerequisites?.length) {
+    // yay, nothing missing!
+    return { isOnDisabledPage: false };
+  }
+
+  // go back to the first missing page
+  const firstMissingPrerequisite = missingPrerequisites[0];
+  return {
+    isOnDisabledPage: true,
+    pageToReturnTo: submittedStepNav.get(firstMissingPrerequisite),
+  };
+}
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -141,6 +184,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     ...currentCrumbs,
   ]);
 
+  const { isOnDisabledPage, pageToReturnTo } = checkForDisabledPage(
+    currentPage?.link.url,
+    pages,
+    application.submittedSteps,
+  );
+
   return (
     <>
       <SEO title={intl.formatMessage(pageTitle, { poolName })} />
@@ -166,7 +215,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
-            <Outlet />
+            {isOnDisabledPage ? (
+              <StepDisabledPage returnUrl={pageToReturnTo} />
+            ) : (
+              <Outlet />
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
