@@ -61,7 +61,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
   };
 };
 
-interface UpdateTeamFormProps {
+export interface UpdateTeamFormProps {
   team: Team;
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
   onSubmit: (
