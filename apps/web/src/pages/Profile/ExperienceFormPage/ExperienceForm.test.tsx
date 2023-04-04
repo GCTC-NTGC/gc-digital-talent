@@ -4,14 +4,13 @@
 import "@testing-library/jest-dom";
 import { screen, fireEvent, act, waitFor } from "@testing-library/react";
 import React from "react";
-import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
+import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
-import type { ExperienceQueryData, ExperienceType } from "./types";
+import type { ExperienceType } from "./types";
 
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
-const mockExperiences = fakeExperiences(5);
 const mockCallback = jest.fn();
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
