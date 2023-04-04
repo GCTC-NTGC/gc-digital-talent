@@ -45,6 +45,9 @@ server {
         return 301 /fr/indigenous-it-apprentice;
     }
 
+    # enable serving gzip-ed files
+    gzip_static on;
+
     # api
     location = /graphql {
         fastcgi_pass 127.0.0.1:9000;
