@@ -7220,5 +7220,9 @@
   "dTJT+y": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Breadcrumb link text for the application résumé edit experience page"
+  },
+  "F5KhNJ": {
+    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre CV. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus de renseignements sur ce qu’un certain type peut inclure, jetez un œil sur les renseignements ci-dessous pour voir des exemples.",
+    "description": "Instructions on how to add an experience to your résumé"
   }
 }
