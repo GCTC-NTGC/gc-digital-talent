@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, ReactElement } from "react";
 import {
+  DeepPartial,
   FieldValues,
   FormProvider,
   Path,
@@ -60,7 +61,7 @@ function BasicForm<TFieldValues extends FieldValues>({
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
 
-  const cachedValues = React.useMemo(() => {
+  const cachedValues: TFieldValues = React.useMemo(() => {
     if (cacheKey) {
       return getFromSessionStorage(
         cacheKey,
@@ -68,7 +69,7 @@ function BasicForm<TFieldValues extends FieldValues>({
       ) as TFieldValues;
     }
 
-    return options?.defaultValues;
+    return options?.defaultValues as TFieldValues;
   }, [cacheKey, options]);
 
   const {
@@ -108,14 +109,18 @@ function BasicForm<TFieldValues extends FieldValues>({
         /**
          * Iterates through all cached values touching and dirtying the fields
          * so we can display any errors and unsaved changes
+         *
+         * Note: There is a lot of type hacking with `as` here since
+         * `react-hook-form` does not export the required types
          */
         Object.keys(cachedValues).forEach((field) => {
           // Hack: Type our field name
           const typedFieldName = field as Path<TFieldValues>;
           const value = cachedValues[field];
-          const defaultValue = options?.defaultValues
-            ? options?.defaultValues[field]
-            : null;
+          const defaultValues = options?.defaultValues as
+            | TFieldValues
+            | undefined;
+          const defaultValue = defaultValues ? defaultValues[field] : null;
           if (value) {
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {
