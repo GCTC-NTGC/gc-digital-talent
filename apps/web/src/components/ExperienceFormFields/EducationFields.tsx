@@ -8,14 +8,14 @@ import {
   Select,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-
-import { SubExperienceFormProps } from "~/types/experience";
 import {
   errorMessages,
   getEducationStatus,
   getEducationType,
 } from "@gc-digital-talent/i18n";
-import { EducationStatus, EducationType } from "../../api/generated";
+
+import { SubExperienceFormProps } from "~/types/experience";
+import { EducationStatus, EducationType } from "~/api/generated";
 
 const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();

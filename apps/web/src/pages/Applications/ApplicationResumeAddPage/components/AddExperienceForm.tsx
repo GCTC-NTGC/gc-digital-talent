@@ -14,20 +14,21 @@ import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { Scalars } from "~/api/generated";
 import { formValuesToSubmitData } from "~/utils/experienceUtils";
 import {
-  FormValues,
-  AllFormValues,
+  ExperienceFormValues,
+  AllExperienceFormValues,
   ExperienceType,
-} from "~/pages/Profile/ExperienceFormPage/types";
+} from "~/types/experience";
 import TasksAndResponsibilities from "~/components/ExperienceFormFields/TasksAndResponsibilities";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 
 import { experienceTypeTitles } from "../messages";
 
 type FormAction = "return" | "add-another";
-type ExperienceFormValues = FormValues<AllFormValues> & {
-  type: ExperienceType | "";
-  action: FormAction | "";
-};
+type ExperienceExperienceFormValues =
+  ExperienceFormValues<AllExperienceFormValues> & {
+    type: ExperienceType | "";
+    action: FormAction | "";
+  };
 export interface AddExperienceFormProps {
   applicationId: Scalars["ID"];
 }
@@ -37,7 +38,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const navigate = useNavigate();
   const paths = useRoutes();
   const { user } = useAuthorization();
-  const methods = useForm<ExperienceFormValues>();
+  const methods = useForm<ExperienceExperienceFormValues>();
   const {
     watch,
     register,
@@ -52,7 +53,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   );
   const actionProps = register("action");
 
-  const handleSubmit: SubmitHandler<ExperienceFormValues> = async (
+  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(type, formValues, []);

@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
 import { Checkbox, Input } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import { errorMessages } from "@gc-digital-talent/i18n";
 
 const WorkFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
