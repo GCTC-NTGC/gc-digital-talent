@@ -50,6 +50,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ScreeningQuestions,
       ApplicationStep.ReviewAndSubmit,
     ],
+    stepSubmitted: null,
   };
 };
 

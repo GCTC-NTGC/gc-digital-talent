@@ -52,6 +52,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ReviewYourProfile,
       ApplicationStep.ReviewYourResume,
     ],
+    stepSubmitted: ApplicationStep.EducationRequirements,
   };
 };
 

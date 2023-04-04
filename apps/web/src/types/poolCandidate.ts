@@ -16,6 +16,7 @@ export type GetApplicationPageInfoArgs = {
 export type ApplicationPageInfo = PageNavInfo & {
   omitFromStepper?: boolean;
   prerequisites: Array<ApplicationStep>;
+  stepSubmitted: ApplicationStep | null;
 };
 
 export type GetApplicationPageInfo = (

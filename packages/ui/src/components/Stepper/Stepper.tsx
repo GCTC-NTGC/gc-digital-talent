@@ -11,7 +11,7 @@ import { StepState, StepType } from "./types";
 const deriveStepState = (
   stepIndex: number,
   currentIndex: number,
-  completed = false,
+  completed: boolean,
   error = false,
 ): StepState => {
   if (currentIndex === stepIndex) {

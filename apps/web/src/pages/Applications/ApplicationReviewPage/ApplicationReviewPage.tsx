@@ -53,6 +53,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.SkillRequirements,
       ApplicationStep.ScreeningQuestions,
     ],
+    stepSubmitted: ApplicationStep.ReviewAndSubmit,
   };
 };
 

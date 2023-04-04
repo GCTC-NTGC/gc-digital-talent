@@ -49,6 +49,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ReviewYourResume,
       ApplicationStep.EducationRequirements,
     ],
+    stepSubmitted: null,
   };
 };
 

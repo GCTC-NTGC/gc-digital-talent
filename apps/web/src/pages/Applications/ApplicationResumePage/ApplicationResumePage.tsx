@@ -41,6 +41,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       url: path,
     },
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
+    stepSubmitted: ApplicationStep.ReviewYourResume,
   };
 };
 

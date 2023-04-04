@@ -10,6 +10,6 @@ export type StepType = {
   href: string;
   icon: IconType;
   label: React.ReactNode;
-  completed?: boolean;
+  completed: boolean;
   error?: boolean;
 };

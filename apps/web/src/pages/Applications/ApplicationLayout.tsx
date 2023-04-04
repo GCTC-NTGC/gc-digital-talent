@@ -69,13 +69,19 @@ const submittedStepNav = new Map<ApplicationStep, PageNavKey>([
   [ApplicationStep.ReviewAndSubmit, "review"],
 ]);
 
-const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
+const deriveSteps = (
+  pages: Map<PageNavKey, ApplicationPageInfo>,
+  submittedSteps: Maybe<Array<ApplicationStep>>,
+) => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
     .map((page) => ({
       label: page.link.label || page.title,
       href: page.link.url,
       icon: page.icon,
+      completed:
+        (page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted)) ??
+        false,
     }));
 
   steps.pop(); // We do not want to show final step in the stepper
@@ -158,7 +164,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
-  const steps = deriveStepsFromPages(pages);
+  const steps = deriveSteps(pages, application.submittedSteps);
   const currentStep = steps.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
