@@ -8,6 +8,7 @@ import {
   useAuthentication,
   useAuthorization,
   ROLE_NAME,
+  hasRole,
 } from "@gc-digital-talent/auth";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -151,9 +152,7 @@ const Layout = () => {
 
     if (
       applicantDashboard &&
-      [ROLE_NAME.Applicant].some((authorizedRoleName) =>
-        userRoleNames?.includes(authorizedRoleName),
-      )
+      hasRole(ROLE_NAME.Applicant, user.roleAssignments)
     ) {
       authLinks = [
         <MenuLink key="dashboard" to={paths.dashboard()}>
