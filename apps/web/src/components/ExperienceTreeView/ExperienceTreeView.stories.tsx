@@ -1,8 +1,8 @@
 import React from "react";
 import { Meta, ComponentStory } from "@storybook/react";
 import { fakeExperiences, fakeSkills } from "@gc-digital-talent/fake-data";
-import ExperienceTreeView from "./ExperienceTreeView";
 import { Experience } from "~/api/generated";
+import ExperienceTreeView from "./ExperienceTreeView";
 
 const skills = fakeSkills(2);
 const skillWithoutExperiences = skills[0];
