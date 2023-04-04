@@ -44,7 +44,7 @@ type FormValues = {
 const dataToFormValues = (data: Team): FormValues => {
   const { departments, displayName, description, ...rest } = data;
   return {
-    ...omit(rest, ["id", "__typename"]),
+    ...omit(rest, ["id", "__typename", "roleAssignments"]),
     displayName: omit(displayName, "__typename"),
     description: omit(description, "__typename"),
     departments: unpackIds(departments),
