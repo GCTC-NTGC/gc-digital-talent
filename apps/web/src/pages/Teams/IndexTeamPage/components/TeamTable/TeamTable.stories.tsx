@@ -3,9 +3,26 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
 
-import { TeamTable } from "./TeamTable";
+import { TeamTable, MyRoleTeam } from "./TeamTable";
 
 const mockTeams = fakeTeams();
+
+const mockRolesAndTeams: MyRoleTeam[] = [
+  {
+    teamId: mockTeams[0].id,
+    roleName: {
+      en: "Role 1 EN",
+      fr: "Role 1 FR",
+    },
+  },
+  {
+    teamId: mockTeams[0].id,
+    roleName: {
+      en: "Role 2 EN",
+      fr: "Role 2 FR",
+    },
+  },
+];
 
 export default {
   component: TeamTable,
@@ -16,11 +33,12 @@ export default {
 } as ComponentMeta<typeof TeamTable>;
 
 const Template: ComponentStory<typeof TeamTable> = (args) => {
-  const { teams } = args;
-  return <TeamTable teams={teams} />;
+  const { teams, myRolesAndTeams } = args;
+  return <TeamTable teams={teams} myRolesAndTeams={myRolesAndTeams} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   teams: mockTeams,
+  myRolesAndTeams: mockRolesAndTeams,
 };

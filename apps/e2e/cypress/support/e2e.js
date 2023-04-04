@@ -40,6 +40,7 @@ before(() => {
 // require('./commands')
 
 require("cypress-terminal-report/src/installLogsCollector")();
+require('cy-verify-downloads').addCustomCommand();
 
 Cypress.on("uncaught:exception", () => {
   return false;

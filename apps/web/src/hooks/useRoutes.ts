@@ -49,6 +49,7 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => path.join(baseUrl, "logged-out"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
+    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
 
     // Admin
     admin: () => adminUrl,

@@ -23,6 +23,14 @@ const reactIntlTransformRule = {
   exclude: /node_modules/,
 };
 
+const staticDocumentsRule = {
+  test: /\.(pdf|doc|docx)$/i,
+  type: "asset/resource",
+  generator: {
+    filename: 'documents/[name][ext]'
+  }
+}
+
 module.exports = (basePath) => {
   return {
     staticDirs: [{ from: "../public", to: "/" }],
@@ -51,7 +59,11 @@ module.exports = (basePath) => {
         ".js",
       ];
 
-      config.module.rules = [...config.module.rules, reactIntlTransformRule];
+      config.module.rules = [
+        ...config.module.rules,
+        reactIntlTransformRule,
+        staticDocumentsRule
+      ];
 
       config.resolve.alias = {
         ...config.resolve.alias,

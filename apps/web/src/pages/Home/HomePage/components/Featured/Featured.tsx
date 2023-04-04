@@ -2,11 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
 
-import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
+import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
+// import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
 import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
 import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
 import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.png";
@@ -15,10 +16,9 @@ import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
 
 import Block from "./Block";
 
-// Create the page component
 const Featured = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const paths = useRoutes();
 
   const iapEmail = {
     subject: encodeURIComponent(
@@ -41,32 +41,56 @@ const Featured = () => {
     ),
   };
 
-  // This array is just a temporary data object representing the content required by the feature blocks. This data will need to be migrated to wherever makes sense, and we'll also need dynamic routes and translated strings
+  // TEMP: Removed in https://github.com/GCTC-NTGC/gc-digital-talent/pull/6143
+  // const digitalAmbition = {
+  //   key: "digital-ambition",
+  //   title: intl.formatMessage({
+  //     defaultMessage: "The Digital Ambition",
+  //     id: "tTuBmE",
+  //     description: "Title for the digital ambition featured item",
+  //   }),
+  //   summary: intl.formatMessage({
+  //     defaultMessage:
+  //       'The Digital Ambition outlines the Government of Canada\'s commitment to create modern, accessible digital services. Achieving these priorities will result in a government that provides improved "digital-first," user-centred, and barrier-free services and programs.',
+  //     id: "CbzWqJ",
+  //     description: "Summary of the digital ambition featured item",
+  //   }),
+  //   img: { path: digitalAmbitionImg },
+  //   link: {
+  //     path:
+  //       locale === "en"
+  //         ? "https://www.canada.ca/en/government/system/digital-government/government-canada-digital-operations-strategic-plans/canada-digital-ambition.html"
+  //         : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/plans-strategiques-operations-numeriques-gouvernement-canada/ambition-numerique-canada.html",
+  //     label: intl.formatMessage({
+  //       defaultMessage: "Read the Digital Ambition",
+  //       id: "Gil1Zj",
+  //       description: "Link text to read the Digital Ambition",
+  //     }),
+  //   },
+  // };
+
   const featured = [
     {
-      key: "digital-ambition",
+      key: "directive-on-digital-talent",
       title: intl.formatMessage({
-        defaultMessage: "The Digital Ambition",
-        id: "tTuBmE",
-        description: "Title for the digital ambition featured item",
+        defaultMessage: "Directive on Digital Talent",
+        id: "xXwUGs",
+        description: "Title for the digital talent directive page",
       }),
       summary: intl.formatMessage({
         defaultMessage:
-          'The Digital Ambition outlines the Government of Canada\'s commitment to create modern, accessible digital services. Achieving these priorities will result in a government that provides improved "digital-first," user-centred, and barrier-free services and programs.',
-        id: "CbzWqJ",
-        description: "Summary of the digital ambition featured item",
+          "Learn more about the new Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out new reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
+        id: "jO2uif",
+        description: "Summary of the directive on digital talent featured item",
       }),
 
-      img: { path: digitalAmbitionImg },
+      img: { path: glassesOnBooks, position: "bottom right" },
       link: {
-        path:
-          locale === "en"
-            ? "https://www.canada.ca/en/government/system/digital-government/government-canada-digital-operations-strategic-plans/canada-digital-ambition.html"
-            : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/plans-strategiques-operations-numeriques-gouvernement-canada/ambition-numerique-canada.html",
+        path: paths.directive(),
         label: intl.formatMessage({
-          defaultMessage: "Read the Digital Ambition",
-          id: "Gil1Zj",
-          description: "Link text to read the Digital Ambition",
+          defaultMessage: "Check out the Directive",
+          id: "sGPKUt",
+          description: "Link text to read the directive on digital talent",
         }),
       },
     },
@@ -91,6 +115,7 @@ const Featured = () => {
       ),
       img: { path: iapManagerImg },
       link: {
+        external: true,
         path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
         label: intl.formatMessage({
           defaultMessage: "Contact the Apprenticeship Program",
@@ -101,7 +126,7 @@ const Featured = () => {
       },
     },
   ];
-  // Return the component
+
   return (
     <div data-h2-layer="base(2, relative)">
       <div
@@ -185,5 +210,4 @@ const Featured = () => {
   );
 };
 
-// Export the component
 export default Featured;

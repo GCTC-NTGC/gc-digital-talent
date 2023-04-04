@@ -99,13 +99,13 @@ server {
     }
 
     # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /tc-report/_site/$1 break;
+    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;
     }
 
     # rewrite talent static files to "apps/web/dist"
-    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
+        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html
@@ -171,6 +171,13 @@ server {
         rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "directive-on-digital-talent" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
+        rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "create-account" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
         add_header Cache-Control no-cache;
@@ -193,8 +200,8 @@ server {
     }
 
     # rewrite talent static files to "web/dist"
-    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" {
-        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
+        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html

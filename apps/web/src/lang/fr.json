@@ -2321,10 +2321,6 @@
     "defaultMessage": "Soumettez un nouveau message",
     "description": "Support form success action"
   },
-  "CbzWqJ": {
-    "defaultMessage": "L’Ambition numérique décrit l’engagement du gouvernement du Canada à créer des services numériques modernes et accessibles. La réalisation de ces priorités permettra au gouvernement de fournir des services et des programmes axés sur le numérique, centrés sur l’utilisateur et sans obstacle.",
-    "description": "Summary of the digital ambition featured item"
-  },
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
@@ -2332,10 +2328,6 @@
   "vNFHWp": {
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
-  },
-  "Gil1Zj": {
-    "defaultMessage": "Lisez l’Ambition numérique",
-    "description": "Link text to read the Digital Ambition"
   },
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
@@ -2432,10 +2424,6 @@
   "szLvj0": {
     "defaultMessage": "Votre courriel",
     "description": "Support form email field label"
-  },
-  "tTuBmE": {
-    "defaultMessage": "L’Ambition numérique",
-    "description": "Title for the digital ambition featured item"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
@@ -6842,6 +6830,10 @@
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
   },
+  "fCXZ4R": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the Pool table Team column"
+  },
   "3IZ3mN": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the role table display team column"
@@ -6980,6 +6972,14 @@
   "wgRXhR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
     "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "ActH9H": {
+    "defaultMessage": "<hidden>Consulter l’équipe : </hidden>{teamName}",
+    "description": "Text for a link to the Team table"
+  },
+  "+agJAH": {
+    "defaultMessage": "Mes rôles",
+    "description": "Label displayed for the table's My Roles column header."
   },
   "jfED66": {
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
@@ -7208,5 +7208,161 @@
   "dTJT+y": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Breadcrumb link text for the application résumé edit experience page"
+  },
+  "7pCluO": {
+    "defaultMessage": "Sélectionnez une exigence linguistique",
+    "description": "Placeholder for language requirement field"
+  },
+  "PVo1xK": {
+    "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
+    "description": "Placeholder for security requirement field"
+  },
+  "Y0WLp5": {
+    "defaultMessage": "Sélectionnez un groupe des publications",
+    "description": "Placeholder for publishing group field"
+  },
+  "/BWol9": {
+    "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
+    "description": "The directives digital enabling conditions component"
+  },
+  "0DILS7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez organiser un recrutement de talents numériques qui créera un bassin de candidats. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the department-specific recruitment form"
+  },
+  "1pbvy+": {
+    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau de la dirigeante principale de l’information du Canada des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
+    "description": "The directives planning and reporting component"
+  },
+  "8yB2Bm": {
+    "defaultMessage": "Conditions favorables",
+    "description": "Heading for the directives digital enabling conditions component"
+  },
+  "C03OK7": {
+    "defaultMessage": "Établissement d’un bassin de talents numériques",
+    "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "GdOQeo": {
+    "defaultMessage": "Quelle est la Directive sur les talents numériques?",
+    "description": "Heading for section describing the directive"
+  },
+  "NKr2Rg": {
+    "defaultMessage": "Trouver des talents",
+    "description": "Link text for find talent (search) page"
+  },
+  "QVWGaL": {
+    "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
+    "description": "Heading for the digital Services contracting form"
+  },
+  "TmDejD": {
+    "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
+    "description": "Third paragraph describing the directive on digital talent"
+  },
+  "L1tQMY": {
+    "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
+    "description": "The directives digital talent and sourcing component"
+  },
+  "WieVH/": {
+    "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
+    "description": "Second paragraph describing the directive on digital talent"
+  },
+  "XVWN/C": {
+    "defaultMessage": "Remplir les formulaires obligatoires",
+    "description": "Heading for section for the downloadable forms section"
+  },
+  "Z9xByk": {
+    "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des DPI et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
+    "description": "The directives digital executive roles and structures component"
+  },
+  "c/u1K+": {
+    "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
+    "description": "Subtitle for the digital talent directive page"
+  },
+  "RDAVsP": {
+    "defaultMessage": "Lire la Directive",
+    "description": "Link text to read the entire directive."
+  },
+  "cktAfD": {
+    "defaultMessage": "Planification et établissement de rapports",
+    "description": "Heading for the directives planning and reporting component"
+  },
+  "e/nr9L": {
+    "defaultMessage": "Rôles et structures numériques des cadres",
+    "description": "Heading for the directives digital executive roles and structures component"
+  },
+  "fpdcE/": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the digital Services contracting form"
+  },
+  "hBVKqk": {
+    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
+    "description": "The directives digital talent and development component"
+  },
+  "joXPYW": {
+    "defaultMessage": "Composantes clés",
+    "description": "Heading for section describing the different components"
+  },
+  "k4Rl18": {
+    "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
+    "description": "First paragraph describing the directive on digital talent"
+  },
+  "mpa5Fd": {
+    "defaultMessage": "Développement des talents numériques",
+    "description": "Heading for the directives digital talent and development component"
+  },
+  "sKAo0/": {
+    "defaultMessage": "Envoyer le formulaire du plan pour les talents",
+    "description": "Heading for the forward talent plan form"
+  },
+  "x0SRaQ": {
+    "defaultMessage": "Formulaire de recrutement propre à un ministère",
+    "description": "Heading for the department-specific recruitment form"
+  },
+  "xXwUGs": {
+    "defaultMessage": "Directive sur les talents numériques",
+    "description": "Title for the digital talent directive page"
+  },
+  "ydjXm7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
+    "description": "Description for the forward talent plan form"
+  },
+  "jO2uif": {
+    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
+  "sGPKUt": {
+    "defaultMessage": "Veuillez consulter la Directive",
+    "description": "Link text to read the directive on digital talent"
+  },
+  "000m9d": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (FR)",
+    "description": "Link text for an French form download"
+  },
+  "G0RoYe": {
+    "defaultMessage": "Faire suivre le plan de talents",
+    "description": "Short name for Forward Talent Plan Form"
+  },
+  "X3bPom": {
+    "defaultMessage": "Octroi de contrat pour des services numériques",
+    "description": "Short name for Digital Services Contracting Form"
+  },
+  "YDJiAT": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (EN)",
+    "description": "Link text for an English form download"
+  },
+  "uJyWDM": {
+    "defaultMessage": "Recrutement particulier à un ministère",
+    "description": "Short name for Department-Specific Recruitment Form"
+  },
+  "POvUB0": {
+    "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
+    "description": "Lead-in text for the directive guidance document"
+  },
+  "ft6q8G": {
+    "defaultMessage": "Télécharger le guide (FR)",
+    "description": "Link text for French guidance resource download"
+  },
+  "wMp4x6": {
+    "defaultMessage": "Télécharger le guide (EN)",
+    "description": "Link text for English guidance resource download"
   }
 }
