@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { ExperienceType } from "./types";
+import { ExperienceType } from "~/types/experience";
 
 const getExperienceFormLabels = (
   intl: IntlShape,

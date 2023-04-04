@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import AwardFields from "~/components/ExperienceFormFields/AwardFields";
 
-import type { SubExperienceFormProps } from "../../types";
+import type { SubExperienceFormProps } from "~/types/experience";
 
 const AwardFormFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();

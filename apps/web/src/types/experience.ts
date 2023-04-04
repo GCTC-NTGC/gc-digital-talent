@@ -1,30 +1,35 @@
 /* eslint-disable no-underscore-dangle */
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import {} from "@gc-digital-talent/graphql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
+  AwardExperience,
   AwardExperienceInput,
   AwardedScope,
   AwardedTo,
+  CommunityExperience,
   CommunityExperienceInput,
+  CreateAwardExperienceMutation,
+  CreateCommunityExperienceMutation,
+  CreateEducationExperienceMutation,
+  CreatePersonalExperienceMutation,
+  CreateWorkExperienceMutation,
+  EducationExperience,
   EducationExperienceInput,
   EducationStatus,
   EducationType,
   Exact,
   LocalizedString,
   Maybe,
+  PersonalExperience,
   PersonalExperienceInput,
   Scalars,
   WorkExperienceInput,
+  Skill,
+  WorkExperience,
 } from "~/api/generated";
+import { OperationResult } from "urql";
 
 export type ExperienceType =
   | "award"
@@ -199,6 +204,20 @@ export type ExperienceDetailsSubmissionData = {
     sync: ({ id: string; details: Maybe<string> } | undefined)[] | undefined;
   };
 };
+
+export type ExperienceMutations = CreateAwardExperienceMutation &
+  CreateCommunityExperienceMutation &
+  CreateEducationExperienceMutation &
+  CreatePersonalExperienceMutation &
+  CreateWorkExperienceMutation;
+
+export type GenericExperienceMutationResponse<T> = OperationResult<
+  T,
+  Record<string, string | ExperienceDetailsSubmissionData>
+>;
+
+export type ExperienceMutationResponse =
+  GenericExperienceMutationResponse<ExperienceMutations>;
 
 export type ExperienceMutationArgs = Exact<{
   id: string;

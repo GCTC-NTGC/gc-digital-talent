@@ -6,8 +6,9 @@ import { screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import type { ExperienceType } from "~/types/experience";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
-import type { ExperienceQueryData, ExperienceType } from "./types";
+import type { ExperienceQueryData } from "./types";
 
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
