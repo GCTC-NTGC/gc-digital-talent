@@ -47,8 +47,7 @@ const Stepper = ({
 }: StepperProps) => {
   const intl = useIntl();
   const maxIndex = steps.length - 1;
-  let index = currentIndex > maxIndex ? maxIndex : currentIndex;
-  index = index < 0 ? 0 : index;
+  const index = currentIndex > maxIndex ? maxIndex : currentIndex;
 
   return (
     <nav aria-label={label}>
