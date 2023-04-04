@@ -1,6 +1,8 @@
 import { groupBy } from "@gc-digital-talent/helpers";
 
-import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidateStatus } from "~/api/generated";
+
+import { Application } from "../../../ApplicantDashboardPage/types";
 
 type ApplicationGroups = "drafts" | "submitted" | "historical";
 
@@ -18,13 +20,11 @@ const submittedStatuses = [
  * @returns Dictionary<PoolCandidate[]>;
  */
 // eslint-disable-next-line import/prefer-default-export
-export const groupApplicationsByStatus = (
-  applications: Array<PoolCandidate>,
-) => {
+export const groupApplicationsByStatus = (applications: Array<Application>) => {
   return groupBy<
     ApplicationGroups,
-    PoolCandidate,
-    (arg: PoolCandidate) => ApplicationGroups
+    Application,
+    (arg: Application) => ApplicationGroups
   >(applications, (application) => {
     if (application.status === PoolCandidateStatus.Draft) {
       return "drafts";

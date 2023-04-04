@@ -7013,6 +7013,14 @@
     "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
     "description": "Follow in text for the team being updated"
   },
+  "2i8/jR": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Page title for the applicant dashboard page."
+  },
+  "LRZeax": {
+    "defaultMessage": "Mon tableau de bord",
+    "description": "Label displayed on the applicant dashboard menu item."
+  },
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
