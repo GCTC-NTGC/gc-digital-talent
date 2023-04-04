@@ -28,27 +28,6 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 
-const getMatchingPoolIds = (
-  classifications: SimpleClassification[],
-  pools: SimplePool[],
-) => {
-  return pools
-    .filter((pool) => {
-      return classifications.some((classification) => {
-        return pool.classifications?.find((poolClassification) => {
-          return (
-            poolClassification?.group === classification.group &&
-            poolClassification.level === classification.level
-          );
-        });
-      });
-    })
-    .filter(notEmpty)
-    .map((pool) => ({
-      id: pool.id,
-    }));
-};
-
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
@@ -478,10 +457,7 @@ const SearchContainerApi = () => {
     poolId: string | null,
     selectedClassifications: SimpleClassification[],
   ) => {
-    const poolIds = poolId
-      ? [{ id: poolId }]
-      : getMatchingPoolIds(selectedClassifications, pools);
-
+    const poolIds = poolId ? [{ id: poolId }] : [];
     navigate(paths.request(), {
       state: {
         applicantFilter: {
