@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
-import type { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
+import type { FormSkills } from "~/types/experience";
 
 type FormValues = {
   skills: { [id: string]: { details: string } };
