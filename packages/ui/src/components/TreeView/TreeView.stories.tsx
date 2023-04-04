@@ -10,7 +10,7 @@ export default {
   title: "Components/TreeView",
 } as Meta;
 
-const TreeViewWithNoExperiences: ComponentStory<typeof TreeView.Root> = () => {
+const InitialModeView: ComponentStory<typeof TreeView.Root> = () => {
   return (
     <>
       <TreeView.Root
@@ -40,7 +40,7 @@ const TreeViewWithNoExperiences: ComponentStory<typeof TreeView.Root> = () => {
   );
 };
 
-const TreeViewWithExperiences: ComponentStory<typeof TreeView.Root> = () => {
+const DisplayModeView: ComponentStory<typeof TreeView.Root> = () => {
   return (
     <TreeView.Root
       title="Communication of technical information to non-technical audiences"
@@ -67,5 +67,5 @@ const TreeViewWithExperiences: ComponentStory<typeof TreeView.Root> = () => {
   );
 };
 
-export const WithNoExperiences = TreeViewWithNoExperiences.bind({});
-export const WithExperiences = TreeViewWithExperiences.bind({});
+export const InitialMode = InitialModeView.bind({});
+export const DisplayMode = DisplayModeView.bind({});
