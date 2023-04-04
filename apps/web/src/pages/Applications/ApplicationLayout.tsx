@@ -58,17 +58,6 @@ type PageNavKey =
   | "review"
   | "success";
 
-// what page should we go to if we're missing a step?
-const submittedStepNav = new Map<ApplicationStep, PageNavKey>([
-  [ApplicationStep.Welcome, "welcome"],
-  [ApplicationStep.ReviewYourProfile, "profile"],
-  [ApplicationStep.ReviewYourResume, "resume-intro"],
-  [ApplicationStep.EducationRequirements, "education"],
-  [ApplicationStep.SkillRequirements, "skills-intro"],
-  [ApplicationStep.ScreeningQuestions, "questions-intro"],
-  [ApplicationStep.ReviewAndSubmit, "review"],
-]);
-
 const deriveSteps = (
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
@@ -94,9 +83,10 @@ function checkForDisabledPage(
   currentPageUrl: string | undefined,
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
-): { isOnDisabledPage: boolean; pageToReturnTo?: PageNavKey } {
+): { isOnDisabledPage: boolean; urlToReturnTo?: string } {
   // copied from useCurrentPage, but I need the full ApplicationPageInfo
-  const currentPageInfo = Array.from(pages.values()).find(
+  const pagesArray = Array.from(pages.values());
+  const currentPageInfo = pagesArray.find(
     (page) => page.link.url === currentPageUrl,
   );
   const missingPrerequisites = currentPageInfo?.prerequisites.filter(
@@ -110,9 +100,12 @@ function checkForDisabledPage(
 
   // go back to the first missing page
   const firstMissingPrerequisite = missingPrerequisites[0];
+  const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
+    return p.stepSubmitted === firstMissingPrerequisite;
+  });
   return {
     isOnDisabledPage: true,
-    pageToReturnTo: submittedStepNav.get(firstMissingPrerequisite),
+    urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
   };
 }
 
@@ -190,7 +183,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     ...currentCrumbs,
   ]);
 
-  const { isOnDisabledPage, pageToReturnTo } = checkForDisabledPage(
+  const { isOnDisabledPage, urlToReturnTo } = checkForDisabledPage(
     currentPage?.link.url,
     pages,
     application.submittedSteps,
@@ -222,7 +215,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             {isOnDisabledPage ? (
-              <StepDisabledPage returnUrl={pageToReturnTo} />
+              <StepDisabledPage returnUrl={urlToReturnTo} />
             ) : (
               <Outlet />
             )}
