@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link, ExternalLink } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -16,13 +17,17 @@ const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
 );
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
+  const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
+  const fallbackPath = applicantDashboard
+    ? paths.dashboard()
+    : paths.myProfile();
   const loginPath = apiPaths.login(
-    searchParams.get("from") ?? paths.myProfile(),
+    searchParams.get("from") ?? fallbackPath,
     getLocale(intl),
   );
 

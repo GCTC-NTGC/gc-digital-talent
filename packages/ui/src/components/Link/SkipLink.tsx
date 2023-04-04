@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
+
 export interface SkipLinkProps {
   href?: string;
 }
@@ -21,11 +23,7 @@ const SkipLink = ({ href = "#main" }: SkipLinkProps) => {
       data-h2-width="base:focus-visible(auto)"
       data-h2-z-index="base:focus-visible(9999)"
     >
-      {intl.formatMessage({
-        defaultMessage: "Skip to main content",
-        id: "Srs7a4",
-        description: "Assistive technology skip link",
-      })}
+      {intl.formatMessage(navigationMessages.skipLink)}
     </a>
   );
 };

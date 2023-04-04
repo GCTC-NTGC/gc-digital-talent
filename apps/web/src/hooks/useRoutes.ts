@@ -7,35 +7,34 @@ import { ExperienceType } from "~/types/experience";
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
+  const applicantUrl = path.join(baseUrl, "applicant");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
-    applicationId ? path.join(`?applicationId=${applicationId}`) : "";
+    applicationId ? `?applicationId=${applicationId}` : "";
   const userEditUrl = (
     section: string,
     userId: string,
     applicationId?: string,
   ) =>
-    path.join(
+    `${path.join(
       userUrl(userId),
       "profile",
       section,
       "edit",
-      applicationParam(applicationId),
-    );
+    )}${applicationParam(applicationId)}`;
 
   const createExperienceUrl = (
     type: ExperienceType,
     userId: string,
     applicationId?: string,
   ) =>
-    path.join(
+    `${path.join(
       userUrl(userId),
       "profile",
       "experiences",
       type,
       "create",
-      applicationParam(applicationId),
-    );
+    )}${applicationParam(applicationId)}`;
 
   return {
     // Main Routes
@@ -51,6 +50,7 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => path.join(baseUrl, "logged-out"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
+    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
 
     // Admin
     admin: () => adminUrl,
@@ -88,6 +88,8 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
+    userPlacement: (userId: string) =>
+      path.join(adminUrl, "users", userId, "placement"),
 
     // Admin - Teams
     teamTable: () => path.join(adminUrl, "teams"),
@@ -162,6 +164,50 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "browse", "applications", applicationId, "submit"),
     reviewApplication: (applicationId: string) =>
       path.join(baseUrl, "browse", "applications", applicationId, "apply"),
+    applicationWelcome: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "welcome"),
+    applicationProfile: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "profile"),
+    applicationResume: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume"),
+    applicationResumeIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "resume",
+        "introduction",
+      ),
+    applicationResumeAdd: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume", "add"),
+    applicationResumeEdit: (applicationId: string, experienceId: string) =>
+      path.join(baseUrl, "applications", applicationId, "resume", experienceId),
+    applicationEducation: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "education"),
+    applicationSkills: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "skills"),
+    applicationSkillsIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "skills",
+        "introduction",
+      ),
+    applicationQuestions: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "questions"),
+    applicationQuestionsIntro: (applicationId: string) =>
+      path.join(
+        baseUrl,
+        "applications",
+        applicationId,
+        "questions",
+        "introduction",
+      ),
+    applicationReview: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "review"),
+    applicationSuccess: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "success"),
 
     // Profile Routes
     profile: (userId: string) => path.join(userUrl(userId), "profile"),
@@ -183,12 +229,11 @@ const getRoutes = (lang: Locales) => {
 
     // Experience & Skills Routes
     skillsAndExperiences: (userId: string, applicationId?: string) =>
-      path.join(
+      `${path.join(
         userUrl(userId),
         "profile",
         "experiences",
-        applicationParam(applicationId),
-      ),
+      )}${applicationParam(applicationId)}`,
     editExperience: (
       userId: string,
       type: ExperienceType,
@@ -212,6 +257,9 @@ const getRoutes = (lang: Locales) => {
       createExperienceUrl("personal", userId, applicationId),
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
+
+    // Applicant Dashboard
+    dashboard: () => path.join(applicantUrl, "dashboard"),
 
     /**
      * Deprecated

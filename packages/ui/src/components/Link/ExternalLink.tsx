@@ -16,7 +16,7 @@ export interface ExternalLinkProps
   newTab?: boolean;
 }
 
-const ExternalLink: React.FC<ExternalLinkProps> = ({
+const ExternalLink = ({
   newTab,
   children,
   color,
@@ -26,7 +26,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   type,
   weight,
   ...rest
-}) => {
+}: ExternalLinkProps) => {
   const intl = useIntl();
   const styles = useCommonLinkStyles({
     color,

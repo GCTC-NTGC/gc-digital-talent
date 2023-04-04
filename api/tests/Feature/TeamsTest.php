@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\Team;
@@ -16,40 +17,77 @@ class TeamsTest extends TestCase
   use RefreshDatabase;
   use MakesGraphQLRequests;
   use RefreshesSchemaCache;
+  use WithFaker;
+
+  protected $admin;
+  protected $poolOperator1;
+  protected $poolOperator2;
+  protected $poolOperator3;
+  protected $team1;
+  protected $team2;
+  protected $team3;
+  protected $toBeDeletedUUID;
 
   protected function setUp(): void
   {
     parent::setUp();
+    $this->seed(RolePermissionSeeder::class);
+    $this->setUpFaker();
     $this->bootRefreshesSchemaCache();
 
-    $newUser = new User;
-    $newUser->email = 'admin@test.com';
-    $newUser->sub = 'admin@test.com';
-    $newUser->legacy_roles = ['ADMIN'];
-    $newUser->save();
-
     Team::truncate(); // clear teams created in migrations before testing
+
+    // Create users
+    $this->admin = User::factory()->create([
+      'email' => 'admin-user@test.com',
+      'sub' => 'admin-user@test.com',
+    ])->syncRoles([
+      "guest",
+      "base_user",
+      "applicant",
+      "request_responder",
+      "platform_admin",
+    ]);
+
+    $this->poolOperator1 = User::factory()->create([
+      'email' => 'poolOperator1@test.com',
+      'sub' => 'poolOperator1@test.com',
+    ])->syncRoles(["guest", "base_user"]);
+
+    $this->poolOperator2 = User::factory()->create([
+      'email' => 'poolOperator2@test.com',
+      'sub' => 'poolOperator2@test.com',
+    ])->syncRoles(["guest", "base_user"]);
+
+    $this->poolOperator3 = User::factory()->create([
+      'email' => 'poolOperator3@test.com',
+      'sub' => 'poolOperator3@test.com',
+    ])->syncRoles(["guest", "base_user"]);
+
+
+    // Create teams
+    $this->seed(DepartmentSeeder::class);
+    $this->toBeDeletedUUID = $this->faker->UUID();
+
+    $this->team1 = Team::factory()->create(['name' => 'team1']);
+    $this->team2 = Team::factory()->create(['name' => 'team2']);
+    $this->team3 = Team::factory()->create([
+      'id' => $this->toBeDeletedUUID, // Need specific ID for delete team testing
+      'name' => 'team3',
+    ]);
+
+    // Attach pool operator users to teams.
+    $this->poolOperator1->attachRole("pool_operator", $this->team1);
+    $this->poolOperator2->attachRole("pool_operator", $this->team2);
   }
 
   public function testAllTeamsQuery(): void
   {
-    $this->seed(DepartmentSeeder::class);
-
-    $team1 = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-      'name' => 'team1',
-    ]);
-    $team2 = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-      'name' => 'team2',
-    ]);
-    $team3 = Team::factory()->create([
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-      'name' => 'team3',
-    ]);
-
     // Assert all teams query contains expected results
-    $query = $this->graphQL(/** @lang Graphql */ '
+    $query = $this->actingAs($this->admin, "api")
+      ->graphQL(
+      /** @lang GraphQL */
+      '
       query teams {
           teams {
               id
@@ -67,9 +105,9 @@ class TeamsTest extends TestCase
     assertEquals($teamsArrayCount, 3);
 
     // assert every team created is present in the response
-    $query->assertJsonFragment(['id' => $team1->id]);
-    $query->assertJsonFragment(['id' => $team2->id]);
-    $query->assertJsonFragment(['id' => $team3->id]);
+    $query->assertJsonFragment(['id' => $this->team1->id]);
+    $query->assertJsonFragment(['id' => $this->team2->id]);
+    $query->assertJsonFragment(['id' => $this->team3->id]);
 
     // assert a team has two departments connected to it
     // this is a factory configuration
@@ -84,7 +122,7 @@ class TeamsTest extends TestCase
     $departmentId = Department::inRandomOrder()->first()->id;
 
     // Assert null name causes failure
-    $this->graphQL(
+    $this->actingAs($this->admin, "api")->graphQL(
       /** @lang GraphQL */
       '
       mutation createTeam($team: CreateTeamInput!) {
@@ -94,17 +132,18 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> null,
-          ]
+        'team' => [
+          'name' => null,
+        ]
       ]
-    )->assertJsonFragment([
+    )->assertJsonFragment(
+      [
         "message" => "Variable \"\$team\" got invalid value {\"name\":null}; Expected non-nullable type String! not to be null at value.name."
       ]
     );
 
     // Assert team creation successful across all input fields
-    $this->graphQL(
+    $this->actingAs($this->admin, "api")->graphQL(
       /** @lang GraphQL */
       '
       mutation createTeam($team: CreateTeamInput!) {
@@ -126,25 +165,26 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> 'team one',
-            'displayName' => [
-              'en' => 'en',
-              'fr' => 'fr',
-            ],
-            'description' => [
-              'en' => 'en',
-              'fr' => 'fr',
-            ],
-            'contactEmail' => 'test@test.com',
-            'departments' => [
-              "sync" => [$departmentId],
-            ],
-          ]
+        'team' => [
+          'name' => 'team one',
+          'displayName' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'description' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'contactEmail' => 'test@test.com',
+          'departments' => [
+            "sync" => [$departmentId],
+          ],
+        ]
       ]
-    )->assertJson([
-      'data' => [
-        'createTeam' => [
+    )->assertJson(
+      [
+        'data' => [
+          'createTeam' => [
             'name' => 'team one',
             'displayName' => [
               'en' => 'en',
@@ -160,13 +200,13 @@ class TeamsTest extends TestCase
                 'id' => $departmentId,
               ]
             ],
+          ]
         ]
-    ]
       ]
     );
 
     // Assert creating a second team with the same name fails
-    $this->graphQL(
+    $this->actingAs($this->admin, "api")->graphQL(
       /** @lang GraphQL */
       '
       mutation createTeam($team: CreateTeamInput!) {
@@ -176,11 +216,12 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> 'team one',
-          ]
+        'team' => [
+          'name' => 'team one',
+        ]
       ]
-    )->assertJsonFragment([
+    )->assertJsonFragment(
+      [
         "createTeam" => null,
       ]
     );
@@ -191,10 +232,8 @@ class TeamsTest extends TestCase
     $this->seed(DepartmentSeeder::class);
     $departmentId = Department::inRandomOrder()->first()->id;
 
-    $teamOne = Team::factory()->create();
-
     // Assert team update successful across all input fields
-    $this->graphQL(
+    $this->actingAs($this->admin, "api")->graphQL(
       /** @lang GraphQL */
       '
       mutation updateTeam($id: UUID!, $team: UpdateTeamInput!) {
@@ -216,43 +255,127 @@ class TeamsTest extends TestCase
       }
       ',
       [
-        'id' => $teamOne->id,
+        'id' => $this->team1->id,
         'team' => [
-          'name'=> 'team one',
+          'name' => 'new_team_name',
           'displayName' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Name EN',
+            'fr' => 'New Team Name FR',
           ],
           'description' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Description EN',
+            'fr' => 'New Team Description FR',
           ],
-          'contactEmail' => 'test@test.com',
+          'contactEmail' => 'newContactEmail@test.com',
           'departments' => [
-            "sync" => [$departmentId],
+            'sync' => [$departmentId],
           ],
         ]
       ]
     )->assertJson([
       'data' => [
         'updateTeam' => [
-          'name' => 'team one',
+          'name' => 'new_team_name',
           'displayName' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Name EN',
+            'fr' => 'New Team Name FR',
           ],
           'description' => [
-            'en' => 'en',
-            'fr' => 'fr',
+            'en' => 'New Team Description EN',
+            'fr' => 'New Team Description FR',
           ],
-          'contactEmail' => 'test@test.com',
+          'contactEmail' => 'newContactEmail@test.com',
           'departments' => [
-            [
-              'id' => $departmentId,
-            ],
+            ['id' => $departmentId],
           ],
         ]
       ]
     ]);
+  }
+
+  public function testTeamDeleteMutation(): void
+  {
+    // Detach departments before deleting team
+    $this->team3->departments()->detach();
+
+    // Assert team update successful across all input fields
+    $this->actingAs($this->admin, "api")->graphQL(
+      /** @lang GraphQL */
+      '
+      mutation deleteTeam($id: UUID!) {
+          deleteTeam(id: $id) {
+            id
+          }
+      }
+      ',
+      ['id' => $this->toBeDeletedUUID,]
+    )->assertJson([
+      'data' => [
+        'deleteTeam' => [
+          'id' => $this->toBeDeletedUUID,
+        ],
+      ]
+    ]);
+  }
+
+  public function testViewTeamMembers(): void
+  {
+    $this->poolOperator1->attachRole("pool_operator", $this->team1);
+    $this->poolOperator2->attachRole("pool_operator", $this->team1);
+    $this->poolOperator3->attachRole("pool_operator", $this->team2);
+    $viewAnyTeamMembers =
+    /** @lang GraphQL */
+    '
+        query team($id: UUID!) {
+          team(id: $id) {
+              id
+              roleAssignments {
+                id
+                user {
+                  id
+                }
+              }
+          }
+        }
+    ';
+
+    $variables = ['id' => $this->team1->id];
+
+    // Assert user with role admin can query any team members, regardless of being on the team.
+    $query = $this->actingAs($this->admin, "api")
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertJsonFragment([
+        'id' => $this->poolOperator1->id,
+        'id' => $this->poolOperator2->id
+      ]);
+
+    // assert pool operator three is not present in the response
+    $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
+
+    // assert the teams returned is an array of exactly two items
+    $data = $query->original['data'];
+    $teamMembersCount = count($data['team']['roleAssignments']);
+    assertEquals($teamMembersCount, 2);
+
+    // Assert pool operator can view team members of their team
+    $query = $this->actingAs($this->poolOperator1, "api")
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertJsonFragment([
+        'id' => $this->poolOperator1->id,
+        'id' => $this->poolOperator2->id,
+      ]);
+
+    // assert pool operator three is not present in the response
+    $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
+
+    // assert the teams returned is an array of exactly two items
+    $data = $query->original['data'];
+    $teamMembersCount = count($data['team']['roleAssignments']);
+    assertEquals($teamMembersCount, 2);
+
+    // Assert pool operator cannot view team members of a team they're not attached too.
+    $query = $this->actingAs($this->poolOperator3, "api")
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertGraphQLErrorMessage('This action is unauthorized.');
   }
 }

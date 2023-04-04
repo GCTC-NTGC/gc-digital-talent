@@ -8,6 +8,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -26,27 +27,32 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         $this->bootRefreshesSchemaCache();
 
-        // Create admin user we run tests as
-        $newUser = new User;
-        $newUser->email = 'admin@test.com';
-        $newUser->sub = 'admin@test.com';
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->save();
+        $this->seed(RolePermissionSeeder::class);
     }
 
-    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true) {
+    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true)
+    {
         return [
             'pool_id' => $pool,
             'user_id' => $user,
             'pool_candidate_status' => $available ? ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE : ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date') ,
+            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
 
-    // user (admin) not returned if no candidates
-    // the admin has no candidates so should get no results
-    public function testThatEmptyDoesNotReturnTheAdmin()
+    public function poolData(?bool $published = true)
     {
+        return [
+            'published_at' => $published ? config('constants.past_date') : null,
+        ];
+    }
+
+    // The user has no candidates so should get no results
+    public function testEmptyDoesNotReturnUserWithNoCandidates()
+    {
+        // Create user to test for
+        User::factory()->create();
+
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -71,10 +77,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a single candidate and expects it to be returned
     public function testThatEmptyReturnsACandidate()
     {
-        $pool = Pool::factory()->create();
-        $user = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $pool = Pool::factory()->create($this->poolData());
+        $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
         $this->graphQL(
@@ -110,11 +114,10 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'name' => [
                 'en' => 'Test Pool EN',
                 'fr' => 'Test Pool FR'
-            ]
+            ],
+            'published_at' => config('constants.past_date')
         ]);
-        $user = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
         $this->graphQL(
@@ -155,11 +158,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates one users with two candidates and expects both candidates to be returned
     public function testThatEmptyReturnsTwoCandidatesForOneUser()
     {
-        $pool1 = Pool::factory()->create();
-        $pool2 = Pool::factory()->create();
-        $user = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $pool1 = Pool::factory()->create($this->poolData());
+        $pool2 = Pool::factory()->create($this->poolData());
+        $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
         PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
 
@@ -192,58 +193,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test that available for opportunities scope is working
-    // creates a user for each user status and ensure that only the two come back
-    public function testAvailableForOpportunities()
-    {
-        $pool = Pool::factory()->create();
-        foreach (ApiEnums::userStatuses() as $status) {
-            $user = User::factory()->create([
-                'job_looking_status' => $status
-            ]);
-            PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
-        }
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => []
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
-                    ]
-                ]
-            ]
-        ]);
-    }
-
     // test has diploma
     // creates three users with/without/null diploma and expects only one to come back
     public function testHasDiploma()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'has_diploma' => true
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'has_diploma' => false
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'has_diploma' => null
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
@@ -281,17 +242,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three users with/without/null isWoman and expects only one to come back
     public function testEquityIsWoman()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'is_woman' => true
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'is_woman' => false
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'is_woman' => null
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
@@ -333,21 +291,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a user for bilingual, english, and french then filter for english and expect two to come back
     public function testLanguageAbility()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'looking_for_english' => false,
             'looking_for_french' => false,
             'looking_for_bilingual' => true,
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'looking_for_english' => true,
             'looking_for_french' => false,
             'looking_for_bilingual' => false,
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'looking_for_english' => false,
             'looking_for_french' => true,
             'looking_for_bilingual' => false,
@@ -387,16 +342,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with different op reqs, filter for a combination that two users have, expect to get 2 candidates
     public function testOperationalRequirements()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
                 ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL
             ]
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
                 ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
@@ -404,7 +357,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL
             ]
@@ -447,16 +399,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with different location preferences, filter for a combination that two users have, expect to get 2 candidates
     public function testLocationPreferences()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'location_preferences' => [
                 ApiEnums::WORK_REGION_ATLANTIC,
                 ApiEnums::WORK_REGION_BRITISH_COLUMBIA
             ]
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'location_preferences' => [
                 ApiEnums::WORK_REGION_ATLANTIC,
                 ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
@@ -464,7 +414,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'location_preferences' => [
                 ApiEnums::WORK_REGION_NATIONAL_CAPITAL
             ]
@@ -507,17 +456,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with/without/null would accept temporary and expects only one to come back
     public function testWouldAcceptTemporary()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $user1 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
         $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
         $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'position_duration' => null,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
@@ -555,7 +501,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users various expected classifications and filter for the classifications on two of them
     public function testClassifications()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $classifications = Classification::factory(3)
             ->create(
                 ['min_salary' => 0,  'max_salary' => 0] // avoid classification/salary cross-matching
@@ -564,9 +510,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ->afterCreating(function ($user) use ($pool) {
                 PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
             })
-            ->create([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-            ]);
+            ->create([]);
         $users[0]->expectedClassifications()->sync([
             $classifications[0]->id,
             $classifications[1]->id
@@ -619,14 +563,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users various skills and filter for the skills on two of them
     public function testSkills()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         $skills = Skill::factory(3)->create();
         $users = User::factory(3)
             ->afterCreating(function ($user) use ($pool) {
                 $exp = AwardExperience::factory()->create(['user_id' => $user->id]);
                 PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
             })
-            ->create(['job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING]);
+            ->create();
 
         $users[0]->awardExperiences()->sole()->skills()->sync([
             $skills[0]->id,
@@ -675,12 +619,10 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three pools but filters on only 1 and 2
     public function testPoolFilter()
     {
-        $pool1 = Pool::factory()->create();
-        $pool2 = Pool::factory()->create();
-        $pool3 = Pool::factory()->create();
-        $user = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $pool1 = Pool::factory()->create($this->poolData());
+        $pool2 = Pool::factory()->create($this->poolData());
+        $pool3 = Pool::factory()->create($this->poolData());
+        $user = User::factory()->create([]);
 
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
         PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
@@ -722,11 +664,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     public function testAvailableScope()
     {
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->create($this->poolData());
         foreach (ApiEnums::candidateStatuses() as $status) {
-            $user = User::factory()->create([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-            ]);
+            $user = User::factory()->create([]);
             PoolCandidate::factory()->create([
                 'pool_id' => $pool,
                 'user_id' => $user,
@@ -735,12 +675,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]);
         }
 
-        $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
-        $user3 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $user2 = User::factory()->create([]);
+        $user3 = User::factory()->create([]);
         PoolCandidate::factory()->create([
             'pool_id' => $pool,
             'user_id' => $user2,
@@ -783,11 +719,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     public function testExpiryFilter()
     {
-        $pool1 = Pool::factory()->create();
-        $pool2 = Pool::factory()->create();
-        $user = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
+        $pool1 = Pool::factory()->create($this->poolData());
+        $pool2 = Pool::factory()->create($this->poolData());
+        $user = User::factory()->create([]);
 
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user, true, true)); // future expiry date
         PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user, true, false)); // past expiry date

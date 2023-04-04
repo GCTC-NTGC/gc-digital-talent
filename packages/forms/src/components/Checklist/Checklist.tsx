@@ -40,7 +40,7 @@ export interface ChecklistProps extends React.HTMLProps<HTMLFieldSetElement> {
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
-const Checklist: React.FunctionComponent<ChecklistProps> = ({
+const Checklist = ({
   idPrefix,
   legend,
   name,
@@ -51,7 +51,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   hideOptional,
   trackUnsaved = true,
   ...rest
-}) => {
+}: ChecklistProps) => {
   const {
     register,
     formState: { errors },

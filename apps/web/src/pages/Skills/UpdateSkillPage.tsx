@@ -32,6 +32,7 @@ import {
   Scalars,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type Option<V> = { value: V; label: string };
 
@@ -52,11 +53,11 @@ interface UpdateSkillFormProps {
   ) => Promise<UpdateSkillMutation["updateSkill"]>;
 }
 
-export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
+export const UpdateSkillForm = ({
   initialSkill,
   families,
   handleUpdateSkill,
-}) => {
+}: UpdateSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
@@ -277,6 +278,7 @@ type RouteParams = {
 
 export const UpdateSkill = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { skillId } = useParams<RouteParams>();
   const [{ data: lookupData, fetching, error }] = useGetUpdateSkillDataQuery({
     variables: { id: skillId || "" },
@@ -299,8 +301,39 @@ export const UpdateSkill = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Skills",
+        id: "ynjzua",
+        description: "Breadcrumb title for the skills page link.",
+      }),
+      url: routes.skillTable(),
+    },
+    ...(skillId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit<hidden> skill</hidden>",
+              id: "M2LfhH",
+              description: "Breadcrumb title for the edit skill page link.",
+            }),
+            url: routes.skillFamilyUpdate(skillId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Edit skill",
@@ -332,7 +365,7 @@ export const UpdateSkill = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

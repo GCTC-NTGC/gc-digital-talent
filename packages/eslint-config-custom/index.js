@@ -38,7 +38,7 @@ module.exports = {
     "tsconfig.json",
     "CssStub.js",
     ".turbo",
-    "dist/**"
+    "dist/**",
   ],
   plugins: [
     "react",
@@ -47,7 +47,7 @@ module.exports = {
     "@typescript-eslint",
     "formatjs",
     "jsx-a11y",
-    "turbo"
+    "turbo",
   ],
   rules: {
     "formatjs/no-id": "off",
@@ -118,7 +118,16 @@ module.exports = {
     ],
     "@typescript-eslint/no-empty-function": "warn",
     "no-use-before-define": "off",
-    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/ban-types": [
+      "warn",
+      {
+        types: {
+          "React.FunctionComponent":
+            "https://github.com/facebook/create-react-app/pull/8177",
+          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
+        },
+      },
+    ],
     "@typescript-eslint/no-use-before-define": "warn",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
@@ -127,12 +136,12 @@ module.exports = {
   settings: {
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
-        project: [__dirname]
+        project: [__dirname],
       },
-    }
+    },
   },
 };

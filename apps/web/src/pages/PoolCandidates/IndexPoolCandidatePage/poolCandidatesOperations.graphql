@@ -61,7 +61,6 @@ fragment poolCandidateTable on PoolCandidate {
     indigenousDeclarationSignature
 
     # Applicant info
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions
@@ -85,6 +84,7 @@ fragment poolCandidateTable on PoolCandidate {
   submittedAt
   notes
   archivedAt
+  suspendedAt
 }
 
 fragment poolCandidateForm on PoolCandidate {

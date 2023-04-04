@@ -23,12 +23,12 @@ export interface EmploymentEquityFormProps {
   onUpdate: EmploymentEquityUpdateHandler;
 }
 
-const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
+const EmploymentEquityForm = ({
   user,
   application,
   onUpdate,
   isMutating,
-}) => {
+}: EmploymentEquityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
@@ -55,7 +55,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          url: paths.pool(application.pool.id),
+          url: paths.pool(application.poolAdvertisement?.id || ""),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
@@ -69,7 +69,7 @@ const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
               "Display Text for Diversity, equity and inclusion Page",
           }),
           url: `${paths.diversityEquityInclusion(user.id)}${
-            applicationId ? `?${applicationId}` : ``
+            applicationId ? `?applicationId=${applicationId}` : ``
           }`,
         },
       ]

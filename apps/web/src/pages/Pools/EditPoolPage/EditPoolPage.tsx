@@ -6,10 +6,9 @@ import {
   NotFound,
   Pending,
   Link,
-  AdminBreadcrumbs,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 
@@ -23,6 +22,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolNameSection, {
   type PoolNameSubmitData,
 } from "./components/PoolNameSection";
@@ -38,9 +38,7 @@ import WorkTasksSection, {
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
 } from "./components/OtherRequirementsSection";
-import StatusSection, {
-  type ExtendSubmitData,
-} from "./components/StatusSection";
+import StatusSection from "./components/StatusSection";
 import EssentialSkillsSection, {
   type EssentialSkillsSubmitData,
 } from "./components/EssentialSkillsSection";
@@ -54,7 +52,6 @@ export type PoolSubmitData =
   | AssetSkillsSubmitData
   | ClosingDateSubmitData
   | EssentialSkillsSubmitData
-  | ExtendSubmitData
   | OtherRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
@@ -68,7 +65,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
 }
 
@@ -85,44 +82,6 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const links = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
-      }),
-      url: paths.admin(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
-      url: paths.poolTable(),
-    },
-    {
-      label: intl.formatMessage(
-        {
-          defaultMessage: `Pool ID #{id}`,
-          id: "fp7Nll",
-          description: "Current pool breadcrumb text",
-        },
-        { id: poolAdvertisement.id },
-      ),
-      url: paths.poolView(poolAdvertisement.id),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: `Edit Pool`,
-        id: "Hn6YgE",
-        description: "Edit pool breadcrumb text",
-      }),
-      url: paths.poolUpdate(poolAdvertisement.id),
-    },
-  ];
 
   const sectionMetadata = {
     poolName: {
@@ -200,7 +159,6 @@ export const EditPoolForm = ({
           description: "Page title for the edit pool page",
         })}
       />
-      <AdminBreadcrumbs crumbs={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
@@ -309,6 +267,7 @@ export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
   const logger = useLogger();
+  const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -336,28 +295,63 @@ export const EditPoolPage = () => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Pools",
+        id: "3fAkvM",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      url: routes.poolTable(),
+    },
+    {
+      label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+      url: routes.poolView(poolId),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Edit<hidden> pool</hidden>",
+        id: "D6HIId",
+        description: "Edit pool breadcrumb text",
+      }),
+      url: routes.poolUpdate(poolId),
+    },
+  ];
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.poolAdvertisement ? (
-        <EditPoolContext.Provider value={ctx}>
-          <EditPoolForm
-            poolAdvertisement={data.poolAdvertisement}
-            classifications={data.classifications.filter(notEmpty)}
-            skills={data.skills.filter(notEmpty)}
-            onSave={(saveData) => mutations.update(poolId, saveData)}
-            onPublish={() => mutations.publish(poolId)}
-            onDelete={() => mutations.delete(poolId)}
-            onClose={() => mutations.close(poolId)}
-            onExtend={(extendData) => mutations.update(poolId, extendData)}
-            onArchive={() => logger.warning("onArchive not yet implemented")}
-          />
-        </EditPoolContext.Provider>
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{notFoundMessage}</p>
-        </NotFound>
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending fetching={fetching} error={error}>
+        {data?.poolAdvertisement ? (
+          <EditPoolContext.Provider value={ctx}>
+            <EditPoolForm
+              poolAdvertisement={data.poolAdvertisement}
+              classifications={data.classifications.filter(notEmpty)}
+              skills={data.skills.filter(notEmpty)}
+              onSave={(saveData) => mutations.update(poolId, saveData)}
+              onPublish={() => mutations.publish(poolId)}
+              onDelete={() => mutations.delete(poolId)}
+              onClose={() => mutations.close(poolId)}
+              onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
+              onArchive={() => logger.warning("onArchive not yet implemented")}
+            />
+          </EditPoolContext.Provider>
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>{notFoundMessage}</p>
+          </NotFound>
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 

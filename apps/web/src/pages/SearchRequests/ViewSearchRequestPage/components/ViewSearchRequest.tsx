@@ -5,6 +5,7 @@ import {
   getLocale,
   commonMessages,
   getPoolCandidateSearchStatus,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -16,13 +17,17 @@ import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import useRoutes from "~/hooks/useRoutes";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
-const ManagerInfo: React.FunctionComponent<{
+const ManagerInfo = ({
+  searchRequest,
+}: {
   searchRequest: PoolCandidateSearchRequest;
-}> = ({ searchRequest }) => {
+}) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const {
@@ -222,9 +227,9 @@ interface SingleSearchRequestProps {
   searchRequest: PoolCandidateSearchRequest;
 }
 
-export const ViewSearchRequest: React.FunctionComponent<
-  SingleSearchRequestProps
-> = ({ searchRequest }) => {
+export const ViewSearchRequest = ({
+  searchRequest,
+}: SingleSearchRequestProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter, applicantFilter, wasEmpty } =
@@ -318,37 +323,73 @@ export const ViewSearchRequest: React.FunctionComponent<
   );
 };
 
-const ViewSearchRequestApi: React.FunctionComponent<{
+const ViewSearchRequestApi = ({
+  searchRequestId,
+}: {
   searchRequestId: string;
-}> = ({ searchRequestId }) => {
+}) => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [{ data: searchRequestData, fetching, error }] =
     useGetPoolCandidateSearchRequestQuery({
       variables: { id: searchRequestId },
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Requests",
+        id: "y0j4oU",
+        description:
+          "Breadcrumb title for the search requests table page link.",
+      }),
+      url: routes.searchRequestTable(),
+    },
+    {
+      label: `${
+        searchRequestData?.poolCandidateSearchRequest?.fullName
+      } - ${getLocalizedName(
+        searchRequestData?.poolCandidateSearchRequest?.department?.name,
+        intl,
+      )}`,
+      url: routes.searchRequestView(searchRequestId),
+    },
+  ];
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {searchRequestData?.poolCandidateSearchRequest ? (
-        <ViewSearchRequest
-          searchRequest={searchRequestData?.poolCandidateSearchRequest}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Search Request {searchRequestId} not found.",
-                id: "BbaMf0",
-                description:
-                  "Message displayed for search request not found on single search request page.",
-              },
-              { searchRequestId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
+      <Pending fetching={fetching} error={error}>
+        {searchRequestData?.poolCandidateSearchRequest ? (
+          <ViewSearchRequest
+            searchRequest={searchRequestData?.poolCandidateSearchRequest}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Search Request {searchRequestId} not found.",
+                  id: "BbaMf0",
+                  description:
+                    "Message displayed for search request not found on single search request page.",
+                },
+                { searchRequestId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </Pending>
+    </AdminContentWrapper>
   );
 };
 

@@ -13,7 +13,8 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-class PoolCandidateSearchRequestTest extends TestCase {
+class PoolCandidateSearchRequestTest extends TestCase
+{
     use RefreshDatabase;
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
@@ -65,7 +66,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
             [
                 'input' => $this->getInput($input)
             ]
-            );
+        );
     }
 
     /**
@@ -85,7 +86,6 @@ class PoolCandidateSearchRequestTest extends TestCase {
             'poolCandidateSearchRequest.poolCandidateFilter',
             'poolCandidateSearchRequest.applicantFilter'
         ]);
-
     }
 
     /**
@@ -110,7 +110,6 @@ class PoolCandidateSearchRequestTest extends TestCase {
         ])->assertJson(function (AssertableJson $json) {
             $json->has('data.createPoolCandidateSearchRequest.id');
         });
-
     }
 
     /**
@@ -168,7 +167,8 @@ class PoolCandidateSearchRequestTest extends TestCase {
         $searchRequest1 = PoolCandidateSearchRequest::factory()->create();
 
         $querySearchRequest =
-        '
+            /** @lang GraphQL */
+            '
             query poolCandidateSearchRequest($id: ID!) {
                 poolCandidateSearchRequest(id: $id) {
                     id
@@ -176,7 +176,8 @@ class PoolCandidateSearchRequestTest extends TestCase {
             }
         ';
         $mutationUpdateSearchRequest =
-        '
+            /** @lang GraphQL */
+            '
             mutation updatePoolCandidateSearchRequest($id: ID!, $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!) {
                 updatePoolCandidateSearchRequest(id: $id, poolCandidateSearchRequest: $poolCandidateSearchRequest) {
                     adminNotes
@@ -184,7 +185,8 @@ class PoolCandidateSearchRequestTest extends TestCase {
             }
         ';
         $mutationDeleteSearchRequest =
-        '
+            /** @lang GraphQL */
+            '
             mutation deletePoolCandidateSearchRequest($id: ID!) {
                 deletePoolCandidateSearchRequest(id: $id) {
                     id
@@ -192,7 +194,7 @@ class PoolCandidateSearchRequestTest extends TestCase {
             }
         ';
 
-        $whereSearchRequest1 = [ 'id' => $searchRequest1->id ];
+        $whereSearchRequest1 = ['id' => $searchRequest1->id];
         $whereUpdateSearchRequest1 = [
             'id' => $searchRequest1->id,
             'poolCandidateSearchRequest' => [
@@ -203,33 +205,33 @@ class PoolCandidateSearchRequestTest extends TestCase {
         // test viewing a specific search request
         $this->actingAs($baseUser, 'api')
             ->graphQL($querySearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment([ 'message' => 'This action is unauthorized.' ]);
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
             ->graphQL($querySearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment([ 'id' => $searchRequest1->id ]);
+            ->assertJsonFragment(['id' => $searchRequest1->id]);
 
         // test viewing collection of search requests
         $this->actingAs($baseUser, 'api')
             ->graphQL('query { poolCandidateSearchRequests { id } }')
-            ->assertJsonFragment([ 'message' => 'This action is unauthorized.' ]);
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
             ->graphQL('query { poolCandidateSearchRequests { id } }')
-            ->assertJsonFragment([ 'id' => $searchRequest1->id ]);
+            ->assertJsonFragment(['id' => $searchRequest1->id]);
 
         // test updating a search request
         $this->actingAs($baseUser, 'api')
             ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
-            ->assertJsonFragment([ 'message' => 'This action is unauthorized.' ]);
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
             ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
-            ->assertJsonFragment([ 'adminNotes' => 'hardcoded message here' ]);
+            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
 
         // test deleting a search request
         $this->actingAs($baseUser, 'api')
             ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment([ 'message' => 'This action is unauthorized.' ]);
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
             ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment([ 'id' => $searchRequest1->id ]);
+            ->assertJsonFragment(['id' => $searchRequest1->id]);
     }
 }

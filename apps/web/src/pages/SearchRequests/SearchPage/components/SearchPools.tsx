@@ -23,11 +23,11 @@ export interface SearchPoolsProps {
   ) => Promise<void>;
 }
 
-const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
+const SearchPools = ({
   candidateCount,
   pool,
   handleSubmit,
-}) => {
+}: SearchPoolsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const selectedClassifications =

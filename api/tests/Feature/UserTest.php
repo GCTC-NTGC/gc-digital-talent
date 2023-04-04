@@ -42,9 +42,9 @@ class UserTest extends TestCase
             'legacy_roles' => ['ADMIN'],
 
             // The following properties make sure this user doesn't match certain test queries, skewing results.
-            'looking_for_english' => false,
-            'looking_for_french' => false,
-            'looking_for_bilingual' => false,
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
             'expected_salary' => [],
             'job_looking_status' => null,
             'accepted_operational_requirements' => null,
@@ -66,7 +66,7 @@ class UserTest extends TestCase
 
     public function testCreateUserDefaultRoles()
     {
-        $this->actingAs($this->platformAdmin)->graphQL(
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation CreateUser($user: CreateUserInput!) {
@@ -110,7 +110,7 @@ class UserTest extends TestCase
 
     public function testCreateUserAdminRole()
     {
-        $this->actingAs($this->platformAdmin)->graphQL(
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation CreateUser($user: CreateUserInput!) {
@@ -155,7 +155,7 @@ class UserTest extends TestCase
     public function testUpdateUserLegacyRole()
     {
         $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin)->graphQL(
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
@@ -186,7 +186,7 @@ class UserTest extends TestCase
     public function testUpdateUserRole()
     {
         $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin)->graphQL(
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
@@ -254,8 +254,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no pool filter will return all users, including unavailable
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -279,8 +279,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter but no statuses filter
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -310,8 +310,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, only expired status
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -342,8 +342,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, only removed status
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -374,8 +374,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, expired + removed + available statuses
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -406,8 +406,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, empty array of statuses will return all candidates in pool.
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -438,8 +438,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown pool filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -526,8 +526,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no parameters returns all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -548,8 +548,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus ACTIVE returns correct users
-        $response = $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -582,8 +582,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query for pool without setting expiryStatus returns ACTIVE users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -614,8 +614,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus EXPIRED returns correct users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -648,8 +648,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus ALL returns all users in pool
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -683,10 +683,15 @@ class UserTest extends TestCase
 
     public function testFilterByLanguageAbility(): void
     {
-        User::factory()->count(5)->create([
+        User::factory()->count(1)->create([
             'looking_for_english' => false,
             'looking_for_french' => false,
             'looking_for_bilingual' => false,
+        ]);
+        User::factory()->count(4)->create([
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
         ]);
 
         // Create new LanguageAbility and attach to 3 new pool users.
@@ -707,8 +712,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no LanguageAbility filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -732,8 +737,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with ENGLISH filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -761,8 +766,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with FRENCH filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -790,8 +795,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with BILINGUAL filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -836,8 +841,8 @@ class UserTest extends TestCase
         });
 
         // Assert query with no classifications filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -861,8 +866,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return correct number of users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -890,8 +895,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -954,8 +959,8 @@ class UserTest extends TestCase
         $user3->expectedClassifications()->delete();
 
         // Assert query with no classifications filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -979,8 +984,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return users in range and overlapping.
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1008,8 +1013,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1078,8 +1083,8 @@ class UserTest extends TestCase
 
 
         // Assert query with no classifications filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1103,8 +1108,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one classification filter will return correct number of users.
-        $results = $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $results = $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1133,8 +1138,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two classification filters will return correct number of users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1165,8 +1170,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert that adding an unknown classification to query to classification won't reduce number of users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1219,8 +1224,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no operationalRequirements filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1244,8 +1249,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with empty operationalRequirements filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1273,8 +1278,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one operationalRequirement filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1302,8 +1307,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two operationalRequirement filters will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1331,8 +1336,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with an unused operationalRequirement filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1373,8 +1378,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no locationPreferences filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1398,8 +1403,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with locationPreferences filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1427,8 +1432,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with empty locationPreferences filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1469,8 +1474,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no hasDiploma filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1494,8 +1499,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with hasDiploma filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1523,8 +1528,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with hasDiploma filter set to false will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1565,8 +1570,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no positionDuration filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1590,8 +1595,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with position duration filter set to temporary will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1619,8 +1624,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with position duration filter set to null will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1642,160 +1647,6 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 8
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    public function testFilterByJobLookingStatus(): void
-    {
-        // Create initial data.
-        User::factory()->count(5)->create([
-            'job_looking_status' => null,
-        ]);
-        $availableStatus = 'ACTIVELY_LOOKING';
-        $openStatus = 'OPEN_TO_OPPORTUNITIES';
-        $inactiveStatus = 'INACTIVE';
-
-        // Create a few with a op_req 1
-        User::factory()->count(3)->create([
-            'job_looking_status' => $availableStatus,
-        ]);
-
-        // Create a few with op_req 1 and 2
-        User::factory()->count(2)->create([
-            'job_looking_status' => $openStatus,
-        ]);
-
-        // Assert query with no jobLookingStatus filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 11
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with empty jobLookingStatus filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => []
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 11
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with one jobLookingStatus filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$availableStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 3
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with two jobLookingStatus filters will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$availableStatus, $openStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 5
-                    ]
-                ]
-            ]
-        ]);
-
-        // Assert query with an unused jobLookingStatus filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'jobLookingStatus' => [$inactiveStatus],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 0
                     ]
                 ]
             ]
@@ -1855,8 +1706,8 @@ class UserTest extends TestCase
             ]);
 
         // Assert query no isProfileComplete filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1880,8 +1731,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isProfileComplete filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1907,8 +1758,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isProfileComplete filter set to false will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2001,8 +1852,8 @@ class UserTest extends TestCase
         })->create();
 
         // Assert query no skills filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2026,8 +1877,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query empty skills filter array will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2055,8 +1906,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one skills filter will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2086,8 +1937,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two skills will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2118,8 +1969,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unused skill will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2162,8 +2013,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no isGovEmployee filter will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2187,8 +2038,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isGovEmployee filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2214,8 +2065,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isGovEmployee filter set to false will return all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2249,8 +2100,8 @@ class UserTest extends TestCase
         $usersByCreated = User::select('id')->orderByDesc('created_at')->get()->toArray();
 
         // Assert query no orderBy given defaults to created_at desc
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2272,8 +2123,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query orders by given attribute
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($orderBy: [OrderByClause!]) {
                 usersPaginated(orderBy: $orderBy) {
@@ -2394,8 +2245,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with just pool filters will return all users in that pool
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2425,8 +2276,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return users in range and overlapping in that pool
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2457,8 +2308,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2510,7 +2361,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         PoolCandidate::factory()->count(5)->create([
@@ -2521,7 +2371,6 @@ class UserTest extends TestCase
                 'looking_for_english' => false,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
         // Should appear in searches, but in pool 2.
@@ -2533,7 +2382,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         // Expired in pool - should not appear in searches
@@ -2545,7 +2393,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         // Already placed - should not appear in searches
@@ -2557,7 +2404,6 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
         // User status inactive - should not appear in searches
@@ -2569,13 +2415,12 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_INACTIVE
             ])
         ]);
 
         // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
-        $response = $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $response = $this->graphQL(
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -2591,13 +2436,13 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                'countApplicants' => 13
+                'countApplicants' => 14 // including base admin user
             ]
         ]);
 
         // Assert query with another filter will return proper count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->graphQL(
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -2613,7 +2458,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 8
+                'countApplicants' => 9 //including base admin user
             ]
         ]);
     }
@@ -2657,8 +2502,8 @@ class UserTest extends TestCase
         // 'sub' => 'admin@test.com',
 
         // Assert no filters returns all five users plus admin@test.com
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2683,8 +2528,8 @@ class UserTest extends TestCase
 
         // Name filtering  //
         // casing should not matter
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2709,8 +2554,8 @@ class UserTest extends TestCase
             ]
         ]);
         // ensure single letter returns all relevant results
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2735,8 +2580,8 @@ class UserTest extends TestCase
             ]
         ]);
         // test a full name
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2761,8 +2606,8 @@ class UserTest extends TestCase
             ]
         ]);
         // test name segments
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2787,8 +2632,8 @@ class UserTest extends TestCase
             ]
         ]);
         // test name segments but in reverse
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2814,8 +2659,8 @@ class UserTest extends TestCase
         ]);
 
         // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2842,8 +2687,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert email filter with partial email returns correct count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2869,8 +2714,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering for phone digit in general search returns correct count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2896,8 +2741,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering for last name in general search returns correct count
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2923,8 +2768,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering general search and name search (both subqueries) filter as AND
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2951,13 +2796,14 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testNullFiltersEqualToUndefined(): void {
+    public function testNullFiltersEqualToUndefined(): void
+    {
         // Create users to test filters on
         User::factory(60)->create();
 
         // Assert that using an empty (ie undefined) filter returns all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -2981,8 +2827,8 @@ class UserTest extends TestCase
         ]);
 
         // Assert that setting every value to null also returns all users
-        $this->actingAs($this->platformAdmin)->graphQL(
-            /** @lang Graphql */
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {

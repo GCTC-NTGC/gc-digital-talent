@@ -6,7 +6,7 @@ export interface NavMenuProps {
   utilityItems?: ReactElement[];
 }
 
-const ListItem: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+const ListItem = ({ children }: { children?: React.ReactNode }) => (
   <li data-h2-flex-item="base(content)">
     <span
       data-h2-display="base(block)"
@@ -18,10 +18,7 @@ const ListItem: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
   </li>
 );
 
-const NavMenu: React.FunctionComponent<NavMenuProps> = ({
-  mainItems,
-  utilityItems,
-}) => {
+const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
   const intl = useIntl();
   return (
     <div

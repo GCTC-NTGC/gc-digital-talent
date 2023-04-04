@@ -38,10 +38,48 @@ fragment team on Team {
   }
 }
 
-
 query ListTeams {
   teams {
-    ...team
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    description {
+      en
+      fr
+    }
+  }
+}
+
+query MeRoleAssignments {
+  me {
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+        isTeamBased
+      }
+      team {
+        id
+        name
+      }
+    }
   }
 }
 

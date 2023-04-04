@@ -3,10 +3,7 @@ import { Color, HeadingRank } from "./types";
 import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
-import Breadcrumbs, {
-  type BreadcrumbsProps,
-  AdminBreadcrumbs,
-} from "./components/Breadcrumbs";
+import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, {
   IconButton,
   type ButtonProps,
@@ -59,6 +56,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import Switch from "./components/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
@@ -99,6 +97,7 @@ export type {
   PillSize,
   SideMenuProps,
   SideMenuItemProps,
+  StepperProps,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -111,7 +110,6 @@ export {
   Alert,
   AlertDialog,
   Breadcrumbs,
-  AdminBreadcrumbs,
   Button,
   IconButton,
   Card,
@@ -143,6 +141,7 @@ export {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  Stepper,
   Switch,
   TableOfContents,
   Tabs,

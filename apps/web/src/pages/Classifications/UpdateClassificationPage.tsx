@@ -19,6 +19,7 @@ import {
   useGetClassificationQuery,
   useUpdateClassificationMutation,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -29,9 +30,10 @@ interface UpdateClassificationFormProps {
   ) => Promise<FormValues>;
 }
 
-export const UpdateClassificationForm: React.FunctionComponent<
-  UpdateClassificationFormProps
-> = ({ initialClassification, handleUpdateClassification }) => {
+export const UpdateClassificationForm = ({
+  initialClassification,
+  handleUpdateClassification,
+}: UpdateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -213,6 +215,7 @@ type RouteParams = {
 
 const UpdateClassification = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { classificationId } = useParams<RouteParams>();
   const [{ data: classificationData, fetching, error }] =
     useGetClassificationQuery({
@@ -237,8 +240,40 @@ const UpdateClassification = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Classifications",
+        id: "kyMlnN",
+        description: "Breadcrumb title for the classifications page link.",
+      }),
+      url: routes.classificationTable(),
+    },
+    ...(classificationId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit<hidden> classification</hidden>",
+              id: "ow4z7W",
+              description:
+                "Breadcrumb title for the edit classification page link.",
+            }),
+            url: routes.classificationUpdate(classificationId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update classification",
@@ -271,7 +306,7 @@ const UpdateClassification = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

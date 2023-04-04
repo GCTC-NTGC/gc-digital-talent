@@ -29,7 +29,6 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset";
-  classNames?: string;
 }
 
 export const h2ButtonColors = {
@@ -182,7 +181,7 @@ export const h2ButtonColors = {
       "data-h2-border-width": "base(3px)",
       "data-h2-border-style": "base(solid)",
       "data-h2-color":
-        "base(quaternary.dark) base:hover(quaternary) base:focus-visible(black) base:dark(quaternary.lighter) base:dark:hover(quaternary.light) base:dark:focus-visible(black) base:admin(quaternary.dark) base:admin:hover(quaternary) base:admin:focus-visible(black) base:admin:dark(quaternary.light) base:admin:dark:hover(quaternary) base:admin:dark:focus-visible(black) base:iap:hover(quaternary.light) base:iap:focus-visible(black) base:iap:dark:hover(quaternary.light) base:iap:dark:focus-visible(black)",
+        "base(quaternary.darker) base:hover(quaternary) base:focus-visible(black) base:dark(quaternary.lighter) base:dark:hover(quaternary.light) base:dark:focus-visible(black) base:admin(quaternary.dark) base:admin:hover(quaternary) base:admin:focus-visible(black) base:admin:dark(quaternary.light) base:admin:dark:hover(quaternary) base:admin:dark:focus-visible(black) base:iap:hover(quaternary.light) base:iap:focus-visible(black) base:iap:dark:hover(quaternary.light) base:iap:dark:focus-visible(black)",
       "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
       "data-h2-border-color": "base(transparent)",
     },
@@ -444,7 +443,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       mode = "solid",
       disabled,
       block = false,
-      classNames,
       ...rest
     },
     ref,
@@ -462,7 +460,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
         type={type || "button"}
         disabled={disabled}
@@ -471,6 +468,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-h2-font-weight="base(700)"
         data-h2-transition="base:hover(background .2s ease 0s)"
         data-h2-cursor="base(pointer)"
+        data-h2-overflow-wrap="base(break-word)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}

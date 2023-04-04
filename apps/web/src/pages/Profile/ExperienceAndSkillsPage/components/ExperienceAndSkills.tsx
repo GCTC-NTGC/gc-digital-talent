@@ -51,9 +51,12 @@ export interface ExperienceAndSkillsProps {
   };
 }
 
-export const ExperienceAndSkills: React.FunctionComponent<
-  ExperienceAndSkillsProps
-> = ({ experiences, missingSkills, applicantId, poolAdvertisement }) => {
+export const ExperienceAndSkills = ({
+  experiences,
+  missingSkills,
+  applicantId,
+  poolAdvertisement,
+}: ExperienceAndSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();

@@ -7,12 +7,16 @@ import "./heading.css";
 export interface HeadingProps {
   as?: HeadingLevel;
   size?: HeadingLevel;
-  icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const TOCHeading: React.FC<
-  HeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">
-> = ({ icon, children, as = "h2", size = "h3", ...rest }) => {
+const TOCHeading = ({
+  icon,
+  children,
+  as = "h2",
+  size = "h3",
+  ...rest
+}: HeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => {
   const Icon = icon;
 
   return (

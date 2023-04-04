@@ -36,8 +36,6 @@ class ApplicantTest extends TestCase
         $this->adminUser = User::factory()->create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN],
-            'job_looking_status' => null
         ]);
         $this->adminUser->syncRoles([
             "guest",
@@ -63,23 +61,17 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
         ]);
 
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
         ]);
 
         // Assert empty filter returns all
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -90,13 +82,13 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7
+                'countApplicants' => 8 // including base admin user
             ]
         ]);
 
         // Assert pool1 filter returns only pool1
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -129,7 +121,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => false,
                 'has_disability' => false,
                 'is_visible_minority' => false,
@@ -142,7 +133,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => false,
                 'indigenous_communities' => [ApiEnums::INDIGENOUS_OTHER], // will not be filtered for
@@ -155,7 +145,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => true,
                 'indigenous_communities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS], // will be filtered for
@@ -165,7 +154,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with only pools filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -186,7 +175,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with false equity filter will return same as above
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -213,7 +202,7 @@ class ApplicantTest extends TestCase
 
         // Assert query will OR filter the equity
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -238,7 +227,7 @@ class ApplicantTest extends TestCase
 
         // Assert query will correctly filter for LEGACY_IS_INDIGENOUS
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -276,7 +265,6 @@ class ApplicantTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
@@ -288,7 +276,6 @@ class ApplicantTest extends TestCase
                 'looking_for_english' => false,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
@@ -300,13 +287,12 @@ class ApplicantTest extends TestCase
                 'looking_for_english' => false,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => true,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
         // Assert query with english filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -328,7 +314,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with french filter will return proper count
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -350,7 +336,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with bilingual filter will return proper count, only the bilingual candidates
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -384,7 +370,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => [],
             ])
         ]);
@@ -394,7 +379,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_50_59K', '_70_79K'],
             ])
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
@@ -412,7 +396,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_60_69K', '_80_89K'],
             ])
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
@@ -424,7 +407,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ])
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
@@ -433,7 +415,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with just pool filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -454,7 +436,7 @@ class ApplicantTest extends TestCase
 
         // Assert query to test classification-salary
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -488,7 +470,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'has_diploma' => false,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
@@ -498,13 +479,12 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'has_diploma' => true,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
         // Assert query with false filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -526,7 +506,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with true diploma filter
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -560,7 +540,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'location_preferences' => ["ONTARIO"],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
@@ -570,13 +549,12 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'location_preferences' => ["TELEWORK"],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
         // Assert empty location
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -598,7 +576,7 @@ class ApplicantTest extends TestCase
 
         // Assert query with TELEWORK
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -632,7 +610,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
@@ -642,7 +619,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
@@ -652,13 +628,12 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'position_duration' => null,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
         // Assert null for position duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -680,7 +655,7 @@ class ApplicantTest extends TestCase
 
         // Assert temporary duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -702,7 +677,7 @@ class ApplicantTest extends TestCase
 
         // Assert temporary and permanent duration
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -736,7 +711,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => [],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
@@ -746,7 +720,6 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ["SHIFT_WORK"],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
@@ -756,13 +729,12 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ["SHIFT_WORK", "TRAVEL"],
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
 
         // Assert empty operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -784,7 +756,7 @@ class ApplicantTest extends TestCase
 
         // Assert one operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -806,7 +778,7 @@ class ApplicantTest extends TestCase
 
         // Assert two operational requirements
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -842,18 +814,14 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory([])
         ]);
 
         PoolCandidate::factory()->count(2)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])->afterCreating(function ($user) use ($skill1) {
+            'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
@@ -871,9 +839,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])->afterCreating(function ($user) use ($skill1, $skill2) {
+            'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
@@ -889,7 +855,7 @@ class ApplicantTest extends TestCase
 
         // Assert nothing for skills
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -910,7 +876,7 @@ class ApplicantTest extends TestCase
 
         // Assert empty skills array
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -932,7 +898,7 @@ class ApplicantTest extends TestCase
 
         // Assert one skill
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -956,7 +922,7 @@ class ApplicantTest extends TestCase
 
         // Assert two skills
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -981,7 +947,7 @@ class ApplicantTest extends TestCase
 
         // Assert unused skill
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -1025,19 +991,19 @@ class ApplicantTest extends TestCase
 
         // assert count applicants ignores the four suspended candidates
         $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
         ',
-        [
-            'where' => [
-                'pools' => [
-                    ['id' => $pool1['id']]
-                ],
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                ]
             ]
-        ]
         )->assertJson([
             'data' => [
                 'countApplicants' => 5
@@ -1077,7 +1043,9 @@ class ApplicantTest extends TestCase
 
         // Assert candidate one returns 10
         $this->actingAs($this->adminUser, "api")
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
@@ -1085,17 +1053,19 @@ class ApplicantTest extends TestCase
             }
             ', [
                 'id' => $candidateOne->id,
-        ])->assertJson([
-            "data" => [
-                "applicant" => [
-                    "priorityWeight" => 10,
+            ])->assertJson([
+                "data" => [
+                    "applicant" => [
+                        "priorityWeight" => 10,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert candidate two returns 20
         $this->actingAs($this->adminUser, "api")
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
@@ -1103,17 +1073,19 @@ class ApplicantTest extends TestCase
             }
             ', [
                 'id' => $candidateTwo->id,
-        ])->assertJson([
-            "data" => [
-                "applicant" => [
-                    "priorityWeight" => 20,
+            ])->assertJson([
+                "data" => [
+                    "applicant" => [
+                        "priorityWeight" => 20,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert candidate three returns 30
         $this->actingAs($this->adminUser, "api")
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
@@ -1121,17 +1093,19 @@ class ApplicantTest extends TestCase
             }
             ', [
                 'id' => $candidateThree->id,
-        ])->assertJson([
-            "data" => [
-                "applicant" => [
-                    "priorityWeight" => 30,
+            ])->assertJson([
+                "data" => [
+                    "applicant" => [
+                        "priorityWeight" => 30,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert candidate four returns 40
         $this->actingAs($this->adminUser, "api")
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
@@ -1139,13 +1113,13 @@ class ApplicantTest extends TestCase
             }
             ', [
                 'id' => $candidateFour->id,
-        ])->assertJson([
-            "data" => [
-                "applicant" => [
-                    "priorityWeight" => 40,
+            ])->assertJson([
+                "data" => [
+                    "applicant" => [
+                        "priorityWeight" => 40,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
     }
 
     public function testStatusWeight(): void
@@ -1160,8 +1134,9 @@ class ApplicantTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
@@ -1175,13 +1150,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one DRAFT is 10
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 10,
-                    "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 10,
+                        "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'expiry_date' => config('constants.past_date'),
@@ -1191,13 +1166,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_DRAFT_EXPIRED is 20
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 20,
-                    "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 20,
+                        "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'expiry_date' => config('constants.far_future_date'),
@@ -1208,13 +1183,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_NEW_APPLICATION is 30
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 30,
-                    "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 30,
+                        "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
@@ -1223,13 +1198,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_APPLICATION_REVIEW is 40
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 40,
-                    "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 40,
+                        "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
@@ -1238,13 +1213,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_SCREENED_IN is 50
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 50,
-                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 50,
+                        "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
@@ -1253,13 +1228,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_APPLICATION is 60
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 60,
-                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 60,
+                        "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
@@ -1268,13 +1243,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_UNDER_ASSESSMENT is 70
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 70,
-                    "status" => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 70,
+                        "status" => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
@@ -1283,13 +1258,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT is 80
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 80,
-                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 80,
+                        "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -1298,13 +1273,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_AVAILABLE is 90
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 90,
-                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 90,
+                        "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
@@ -1313,13 +1288,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE is 100
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 100,
-                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 100,
+                        "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
@@ -1328,13 +1303,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_QUALIFIED_WITHDREW is 110
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 110,
-                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 110,
+                        "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
@@ -1343,13 +1318,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_PLACED_CASUAL is 120
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 120,
-                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 120,
+                        "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
@@ -1358,13 +1333,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_PLACED_TERM is 130
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 130,
-                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 130,
+                        "status" => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
@@ -1373,13 +1348,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_PLACED_INDETERMINATE is 140
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 140,
-                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 140,
+                        "status" => ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
@@ -1388,13 +1363,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_EXPIRED is 150
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 150,
-                    "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 150,
+                        "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
         $candidate->update([
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
@@ -1403,13 +1378,13 @@ class ApplicantTest extends TestCase
         // Assert candidate one CANDIDATE_STATUS_REMOVED is 160
         $this->actingAs($this->adminUser, "api")
             ->graphQL($query, $variables)->assertJson([
-            "data" => [
-                "poolCandidate" => [
-                    "statusWeight" => 160,
-                    "status" => ApiEnums::CANDIDATE_STATUS_REMOVED,
+                "data" => [
+                    "poolCandidate" => [
+                        "statusWeight" => 160,
+                        "status" => ApiEnums::CANDIDATE_STATUS_REMOVED,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
     }
 
     public function testSortingStatusThenPriority(): void
@@ -1426,7 +1401,6 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -1440,7 +1414,6 @@ class ApplicantTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -1454,7 +1427,6 @@ class ApplicantTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -1469,7 +1441,6 @@ class ApplicantTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -1483,7 +1454,6 @@ class ApplicantTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -1492,7 +1462,9 @@ class ApplicantTest extends TestCase
 
         // Assert the order is correct
         $this->actingAs($this->adminUser, "api")
-        ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1506,21 +1478,23 @@ class ApplicantTest extends TestCase
                 }
             }
             ')->assertJson([
-            "data" => [
-                "poolCandidatesPaginated" => [
-                    "data" => [
-                        ["id" => $candidateFour->id,],
-                        ["id" => $candidateTwo->id,],
-                        ["id" => $candidateThree->id,],
-                        ["id" => $candidateFive->id,],
+                "data" => [
+                    "poolCandidatesPaginated" => [
+                        "data" => [
+                            ["id" => $candidateFour->id,],
+                            ["id" => $candidateTwo->id,],
+                            ["id" => $candidateThree->id,],
+                            ["id" => $candidateFive->id,],
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert that DRAFT is not retrieved
         $this->actingAs($this->adminUser, "api")
-        ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1536,15 +1510,13 @@ class ApplicantTest extends TestCase
             ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
 
-    public function testNullFilterEqualsUndefinedPoolCandidate() {
+    public function testNullFilterEqualsUndefinedPoolCandidate()
+    {
         // setup
         $pool = Pool::factory()->create([
             'user_id' => $this->adminUser->id,
         ]);
-        User::factory([
-            'legacy_roles' => [ApiEnums::ROLE_APPLICANT],
-            'job_looking_status' => 'ACTIVELY_LOOKING',
-        ])
+        User::factory()
             ->count(60)
             ->afterCreating(function (User $user) use ($pool) {
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
@@ -1555,13 +1527,13 @@ class ApplicantTest extends TestCase
                     'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensuring this passes the notDraft scope
                 ])->create();
             })
-        ->create();
+            ->create();
 
         // empty input
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
@@ -1570,24 +1542,24 @@ class ApplicantTest extends TestCase
                 }
             }
         ',
-            [
-                'where' => []
-            ]
-        )->assertJson([
-            'data' => [
-                'poolCandidatesPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 60
+                [
+                    'where' => []
+                ]
+            )->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'paginatorInfo' => [
+                            'total' => 60
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
 
         // null input
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated(where: $where) {
                     paginatorInfo {
@@ -1596,35 +1568,35 @@ class ApplicantTest extends TestCase
                 }
             }
         ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'equity' => null,
-                        'expectedClassifications' => null,
-                        'hasDiploma' => null,
-                        'languageAbility' => null,
-                        'locationPreferences' => null,
-                        'operationalRequirements' => null,
-                        'positionDuration' => null,
-                        'pools' => null,
-                        'skills' => null,
-                    ],
-                    'generalSearch' => null,
-                    'name' => null,
-                    'email' => null,
-                    'priorityWeight' => null,
-                    'poolCandidateStatus' => null,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => null,
+                            'expectedClassifications' => null,
+                            'hasDiploma' => null,
+                            'languageAbility' => null,
+                            'locationPreferences' => null,
+                            'operationalRequirements' => null,
+                            'positionDuration' => null,
+                            'pools' => null,
+                            'skills' => null,
+                        ],
+                        'generalSearch' => null,
+                        'name' => null,
+                        'email' => null,
+                        'priorityWeight' => null,
+                        'poolCandidateStatus' => null,
 
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'poolCandidatesPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 60
                     ]
                 ]
-            ]
-        ]);
+            )->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'paginatorInfo' => [
+                            'total' => 60
+                        ]
+                    ]
+                ]
+            ]);
     }
 }

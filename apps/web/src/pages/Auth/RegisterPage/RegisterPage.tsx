@@ -1,9 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
 
 import { ExternalLink } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -15,11 +17,19 @@ const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
   <a href={path}>{chunks}</a>
 );
 
-const RegisterPage: React.FC = () => {
+const RegisterPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
-  const loginPath = apiPaths.login(paths.myProfile(), getLocale(intl));
+  const { applicantDashboard } = useFeatureFlags();
+  const [searchParams] = useSearchParams();
+  const fallbackPath = applicantDashboard
+    ? paths.dashboard()
+    : paths.myProfile();
+  const loginPath = apiPaths.login(
+    searchParams.get("from") ?? fallbackPath,
+    getLocale(intl),
+  );
 
   const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
 

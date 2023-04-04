@@ -70,7 +70,7 @@ export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
 
 export const iconMap: Record<
   AlertType,
-  React.FC<React.SVGAttributes<SVGSVGElement>>
+  React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>
 > = {
   success: CheckCircleIcon,
   info: EyeIcon,

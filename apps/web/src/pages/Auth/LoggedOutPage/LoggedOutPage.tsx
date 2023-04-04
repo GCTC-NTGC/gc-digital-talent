@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -18,11 +19,12 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-const LoggedOutPage: React.FC = () => {
+const LoggedOutPage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
+  const { applicantDashboard } = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "See you next time!",
@@ -148,7 +150,9 @@ const LoggedOutPage: React.FC = () => {
                 mode="outline"
                 color="primary"
                 type="button"
-                href={paths.myProfile()}
+                href={
+                  applicantDashboard ? paths.dashboard() : paths.myProfile()
+                }
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",

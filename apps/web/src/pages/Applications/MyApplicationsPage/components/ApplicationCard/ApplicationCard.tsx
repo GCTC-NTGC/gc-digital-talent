@@ -49,6 +49,7 @@ const ApplicationCard = ({
   const isApplicantPlaced = isPlaced(application.status);
   const applicationCanBeDeleted = canBeDeleted(application.status);
   const recruitmentIsExpired = isExpired(
+    application.status,
     application.poolAdvertisement?.closingDate,
   );
   const submittedAt = formatSubmittedAt(application.submittedAt, intl);
@@ -62,7 +63,7 @@ const ApplicationCard = ({
     <div
       data-h2-background="base(foreground)"
       data-h2-shadow="base(medium)"
-      data-h2-radius="base(0px rounded rounded 0px)"
+      data-h2-radius="base(rounded)"
       data-h2-padding="base(x1)"
     >
       <div
@@ -73,7 +74,7 @@ const ApplicationCard = ({
         <Heading
           level={headingLevel}
           size="h6"
-          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
           {application.poolAdvertisement

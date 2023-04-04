@@ -8,7 +8,6 @@ import {
   Link,
   Pending,
 } from "@gc-digital-talent/ui";
-import { imageUrl } from "@gc-digital-talent/helpers";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -25,13 +24,14 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
-import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
+import browseHeroImg from "~/assets/img/browse_header.jpg";
+import flourishTopLight from "~/assets/img/browse_top_light.png";
+import flourishBottomLight from "~/assets/img/browse_bottom_light.png";
+import flourishTopDark from "~/assets/img/browse_top_dark.png";
+import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
 
-const flourishTopLight = imageUrl("/", "browse_top_light.png");
-const flourishBottomLight = imageUrl("/", "browse_bottom_light.png");
-const flourishTopDark = imageUrl("/", "browse_top_dark.png");
-const flourishBottomDark = imageUrl("/", "browse_bottom_dark.png");
+import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
+import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
 const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
@@ -46,9 +46,7 @@ export interface BrowsePoolsProps {
   poolAdvertisements: PoolAdvertisement[];
 }
 
-export const BrowsePools: React.FC<BrowsePoolsProps> = ({
-  poolAdvertisements,
-}) => {
+export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -100,7 +98,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
         })}
       />
       <Hero
-        imgPath={imageUrl("/", "browse_header.jpg")}
+        imgPath={browseHeroImg}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:
@@ -236,7 +234,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
             data-h2-gap="base(x2) p-tablet(x3)"
           >
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage(
                 {
                   defaultMessage:
@@ -249,18 +247,20 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                   abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
                 },
               )}
-              link={{
-                href: `${paths.home()}/indigenous-it-apprentice`,
-                mode: "outline",
-                external: true,
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-                  description:
-                    "Link text to go to IAP homepage on Browse IT jobs page",
-                  id: "07BM9O",
-                }),
-              }}
+              links={[
+                {
+                  href: `${paths.home()}/indigenous-it-apprentice`,
+                  mode: "outline",
+                  external: true,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                    description:
+                      "Link text to go to IAP homepage on Browse IT jobs page",
+                    id: "07BM9O",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -279,23 +279,25 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               </p>
             </CardFlat>
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Hire talent for your team",
                 id: "jTN0bg",
                 description:
                   "Title for to go to the search page on Browse IT jobs page",
               })}
-              link={{
-                href: paths.search(),
-                mode: "outline",
-                label: intl.formatMessage({
-                  defaultMessage: "Visit the talent search page",
-                  id: "BhfG7a",
-                  description:
-                    "Link text to go to the search page on browse IT jobs page",
-                }),
-              }}
+              links={[
+                {
+                  href: paths.search(),
+                  mode: "outline",
+                  label: intl.formatMessage({
+                    defaultMessage: "Visit the talent search page",
+                    id: "BhfG7a",
+                    description:
+                      "Link text to go to the search page on browse IT jobs page",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -321,7 +323,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   );
 };
 
-const BrowsePoolsApi: React.FC = () => {
+const BrowsePoolsApi = () => {
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(

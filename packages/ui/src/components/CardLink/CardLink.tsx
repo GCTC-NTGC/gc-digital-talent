@@ -19,7 +19,7 @@ export interface CardLinkProps {
   href: string;
   label: string;
   color?: Color;
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
   className?: string;
   external?: boolean;
   children?: React.ReactNode;
@@ -96,14 +96,14 @@ const Link = ({ href, external, children }: LinkProps) => {
   );
 };
 
-const CardLink: React.FC<CardLinkProps> = ({
+const CardLink = ({
   href,
   color = "ts-primary",
   external,
   icon,
   label,
   children,
-}) => {
+}: CardLinkProps) => {
   const Icon = icon || null;
   const url = sanitizeUrl(href);
   return (

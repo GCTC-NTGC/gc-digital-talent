@@ -19,6 +19,7 @@ import {
   useDepartmentQuery,
   useUpdateDepartmentMutation,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -30,9 +31,10 @@ interface UpdateDepartmentProps {
   ) => Promise<UpdateDepartmentMutation["updateDepartment"]>;
 }
 
-export const UpdateDepartmentForm: React.FunctionComponent<
-  UpdateDepartmentProps
-> = ({ initialDepartment, handleUpdateDepartment }) => {
+export const UpdateDepartmentForm = ({
+  initialDepartment,
+  handleUpdateDepartment,
+}: UpdateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -140,6 +142,7 @@ type RouteParams = {
 
 const UpdateDepartmentPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { departmentId } = useParams<RouteParams>();
   const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
     variables: { id: departmentId || "" },
@@ -156,8 +159,40 @@ const UpdateDepartmentPage = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Departments",
+        id: "Ig9HmP",
+        description: "Breadcrumb title for the departments page link.",
+      }),
+      url: routes.departmentTable(),
+    },
+    ...(departmentId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit<hidden> department</hidden>",
+              id: "FYIbdJ",
+              description:
+                "Breadcrumb title for the edit department page link.",
+            }),
+            url: routes.departmentUpdate(departmentId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Edit department",
@@ -188,7 +223,7 @@ const UpdateDepartmentPage = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

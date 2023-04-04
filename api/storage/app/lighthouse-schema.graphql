@@ -39,7 +39,7 @@ type Applicant {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -88,6 +88,16 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+}
+
+enum ApplicationStep {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
 }
 
 enum ArmedForcesStatus {
@@ -153,7 +163,7 @@ enum CandidateExpiryFilter {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool!
+  pool: PoolAdvertisement!
   candidateCount: Int!
 }
 
@@ -225,11 +235,6 @@ input ConnectExperienceSkills {
   details: String
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -263,7 +268,7 @@ input CreatePoolAdvertisementInput {
 
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo!
+  user: UserBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
@@ -293,7 +298,7 @@ input CreatePoolCandidateSearchRequestInput {
 
 input CreatePoolInput {
   owner: UserBelongsTo!
-  team: TeamBelongsTo
+  team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
   description: LocalizedStringInput
@@ -303,6 +308,11 @@ input CreatePoolInput {
   status: PoolStatus = NOT_TAKING_APPLICATIONS
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
 }
 
 input CreateSkillFamilyInput {
@@ -595,9 +605,6 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
-  createPool(pool: CreatePoolInput!): Pool
-  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
-  deletePool(id: ID!): Pool
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -629,19 +636,24 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
+  createPool(pool: CreatePoolInput!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePool(id: ID!): Pool
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
+  deleteTeam(id: UUID!): Team
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -794,6 +806,7 @@ type Pool {
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type PoolAdvertisement {
@@ -818,6 +831,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  screeningQuestions: [ScreeningQuestion]
 }
 
 enum PoolAdvertisementLanguage {
@@ -851,6 +865,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
+  submittedSteps: [ApplicationStep!]
 }
 
 type PoolCandidateFilter {
@@ -900,6 +915,7 @@ input PoolCandidateSearchInput {
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
+  suspendedStatus: CandidateSuspendedFilter
 }
 
 type PoolCandidateSearchRequest {
@@ -1170,6 +1186,13 @@ enum SalaryRange {
   _100K_PLUS
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement!
+  question: LocalizedString!
+  sortOrder: Int
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
@@ -1286,6 +1309,10 @@ enum Trashed {
 """128 bit universally unique identifier (UUID)"""
 scalar UUID
 
+input UpdateApplicationInput {
+  insertSubmittedStep: ApplicationStep
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1318,6 +1345,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1344,6 +1372,18 @@ input UpdatePoolInput {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input UpdateScreeningQuestionInput {
+  id: ID!
+  question: LocalizedStringInput
+  sortOrder: Int
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
 }
 
 input UpdateSkillFamilyInput {
@@ -1506,7 +1546,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1522,7 +1562,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  pools: [Pool]
+  pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int

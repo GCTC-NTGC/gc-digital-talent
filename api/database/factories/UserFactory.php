@@ -47,6 +47,13 @@ class UserFactory extends Factory
         $hasBeenEvaluated = $this->faker->boolean();
         $isDeclared = $this->faker->boolean();
 
+        $lookingEnglish = $this->faker->boolean();
+        $lookingFrench = $this->faker->boolean();
+        $lookingBilingual = $this->faker->boolean();
+        if (!$lookingEnglish && !$lookingFrench && !$lookingBilingual) {
+            $lookingEnglish = true;
+        }
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -58,11 +65,7 @@ class UserFactory extends Factory
             'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
 
             'legacy_roles' => [],
-            'job_looking_status' => $this->faker->randomElement([
-                'ACTIVELY_LOOKING',
-                'OPEN_TO_OPPORTUNITIES',
-                'INACTIVE',
-            ]),
+            'job_looking_status' => null,
             'current_province' => $this->faker->randomElement([
                 'BRITISH_COLUMBIA',
                 'ALBERTA',
@@ -79,13 +82,13 @@ class UserFactory extends Factory
                 'NUNAVUT',
             ]),
             'current_city' => $this->faker->city(),
-            'looking_for_english' => $this->faker->boolean(),
-            'looking_for_french' => $this->faker->boolean(),
-            'looking_for_bilingual' => $this->faker->boolean(),
+            'looking_for_english' => $lookingEnglish,
+            'looking_for_french' => $lookingFrench,
+            'looking_for_bilingual' => $lookingBilingual,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                    'COMPLETED_ENGLISH',
-                    'COMPLETED_FRENCH',
-                    ]) : 'NOT_COMPLETED',
+                'COMPLETED_ENGLISH',
+                'COMPLETED_FRENCH',
+            ]) : 'NOT_COMPLETED',
 
             'comprehension_level' => $hasBeenEvaluated ? $this->faker->randomElement(
                 $evaluatedLanguageAbility
@@ -141,20 +144,11 @@ class UserFactory extends Factory
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
-            'priority_number' => $hasPriorityEntitlement? $this->faker->word() : null,
+            'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
             // mirroring migration where isIndigenous = false maps to []
         ];
-    }
-
-    public function activelyLooking()
-    {
-        return $this->state(function () {
-            return [
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-            ];
-        });
     }
 
     /**
@@ -179,7 +173,7 @@ class UserFactory extends Factory
             WorkExperience::factory(),
         ];
         return $this->afterCreating(function (User $user) use ($types, $count) {
-            for($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 $type = $this->faker->randomElement($types);
                 $type->create([
                     'user_id' => $user->id,
@@ -200,7 +194,7 @@ class UserFactory extends Factory
                 $user->refresh();
             }
             // Tale $count random skills and assign each to a random experience of this user.
-            foreach(Skill::inRandomOrder()->take($count)->get() as $skill) {
+            foreach (Skill::inRandomOrder()->take($count)->get() as $skill) {
                 $experience = $this->faker->randomElement($user->experiences);
                 $experience->skills()->save($skill);
             }

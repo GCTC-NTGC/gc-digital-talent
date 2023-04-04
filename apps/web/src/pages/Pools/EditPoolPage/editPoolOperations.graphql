@@ -146,6 +146,13 @@ mutation publishPoolAdvertisement($id: ID!) {
     publishedAt
   }
 }
+
+mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
+  changePoolClosingDate(id: $id, newClosingDate: $closingDate) {
+    id
+  }
+}
+
 mutation closePoolAdvertisement($id: ID!) {
   closePoolAdvertisement(id: $id) {
     id

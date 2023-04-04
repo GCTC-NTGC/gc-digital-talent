@@ -100,9 +100,16 @@ const UserLayout = () => {
 
   return (
     <>
-      <Pending fetching={fetching} error={error}>
-        {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
-      </Pending>
+      {/* This is above the AdminContentWrapper so it needs its own centering */}
+      <div data-h2-container="base(center, full, x2)">
+        <Pending fetching={fetching} error={error}>
+          {data?.applicant ? (
+            <UserHeader user={data.applicant} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
+      </div>
       <Outlet />
     </>
   );

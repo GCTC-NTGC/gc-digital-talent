@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useWorkLocationQuery,
@@ -26,11 +27,11 @@ interface WorkLocationApiProps {
   ) => Promise<CreateWorkLocationMutation["updateUserAsUser"]>;
 }
 
-const WorkLocationApi: React.FunctionComponent<WorkLocationApiProps> = ({
+const WorkLocationApi = ({
   applicationId,
   initialData,
   handleWorkLocation,
-}) => {
+}: WorkLocationApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -39,7 +40,10 @@ const WorkLocationApi: React.FunctionComponent<WorkLocationApiProps> = ({
       {data?.poolCandidate ? (
         <WorkLocationForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           handleWorkLocationPreference={handleWorkLocation}
         />
       ) : (
@@ -82,6 +86,7 @@ const WorkLocationPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
+  const featureFlags = useFeatureFlags();
 
   const [{ data: userData, fetching, error }] = useWorkLocationQuery();
   const preProfileStatus = userData?.me?.isProfileComplete;
@@ -97,7 +102,7 @@ const WorkLocationPage = () => {
           result.data?.updateUserAsUser?.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
         if (!preProfileStatus && currentProfileStatus) {
-          toast.success(message);
+          if (!featureFlags.applicantDashboard) toast.success(message);
         }
         return result.data.updateUserAsUser;
       }

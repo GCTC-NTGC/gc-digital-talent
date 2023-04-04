@@ -58,7 +58,6 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -74,7 +73,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -90,7 +88,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
@@ -108,7 +105,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -125,7 +121,6 @@ class PoolCandidateSearchTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
@@ -134,8 +129,9 @@ class PoolCandidateSearchTest extends TestCase
             ])
         ]);
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated (orderBy: [
                   { column: "status_weight", order: ASC }
@@ -153,46 +149,48 @@ class PoolCandidateSearchTest extends TestCase
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, ['where' => []])
             ->assertJson([
-            "data" => [
-                "poolCandidatesPaginated" => [
-                    "data" => [
-                        ["id" => $candidateFour->id,],
-                        ["id" => $candidateTwo->id,],
-                        ["id" => $candidateThree->id,],
-                        ["id" => $candidateFive->id,],
+                "data" => [
+                    "poolCandidatesPaginated" => [
+                        "data" => [
+                            ["id" => $candidateFour->id,],
+                            ["id" => $candidateTwo->id,],
+                            ["id" => $candidateThree->id,],
+                            ["id" => $candidateFive->id,],
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
 
         // Assert that
         // PoolCandidates are filtered out by data on User, must have Diploma and be Woman
         // Candidate Four always precedes Candidate Five due to ORDERING
         $this->actingAs($this->teamUser, "api")
-            ->graphQL($query,
-            [
-                'where' => [
-                    'applicantFilter' => [
-                      'hasDiploma' => true,
-                      'equity' => [
-                          'isWoman' => true,
-                          'hasDisability' => false,
-                          'isIndigenous' => false,
-                          'isVisibleMinority' => false,
-                      ],
-                    ]
+            ->graphQL(
+                $query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'hasDiploma' => true,
+                            'equity' => [
+                                'isWoman' => true,
+                                'hasDisability' => false,
+                                'isIndigenous' => false,
+                                'isVisibleMinority' => false,
+                            ],
+                        ]
 
-                ]
-            ])->assertJson([
-            "data" => [
-                "poolCandidatesPaginated" => [
-                    "data" => [
-                        ["id" => $candidateFour->id,],
-                        ["id" => $candidateFive->id,],
                     ]
                 ]
-            ]
-        ]);
+            )->assertJson([
+                "data" => [
+                    "poolCandidatesPaginated" => [
+                        "data" => [
+                            ["id" => $candidateFour->id,],
+                            ["id" => $candidateFive->id,],
+                        ]
+                    ]
+                ]
+            ]);
     }
 
     public function testPoolCandidatesSearchExpiryFilter(): void
@@ -202,37 +200,30 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateActive2 = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateExpired = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.past_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
         $candidateNullExpiry = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => null,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
+            'user_id' => User::factory()
         ]);
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
                 poolCandidatesPaginated (
                   where: $where

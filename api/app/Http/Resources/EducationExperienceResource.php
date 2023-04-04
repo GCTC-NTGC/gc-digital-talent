@@ -17,7 +17,6 @@ class EducationExperienceResource extends JsonResource
         return [
             'id' => $this->id,
             '__typename' => 'EducationExperience',
-            'title' => $this->title,
             'institution' => $this->institution,
             'areaOfStudy' => $this->area_of_study,
             'thesisTitle' => $this->thesis_title,

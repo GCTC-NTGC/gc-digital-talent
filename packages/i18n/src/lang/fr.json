@@ -1141,6 +1141,10 @@
     "defaultMessage": "Actif",
     "description": "Active status"
   },
+  "zafWLP": {
+    "defaultMessage": "Suspendu",
+    "description": "Suspended status"
+  },
   "qQtJDw": {
     "defaultMessage": "Tous",
     "description": "All statuses"
@@ -1201,5 +1205,121 @@
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
+  },
+  "/EWDdn": {
+    "defaultMessage": "Octobre",
+    "description": "Name of the tenth month"
+  },
+  "1Wq7Pf": {
+    "defaultMessage": "Juin",
+    "description": "Name of the sixth month"
+  },
+  "6tekaa": {
+    "defaultMessage": "Septembre",
+    "description": "Name of the ninth month"
+  },
+  "L05/+D": {
+    "defaultMessage": "Mois",
+    "description": "Label for a month input field"
+  },
+  "PMwqcS": {
+    "defaultMessage": "La date doit être avant ou égale au {date}",
+    "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "WhXfSx": {
+    "defaultMessage": "Veuillez entrer une date valide",
+    "description": "Error message that appears when a user enters an invalid date into a date input"
+  },
+  "a5edSg": {
+    "defaultMessage": "Jour",
+    "description": "Label for a day of the month input field"
+  },
+  "cbKlUG": {
+    "defaultMessage": "Sélectionnez un mois...",
+    "description": "Placeholder for a month select field"
+  },
+  "fAj9+G": {
+    "defaultMessage": "Avril",
+    "description": "Name of the fourth month"
+  },
+  "iSfiWx": {
+    "defaultMessage": "Année",
+    "description": "Label for a year input field"
+  },
+  "ldthVj": {
+    "defaultMessage": "Août",
+    "description": "Name of the eighth month"
+  },
+  "n+SiHy": {
+    "defaultMessage": "Juillet",
+    "description": "Name of the seventh month"
+  },
+  "oR0evm": {
+    "defaultMessage": "La date doit être égale ou supérieure au {date}",
+    "description": "Error message when a date was entered that is less than the minimum required"
+  },
+  "rCXko4": {
+    "defaultMessage": "Novembre",
+    "description": "Name of the eleventh month"
+  },
+  "x61BXA": {
+    "defaultMessage": "Mars",
+    "description": "Name of the third month"
+  },
+  "xNESdj": {
+    "defaultMessage": "Février",
+    "description": "Name of the second month"
+  },
+  "y4oBW4": {
+    "defaultMessage": "Décembre",
+    "description": "Name of the twelfth month"
+  },
+  "yHeFkO": {
+    "defaultMessage": "Janvier",
+    "description": "Name of the first month"
+  },
+  "zXRf0L": {
+    "defaultMessage": "Mai",
+    "description": "Name of the fifth month"
+  },
+  "99cWuv": {
+    "defaultMessage": "réussite",
+    "description": "Message for the success status"
+  },
+  "ACO2Uz": {
+    "defaultMessage": "erreur",
+    "description": "Message for the error status"
+  },
+  "qVI4xG": {
+    "defaultMessage": "réussite partielle",
+    "description": "Message for the partial success status"
+  },
+  "0bcof1": {
+    "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
+    "description": "Prefix when a step is the currently active one."
+  },
+  "9zyjjw": {
+    "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
+    "description": "Prefix when a step has been completed."
+  },
+  "WL3bq/": {
+    "defaultMessage": "Étape {current} de {label}",
+    "description": "Title for a list of steps indicating the current step of the total number of step"
+  },
+  "sfQN9S": {
+    "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
+    "description": "Prefix when a step has an error."
+  },
+  "4MKYKl": {
+    "defaultMessage": "aaaa",
+    "description": "Placeholder for a year input"
+  },
+  "T5b8Q7": {
+    "defaultMessage": "jj",
+    "description": "Placeholder for a day input"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
   }
 }

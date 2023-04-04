@@ -5,6 +5,7 @@ import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetApplicationQuery,
@@ -28,15 +29,13 @@ interface GovernmentInfoFormApiProps {
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-const GovernmentInfoFormApi: React.FunctionComponent<
-  GovernmentInfoFormApiProps
-> = ({
+const GovernmentInfoFormApi = ({
   applicationId,
   departments,
   classifications,
   initialData,
   submitHandler,
-}) => {
+}: GovernmentInfoFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -47,7 +46,10 @@ const GovernmentInfoFormApi: React.FunctionComponent<
           departments={departments}
           classifications={classifications}
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           submitHandler={submitHandler}
         />
       ) : (
@@ -101,6 +103,7 @@ const GovernmentInfoFormPage = () => {
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
@@ -142,7 +145,7 @@ const GovernmentInfoFormPage = () => {
         const currentProfileStatus = res.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
         if (!preProfileStatus && currentProfileStatus) {
-          toast.success(message);
+          if (!featureFlags.applicantDashboard) toast.success(message);
           navigate(paths.profile(meId));
         }
       }

@@ -28,7 +28,7 @@ export interface PaginationProps {
   onPageSizeChange: (pageSize: number) => void;
 }
 
-const Pagination: React.FunctionComponent<PaginationProps> = ({
+const Pagination = ({
   totalCount,
   siblingCount = 1,
   currentPage,
@@ -40,7 +40,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   onCurrentPageChange,
   onPageSizeChange,
   ...rest
-}) => {
+}: PaginationProps) => {
   const intl = useIntl();
   const paginationRange = usePagination({
     currentPage,
@@ -82,15 +82,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             <ul
               data-h2-display="base(flex)"
               data-h2-gap="base(x.25)"
-              className="reset-ul"
+              data-h2-list-style="base(none)"
+              data-h2-padding="base(0)"
               {...rest}
             >
               {/* left navigation arrow */}
               <li data-h2-display="base(inline-block)">
                 <Button
-                  classNames={
-                    isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
-                  }
                   color={color}
                   mode={mode}
                   type="button"
@@ -144,7 +142,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                     data-h2-display="base(inline-block)"
                   >
                     <Button
-                      classNames={lessThanTwoItems ? "disabled" : ""}
                       data-testid="pagination"
                       color={color}
                       mode={`${current ? "solid" : mode}`}
@@ -178,9 +175,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
               {/* right navigation arrow */}
               <li data-h2-display="base(inline-block)">
                 <Button
-                  classNames={
-                    isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
-                  }
                   color={color}
                   mode={mode}
                   type="button"

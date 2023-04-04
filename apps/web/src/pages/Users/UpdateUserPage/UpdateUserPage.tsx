@@ -36,8 +36,11 @@ import {
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import UserRoleTable from "./components/IndividualRoleTable";
+import { TeamRoleTable } from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -59,10 +62,10 @@ interface UpdateUserFormProps {
   ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
-export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
+export const UpdateUserForm = ({
   initialUser,
   handleUpdateUser,
-}) => {
+}: UpdateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -291,6 +294,7 @@ type RouteParams = {
 
 const UpdateUserPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const { userId } = useParams<RouteParams>();
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
@@ -308,7 +312,9 @@ const UpdateUserPage = () => {
       id,
       user: {
         id,
-        email: emptyToNull(data.email),
+        // Do not include email in the request if it is not part of form data
+        // to prevent accidentally setting it to null
+        email: data.email !== undefined ? emptyToNull(data.email) : undefined,
         ...pick(data, [
           "firstName",
           "lastName",
@@ -330,8 +336,51 @@ const UpdateUserPage = () => {
 
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Users",
+        id: "Y7eGtg",
+        description: "Breadcrumb title for the users page link.",
+      }),
+      url: routes.userTable(),
+    },
+    ...(userId
+      ? [
+          {
+            label: getFullNameLabel(
+              userData?.user?.firstName,
+              userData?.user?.lastName,
+              intl,
+            ),
+            url: routes.userView(userId),
+          },
+        ]
+      : []),
+    ...(userId
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Edit<hidden> user</hidden>",
+              id: "0WIPpI",
+              description: "Edit user breadcrumb text",
+            }),
+            url: routes.userUpdate(userId),
+          },
+        ]
+      : []),
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",
@@ -359,6 +408,11 @@ const UpdateUserPage = () => {
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}
             />
+            <TeamRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
           </>
         ) : (
           <NotFound
@@ -377,7 +431,7 @@ const UpdateUserPage = () => {
           </NotFound>
         )}
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

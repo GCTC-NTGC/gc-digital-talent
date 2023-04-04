@@ -34,13 +34,11 @@ class UserRoleTest extends TestCase
         $this->baseUser = User::factory()->create([
             'email' => 'base-user@test.com',
             'sub' => 'base-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])->syncRoles($this->baseRoles);
 
         $this->adminUser = User::factory()->create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN]
         ])->syncRoles([
             ...$this->baseRoles,
             "request_responder",
@@ -85,7 +83,6 @@ class UserRoleTest extends TestCase
     public function testAdminCanSeeTeamUsers()
     {
         // Delete pre-existing teams to simplify test
-        Team::truncate();
         $role = Role::factory()->create(['is_team_based' => true]);
         $team = Team::factory()->create();
         $users = User::factory()->count(3)
@@ -106,21 +103,19 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertSimilarJson([
-            'data' => [
-                'teams' => [[
-                    'id' => $team->id,
-                    'roleAssignments' =>
-                    $users->map(function ($u) {
-                        return [
-                            'user' => [
-                                'id' => $u->id
-                            ],
-                        ];
-                    })->toArray(),
-                ],
-            ]]
-        ]);
+        )->assertJsonFragment(
+            [
+                'id' => $team->id,
+                'roleAssignments' =>
+                $users->map(function ($u) {
+                    return [
+                        'user' => [
+                            'id' => $u->id
+                        ],
+                    ];
+                })->toArray(),
+            ],
+        );
     }
 
     // Create several users with different roles.  Assert that an admin can see the users in each role.
@@ -142,7 +137,8 @@ class UserRoleTest extends TestCase
                 }
               }
         '
-        )->assertJson(fn (AssertableJson $json) =>
+        )->assertJson(
+            fn (AssertableJson $json) =>
             $json->has('data.roles', $roleCount) // Returns all the roles
         )->assertJsonFragment(
             [
@@ -165,7 +161,7 @@ class UserRoleTest extends TestCase
                     ],
                 ]],
             ]
-            );
+        );
     }
 
     // Create a user added with several teams.  Assert that the admin can query the user's teams.
@@ -415,23 +411,35 @@ class UserRoleTest extends TestCase
                  }
            '
         )->assertJsonFragment([
-            [ "id" => $role->id ]
+            ["id" => $role->id]
         ]);
     }
 
-    // Create an applicant user.  Assert that they cannot query the teams.
-    public function testApplicantCannotQueryTeams()
+    // Create an applicant user.  Assert that they cannot query any team members.
+    public function testApplicantCannotQueryTeamMembers()
     {
-        $this->actingAs($this->baseUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                query teams {
-                    teams {
-                      id
+        $team = Team::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'name' => 'team1',
+        ]);
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query team($id: UUID!) {
+                    team(id: $id) {
+                        id
+                            roleAssignments {
+                            id
+                            user {
+                                id
+                            }
+                        }
                     }
-                  }
-            '
-        )->assertGraphQLErrorMessage('This action is unauthorized.');
+                }
+            ',
+                ['id' => $team->id]
+            )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     // Create an applicant user.  Assert that they cannot perform and roles-and-teams mutation.

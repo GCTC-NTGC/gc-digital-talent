@@ -32,11 +32,7 @@ export interface FilterBlockProps {
   children?: React.ReactNode;
 }
 
-const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
-  title,
-  content,
-  children,
-}) => {
+const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
   const intl = useIntl();
 
   const emptyArrayOutput = (
@@ -118,10 +114,13 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   );
 };
 
-const ApplicantFilters: React.FC<{
+const ApplicantFilters = ({
+  applicantFilter,
+  selectedClassifications,
+}: {
   applicantFilter?: Maybe<ApplicantFilter>;
   selectedClassifications?: Maybe<SimpleClassification>[];
-}> = ({ applicantFilter, selectedClassifications }) => {
+}) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
@@ -383,9 +382,10 @@ export interface SearchRequestFiltersProps {
   selectedClassifications?: Maybe<SimpleClassification>[];
 }
 
-const SearchRequestFilters: React.FunctionComponent<
-  SearchRequestFiltersProps
-> = ({ filters, selectedClassifications }) => {
+const SearchRequestFilters = ({
+  filters,
+  selectedClassifications,
+}: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
 

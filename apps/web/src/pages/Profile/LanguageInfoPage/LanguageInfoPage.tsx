@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetLanguageInformationQuery,
@@ -24,9 +25,11 @@ interface LanguageInformationFormApiProps {
   submitHandler: LanguageInformationUpdateHandler;
 }
 
-const LanguageInformationFormApi: React.FunctionComponent<
-  LanguageInformationFormApiProps
-> = ({ applicationId, initialData, submitHandler }) => {
+const LanguageInformationFormApi = ({
+  applicationId,
+  initialData,
+  submitHandler,
+}: LanguageInformationFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -35,7 +38,10 @@ const LanguageInformationFormApi: React.FunctionComponent<
       {data?.poolCandidate ? (
         <LanguageInformationForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           submitHandler={submitHandler}
         />
       ) : (
@@ -71,10 +77,11 @@ const ApiOrContent = ({
     />
   );
 
-const LanguageInformationFormPage: React.FunctionComponent = () => {
+const LanguageInformationFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
+  const featureFlags = useFeatureFlags();
 
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
@@ -89,7 +96,7 @@ const LanguageInformationFormPage: React.FunctionComponent = () => {
           res.data?.updateUserAsUser?.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
         if (!preProfileStatus && currentProfileStatus) {
-          toast.success(message);
+          if (!featureFlags.applicantDashboard) toast.success(message);
         }
         return res.data.updateUserAsUser;
       }

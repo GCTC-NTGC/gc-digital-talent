@@ -29,6 +29,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property array $submitted_steps
  */
 
 class PoolCandidate extends Model
@@ -49,7 +50,8 @@ class PoolCandidate extends Model
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
         'suspended_at' => 'datetime',
-        'profile_snapshot' => 'json'
+        'profile_snapshot' => 'json',
+        'submitted_steps' => 'array',
     ];
 
     /**
@@ -88,8 +90,8 @@ class PoolCandidate extends Model
         // pointing to the classification scope on the User model
         // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
         $query->whereHas('user', function ($query) use ($classifications) {
-                User::scopeClassifications($query, $classifications);
-            });
+            User::scopeClassifications($query, $classifications);
+        });
         return $query;
     }
 
@@ -261,6 +263,20 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeSuspendedStatus(Builder $query, ?string $suspendedStatus)
+    {
+        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
+        if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+            $query->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())
+                    ->orWhereNull('suspended_at');
+            });
+        } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+            $query->whereDate('suspended_at', '<', Carbon::now());
+        }
+        return $query;
+    }
+
     public function scopeNotDraft(Builder $query): Builder
     {
 
@@ -270,10 +286,10 @@ class PoolCandidate extends Model
         return $query;
     }
 
-   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-   // pool_candidate_status database value passed into accessor as an argument
-   public function getPoolCandidateStatusAttribute($candidateStatus)
-   {
+    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+    // pool_candidate_status database value passed into accessor as an argument
+    public function getPoolCandidateStatusAttribute($candidateStatus)
+    {
         // pull info
         $submittedAt = $this->submitted_at;
         $expiryDate = $this->expiry_date;
@@ -359,7 +375,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration): Builder
     {
 
         if (empty($positionDuration)) {
@@ -389,21 +405,6 @@ class PoolCandidate extends Model
     }
 
     /**
-     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public static function scopeAvailableForOpportunities(Builder $query): Builder
-    {
-
-        $query->whereHas('user', function (Builder $userQuery) {
-            User::scopeAvailableForOpportunities($userQuery);
-        });
-        return $query;
-    }
-
-    /**
      * Determine if a PoolCandidate is in draft mode
      *
      * @return bool
@@ -411,5 +412,46 @@ class PoolCandidate extends Model
     public function isDraft()
     {
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
+    }
+
+    /**
+     * Scope the query to PoolCandidate's the current user can view
+     */
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if (!$user->isAbleTo("view-any-application")) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo("view-any-submittedApplication")) {
+                    $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                }
+
+                if ($user->isAbleTo("view-team-submittedApplication")) {
+                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                    });
+                }
+
+                if ($user->isAbleTo("view-own-application")) {
+                    $query->orWhere('user_id', $user->id);
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * Take the new application step to insert and add it to the array, preserving uniqueness
+     */
+    public function setInsertSubmittedStepAttribute($applicationStep)
+    {
+        $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
+
+        $this->submitted_steps = $submittedSteps->values()->all();
     }
 }

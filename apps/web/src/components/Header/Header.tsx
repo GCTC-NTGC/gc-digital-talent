@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   localizePath,
@@ -16,6 +16,7 @@ export interface HeaderProps {
 
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const { locale, setLocale } = useLocale();
 
   const location = useLocation();
@@ -99,6 +100,7 @@ const Header = ({ width }: HeaderProps) => {
                 onClick={(e) => {
                   e.preventDefault();
                   setLocale(changeToLang);
+                  navigate(languageTogglePath);
                 }}
                 lang={changeToLang === "en" ? "en" : "fr"}
               >

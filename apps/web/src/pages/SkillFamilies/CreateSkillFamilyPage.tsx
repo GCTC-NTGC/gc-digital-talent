@@ -32,6 +32,7 @@ import {
   useCreateSkillFamilyMutation,
   useGetCreateSkillFamilyDataQuery,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type Option<V> = { value: V; label: string };
 
@@ -55,9 +56,10 @@ interface CreateSkillFamilyFormProps {
   ) => Promise<CreateSkillFamilyMutation["createSkillFamily"]>;
 }
 
-export const CreateSkillFamilyForm: React.FunctionComponent<
-  CreateSkillFamilyFormProps
-> = ({ skills, handleCreateSkillFamily }) => {
+export const CreateSkillFamilyForm = ({
+  skills,
+  handleCreateSkillFamily,
+}: CreateSkillFamilyFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
@@ -253,6 +255,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
 
 const CreateSkillFamilyPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [lookupResult] = useGetCreateSkillFamilyDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const skills = lookupData?.skills.filter(notEmpty) ?? [];
@@ -266,8 +269,35 @@ const CreateSkillFamilyPage = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Skill families",
+        id: "yeXUjo",
+        description: "Breadcrumb title for the skill families page link.",
+      }),
+      url: routes.skillFamilyTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create<hidden> skill family</hidden>",
+        id: "PQXvrU",
+        description: "Breadcrumb title for the create skill family page link.",
+      }),
+      url: routes.skillFamilyCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create skill family",
@@ -281,7 +311,7 @@ const CreateSkillFamilyPage = () => {
           skills={skills}
         />
       </Pending>
-    </>
+    </AdminContentWrapper>
   );
 };
 

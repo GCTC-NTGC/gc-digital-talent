@@ -53,6 +53,7 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-any-classification',
             'view-any-department',
+            'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
             'view-any-publishedPoolAdvertisement',
@@ -81,6 +82,7 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-any-classification',
             'view-any-department',
+            'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
             'view-own-user',
@@ -200,6 +202,9 @@ class RolePermissionTest extends TestCase
             'create-any-department',
             'update-any-department',
             'delete-any-department',
+            'create-any-genericJobTitle',
+            'update-any-genericJobTitle',
+            'delete-any-genericJobTitle',
             'create-any-skill',
             'update-any-skill',
             'delete-any-skill',

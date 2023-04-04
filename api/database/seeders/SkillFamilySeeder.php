@@ -146,7 +146,7 @@ class SkillFamilySeeder extends Seeder
             },
             $reshapedData
         );
-        if(count(array_unique($keys)) != count($reshapedData))
+        if (count(array_unique($keys)) != count($reshapedData))
             throw new Exception('The keys are not unique');
 
         // Check for duplicate English names (used for skill lookup)
@@ -157,7 +157,7 @@ class SkillFamilySeeder extends Seeder
             $reshapedData
         );
         assert((count(array_unique($englishNames)) == count($reshapedData)));
-        if(count(array_unique($englishNames)) != count($reshapedData))
+        if (count(array_unique($englishNames)) != count($reshapedData))
             throw new Exception('The English names are not unique');
 
         // Iterate the reshaped data to load it

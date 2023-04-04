@@ -2321,10 +2321,6 @@
     "defaultMessage": "Soumettez un nouveau message",
     "description": "Support form success action"
   },
-  "CbzWqJ": {
-    "defaultMessage": "L’Ambition numérique décrit l’engagement du gouvernement du Canada à créer des services numériques modernes et accessibles. La réalisation de ces priorités permettra au gouvernement de fournir des services et des programmes axés sur le numérique, centrés sur l’utilisateur et sans obstacle.",
-    "description": "Summary of the digital ambition featured item"
-  },
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
@@ -2332,10 +2328,6 @@
   "vNFHWp": {
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
-  },
-  "Gil1Zj": {
-    "defaultMessage": "Lisez l’Ambition numérique",
-    "description": "Link text to read the Digital Ambition"
   },
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
@@ -2432,10 +2424,6 @@
   "szLvj0": {
     "defaultMessage": "Votre courriel",
     "description": "Support form email field label"
-  },
-  "tTuBmE": {
-    "defaultMessage": "L’Ambition numérique",
-    "description": "Title for the digital ambition featured item"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
@@ -3568,10 +3556,6 @@
     "defaultMessage": "Accueil",
     "description": "Title for homepage on the talent cloud admin portal."
   },
-  "7B+1RO": {
-    "defaultMessage": "Sur cette page, vous pouvez trouver une liste des bassins actifs avec quelques détails sur leur statut.",
-    "description": "Description of the content found on the admin portal dashboard page."
-  },
   "8Y+eEc": {
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
     "description": "First section of text on the add user to pool dialog"
@@ -3595,14 +3579,6 @@
   "BnSa6Y": {
     "defaultMessage": "Échec de la mise à jour du statut",
     "description": "Toast for failed status update on view-user page"
-  },
-  "Bvj3zI": {
-    "defaultMessage": "Gérer les demandes",
-    "description": "Text label for link to requests page on admin dashboard"
-  },
-  "CSDdh/": {
-    "defaultMessage": "Notes",
-    "description": "Title for a pool candidates notes field"
   },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -3660,10 +3636,6 @@
     "defaultMessage": "Ministères",
     "description": "Label displayed on the departments menu item."
   },
-  "HgQThJ": {
-    "defaultMessage": "Gérer les bassins",
-    "description": "Text label for link to pools page on admin dashboard"
-  },
   "HrXZ6X": {
     "defaultMessage": "Autochtone",
     "description": "Text on view-user page that the user is indigenous"
@@ -3711,10 +3683,6 @@
   "TxEV7S": {
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
-  },
-  "U5HvOH": {
-    "defaultMessage": "Gérer les utilisateurs",
-    "description": "Text label for link to users page on admin dashboard"
   },
   "UC+4MX": {
     "defaultMessage": "Compétences",
@@ -3959,10 +3927,6 @@
     "defaultMessage": "Enregistrer les autres exigences",
     "description": "Text on a button to save the pool other requirements"
   },
-  "7N+tQw": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "7aG86f": {
     "defaultMessage": "Sélectionnez une classification...",
     "description": "Placeholder displayed on the pool form classification field."
@@ -4046,10 +4010,6 @@
   "H9rxOR": {
     "defaultMessage": "Colonnes visibles",
     "description": "Legend for the column toggle in admin tables."
-  },
-  "Hn6YgE": {
-    "defaultMessage": "Modifier le bassin",
-    "description": "Edit pool breadcrumb text"
   },
   "Hqt/ej": {
     "defaultMessage": "Archive",
@@ -4235,10 +4195,6 @@
     "defaultMessage": "Courriel",
     "description": "Label for user table search dropdown (email)."
   },
-  "fp7Nll": {
-    "defaultMessage": "ID du bassin #{id}",
-    "description": "Current pool breadcrumb text"
-  },
   "fvJnoC": {
     "defaultMessage": "Exigence linguistique : {languageRequirement}",
     "description": "Pool advertisement language requirement"
@@ -4262,10 +4218,6 @@
   "iOgr3Z": {
     "defaultMessage": "Supprimer",
     "description": "Heading for the delete pool dialog"
-  },
-  "iQzlmB": {
-    "defaultMessage": "Nouveau bassin",
-    "description": "New pool breadcrumb text"
   },
   "j3m2Ca": {
     "defaultMessage": "Emplacement précis (précisez ci-dessous)",
@@ -4431,10 +4383,6 @@
     "defaultMessage": "Statut de la demande",
     "description": "Title for admins to edit an applications status."
   },
-  "0Y4Dt4": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "114gjj": {
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
@@ -4599,10 +4547,6 @@
     "defaultMessage": "Courriel",
     "description": "CSV Header, Email column"
   },
-  "HGMl3y": {
-    "defaultMessage": "Nom du bassin non trouvé",
-    "description": "Breadcrumb to pool page if pool name not found"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -4690,10 +4634,6 @@
     "defaultMessage": "Affichage",
     "description": "Title displayed for the Pool Candidates table View column."
   },
-  "XYLd6G": {
-    "defaultMessage": "Mes bassins",
-    "description": "Breadcrumb for the My Pools page"
-  },
   "Xo0M3N": {
     "defaultMessage": "Province actuelle",
     "description": "CSV Header, Current Province column"
@@ -4701,9 +4641,9 @@
   "YojrdC": {
     "defaultMessage": "Employé du gouvernement"
   },
-  "Yr4DW5": {
+  "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
-    "description": "Label for the notes field on the pool candidate application"
+    "description": "Label for the notes field for a specific pool"
   },
   "Z2KhWS": {
     "defaultMessage": "Retourner à tous les candidats",
@@ -4740,10 +4680,6 @@
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
-  "e9FNqp": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb title for the All Candidates page link."
-  },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
@@ -4751,10 +4687,6 @@
   "ev6HnY": {
     "defaultMessage": "Notes",
     "description": "CSV Header, Notes column"
-  },
-  "fLSDYW": {
-    "defaultMessage": "Disponibilité",
-    "description": "Title displayed for the Pool Candidates table Availability column."
   },
   "gDSeKw": {
     "defaultMessage": "Date de réception :",
@@ -4862,10 +4794,6 @@
   "ukL9do": {
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
-  },
-  "v8vbWP": {
-    "defaultMessage": "Tous les candidats",
-    "description": "Breadcrumb for the All Candidates page"
   },
   "vgOfaa": {
     "defaultMessage": "Sélectionnez un volet/un titre de poste...",
@@ -5982,10 +5910,6 @@
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "fNOekV": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the my hiring pools content section"
-  },
   "fqIEKE": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Title of the My skills and experience link section"
@@ -6005,10 +5929,6 @@
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
-  },
-  "l/MbFR": {
-    "defaultMessage": "Modifier mes bassins d'embauche",
-    "description": "Text on link to update a users hiring pools."
   },
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -6085,10 +6005,6 @@
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
     "description": "Pluralization for zero or multiple experiences"
-  },
-  "xUl9pz": {
-    "defaultMessage": "Mes bassins d'embauche",
-    "description": "Title of the My Hiring Pools section"
   },
   "xjtRjr": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -6813,5 +6729,648 @@
   "mOS8rj": {
     "defaultMessage": "Équipe principale",
     "description": "Label displayed for selecting what team a new pool belongs to."
+  },
+  "/LGiVB": {
+    "defaultMessage": "Statut de la candidature ",
+    "description": "Candidacy status label"
+  },
+  "1wONOC": {
+    "defaultMessage": "Profil",
+    "description": "User profile breadcrumb text"
+  },
+  "Ig9HmP": {
+    "defaultMessage": "Ministères",
+    "description": "Breadcrumb title for the departments page link."
+  },
+  "OgeWgx": {
+    "defaultMessage": "Créer un nouveau bassin",
+    "description": "Breadcrumb title for the create new pool page link."
+  },
+  "P+KWP7": {
+    "defaultMessage": "Équipes",
+    "description": "Breadcrumb title for the teams page link."
+  },
+  "Y7eGtg": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Breadcrumb title for the users page link."
+  },
+  "kyMlnN": {
+    "defaultMessage": "Classifications",
+    "description": "Breadcrumb title for the classifications page link."
+  },
+  "y0j4oU": {
+    "defaultMessage": "Demandes",
+    "description": "Breadcrumb title for the search requests table page link."
+  },
+  "yeXUjo": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Breadcrumb title for the skill families page link."
+  },
+  "ynjzua": {
+    "defaultMessage": "Compétences",
+    "description": "Breadcrumb title for the skills page link."
+  },
+  "zzf16k": {
+    "defaultMessage": "Candidats",
+    "description": "Breadcrumb for the All Candidates page"
+  },
+  "0WIPpI": {
+    "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
+    "description": "Edit user breadcrumb text"
+  },
+  "1XaX86": {
+    "defaultMessage": "Créer<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the create department page link."
+  },
+  "5SKmte": {
+    "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
+    "description": "Breadcrumb title for the edit skill family page link."
+  },
+  "9QxHnD": {
+    "defaultMessage": "Créer<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the create skill page link."
+  },
+  "D6HIId": {
+    "defaultMessage": "Modifier<hidden> le bassin</hidden>",
+    "description": "Edit pool breadcrumb text"
+  },
+  "E8BMJW": {
+    "defaultMessage": "Créer<hidden> une classification</hidden>",
+    "description": "Breadcrumb title for the create classification page link."
+  },
+  "FYIbdJ": {
+    "defaultMessage": "Modifier<hidden> le ministère</hidden>",
+    "description": "Breadcrumb title for the edit department page link."
+  },
+  "I0VGC0": {
+    "defaultMessage": "Placement",
+    "description": "User placement breadcrumb text"
+  },
+  "M2LfhH": {
+    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
+  "PQXvrU": {
+    "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
+    "description": "Breadcrumb title for the create skill family page link."
+  },
+  "nfZQ89": {
+    "defaultMessage": "Membres",
+    "description": "Breadcrumb title for the team members page link."
+  },
+  "o7SM7j": {
+    "defaultMessage": "Créer<hidden> des équipes</hidden>",
+    "description": "Breadcrumb title for the create team page link."
+  },
+  "ow4z7W": {
+    "defaultMessage": "Modifier<hidden> la classification</hidden>",
+    "description": "Breadcrumb title for the edit classification page link."
+  },
+  "s7Hnlg": {
+    "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
+    "description": "Breadcrumb title for the edit team page link."
+  },
+  "fCXZ4R": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the Pool table Team column"
+  },
+  "3IZ3mN": {
+    "defaultMessage": "Équipe",
+    "description": "Title displayed for the role table display team column"
+  },
+  "GaMSN8": {
+    "defaultMessage": "Équipe",
+    "description": "Label for the input to select team of a team role"
+  },
+  "Ibt1fL": {
+    "defaultMessage": "Ajouter une nouvelle adhésion",
+    "description": "Label for the form to add a team membership to a user"
+  },
+  "ZdOvlC": {
+    "defaultMessage": "Sélectionnez une équipe...",
+    "description": "Placeholder text for team selection input"
+  },
+  "sSnNWm": {
+    "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
+    "description": "Label for the form to remove a team role from a user"
+  },
+  "x7vMC8": {
+    "defaultMessage": "Sélectionnez un rôle...",
+    "description": "Placeholder text for role selection input"
+  },
+  "12rbnA": {
+    "defaultMessage": "Vous avez été ajouté aux résultats de la recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+  },
+  "2g1mfB": {
+    "defaultMessage": "Retirez-moi",
+    "description": "Open dialog text on change search results status from qualified recruitment section."
+  },
+  "5BkrSp": {
+    "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+  },
+  "6cH+cX": {
+    "defaultMessage": "Recrutements expirés",
+    "description": "Heading for expired recruitments accordion on the applicant dashboard."
+  },
+  "7DfdMY": {
+    "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+  },
+  "7NnNrW": {
+    "defaultMessage": "Compétences évaluées :"
+  },
+  "A5CLzi": {
+    "defaultMessage": "Les recrutements dans cette section ne sont plus pris en compte à des fins d’embauche.",
+    "description": "Additional text displayed in active qualified recruitments section when empty."
+  },
+  "AVPPm0": {
+    "defaultMessage": "Annuler",
+    "description": "Label for close button on qualified recruitment card dialogs."
+  },
+  "Cx0rjV": {
+    "defaultMessage": "Les recrutements qui ne sont plus actifs s’afficheront ici.",
+    "description": "Text displayed in active qualified recruitments section when empty."
+  },
+  "EGwR9h": {
+    "defaultMessage": "En vous rajoutant aux résultats de ce processus de recrutement, les gestionnaires pourront de nouveau demander votre profil dans le cadre des demandes de talents. Vous pouvez toujours vous retirer de nouveau ultérieurement.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "FGF3sd": {
+    "defaultMessage": "Modifier votre apparence dans les résultats de recherche",
+    "description": "Dialog title on change search results status from qualified recruitment section."
+  },
+  "H/btqJ": {
+    "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
+    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+  },
+  "SQDh+g": {
+    "defaultMessage": "Félicitations! Vous avez été embauché à la suite de ce processus. À ce titre, vous ne figurerez plus dans les demandes de talents pour ce recrutement.",
+    "description": "Placed recruitment status message on qualified recruitment card."
+  },
+  "TDikDt": {
+    "defaultMessage": "Vous figurez activement dans les résultats de l’évaluation des talents pour ce recrutement.",
+    "description": "Not suspended recruitment status message on qualified recruitment card."
+  },
+  "V8GyRL": {
+    "defaultMessage": "Oui, ajoutez-moi aux résultats de recherche",
+    "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "VUjh3i": {
+    "defaultMessage": "Les recrutements dans lesquels vous avez été accepté s’afficheront ici.",
+    "description": "Text displayed in active qualified recruitments section when empty."
+  },
+  "XHfbPp": {
+    "defaultMessage": "Je veux figurer de nouveau dans les résultats",
+    "description": "Open dialog text on change search results status from qualified recruitment section."
+  },
+  "Y4kJYI": {
+    "defaultMessage": "Si vous avez récemment été recruté ou si vous ne souhaitez tout simplement plus être pris en compte pour les possibilités liées à ce poste, vous pouvez vous retirer de la liste des candidats disponibles à l’embauche. Cela ne vous empêchera <emphasize>pas</emphasize> de participer au recrutement et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "bqWmTD": {
+    "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
+    "description": "Suspended recruitment status message on qualified recruitment card."
+  },
+  "dPoE9z": {
+    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "eGPSG3": {
+    "defaultMessage": "Les recrutements de cette section donnent lieu à des embauches.",
+    "description": "Additional text displayed in active qualified recruitments section when empty."
+  },
+  "jdTHer": {
+    "defaultMessage": "Les recrutements <strong>actifs</strong> sont des processus qui font actuellement l’objet d’une embauche. Vous pouvez contrôler si votre profil s’affiche lorsqu’un responsable demande des évaluations des talents à ce groupe de personnes.",
+    "description": "Active list item for my qualified recruitments section on the applicant dashboard."
+  },
+  "lfZeyc": {
+    "defaultMessage": "Recrutements actifs",
+    "description": "Heading for active recruitments accordion on the applicant dashboard."
+  },
+  "qU2ffO": {
+    "defaultMessage": "Les recrutements sont des bassins de talents dans lesquels les gestionnaires du gouvernement du Canada peuvent embaucher. Cette section répertorie tous les recrutements dont vous faites partie, classés en deux groupes :",
+    "description": "Description for my qualified recruitments section on the applicant dashboard."
+  },
+  "qYjmRp": {
+    "defaultMessage": "Les recrutements <strong>expirés</strong> sont des processus qui ont pris fin soit parce qu’ils sont devenus obsolètes, soit parce qu’un nouveau recrutement plus récent les a remplacés. Vous ne figurerez pas dans les résultats liés aux recrutements expirés.",
+    "description": "Expired list item for my qualified recruitments section on the applicant dashboard."
+  },
+  "sfa4iJ": {
+    "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
+    "description": "Expired recruitment status message on qualified recruitment card."
+  },
+  "veIkpN": {
+    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+    "description": "Dialog main body on change search results status from qualified recruitment section."
+  },
+  "wYe3P2": {
+    "defaultMessage": "Mes recrutements qualifiés",
+    "description": "Heading for my qualified recruitments section on the applicant dashboard."
+  },
+  "wgRXhR": {
+    "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
+    "description": "Dialog close button on change search results status from qualified recruitment section."
+  },
+  "ActH9H": {
+    "defaultMessage": "<hidden>Consulter l’équipe : </hidden>{teamName}",
+    "description": "Text for a link to the Team table"
+  },
+  "+agJAH": {
+    "defaultMessage": "Mes rôles",
+    "description": "Label displayed for the table's My Roles column header."
+  },
+  "jfED66": {
+    "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
+    "description": "Lead in text for the add role to user form."
+  },
+  "GjaLl7": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Title displayed for the role table display roles column"
+  },
+  "JgwpTg": {
+    "defaultMessage": "Vous êtes sur le point de supprimer ce membre : <strong>{userName}</strong>",
+    "description": "Lead in text for the remove role from user dialog"
+  },
+  "RTf/0v": {
+    "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
+    "description": "Text notifying user which role will be removed from the user"
+  },
+  "eZHoNJ": {
+    "defaultMessage": "Rôles fondés sur l’équipe",
+    "description": "Heading for updating a users team roles"
+  },
+  "s5hTYo": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Label for the input to select role of a team role"
+  },
+  "w2BYFi": {
+    "defaultMessage": "Vous êtes sur le point d’ajouter des rôles à l’utilisateur suivant : <strong>{userName}</strong>",
+    "description": "Lead in text for the add role to user form."
+  },
+  "86qwfg": {
+    "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
+    "description": "Follow in text for the team being updated"
+  },
+  "2i8/jR": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Page title for the applicant dashboard page."
+  },
+  "LRZeax": {
+    "defaultMessage": "Mon tableau de bord",
+    "description": "Label displayed on the applicant dashboard menu item."
+  },
+  "293bsq": {
+    "defaultMessage": "Gestion d’un processus de recrutement",
+    "description": "Heading for pool operator dashboard links"
+  },
+  "7nxtBm": {
+    "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
+    "description": "Subtitle for the admin dashboard page"
+  },
+  "N3uD4m": {
+    "defaultMessage": "Mes équipes",
+    "description": "Link text for current users teams page"
+  },
+  "hxaIWa": {
+    "defaultMessage": "Ministères et organismes",
+    "description": "Link text for all departments page"
+  },
+  "ijUT7N": {
+    "defaultMessage": "Réponse aux demandes en matière de talents",
+    "description": "Heading for request responder dashboard links"
+  },
+  "ipSk4R": {
+    "defaultMessage": "Maintenance de la plateforme",
+    "description": "Heading for platform dashboard links"
+  },
+  "m4hoPL": {
+    "defaultMessage": "Groupes et classifications",
+    "description": "Link text for all classifications page"
+  },
+  "wHnGAK": {
+    "defaultMessage": "Sur quoi travaillez-vous aujourd’hui?",
+    "description": "Heading for the sections of links available to the current user"
+  },
+  "+vHVZ2": {
+    "defaultMessage": "Dites-nous comment vous répondez aux exigences de compétences pour cette occasion.",
+    "description": "Subtitle for the application skills page"
+  },
+  "6esMaA": {
+    "defaultMessage": "Expérience ou formation minimale",
+    "description": "Page title for the application education page"
+  },
+  "79m9jN": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Page title for the application success page"
+  },
+  "7ET77N": {
+    "defaultMessage": "Parlons compétences",
+    "description": "Page title for the application skills introduction page"
+  },
+  "AtGnJW": {
+    "defaultMessage": "Compétences requises",
+    "description": "Page title for the application skills page"
+  },
+  "GTHuSJ": {
+    "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
+    "description": "Subtitle for the application screening questions page"
+  },
+  "ImTMRk": {
+    "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
+    "description": "Subtitle for the application profile  page"
+  },
+  "K8CPir": {
+    "defaultMessage": "Appliquer à {poolName}",
+    "description": "Heading for the application page"
+  },
+  "O6L+3N": {
+    "defaultMessage": "Examinez votre candidature et soumettez-la!",
+    "description": "Subtitle for the application review page"
+  },
+  "OkREUg": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé page"
+  },
+  "QDcEYJ": {
+    "defaultMessage": "Réviser et soumettre",
+    "description": "Link text for the application review page"
+  },
+  "Tdr8r5": {
+    "defaultMessage": "Quelques questions sur le sujet",
+    "description": "Page title for the application screening questions introduction page"
+  },
+  "VTYtzg": {
+    "defaultMessage": "Excellent travail! Passons à votre CV.",
+    "description": "Page title for the application résumé introduction page"
+  },
+  "Zd02bf": {
+    "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
+    "description": "Subtitle for the application welcome page"
+  },
+  "aFPUbm": {
+    "defaultMessage": "Passez en revue votre profil",
+    "description": "Page title for the application profile page"
+  },
+  "bQtRF+": {
+    "defaultMessage": "Réussite",
+    "description": "Breadcrumb link text for the application success page"
+  },
+  "fBabZh": {
+    "defaultMessage": "Ajoutez une expérience à votre CV",
+    "description": "Page title for the application résumé add experience page"
+  },
+  "gtns9R": {
+    "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
+    "description": "Subtitle for the application education  page"
+  },
+  "mxH830": {
+    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
+    "description": "Subtitle for the application résumé introduction page"
+  },
+  "rR+M64": {
+    "defaultMessage": "Révisez votre demande",
+    "description": "Page title for the application review page"
+  },
+  "sTij/C": {
+    "defaultMessage": "Question de sélection",
+    "description": "Page title for the application screening questions page"
+  },
+  "sXjm+Z": {
+    "defaultMessage": "Passez en revue votre CV",
+    "description": "Page title for the application résumé page"
+  },
+  "zJdfyv": {
+    "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
+    "description": "Subtitle for the application success page"
+  },
+  "/tscgU": {
+    "defaultMessage": "Étape 5",
+    "description": "Breadcrumb link text for the application skills page"
+  },
+  "9MUsDL": {
+    "defaultMessage": "Étape 6 (Intro)",
+    "description": "Breadcrumb link text for the application screening questions introduction page"
+  },
+  "G06TVY": {
+    "defaultMessage": "Étape 3 (Intro)",
+    "description": "Breadcrumb link text for the application résumé introduction page"
+  },
+  "IGR8Dw": {
+    "defaultMessage": "Étape 2",
+    "description": "Breadcrumb link text for the application profile page"
+  },
+  "NlfaES": {
+    "defaultMessage": "Étape 5 (Intro)",
+    "description": "Breadcrumb link text for the application skills introduction page"
+  },
+  "b5m9Ja": {
+    "defaultMessage": "Étape 7",
+    "description": "Breadcrumb link text for the application review page"
+  },
+  "dlJCeM": {
+    "defaultMessage": "Exigences en matière d’éducation",
+    "description": "Link text for the application education page"
+  },
+  "khjfel": {
+    "defaultMessage": "Étape 3",
+    "description": "Breadcrumb link text for the application résumé page"
+  },
+  "l1fsXC": {
+    "defaultMessage": "Naviguer les emplois en TI",
+    "description": "Breadcrumb link text for the browse pools page"
+  },
+  "n6ON28": {
+    "defaultMessage": "Étape 1",
+    "description": "Breadcrumb link text for the application welcome page"
+  },
+  "sde2Dj": {
+    "defaultMessage": "Bienvenue",
+    "description": "Link text for the application welcome page"
+  },
+  "ttq9CR": {
+    "defaultMessage": "Bienvenue, {name}",
+    "description": "Page title for the application welcome page"
+  },
+  "w7F00q": {
+    "defaultMessage": "Étape 4",
+    "description": "Breadcrumb link text for the application education page"
+  },
+  "wWnEgP": {
+    "defaultMessage": "Étape 6",
+    "description": "Breadcrumb link text for the application screening questions page"
+  },
+  "y2Rl/m": {
+    "defaultMessage": "Étapes relatives à l’application",
+    "description": "Label for the application stepper navigation"
+  },
+  "8hnUdh": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Breadcrumb link text for the application résumé add experience page"
+  },
+  "WiUlEh": {
+    "defaultMessage": "Modifiez votre expérience",
+    "description": "Page title for the application résumé edit experience page"
+  },
+  "dTJT+y": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Breadcrumb link text for the application résumé edit experience page"
+  },
+  "7pCluO": {
+    "defaultMessage": "Sélectionnez une exigence linguistique",
+    "description": "Placeholder for language requirement field"
+  },
+  "PVo1xK": {
+    "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
+    "description": "Placeholder for security requirement field"
+  },
+  "Y0WLp5": {
+    "defaultMessage": "Sélectionnez un groupe des publications",
+    "description": "Placeholder for publishing group field"
+  },
+  "/BWol9": {
+    "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
+    "description": "The directives digital enabling conditions component"
+  },
+  "0DILS7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez organiser un recrutement de talents numériques qui créera un bassin de candidats. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the department-specific recruitment form"
+  },
+  "1pbvy+": {
+    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau de la dirigeante principale de l’information du Canada des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
+    "description": "The directives planning and reporting component"
+  },
+  "8yB2Bm": {
+    "defaultMessage": "Conditions favorables",
+    "description": "Heading for the directives digital enabling conditions component"
+  },
+  "C03OK7": {
+    "defaultMessage": "Établissement d’un bassin de talents numériques",
+    "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "GdOQeo": {
+    "defaultMessage": "Quelle est la Directive sur les talents numériques?",
+    "description": "Heading for section describing the directive"
+  },
+  "NKr2Rg": {
+    "defaultMessage": "Trouver des talents",
+    "description": "Link text for find talent (search) page"
+  },
+  "QVWGaL": {
+    "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
+    "description": "Heading for the digital Services contracting form"
+  },
+  "TmDejD": {
+    "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
+    "description": "Third paragraph describing the directive on digital talent"
+  },
+  "L1tQMY": {
+    "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
+    "description": "The directives digital talent and sourcing component"
+  },
+  "WieVH/": {
+    "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
+    "description": "Second paragraph describing the directive on digital talent"
+  },
+  "XVWN/C": {
+    "defaultMessage": "Remplir les formulaires obligatoires",
+    "description": "Heading for section for the downloadable forms section"
+  },
+  "Z9xByk": {
+    "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des DPI et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
+    "description": "The directives digital executive roles and structures component"
+  },
+  "c/u1K+": {
+    "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
+    "description": "Subtitle for the digital talent directive page"
+  },
+  "RDAVsP": {
+    "defaultMessage": "Lire la Directive",
+    "description": "Link text to read the entire directive."
+  },
+  "cktAfD": {
+    "defaultMessage": "Planification et établissement de rapports",
+    "description": "Heading for the directives planning and reporting component"
+  },
+  "e/nr9L": {
+    "defaultMessage": "Rôles et structures numériques des cadres",
+    "description": "Heading for the directives digital executive roles and structures component"
+  },
+  "fpdcE/": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+    "description": "Description for the digital Services contracting form"
+  },
+  "hBVKqk": {
+    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
+    "description": "The directives digital talent and development component"
+  },
+  "joXPYW": {
+    "defaultMessage": "Composantes clés",
+    "description": "Heading for section describing the different components"
+  },
+  "k4Rl18": {
+    "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
+    "description": "First paragraph describing the directive on digital talent"
+  },
+  "mpa5Fd": {
+    "defaultMessage": "Développement des talents numériques",
+    "description": "Heading for the directives digital talent and development component"
+  },
+  "sKAo0/": {
+    "defaultMessage": "Envoyer le formulaire du plan pour les talents",
+    "description": "Heading for the forward talent plan form"
+  },
+  "x0SRaQ": {
+    "defaultMessage": "Formulaire de recrutement propre à un ministère",
+    "description": "Heading for the department-specific recruitment form"
+  },
+  "xXwUGs": {
+    "defaultMessage": "Directive sur les talents numériques",
+    "description": "Title for the digital talent directive page"
+  },
+  "ydjXm7": {
+    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
+    "description": "Description for the forward talent plan form"
+  },
+  "jO2uif": {
+    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
+  "sGPKUt": {
+    "defaultMessage": "Veuillez consulter la Directive",
+    "description": "Link text to read the directive on digital talent"
+  },
+  "000m9d": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (FR)",
+    "description": "Link text for an French form download"
+  },
+  "G0RoYe": {
+    "defaultMessage": "Faire suivre le plan de talents",
+    "description": "Short name for Forward Talent Plan Form"
+  },
+  "X3bPom": {
+    "defaultMessage": "Octroi de contrat pour des services numériques",
+    "description": "Short name for Digital Services Contracting Form"
+  },
+  "YDJiAT": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (EN)",
+    "description": "Link text for an English form download"
+  },
+  "uJyWDM": {
+    "defaultMessage": "Recrutement particulier à un ministère",
+    "description": "Short name for Department-Specific Recruitment Form"
+  },
+  "POvUB0": {
+    "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
+    "description": "Lead-in text for the directive guidance document"
+  },
+  "ft6q8G": {
+    "defaultMessage": "Télécharger le guide (FR)",
+    "description": "Link text for French guidance resource download"
+  },
+  "wMp4x6": {
+    "defaultMessage": "Télécharger le guide (EN)",
+    "description": "Link text for English guidance resource download"
   }
 }

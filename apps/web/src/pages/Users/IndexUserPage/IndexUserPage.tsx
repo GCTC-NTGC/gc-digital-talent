@@ -4,11 +4,14 @@ import { UserIcon } from "@heroicons/react/24/outline";
 
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import useRoutes from "~/hooks/useRoutes";
 
 import UserTable from "./components/UserTable";
 
-export const IndexUserPage: React.FC = () => {
+export const IndexUserPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Users",
@@ -16,8 +19,27 @@ export const IndexUserPage: React.FC = () => {
     description: "Page title for the user index page",
   });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "DUK/pz",
+        description: "Breadcrumb title for the home page link.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Users",
+        id: "Y7eGtg",
+        description: "Breadcrumb title for the users page link.",
+      }),
+      url: routes.userTable(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={UserIcon}>{pageTitle}</PageHeader>
       <p>
@@ -30,7 +52,7 @@ export const IndexUserPage: React.FC = () => {
         })}
       </p>
       <UserTable />
-    </>
+    </AdminContentWrapper>
   );
 };
 

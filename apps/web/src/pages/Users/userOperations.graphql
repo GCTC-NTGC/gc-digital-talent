@@ -34,12 +34,20 @@ query User($id: UUID!) {
           fr
         }
       }
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
     }
   }
 }
 
 query UserName($userId: UUID!) {
-  user(id: $userId) {
+  applicant(id: $userId) {
     id
     firstName
     lastName

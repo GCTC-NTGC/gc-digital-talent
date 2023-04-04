@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetRoleSalaryInfoQuery,
@@ -23,11 +24,11 @@ interface RoleSalaryFormApiProps {
   updateRoleSalary: RoleSalaryUpdateHandler;
 }
 
-const RoleSalaryFormApi: React.FunctionComponent<RoleSalaryFormApiProps> = ({
+const RoleSalaryFormApi = ({
   applicationId,
   initialData,
   updateRoleSalary,
-}) => {
+}: RoleSalaryFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -36,7 +37,10 @@ const RoleSalaryFormApi: React.FunctionComponent<RoleSalaryFormApiProps> = ({
       {data?.poolCandidate ? (
         <RoleSalaryForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           updateRoleSalary={updateRoleSalary}
         />
       ) : (
@@ -72,10 +76,11 @@ const ApiOrContent = ({
     />
   );
 
-const RoleSalaryFormPage: React.FunctionComponent = () => {
+const RoleSalaryFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
+  const featureFlags = useFeatureFlags();
 
   const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
@@ -92,7 +97,7 @@ const RoleSalaryFormPage: React.FunctionComponent = () => {
             result.data?.updateUserAsUser?.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
+            if (!featureFlags.applicantDashboard) toast.success(message);
           }
         }
         return result.data.updateUserAsUser;

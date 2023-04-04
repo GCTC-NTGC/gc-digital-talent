@@ -35,14 +35,11 @@ final class CountPoolCandidatesByPool
         PoolCandidate::scopeAvailable($queryBuilder);
 
         // expiry status filter (filter active pool candidates)
-        PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
+        PoolCandidate::scopeExpiryFilter($queryBuilder, ['expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE]);
 
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
-
-            // user status scope
-            User::scopeAvailableForOpportunities($userQuery);
 
             // hasDiploma
             if (array_key_exists('hasDiploma', $filters)) {

@@ -62,9 +62,10 @@ interface EstimatedCandidatesProps {
   updatePending?: boolean;
 }
 
-const EstimatedCandidates: React.FunctionComponent<
-  EstimatedCandidatesProps
-> = ({ candidateCount, updatePending }) => {
+const EstimatedCandidates = ({
+  candidateCount,
+  updatePending,
+}: EstimatedCandidatesProps) => {
   const intl = useIntl();
 
   return (

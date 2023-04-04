@@ -2,21 +2,26 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { imageUrl } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import CallToAction from "~/components/CallToAction/CallToAction";
+import CallToActionLink from "~/components/CallToAction/CallToActionLink";
+import { HireIcon, JobIcon } from "~/components/CallToAction/Icons";
+
+import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
+import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
+import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
+import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
 
 import "./hero.css";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
-    imageUrl("/", "hero-1-landscape.jpg"),
-    imageUrl("/", "hero-2-landscape.jpg"),
-    imageUrl("/", "hero-3-landscape.jpg"),
-    imageUrl("/", "hero-4-landscape.jpg"),
+    hero1Landscape,
+    hero2Landscape,
+    hero3Landscape,
+    hero4Landscape,
   ];
   return items[index ?? Math.floor(Math.random() * items.length)];
 };
@@ -84,30 +89,28 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
           data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         >
-          <CallToAction
-            type="link"
-            context="job"
-            content={{
-              path: paths.allPools(),
-              label: intl.formatMessage({
-                defaultMessage: "Looking for a job?",
-                id: "Tk2HJy",
-                description: "Link text for applicant call to action",
-              }),
-            }}
-          />
-          <CallToAction
-            type="link"
-            context="hire"
-            content={{
-              path: paths.search(),
-              label: intl.formatMessage({
-                defaultMessage: "Looking to hire?",
-                id: "1wFFIx",
-                description: "Link text for hiring manager call to action",
-              }),
-            }}
-          />
+          <CallToActionLink
+            color="quaternary"
+            Icon={JobIcon}
+            href={paths.allPools()}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Looking for a job?",
+              id: "Tk2HJy",
+              description: "Link text for applicant call to action",
+            })}
+          </CallToActionLink>
+          <CallToActionLink
+            color="secondary"
+            Icon={HireIcon}
+            href={paths.search()}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Looking to hire?",
+              id: "1wFFIx",
+              description: "Link text for hiring manager call to action",
+            })}
+          </CallToActionLink>
         </div>
       </div>
     </div>

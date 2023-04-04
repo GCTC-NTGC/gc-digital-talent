@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   User,
@@ -26,9 +27,11 @@ interface WorkPreferencesFormApiProps {
   ) => Promise<UpdateWorkPreferencesMutation["updateUserAsUser"]>;
 }
 
-const WorkPreferencesFormApi: React.FunctionComponent<
-  WorkPreferencesFormApiProps
-> = ({ applicationId, initialData, handleWorkPreferences }) => {
+const WorkPreferencesFormApi = ({
+  applicationId,
+  initialData,
+  handleWorkPreferences,
+}: WorkPreferencesFormApiProps) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
   const { data, fetching } = result;
 
@@ -37,7 +40,10 @@ const WorkPreferencesFormApi: React.FunctionComponent<
       {data?.poolCandidate ? (
         <WorkPreferencesForm
           initialData={initialData}
-          application={data.poolCandidate}
+          application={{
+            ...data.poolCandidate,
+            pool: { id: data.poolCandidate.id },
+          }}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (
@@ -77,10 +83,11 @@ const ApiOrContent = ({
     />
   );
 
-export const WorkPreferencesPage: React.FunctionComponent = () => {
+export const WorkPreferencesPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
+  const featureFlags = useFeatureFlags();
 
   const [{ data: initialData, fetching, error }] = useGetWorkPreferencesQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
@@ -97,7 +104,7 @@ export const WorkPreferencesPage: React.FunctionComponent = () => {
             result.data?.updateUserAsUser?.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
+            if (!featureFlags.applicantDashboard) toast.success(message);
           }
         }
       }

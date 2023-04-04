@@ -17,7 +17,7 @@ class LoggingErrorHandler implements ErrorHandler
         }
 
         // Log the error
-        Log::info('GraphQL Error: '.$error->getMessage());
+        Log::info('GraphQL Error: ' . $error->getMessage());
 
         // Keep the pipeline going, last step formats the error into an array
         return $next($error);

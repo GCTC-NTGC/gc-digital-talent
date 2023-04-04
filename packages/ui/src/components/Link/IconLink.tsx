@@ -4,15 +4,10 @@ import Link from "./Link";
 import type { LinkProps } from "./Link";
 
 export interface IconLinkProps extends LinkProps {
-  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const IconLink: React.FC<IconLinkProps> = ({
-  icon,
-  children,
-  block,
-  ...rest
-}) => {
+const IconLink = ({ icon, children, block, ...rest }: IconLinkProps) => {
   const Icon = icon || null;
   return (
     <Link block={block} {...rest}>

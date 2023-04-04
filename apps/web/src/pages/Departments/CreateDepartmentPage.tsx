@@ -15,6 +15,7 @@ import {
   CreateDepartmentMutation,
   useCreateDepartmentMutation,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 type FormValues = CreateDepartmentInput;
 
@@ -24,9 +25,9 @@ interface CreateDepartmentProps {
   ) => Promise<CreateDepartmentMutation["createDepartment"]>;
 }
 
-export const CreateDepartmentForm: React.FunctionComponent<
-  CreateDepartmentProps
-> = ({ handleCreateDepartment }) => {
+export const CreateDepartmentForm = ({
+  handleCreateDepartment,
+}: CreateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -123,8 +124,9 @@ export const CreateDepartmentForm: React.FunctionComponent<
   );
 };
 
-const CreateDepartmentPage: React.FunctionComponent = () => {
+const CreateDepartmentPage = () => {
   const intl = useIntl();
+  const routes = useRoutes();
   const [, executeMutation] = useCreateDepartmentMutation();
   const handleCreateDepartment = (data: CreateDepartmentInput) =>
     executeMutation({ department: data }).then((result) => {
@@ -134,8 +136,35 @@ const CreateDepartmentPage: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Departments",
+        id: "Ig9HmP",
+        description: "Breadcrumb title for the departments page link.",
+      }),
+      url: routes.departmentTable(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Create<hidden> department</hidden>",
+        id: "1XaX86",
+        description: "Breadcrumb title for the create department page link.",
+      }),
+      url: routes.departmentCreate(),
+    },
+  ];
+
   return (
-    <>
+    <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Create department",
@@ -144,7 +173,7 @@ const CreateDepartmentPage: React.FunctionComponent = () => {
         })}
       />
       <CreateDepartmentForm handleCreateDepartment={handleCreateDepartment} />
-    </>
+    </AdminContentWrapper>
   );
 };
 

@@ -25,13 +25,13 @@ class PoolApplicationTest extends TestCase
     use RefreshesSchemaCache;
     use WithFaker;
 
-    protected $guestUser;
     protected $applicantUser;
     protected $teamUser;
     protected $responderUser;
     protected $uuid;
     protected $toBeDeleted;
 
+    protected $unauthenticatedMessage = 'Unauthenticated.';
     protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $queryDocument =
@@ -52,7 +52,7 @@ class PoolApplicationTest extends TestCase
                 user {
                     id
                 }
-                pool {
+                poolAdvertisement {
                     id
                 }
                 status
@@ -103,14 +103,6 @@ class PoolApplicationTest extends TestCase
 
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
-
-        $this->guestUser = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guestUser->syncRoles([
-            "guest",
-        ]);
 
         $this->applicantUser = User::factory()->create([
             'email' => 'applicant-user@test.com',
@@ -170,7 +162,7 @@ class PoolApplicationTest extends TestCase
                     'user' => [
                         'id' => $this->applicantUser->id,
                     ],
-                    'pool' => [
+                    'poolAdvertisement' => [
                         'id' => $pool->id,
                     ],
                     'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
@@ -179,8 +171,7 @@ class PoolApplicationTest extends TestCase
         ];
 
         // Guest users cannot create applications
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->createMutationDocument, $variables)
+        $this->graphQL($this->createMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert creating a pool application succeeds
@@ -275,9 +266,8 @@ class PoolApplicationTest extends TestCase
         ]);
 
         // This user does not own the application so cannot archive
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
 
         // Request responders may not archive applications they do not own
         $this->actingAs($this->responderUser, "api")
@@ -492,9 +482,8 @@ class PoolApplicationTest extends TestCase
         ];
 
         // Assert users who do not own the pool candidate cannot submit
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->submitMutationDocument,  $submitArgs)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
 
         $this->actingAs($this->teamUser, "api")
             ->graphQL($this->submitMutationDocument,  $submitArgs)
@@ -781,6 +770,12 @@ class PoolApplicationTest extends TestCase
 
         $variables = ['id' => $newPoolCandidate->id];
 
+        // Assert guests cannot delete application
+        // Do this first because actingAs seems to keep querying as the user
+        // until called again with a different user
+        $this->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
+
         // Assert candidate exists
         $this->actingAs($this->applicantUser, "api")
             ->graphQL($this->queryDocument, $variables)
@@ -793,10 +788,6 @@ class PoolApplicationTest extends TestCase
             ]);
 
         // Assert non-owners cannot delete application
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->deleteMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
         $this->actingAs($this->teamUser, "api")
             ->graphQL($this->deleteMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);

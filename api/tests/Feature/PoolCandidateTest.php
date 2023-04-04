@@ -24,7 +24,8 @@ class PoolCandidateTest extends TestCase
     protected $teamName = "application-test-team";
     protected $pool;
 
-    protected $countQuery = /** @lang GraphQL */
+    protected $countQuery =
+    /** @lang GraphQL */
     '
         query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
@@ -545,9 +546,8 @@ class PoolCandidateTest extends TestCase
 
     public function testFilterByLanguageAbility(): void
     {
-
         // Create initial data.
-        PoolCandidate::factory()->count(5)->create([
+        PoolCandidate::factory()->count(1)->create([
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => false,
@@ -556,7 +556,15 @@ class PoolCandidateTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
         ]);
-
+        PoolCandidate::factory()->count(4)->create([
+            'user_id' => User::factory([
+                'looking_for_english' => null,
+                'looking_for_french' => null,
+                'looking_for_bilingual' => null,
+            ]),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+        ]);
         // Create new LanguageAbility and attach to 3 new pool candidates.
         PoolCandidate::factory()->create([
             'user_id' => User::factory([

@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import uniqBy from "lodash/uniqBy";
 
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -8,22 +9,23 @@ import {
   getPoolStream,
   getLocale,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
   Maybe,
   Pool,
   Scalars,
-  GetMePoolsQuery,
   useGetMePoolsQuery,
   RoleAssignment,
+  LocalizedString,
+  useAllPoolsQuery,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -31,13 +33,7 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<
-  FromArray<
-    NonNullable<
-      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
-    >["pools"]
-  >
->;
+type Data = Pool;
 type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -72,6 +68,27 @@ function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
       {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
+}
+
+function viewTeamLinkAccessor(
+  url: Maybe<string>,
+  displayName: Maybe<LocalizedString>,
+  intl: IntlShape,
+) {
+  return url ? (
+    <Link href={url} type="link">
+      {intl.formatMessage(
+        {
+          defaultMessage: "<hidden>View team: </hidden>{teamName}",
+          id: "ActH9H",
+          description: "Text for a link to the Team table",
+        },
+        {
+          teamName: getLocalizedName(displayName, intl),
+        },
+      )}
+    </Link>
+  ) : null;
 }
 
 function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
@@ -141,15 +158,36 @@ const roleAssignmentsToPools = (
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
-  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => team?.pools);
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
 
-  // clear out any duplicate pools that may have accumulated
-  // https://stackoverflow.com/a/56757215
-  const poolsArray = filteredFlattenedPools.filter(
-    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
-  );
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
+    return team?.pools
+      ? team?.pools.filter(notEmpty).map((pool) => ({
+          ...pool,
+          team,
+        }))
+      : null;
+  });
+  const filteredFlattenedPools = unpackMaybes(flattenedPools);
+  const poolsArray = uniqBy(filteredFlattenedPools, "id");
+  return poolsArray;
+};
+
+// pools to teams to pools with team array
+const poolsToPoolsWithTeam = (initialArray: Maybe<Pool[]>): Pool[] => {
+  const flattenedTeams = initialArray?.flatMap((pool) => pool.team);
+
+  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
+    return team?.pools
+      ? team?.pools.filter(notEmpty).map((pool) => ({
+          ...pool,
+          team,
+        }))
+      : null;
+  });
+  const filteredFlattenedPools = unpackMaybes(flattenedPools);
+  const poolsArray = uniqBy(filteredFlattenedPools, "id");
   return poolsArray;
 };
 
@@ -288,6 +326,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Team",
+          id: "fCXZ4R",
+          description: "Title displayed for the Pool table Team column",
+        }),
+        accessor: (d) => `Team ${d.team?.id ? d.team.id : ""}`,
+        Cell: ({ row }: PoolCell) =>
+          viewTeamLinkAccessor(
+            paths.teamView(row.original.team?.id ? row.original.team?.id : ""),
+            row.original.team?.displayName,
+            intl,
+          ),
+        id: "team",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Owner Name",
           id: "AWk4BX",
           description: "Title displayed for the Pool table Owner Name column",
@@ -354,7 +407,13 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate", "ownerEmail"],
+      hiddenCols: [
+        "id",
+        "description",
+        "createdDate",
+        "ownerEmail",
+        "ownerName",
+      ],
       initialSortBy: [
         {
           id: "createdDate",
@@ -383,7 +442,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   );
 };
 
-const PoolTableApi = () => {
+export const PoolOperatorTableApi = () => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
@@ -395,4 +454,15 @@ const PoolTableApi = () => {
   );
 };
 
-export default PoolTableApi;
+export const PoolAdminTableApi = () => {
+  const [result] = useAllPoolsQuery();
+  const { data, fetching, error } = result;
+  const maybePools = unpackMaybes(data?.pools);
+  const poolsArray = poolsToPoolsWithTeam(maybePools);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={poolsArray ?? []} />
+    </Pending>
+  );
+};

@@ -44,11 +44,13 @@ class SkillFamily extends Model
     }
 
 
-    public static function scopeTechnical (Builder $query) {
+    public static function scopeTechnical(Builder $query)
+    {
         return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
     }
 
-    public static function scopeBehavioural (Builder $query) {
+    public static function scopeBehavioural(Builder $query)
+    {
         return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
     }
 }
