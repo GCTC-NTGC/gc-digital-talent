@@ -165,8 +165,6 @@ describe("UserTableFilterDialog", () => {
         selectFilterOption(/availability/i);
         selectFilterOption(/profile complete/i);
         selectFilterOption(/government employee/i);
-
-        // TODO: Async filters.
         selectFilterOption(/classifications/i);
         selectFilterOption(/pools/i);
         selectFilterOption(/skill filter/i);
