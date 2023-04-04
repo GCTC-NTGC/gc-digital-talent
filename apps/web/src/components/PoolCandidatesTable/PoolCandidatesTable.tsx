@@ -34,6 +34,7 @@ import {
   Maybe,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  PoolStream,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -423,6 +424,7 @@ const PoolCandidatesTable = ({
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
+        stream: data.stream[0] as PoolStream,
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
