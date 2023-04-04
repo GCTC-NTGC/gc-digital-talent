@@ -7372,5 +7372,13 @@
   "wMp4x6": {
     "defaultMessage": "Télécharger le guide (EN)",
     "description": "Link text for English guidance resource download"
+  },
+  "9vQj8o": {
+    "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
+    "description": "Application step skipped page title"
+  },
+  "EPF4Ac": {
+    "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
+    "description": "Application step skipped page details"
   }
 }
