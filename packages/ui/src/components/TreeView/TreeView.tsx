@@ -9,14 +9,14 @@ interface TreeViewItemProps {
 }
 
 const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
-  <li className={noBranch ? "no-branch" : ""} {...rest}>
+  <li className={noBranch ? "tree no-branch" : "tree"} {...rest}>
     <div data-h2-width="base(100%)">{children}</div>
   </li>
 );
 
 interface TreeViewRootProps {
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   error?: string;
   children: React.ReactNode;
 }
@@ -33,7 +33,7 @@ const Root = ({
       {subtitle && <p>{subtitle}</p>}
     </Card>
     {error && (
-      <li className="error">
+      <li className="tree error">
         <span
           role="alert"
           aria-live="polite"
@@ -53,8 +53,20 @@ const Root = ({
   </ul>
 );
 
+/**
+ * @name TreeView
+ * @desc A tree view widget presents a hierarchical list.
+ */
 const TreeView = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a TreeView.
+   */
   Root,
+  /**
+   * @name Item
+   * @desc Contains an item in the tree.
+   */
   Item,
 };
 
