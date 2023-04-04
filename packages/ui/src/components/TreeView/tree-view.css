@@ -1,22 +1,22 @@
 ul.tree,
-ul.tree ul {
+ul.tree {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-ul.tree ul {
+ul.tree {
   margin-left: 10px;
 }
-ul.tree li {
+ul.tree li.tree {
   display: flex;
   align-items: baseline;
   margin-left: 3%;
   border-left: 1px solid #b9b9b9;
 }
-ul.tree li:last-child {
+ul.tree li.tree:last-child {
   border-left: none;
 }
-ul.tree li:before {
+ul.tree li.tree:before {
   position: relative;
   height: 3rem;
   width: 3%;
@@ -25,10 +25,10 @@ ul.tree li:before {
   content: "";
   display: inline-block;
 }
-ul.tree li.error::before,
-ul.tree li.no-branch::before {
+ul.tree li.tree.error::before,
+ul.tree li.tree.no-branch::before {
   border-bottom: none;
 }
-ul.tree li:last-child:before {
+ul.tree li.tree:last-child:before {
   border-left: 1px solid #b9b9b9;
 }
