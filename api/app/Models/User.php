@@ -723,7 +723,7 @@ RAWSQL2;
     public function setRolesAttribute($roleAssignmentHasMany)
     {
         if (array_key_exists('attach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');
         }
 
         if (array_key_exists('detach', $roleAssignmentHasMany)) {

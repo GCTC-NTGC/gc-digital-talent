@@ -47,7 +47,7 @@ class RolePermissionTest extends TestCase
     public function test_guest_role()
     {
         $guestRole = Role::where('name', 'guest')->sole();
-        $this->user->attachRole($guestRole);
+        $this->user->addRole($guestRole);
 
         $this->assertTrue($this->user->hasRole('guest'));
         $this->assertTrue($this->user->isAbleTo([
@@ -76,7 +76,7 @@ class RolePermissionTest extends TestCase
     public function test_base_user_role()
     {
         $baseUserRole = Role::where('name', 'base_user')->sole();
-        $this->user->attachRole($baseUserRole);
+        $this->user->addRole($baseUserRole);
 
         $this->assertTrue($this->user->hasRole('base_user'));
         $this->assertTrue($this->user->isAbleTo([
@@ -107,7 +107,7 @@ class RolePermissionTest extends TestCase
     public function test_applicant_role()
     {
         $applicantRole = Role::where('name', 'applicant')->sole();
-        $this->user->attachRole($applicantRole);
+        $this->user->addRole($applicantRole);
 
         $this->assertTrue($this->user->hasRole('applicant'));
         $this->assertTrue($this->user->isAbleTo([
@@ -132,7 +132,7 @@ class RolePermissionTest extends TestCase
     public function test_pool_operator_role()
     {
         $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
-        $this->user->attachRole(
+        $this->user->addRole(
             $poolOperatorRole,
             $this->ownedTeam
         );
@@ -166,7 +166,7 @@ class RolePermissionTest extends TestCase
     public function test_request_responder_role()
     {
         $requestResponderRole = Role::where('name', 'request_responder')->sole();
-        $this->user->attachRole($requestResponderRole);
+        $this->user->addRole($requestResponderRole);
 
         $permissionsToCheck = [
             'view-any-submittedApplication',
@@ -192,7 +192,7 @@ class RolePermissionTest extends TestCase
     public function test_platform_admin_role()
     {
         $superAdminRole = Role::where('name', 'platform_admin')->sole();
-        $this->user->attachRole($superAdminRole);
+        $this->user->addRole($superAdminRole);
 
         $this->assertTrue($this->user->hasRole('platform_admin'));
         $this->assertTrue($this->user->isAbleTo([
@@ -236,13 +236,13 @@ class RolePermissionTest extends TestCase
     public function test_strict_team_check()
     {
         $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
-        $this->user->attachRole(
+        $this->user->addRole(
             $poolOperatorRole,
             $this->ownedTeam
         );
 
         $guestRole = Role::where('name', 'guest')->sole();
-        $this->user->attachRole($guestRole);
+        $this->user->addRole($guestRole);
 
         $guestPermission = 'view-any-skill';
         $teamPermission = 'view-team-pool';

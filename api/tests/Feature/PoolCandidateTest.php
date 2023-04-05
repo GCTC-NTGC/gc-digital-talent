@@ -58,7 +58,7 @@ class PoolCandidateTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator", $this->team);
+        $this->teamUser->addRole("pool_operator", $this->team);
     }
 
     public function testFilterByClassification(): void
