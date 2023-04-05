@@ -727,7 +727,7 @@ RAWSQL2;
         }
 
         if (array_key_exists('detach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'removeRoles');
         }
 
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
