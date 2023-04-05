@@ -195,13 +195,6 @@ server {
         rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /apps/web/dist/index.html break;
     }
 
-    # rewrite possible lang prefix then "applications" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applications(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
-        rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
-    }
-
     # rewrite possible lang prefix then "login-info" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
         add_header Cache-Control no-cache;
