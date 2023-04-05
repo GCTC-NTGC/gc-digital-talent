@@ -1289,9 +1289,9 @@
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce rôle?",
     "description": "Question for user in skills in detail section of experience form."
   },
-  "c/Qp8R": {
-    "defaultMessage": "Préférence pour le lieu de travail",
-    "description": "Display Text for the current page in Work Location Preference Form Page"
+  "5fF50z": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Display Text for the current page in Work location Form Page"
   },
   "5KRzTl": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
