@@ -17,6 +17,7 @@ import Card, {
 import CardLink, { type CardLinkProps } from "./components/CardLink";
 import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
+import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
@@ -120,6 +121,7 @@ export {
   Chips,
   Chip,
   Collapsible,
+  DefinitionList,
   Dialog,
   DropdownMenu,
   Flourish,

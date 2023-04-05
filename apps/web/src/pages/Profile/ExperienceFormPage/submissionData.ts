@@ -1,14 +1,14 @@
 import { Maybe, Skill } from "~/api/generated";
 import {
-  AllFormValues,
+  AllExperienceFormValues,
   ExperienceDetailsSubmissionData,
   ExperienceType,
-  FormValues,
-} from "./types";
+  ExperienceFormValues,
+} from "~/types/experience";
 
 const formValuesToSubmitData = (
   type: ExperienceType,
-  data: FormValues<AllFormValues>,
+  data: ExperienceFormValues<AllExperienceFormValues>,
   hiddenSkills: Maybe<Skill[]>,
 ): ExperienceDetailsSubmissionData => {
   const {
