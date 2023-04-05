@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use Laratrust\Models\LaratrustTeam;
+use Laratrust\Models\Team as TeamModel;
 
 /**
  * Class Team
@@ -20,7 +20,7 @@ use Laratrust\Models\LaratrustTeam;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class Team extends LaratrustTeam
+class Team extends TeamModel
 {
     use HasFactory;
     protected $keyType = 'string';

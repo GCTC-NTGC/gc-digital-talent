@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Laratrust\Models\LaratrustPermission;
+use Laratrust\Models\Permission as PermissionModel;
 
 /**
  * Class Permission
@@ -15,7 +15,7 @@ use Laratrust\Models\LaratrustPermission;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class Permission extends LaratrustPermission
+class Permission extends PermissionModel
 {
     protected $keyType = 'string';
 
