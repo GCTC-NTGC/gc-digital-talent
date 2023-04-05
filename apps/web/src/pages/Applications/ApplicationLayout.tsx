@@ -7,6 +7,7 @@ import {
   Stepper,
   Pending,
   ThrowNotFound,
+  StepType,
 } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
@@ -58,10 +59,20 @@ type PageNavKey =
   | "review"
   | "success";
 
+const missingPrerequisites = (
+  prerequisiteSteps: Maybe<Array<ApplicationStep>>,
+  submittedSteps: Maybe<Array<ApplicationStep>>,
+): Maybe<Array<ApplicationStep>> => {
+  return prerequisiteSteps?.filter(
+    (currentPagePrerequisite) =>
+      !submittedSteps?.includes(currentPagePrerequisite),
+  );
+};
+
 const deriveSteps = (
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
-) => {
+): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
     .map((page) => ({
@@ -70,6 +81,9 @@ const deriveSteps = (
       icon: page.icon,
       completed:
         (page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted)) ??
+        false,
+      disabled:
+        !!missingPrerequisites(page.prerequisites, submittedSteps)?.length ??
         false,
     }));
 
@@ -89,24 +103,25 @@ function checkForDisabledPage(
   const currentPageInfo = pagesArray.find(
     (page) => page.link.url === currentPageUrl,
   );
-  const missingPrerequisites = currentPageInfo?.prerequisites.filter(
-    (currentPagePrerequisite) =>
-      !submittedSteps?.includes(currentPagePrerequisite),
+  const pageMissingPrerequisites = missingPrerequisites(
+    currentPageInfo?.prerequisites,
+    submittedSteps,
   );
-  if (!missingPrerequisites?.length) {
-    // yay, nothing missing!
-    return { isOnDisabledPage: false };
+
+  if (pageMissingPrerequisites && pageMissingPrerequisites.length > 0) {
+    // go back to the first missing page
+    const firstMissingPrerequisite = pageMissingPrerequisites[0];
+    const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
+      return p.stepSubmitted === firstMissingPrerequisite;
+    });
+    return {
+      isOnDisabledPage: true,
+      urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
+    };
   }
 
-  // go back to the first missing page
-  const firstMissingPrerequisite = missingPrerequisites[0];
-  const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
-    return p.stepSubmitted === firstMissingPrerequisite;
-  });
-  return {
-    isOnDisabledPage: true,
-    urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
-  };
+  // yay, nothing missing!
+  return { isOnDisabledPage: false };
 }
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
@@ -158,7 +173,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
   const steps = deriveSteps(pages, application.submittedSteps);
-  const currentStep = steps.findIndex((step) =>
+  const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
 
