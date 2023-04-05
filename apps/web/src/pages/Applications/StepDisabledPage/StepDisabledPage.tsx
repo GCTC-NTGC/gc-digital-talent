@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 export const StepDisabledPage = ({
   returnUrl,
@@ -27,12 +27,11 @@ export const StepDisabledPage = ({
           description: "Application step skipped page details",
         })}
       </p>
-      <hr
+      <Separator
+        orientation="horizontal"
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
         data-h2-margin="base(x2, 0)"
+        decorative
       />
       {returnUrl ? (
         <Link href={returnUrl} color="primary" mode="solid" type="button">
