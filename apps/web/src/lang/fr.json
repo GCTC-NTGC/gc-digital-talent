@@ -7372,5 +7372,9 @@
   "wMp4x6": {
     "defaultMessage": "Télécharger le guide (EN)",
     "description": "Link text for English guidance resource download"
+  },
+  "rYgaTA": {
+    "defaultMessage": "Groupe des publications",
+    "description": "Title displayed for the Pool table publishing group column."
   }
 }
