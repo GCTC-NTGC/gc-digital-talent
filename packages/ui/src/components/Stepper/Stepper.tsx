@@ -57,7 +57,6 @@ const Stepper = ({
 
   return (
     <nav aria-label={label}>
-      {JSON.stringify(index)}
       {steps && index !== undefined ? (
         <Heading level={headingLevel} size="h6" data-h2-font-weight="base(700)">
           {intl.formatMessage(uiMessages.stepTitle, {
