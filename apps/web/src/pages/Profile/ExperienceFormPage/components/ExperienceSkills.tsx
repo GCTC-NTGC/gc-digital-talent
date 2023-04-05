@@ -11,7 +11,7 @@ import { categorizeSkill } from "~/utils/skillUtils";
 import { PoolAdvertisement, Skill, SkillCategory } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
-import type { FormSkill, FormSkills } from "../types";
+import type { FormSkill, FormSkills } from "~/types/experience";
 
 export interface ExperienceSkillsProps {
   skills: Skill[];

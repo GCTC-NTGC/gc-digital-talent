@@ -1,3 +1,4 @@
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 import { IntlShape } from "react-intl";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
@@ -14,6 +15,8 @@ export type GetApplicationPageInfoArgs = {
 
 export type ApplicationPageInfo = PageNavInfo & {
   omitFromStepper?: boolean;
+  prerequisites: Array<ApplicationStep>;
+  stepSubmitted: ApplicationStep | null;
 };
 
 export type GetApplicationPageInfo = (

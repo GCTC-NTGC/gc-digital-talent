@@ -201,6 +201,13 @@ server {
         rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "applications" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/applications(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
+        rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "create-account" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
         add_header Cache-Control no-cache;
