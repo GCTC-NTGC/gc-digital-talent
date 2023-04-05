@@ -26,6 +26,7 @@ import {
   RoleAssignment,
   LocalizedString,
   useAllPoolsQuery,
+  Team,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -151,6 +152,10 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
+interface PoolWithTeam extends Pool {
+  team: NonNullable<Pool["team"]>;
+}
+
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
@@ -158,18 +163,16 @@ const roleAssignmentsToPools = (
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
-
   const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
+
+  const addTeamToPool =
+    (team: Team) =>
+    (pool: Pool): PoolWithTeam => ({ ...pool, team });
+
   const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
-    return team?.pools
-      ? team?.pools.filter(notEmpty).map((pool) => ({
-          ...pool,
-          team,
-        }))
-      : null;
+    return unpackMaybes(team.pools).map(addTeamToPool(team));
   });
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
-  const poolsArray = uniqBy(filteredFlattenedPools, "id");
+  const poolsArray = uniqBy(flattenedPools, "id");
   return poolsArray;
 };
 
