@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUserInterface;
 use Carbon\Carbon;
 
 /**
@@ -70,6 +71,7 @@ class User extends Model implements Authenticatable
 
     use Authorizable;
     use LaratrustUserTrait;
+    use LaratrustUserInterface;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
