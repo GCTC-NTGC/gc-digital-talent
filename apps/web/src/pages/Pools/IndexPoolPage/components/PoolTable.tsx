@@ -160,7 +160,7 @@ interface PoolWithTeam extends Pool {
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Pool[] => {
+): PoolWithTeam[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
