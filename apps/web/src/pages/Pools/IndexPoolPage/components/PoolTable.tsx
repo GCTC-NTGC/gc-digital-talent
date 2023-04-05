@@ -173,24 +173,6 @@ const roleAssignmentsToPools = (
   return poolsArray;
 };
 
-// pools to teams to pools with team array
-const poolsToPoolsWithTeam = (initialArray: Maybe<Pool[]>): Pool[] => {
-  const flattenedTeams = initialArray?.flatMap((pool) => pool.team);
-
-  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
-    return team?.pools
-      ? team?.pools.filter(notEmpty).map((pool) => ({
-          ...pool,
-          team,
-        }))
-      : null;
-  });
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
-  const poolsArray = uniqBy(filteredFlattenedPools, "id");
-  return poolsArray;
-};
-
 interface PoolTableProps {
   pools: Pool[];
 }
@@ -457,12 +439,11 @@ export const PoolOperatorTableApi = () => {
 export const PoolAdminTableApi = () => {
   const [result] = useAllPoolsQuery();
   const { data, fetching, error } = result;
-  const maybePools = unpackMaybes(data?.pools);
-  const poolsArray = poolsToPoolsWithTeam(maybePools);
+  const pools = unpackMaybes(data?.pools);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} />
+      <PoolTable pools={pools} />
     </Pending>
   );
 };
