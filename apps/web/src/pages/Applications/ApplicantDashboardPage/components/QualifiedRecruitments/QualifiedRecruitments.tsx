@@ -1,8 +1,9 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { isFuture, isPast, parseISO } from "date-fns";
 import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
 
 interface AnimatedContentProps
@@ -40,17 +41,32 @@ const AnimatedContent = React.forwardRef<
 export type Application = Omit<PoolCandidate, "pool" | "user">;
 
 interface QualifiedRecruitmentsProps {
-  activeRecruitments: Application[];
-  expiredRecruitments: Application[];
+  applications: Application[];
 }
 
 type AccordionItems = Array<"active" | "expired" | "">;
 
 const QualifiedRecruitments = ({
-  activeRecruitments,
-  expiredRecruitments,
+  applications,
 }: QualifiedRecruitmentsProps) => {
   const intl = useIntl();
+
+  const activeRecruitments = applications.filter(
+    ({ status, archivedAt, expiryDate }) => {
+      const expiry = expiryDate ? parseISO(expiryDate) : null;
+      return (
+        status !== PoolCandidateStatus.Expired &&
+        archivedAt === null &&
+        (expiry ? isFuture(expiry) : true)
+      );
+    },
+  );
+
+  const expiredRecruitments = applications.filter(({ expiryDate }) => {
+    const expiry = expiryDate ? parseISO(expiryDate) : null;
+
+    return expiry ? isPast(expiry) : false;
+  });
 
   const [currentAccordionItems, setCurrentAccordionItems] =
     React.useState<AccordionItems>([
@@ -136,7 +152,7 @@ const QualifiedRecruitments = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h5)"
+                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >
@@ -148,7 +164,7 @@ const QualifiedRecruitments = ({
                         "Text displayed in active qualified recruitments section when empty.",
                     })}
                   </p>
-                  <p data-h2-font-size="base(h6)">
+                  <p data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Recruitments in this section are actively being hired from.",
@@ -182,7 +198,7 @@ const QualifiedRecruitments = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h5)"
+                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >
@@ -194,7 +210,7 @@ const QualifiedRecruitments = ({
                         "Text displayed in active qualified recruitments section when empty.",
                     })}
                   </p>
-                  <p data-h2-font-size="base(h6)">
+                  <p data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Recruitments in this section are no longer being considered for hiring purposes.",

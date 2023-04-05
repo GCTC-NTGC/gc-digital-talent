@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
@@ -119,6 +119,14 @@ const CreateAccountPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
+      ),
+  ),
+);
+const ApplicantDashboardPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/Applications/ApplicantDashboardPage/ApplicantDashboardPage"
       ),
   ),
 );
@@ -781,6 +789,27 @@ const createRoute = (
                   <CreateAccountPage />
                 </RequireAuth>
               ),
+            },
+            {
+              path: "applicant",
+              element: <CreateAccountRedirect />,
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <Outlet />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "dashboard",
+                  element: <ApplicantDashboardPage />,
+                },
+              ],
             },
             {
               path: "users",

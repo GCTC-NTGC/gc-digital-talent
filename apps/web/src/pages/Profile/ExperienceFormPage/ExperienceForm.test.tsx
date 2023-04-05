@@ -2,17 +2,15 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, act } from "@testing-library/react";
+import { screen, fireEvent, act, waitFor } from "@testing-library/react";
 import React from "react";
-import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
+import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import type { ExperienceType } from "~/types/experience";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
-import type { ExperienceQueryData } from "./types";
 
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
-const mockExperiences = fakeExperiences(5);
 const mockCallback = jest.fn();
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
@@ -264,15 +262,7 @@ describe("ExperienceForm", () => {
   it("should submit with required fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    const experience = mockExperiences[0];
-    let experienceType: ExperienceType = "award";
-    // eslint-disable-next-line no-underscore-dangle
-    if (experience.__typename) {
-      // eslint-disable-next-line no-underscore-dangle
-      experienceType = experience.__typename
-        ?.replace("Experience", "")
-        .toLowerCase() as ExperienceType;
-    }
+    const experienceType: ExperienceType = "award";
 
     renderExperienceForm({
       userId: mockUserId,
@@ -280,14 +270,44 @@ describe("ExperienceForm", () => {
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
       skills: mockSkills,
-      experience: experience as ExperienceQueryData,
     });
+
+    const awardTitle = screen.getByRole("textbox", { name: /award title/i });
+    fireEvent.change(awardTitle, { target: { value: "AwardTitle" } });
+
+    const dateAwarded = screen.getByLabelText("Date Awarded");
+    fireEvent.change(dateAwarded, { target: { value: "1111-11-11" } });
+
+    const awardedTo = screen.getByRole("combobox", {
+      name: /awarded to/i,
+    }) as HTMLSelectElement;
+    const awardedToOptions = Array.from(
+      awardedTo.querySelectorAll("option"),
+    ) as HTMLOptionElement[];
+    fireEvent.change(awardedTo, {
+      target: { value: awardedToOptions[1].value },
+    }); // Set to second value after null selection.
+
+    const org = screen.getByRole("textbox", { name: /organization/i });
+    fireEvent.change(org, { target: { value: "Org" } });
+
+    const awardScope = screen.getByRole("combobox", {
+      name: /award scope/i,
+    }) as HTMLSelectElement;
+    const awardScopeOptions = Array.from(
+      awardScope.querySelectorAll("option"),
+    ) as HTMLOptionElement[];
+    fireEvent.change(awardScope, {
+      target: { value: awardScopeOptions[1].value },
+    }); // Set to second value after null selection.
 
     await act(() => {
       fireEvent.submit(screen.getByRole("button", { name: /save/i }));
     });
 
-    expect(mockSave).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockSave).toHaveBeenCalled();
+    });
   });
 
   it("should add skill", async () => {
