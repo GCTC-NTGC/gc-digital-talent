@@ -71,9 +71,9 @@ final class CountPoolCandidatesByPool
                 User::scopePositionDuration($userQuery, $filters['positionDuration']);
             }
 
-            // expectedClassifications
-            if (array_key_exists('expectedClassifications', $filters)) {
-                User::scopeClassifications($userQuery, $filters['expectedClassifications']);
+            // classifications
+            if (array_key_exists('classifications', $filters)) {
+                User::scopeClassifications($userQuery, $filters['classifications']);
             }
 
             // skills
