@@ -43,6 +43,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     watch,
     register,
     setValue,
+    setFocus,
     formState: { isSubmitSuccessful },
     reset,
   } = methods;
@@ -90,10 +91,11 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
 
   React.useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
-      window.scrollTo(0, 0);
+      // Help users out by focusing the first input after scrolling
+      setFocus("type");
       reset();
     }
-  }, [isSubmitSuccessful, reset, action]);
+  }, [isSubmitSuccessful, reset, action, setFocus]);
 
   return (
     <FormProvider {...methods}>
