@@ -877,7 +877,6 @@ type PoolCandidate {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  stream: PoolStream
   hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
@@ -892,8 +891,7 @@ input PoolCandidateFilterBelongsTo {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput
-  expectedClassifications: [ClassificationFilterInput]
-  stream: PoolStream
+  classifications: [ClassificationFilterInput]
   email: String
   generalSearch: String
   hasDiploma: Boolean

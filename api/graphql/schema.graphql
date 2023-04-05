@@ -609,7 +609,6 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  stream: PoolStream
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -849,9 +848,8 @@ input UserPoolFilterInput {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
+  classifications: [ClassificationFilterInput]
     @scope(name: "expectedClassifications")
-  stream: PoolStream
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope

@@ -57,10 +57,6 @@ class PoolCandidateFilter extends Model
     {
         return $this->hasOne(PoolCandidateSearchRequest::class);
     }
-    public function stream()
-    {
-        return $this->stream;
-    }
 
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */
     public function getEquityAttribute()
