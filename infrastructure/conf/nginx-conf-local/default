@@ -121,6 +121,12 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
+    # no cache
+    location = /config.js {
+        alias /home/site/wwwroot/apps/web/dist/config.js;
+        add_header Cache-Control no-store;
+    }
+
     # rewrite tc-report static files to "tc-report/_site"
     location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
         rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;

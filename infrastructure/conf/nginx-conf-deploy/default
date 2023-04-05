@@ -96,9 +96,10 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
-    # find the web config in the writable home root
+    # find the web config in the writable home root, never use cached
     location = /config.js {
         alias /home/site/config-web.js;
+        add_header Cache-Control no-store;
     }
 
     # rewrite tc-report static files to "tc-report/_site"
