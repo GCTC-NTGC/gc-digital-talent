@@ -7376,5 +7376,89 @@
   "F5KhNJ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre CV. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus de renseignements sur ce qu’un certain type peut inclure, jetez un œil sur les renseignements ci-dessous pour voir des exemples.",
     "description": "Instructions on how to add an experience to your résumé"
+  },
+  "+5+rJS": {
+    "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
+    "description": "Description for personal experience section"
+  },
+  "+7v9Dq": {
+    "defaultMessage": "Sauvegarder et ajouter un autre",
+    "description": "Text for save button and add another button on experience form."
+  },
+  "0jNQ/I": {
+    "defaultMessage": "Nous comptons toute une gamme de réalisations et d’expériences qui viennent façonner tant notre carrière que nos compétences. Veuillez nous faire part de ce que vous êtes confortable à partager avec un collègue. Sur cette plateforme, vous pouvez ajouter ce qui suit à votre CV :",
+    "description": "Lead-in text for the list of experience type definitions"
+  },
+  "4x7seT": {
+    "defaultMessage": "Veuillez décrire les principales tâches et responsabilités pour lesquelles vous étiez responsable dans le cadre de ce rôle.",
+    "description": "Help text for the experience tasks and responsibilities field"
+  },
+  "5PUycY": {
+    "defaultMessage": "Sélectionner un type",
+    "description": "Default selection for the experience type field"
+  },
+  "CB2LXg": {
+    "defaultMessage": "Veuillez fournir des détails ayant trait à l’expérience.",
+    "description": "Help text for the experience details section"
+  },
+  "DRYl88": {
+    "defaultMessage": "Prix et reconnaissance",
+    "description": "Title for award experience section"
+  },
+  "ETNZUJ": {
+    "defaultMessage": "Vos tâches et responsabilités",
+    "description": "Label for the experience task and responsibilities field"
+  },
+  "GNHnrr": {
+    "defaultMessage": "Veuillez partager vos expériences à temps partiel, à plein temps, dans le cadre d’un emploi à votre compte, d’une bourse, d’une organisation sans but lucratif ou de tout stage.",
+    "description": "Description for work experience section"
+  },
+  "IWJ/Qi": {
+    "defaultMessage": "Veuillez nous faire part de prix et de reconnaissances en particulier que vous avez reçus en raison du fait que vous avez été au-delà de votre devoir.",
+    "description": "Description for award experience section"
+  },
+  "PFoM2I": {
+    "defaultMessage": "Éducation et certificats",
+    "description": "Title for education experience section"
+  },
+  "PyAtIt": {
+    "defaultMessage": "Détails ayant trait à l’expérience",
+    "description": "Heading for the details section of the experience form"
+  },
+  "UDMUHH": {
+    "defaultMessage": "Apprentissage personnel",
+    "description": "Title for personal experience section"
+  },
+  "Uy5Dg2": {
+    "defaultMessage": "Participation de la collectivité",
+    "description": "Title for community experience section"
+  },
+  "VW3KlZ": {
+    "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
+    "description": "Description for education experience section"
+  },
+  "a1Cych": {
+    "defaultMessage": "Partagez comment la participation est venue améliorer votre croissance, y compris le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
+    "description": "Description for community experience section"
+  },
+  "chnoRd": {
+    "defaultMessage": "Type d’expérience",
+    "description": "Label for the type of experience a user is creating"
+  },
+  "h5OdMq": {
+    "defaultMessage": "Apprenez-en davantage sur les types d’expérience que vous pouvez ajouter",
+    "description": "Button text to open section describing experience types"
+  },
+  "jDvu8u": {
+    "defaultMessage": "Tâches et responsabilités",
+    "description": "Heading for the tasks section of the experience form"
+  },
+  "jw6Umr": {
+    "defaultMessage": "Veuillez sélectionner un type d’expérience",
+    "description": "Heading for the experience type section fo the experience form"
+  },
+  "z+qxaE": {
+    "defaultMessage": "Veuillez sélectionner un type afin de poursuivre.",
+    "description": "Test displayed on the experience form when a user has not selected an experience type."
   }
 }
