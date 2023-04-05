@@ -1,6 +1,5 @@
+// Note: __typename comes from the API so can be ignored here
 /* eslint-disable no-underscore-dangle */
-import {} from "@gc-digital-talent/graphql";
-
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
