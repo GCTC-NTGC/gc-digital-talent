@@ -399,7 +399,18 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only return applicants who have expressed interest in any of $classifications.
+     * Applicants have been able to record this interest in various ways, so this scope may consider three fields on
+     * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
+     *
+     * @param Builder $query
+     * @param array|null $classifications
+     * @return Builder
+     */
+    public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Query\Expression;
 
 return new class extends Migration
 {
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('applicant_filters', function (Blueprint $table) {
-            $table->string('stream')->nullable();
+            $table->jsonb('qualified_streams')->default(new Expression('\'[]\'::jsonb'));
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('applicant_filters', function (Blueprint $table) {
-            $table->dropColumn('stream');
+            $table->dropColumn('qualified_streams');
         });
     }
 };

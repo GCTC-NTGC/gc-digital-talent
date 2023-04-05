@@ -80,7 +80,16 @@ class PoolCandidate extends Model
         return $this->belongsTo(Pool::class);
     }
 
-    public function scopeClassifications(Builder $query, ?array $classifications): Builder
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only include applicants who have expressed interest in any of $classifications.
+     *
+     * @param Builder $query
+     * @param array|null $classifications
+     * @return Builder
+     */
+    public function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -90,7 +99,7 @@ class PoolCandidate extends Model
         // pointing to the classification scope on the User model
         // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
         $query->whereHas('user', function ($query) use ($classifications) {
-            User::scopeClassifications($query, $classifications);
+            User::scopeExpectedClassifications($query, $classifications);
         });
         return $query;
     }
@@ -150,7 +159,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($equity) {
             User::scopeEquity($query, $equity);
         });
@@ -164,7 +172,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($search) {
             User::scopeGeneralSearch($query, $search);
         });
@@ -178,7 +185,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($name) {
             User::scopeName($query, $name);
         });
@@ -192,7 +198,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($email) {
             User::scopeEmail($query, $email);
         });
@@ -227,7 +232,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($hasDiploma) {
             User::scopeHasDiploma($query, $hasDiploma);
         });

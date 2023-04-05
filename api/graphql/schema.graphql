@@ -632,12 +632,11 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: [Classification]
+  expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
-  classifications: [Classification]
-    @belongsToMany(relation: "classifications")
-  stream: PoolStream
+  qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
@@ -851,7 +850,7 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+    @scope(name: "expectedClassifications")
   stream: PoolStream
   email: String @scope
   generalSearch: String @scope
@@ -881,8 +880,8 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+  expectedClassifications: [ClassificationFilterInput]  # Filters applicants based on the classifications they've expressed interest in.
+    @scope(name: "expectedClassifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -890,7 +889,8 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  stream: PoolStream
+  qualifiedClassifications: [ClassificationFilterInput] # Filters applicants based on the classification of pools they've qualified in.
+  qualifiedStreams: PoolStream # Filters applicants based on the stream of pools they've qualified in.
 }
 
 input PoolCandidateSearchInput {
@@ -1444,7 +1444,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
-  stream: PoolStream
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
 }
 
 input ApplicantFilterBelongsTo {
@@ -1880,7 +1881,10 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
     @can(ability: "submit", find: "id")
-  updateApplication(id: ID!, application: UpdateApplicationInput! @spread): PoolCandidate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput! @spread
+  ): PoolCandidate
     @update(model: "PoolCandidate")
     @guard
     @can(ability: "update", find: "id", model: "PoolCandidate")
