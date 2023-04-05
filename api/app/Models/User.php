@@ -14,8 +14,8 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
-use Laratrust\Traits\LaratrustUserTrait;
-use Laratrust\Contracts\LaratrustUserInterface;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
 
 /**
@@ -66,12 +66,11 @@ use Carbon\Carbon;
  * @property string $preferred_language_for_exam
  */
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, LaratrustUser
 {
 
     use Authorizable;
-    use LaratrustUserTrait;
-    use LaratrustUserInterface;
+    use HasRolesAndPermissions;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
