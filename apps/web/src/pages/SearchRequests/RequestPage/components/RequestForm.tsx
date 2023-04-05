@@ -146,7 +146,7 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          classifications: {
+          expectedClassifications: {
             sync: selectedClassifications
               ? selectedClassifications
                   .filter(notEmpty)
@@ -207,7 +207,7 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    classifications:
+    expectedClassifications:
       selectedClassifications?.map((expectedClassification) => {
         return classifications.find((classification) => {
           return (

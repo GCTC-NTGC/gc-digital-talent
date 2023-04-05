@@ -75,7 +75,7 @@ function transformPoolCandidateSearchInputToFormValues(
 ): FormValues {
   return {
     classifications:
-      input?.applicantFilter?.classifications
+      input?.applicantFilter?.expectedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.stream
@@ -420,7 +420,7 @@ const PoolCandidatesTable = ({
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
-        classifications: data.classifications.map((classification) => {
+        expectedClassifications: data.classifications.map((classification) => {
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),

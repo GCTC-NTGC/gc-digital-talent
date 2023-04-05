@@ -632,6 +632,8 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  expectedClassifications: [Classification]
+    @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   classifications: [Classification]
     @belongsToMany(relation: "classifications")
@@ -848,7 +850,7 @@ input UserPoolFilterInput {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
-  classifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   stream: PoolStream
   email: String @scope
@@ -879,7 +881,7 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  classifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
@@ -1436,7 +1438,7 @@ input CreateApplicantFilterInput {
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  classifications: ClassificationBelongsToMany
+  expectedClassifications: ClassificationBelongsToMany
     @rename(attribute: "classifications")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany

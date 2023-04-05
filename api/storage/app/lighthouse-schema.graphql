@@ -69,6 +69,7 @@ type ApplicantFilter {
   locationPreferences: [WorkRegion]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
+  expectedClassifications: [Classification]
   skills: [Skill]
   classifications: [Classification]
   stream: PoolStream
@@ -81,7 +82,7 @@ input ApplicantFilterBelongsTo {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  classifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput]
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
@@ -244,7 +245,7 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
   positionDuration: [PositionDuration]
-  classifications: ClassificationBelongsToMany
+  expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
@@ -889,7 +890,7 @@ input PoolCandidateFilterBelongsTo {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput
-  classifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput]
   stream: PoolStream
   email: String
   generalSearch: String

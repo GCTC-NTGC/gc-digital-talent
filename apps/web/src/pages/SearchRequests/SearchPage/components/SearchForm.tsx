@@ -221,7 +221,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ? classificationMap.get(values.classification)
           : undefined;
         return {
-          classifications: [selectedClassification],
+          expectedClassifications: [selectedClassification],
           skills: values.skills
             ? values.skills
                 .filter((id) => !!id)

@@ -51,8 +51,8 @@ const applicantFilterToQueryArgs = (
       where: {
         ...filter,
         equity: { ...filter?.equity },
-        classifications: filter?.classifications
-          ? pickMap(filter.classifications, ["group", "level"])
+        expectedClassifications: filter?.expectedClassifications
+          ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
         // TODO: pickMap the skills array as well?
         // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
@@ -218,7 +218,7 @@ const SearchContainer = ({
   const employmentDuration = applicantFilter?.positionDuration;
 
   const selectedClassifications =
-    applicantFilter?.classifications?.filter(notEmpty);
+    applicantFilter?.expectedClassifications?.filter(notEmpty);
 
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
