@@ -7380,5 +7380,9 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
+  },
+  "88dH+F": {
+    "defaultMessage": "Revenir à la dernière étape sur laquelle je travaillais",
+    "description": "Button text to return back to the last step"
   }
 }
