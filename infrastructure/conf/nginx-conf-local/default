@@ -60,6 +60,9 @@ server {
         break;
     }
 
+    # enable serving gzip-ed files
+    gzip_static on;
+
     # api
     location = /phpinfo.php {
         fastcgi_pass 127.0.0.1:9000;

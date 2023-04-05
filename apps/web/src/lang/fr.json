@@ -7020,6 +7020,14 @@
     "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
     "description": "Follow in text for the team being updated"
   },
+  "2i8/jR": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Page title for the applicant dashboard page."
+  },
+  "LRZeax": {
+    "defaultMessage": "Mon tableau de bord",
+    "description": "Label displayed on the applicant dashboard menu item."
+  },
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
@@ -7237,7 +7245,7 @@
     "description": "Description for the department-specific recruitment form"
   },
   "1pbvy+": {
-    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau du directeur général de l’information des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
+    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau de la dirigeante principale de l’information du Canada des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
     "description": "The directives planning and reporting component"
   },
   "8yB2Bm": {

@@ -7,6 +7,7 @@ import { ExperienceType } from "~/types/experience";
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
+  const applicantUrl = path.join(baseUrl, "applicant");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
     applicationId ? `?applicationId=${applicationId}` : "";
@@ -256,6 +257,9 @@ const getRoutes = (lang: Locales) => {
       createExperienceUrl("personal", userId, applicationId),
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
+
+    // Applicant Dashboard
+    dashboard: () => path.join(applicantUrl, "dashboard"),
 
     /**
      * Deprecated

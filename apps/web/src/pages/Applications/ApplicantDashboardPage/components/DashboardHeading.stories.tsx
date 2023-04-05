@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { experienceGenerators, fakeUsers } from "@gc-digital-talent/fake-data";
 
-import { DashboardHeading } from "./DashboardHeading";
+import DashboardHeading from "./DashboardHeading";
 
 type Story = ComponentStory<typeof DashboardHeading>;
 type Meta = ComponentMeta<typeof DashboardHeading>;
