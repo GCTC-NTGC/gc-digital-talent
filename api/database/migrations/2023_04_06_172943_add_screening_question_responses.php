@@ -19,6 +19,7 @@ return new class extends Migration
             $table->uuid('screening_question_id');
             $table->foreign("screening_question_id")->references("id")->on("screening_questions");
             $table->text('answer');
+            $table->unique(['pool_candidate_id', 'screening_question_id']);
             $table->softDeletes();
             $table->timestamps();
         });
