@@ -121,10 +121,10 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
-    # no cache
+    # limit cache
     location = /config.js {
         alias /home/site/wwwroot/apps/web/dist/config.js;
-        add_header Cache-Control no-store;
+        add_header Cache-Control "public, max-age=60";
     }
 
     # rewrite tc-report static files to "tc-report/_site"
