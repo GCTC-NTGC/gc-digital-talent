@@ -1,14 +1,23 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import { StarIcon } from "@heroicons/react/20/solid";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import { useParams } from "react-router-dom";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { AnyExperience } from "~/types/experience";
+import {
+  GetMyExperiencesQuery,
+  useGetApplicationQuery,
+  useGetMyExperiencesQuery,
+} from "~/api/generated";
+
+import { ApplicationPageProps } from "../ApplicationApi";
+import { deriveExperienceType } from "../../../utils/experienceUtils";
+import EditExperienceForm from "./components/ExperienceEditForm";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -52,7 +61,14 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationResumeEdit = ({ application }: ApplicationPageProps) => {
+interface ApplicationResumeEditProps extends ApplicationPageProps {
+  experience: AnyExperience;
+}
+
+const ApplicationResumeEdit = ({
+  application,
+  experience,
+}: ApplicationResumeEditProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { experienceId } = useParams();
@@ -63,11 +79,66 @@ const ApplicationResumeEdit = ({ application }: ApplicationPageProps) => {
     resourceId: experienceId,
   });
 
-  return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
+  return (
+    <>
+      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <p data-h2-margin="base(0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "From here you can edit this experience. Don't forget, work experiences should focus on describing  your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
+          id: "zMZQLY",
+          description: "Description for editing an experience.",
+        })}
+      </p>
+      <EditExperienceForm
+        applicationId={application.id}
+        experience={experience}
+      />
+    </>
+  );
 };
 
-const ApplicationResumeEditPage = () => (
-  <ApplicationApi PageComponent={ApplicationResumeEdit} />
-);
+const ApplicationResumeEditPage = () => {
+  const { applicationId, experienceId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
+
+  const application = applicationData?.poolCandidate;
+  const experience = experienceData?.me?.experiences?.find(
+    (exp) => exp?.id === experienceId,
+  );
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application?.poolAdvertisement && experience ? (
+        <ApplicationResumeEdit
+          application={application}
+          experience={experience}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationResumeEditPage;

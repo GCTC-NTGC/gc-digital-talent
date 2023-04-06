@@ -57,7 +57,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
     formValues,
   ) => {
-    const submitData = formValuesToSubmitData(type, formValues, []);
+    const submitData = formValuesToSubmitData(formValues, [], type);
     const args = getMutationArgs(user?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)

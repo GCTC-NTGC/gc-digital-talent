@@ -13,11 +13,17 @@ import EducationFields from "./EducationFields";
 import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields";
 import NullExperienceType from "./NullExperienceType";
+import { ExperienceType } from "../../types/experience";
 
-const ExperienceDetails = () => {
+interface ExperienceDetailsProps {
+  experienceType?: ExperienceType;
+}
+
+const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
   const type = useWatch({ name: "type" });
   const labels = getExperienceFormLabels(intl, type);
+  const derivedType = type || experienceType;
 
   return (
     <>
@@ -39,11 +45,11 @@ const ExperienceDetails = () => {
                 description: "Help text for the experience details section",
               })}
             </p>
-            {type === "award" && <AwardFields labels={labels} />}
-            {type === "community" && <CommunityFields labels={labels} />}
-            {type === "education" && <EducationFields labels={labels} />}
-            {type === "personal" && <PersonalFields labels={labels} />}
-            {type === "work" && <WorkFields labels={labels} />}
+            {derivedType === "award" && <AwardFields labels={labels} />}
+            {derivedType === "community" && <CommunityFields labels={labels} />}
+            {derivedType === "education" && <EducationFields labels={labels} />}
+            {derivedType === "personal" && <PersonalFields labels={labels} />}
+            {derivedType === "work" && <WorkFields labels={labels} />}
           </>
         ) : (
           <NullExperienceType />
