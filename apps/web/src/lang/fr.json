@@ -7476,5 +7476,17 @@
   "z+qxaE": {
     "defaultMessage": "Veuillez sélectionner un type afin de poursuivre.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
+  },
+  "HtllH6": {
+    "defaultMessage": "Ojibwé de l’Ouest",
+    "description": "Name of Western Ojibway language"
+  },
+  "TEt9Ua": {
+    "defaultMessage": "Cris des Plaines",
+    "description": "Name of Plains Cree language"
+  },
+  "qxe/hN": {
+    "defaultMessage": "Mi’kmaq",
+    "description": "Name of Mikmaq language"
   }
 }
