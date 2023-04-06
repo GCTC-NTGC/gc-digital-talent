@@ -45,7 +45,7 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "3.2.2",
+    "@graphql-codegen/cli": "3.3.0",
     "@hydrogen-css/hydrogen": "2.0.1",
     "eslint-config-custom": "*",
     "prettier": "^2.8.7",
