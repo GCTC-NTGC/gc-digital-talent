@@ -24,7 +24,7 @@
     "react-router-dom": "^6.10.0",
     "storybook-addon-intl": "^2.4.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
-    "urql": "^3.0.4",
+    "urql": "^4.0.0",
     "wonka": "^6.3.1"
   }
 }
