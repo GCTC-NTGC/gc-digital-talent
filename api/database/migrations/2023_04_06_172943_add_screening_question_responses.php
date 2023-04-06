@@ -16,16 +16,11 @@ return new class extends Migration
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('pool_candidate_id');
             $table->foreign("pool_candidate_id")->references("id")->on("pool_candidates");
+            $table->uuid('screening_question_id');
+            $table->foreign("screening_question_id")->references("id")->on("screening_questions");
             $table->string('answer');
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::create('screening_question_screening_question_response', function (Blueprint $table) {
-            $table->uuid('question_id');
-            $table->foreign('question_id')->references('id')->on('screening_questions')->onUpdate('cascade')->onDelete('cascade');
-            $table->uuid('question_response_id');
-            $table->foreign('question_response_id')->references('id')->on('screening_question_responses')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -34,7 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('screening_question_screening_question_response');
         Schema::dropIfExists('screening_question_responses');
     }
 };
