@@ -207,6 +207,9 @@ class DatabaseSeeder extends Seeder
 
     private function seedPoolCandidate(User $user, Pool $pool)
     {
+        // grab the three questions seeded for pools, use the limited function in PoolCandidateFactory
+        $questionArray = $pool->screeningQuestions()->pluck('id')->toArray();
+
         // create a pool candidate in the pool
         PoolCandidate::factory()->for($user)->for($pool)
             ->afterCreating(function (PoolCandidate $candidate) {
@@ -214,6 +217,7 @@ class DatabaseSeeder extends Seeder
                     $candidate->createSnapshot();
                 }
             })
+            ->addScreeningQuestionResponseLimited($questionArray)
             ->create();
     }
 

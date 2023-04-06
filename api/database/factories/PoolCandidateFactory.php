@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
@@ -97,6 +98,42 @@ class PoolCandidateFactory extends Factory
                 'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
                 'submitted_steps' => ApiEnums::applicationSteps(),
             ];
+        });
+    }
+
+    /**
+     * Add screening questions fully from factory, this is split off as there is now a big factory chain
+     * ScreeningQuestionResponse calls ScreeningQuestion which calls Pool which calls Team which calls User
+     * For unit testing purposes where you aren't seeding 100+ pool candidates
+     * @return void
+     */
+    public function addScreeningQuestionResponseFull(int $questionCount = 3)
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) use ($questionCount) {
+            ScreeningQuestionResponse::factory()
+                ->count($questionCount)
+                ->create(['pool_candidate_id' => $poolCandidate->id]);
+        });
+    }
+
+    /**
+     * Add 3 responses, based off already created ScreeningQuestion models, uses the three questions seeded for every Pool model
+     * Does not call a chain of factories, for mass seeding pool candidates
+     * @return void
+     */
+    public function addScreeningQuestionResponseLimited(array $screeningQuestionIds)
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) use ($screeningQuestionIds) {
+            ScreeningQuestionResponse::factory()
+                ->count(3)
+                ->sequence(
+                    ['screening_question_id' => $screeningQuestionIds[0]],
+                    ['screening_question_id' => $screeningQuestionIds[1]],
+                    ['screening_question_id' => $screeningQuestionIds[2]],
+                )
+                ->create([
+                    'pool_candidate_id' => $poolCandidate->id,
+                ]);
         });
     }
 }
