@@ -2402,16 +2402,16 @@
         },
         {
             "name": "mll-lab/laravel-graphiql",
-            "version": "v1.2.0",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphiql.git",
-                "reference": "2631a8881f9aaf7d85ab5684be803ada1b91f158"
+                "reference": "0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/2631a8881f9aaf7d85ab5684be803ada1b91f158",
-                "reference": "2631a8881f9aaf7d85ab5684be803ada1b91f158",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c",
+                "reference": "0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c",
                 "shasum": ""
             },
             "require": {
@@ -2423,7 +2423,13 @@
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.29",
                 "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
-                "mll-lab/php-cs-fixer-config": "^4.4"
+                "mll-lab/php-cs-fixer-config": "^4.4",
+                "nunomaduro/larastan": "^2.4.1",
+                "orchestra/testbench": "^4 || ^5 || ^6 || ^7.7 || ^8.8",
+                "phpstan/extension-installer": "^1",
+                "phpstan/phpstan": "^1.10.3",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.1.1"
             },
             "type": "library",
             "extra": {
@@ -2456,9 +2462,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
-                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v1.2.0"
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v1.2.2"
             },
-            "time": "2023-02-02T14:45:05+00:00"
+            "time": "2023-04-04T15:41:13+00:00"
         },
         {
             "name": "monolog/monolog",
