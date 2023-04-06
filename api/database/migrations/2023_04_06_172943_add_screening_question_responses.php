@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign("pool_candidate_id")->references("id")->on("pool_candidates");
             $table->uuid('screening_question_id');
             $table->foreign("screening_question_id")->references("id")->on("screening_questions");
-            $table->string('answer');
+            $table->text('answer');
             $table->softDeletes();
             $table->timestamps();
         });
