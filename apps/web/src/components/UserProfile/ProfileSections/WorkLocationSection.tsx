@@ -7,33 +7,17 @@ import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { Applicant } from "~/api/generated";
-
-type PartialApplicant = Pick<
-  Applicant,
-  "locationPreferences" | "locationExemptions"
->;
-
-function anyCriteriaSelected(applicant: PartialApplicant): boolean {
-  return !isEmpty(applicant.locationPreferences);
-}
-
-export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
-  return !applicant.locationExemptions;
-}
+import {
+  anyCriteriaSelected,
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/profile/workLocation";
 
 const WorkLocationSection = ({
   applicant,
   editPath,
 }: {
-  applicant: PartialApplicant;
+  applicant: Applicant;
   editPath?: string;
 }) => {
   const intl = useIntl();

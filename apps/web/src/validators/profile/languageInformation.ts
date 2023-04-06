@@ -1,0 +1,56 @@
+import { Applicant, BilingualEvaluation } from "@gc-digital-talent/graphql";
+
+type PartialApplicant = Pick<
+  Applicant,
+  | "lookingForEnglish"
+  | "lookingForFrench"
+  | "lookingForBilingual"
+  | "bilingualEvaluation"
+  | "estimatedLanguageAbility"
+  | "writtenLevel"
+  | "comprehensionLevel"
+  | "verbalLevel"
+>;
+
+export function hasAllEmptyFields({
+  lookingForEnglish,
+  lookingForFrench,
+  lookingForBilingual,
+  bilingualEvaluation,
+}: PartialApplicant): boolean {
+  return (
+    !lookingForEnglish &&
+    !lookingForFrench &&
+    !lookingForBilingual &&
+    !bilingualEvaluation
+  );
+}
+
+export function hasEmptyRequiredFields({
+  lookingForEnglish,
+  lookingForFrench,
+  lookingForBilingual,
+  bilingualEvaluation,
+  writtenLevel,
+  comprehensionLevel,
+  verbalLevel,
+}: PartialApplicant): boolean {
+  return !!(
+    (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
+    (lookingForBilingual &&
+      (!bilingualEvaluation ||
+        ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+          bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
+          (!comprehensionLevel || !writtenLevel || !verbalLevel))))
+  );
+}
+
+export function hasEmptyOptionalFields({
+  bilingualEvaluation,
+  estimatedLanguageAbility,
+}: PartialApplicant): boolean {
+  return (
+    bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+    !estimatedLanguageAbility
+  );
+}
