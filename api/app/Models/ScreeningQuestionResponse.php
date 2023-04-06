@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Screening Question
+ * Class Screening Question Response
  *
  * @property string $id
- * @property string $pool_id
- * @property array $question
- * @property int $sort_order
+ * @property string $pool_candidate_id
+ * @property string $screening_question_id
+ * @property string $answer
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property Illuminate\Support\Carbon $deleted_at
  */
 
-class ScreeningQuestion extends Model
+class ScreeningQuestionResponse extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -31,9 +31,7 @@ class ScreeningQuestion extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'question' => 'array',
-    ];
+    protected $casts = [];
 
     /**
      * The attributes that can be filled using mass-assignment.
@@ -41,16 +39,16 @@ class ScreeningQuestion extends Model
      * @var array
      */
     protected $fillable = [
-        'question',
-        'sort_order',
+        'answer',
     ];
 
-    public function pool(): BelongsTo
+    public function poolCandidate(): BelongsTo
     {
-        return $this->belongsTo(Pool::class);
+        return $this->belongsTo(PoolCandidate::class);
     }
-    public function screeningQuestionResponses(): HasMany
+
+    public function screeningQuestion(): BelongsTo
     {
-        return $this->hasMany(ScreeningQuestionResponse::class);
+        return $this->belongsTo(ScreeningQuestion::class);
     }
 }
