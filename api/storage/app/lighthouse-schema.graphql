@@ -866,6 +866,7 @@ type PoolCandidate {
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
 }
 
 type PoolCandidateFilter {
@@ -1191,6 +1192,14 @@ type ScreeningQuestion {
   poolAdvertisement: PoolAdvertisement!
   question: LocalizedString!
   sortOrder: Int
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+}
+
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String!
+  question: ScreeningQuestion!
+  poolCandidate: PoolCandidate!
 }
 
 enum SecurityStatus {

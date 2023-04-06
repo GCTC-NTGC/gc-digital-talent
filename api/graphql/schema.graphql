@@ -324,6 +324,7 @@ type ScreeningQuestion {
   poolAdvertisement: PoolAdvertisement! @belongsTo(relation: "pool")
   question: LocalizedString!
   sortOrder: Int @rename(attribute: "sort_order")
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
 }
 
 type Pool {
@@ -454,6 +455,12 @@ enum ApplicationStep {
   REVIEW_AND_SUBMIT
 }
 
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String!
+  question: ScreeningQuestion! @belongsTo
+  poolCandidate: PoolCandidate! @belongsTo
+}
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
@@ -477,6 +484,7 @@ type PoolCandidate {
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
 }
 
 enum LanguageAbility {
@@ -1873,7 +1881,10 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
     @can(ability: "submit", find: "id")
-  updateApplication(id: ID!, application: UpdateApplicationInput! @spread): PoolCandidate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput! @spread
+  ): PoolCandidate
     @update(model: "PoolCandidate")
     @guard
     @can(ability: "update", find: "id", model: "PoolCandidate")
