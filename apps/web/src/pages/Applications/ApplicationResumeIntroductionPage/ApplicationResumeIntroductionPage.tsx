@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { StarIcon } from "@heroicons/react/20/solid";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
@@ -41,6 +42,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
     link: {
       url: path,
     },
+    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
+    stepSubmitted: null,
   };
 };
 

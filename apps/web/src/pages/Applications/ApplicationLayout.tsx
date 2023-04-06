@@ -7,6 +7,7 @@ import {
   Stepper,
   Pending,
   ThrowNotFound,
+  StepType,
 } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
@@ -21,7 +22,11 @@ import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
-import { useGetBasicApplicationInfoQuery } from "~/api/generated";
+import {
+  ApplicationStep,
+  Maybe,
+  useGetBasicApplicationInfoQuery,
+} from "~/api/generated";
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
@@ -37,6 +42,7 @@ import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuest
 import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
+import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
 
 type PageNavKey =
   | "welcome"
@@ -53,19 +59,70 @@ type PageNavKey =
   | "review"
   | "success";
 
-const deriveStepsFromPages = (pages: Map<PageNavKey, ApplicationPageInfo>) => {
+const missingPrerequisites = (
+  prerequisiteSteps: Maybe<Array<ApplicationStep>>,
+  submittedSteps: Maybe<Array<ApplicationStep>>,
+): Maybe<Array<ApplicationStep>> => {
+  return prerequisiteSteps?.filter(
+    (currentPagePrerequisite) =>
+      !submittedSteps?.includes(currentPagePrerequisite),
+  );
+};
+
+const deriveSteps = (
+  pages: Map<PageNavKey, ApplicationPageInfo>,
+  submittedSteps: Maybe<Array<ApplicationStep>>,
+): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
     .map((page) => ({
       label: page.link.label || page.title,
       href: page.link.url,
       icon: page.icon,
+      completed:
+        (page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted)) ??
+        false,
+      disabled:
+        !!missingPrerequisites(page.prerequisites, submittedSteps)?.length ??
+        false,
     }));
 
   steps.pop(); // We do not want to show final step in the stepper
 
   return steps;
 };
+
+// check if the current page should be disabled and figure out where to return the user to
+function checkForDisabledPage(
+  currentPageUrl: string | undefined,
+  pages: Map<PageNavKey, ApplicationPageInfo>,
+  submittedSteps: Maybe<ApplicationStep[]>,
+): { isOnDisabledPage: boolean; urlToReturnTo?: string } {
+  // copied from useCurrentPage, but I need the full ApplicationPageInfo
+  const pagesArray = Array.from(pages.values());
+  const currentPageInfo = pagesArray.find(
+    (page) => page.link.url === currentPageUrl,
+  );
+  const pageMissingPrerequisites = missingPrerequisites(
+    currentPageInfo?.prerequisites,
+    submittedSteps,
+  );
+
+  if (pageMissingPrerequisites && pageMissingPrerequisites.length > 0) {
+    // go back to the first missing page
+    const firstMissingPrerequisite = pageMissingPrerequisites[0];
+    const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
+      return p.stepSubmitted === firstMissingPrerequisite;
+    });
+    return {
+      isOnDisabledPage: true,
+      urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
+    };
+  }
+
+  // yay, nothing missing!
+  return { isOnDisabledPage: false };
+}
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -115,8 +172,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
-  const steps = deriveStepsFromPages(pages);
-  const currentStep = steps.findIndex((step) =>
+  const steps = deriveSteps(pages, application.submittedSteps);
+  const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
 
@@ -140,6 +197,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     },
     ...currentCrumbs,
   ]);
+
+  const { isOnDisabledPage, urlToReturnTo } = checkForDisabledPage(
+    currentPage?.link.url,
+    pages,
+    application.submittedSteps,
+  );
 
   return (
     <>
@@ -166,7 +229,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
-            <Outlet />
+            {isOnDisabledPage ? (
+              <StepDisabledPage returnUrl={urlToReturnTo} />
+            ) : (
+              <Outlet />
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>

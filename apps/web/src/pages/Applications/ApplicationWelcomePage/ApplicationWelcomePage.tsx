@@ -6,6 +6,7 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -49,6 +50,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application welcome page",
       }),
     },
+    prerequisites: [],
+    stepSubmitted: ApplicationStep.Welcome,
   };
 };
 

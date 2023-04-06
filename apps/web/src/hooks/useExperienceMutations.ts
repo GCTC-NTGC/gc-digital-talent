@@ -19,7 +19,7 @@ import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationArgs,
   ExperienceType,
-} from "./types";
+} from "~/types/experience";
 
 type ExperienceMutationType = "create" | "update";
 
@@ -39,7 +39,7 @@ type UpdateMutation =
 
 export const useExperienceMutations = (
   mutationType: ExperienceMutationType,
-  experienceType?: ExperienceType,
+  experienceType?: ExperienceType | "",
 ) => {
   const args: Record<ExperienceType, string> = {
     award: "awardExperience",
