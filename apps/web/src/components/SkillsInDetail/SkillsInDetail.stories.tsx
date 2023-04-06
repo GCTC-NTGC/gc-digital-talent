@@ -5,7 +5,7 @@ import { Meta, Story } from "@storybook/react";
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
+import type { FormSkills } from "~/types/experience";
 import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
 
 export default {

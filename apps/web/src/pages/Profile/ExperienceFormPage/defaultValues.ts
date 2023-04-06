@@ -1,6 +1,6 @@
+import type { ExperienceType } from "~/types/experience";
 import type {
   ExperienceDetailsDefaultValues,
-  ExperienceType,
   ExperienceQueryData,
 } from "./types";
 
