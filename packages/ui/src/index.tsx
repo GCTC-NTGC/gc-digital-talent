@@ -17,6 +17,7 @@ import Card, {
 import CardLink, { type CardLinkProps } from "./components/CardLink";
 import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
+import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
@@ -57,6 +58,7 @@ import SideMenu, {
   type SideMenuItemProps,
 } from "./components/SideMenu";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
+import { StepType } from "./components/Stepper/types";
 import Switch from "./components/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
@@ -99,6 +101,7 @@ export type {
   SideMenuProps,
   SideMenuItemProps,
   StepperProps,
+  StepType,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -119,6 +122,7 @@ export {
   Chips,
   Chip,
   Collapsible,
+  DefinitionList,
   Dialog,
   DropdownMenu,
   Flourish,

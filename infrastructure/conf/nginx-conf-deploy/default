@@ -45,6 +45,9 @@ server {
         return 301 /fr/indigenous-it-apprentice;
     }
 
+    # enable serving gzip-ed files
+    gzip_static on;
+
     # api
     location = /graphql {
         fastcgi_pass 127.0.0.1:9000;
@@ -176,6 +179,13 @@ server {
         add_header Cache-Control no-cache;
         expires 0;
         rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "applications" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/applications(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
+        rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "create-account" to apps/web index.html

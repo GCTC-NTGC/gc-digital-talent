@@ -35,6 +35,17 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
+import {
+  useExperienceMutations,
+  useDeleteExperienceMutation,
+} from "~/hooks/useExperienceMutations";
+import type {
+  ExperienceType,
+  AllExperienceFormValues,
+  ExperienceFormValues,
+  ExperienceDetailsSubmissionData,
+  ExperienceMutationResponse,
+} from "~/types/experience";
 import AwardFormFields from "./components/AwardFormFields/AwardFormFields";
 import CommunityFormFields from "./components/CommunityFormFields/CommunityFormFields";
 import EducationFormFields from "./components/EducationFormFields/EducationFormFields";
@@ -43,22 +54,10 @@ import WorkFormFields from "./components/WorkFormFields/WorkFormFields";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
-import type {
-  ExperienceType,
-  AllFormValues,
-  FormValues,
-  ExperienceDetailsSubmissionData,
-  ExperienceMutationResponse,
-  ExperienceQueryData,
-} from "./types";
-
 import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
-import {
-  useExperienceMutations,
-  useDeleteExperienceMutation,
-} from "./mutations";
 import getExperienceFormLabels from "./labels";
+import { ExperienceQueryData } from "./types";
 
 export interface ExperienceFormProps {
   userId: string;
@@ -191,9 +190,9 @@ export const ExperienceForm = ({
     ? queryResultToDefaultValues(experienceType, newExperience)
     : undefined;
 
-  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
-    formValues,
-  ) => {
+  const handleSubmit: SubmitHandler<
+    ExperienceFormValues<AllExperienceFormValues>
+  > = async (formValues) => {
     const data = formValuesToSubmitData(
       experienceType,
       formValues,

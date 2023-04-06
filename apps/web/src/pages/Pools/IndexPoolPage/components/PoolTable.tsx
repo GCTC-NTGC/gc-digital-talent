@@ -10,6 +10,7 @@ import {
   getLocale,
   commonMessages,
   getLocalizedName,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -231,6 +232,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         },
         Cell: ({ row }: PoolCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Publishing group",
+          id: "rYgaTA",
+          description:
+            "Title displayed for the Pool table publishing group column.",
+        }),
+        accessor: (d) => {
+          return intl.formatMessage(
+            d.publishingGroup
+              ? getPublishingGroup(d.publishingGroup)
+              : commonMessages.notFound,
+          );
+        },
       },
       {
         Header: intl.formatMessage({
