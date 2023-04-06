@@ -6,10 +6,11 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { Scalars, Skill, SkillCategory } from "~/api/generated";
+import { AnyExperience } from "~/types/experience";
 
 import SkillSelection from "./SkillSelection";
 import ProficiencySelection, { Proficiency } from "./ProficiencySelection";
-import AddExperiences, { AnyExperienceType } from "./AddExperiences";
+import AddExperiences from "./AddExperiences";
 
 interface FormExperience {
   experience: Scalars["ID"];
@@ -35,7 +36,7 @@ const defaultFormValues: FormValues = {
 export interface SkillDialogProps {
   skills: Skill[];
   onSave: (values: FormValues) => Promise<void>;
-  experiences?: AnyExperienceType[];
+  experiences?: AnyExperience[];
 }
 
 const AddASkillToLibraryDialog = ({
@@ -84,78 +85,83 @@ const AddASkillToLibraryDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleAddSkill)}>
-            <Dialog.Header color="blue">{title}</Dialog.Header>
-            <SkillSelection skills={skills} onSelectSkill={setSelectedSkill} />
-            <ProficiencySelection selectedSkill={selectedSkill} />
-            <AddExperiences
-              selectedSkill={selectedSkill}
-              experiences={experiences}
-            />
-            <Dialog.Footer
-              data-h2-justify-content="base(flex-start)"
-              data-h2-align-items="base(flex-start)"
-            >
-              <div>
-                <Button
-                  type="submit"
-                  {...(skill
-                    ? {
-                        disabled: isSubmitting,
-                        color: "blue",
-                        mode: "solid",
-                        "aria-describedby": undefined,
-                      }
-                    : {
-                        disabled: true,
-                        color: "black",
-                        mode: "outline",
-                        "aria-describedby": "skill-submit-help",
-                      })}
-                >
-                  {isSubmitting
-                    ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Save this skill",
-                        id: "UK7YPO",
+        <Dialog.Header>{title}</Dialog.Header>
+        <Dialog.Body>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(handleAddSkill)}>
+              <SkillSelection
+                skills={skills}
+                onSelectSkill={setSelectedSkill}
+              />
+              <ProficiencySelection selectedSkill={selectedSkill} />
+              <AddExperiences
+                selectedSkill={selectedSkill}
+                experiences={experiences}
+              />
+              <Dialog.Footer
+                data-h2-justify-content="base(flex-start)"
+                data-h2-align-items="base(flex-start)"
+              >
+                <div>
+                  <Button
+                    type="submit"
+                    {...(skill
+                      ? {
+                          disabled: isSubmitting,
+                          color: "blue",
+                          mode: "solid",
+                          "aria-describedby": undefined,
+                        }
+                      : {
+                          disabled: true,
+                          color: "black",
+                          mode: "outline",
+                          "aria-describedby": "skill-submit-help",
+                        })}
+                  >
+                    {isSubmitting
+                      ? intl.formatMessage(commonMessages.saving)
+                      : intl.formatMessage({
+                          defaultMessage: "Save this skill",
+                          id: "UK7YPO",
+                          description:
+                            "Button text for skill dialog submit button",
+                        })}
+                  </Button>
+                  {!skill && (
+                    <p
+                      id="skill-submit-help"
+                      data-h2-font-size="base(caption)"
+                      data-h2-margin="base(x.5, 0, 0, 0)"
+                    >
+                      {intl.formatMessage({
+                        id: "ZrUAVI",
+                        defaultMessage: "Please, select a skill to continue",
                         description:
-                          "Button text for skill dialog submit button",
+                          "Help text to explain why skill dialog submit button is disabled",
                       })}
-                </Button>
-                {!skill && (
-                  <p
-                    id="skill-submit-help"
-                    data-h2-font-size="base(caption)"
-                    data-h2-margin="base(x.5, 0, 0, 0)"
+                    </p>
+                  )}
+                </div>
+                <Dialog.Close>
+                  <Button
+                    type="button"
+                    mode="inline"
+                    color="blue"
+                    data-h2-padding="base(x.5, 0)"
                   >
                     {intl.formatMessage({
-                      id: "ZrUAVI",
-                      defaultMessage: "Please, select a skill to continue",
+                      defaultMessage: "Cancel",
+                      id: "OVBFto",
                       description:
-                        "Help text to explain why skill dialog submit button is disabled",
+                        "Button text to cancel and close the skill dialog",
                     })}
-                  </p>
-                )}
-              </div>
-              <Dialog.Close>
-                <Button
-                  type="button"
-                  mode="inline"
-                  color="blue"
-                  data-h2-padding="base(x.5, 0)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Cancel",
-                    id: "OVBFto",
-                    description:
-                      "Button text to cancel and close the skill dialog",
-                  })}
-                </Button>
-              </Dialog.Close>
-            </Dialog.Footer>
-          </form>
-        </FormProvider>
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
+        </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
   );

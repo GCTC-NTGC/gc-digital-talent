@@ -32,7 +32,7 @@ const ExperienceHelpMessage = () => {
         base:selectors[[data-state='open']]:children[.Chevron](rotate(90deg))"
           >
             <ChevronRightIcon
-              data-h2-color="base(tm-blue)"
+              data-h2-color="base(secondary)"
               data-h2-width="base(x1)"
               data-h2-height="base(x1)"
               data-h2-font-weight="base(700)"

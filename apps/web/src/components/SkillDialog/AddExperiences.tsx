@@ -54,7 +54,7 @@ const AddExperiences = ({
         {fields.map((field, index) => (
           <div
             key={field.id}
-            data-h2-border="base(left, x.25, solid, tm-purple)"
+            data-h2-border="base(left, x.25, solid, primary)"
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(0, 0, 0, x1)"
           >

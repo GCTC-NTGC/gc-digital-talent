@@ -68,7 +68,7 @@ const SkillSelection = ({
 
   return (
     <>
-      <Heading level="h2" size="h5">
+      <Heading level="h2" size="h5" data-h2-margin-top="base(0)">
         {showStep
           ? intl.formatMessage({
               defaultMessage: "1. Find the skill you'd like to add",
@@ -83,7 +83,7 @@ const SkillSelection = ({
       </Heading>
       <div
         data-h2-display="base(grid)"
-        data-h2-gap="base(0, x1) p-tablet(x1, 0)"
+        data-h2-gap="base(x1, 0) p-tablet(0, x1)"
         data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
         data-h2-margin="base(x1, 0)"
       >
@@ -169,7 +169,7 @@ const SkillSelection = ({
           }))}
         />
       </div>
-      {selectedSkill && (
+      {selectedSkill && selectedSkill.description && (
         <>
           <Heading level="h3" size="h6" data-h2-font-weight="base(400)">
             {intl.formatMessage({
