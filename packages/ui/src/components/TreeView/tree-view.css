@@ -1,47 +1,8 @@
-/* .tree::before {
-  content: "";
-  display: block;
-  width: 0;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  border-left: 1px solid gray;
-  z-index: 1;
-}
-
-.tree .leaf {
-  margin: 0;
-  padding: 0 0.8em;
-  margin-bottom: 1rem;
-  padding-left: 2rem;
+/* These selectors are required due to interfering properties on the component  */
+.tree-view-item {
   position: relative;
 }
 
-.tree .leaf::before {
-  content: "";
-  display: block;
-  width: 32px;
-  border-top: 1px solid gray;
-  position: absolute;
-  top: 50%;
-  left: 0;
-}
-
-.tree .leaf:last-child::before {
-  background: inherit;
-  bottom: 0;
-  z-index: 1;
-} */
-
-.leaf {
-  /* margin: 0;
-  padding: 0 0.8em;
-  margin-bottom: 1rem;
-  padding-left: 2rem; */
-  position: relative;
-}
-
-.leaf:last-child::before {
+.tree-view-item:last-child::before {
   border-left: 1px solid rgba(203, 203, 203, 1);
 }

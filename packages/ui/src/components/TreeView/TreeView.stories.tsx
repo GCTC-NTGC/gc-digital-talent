@@ -5,6 +5,7 @@ import TreeView from "./TreeView";
 import Button from "../Button";
 import Accordion from "../Accordion";
 import Card from "../Card";
+import Alert from "../Alert";
 
 export default {
   component: TreeView.Root,
@@ -13,11 +14,12 @@ export default {
 
 const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
   return (
-    <TreeView.Root
-      title="Title"
-      subtitle="Subtitle"
-      error="Error/Warning message"
-    >
+    <TreeView.Root title="Title" subtitle="Subtitle">
+      <TreeView.Item noBranch>
+        <Alert.Root type="warning" data-h2-margin="base(0, 0)">
+          <Alert.Title>Error/Warning: {faker.lorem.sentences(1)}</Alert.Title>
+        </Alert.Root>
+      </TreeView.Item>
       <TreeView.Item>
         <Accordion.Root type="single" collapsible data-h2-margin="base(0, 0)">
           <Accordion.Item value="one">
