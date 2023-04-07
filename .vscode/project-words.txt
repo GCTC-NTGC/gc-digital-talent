@@ -58,7 +58,6 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
-résumé
 rolepermission
 skillset
 subcomponents
