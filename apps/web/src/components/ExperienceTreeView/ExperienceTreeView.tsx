@@ -34,7 +34,11 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
       {experiences.length > 0 &&
         experiences.map((experience) => (
           <TreeView.Item key={experience.id}>
-            <Accordion.Root type="single" collapsible>
+            <Accordion.Root
+              type="single"
+              collapsible
+              data-h2-margin="base(0, 0)"
+            >
               <ExperienceAccordion experience={experience} />{" "}
               {/* TODO: Add editUrlPaths when edit experience dialog component is completed. */}
             </Accordion.Root>

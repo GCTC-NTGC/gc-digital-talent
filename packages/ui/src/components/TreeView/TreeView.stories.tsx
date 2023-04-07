@@ -19,7 +19,7 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
       error="Error/Warning message"
     >
       <TreeView.Item>
-        <Accordion.Root type="single" collapsible data-h2-margin-top="base(x1)">
+        <Accordion.Root type="single" collapsible data-h2-margin="base(0, 0)">
           <Accordion.Item value="one">
             <Accordion.Trigger subtitle="Accordion Subtitle">
               Accordion Title
