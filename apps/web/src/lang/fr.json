@@ -7476,5 +7476,13 @@
   "z+qxaE": {
     "defaultMessage": "Veuillez sélectionner un type afin de poursuivre.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
+  },
+  "7XSyhV": {
+    "defaultMessage": "Cette habilité obligatoires doit compter au moins une expérience connexe tirée du cv.",
+    "description": "Experience tree view error message"
+  },
+  "GE9NbK": {
+    "defaultMessage": "Lier à une expérience tirée du cv",
+    "description": "Experience tree view action button label"
   }
 }
