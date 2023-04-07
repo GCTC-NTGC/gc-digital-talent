@@ -1,7 +1,7 @@
 import React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Accordion, Button, TreeView } from "@gc-digital-talent/ui";
+import { Accordion, Alert, Button, TreeView } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 import { Skill } from "~/api/generated";
 import ExperienceAccordion from "../UserProfile/ExperienceAccordion/ExperienceAccordion";
@@ -20,17 +20,21 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
     <TreeView.Root
       title={skill.name[locale] ?? ""}
       subtitle={skill.description ? skill.description[locale] : ""}
-      error={
-        experiences.length === 0
-          ? intl.formatMessage({
-              defaultMessage:
-                "This required skill must have at least 1 résumé experience associated with it.",
-              id: "7XSyhV",
-              description: "Experience tree view error message",
-            })
-          : ""
-      }
     >
+      {experiences.length === 0 && (
+        <TreeView.Item>
+          <Alert.Root type="warning" data-h2-margin="base(0, 0)">
+            <Alert.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This required skill must have at least 1 résumé experience associated with it.",
+                id: "7XSyhV",
+                description: "Experience tree view error message",
+              })}
+            </Alert.Title>
+          </Alert.Root>
+        </TreeView.Item>
+      )}
       {experiences.length > 0 &&
         experiences.map((experience) => (
           <TreeView.Item key={experience.id}>
