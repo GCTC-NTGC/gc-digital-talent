@@ -1321,5 +1321,9 @@
   "Srs7a4": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Assistive technology skip link"
+  },
+  "fMcKtJ": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Text to cancel changes to a form"
   }
 }
