@@ -1202,7 +1202,7 @@ type ScreeningQuestion {
 
 type ScreeningQuestionResponse {
   id: ID!
-  answer: String!
+  answer: String
   screeningQuestion: ScreeningQuestion!
   poolCandidate: PoolCandidate!
 }

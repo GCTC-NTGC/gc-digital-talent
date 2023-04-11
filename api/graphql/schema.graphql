@@ -457,10 +457,11 @@ enum ApplicationStep {
 
 type ScreeningQuestionResponse {
   id: ID!
-  answer: String!
+  answer: String
   screeningQuestion: ScreeningQuestion! @belongsTo
   poolCandidate: PoolCandidate! @belongsTo
 }
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
