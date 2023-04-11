@@ -30,11 +30,15 @@ export interface RepeaterFieldsetProps {
   onMove: (from: number, to: number) => void;
   onRemove: () => void;
   children: React.ReactNode;
+  legend: React.ReactNode;
+  hideLegend?: boolean;
 }
 
 const Fieldset = ({
   index,
   total,
+  legend,
+  hideLegend = true,
   onMove,
   onRemove,
   children,
@@ -47,12 +51,27 @@ const Fieldset = ({
       data-h2-gap="base(0, x.25)"
       data-h2-border="base(none)"
     >
+      <legend data-h2-visually-hidden="base(hidden)">{legend}</legend>
       <div
         data-h2-flex-grow="base(1)"
         data-h2-padding="base(x1)"
         data-h2-shadow="base(medium)"
         data-h2-radius="base(rounded)"
       >
+        {
+          /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
+          !hideLegend && (
+            <p
+              aria-hidden="true"
+              role="presentation"
+              data-h2-margin="base(0, 0, x.5, 0)"
+              data-h2-color="base(inherit)"
+              data-h2-font-weight="base(800)"
+            >
+              {legend}
+            </p>
+          )
+        }
         {children}
       </div>
       <div
@@ -104,9 +123,6 @@ const Fieldset = ({
 };
 
 export interface RepeaterProps {
-  name: string;
-  idPrefix: string;
-  label: React.ReactNode;
   children: React.ReactNode;
   addText: React.ReactNode;
   addButtonProps?: Omit<
@@ -118,10 +134,7 @@ export interface RepeaterProps {
 }
 
 const Root = ({
-  name,
-  idPrefix,
   onAdd,
-  label,
   addText,
   addButtonProps,
   children,

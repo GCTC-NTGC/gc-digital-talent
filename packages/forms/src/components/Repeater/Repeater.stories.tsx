@@ -10,26 +10,27 @@ import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea";
 
-import Repeater, { RepeaterProps } from "./Repeater";
+import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
-type StoryMeta = RepeaterProps & {
-  defaultValues: Array<LocalizedString>;
-};
+type StoryProps = RepeaterProps &
+  Pick<RepeaterFieldsetProps, "hideLegend"> & {
+    defaultValues: Array<LocalizedString>;
+    name: string;
+  };
 
 export default {
   component: Repeater.Fieldset,
   title: "Components/Repeater",
-} as Meta<StoryMeta>;
+} as Meta<StoryProps>;
 
 const defaultArgs = {
   label: "Screening Questions",
-  idPrefix: "questions",
   name: "questions",
   addText: "Add screening question",
 };
 
-const Fields = (props: RepeaterProps) => {
-  const { name } = props;
+const Fields = (props: StoryProps) => {
+  const { name, hideLegend, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -38,7 +39,7 @@ const Fields = (props: RepeaterProps) => {
 
   return (
     <Repeater.Root
-      {...props}
+      {...rootProps}
       onAdd={() => {
         const newValues = {
           en: "",
@@ -56,6 +57,8 @@ const Fields = (props: RepeaterProps) => {
             total={fields.length}
             onMove={move}
             onRemove={remove}
+            legend={`Screening Question ${index + 1}`}
+            hideLegend={hideLegend}
           >
             <div
               data-h2-display="base(grid)"
@@ -88,7 +91,7 @@ const Fields = (props: RepeaterProps) => {
   );
 };
 
-const Template: Story<StoryMeta> = (args) => {
+const Template: Story<StoryProps> = (args) => {
   const { defaultValues, name, ...fieldProps } = args;
   const handleSubmit = (data: unknown) => {
     action("Submit form")(data);
@@ -114,8 +117,14 @@ const Template: Story<StoryMeta> = (args) => {
 export const Default = Template.bind({});
 Default.args = defaultArgs;
 
-export const PrePopulated = Template.bind({});
-PrePopulated.args = {
+export const WithLegend = Template.bind({});
+WithLegend.args = {
+  ...defaultArgs,
+  hideLegend: false,
+};
+
+export const WithDefaultValues = Template.bind({});
+WithDefaultValues.args = {
   ...defaultArgs,
   defaultValues: [
     {
