@@ -889,7 +889,7 @@ input ApplicantFilterInput {
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [PoolStream] # Filters applicants based on the stream of pools they are currently qualified and available in.
+  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
 }
 
 input PoolCandidateSearchInput {

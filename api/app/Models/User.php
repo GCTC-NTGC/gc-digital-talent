@@ -451,8 +451,46 @@ class User extends Model implements Authenticatable
                 ->where(function ($query) {
                     $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
                 });
-            return $query;
         });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified streams.
+     * If $streams is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $streams
+     * @return Builder
+     */
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
+        $query->whereExists(function ($query) use ($streams) {
+            $query->select('id')
+                ->from('pool_candidates')
+                ->whereColumn('pool_candidates.user_id', 'users.id')
+                ->whereExists(function ($query) use ($streams) {
+                    // Find PoolCandidates for valid pools
+                    $query->select('id')
+                        ->from('pools')
+                        ->whereColumn('pools.id', 'pool_candidates.pool_id')
+                        ->whereIn('stream', $streams);
+                })
+                // Now that we've filtered by pools, ensure the PoolCandidate object is qualified and available.
+                ->where(function ($query) {
+                    $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+                })
+                ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+                ->where(function ($query) {
+                    $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                });
+        });
+        return $query;
     }
 
     /**
