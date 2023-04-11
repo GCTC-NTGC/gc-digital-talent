@@ -130,7 +130,7 @@ const ApplicantFilters = ({
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
   );
 
-  const classifications = applicantFilter?.classifications || [];
+  const classifications = applicantFilter?.qualifiedClassifications || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
@@ -250,6 +250,15 @@ const ApplicantFilters = ({
   const workLocations: string[] | undefined = workLocationIds.map((id) =>
     intl.formatMessage(getWorkRegion(id)),
   );
+
+  // const qualifiedStreams = (applicantFilter?.qualifiedStreams as string[]) ?? [];
+  //   ? [intl.formatMessage(getPoolStream(applicantFilter?.qualifiedStreams[0]))]
+  //   : "";
+  const qualifiedStreams: string[] | undefined =
+    applicantFilter?.qualifiedStreams?.map((stream) => {
+      return intl.formatMessage(getPoolStream(stream as string));
+    });
+
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -273,9 +282,9 @@ const ApplicantFilters = ({
               description: "Title for stream on summary of filters section",
             })}
             content={
-              applicantFilter?.stream
-                ? intl.formatMessage(getPoolStream(applicantFilter?.stream))
-                : ""
+              applicantFilter?.qualifiedStreams?.map((stream) => {
+                return intl.formatMessage(getPoolStream(stream as string));
+              }) ?? []
             }
           />
           <FilterBlock

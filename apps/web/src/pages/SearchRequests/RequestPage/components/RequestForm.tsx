@@ -56,7 +56,7 @@ type FormValues = {
     expectedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
-    stream?: ApplicantFilterInput["stream"];
+    stream?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -132,7 +132,7 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          stream: applicantFilter?.stream,
+          qualifiedStreams: applicantFilter?.qualifiedStreams,
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
@@ -207,7 +207,8 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications:
+    expectedClassifications: undefined,
+    qualifiedClassifications:
       selectedClassifications?.map((expectedClassification) => {
         return classifications.find((classification) => {
           return (

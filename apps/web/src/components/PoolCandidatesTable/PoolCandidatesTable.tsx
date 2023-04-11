@@ -78,9 +78,7 @@ function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.expectedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
-    stream: input?.applicantFilter?.stream
-      ? [input?.applicantFilter?.stream]
-      : [],
+    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
