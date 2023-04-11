@@ -41,8 +41,8 @@ const Fields = (props: RepeaterProps) => {
       {...props}
       onAdd={() => {
         const newValues = {
-          firstName: "",
-          lastName: "",
+          en: "",
+          fr: "",
         };
         append(newValues);
         action("add")(newValues);
