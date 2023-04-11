@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Button, Link, Separator } from "@gc-digital-talent/ui";
+import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import {
+  useDeleteExperienceMutation,
+  useExperienceMutations,
+} from "~/hooks/useExperienceMutations";
 import { Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
@@ -43,6 +46,7 @@ const EditExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const returnPath = paths.applicationResume(applicationId);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
     experienceType || "award",
@@ -51,6 +55,7 @@ const EditExperienceForm = ({
   const methods = useForm<ExperienceExperienceFormValues>({
     defaultValues,
   });
+  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
   const { executeMutation, getMutationArgs } = useExperienceMutations(
     "update",
     experienceType,
@@ -73,16 +78,46 @@ const EditExperienceForm = ({
                   "Success message displayed after updating an experience",
               }),
             );
-            navigate(paths.applicationResume(applicationId));
+            navigate(returnPath);
           }
         })
         .catch(() => {
           toast.error(
             intl.formatMessage({
-              defaultMessage: "Error: adding experience failed",
-              id: "moKAQP",
+              defaultMessage: "Error: updating experience failed",
+              id: "WyKJsK",
               description:
-                "Message displayed to user after experience fails to be created.",
+                "Message displayed to user after experience fails to be updated.",
+            }),
+          );
+        });
+    }
+  };
+
+  const handleDeleteExperience = () => {
+    if (executeDeletionMutation) {
+      executeDeletionMutation({
+        id: experience.id,
+      })
+        .then((result) => {
+          navigate(returnPath);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              id: "/qN7tM",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(() => {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Error: deleting experience failed",
+              id: "YVhQ4t",
+              description:
+                "Message displayed to user after experience fails to be deleted.",
             }),
           );
         });
@@ -119,6 +154,61 @@ const EditExperienceForm = ({
           >
             {intl.formatMessage(formMessages.cancelGoBack)}
           </Link>
+          <AlertDialog.Root>
+            <AlertDialog.Trigger>
+              <Button type="button" mode="inline" color="error">
+                {intl.formatMessage({
+                  defaultMessage: "Delete this experience",
+                  id: "5DfpAy",
+                  description:
+                    "Label on button to delete the current experience",
+                })}
+              </Button>
+            </AlertDialog.Trigger>
+            <AlertDialog.Content>
+              <AlertDialog.Title>
+                {intl.formatMessage({
+                  defaultMessage: "Are you sure?",
+                  id: "AcsOrg",
+                  description: "Delete confirmation",
+                })}
+              </AlertDialog.Title>
+              <AlertDialog.Description>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
+                  id: "IhXvCe",
+                  description:
+                    "Question displayed when a user attempts to delete an experience from their profile",
+                })}
+              </AlertDialog.Description>
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button type="button" mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel",
+                      id: "KnE2Rk",
+                      description: "Cancel confirmation",
+                    })}
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button
+                    type="submit"
+                    mode="solid"
+                    color="primary"
+                    onClick={handleDeleteExperience}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Delete",
+                      id: "sBksyQ",
+                      description: "Delete confirmation",
+                    })}
+                  </Button>
+                </AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         </div>
       </form>
     </FormProvider>
