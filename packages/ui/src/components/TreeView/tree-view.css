@@ -1,8 +1,0 @@
-/* These selectors are required due to interfering properties on the component  */
-.tree-view-item {
-  position: relative;
-}
-
-.tree-view-item:last-child::before {
-  border-left: 1px solid rgba(203, 203, 203, 1);
-}
