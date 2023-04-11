@@ -400,6 +400,62 @@ class User extends Model implements Authenticatable
     }
 
     /**
+     * Scopes the query to only return users who are available in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
+        $query->whereExists(function ($query) use ($classifications) {
+            $query->select('id')
+                ->from('pool_candidates')
+                ->whereColumn('pool_candidates.user_id', 'users.id')
+                ->whereExists(function ($query) use ($classifications) {
+                    // Find PoolCandidates for valid pools
+                    $query->select('id')
+                        ->from('pools')
+                        ->whereColumn('pools.id', 'pool_candidates.pool_id')
+                        ->whereExists(function ($query) use ($classifications) {
+                            // Go through the classification_pool pivot table to find each pools classifications
+                            $query->select('id')
+                                ->from('classification_pool')
+                                ->whereColumn('classification_pool.pool_id', 'pools.id')
+                                ->whereExists(function ($query) use ($classifications) {
+                                    // Now we can filter pools by classification
+                                    $query->select('id')
+                                        ->from('classifications')
+                                        ->whereColumn('classifications.id', 'classification_pool.classification_id')
+                                        ->where(function ($query) use ($classifications) {
+                                            foreach ($classifications as $classification) {
+                                                $query->orWhere(function ($query) use ($classification) {
+                                                    $query->where('group', $classification['group'])->where('level', $classification['level']);
+                                                });
+                                            }
+                                        });
+                                });
+                        });
+                })
+                // Now that we've filtered by pools, ensure the PoolCandidate object is qualified and available.
+                ->where(function ($query) {
+                    $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+                })
+                ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+                ->where(function ($query) {
+                    $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                });
+            return $query;
+        });
+    }
+
+    /**
      * scopeExpectedClassifications
      *
      * Scopes the query to only return applicants who have expressed interest in any of $classifications.
@@ -407,7 +463,7 @@ class User extends Model implements Authenticatable
      * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
      *
      * @param Builder $query
-     * @param array|null $classifications
+     * @param array|null $classifications Each classification is an object with a group and a level field.
      * @return Builder
      */
     public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
