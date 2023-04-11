@@ -891,7 +891,7 @@ input PoolCandidateFilterBelongsTo {
 
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput
-  classifications: [ClassificationFilterInput]
+  expectedClassifications: [ClassificationFilterInput]
   email: String
   generalSearch: String
   hasDiploma: Boolean
