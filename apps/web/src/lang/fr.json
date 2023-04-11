@@ -7484,5 +7484,21 @@
   "GE9NbK": {
     "defaultMessage": "Lier à une expérience tirée du cv",
     "description": "Experience tree view action button label"
+  },
+  "HtllH6": {
+    "defaultMessage": "Ojibwé de l’Ouest",
+    "description": "Name of Western Ojibway language"
+  },
+  "TEt9Ua": {
+    "defaultMessage": "Cris des Plaines",
+    "description": "Name of Plains Cree language"
+  },
+  "qxe/hN": {
+    "defaultMessage": "Mi’kmaq",
+    "description": "Name of Mikmaq language"
+  },
+  "zAl7ZH": {
+    "defaultMessage": "Michif",
+    "description": "Name of Michif language"
   }
 }
