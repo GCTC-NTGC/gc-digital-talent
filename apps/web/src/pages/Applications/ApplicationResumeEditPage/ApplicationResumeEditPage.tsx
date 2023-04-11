@@ -10,13 +10,11 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { AnyExperience } from "~/types/experience";
 import {
-  GetMyExperiencesQuery,
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
 } from "~/api/generated";
 
 import { ApplicationPageProps } from "../ApplicationApi";
-import { deriveExperienceType } from "../../../utils/experienceUtils";
 import EditExperienceForm from "./components/ExperienceEditForm";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -31,6 +29,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
       defaultMessage: "Edit your experience",
       id: "WiUlEh",
       description: "Page title for the application résumé edit experience page",
+    }),
+    subtitle: intl.formatMessage({
+      defaultMessage: "Update and review your résumé information.",
+      id: "OkREUg",
+      description: "Subtitle for the application résumé page",
     }),
     icon: StarIcon,
     omitFromStepper: true,

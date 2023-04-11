@@ -25,12 +25,6 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const derivedType = type ?? experienceType;
   const labels = getExperienceFormLabels(intl, derivedType);
 
-  console.log({
-    experienceType,
-    type,
-    derivedType,
-  });
-
   return (
     <>
       <Heading level="h3" size="h5">
