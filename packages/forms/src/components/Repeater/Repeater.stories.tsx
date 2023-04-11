@@ -29,7 +29,7 @@ const defaultArgs = {
   addText: "Add screening question",
 };
 
-const Fields = (props: StoryProps) => {
+const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const { name, hideLegend, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
