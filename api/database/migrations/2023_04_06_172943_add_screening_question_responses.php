@@ -24,7 +24,6 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->text('answer');
             $table->unique(['pool_candidate_id', 'screening_question_id']);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
