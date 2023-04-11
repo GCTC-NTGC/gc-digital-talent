@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 
-import { Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -72,9 +72,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath = paths.applicationProfile(application.id);
 
-  const handleNavigation = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ) => {
+  const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete
 
     executeMutation({
@@ -144,20 +142,20 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Link
-          type="button"
-          color="primary"
-          mode="solid"
-          href={nextStepPath}
-          onClick={handleNavigation}
-          disabled={fetching}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Let's go!",
-            id: "r6z4HM",
-            description: "Link text to begin the application process",
-          })}
-        </Link>
+        <form onSubmit={handleNavigation}>
+          <Button
+            type="submit"
+            color="primary"
+            mode="solid"
+            disabled={fetching}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Let's go!",
+              id: "r6z4HM",
+              description: "Link text to begin the application process",
+            })}
+          </Button>
+        </form>
         <Link
           type="button"
           mode="inline"
