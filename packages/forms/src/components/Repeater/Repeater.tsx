@@ -1,11 +1,16 @@
-import { Button, ButtonProps } from "@gc-digital-talent/ui";
+import React from "react";
 import {
   ChevronUpIcon,
   ChevronDownIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
-import React from "react";
 
+import { Button } from "@gc-digital-talent/ui";
+
+/**
+ * Generic button to apply styles to a
+ * fieldset action button
+ */
 const ActionButton = (
   props: React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -25,13 +30,19 @@ const ActionButton = (
 );
 
 export interface RepeaterFieldsetProps {
+  /** Field array index of this item */
   index: number;
+  /** Current total number of fields (eg: fields.length) */
   total: number;
+  /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
+  /** Callback when the item is removed from the array */
   onRemove: () => void;
-  children: React.ReactNode;
+  /** The legend for the fieldset (required but hidden by default) */
   legend: React.ReactNode;
+  /** Set if the legend should be visually hidden (default: true) */
   hideLegend?: boolean;
+  children: React.ReactNode;
 }
 
 const Fieldset = ({
@@ -124,12 +135,16 @@ const Fieldset = ({
 
 export interface RepeaterProps {
   children: React.ReactNode;
+  /** Contextual text for the button to add items */
   addText: React.ReactNode;
+  /** Additional props to style the add button */
   addButtonProps?: Omit<
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
+  /** Callback function when the add button is clicked */
   onAdd: () => void;
+  /** Determine if we want to show the add button or not */
   showAdd?: boolean;
 }
 
@@ -163,7 +178,19 @@ const Root = ({
   );
 };
 
+/**
+ * @name Repeater
+ * @desc A wrapper for repeatable form fields
+ */
 export default {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a Repeater.
+   */
   Root,
+  /**
+   * @name Fieldset
+   * @desc Contains a group of fields that can be repeated.
+   */
   Fieldset,
 };
