@@ -51,6 +51,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.SkillRequirements,
     ],
     stepSubmitted: null,
+    hasError: null,
   };
 };
 

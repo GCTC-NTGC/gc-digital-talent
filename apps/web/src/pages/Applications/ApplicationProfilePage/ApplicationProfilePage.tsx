@@ -3,10 +3,17 @@ import { useIntl } from "react-intl";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { Applicant, ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import {
+  aboutSectionHasEmptyRequiredFields,
+  diversityEquityInclusionSectionHasEmptyRequiredFields,
+  governmentInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasEmptyRequiredFields,
+  workLocationSectionHasEmptyRequiredFields,
+} from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -43,6 +50,15 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome],
     stepSubmitted: ApplicationStep.ReviewYourProfile,
+    hasError: (applicant: Applicant) => {
+      const hasEmptyRequiredFields =
+        aboutSectionHasEmptyRequiredFields(applicant) ||
+        workLocationSectionHasEmptyRequiredFields(applicant) ||
+        diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
+        governmentInformationSectionHasEmptyRequiredFields(applicant) ||
+        languageInformationSectionHasEmptyRequiredFields(applicant);
+      return hasEmptyRequiredFields;
+    },
   };
 };
 

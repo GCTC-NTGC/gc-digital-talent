@@ -42,6 +42,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
     stepSubmitted: ApplicationStep.ReviewYourResume,
+    hasError: null,
   };
 };
 

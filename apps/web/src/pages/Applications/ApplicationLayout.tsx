@@ -23,9 +23,10 @@ import {
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
 import {
+  Applicant,
   ApplicationStep,
   Maybe,
-  useGetBasicApplicationInfoQuery,
+  useGetApplicationQuery,
 } from "~/api/generated";
 
 import { ApplicationPageProps } from "./ApplicationApi";
@@ -72,6 +73,7 @@ const missingPrerequisites = (
 const deriveSteps = (
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
+  applicant: Applicant,
 ): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
@@ -80,11 +82,10 @@ const deriveSteps = (
       href: page.link.url,
       icon: page.icon,
       completed:
-        (page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted)) ??
-        false,
-      disabled:
-        !!missingPrerequisites(page.prerequisites, submittedSteps)?.length ??
-        false,
+        page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted),
+      disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
+        ?.length,
+      error: page?.hasError?.(applicant),
     }));
 
   steps.pop(); // We do not want to show final step in the stepper
@@ -172,7 +173,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
-  const steps = deriveSteps(pages, application.submittedSteps);
+  const steps = deriveSteps(
+    pages,
+    application.submittedSteps,
+    application.user,
+  );
   const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
@@ -243,7 +248,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
 const ApplicationLayout = () => {
   const { applicationId } = useParams();
-  const [{ data, fetching, error }] = useGetBasicApplicationInfoQuery({
+  const [{ data, fetching, error }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
       id: applicationId || "",

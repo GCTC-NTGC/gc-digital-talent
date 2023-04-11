@@ -1,4 +1,4 @@
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { Applicant, ApplicationStep } from "@gc-digital-talent/graphql";
 import { IntlShape } from "react-intl";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
@@ -15,8 +15,12 @@ export type GetApplicationPageInfoArgs = {
 
 export type ApplicationPageInfo = PageNavInfo & {
   omitFromStepper?: boolean;
+  // Which application steps should be submitted before you can use this page?
   prerequisites: Array<ApplicationStep>;
+  // Which application step does this page submit?
   stepSubmitted: ApplicationStep | null;
+  // Is the applicant valid as far as this page is concerned?
+  hasError: ((applicant: Applicant) => boolean) | null;
 };
 
 export type GetApplicationPageInfo = (
