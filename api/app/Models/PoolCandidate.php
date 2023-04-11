@@ -80,6 +80,39 @@ class PoolCandidate extends Model
         return $this->belongsTo(Pool::class);
     }
 
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        // Ensure the PoolCandidates are qualified and available.
+        $query->where(function ($query) {
+            $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+        })
+            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+            })
+            // Now scope for valid pools, according to streams
+            ->whereHas('pool', function ($query) use ($streams) {
+                Pool::whereIn('stream', $streams);
+            });
+        return $query;
+    }
+
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($query) use ($classifications) {
+            User::scopeQualifiedClassifications($query, $classifications);
+        });
+        return $query;
+    }
+
     /**
      * scopeExpectedClassifications
      *
