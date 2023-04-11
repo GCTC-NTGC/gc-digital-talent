@@ -33,6 +33,7 @@ query getMePools {
           advertisementStatus
           stream
           processNumber
+          publishingGroup
           createdDate
         }
       }
@@ -65,6 +66,7 @@ query allPools {
     advertisementStatus
     stream
     processNumber
+    publishingGroup
     createdDate
     team {
       id
@@ -72,32 +74,6 @@ query allPools {
       displayName {
         en
         fr
-      }
-      pools {
-        id
-        owner {
-          id
-          email
-          firstName
-          lastName
-        }
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        classifications {
-          id
-          group
-          level
-        }
-        advertisementStatus
-        stream
-        processNumber
-        createdDate
       }
     }
   }

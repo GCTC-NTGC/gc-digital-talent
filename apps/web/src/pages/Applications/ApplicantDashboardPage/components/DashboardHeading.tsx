@@ -8,8 +8,6 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 
-import { User } from "@gc-digital-talent/graphql";
-
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -47,6 +45,8 @@ import {
 } from "./HeroCardItem";
 import { HeroCard } from "./HeroCard";
 
+import { PartialUser } from "../types";
+
 function deriveSectionStatus(
   isMissingRequiredFields: boolean,
   isMissingOptionalFields: boolean,
@@ -57,10 +57,10 @@ function deriveSectionStatus(
 }
 
 export interface DashboardHeadingProps {
-  user: User;
+  user: PartialUser;
 }
 
-export const DashboardHeading = ({ user }: DashboardHeadingProps) => {
+const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

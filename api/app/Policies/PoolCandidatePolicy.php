@@ -94,7 +94,9 @@ class PoolCandidatePolicy
         $poolCandidate->loadMissing('pool.team');
         $candidatePoolTeam = $poolCandidate->pool->team;
         $isDraft = $poolCandidate->isDraft();
-        if ($user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam) && !$isDraft) {
+        if (!$isDraft && ($user->isAbleTo("update-any-applicationStatus")
+                    || $user->isAbleTo("update-team-applicationStatus", $candidatePoolTeam))
+        ) {
             return true;
         }
 

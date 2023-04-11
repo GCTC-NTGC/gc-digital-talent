@@ -5,17 +5,45 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 import { DropdownMenu, Button, Separator } from "@gc-digital-talent/ui";
 
-const localeMap = new Map([
-  ["crg", "Michif"],
-  ["crk", "Plains Cree"],
-  ["ojw", "Western Ojibway"],
-  ["mic", "Mikmaq"],
-]);
-
 const LanguageSelector = () => {
   const intl = useIntl();
   const [searchParams, setSearchParams] = useSearchParams();
   const locale = searchParams.get("locale");
+
+  const localeMap = new Map([
+    [
+      "crg",
+      intl.formatMessage({
+        id: "zAl7ZH",
+        defaultMessage: "Michif",
+        description: "Name of Michif language",
+      }),
+    ],
+    [
+      "crk",
+      intl.formatMessage({
+        id: "TEt9Ua",
+        defaultMessage: "Plains Cree",
+        description: "Name of Plains Cree language",
+      }),
+    ],
+    [
+      "ojw",
+      intl.formatMessage({
+        id: "HtllH6",
+        defaultMessage: "Western Ojibway",
+        description: "Name of Western Ojibway language",
+      }),
+    ],
+    [
+      "mic",
+      intl.formatMessage({
+        id: "qxe/hN",
+        defaultMessage: "Mikmaq",
+        description: "Name of Mikmaq language",
+      }),
+    ],
+  ]);
 
   const currentLocale = localeMap.get(locale || "");
 
