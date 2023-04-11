@@ -359,6 +359,10 @@
     "defaultMessage": "Meskeyi, mu ki’l asite’tasiwun ankaptmin ula ta’n ewikasik.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
+  "1FM1VL": {
+    "defaultMessage": "Ta’n tujiw mu kisita’suwun wjit ula program tepaqtek wjit ki’l, <mailLink>ke tliwula’tike</mailLink> qq pipanimitisnen aqq na’tuwan wl’ta’sitew kisis apoqmask ta’n koqowey keut’ pipanikesin.",
+    "description": "Second paragraph about who the program is for"
+  },
   "Oh1/Gc": {
     "defaultMessage": " Suwa’te’n nike’ wjit poqjilukwatn ki’l It career wutawti.",
     "description": "Meta tag description for Indigenous Apprenticeship Program site"
