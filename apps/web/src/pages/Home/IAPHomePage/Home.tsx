@@ -7,6 +7,10 @@ import useQuote from "~/hooks/useQuote";
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
 import logoEn from "~/assets/img/iap-logo-en.svg";
 import logoFr from "~/assets/img/iap-logo-fr.svg";
+import logoCrg from "~/assets/img/iap-logo-crg.svg";
+import logoCrk from "~/assets/img/iap-logo-crk.svg";
+import logoMic from "~/assets/img/iap-logo-mic.svg";
+import logoOjw from "~/assets/img/iap-logo-ojw.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -48,8 +52,24 @@ const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
   let logoImg = logoEn;
-  if (intl.locale === "fr") {
-    logoImg = logoFr;
+  switch (intl.locale) {
+    case "fr":
+      logoImg = logoFr;
+      break;
+    case "crg":
+      logoImg = logoCrg;
+      break;
+    case "crk":
+      logoImg = logoCrk;
+      break;
+    case "mic":
+      logoImg = logoMic;
+      break;
+    case "ojw":
+      logoImg = logoOjw;
+      break;
+    default:
+      logoImg = logoEn;
   }
   /**
    * Language swapping is a little rough here,
