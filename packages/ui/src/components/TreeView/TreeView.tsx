@@ -1,8 +1,6 @@
 import React from "react";
 import Card from "../Card";
 
-import "./tree-view.css";
-
 interface TreeViewItemProps {
   noBranch?: boolean;
   children: React.ReactNode;
@@ -22,6 +20,7 @@ const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
     data-h2-left="base:selectors[::before](0)"
     data-h2-top="base:selectors[::before](0)"
     data-h2-height="base:selectors[::before](calc(50% + x.5))"
+    data-h2-z-index="base(0) base:selectors[:last-child:before](-1)"
     {...(noBranch ? {} : { "data-h2-width": "base:selectors[::before](x1)" })}
     {...rest}
   >
