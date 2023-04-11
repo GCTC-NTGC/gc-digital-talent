@@ -209,6 +209,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Message displayed when number of user attempts exceeds rate limit",
     },
+    AUTHORIZATION: {
+      defaultMessage:
+        "Sorry, you are not authorized to perform this action. If this is a mistake, please contact your administrator about this error.",
+      id: "7p6mDv",
+      description:
+        "Message displayed when user attempts an action they are not allowed to do.",
+    },
   },
 );
 
