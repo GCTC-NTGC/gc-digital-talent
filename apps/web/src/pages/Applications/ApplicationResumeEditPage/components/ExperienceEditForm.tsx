@@ -43,9 +43,6 @@ const EditExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [showErrorSummary, setShowErrorSummary] =
-    React.useState<boolean>(false);
-  const errorSummaryRef = React.useRef<HTMLDivElement>(null);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
     experienceType || "award",
@@ -54,26 +51,10 @@ const EditExperienceForm = ({
   const methods = useForm<ExperienceExperienceFormValues>({
     defaultValues,
   });
-  const {
-    formState: { errors, isSubmitting },
-  } = methods;
   const { executeMutation, getMutationArgs } = useExperienceMutations(
     "update",
     experienceType,
   );
-
-  React.useEffect(() => {
-    // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting) {
-      setShowErrorSummary(true);
-    }
-  }, [isSubmitting, errors]);
-
-  React.useEffect(() => {
-    if (errorSummaryRef.current) {
-      errorSummaryRef.current.focus();
-    }
-  }, [showErrorSummary, errorSummaryRef]);
 
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
     formValues,
