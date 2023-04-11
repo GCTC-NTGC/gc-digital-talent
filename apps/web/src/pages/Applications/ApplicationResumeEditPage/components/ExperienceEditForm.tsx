@@ -6,7 +6,6 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
@@ -24,6 +23,7 @@ import {
 } from "~/types/experience";
 import TasksAndResponsibilities from "~/components/ExperienceFormFields/TasksAndResponsibilities";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
+import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
@@ -43,7 +43,9 @@ const EditExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { user } = useAuthorization();
+  const [showErrorSummary, setShowErrorSummary] =
+    React.useState<boolean>(false);
+  const errorSummaryRef = React.useRef<HTMLDivElement>(null);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
     experienceType || "award",
@@ -52,10 +54,26 @@ const EditExperienceForm = ({
   const methods = useForm<ExperienceExperienceFormValues>({
     defaultValues,
   });
+  const {
+    formState: { errors, isSubmitting },
+  } = methods;
   const { executeMutation, getMutationArgs } = useExperienceMutations(
     "update",
     experienceType,
   );
+
+  React.useEffect(() => {
+    // After during submit, if there are errors, focus the summary
+    if (errors && isSubmitting) {
+      setShowErrorSummary(true);
+    }
+  }, [isSubmitting, errors]);
+
+  React.useEffect(() => {
+    if (errorSummaryRef.current) {
+      errorSummaryRef.current.focus();
+    }
+  }, [showErrorSummary, errorSummaryRef]);
 
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
     formValues,
@@ -93,6 +111,7 @@ const EditExperienceForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        <ErrorSummary experienceType={experienceType} />
         <ExperienceDetails experienceType={experienceType} />
         <TasksAndResponsibilities experienceType={experienceType} />
         <Separator

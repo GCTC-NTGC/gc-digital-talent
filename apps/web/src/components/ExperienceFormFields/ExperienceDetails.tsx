@@ -6,6 +6,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { ExperienceType } from "~/types/experience";
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
@@ -13,7 +14,6 @@ import EducationFields from "./EducationFields";
 import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields";
 import NullExperienceType from "./NullExperienceType";
-import { ExperienceType } from "../../types/experience";
 
 interface ExperienceDetailsProps {
   experienceType?: ExperienceType;
@@ -22,8 +22,8 @@ interface ExperienceDetailsProps {
 const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
   const type = useWatch({ name: "experienceType" });
-  const labels = getExperienceFormLabels(intl, type);
   const derivedType = type ?? experienceType;
+  const labels = getExperienceFormLabels(intl, derivedType);
 
   console.log({
     experienceType,
