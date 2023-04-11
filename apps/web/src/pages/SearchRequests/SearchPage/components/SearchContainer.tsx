@@ -53,7 +53,10 @@ const applicantFilterToQueryArgs = (
         equity: { ...filter?.equity },
         expectedClassifications: filter?.expectedClassifications
           ? pickMap(filter.expectedClassifications, ["group", "level"])
-          : [],
+          : undefined,
+        qualifiedClassifications: filter?.qualifiedClassifications
+          ? pickMap(filter.qualifiedClassifications, ["group", "level"])
+          : undefined,
         // TODO: pickMap the skills array as well?
         // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
         // TODO: Add skills back in when most candidates in production have populated skills.
@@ -208,7 +211,6 @@ const SearchContainer = ({
 }: SearchContainerProps) => {
   const intl = useIntl();
 
-  const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;
   const operationalRequirementFilterCount =
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
@@ -218,7 +220,9 @@ const SearchContainer = ({
   const employmentDuration = applicantFilter?.positionDuration;
 
   const selectedClassifications =
-    applicantFilter?.expectedClassifications?.filter(notEmpty);
+    applicantFilter?.qualifiedClassifications?.filter(notEmpty);
+  const qualifiedStreamsCount =
+    applicantFilter?.qualifiedStreams?.filter(notEmpty)?.length ?? 0;
 
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
@@ -245,8 +249,8 @@ const SearchContainer = ({
     classificationsToSubmit: SimpleClassification[],
   ) => {
     if (
-      (poolClassificationFilterCount === 0 &&
-        selectedClassifications?.length === 0) ||
+      selectedClassifications?.length === 0 ||
+      qualifiedStreamsCount === 0 ||
       locationPreferencesCount === 0
     ) {
       // Validate all fields, and focus on the first one that is invalid.

@@ -53,10 +53,10 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
-    expectedClassifications?: {
+    qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
-    stream?: ApplicantFilterInput["qualifiedStreams"];
+    qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -146,20 +146,21 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          expectedClassifications: {
-            sync: selectedClassifications
-              ? selectedClassifications
+          qualifiedClassifications: {
+            sync: applicantFilter?.qualifiedClassifications
+              ? applicantFilter.qualifiedClassifications
                   .filter(notEmpty)
-                  .map((selectedClassification) => {
+                  .map((qualifiedClassification) => {
                     const cl = classifications.find((classification) => {
                       return (
                         classification.group ===
-                          selectedClassification?.group &&
-                        classification.level === selectedClassification.level
+                          qualifiedClassification?.group &&
+                        classification.level === qualifiedClassification.level
                       );
                     });
-                    return cl?.id ?? "";
+                    return cl?.id;
                   })
+                  .filter(notEmpty)
               : [],
           },
         },
@@ -209,14 +210,16 @@ export const RequestForm = ({
     ...applicantFilter,
     expectedClassifications: undefined,
     qualifiedClassifications:
-      selectedClassifications?.map((expectedClassification) => {
-        return classifications.find((classification) => {
-          return (
-            classification.group === expectedClassification?.group &&
-            classification.level === expectedClassification.level
-          );
-        });
-      }) ?? [],
+      applicantFilter?.qualifiedClassifications?.map(
+        (qualifiedClassification) => {
+          return classifications.find((classification) => {
+            return (
+              classification.group === qualifiedClassification?.group &&
+              classification.level === qualifiedClassification.level
+            );
+          });
+        },
+      ) ?? [],
     skills:
       applicantFilter?.skills?.map((skillId) => {
         return skills.find((skill) => {
