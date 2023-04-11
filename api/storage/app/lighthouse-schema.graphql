@@ -91,7 +91,7 @@ input ApplicantFilterInput {
   pools: [IdInput]
   skills: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: PoolStream
+  qualifiedStreams: [PoolStream]
 }
 
 enum ApplicationStep {
