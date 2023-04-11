@@ -61,22 +61,20 @@ const EditExperienceForm = ({
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], experienceType);
-    const args = getMutationArgs(user?.id || "", submitData);
+    const args = getMutationArgs(experience?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
           if (res.data) {
             toast.success(
               intl.formatMessage({
-                defaultMessage: "Successfully added experience!",
-                id: "DZ775N",
+                defaultMessage: "Successfully updated experience!",
+                id: "4438xW",
                 description:
-                  "Success message displayed after adding experience to profile",
+                  "Success message displayed after updating an experience",
               }),
             );
-            if (formValues.action !== "add-another") {
-              navigate(paths.applicationResume(applicationId));
-            }
+            navigate(paths.applicationResume(applicationId));
           }
         })
         .catch(() => {
@@ -95,8 +93,8 @@ const EditExperienceForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <ExperienceDetails />
-        <TasksAndResponsibilities />
+        <ExperienceDetails experienceType={experienceType} />
+        <TasksAndResponsibilities experienceType={experienceType} />
         <Separator
           orientation="horizontal"
           decorative
@@ -110,7 +108,7 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" mode="solid" value="return">
+          <Button type="submit" mode="solid">
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link

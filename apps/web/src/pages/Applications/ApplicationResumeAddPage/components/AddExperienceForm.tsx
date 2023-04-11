@@ -26,7 +26,7 @@ import { experienceTypeTitles } from "../messages";
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
   ExperienceFormValues<AllExperienceFormValues> & {
-    type: ExperienceType | "";
+    experienceType: ExperienceType | "";
     action: FormAction | "";
   };
 export interface AddExperienceFormProps {
@@ -47,7 +47,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     formState: { isSubmitSuccessful },
     reset,
   } = methods;
-  const [type, action] = watch(["type", "action"]);
+  const [type, action] = watch(["experienceType", "action"]);
   const { executeMutation, getMutationArgs } = useExperienceMutations(
     "create",
     type,
@@ -92,7 +92,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   React.useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
       // Help users out by focusing the first input after scrolling
-      setFocus("type");
+      setFocus("experienceType");
       reset();
     }
   }, [isSubmitSuccessful, reset, action, setFocus]);
@@ -114,8 +114,8 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             id: "chnoRd",
             description: "Label for the type of experience a user is creating",
           })}
-          name="type"
-          id="type"
+          name="experienceType"
+          id="experienceType"
           doNotSort
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({

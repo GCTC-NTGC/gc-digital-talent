@@ -21,9 +21,15 @@ interface ExperienceDetailsProps {
 
 const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "type" });
+  const type = useWatch({ name: "experienceType" });
   const labels = getExperienceFormLabels(intl, type);
-  const derivedType = type || experienceType;
+  const derivedType = type ?? experienceType;
+
+  console.log({
+    experienceType,
+    type,
+    derivedType,
+  });
 
   return (
     <>
@@ -35,7 +41,7 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
         })}
       </Heading>
       <div data-h2-margin="base(0, 0, x2, 0)">
-        {notEmpty(type) ? (
+        {notEmpty(derivedType) ? (
           <>
             <p>
               {intl.formatMessage({
