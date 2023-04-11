@@ -7476,5 +7476,41 @@
   "z+qxaE": {
     "defaultMessage": "Veuillez sélectionner un type afin de poursuivre.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
+  },
+  "HtllH6": {
+    "defaultMessage": "Ojibwé de l’Ouest",
+    "description": "Name of Western Ojibway language"
+  },
+  "TEt9Ua": {
+    "defaultMessage": "Cris des Plaines",
+    "description": "Name of Plains Cree language"
+  },
+  "qxe/hN": {
+    "defaultMessage": "Mi’kmaq",
+    "description": "Name of Mikmaq language"
+  },
+  "zAl7ZH": {
+    "defaultMessage": "Michif",
+    "description": "Name of Michif language"
+  },
+  "F7RkOA": {
+    "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
+    "description": "Description of the application process and the next step"
+  },
+  "MNjEW5": {
+    "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
+    "description": "Introductory sentence for a pool application."
+  },
+  "u/DBSl": {
+    "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
+    "description": "Description of how the skills-based hiring platform assess candidates."
+  },
+  "RWvojd": {
+    "defaultMessage": "Revenir à la publicité",
+    "description": "Link text to return to a pool advertisement during the application"
+  },
+  "r6z4HM": {
+    "defaultMessage": "Allons-y!",
+    "description": "Link text to begin the application process"
   }
 }
