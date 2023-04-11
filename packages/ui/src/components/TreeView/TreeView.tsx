@@ -17,7 +17,7 @@ const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
     data-h2-border-left="base:selectors[:not(:last-child)](1px solid gray.light) base:selectors[:last-child:before](1px solid gray.light)"
     data-h2-content="base:selectors[::before]('')"
     data-h2-display="base:selectors[::before](block)"
-    data-h2-position="base:selectors[::before](absolute)"
+    data-h2-position="base(relative) base:selectors[::before](absolute)"
     data-h2-border-bottom="base:selectors[::before](1px solid gray.light)"
     data-h2-left="base:selectors[::before](0)"
     data-h2-top="base:selectors[::before](0)"
