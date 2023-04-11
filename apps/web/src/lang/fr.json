@@ -7504,5 +7504,13 @@
   "u/DBSl": {
     "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
     "description": "Description of how the skills-based hiring platform assess candidates."
+  },
+  "RWvojd": {
+    "defaultMessage": "Revenir à la publicité",
+    "description": "Link text to return to a pool advertisement during the application"
+  },
+  "r6z4HM": {
+    "defaultMessage": "Allons-y!",
+    "description": "Link text to begin the application process"
   }
 }
