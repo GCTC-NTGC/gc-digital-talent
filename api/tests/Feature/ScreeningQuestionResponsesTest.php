@@ -70,6 +70,7 @@ class ScreeningQuestionResponsesTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => $this->teamUser->id,
         ]);
+        ScreeningQuestionResponse::all()->each->delete();
 
         // assert response is successfully created
         $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
@@ -118,6 +119,7 @@ class ScreeningQuestionResponsesTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => $this->teamUser->id,
         ]);
+        ScreeningQuestionResponse::all()->each->delete();
 
         $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
             'id' => $application->id,
@@ -165,6 +167,7 @@ class ScreeningQuestionResponsesTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'user_id' => $this->teamUser->id,
         ]);
+        ScreeningQuestionResponse::all()->each->delete();
 
         $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
             'id' => $application->id,
