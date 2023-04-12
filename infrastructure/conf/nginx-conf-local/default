@@ -199,6 +199,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "applicant" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "create-account" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /apps/web/dist/index.html break;
