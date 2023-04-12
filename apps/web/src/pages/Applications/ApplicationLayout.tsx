@@ -26,6 +26,7 @@ import {
   Applicant,
   ApplicationStep,
   Maybe,
+  PoolAdvertisement,
   useGetApplicationQuery,
 } from "~/api/generated";
 
@@ -74,6 +75,7 @@ const deriveSteps = (
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
   applicant: Applicant,
+  poolAdvertisement: Maybe<PoolAdvertisement>,
 ): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
@@ -85,7 +87,9 @@ const deriveSteps = (
         page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted),
       disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
         ?.length,
-      error: page?.hasError?.(applicant),
+      error: poolAdvertisement
+        ? page?.hasError?.(applicant, poolAdvertisement)
+        : false,
     }));
 
   steps.pop(); // We do not want to show final step in the stepper
@@ -177,6 +181,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     pages,
     application.submittedSteps,
     application.user,
+    application.poolAdvertisement,
   );
   const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),

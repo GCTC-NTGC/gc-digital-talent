@@ -43,6 +43,10 @@ import {
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
 } from "./workPreferences";
 
+import { isIncomplete as resumeIsIncomplete } from "./resume";
+
+import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
+
 export {
   aboutSectionHasAllEmptyFields,
   aboutSectionHasEmptyOptionalFields,
@@ -68,4 +72,6 @@ export {
   workPreferencesSectionHasAllEmptyFields,
   workPreferencesSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
+  resumeIsIncomplete,
+  skillRequirementsIsIncomplete,
 };

@@ -3,10 +3,11 @@ import { useIntl } from "react-intl";
 import { StarIcon } from "@heroicons/react/20/solid";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { Applicant, ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { resumeIsIncomplete } from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -42,7 +43,10 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
     stepSubmitted: ApplicationStep.ReviewYourResume,
-    hasError: null,
+    hasError: (applicant: Applicant) => {
+      const isIncomplete = resumeIsIncomplete(applicant);
+      return isIncomplete;
+    },
   };
 };
 
