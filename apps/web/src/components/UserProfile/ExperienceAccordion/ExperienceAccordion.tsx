@@ -5,14 +5,14 @@ import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
 
+import { AnyExperience } from "~/types/experience";
 import {
-  AnyExperience,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
+} from "~/utils/experienceUtils";
 
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";

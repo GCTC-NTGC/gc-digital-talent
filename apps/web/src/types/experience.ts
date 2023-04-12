@@ -44,20 +44,6 @@ export type AnyExperience =
   | PersonalExperience
   | WorkExperience;
 
-export const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
-  e.__typename === "AwardExperience";
-export const isCommunityExperience = (
-  e: AnyExperience,
-): e is CommunityExperience => e.__typename === "CommunityExperience";
-export const isEducationExperience = (
-  e: AnyExperience,
-): e is EducationExperience => e.__typename === "EducationExperience";
-export const isPersonalExperience = (
-  e: AnyExperience,
-): e is PersonalExperience => e.__typename === "PersonalExperience";
-export const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
-  e.__typename === "WorkExperience";
-
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
   | CommunityExperience
@@ -238,3 +224,25 @@ export type ExperienceMutationArgs = Exact<{
     id: string;
     workExperience: WorkExperienceInput;
   }>;
+
+export type ExperienceDetailsDefaultValues = {
+  areaOfStudy?: string;
+  awardedDate?: string;
+  awardedTo?: AwardedTo;
+  awardedScope?: AwardedScope;
+  description?: string;
+  details?: string;
+  team?: string;
+  endDate?: Scalars["Date"];
+  institution?: string;
+  issuedBy?: string;
+  organization?: string;
+  project?: string;
+  role?: string;
+  startDate?: Scalars["Date"];
+  educationStatus?: EducationStatus;
+  thesisTitle?: string;
+  title?: string;
+  educationType?: EducationType;
+  skills?: FormSkills;
+};

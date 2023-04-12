@@ -404,9 +404,9 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       edit
         ? intl.formatMessage({
             defaultMessage: "Successfully updated experience!",
-            id: "jrjPWp",
+            id: "4438xW",
             description:
-              "Success message displayed after updating experience on profile",
+              "Success message displayed after updating an experience",
           })
         : intl.formatMessage({
             defaultMessage: "Successfully added experience!",
