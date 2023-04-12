@@ -412,46 +412,8 @@ class User extends Model implements Authenticatable
         if (empty($classifications)) {
             return $query;
         }
-
-        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($classifications) {
-            $query->select('id')
-                ->from('pool_candidates')
-                ->whereColumn('pool_candidates.user_id', 'users.id')
-                ->whereExists(function ($query) use ($classifications) {
-                    // Find PoolCandidates for valid pools
-                    $query->select('id')
-                        ->from('pools')
-                        ->whereColumn('pools.id', 'pool_candidates.pool_id')
-                        ->whereExists(function ($query) use ($classifications) {
-                            // Go through the classification_pool pivot table to find each pools classifications
-                            $query->select('id')
-                                ->from('classification_pool')
-                                ->whereColumn('classification_pool.pool_id', 'pools.id')
-                                ->whereExists(function ($query) use ($classifications) {
-                                    // Now we can filter pools by classification
-                                    $query->select('id')
-                                        ->from('classifications')
-                                        ->whereColumn('classifications.id', 'classification_pool.classification_id')
-                                        ->where(function ($query) use ($classifications) {
-                                            foreach ($classifications as $classification) {
-                                                $query->orWhere(function ($query) use ($classification) {
-                                                    $query->where('group', $classification['group'])->where('level', $classification['level']);
-                                                });
-                                            }
-                                        });
-                                });
-                        });
-                })
-                // Now that we've filtered by pools, ensure the PoolCandidate object is qualified and available.
-                // TODO: try to consolidate this logic, which is currently duplicated between this scope scopeQualifiedStreams, and scopePools
-                ->where(function ($query) {
-                    $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-                })
-                ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
-                ->where(function ($query) {
-                    $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-                });
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeQualifiedClassifications($query, $classifications);
         });
         return $query;
     }
