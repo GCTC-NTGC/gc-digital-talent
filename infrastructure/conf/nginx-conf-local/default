@@ -12,7 +12,6 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-
     #server_name localhost;
 
     # redirect server error pages
@@ -25,14 +24,18 @@ server {
         log_not_found off;
     }
 
+    # never cache locally
+    add_header Cache-Control "no-cache, max-age=0";
+
     location = /robots.txt {
         alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
     }
+
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
 
-    # permanent redirect within the same domain with relative path
+    # Permanent redirect within the same domain with relative path
     location = /en/talent/search {
         absolute_redirect off;
         return 301 /en/search;
@@ -116,134 +119,96 @@ server {
 
     # rewrite root-level possible lang prefix to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/?$" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
     }
 
-    # limit cache
+    # run time variables
     location = /config.js {
         alias /home/site/wwwroot/apps/web/dist/config.js;
-        add_header Cache-Control "public, max-age=60";
     }
 
     # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
-        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;
+    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;
     }
 
-     # rewrite talent static files to "apps/web/dist"
-    location ~ "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
-        rewrite "^(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
+    # rewrite talent static contenthashed files to "apps/web/dist"
+    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
+        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
+    }
+
+     # rewrite talent static unhashed files to "apps/web/dist"
+    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
+        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
-        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "users" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "search" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "logged-out" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "browse" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "404" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "support" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "directive-on-digital-talent" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "applications" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/applications(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "create-account" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "register-info" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "login-info" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite talent static files to "web/dist"
-    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
-        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
     location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
     }
 
@@ -259,4 +224,3 @@ server {
         rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
     }
 }
-
