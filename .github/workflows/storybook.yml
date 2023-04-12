@@ -55,8 +55,6 @@ jobs:
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1
-        env:
-          MERGE_STORYBOOKS: true
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.
