@@ -233,3 +233,9 @@ fragment poolAdvertisementSkills on Skill {
     category
   }
 }
+
+mutation UpdateApplication($id: ID!, $application: UpdateApplicationInput!) {
+  updateApplication(id: $id, application: $application) {
+    id
+  }
+}

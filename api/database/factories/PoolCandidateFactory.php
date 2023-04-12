@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
@@ -63,6 +64,18 @@ class PoolCandidateFactory extends Factory
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
                 ]);
+            }
+
+            // if the attached pool has screening questions, generate responses
+            $screeningQuestionsIdArray = $poolCandidate->pool->screeningQuestions()->pluck('id')->toArray();
+            if (isset($screeningQuestionsIdArray) && count($screeningQuestionsIdArray) > 0) {
+                for ($i = 0; $i < count($screeningQuestionsIdArray); $i++) {
+                    ScreeningQuestionResponse::create([
+                        'pool_candidate_id' => $candidateId,
+                        'screening_question_id' => $screeningQuestionsIdArray[$i],
+                        'answer' => $this->faker->paragraph(),
+                    ]);
+                }
             }
         });
     }
