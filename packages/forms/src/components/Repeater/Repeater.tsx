@@ -1,11 +1,13 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import {
   ChevronUpIcon,
   ChevronDownIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
 
-import { Button } from "@gc-digital-talent/ui";
+import { Announcer, Button, useAnnouncer } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 /**
  * Generic button to apply styles to a
@@ -37,7 +39,7 @@ export interface RepeaterFieldsetProps {
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
   /** Callback when the item is removed from the array */
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   /** The legend for the fieldset (required but hidden by default) */
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: true) */
@@ -54,6 +56,42 @@ const Fieldset = ({
   onRemove,
   children,
 }: RepeaterFieldsetProps) => {
+  const intl = useIntl();
+  const { announce } = useAnnouncer();
+  // Non-zero index position of the fieldset for humans
+  const position = index + 1;
+
+  const handleMove = (from: number, to: number) => {
+    onMove(from, to);
+    if (announce) {
+      announce(
+        intl.formatMessage(formMessages.repeaterAnnounceMove, {
+          from: position,
+          to: to + 1,
+        }),
+      );
+    }
+  };
+
+  const handleRemove = () => {
+    onRemove(index);
+    if (announce) {
+      announce(
+        intl.formatMessage(formMessages.repeaterAnnounceRemove, {
+          index: position,
+        }),
+      );
+    }
+  };
+
+  const decrement = () => {
+    handleMove(index, index - 1);
+  };
+
+  const increment = () => {
+    handleMove(index, index + 1);
+  };
+
   return (
     <fieldset
       data-h2-background="base(background)"
@@ -101,7 +139,11 @@ const Fieldset = ({
         >
           <ActionButton
             disabled={index <= 0}
-            onClick={() => onMove(index, index - 1)}
+            onClick={decrement}
+            aria-label={intl.formatMessage(formMessages.repeaterMove, {
+              from: position,
+              to: position - 1,
+            })}
           >
             <ChevronUpIcon data-h2-width="base(x1)" />
           </ActionButton>
@@ -115,16 +157,23 @@ const Fieldset = ({
           </span>
           <ActionButton
             disabled={index === total - 1}
-            onClick={() => onMove(index, index + 1)}
+            onClick={increment}
+            aria-label={intl.formatMessage(formMessages.repeaterMove, {
+              from: position,
+              to: position + 1,
+            })}
           >
             <ChevronDownIcon data-h2-width="base(x1)" />
           </ActionButton>
         </div>
         <ActionButton
-          onClick={onRemove}
+          onClick={handleRemove}
           data-h2-shadow="base(medium)"
           data-h2-radius="base(rounded)"
           data-h2-color="base(error) base:focus(black)"
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index: position,
+          })}
         >
           <TrashIcon data-h2-width="base(x1)" />
         </ActionButton>
@@ -156,25 +205,27 @@ const Root = ({
   showAdd = true,
 }: RepeaterProps) => {
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5, 0)"
-    >
-      {children}
-      {showAdd && (
-        <Button
-          type="button"
-          mode="solid"
-          block
-          color="secondary"
-          onClick={onAdd}
-          {...addButtonProps}
-        >
-          {addText}
-        </Button>
-      )}
-    </div>
+    <Announcer>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x.5, 0)"
+      >
+        {children}
+        {showAdd && (
+          <Button
+            type="button"
+            mode="solid"
+            block
+            color="secondary"
+            onClick={onAdd}
+            {...addButtonProps}
+          >
+            {addText}
+          </Button>
+        )}
+      </div>
+    </Announcer>
   );
 };
 
