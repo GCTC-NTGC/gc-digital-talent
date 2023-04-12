@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import {
   AcademicCapIcon,
   Cog8ToothIcon,
@@ -26,12 +26,9 @@ export default {
       page: AccordionDocs,
     },
   },
-} as ComponentMeta<typeof Accordion.Root>;
+} as Meta<typeof Accordion.Root>;
 
-const Template: ComponentStory<typeof Accordion.Root> = ({
-  children,
-  ...rest
-}) => {
+const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
