@@ -96,7 +96,7 @@ class PoolCandidate extends Model
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
-                Pool::whereIn('stream', $streams);
+                $query->whereIn('stream', $streams);
             });
         return $query;
     }
@@ -125,8 +125,8 @@ class PoolCandidate extends Model
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
-                Pool::whereHas('classification', function ($query) use ($classifications) {
-                    Classification::where(function ($query) use ($classifications) {
+                $query->whereHas('classifications', function ($query) use ($classifications) {
+                    $query->where(function ($query) use ($classifications) {
                         foreach ($classifications as $classification) {
                             $query->orWhere(function ($query) use ($classification) {
                                 $query->where('group', $classification['group'])->where('level', $classification['level']);
