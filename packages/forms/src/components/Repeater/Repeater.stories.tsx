@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { Announcer, Well } from "@gc-digital-talent/ui";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
@@ -98,19 +98,21 @@ const Template: Story<StoryProps> = (args) => {
   };
 
   return (
-    <BasicForm
-      onSubmit={handleSubmit}
-      options={{
-        defaultValues: {
-          [name]: defaultValues,
-        },
-      }}
-    >
-      <div data-h2-margin-bottom="base(x1)">
-        <Fields name={name} {...fieldProps} />
-      </div>
-      <Submit />
-    </BasicForm>
+    <Announcer>
+      <BasicForm
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: {
+            [name]: defaultValues,
+          },
+        }}
+      >
+        <div data-h2-margin-bottom="base(x1)">
+          <Fields name={name} {...fieldProps} />
+        </div>
+        <Submit />
+      </BasicForm>
+    </Announcer>
   );
 };
 

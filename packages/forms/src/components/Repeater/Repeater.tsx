@@ -6,7 +6,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 
-import { Announcer, Button, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 /**
@@ -205,27 +205,25 @@ const Root = ({
   showAdd = true,
 }: RepeaterProps) => {
   return (
-    <Announcer>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5, 0)"
-      >
-        {children}
-        {showAdd && (
-          <Button
-            type="button"
-            mode="solid"
-            block
-            color="secondary"
-            onClick={onAdd}
-            {...addButtonProps}
-          >
-            {addText}
-          </Button>
-        )}
-      </div>
-    </Announcer>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x.5, 0)"
+    >
+      {children}
+      {showAdd && (
+        <Button
+          type="button"
+          mode="solid"
+          block
+          color="secondary"
+          onClick={onAdd}
+          {...addButtonProps}
+        >
+          {addText}
+        </Button>
+      )}
+    </div>
   );
 };
 
