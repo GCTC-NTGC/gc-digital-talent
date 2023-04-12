@@ -3,6 +3,13 @@
 error_log /var/log/nginx/error.log notice;
 # rewrite_log on;
 
+# never cache locally
+# Set default $hdr_cache_control if Cache-Control does not exist
+# https://www.axllent.org/docs/add-nginx-headers-if-not-set/
+map $upstream_http_cache_control $hdr_cache_control {
+    '' "no-store";
+}
+
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
@@ -24,8 +31,8 @@ server {
         log_not_found off;
     }
 
-    # never cache locally
-    add_header Cache-Control "no-cache, max-age=0";
+    # The following are only added if they do not already exist.  Avoid overwriting headers from PHP.
+    add_header Cache-Control $hdr_cache_control;
 
     location = /robots.txt {
         alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
