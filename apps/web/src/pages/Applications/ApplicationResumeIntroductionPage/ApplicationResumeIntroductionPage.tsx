@@ -7,6 +7,7 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -54,6 +55,7 @@ export const ApplicationResumeIntroduction = ({
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
   const nextStep = paths.applicationResume(application.id);
+  const { applicantDashboard } = useFeatureFlags();
 
   return (
     <>
@@ -109,13 +111,12 @@ export const ApplicationResumeIntroduction = ({
           type="button"
           mode="inline"
           color="secondary"
-          href={paths.pool(application?.poolAdvertisement?.id || "")}
+          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
         >
           {intl.formatMessage({
-            defaultMessage: "Return to the advertisement",
-            id: "RWvojd",
-            description:
-              "Link text to return to a pool advertisement during the application",
+            defaultMessage: "Save and quit for now",
+            id: "U86N4g",
+            description: "Action button to save and exit an application",
           })}
         </Link>
       </div>
