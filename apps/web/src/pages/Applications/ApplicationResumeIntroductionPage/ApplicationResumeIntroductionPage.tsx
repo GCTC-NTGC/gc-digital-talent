@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { StarIcon } from "@heroicons/react/20/solid";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -53,8 +53,74 @@ const ApplicationResumeIntroduction = ({
   const intl = useIntl();
   const paths = useRoutes();
   const pageInfo = getPageInfo({ intl, paths, application });
+  const nextStep = paths.applicationResume(application.id);
 
-  return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
+  return (
+    <>
+      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "The next step is to make sure that your résumé is as up-to-date as possible.",
+          id: "kfXCY8",
+          description:
+            "Application step to begin working on résumé, paragraph one",
+        })}
+      </p>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "More specifically, not only do we want to know your work history, but we highly value knowing about your community experience, awards, personal initiatives, and education too!",
+          id: "yrxGnb",
+          description:
+            "Application step to begin working on résumé, paragraph two",
+        })}
+      </p>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Once you’ve completed your resume and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
+          id: "iK/Vqe",
+          description:
+            "Application step to begin working on résumé, paragraph three",
+        })}
+      </p>
+      <Separator
+        orientation="horizontal"
+        data-h2-background-color="base(gray.lighter)"
+        data-h2-margin="base(x2, 0)"
+        decorative
+      />
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x.25, x.5)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(flex-start) l-tablet(center)"
+      >
+        <Link type="button" color="primary" mode="solid" href={nextStep}>
+          {intl.formatMessage({
+            defaultMessage: "Got it, let's go!",
+            id: "AOrJqm",
+            description: "Link text to continue the application process",
+          })}
+        </Link>
+        <Link
+          type="button"
+          mode="inline"
+          color="secondary"
+          href={paths.pool(application?.poolAdvertisement?.id || "")}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Return to the advertisement",
+            id: "RWvojd",
+            description:
+              "Link text to return to a pool advertisement during the application",
+          })}
+        </Link>
+      </div>
+    </>
+  );
 };
 
 const ApplicationResumeIntroductionPage = () => (
