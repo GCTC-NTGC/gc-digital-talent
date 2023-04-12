@@ -7544,5 +7544,9 @@
   "pKLIzg": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre CV pour confirmer les exigences en matière d’expérience et de formation, nous vous demanderons de décrire une ou plusieurs expériences de votre CV où vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "U86N4g": {
+    "defaultMessage": "Pour l’instant, sauvegardez et quittez",
+    "description": "Action button to save and exit an application"
   }
 }
