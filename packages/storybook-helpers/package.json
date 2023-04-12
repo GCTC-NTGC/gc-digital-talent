@@ -4,18 +4,17 @@
   "main": "index.ts",
   "version": "0.0.0",
   "files": [
-    "main.js"
+    "main.ts"
   ],
   "dependencies": {
     "@gc-digital-talent/theme": "*",
-    "@storybook/addon-actions": "^6.5.14",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-viewport": "^6.5.14",
-    "@storybook/addons": "^6.5.14",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/react": "^6.5.16",
+    "@storybook/addon-actions": "^7.0.4",
+    "@storybook/addon-essentials": "^7.0.4",
+    "@storybook/addon-links": "^7.0.4",
+    "@storybook/addon-viewport": "^7.0.4",
+    "@storybook/addons": "^7.0.4",
+    "@storybook/react": "^7.0.4",
+    "@storybook/react-webpack5": "^7.0.4",
     "chromatic": "^6.17.2",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -26,5 +25,8 @@
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "urql": "^3.0.4",
     "wonka": "^6.3.1"
+  },
+  "devDependencies": {
+    "storybook": "^7.0.4"
   }
 }
