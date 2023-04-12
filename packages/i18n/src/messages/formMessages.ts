@@ -71,6 +71,11 @@ const formMessages = defineMessages({
     id: "WGoaKQ",
     description: "Text for submit button on edit forms",
   },
+  cancelGoBack: {
+    defaultMessage: "Cancel and go back",
+    id: "fMcKtJ",
+    description: "Text to cancel changes to a form",
+  },
 });
 
 export default formMessages;
