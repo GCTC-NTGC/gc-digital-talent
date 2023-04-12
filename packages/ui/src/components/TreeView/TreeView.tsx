@@ -1,6 +1,11 @@
 import React from "react";
-import Card from "../Card";
 
+/**
+ * Props that can be passed to an `<TreeView.Item />`
+ *
+ * @interface TreeViewItemProps
+ * @member {boolean} noBranch controls wether item is connected to tree line.
+ */
 interface TreeViewItemProps {
   noBranch?: boolean;
   children: React.ReactNode;
@@ -28,20 +33,28 @@ const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
   </div>
 );
 
-interface TreeViewRootProps {
-  title: string;
-  subtitle?: React.ReactNode;
+interface TreeViewHeadProps {
   children: React.ReactNode;
 }
 
-const Root = ({ title, subtitle, children, ...rest }: TreeViewRootProps) => (
-  <div {...rest}>
-    {/* TODO: Should the card be kept in the tree view component or manually added? */}
-    <Card title={title} color="white" bold>
-      {subtitle && <p>{subtitle}</p>}
-    </Card>
-    {children}
-  </div>
+/**
+ * Props that can be passed to an `<TreeView.Head />`
+ *
+ * @interface TreeViewHeadProps
+ */
+const Head = ({ children }: TreeViewHeadProps) => <div>{children}</div>;
+
+interface TreeViewRootProps {
+  children: React.ReactNode;
+}
+
+/**
+ * Props that can be passed to an `<TreeView.Root />`
+ *
+ * @interface TreeViewRootProps
+ */
+const Root = ({ children, ...rest }: TreeViewRootProps) => (
+  <div {...rest}>{children}</div>
 );
 
 /**
@@ -54,6 +67,11 @@ const TreeView = {
    * @desc Contains all the parts of a TreeView.
    */
   Root,
+  /**
+   * @name Head
+   * @desc Contains the head of the tree. All tree items will fall under this element.
+   */
+  Head,
   /**
    * @name Item
    * @desc Contains an item in the tree.

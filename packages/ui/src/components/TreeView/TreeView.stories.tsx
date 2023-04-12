@@ -14,7 +14,12 @@ export default {
 
 const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
   return (
-    <TreeView.Root title="Title" subtitle="Subtitle">
+    <TreeView.Root>
+      <TreeView.Head>
+        <Card title="Title" color="white" bold>
+          <p>Subtitle</p>
+        </Card>
+      </TreeView.Head>
       <TreeView.Item noBranch>
         <Alert.Root type="warning" data-h2-margin="base(0, 0)">
           <Alert.Title>Error/Warning: {faker.lorem.sentences(1)}</Alert.Title>
