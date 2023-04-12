@@ -6,6 +6,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { ExperienceType } from "~/types/experience";
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
@@ -14,10 +15,15 @@ import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields";
 import NullExperienceType from "./NullExperienceType";
 
-const ExperienceDetails = () => {
+interface ExperienceDetailsProps {
+  experienceType?: ExperienceType;
+}
+
+const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "type" });
-  const labels = getExperienceFormLabels(intl, type);
+  const type = useWatch({ name: "experienceType" });
+  const derivedType = type ?? experienceType;
+  const labels = getExperienceFormLabels(intl, derivedType);
 
   return (
     <>
@@ -29,7 +35,7 @@ const ExperienceDetails = () => {
         })}
       </Heading>
       <div data-h2-margin="base(0, 0, x2, 0)">
-        {notEmpty(type) ? (
+        {notEmpty(derivedType) ? (
           <>
             <p>
               {intl.formatMessage({
@@ -39,11 +45,11 @@ const ExperienceDetails = () => {
                 description: "Help text for the experience details section",
               })}
             </p>
-            {type === "award" && <AwardFields labels={labels} />}
-            {type === "community" && <CommunityFields labels={labels} />}
-            {type === "education" && <EducationFields labels={labels} />}
-            {type === "personal" && <PersonalFields labels={labels} />}
-            {type === "work" && <WorkFields labels={labels} />}
+            {derivedType === "award" && <AwardFields labels={labels} />}
+            {derivedType === "community" && <CommunityFields labels={labels} />}
+            {derivedType === "education" && <EducationFields labels={labels} />}
+            {derivedType === "personal" && <PersonalFields labels={labels} />}
+            {derivedType === "work" && <WorkFields labels={labels} />}
           </>
         ) : (
           <NullExperienceType />
