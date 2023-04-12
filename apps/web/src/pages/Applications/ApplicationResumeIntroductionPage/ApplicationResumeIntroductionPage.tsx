@@ -47,7 +47,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationResumeIntroduction = ({
+export const ApplicationResumeIntroduction = ({
   application,
 }: ApplicationPageProps) => {
   const intl = useIntl();
