@@ -12,7 +12,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
+} from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
 
 import ExperienceAccordion, {

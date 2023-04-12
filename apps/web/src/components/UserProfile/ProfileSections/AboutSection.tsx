@@ -33,30 +33,6 @@ interface AboutSectionProps {
   editPath?: string;
 }
 
-export function hasAllEmptyFields({
-  firstName,
-  lastName,
-  telephone,
-  email,
-  preferredLang,
-  currentCity,
-  currentProvince,
-  citizenship,
-  armedForcesStatus,
-}: PartialApplicant): boolean {
-  return !!(
-    !firstName &&
-    !lastName &&
-    !email &&
-    !telephone &&
-    !preferredLang &&
-    !currentCity &&
-    !currentProvince &&
-    !citizenship &&
-    armedForcesStatus === null
-  );
-}
-
 export function hasEmptyRequiredFields({
   firstName,
   lastName,

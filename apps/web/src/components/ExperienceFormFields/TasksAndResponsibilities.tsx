@@ -11,16 +11,25 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
+import { ExperienceType } from "~/types/experience";
+
 import NullExperienceType from "./NullExperienceType";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 const FIELD_NAME = "details";
 
-const TasksAndResponsibilities = () => {
+interface TaskAndResponsibilitiesProps {
+  experienceType?: ExperienceType;
+}
+
+const TasksAndResponsibilities = ({
+  experienceType,
+}: TaskAndResponsibilitiesProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "type" });
+  const type = useWatch({ name: "experienceType" });
   const currentValue = useWatch({ name: FIELD_NAME });
+  const derivedType = type ?? experienceType;
 
   return (
     <>
@@ -32,7 +41,7 @@ const TasksAndResponsibilities = () => {
         })}
       </Heading>
       <div data-h2-margin="base(0, 0, x2, 0)">
-        {notEmpty(type) ? (
+        {notEmpty(derivedType) ? (
           <>
             <p>
               {intl.formatMessage({

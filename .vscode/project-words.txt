@@ -30,6 +30,7 @@ FRESHDESK
 Gatineau
 gctalent
 headlessui
+Helpdesk
 heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk

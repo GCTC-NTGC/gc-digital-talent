@@ -1369,9 +1369,9 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
     "description": "Label displayed for is a government employee option"
   },
-  "jrjPWp": {
+  "4438xW": {
     "defaultMessage": "Expérience mise à jour avec succès!",
-    "description": "Success message displayed after updating experience on profile"
+    "description": "Success message displayed after updating an experience"
   },
   "64Pv6e": {
     "defaultMessage": "Préférences de travail",
@@ -1437,9 +1437,9 @@
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
     "description": "Label displayed for is not a government employee option"
   },
-  "rMYmPd": {
+  "fMcKtJ": {
     "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Label for cancel button on profile form."
+    "description": "Text to cancel changes to a form"
   },
   "rUFZwt": {
     "defaultMessage": "Connectez-vous à la place",
@@ -7500,5 +7500,37 @@
   "zAl7ZH": {
     "defaultMessage": "Michif",
     "description": "Name of Michif language"
+  },
+  "F7RkOA": {
+    "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
+    "description": "Description of the application process and the next step"
+  },
+  "MNjEW5": {
+    "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
+    "description": "Introductory sentence for a pool application."
+  },
+  "u/DBSl": {
+    "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
+    "description": "Description of how the skills-based hiring platform assess candidates."
+  },
+  "RWvojd": {
+    "defaultMessage": "Revenir à la publicité",
+    "description": "Link text to return to a pool advertisement during the application"
+  },
+  "r6z4HM": {
+    "defaultMessage": "Allons-y!",
+    "description": "Link text to begin the application process"
+  },
+  "5DfpAy": {
+    "defaultMessage": "Supprimer cette expérience",
+    "description": "Label on button to delete the current experience"
+  },
+  "YVhQ4t": {
+    "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
+    "description": "Message displayed to user after experience fails to be deleted."
+  },
+  "zMZQLY": {
+    "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
+    "description": "Description for editing an experience."
   }
 }
