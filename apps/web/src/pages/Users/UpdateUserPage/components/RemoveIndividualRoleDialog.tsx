@@ -28,7 +28,7 @@ const RemoveIndividualRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onUpdateUser(user.id, {
-      roles: {
+      rolesSetter: {
         detach: {
           roles: [role.id],
         },
