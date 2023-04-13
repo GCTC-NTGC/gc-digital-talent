@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -82,33 +82,45 @@ const ApplicationQuestionsIntroduction = ({
             "Application step for screening questions, introduction description, paragraph two",
         })}
       </p>
-      <div data-h2-padding="base:(x2, 0, x2, 0)">
-        <hr data-h2-color="base:(gray.lighter)" />
+
+      <Separator
+        orientation="horizontal"
+        data-h2-background-color="base(gray.lighter)"
+        data-h2-margin="base(x2, 0)"
+        decorative
+      />
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x.25, x.5)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(flex-start) l-tablet(center)"
+      >
+        <Link
+          type="button"
+          color="primary"
+          mode="solid"
+          href={paths.applicationQuestions(application.id)}
+        >
+          {intl.formatMessage({
+            defaultMessage: "I'm ready!",
+            id: "egLb65",
+            description: "An action button to proceed",
+          })}
+        </Link>
+        <Link
+          type="button"
+          mode="inline"
+          color="secondary"
+          href={paths.dashboard()}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Save and quit for now",
+            id: "U86N4g",
+            description: "Action button to save and exit an application",
+          })}
+        </Link>
       </div>
-      <Link
-        type="button"
-        color="primary"
-        href={paths.applicationQuestions(application.id)}
-      >
-        {intl.formatMessage({
-          defaultMessage: "I'm ready!",
-          id: "egLb65",
-          description: "An action button to proceed",
-        })}
-      </Link>
-      <Link
-        type="button"
-        mode="inline"
-        color="secondary"
-        href={paths.dashboard()}
-        data-h2-padding="base:(0, 0, 0, x1)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save and quit for now",
-          id: "nSBnuF",
-          description: "An action button to leave without losing progress",
-        })}
-      </Link>
     </>
   );
 };
