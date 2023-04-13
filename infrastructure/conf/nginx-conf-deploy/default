@@ -119,6 +119,12 @@ server {
         rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
+    # rewrite possible lang prefix then "talent" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
+        add_header Cache-Control "public, max-age=0"; # 1 hour
+        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
         add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild

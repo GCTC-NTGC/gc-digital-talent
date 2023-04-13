@@ -149,6 +149,11 @@ server {
         rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
     }
 
+    # rewrite possible lang prefix then "talent" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
