@@ -72,8 +72,8 @@ const ApplicationResumeIntroduction = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "More specifically, not only do we want to know your work history, but we highly value knowing about your community experience, awards, personal initiatives, and education too!",
-          id: "yrxGnb",
+            "More specifically, not only do we want to know your <strong>work history</strong>, but we highly value knowing about your <strong>community experience</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong> too!",
+          id: "rpES4b",
           description:
             "Application step to begin working on résumé, paragraph two",
         })}
