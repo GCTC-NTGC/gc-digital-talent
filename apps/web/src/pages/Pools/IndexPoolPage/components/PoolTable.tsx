@@ -10,6 +10,7 @@ import {
   getLocale,
   commonMessages,
   getLocalizedName,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -26,6 +27,7 @@ import {
   RoleAssignment,
   LocalizedString,
   useAllPoolsQuery,
+  Team,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -151,43 +153,27 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
+interface PoolWithTeam extends Pool {
+  team: NonNullable<Pool["team"]>;
+}
+
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Pool[] => {
+): PoolWithTeam[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
-
   const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
-    return team?.pools
-      ? team?.pools.filter(notEmpty).map((pool) => ({
-          ...pool,
-          team,
-        }))
-      : null;
-  });
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
-  const poolsArray = uniqBy(filteredFlattenedPools, "id");
-  return poolsArray;
-};
 
-// pools to teams to pools with team array
-const poolsToPoolsWithTeam = (initialArray: Maybe<Pool[]>): Pool[] => {
-  const flattenedTeams = initialArray?.flatMap((pool) => pool.team);
+  const addTeamToPool =
+    (team: Team) =>
+    (pool: Pool): PoolWithTeam => ({ ...pool, team });
 
-  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
   const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
-    return team?.pools
-      ? team?.pools.filter(notEmpty).map((pool) => ({
-          ...pool,
-          team,
-        }))
-      : null;
+    return unpackMaybes(team.pools).map(addTeamToPool(team));
   });
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
-  const poolsArray = uniqBy(filteredFlattenedPools, "id");
+  const poolsArray = uniqBy(flattenedPools, "id");
   return poolsArray;
 };
 
@@ -231,6 +217,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         },
         Cell: ({ row }: PoolCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Publishing group",
+          id: "rYgaTA",
+          description:
+            "Title displayed for the Pool table publishing group column.",
+        }),
+        accessor: (d) => {
+          return intl.formatMessage(
+            d.publishingGroup
+              ? getPublishingGroup(d.publishingGroup)
+              : commonMessages.notFound,
+          );
+        },
       },
       {
         Header: intl.formatMessage({
@@ -457,12 +458,11 @@ export const PoolOperatorTableApi = () => {
 export const PoolAdminTableApi = () => {
   const [result] = useAllPoolsQuery();
   const { data, fetching, error } = result;
-  const maybePools = unpackMaybes(data?.pools);
-  const poolsArray = poolsToPoolsWithTeam(maybePools);
+  const pools = unpackMaybes(data?.pools);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} />
+      <PoolTable pools={pools} />
     </Pending>
   );
 };

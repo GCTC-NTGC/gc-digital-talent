@@ -24,14 +24,14 @@
   },
   "devDependencies": {
     "@gc-digital-talent/env": "*",
-    "@swc/core": "^1.3.42",
+    "@swc/core": "^1.3.46",
     "@types/jest": "^29.5.0",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.10",
     "eslint": "^8.37.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
-    "rimraf": "^4.4.1",
+    "rimraf": "^5.0.0",
     "tsconfig": "*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2"

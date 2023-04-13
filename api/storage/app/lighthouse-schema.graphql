@@ -321,6 +321,11 @@ input CreateScreeningQuestionInput {
   sortOrder: Int
 }
 
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
   name: LocalizedStringInput!
@@ -872,6 +877,7 @@ type PoolCandidate {
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
 }
 
 type PoolCandidateFilter {
@@ -1197,6 +1203,18 @@ type ScreeningQuestion {
   poolAdvertisement: PoolAdvertisement!
   question: LocalizedString!
   sortOrder: Int
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+}
+
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion!
+  poolCandidate: PoolCandidate!
+}
+
+input ScreeningResponseBelongsTo {
+  connect: ID!
 }
 
 enum SecurityStatus {
@@ -1317,6 +1335,7 @@ scalar UUID
 
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
 }
 
 input UpdateClassificationInput {
@@ -1384,6 +1403,17 @@ input UpdateScreeningQuestionInput {
   id: ID!
   question: LocalizedStringInput
   sortOrder: Int
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
 }
 
 input UpdateScreeningQuestionsHasMany {

@@ -3,6 +3,7 @@ import { Color, HeadingRank } from "./types";
 import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
+import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, {
   IconButton,
@@ -17,6 +18,7 @@ import Card, {
 import CardLink, { type CardLinkProps } from "./components/CardLink";
 import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
+import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
@@ -57,6 +59,7 @@ import SideMenu, {
   type SideMenuItemProps,
 } from "./components/SideMenu";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
+import { StepType } from "./components/Stepper/types";
 import Switch from "./components/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
@@ -66,6 +69,7 @@ import TableOfContents, {
 import Tabs from "./components/Tabs";
 import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
+import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 
 export type {
@@ -98,6 +102,7 @@ export type {
   SideMenuProps,
   SideMenuItemProps,
   StepperProps,
+  StepType,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -109,6 +114,8 @@ export {
   Accordion,
   Alert,
   AlertDialog,
+  Announcer,
+  useAnnouncer,
   Breadcrumbs,
   Button,
   IconButton,
@@ -118,6 +125,7 @@ export {
   Chips,
   Chip,
   Collapsible,
+  DefinitionList,
   Dialog,
   DropdownMenu,
   Flourish,
@@ -147,5 +155,6 @@ export {
   Tabs,
   TileLink,
   ToggleGroup,
+  TreeView,
   Well,
 };
