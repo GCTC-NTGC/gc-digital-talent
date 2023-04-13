@@ -79,7 +79,7 @@
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.1",
     "@mdx-js/react": "^2.3.0",
-    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-actions": "^7.0.4",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
     "@storybook/addon-viewport": "^6.5.14",
