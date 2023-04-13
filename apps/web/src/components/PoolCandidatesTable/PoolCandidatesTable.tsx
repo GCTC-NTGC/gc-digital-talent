@@ -283,7 +283,6 @@ const defaultState = {
       skills: [],
       hasDiploma: undefined,
       languageAbility: undefined,
-      stream: [],
     },
     poolCandidateStatus: [],
     priorityWeight: [],
