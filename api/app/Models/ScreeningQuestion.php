@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Screening Question
@@ -18,12 +19,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
- class ScreeningQuestion extends Model
- {
-     use HasFactory;
-     use SoftDeletes;
+class ScreeningQuestion extends Model
+{
+    use HasFactory;
+    use SoftDeletes;
 
-     protected $keyType = 'string';
+    protected $keyType = 'string';
 
     /**
      * The attributes that should be cast.
@@ -48,4 +49,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     {
         return $this->belongsTo(Pool::class);
     }
- }
+    public function screeningQuestionResponses(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestionResponse::class);
+    }
+}

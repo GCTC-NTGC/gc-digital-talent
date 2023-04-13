@@ -41,6 +41,9 @@ query getMyExperiences {
     experiences {
       id
       details
+      applicant {
+        id
+      }
       skills {
         id
         key

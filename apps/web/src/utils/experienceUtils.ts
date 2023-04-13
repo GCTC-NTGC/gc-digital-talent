@@ -1,15 +1,24 @@
+/* eslint-disable no-underscore-dangle */
 import { IntlShape } from "react-intl";
-import { Maybe, Skill } from "~/api/generated";
+import {
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  Maybe,
+  PersonalExperience,
+  Skill,
+  WorkExperience,
+} from "~/api/generated";
 import {
   AnyExperience,
   AllExperienceFormValues,
+  ExperienceDetailsDefaultValues,
   ExperienceDetailsSubmissionData,
+  ExperienceForDate,
   ExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
 
-// NOTE: File will grow
-// eslint-disable-next-line import/prefer-default-export
 export const getExperienceTitle = (
   experience: AnyExperience,
   intl: IntlShape,
@@ -235,9 +244,9 @@ export const getExperienceFormLabels = (
  * @returns ExperienceDetailsSubmissionData
  */
 export const formValuesToSubmitData = (
-  type: ExperienceType | "",
   data: ExperienceFormValues<AllExperienceFormValues>,
   hiddenSkills: Maybe<Skill[]>,
+  type?: ExperienceType | "",
 ): ExperienceDetailsSubmissionData => {
   const {
     issuedBy,
@@ -330,5 +339,205 @@ export const formValuesToSubmitData = (
     details: data.details,
     skills: data.skills ? { sync: skillSync } : undefined,
     ...(type ? dataMap[type] : {}),
+  };
+};
+
+export const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
+  e.__typename === "AwardExperience";
+export const isCommunityExperience = (
+  e: AnyExperience,
+): e is CommunityExperience => e.__typename === "CommunityExperience";
+export const isEducationExperience = (
+  e: AnyExperience,
+): e is EducationExperience => e.__typename === "EducationExperience";
+export const isPersonalExperience = (
+  e: AnyExperience,
+): e is PersonalExperience => e.__typename === "PersonalExperience";
+export const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
+  e.__typename === "WorkExperience";
+
+export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
+  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
+  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
+  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
+  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
+
+  // All items with no end date should be at the top and sorted by most recent start date.
+  if (!e1EndDate && !e2EndDate) {
+    return e2StartDate - e1StartDate;
+  }
+
+  if (!e1EndDate) {
+    return -1;
+  }
+
+  if (!e2EndDate) {
+    return 1;
+  }
+
+  // Items with end date should be sorted by most recent end date at top.
+  return e2EndDate - e1EndDate;
+};
+
+/**
+ * Convert the API experience type to
+ * something more useable
+ *
+ * @param experience
+ * @returns
+ */
+export const deriveExperienceType = (
+  experience: AnyExperience,
+): ExperienceType | undefined => {
+  const map = new Map<AnyExperience["__typename"], ExperienceType>([
+    ["AwardExperience", "award"],
+    ["EducationExperience", "education"],
+    ["CommunityExperience", "community"],
+    ["PersonalExperience", "personal"],
+    ["WorkExperience", "work"],
+  ]);
+
+  // eslint-disable-next-line no-underscore-dangle
+  if (!experience.__typename) {
+    return undefined;
+  }
+
+  // eslint-disable-next-line no-underscore-dangle
+  return map.get(experience.__typename);
+};
+
+/**
+ * Massage AwardExperience API data to form values
+ *
+ * @param experience
+ * @returns
+ */
+const getAwardExperienceDefaultValues = (experience: AwardExperience) => {
+  const { title, issuedBy, awardedDate, awardedTo, awardedScope } = experience;
+  return {
+    awardTitle: title,
+    issuedBy,
+    awardedDate,
+    awardedTo,
+    awardedScope,
+  };
+};
+
+/**
+ * Massage CommunityExperience API data to form values
+ *
+ * @param experience
+ * @returns
+ */
+const getCommunityExperienceDefaultValues = (
+  experience: CommunityExperience,
+) => {
+  const { title, organization, project, startDate, endDate } = experience;
+  return {
+    role: title,
+    organization,
+    project,
+    startDate,
+    currentRole: endDate === null,
+    endDate,
+  };
+};
+
+/**
+ * Massage EducationExperience API data to form values
+ *
+ * @param experience
+ * @returns
+ */
+const getEducationExperienceDefaultValues = (
+  experience: EducationExperience,
+) => {
+  const {
+    type,
+    status,
+    areaOfStudy,
+    institution,
+    thesisTitle,
+    startDate,
+    endDate,
+  } = experience;
+  return {
+    educationType: type,
+    educationStatus: status,
+    areaOfStudy,
+    institution,
+    thesisTitle,
+    startDate,
+    currentRole: endDate === null,
+    endDate,
+  };
+};
+
+/**
+ * Massage PersonalExperience API data to form values
+ *
+ * @param experience
+ * @returns
+ */
+const getPersonalExperienceDefaultValues = (experience: PersonalExperience) => {
+  const { title, description, startDate, endDate } = experience;
+  return {
+    experienceTitle: title,
+    experienceDescription: description,
+    startDate,
+    currentRole: endDate === null,
+    endDate,
+  };
+};
+
+/**
+ * Massage WorkExperience API data to form values
+ *
+ * @param experience
+ * @returns
+ */
+const getWorkExperienceDefaultValues = (experience: WorkExperience) => {
+  const { role, organization, division, startDate, endDate } = experience;
+  return {
+    role,
+    organization,
+    team: division,
+    startDate,
+    currentRole: endDate === null,
+    endDate,
+  };
+};
+
+/**
+ * Massage API response into form values
+ *
+ * @param experienceType
+ * @param experience
+ * @returns
+ */
+export const queryResultToDefaultValues = (
+  experienceType: ExperienceType,
+  experience: AnyExperience,
+): ExperienceDetailsDefaultValues => {
+  let unsharedValues = {};
+  if (isAwardExperience(experience)) {
+    unsharedValues = getAwardExperienceDefaultValues(experience);
+  }
+  if (isCommunityExperience(experience)) {
+    unsharedValues = getCommunityExperienceDefaultValues(experience);
+  }
+  if (isEducationExperience(experience)) {
+    unsharedValues = getEducationExperienceDefaultValues(experience);
+  }
+  if (isPersonalExperience(experience)) {
+    unsharedValues = getPersonalExperienceDefaultValues(experience);
+  }
+  if (isWorkExperience(experience)) {
+    unsharedValues = getWorkExperienceDefaultValues(experience);
+  }
+
+  return {
+    details: experience.details || "",
+    ...unsharedValues,
   };
 };
