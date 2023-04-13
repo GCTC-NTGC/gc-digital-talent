@@ -1,6 +1,14 @@
-import { UpdateUserAsUserInput, User } from "~/api/generated";
+import {
+  Scalars,
+  UpdateUserAboutMeMutation,
+  UpdateUserAsUserInput,
+  User,
+} from "~/api/generated";
 
 export interface SectionProps {
   user: User;
-  onUpdate: (data: UpdateUserAsUserInput, message?: React.ReactNode) => void;
+  onUpdate: (
+    id: string,
+    user: UpdateUserAsUserInput,
+  ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
 }
