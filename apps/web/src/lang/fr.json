@@ -7532,5 +7532,21 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "PnyBYM": {
+    "defaultMessage": "Allons-y!",
+    "description": "Action button to move to the next step"
+  },
+  "ikYbDD": {
+    "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
+    "description": "Application step for skill requirements, introduction, description, paragraph one"
+  },
+  "pKLIzg": {
+    "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre CV pour confirmer les exigences en matière d’expérience et de formation, nous vous demanderons de décrire une ou plusieurs expériences de votre CV où vous avez activement utilisé la compétence requise.",
+    "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "U86N4g": {
+    "defaultMessage": "Pour l’instant, sauvegardez et quittez",
+    "description": "Action button to save and exit an application"
   }
 }
