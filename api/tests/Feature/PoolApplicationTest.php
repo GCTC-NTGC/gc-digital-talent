@@ -18,6 +18,9 @@ use Database\Seeders\SkillSeeder;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
 
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
+
 class PoolApplicationTest extends TestCase
 {
     use RefreshDatabase;
@@ -75,6 +78,16 @@ class PoolApplicationTest extends TestCase
     '
         mutation deleteApplication($id: ID!) {
             deleteApplication(id: $id)
+        }
+    ';
+
+    protected $suspendMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation suspendApplication($id: ID!, $isSuspended: Boolean!) {
+            changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
+                suspendedAt
+            }
         }
     ';
 
@@ -1011,5 +1024,66 @@ class PoolApplicationTest extends TestCase
                 $this->deleteMutationDocument,
                 ['id' => $candidateFourteen->id]
             )->assertJson($result);
+    }
+
+    public function testApplicationSuspension(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+
+        // assert can't suspend a DRAFT
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            )->assertJsonFragment(['message' => 'The application must be submitted.']);
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            ]);
+
+        $this->travelTo(Carbon::now()->addMinute()); // to test timestamp related things, gaps in time are required
+
+        // assert suspend successfully happens after application is submitted
+        $response = $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            );
+        $suspendedDate = $response->json('data.changeApplicationSuspendedAt.suspendedAt');
+        assertNotNull($suspendedDate);
+
+        $this->travelTo(Carbon::now()->addMinute());
+
+        // assert re-suspend does not error and matches the date string above
+        $response2 = $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            );
+        $suspendedDate2 = $response2->json('data.changeApplicationSuspendedAt.suspendedAt');
+        assertEquals($suspendedDate, $suspendedDate2);
+
+        // assert un-suspend works
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => false]
+            )->assertJsonFragment(['suspendedAt' => null]);
     }
 }

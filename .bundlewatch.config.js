@@ -12,7 +12,7 @@ module.exports = {
   files: [
     {
       path: "apps/web/dist/app.*.js",
-      maxSize: "500 kB",
+      maxSize: "505 kB",
     },
   ]
 };

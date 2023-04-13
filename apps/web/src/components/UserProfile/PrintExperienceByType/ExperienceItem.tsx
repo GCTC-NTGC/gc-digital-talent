@@ -7,7 +7,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
+} from "~/utils/experienceUtils";
 import { Experience, Maybe } from "~/api/generated";
 import { getDateRange } from "../accordionUtils";
 import { AwardContent } from "../ExperienceAccordion/individualExperienceAccordions/AwardAccordion";

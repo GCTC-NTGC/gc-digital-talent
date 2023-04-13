@@ -30,8 +30,8 @@ const CancelButton = ({ href, children }: CancelButtonProps) => {
         {children ||
           intl.formatMessage({
             defaultMessage: "Cancel and go back",
-            id: "rMYmPd",
-            description: "Label for cancel button on profile form.",
+            id: "fMcKtJ",
+            description: "Text to cancel changes to a form",
           })}
       </span>
     </Link>
