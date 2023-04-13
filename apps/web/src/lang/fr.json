@@ -1369,9 +1369,9 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
     "description": "Label displayed for is a government employee option"
   },
-  "jrjPWp": {
+  "4438xW": {
     "defaultMessage": "Expérience mise à jour avec succès!",
-    "description": "Success message displayed after updating experience on profile"
+    "description": "Success message displayed after updating an experience"
   },
   "64Pv6e": {
     "defaultMessage": "Préférences de travail",
@@ -1437,9 +1437,9 @@
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
     "description": "Label displayed for is not a government employee option"
   },
-  "rMYmPd": {
+  "fMcKtJ": {
     "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Label for cancel button on profile form."
+    "description": "Text to cancel changes to a form"
   },
   "rUFZwt": {
     "defaultMessage": "Connectez-vous à la place",
@@ -7477,6 +7477,14 @@
     "defaultMessage": "Veuillez sélectionner un type afin de poursuivre.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
   },
+  "7XSyhV": {
+    "defaultMessage": "Cette habilité obligatoires doit compter au moins une expérience connexe tirée du cv.",
+    "description": "Experience tree view error message"
+  },
+  "GE9NbK": {
+    "defaultMessage": "Lier à une expérience tirée du cv",
+    "description": "Experience tree view action button label"
+  },
   "HtllH6": {
     "defaultMessage": "Ojibwé de l’Ouest",
     "description": "Name of Western Ojibway language"
@@ -7512,5 +7520,33 @@
   "r6z4HM": {
     "defaultMessage": "Allons-y!",
     "description": "Link text to begin the application process"
+  },
+  "5DfpAy": {
+    "defaultMessage": "Supprimer cette expérience",
+    "description": "Label on button to delete the current experience"
+  },
+  "YVhQ4t": {
+    "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
+    "description": "Message displayed to user after experience fails to be deleted."
+  },
+  "zMZQLY": {
+    "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
+    "description": "Description for editing an experience."
+  },
+  "PnyBYM": {
+    "defaultMessage": "Allons-y!",
+    "description": "Action button to move to the next step"
+  },
+  "ikYbDD": {
+    "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
+    "description": "Application step for skill requirements, introduction, description, paragraph one"
+  },
+  "pKLIzg": {
+    "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre CV pour confirmer les exigences en matière d’expérience et de formation, nous vous demanderons de décrire une ou plusieurs expériences de votre CV où vous avez activement utilisé la compétence requise.",
+    "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "U86N4g": {
+    "defaultMessage": "Pour l’instant, sauvegardez et quittez",
+    "description": "Action button to save and exit an application"
   }
 }

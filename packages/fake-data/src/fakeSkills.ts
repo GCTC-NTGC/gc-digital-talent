@@ -31,6 +31,7 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
     experienceSkillRecord: {
       details: `experienceSkillDetails ${faker.random.words()}`,
     },
+    experiences: [],
   };
 };
 
