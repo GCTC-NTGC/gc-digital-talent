@@ -69,6 +69,7 @@ import TableOfContents, {
 import Tabs from "./components/Tabs";
 import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
+import ToggleSection from "./components/ToggleSection/ToggleSection";
 import Well, { WellProps } from "./components/Well";
 
 export type {
@@ -154,5 +155,6 @@ export {
   Tabs,
   TileLink,
   ToggleGroup,
+  ToggleSection,
   Well,
 };

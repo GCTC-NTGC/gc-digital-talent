@@ -1,13 +1,36 @@
 import React from "react";
+import { useParams, useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
-import { Heading } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import {
+  User,
+  useGetApplicationQuery,
+  useGetMeQuery,
+  useUpdateApplicationMutation,
+} from "~/api/generated";
+
+import { ApplicationPageProps } from "../ApplicationApi";
+import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
+import WorkPreferences from "./components/WorkPreferences/WorkPreferences";
+import DiversityEquityInclusion from "./components/DiversityEquityInclusion/DiversityEquityInclusion";
+import GovernmentInformation from "./components/GovernmentInformation/GovernmentInformation";
+import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -46,16 +69,157 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationProfile = ({ application }: ApplicationPageProps) => {
+interface ApplicationProfileProps extends ApplicationPageProps {
+  user: User;
+}
+
+export const ApplicationProfile = ({
+  application,
+  user,
+}: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
+  const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({ intl, paths, application });
+  const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
+  const nextStepPath = paths.applicationProfile(application.id);
 
-  return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
+  const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // We don't want to navigate until we mark the step as complete
+
+    executeMutation({
+      id: application.id,
+      application: {
+        insertSubmittedStep: ApplicationStep.Welcome,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          navigate(nextStepPath);
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
+        );
+      });
+
+    return false;
+  };
+
+  return (
+    <>
+      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "This step includes all of your profile information required for this application. Each section has a series of required fields that must be completed to move on to the next step. Completing this profile information will only happen once, and the information you provide here will auto-populate on applications you submit moving forward.",
+          id: "D9Elm9",
+          description: "Application step to complete your profile, description",
+        })}
+      </p>
+      <div
+        data-h2-margin="base(x2, 0)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1, 0)"
+      >
+        <PersonalInformation
+          user={user}
+          onUpdate={(values) => console.log(values)}
+        />
+        <WorkPreferences
+          user={user}
+          onUpdate={(values) => console.log(values)}
+        />
+        <DiversityEquityInclusion
+          user={user}
+          onUpdate={(values) => console.log(values)}
+        />
+        <GovernmentInformation
+          user={user}
+          onUpdate={(values) => console.log(values)}
+        />
+        <LanguageProfile
+          user={user}
+          onUpdate={(values) => console.log(values)}
+        />
+      </div>
+      <Separator
+        orientation="horizontal"
+        data-h2-background-color="base(gray.lighter)"
+        data-h2-margin="base(x2, 0)"
+        decorative
+      />
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x.25, x.5)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(flex-start) l-tablet(center)"
+      >
+        <form onSubmit={handleNavigation}>
+          <Button
+            type="submit"
+            color="primary"
+            mode="solid"
+            disabled={fetching}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Let's go!",
+              id: "r6z4HM",
+              description: "Link text to begin the application process",
+            })}
+          </Button>
+        </form>
+        <Link
+          type="button"
+          mode="inline"
+          color="secondary"
+          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Save and quit for now",
+            id: "U86N4g",
+            description: "Action button to save and exit an application",
+          })}
+        </Link>
+      </div>
+    </>
+  );
 };
 
-const ApplicationProfilePage = () => (
-  <ApplicationApi PageComponent={ApplicationProfile} />
-);
+const ApplicationProfilePage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+  });
+  const [{ data: userData, fetching: userFetching, error: userError }] =
+    useGetMeQuery();
+
+  const application = applicationData?.poolCandidate;
+
+  return (
+    <Pending
+      fetching={applicationFetching || userFetching}
+      error={applicationError || userError}
+    >
+      {application?.poolAdvertisement && userData?.me ? (
+        <ApplicationProfile application={application} user={userData.me} />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationProfilePage;
