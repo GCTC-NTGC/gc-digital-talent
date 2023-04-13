@@ -1,7 +1,7 @@
 ---
 name: "\U0001F4D0 New design issue"
 about: An issue template to help kickstart a design-related task.
-title: ""
+title: "\U0001F4D0 "
 labels: design, updates in progress
 assignees: ""
 ---

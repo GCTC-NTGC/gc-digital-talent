@@ -1,7 +1,7 @@
 ---
 name: "🧪 Tests"
 about: Updates/additions to the existing tests (Unit, e2e, etc.)
-title: ""
+title: "🧪 "
 labels: tests
 assignees: ""
 ---

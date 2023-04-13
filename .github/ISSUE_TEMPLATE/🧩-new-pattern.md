@@ -1,7 +1,7 @@
 ---
 name: "\U0001F9E9 New pattern"
 about: An issue template for UI patterns.
-title: ""
+title: "\U0001F9E9 "
 labels: design, updates in progress
 assignees: ""
 ---

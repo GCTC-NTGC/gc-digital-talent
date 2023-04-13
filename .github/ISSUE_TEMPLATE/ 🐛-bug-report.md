@@ -1,7 +1,7 @@
 ---
 name: "🐛 Bug Report"
 about: Report a bug to fix errors or improve UX
-title: ""
+title: "🐛 "
 labels: bug
 assignees: ""
 ---

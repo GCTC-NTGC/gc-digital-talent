@@ -1,7 +1,7 @@
 ---
 name: "🛠️ Tooling"
 about: Updates to the CI pipeline
-title: ""
+title: "🛠️ "
 labels: tooling
 assignees: ""
 ---
