@@ -1,7 +1,7 @@
 ---
 name: "⌨ Accessibility Issue"
 about: An accessibility related issue template.
-title: "⌨ Accessibility Issue"
+title: ""
 labels: accessibility
 assignees: ""
 ---

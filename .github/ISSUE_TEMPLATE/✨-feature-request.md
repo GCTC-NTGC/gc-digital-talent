@@ -1,7 +1,7 @@
 ---
 name: "✨ Feature Request"
 about: A new feature or change to existing functionality
-title: "✨ Feature Request"
+title: ""
 labels: feature
 assignees: ""
 ---
