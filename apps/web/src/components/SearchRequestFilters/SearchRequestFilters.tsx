@@ -251,14 +251,6 @@ const ApplicantFilters = ({
     intl.formatMessage(getWorkRegion(id)),
   );
 
-  // const qualifiedStreams = (applicantFilter?.qualifiedStreams as string[]) ?? [];
-  //   ? [intl.formatMessage(getPoolStream(applicantFilter?.qualifiedStreams[0]))]
-  //   : "";
-  const qualifiedStreams: string[] | undefined =
-    applicantFilter?.qualifiedStreams?.map((stream) => {
-      return intl.formatMessage(getPoolStream(stream as string));
-    });
-
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

@@ -75,7 +75,7 @@ function transformPoolCandidateSearchInputToFormValues(
 ): FormValues {
   return {
     classifications:
-      input?.applicantFilter?.expectedClassifications
+      input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
@@ -283,7 +283,7 @@ const defaultState = {
       skills: [],
       hasDiploma: undefined,
       languageAbility: undefined,
-      stream: undefined,
+      stream: [],
     },
     poolCandidateStatus: [],
     priorityWeight: [],
@@ -418,11 +418,11 @@ const PoolCandidatesTable = ({
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
-        expectedClassifications: data.classifications.map((classification) => {
+        qualifiedClassifications: data.classifications.map((classification) => {
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
-        stream: data.stream[0] as PoolStream,
+        qualifiedStreams: data.stream as PoolStream[],
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
@@ -447,7 +447,6 @@ const PoolCandidatesTable = ({
           return { id };
         }),
       },
-      stream: data.stream,
       poolCandidateStatus: data.poolCandidateStatus.map((status) => {
         return stringToEnumPoolCandidateStatus(status);
       }),
