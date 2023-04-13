@@ -858,7 +858,7 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+    @scope(name: "expectedClassifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
