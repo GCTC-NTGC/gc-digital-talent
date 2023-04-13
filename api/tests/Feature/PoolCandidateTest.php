@@ -788,7 +788,7 @@ class PoolCandidateTest extends TestCase
         // Assert query with classification filter will return candidates in range and overlapping.
         $this->actingAs($this->teamUser, "api")->graphQL($this->countQuery, [
             'where' => [
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+                'qualifiedClassifications' => [['group' => 'ZZ', 'level' => 1]],
             ]
         ])->assertJson([
             'data' => [
@@ -799,7 +799,7 @@ class PoolCandidateTest extends TestCase
         // Assert query with unknown classification filter will return zero
         $this->actingAs($this->teamUser, "api")->graphQL($this->countQuery, [
             'where' => [
-                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
+                'qualifiedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
             ]
         ])->assertJson([
             'data' => [
@@ -910,7 +910,7 @@ class PoolCandidateTest extends TestCase
         $this->actingAs($this->teamUser, "api")->graphQL($this->countQuery, [
             'where' => [
                 'pools' => [['id' => $myPool->id]],
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+                'qualifiedClassifications' => [['group' => 'ZZ', 'level' => 1]],
             ]
         ])->assertJson([
             'data' => [
@@ -922,7 +922,7 @@ class PoolCandidateTest extends TestCase
         $this->actingAs($this->teamUser, "api")->graphQL($this->countQuery, [
             'where' => [
                 'pools' => [['id' => $myPool->id]],
-                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
+                'qualifiedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
             ]
         ])->assertJson([
             'data' => [
