@@ -1329,5 +1329,21 @@
   "fMcKtJ": {
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
+  },
+  "2G+fJt": {
+    "defaultMessage": "L’article {index} a été supprimé.",
+    "description": "Message announced to assistive technology when a repeatable field has been removed"
+  },
+  "NVMKe5": {
+    "defaultMessage": "Modifier la séquence de {from} à {to}",
+    "description": "Button text for moving an item from one position to another"
+  },
+  "PAXoFY": {
+    "defaultMessage": "L’article a été déplacé de {from} à {to}.",
+    "description": "Message announced to assistive technology when a repeatable field has moved position"
+  },
+  "T/97gk": {
+    "defaultMessage": "Supprimer l’article {index}",
+    "description": "Button text to remove an item from repeatable fields"
   }
 }

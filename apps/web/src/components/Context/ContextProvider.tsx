@@ -12,6 +12,7 @@ import {
   LocaleProvider,
   Messages,
 } from "@gc-digital-talent/i18n";
+import { Announcer } from "@gc-digital-talent/ui";
 
 // Note: Commented out until we have dark mode styles properly implemented
 import { ThemeProvider } from "@gc-digital-talent/theme";
@@ -29,7 +30,9 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
           <ThemeProvider>
             <ClientProvider>
               <AppInsightsProvider>
-                <AuthorizationProvider>{children}</AuthorizationProvider>
+                <AuthorizationProvider>
+                  <Announcer>{children}</Announcer>
+                </AuthorizationProvider>
               </AppInsightsProvider>
             </ClientProvider>
           </ThemeProvider>
