@@ -152,7 +152,7 @@ class PoolApplicationTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator",  $team);
+        $this->teamUser->addRole("pool_operator",  $team);
     }
 
     public function testApplicationCreation(): void

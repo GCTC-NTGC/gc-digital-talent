@@ -40,6 +40,19 @@ Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-In
 """
 scalar CanOnParentArgs
 
+# Directive class: App\GraphQL\Directives\InjectNowDirective
+"""
+Inject the current DateTime into the arguments.
+"""
+directive @injectNow(
+  """
+  The target name of the argument into which the current dateTime is injected.
+  You can use dot notation to set the value at arbitrary depth
+  within the incoming argument.
+  """
+  name: String!
+) repeatable on FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\PluckDirective
 """
 Transforms an input field before resolving.

@@ -57,6 +57,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [],
     stepSubmitted: ApplicationStep.Welcome,
+    hasError: null,
   };
 };
 

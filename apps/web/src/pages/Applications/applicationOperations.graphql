@@ -1,40 +1,3 @@
-query GetBasicApplicationInfo($id: UUID!) {
-  poolCandidate(id: $id) {
-    id
-    user {
-      id
-      firstName
-      lastName
-    }
-    poolAdvertisement {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
-    submittedSteps
-  }
-}
-
 query GetApplication($id: UUID!) {
   poolCandidate(id: $id) {
     id
@@ -208,7 +171,23 @@ query GetApplication($id: UUID!) {
       nonessentialSkills {
         ...poolAdvertisementSkills
       }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
     }
+
+    submittedSteps
+    screeningQuestionResponses {
+      id
+      screeningQuestion {
+        id
+      }
+    }
+    signature
   }
 }
 
