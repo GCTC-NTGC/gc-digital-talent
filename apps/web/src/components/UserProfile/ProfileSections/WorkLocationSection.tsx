@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import isEmpty from "lodash/isEmpty";
 
 import { Well } from "@gc-digital-talent/ui";
 import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
