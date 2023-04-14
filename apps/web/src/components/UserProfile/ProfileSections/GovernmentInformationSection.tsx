@@ -11,43 +11,16 @@ import {
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Applicant, GovEmployeeType } from "~/api/generated";
-
-type PartialApplicant = Pick<
-  Applicant,
-  | "isGovEmployee"
-  | "govEmployeeType"
-  | "department"
-  | "currentClassification"
-  | "hasPriorityEntitlement"
-  | "priorityNumber"
->;
-
-export function hasAllEmptyFields({
-  isGovEmployee,
-  hasPriorityEntitlement,
-}: PartialApplicant): boolean {
-  return isGovEmployee === null && hasPriorityEntitlement === null;
-}
-
-export function hasEmptyRequiredFields({
-  isGovEmployee,
-  hasPriorityEntitlement,
-}: PartialApplicant): boolean {
-  return isGovEmployee === null || hasPriorityEntitlement === null;
-}
-
-export function hasEmptyOptionalFields({
-  hasPriorityEntitlement,
-  priorityNumber,
-}: PartialApplicant): boolean {
-  return !!(hasPriorityEntitlement && !priorityNumber);
-}
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/profile/governmentInformation";
 
 const GovernmentInformationSection = ({
   applicant,
   editPath,
 }: {
-  applicant: PartialApplicant;
+  applicant: Applicant;
   editPath?: string;
 }) => {
   const intl = useIntl();

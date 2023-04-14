@@ -39,7 +39,7 @@ const Display = ({
         <ProfileLabel>
           {intl.formatMessage({
             defaultMessage: "Job duration:",
-            id: "DAmLhV",
+            id: "sySM68",
             description: "Job duration label and colon",
           })}
         </ProfileLabel>
@@ -65,7 +65,7 @@ const Display = ({
           <ProfileLabel>
             {intl.formatMessage({
               defaultMessage: "Work details",
-              id: "b5bUa0",
+              id: "5PYEp1",
               description: "Work preference details label)",
             })}
           </ProfileLabel>
@@ -85,7 +85,7 @@ const Display = ({
           <ProfileLabel>
             {intl.formatMessage({
               defaultMessage: "Work location(s)",
-              id: "b5bUa0",
+              id: "k7Kue9",
               description: "Work Location(s) label)",
             })}
           </ProfileLabel>

@@ -77,8 +77,8 @@ class TeamsTest extends TestCase
     ]);
 
     // Attach pool operator users to teams.
-    $this->poolOperator1->attachRole("pool_operator", $this->team1);
-    $this->poolOperator2->attachRole("pool_operator", $this->team2);
+    $this->poolOperator1->addRole("pool_operator", $this->team1);
+    $this->poolOperator2->addRole("pool_operator", $this->team2);
   }
 
   public function testAllTeamsQuery(): void
@@ -86,8 +86,8 @@ class TeamsTest extends TestCase
     // Assert all teams query contains expected results
     $query = $this->actingAs($this->admin, "api")
       ->graphQL(
-      /** @lang GraphQL */
-      '
+        /** @lang GraphQL */
+        '
       query teams {
           teams {
               id
@@ -97,7 +97,8 @@ class TeamsTest extends TestCase
               }
           }
       }
-    ');
+    '
+      );
     $data = $query->original['data'];
 
     // assert the teams returned is an array of exactly three items
@@ -320,12 +321,12 @@ class TeamsTest extends TestCase
 
   public function testViewTeamMembers(): void
   {
-    $this->poolOperator1->attachRole("pool_operator", $this->team1);
-    $this->poolOperator2->attachRole("pool_operator", $this->team1);
-    $this->poolOperator3->attachRole("pool_operator", $this->team2);
+    $this->poolOperator1->addRole("pool_operator", $this->team1);
+    $this->poolOperator2->addRole("pool_operator", $this->team1);
+    $this->poolOperator3->addRole("pool_operator", $this->team2);
     $viewAnyTeamMembers =
-    /** @lang GraphQL */
-    '
+      /** @lang GraphQL */
+      '
         query team($id: UUID!) {
           team(id: $id) {
               id

@@ -321,8 +321,8 @@ type UserPublicProfile {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: PoolAdvertisement! @belongsTo(relation: "pool")
-  question: LocalizedString!
+  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+  question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
 }
@@ -458,8 +458,8 @@ enum ApplicationStep {
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
-  screeningQuestion: ScreeningQuestion! @belongsTo
-  poolCandidate: PoolCandidate! @belongsTo
+  screeningQuestion: ScreeningQuestion @belongsTo
+  poolCandidate: PoolCandidate @belongsTo
 }
 
 type PoolCandidate {
@@ -1225,7 +1225,7 @@ input UpdateUserAsAdminInput
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
 
-  roles: RoleAssignmentHasMany
+  roleAssignmentsInput: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput

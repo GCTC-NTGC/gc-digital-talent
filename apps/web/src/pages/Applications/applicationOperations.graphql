@@ -230,7 +230,23 @@ query GetApplication($id: UUID!) {
       nonessentialSkills {
         ...poolAdvertisementSkills
       }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
     }
+
+    submittedSteps
+    screeningQuestionResponses {
+      id
+      screeningQuestion {
+        id
+      }
+    }
+    signature
   }
 }
 

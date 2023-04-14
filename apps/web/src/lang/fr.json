@@ -7548,5 +7548,17 @@
   "U86N4g": {
     "defaultMessage": "Pour l’instant, sauvegardez et quittez",
     "description": "Action button to save and exit an application"
+  },
+  "L5duFP": {
+    "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
+    "description": "Application step for screening questions, introduction description, paragraph one"
+  },
+  "OUXmYd": {
+    "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
+    "description": "Application step for screening questions, introduction description, paragraph two"
+  },
+  "egLb65": {
+    "defaultMessage": "Je suis prêt!",
+    "description": "An action button to proceed"
   }
 }

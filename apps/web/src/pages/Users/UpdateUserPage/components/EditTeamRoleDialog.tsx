@@ -62,7 +62,7 @@ const EditTeamRoleDialog = ({
 
   const handleEditRoles = async (formValues: FormValues) => {
     return onEditRoles({
-      roles: {
+      roleAssignmentsInput: {
         sync: {
           roles: formValues.roles,
           team: team.id,
