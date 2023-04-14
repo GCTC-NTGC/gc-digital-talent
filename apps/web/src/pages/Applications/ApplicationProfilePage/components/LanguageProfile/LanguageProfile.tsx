@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection } from "@gc-digital-talent/ui";
 import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -22,10 +22,13 @@ import {
 import ConsideredLanguages from "./ConsideredLanguages";
 import FormActions from "../FormActions";
 import { FormValues } from "./types";
+import NullDisplay from "./NullDisplay";
+import Display from "./Display";
 
 const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
+  const isNull = false;
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -81,30 +84,7 @@ const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
 
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          <div data-h2-text-align="base(center)">
-            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "This section asks about your first and second language proficiencies.",
-                id: "N6kGOU",
-                description:
-                  "Descriptive text explaining the language profile section of the application profile",
-              })}
-            </p>
-            <p>
-              <ToggleSection.Open>
-                <Button mode="inline">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Get started<hidden> on your language profile</hidden>",
-                    id: "hBDz/h",
-                    description:
-                      "Call to action to begin editing language profile",
-                  })}
-                </Button>
-              </ToggleSection.Open>
-            </p>
-          </div>
+          {isNull ? <NullDisplay /> : <Display user={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm
