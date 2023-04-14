@@ -73,7 +73,7 @@ export const getLabels = (intl: IntlShape) => ({
   }),
 });
 
-export const initialDataToFormValues = (data?: User | null): FormValues => ({
+export const dataToFormValues = (data?: User | null): FormValues => ({
   preferredLang: data?.preferredLang,
   preferredLanguageForInterview: data?.preferredLanguageForInterview,
   preferredLanguageForExam: data?.preferredLanguageForExam,

@@ -26,7 +26,7 @@ import { Language, ProvinceOrTerritory } from "~/api/generated";
 import {
   getLabels,
   formValuesToSubmitData,
-  initialDataToFormValues,
+  dataToFormValues,
   armedForcesStatusOrdered,
   citizenshipStatusesOrdered,
 } from "./utils";
@@ -125,7 +125,7 @@ const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
             onSubmit={handleSubmit}
             options={{
               mode: "onChange",
-              defaultValues: initialDataToFormValues(user),
+              defaultValues: dataToFormValues(user),
             }}
           >
             <div

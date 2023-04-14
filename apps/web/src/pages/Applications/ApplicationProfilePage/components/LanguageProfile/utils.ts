@@ -1,3 +1,4 @@
+import { IntlShape } from "react-intl";
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
@@ -7,8 +8,6 @@ import {
   User,
 } from "~/api/generated";
 
-import { IntlShape } from "react-intl";
-import React from "react";
 import { FormValues } from "./types";
 
 export const formValuesToSubmitData = (formValues: FormValues) => {
