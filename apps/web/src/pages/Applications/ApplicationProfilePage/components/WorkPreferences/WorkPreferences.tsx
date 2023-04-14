@@ -3,11 +3,19 @@ import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
 import profileMessages from "~/messages/profileMessages";
+import {
+  hasAllEmptyFields as hasAllEmptyLocationFields,
+  hasEmptyRequiredFields as hasEmptyRequiredLocationFields,
+} from "~/validators/profile/workLocation";
+import {
+  hasAllEmptyFields as hasAllEmptyPreferenceFields,
+  hasEmptyRequiredFields as hasEmptyRequiredPreferenceFields,
+} from "~/validators/profile/workPreferences";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
@@ -22,7 +30,8 @@ import Display from "./Display";
 const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
-  const isNull = false;
+  const isNull =
+    hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -73,7 +82,19 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
             "Heading for the work preferences section on the application profile",
         })}
       </ToggleSection.Header>
-
+      {hasEmptyRequiredLocationFields(user) &&
+        hasEmptyRequiredPreferenceFields(user) && (
+          <Well color="error">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You are missing required work preferences.",
+                id: "h30KEc",
+                description:
+                  "Error message displayed when a users work preferences is incomplete",
+              })}
+            </p>
+          </Well>
+        )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}

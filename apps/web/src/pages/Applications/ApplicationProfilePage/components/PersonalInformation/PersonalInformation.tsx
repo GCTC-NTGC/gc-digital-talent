@@ -3,11 +3,15 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { UserIcon } from "@heroicons/react/24/outline";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 
 import profileMessages from "~/messages/profileMessages";
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/profile/about";
 
 import { getLabels, formValuesToSubmitData, dataToFormValues } from "./utils";
 import { FormValues } from "./types";
@@ -22,7 +26,7 @@ import FormFields from "./FormFields";
 const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
-  const isNull = false;
+  const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -75,7 +79,18 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
             "Heading for the personal info section on the application profile",
         })}
       </ToggleSection.Header>
-
+      {hasEmptyRequiredFields(user) && (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You are missing required personal information.",
+              id: "QceO8G",
+              description:
+                "Error message displayed when a users personal information is incomplete",
+            })}
+          </p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}

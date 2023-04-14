@@ -3,13 +3,17 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 import { useGetProfileFormOptionsQuery } from "~/api/generated";
+import {
+  hasEmptyRequiredFields,
+  hasAllEmptyFields,
+} from "~/validators/profile/governmentInformation";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
@@ -28,7 +32,7 @@ const GovernmentInformation = ({
 }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
-  const isNull = false;
+  const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -83,7 +87,19 @@ const GovernmentInformation = ({
             "Heading for the government information section on the application profile",
         })}
       </ToggleSection.Header>
-
+      {hasEmptyRequiredFields(user) && (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You are missing required government information.",
+              id: "Rq14QK",
+              description:
+                "Error message displayed when a users government information is incomplete",
+            })}
+          </p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}

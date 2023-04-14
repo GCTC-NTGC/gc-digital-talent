@@ -27,7 +27,7 @@ const colorMap = new Map<Color, Record<string, string>>([
   [
     "error",
     {
-      "data-h2-background-color": "base(error.dark.3)",
+      "data-h2-background-color": "base(error.lightest)",
       "data-h2-border": "base(1px solid error.darker)",
     },
   ],

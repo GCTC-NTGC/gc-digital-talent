@@ -3,12 +3,16 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import profileMessages from "~/messages/profileMessages";
+import {
+  hasEmptyRequiredFields,
+  hasAllEmptyFields,
+} from "~/validators/profile/languageInformation";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
@@ -28,7 +32,7 @@ import Display from "./Display";
 const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
-  const isNull = false;
+  const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -81,7 +85,18 @@ const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
             "Heading for the language profile section on the application profile",
         })}
       </ToggleSection.Header>
-
+      {hasEmptyRequiredFields(user) && (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You are missing required language information.",
+              id: "F4RHJu",
+              description:
+                "Error message displayed when a users language information is incomplete",
+            })}
+          </p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}
