@@ -54,7 +54,9 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ScreeningQuestions,
     ],
     stepSubmitted: ApplicationStep.ReviewAndSubmit,
-    hasError: null,
+    hasError: () => {
+      return !application.signature;
+    },
   };
 };
 
