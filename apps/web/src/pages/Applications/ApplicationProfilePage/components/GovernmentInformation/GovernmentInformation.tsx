@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { ToggleSection } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -16,8 +16,10 @@ import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
 import { FormValues } from "./types";
-import FormFields from "./FormFields";
 import FormActions from "../FormActions";
+import FormFields from "./FormFields";
+import NullDisplay from "./NullDisplay";
+import Display from "./Display";
 
 const GovernmentInformation = ({
   user,
@@ -26,6 +28,7 @@ const GovernmentInformation = ({
 }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
+  const isNull = false;
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -83,30 +86,7 @@ const GovernmentInformation = ({
 
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          <div data-h2-text-align="base(center)">
-            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "This section asks whether you are currently a Government of Canada employee and other related questions.",
-                id: "CRXFbo",
-                description:
-                  "Descriptive text explaining the government information section of the application profile",
-              })}
-            </p>
-            <p>
-              <ToggleSection.Open>
-                <Button mode="inline">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Get started<hidden> on your government employee information</hidden>",
-                    id: "yXXj1D",
-                    description:
-                      "Call to action to begin editing government information",
-                  })}
-                </Button>
-              </ToggleSection.Open>
-            </p>
-          </div>
+          {isNull ? <NullDisplay /> : <Display user={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm
