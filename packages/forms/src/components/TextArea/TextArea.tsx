@@ -23,7 +23,10 @@ export interface TextAreaProps
   whitespaceTrim?: boolean;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Hide the optional label if this field is not required */
   hideOptional?: boolean;
+  /** ID of a field description (help text) */
+  describedBy?: string;
 }
 
 const TextArea = ({
@@ -36,6 +39,7 @@ const TextArea = ({
   trackUnsaved = true,
   whitespaceTrim = true,
   hideOptional,
+  describedBy,
   ...rest
 }: TextAreaProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
@@ -51,6 +55,7 @@ const TextArea = ({
   const error = get(errors, name)?.message as FieldError;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
+    describedBy,
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,

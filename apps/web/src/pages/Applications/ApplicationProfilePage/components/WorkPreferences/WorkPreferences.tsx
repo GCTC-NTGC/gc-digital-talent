@@ -42,7 +42,7 @@ const WorkPreferences = ({ user, onUpdate }: SectionProps) => {
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdate(user.id, formValuesToSubmitData(formValues, user))
+    await onUpdate(user.id, formValuesToSubmitData(formValues))
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -184,28 +184,11 @@ const WorkPreferences = ({ user, onUpdate }: SectionProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Indicate if there is a city that you would like to exclude from a region.",
-                id: "1CuGS6",
-                description:
-                  "Explanation text for Location exemptions field in work location preference form",
-              })}
-            </p>
-            <p data-h2-color="base(gray.dark)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-                id: "2K7dVp",
-                description:
-                  "Example for Location exemptions field in work location preference form",
-              })}
-            </p>
             <TextArea
               id="location-exemptions"
               label={labels.locationExemptions}
               name="locationExemptions"
+              describedBy="location-exemption-description"
               placeholder={intl.formatMessage({
                 defaultMessage: "Optionally, add a city or village here...",
                 id: "OH5tTS",
@@ -213,6 +196,32 @@ const WorkPreferences = ({ user, onUpdate }: SectionProps) => {
                   "Location Exemptions field placeholder for work location preference form",
               })}
             />
+            <div
+              id="location-exemption-description"
+              data-h2-margin="base(-x.75, 0 , x1, 0)"
+            >
+              <p data-h2-font-size="base(caption)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Indicate if there is a city that you would like to exclude from a region.",
+                  id: "1CuGS6",
+                  description:
+                    "Explanation text for Location exemptions field in work location preference form",
+                })}
+              </p>
+              <p
+                data-h2-color="base(gray.dark)"
+                data-h2-font-size="base(caption)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
+                  id: "2K7dVp",
+                  description:
+                    "Example for Location exemptions field in work location preference form",
+                })}
+              </p>
+            </div>
             <FormActions />
           </BasicForm>
         </ToggleSection.OpenContent>
