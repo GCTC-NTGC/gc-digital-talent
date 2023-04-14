@@ -14,6 +14,7 @@ const FormActions = () => {
       data-h2-flex-wrap="base(wrap)"
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-align-items="base(flex-start) l-tablet(center)"
+      data-h2-margin-top="base(x1)"
     >
       <Button type="submit" color="secondary" mode="solid">
         {intl.formatMessage(formMessages.saveChanges)}
