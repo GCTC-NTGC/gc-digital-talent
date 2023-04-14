@@ -38,10 +38,10 @@ const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
       .then(() => {
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Work preferences updated successfully!",
-            id: "bt0WcN",
+            defaultMessage: "Government information updated successfully!",
+            id: "dVc2uY",
             description:
-              "Message displayed when a user successfully updates their work preferences.",
+              "Message displayed when a user successfully updates their government employee information.",
           }),
         );
         setIsEditing(false);
