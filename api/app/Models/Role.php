@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laratrust\Models\Role as RoleModel;
+use Laratrust\Models\Role as LaratrustRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class Role extends RoleModel
+class Role extends LaratrustRole
 {
     use HasFactory;
     protected $keyType = 'string';
