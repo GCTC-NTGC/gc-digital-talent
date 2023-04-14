@@ -2,15 +2,18 @@ import React from "react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-import { Button, Heading, ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Heading, ToggleSection, Well } from "@gc-digital-talent/ui";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { wrapAbbr } from "~/utils/nameUtils";
+import { hasAllEmptyFields } from "~/validators/profile/diversityEquityInclusion";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
+import NullDisplay from "./NullDisplay";
+import Display from "./Display";
 
 const DiversityEquityInclusion = ({
   user,
@@ -19,6 +22,7 @@ const DiversityEquityInclusion = ({
 }: SectionProps) => {
   const intl = useIntl();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const isNull = hasAllEmptyFields(user);
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -56,33 +60,9 @@ const DiversityEquityInclusion = ({
             "Heading for the diversity, equity, and inclusion section on the application profile",
         })}
       </ToggleSection.Header>
-
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          <div data-h2-text-align="base(center)">
-            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "This optional section asks you whether you would like to identify as a part of an equity group.",
-                id: "/3sMii",
-                description:
-                  "Descriptive text explaining the diversity, equity, and inclusion section of the application profile",
-              })}
-            </p>
-            <p>
-              <ToggleSection.Open>
-                <Button mode="inline">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Get started<hidden> on diversity, equity, and inclusion</hidden>",
-                    id: "o5SbFT",
-                    description:
-                      "Call to action to begin editing work preferences",
-                  })}
-                </Button>
-              </ToggleSection.Open>
-            </p>
-          </div>
+          {isNull ? <NullDisplay /> : <Display user={user} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <p data-h2-margin-bottom="base(x1)">
