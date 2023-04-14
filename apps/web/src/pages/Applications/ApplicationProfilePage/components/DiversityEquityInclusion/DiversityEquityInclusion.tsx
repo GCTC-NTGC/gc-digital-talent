@@ -176,7 +176,7 @@ const DiversityEquityInclusion = ({
             </li>
           </ul>
           <EquityOptions
-            isDisabled={isUpdating}
+            isDisabled={isUpdating || false}
             headingLevel="h4"
             indigenousCommunities={user.indigenousCommunities}
             isVisibleMinority={user.isVisibleMinority}
