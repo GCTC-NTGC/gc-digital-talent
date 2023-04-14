@@ -57,7 +57,7 @@ const AddIndividualRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
-      roles: {
+      roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,
         },

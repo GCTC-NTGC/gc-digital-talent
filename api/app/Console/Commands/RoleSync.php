@@ -57,7 +57,7 @@ class RoleSync extends Command
 
             if ($attachTeamRole) {
                 // Attach the pool_operator role to DCM team
-                $user->attachRole($poolOperatorRole, $DCMTeam);
+                $user->addRole($poolOperatorRole, $DCMTeam);
             }
         }
 

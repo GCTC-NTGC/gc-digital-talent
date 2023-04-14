@@ -56,7 +56,7 @@ AddTeamMemberDialogProps) => {
     await executeMutation({
       id: formValues.user,
       user: {
-        roles: {
+        roleAssignmentsInput: {
           attach: {
             roles: formValues.roles,
             team: formValues.team,
