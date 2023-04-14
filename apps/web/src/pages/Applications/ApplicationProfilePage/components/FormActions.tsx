@@ -4,7 +4,11 @@ import { useIntl } from "react-intl";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-const FormActions = () => {
+interface FormActionsProps {
+  isUpdating?: boolean;
+}
+
+const FormActions = ({ isUpdating }: FormActionsProps) => {
   const intl = useIntl();
 
   return (
@@ -16,7 +20,12 @@ const FormActions = () => {
       data-h2-align-items="base(flex-start) l-tablet(center)"
       data-h2-margin-top="base(x1)"
     >
-      <Button type="submit" color="secondary" mode="solid">
+      <Button
+        type="submit"
+        color="secondary"
+        mode="solid"
+        disabled={isUpdating}
+      >
         {intl.formatMessage(formMessages.saveChanges)}
       </Button>
       <ToggleSection.Close>

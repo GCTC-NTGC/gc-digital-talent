@@ -23,7 +23,7 @@ import ConsideredLanguages from "./ConsideredLanguages";
 import FormActions from "../FormActions";
 import { FormValues } from "./types";
 
-const LanguageProfile = ({ user, onUpdate }: SectionProps) => {
+const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
@@ -125,7 +125,7 @@ const LanguageProfile = ({ user, onUpdate }: SectionProps) => {
               items={consideredLangOptions}
             />
             <ConsideredLanguages labels={labels} />
-            <FormActions />
+            <FormActions isUpdating={isUpdating} />
           </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>

@@ -1,5 +1,4 @@
 import {
-  Scalars,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
   User,
@@ -7,6 +6,7 @@ import {
 
 export interface SectionProps {
   user: User;
+  isUpdating?: boolean;
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,

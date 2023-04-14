@@ -19,7 +19,11 @@ import { FormValues } from "./types";
 import FormFields from "./FormFields";
 import FormActions from "../FormActions";
 
-const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
+const GovernmentInformation = ({
+  user,
+  onUpdate,
+  isUpdating,
+}: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
@@ -118,7 +122,7 @@ const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
               departments={departments}
               classifications={classifications}
             />
-            <FormActions />
+            <FormActions isUpdating={isUpdating} />
           </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>

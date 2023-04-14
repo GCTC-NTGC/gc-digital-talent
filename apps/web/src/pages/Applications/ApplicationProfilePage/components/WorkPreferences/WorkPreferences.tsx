@@ -30,7 +30,7 @@ import SectionTrigger from "../SectionTrigger";
 import WithEllipsisPrefix from "./WithEllipsisPrefix";
 import FormActions from "../FormActions";
 
-const WorkPreferences = ({ user, onUpdate }: SectionProps) => {
+const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
@@ -222,7 +222,7 @@ const WorkPreferences = ({ user, onUpdate }: SectionProps) => {
                 })}
               </p>
             </div>
-            <FormActions />
+            <FormActions isUpdating={isUpdating} />
           </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>

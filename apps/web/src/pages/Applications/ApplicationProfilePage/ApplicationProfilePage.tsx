@@ -11,11 +11,7 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  ApplicationStep,
-  Scalars,
-  UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -90,7 +86,8 @@ export const ApplicationProfile = ({
   const pageInfo = getPageInfo({ intl, paths, application });
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
-  const [, executeUpdateMutation] = useUpdateUserAsUserMutation();
+  const [{ fetching: isUpdating }, executeUpdateMutation] =
+    useUpdateUserAsUserMutation();
   const nextStepPath = paths.applicationProfile(application.id);
 
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
@@ -125,6 +122,7 @@ export const ApplicationProfile = ({
 
   const sectionProps = {
     user,
+    isUpdating,
     onUpdate: handleUpdate,
   };
 

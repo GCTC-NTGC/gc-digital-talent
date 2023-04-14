@@ -36,7 +36,7 @@ import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 
-const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
+const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
@@ -303,7 +303,7 @@ const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
                 })}
               />
             </div>
-            <FormActions />
+            <FormActions isUpdating={isUpdating} />
           </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>

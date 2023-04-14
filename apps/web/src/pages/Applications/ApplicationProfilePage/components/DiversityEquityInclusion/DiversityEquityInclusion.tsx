@@ -12,7 +12,11 @@ import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 
-const DiversityEquityInclusion = ({ user, onUpdate }: SectionProps) => {
+const DiversityEquityInclusion = ({
+  user,
+  onUpdate,
+  isUpdating,
+}: SectionProps) => {
   const intl = useIntl();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
@@ -172,7 +176,7 @@ const DiversityEquityInclusion = ({ user, onUpdate }: SectionProps) => {
             </li>
           </ul>
           <EquityOptions
-            isDisabled={false}
+            isDisabled={isUpdating}
             headingLevel="h4"
             indigenousCommunities={user.indigenousCommunities}
             isVisibleMinority={user.isVisibleMinority}
