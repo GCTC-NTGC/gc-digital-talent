@@ -7529,6 +7529,18 @@
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
   },
+  "kfXCY8": {
+    "defaultMessage": "L’étape suivante consiste à vous assurer que votre CV est aussi à jour que possible.",
+    "description": "Application step to begin working on résumé, paragraph one"
+  },
+  "rpES4b": {
+    "defaultMessage": "Plus précisément, non seulement nous voulons connaître votre <strong>parcours professionnel</strong>, mais également votre <strong>expérience communautaire</strong>, vos <strong>récompenses</strong>, vos <strong>initiatives personnelles</strong> et votre <strong>éducation</strong>!",
+    "description": "Application step to begin working on résumé, paragraph two"
+  },
+  "iK/Vqe": {
+    "defaultMessage": "Une fois que vous avez mis votre CV à jour et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans d’autres étapes pour nous aider à mieux comprendre comment vous répondez aux exigences de compétences pour cette occasion.",
+    "description": "Application step to begin working on résumé, paragraph three"
+  },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
@@ -7556,6 +7568,10 @@
   "OUXmYd": {
     "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
     "description": "Application step for screening questions, introduction description, paragraph two"
+  },
+  "AOrJqm": {
+    "defaultMessage": "J'ai compris, allons-y!",
+    "description": "Link text to continue the application process"
   },
   "egLb65": {
     "defaultMessage": "Je suis prêt!",
