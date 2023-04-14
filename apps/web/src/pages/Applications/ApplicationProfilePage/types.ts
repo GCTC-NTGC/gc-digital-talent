@@ -1,3 +1,4 @@
+import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
@@ -11,4 +12,8 @@ export interface SectionProps {
     id: string,
     user: UpdateUserAsUserInput,
   ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
+}
+
+export interface FormFieldProps {
+  labels: FieldLabels;
 }
