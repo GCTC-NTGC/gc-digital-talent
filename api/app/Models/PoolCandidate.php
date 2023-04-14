@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Carbon\Carbon;
@@ -78,6 +78,10 @@ class PoolCandidate extends Model
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
+    }
+    public function screeningQuestionResponses(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
     public function scopeClassifications(Builder $query, ?array $classifications): Builder

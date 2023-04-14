@@ -71,6 +71,33 @@ const formMessages = defineMessages({
     id: "WGoaKQ",
     description: "Text for submit button on edit forms",
   },
+  cancelGoBack: {
+    defaultMessage: "Cancel and go back",
+    id: "fMcKtJ",
+    description: "Text to cancel changes to a form",
+  },
+  repeaterMove: {
+    defaultMessage: "Change order from {from} to {to}",
+    id: "NVMKe5",
+    description: "Button text for moving an item from one position to another",
+  },
+  repeaterRemove: {
+    defaultMessage: "Remove item {index}",
+    id: "T/97gk",
+    description: "Button text to remove an item from repeatable fields",
+  },
+  repeaterAnnounceMove: {
+    defaultMessage: "Item moved from {from} to {to}.",
+    id: "PAXoFY",
+    description:
+      "Message announced to assistive technology when a repeatable field has moved position",
+  },
+  repeaterAnnounceRemove: {
+    defaultMessage: "Item {index} removed.",
+    id: "2G+fJt",
+    description:
+      "Message announced to assistive technology when a repeatable field has been removed",
+  },
 });
 
 export default formMessages;

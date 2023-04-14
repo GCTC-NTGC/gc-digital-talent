@@ -23,8 +23,10 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   buildRateLimitErrorMessageNode,
   buildValidationErrorMessageNode,
+  buildAuthorizationErrorMessageNode,
   extractRateLimitErrorMessages,
   extractValidationErrorMessages,
+  extractAuthorizationErrorMessages,
 } from "../../utils/errors";
 
 // generate nonce somewhere here?
@@ -180,6 +182,16 @@ const ClientProvider = ({
                 toast.error(rateLimitErrorMessageNode, {
                   toastId: "rate-limit", // limits toasts for rate limit to one.
                 });
+
+              const authorizationErrorMessages =
+                extractAuthorizationErrorMessages(error);
+              const authorizationErrorMessageNode =
+                buildAuthorizationErrorMessageNode(
+                  authorizationErrorMessages,
+                  intl,
+                );
+              if (authorizationErrorMessageNode)
+                toast.error(authorizationErrorMessageNode);
 
               if (error.graphQLErrors || error.networkError) {
                 logger.error(
