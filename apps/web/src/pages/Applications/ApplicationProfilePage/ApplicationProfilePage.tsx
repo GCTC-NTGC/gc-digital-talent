@@ -18,6 +18,7 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workLocationSectionHasEmptyRequiredFields,
+  workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
@@ -62,6 +63,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
         diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
         governmentInformationSectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasEmptyRequiredFields(applicant) ||
+        workPreferencesSectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasUnsatisfiedRequirements(
           applicant,
           poolAdvertisement,
