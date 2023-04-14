@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Well } from "@gc-digital-talent/ui";
+import { Well, HeadingProps, Heading } from "@gc-digital-talent/ui";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -14,8 +14,8 @@ import Spinner from "~/components/Spinner/Spinner";
 import type { IndigenousCommunity, Maybe } from "~/api/generated";
 
 import EquityOption from "./EquityOption";
-import type { EquityKeys, UserMutationPromise } from "../../types";
-import IndigenousEquityOption from "../IndigenousEquityOption";
+import type { EquityKeys, UserMutationPromise } from "./types";
+import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
@@ -26,6 +26,7 @@ interface EquityOptionsProps {
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
   onUpdate: (key: EquityKeys, value: unknown) => UserMutationPromise;
+  headingLevel?: HeadingProps["level"];
 }
 
 const resolveMaybe = (value: Maybe<boolean>): boolean => !!value;
@@ -42,6 +43,7 @@ const EquityOptions = ({
   onRemove,
   onUpdate,
   isDisabled,
+  headingLevel,
 }: EquityOptionsProps) => {
   const intl = useIntl();
 
@@ -93,17 +95,14 @@ const EquityOptions = ({
         data-h2-flex-grid="l-tablet(normal, x2)"
       >
         <div data-h2-flex-item="l-tablet(1of2)">
-          <h2
-            data-h2-font-size="base(h5, 1)"
-            data-h2-margin="base(x2, 0, x1, 0)"
-          >
+          <Heading level={headingLevel} size="h5">
             {intl.formatMessage({
               defaultMessage: "My employment equity information:",
               id: "Q96xMb",
               description:
                 "Heading for employment equity categories added to user profile.",
             })}
-          </h2>
+          </Heading>
           {hasItems ? (
             <div
               data-h2-display="base(flex)"
@@ -173,17 +172,14 @@ const EquityOptions = ({
           )}
         </div>
         <div data-h2-flex-item="l-tablet(1of2)">
-          <h2
-            data-h2-font-size="base(h5, 1)"
-            data-h2-margin="base(x2, 0, x1, 0)"
-          >
+          <Heading level={headingLevel} size="h5">
             {intl.formatMessage({
               defaultMessage: "Employment equity options:",
               id: "TuhgU0",
               description:
                 "Heading for employment equity categories available to be added to user profile.",
             })}
-          </h2>
+          </Heading>
           {itemsAvailable || !hasItems ? (
             <div
               data-h2-display="base(flex)"

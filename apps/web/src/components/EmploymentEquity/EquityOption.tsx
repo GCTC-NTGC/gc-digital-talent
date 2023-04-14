@@ -3,30 +3,34 @@ import { useIntl } from "react-intl";
 
 import { Button } from "@gc-digital-talent/ui";
 
-import { IndigenousCommunity } from "~/api/generated";
-import { IndigenousDialog } from "./dialogs";
+import {
+  DisabilityDialog,
+  VisibleMinorityDialog,
+  WomanDialog,
+} from "./dialogs";
+import { EquityDialogProps } from "./types";
 
-import { IndigenousDialogProps } from "../types";
-
-type EquityGroup = "indigenous";
+type EquityGroup = "woman" | "minority" | "disability";
 
 interface EquityOptionProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+  isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
-  onSave: (indigenousCommunities: Array<IndigenousCommunity>) => void;
+  onSave: (value: boolean) => void;
   title: React.ReactNode;
 }
 
 const dialogMap: Record<
   EquityGroup,
-  (props: IndigenousDialogProps) => JSX.Element
+  (props: EquityDialogProps) => JSX.Element
 > = {
-  indigenous: IndigenousDialog,
+  disability: DisabilityDialog,
+  minority: VisibleMinorityDialog,
+  woman: WomanDialog,
 };
 
 const EquityOption = ({
-  indigenousCommunities,
+  isAdded,
   option,
   onSave,
   title,
@@ -36,10 +40,10 @@ const EquityOption = ({
 
   const removeText = intl.formatMessage(
     {
-      defaultMessage: "Edit <hidden>{title}</hidden>",
-      id: "s7QD5B",
+      defaultMessage: "Remove <hidden>{title} </hidden>from profile",
+      id: "OQ+K+X",
       description:
-        "Text label for button to edit employment equity category from profile.",
+        "Text label for button to remove employment equity category from profile.",
     },
     {
       title,
@@ -58,8 +62,6 @@ const EquityOption = ({
     },
   );
 
-  const isAdded = indigenousCommunities && indigenousCommunities.length > 0;
-
   return (
     <div
       data-h2-margin="base(x.25, 0, 0, 0)"
@@ -75,7 +77,7 @@ const EquityOption = ({
       <div data-h2-flex-grid="base(center, x1)">
         <span data-h2-flex-item="base(fill)">{title}</span>
         <span data-h2-flex-item="base(content)">
-          <Dialog indigenousCommunities={indigenousCommunities} onSave={onSave}>
+          <Dialog isAdded={isAdded} onSave={onSave}>
             <Button
               type="button"
               mode="inline"
