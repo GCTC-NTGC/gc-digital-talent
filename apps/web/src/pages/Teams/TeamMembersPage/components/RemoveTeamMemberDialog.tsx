@@ -28,7 +28,7 @@ const RemoveTeamMemberDialog = ({
     await executeMutation({
       id: user.id,
       user: {
-        rolesSetter: {
+        roleAssignments: {
           detach: {
             roles: user.roles.map((role) => role.id),
             team: team.id,

@@ -226,7 +226,7 @@ class UserRoleTest extends TestCase
             [
                 'id' => $user->id,
                 'user' => [
-                    'rolesSetter' => [
+                    'roleAssignments' => [
                         'attach' =>  [
                             'roles' => [$newRole->id],
                         ],
@@ -273,7 +273,7 @@ class UserRoleTest extends TestCase
             [
                 'id' => $user->id,
                 'user' => [
-                    'rolesSetter' => [
+                    'roleAssignments' => [
                         'attach' =>  [
                             'roles' => [$newRole->id],
                             'team' => $newTeam->id
@@ -321,7 +321,7 @@ class UserRoleTest extends TestCase
             [
                 'id' => $user->id,
                 'user' => [
-                    'rolesSetter' => [
+                    'roleAssignments' => [
                         'attach' =>  [
                             'roles' => [$role->id],
                             'team' => $team->id
@@ -357,7 +357,7 @@ class UserRoleTest extends TestCase
             [
                 'id' => $user->id,
                 'user' => [
-                    'rolesSetter' => [
+                    'roleAssignments' => [
                         'attach' =>  [
                             'roles' => [$role->id]
                         ]
@@ -466,7 +466,7 @@ class UserRoleTest extends TestCase
             [
                 'id' => $otherUser->id,
                 'user' => [
-                    'rolesSetter' => [
+                    'roleAssignments' => [
                         'attach' =>  [
                             'roles' => [$newRole->id],
                             'team' => $newTeam->id

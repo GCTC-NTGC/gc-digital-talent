@@ -52,7 +52,7 @@ const EditTeamMemberDialog = ({
     await executeMutation({
       id: formValues.user,
       user: {
-        rolesSetter: {
+        roleAssignments: {
           sync: {
             roles: formValues.roles,
             team: formValues.team,

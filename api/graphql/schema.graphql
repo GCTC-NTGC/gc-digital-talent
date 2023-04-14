@@ -1225,7 +1225,7 @@ input UpdateUserAsAdminInput
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
 
-  rolesSetter: RoleAssignmentHasMany
+  roleAssignments: RoleAssignmentHasMany @rename(attribute: "rolesSetter")
 }
 
 input UpdateUserAsUserInput
