@@ -35,6 +35,28 @@ query GetBasicApplicationInfo($id: UUID!) {
   }
 }
 
+query GetProfileFormOptions {
+  departments {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+}
+
 query GetApplication($id: UUID!) {
   poolCandidate(id: $id) {
     id

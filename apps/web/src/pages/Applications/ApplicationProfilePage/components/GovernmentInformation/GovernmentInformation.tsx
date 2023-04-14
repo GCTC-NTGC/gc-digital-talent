@@ -1,15 +1,27 @@
 import React from "react";
-import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
+import { BuildingLibraryIcon } from "@heroicons/react/24/outline";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { BasicForm } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import profileMessages from "~/messages/profileMessages";
+import { useGetProfileFormOptionsQuery } from "~/api/generated";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
+import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
+import { FormValues } from "./types";
+import FormFields from "./FormFields";
+import FormActions from "../FormActions";
 
 const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
   const intl = useIntl();
+  const labels = getLabels(intl);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const icon = getSectionIcon({
     isEditing,
@@ -17,6 +29,27 @@ const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
     completed: false,
     fallback: BuildingLibraryIcon,
   });
+  const [{ data }] = useGetProfileFormOptionsQuery();
+  const classifications = data?.classifications.filter(notEmpty) || [];
+  const departments = data?.departments.filter(notEmpty) || [];
+
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await onUpdate(user.id, formValuesToSubmitData(formValues, classifications))
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Work preferences updated successfully!",
+            id: "bt0WcN",
+            description:
+              "Message displayed when a user successfully updates their work preferences.",
+          }),
+        );
+        setIsEditing(false);
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   return (
     <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
@@ -72,7 +105,21 @@ const GovernmentInformation = ({ user, onUpdate }: SectionProps) => {
           </div>
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>Form here</p>
+          <BasicForm
+            labels={labels}
+            onSubmit={handleSubmit}
+            options={{
+              mode: "onBlur",
+              defaultValues: dataToFormValues(user),
+            }}
+          >
+            <FormFields
+              labels={labels}
+              departments={departments}
+              classifications={classifications}
+            />
+            <FormActions />
+          </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>
     </ToggleSection.Root>
