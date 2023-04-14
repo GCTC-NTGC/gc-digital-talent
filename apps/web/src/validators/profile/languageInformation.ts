@@ -1,4 +1,9 @@
-import { Applicant, BilingualEvaluation } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  BilingualEvaluation,
+  PoolAdvertisement,
+} from "@gc-digital-talent/graphql";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 type PartialApplicant = Pick<
   Applicant,
@@ -52,5 +57,14 @@ export function hasEmptyOptionalFields({
   return (
     bilingualEvaluation === BilingualEvaluation.NotCompleted &&
     !estimatedLanguageAbility
+  );
+}
+
+export function hasUnsatisfiedRequirements(
+  applicant: Applicant,
+  poolAdvertisement: PoolAdvertisement | null,
+): boolean {
+  return (
+    getMissingLanguageRequirements(applicant, poolAdvertisement).length > 0
   );
 }

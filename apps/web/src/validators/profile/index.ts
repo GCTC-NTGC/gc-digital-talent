@@ -21,6 +21,7 @@ import {
   hasAllEmptyFields as languageInformationSectionHasAllEmptyFields,
   hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
+  hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
 } from "./languageInformation";
 
 import {
@@ -47,6 +48,8 @@ import { isIncomplete as resumeIsIncomplete } from "./resume";
 
 import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
 
+import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } from "./screeningQuestions";
+
 export {
   aboutSectionHasAllEmptyFields,
   aboutSectionHasEmptyOptionalFields,
@@ -61,6 +64,7 @@ export {
   languageInformationSectionHasAllEmptyFields,
   languageInformationSectionHasEmptyOptionalFields,
   languageInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasUnsatisfiedRequirements,
   roleSalaryAnyCriteriaSelected,
   roleSalarySectionHasAllEmptyFields,
   roleSalarySectionHasEmptyOptionalFields,
@@ -74,4 +78,5 @@ export {
   workPreferencesSectionHasEmptyRequiredFields,
   resumeIsIncomplete,
   skillRequirementsIsIncomplete,
+  screeningQuestionsSectionHasMissingResponses,
 };
