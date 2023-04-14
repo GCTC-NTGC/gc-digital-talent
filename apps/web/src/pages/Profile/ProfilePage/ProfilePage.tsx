@@ -81,7 +81,7 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             editUrl: paths.languageInformation(userId),
             override: (
               <LanguageInformationSection
-                applicant={profileDataInput}
+                applicant={profileDataInput as Applicant}
                 editPath={paths.languageInformation(userId)}
               />
             ),
