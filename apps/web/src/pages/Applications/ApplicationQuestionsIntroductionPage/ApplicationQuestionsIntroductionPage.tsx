@@ -73,7 +73,7 @@ const ApplicationQuestionsIntroduction = ({
             "Application step for screening questions, introduction description, paragraph one",
         })}
       </p>
-      <p data-h2-padding-top="base:(x1)">
+      <p data-h2-padding-top="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "Your answers will be assessed as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
