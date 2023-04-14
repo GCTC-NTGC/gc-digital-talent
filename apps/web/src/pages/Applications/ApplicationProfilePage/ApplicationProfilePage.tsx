@@ -17,6 +17,7 @@ import {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
+  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
@@ -64,6 +65,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
         governmentInformationSectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasEmptyRequiredFields(applicant) ||
         workPreferencesSectionHasEmptyRequiredFields(applicant) ||
+        roleSalarySectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasUnsatisfiedRequirements(
           applicant,
           poolAdvertisement,
