@@ -720,7 +720,7 @@ RAWSQL2;
         return $this->$functionName($roleIdObjects, $teamIdObject);
     }
 
-    public function setRolesSetterAttribute($roleAssignmentHasMany)
+    public function setRoleAssignmentsInputAttribute($roleAssignmentHasMany)
     {
         if (array_key_exists('attach', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');

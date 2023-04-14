@@ -1487,7 +1487,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roleAssignments: RoleAssignmentHasMany
+  roleAssignmentsInput: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {

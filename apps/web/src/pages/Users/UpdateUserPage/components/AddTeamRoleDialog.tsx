@@ -63,7 +63,7 @@ const AddTeamRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
-      roleAssignments: {
+      roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,
           team: formValues.team,

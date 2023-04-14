@@ -37,7 +37,7 @@ const RemoveTeamRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onRemoveRoles({
-      roleAssignments: {
+      roleAssignmentsInput: {
         detach: {
           roles: roles.map((r) => r.id),
           team: team.id,

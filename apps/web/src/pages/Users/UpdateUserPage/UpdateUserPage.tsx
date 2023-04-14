@@ -324,7 +324,7 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "legacyRoles",
-          "roleAssignments",
+          "roleAssignmentsInput",
         ]),
       },
     }).then((result) => {
