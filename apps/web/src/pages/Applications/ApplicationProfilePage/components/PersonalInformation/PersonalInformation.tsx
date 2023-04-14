@@ -4,6 +4,7 @@ import { SubmitHandler } from "react-hook-form";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
 import {
   BasicForm,
   Input,
@@ -11,10 +12,8 @@ import {
   Select,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import {
   errorMessages,
-  formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
   getLanguage,
@@ -24,9 +23,6 @@ import {
 import profileMessages from "~/messages/profileMessages";
 import { Language, ProvinceOrTerritory } from "~/api/generated";
 
-import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
-
 import {
   getLabels,
   formValuesToSubmitData,
@@ -35,7 +31,10 @@ import {
   citizenshipStatusesOrdered,
 } from "./utils";
 import { FormValues } from "./types";
+import { SectionProps } from "../../types";
+import { getSectionIcon } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
+import FormActions from "../FormActions";
 
 const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
   const intl = useIntl();
@@ -54,8 +53,8 @@ const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
         toast.success(
           intl.formatMessage({
             defaultMessage:
-              "Personal and contact information update successfully!",
-            id: "/bmEaZ",
+              "Personal and contact information updated successfully!",
+            id: "J+MAUg",
             description:
               "Message displayed when a user successfully updates their personal and contact information.",
           }),
@@ -304,26 +303,7 @@ const PersonalInformation = ({ user, onUpdate }: SectionProps) => {
                 })}
               />
             </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x.25, x.5)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(flex-start) l-tablet(center)"
-            >
-              <Button type="submit" color="secondary" mode="solid">
-                {intl.formatMessage(formMessages.saveChanges)}
-              </Button>
-              <ToggleSection.Close>
-                <Button mode="inline" color="warning">
-                  {intl.formatMessage({
-                    defaultMessage: "Cancel",
-                    id: "6JL/mL",
-                    description: "Button text to cancel editing a profile form",
-                  })}
-                </Button>
-              </ToggleSection.Close>
-            </div>
+            <FormActions />
           </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>
