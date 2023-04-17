@@ -9,7 +9,7 @@ import {
 
 import { BilingualEvaluation } from "~/api/generated";
 
-import ProfileLabel from "../ProfileLabel";
+import FieldDisplay from "../FieldDisplay";
 
 interface DisplayProps {
   user: User;
@@ -35,129 +35,93 @@ const Display = ({
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       data-h2-gap="base(x1)"
     >
-      {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Interested in:",
-              id: "TmCffZ",
-              description: "Interested in label and colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "English positions",
-              id: "vFMPHW",
-              description: "English Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {!lookingForEnglish && lookingForFrench && !lookingForBilingual && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Interested in:",
-              id: "TmCffZ",
-              description: "Interested in label and colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "French positions",
-              id: "qT9sS0",
-              description: "French Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Interested in:",
-              id: "TmCffZ",
-              description: "Interested in label and colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "English or French positions",
-              id: "fFznH0",
-              description: "English or French Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {lookingForBilingual && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Interested in:",
-              id: "TmCffZ",
-              description: "Interested in label and colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "Bilingual positions (English and French)",
-              id: "6eCvv1",
-              description: "Bilingual Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Completed an official GoC evaluation:",
-              id: "shPV27",
-              description:
-                "Completed a government of canada abbreviation evaluation label and colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))}
-          </span>
-        </p>
-      )}
+      <FieldDisplay
+        hasError={
+          !lookingForEnglish && !lookingForFrench && !lookingForBilingual
+        }
+        label={intl.formatMessage({
+          defaultMessage: "Opportunity languages",
+          id: "+gl4rv",
+          description: "Opportunity languages label",
+        })}
+      >
+        {lookingForEnglish &&
+          !lookingForFrench &&
+          !lookingForBilingual &&
+          intl.formatMessage({
+            defaultMessage: "English positions",
+            id: "vFMPHW",
+            description: "English Positions message",
+          })}
+        {!lookingForEnglish &&
+          lookingForFrench &&
+          !lookingForBilingual &&
+          intl.formatMessage({
+            defaultMessage: "French positions",
+            id: "qT9sS0",
+            description: "French Positions message",
+          })}
+        {lookingForEnglish &&
+          lookingForFrench &&
+          !lookingForBilingual &&
+          intl.formatMessage({
+            defaultMessage: "English or French positions",
+            id: "fFznH0",
+            description: "English or French Positions message",
+          })}
+        {lookingForBilingual &&
+          intl.formatMessage({
+            defaultMessage: "Bilingual positions (English and French)",
+            id: "6eCvv1",
+            description: "Bilingual Positions message",
+          })}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={
+          lookingForBilingual &&
+          (!bilingualEvaluation ||
+            ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+              bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
+              (!comprehensionLevel || !writtenLevel || !verbalLevel)))
+        }
+        label={intl.formatMessage({
+          defaultMessage: "Language evaluation",
+          id: "43xNhn",
+          description: "Language evaluation label",
+        })}
+      >
+        {bilingualEvaluation &&
+          intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))}
+      </FieldDisplay>
       {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
         bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage:
-                "Second language level (Comprehension, Written, Verbal):",
-              id: "D7Qb41",
-              description:
-                "Evaluation results for second language, results in that order followed by a colon",
-            })}
-          </ProfileLabel>
-          <span>
-            {comprehensionLevel}, {writtenLevel}, {verbalLevel}
-          </span>
-        </p>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage:
+              "Second language level (Comprehension, Written, Verbal)",
+            id: "zF0F6w",
+            description:
+              "Second language level (Comprehension, Written, Verbal) label",
+          })}
+        >
+          {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+        </FieldDisplay>
       )}
       {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
         !!estimatedLanguageAbility && (
-          <p>
-            <ProfileLabel>
-              {intl.formatMessage({
-                defaultMessage: "Second language level:",
-                id: "q3Gl23",
-                description:
-                  "Estimated skill in second language, followed by a colon",
-              })}
-            </ProfileLabel>
-            <span>
-              {estimatedLanguageAbility
-                ? intl.formatMessage(
-                    getLanguageProficiency(estimatedLanguageAbility),
-                  )
-                : null}
-            </span>
-          </p>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Second language proficiency",
+              id: "IexFo4",
+              description: "Second language proficiency label",
+            })}
+          >
+            {estimatedLanguageAbility
+              ? intl.formatMessage(
+                  getLanguageProficiency(estimatedLanguageAbility),
+                )
+              : null}
+          </FieldDisplay>
         )}
     </div>
   );

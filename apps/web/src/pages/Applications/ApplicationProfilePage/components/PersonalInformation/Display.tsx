@@ -11,7 +11,7 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 
-import ProfileLabel from "../ProfileLabel";
+import FieldDisplay from "../FieldDisplay";
 
 interface DisplayProps {
   user: User;
@@ -40,144 +40,119 @@ const Display = ({
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
       data-h2-gap="base(x1)"
     >
-      {(!!firstName || !!lastName) && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Name:",
-              id: "DAmLhV",
-              description: "Name label and colon",
-            })}
-          </ProfileLabel>
-          <span>{getFullNameHtml(firstName, lastName, intl)}</span>
-        </p>
-      )}
-      {!!email && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Email:",
-              id: "mtFK6A",
-              description: "Email label and colon",
-            })}
-          </ProfileLabel>
-          <span>{email}</span>
-        </p>
-      )}
-      {!!telephone && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Phone:",
-              id: "azOv8A",
-              description: "Phone label and colon",
-            })}
-          </ProfileLabel>
-          {telephone ? (
-            <a
-              href={`tel:${telephone}`}
-              aria-label={telephone.replace(/.{1}/g, "$& ")}
-            >
-              {telephone}
-            </a>
-          ) : null}
-        </p>
-      )}
-      {!!preferredLang && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Preferred Communication Language:",
-              id: "bEwwY/",
-              description:
-                "Preferred Language for communication purposes label and colon",
-            })}
-          </ProfileLabel>
-
-          {preferredLang ? (
-            <span>{intl.formatMessage(getLanguage(preferredLang))}</span>
-          ) : null}
-        </p>
-      )}
-      {!!preferredLanguageForInterview && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Preferred Spoken Interview Language:",
-              id: "c7At4h",
-              description: "Preferred Language for interviews label and colon",
-            })}
-          </ProfileLabel>
-          {preferredLanguageForInterview ? (
-            <span>
-              {intl.formatMessage(getLanguage(preferredLanguageForInterview))}
-            </span>
-          ) : null}
-        </p>
-      )}
-      {!!preferredLanguageForExam && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Preferred Written Exam Language:",
-              id: "rSymh2",
-              description: "Preferred Language for exams label and colon",
-            })}
-          </ProfileLabel>
-          {preferredLanguageForExam ? (
-            <span>
-              {intl.formatMessage(getLanguage(preferredLanguageForExam))}
-            </span>
-          ) : null}
-        </p>
-      )}
-      {!!currentCity && !!currentProvince && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Current Location:",
-              id: "s1h7Mc",
-              description: "Current Location label and colon",
-            })}
-          </ProfileLabel>
+      <FieldDisplay
+        hasError={!firstName || !lastName}
+        label={intl.formatMessage({
+          defaultMessage: "Name",
+          id: "gOkIvb",
+          description: "Name label",
+        })}
+      >
+        {getFullNameHtml(firstName, lastName, intl)}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!email}
+        label={intl.formatMessage({
+          defaultMessage: "Email",
+          id: "DuPnGd",
+          description: "Email label",
+        })}
+      >
+        {email}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!telephone}
+        label={intl.formatMessage({
+          defaultMessage: "Telephone",
+          id: "bCtIa8",
+          description: "Telephone label",
+        })}
+      >
+        {telephone ? (
+          <a
+            href={`tel:${telephone}`}
+            aria-label={telephone.replace(/.{1}/g, "$& ")}
+          >
+            {telephone}
+          </a>
+        ) : null}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLang}
+        label={intl.formatMessage({
+          defaultMessage: "General communication",
+          id: "EfvPEG",
+          description: "General communication preference label",
+        })}
+      >
+        {preferredLang ? (
+          <span>{intl.formatMessage(getLanguage(preferredLang))}</span>
+        ) : null}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLanguageForInterview}
+        label={intl.formatMessage({
+          defaultMessage: "Spoken interviews",
+          id: "wajUxx",
+          description: "Spoken interviews language preference label",
+        })}
+      >
+        {preferredLanguageForInterview ? (
           <span>
-            {currentCity},{" "}
-            {currentProvince
-              ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
-              : null}
+            {intl.formatMessage(getLanguage(preferredLanguageForInterview))}
           </span>
-        </p>
-      )}
-      {armedForcesStatus !== null && armedForcesStatus !== undefined && (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Member of CAF:",
-              id: "Md/cQS",
-              description: "Veteran/member label",
-            })}
-          </ProfileLabel>
+        ) : null}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLanguageForExam}
+        label={intl.formatMessage({
+          defaultMessage: "Written exams",
+          id: "LkYvx3",
+          description: "Written exams language preference label",
+        })}
+      >
+        {preferredLanguageForExam ? (
           <span>
-            {intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus),
-            )}
+            {intl.formatMessage(getLanguage(preferredLanguageForExam))}
           </span>
-        </p>
-      )}
-      {citizenship ? (
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Citizenship Status:",
-              id: "92hwzj",
-              description: "Citizenship status label",
-            })}
-          </ProfileLabel>
-          <span>
-            {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
-          </span>
-        </p>
-      ) : null}
+        ) : null}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!currentCity || !currentProvince}
+        label={intl.formatMessage({
+          defaultMessage: "Current location",
+          id: "MAz7iU",
+          description: "Current location label",
+        })}
+      >
+        {currentCity},{" "}
+        {currentProvince
+          ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
+          : null}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={armedForcesStatus === null}
+        label={intl.formatMessage({
+          defaultMessage: "Veteran status",
+          id: "k28EAQ",
+          description: "Veteran status label",
+        })}
+      >
+        {armedForcesStatus !== null &&
+          armedForcesStatus !== undefined &&
+          intl.formatMessage(getArmedForcesStatusesProfile(armedForcesStatus))}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!citizenship}
+        label={intl.formatMessage({
+          defaultMessage: "Citizenship status",
+          id: "4v9y7U",
+          description: "Citizenship status label",
+        })}
+      >
+        {citizenship &&
+          intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
+      </FieldDisplay>
     </div>
   );
 };

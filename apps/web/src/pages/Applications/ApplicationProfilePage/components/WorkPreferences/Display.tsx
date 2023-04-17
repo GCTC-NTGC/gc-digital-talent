@@ -10,7 +10,7 @@ import {
 
 import { PositionDuration } from "~/api/generated";
 
-import ProfileLabel from "../ProfileLabel";
+import FieldDisplay from "../FieldDisplay";
 
 interface DisplayProps {
   user: User;
@@ -35,41 +35,36 @@ const Display = ({
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       data-h2-gap="base(x1)"
     >
-      <p>
-        <ProfileLabel>
-          {intl.formatMessage({
-            defaultMessage: "Job duration:",
-            id: "sySM68",
-            description: "Job duration label and colon",
-          })}
-        </ProfileLabel>
-        <span>
-          {positionDuration &&
-          positionDuration.includes(PositionDuration.Temporary)
-            ? intl.formatMessage({
-                defaultMessage:
-                  "any duration. (short term, long term, or indeterminate duration)",
-                id: "uHx3G7",
-                description:
-                  "Label displayed on Work Preferences form for any duration option",
-              })
-            : intl.formatMessage({
-                defaultMessage: "Permanent duration",
-                id: "8cRL8r",
-                description: "Permanent duration only",
-              })}
-        </span>
-      </p>
-      <div>
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Work details",
-              id: "5PYEp1",
-              description: "Work preference details label)",
+      <FieldDisplay
+        label={intl.formatMessage({
+          defaultMessage: "Job duration",
+          id: "/yOfhq",
+          description: "Job duration label",
+        })}
+      >
+        {positionDuration &&
+        positionDuration.includes(PositionDuration.Temporary)
+          ? intl.formatMessage({
+              defaultMessage:
+                "any duration. (short term, long term, or indeterminate duration)",
+              id: "uHx3G7",
+              description:
+                "Label displayed on Work Preferences form for any duration option",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Permanent duration",
+              id: "8cRL8r",
+              description: "Permanent duration only",
             })}
-          </ProfileLabel>
-        </p>
+      </FieldDisplay>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Work details",
+            id: "cJtvya",
+            description: "Work details label",
+          })}
+        />
         {acceptedRequirements?.length ? (
           <ul>
             {acceptedRequirements.map((requirement) => (
@@ -81,15 +76,13 @@ const Display = ({
         ) : null}
       </div>
       <div>
-        <p>
-          <ProfileLabel>
-            {intl.formatMessage({
-              defaultMessage: "Work location(s)",
-              id: "k7Kue9",
-              description: "Work Location(s) label)",
-            })}
-          </ProfileLabel>
-        </p>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Work location(s)",
+            id: "inHQQ2",
+            description: "Work location(s) label",
+          })}
+        />
         {locations?.length ? (
           <ul>
             {locations.map((location) => (
@@ -100,16 +93,15 @@ const Display = ({
           </ul>
         ) : null}
       </div>
-      <p>
-        <ProfileLabel>
-          {intl.formatMessage({
-            defaultMessage: "Location exemptions:",
-            id: "MoWNS4",
-            description: "Location Exemptions label, followed by colon",
-          })}
-        </ProfileLabel>
-        <span>{locationExemptions}</span>
-      </p>
+      <FieldDisplay
+        label={intl.formatMessage({
+          defaultMessage: "Location specifics",
+          id: "oEioz2",
+          description: "Location specifics label",
+        })}
+      >
+        {locationExemptions}
+      </FieldDisplay>
     </div>
   );
 };
