@@ -218,6 +218,7 @@ const ScreeningQuestions = ({
                           name={`questions.${index}.question.en`}
                           label="Question (EN)"
                           disabled={formDisabled}
+                          rows={TEXT_AREA_ROWS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
@@ -236,6 +237,7 @@ const ScreeningQuestions = ({
                           name={`questions.${index}.question.fr`}
                           label="Question (FR)"
                           disabled={formDisabled}
+                          rows={TEXT_AREA_ROWS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
