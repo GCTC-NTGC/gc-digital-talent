@@ -128,7 +128,7 @@ export const ApplicationProfile = ({
       executeSubmitMutation({
         id: application.id,
         application: {
-          insertSubmittedStep: ApplicationStep.Welcome,
+          insertSubmittedStep: ApplicationStep.ReviewYourProfile,
         },
       })
         .then((res) => {
