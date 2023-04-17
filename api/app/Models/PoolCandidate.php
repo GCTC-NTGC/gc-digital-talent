@@ -92,7 +92,7 @@ class PoolCandidate extends Model
 
         // Ensure the PoolCandidates are qualified and available.
         $query->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
@@ -121,7 +121,7 @@ class PoolCandidate extends Model
 
         // Ensure the PoolCandidates are qualified and available.
         $query->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', date("Y-m-d"))->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
