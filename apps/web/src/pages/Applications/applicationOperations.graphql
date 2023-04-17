@@ -46,6 +46,7 @@ query GetApplication($id: UUID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
+      armedForcesStatus
       hasPriorityEntitlement
       priorityNumber
       isProfileComplete
