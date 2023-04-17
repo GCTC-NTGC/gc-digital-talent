@@ -1,10 +1,21 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { IntlShape, useIntl } from "react-intl";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
-import { errorMessages } from "@gc-digital-talent/i18n";
-import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
+import { Locales, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  Repeater,
+  TextArea,
+  Submit,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -20,6 +31,9 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
+const TEXT_AREA_ROWS = 3;
+const TEXT_AREA_MAX_WORDS = 100;
+
 type ScreeningQuestionValue = {
   id?: Scalars["ID"];
   question: LocalizedString;
@@ -33,6 +47,28 @@ export type ScreeningQuestionsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
   "screeningQuestions"
 >;
+
+const WordLimit = ({ locale, index }: { locale: Locales; index: number }) => {
+  const value = useWatch({ name: "questions" });
+
+  return (
+    <div data-h2-margin="base(-x.5, 0, x1, 0)" data-h2-text-align="base(right)">
+      <WordCounter
+        text={value[index].question[locale] || ""}
+        wordLimit={TEXT_AREA_MAX_WORDS}
+      />
+    </div>
+  );
+};
+
+const maxWordValidator = (value: string, intl: IntlShape) => {
+  return (
+    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+    intl.formatMessage(errorMessages.overWordLimit, {
+      value: TEXT_AREA_MAX_WORDS,
+    })
+  );
+};
 
 interface ScreeningQuestionsProps {
   poolAdvertisement: PoolAdvertisement;
@@ -176,24 +212,42 @@ const ScreeningQuestions = ({
                       data-h2-gap="base(0, x.5)"
                       data-h2-margin="base(-x1, 0)"
                     >
-                      <TextArea
-                        id={`questions.${index}.question.en`}
-                        name={`questions.${index}.question.en`}
-                        label="Question (EN)"
-                        disabled={formDisabled}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
-                      <TextArea
-                        id={`questions.${index}.question.fr`}
-                        name={`questions.${index}.question.fr`}
-                        label="Question (FR)"
-                        disabled={formDisabled}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
+                      <div>
+                        <TextArea
+                          id={`questions.${index}.question.en`}
+                          name={`questions.${index}.question.en`}
+                          label="Question (EN)"
+                          disabled={formDisabled}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                            validate: {
+                              wordCount: (value: string) =>
+                                maxWordValidator(value, intl),
+                            },
+                          }}
+                        />
+                        <WordLimit locale="en" index={index} />
+                      </div>
+                      <div>
+                        <TextArea
+                          id={`questions.${index}.question.fr`}
+                          name={`questions.${index}.question.fr`}
+                          label="Question (FR)"
+                          disabled={formDisabled}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                            validate: {
+                              wordCount: (value: string) =>
+                                maxWordValidator(value, intl),
+                            },
+                          }}
+                        />
+                        <WordLimit locale="fr" index={index} />
+                      </div>
                     </div>
                   </Repeater.Fieldset>
                 ))
