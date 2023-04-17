@@ -1200,8 +1200,8 @@ enum SalaryRange {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: PoolAdvertisement!
-  question: LocalizedString!
+  poolAdvertisement: PoolAdvertisement
+  question: LocalizedString
   sortOrder: Int
   screeningQuestionResponses: [ScreeningQuestionResponse]
 }
@@ -1209,8 +1209,8 @@ type ScreeningQuestion {
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
-  screeningQuestion: ScreeningQuestion!
-  poolCandidate: PoolCandidate!
+  screeningQuestion: ScreeningQuestion
+  poolCandidate: PoolCandidate
 }
 
 input ScreeningResponseBelongsTo {
@@ -1493,7 +1493,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roles: RoleAssignmentHasMany
+  roleAssignmentsInput: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {

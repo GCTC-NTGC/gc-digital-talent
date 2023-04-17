@@ -40,7 +40,7 @@ class UserSeederLocal extends Seeder
 
         // shared auth users for testing
         User::factory()->afterCreating(function ($user) {
-            $user->attachRoles(["base_user", "applicant", "request_responder", "platform_admin"]);
+            $user->addRoles(["base_user", "applicant", "request_responder", "platform_admin"]);
         })->create([
             'first_name' => 'Admin',
             'last_name' => 'Test',

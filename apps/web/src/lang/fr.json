@@ -861,9 +861,9 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
-  "8+PCdN": {
-    "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que cléGC.",
-    "description": "Message for successful login alert in create account page."
+  "qHVR2p": {
+    "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
+    "description": "Message for successful login alert in create account page"
   },
   "0ScnOT": {
     "defaultMessage": "Quelle est votre langue de contact préférée?",
@@ -917,9 +917,9 @@
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
   },
-  "ocCSfi": {
+  "A6H4EY": {
     "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after logging out."
+    "description": "Message displayed to a user after logging out"
   },
   "6cYs7i": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi.",
@@ -953,9 +953,9 @@
     "defaultMessage": "Sélectionnez un niveau...",
     "description": "Placeholder displayed on the language information form comprehension field."
   },
-  "ATDtfb": {
+  "vNvh0G": {
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
-    "description": "GC Key registration link text on the registration page."
+    "description": "GCKey registration link text on the registration page"
   },
   "sYqIp5": {
     "defaultMessage": "... d'une durée indéterminée seulement. (permanent seulement)",
@@ -989,9 +989,9 @@
     "defaultMessage": "ID :",
     "description": "The ID and colon"
   },
-  "78J7jF": {
+  "eYcQ6h": {
     "defaultMessage": "Continuer vers CléGC et se connecter",
-    "description": "GC Key login link text on the login page."
+    "description": "GCKey login link text on the login page."
   },
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
@@ -1065,9 +1065,9 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "lgsXDg": {
+  "SSSNwI": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GC Key."
+    "description": "Instructions on how to login with GCKey"
   },
   "KE49r9": {
     "defaultMessage": "Mon expérience et mes compétences",
@@ -1153,9 +1153,9 @@
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
   },
-  "kJdLk3": {
+  "ypVSZh": {
     "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GC Key"
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
@@ -1261,13 +1261,13 @@
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
   },
-  "4RXJ4p": {
+  "VWU6bj": {
     "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "Seo title for the login page for applicant profiles."
+    "description": "SEO title for the login page for applicant profiles."
   },
-  "iNFweP": {
+  "LVSun4": {
     "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "Page title for the login page for applicant profiles."
+    "description": "Page title for the login page for applicant profiles"
   },
   "ZSAzrR": {
     "defaultMessage": "Date d'expiration :",
@@ -1293,9 +1293,9 @@
     "defaultMessage": "Lieu de travail",
     "description": "Display Text for the current page in Work location Form Page"
   },
-  "5KRzTl": {
+  "Ec1Hn9": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GC Key."
+    "description": "Instructions on how to login with GCKey"
   },
   "cZmuts": {
     "defaultMessage": "À la prochaine fois!",
@@ -1421,9 +1421,9 @@
     "defaultMessage": "2. Compétences affichées pendant cette expérience",
     "description": "Title for skills on Experience form"
   },
-  "5uOWv0": {
+  "NuGNEF": {
     "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GC Key"
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "px7yu1": {
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
@@ -1517,13 +1517,13 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
-  "H4ug6o": {
+  "yxx7np": {
     "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "Seo title for the registration page for applicant profiles."
+    "description": "SEO title for the registration page for applicant profiles"
   },
-  "YXs6l6": {
+  "vZntuH": {
     "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "Page title for the registration page for applicant profiles."
+    "description": "Page title for the registration page for applicant profiles"
   },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
@@ -1581,9 +1581,9 @@
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
-  "veXICB": {
-    "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
-    "description": "Instruction on what to do if user does not have a GC Key."
+  "q53yRm": {
+    "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous</a>.",
+    "description": "Instruction on what to do if user does not have a GCKey"
   },
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
@@ -7536,6 +7536,18 @@
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
   },
+  "kfXCY8": {
+    "defaultMessage": "L’étape suivante consiste à vous assurer que votre CV est aussi à jour que possible.",
+    "description": "Application step to begin working on résumé, paragraph one"
+  },
+  "rpES4b": {
+    "defaultMessage": "Plus précisément, non seulement nous voulons connaître votre <strong>parcours professionnel</strong>, mais également votre <strong>expérience communautaire</strong>, vos <strong>récompenses</strong>, vos <strong>initiatives personnelles</strong> et votre <strong>éducation</strong>!",
+    "description": "Application step to begin working on résumé, paragraph two"
+  },
+  "iK/Vqe": {
+    "defaultMessage": "Une fois que vous avez mis votre CV à jour et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans d’autres étapes pour nous aider à mieux comprendre comment vous répondez aux exigences de compétences pour cette occasion.",
+    "description": "Application step to begin working on résumé, paragraph three"
+  },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
@@ -7555,5 +7567,21 @@
   "U86N4g": {
     "defaultMessage": "Pour l’instant, sauvegardez et quittez",
     "description": "Action button to save and exit an application"
+  },
+  "L5duFP": {
+    "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
+    "description": "Application step for screening questions, introduction description, paragraph one"
+  },
+  "OUXmYd": {
+    "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
+    "description": "Application step for screening questions, introduction description, paragraph two"
+  },
+  "AOrJqm": {
+    "defaultMessage": "J'ai compris, allons-y!",
+    "description": "Link text to continue the application process"
+  },
+  "egLb65": {
+    "defaultMessage": "Je suis prêt!",
+    "description": "An action button to proceed"
   }
 }

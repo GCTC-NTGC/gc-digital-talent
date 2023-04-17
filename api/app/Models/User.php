@@ -14,7 +14,8 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
 
 /**
@@ -65,11 +66,11 @@ use Carbon\Carbon;
  * @property string $preferred_language_for_exam
  */
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, LaratrustUser
 {
 
     use Authorizable;
-    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
@@ -769,14 +770,14 @@ RAWSQL2;
         return $this->$functionName($roleIdObjects, $teamIdObject);
     }
 
-    public function setRolesAttribute($roleAssignmentHasMany)
+    public function setRoleAssignmentsInputAttribute($roleAssignmentHasMany)
     {
         if (array_key_exists('attach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');
         }
 
         if (array_key_exists('detach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'removeRoles');
         }
 
         if (array_key_exists('sync', $roleAssignmentHasMany)) {

@@ -46,7 +46,7 @@ class ClassificationTest extends TestCase
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->attachRole("platform_admin");
+        $this->adminUser->addRole("platform_admin");
 
         $this->uuid = $this->faker->UUID();
         $this->toBeDeletedUUID = $this->faker->UUID();

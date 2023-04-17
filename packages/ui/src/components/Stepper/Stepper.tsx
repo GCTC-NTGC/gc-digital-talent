@@ -12,12 +12,16 @@ import { StepState, StepType } from "./types";
 const deriveStepState = (
   stepIndex: number,
   currentIndex: Maybe<number>,
-  completed?: boolean,
-  disabled?: boolean,
-  error = false,
+  completed?: boolean | null,
+  disabled?: boolean | null,
+  error?: boolean | null,
 ): StepState => {
   if (currentIndex === stepIndex) {
     return "active";
+  }
+
+  if (disabled) {
+    return "disabled";
   }
 
   if (error) {
@@ -27,8 +31,6 @@ const deriveStepState = (
   if (completed) {
     return "completed";
   }
-
-  if (disabled) return "disabled";
 
   return "default";
 };

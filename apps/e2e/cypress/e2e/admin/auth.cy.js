@@ -108,7 +108,7 @@ describe("Auth flows (development)", () => {
       const initialPath = "/en/admin/users";
       cy.visit(initialPath);
       onLoginInfoPage();
-      cy.findByRole("link", { name: /Continue to G C Key and Login/i }).click();
+      cy.findByRole("link", { name: /Continue to GCKey and Login/i }).click();
       onAuthLoginPage();
       loginViaUI("admin");
 

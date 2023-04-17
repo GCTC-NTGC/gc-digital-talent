@@ -51,6 +51,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.EducationRequirements,
     ],
     stepSubmitted: null,
+    hasError: null,
   };
 };
 
