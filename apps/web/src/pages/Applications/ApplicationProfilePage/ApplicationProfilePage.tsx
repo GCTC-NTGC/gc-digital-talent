@@ -122,22 +122,34 @@ export const ApplicationProfile = ({
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete
 
-    executeSubmitMutation({
-      id: application.id,
-      application: {
-        insertSubmittedStep: ApplicationStep.Welcome,
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          navigate(nextStepPath);
-        }
+    if (!pageInfo.hasError) {
+      executeSubmitMutation({
+        id: application.id,
+        application: {
+          insertSubmittedStep: ApplicationStep.Welcome,
+        },
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
-        );
-      });
+        .then((res) => {
+          if (res.data) {
+            navigate(nextStepPath);
+          }
+        })
+        .catch(() => {
+          toast.error(
+            intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
+          );
+        });
+    } else {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage:
+            "Please complete all required fields before continuing.",
+          id: "G1jegJ",
+          description:
+            "Error message displayed when user attempts to submit incomplete profile",
+        }),
+      );
+    }
 
     return false;
   };
