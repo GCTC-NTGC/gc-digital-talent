@@ -20,3 +20,10 @@ const Template: ComponentStory<typeof ApplicationProfile> = (args) => {
 };
 
 export const Default = Template.bind({});
+
+export const EmptyUser = Template.bind({});
+EmptyUser.args = {
+  user: {
+    id: fakeApplication.user.id,
+  },
+};

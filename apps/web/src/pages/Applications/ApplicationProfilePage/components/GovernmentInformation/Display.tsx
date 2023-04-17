@@ -12,6 +12,7 @@ import {
 import { wrapAbbr } from "~/utils/nameUtils";
 import { GovEmployeeType } from "~/api/generated";
 
+import { empty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "../FieldDisplay";
 
 interface DisplayProps {
@@ -69,14 +70,14 @@ const Display = ({
       data-h2-gap="base(x1)"
     >
       <FieldDisplay
-        hasError={!isGovEmployee === null}
+        hasError={empty(isGovEmployee)}
         label={intl.formatMessage({
           defaultMessage: "Employee status",
           id: "um8A1S",
           description: "Employee status label",
         })}
       >
-        {isGovEmployee === null ? notProvided : govEmployeeMessage}
+        {empty(isGovEmployee) ? notProvided : govEmployeeMessage}
       </FieldDisplay>
       {isGovEmployee && (
         <>
@@ -116,14 +117,14 @@ const Display = ({
         </>
       )}
       <FieldDisplay
-        hasError={hasPriorityEntitlement === null}
+        hasError={empty(hasPriorityEntitlement)}
         label={intl.formatMessage({
           defaultMessage: "Priority entitlement",
           id: "gdivWF",
           description: "Priority entitlement label",
         })}
       >
-        {hasPriorityEntitlement !== null ? priorityMessage : notProvided}
+        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
       </FieldDisplay>
       {hasPriorityEntitlement && (
         <FieldDisplay

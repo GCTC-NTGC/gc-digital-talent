@@ -12,6 +12,7 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 
+import { empty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "../FieldDisplay";
 
 interface DisplayProps {
@@ -136,7 +137,7 @@ const Display = ({
           : notProvided}
       </FieldDisplay>
       <FieldDisplay
-        hasError={armedForcesStatus === null}
+        hasError={empty(armedForcesStatus)}
         label={intl.formatMessage({
           defaultMessage: "Veteran status",
           id: "k28EAQ",
