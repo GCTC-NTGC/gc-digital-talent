@@ -50,9 +50,9 @@ const commonMessages = defineMessages({
   },
   notProvided: {
     defaultMessage: "Not provided",
-    id: "TW1jnI",
+    id: "tpVujp",
     description:
-      "Message displayed when a user ahs not provided some form of information",
+      "Message displayed when a user has not provided some form of information",
   },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
