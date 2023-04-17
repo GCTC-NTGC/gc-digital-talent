@@ -5,9 +5,12 @@ import {
   User,
 } from "~/api/generated";
 
+import { ApplicationPageProps } from "../ApplicationApi";
+
 export interface SectionProps {
   user: User;
   isUpdating?: boolean;
+  application?: ApplicationPageProps["application"];
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,

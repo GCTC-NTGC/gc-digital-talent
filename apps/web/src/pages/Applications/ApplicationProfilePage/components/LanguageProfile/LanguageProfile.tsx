@@ -8,11 +8,13 @@ import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
+import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
 } from "~/validators/profile/languageInformation";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon } from "../../utils";
@@ -28,8 +30,14 @@ import FormActions from "../FormActions";
 import { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
+import { Applicant } from "../../../../../api/generated";
 
-const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
+const LanguageProfile = ({
+  user,
+  application,
+  onUpdate,
+  isUpdating,
+}: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
@@ -41,6 +49,10 @@ const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
     fallback: LanguageIcon,
   });
 
+  const missingLanguageRequirements = getMissingLanguageRequirements(
+    user as Applicant,
+    application?.poolAdvertisement,
+  );
   const consideredLangOptions = getConsideredLangItems(intl);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -96,6 +108,13 @@ const LanguageProfile = ({ user, onUpdate, isUpdating }: SectionProps) => {
             })}
           </p>
         </Well>
+      )}
+      {missingLanguageRequirements.length > 0 && (
+        <MissingLanguageRequirements
+          headingLevel="h3"
+          applicant={user as Applicant}
+          poolAdvertisement={application?.poolAdvertisement}
+        />
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>

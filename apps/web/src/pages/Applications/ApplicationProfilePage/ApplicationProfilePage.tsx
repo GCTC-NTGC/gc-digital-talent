@@ -47,6 +47,8 @@ import DiversityEquityInclusion from "./components/DiversityEquityInclusion/Dive
 import GovernmentInformation from "./components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
 import { SectionProps } from "./types";
+import { getMissingLanguageRequirements } from "../../../utils/languageUtils";
+import NullDisplay from "./components/PersonalInformation/NullDisplay";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -90,7 +92,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         governmentInformationSectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasEmptyRequiredFields(applicant) ||
         workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-        roleSalarySectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasUnsatisfiedRequirements(
           applicant,
           poolAdvertisement,
@@ -117,12 +118,15 @@ export const ApplicationProfile = ({
     useUpdateApplicationMutation();
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
-  const nextStepPath = paths.applicationProfile(application.id);
+  const nextStepPath = paths.applicationResumeIntro(application.id);
 
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete
+    const isValid =
+      application?.poolAdvertisement &&
+      !pageInfo?.hasError?.(user as Applicant, application?.poolAdvertisement);
 
-    if (!pageInfo.hasError) {
+    if (isValid) {
       executeSubmitMutation({
         id: application.id,
         application: {
@@ -149,6 +153,27 @@ export const ApplicationProfile = ({
             "Error message displayed when user attempts to submit incomplete profile",
         }),
       );
+      const missingLanguageRequirements = getMissingLanguageRequirements(
+        user as Applicant,
+        application?.poolAdvertisement,
+      );
+      if (missingLanguageRequirements.length > 0) {
+        const requirements = missingLanguageRequirements.map((requirement) => (
+          <li key={requirement.id}>{intl.formatMessage(requirement)}</li>
+        ));
+        toast.error(
+          intl.formatMessage(
+            {
+              defaultMessage:
+                "You are missing the following language requirements: {requirements}",
+              id: "CPHTk9",
+              description:
+                "Error message when a user does not meet a pools language requirements",
+            },
+            { requirements },
+          ),
+        );
+      }
     }
 
     return false;
@@ -188,7 +213,7 @@ export const ApplicationProfile = ({
         <WorkPreferences {...sectionProps} />
         <DiversityEquityInclusion {...sectionProps} />
         <GovernmentInformation {...sectionProps} />
-        <LanguageProfile {...sectionProps} />
+        <LanguageProfile {...sectionProps} application={application} />
       </div>
       <Separator
         orientation="horizontal"
