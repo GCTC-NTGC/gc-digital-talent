@@ -409,6 +409,15 @@ const AdminDashboardPage = React.lazy(() =>
   ),
 );
 
+const GraphVisualizationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAdminDashboardPage" */ "../pages/GraphVisualization/GraphVisualiation"
+      ),
+  ),
+);
+
 /** Users */
 const IndexUserPage = React.lazy(() =>
   lazyRetry(
@@ -1178,6 +1187,10 @@ const createRoute = (
             {
               path: "",
               element: <AdminHomePage />,
+            },
+            {
+              path: "graph-visualization",
+              element: <GraphVisualizationPage />,
             },
             {
               path: "dashboard",

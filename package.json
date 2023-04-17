@@ -50,5 +50,8 @@
     "eslint-config-custom": "*",
     "prettier": "^2.8.7",
     "turbo": "^1.8.8"
+  },
+  "dependencies": {
+    "graphql-voyager": "^1.0.2"
   }
 }
