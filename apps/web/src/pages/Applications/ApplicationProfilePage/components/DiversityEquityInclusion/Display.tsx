@@ -9,7 +9,6 @@ import {
 import { Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
-import ProfileLabel from "../ProfileLabel";
 import CommunityIcon from "./CommunityIcon";
 
 interface DisplayProps {
