@@ -682,9 +682,9 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                           {intl.formatMessage(
                             {
                               defaultMessage: "Question {number} (EN)",
-                              id: "pHa1wx",
+                              id: "0moSLr",
                               description:
-                                "Heading for displaying a screening question French",
+                                "Heading for displaying a screening question English",
                             },
                             { number: index + 1 },
                           )}
@@ -701,9 +701,9 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                           {intl.formatMessage(
                             {
                               defaultMessage: "Question {number} (FR)",
-                              id: "FbaQv/",
+                              id: "cag7TH",
                               description:
-                                "Heading for displaying a screening question English",
+                                "Heading for displaying a screening question French",
                             },
                             { number: index + 1 },
                           )}
