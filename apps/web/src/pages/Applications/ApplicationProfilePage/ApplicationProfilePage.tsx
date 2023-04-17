@@ -28,7 +28,6 @@ import {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
@@ -39,6 +38,7 @@ import {
   useUpdateApplicationMutation,
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
@@ -47,8 +47,6 @@ import DiversityEquityInclusion from "./components/DiversityEquityInclusion/Dive
 import GovernmentInformation from "./components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
 import { SectionProps } from "./types";
-import { getMissingLanguageRequirements } from "../../../utils/languageUtils";
-import NullDisplay from "./components/PersonalInformation/NullDisplay";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
