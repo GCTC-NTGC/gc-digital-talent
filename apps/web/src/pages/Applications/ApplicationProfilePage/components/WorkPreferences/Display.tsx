@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { User } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   getOperationalRequirement,
   getWorkRegion,
 } from "@gc-digital-talent/i18n";
@@ -25,9 +26,25 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
   const locations = locationPreferences?.filter(notEmpty);
   const acceptedRequirements =
     acceptedOperationalRequirements?.filter(notEmpty);
+
+  const durationMessage =
+    positionDuration && positionDuration.includes(PositionDuration.Temporary)
+      ? intl.formatMessage({
+          defaultMessage:
+            "any duration. (short term, long term, or indeterminate duration)",
+          id: "uHx3G7",
+          description:
+            "Label displayed on Work Preferences form for any duration option",
+        })
+      : intl.formatMessage({
+          defaultMessage: "Permanent duration",
+          id: "8cRL8r",
+          description: "Permanent duration only",
+        });
 
   return (
     <div
@@ -42,20 +59,7 @@ const Display = ({
           description: "Job duration label",
         })}
       >
-        {positionDuration &&
-        positionDuration.includes(PositionDuration.Temporary)
-          ? intl.formatMessage({
-              defaultMessage:
-                "any duration. (short term, long term, or indeterminate duration)",
-              id: "uHx3G7",
-              description:
-                "Label displayed on Work Preferences form for any duration option",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Permanent duration",
-              id: "8cRL8r",
-              description: "Permanent duration only",
-            })}
+        {positionDuration ? durationMessage : notProvided}
       </FieldDisplay>
       <div>
         <FieldDisplay
@@ -73,7 +77,9 @@ const Display = ({
               </li>
             ))}
           </ul>
-        ) : null}
+        ) : (
+          notProvided
+        )}
       </div>
       <div>
         <FieldDisplay
@@ -91,7 +97,9 @@ const Display = ({
               </li>
             ))}
           </ul>
-        ) : null}
+        ) : (
+          notProvided
+        )}
       </div>
       <FieldDisplay
         label={intl.formatMessage({
@@ -100,7 +108,7 @@ const Display = ({
           description: "Location specifics label",
         })}
       >
-        {locationExemptions}
+        {locationExemptions || notProvided}
       </FieldDisplay>
     </div>
   );

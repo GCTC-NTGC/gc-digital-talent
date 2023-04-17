@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { User } from "@gc-digital-talent/graphql";
 import {
+  commonMessages,
   getBilingualEvaluation,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
@@ -28,6 +29,7 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <div
@@ -45,6 +47,10 @@ const Display = ({
           description: "Opportunity languages label",
         })}
       >
+        {!lookingForEnglish &&
+          !lookingForFrench &&
+          !lookingForBilingual &&
+          notProvided}
         {lookingForEnglish &&
           !lookingForFrench &&
           !lookingForBilingual &&
@@ -90,8 +96,9 @@ const Display = ({
           description: "Language evaluation label",
         })}
       >
-        {bilingualEvaluation &&
-          intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))}
+        {bilingualEvaluation
+          ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+          : notProvided}
       </FieldDisplay>
       {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
         bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
@@ -104,7 +111,9 @@ const Display = ({
               "Second language level (Comprehension, Written, Verbal) label",
           })}
         >
-          {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+          {comprehensionLevel || writtenLevel || verbalLevel
+            ? `${comprehensionLevel}, ${writtenLevel}, ${verbalLevel}`
+            : notProvided}
         </FieldDisplay>
       )}
       {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
@@ -120,7 +129,7 @@ const Display = ({
               ? intl.formatMessage(
                   getLanguageProficiency(estimatedLanguageAbility),
                 )
-              : null}
+              : notProvided}
           </FieldDisplay>
         )}
     </div>

@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 
 import { User } from "@gc-digital-talent/graphql";
 import { enumToOptions } from "@gc-digital-talent/forms";
-import { getGovEmployeeType, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getGovEmployeeType,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import { GovEmployeeType } from "~/api/generated";
@@ -30,6 +34,34 @@ const Display = ({
       (type) => type.value === govEmployeeType,
     )?.value || "";
 
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+
+  const govEmployeeMessage = isGovEmployee
+    ? intl.formatMessage({
+        defaultMessage:
+          "<strong>Yes</strong>, I am a Government of Canada employee.",
+        id: "5d0vbr",
+        description: "Message to state user is employed by government",
+      })
+    : intl.formatMessage({
+        defaultMessage:
+          "I am <strong>not</strong> a Government of Canada employee.",
+        id: "mTgQV0",
+        description: "Message to state user is employed by government",
+      });
+
+  const priorityMessage = hasPriorityEntitlement
+    ? intl.formatMessage({
+        defaultMessage: "I do have a priority entitlement",
+        id: "+tKl71",
+        description: "affirm possession of priority entitlement",
+      })
+    : intl.formatMessage({
+        defaultMessage: "I do not have a priority entitlement",
+        id: "x0FRH/",
+        description: "affirm no entitlement",
+      });
+
   return (
     <div
       data-h2-display="base(grid)"
@@ -44,19 +76,7 @@ const Display = ({
           description: "Employee status label",
         })}
       >
-        {isGovEmployee
-          ? intl.formatMessage({
-              defaultMessage:
-                "<strong>Yes</strong>, I am a Government of Canada employee.",
-              id: "5d0vbr",
-              description: "Message to state user is employed by government",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "I am <strong>not</strong> a Government of Canada employee.",
-              id: "mTgQV0",
-              description: "Message to state user is employed by government",
-            })}
+        {isGovEmployee === null ? notProvided : govEmployeeMessage}
       </FieldDisplay>
       {isGovEmployee && (
         <>
@@ -67,9 +87,7 @@ const Display = ({
               description: "Department label",
             })}
           >
-            {department && (
-              <span>{getLocalizedName(department.name, intl)}</span>
-            )}
+            {department ? getLocalizedName(department.name, intl) : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -88,12 +106,12 @@ const Display = ({
               description: "Current group and classification label",
             })}
           >
-            {!!currentClassification?.group &&
-              !!currentClassification?.level &&
-              wrapAbbr(
-                `${currentClassification?.group}-${currentClassification?.level}`,
-                intl,
-              )}
+            {!!currentClassification?.group && !!currentClassification?.level
+              ? wrapAbbr(
+                  `${currentClassification?.group}-${currentClassification?.level}`,
+                  intl,
+                )
+              : notProvided}
           </FieldDisplay>
         </>
       )}
@@ -105,17 +123,7 @@ const Display = ({
           description: "Priority entitlement label",
         })}
       >
-        {hasPriorityEntitlement !== null && hasPriorityEntitlement
-          ? intl.formatMessage({
-              defaultMessage: "I do have a priority entitlement",
-              id: "+tKl71",
-              description: "affirm possession of priority entitlement",
-            })
-          : intl.formatMessage({
-              defaultMessage: "I do not have a priority entitlement",
-              id: "x0FRH/",
-              description: "affirm no entitlement",
-            })}
+        {hasPriorityEntitlement !== null ? priorityMessage : notProvided}
       </FieldDisplay>
       {hasPriorityEntitlement && (
         <FieldDisplay
@@ -125,7 +133,7 @@ const Display = ({
             description: "Priority number label",
           })}
         >
-          {priorityNumber}
+          {priorityNumber || notProvided}
         </FieldDisplay>
       )}
     </div>

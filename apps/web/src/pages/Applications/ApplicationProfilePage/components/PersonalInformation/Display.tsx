@@ -5,6 +5,7 @@ import { User } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
+  commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
   getLanguage,
@@ -33,6 +34,7 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <div
@@ -48,7 +50,9 @@ const Display = ({
           description: "Name label",
         })}
       >
-        {getFullNameHtml(firstName, lastName, intl)}
+        {firstName || lastName
+          ? getFullNameHtml(firstName, lastName, intl)
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!email}
@@ -58,7 +62,7 @@ const Display = ({
           description: "Email label",
         })}
       >
-        {email}
+        {email || notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!telephone}
@@ -75,7 +79,9 @@ const Display = ({
           >
             {telephone}
           </a>
-        ) : null}
+        ) : (
+          notProvided
+        )}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLang}
@@ -85,9 +91,9 @@ const Display = ({
           description: "General communication preference label",
         })}
       >
-        {preferredLang ? (
-          <span>{intl.formatMessage(getLanguage(preferredLang))}</span>
-        ) : null}
+        {preferredLang
+          ? intl.formatMessage(getLanguage(preferredLang))
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForInterview}
@@ -97,11 +103,9 @@ const Display = ({
           description: "Spoken interviews language preference label",
         })}
       >
-        {preferredLanguageForInterview ? (
-          <span>
-            {intl.formatMessage(getLanguage(preferredLanguageForInterview))}
-          </span>
-        ) : null}
+        {preferredLanguageForInterview
+          ? intl.formatMessage(getLanguage(preferredLanguageForInterview))
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForExam}
@@ -111,11 +115,9 @@ const Display = ({
           description: "Written exams language preference label",
         })}
       >
-        {preferredLanguageForExam ? (
-          <span>
-            {intl.formatMessage(getLanguage(preferredLanguageForExam))}
-          </span>
-        ) : null}
+        {preferredLanguageForExam
+          ? intl.formatMessage(getLanguage(preferredLanguageForExam))
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!currentCity || !currentProvince}
@@ -125,10 +127,13 @@ const Display = ({
           description: "Current location label",
         })}
       >
-        {currentCity},{" "}
-        {currentProvince
-          ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
-          : null}
+        {currentCity || currentProvince
+          ? `${currentCity}, ${
+              currentProvince
+                ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
+                : null
+            }`
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={armedForcesStatus === null}
@@ -138,9 +143,9 @@ const Display = ({
           description: "Veteran status label",
         })}
       >
-        {armedForcesStatus !== null &&
-          armedForcesStatus !== undefined &&
-          intl.formatMessage(getArmedForcesStatusesProfile(armedForcesStatus))}
+        {armedForcesStatus !== null && armedForcesStatus !== undefined
+          ? intl.formatMessage(getArmedForcesStatusesProfile(armedForcesStatus))
+          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!citizenship}
@@ -150,8 +155,9 @@ const Display = ({
           description: "Citizenship status label",
         })}
       >
-        {citizenship &&
-          intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
+        {citizenship
+          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship))
+          : notProvided}
       </FieldDisplay>
     </div>
   );
