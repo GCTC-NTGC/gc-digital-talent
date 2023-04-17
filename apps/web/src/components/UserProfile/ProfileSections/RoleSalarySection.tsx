@@ -1,31 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import isEmpty from "lodash/isEmpty";
 
 import { Well } from "@gc-digital-talent/ui";
 import { commonMessages, getGenericJobTitles } from "@gc-digital-talent/i18n";
 
 import { Applicant } from "~/api/generated";
-
-type PartialApplicant = Pick<Applicant, "expectedGenericJobTitles">;
-
-function anyCriteriaSelected({ expectedGenericJobTitles }: PartialApplicant) {
-  return !isEmpty(expectedGenericJobTitles);
-}
-
-export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
-  // no optional fields
-  return false;
-}
+import {
+  anyCriteriaSelected,
+  hasAllEmptyFields,
+} from "~/validators/profile/roleSalary";
 
 const RoleSalarySection = ({
   applicant,

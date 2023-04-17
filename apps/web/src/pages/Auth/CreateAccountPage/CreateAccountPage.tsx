@@ -34,7 +34,6 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
 } from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
-import { wrapAbbr } from "~/utils/nameUtils";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -140,18 +139,13 @@ export const CreateAccountForm = ({
               })}
             </Alert.Title>
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same <abbreviation>GC</abbreviation> Key username and password.",
-                  id: "8+PCdN",
-                  description:
-                    "Message for successful login alert in create account page.",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
+                id: "qHVR2p",
+                description:
+                  "Message for successful login alert in create account page",
+              })}
             </p>
           </Alert.Root>
           <BasicForm

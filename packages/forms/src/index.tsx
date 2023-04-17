@@ -21,6 +21,7 @@ import InputWrapper, {
 } from "./components/InputWrapper";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
+import Repeater from "./components/Repeater/Repeater";
 import Select, {
   SelectFieldV2,
   type SelectFieldV2Props,
@@ -64,6 +65,7 @@ export {
   InputUnsaved,
   InputWrapper,
   MultiSelectField,
+  Repeater,
   RadioGroup,
   Select,
   SelectFieldV2,

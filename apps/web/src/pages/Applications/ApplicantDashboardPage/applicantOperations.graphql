@@ -3,6 +3,7 @@ fragment application on PoolCandidate {
   status
   archivedAt
   submittedAt
+  suspendedAt
   poolAdvertisement {
     id
     closingDate

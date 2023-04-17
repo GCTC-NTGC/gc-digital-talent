@@ -14,6 +14,10 @@ type RateLimitExtension = {
   category: string;
 };
 
+type AuthorizationExtension = {
+  category: string;
+};
+
 // type guard to ensure the error extension looks like our ValidationExtension type
 export function isValidationExtension(
   extension: GraphQLErrorExtensions,
@@ -31,6 +35,16 @@ export function isRateLimitExtension(
   return (
     (extension as RateLimitExtension) !== undefined &&
     extension.category === "rate-limit"
+  );
+}
+
+// type guard to ensure the error extension looks like our AuthorizationExtension type
+export function isAuthorizationExtension(
+  extension: GraphQLErrorExtensions,
+): extension is AuthorizationExtension {
+  return (
+    (extension as AuthorizationExtension) !== undefined &&
+    extension.category === "authorization"
   );
 }
 
@@ -56,6 +70,18 @@ export const extractRateLimitErrorMessages = (combinedError: CombinedError) =>
     .flatMap((graphQLError) => {
       const rateLimitExtension = graphQLError.extensions as RateLimitExtension;
       return Object.keys(rateLimitExtension).map(() => "RATE_LIMIT"); // see apiMessages.ts for reference.
+    });
+
+// Accepts a CombinedError object and finds the authorization error messages
+export const extractAuthorizationErrorMessages = (
+  combinedError: CombinedError,
+) =>
+  combinedError.graphQLErrors
+    .filter((graphQLError) => isAuthorizationExtension(graphQLError.extensions))
+    .flatMap((graphQLError) => {
+      const AuthorizationExtension =
+        graphQLError.extensions as AuthorizationExtension;
+      return Object.keys(AuthorizationExtension).map(() => "AUTHORIZATION"); // see apiMessages.ts for reference.
     });
 
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
@@ -92,6 +118,27 @@ export const buildValidationErrorMessageNode = (
 };
 
 export const buildRateLimitErrorMessageNode = (
+  errorMessages: Array<string>,
+  intl: IntlShape,
+): React.ReactNode => {
+  const localizedMessages = errorMessages.map((errorMessage) => {
+    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
+    if (localizedMessageDescriptor) {
+      return intl.formatMessage(localizedMessageDescriptor);
+    }
+    return errorMessage;
+  });
+
+  // if 1 or more than 1, return one toast since message is the same for all.
+  if (localizedMessages.length >= 1) {
+    return <span>{localizedMessages[0]}</span>;
+  }
+
+  // no messages, no returned node
+  return null;
+};
+
+export const buildAuthorizationErrorMessageNode = (
   errorMessages: Array<string>,
   intl: IntlShape,
 ): React.ReactNode => {
