@@ -182,7 +182,7 @@ const Fieldset = ({
   );
 };
 
-export interface RepeaterProps {
+export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText: React.ReactNode;
@@ -203,12 +203,14 @@ const Root = ({
   addButtonProps,
   children,
   showAdd = true,
+  ...rest
 }: RepeaterProps) => {
   return (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.5, 0)"
+      {...rest}
     >
       {children}
       {showAdd && (
