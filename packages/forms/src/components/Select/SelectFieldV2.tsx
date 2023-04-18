@@ -217,8 +217,8 @@ const SelectFieldV2 = ({
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
 
   const defaultPlaceholder = formatMessage({
-    defaultMessage: "Select...",
-    id: "rQwIDB",
+    defaultMessage: "Select",
+    id: "plwOsC",
     description:
       "Default placeholder shown when Select field has nothing actively selected.",
   });

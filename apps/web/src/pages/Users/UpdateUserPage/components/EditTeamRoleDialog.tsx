@@ -156,8 +156,8 @@ const EditTeamRoleDialog = ({
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select role...",
-                  id: "x7vMC8",
+                  defaultMessage: "Select role",
+                  id: "mTsq+x",
                   description: "Placeholder text for role selection input",
                 })}
                 options={roleOptions}
