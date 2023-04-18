@@ -1,9 +1,12 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
-import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
-import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 import { isFuture, isPast, parseISO } from "date-fns";
+
+import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
+
+import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
 
 interface AnimatedContentProps
@@ -134,14 +137,14 @@ const QualifiedRecruitments = ({
         >
           {/* Active Recruitments */}
           <Accordion.Item value="active">
-            <Accordion.Trigger headerAs="h3">
+            <StandardAccordionTrigger headerAs="h3">
               {intl.formatMessage({
                 defaultMessage: "Active recruitments",
                 id: "lfZeyc",
                 description:
                   "Heading for active recruitments accordion on the applicant dashboard.",
               })}
-            </Accordion.Trigger>
+            </StandardAccordionTrigger>
             <AnimatedContent isOpen={currentAccordionItems.includes("active")}>
               {activeRecruitments.length > 0 ? (
                 activeRecruitments.map((activeRecruitment) => (
@@ -180,14 +183,14 @@ const QualifiedRecruitments = ({
             {/* Expired Recruitments */}
           </Accordion.Item>
           <Accordion.Item value="expired">
-            <Accordion.Trigger headerAs="h3">
+            <StandardAccordionTrigger headerAs="h3">
               {intl.formatMessage({
                 defaultMessage: "Expired recruitments",
                 id: "6cH+cX",
                 description:
                   "Heading for expired recruitments accordion on the applicant dashboard.",
               })}
-            </Accordion.Trigger>
+            </StandardAccordionTrigger>
             <AnimatedContent isOpen={currentAccordionItems.includes("expired")}>
               {expiredRecruitments.length > 0 ? (
                 expiredRecruitments.map((expiredRecruitment) => (

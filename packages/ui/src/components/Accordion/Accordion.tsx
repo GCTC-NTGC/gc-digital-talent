@@ -61,7 +61,7 @@ const StyledTrigger = React.forwardRef<
     data-h2-display="base(flex)"
     data-h2-gap="base(0, x1)"
     data-h2-outline="base(none)"
-    data-h2-justify-content="base(space-between)"
+    data-h2-justify-content="base(flex-start)"
     data-h2-text-align="base(left)"
     data-h2-width="base(100%)"
     data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
@@ -78,85 +78,38 @@ type AccordionTriggerPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
 >;
 export interface AccordionTriggerProps
   extends AccordionTriggerPrimitivePropsWithoutRef {
-  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  context?: React.ReactNode;
-  subtitle?: React.ReactNode;
   headerAs?: HeadingRank;
 }
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
->(
-  (
-    { Icon, context, subtitle, headerAs = "h2", children, ...rest },
-    forwardedRef,
-  ) => {
-    const Header = headerAs;
-    return (
-      <StyledHeader asChild>
-        <Header data-h2-line-height="base(1)">
-          <StyledTrigger ref={forwardedRef} {...rest}>
-            <div
-              className="Accordion__Chevron"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-radius="base(circle)"
-            >
-              <ChevronDownIcon
-                className="Accordion__Chevron__Icon"
-                data-h2-transition="base(transform 150ms ease)"
-                data-h2-width="base(x1)"
-              />
-            </div>
-            <div
-              data-h2-flex-grow="base(1)"
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x.5 0)"
-            >
-              <span
-                data-h2-display="base(block)"
-                data-h2-font-size="base(h6, 1)"
-                data-h2-font-weight="base(700)"
-              >
-                {children}
-              </span>
-              {subtitle && (
-                <span
-                  className="Accordion__Subtitle"
-                  data-h2-display="base(block)"
-                  data-h2-font-size="base(copy)"
-                  data-h2-margin="base(x.25, 0, 0, 0)"
-                >
-                  {subtitle}
-                </span>
-              )}
-            </div>
-            <div
-              className="accordion-header-context"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(row)"
-              style={{ flexShrink: 0 }}
-            >
-              {context && <p data-h2-font-size="base(copy)">{context}</p>}
-              {Icon && (
-                <span className="icon" data-h2-margin="base(0, 0, 0, x1)">
-                  <Icon
-                    data-h2-width="base(x1.2)"
-                    data-h2-margin="base(x.125, 0, 0, 0)"
-                  />
-                </span>
-              )}
-            </div>
-          </StyledTrigger>
-        </Header>
-      </StyledHeader>
-    );
-  },
-);
+>(({ headerAs = "h2", children, ...rest }, forwardedRef) => {
+  const Header = headerAs;
+  return (
+    <StyledHeader asChild>
+      <Header data-h2-line-height="base(1)">
+        <StyledTrigger ref={forwardedRef} {...rest}>
+          <div
+            className="Accordion__Chevron"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
+            data-h2-flex-shrink="base(0)"
+            data-h2-radius="base(circle)"
+          >
+            <ChevronDownIcon
+              className="Accordion__Chevron__Icon"
+              data-h2-transition="base(transform 150ms ease)"
+              data-h2-width="base(x1)"
+            />
+          </div>
+
+          {children}
+        </StyledTrigger>
+      </Header>
+    </StyledHeader>
+  );
+});
 
 const Content = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,

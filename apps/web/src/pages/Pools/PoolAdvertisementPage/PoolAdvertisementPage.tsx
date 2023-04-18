@@ -20,6 +20,7 @@ import {
   Accordion,
   TableOfContents,
 } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 import {
   getLocale,
   getLanguageRequirement,
@@ -328,14 +329,14 @@ export const PoolAdvertisementPoster = ({
               </TableOfContents.Heading>
               <Accordion.Root type="single" collapsible>
                 <Accordion.Item value="when">
-                  <Accordion.Trigger>
+                  <StandardAccordionTrigger>
                     {intl.formatMessage({
                       defaultMessage: "What are pool recruitments?",
                       id: "KYFarS",
                       description:
                         "Title for accordion describing pool recruitments",
                     })}
-                  </Accordion.Trigger>
+                  </StandardAccordionTrigger>
                   <Accordion.Content>
                     <Text>
                       {intl.formatMessage({
@@ -365,7 +366,7 @@ export const PoolAdvertisementPoster = ({
                 </Accordion.Item>
                 {genericTitle?.key && (
                   <Accordion.Item value="what">
-                    <Accordion.Trigger>
+                    <StandardAccordionTrigger>
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -381,7 +382,7 @@ export const PoolAdvertisementPoster = ({
                             : ``,
                         },
                       )}
-                    </Accordion.Trigger>
+                    </StandardAccordionTrigger>
                     <Accordion.Content>
                       <ClassificationDefinition name={genericTitle.key} />
                     </Accordion.Content>
@@ -441,9 +442,9 @@ export const PoolAdvertisementPoster = ({
                   <Accordion.Root type="multiple">
                     {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                       <Accordion.Item value={skill.id} key={skill.id}>
-                        <Accordion.Trigger>
+                        <StandardAccordionTrigger>
                           {skill.name[locale] || ""}
-                        </Accordion.Trigger>
+                        </StandardAccordionTrigger>
                         <Accordion.Content>
                           <Text>
                             {skill.description ? skill.description[locale] : ""}
@@ -477,9 +478,9 @@ export const PoolAdvertisementPoster = ({
                     {essentialSkills[SkillCategory.Behavioural]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionTrigger>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionTrigger>
                           <Accordion.Content>
                             <Text>
                               {skill.description
@@ -521,9 +522,9 @@ export const PoolAdvertisementPoster = ({
                     {nonEssentialSkills[SkillCategory.Technical]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionTrigger>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionTrigger>
                           <Accordion.Content>
                             <Text>
                               {skill.description
@@ -551,9 +552,9 @@ export const PoolAdvertisementPoster = ({
                     {nonEssentialSkills[SkillCategory.Behavioural]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionTrigger>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionTrigger>
                           <Accordion.Content>
                             <Text>
                               {skill.description

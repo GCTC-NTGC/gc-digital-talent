@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -70,13 +71,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
       </ul>
       <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="drafts">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionTrigger headerAs="h3">
             {intl.formatMessage({
               defaultMessage: "Draft applications",
               id: "5isFkb",
               description: "Title for the draft applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionTrigger>
           <Accordion.Content>
             {drafts.length ? (
               <ApplicationGroup>
@@ -121,13 +122,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="submitted">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionTrigger headerAs="h3">
             {intl.formatMessage({
               defaultMessage: "Submitted applications",
               id: "acCyP9",
               description: "Title for the submitted applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionTrigger>
           <Accordion.Content>
             {submitted.length ? (
               <ApplicationGroup>
@@ -167,13 +168,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="historical">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionTrigger headerAs="h3">
             {intl.formatMessage({
               defaultMessage: "Application history",
               id: "MTSArs",
               description: "Title for the historical applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionTrigger>
           <Accordion.Content>
             {historical.length ? (
               <ApplicationGroup>

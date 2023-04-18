@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { PersonalExperience } from "~/api/generated";
 
@@ -63,7 +64,7 @@ const PersonalAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <Accordion.Trigger
+      <StandardAccordionTrigger
         subtitle={getDateRange({ endDate, startDate, intl })}
         headerAs={headingLevel}
         context={
@@ -85,7 +86,7 @@ const PersonalAccordion = ({
         Icon={LightBulbIcon}
       >
         {title || ""}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
       <Accordion.Content>
         <PersonalContent {...rest} />
         {editUrl && (

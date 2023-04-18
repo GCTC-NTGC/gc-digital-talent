@@ -3,6 +3,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 import {
   getLocale,
   getAwardedScope,
@@ -362,7 +363,7 @@ const SkillAccordion = ({
   }
   return (
     <Accordion.Item value={skill.id}>
-      <Accordion.Trigger
+      <StandardAccordionTrigger
         headerAs={headingLevel}
         context={
           experiences?.length === 1
@@ -382,7 +383,7 @@ const SkillAccordion = ({
         }
       >
         {name[locale]}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
       <Accordion.Content>{renderDetail()}</Accordion.Content>
     </Accordion.Item>
   );

@@ -14,6 +14,7 @@ import {
   Accordion,
   CardFlat,
 } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -252,14 +253,14 @@ const DirectivePage = () => {
           <div>
             <Accordion.Root type="multiple">
               <Accordion.Item value="planning-reporting">
-                <Accordion.Trigger headerAs="h3">
+                <StandardAccordionTrigger headerAs="h3">
                   {intl.formatMessage({
                     defaultMessage: "Planning and reporting",
                     id: "cktAfD",
                     description:
                       "Heading for the directives planning and reporting component",
                   })}
-                </Accordion.Trigger>
+                </StandardAccordionTrigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -273,14 +274,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-talent-sourcing">
-                <Accordion.Trigger headerAs="h3">
+                <StandardAccordionTrigger headerAs="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital talent sourcing",
                     id: "C03OK7",
                     description:
                       "Heading for the directives digital talent and sourcing component",
                   })}
-                </Accordion.Trigger>
+                </StandardAccordionTrigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -294,14 +295,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-talent-development">
-                <Accordion.Trigger headerAs="h3">
+                <StandardAccordionTrigger headerAs="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital talent development",
                     id: "mpa5Fd",
                     description:
                       "Heading for the directives digital talent and development component",
                   })}
-                </Accordion.Trigger>
+                </StandardAccordionTrigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -315,14 +316,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-executive-roles-structures">
-                <Accordion.Trigger headerAs="h3">
+                <StandardAccordionTrigger headerAs="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital executive roles and structures",
                     id: "e/nr9L",
                     description:
                       "Heading for the directives digital executive roles and structures component",
                   })}
-                </Accordion.Trigger>
+                </StandardAccordionTrigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -336,14 +337,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="enabling-conditions">
-                <Accordion.Trigger headerAs="h3">
+                <StandardAccordionTrigger headerAs="h3">
                   {intl.formatMessage({
                     defaultMessage: "Enabling conditions",
                     id: "8yB2Bm",
                     description:
                       "Heading for the directives digital enabling conditions component",
                   })}
-                </Accordion.Trigger>
+                </StandardAccordionTrigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({

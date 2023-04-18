@@ -3,6 +3,7 @@ import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { WorkExperience } from "~/api/generated";
 
@@ -75,7 +76,7 @@ const WorkAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <Accordion.Trigger
+      <StandardAccordionTrigger
         subtitle={getDateRange({ endDate, startDate, intl })}
         headerAs={headingLevel}
         context={
@@ -104,7 +105,7 @@ const WorkAccordion = ({
           },
           { role, organization },
         )}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
       <Accordion.Content>
         <WorkContent {...rest} />
         {editUrl && (

@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { AwardExperience } from "~/api/generated";
 
@@ -92,7 +93,7 @@ const AwardAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <Accordion.Trigger
+      <StandardAccordionTrigger
         subtitle={getDateRange({
           endDate: undefined,
           startDate: awardedDate,
@@ -118,7 +119,7 @@ const AwardAccordion = ({
         Icon={StarIcon}
       >
         {title || ""} - {issuedBy || ""}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
       <Accordion.Content>
         <AwardContent {...rest} />
         {editUrl && (

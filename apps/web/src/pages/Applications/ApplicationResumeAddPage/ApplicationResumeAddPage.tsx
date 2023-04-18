@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/20/solid";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -84,7 +85,7 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
       </p>
       <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="learn-more">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionTrigger headerAs="h3">
             {intl.formatMessage({
               defaultMessage:
                 "Learn more about the types of experience you can add",
@@ -92,7 +93,7 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
               description:
                 "Button text to open section describing experience types",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionTrigger>
           <Accordion.Content>
             <p>
               {intl.formatMessage({

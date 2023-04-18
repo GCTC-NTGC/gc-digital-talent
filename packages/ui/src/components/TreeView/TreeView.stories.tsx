@@ -28,9 +28,7 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
       <TreeView.Item>
         <Accordion.Root type="single" collapsible data-h2-margin="base(0, 0)">
           <Accordion.Item value="one">
-            <Accordion.Trigger subtitle="Accordion Subtitle">
-              Accordion Title
-            </Accordion.Trigger>
+            <Accordion.Trigger>Accordion Title</Accordion.Trigger>
             <Accordion.Content>
               <p>{faker.lorem.sentences(5)}</p>
             </Accordion.Content>

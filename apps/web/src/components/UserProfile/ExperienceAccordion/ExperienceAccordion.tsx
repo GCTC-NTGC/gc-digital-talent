@@ -4,6 +4,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { AnyExperience } from "~/types/experience";
 import {
@@ -93,13 +94,13 @@ const ExperienceAccordion = ({
   // not one of the 5 experience types
   return (
     <Accordion.Item value="none">
-      <Accordion.Trigger headerAs={headingLevel}>
+      <StandardAccordionTrigger headerAs={headingLevel}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",
           description: "Title for unknown experiences",
         })}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
     </Accordion.Item>
   );
 };

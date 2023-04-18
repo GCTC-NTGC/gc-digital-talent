@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { CommunityExperience } from "~/api/generated";
 
@@ -75,7 +76,7 @@ const CommunityAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <Accordion.Trigger
+      <StandardAccordionTrigger
         headerAs={headingLevel}
         subtitle={getDateRange({ endDate, startDate, intl })}
         Icon={UserGroupIcon}
@@ -104,7 +105,7 @@ const CommunityAccordion = ({
           },
           { title, organization },
         )}
-      </Accordion.Trigger>
+      </StandardAccordionTrigger>
       <Accordion.Content>
         <CommunityContent {...rest} />
         {editUrl && (
