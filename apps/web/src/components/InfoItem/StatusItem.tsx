@@ -15,6 +15,7 @@ export interface StatusItemProps {
   subTitle?: string;
   status?: Status;
   titleHref?: string;
+  asListItem?: boolean;
 }
 
 export const StatusItem = ({
@@ -22,6 +23,7 @@ export const StatusItem = ({
   subTitle,
   status = "default",
   titleHref,
+  asListItem = true,
 }: StatusItemProps) => {
   const intl = useIntl();
   switch (status) {
@@ -35,6 +37,7 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="error"
           titleHref={titleHref}
+          asListItem={asListItem}
           hiddenContextPrefix={intl.formatMessage(commonMessages.error)}
         />
       );
@@ -46,6 +49,7 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="default"
           titleHref={titleHref}
+          asListItem={asListItem}
           hiddenContextPrefix={intl.formatMessage(commonMessages.partial)}
         />
       );
@@ -57,10 +61,17 @@ export const StatusItem = ({
           subTitle={subTitle}
           subTitleColor="success"
           titleHref={titleHref}
+          asListItem={asListItem}
           hiddenContextPrefix={intl.formatMessage(commonMessages.success)}
         />
       );
     default:
-      return <BaseInfoItem title={title} titleHref={titleHref} />;
+      return (
+        <BaseInfoItem
+          title={title}
+          titleHref={titleHref}
+          asListItem={asListItem}
+        />
+      );
   }
 };
