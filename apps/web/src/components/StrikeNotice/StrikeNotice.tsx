@@ -2,9 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Alert } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 const StrikeNotice = () => {
   const intl = useIntl();
+  const { psacStrike } = useFeatureFlags();
+
+  if (!psacStrike) return null;
 
   return (
     <Alert.Root type="warning">
