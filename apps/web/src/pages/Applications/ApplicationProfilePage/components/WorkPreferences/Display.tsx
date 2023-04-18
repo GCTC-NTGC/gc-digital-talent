@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { User } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getOperationalRequirement,
@@ -53,6 +53,7 @@ const Display = ({
       data-h2-gap="base(x1)"
     >
       <FieldDisplay
+        hasError={empty(positionDuration)}
         label={intl.formatMessage({
           defaultMessage: "Job duration",
           id: "/yOfhq",

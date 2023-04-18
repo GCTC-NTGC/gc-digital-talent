@@ -82,19 +82,19 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {hasEmptyRequiredLocationFields(user) &&
-        hasEmptyRequiredPreferenceFields(user) && (
-          <Well color="error">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You are missing required work preferences.",
-                id: "h30KEc",
-                description:
-                  "Error message displayed when a users work preferences is incomplete",
-              })}
-            </p>
-          </Well>
-        )}
+      {(hasEmptyRequiredLocationFields(user) ||
+        hasEmptyRequiredPreferenceFields(user)) && (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You are missing required work preferences.",
+              id: "h30KEc",
+              description:
+                "Error message displayed when a users work preferences is incomplete",
+            })}
+          </p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}
