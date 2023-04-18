@@ -489,9 +489,7 @@ type PoolCandidate {
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
-  screeningQuestionResponses: [ScreeningQuestionResponse]
-    @hasMany
-    @orderBy(column: "sort_order", direction: ASC)
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
 }
 
 enum LanguageAbility {
