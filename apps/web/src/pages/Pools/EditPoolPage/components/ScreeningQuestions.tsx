@@ -32,7 +32,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 import { useEditPoolContext } from "./EditPoolContext";
 
 const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS = 100;
+const TEXT_AREA_MAX_WORDS = 200;
 
 type ScreeningQuestionValue = {
   id?: Scalars["ID"];
