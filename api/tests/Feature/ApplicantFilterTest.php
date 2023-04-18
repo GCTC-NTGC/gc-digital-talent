@@ -78,6 +78,12 @@ class ApplicantFilterTest extends TestCase
             })->toArray(),
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
+            'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($classification) {
+                return [
+                    'group' => $classification->group,
+                    'level' => $classification->level,
+                ];
+            })->toArray(),
         ];
     }
 
@@ -93,7 +99,9 @@ class ApplicantFilterTest extends TestCase
         $input['pools'] = [
             'sync' => $filter->pools->pluck('id')->toArray()
         ];
-
+        $input['qualifiedClassifications'] = [
+            'sync' => $filter->qualifiedClassifications->pluck('id')->toArray()
+        ];
         return $input;
     }
 
@@ -283,6 +291,13 @@ class ApplicantFilterTest extends TestCase
                         }
                         key
                     }
+                    qualifiedClassifications {
+                        id
+                        name {
+                            en
+                            fr
+                        }
+                    }
                 }
             }
         '
@@ -290,10 +305,10 @@ class ApplicantFilterTest extends TestCase
         // Assert that each relationship collection has the right size.
         foreach ($response->json('data.applicantFilters') as $filter) {
             $this->assertCount($filters->find($filter['id'])->classifications->count(), $filter['expectedClassifications']);
+            $this->assertCount($filters->find($filter['id'])->qualifiedClassifications->count(), $filter['qualifiedClassifications']);
             $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
-
         // Assert that the content of at least one item in each collection is correct.
         $response->assertJson([
             'data' => [
@@ -304,6 +319,12 @@ class ApplicantFilterTest extends TestCase
                             [
                                 'id' => $filters[0]->classifications->first()->id,
                                 'name' => $filters[0]->classifications->first()->name,
+                            ],
+                        ],
+                        'qualifiedClassifications' => [
+                            [
+                                'id' => $filters[0]->qualifiedClassifications->first()->id,
+                                'name' => $filters[0]->qualifiedClassifications->first()->name,
                             ],
                         ],
                         'skills' => [
@@ -429,6 +450,8 @@ class ApplicantFilterTest extends TestCase
         $filter->classifications()->saveMany(
             $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
         );
+        $filter->qualifiedClassifications()->saveMany(
+            $pool->classifications->unique());
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
@@ -496,6 +519,10 @@ class ApplicantFilterTest extends TestCase
                         operationalRequirements
                         positionDuration
                         expectedClassifications {
+                            group
+                            level
+                        }
+                        qualifiedClassifications {
                             group
                             level
                         }
