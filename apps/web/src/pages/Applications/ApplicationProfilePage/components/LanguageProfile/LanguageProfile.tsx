@@ -17,7 +17,7 @@ import {
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
+import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import {
   dataToFormValues,
@@ -42,6 +42,7 @@ const LanguageProfile = ({
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const title = getSectionTitle("language");
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -74,7 +75,11 @@ const LanguageProfile = ({
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root
+      id="language-section"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -90,12 +95,7 @@ const LanguageProfile = ({
           </SectionTrigger>
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Language profile",
-          id: "Rn3HMc",
-          description:
-            "Heading for the language profile section on the application profile",
-        })}
+        {intl.formatMessage(title)}
       </ToggleSection.Header>
       {hasEmptyRequiredFields(user) && (
         <Well color="error">

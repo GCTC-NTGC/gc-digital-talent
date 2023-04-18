@@ -16,7 +16,7 @@ import {
 import { getLabels, formValuesToSubmitData, dataToFormValues } from "./utils";
 import { FormValues } from "./types";
 import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
+import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import NullDisplay from "./NullDisplay";
@@ -28,6 +28,7 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const title = getSectionTitle("personal");
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -55,7 +56,11 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root
+      id="personal-section"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -72,12 +77,7 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
           </SectionTrigger>
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Personal and contact information",
-          id: "fyEFN7",
-          description:
-            "Heading for the personal info section on the application profile",
-        })}
+        {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
       {hasEmptyRequiredFields(user) && (
         <Well color="error">

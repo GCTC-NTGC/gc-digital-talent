@@ -18,7 +18,7 @@ import {
 } from "~/validators/profile/workPreferences";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
+import { getSectionIcon, getSectionTitle } from "../../utils";
 import { getLabels, dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import SectionTrigger from "../SectionTrigger";
@@ -33,6 +33,7 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const isNull =
     hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const title = getSectionTitle("work");
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -59,7 +60,11 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root
+      id="work-section"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -75,12 +80,7 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
           </SectionTrigger>
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Work preferences",
-          id: "XTaRza",
-          description:
-            "Heading for the work preferences section on the application profile",
-        })}
+        {intl.formatMessage(title)}
       </ToggleSection.Header>
       {hasEmptyRequiredLocationFields(user) &&
         hasEmptyRequiredPreferenceFields(user) && (

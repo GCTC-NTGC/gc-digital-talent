@@ -16,7 +16,7 @@ import {
 } from "~/validators/profile/governmentInformation";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
+import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
 import { FormValues } from "./types";
@@ -34,6 +34,7 @@ const GovernmentInformation = ({
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const title = getSectionTitle("government");
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -63,7 +64,11 @@ const GovernmentInformation = ({
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root
+      id="government-section"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -80,12 +85,7 @@ const GovernmentInformation = ({
           </SectionTrigger>
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Government employee information",
-          id: "AwzZwe",
-          description:
-            "Heading for the government information section on the application profile",
-        })}
+        {intl.formatMessage(title)}
       </ToggleSection.Header>
       {hasEmptyRequiredFields(user) && (
         <Well color="error">

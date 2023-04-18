@@ -10,7 +10,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import { hasAllEmptyFields } from "~/validators/profile/diversityEquityInclusion";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon } from "../../utils";
+import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
@@ -23,6 +23,7 @@ const DiversityEquityInclusion = ({
   const intl = useIntl();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const isNull = hasAllEmptyFields(user);
+  const title = getSectionTitle("dei");
   const icon = getSectionIcon({
     isEditing,
     error: false,
@@ -37,7 +38,11 @@ const DiversityEquityInclusion = ({
   };
 
   return (
-    <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
+    <ToggleSection.Root
+      id="dei-section"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -53,12 +58,7 @@ const DiversityEquityInclusion = ({
           </SectionTrigger>
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Diversity, equity, and inclusion",
-          id: "u1N0nT",
-          description:
-            "Heading for the diversity, equity, and inclusion section on the application profile",
-        })}
+        {intl.formatMessage(title)}
       </ToggleSection.Header>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>

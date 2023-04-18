@@ -47,6 +47,7 @@ import DiversityEquityInclusion from "./components/DiversityEquityInclusion/Dive
 import GovernmentInformation from "./components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
 import { SectionProps } from "./types";
+import ErrorSummary from "./components/ErrorSummary";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -207,6 +208,7 @@ export const ApplicationProfile = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1, 0)"
       >
+        <ErrorSummary user={user} application={application} />
         <PersonalInformation {...sectionProps} />
         <WorkPreferences {...sectionProps} />
         <DiversityEquityInclusion {...sectionProps} />

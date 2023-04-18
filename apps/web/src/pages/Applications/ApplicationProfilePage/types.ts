@@ -7,6 +7,13 @@ import {
 
 import { ApplicationPageProps } from "../ApplicationApi";
 
+export type SectionKey =
+  | "personal"
+  | "work"
+  | "dei"
+  | "government"
+  | "language";
+
 export interface SectionProps {
   user: User;
   isUpdating?: boolean;
