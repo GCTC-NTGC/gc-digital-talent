@@ -350,7 +350,9 @@ type Pool {
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
-  screeningQuestions: [ScreeningQuestion] @hasMany
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum PoolStatus {
@@ -395,7 +397,9 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  screeningQuestions: [ScreeningQuestion] @hasMany
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum AdvertisementStatus {
@@ -485,7 +489,9 @@ type PoolCandidate {
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
-  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum LanguageAbility {
