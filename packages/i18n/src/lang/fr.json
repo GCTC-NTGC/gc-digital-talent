@@ -1345,5 +1345,17 @@
   "T/97gk": {
     "defaultMessage": "Supprimer l’article {index}",
     "description": "Button text to remove an item from repeatable fields"
+  },
+  "lsFH+y": {
+    "defaultMessage": "Aucune option",
+    "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "plwOsC": {
+    "defaultMessage": "Sélectionnez",
+    "description": "Default placeholder shown when Select field has nothing actively selected."
+  },
+  "ylHC90": {
+    "defaultMessage": "Chargement...",
+    "description": "Message shown in options dropdown when Select field is loading options."
   }
 }

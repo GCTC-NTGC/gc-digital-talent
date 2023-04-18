@@ -14,7 +14,7 @@ import flatMap from "lodash/flatMap";
 import orderBy from "lodash/orderBy";
 import { useIntl } from "react-intl";
 
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
@@ -115,12 +115,7 @@ const LocalizedLoadingMessage = <
 
   return (
     <components.LoadingMessage {...props}>
-      {formatMessage({
-        defaultMessage: "Loading...",
-        id: "ylHC90",
-        description:
-          "Message shown in options dropdown when Select field is loading options.",
-      })}
+      {formatMessage(formMessages.loading)}
     </components.LoadingMessage>
   );
 };
@@ -137,12 +132,7 @@ const LocalizedNoOptionsMessage = <
 
   return (
     <components.NoOptionsMessage {...props}>
-      {formatMessage({
-        defaultMessage: "No options",
-        id: "lsFH+y",
-        description:
-          "Message shown in options dropdown when Select field has no options.",
-      })}
+      {formatMessage(formMessages.noOptions)}
     </components.NoOptionsMessage>
   );
 };
@@ -216,12 +206,7 @@ const SelectFieldV2 = ({
   const { formatMessage } = useIntl();
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
 
-  const defaultPlaceholder = formatMessage({
-    defaultMessage: "Select",
-    id: "plwOsC",
-    description:
-      "Default placeholder shown when Select field has nothing actively selected.",
-  });
+  const defaultPlaceholder = formatMessage(formMessages.defaultPlaceholder);
 
   // Defaults from minimal attributes.
   id ??= camelCase(label); // eslint-disable-line no-param-reassign
