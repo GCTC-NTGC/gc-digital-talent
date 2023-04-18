@@ -6,6 +6,7 @@ import { Heading, ThrowNotFound, Button, Link } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
+import StrikeNotice from "~/components/StrikeNotice/StrikeNotice";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -70,6 +71,9 @@ const RequestConfirmationPage = () => {
         crumbs={crumbs}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-container="base(center, large, 0) p-tablet(left, small, 0)">
+          <StrikeNotice />
+        </div>
         <Text data-h2-font-size="base(3rem)">
           {intl.formatMessage({
             defaultMessage: "We got it!",
