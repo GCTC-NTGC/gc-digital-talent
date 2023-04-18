@@ -82,6 +82,7 @@ const ScreeningQuestions = ({
   onSave,
 }: ScreeningQuestionsProps) => {
   const intl = useIntl();
+  const [removed, setRemoved] = React.useState<Array<string>>([]);
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
@@ -105,6 +106,19 @@ const ScreeningQuestions = ({
     control,
     name: "questions",
   });
+
+  const handleRemove = (index: number) => {
+    const toBeRemoved = fields[index];
+    setRemoved((currentlyRemoved) => {
+      if (!currentlyRemoved.includes(toBeRemoved.id)) {
+        return [...currentlyRemoved, toBeRemoved.id];
+      }
+
+      return currentlyRemoved;
+    });
+
+    remove(index);
+  };
 
   const handleSave = (formValues: FormValues) => {
     const create: Array<CreateScreeningQuestionInput> = [];
@@ -144,6 +158,7 @@ const ScreeningQuestions = ({
     methods.reset(formValues, {
       keepDirty: false,
     });
+    setRemoved([]);
   };
 
   // disabled unless status is draft
@@ -193,7 +208,7 @@ const ScreeningQuestions = ({
                     index={index}
                     total={fields.length}
                     onMove={move}
-                    onRemove={remove}
+                    onRemove={handleRemove}
                     legend={intl.formatMessage(
                       {
                         defaultMessage: "Screening question {index}",
@@ -302,8 +317,23 @@ const ScreeningQuestions = ({
                   </p>
                 </Well>
               )}
+              {removed.length ? (
+                <Well>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "You have removed {number} item(s). Please, remember to save your changes.",
+                      id: "tjwn4I",
+                      description:
+                        "Message displayed when items have been removed and not saved",
+                    },
+                    { number: removed.length },
+                  )}
+                </Well>
+              ) : null}
             </>
           </Repeater.Root>
+
           {!formDisabled && (
             <Submit
               text={intl.formatMessage({
