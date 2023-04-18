@@ -2,24 +2,20 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { StarIcon } from "@heroicons/react/20/solid";
 import groupBy from "lodash/groupBy";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
-import {
-  Applicant,
-  ApplicationStep,
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import { Applicant, ApplicationStep } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Select } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { resumeIsIncomplete } from "~/validators/profile";
-import { useFeatureFlags } from "@gc-digital-talent/env";
-import { Select } from "@gc-digital-talent/forms";
-import { FormProvider, useForm } from "react-hook-form";
+import { ExperienceType } from "~/types/experience";
+
+import { deriveExperienceType } from "~/utils/experienceUtils";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 type FormValues = {
@@ -67,20 +63,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-type ExperienceTypeName =
-  | NonNullable<WorkExperience["__typename"]>
-  | NonNullable<PersonalExperience["__typename"]>
-  | NonNullable<CommunityExperience["__typename"]>
-  | NonNullable<EducationExperience["__typename"]>
-  | NonNullable<AwardExperience["__typename"]>;
-
 function formatExperienceCount(
   intl: IntlShape,
-  experienceType: ExperienceTypeName,
+  experienceType: ExperienceType,
   experienceCount: number,
 ) {
   switch (experienceType) {
-    case "WorkExperience":
+    case "work":
       return intl.formatMessage(
         {
           defaultMessage:
@@ -92,7 +81,7 @@ function formatExperienceCount(
           experienceCount,
         },
       );
-    case "PersonalExperience":
+    case "personal":
       return intl.formatMessage(
         {
           defaultMessage:
@@ -104,7 +93,7 @@ function formatExperienceCount(
           experienceCount,
         },
       );
-    case "CommunityExperience":
+    case "community":
       return intl.formatMessage(
         {
           defaultMessage:
@@ -116,7 +105,7 @@ function formatExperienceCount(
           experienceCount,
         },
       );
-    case "EducationExperience":
+    case "education":
       return intl.formatMessage(
         {
           defaultMessage:
@@ -128,7 +117,7 @@ function formatExperienceCount(
           experienceCount,
         },
       );
-    case "AwardExperience":
+    case "award":
       return intl.formatMessage(
         {
           defaultMessage:
@@ -169,8 +158,10 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const watchSortExperiencesBy = watch("sortExperiencesBy");
 
   const experiences = application.user.experiences ?? [];
-  const hasAtLeastOneExperience = experiences.length;
-  const experiencesByType = groupBy(experiences, "__typename");
+  const hasSomeExperience = !!experiences.length;
+  const experiencesByType = groupBy(experiences.filter(notEmpty), (e) => {
+    return deriveExperienceType(e);
+  });
 
   return (
     <>
@@ -181,7 +172,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
         data-h2-align-items="base(flex-start) p-tablet(center)"
       >
         <Heading data-h2-margin-top="base(0)">
-          {hasAtLeastOneExperience
+          {hasSomeExperience
             ? pageInfo.title
             : intl.formatMessage({
                 defaultMessage: "Create your résumé",
@@ -203,7 +194,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
           })}
         </Link>
       </div>
-      {hasAtLeastOneExperience ? (
+      {hasSomeExperience ? (
         <>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
@@ -226,7 +217,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
                   <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
                     {formatExperienceCount(
                       intl,
-                      experienceType as ExperienceTypeName,
+                      experienceType as ExperienceType,
                       experiencesByType[experienceType].length,
                     )}
                   </li>
@@ -306,7 +297,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
           })}
         </Button>
       </div>
-      {hasAtLeastOneExperience ? (
+      {hasSomeExperience ? (
         JSON.stringify(application.user.experiences)
       ) : (
         <Well>
