@@ -1,9 +1,11 @@
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
+import isEqual from "lodash/isEqual";
 import {
   FormProvider,
   useFieldArray,
   useForm,
+  useFormContext,
   useWatch,
 } from "react-hook-form";
 
@@ -70,6 +72,39 @@ const maxWordValidator = (value: string, intl: IntlShape) => {
   );
 };
 
+interface ModificationAlertProps {
+  originalQuestions: FormValues["questions"];
+}
+
+const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
+  const intl = useIntl();
+  const { watch } = useFormContext();
+  const currentQuestions = watch("questions");
+  const changedItems = originalQuestions?.filter((original, index) => {
+    const current = currentQuestions[index];
+    return !current || !isEqual(original, current);
+  });
+
+  // Nothing has changed so do not show the alert
+  if (
+    !changedItems?.length &&
+    currentQuestions.length === originalQuestions?.length
+  )
+    return null;
+
+  return (
+    <Well>
+      {intl.formatMessage({
+        defaultMessage:
+          "You have unsaved changes to the screening questions. Please, remember to save!",
+        id: "7GHJGT",
+        description:
+          "Message displayed when items have been moved and not saved",
+      })}
+    </Well>
+  );
+};
+
 interface ScreeningQuestionsProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: EditPoolSectionMetadata;
@@ -82,7 +117,6 @@ const ScreeningQuestions = ({
   onSave,
 }: ScreeningQuestionsProps) => {
   const intl = useIntl();
-  const [removed, setRemoved] = React.useState<Array<string>>([]);
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
@@ -97,28 +131,16 @@ const ScreeningQuestions = ({
           },
         })) || [],
   });
+  const defaultValues = dataToFormValues(poolAdvertisement);
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues,
   });
   const { handleSubmit, control } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "questions",
   });
-
-  const handleRemove = (index: number) => {
-    const toBeRemoved = fields[index];
-    setRemoved((currentlyRemoved) => {
-      if (!currentlyRemoved.includes(toBeRemoved.id)) {
-        return [...currentlyRemoved, toBeRemoved.id];
-      }
-
-      return currentlyRemoved;
-    });
-
-    remove(index);
-  };
 
   const handleSave = (formValues: FormValues) => {
     const create: Array<CreateScreeningQuestionInput> = [];
@@ -158,7 +180,6 @@ const ScreeningQuestions = ({
     methods.reset(formValues, {
       keepDirty: false,
     });
-    setRemoved([]);
   };
 
   // disabled unless status is draft
@@ -208,7 +229,7 @@ const ScreeningQuestions = ({
                     index={index}
                     total={fields.length}
                     onMove={move}
-                    onRemove={handleRemove}
+                    onRemove={remove}
                     legend={intl.formatMessage(
                       {
                         defaultMessage: "Screening question {index}",
@@ -317,20 +338,7 @@ const ScreeningQuestions = ({
                   </p>
                 </Well>
               )}
-              {removed.length ? (
-                <Well>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You have removed {number} item(s). Please, remember to save your changes.",
-                      id: "tjwn4I",
-                      description:
-                        "Message displayed when items have been removed and not saved",
-                    },
-                    { number: removed.length },
-                  )}
-                </Well>
-              ) : null}
+              <ModificationAlert originalQuestions={defaultValues.questions} />
             </>
           </Repeater.Root>
 
