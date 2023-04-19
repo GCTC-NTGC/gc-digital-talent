@@ -78,7 +78,10 @@ interface ModificationAlertProps {
 
 const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
   const intl = useIntl();
-  const { watch } = useFormContext();
+  const {
+    watch,
+    formState: { isDirty },
+  } = useFormContext();
   const currentQuestions = watch("questions");
   const changedItems = originalQuestions?.filter((original, index) => {
     const current = currentQuestions[index];
@@ -87,13 +90,14 @@ const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
 
   // Nothing has changed so do not show the alert
   if (
-    !changedItems?.length &&
-    currentQuestions.length === originalQuestions?.length
+    !isDirty ||
+    (!changedItems?.length &&
+      currentQuestions.length === originalQuestions?.length)
   )
     return null;
 
   return (
-    <Well>
+    <Well data-h2-margin-bottom="base(x1)">
       {intl.formatMessage({
         defaultMessage:
           "You have unsaved changes to the screening questions. Please, remember to save!",
@@ -338,9 +342,10 @@ const ScreeningQuestions = ({
                   </p>
                 </Well>
               )}
-              <ModificationAlert originalQuestions={defaultValues.questions} />
             </>
           </Repeater.Root>
+
+          <ModificationAlert originalQuestions={defaultValues.questions} />
 
           {!formDisabled && (
             <Submit
