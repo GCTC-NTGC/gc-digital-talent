@@ -30,6 +30,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
       id: "fBabZh",
       description: "Page title for the application résumé add experience page",
     }),
+    subtitle: intl.formatMessage({
+      defaultMessage: "Update and review your résumé information.",
+      id: "OkREUg",
+      description: "Subtitle for the application résumé page",
+    }),
     icon: StarIcon,
     omitFromStepper: true,
     crumbs: [
@@ -56,6 +61,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
     stepSubmitted: null,
+    hasError: null,
   };
 };
 

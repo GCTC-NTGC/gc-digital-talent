@@ -71,6 +71,51 @@ const formMessages = defineMessages({
     id: "WGoaKQ",
     description: "Text for submit button on edit forms",
   },
+  cancelGoBack: {
+    defaultMessage: "Cancel and go back",
+    id: "fMcKtJ",
+    description: "Text to cancel changes to a form",
+  },
+  repeaterMove: {
+    defaultMessage: "Change order from {from} to {to}",
+    id: "NVMKe5",
+    description: "Button text for moving an item from one position to another",
+  },
+  repeaterRemove: {
+    defaultMessage: "Remove item {index}",
+    id: "T/97gk",
+    description: "Button text to remove an item from repeatable fields",
+  },
+  repeaterAnnounceMove: {
+    defaultMessage: "Item moved from {from} to {to}.",
+    id: "PAXoFY",
+    description:
+      "Message announced to assistive technology when a repeatable field has moved position",
+  },
+  repeaterAnnounceRemove: {
+    defaultMessage: "Item {index} removed.",
+    id: "2G+fJt",
+    description:
+      "Message announced to assistive technology when a repeatable field has been removed",
+  },
+  defaultPlaceholder: {
+    defaultMessage: "Select",
+    id: "plwOsC",
+    description:
+      "Default placeholder shown when Select field has nothing actively selected.",
+  },
+  loading: {
+    defaultMessage: "Loading...",
+    id: "ylHC90",
+    description:
+      "Message shown in options dropdown when Select field is loading options.",
+  },
+  noOptions: {
+    defaultMessage: "No options",
+    id: "lsFH+y",
+    description:
+      "Message shown in options dropdown when Select field has no options.",
+  },
 });
 
 export default formMessages;

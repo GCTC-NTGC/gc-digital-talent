@@ -14,45 +14,13 @@ import firstNationsIcon from "~/assets/img/first-nations-true.png";
 import inuitIcon from "~/assets/img/inuit-true.png";
 import metisIcon from "~/assets/img/metis-true.png";
 import otherIcon from "~/assets/img/other-true.png";
-
-type PartialApplicant = Pick<
-  Applicant,
-  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
->;
-
-function anyCriteriaSelected({
-  isWoman,
-  hasDisability,
-  isVisibleMinority,
-  indigenousCommunities,
-}: PartialApplicant): boolean {
-  return !!(
-    isWoman ||
-    isVisibleMinority ||
-    hasDisability ||
-    (indigenousCommunities && indigenousCommunities.length > 0)
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
-  // no required fields for this section
-  return false;
-}
-
-export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
-  return !anyCriteriaSelected(applicant);
-}
+import { anyCriteriaSelected } from "~/validators/profile/diversityEquityInclusion";
 
 const DiversityEquityInclusionSection = ({
   applicant,
   editPath,
 }: {
-  applicant: PartialApplicant;
+  applicant: Applicant;
   editPath?: string;
 }) => {
   const intl = useIntl();

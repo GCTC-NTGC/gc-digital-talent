@@ -13,7 +13,11 @@
       "outputs": ["src/assets/css/hydrogen.css"]
     },
     "codegen": {
-      "inputs": ["src/**/*.graphql", "../../packages/**/src/**/*.graphql"],
+      "inputs": [
+        "../../api/storage/app/lighthouse-schema.graphql",
+        "src/**/*.graphql",
+        "../../packages/**/src/**/*.graphql"
+      ],
       "outputs": ["src/api/generated.ts", "src/index.ts"],
       "outputMode": "new-only"
     },
@@ -39,14 +43,30 @@
       "outputMode": "new-only"
     },
     "intl-compile": {
-      "inputs": ["src/lang/en.json", "src/lang/fr.json", "src/lang/crg.json", "src/lang/crk.json", "src/lang/ojw.json", "src/lang/mic.json"],
+      "inputs": [
+        "src/lang/en.json",
+        "src/lang/fr.json",
+        "src/lang/crg.json",
+        "src/lang/crk.json",
+        "src/lang/ojw.json",
+        "src/lang/mic.json"
+      ],
       "dependsOn": ["intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"],
       "cache": false,
       "outputMode": "new-only"
     },
     "check-intl": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/lang/en.json", "src/lang/fr.json", "src/lang/crg.json", "src/lang/crk.json", "src/lang/ojw.json", "src/lang/mic.json"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/lang/en.json",
+        "src/lang/fr.json",
+        "src/lang/crg.json",
+        "src/lang/crk.json",
+        "src/lang/ojw.json",
+        "src/lang/mic.json"
+      ],
       "dependsOn": ["build:intl-cli", "intl-compile"],
       "cache": false,
       "outputMode": "new-only"

@@ -51,21 +51,21 @@ class PoolPolicyTest extends TestCase
         ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser->syncRoles($baseRoles);
-        $this->poolOperatorUser->attachRole("pool_operator", $this->team);
+        $this->poolOperatorUser->addRole("pool_operator", $this->team);
 
         $this->requestResponderUser = User::factory()->create([
             'email' => 'request-responder-user@test.com',
             'sub' => 'request-responder-user@test.com',
         ]);
         $this->requestResponderUser->syncRoles($baseRoles);
-        $this->requestResponderUser->attachRole("request_responder");
+        $this->requestResponderUser->addRole("request_responder");
 
         $this->adminUser = User::factory()->create([
             'email' => 'platform-admin-user@test.com',
             'sub' => 'platform-admin-user@test.com',
         ]);
         $this->adminUser->syncRoles($baseRoles);
-        $this->adminUser->attachRole("platform_admin");
+        $this->adminUser->addRole("platform_admin");
 
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->poolOperatorUser->id,

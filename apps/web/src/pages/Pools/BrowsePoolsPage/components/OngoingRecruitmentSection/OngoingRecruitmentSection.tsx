@@ -975,8 +975,8 @@ const OngoingRecruitmentSection = ({
               description: "A label for a quick filter input.",
             })}
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a job stream...",
-              id: "cmFeXj",
+              defaultMessage: "Select a job stream",
+              id: "dJXjhw",
               description:
                 "Placeholder for stream filter in browse opportunities form.",
             })}

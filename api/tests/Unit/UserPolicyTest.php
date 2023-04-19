@@ -78,7 +78,7 @@ class UserPolicyTest extends TestCase
         $this->team = Team::factory()->create([
             'name' => 'test-team'
         ]);
-        $this->poolOperator->attachRole("pool_operator", $this->team);
+        $this->poolOperator->addRole("pool_operator", $this->team);
 
         $this->platformAdmin = User::factory()->create([
             'email' => 'admin-user@test.com',

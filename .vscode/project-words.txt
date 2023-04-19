@@ -30,6 +30,7 @@ FRESHDESK
 Gatineau
 gctalent
 headlessui
+Helpdesk
 heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk
@@ -53,11 +54,12 @@ OCIO
 Ojibway
 personalisation
 pgsql
+psac
 Queueable
 recruitmentimit
 recruitments
 recrutementgiti
-resumé
+résumé
 rolepermission
 skillset
 subcomponents

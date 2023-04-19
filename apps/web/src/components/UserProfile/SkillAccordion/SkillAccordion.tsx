@@ -25,7 +25,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
+} from "~/utils/experienceUtils";
 
 import { getDateRange, formattedDate } from "../accordionUtils";
 
