@@ -1345,5 +1345,9 @@
   "T/97gk": {
     "defaultMessage": "Supprimer l’article {index}",
     "description": "Button text to remove an item from repeatable fields"
+  },
+  "tpVujp": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message displayed when a user has not provided some form of information"
   }
 }
