@@ -38,9 +38,9 @@ const LanguageSelector = () => {
     [
       "mic",
       intl.formatMessage({
-        id: "qxe/hN",
-        defaultMessage: "Mikmaq",
-        description: "Name of Mikmaq language",
+        id: "nAgrVL",
+        defaultMessage: "Mi'kmaq",
+        description: "Name of Mi'kmaq language",
       }),
     ],
   ]);
