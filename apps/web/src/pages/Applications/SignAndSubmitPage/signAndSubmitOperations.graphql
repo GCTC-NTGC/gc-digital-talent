@@ -5,6 +5,10 @@ fragment poolAdvertisementSkills on Skill {
     en
     fr
   }
+  description {
+    en
+    fr
+  }
   families {
     id
     key
