@@ -44,6 +44,8 @@ export interface RepeaterFieldsetProps {
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: true) */
   hideLegend?: boolean;
+  /** Disables deleting, moving and editing fields */
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
@@ -55,6 +57,7 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
+  disabled,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const { announce } = useAnnouncer();
@@ -138,7 +141,7 @@ const Fieldset = ({
           data-h2-overflow="base(hidden)"
         >
           <ActionButton
-            disabled={index <= 0}
+            disabled={disabled || index <= 0}
             onClick={decrement}
             aria-label={intl.formatMessage(formMessages.repeaterMove, {
               from: position,
@@ -156,7 +159,7 @@ const Fieldset = ({
             {index + 1}
           </span>
           <ActionButton
-            disabled={index === total - 1}
+            disabled={disabled || index === total - 1}
             onClick={increment}
             aria-label={intl.formatMessage(formMessages.repeaterMove, {
               from: position,
@@ -167,10 +170,11 @@ const Fieldset = ({
           </ActionButton>
         </div>
         <ActionButton
+          disabled={disabled}
           onClick={handleRemove}
           data-h2-shadow="base(medium)"
           data-h2-radius="base(rounded)"
-          data-h2-color="base(error) base:focus(black)"
+          data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
           aria-label={intl.formatMessage(formMessages.repeaterRemove, {
             index: position,
           })}

@@ -234,6 +234,7 @@ const ScreeningQuestions = ({
                     total={fields.length}
                     onMove={move}
                     onRemove={remove}
+                    disabled={formDisabled}
                     legend={intl.formatMessage(
                       {
                         defaultMessage: "Screening question {index}",
