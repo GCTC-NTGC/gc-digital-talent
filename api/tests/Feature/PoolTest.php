@@ -210,4 +210,96 @@ class PoolTest extends TestCase
             ]
         ]);
     }
+    public function testListPoolsReturnsOnlyPublishedAsAnon(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as anonymous user
+        $this->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')->assertJson([
+            "data" => [
+                "pools" => [
+                    [
+                        "id" => $publishedPool->id,
+                    ],
+                ]
+            ]
+        ]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsNoRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        $noRoleUser = User::factory()->create();
+        // Assert query will return only the published pool as guest user
+        $this->actingAs($noRoleUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')->assertJson([
+            "data" => [
+                "pools" => [
+                    [
+                        "id" => $publishedPool->id,
+                    ],
+                ]
+            ]
+        ]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsGuest(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        $guestUser = User::factory()->create();
+        $guestUser->syncRoles(["guest"]);
+        // Assert query will return only the published pool as guest user
+        $this->actingAs($guestUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')->assertJson([
+            "data" => [
+                "pools" => [
+                    [
+                        "id" => $publishedPool->id,
+                    ],
+                ]
+            ]
+        ]);
+    }
 }
