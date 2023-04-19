@@ -84,6 +84,7 @@ class ApplicantFilterTest extends TestCase
                     'level' => $classification->level,
                 ];
             })->toArray(),
+            'qualifiedStreams' => $filter->qualified_streams,
         ];
     }
 
@@ -151,6 +152,7 @@ class ApplicantFilterTest extends TestCase
                         'operationalRequirements' => $filters[0]->operational_requirements,
                         'locationPreferences' => $filters[0]->location_preferences,
                         'positionDuration' => $filters[0]->position_duration,
+
                     ],
                     [
                         'id' => $filters[1]->id,
@@ -291,6 +293,7 @@ class ApplicantFilterTest extends TestCase
                         }
                         key
                     }
+                    qualifiedStreams
                     qualifiedClassifications {
                         id
                         name {
@@ -455,6 +458,8 @@ class ApplicantFilterTest extends TestCase
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
+        $filter->qualified_streams = $pool->stream;
+        $filter->save();
 
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -518,6 +523,7 @@ class ApplicantFilterTest extends TestCase
                         languageAbility
                         operationalRequirements
                         positionDuration
+                        qualifiedStreams
                         expectedClassifications {
                             group
                             level

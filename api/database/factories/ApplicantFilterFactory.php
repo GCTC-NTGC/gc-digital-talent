@@ -86,6 +86,9 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
+            $streams = $pools->flatMap(fn ($pool) => $pool->stream);
+            $filter->qualified_streams = $streams->pluck('stream')->unique()->toArray();
+            $filter->save();
         });
     }
 }
