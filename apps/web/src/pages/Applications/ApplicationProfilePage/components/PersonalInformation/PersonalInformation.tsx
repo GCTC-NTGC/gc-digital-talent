@@ -27,12 +27,13 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
+  const emptyRequired = hasEmptyRequiredFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("personal");
   const icon = getSectionIcon({
     isEditing,
-    error: false,
-    completed: false,
+    error: !isNull && emptyRequired,
+    completed: !isNull && !emptyRequired,
     fallback: UserIcon,
   });
 
@@ -79,7 +80,7 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
       >
         {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
-      {hasEmptyRequiredFields(user) && (
+      {emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({

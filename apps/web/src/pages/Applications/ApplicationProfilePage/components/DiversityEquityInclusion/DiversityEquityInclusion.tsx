@@ -27,7 +27,7 @@ const DiversityEquityInclusion = ({
   const icon = getSectionIcon({
     isEditing,
     error: false,
-    completed: false,
+    completed: true, // Optional so always "completed"
     fallback: UserCircleIcon,
   });
 

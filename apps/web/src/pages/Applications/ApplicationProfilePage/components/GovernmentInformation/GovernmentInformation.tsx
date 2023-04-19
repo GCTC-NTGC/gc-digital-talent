@@ -33,12 +33,13 @@ const GovernmentInformation = ({
   const intl = useIntl();
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
+  const emptyRequired = hasEmptyRequiredFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("government");
   const icon = getSectionIcon({
     isEditing,
-    error: false,
-    completed: false,
+    error: !isNull && emptyRequired,
+    completed: !isNull && !emptyRequired,
     fallback: BuildingLibraryIcon,
   });
   const [{ data }] = useGetProfileFormOptionsQuery();
@@ -87,7 +88,7 @@ const GovernmentInformation = ({
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {hasEmptyRequiredFields(user) && (
+      {emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({

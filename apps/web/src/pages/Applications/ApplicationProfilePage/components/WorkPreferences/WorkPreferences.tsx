@@ -32,12 +32,15 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const labels = getLabels(intl);
   const isNull =
     hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
+  const emptyRequired =
+    hasEmptyRequiredLocationFields(user) ||
+    hasEmptyRequiredPreferenceFields(user);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("work");
   const icon = getSectionIcon({
     isEditing,
-    error: false,
-    completed: false,
+    error: !isNull && emptyRequired,
+    completed: !isNull && !emptyRequired,
     fallback: HandThumbUpIcon,
   });
 
@@ -82,8 +85,7 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {(hasEmptyRequiredLocationFields(user) ||
-        hasEmptyRequiredPreferenceFields(user)) && (
+      {emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({
