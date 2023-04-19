@@ -23,8 +23,8 @@ const StrikeNotice = () => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "In the event of a labour disruption, referral services from this platform will be affected. Please note that your request will be responded when services resume. Thank you for your patience.",
-          id: "xyPGzO",
+            "In the event of a labour disruption, referral services from this platform will be affected. Please note that your request will be responded to when services resume. Thank you for your patience.",
+          id: "6q29tj",
           description: "Content for the PSAC strike notice.",
         })}
       </p>
