@@ -53,9 +53,10 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
-    expectedClassifications?: {
+    qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
+    qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -131,6 +132,7 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
+          qualifiedStreams: applicantFilter?.qualifiedStreams,
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
@@ -144,20 +146,21 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          expectedClassifications: {
-            sync: applicantFilter?.expectedClassifications
-              ? applicantFilter.expectedClassifications
+          qualifiedClassifications: {
+            sync: applicantFilter?.qualifiedClassifications
+              ? applicantFilter.qualifiedClassifications
                   .filter(notEmpty)
-                  .map((expectedClassification) => {
+                  .map((qualifiedClassification) => {
                     const cl = classifications.find((classification) => {
                       return (
                         classification.group ===
-                          expectedClassification?.group &&
-                        classification.level === expectedClassification.level
+                          qualifiedClassification?.group &&
+                        classification.level === qualifiedClassification.level
                       );
                     });
-                    return cl?.id ?? "";
+                    return cl?.id;
                   })
+                  .filter(notEmpty)
               : [],
           },
         },
@@ -205,13 +208,14 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications:
-      applicantFilter?.expectedClassifications?.map(
-        (expectedClassification) => {
+    expectedClassifications: undefined,
+    qualifiedClassifications:
+      applicantFilter?.qualifiedClassifications?.map(
+        (qualifiedClassification) => {
           return classifications.find((classification) => {
             return (
-              classification.group === expectedClassification?.group &&
-              classification.level === expectedClassification.level
+              classification.group === qualifiedClassification?.group &&
+              classification.level === qualifiedClassification.level
             );
           });
         },

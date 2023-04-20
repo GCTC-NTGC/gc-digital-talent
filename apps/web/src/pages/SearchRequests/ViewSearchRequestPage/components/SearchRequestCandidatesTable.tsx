@@ -448,6 +448,8 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
+    qualifiedClassifications: (classifications) =>
+      classifications?.filter(notEmpty).map(classificationToInput),
     expectedClassifications: (classifications) =>
       classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
@@ -457,6 +459,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
+    qualifiedStreams: identity,
   };
 
   const emptyFilter: ApplicantFilterInput = {};

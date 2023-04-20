@@ -34,6 +34,7 @@ import {
   Maybe,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  PoolStream,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -74,9 +75,10 @@ function transformPoolCandidateSearchInputToFormValues(
 ): FormValues {
   return {
     classifications:
-      input?.applicantFilter?.expectedClassifications
+      input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
+    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -415,10 +417,11 @@ const PoolCandidatesTable = ({
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
-        expectedClassifications: data.classifications.map((classification) => {
+        qualifiedClassifications: data.classifications.map((classification) => {
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
+        qualifiedStreams: data.stream as PoolStream[],
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
