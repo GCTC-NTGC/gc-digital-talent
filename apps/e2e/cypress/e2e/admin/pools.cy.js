@@ -1,8 +1,8 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Pools", () => {
-  const loginAndGoToPoolsPage = () => {
-    cy.loginByRole("admin");
+  const loginAndGoToPoolsPage = (role = "admin") => {
+    cy.loginByRole(role);
     cy.visit("/en/admin/pools");
 
     cy.findByRole("heading", { name: /pools/i })
@@ -33,11 +33,51 @@ describe("Pools", () => {
       aliasMutation(req, "closePoolAdvertisement");
       aliasMutation(req, "deletePoolAdvertisement");
     });
+  });
 
-    loginAndGoToPoolsPage();
+  it("Should show login page if user is not logged in", () => {
+    cy.visit("/en/admin/pools");
+
+    cy.findByRole("heading", {
+      name: /Login using GCKey/i,
+    })
+      .should("exist")
+      .and("be.visible");
+  });
+
+  it("Should show non-authorized warning page if user has applicant role", () => {
+    cy.loginByRole("applicant");
+    cy.visit("/en/admin/pools");
+
+    cy.findByRole("heading", {
+      name: /Sorry, you are not authorized to view this page./i,
+    })
+      .should("exist")
+      .and("be.visible");
+  });
+
+  it("Should show non-authorized warning page if user has request responder role", () => {
+    cy.loginByRole("request_responder");
+    cy.visit("/en/admin/pools");
+
+    cy.findByRole("heading", {
+      name: /Sorry, you are not authorized to view this page./i,
+    })
+      .should("exist")
+      .and("be.visible");
+  });
+
+  it("Should show teams pools if user has pool operator role", () => {
+    loginAndGoToPoolsPage("pool_operator");
+  });
+
+  it("Should show all pools if user has platform admin role", () => {
+    loginAndGoToPoolsPage("platform_admin");
   });
 
   it("should create a new pool", () => {
+    loginAndGoToPoolsPage();
+
     cy.findByRole("link", { name: /create pool/i }).click();
 
     cy.wait("@gqlgetMePoolCreationQuery");
@@ -137,6 +177,8 @@ describe("Pools", () => {
    * Update the Pool
    */
   it("should update the pool", () => {
+    loginAndGoToPoolsPage();
+
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
@@ -168,6 +210,8 @@ describe("Pools", () => {
    * Delete the Pool
    */
   it("should delete the pool", () => {
+    loginAndGoToPoolsPage();
+
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
