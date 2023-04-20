@@ -174,6 +174,7 @@ const UserProfile = ({
           {showSection("about") && (
             <TableOfContents.AnchorLink id="about-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "About Me",
                   id: "4sJvia",
@@ -189,6 +190,7 @@ const UserProfile = ({
           {showSection("employmentEquity") && (
             <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Diversity, equity and inclusion",
                   id: "e2R6fy",
@@ -205,6 +207,7 @@ const UserProfile = ({
           {showSection("language") && (
             <TableOfContents.AnchorLink id="language-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Language Information",
                   id: "B9x0ZV",
@@ -220,6 +223,7 @@ const UserProfile = ({
           {showSection("government") && (
             <TableOfContents.AnchorLink id="government-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Government Information",
                   id: "Nc4sjC",
@@ -236,6 +240,7 @@ const UserProfile = ({
           {showSection("workLocation") && (
             <TableOfContents.AnchorLink id="work-location-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Work Location",
                   id: "9WxeNz",
@@ -251,6 +256,7 @@ const UserProfile = ({
           {showSection("workPreferences") && (
             <TableOfContents.AnchorLink id="work-preferences-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Work Preferences",
                   id: "0DzlCc",
@@ -266,6 +272,7 @@ const UserProfile = ({
           {showSection("roleSalary") && (
             <TableOfContents.AnchorLink id="role-and-salary-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Role and salary expectations",
                   id: "95OYVk",
