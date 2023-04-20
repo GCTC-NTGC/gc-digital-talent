@@ -1,54 +1,25 @@
 import React from "react";
-import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
+import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
-import { AwardExperience } from "~/api/generated";
+import { PersonalExperience } from "~/api/generated";
 
+import { getDateRange } from "../accordionUtils";
 import SkillList from "../SkillList";
 
-import { getDateRange } from "../../accordionUtils";
-
-export const AwardContent = ({
-  title,
-  issuedBy,
+export const PersonalContent = ({
   details,
-  awardedTo,
-  awardedScope,
+  description,
   skills,
-}: AwardExperience) => {
+}: PersonalExperience) => {
   const intl = useIntl();
+
   return (
     <>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{title} issued by {issuedBy}",
-            id: "4BpFoX",
-            description: "The award title is issued by some group",
-          },
-          { title, issuedBy },
-        )}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Awarded to: ",
-          id: "3JL02L",
-          description: "The award was given to",
-        })}{" "}
-        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Scope: ",
-          id: "FAOzjP",
-          description: "The scope of the award given",
-        })}{" "}
-        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
-      </p>
+      <p>{description}</p>
       <hr
         data-h2-background-color="base(gray.lighter)"
         data-h2-height="base(1px)"
@@ -78,27 +49,23 @@ export const AwardContent = ({
   );
 };
 
-interface AwardAccordionProps extends AwardExperience {
+type PersonalAccordionProps = PersonalExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-}
+};
 
-const AwardAccordion = ({
+const PersonalAccordion = ({
   editUrl,
   headingLevel = "h2",
   ...rest
-}: AwardAccordionProps) => {
+}: PersonalAccordionProps) => {
   const intl = useIntl();
-  const { id, title, awardedDate, issuedBy, skills } = rest;
+  const { id, title, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
       <StandardAccordionTrigger
-        subtitle={getDateRange({
-          endDate: undefined,
-          startDate: awardedDate,
-          intl,
-        })}
+        subtitle={getDateRange({ endDate, startDate, intl })}
         headerAs={headingLevel}
         context={
           skills?.length === 1
@@ -116,12 +83,12 @@ const AwardAccordion = ({
                 { skillsLength: skills?.length },
               )
         }
-        Icon={StarIcon}
+        Icon={LightBulbIcon}
       >
-        {title || ""} - {issuedBy || ""}
+        {title || ""}
       </StandardAccordionTrigger>
       <Accordion.Content>
-        <AwardContent {...rest} />
+        <PersonalContent {...rest} />
         {editUrl && (
           <div>
             <hr
@@ -145,4 +112,4 @@ const AwardAccordion = ({
   );
 };
 
-export default AwardAccordion;
+export default PersonalAccordion;

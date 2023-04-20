@@ -1,25 +1,55 @@
 import React from "react";
+import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
-import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
-import { PersonalExperience } from "~/api/generated";
+import { EducationExperience } from "~/api/generated";
 
-import { getDateRange } from "../../accordionUtils";
+import { getDateRange } from "../accordionUtils";
 import SkillList from "../SkillList";
 
-export const PersonalContent = ({
+export const EducationContent = ({
+  areaOfStudy,
+  institution,
   details,
-  description,
+  type,
+  status,
+  thesisTitle,
   skills,
-}: PersonalExperience) => {
+}: EducationExperience) => {
   const intl = useIntl();
 
   return (
     <>
-      <p>{description}</p>
+      <p>
+        {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
+        {status ? intl.formatMessage(getEducationStatus(status)) : ""}
+      </p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{areaOfStudy} at {institution}",
+            id: "UrsGGK",
+            description: "Study at institution",
+          },
+          { areaOfStudy, institution },
+        )}
+      </p>
+      <p>
+        {thesisTitle
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Thesis: {thesisTitle}",
+                id: "omDlZN",
+                description: "Thesis, if applicable",
+              },
+              { thesisTitle },
+            )
+          : ""}
+      </p>
       <hr
         data-h2-background-color="base(gray.lighter)"
         data-h2-height="base(1px)"
@@ -49,18 +79,18 @@ export const PersonalContent = ({
   );
 };
 
-type PersonalAccordionProps = PersonalExperience & {
+type EducationAccordionProps = EducationExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
-const PersonalAccordion = ({
+const EducationAccordion = ({
   editUrl,
   headingLevel = "h2",
   ...rest
-}: PersonalAccordionProps) => {
+}: EducationAccordionProps) => {
   const intl = useIntl();
-  const { id, title, startDate, endDate, skills } = rest;
+  const { id, areaOfStudy, institution, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
@@ -83,12 +113,19 @@ const PersonalAccordion = ({
                 { skillsLength: skills?.length },
               )
         }
-        Icon={LightBulbIcon}
+        Icon={BookOpenIcon}
       >
-        {title || ""}
+        {intl.formatMessage(
+          {
+            defaultMessage: "{areaOfStudy} at {institution}",
+            id: "UrsGGK",
+            description: "Study at institution",
+          },
+          { areaOfStudy, institution },
+        )}
       </StandardAccordionTrigger>
       <Accordion.Content>
-        <PersonalContent {...rest} />
+        <EducationContent {...rest} />
         {editUrl && (
           <div>
             <hr
@@ -112,4 +149,4 @@ const PersonalAccordion = ({
   );
 };
 
-export default PersonalAccordion;
+export default EducationAccordion;

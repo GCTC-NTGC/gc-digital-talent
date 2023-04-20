@@ -7,7 +7,7 @@ import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/
 
 import { WorkExperience } from "~/api/generated";
 
-import { getDateRange } from "../../accordionUtils";
+import { getDateRange } from "../accordionUtils";
 import SkillList from "../SkillList";
 
 export const WorkContent = ({

@@ -1,54 +1,53 @@
 import React from "react";
-import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
+import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
+import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
-import { EducationExperience } from "~/api/generated";
+import { AwardExperience } from "~/api/generated";
 
-import { getDateRange } from "../../accordionUtils";
 import SkillList from "../SkillList";
 
-export const EducationContent = ({
-  areaOfStudy,
-  institution,
-  details,
-  type,
-  status,
-  thesisTitle,
-  skills,
-}: EducationExperience) => {
-  const intl = useIntl();
+import { getDateRange } from "../accordionUtils";
 
+export const AwardContent = ({
+  title,
+  issuedBy,
+  details,
+  awardedTo,
+  awardedScope,
+  skills,
+}: AwardExperience) => {
+  const intl = useIntl();
   return (
     <>
       <p>
-        {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-        {status ? intl.formatMessage(getEducationStatus(status)) : ""}
-      </p>
-      <p>
         {intl.formatMessage(
           {
-            defaultMessage: "{areaOfStudy} at {institution}",
-            id: "UrsGGK",
-            description: "Study at institution",
+            defaultMessage: "{title} issued by {issuedBy}",
+            id: "4BpFoX",
+            description: "The award title is issued by some group",
           },
-          { areaOfStudy, institution },
+          { title, issuedBy },
         )}
       </p>
       <p>
-        {thesisTitle
-          ? intl.formatMessage(
-              {
-                defaultMessage: "Thesis: {thesisTitle}",
-                id: "omDlZN",
-                description: "Thesis, if applicable",
-              },
-              { thesisTitle },
-            )
-          : ""}
+        {intl.formatMessage({
+          defaultMessage: "Awarded to: ",
+          id: "3JL02L",
+          description: "The award was given to",
+        })}{" "}
+        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Scope: ",
+          id: "FAOzjP",
+          description: "The scope of the award given",
+        })}{" "}
+        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
       </p>
       <hr
         data-h2-background-color="base(gray.lighter)"
@@ -79,23 +78,27 @@ export const EducationContent = ({
   );
 };
 
-type EducationAccordionProps = EducationExperience & {
+interface AwardAccordionProps extends AwardExperience {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-};
+}
 
-const EducationAccordion = ({
+const AwardAccordion = ({
   editUrl,
   headingLevel = "h2",
   ...rest
-}: EducationAccordionProps) => {
+}: AwardAccordionProps) => {
   const intl = useIntl();
-  const { id, areaOfStudy, institution, startDate, endDate, skills } = rest;
+  const { id, title, awardedDate, issuedBy, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
       <StandardAccordionTrigger
-        subtitle={getDateRange({ endDate, startDate, intl })}
+        subtitle={getDateRange({
+          endDate: undefined,
+          startDate: awardedDate,
+          intl,
+        })}
         headerAs={headingLevel}
         context={
           skills?.length === 1
@@ -113,19 +116,12 @@ const EducationAccordion = ({
                 { skillsLength: skills?.length },
               )
         }
-        Icon={BookOpenIcon}
+        Icon={StarIcon}
       >
-        {intl.formatMessage(
-          {
-            defaultMessage: "{areaOfStudy} at {institution}",
-            id: "UrsGGK",
-            description: "Study at institution",
-          },
-          { areaOfStudy, institution },
-        )}
+        {title || ""} - {issuedBy || ""}
       </StandardAccordionTrigger>
       <Accordion.Content>
-        <EducationContent {...rest} />
+        <AwardContent {...rest} />
         {editUrl && (
           <div>
             <hr
@@ -149,4 +145,4 @@ const EducationAccordion = ({
   );
 };
 
-export default EducationAccordion;
+export default AwardAccordion;

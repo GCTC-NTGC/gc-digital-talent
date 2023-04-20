@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react";
 import { Accordion } from "@gc-digital-talent/ui";
 import { experienceGenerators } from "@gc-digital-talent/fake-data";
 
-import { Applicant } from "~/api/generated";
+import { Applicant } from "../../api/generated";
 
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
@@ -14,7 +14,7 @@ const theId = "blank";
 
 export default {
   component: ExperienceAccordion,
-  title: "Components/Experience Accordion",
+  title: "Components/User Profile/Experience Accordion",
   args: {},
 } as Meta;
 
