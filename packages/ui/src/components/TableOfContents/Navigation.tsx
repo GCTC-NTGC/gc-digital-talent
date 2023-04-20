@@ -36,13 +36,16 @@ const Navigation = ({ children, ...rest }: { children?: React.ReactNode }) => {
         >
           {intl.formatMessage(uiMessages.onThisPage)}
         </h2>
-        <nav
-          aria-labelledby={`toc-heading-${id}`}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          {...alignItemsStyles}
-        >
-          {children}
+        <nav aria-labelledby={`toc-heading-${id}`}>
+          <ul
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-list-style="base(none)"
+            data-h2-padding="base(0)"
+            {...alignItemsStyles}
+          >
+            {children}
+          </ul>
         </nav>
       </div>
     </Sidebar>
