@@ -419,8 +419,15 @@ class ApplicantFilterTest extends TestCase
         $this->seed(GenericJobTitleSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $pool = Pool::factory()->create();
+        $this->seed(PoolSeeder::class);
 
+        $pool = Pool::factory()->create([
+            'name' => [
+                'en' => 'Test Pool EN',
+                'fr' => 'Test Pool FR'
+            ],
+            'published_at' => config('constants.past_date'),
+            'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
