@@ -6,8 +6,8 @@ import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { CommunityExperience } from "~/api/generated";
+import { getDateRange } from "~/utils/accordionUtils";
 
-import { getDateRange } from "../accordionUtils";
 import SkillList from "../SkillList";
 
 export const CommunityContent = ({

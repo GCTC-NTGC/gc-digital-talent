@@ -7,10 +7,9 @@ import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { AwardExperience } from "~/api/generated";
+import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
-
-import { getDateRange } from "../accordionUtils";
 
 export const AwardContent = ({
   title,

@@ -7,8 +7,8 @@ import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
 import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
 
 import { EducationExperience } from "~/api/generated";
+import { getDateRange } from "~/utils/accordionUtils";
 
-import { getDateRange } from "../accordionUtils";
 import SkillList from "../SkillList";
 
 export const EducationContent = ({
