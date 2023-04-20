@@ -82,8 +82,8 @@ const ApplicationResumeIntroduction = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Once you’ve completed your resume and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
-          id: "iK/Vqe",
+            "Once you’ve completed your résumé and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
+          id: "EWzkQb",
           description:
             "Application step to begin working on résumé, paragraph three",
         })}

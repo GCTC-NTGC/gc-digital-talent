@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $operational_requirements
+ * @property array $qualified_streams
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -39,11 +40,16 @@ class ApplicantFilter extends Model
         'location_preferences' => 'array',
         'operational_requirements' => 'array',
         'position_duration' => 'array',
+        'qualified_streams' => 'array',
     ];
 
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
+    }
+    public function qualifiedClassifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
     public function skills(): BelongsToMany
     {

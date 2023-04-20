@@ -71,6 +71,8 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
+  qualifiedClassifications: [Classification]
+  qualifiedStreams: [PoolStream]
   pools: [Pool]
 }
 
@@ -88,6 +90,8 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+  qualifiedClassifications: [ClassificationFilterInput]
+  qualifiedStreams: [PoolStream]
 }
 
 enum ApplicationStep {
@@ -247,6 +251,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream]
 }
 
 input CreateClassificationInput {
