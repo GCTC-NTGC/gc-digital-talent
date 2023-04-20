@@ -304,18 +304,18 @@ describe("SelectFieldV2", () => {
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
     )?.textContent;
-    expect(placeholderText).toBe("Select...");
+    expect(placeholderText).toBe("Select");
   });
 
   it("should have custom placeholder when specified", () => {
     renderWithProviders(
-      <SelectFieldV2 label="Foo Bar" placeholder="Select thing..." />,
+      <SelectFieldV2 label="Foo Bar" placeholder="Select thing" />,
     );
 
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
     )?.textContent;
-    expect(placeholderText).toBe("Select thing...");
+    expect(placeholderText).toBe("Select thing");
   });
 
   it("should show loading indicator when isLoading", () => {

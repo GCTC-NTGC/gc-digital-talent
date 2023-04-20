@@ -6,9 +6,9 @@ export interface AnchorLinkProps extends HTMLAttributes<HTMLAnchorElement> {
 }
 
 const AnchorLink = ({ id, children }: AnchorLinkProps) => (
-  <ScrollToLink to={id} data-h2-margin="base(0, 0, x.5, 0)">
-    {children}
-  </ScrollToLink>
+  <li data-h2-margin="base(0, 0, x.5, 0)">
+    <ScrollToLink to={id}>{children}</ScrollToLink>
+  </li>
 );
 
 export default AnchorLink;

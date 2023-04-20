@@ -2,6 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import Hero from "~/components/Hero/Hero";
+import StrikeNotice from "~/components/StrikeNotice/StrikeNotice";
 
 const SearchHeading = () => {
   const intl = useIntl();
@@ -14,6 +15,7 @@ const SearchHeading = () => {
         description: "Title displayed in the hero section of the Search page.",
       })}
     >
+      <StrikeNotice />
       <div
         data-h2-background-color="base(white)"
         data-h2-radius="base(rounded)"
