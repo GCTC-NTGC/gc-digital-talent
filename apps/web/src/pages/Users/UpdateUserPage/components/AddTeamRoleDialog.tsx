@@ -148,8 +148,8 @@ const AddTeamRoleDialog = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select team...",
-                  id: "ZdOvlC",
+                  defaultMessage: "Select team",
+                  id: "5C8xs4",
                   description: "Placeholder text for team selection input",
                 })}
                 options={teamOptions ?? []}
@@ -165,8 +165,8 @@ const AddTeamRoleDialog = ({
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select role...",
-                  id: "x7vMC8",
+                  defaultMessage: "Select role",
+                  id: "mTsq+x",
                   description: "Placeholder text for role selection input",
                 })}
                 options={roleOptions}

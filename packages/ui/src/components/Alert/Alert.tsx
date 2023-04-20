@@ -160,7 +160,7 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
 
   return (
     <Heading
-      data-h2-font-size="base(h6, 1)"
+      data-h2-font-size="base(h6)"
       data-h2-font-weight="base(700)"
       data-h2-margin="base(0, 0, x.5, 0)"
       {...rest}

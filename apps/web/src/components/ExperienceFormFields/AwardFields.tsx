@@ -53,8 +53,8 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.awardedTo}
             name="awardedTo"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one...",
-              id: "WjssQc",
+              defaultMessage: "Choose one",
+              id: "C13NNv",
               description:
                 "Null selection for select input in the awarded to form.",
             })}
@@ -92,8 +92,8 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.awardedScope}
             name="awardedScope"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one...",
-              id: "sIM1t+",
+              defaultMessage: "Choose one",
+              id: "+QpeDR",
               description:
                 "Null selection for select input in the award scope form.",
             })}

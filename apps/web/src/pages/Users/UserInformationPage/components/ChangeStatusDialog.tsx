@@ -237,8 +237,8 @@ const ChangeStatusDialog = ({
                       "Label displayed on the status field of the change candidate status dialog",
                   })}
                   nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a pool status...",
-                    id: "usNShh",
+                    defaultMessage: "Select a pool status",
+                    id: "Bkxf6p",
                     description:
                       "Placeholder displayed on the status field of the change candidate status dialog.",
                   })}
@@ -273,8 +273,8 @@ const ChangeStatusDialog = ({
                       "Label displayed on the additional pools field of the change candidate status dialog",
                   })}
                   placeholder={intl.formatMessage({
-                    defaultMessage: "Select additional pools...",
-                    id: "vtXnOQ",
+                    defaultMessage: "Select additional pools",
+                    id: "xjZO11",
                     description:
                       "Placeholder displayed on the additional pools field of the change candidate status dialog.",
                   })}

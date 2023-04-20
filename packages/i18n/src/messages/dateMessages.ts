@@ -17,8 +17,8 @@ const dateMessages = defineMessages({
     description: "Label for a day of the month input field",
   },
   selectAMonth: {
-    defaultMessage: "Select a month...",
-    id: "cbKlUG",
+    defaultMessage: "Select a month",
+    id: "5hXz/z",
     description: "Placeholder for a month select field",
   },
   january: {

@@ -517,8 +517,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Label for work location filter in search form.",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "Select a location...",
-                id: "asqSAJ",
+                defaultMessage: "Select a location",
+                id: "bo+d/M",
                 description:
                   "Placeholder for work location filter in search form.",
               })}

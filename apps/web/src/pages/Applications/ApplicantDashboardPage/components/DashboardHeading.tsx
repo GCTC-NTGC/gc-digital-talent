@@ -69,8 +69,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       )}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Find new opportunities, update your resume experience, or track applications.",
-        id: "HvBs2+",
+          "Find new opportunities, update your résumé experience, or track applications.",
+        id: "pqrVnW",
         description: "Subtitle for applicant dashboard hero",
       })}
     >
@@ -183,9 +183,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "My resume and experience",
-            id: "9ePTF1",
-            description: "applicant dashboard card title for resume card",
+            defaultMessage: "My résumé and experience",
+            id: "naaQ+q",
+            description: "applicant dashboard card title for résumé card",
           })}
           href={paths.skillsAndExperiences(user.id)}
         >
