@@ -1,12 +1,10 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { useIntl } from "react-intl";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 import {
-  Button,
   Heading,
-  Link,
   Pending,
   Separator,
   ThrowNotFound,
@@ -16,9 +14,6 @@ import {
   ApplicationStep,
   PoolAdvertisement,
 } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
@@ -35,10 +30,8 @@ import {
   User,
   useGetApplicationQuery,
   useGetMeQuery,
-  useUpdateApplicationMutation,
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
-import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
@@ -48,6 +41,8 @@ import GovernmentInformation from "./components/GovernmentInformation/Government
 import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
 import { SectionProps } from "./types";
 import ErrorSummary from "./components/ErrorSummary";
+import ProfileFormProvider from "./components/ProfileFormContext";
+import StepNavigation from "./components/StepNavigation";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -110,73 +105,9 @@ export const ApplicationProfile = ({
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({ intl, paths, application });
-  const [{ fetching: submitting }, executeSubmitMutation] =
-    useUpdateApplicationMutation();
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
-  const nextStepPath = paths.applicationResumeIntro(application.id);
-
-  const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // We don't want to navigate until we mark the step as complete
-    const isValid =
-      application?.poolAdvertisement &&
-      !pageInfo?.hasError?.(user as Applicant, application?.poolAdvertisement);
-
-    if (isValid) {
-      executeSubmitMutation({
-        id: application.id,
-        application: {
-          insertSubmittedStep: ApplicationStep.ReviewYourProfile,
-        },
-      })
-        .then((res) => {
-          if (res.data) {
-            navigate(nextStepPath);
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
-          );
-        });
-    } else {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage:
-            "Please complete all required fields before continuing.",
-          id: "G1jegJ",
-          description:
-            "Error message displayed when user attempts to submit incomplete profile",
-        }),
-      );
-      const missingLanguageRequirements = getMissingLanguageRequirements(
-        user as Applicant,
-        application?.poolAdvertisement,
-      );
-      if (missingLanguageRequirements.length > 0) {
-        const requirements = missingLanguageRequirements.map((requirement) => (
-          <li key={requirement.id}>{intl.formatMessage(requirement)}</li>
-        ));
-        toast.error(
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "You are missing the following language requirements: {requirements}",
-              id: "CPHTk9",
-              description:
-                "Error message when a user does not meet a pools language requirements",
-            },
-            { requirements },
-          ),
-        );
-      }
-    }
-
-    return false;
-  };
 
   const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
     return executeUpdateMutation({
@@ -192,7 +123,7 @@ export const ApplicationProfile = ({
   };
 
   return (
-    <>
+    <ProfileFormProvider>
       <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
       <p>
         {intl.formatMessage({
@@ -221,41 +152,19 @@ export const ApplicationProfile = ({
         data-h2-margin="base(x2, 0)"
         decorative
       />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
-        <form onSubmit={handleNavigation}>
-          <Button
-            type="submit"
-            color="primary"
-            mode="solid"
-            disabled={submitting}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Let's go!",
-              id: "r6z4HM",
-              description: "Link text to begin the application process",
-            })}
-          </Button>
-        </form>
-        <Link
-          type="button"
-          mode="inline"
-          color="secondary"
-          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
-        </Link>
-      </div>
-    </>
+      <StepNavigation
+        application={application}
+        user={user}
+        isValid={
+          (application?.poolAdvertisement &&
+            !pageInfo?.hasError?.(
+              user as Applicant,
+              application?.poolAdvertisement,
+            )) ??
+          false
+        }
+      />
+    </ProfileFormProvider>
   );
 };
 

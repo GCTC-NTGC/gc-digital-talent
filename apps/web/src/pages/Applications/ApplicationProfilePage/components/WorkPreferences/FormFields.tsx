@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import {
   Checklist,
@@ -18,9 +19,12 @@ import { WorkRegion } from "~/api/generated";
 
 import { FormFieldProps } from "../../types";
 import WithEllipsisPrefix from "./WithEllipsisPrefix";
+import useDirtyFields from "../../hooks/useDirtyFields";
 
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();
+  useDirtyFields("work");
+
   return (
     <>
       <RadioGroup

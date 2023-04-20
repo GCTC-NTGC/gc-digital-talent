@@ -26,6 +26,7 @@ import FormActions from "../FormActions";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
+import { useProfileFormContext } from "../ProfileFormContext";
 
 const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
@@ -35,6 +36,7 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const emptyRequired =
     hasEmptyRequiredLocationFields(user) ||
     hasEmptyRequiredPreferenceFields(user);
+  const { toggleDirty } = useProfileFormContext();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("work");
   const icon = getSectionIcon({
@@ -62,11 +64,18 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
       });
   };
 
+  const handleOpenChange = (newIsEditing: boolean) => {
+    setIsEditing(newIsEditing);
+    if (!newIsEditing) {
+      toggleDirty("work", false);
+    }
+  };
+
   return (
     <ToggleSection.Root
       id="work-section"
       open={isEditing}
-      onOpenChange={setIsEditing}
+      onOpenChange={handleOpenChange}
     >
       <ToggleSection.Header
         Icon={icon.icon}

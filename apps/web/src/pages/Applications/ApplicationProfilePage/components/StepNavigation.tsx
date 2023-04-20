@@ -1,0 +1,186 @@
+import React from "react";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+
+import { Button } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
+
+import useRoutes from "~/hooks/useRoutes";
+import {
+  Applicant,
+  PoolCandidate,
+  useUpdateApplicationMutation,
+  User,
+  ApplicationStep,
+} from "~/api/generated";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import { useProfileFormContext } from "./ProfileFormContext";
+
+type ProfileActionFormValues = {
+  action: "continue" | "quit";
+};
+
+interface StepNavigationProps {
+  application: Omit<PoolCandidate, "pool">;
+  user: User;
+  isValid?: boolean;
+}
+
+const StepNavigation = ({
+  application,
+  user,
+  isValid,
+}: StepNavigationProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const navigate = useNavigate();
+  const { applicantDashboard } = useFeatureFlags();
+  const { dirtySections } = useProfileFormContext();
+  const [{ fetching: submitting }, executeSubmitMutation] =
+    useUpdateApplicationMutation();
+  const nextStepPath = paths.applicationResumeIntro(application.id);
+  const methods = useForm<ProfileActionFormValues>({
+    defaultValues: {
+      action: "continue",
+    },
+  });
+  const { setValue, register } = methods;
+  const actionProps = register("action");
+
+  const saveAndQuit = () => {
+    if (dirtySections.length) {
+      const firstDirtySection = document.getElementById(
+        `${dirtySections[0]}-section`,
+      );
+
+      toast.warning(
+        intl.formatMessage({
+          defaultMessage:
+            "Please, save or close any open forms before continuing.",
+          description:
+            "Message displayed to users when they attempt to quit the profile form with unsaved changes",
+          id: "kf5Td+",
+        }),
+      );
+
+      if (firstDirtySection) {
+        setTimeout(() => {
+          firstDirtySection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 10);
+      }
+    } else {
+      navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+    }
+  };
+
+  const handleNavigation = (values: ProfileActionFormValues) => {
+    if (values.action === "quit") {
+      saveAndQuit();
+      return true;
+    }
+
+    if (isValid) {
+      executeSubmitMutation({
+        id: application.id,
+        application: {
+          insertSubmittedStep: ApplicationStep.ReviewYourProfile,
+        },
+      })
+        .then((res) => {
+          if (res.data) {
+            navigate(nextStepPath);
+          }
+        })
+        .catch(() => {
+          toast.error(
+            intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
+          );
+        });
+      return true;
+    }
+    toast.error(
+      intl.formatMessage({
+        defaultMessage:
+          "Please complete all required fields before continuing.",
+        id: "G1jegJ",
+        description:
+          "Error message displayed when user attempts to submit incomplete profile",
+      }),
+    );
+    const missingLanguageRequirements = getMissingLanguageRequirements(
+      user as Applicant,
+      application?.poolAdvertisement,
+    );
+    if (missingLanguageRequirements.length > 0) {
+      const requirements = missingLanguageRequirements.map((requirement) => (
+        <li key={requirement.id}>{intl.formatMessage(requirement)}</li>
+      ));
+      toast.error(
+        intl.formatMessage(
+          {
+            defaultMessage:
+              "You are missing the following language requirements: {requirements}",
+            id: "CPHTk9",
+            description:
+              "Error message when a user does not meet a pools language requirements",
+          },
+          { requirements },
+        ),
+      );
+    }
+    return false;
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(handleNavigation)}>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-gap="base(x.25, x.5)"
+          data-h2-flex-wrap="base(wrap)"
+          data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-align-items="base(flex-start) l-tablet(center)"
+        >
+          <Button
+            type="submit"
+            color="primary"
+            mode="solid"
+            {...actionProps}
+            value="continue"
+            onClick={() => setValue("action", "continue")}
+            disabled={submitting}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Let's go!",
+              id: "r6z4HM",
+              description: "Link text to begin the application process",
+            })}
+          </Button>
+          <Button
+            type="submit"
+            mode="inline"
+            color="secondary"
+            {...actionProps}
+            value="quit"
+            onClick={() => setValue("action", "quit")}
+            disabled={submitting}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Save and quit for now",
+              id: "U86N4g",
+              description: "Action button to save and exit an application",
+            })}
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
+  );
+};
+
+export default StepNavigation;

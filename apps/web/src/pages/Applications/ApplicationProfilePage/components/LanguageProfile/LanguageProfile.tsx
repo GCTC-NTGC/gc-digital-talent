@@ -15,22 +15,18 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/languageInformation";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import { Applicant } from "~/api/generated";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
-import {
-  dataToFormValues,
-  formValuesToSubmitData,
-  getConsideredLangItems,
-  getLabels,
-} from "./utils";
-import ConsideredLanguages from "./ConsideredLanguages";
+import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
 import FormActions from "../FormActions";
 import { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-import { Applicant } from "../../../../../api/generated";
+import { useProfileFormContext } from "../ProfileFormContext";
+import FormFields from "./FormFields";
 
 const LanguageProfile = ({
   user,
@@ -42,6 +38,7 @@ const LanguageProfile = ({
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
+  const { toggleDirty } = useProfileFormContext();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("language");
   const icon = getSectionIcon({
@@ -55,7 +52,6 @@ const LanguageProfile = ({
     user as Applicant,
     application?.poolAdvertisement,
   );
-  const consideredLangOptions = getConsideredLangItems(intl);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await onUpdate(user.id, formValuesToSubmitData(formValues))
@@ -75,11 +71,18 @@ const LanguageProfile = ({
       });
   };
 
+  const handleOpenChange = (newIsEditing: boolean) => {
+    setIsEditing(newIsEditing);
+    if (!newIsEditing) {
+      toggleDirty("language", false);
+    }
+  };
+
   return (
     <ToggleSection.Root
       id="language-section"
       open={isEditing}
-      onOpenChange={setIsEditing}
+      onOpenChange={handleOpenChange}
     >
       <ToggleSection.Header
         Icon={icon.icon}
@@ -129,17 +132,7 @@ const LanguageProfile = ({
               defaultValues: dataToFormValues(user),
             }}
           >
-            <Checklist
-              idPrefix="considered-position-languages"
-              legend={labels.consideredPositionLanguages}
-              name="consideredPositionLanguages"
-              id="consideredPositionLanguages"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              items={consideredLangOptions}
-            />
-            <ConsideredLanguages labels={labels} />
+            <FormFields labels={labels} />
             <FormActions isUpdating={isUpdating} />
           </BasicForm>
         </ToggleSection.OpenContent>

@@ -24,6 +24,7 @@ import FormActions from "../FormActions";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
+import { useProfileFormContext } from "../ProfileFormContext";
 
 const GovernmentInformation = ({
   user,
@@ -34,6 +35,7 @@ const GovernmentInformation = ({
   const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
+  const { toggleDirty } = useProfileFormContext();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const title = getSectionTitle("government");
   const icon = getSectionIcon({
@@ -64,11 +66,18 @@ const GovernmentInformation = ({
       });
   };
 
+  const handleOpenChange = (newIsEditing: boolean) => {
+    setIsEditing(newIsEditing);
+    if (!newIsEditing) {
+      toggleDirty("government", false);
+    }
+  };
+
   return (
     <ToggleSection.Root
       id="government-section"
       open={isEditing}
-      onOpenChange={setIsEditing}
+      onOpenChange={handleOpenChange}
     >
       <ToggleSection.Header
         Icon={icon.icon}

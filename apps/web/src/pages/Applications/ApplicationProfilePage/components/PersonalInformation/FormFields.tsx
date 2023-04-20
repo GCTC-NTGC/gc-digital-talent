@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import {
   Input,
@@ -19,9 +20,12 @@ import { Language, ProvinceOrTerritory } from "~/api/generated";
 
 import { FormFieldProps } from "../../types";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
+import useDirtyFields from "../../hooks/useDirtyFields";
 
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();
+  useDirtyFields("personal");
+
   return (
     <>
       <div

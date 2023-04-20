@@ -20,6 +20,7 @@ import {
 import { Classification, Department, GovEmployeeType } from "~/api/generated";
 
 import { getGroupOptions, getLevelOptions } from "./utils";
+import useDirtyFields from "../../hooks/useDirtyFields";
 
 const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   const href =
@@ -46,6 +47,7 @@ const FormFields = ({
 }: FormFieldsProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
+  useDirtyFields("government");
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
