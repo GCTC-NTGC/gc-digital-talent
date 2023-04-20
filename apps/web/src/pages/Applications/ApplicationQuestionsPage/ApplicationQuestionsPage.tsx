@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -145,7 +145,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           })}
         </Link>
       </div>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             'Don\'t forget to take a break if you need to! Using the "Save and quit for now" button, you can record your progress and return to questions you might be stuck on later.',
@@ -163,28 +163,42 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           ),
         }}
       >
-        {screeningQuestions.map((question, index) => (
-          <React.Fragment key={question.id}>
-            <Heading level="h3" size="h4">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Question {number}",
-                  id: "/sBGov",
-                  description: "Heading for a specific screening question",
-                },
-                { number: index + 1 },
-              )}
-            </Heading>
-            <input type="hidden" name={`answers.${index}.id`} />
-            <input type="hidden" name={`answers.${index}.questionId`} />
-            <TextArea
-              id={`answers.${index}.answer`}
-              name={`answers.${index}.answer`}
-              label={getLocalizedName(question.question, intl)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </React.Fragment>
-        ))}
+        {screeningQuestions.length ? (
+          screeningQuestions.map((question, index) => (
+            <React.Fragment key={question.id}>
+              <Heading level="h3" size="h4">
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Question {number}",
+                    id: "/sBGov",
+                    description: "Heading for a specific screening question",
+                  },
+                  { number: index + 1 },
+                )}
+              </Heading>
+              <input type="hidden" name={`answers.${index}.id`} />
+              <input type="hidden" name={`answers.${index}.questionId`} />
+              <TextArea
+                id={`answers.${index}.answer`}
+                name={`answers.${index}.answer`}
+                label={getLocalizedName(question.question, intl)}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+              />
+            </React.Fragment>
+          ))
+        ) : (
+          <Well>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This process has no screening questions. You may continue onto the next step.",
+                id: "jIhIaX",
+                description:
+                  "MEssage displayed to users when there are no screening questions for a proccess",
+              })}
+            </p>
+          </Well>
+        )}
         <Separator
           orientation="horizontal"
           decorative
