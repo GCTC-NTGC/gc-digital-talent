@@ -17,15 +17,14 @@ import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import { Applicant } from "~/api/generated";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
-import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import FormActions from "../FormActions";
 import { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-import { useProfileFormContext } from "../ProfileFormContext";
 import FormFields from "./FormFields";
+import useSectionInfo from "../../hooks/useSectionInfo";
 
 const LanguageProfile = ({
   user,
@@ -34,17 +33,13 @@ const LanguageProfile = ({
   isUpdating,
 }: SectionProps) => {
   const intl = useIntl();
-  const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
-  const { toggleDirty } = useProfileFormContext();
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const title = getSectionTitle("language");
-  const icon = getSectionIcon({
-    isEditing,
-    error: !isNull && emptyRequired,
-    completed: !isNull && !emptyRequired,
-    fallback: LanguageIcon,
+  const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
+    section: "language",
+    isNull,
+    emptyRequired,
+    fallbackIcon: LanguageIcon,
   });
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
@@ -70,18 +65,11 @@ const LanguageProfile = ({
       });
   };
 
-  const handleOpenChange = (newIsEditing: boolean) => {
-    setIsEditing(newIsEditing);
-    if (!newIsEditing) {
-      toggleDirty("language", false);
-    }
-  };
-
   return (
     <ToggleSection.Root
       id="language-section"
       open={isEditing}
-      onOpenChange={handleOpenChange}
+      onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
         Icon={icon.icon}

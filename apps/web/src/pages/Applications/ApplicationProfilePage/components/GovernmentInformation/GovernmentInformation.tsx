@@ -16,34 +16,30 @@ import {
 } from "~/validators/profile/governmentInformation";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
-import { dataToFormValues, formValuesToSubmitData, getLabels } from "./utils";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import FormActions from "../FormActions";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-import { useProfileFormContext } from "../ProfileFormContext";
+import useSectionInfo from "../../hooks/useSectionInfo";
 
 const GovernmentInformation = ({
   user,
   onUpdate,
   isUpdating,
 }: SectionProps) => {
-  const intl = useIntl();
-  const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
-  const { toggleDirty } = useProfileFormContext();
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const title = getSectionTitle("government");
-  const icon = getSectionIcon({
-    isEditing,
-    error: !isNull && emptyRequired,
-    completed: !isNull && !emptyRequired,
-    fallback: BuildingLibraryIcon,
+  const intl = useIntl();
+  const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
+    section: "government",
+    isNull,
+    emptyRequired,
+    fallbackIcon: BuildingLibraryIcon,
   });
+
   const [{ data }] = useGetProfileFormOptionsQuery();
   const classifications = data?.classifications.filter(notEmpty) || [];
   const departments = data?.departments.filter(notEmpty) || [];
@@ -66,18 +62,11 @@ const GovernmentInformation = ({
       });
   };
 
-  const handleOpenChange = (newIsEditing: boolean) => {
-    setIsEditing(newIsEditing);
-    if (!newIsEditing) {
-      toggleDirty("government", false);
-    }
-  };
-
   return (
     <ToggleSection.Root
       id="government-section"
       open={isEditing}
-      onOpenChange={handleOpenChange}
+      onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
         Icon={icon.icon}

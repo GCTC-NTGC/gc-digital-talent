@@ -1,4 +1,4 @@
-import { MessageDescriptor, defineMessage } from "react-intl";
+import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
 import {
   PencilSquareIcon,
   ExclamationCircleIcon,
@@ -6,10 +6,18 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { HeadingProps } from "@gc-digital-talent/ui";
+import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
+
+import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
+import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
+import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
+import { getLabels as getLangLabels } from "./components/LanguageProfile/utils";
 import { SectionKey } from "./types";
 
-type IconType = React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+export type IconType = React.ForwardRefExoticComponent<
+  React.SVGProps<SVGSVGElement>
+>;
 
 interface GetSectionIconArgs {
   isEditing: boolean;
@@ -109,4 +117,20 @@ export const getSectionTitle = (key: SectionKey): MessageDescriptor => {
   const title = sectionTitles.get(key);
 
   return title ?? commonMessages.notFound;
+};
+
+const labelAccessorMap = new Map<SectionKey, (intl: IntlShape) => FieldLabels>([
+  ["personal", getPersonalLabels],
+  ["work", getWorkLabels],
+  ["government", getGovLabels],
+  ["language", getLangLabels],
+]);
+
+export const getSectionLabels = (
+  key: SectionKey,
+  intl: IntlShape,
+): FieldLabels => {
+  const labels = labelAccessorMap.get(key);
+
+  return labels ? labels(intl) : {};
 };

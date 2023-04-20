@@ -18,32 +18,27 @@ import {
 } from "~/validators/profile/workPreferences";
 
 import { SectionProps } from "../../types";
-import { getSectionIcon, getSectionTitle } from "../../utils";
-import { getLabels, dataToFormValues, formValuesToSubmitData } from "./utils";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-import { useProfileFormContext } from "../ProfileFormContext";
+import useSectionInfo from "../../hooks/useSectionInfo";
 
 const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
-  const labels = getLabels(intl);
   const isNull =
     hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
   const emptyRequired =
     hasEmptyRequiredLocationFields(user) ||
     hasEmptyRequiredPreferenceFields(user);
-  const { toggleDirty } = useProfileFormContext();
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const title = getSectionTitle("work");
-  const icon = getSectionIcon({
-    isEditing,
-    error: !isNull && emptyRequired,
-    completed: !isNull && !emptyRequired,
-    fallback: HandThumbUpIcon,
+  const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
+    section: "work",
+    isNull,
+    emptyRequired,
+    fallbackIcon: HandThumbUpIcon,
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -64,18 +59,11 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
       });
   };
 
-  const handleOpenChange = (newIsEditing: boolean) => {
-    setIsEditing(newIsEditing);
-    if (!newIsEditing) {
-      toggleDirty("work", false);
-    }
-  };
-
   return (
     <ToggleSection.Root
       id="work-section"
       open={isEditing}
-      onOpenChange={handleOpenChange}
+      onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
         Icon={icon.icon}

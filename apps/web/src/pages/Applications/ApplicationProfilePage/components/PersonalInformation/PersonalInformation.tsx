@@ -13,30 +13,25 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 
-import { getLabels, formValuesToSubmitData, dataToFormValues } from "./utils";
+import { formValuesToSubmitData, dataToFormValues } from "./utils";
 import { FormValues } from "./types";
 import { SectionProps } from "../../types";
-import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
-import { useProfileFormContext } from "../ProfileFormContext";
+import useSectionInfo from "../../hooks/useSectionInfo";
 
 const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
   const intl = useIntl();
-  const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
-  const { toggleDirty } = useProfileFormContext();
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const title = getSectionTitle("personal");
-  const icon = getSectionIcon({
-    isEditing,
-    error: !isNull && emptyRequired,
-    completed: !isNull && !emptyRequired,
-    fallback: UserIcon,
+  const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
+    section: "personal",
+    isNull,
+    emptyRequired,
+    fallbackIcon: UserIcon,
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -58,18 +53,11 @@ const PersonalInformation = ({ user, onUpdate, isUpdating }: SectionProps) => {
       });
   };
 
-  const handleOpenChange = (newIsEditing: boolean) => {
-    setIsEditing(newIsEditing);
-    if (!newIsEditing) {
-      toggleDirty("personal", false);
-    }
-  };
-
   return (
     <ToggleSection.Root
       id="personal-section"
       open={isEditing}
-      onOpenChange={handleOpenChange}
+      onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
         Icon={icon.icon}
