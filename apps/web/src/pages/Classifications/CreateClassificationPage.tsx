@@ -127,8 +127,8 @@ export const CreateClassificationForm = ({
                   "Label displayed on the classification form level field.",
               })}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level...",
-                id: "OqGhl+",
+                defaultMessage: "Select a level",
+                id: "Le4EQq",
                 description:
                   "Placeholder displayed on the classification form level field.",
               })}

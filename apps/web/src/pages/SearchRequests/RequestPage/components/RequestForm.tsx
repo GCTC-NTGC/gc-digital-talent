@@ -280,8 +280,8 @@ export const RequestForm = ({
                     "Label for department select input in the request form",
                 })}
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a department...",
-                  id: "WE/Nu+",
+                  defaultMessage: "Select a department",
+                  id: "y827h2",
                   description:
                     "Null selection for department select input in the request form.",
                 })}

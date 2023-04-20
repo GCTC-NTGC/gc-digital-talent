@@ -189,7 +189,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
   const crumbs = useBreadcrumbs([
     {
-      url: paths.browse(),
+      url: paths.browsePools(),
       label: intl.formatMessage({
         defaultMessage: "Browse IT Jobs",
         id: "l1fsXC",

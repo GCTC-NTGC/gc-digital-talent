@@ -71,7 +71,7 @@ const Layout = () => {
         description: "Label displayed on the Search menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="browseOpportunities" to={paths.allPools()}>
+    <MenuLink key="browseOpportunities" to={paths.browsePools()}>
       {intl.formatMessage({
         defaultMessage: "Browse opportunities",
         id: "SXvOXV",

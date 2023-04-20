@@ -63,6 +63,7 @@ export interface BaseInfoItemProps {
   iconColor?: IconColor;
   titleHref?: string;
   hiddenContextPrefix?: string;
+  asListItem?: boolean;
 }
 
 export const BaseInfoItem = ({
@@ -74,8 +75,10 @@ export const BaseInfoItem = ({
   iconColor = "success",
   titleHref,
   hiddenContextPrefix,
+  asListItem = true,
 }: BaseInfoItemProps) => {
   const Icon = icon;
+  const Wrapper = asListItem ? "li" : "span";
 
   // combine the context prefix for a11y if available
   const combinedTitle = (
@@ -90,7 +93,7 @@ export const BaseInfoItem = ({
   );
 
   return (
-    <li
+    <Wrapper
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(row)"
       data-h2-gap="base(x0.5)"
@@ -109,23 +112,23 @@ export const BaseInfoItem = ({
         />
       )}
 
-      <div>
+      <span data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
         {titleHref ? (
           <Link href={titleHref} {...{ ...textColorMap[titleColor] }}>
             {combinedTitle}
           </Link>
         ) : (
-          <p {...{ ...textColorMap[titleColor] }}>{combinedTitle}</p>
+          <span {...{ ...textColorMap[titleColor] }}>{combinedTitle}</span>
         )}
 
-        <p
+        <span
           data-h2-font-size="base(caption)"
           data-h2-text-decoration="base(none)"
           {...{ ...textColorMap[subTitleColor] }}
         >
           {subTitle}
-        </p>
-      </div>
-    </li>
+        </span>
+      </span>
+    </Wrapper>
   );
 };
