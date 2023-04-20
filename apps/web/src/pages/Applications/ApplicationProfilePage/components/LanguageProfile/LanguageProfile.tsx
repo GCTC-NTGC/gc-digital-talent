@@ -4,8 +4,7 @@ import { SubmitHandler } from "react-hook-form";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 
 import { ToggleSection, Well } from "@gc-digital-talent/ui";
-import { BasicForm, Checklist } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
