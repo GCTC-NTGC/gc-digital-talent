@@ -298,7 +298,7 @@ export const SignAndSubmitForm = ({
               id: "kjtiha",
               description: "Breadcrumb for sign and submit page.",
             }),
-            url: paths.allPools(),
+            url: paths.browsePools(),
           },
           {
             label: jobTitle,

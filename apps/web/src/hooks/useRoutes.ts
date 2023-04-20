@@ -151,8 +151,7 @@ const getRoutes = (lang: Locales) => {
     iap: () => path.join(baseUrl, "indigenous-it-apprentice"),
 
     // Pools
-    browse: () => path.join(baseUrl, "browse"),
-    allPools: () => path.join(baseUrl, "browse", "pools"),
+    browsePools: () => path.join(baseUrl, "browse", "pools"),
     pool: (poolId: string) => path.join(baseUrl, "browse", "pools", poolId),
     createApplication: (poolId: string) =>
       path.join(baseUrl, "browse", "pools", poolId, "create-application"),

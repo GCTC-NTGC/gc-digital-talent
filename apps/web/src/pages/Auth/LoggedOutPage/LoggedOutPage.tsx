@@ -96,7 +96,7 @@ const LoggedOutPage = () => {
               </TileLink>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={paths.allPools()} color="primary">
+              <TileLink href={paths.browsePools()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
                   id: "FtlwFY",

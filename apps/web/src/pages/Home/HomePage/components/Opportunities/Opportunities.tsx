@@ -94,7 +94,7 @@ const Opportunities = () => {
               })}
               links={[
                 {
-                  href: paths.allPools(),
+                  href: paths.browsePools(),
                   label: intl.formatMessage(
                     {
                       defaultMessage:
