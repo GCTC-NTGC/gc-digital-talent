@@ -2665,7 +2665,7 @@
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "BWvfeG": {
+  "45mj+u": {
     "defaultMessage": "Nous proposons également des lots de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
   },
@@ -5135,7 +5135,7 @@
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
-  "EqVMCE": {
+  "iKpxPY": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
@@ -5627,7 +5627,7 @@
     "defaultMessage": "Expérience personnelle",
     "description": "Title for personal experience section"
   },
-  "yI5DFC": {
+  "aFVp5f": {
     "defaultMessage": "Ajoutez une nouvelle expérience à votre CV",
     "description": "Heading for the Add Experience dialog"
   },
@@ -6614,11 +6614,11 @@
     "defaultMessage": "Toutes les sections sont remplies",
     "description": "Context message that all sections are complete"
   },
-  "9ePTF1": {
+  "naaQ+q": {
     "defaultMessage": "Mon cv et mon expérience",
     "description": "applicant dashboard card title for résumé card"
   },
-  "HvBs2+": {
+  "pqrVnW": {
     "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
     "description": "Subtitle for applicant dashboard hero"
   },
@@ -7537,7 +7537,7 @@
     "defaultMessage": "Plus précisément, non seulement nous voulons connaître votre <strong>parcours professionnel</strong>, mais également votre <strong>expérience communautaire</strong>, vos <strong>récompenses</strong>, vos <strong>initiatives personnelles</strong> et votre <strong>éducation</strong>!",
     "description": "Application step to begin working on résumé, paragraph two"
   },
-  "iK/Vqe": {
+  "EWzkQb": {
     "defaultMessage": "Une fois que vous avez mis votre CV à jour et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans d’autres étapes pour nous aider à mieux comprendre comment vous répondez aux exigences de compétences pour cette occasion.",
     "description": "Application step to begin working on résumé, paragraph three"
   },
