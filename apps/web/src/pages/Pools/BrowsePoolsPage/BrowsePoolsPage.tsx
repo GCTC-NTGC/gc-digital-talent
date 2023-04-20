@@ -53,16 +53,11 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const paths = useRoutes();
   const featureFlags = useFeatureFlags();
 
-  const title = intl.formatMessage(
-    {
-      defaultMessage: "Browse <abbreviation>IT</abbreviation> jobs",
-      id: "tM1de5",
-      description: "Page title for the direct intake browse pools page.",
-    },
-    {
-      abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-    },
-  );
+  const title = intl.formatMessage({
+    defaultMessage: "Browse jobs",
+    id: "8EFvJf",
+    description: "Page title for the direct intake browse pools page.",
+  });
 
   const crumbs = useBreadcrumbs([
     {
@@ -92,8 +87,8 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
     <>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Browse opportunities",
-          id: "1To4Kg",
+          defaultMessage: "Browse jobs",
+          id: "ApyEMy",
           description: "Title for the browse pools page",
         })}
       />
