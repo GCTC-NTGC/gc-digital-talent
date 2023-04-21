@@ -16,17 +16,9 @@ import Footer from "~/components/Footer";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import * as crgMessages from "~/lang/crgCompiled.json";
-import * as crkMessages from "~/lang/crkCompiled.json";
-import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
-const messages: Map<string, Messages> = new Map([
-  ["crg", crgMessages],
-  ["crk", crkMessages],
-  ["ojw", ojwMessages],
-  ["mic", micMessages],
-]);
+const messages: Map<string, Messages> = new Map([["mic", micMessages]]);
 
 const Layout = () => {
   const intl = useIntl();

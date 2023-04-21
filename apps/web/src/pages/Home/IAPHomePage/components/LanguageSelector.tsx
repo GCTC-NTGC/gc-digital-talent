@@ -12,30 +12,6 @@ const LanguageSelector = () => {
 
   const localeMap = new Map([
     [
-      "crg",
-      intl.formatMessage({
-        id: "zAl7ZH",
-        defaultMessage: "Michif",
-        description: "Name of Michif language",
-      }),
-    ],
-    [
-      "crk",
-      intl.formatMessage({
-        id: "TEt9Ua",
-        defaultMessage: "Plains Cree",
-        description: "Name of Plains Cree language",
-      }),
-    ],
-    [
-      "ojw",
-      intl.formatMessage({
-        id: "HtllH6",
-        defaultMessage: "Western Ojibway",
-        description: "Name of Western Ojibway language",
-      }),
-    ],
-    [
       "mic",
       intl.formatMessage({
         id: "nAgrVL",
