@@ -67,7 +67,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const crumbs = useBreadcrumbs([
     {
       label: title,
-      url: paths.allPools(),
+      url: paths.browsePools(),
     },
   ]);
 

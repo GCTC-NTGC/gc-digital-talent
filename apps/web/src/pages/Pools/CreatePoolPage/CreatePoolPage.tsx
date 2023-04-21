@@ -140,8 +140,8 @@ export const CreatePoolForm = ({
               })}
               name="classification"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification...",
-                id: "7aG86f",
+                defaultMessage: "Select a classification",
+                id: "tD99Wf",
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
@@ -160,8 +160,8 @@ export const CreatePoolForm = ({
               })}
               name="team"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team...",
-                id: "hr/i9h",
+                defaultMessage: "Select a team",
+                id: "COJ3St",
                 description: "Placeholder displayed for team selection input.",
               })}
               options={teamOptions}
