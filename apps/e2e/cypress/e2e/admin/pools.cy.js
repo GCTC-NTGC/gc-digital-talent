@@ -10,6 +10,10 @@ describe("Pools", () => {
       .and("be.visible");
 
     cy.url().should("contain", "/admin/pools");
+
+    cy.findByRole("paragraph", {
+      name: role,
+    }).should("not.exist");
   };
 
   /**
@@ -27,6 +31,8 @@ describe("Pools", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
       aliasQuery(req, "getMePoolCreation");
+      aliasQuery(req, "getMePools");
+      aliasQuery(req, "allPools");
       aliasMutation(req, "createPoolAdvertisement");
       aliasMutation(req, "updatePoolAdvertisement");
       aliasMutation(req, "publishPoolAdvertisement");
@@ -69,10 +75,22 @@ describe("Pools", () => {
 
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
+
+    cy.wait("@gqlgetMePoolsQuery");
+
+    cy.findByRole("paragraph", {
+      name: /Oh no...\[GraphQL\] This action is unauthorized./,
+    }).should("not.exist");
   });
 
   it("Should show all pools if user has platform admin role", () => {
     loginAndGoToPoolsPage("platform_admin");
+
+    cy.wait("@gqlallPoolsQuery");
+
+    cy.findByRole("paragraph", {
+      name: /Oh no...\[GraphQL\] This action is unauthorized./,
+    }).should("not.exist");
   });
 
   it("should create a new pool", () => {
