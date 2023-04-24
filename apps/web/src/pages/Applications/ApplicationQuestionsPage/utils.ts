@@ -11,6 +11,7 @@ export const dataToFormValues = (
   responses: Array<ScreeningQuestionResponse>,
 ): FormValues => {
   return {
+    action: "continue",
     answers: questions.map((question) => {
       const foundResponse = responses.find(
         (response) => response?.screeningQuestion?.id === question.id,

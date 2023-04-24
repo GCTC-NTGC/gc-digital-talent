@@ -8,4 +8,5 @@ export type QuestionResponse = {
 
 export type FormValues = {
   answers: Array<QuestionResponse>;
+  action: "continue" | "cancel";
 };

@@ -3,15 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
-import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
-import {
-  BasicForm,
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -29,6 +23,7 @@ import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
+import FormActions from "./components/FormActions";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -86,6 +81,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({ intl, paths, application });
   const [, executeMutation] = useUpdateApplicationMutation();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const screeningQuestions =
     application.poolAdvertisement?.screeningQuestions?.filter(notEmpty) || [];
@@ -111,7 +107,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving screening question responses is successful.",
             }),
           );
-          navigate(paths.applicationReview(application.id));
+          navigate(
+            formValues.action === "continue"
+              ? paths.applicationReview(application.id)
+              : cancelPath,
+          );
         }
       })
       .catch(() => {
@@ -200,40 +200,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             </p>
           </Well>
         )}
-        <Separator
-          orientation="horizontal"
-          decorative
-          data-h2-background="base(black.light)"
-          data-h2-margin="base(x2, 0)"
-        />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x.25, x.5)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-align-items="base(flex-start) l-tablet(center)"
-        >
-          <Button type="submit" mode="solid">
-            {intl.formatMessage({
-              defaultMessage: "Let's review my application",
-              id: "uPnk4X",
-              description:
-                "Button text to submit screening questions and continue to application review",
-            })}
-          </Button>
-          <Link
-            type="button"
-            mode="inline"
-            color="secondary"
-            href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Save and quit for now",
-              id: "U86N4g",
-              description: "Action button to save and exit an application",
-            })}
-          </Link>
-        </div>
+        <FormActions />
       </BasicForm>
     </>
   );
