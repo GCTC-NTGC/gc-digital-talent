@@ -48,6 +48,26 @@ const StyledHeader = React.forwardRef<
   />
 ));
 
+type AccordionHeaderPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Header
+>;
+export interface AccordionHeaderProps
+  extends AccordionHeaderPrimitivePropsWithoutRef {
+  headingAs?: HeadingRank;
+}
+
+const Header = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Header>,
+  AccordionHeaderProps
+>(({ headingAs = "h2", children, ...rest }, forwardedRef) => {
+  const Heading = headingAs;
+  return (
+    <StyledHeader asChild ref={forwardedRef} {...rest}>
+      <Heading data-h2-line-height="base(1)">{children}</Heading>
+    </StyledHeader>
+  );
+});
+
 const StyledTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
@@ -76,38 +96,29 @@ const StyledTrigger = React.forwardRef<
 type AccordionTriggerPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Trigger
 >;
-export interface AccordionTriggerProps
-  extends AccordionTriggerPrimitivePropsWithoutRef {
-  headerAs?: HeadingRank;
-}
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  AccordionTriggerProps
->(({ headerAs = "h2", children, ...rest }, forwardedRef) => {
-  const Header = headerAs;
+  AccordionTriggerPrimitivePropsWithoutRef
+>(({ children, ...rest }, forwardedRef) => {
   return (
-    <StyledHeader asChild>
-      <Header data-h2-line-height="base(1)">
-        <StyledTrigger ref={forwardedRef} {...rest}>
-          <div
-            className="Accordion__Chevron"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-flex-shrink="base(0)"
-            data-h2-radius="base(circle)"
-          >
-            <ChevronDownIcon
-              className="Accordion__Chevron__Icon"
-              data-h2-transition="base(transform 150ms ease)"
-              data-h2-width="base(x1)"
-            />
-          </div>
+    <StyledTrigger ref={forwardedRef} {...rest}>
+      <div
+        className="Accordion__Chevron"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-flex-shrink="base(0)"
+        data-h2-radius="base(circle)"
+      >
+        <ChevronDownIcon
+          className="Accordion__Chevron__Icon"
+          data-h2-transition="base(transform 150ms ease)"
+          data-h2-width="base(x1)"
+        />
+      </div>
 
-          {children}
-        </StyledTrigger>
-      </Header>
-    </StyledHeader>
+      {children}
+    </StyledTrigger>
   );
 });
 
@@ -150,6 +161,7 @@ const Accordion = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#item)
    */
   Item,
+  Header,
   Trigger,
   /**
    * @name Content

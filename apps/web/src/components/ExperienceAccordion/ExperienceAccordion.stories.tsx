@@ -26,6 +26,14 @@ const AccordionTemplate: Story<AccordionProps> = (args) => {
   );
 };
 
+const CustomTriggerTemplate: Story<AccordionProps> = (args) => {
+  return (
+    <Accordion.Root type="single">
+      <ExperienceAccordion {...args} />
+    </Accordion.Root>
+  );
+};
+
 const editPaths = {
   awardUrl: () => "#",
   communityUrl: () => "#",
@@ -46,6 +54,7 @@ export const AccordionWork = AccordionTemplate.bind({});
 export const AccordionWorkWithEdit = AccordionTemplate.bind({});
 export const AccordionUnknown = AccordionTemplate.bind({});
 export const AccordionUnknownWithEdit = AccordionTemplate.bind({});
+export const CustomTrigger = CustomTriggerTemplate.bind({});
 
 AccordionAward.args = {
   experience: experienceGenerators.awardExperiences()[0],
@@ -94,6 +103,10 @@ AccordionUnknown.args = {
   },
 };
 AccordionUnknownWithEdit.args = {
+  ...AccordionUnknown.args,
+  editPaths,
+};
+CustomTrigger.args = {
   ...AccordionUnknown.args,
   editPaths,
 };

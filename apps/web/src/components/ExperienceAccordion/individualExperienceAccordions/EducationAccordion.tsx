@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
-import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { EducationExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
@@ -94,9 +94,9 @@ const EducationAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionTrigger
+      <StandardAccordionHeader
         subtitle={getDateRange({ endDate, startDate, intl })}
-        headerAs={headingLevel}
+        headingAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({
@@ -123,7 +123,7 @@ const EducationAccordion = ({
           },
           { areaOfStudy, institution },
         )}
-      </StandardAccordionTrigger>
+      </StandardAccordionHeader>
       <Accordion.Content>
         <EducationContent {...rest} />
         {editUrl && (

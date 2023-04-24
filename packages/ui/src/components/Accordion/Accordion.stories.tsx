@@ -30,15 +30,21 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <Accordion.Trigger>Accordion One</Accordion.Trigger>
+        <Accordion.Header>
+          <Accordion.Trigger>Accordion One</Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="two">
-        <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+        <Accordion.Header>
+          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        <Accordion.Header>
+          <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
@@ -82,7 +88,9 @@ Nested.args = {
       <Text />
       <Accordion.Root type="single" collapsible mode="simple">
         <Accordion.Item value="two">
-          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+          <Accordion.Header>
+            <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+          </Accordion.Header>
           <Accordion.Content>
             <Text />
           </Accordion.Content>

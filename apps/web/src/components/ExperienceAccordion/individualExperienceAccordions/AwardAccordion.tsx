@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
-import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { AwardExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
@@ -92,13 +92,13 @@ const AwardAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionTrigger
+      <StandardAccordionHeader
         subtitle={getDateRange({
           endDate: undefined,
           startDate: awardedDate,
           intl,
         })}
-        headerAs={headingLevel}
+        headingAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({
@@ -118,7 +118,7 @@ const AwardAccordion = ({
         Icon={StarIcon}
       >
         {title || ""} - {issuedBy || ""}
-      </StandardAccordionTrigger>
+      </StandardAccordionHeader>
       <Accordion.Content>
         <AwardContent {...rest} />
         {editUrl && (

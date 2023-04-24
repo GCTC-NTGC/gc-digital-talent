@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardTrigger as StandardAccordionTrigger } from "@gc-digital-talent/ui/src/components/Accordion/StandardTrigger";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PersonalExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
@@ -64,9 +64,9 @@ const PersonalAccordion = ({
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionTrigger
+      <StandardAccordionHeader
         subtitle={getDateRange({ endDate, startDate, intl })}
-        headerAs={headingLevel}
+        headingAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({
@@ -86,7 +86,7 @@ const PersonalAccordion = ({
         Icon={LightBulbIcon}
       >
         {title || ""}
-      </StandardAccordionTrigger>
+      </StandardAccordionHeader>
       <Accordion.Content>
         <PersonalContent {...rest} />
         {editUrl && (
