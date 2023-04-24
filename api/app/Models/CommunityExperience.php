@@ -52,4 +52,10 @@ class CommunityExperience extends Model
             ->withPivot('details')
             ->as('experience_skill_pivot');
     }
+
+    public function poolCandidates(): MorphToMany
+    {
+        return $this->morphToMany(PoolCandidate::class, 'experience', 'pool_candidate_experience')
+            ->withTimestamps();
+    }
 }

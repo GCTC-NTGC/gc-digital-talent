@@ -84,6 +84,63 @@ class PoolCandidate extends Model
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
+    // minimum criteria fulfilled by what experience
+    public function awardExperiencesCriteria()
+    {
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'pool_candidate_experience'
+        )
+            ->withTimestamps();
+    }
+    public function communityExperiencesCriteria()
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'pool_candidate_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationExperiencesCriteria()
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'pool_candidate_experience'
+        )
+            ->withTimestamps();
+    }
+    public function personalExperiencesCriteria()
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'pool_candidate_experience'
+        )
+            ->withTimestamps();
+    }
+    public function workExperiencesCriteria()
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'pool_candidate_experience'
+        )
+            ->withTimestamps();
+    }
+    public function getExperiencesCriteriaAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiencesCriteria);
+        $collection = $collection->merge($this->communityExperiencesCriteria);
+        $collection = $collection->merge($this->educationExperiencesCriteria);
+        $collection = $collection->merge($this->personalExperiencesCriteria);
+        $collection = $collection->merge($this->workExperiencesCriteria);
+        return $collection;
+    }
+
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
     {
         if (empty($streams)) {
