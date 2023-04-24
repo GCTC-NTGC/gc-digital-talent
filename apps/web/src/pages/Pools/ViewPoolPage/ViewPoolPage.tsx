@@ -645,8 +645,8 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
           <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Screening questions",
-              id: "l0C7iN",
-              description: "Sub title for the pool screening questions",
+              id: "c+QwbR",
+              description: "Subtitle for the pool screening questions",
             })}
           </h2>
           {screeningQuestions.length ? (

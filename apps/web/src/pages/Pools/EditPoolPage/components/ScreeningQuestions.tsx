@@ -302,9 +302,9 @@ const ScreeningQuestions = ({
                   >
                     {intl.formatMessage({
                       defaultMessage: "You have no questions.",
-                      id: "Pw/QMl",
+                      id: "izt28e",
                       description:
-                        "MEssage that appears when there are no screening messages for a pool",
+                        "Message that appears when there are no screening messages for a pool",
                     })}
                   </p>
                   <p>
@@ -327,9 +327,9 @@ const ScreeningQuestions = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "You have reached the maximum amount (3) of screening questions per poster.",
-                      id: "KhQxO8",
+                      id: "qs09PP",
                       description:
-                        "MEssage displayed when a user adds the maximum number of questions",
+                        "Message displayed when a user adds the maximum number of questions",
                     })}
                   </p>
                   <p>

@@ -148,8 +148,8 @@ export const EditPoolForm = ({
       id: "screening-questions",
       title: intl.formatMessage({
         defaultMessage: "Screening questions",
-        id: "l0C7iN",
-        description: "Sub title for the pool screening questions",
+        id: "c+QwbR",
+        description: "Subtitle for the pool screening questions",
       }),
     },
     status: {
