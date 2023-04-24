@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
@@ -19,7 +20,6 @@ import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
 import { useUpdateApplicationMutation } from "~/api/generated";
 
-import { useNavigate } from "react-router-dom";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
