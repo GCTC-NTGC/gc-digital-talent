@@ -46,7 +46,6 @@
       "inputs": ["src/lang/en.json", "src/lang/fr.json", "src/lang/mic.json"],
       "dependsOn": ["intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"],
-      "cache": false,
       "outputMode": "new-only"
     },
     "check-intl": {
