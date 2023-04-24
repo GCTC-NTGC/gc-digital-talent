@@ -4,7 +4,12 @@ import { useIntl } from "react-intl";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
 import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
-import { BasicForm, TextArea } from "@gc-digital-talent/forms";
+import {
+  BasicForm,
+  TextArea,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -23,6 +28,7 @@ import { useUpdateApplicationMutation } from "~/api/generated";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
+import AnswerInput from "./components/AnswerInput";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -178,12 +184,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               </Heading>
               <input type="hidden" name={`answers.${index}.id`} />
               <input type="hidden" name={`answers.${index}.questionId`} />
-              <TextArea
-                id={`answers.${index}.answer`}
-                name={`answers.${index}.answer`}
-                label={getLocalizedName(question.question, intl)}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
+              <AnswerInput index={index} question={question} />
             </React.Fragment>
           ))
         ) : (
