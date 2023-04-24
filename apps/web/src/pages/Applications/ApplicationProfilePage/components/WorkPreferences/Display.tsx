@@ -12,6 +12,7 @@ import {
 import { PositionDuration } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
+import DisplayColumn from "../DisplayColumn";
 
 interface DisplayProps {
   user: User;
@@ -52,65 +53,69 @@ const Display = ({
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       data-h2-gap="base(x1)"
     >
-      <FieldDisplay
-        hasError={empty(positionDuration)}
-        label={intl.formatMessage({
-          defaultMessage: "Job duration",
-          id: "/yOfhq",
-          description: "Job duration label",
-        })}
-      >
-        {positionDuration ? durationMessage : notProvided}
-      </FieldDisplay>
-      <div>
+      <DisplayColumn>
+        <FieldDisplay
+          hasError={empty(positionDuration)}
+          label={intl.formatMessage({
+            defaultMessage: "Job duration",
+            id: "/yOfhq",
+            description: "Job duration label",
+          })}
+        >
+          {positionDuration ? durationMessage : notProvided}
+        </FieldDisplay>
+        <div>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Work details",
+              id: "cJtvya",
+              description: "Work details label",
+            })}
+          />
+          {acceptedRequirements?.length ? (
+            <ul>
+              {acceptedRequirements.map((requirement) => (
+                <li key={requirement}>
+                  {intl.formatMessage(getOperationalRequirement(requirement))}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            notProvided
+          )}
+        </div>
+      </DisplayColumn>
+      <DisplayColumn>
+        <div>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Work location(s)",
+              id: "inHQQ2",
+              description: "Work location(s) label",
+            })}
+          />
+          {locations?.length ? (
+            <ul>
+              {locations.map((location) => (
+                <li key={location}>
+                  {intl.formatMessage(getWorkRegion(location))}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            notProvided
+          )}
+        </div>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Work details",
-            id: "cJtvya",
-            description: "Work details label",
+            defaultMessage: "Location specifics",
+            id: "oEioz2",
+            description: "Location specifics label",
           })}
-        />
-        {acceptedRequirements?.length ? (
-          <ul>
-            {acceptedRequirements.map((requirement) => (
-              <li key={requirement}>
-                {intl.formatMessage(getOperationalRequirement(requirement))}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          notProvided
-        )}
-      </div>
-      <div>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Work location(s)",
-            id: "inHQQ2",
-            description: "Work location(s) label",
-          })}
-        />
-        {locations?.length ? (
-          <ul>
-            {locations.map((location) => (
-              <li key={location}>
-                {intl.formatMessage(getWorkRegion(location))}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          notProvided
-        )}
-      </div>
-      <FieldDisplay
-        label={intl.formatMessage({
-          defaultMessage: "Location specifics",
-          id: "oEioz2",
-          description: "Location specifics label",
-        })}
-      >
-        {locationExemptions || notProvided}
-      </FieldDisplay>
+        >
+          {locationExemptions || notProvided}
+        </FieldDisplay>
+      </DisplayColumn>
     </div>
   );
 };
