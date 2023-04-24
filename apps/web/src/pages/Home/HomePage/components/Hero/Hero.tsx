@@ -106,8 +106,8 @@ const Hero = ({ defaultImage }: HeroProps) => {
             href={paths.search()}
           >
             {intl.formatMessage({
-              defaultMessage: "Looking to hire?",
-              id: "1wFFIx",
+              defaultMessage: "Find talent",
+              id: "sbEk4X",
               description: "Link text for hiring manager call to action",
             })}
           </CallToActionLink>

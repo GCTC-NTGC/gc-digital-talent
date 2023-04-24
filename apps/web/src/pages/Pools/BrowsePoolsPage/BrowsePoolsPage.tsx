@@ -286,10 +286,10 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
                   href: paths.search(),
                   mode: "outline",
                   label: intl.formatMessage({
-                    defaultMessage: "Visit the talent search page",
-                    id: "BhfG7a",
+                    defaultMessage: "Find talent",
+                    id: "7waBmC",
                     description:
-                      "Link text to go to the search page on browse IT jobs page",
+                      "Link text to go to the search page on browse jobs page",
                   }),
                 },
               ]}
