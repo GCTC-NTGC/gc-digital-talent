@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
             EducationExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
                     $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
@@ -166,7 +166,7 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
             WorkExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
                     $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
@@ -177,6 +177,22 @@ class DatabaseSeeder extends Seeder
                     ];
                     $model->skills()->sync($data);
                 })->create();
+        });
+
+        // attach either a work or education experience to a pool candidate to meet minimum criteria
+        PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
+            $minimumCriteria = $poolCandidate->minimum_criteria;
+            $user = $poolCandidate->user;
+
+            if ($minimumCriteria === ApiEnums::POOL_CANDIDATE_EDUCATION_CRITERIA) {
+                $educationExperience = $user->educationExperiences()->first();
+                $educationExperience->poolCandidates()->sync([$poolCandidate->id]);
+                $educationExperience->save();
+            } else if ($minimumCriteria === ApiEnums::POOL_CANDIDATE_WORK_CRITERIA) {
+                $workExperience = $user->workExperiences()->first();
+                $workExperience->poolCandidates()->sync([$poolCandidate->id]);
+                $workExperience->save();
+            }
         });
 
         // Create some SearchRequests with old filters, some with new.

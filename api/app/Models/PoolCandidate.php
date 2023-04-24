@@ -30,6 +30,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
+ * @property string $minimum_criteria
  */
 
 class PoolCandidate extends Model
