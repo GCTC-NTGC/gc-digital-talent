@@ -66,27 +66,21 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const notEmptyExperiences = user.experiences?.filter(notEmpty);
 
   const awardExperiences =
-    notEmptyExperiences
-      ?.filter(isAwardExperience)
-      .map(
-        (award: AwardExperience) =>
-          ({
-            ...award,
-            startDate: award.awardedDate,
-            endDate: award.awardedDate,
-          } as AwardExperience & { startDate: string; endDate: string }),
-      )
-      .sort(compareByDate) || [];
+    notEmptyExperiences?.filter(isAwardExperience).map(
+      (award: AwardExperience) =>
+        ({
+          ...award,
+          startDate: award.awardedDate,
+          endDate: award.awardedDate,
+        } as AwardExperience & { startDate: string; endDate: string }),
+    ) || [];
   const communityExperiences =
-    notEmptyExperiences?.filter(isCommunityExperience).sort(compareByDate) ||
-    [];
+    notEmptyExperiences?.filter(isCommunityExperience) || [];
   const educationExperiences =
-    notEmptyExperiences?.filter(isEducationExperience).sort(compareByDate) ||
-    [];
+    notEmptyExperiences?.filter(isEducationExperience) || [];
   const personalExperiences =
-    notEmptyExperiences?.filter(isPersonalExperience).sort(compareByDate) || [];
-  const workExperiences =
-    notEmptyExperiences?.filter(isWorkExperience).sort(compareByDate) || [];
+    notEmptyExperiences?.filter(isPersonalExperience) || [];
+  const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   return (
     <Hero
