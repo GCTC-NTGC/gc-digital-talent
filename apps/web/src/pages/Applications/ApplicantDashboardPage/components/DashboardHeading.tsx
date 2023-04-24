@@ -26,7 +26,17 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
+import {
+  compareByDate,
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "~/utils/experienceUtils";
 
+import { AwardExperience } from "~/api/generated";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
@@ -52,6 +62,31 @@ export interface DashboardHeadingProps {
 const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const notEmptyExperiences = user.experiences?.filter(notEmpty);
+
+  const awardExperiences =
+    notEmptyExperiences
+      ?.filter(isAwardExperience)
+      .map(
+        (award: AwardExperience) =>
+          ({
+            ...award,
+            startDate: award.awardedDate,
+            endDate: award.awardedDate,
+          } as AwardExperience & { startDate: string; endDate: string }),
+      )
+      .sort(compareByDate) || [];
+  const communityExperiences =
+    notEmptyExperiences?.filter(isCommunityExperience).sort(compareByDate) ||
+    [];
+  const educationExperiences =
+    notEmptyExperiences?.filter(isEducationExperience).sort(compareByDate) ||
+    [];
+  const personalExperiences =
+    notEmptyExperiences?.filter(isPersonalExperience).sort(compareByDate) || [];
+  const workExperiences =
+    notEmptyExperiences?.filter(isWorkExperience).sort(compareByDate) || [];
 
   return (
     <Hero
@@ -195,7 +230,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "giUfys",
               description: "Title for work experience section",
             })}
-            itemCount={user.workExperiences?.length}
+            itemCount={workExperiences?.length}
             icon={BriefcaseIcon}
             color="primary"
           />
@@ -205,7 +240,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "u6LIbY",
               description: "Title for education experience section",
             })}
-            itemCount={user.educationExperiences?.length}
+            itemCount={educationExperiences?.length}
             icon={BookOpenIcon}
             color="secondary"
           />
@@ -215,7 +250,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "Rz7WtH",
               description: "Title for community experience section",
             })}
-            itemCount={user.communityExperiences?.length}
+            itemCount={communityExperiences?.length}
             icon={UsersIcon}
             color="tertiary"
           />
@@ -225,7 +260,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "wTFUPE",
               description: "Title for personal experience section",
             })}
-            itemCount={user.personalExperiences?.length}
+            itemCount={personalExperiences?.length}
             icon={LightBulbIcon}
             color="quaternary"
           />
@@ -235,7 +270,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "+ikQY0",
               description: "Title for award section",
             })}
-            itemCount={user.awardExperiences?.length}
+            itemCount={awardExperiences?.length}
             icon={StarIcon}
             color="quinary"
           />
