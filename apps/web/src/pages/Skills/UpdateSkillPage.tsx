@@ -256,8 +256,8 @@ export const UpdateSkillForm = ({
                     "Label displayed on the skill form families field.",
                 })}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more families...",
-                  id: "9bz9jA",
+                  defaultMessage: "Select one or more families",
+                  id: "wORNl0",
                   description:
                     "Placeholder displayed on the skill form families field.",
                 })}

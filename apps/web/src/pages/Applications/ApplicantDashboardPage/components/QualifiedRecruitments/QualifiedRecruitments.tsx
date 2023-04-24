@@ -52,10 +52,11 @@ const QualifiedRecruitments = ({
   const intl = useIntl();
 
   const activeRecruitments = applications.filter(
-    ({ status, archivedAt, expiryDate }) => {
+    ({ status, archivedAt, expiryDate, submittedAt }) => {
       const expiry = expiryDate ? parseISO(expiryDate) : null;
       return (
         status !== PoolCandidateStatus.Expired &&
+        submittedAt !== null &&
         archivedAt === null &&
         (expiry ? isFuture(expiry) : true)
       );

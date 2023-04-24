@@ -1,9 +1,11 @@
 {
   "recommendations": [
     "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-french",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "xdebug.php-debug",
-    "bmewburn.vscode-intelephense-client"
+    "bmewburn.vscode-intelephense-client",
+    "ms-azuretools.vscode-docker"
   ]
 }

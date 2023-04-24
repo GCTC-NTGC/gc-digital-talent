@@ -249,8 +249,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Soon, an online application process will be available for people to express their interest. In the meantime, we encourage you to send your resumé and cover letter to: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
-              id: "1M3LT6",
+                "Soon, an online application process will be available for people to express their interest. In the meantime, we encourage you to send your résumé and cover letter to: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
+              id: "v9mTgX",
               description: "Learn more dialog question eleven paragraph one",
             })}
           </p>
