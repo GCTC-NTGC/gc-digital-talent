@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
@@ -86,7 +87,7 @@ class PoolCandidate extends Model
     }
 
     // minimum criteria fulfilled by what experience
-    public function awardExperiencesCriteria()
+    public function awardExperiencesCriteria(): BelongsToMany
     {
         return $this->morphedByMany(
             AwardExperience::class,
@@ -95,7 +96,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function communityExperiencesCriteria()
+    public function communityExperiencesCriteria(): BelongsToMany
     {
         return $this->morphedByMany(
             CommunityExperience::class,
@@ -104,7 +105,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function educationExperiencesCriteria()
+    public function educationExperiencesCriteria(): BelongsToMany
     {
         return $this->morphedByMany(
             EducationExperience::class,
@@ -113,7 +114,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function personalExperiencesCriteria()
+    public function personalExperiencesCriteria(): BelongsToMany
     {
         return $this->morphedByMany(
             PersonalExperience::class,
@@ -122,7 +123,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function workExperiencesCriteria()
+    public function workExperiencesCriteria(): BelongsToMany
     {
         return $this->morphedByMany(
             WorkExperience::class,

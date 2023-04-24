@@ -126,6 +126,7 @@ type AwardExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  poolCandidates: [PoolCandidate]
 }
 
 input AwardExperienceHasMany {
@@ -223,6 +224,7 @@ type CommunityExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  poolCandidates: [PoolCandidate]
 }
 
 input CommunityExperienceHasMany {
@@ -441,6 +443,7 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  poolCandidates: [PoolCandidate]
 }
 
 input EducationExperienceHasMany {
@@ -787,6 +790,7 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  poolCandidates: [PoolCandidate]
 }
 
 input PersonalExperienceHasMany {
@@ -884,6 +888,11 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
   minimumCriteria: ApplicationCriteria
+  awardExperiencesCriteria: [AwardExperience]
+  communityExperiencesCriteria: [CommunityExperience]
+  educationExperiencesCriteria: [EducationExperience]
+  personalExperiencesCriteria: [PersonalExperience]
+  workExperiencesCriteria: [WorkExperience]
 }
 
 type PoolCandidateFilter {
@@ -1342,6 +1351,12 @@ scalar UUID
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  minimumCriteria: ApplicationCriteria
+  awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  educationExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  personalExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  workExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
 }
 
 input UpdateClassificationInput {
@@ -1359,6 +1374,13 @@ input UpdateDepartmentInput {
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
   sync: [ConnectExperienceSkills!]
+}
+
+input UpdateExperiencesCriteriaBelongsToMany {
+  connect: [ID!]
+  sync: [ID!]
+  syncWithoutDetaching: [ID!]
+  disconnect: [ID!]
 }
 
 input UpdatePoolAdvertisementInput {
@@ -1699,6 +1721,7 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  poolCandidates: [PoolCandidate]
 }
 
 input WorkExperienceHasMany {
