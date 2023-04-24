@@ -1,6 +1,7 @@
 import React from "react";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
@@ -87,9 +88,26 @@ const OngoingRecruitmentSection = ({
 }: OngoingRecruitmentSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { hash } = useLocation();
   const methods = useForm<FormValues>({
     mode: "onChange",
   });
+
+  /**
+   * Scroll to this section if there is a hash and ID that matches
+   */
+  React.useEffect(() => {
+    if (hash) {
+      const target = document.getElementById(hash.substring(1));
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({
+            block: "start",
+          });
+        }, 10);
+      }
+    }
+  }, [hash]);
 
   const quickFilterStream = methods.watch("quickFilter");
   const { user, isLoaded } = useAuthorization();
@@ -937,6 +955,7 @@ const OngoingRecruitmentSection = ({
     <>
       <Heading
         level="h2"
+        id="ongoingRecruitments"
         Icon={CpuChipIcon}
         color="purple"
         data-h2-margin="base(0, 0, x1, 0)"
