@@ -27,7 +27,6 @@ import {
   workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
 import {
-  compareByDate,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
