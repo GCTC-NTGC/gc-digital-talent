@@ -21,6 +21,8 @@ export type ApplicationPageInfo = PageNavInfo & {
   omitFromStepper?: boolean;
   // Which application steps should be submitted before you can use this page?
   prerequisites: Array<ApplicationStep>;
+  // Introduction page URL, if it exists
+  introUrl?: string;
   // Which application step does this page submit?
   stepSubmitted: ApplicationStep | null;
   // Is the applicant valid as far as this page is concerned?

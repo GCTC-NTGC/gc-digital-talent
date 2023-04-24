@@ -125,7 +125,7 @@ export function getNextNonSubmittedStep(
     nextStep = nonSubmittedStep || pagesArray[pagesArray.length - 1];
   }
 
-  return nextStep.link.url;
+  return nextStep.introUrl || nextStep.link.url;
 }
 
 // check if the current page should be disabled and figure out where to return the user to
