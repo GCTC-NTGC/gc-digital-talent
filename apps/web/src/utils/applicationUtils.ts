@@ -1,5 +1,7 @@
 import { IntlShape } from "react-intl";
 
+import { StepType } from "@gc-digital-talent/ui";
+
 import useRoutes from "~/hooks/useRoutes";
 import {
   Applicant,
@@ -26,7 +28,6 @@ import { getPageInfo as questionsIntroductionPageInfo } from "~/pages/Applicatio
 import { getPageInfo as questionsPageInfo } from "~/pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as reviewPageInfo } from "~/pages/Applications/ApplicationReviewPage/ApplicationReviewPage";
 import { getPageInfo as successPageInfo } from "~/pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage";
-import { StepType } from "@gc-digital-talent/ui";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
