@@ -51,6 +51,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ReviewAndSubmit,
     ],
     stepSubmitted: null,
+    hasError: null,
   };
 };
 

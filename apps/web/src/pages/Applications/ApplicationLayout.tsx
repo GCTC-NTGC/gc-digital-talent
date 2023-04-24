@@ -23,9 +23,11 @@ import {
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
 import {
+  Applicant,
   ApplicationStep,
   Maybe,
-  useGetBasicApplicationInfoQuery,
+  PoolAdvertisement,
+  useGetApplicationQuery,
 } from "~/api/generated";
 
 import { ApplicationPageProps } from "./ApplicationApi";
@@ -72,6 +74,8 @@ const missingPrerequisites = (
 const deriveSteps = (
   pages: Map<PageNavKey, ApplicationPageInfo>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
+  applicant: Applicant,
+  poolAdvertisement: Maybe<PoolAdvertisement>,
 ): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
@@ -80,11 +84,12 @@ const deriveSteps = (
       href: page.link.url,
       icon: page.icon,
       completed:
-        (page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted)) ??
-        false,
-      disabled:
-        !!missingPrerequisites(page.prerequisites, submittedSteps)?.length ??
-        false,
+        page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted),
+      disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
+        ?.length,
+      error: poolAdvertisement
+        ? page?.hasError?.(applicant, poolAdvertisement)
+        : false,
     }));
 
   steps.pop(); // We do not want to show final step in the stepper
@@ -172,14 +177,19 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs || [];
-  const steps = deriveSteps(pages, application.submittedSteps);
+  const steps = deriveSteps(
+    pages,
+    application.submittedSteps,
+    application.user,
+    application.poolAdvertisement,
+  );
   const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),
   );
 
   const crumbs = useBreadcrumbs([
     {
-      url: paths.browse(),
+      url: paths.browsePools(),
       label: intl.formatMessage({
         defaultMessage: "Browse IT Jobs",
         id: "l1fsXC",
@@ -243,7 +253,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
 const ApplicationLayout = () => {
   const { applicationId } = useParams();
-  const [{ data, fetching, error }] = useGetBasicApplicationInfoQuery({
+  const [{ data, fetching, error }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
       id: applicationId || "",

@@ -206,7 +206,7 @@ export const PoolAdvertisementPoster = ({
         id: "NSuNSA",
         description: "Breadcrumb title for the browse pools page.",
       }),
-      url: paths.allPools(),
+      url: paths.browsePools(),
     },
     {
       label: fullTitle,

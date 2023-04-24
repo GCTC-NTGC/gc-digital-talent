@@ -11,33 +11,22 @@ import {
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as aboutSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/AboutSection";
-import {
-  hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
-import {
-  hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as governmentInformationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
-import {
-  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as workLocationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/WorkLocationSection";
-import {
-  hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as workPreferencesSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/WorkPreferencesSection";
-import {
-  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import {
-  hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/RoleSalarySection";
+  aboutSectionHasEmptyRequiredFields,
+  aboutSectionHasEmptyOptionalFields,
+  diversityEquityInclusionSectionHasEmptyRequiredFields,
+  diversityEquityInclusionSectionHasEmptyOptionalFields,
+  governmentInformationSectionHasEmptyRequiredFields,
+  governmentInformationSectionHasEmptyOptionalFields,
+  languageInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasEmptyOptionalFields,
+  roleSalarySectionHasEmptyRequiredFields,
+  roleSalarySectionHasEmptyOptionalFields,
+  workLocationSectionHasEmptyRequiredFields,
+  workLocationSectionHasEmptyOptionalFields,
+  workPreferencesSectionHasEmptyRequiredFields,
+  workPreferencesSectionHasEmptyOptionalFields,
+} from "~/validators/profile";
+
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
@@ -80,8 +69,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       )}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Find new opportunities, update your resume experience, or track applications.",
-        id: "HvBs2+",
+          "Find new opportunities, update your résumé experience, or track applications.",
+        id: "pqrVnW",
         description: "Subtitle for applicant dashboard hero",
       })}
     >
@@ -194,9 +183,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "My resume and experience",
-            id: "9ePTF1",
-            description: "applicant dashboard card title for resume card",
+            defaultMessage: "My résumé and experience",
+            id: "naaQ+q",
+            description: "applicant dashboard card title for résumé card",
           })}
           href={paths.skillsAndExperiences(user.id)}
         >

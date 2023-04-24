@@ -22,7 +22,8 @@ class ScreeningQuestionTest extends TestCase
     protected $teamName = "application-test-team";
     protected $pool;
 
-    protected $updatePoolMutation = /** @lang GraphQL */
+    protected $updatePoolMutation =
+    /** @lang GraphQL */
     '
         mutation updatePoolAdvertisement($id: ID! ,$poolAdvertisement: UpdatePoolAdvertisementInput!) {
             updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
@@ -58,7 +59,7 @@ class ScreeningQuestionTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator", $this->team);
+        $this->teamUser->addRole("pool_operator", $this->team);
     }
 
     public function testCreatingScreeningQuestions(): void
@@ -68,7 +69,8 @@ class ScreeningQuestionTest extends TestCase
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'poolAdvertisement' => [
-                'screeningQuestions' => ['create' =>
+                'screeningQuestions' => [
+                    'create' =>
                     [
                         [
                             'question' => [
@@ -80,7 +82,7 @@ class ScreeningQuestionTest extends TestCase
                 ],
             ]
         ])->assertJsonFragment([
-                'en' => 'hardcoded english',
+            'en' => 'hardcoded english',
         ]);
 
         // assert question count for pool went from 3 -> 4
@@ -98,7 +100,8 @@ class ScreeningQuestionTest extends TestCase
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'poolAdvertisement' => [
-                'screeningQuestions' => ['update' =>
+                'screeningQuestions' => [
+                    'update' =>
                     [
                         [
                             'id' => $questionId,
@@ -111,7 +114,7 @@ class ScreeningQuestionTest extends TestCase
                 ],
             ]
         ])->assertJsonFragment([
-                'en' => 'hardcoded english',
+            'en' => 'hardcoded english',
         ]);
 
         // assert question count remained the same at 3
@@ -129,19 +132,20 @@ class ScreeningQuestionTest extends TestCase
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'poolAdvertisement' => [
-                'screeningQuestions' => ['delete' =>
+                'screeningQuestions' => [
+                    'delete' =>
                     [
                         'id' => $questionId,
                     ]
                 ],
             ]
         ])->assertJsonMissing([
-                'id' => $questionId,
+            'id' => $questionId,
         ]);
 
-       // assert question count went down from 3 -> 2
+        // assert question count went down from 3 -> 2
 
-       $poolQuestions = $this->pool->screeningQuestions()->pluck('id')->toArray();
-       assertSame(2, count($poolQuestions));
+        $poolQuestions = $this->pool->screeningQuestions()->pluck('id')->toArray();
+        assertSame(2, count($poolQuestions));
     }
 }

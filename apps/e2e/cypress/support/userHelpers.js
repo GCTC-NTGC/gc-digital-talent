@@ -72,7 +72,7 @@ export function addRolesToUser(userId, roles = [], team = undefined) {
       .map((role) => role.id);
     cy.updateUser(userId, {
       legacyRoles: undefined,
-      roles: {
+      roleAssignmentsInput: {
         attach: {
           roles: roleIds,
           team: team,

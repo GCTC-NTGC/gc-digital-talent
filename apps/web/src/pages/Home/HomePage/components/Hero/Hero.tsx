@@ -92,7 +92,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
           <CallToActionLink
             color="quaternary"
             Icon={JobIcon}
-            href={paths.allPools()}
+            href={paths.browsePools()}
           >
             {intl.formatMessage({
               defaultMessage: "Looking for a job?",

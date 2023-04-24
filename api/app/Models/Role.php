@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laratrust\Models\LaratrustRole;
+use Laratrust\Models\Role as LaratrustRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
