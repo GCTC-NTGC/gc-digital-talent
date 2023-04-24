@@ -893,6 +893,7 @@ type PoolCandidate {
   educationExperiencesCriteria: [EducationExperience]
   personalExperiencesCriteria: [PersonalExperience]
   workExperiencesCriteria: [WorkExperience]
+  experiencesCriteria: [Experience]
 }
 
 type PoolCandidateFilter {

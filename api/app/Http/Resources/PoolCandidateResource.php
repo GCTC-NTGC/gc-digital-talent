@@ -14,11 +14,26 @@ class PoolCandidateResource extends JsonResource
      */
     public function toArray($request)
     {
+        $awardExperiences = AwardExperienceResource::collection($this->awardExperiencesCriteria);
+        $communityExperiences = CommunityExperienceResource::collection($this->communityExperiencesCriteria);
+        $educationExperiences = EducationExperienceResource::collection($this->educationExperiencesCriteria);
+        $personalExperiences = PersonalExperienceResource::collection($this->personalExperiencesCriteria);
+        $workExperiences = WorkExperienceResource::collection($this->workExperiencesCriteria);
+
+        $collection = collect();
+        $collection = $collection->merge($awardExperiences);
+        $collection = $collection->merge($communityExperiences);
+        $collection = $collection->merge($educationExperiences);
+        $collection = $collection->merge($personalExperiences);
+        $collection = $collection->merge($workExperiences);
+
         return [
             'id' => $this->id,
             'status' => $this->pool_candidate_status,
             'expiryDate' => date('Y-m-d', strtotime($this->expiry_date)),
-            'pool' => (new PoolResource($this->pool))
+            'pool' => (new PoolResource($this->pool)),
+            'minimumCriteria' => $this->minimum_criteria,
+            'experiencesCriteria' => $collection,
         ];
     }
 }

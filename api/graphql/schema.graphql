@@ -499,6 +499,7 @@ type PoolCandidate {
   educationExperiencesCriteria: [EducationExperience] @belongsToMany
   personalExperiencesCriteria: [PersonalExperience] @belongsToMany
   workExperiencesCriteria: [WorkExperience] @belongsToMany
+  experiencesCriteria: [Experience] #collection of above five
 }
 
 enum LanguageAbility {
