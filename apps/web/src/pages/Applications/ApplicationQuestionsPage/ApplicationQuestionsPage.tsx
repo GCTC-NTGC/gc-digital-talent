@@ -193,9 +193,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               {intl.formatMessage({
                 defaultMessage:
                   "This process has no screening questions. You may continue onto the next step.",
-                id: "tX/Jt+",
+                id: "iWsCdh",
                 description:
-                  "Message displayed to users when there are no screening questions for a proccess",
+                  "Message displayed to users when there are no screening questions for a process",
               })}
             </p>
           </Well>
