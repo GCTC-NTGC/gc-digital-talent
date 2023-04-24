@@ -191,8 +191,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     {
       url: paths.browsePools(),
       label: intl.formatMessage({
-        defaultMessage: "Browse IT Jobs",
-        id: "l1fsXC",
+        defaultMessage: "Browse jobs",
+        id: "WtX9b3",
         description: "Breadcrumb link text for the browse pools page",
       }),
     },
