@@ -32,3 +32,18 @@ export type ApplicationPageInfo = PageNavInfo & {
 export type GetApplicationPageInfo = (
   args: GetApplicationPageInfoArgs,
 ) => ApplicationPageInfo;
+
+export type ApplicationPageNavKey =
+  | "welcome"
+  | "profile"
+  | "resume-intro"
+  | "resume-add"
+  | "resume-edit"
+  | "resume"
+  | "education"
+  | "skills-intro"
+  | "skills"
+  | "questions-intro"
+  | "questions"
+  | "review"
+  | "success";
