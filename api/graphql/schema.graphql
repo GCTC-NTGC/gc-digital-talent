@@ -455,6 +455,11 @@ enum ApplicationStep {
   REVIEW_AND_SUBMIT
 }
 
+enum ApplicationCriteria {
+  APPLIED_WORK_OPTION
+  EDUCATION_OPTION
+}
+
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
@@ -486,6 +491,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  minimumCriteria: ApplicationCriteria @rename(attribute: "minimum_criteria")
 }
 
 enum LanguageAbility {

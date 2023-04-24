@@ -94,6 +94,11 @@ input ApplicantFilterInput {
   qualifiedStreams: [PoolStream]
 }
 
+enum ApplicationCriteria {
+  APPLIED_WORK_OPTION
+  EDUCATION_OPTION
+}
+
 enum ApplicationStep {
   WELCOME
   REVIEW_YOUR_PROFILE
@@ -878,6 +883,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
+  minimumCriteria: ApplicationCriteria
 }
 
 type PoolCandidateFilter {
