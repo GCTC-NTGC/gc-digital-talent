@@ -80,8 +80,8 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="currentProvince"
           label={labels.currentProvince}
           nullSelection={intl.formatMessage({
-            defaultMessage: "Select a province or territory...",
-            id: "M6PbPI",
+            defaultMessage: "Select a province or territory",
+            id: "H1wLfA",
             description:
               "Placeholder displayed on the About Me form province or territory field.",
           })}
@@ -120,8 +120,8 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="preferredLang"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language...",
-            id: "wRxZQV",
+            defaultMessage: "Select a language",
+            id: "/Y/n1N",
             description:
               "Placeholder displayed on the About Me form preferred communication language",
           })}
@@ -136,8 +136,8 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="preferredLanguageForInterview"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language...",
-            id: "JCyvcW",
+            defaultMessage: "Select a language",
+            id: "ViNcRW",
             description:
               "Placeholder displayed on the About Me form preferred interview language",
           })}
@@ -152,8 +152,8 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="preferredLanguageForExam"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language...",
-            id: "PBl2Rj",
+            defaultMessage: "Select a language",
+            id: "cYw8hN",
             description:
               "Placeholder displayed on the About Me form preferred exam language",
           })}

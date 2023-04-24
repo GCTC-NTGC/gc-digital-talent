@@ -164,8 +164,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               name="comprehensionLevel"
               label={labels.comprehensionLevel}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level...",
-                id: "8QN6ZC",
+                defaultMessage: "Select a level",
+                id: "mX4+Dq",
                 description:
                   "Placeholder displayed on the language information form comprehension field.",
               })}
@@ -179,8 +179,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               name="writtenLevel"
               label={labels.writtenLevel}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level...",
-                id: "aQJOd0",
+                defaultMessage: "Select a level",
+                id: "4JS9Yp",
                 description:
                   "Placeholder displayed on the language information form written field.",
               })}
@@ -194,8 +194,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               name="verbalLevel"
               label={labels.verbalLevel}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level...",
-                id: "Y7jEXr",
+                defaultMessage: "Select a level",
+                id: "tl7bV2",
                 description:
                   "Placeholder displayed on the language information form verbal field.",
               })}
