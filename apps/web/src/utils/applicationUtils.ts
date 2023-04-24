@@ -110,6 +110,24 @@ export const deriveSteps = (
   return steps;
 };
 
+export function getNextNonSubmittedStep(
+  pages: Map<ApplicationPageNavKey, ApplicationPageInfo>,
+  submittedSteps: Maybe<ApplicationStep[]>,
+): string {
+  const pagesArray = Array.from(pages.values());
+  let nextStep = pagesArray[0];
+
+  if (submittedSteps && submittedSteps.length > 0) {
+    const nonSubmittedStep = pagesArray.find((p) => {
+      return p.stepSubmitted && !submittedSteps?.includes(p.stepSubmitted);
+    });
+
+    nextStep = nonSubmittedStep || pagesArray[pagesArray.length - 1];
+  }
+
+  return nextStep.link.url;
+}
+
 // check if the current page should be disabled and figure out where to return the user to
 export function checkForDisabledPage(
   currentPageUrl: string | undefined,

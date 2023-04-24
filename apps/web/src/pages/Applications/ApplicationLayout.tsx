@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 
 import {
   TableOfContents,
@@ -8,6 +8,7 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
+import { empty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -25,6 +26,7 @@ import {
   checkForDisabledPage,
   deriveSteps,
   getApplicationPages,
+  getNextNonSubmittedStep,
 } from "~/utils/applicationUtils";
 
 import { ApplicationPageProps } from "./ApplicationApi";
@@ -33,6 +35,7 @@ import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const { experienceId } = useParams();
   const pages = getApplicationPages({
     intl,
@@ -93,6 +96,21 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     pages,
     application.submittedSteps,
   );
+
+  const nextStepUrl = getNextNonSubmittedStep(
+    pages,
+    application.submittedSteps,
+  );
+
+  // If we cannot find the current page, redirect to the first step
+  // that has not been submitted yet, or the last step
+  React.useEffect(() => {
+    if (empty(currentPage)) {
+      navigate(nextStepUrl, {
+        replace: true,
+      });
+    }
+  }, [currentPage, navigate, nextStepUrl]);
 
   return (
     <>
