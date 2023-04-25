@@ -4,10 +4,16 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\Skill;
+use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
 
 class PoolCandidateUpdateTest extends TestCase
 {
@@ -166,5 +172,71 @@ class PoolCandidateUpdateTest extends TestCase
                     ['message' => "This action is unauthorized."]
                 ]
             ]);
+    }
+
+    public function testExperienceCriteria(): void
+    {
+        $updateApplication =
+            /** @lang GraphQL */
+            '
+            mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
+                updateApplication(id: $id, application: $application) {
+                    id
+                    minimumCriteria
+                    communityExperiencesCriteria {
+                        id
+                    }
+                    educationExperiencesCriteria {
+                        id
+                    }
+                }
+            }
+        ';
+
+        Skill::factory()->count(5)->create();
+        EducationExperience::factory()->count(3)->create(['user_id' => $this->poolCandidate->user_id]);
+        CommunityExperience::factory()->count(3)->create(['user_id' => $this->poolCandidate->user_id]);
+        $communityExperienceIds = CommunityExperience::all()->pluck('id')->toArray();
+        $educationExperienceIds = EducationExperience::all()->pluck('id')->toArray();
+        $this->poolCandidate->submitted_at = null;
+        $this->poolCandidate->minimum_criteria = null;
+        $this->poolCandidate->save();
+
+        // assert minimumCriteria updated and that an education experience is successfully connected
+        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+            'id' => $this->poolCandidate->id,
+            'application' => [
+                'minimumCriteria' => ApiEnums::APPLICATION_CRITERIA_EDUCATION_OPTION,
+                'educationExperiencesCriteria' => [
+                    'connect' => [$educationExperienceIds[0]],
+                ],
+            ]
+        ]);
+        $response->assertJsonFragment(['minimumCriteria' => ApiEnums::APPLICATION_CRITERIA_EDUCATION_OPTION]);
+        $response->assertJsonFragment([
+            'educationExperiencesCriteria' => [
+                ['id' => $educationExperienceIds[0]]
+            ]
+        ]);
+
+        // assert minimumCriteria updated again, education experience was disconnected, and 3 community experiences synced
+        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+            'id' => $this->poolCandidate->id,
+            'application' => [
+                'minimumCriteria' => ApiEnums::APPLICATION_CRITERIA_APPLIED_WORK_OPTION,
+                'communityExperiencesCriteria' => [
+                    'sync' => $communityExperienceIds,
+                ],
+                'educationExperiencesCriteria' => [
+                    'disconnect' => [$educationExperienceIds[0]],
+                ],
+            ]
+        ]);
+        $response->assertJsonFragment(['minimumCriteria' => ApiEnums::APPLICATION_CRITERIA_APPLIED_WORK_OPTION]);
+        $response->assertJsonFragment([
+            'educationExperiencesCriteria' => [],
+        ]);
+        $communityExperiencesAttached = $response->json('data.updateApplication.communityExperiencesCriteria');
+        assertEquals(3, count($communityExperiencesAttached));
     }
 }
