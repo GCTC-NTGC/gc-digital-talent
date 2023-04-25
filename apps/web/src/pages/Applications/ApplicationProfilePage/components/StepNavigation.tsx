@@ -9,6 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
+import applicationMessages from "~/messages/applicationMessages";
 import {
   Applicant,
   PoolCandidate,
@@ -161,11 +162,7 @@ const StepNavigation = ({
             onClick={() => setValue("action", "continue")}
             disabled={submitting}
           >
-            {intl.formatMessage({
-              defaultMessage: "Let's go!",
-              id: "r6z4HM",
-              description: "Link text to begin the application process",
-            })}
+            {intl.formatMessage(applicationMessages.saveContinue)}
           </Button>
           <Button
             type="submit"
@@ -176,11 +173,7 @@ const StepNavigation = ({
             onClick={() => setValue("action", "quit")}
             disabled={submitting}
           >
-            {intl.formatMessage({
-              defaultMessage: "Save and quit for now",
-              id: "U86N4g",
-              description: "Action button to save and exit an application",
-            })}
+            {intl.formatMessage(applicationMessages.saveQuit)}
           </Button>
         </div>
       </form>
