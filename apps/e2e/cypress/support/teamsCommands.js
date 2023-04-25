@@ -19,19 +19,12 @@ Cypress.Commands.add("getDCM", () => {
   });
 });
 
-Cypress.Commands.add("getNewTeam", () => {
+Cypress.Commands.add("getTeams", () => {
   cy.graphqlRequest({
     operationName: "allTeams",
     query: getGqlString(AllTeamsDocument),
     variables: {},
   }).then((data) => {
-    const teams = data.teams;
-    const newTeam = teams.filter(
-      (team) =>
-        team.name !== "test-team" ||
-        team.name !== "digital-community-management",
-    );
-    const newTeamId = newTeam[0]["id"];
-    cy.wrap(newTeamId);
+    cy.wrap(data.teams);
   });
 });

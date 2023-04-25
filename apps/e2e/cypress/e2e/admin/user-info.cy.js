@@ -13,6 +13,8 @@ describe("User Information Page", () => {
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
 
+    // create a new test user then create pool candidates with new user
+    cy.loginByRole("admin");
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
       cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
@@ -25,6 +27,16 @@ describe("User Information Page", () => {
       cy.wrap(testGenericJobTitle).as("testGenericJobTitle");
       cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
+    // select some dimensions to use for testing
+    cy.getTeams().then((allTeams) => {
+      cy.wrap(
+        allTeams.filter(
+          (team) =>
+            team.name !== "test-team" ||
+            team.name !== "digital-community-management",
+        )[0].id,
+      ).as("newTeam"); // take a team for testing that's not attached to the pool operator
+    });
   });
 
   it("tests the behavior of admin user information page with different user roles", () => {
@@ -32,7 +44,7 @@ describe("User Information Page", () => {
     const uniqueTestId = Date.now().valueOf();
     cy.log(`Test run ${uniqueTestId}`);
 
-    // create a test user to attach test candidates to
+    // create a new test user then create pool candidates with new user
     cy.loginByRole("admin");
     cy.getMe()
       .its("id")
@@ -52,21 +64,21 @@ describe("User Information Page", () => {
               addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
-            // fetch the dcmId for its team from database, needed for pool creation
+            // fetch the dcmId for pool creation
             let dcmId;
             cy.getDCM().then((dcm) => {
               dcmId = dcm;
               addRolesToUser(adminUserId, ["pool_operator"], dcm);
             });
 
-            // fetch the test team id for its team from database, needed for pool creation
+            // fetch the newTeamId for pool creation
             let newTeamId;
-            cy.getNewTeam().then((newTeam) => {
+            cy.get("@newTeam").then((newTeam) => {
               newTeamId = newTeam;
               addRolesToUser(adminUserId, ["pool_operator"], newTeam);
             });
 
-            // create and publish a new pool advertisement
+            // create and publish a new dcm pool advertisement
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
@@ -77,7 +89,7 @@ describe("User Information Page", () => {
               });
             });
 
-            // create and publish a new pool advertisement
+            // create and publish a new newTeam pool advertisement
             cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
                 adminUserId,
@@ -102,7 +114,7 @@ describe("User Information Page", () => {
           .and("be.visible");
       };
 
-      // Visit new test users info page with applicant role.
+      // Should fail visiting test users info page with applicant role.
       cy.loginByRole("applicant");
       cy.visit(`/en/admin/users/${testUser.id}`);
       cy.findByRole("heading", {
@@ -111,20 +123,20 @@ describe("User Information Page", () => {
         .should("exist")
         .and("be.visible");
 
-      // Visit new test users info page with pool operator role.
+      // Should fail visiting test users info page with pool operator role.
       cy.loginByRole("pool_operator");
       cy.visit(`/en/admin/users/${testUser.id}`);
       cy.findByText("Oh no...[GraphQL] This action is unauthorized.")
         .should("exist")
         .and("be.visible");
 
-      // Visit new test users info page with request responder role.
+      // Should pass visiting test users info page with request responder role.
       loginAndVisitTestUser("request_responder");
 
-      // Visit new test users info page with admin role.
+      // Should pass visiting test users info page with admin role.
       loginAndVisitTestUser("admin");
 
-      // use new test user to submit an application
+      // Submit an application to DCM pool with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@dcmPoolAdvertisement").then((poolAdvertisement) => {
@@ -138,7 +150,7 @@ describe("User Information Page", () => {
         });
       });
 
-      // Visit new test users info page with applicant role.
+      // Should fail visiting test users info page with applicant role.
       cy.loginByRole("applicant");
       cy.visit(`/en/admin/users/${testUser.id}`);
       cy.findByRole("heading", {
@@ -147,16 +159,16 @@ describe("User Information Page", () => {
         .should("exist")
         .and("be.visible");
 
-      // Visit new test users info page with pool operator role.
+      // Should pass visiting test users info page with pool operator role.
       loginAndVisitTestUser("pool_operator");
 
-      // Visit new test users info page with request responder role.
+      // Should pass visiting test users info page with request responder role.
       loginAndVisitTestUser("request_responder");
 
-      // Visit new test users info page with admin role.
+      // Should pass visiting test users info page with admin role.
       loginAndVisitTestUser("admin");
 
-      // use new test user to submit an application
+      // Submit an application to newTeam pool with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@newTeamPoolAdvertisement").then((poolAdvertisement) => {
@@ -170,7 +182,7 @@ describe("User Information Page", () => {
         });
       });
 
-      // Visit new test users info page with applicant role.
+      // Should still fail visiting test users info page with applicant role.
       cy.loginByRole("applicant");
       cy.visit(`/en/admin/users/${testUser.id}`);
       cy.findByRole("heading", {
@@ -179,13 +191,13 @@ describe("User Information Page", () => {
         .should("exist")
         .and("be.visible");
 
-      // Visit new test users info page with pool operator role.
+      // Should pass visiting test users info page with pool operator role.
       loginAndVisitTestUser("pool_operator");
 
-      // Visit new test users info page with request responder role.
+      // Should pass visiting test users info page with request responder role.
       loginAndVisitTestUser("request_responder");
 
-      // Visit new test users info page with admin role.
+      // Should pass visiting test users info page with admin role.
       loginAndVisitTestUser("admin");
     });
   });
