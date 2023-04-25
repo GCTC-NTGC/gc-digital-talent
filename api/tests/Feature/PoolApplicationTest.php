@@ -4,6 +4,8 @@ use App\Models\AwardExperience;
 use App\Models\GenericJobTitle;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestion;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Team;
@@ -163,6 +165,7 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
+        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -213,6 +216,7 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
+        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -241,6 +245,7 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_past_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
+        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -482,6 +487,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -559,6 +565,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -628,6 +635,7 @@ class PoolApplicationTest extends TestCase
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
+        ScreeningQuestion::truncate();
 
         // create an experience with no skills, then attach it to the user
         AwardExperience::factory()->create([
@@ -692,6 +700,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -720,6 +729,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -769,10 +779,70 @@ class PoolApplicationTest extends TestCase
             );
     }
 
+    public function testApplicationSubmitScreeningQuestions(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::where('pool_id', $newPool->id)->delete();
+        $screeningQuestion = ScreeningQuestion::factory()->create([
+            'pool_id' => $newPool
+        ]);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+        // Remove any responses created by factory
+        ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
+
+        $submitArgs = [
+            'id' => $newPoolCandidate->id,
+            'sig' => 'SIGNED',
+        ];
+
+        // assert cannot submit with no question
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+                ]]
+            ]);
+
+        // Respond to the question
+        ScreeningQuestionResponse::create([
+            'pool_candidate_id' => $newPoolCandidate->id,
+            'screening_question_id' => $screeningQuestion->id,
+            'answer' => 'answer'
+        ]);
+        // assert cannot submit with no question
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->has(
+                    'data',
+                    fn ($json) =>
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json->has('signature')
+                            ->has("status")
+                            ->has('submittedAt')
+                            ->whereType('submittedAt', 'string')
+                    )
+                )
+            );
+    }
+
     public function testApplicationDeletion(): void
     {
         $newPool = Pool::factory()->create([]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -1033,6 +1103,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
         ]);
         $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::truncate();
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
