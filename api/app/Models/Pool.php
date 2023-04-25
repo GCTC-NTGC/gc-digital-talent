@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
- * @property array $pool_status
  * @property array $advertisement_location
  * @property string $security_clearance
  * @property string $advertisement_language

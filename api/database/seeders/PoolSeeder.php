@@ -33,7 +33,6 @@ class PoolSeeder extends Seeder
                 ],
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'pool_status' => ApiEnums::POOL_STATUS_TAKING_APPLICATIONS,
                 'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
             ],
             [
