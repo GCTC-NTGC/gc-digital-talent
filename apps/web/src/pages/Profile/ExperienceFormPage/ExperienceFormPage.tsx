@@ -152,8 +152,8 @@ export const ExperienceForm = ({
     crumbs = [
       {
         label: intl.formatMessage({
-          defaultMessage: "My Applications",
-          id: "q04FCp",
+          defaultMessage: "My applications",
+          id: "jSYDwZ",
           description: "Link text for breadcrumb to user applications page.",
         }),
         url: paths.applications(userId),
