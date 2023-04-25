@@ -3,7 +3,7 @@ import { defineMessages } from "react-intl";
 const messages = defineMessages({
   saveContinue: {
     defaultMessage: "Save and continue",
-    id: "gk7uJQ",
+    id: "KZk48E",
     description:
       "Button text to save an application step and continue to the next one",
   },
