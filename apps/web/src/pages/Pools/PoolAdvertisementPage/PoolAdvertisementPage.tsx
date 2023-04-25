@@ -202,8 +202,8 @@ export const PoolAdvertisementPoster = ({
   const links = [
     {
       label: intl.formatMessage({
-        defaultMessage: "Browse opportunities",
-        id: "NSuNSA",
+        defaultMessage: "Browse jobs",
+        id: "gC74ro",
         description: "Breadcrumb title for the browse pools page.",
       }),
       url: paths.browsePools(),

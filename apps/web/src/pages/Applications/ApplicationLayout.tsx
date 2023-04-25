@@ -1,14 +1,14 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 
 import {
   TableOfContents,
   Stepper,
   Pending,
   ThrowNotFound,
-  StepType,
 } from "@gc-digital-talent/ui";
+import { empty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -17,149 +17,32 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { ApplicationPageInfo } from "~/types/poolCandidate";
 import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
+import { useGetApplicationQuery } from "~/api/generated";
 import {
-  Applicant,
-  ApplicationStep,
-  Maybe,
-  PoolAdvertisement,
-  useGetApplicationQuery,
-} from "~/api/generated";
+  checkForDisabledPage,
+  deriveSteps,
+  getApplicationPages,
+  getNextNonSubmittedStep,
+} from "~/utils/applicationUtils";
 
 import { ApplicationPageProps } from "./ApplicationApi";
-import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
-import { getPageInfo as profilePageInfo } from "./ApplicationProfilePage/ApplicationProfilePage";
-import { getPageInfo as resumeIntroductionPageInfo } from "./ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage";
-import { getPageInfo as resumeAddPageInfo } from "./ApplicationResumeAddPage/ApplicationResumeAddPage";
-import { getPageInfo as resumeEditPageInfo } from "./ApplicationResumeEditPage/ApplicationResumeEditPage";
-import { getPageInfo as resumePageInfo } from "./ApplicationResumePage/ApplicationResumePage";
-import { getPageInfo as educationPageInfo } from "./ApplicationEducationPage/ApplicationEducationPage";
-import { getPageInfo as skillsIntroductionPageInfo } from "./ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
-import { getPageInfo as skillsPageInfo } from "./ApplicationSkillsPage/ApplicationSkillsPage";
-import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
-import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
-import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
-import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
-
-type PageNavKey =
-  | "welcome"
-  | "profile"
-  | "resume-intro"
-  | "resume-add"
-  | "resume-edit"
-  | "resume"
-  | "education"
-  | "skills-intro"
-  | "skills"
-  | "questions-intro"
-  | "questions"
-  | "review"
-  | "success";
-
-const missingPrerequisites = (
-  prerequisiteSteps: Maybe<Array<ApplicationStep>>,
-  submittedSteps: Maybe<Array<ApplicationStep>>,
-): Maybe<Array<ApplicationStep>> => {
-  return prerequisiteSteps?.filter(
-    (currentPagePrerequisite) =>
-      !submittedSteps?.includes(currentPagePrerequisite),
-  );
-};
-
-const deriveSteps = (
-  pages: Map<PageNavKey, ApplicationPageInfo>,
-  submittedSteps: Maybe<Array<ApplicationStep>>,
-  applicant: Applicant,
-  poolAdvertisement: Maybe<PoolAdvertisement>,
-): Maybe<Array<StepType>> => {
-  const steps = Array.from(pages.values())
-    .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
-    .map((page) => ({
-      label: page.link.label || page.title,
-      href: page.link.url,
-      icon: page.icon,
-      completed:
-        page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted),
-      disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
-        ?.length,
-      error: poolAdvertisement
-        ? page?.hasError?.(applicant, poolAdvertisement)
-        : false,
-    }));
-
-  steps.pop(); // We do not want to show final step in the stepper
-
-  return steps;
-};
-
-// check if the current page should be disabled and figure out where to return the user to
-function checkForDisabledPage(
-  currentPageUrl: string | undefined,
-  pages: Map<PageNavKey, ApplicationPageInfo>,
-  submittedSteps: Maybe<ApplicationStep[]>,
-): { isOnDisabledPage: boolean; urlToReturnTo?: string } {
-  // copied from useCurrentPage, but I need the full ApplicationPageInfo
-  const pagesArray = Array.from(pages.values());
-  const currentPageInfo = pagesArray.find(
-    (page) => page.link.url === currentPageUrl,
-  );
-  const pageMissingPrerequisites = missingPrerequisites(
-    currentPageInfo?.prerequisites,
-    submittedSteps,
-  );
-
-  if (pageMissingPrerequisites && pageMissingPrerequisites.length > 0) {
-    // go back to the first missing page
-    const firstMissingPrerequisite = pageMissingPrerequisites[0];
-    const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
-      return p.stepSubmitted === firstMissingPrerequisite;
-    });
-    return {
-      isOnDisabledPage: true,
-      urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
-    };
-  }
-
-  // yay, nothing missing!
-  return { isOnDisabledPage: false };
-}
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const { experienceId } = useParams();
-
-  const pages = new Map<PageNavKey, ApplicationPageInfo>([
-    ["welcome", welcomePageInfo({ paths, intl, application })],
-    ["profile", profilePageInfo({ paths, intl, application })],
-    ["resume", resumePageInfo({ paths, intl, application })],
-    ["resume-intro", resumeIntroductionPageInfo({ paths, intl, application })],
-    ["resume-add", resumeAddPageInfo({ paths, intl, application })],
-    [
-      "resume-edit",
-      resumeEditPageInfo({
-        paths,
-        intl,
-        application,
-        resourceId: experienceId,
-      }),
-    ],
-    ["education", educationPageInfo({ paths, intl, application })],
-    ["skills", skillsPageInfo({ paths, intl, application })],
-    ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
-    ["questions", questionsPageInfo({ paths, intl, application })],
-    [
-      "questions-intro",
-      questionsIntroductionPageInfo({ paths, intl, application }),
-    ],
-    ["review", reviewPageInfo({ paths, intl, application })],
-    ["success", successPageInfo({ paths, intl, application })],
-  ]);
+  const pages = getApplicationPages({
+    intl,
+    paths,
+    application,
+    experienceId,
+  });
 
   const poolNameHtml = getFullPoolAdvertisementTitleHtml(
     intl,
@@ -191,8 +74,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     {
       url: paths.browsePools(),
       label: intl.formatMessage({
-        defaultMessage: "Browse IT Jobs",
-        id: "l1fsXC",
+        defaultMessage: "Browse jobs",
+        id: "WtX9b3",
         description: "Breadcrumb link text for the browse pools page",
       }),
     },
@@ -213,6 +96,21 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     pages,
     application.submittedSteps,
   );
+
+  const nextStepUrl = getNextNonSubmittedStep(
+    pages,
+    application.submittedSteps,
+  );
+
+  // If we cannot find the current page, redirect to the first step
+  // that has not been submitted yet, or the last step
+  React.useEffect(() => {
+    if (empty(currentPage)) {
+      navigate(nextStepUrl, {
+        replace: true,
+      });
+    }
+  }, [currentPage, navigate, nextStepUrl]);
 
   return (
     <>
