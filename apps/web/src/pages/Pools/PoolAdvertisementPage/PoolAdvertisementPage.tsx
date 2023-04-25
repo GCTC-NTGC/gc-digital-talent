@@ -587,7 +587,7 @@ export const PoolAdvertisementPoster = ({
                 data-h2-align-items="base(center) p-tablet(stretch)"
               >
                 <Card
-                  color="ts-secondary"
+                  color="secondary"
                   style={{ width: "100%" }}
                   title={intl.formatMessage({
                     defaultMessage: "Combination Experience",
@@ -655,7 +655,7 @@ export const PoolAdvertisementPoster = ({
                 </div>
                 <Card
                   style={{ width: "100%" }}
-                  color="ts-secondary"
+                  color="secondary"
                   title={intl.formatMessage({
                     defaultMessage: "2-Year Post-secondary Education",
                     id: "U6IroF",
