@@ -67,7 +67,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   return (
     <Alert.Root type="success" live={false}>
       <Alert.Title>{pageInfo.title}</Alert.Title>
-      <p data-h2-margin-bottom="base(x.5)">
+      <p data-h2-margin="base(x.5, 0)">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -89,8 +89,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             "Description of review process and next steps for the applicant.",
         })}
       </p>
-      <ul data-h2-margin="base(x.5, 0)">
-        <li>
+      <ul data-h2-margin-bottom="base(x1.5)">
+        <li data-h2-margin-bottom="base(x.25)">
           <ExternalLink
             newTab
             href={
@@ -107,7 +107,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             })}
           </ExternalLink>
         </li>
-        <li>
+        <li data-h2-margin-bottom="base(x.25)">
           <Link href={paths.myProfile()}>
             {intl.formatMessage({
               defaultMessage:
@@ -118,7 +118,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             })}
           </Link>
         </li>
-        <li>
+        <li data-h2-margin-bottom="base(x.25)">
           <Link href={`${paths.browsePools()}#ongoingRecruitments`}>
             {intl.formatMessage({
               defaultMessage:
