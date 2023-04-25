@@ -50,7 +50,7 @@ const StepNavigation = ({
   const { setValue, register } = methods;
   const actionProps = register("action");
 
-  const saveAndQuit = () => {
+  const checkDirtySections = () => {
     if (dirtySections.length) {
       const firstDirtySection = document.getElementById(
         `${dirtySections[0]}-section`,
@@ -74,65 +74,70 @@ const StepNavigation = ({
           });
         }, 10);
       }
-    } else {
-      navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+
+      return true;
     }
+
+    return false;
   };
 
   const handleNavigation = (values: ProfileActionFormValues) => {
-    if (values.action === "quit") {
-      saveAndQuit();
-      return true;
-    }
+    const hasDirtySections = checkDirtySections();
 
-    if (isValid) {
-      executeSubmitMutation({
-        id: application.id,
-        application: {
-          insertSubmittedStep: ApplicationStep.ReviewYourProfile,
-        },
-      })
-        .then((res) => {
-          if (res.data) {
-            navigate(nextStepPath);
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
-          );
-        });
-      return true;
-    }
-    toast.error(
-      intl.formatMessage({
-        defaultMessage:
-          "Please complete all required fields before continuing.",
-        id: "G1jegJ",
-        description:
-          "Error message displayed when user attempts to submit incomplete profile",
-      }),
-    );
-    const missingLanguageRequirements = getMissingLanguageRequirements(
-      user as Applicant,
-      application?.poolAdvertisement,
-    );
-    if (missingLanguageRequirements.length > 0) {
-      const requirements = missingLanguageRequirements.map((requirement) => (
-        <li key={requirement.id}>{intl.formatMessage(requirement)}</li>
-      ));
-      toast.error(
-        intl.formatMessage(
-          {
-            defaultMessage:
-              "You are missing the following language requirements: {requirements}",
-            id: "CPHTk9",
-            description:
-              "Error message when a user does not meet a pools language requirements",
+    if (!hasDirtySections) {
+      if (values.action === "quit") {
+        navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+      }
+
+      if (isValid) {
+        executeSubmitMutation({
+          id: application.id,
+          application: {
+            insertSubmittedStep: ApplicationStep.ReviewYourProfile,
           },
-          { requirements },
-        ),
+        })
+          .then((res) => {
+            if (res.data) {
+              navigate(nextStepPath);
+            }
+          })
+          .catch(() => {
+            toast.error(
+              intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
+            );
+          });
+        return true;
+      }
+      toast.error(
+        intl.formatMessage({
+          defaultMessage:
+            "Please complete all required fields before continuing.",
+          id: "G1jegJ",
+          description:
+            "Error message displayed when user attempts to submit incomplete profile",
+        }),
       );
+      const missingLanguageRequirements = getMissingLanguageRequirements(
+        user as Applicant,
+        application?.poolAdvertisement,
+      );
+      if (missingLanguageRequirements.length > 0) {
+        const requirements = missingLanguageRequirements.map((requirement) => (
+          <li key={requirement.id}>{intl.formatMessage(requirement)}</li>
+        ));
+        toast.error(
+          intl.formatMessage(
+            {
+              defaultMessage:
+                "You are missing the following language requirements: {requirements}",
+              id: "CPHTk9",
+              description:
+                "Error message when a user does not meet a pools language requirements",
+            },
+            { requirements },
+          ),
+        );
+      }
     }
     return false;
   };
