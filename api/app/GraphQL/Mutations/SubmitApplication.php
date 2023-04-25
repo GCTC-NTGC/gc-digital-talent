@@ -21,7 +21,7 @@ final class SubmitApplication
     {
         // grab the specific application
         // submit to validator the PoolCandidate model
-        $application = PoolCandidate::find($args['id']);
+        $application = PoolCandidate::with(['screeningQuestionResponses'])->find($args['id']);
         $submitValidator = new SubmitApplicationValidator($application);
         // We haven't saved the signature yet, so manually add it to the array
         $application['signature'] = $args['signature'];
