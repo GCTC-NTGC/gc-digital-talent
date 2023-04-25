@@ -341,9 +341,6 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates")
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  status: PoolStatus
-    @rename(attribute: "pool_status")
-    @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
     @rename(attribute: "advertisement_status")
   stream: PoolStream
@@ -351,11 +348,6 @@ type Pool {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
   screeningQuestions: [ScreeningQuestion] @hasMany
-}
-
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
 }
 
 enum PoolStream {
@@ -1370,7 +1362,6 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
@@ -1398,7 +1389,6 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus @rename(attribute: "pool_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")

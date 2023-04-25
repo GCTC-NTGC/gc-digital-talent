@@ -17,7 +17,6 @@ import {
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
   JobLookingStatus,
-  PoolStatus,
   GovEmployeeType,
   AdvertisementStatus,
   PoolAdvertisementLanguage,
@@ -1335,28 +1334,6 @@ export const getProvinceOrTerritory = (
     provinceOrTerritory,
     provinceOrTerritoryId,
     `Invalid province or territory '${provinceOrTerritoryId}'`,
-  );
-
-export const poolStatus = defineMessages({
-  [PoolStatus.NotTakingApplications]: {
-    defaultMessage: "Not taking applications",
-    id: "/xV8Hg",
-    description: "Pool Status described as not taking applications.",
-  },
-  [PoolStatus.TakingApplications]: {
-    defaultMessage: "Taking applications",
-    id: "CWRRy1",
-    description: "Pool Status described as taking applications.",
-  },
-});
-
-export const getPoolStatus = (
-  poolStatusId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    poolStatus,
-    poolStatusId,
-    `Invalid Pool Status '${poolStatusId}'`,
   );
 
 export const poolStream = defineMessages({

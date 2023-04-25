@@ -42,6 +42,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       url: path,
     },
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
+    introUrl: paths.applicationResumeIntro(application.id),
     stepSubmitted: ApplicationStep.ReviewYourResume,
     hasError: (applicant: Applicant) => {
       const isIncomplete = resumeIsIncomplete(applicant);

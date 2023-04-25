@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import {
   BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
-  PhoneIcon,
-  LightBulbIcon,
+  ClipboardDocumentCheckIcon,
   CheckCircleIcon,
-  CpuChipIcon,
   CloudIcon,
+  CpuChipIcon,
+  LightBulbIcon,
+  PhoneIcon,
 } from "@heroicons/react/24/outline";
 
 import {
@@ -780,7 +781,7 @@ export const PoolAdvertisementPoster = ({
                   },
                 )}
               </Text>
-              <IconTitle icon={PhoneIcon}>
+              <IconTitle icon={ClipboardDocumentCheckIcon}>
                 {intl.formatMessage({
                   defaultMessage: "Hiring Policies",
                   id: "isfAkZ",
