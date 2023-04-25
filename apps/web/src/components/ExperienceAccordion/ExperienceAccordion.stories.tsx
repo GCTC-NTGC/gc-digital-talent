@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react";
 import { Accordion } from "@gc-digital-talent/ui";
 import { experienceGenerators } from "@gc-digital-talent/fake-data";
 
-import { Applicant } from "../../api/generated";
+import { Applicant } from "~/api/generated";
 
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
@@ -54,7 +54,6 @@ export const AccordionWork = AccordionTemplate.bind({});
 export const AccordionWorkWithEdit = AccordionTemplate.bind({});
 export const AccordionUnknown = AccordionTemplate.bind({});
 export const AccordionUnknownWithEdit = AccordionTemplate.bind({});
-export const CustomTrigger = CustomTriggerTemplate.bind({});
 
 AccordionAward.args = {
   experience: experienceGenerators.awardExperiences()[0],
@@ -103,10 +102,6 @@ AccordionUnknown.args = {
   },
 };
 AccordionUnknownWithEdit.args = {
-  ...AccordionUnknown.args,
-  editPaths,
-};
-CustomTrigger.args = {
   ...AccordionUnknown.args,
   editPaths,
 };

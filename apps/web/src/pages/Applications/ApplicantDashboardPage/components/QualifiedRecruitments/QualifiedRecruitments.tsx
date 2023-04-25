@@ -7,6 +7,7 @@ import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+
 import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
 
 interface AnimatedContentProps

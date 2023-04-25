@@ -161,7 +161,17 @@ const Accordion = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#item)
    */
   Item,
+  /**
+   * @name Header
+   * @desc Wraps an Accordion.Trigger. Use the asChild prop to update it to the appropriate heading level for your page.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#header)
+   */
   Header,
+  /**
+   * @name Trigger
+   * @desc Toggles the collapsed state of its associated item. It should be nested inside of an Accordion.Header.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#trigger)
+   */
   Trigger,
   /**
    * @name Content
