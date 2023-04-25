@@ -165,7 +165,6 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
-        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -216,7 +215,6 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_future_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
-        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -245,7 +243,6 @@ class PoolApplicationTest extends TestCase
             'closing_date' => config('constants.far_past_date'),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
-        ScreeningQuestion::truncate();
 
         $variables = [
             'userId' => $this->applicantUser->id,
@@ -487,7 +484,6 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -565,7 +561,6 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -635,7 +630,6 @@ class PoolApplicationTest extends TestCase
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
-        ScreeningQuestion::truncate();
 
         // create an experience with no skills, then attach it to the user
         AwardExperience::factory()->create([
@@ -700,7 +694,6 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -729,7 +722,6 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -842,7 +834,6 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -1103,7 +1094,6 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::truncate();
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
