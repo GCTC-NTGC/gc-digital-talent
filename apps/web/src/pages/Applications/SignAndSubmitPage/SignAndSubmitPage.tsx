@@ -336,36 +336,29 @@ export const SignAndSubmitForm = ({
         }}
         subtitle={jobTitle}
       >
-        <TableOfContents.Wrapper>
-          <TableOfContents.Navigation>
-            {tocNavItems.map((item) => (
-              <TableOfContents.AnchorLink key={item.id} id={item.id}>
-                {item.title}
-              </TableOfContents.AnchorLink>
-            ))}
-          </TableOfContents.Navigation>
-          <TableOfContents.Content>
-            {tocNavItems.map((item) => (
-              <TableOfContents.Section key={item.id} id={item.id}>
-                <div data-h2-padding="base(x2, 0, x1, 0)">
-                  <div data-h2-flex-grid="base(center, x2, x1)">
-                    <div
-                      data-h2-flex-item="base(1of1) p-tablet(content)"
-                      data-h2-text-align="base(center) p-tablet(right)"
-                      style={{ marginTop: 0 }}
-                    >
-                      <TableOfContents.Heading as="h3" icon={item.icon}>
-                        {item.title}
-                      </TableOfContents.Heading>
-                    </div>
+        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+          <TableOfContents.Wrapper>
+            <TableOfContents.Navigation>
+              {tocNavItems.map((item) => (
+                <TableOfContents.AnchorLink key={item.id} id={item.id}>
+                  {item.title}
+                </TableOfContents.AnchorLink>
+              ))}
+            </TableOfContents.Navigation>
+            <TableOfContents.Content>
+              {tocNavItems.map((item) => (
+                <TableOfContents.Section key={item.id} id={item.id}>
+                  <div data-h2-padding="base(x2, 0, x1, 0)">
+                    <TableOfContents.Heading as="h3" icon={item.icon}>
+                      {item.title}
+                    </TableOfContents.Heading>
+                    {item.component}
                   </div>
-                </div>
-
-                {item.component}
-              </TableOfContents.Section>
-            ))}
-          </TableOfContents.Content>
-        </TableOfContents.Wrapper>
+                </TableOfContents.Section>
+              ))}
+            </TableOfContents.Content>
+          </TableOfContents.Wrapper>
+        </div>
       </ApplicationPageWrapper>
     </>
   );
