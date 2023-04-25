@@ -818,7 +818,7 @@ class PoolApplicationTest extends TestCase
             'screening_question_id' => $screeningQuestion->id,
             'answer' => 'answer'
         ]);
-        // assert cannot submit with no question
+        // assert successful submission after responding to question
         $this->actingAs($this->applicantUser, "api")
             ->graphQL($this->submitMutationDocument,  $submitArgs)
             ->assertJson(
