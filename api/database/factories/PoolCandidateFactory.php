@@ -107,7 +107,7 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
+                'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
                 'submitted_steps' => ApiEnums::applicationSteps(),
             ];
         });
