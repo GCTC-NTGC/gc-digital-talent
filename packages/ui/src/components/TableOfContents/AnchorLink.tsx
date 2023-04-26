@@ -14,7 +14,12 @@ const AnchorLink = ({ id, children }: AnchorLinkProps) => {
 
   return (
     <li data-h2-margin="base(0, 0, x.5, 0)">
-      <ScrollToLink to={id} onScrollTo={handleScrollTo}>
+      <ScrollToLink
+        to={id}
+        data-h2-color="base(black) base:hover(primary)"
+        data-h2-text-decoration="base(underline) base:hover(none)"
+        onScrollTo={handleScrollTo}
+      >
         {children}
       </ScrollToLink>
     </li>
