@@ -1,8 +1,8 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import { AcademicCapIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { faker } from "@faker-js/faker";
 
-import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
 import Link from "../Link";
@@ -45,9 +45,9 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="two">
-        <Accordion.Header>
-          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
-        </Accordion.Header>
+        <StandardHeader Icon={Cog8ToothIcon} subtitle="Subtitle">
+          Accordion Two
+        </StandardHeader>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">

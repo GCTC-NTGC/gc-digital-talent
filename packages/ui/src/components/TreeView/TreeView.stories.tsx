@@ -6,6 +6,7 @@ import Button from "../Button";
 import Accordion from "../Accordion";
 import Card from "../Card";
 import Alert from "../Alert";
+import { StandardHeader } from "../Accordion/StandardHeader";
 
 export default {
   component: TreeView.Root,
@@ -28,7 +29,7 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
       <TreeView.Item>
         <Accordion.Root type="single" collapsible data-h2-margin="base(0, 0)">
           <Accordion.Item value="one">
-            <Accordion.Trigger>Accordion Title</Accordion.Trigger>
+            <StandardHeader>Accordion Title</StandardHeader>
             <Accordion.Content>
               <p>{faker.lorem.sentences(5)}</p>
             </Accordion.Content>
