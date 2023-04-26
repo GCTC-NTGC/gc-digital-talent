@@ -26,14 +26,6 @@ const AccordionTemplate: Story<AccordionProps> = (args) => {
   );
 };
 
-const CustomTriggerTemplate: Story<AccordionProps> = (args) => {
-  return (
-    <Accordion.Root type="single" collapsible>
-      <ExperienceAccordion {...args} />
-    </Accordion.Root>
-  );
-};
-
 const editPaths = {
   awardUrl: () => "#",
   communityUrl: () => "#",

@@ -95,11 +95,11 @@ const TemplateWithCustomHeader: ComponentStory<typeof Accordion.Root> = ({
                   className="Accordion__Subtitle"
                   data-h2-display="base(block)"
                   data-h2-font-size="base(copy)"
-                  data-h2-margin="base(x.25, 0, 0, 0)"
+                  data-h2-margin="base(x.25 0 0 0)"
                 >
                   <span data-h2-color="base(primary)">Example</span>
                   <span
-                    data-h2-margin="base(0,x.5)"
+                    data-h2-margin="base(0 x.5)"
                     data-h2-color="base(gray.lighter)"
                   >
                     |
