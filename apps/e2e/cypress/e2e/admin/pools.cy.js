@@ -78,9 +78,8 @@ describe("Pools", () => {
 
     cy.wait("@gqlgetMePoolsQuery");
 
-    cy.findByRole("paragraph", {
-      name: /Oh no...\[GraphQL\] This action is unauthorized./,
-    }).should("not.exist");
+    cy.findByRole("heading", { name: /pools/i }).should("exist");
+    cy.findByRole("table").should("exist");
   });
 
   it("Should show all pools if user has platform admin role", () => {
@@ -88,9 +87,8 @@ describe("Pools", () => {
 
     cy.wait("@gqlallPoolsQuery");
 
-    cy.findByRole("paragraph", {
-      name: /Oh no...\[GraphQL\] This action is unauthorized./,
-    }).should("not.exist");
+    cy.findByRole("heading", { name: /pools/i }).should("exist");
+    cy.findByRole("table").should("exist");
   });
 
   it("should create a new pool", () => {
