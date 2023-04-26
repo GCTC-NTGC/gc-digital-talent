@@ -94,7 +94,7 @@ input ApplicantFilterInput {
   qualifiedStreams: [PoolStream]
 }
 
-enum ApplicationCriteria {
+enum ApplicationMinimumExperience {
   APPLIED_WORK_OPTION
   EDUCATION_OPTION
 }
@@ -885,7 +885,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
-  minimumCriteria: ApplicationCriteria
+  minimumCriteria: ApplicationMinimumExperience
   awardExperiencesCriteria: [AwardExperience]
   communityExperiencesCriteria: [CommunityExperience]
   educationExperiencesCriteria: [EducationExperience]
@@ -1345,7 +1345,7 @@ scalar UUID
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
-  minimumCriteria: ApplicationCriteria
+  minimumCriteria: ApplicationMinimumExperience
   awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   educationExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany

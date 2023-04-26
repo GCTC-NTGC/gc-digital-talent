@@ -447,7 +447,7 @@ enum ApplicationStep {
   REVIEW_AND_SUBMIT
 }
 
-enum ApplicationCriteria {
+enum ApplicationMinimumExperience {
   APPLIED_WORK_OPTION
   EDUCATION_OPTION
 }
@@ -483,7 +483,8 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
-  minimumCriteria: ApplicationCriteria @rename(attribute: "minimum_criteria")
+  minimumCriteria: ApplicationMinimumExperience
+    @rename(attribute: "minimum_criteria")
 
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: [AwardExperience] @belongsToMany
@@ -1705,7 +1706,8 @@ input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
-  minimumCriteria: ApplicationCriteria @rename(attribute: "minimum_criteria")
+  minimumCriteria: ApplicationMinimumExperience
+    @rename(attribute: "minimum_criteria")
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
