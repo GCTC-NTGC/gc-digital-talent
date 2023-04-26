@@ -978,14 +978,12 @@ class ApplicantTest extends TestCase
         ]);
         PoolCandidate::factory()->count(5)->availableInSearch()->create([
             'pool_id' => $pool1,
-            'suspended_at' => null,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
         PoolCandidate::factory()->count(4)->suspended()->create([
             'pool_id' => $pool1,
-            'suspended_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
