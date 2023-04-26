@@ -444,8 +444,8 @@ export const GovernmentInfoFormFields = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   nullSelection={intl.formatMessage({
-                    defaultMessage: "Choose Level",
-                    id: "e/ez/m",
+                    defaultMessage: "Select a level",
+                    id: "/ImWz4",
                     description: "Null selection for form.",
                   })}
                   options={levelOptions}
