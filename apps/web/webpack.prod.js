@@ -7,6 +7,7 @@ module.exports = merge(base, {
   devtool: "source-map", // Recommended choice for production builds with high quality SourceMaps.
   performance: {
     maxAssetSize: 500000,
+    maxEntrypointSize: 500000,
   },
   plugins: [
     // compress files with gzip
