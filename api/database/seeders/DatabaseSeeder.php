@@ -219,6 +219,8 @@ class DatabaseSeeder extends Seeder
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();
+        Pool::truncate();
+        Team::truncate();
     }
 
     private function seedPoolCandidate(User $user, Pool $pool)
