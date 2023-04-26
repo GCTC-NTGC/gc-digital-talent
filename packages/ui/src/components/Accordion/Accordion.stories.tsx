@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
 import Link from "../Link";
+import Separator from "../Separator";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -108,7 +109,19 @@ const TemplateWithCustomHeader: ComponentStory<typeof Accordion.Root> = ({
               </div>
             </div>
           </Accordion.Trigger>
-          <div>
+          <Separator
+            orientation="vertical"
+            decorative
+            data-h2-background-color="base(gray.50)"
+            data-h2-margin="base(x1, 0)"
+            data-h2-height="base(unset)"
+          />
+          <div
+            data-h2-margin="base(x1)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-justify-content="base(center)"
+          >
             <Link
               href="/"
               data-h2-font-size="base(h6, 1)"

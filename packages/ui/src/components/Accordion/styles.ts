@@ -17,7 +17,6 @@ const cardStyles: AccordionStyles = {
     base:selectors[>.Accordion__Item  > .Accordion__Content > .Accordion__Separator](-x.25 0 x.5 0)
   `,
   "data-h2-padding": `
-      base:selectors[>.Accordion__Item > .Accordion__Header](x1 x2 x1 x1)
       base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3)
   `,
   "data-h2-radius":
