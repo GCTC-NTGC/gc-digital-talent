@@ -4,11 +4,11 @@ const cardStyles: AccordionStyles = {
   "data-h2-background-color": "base:selectors[>.Accordion__Item](foreground)",
   "data-h2-color":
     "base:selectors[>.Accordion__Item .Accordion__Separator](gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
-  "data-h2-border-left": `
-  base:selectors[>.Accordion__Item > .Accordion__Header](x.5 solid secondary)
-  base:selectors[>.Accordion__Item > .Accordion__Content](x.5 solid secondary)
-  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Header](x.5 solid primary)
-  base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Content](x.5 solid primary)
+  "data-h2-box-shadow": `
+    base:selectors[>.Accordion__Item > .Accordion__Header](x.5 0 0 0 secondary inset)
+    base:selectors[>.Accordion__Item > .Accordion__Content](x.5 0 0 0 secondary inset)
+    base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Header](x.5 0 0 0 primary inset)
+    base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Content](x.5 0 0 0 primary inset)
   `,
   "data-h2-height":
     "base:selectors[>.Accordion__Item .Accordion__Separator](1px)",
