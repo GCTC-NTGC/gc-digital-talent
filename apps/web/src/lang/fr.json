@@ -1814,7 +1814,7 @@
     "description": "Label displayed on the applicant profile menu item."
   },
   "ioghLh": {
-    "defaultMessage": "Mes applications",
+    "defaultMessage": "Mes candidatures",
     "description": "Label displayed on the users pool applications menu item."
   },
   "7GrHDl": {
@@ -1945,7 +1945,7 @@
     "defaultMessage": "Les cadres dans le gouvernement numérique",
     "description": "Vers des emplois de cadres dans le gouvernement"
   },
-  "Boze7x": {
+  "k8+BDV": {
     "defaultMessage": "Mes candidatures",
     "description": "Title for page that displays current users applications."
   },
@@ -2137,9 +2137,9 @@
     "defaultMessage": "Mes candidatures",
     "description": "Breadcrumb for sign and submit page."
   },
-  "mq4G8h": {
+  "bdDvMZ": {
     "defaultMessage": "Mes candidatures",
-    "description": "'My Applications' breadcrumb from applicant profile wrapper."
+    "description": "My applications breadcrumb from applicant profile wrapper."
   },
   "nEMeaQ": {
     "defaultMessage": "Recrutement en cours",
@@ -2157,7 +2157,7 @@
     "defaultMessage": "Étape 2",
     "description": "Breadcrumb for sign and submit page."
   },
-  "q04FCp": {
+  "jSYDwZ": {
     "defaultMessage": "Mes candidatures",
     "description": "Link text for breadcrumb to user applications page."
   },
