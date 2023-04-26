@@ -665,8 +665,8 @@
     "defaultMessage": "Projet/produit",
     "description": "Label displayed on Community Experience form for project input"
   },
-  "jmUyRm": {
-    "defaultMessage": "Choisir un",
+  "gIXZ1i": {
+    "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select education type in the education form."
   },
   "491LrZ": {
@@ -761,8 +761,8 @@
     "defaultMessage": "1. Détails des études",
     "description": "Title for Education Details Form"
   },
-  "C13NNv": {
-    "defaultMessage": "Choisir un",
+  "KWLDYe": {
+    "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input in the awarded to form."
   },
   "YJdsMY": {
@@ -821,16 +821,16 @@
     "defaultMessage": "Titre du prix",
     "description": "Label displayed on award form for award title input"
   },
-  "+QpeDR": {
-    "defaultMessage": "Choisir un",
+  "xyHtkt": {
+    "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input in the award scope form."
   },
   "wASF5V": {
     "defaultMessage": "Je suis actuellement actif dans ce rôle.",
     "description": "Label displayed on Community Experience form for current role input"
   },
-  "UouZPP": {
-    "defaultMessage": "Choisir un",
+  "0iSfwq": {
+    "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select status in the education form."
   },
   "xJulQ4": {
