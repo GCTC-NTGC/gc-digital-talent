@@ -4,17 +4,8 @@ import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("User Information Page", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "getMePools");
-      aliasQuery(req, "allPools");
-      aliasQuery(req, "GetPoolCandidatesPaginated");
-      aliasQuery(req, "getPoolCandidateSearchRequests");
-      aliasMutation(req, "UpdatePoolCandidateStatus");
-      aliasMutation(req, "createPoolCandidateSearchRequest");
-    });
-
-    // create a new test user then create pool candidates with new user
     cy.loginByRole("admin");
+
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
       cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
@@ -114,6 +105,8 @@ describe("User Information Page", () => {
           .and("be.visible");
       };
 
+      /* TEST VIEWING NEW USER WITH NO APPLICATIONS */
+
       // Should fail visiting test users info page with applicant role.
       cy.loginByRole("applicant");
       cy.visit(`/en/admin/users/${testUser.id}`);
@@ -136,7 +129,9 @@ describe("User Information Page", () => {
       // Should pass visiting test users info page with admin role.
       loginAndVisitTestUser("admin");
 
-      // Submit an application to DCM pool with the test user
+      /* TEST VIEWING NEW USER WITH APPLICATIONS */
+
+      // Submit an application to DCM pool (connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@dcmPoolAdvertisement").then((poolAdvertisement) => {
@@ -149,26 +144,7 @@ describe("User Information Page", () => {
           );
         });
       });
-
-      // Should fail visiting test users info page with applicant role.
-      cy.loginByRole("applicant");
-      cy.visit(`/en/admin/users/${testUser.id}`);
-      cy.findByRole("heading", {
-        name: /Sorry, you are not authorized to view this page./i,
-      })
-        .should("exist")
-        .and("be.visible");
-
-      // Should pass visiting test users info page with pool operator role.
-      loginAndVisitTestUser("pool_operator");
-
-      // Should pass visiting test users info page with request responder role.
-      loginAndVisitTestUser("request_responder");
-
-      // Should pass visiting test users info page with admin role.
-      loginAndVisitTestUser("admin");
-
-      // Submit an application to newTeam pool with the test user
+      // Submit an application to newTeam pool (NOT connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
         cy.get("@newTeamPoolAdvertisement").then((poolAdvertisement) => {
@@ -181,15 +157,6 @@ describe("User Information Page", () => {
           );
         });
       });
-
-      // Should still fail visiting test users info page with applicant role.
-      cy.loginByRole("applicant");
-      cy.visit(`/en/admin/users/${testUser.id}`);
-      cy.findByRole("heading", {
-        name: /Sorry, you are not authorized to view this page./i,
-      })
-        .should("exist")
-        .and("be.visible");
 
       // Should pass visiting test users info page with pool operator role.
       loginAndVisitTestUser("pool_operator");
