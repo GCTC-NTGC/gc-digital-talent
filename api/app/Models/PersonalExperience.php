@@ -54,7 +54,7 @@ class PersonalExperience extends Model
 
     public function poolCandidates(): MorphToMany
     {
-        return $this->morphToMany(PoolCandidate::class, 'experience', 'pool_candidate_experience')
+        return $this->morphToMany(PoolCandidate::class, 'experience', 'pool_candidate_minimum_criteria_experience')
             ->withTimestamps();
     }
 }
