@@ -20,7 +20,7 @@ import {
   objectsToSortedOptions,
   FieldLabels,
 } from "@gc-digital-talent/forms";
-import { empty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ExternalLink } from "@gc-digital-talent/ui";
 
@@ -308,7 +308,7 @@ export const GovernmentInfoFormFields = ({
       resetDirtyField("govEmployeeType");
       if (!isPlaced) {
         resetDirtyField("currentClassificationGroup");
-        if (groupSelection === "Choose Department") {
+        if (empty(groupSelection)) {
           resetDirtyField("currentClassificationLevel");
         }
       }
@@ -434,7 +434,7 @@ export const GovernmentInfoFormFields = ({
                 options={groupOptions}
               />
             </div>
-            {groupSelection !== "Choose Department" && (
+            {notEmpty(groupSelection) && (
               <div style={{ width: "100%" }}>
                 <Select
                   id="currentClassificationLevel"
