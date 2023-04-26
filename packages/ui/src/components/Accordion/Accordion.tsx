@@ -80,7 +80,6 @@ const StyledTrigger = React.forwardRef<
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
     data-h2-gap="base(0, x1)"
-    data-h2-padding="base(x1)"
     data-h2-outline="base(none)"
     data-h2-justify-content="base(flex-start)"
     data-h2-text-align="base(left)"

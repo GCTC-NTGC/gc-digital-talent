@@ -2,10 +2,12 @@ import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
+import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
 import Link from "../Link";
 import Separator from "../Separator";
+import { StandardHeader } from "./StandardHeader";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -37,9 +39,9 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <Accordion.Header headingAs="h1">
-          <Accordion.Trigger>Accordion One</Accordion.Trigger>
-        </Accordion.Header>
+        <StandardHeader Icon={AcademicCapIcon} subtitle="Subtitle">
+          Accordion One
+        </StandardHeader>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="two">

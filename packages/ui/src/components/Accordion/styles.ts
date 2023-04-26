@@ -14,10 +14,11 @@ const cardStyles: AccordionStyles = {
     "base:selectors[>.Accordion__Item .Accordion__Separator](1px)",
   "data-h2-margin": `
     base:selectors[>.Accordion__Item](x.5, 0)
-    base:selectors[>.Accordion__Item  > .Accordion__Content > .Accordion__Separator](-x.25 0 x.5 0)
+    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](-x.25 0 x.5 0)
   `,
   "data-h2-padding": `
       base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3)
+      base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x1 x1.5)
   `,
   "data-h2-radius":
     "base:selectors[>.Accordion__Item](0px, rounded, rounded, 0px)",
@@ -27,14 +28,14 @@ const cardStyles: AccordionStyles = {
 const simpleStyles: AccordionStyles = {
   "data-h2-color": `
     base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](secondary.dark)
-    base:selectors[>.Accordion__Item  > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](secondary.dark)
+    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](secondary.dark)
     base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](secondary.dark)
   `,
   "data-h2-display":
     "base:selectors[>.Accordion__Item .Accordion__Separator](none)",
   "data-h2-padding": `
-    base:selectors[>.Accordion__Item](x.5 x2 0 x1)
-    base:selectors[>.Accordion__Item  > .Accordion__Header](0 0 x.5 0)
+    base:selectors[>.Accordion__Item > .Accordion__Header](0 0 x.5 0)
+    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x.5 x1)
     base:selectors[>.Accordion__Item > .Accordion__Content](0 0 x1 x2)
   `,
 };
