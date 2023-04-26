@@ -5,6 +5,9 @@ const CompressionPlugin = require("compression-webpack-plugin");
 module.exports = merge(base, {
   mode: "production",
   devtool: "source-map", // Recommended choice for production builds with high quality SourceMaps.
+  performance: {
+    maxAssetSize: 500000,
+  },
   plugins: [
     // compress files with gzip
     new CompressionPlugin({
