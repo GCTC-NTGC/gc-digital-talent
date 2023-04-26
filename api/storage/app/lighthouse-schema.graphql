@@ -815,6 +815,7 @@ type Pool {
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  updatedDate: DateTime
   screeningQuestions: [ScreeningQuestion]
 }
 
