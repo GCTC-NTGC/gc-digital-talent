@@ -1094,7 +1094,7 @@
     "description": "Button text to close employment equity form."
   },
   "H1wLfA": {
-    "defaultMessage": "Sélectionner une province ou un territoire",
+    "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
   },
   "MTwQ3S": {
@@ -1814,7 +1814,7 @@
     "description": "Label displayed on the applicant profile menu item."
   },
   "ioghLh": {
-    "defaultMessage": "Mes applications",
+    "defaultMessage": "Mes candidatures",
     "description": "Label displayed on the users pool applications menu item."
   },
   "7GrHDl": {
@@ -1945,7 +1945,7 @@
     "defaultMessage": "Les cadres dans le gouvernement numérique",
     "description": "Vers des emplois de cadres dans le gouvernement"
   },
-  "Boze7x": {
+  "k8+BDV": {
     "defaultMessage": "Mes candidatures",
     "description": "Title for page that displays current users applications."
   },
@@ -2137,9 +2137,9 @@
     "defaultMessage": "Mes candidatures",
     "description": "Breadcrumb for sign and submit page."
   },
-  "mq4G8h": {
+  "bdDvMZ": {
     "defaultMessage": "Mes candidatures",
-    "description": "'My Applications' breadcrumb from applicant profile wrapper."
+    "description": "My applications breadcrumb from applicant profile wrapper."
   },
   "nEMeaQ": {
     "defaultMessage": "Recrutement en cours",
@@ -2157,7 +2157,7 @@
     "defaultMessage": "Étape 2",
     "description": "Breadcrumb for sign and submit page."
   },
-  "q04FCp": {
+  "jSYDwZ": {
     "defaultMessage": "Mes candidatures",
     "description": "Link text for breadcrumb to user applications page."
   },
@@ -3026,7 +3026,7 @@
     "description": "Title displayed on the single search request table classifications column."
   },
   "Le4EQq": {
-    "defaultMessage": "Sélectionner un niveau",
+    "defaultMessage": "Sélectionnez un niveau",
     "description": "Placeholder displayed on the classification form level field."
   },
   "QOvS1b": {
@@ -3305,7 +3305,7 @@
     "description": "Label displayed on the Login menu item."
   },
   "GhszAa": {
-    "defaultMessage": "Sélectionner une compétence ou plus",
+    "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
   },
   "953EAy": {
@@ -3313,7 +3313,7 @@
     "description": "Message displayed for skill not found."
   },
   "wORNl0": {
-    "defaultMessage": " Sélectionner une famille ou plus",
+    "defaultMessage": "Sélectionnez une famille ou plus",
     "description": "Placeholder displayed on the skill form families field."
   },
   "9yGJ6k": {
@@ -3325,7 +3325,7 @@
     "description": "Title displayed for the skill table Name column."
   },
   "SQqD4j": {
-    "defaultMessage": " Sélectionner zéro rôle ou plus",
+    "defaultMessage": "Sélectionnez zéro rôle ou plus",
     "description": "Placeholder displayed on the user form roles field."
   },
   "Dbqtm6": {
@@ -3425,7 +3425,7 @@
     "description": "Message displayed to user after skill is created successfully."
   },
   "GNhFh2": {
-    "defaultMessage": "Sélectionner une famille de compétences ou plus",
+    "defaultMessage": "Sélectionnez une famille de compétences ou plus",
     "description": "Placeholder displayed on the skill form skill families field."
   },
   "d8CQJr": {
@@ -3493,7 +3493,7 @@
     "description": "Message displayed to user after skill family fails to get created."
   },
   "+hRCVl": {
-    "defaultMessage": "Sélectionner une catégorie",
+    "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
   },
   "xx8yaE": {
@@ -3701,7 +3701,7 @@
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
   },
   "Rm4SuQ": {
-    "defaultMessage": "Sélectionner un bassin",
+    "defaultMessage": "Sélectionnez un bassin",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
   },
   "ZDmkKD": {
@@ -3836,7 +3836,7 @@
     "description": "Title of the Role and salary expectations section"
   },
   "Bkxf6p": {
-    "defaultMessage": "Sélectionner un statut de bassin",
+    "defaultMessage": "Sélectionnez un statut de bassin",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
   },
   "uutH18": {
@@ -3971,8 +3971,8 @@
     "defaultMessage": "Téléphone",
     "description": "Label for user table search dropdown (phone)."
   },
-  "DDR6Ax": {
-    "defaultMessage": "Sélectionner/Désélectionner tout",
+  "PxGgR1": {
+    "defaultMessage": "tout",
     "description": "Header label for the row-selection column in tables."
   },
   "E9S4B8": {
@@ -4587,7 +4587,7 @@
     "description": "Message displayed to user after pool is published"
   },
   "P9SZBZ": {
-    "defaultMessage": "Sélectionner les filtres",
+    "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
   },
   "Q/clLF": {
@@ -6567,7 +6567,7 @@
     "description": "Heading for updating a users individual roles"
   },
   "Cn73yN": {
-    "defaultMessage": "Sélectionner les rôles",
+    "defaultMessage": "Sélectionnez les rôles",
     "description": "Placeholder text for role selection input"
   },
   "fyidgo": {
@@ -7417,7 +7417,7 @@
     "description": "Help text for the experience tasks and responsibilities field"
   },
   "5PUycY": {
-    "defaultMessage": "Sélectionner un type",
+    "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
   },
   "CB2LXg": {
