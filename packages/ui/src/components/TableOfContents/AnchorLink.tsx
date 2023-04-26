@@ -7,7 +7,13 @@ export interface AnchorLinkProps extends HTMLAttributes<HTMLAnchorElement> {
 
 const AnchorLink = ({ id, children }: AnchorLinkProps) => (
   <li data-h2-margin="base(0, 0, x.5, 0)">
-    <ScrollToLink to={id}>{children}</ScrollToLink>
+    <ScrollToLink
+      data-h2-color="base(black) base:hover(primary)"
+      data-h2-text-decoration="base(underline) base:hover(none)"
+      to={id}
+    >
+      {children}
+    </ScrollToLink>
   </li>
 );
 
