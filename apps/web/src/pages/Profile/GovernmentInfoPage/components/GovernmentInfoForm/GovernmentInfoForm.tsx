@@ -424,8 +424,8 @@ export const GovernmentInfoFormFields = ({
                 label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Group",
-                  id: "u4v1RB",
+                  defaultMessage: "Select a group",
+                  id: "9Upe1V",
                   description: "Null selection for form.",
                 })}
                 rules={{

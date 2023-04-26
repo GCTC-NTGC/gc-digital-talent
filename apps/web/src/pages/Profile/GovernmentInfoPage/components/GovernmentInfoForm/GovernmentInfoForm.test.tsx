@@ -107,7 +107,7 @@ describe("GovernmentInfoForm", () => {
 
     expect(
       screen.getByRole("option", {
-        name: /choose group/i,
+        name: /Select a group/i,
       }),
     ).toBeInTheDocument();
     expect(
