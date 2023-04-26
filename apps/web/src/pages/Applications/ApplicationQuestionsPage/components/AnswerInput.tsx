@@ -23,13 +23,27 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const intl = useIntl();
   const inputName = `answers.${index}.answer`;
   const currentValue = useWatch({ name: inputName });
+  const questionId = `answers.${index}.question`;
 
   return (
     <>
+      <p
+        data-h2-margin="base(x1, 0)"
+        data-h2-font-weight="base(700)"
+        id={questionId}
+      >
+        {getLocalizedName(question.question, intl)}
+      </p>
       <TextArea
         id={`answers.${index}.answer`}
         name={`answers.${index}.answer`}
-        label={getLocalizedName(question.question, intl)}
+        labelledBy={questionId}
+        label={intl.formatMessage(
+          { defaultMessage: "Answer to question {number}", id: "3BU43Q" },
+          {
+            number: index + 1,
+          },
+        )}
         rules={{
           required: intl.formatMessage(errorMessages.required),
           validate: {
