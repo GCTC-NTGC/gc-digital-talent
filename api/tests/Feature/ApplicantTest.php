@@ -978,12 +978,14 @@ class ApplicantTest extends TestCase
         ]);
         PoolCandidate::factory()->count(5)->availableInSearch()->create([
             'pool_id' => $pool1,
+            'suspended_at' => null,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
         ]);
         PoolCandidate::factory()->count(4)->suspended()->create([
             'pool_id' => $pool1,
+            'suspended_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
@@ -1044,16 +1046,18 @@ class ApplicantTest extends TestCase
         // Assert candidate one returns 10
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateOne->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateOne->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 10,
@@ -1064,16 +1068,18 @@ class ApplicantTest extends TestCase
         // Assert candidate two returns 20
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateTwo->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateTwo->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 20,
@@ -1084,16 +1090,18 @@ class ApplicantTest extends TestCase
         // Assert candidate three returns 30
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateThree->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateThree->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 30,
@@ -1104,16 +1112,18 @@ class ApplicantTest extends TestCase
         // Assert candidate four returns 40
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateFour->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateFour->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 40,
@@ -1463,8 +1473,8 @@ class ApplicantTest extends TestCase
         // Assert the order is correct
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1477,7 +1487,8 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            ')->assertJson([
+            '
+            )->assertJson([
                 "data" => [
                     "poolCandidatesPaginated" => [
                         "data" => [
@@ -1493,8 +1504,8 @@ class ApplicantTest extends TestCase
         // Assert that DRAFT is not retrieved
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1507,7 +1518,8 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
+            '
+            )->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
 
     public function testNullFilterEqualsUndefinedPoolCandidate()
