@@ -4,13 +4,13 @@ import Link from "@gc-digital-talent/ui/src/components/Link";
 export type TextColor = "default" | "error" | "success";
 const textColorMap: Record<TextColor, Record<string, string>> = {
   default: {
-    "data-h2-color": "base:all(black)",
+    "data-h2-color": "base(black) base:hover(primary)",
   },
   error: {
-    "data-h2-color": "base:all(error.darker)",
+    "data-h2-color": "base(error.darker) base:hover(error.darkest)",
   },
   success: {
-    "data-h2-color": "base:all(success)",
+    "data-h2-color": "base(success) base:hover(success.darker)",
   },
 };
 
