@@ -36,7 +36,7 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <Accordion.Header>
+        <Accordion.Header headingAs="h1">
           <Accordion.Trigger>Accordion One</Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
@@ -48,7 +48,7 @@ const Template: ComponentStory<typeof Accordion.Root> = ({
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Header>
+        <Accordion.Header headingAs="h3">
           <Accordion.Trigger>Accordion Three</Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
