@@ -33,7 +33,7 @@ class PoolCandidateResource extends JsonResource
             'expiryDate' => date('Y-m-d', strtotime($this->expiry_date)),
             'pool' => (new PoolResource($this->pool)),
             'minimumCriteria' => $this->minimum_criteria,
-            'experiencesCriteria' => $collection,
+            'minimumCriteriaExperiences' => $collection,
         ];
     }
 }

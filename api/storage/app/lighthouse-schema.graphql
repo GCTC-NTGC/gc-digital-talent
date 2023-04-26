@@ -891,7 +891,7 @@ type PoolCandidate {
   educationExperiencesCriteria: [EducationExperience]
   personalExperiencesCriteria: [PersonalExperience]
   workExperiencesCriteria: [WorkExperience]
-  experiencesCriteria: [Experience]
+  minimumCriteriaExperiences: [Experience]
 }
 
 type PoolCandidateFilter {

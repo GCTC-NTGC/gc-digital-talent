@@ -132,7 +132,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function getExperiencesCriteriaAttribute()
+    public function getMinimumCriteriaExperiencesAttribute()
     {
         $collection = collect();
         $collection = $collection->merge($this->awardExperiencesCriteria);
