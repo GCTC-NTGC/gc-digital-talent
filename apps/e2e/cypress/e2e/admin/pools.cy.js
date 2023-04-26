@@ -94,6 +94,8 @@ describe("Pools", () => {
   it("should create a new pool", () => {
     loginAndGoToPoolsPage();
 
+    cy.wait("@gqlallPoolsQuery");
+
     cy.findByRole("link", { name: /create pool/i }).click();
 
     cy.wait("@gqlgetMePoolCreationQuery");
@@ -106,6 +108,7 @@ describe("Pools", () => {
     // Set starting group/level
     cy.findByRole("combobox", { name: /starting group and level/i })
       .select("IT-01 (Information Technology)")
+    cy.findByRole("combobox", { name: /starting group and level/i })
       .within(() => {
         cy.get("option:selected").should(
           "have.text",
@@ -116,6 +119,7 @@ describe("Pools", () => {
     // Set team
     cy.findByRole("combobox", { name: /parent team/i })
       .select("Digital Community Management")
+    cy.findByRole("combobox", { name: /parent team/i })
       .within(() => {
         cy.get("option:selected").should(
           "have.text",
@@ -136,6 +140,8 @@ describe("Pools", () => {
     // Update the classification field
     cy.findByRole("combobox", { name: /classification/i })
       .select("IT-04 (Information Technology)")
+
+    cy.findByRole("combobox", { name: /classification/i })
       .within(() => {
         cy.get("option:selected").should(
           "have.text",
@@ -146,10 +152,14 @@ describe("Pools", () => {
     const title = "Test Pool";
     cy.findByRole("textbox", { name: /specific title \(english\)/i })
       .type(`${title} EN`)
+
+    cy.findByRole("textbox", { name: /specific title \(english\)/i })
       .should("have.value", `${title} EN`);
 
     cy.findByRole("textbox", { name: /specific title \(french\)/i })
       .type(`${title} FR`)
+
+    cy.findByRole("textbox", { name: /specific title \(french\)/i })
       .should("have.value", `${title} FR`);
 
     // Submit the form
@@ -159,6 +169,7 @@ describe("Pools", () => {
     // Update expiry date to some arbitrary date in the future
     cy.findByLabelText(/end date/i)
       .clear()
+    cy.findByLabelText(/end date/i)
       .type("2030-01-01");
 
     cy.findByRole("button", { name: /save closing date/i }).click();
@@ -167,6 +178,7 @@ describe("Pools", () => {
     const langRequirement = "Bilingual intermediate";
     cy.findByRole("combobox", { name: /language requirement/i })
       .select(langRequirement)
+    cy.findByRole("combobox", { name: /language requirement/i })
       .within(() => {
         cy.get("option:selected").should("have.text", langRequirement);
       });
@@ -174,6 +186,7 @@ describe("Pools", () => {
     const securityRequirement = "Reliability or higher";
     cy.findByRole("combobox", { name: /security requirement/i })
       .select(securityRequirement)
+    cy.findByRole("combobox", { name: /security requirement/i })
       .within(() => {
         cy.get("option:selected").should("have.text", securityRequirement);
       });
@@ -181,6 +194,7 @@ describe("Pools", () => {
     const publishingGroup = "Other";
     cy.findByRole("combobox", { name: /publishing group/i })
       .select(publishingGroup)
+    cy.findByRole("combobox", { name: /publishing group/i })
       .within(() => {
         cy.get("option:selected").should("have.text", publishingGroup);
       });
@@ -194,6 +208,8 @@ describe("Pools", () => {
    */
   it("should update the pool", () => {
     loginAndGoToPoolsPage();
+
+    cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
@@ -227,6 +243,8 @@ describe("Pools", () => {
    */
   it("should delete the pool", () => {
     loginAndGoToPoolsPage();
+
+    cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
     cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
