@@ -1469,16 +1469,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.8.0",
+            "version": "v10.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8"
+                "reference": "35078125f61ef0b125edf524de934f108d4b47fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8",
-                "reference": "317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/35078125f61ef0b125edf524de934f108d4b47fd",
+                "reference": "35078125f61ef0b125edf524de934f108d4b47fd",
                 "shasum": ""
             },
             "require": {
@@ -1665,7 +1665,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-04-18T13:45:33+00:00"
+            "time": "2023-04-25T13:47:18+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2394,16 +2394,16 @@
         },
         {
             "name": "mll-lab/laravel-graphiql",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphiql.git",
-                "reference": "2e25078e2da5f580c3de2b01d34fbb76e4e66b39"
+                "reference": "8a6c63f5c8d7dc43bae126d63d32c034a06fd14e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/2e25078e2da5f580c3de2b01d34fbb76e4e66b39",
-                "reference": "2e25078e2da5f580c3de2b01d34fbb76e4e66b39",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/8a6c63f5c8d7dc43bae126d63d32c034a06fd14e",
+                "reference": "8a6c63f5c8d7dc43bae126d63d32c034a06fd14e",
                 "shasum": ""
             },
             "require": {
@@ -2454,9 +2454,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
-                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v2.0.1"
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v2.0.2"
             },
-            "time": "2023-04-17T09:03:57+00:00"
+            "time": "2023-04-24T12:53:40+00:00"
         },
         {
             "name": "monolog/monolog",
