@@ -19,6 +19,9 @@ class PoolCandidateTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
 
+    protected $adminUser;
+    protected $guestUser;
+    protected $noRoleUser;
     protected $teamUser;
     protected $team;
     protected $teamName = "application-test-team";
@@ -59,6 +62,14 @@ class PoolCandidateTest extends TestCase
             "applicant"
         ]);
         $this->teamUser->attachRole("pool_operator", $this->team);
+
+        $this->adminUser = User::factory()->create();
+        $this->adminUser->syncRoles(["guest", "base_user", "platform_admin"]);
+
+        $this->guestUser = User::factory()->create();
+        $this->guestUser->syncRoles(["guest"]);
+
+        $this->noRoleUser = User::factory()->create();
     }
 
     public function testFilterByClassification(): void
@@ -1242,6 +1253,70 @@ class PoolCandidateTest extends TestCase
         ])->assertJson([
             'data' => [
                 'countPoolCandidates' => 2
+            ]
+        ]);
+    }
+
+    public function testListPoolCandidatesReturnsAllAsAdmin(): void
+    {
+        PoolCandidate::factory()->count(10)->create([
+            'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure availability doesn't effect test
+        ]);
+
+        $this->actingAs($this->adminUser, "api")->graphQL($this->countQuery, [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'countPoolCandidates' => 10,
+            ]
+        ]);
+    }
+
+    public function testListPoolCandidatesReturnsNoneAsAnon(): void
+    {
+        PoolCandidate::factory()->count(10)->create([
+            'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure availability doesn't effect test
+        ]);
+
+        $this->graphQL($this->countQuery, [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'countPoolCandidates' => 0
+            ]
+        ]);
+    }
+
+    public function testListPoolCandidatesReturnsNoneAsGuest(): void
+    {
+        PoolCandidate::factory()->count(10)->create([
+            'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure availability doesn't effect test
+        ]);
+
+        $this->actingAs($this->guestUser, "api")->graphQL($this->countQuery, [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'countPoolCandidates' => 0
+            ]
+        ]);
+    }
+
+    public function testListPoolCandidatesReturnsNoneAsNoRoleUser(): void
+    {
+        PoolCandidate::factory()->count(10)->create([
+            'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure availability doesn't effect test
+        ]);
+
+        $this->actingAs($this->noRoleUser, "api")->graphQL($this->countQuery, [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'countPoolCandidates' => 0
             ]
         ]);
     }
