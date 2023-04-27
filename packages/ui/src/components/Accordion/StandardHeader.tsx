@@ -1,6 +1,6 @@
-import { Accordion } from "@gc-digital-talent/ui";
-import { AccordionHeaderProps } from "@gc-digital-talent/ui/src/components/Accordion/Accordion";
 import React from "react";
+
+import Accordion, { AccordionHeaderProps } from "./Accordion";
 
 export interface StandardHeaderProps extends AccordionHeaderProps {
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
