@@ -9,12 +9,12 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { Experience, Maybe } from "~/api/generated";
-import { getDateRange } from "../accordionUtils";
-import { AwardContent } from "../ExperienceAccordion/individualExperienceAccordions/AwardAccordion";
-import { CommunityContent } from "../ExperienceAccordion/individualExperienceAccordions/CommunityAccordion";
-import { EducationContent } from "../ExperienceAccordion/individualExperienceAccordions/EducationAccordion";
-import { PersonalContent } from "../ExperienceAccordion/individualExperienceAccordions/PersonalAccordion";
-import { WorkContent } from "../ExperienceAccordion/individualExperienceAccordions/WorkAccordion";
+import { getDateRange } from "~/utils/accordionUtils";
+import { AwardContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/AwardAccordion";
+import { CommunityContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/CommunityAccordion";
+import { EducationContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/EducationAccordion";
+import { PersonalContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/PersonalAccordion";
+import { WorkContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/WorkAccordion";
 
 interface ExperienceItemProps {
   experience: Experience;

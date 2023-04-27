@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -70,13 +71,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
       </ul>
       <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="drafts">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Draft applications",
               id: "5isFkb",
               description: "Title for the draft applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {drafts.length ? (
               <ApplicationGroup>
@@ -103,7 +104,10 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                   })}
                 </p>
                 <p data-h2-font-weight="base(700)">
-                  <Link data-h2-color="base(primary)" href={paths.browse()}>
+                  <Link
+                    data-h2-color="base(primary)"
+                    href={paths.browsePools()}
+                  >
                     {intl.formatMessage({
                       defaultMessage:
                         "Check our available opportunities to start an application.",
@@ -118,13 +122,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="submitted">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Submitted applications",
               id: "acCyP9",
               description: "Title for the submitted applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {submitted.length ? (
               <ApplicationGroup>
@@ -164,13 +168,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="historical">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Application history",
               id: "MTSArs",
               description: "Title for the historical applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {historical.length ? (
               <ApplicationGroup>

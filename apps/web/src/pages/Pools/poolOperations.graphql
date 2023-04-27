@@ -18,7 +18,6 @@ fragment pool on Pool {
     en
     fr
   }
-  status
   classifications {
     id
     name {
@@ -103,7 +102,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       en
       fr
     }
-    status
     classifications {
       id
       group

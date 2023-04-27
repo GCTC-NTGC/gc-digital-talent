@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
-import omit from "lodash/omit";
 
 import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -29,27 +28,6 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 
-const getMatchingPoolIds = (
-  classifications: SimpleClassification[],
-  pools: SimplePool[],
-) => {
-  return pools
-    .filter((pool) => {
-      return classifications.some((classification) => {
-        return pool.classifications?.find((poolClassification) => {
-          return (
-            poolClassification?.group === classification.group &&
-            poolClassification.level === classification.level
-          );
-        });
-      });
-    })
-    .filter(notEmpty)
-    .map((pool) => ({
-      id: pool.id,
-    }));
-};
-
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
@@ -75,7 +53,10 @@ const applicantFilterToQueryArgs = (
         equity: { ...filter?.equity },
         expectedClassifications: filter?.expectedClassifications
           ? pickMap(filter.expectedClassifications, ["group", "level"])
-          : [],
+          : undefined,
+        qualifiedClassifications: filter?.qualifiedClassifications
+          ? pickMap(filter.qualifiedClassifications, ["group", "level"])
+          : undefined,
         // TODO: pickMap the skills array as well?
         // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
         // TODO: Add skills back in when most candidates in production have populated skills.
@@ -230,7 +211,6 @@ const SearchContainer = ({
 }: SearchContainerProps) => {
   const intl = useIntl();
 
-  const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;
   const operationalRequirementFilterCount =
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
@@ -240,7 +220,9 @@ const SearchContainer = ({
   const employmentDuration = applicantFilter?.positionDuration;
 
   const selectedClassifications =
-    applicantFilter?.expectedClassifications?.filter(notEmpty);
+    applicantFilter?.qualifiedClassifications?.filter(notEmpty);
+  const qualifiedStreamsCount =
+    applicantFilter?.qualifiedStreams?.filter(notEmpty)?.length ?? 0;
 
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
@@ -267,8 +249,8 @@ const SearchContainer = ({
     classificationsToSubmit: SimpleClassification[],
   ) => {
     if (
-      (poolClassificationFilterCount === 0 &&
-        selectedClassifications?.length === 0) ||
+      selectedClassifications?.length === 0 ||
+      qualifiedStreamsCount === 0 ||
       locationPreferencesCount === 0
     ) {
       // Validate all fields, and focus on the first one that is invalid.
@@ -479,15 +461,11 @@ const SearchContainerApi = () => {
     poolId: string | null,
     selectedClassifications: SimpleClassification[],
   ) => {
-    const poolIds = poolId
-      ? [{ id: poolId }]
-      : getMatchingPoolIds(selectedClassifications, pools);
-
+    const poolIds = poolId ? [{ id: poolId }] : [];
     navigate(paths.request(), {
       state: {
         applicantFilter: {
-          ...omit(applicantFilter, "expectedClassifications"),
-          expectedClassifications: [],
+          ...applicantFilter,
           pools: poolIds,
         },
         candidateCount,

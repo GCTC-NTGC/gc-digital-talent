@@ -207,8 +207,8 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                       "Label displayed on the pools field of the add user to pool dialog",
                   })}
                   placeholder={intl.formatMessage({
-                    defaultMessage: "Select a pool...",
-                    id: "X198m3",
+                    defaultMessage: "Select a pool",
+                    id: "Rm4SuQ",
                     description:
                       "Placeholder displayed on the pool field of the add user to pool dialog.",
                   })}

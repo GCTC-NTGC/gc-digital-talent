@@ -44,8 +44,8 @@ export const MyApplications = ({
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "My Applications",
-    id: "Boze7x",
+    defaultMessage: "My applications",
+    id: "k8+BDV",
     description: "Title for page that displays current users applications.",
   });
 

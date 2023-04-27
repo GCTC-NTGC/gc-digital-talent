@@ -9,7 +9,7 @@ const Section = ({
   children,
   ...rest
 }: SectionProps & HTMLAttributes<HTMLDivElement>) => (
-  <div id={id} {...rest}>
+  <div id={id} tabIndex={-1} data-h2-outline="base(none)" {...rest}>
     {children}
   </div>
 );

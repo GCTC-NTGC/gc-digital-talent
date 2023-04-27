@@ -26,7 +26,16 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
+import {
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "~/utils/experienceUtils";
 
+import { AwardExperience } from "~/api/generated";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
@@ -53,6 +62,25 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
+  const notEmptyExperiences = user.experiences?.filter(notEmpty);
+
+  const awardExperiences =
+    notEmptyExperiences?.filter(isAwardExperience).map(
+      (award: AwardExperience) =>
+        ({
+          ...award,
+          startDate: award.awardedDate,
+          endDate: award.awardedDate,
+        } as AwardExperience & { startDate: string; endDate: string }),
+    ) || [];
+  const communityExperiences =
+    notEmptyExperiences?.filter(isCommunityExperience) || [];
+  const educationExperiences =
+    notEmptyExperiences?.filter(isEducationExperience) || [];
+  const personalExperiences =
+    notEmptyExperiences?.filter(isPersonalExperience) || [];
+  const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
+
   return (
     <Hero
       centered
@@ -69,8 +97,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       )}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Find new opportunities, update your resume experience, or track applications.",
-        id: "HvBs2+",
+          "Find new opportunities, update your résumé experience, or track applications.",
+        id: "pqrVnW",
         description: "Subtitle for applicant dashboard hero",
       })}
     >
@@ -183,9 +211,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "My resume and experience",
-            id: "9ePTF1",
-            description: "applicant dashboard card title for resume card",
+            defaultMessage: "My résumé and experience",
+            id: "naaQ+q",
+            description: "applicant dashboard card title for résumé card",
           })}
           href={paths.skillsAndExperiences(user.id)}
         >
@@ -195,7 +223,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "giUfys",
               description: "Title for work experience section",
             })}
-            itemCount={user.workExperiences?.length}
+            itemCount={workExperiences?.length}
             icon={BriefcaseIcon}
             color="primary"
           />
@@ -205,7 +233,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "u6LIbY",
               description: "Title for education experience section",
             })}
-            itemCount={user.educationExperiences?.length}
+            itemCount={educationExperiences?.length}
             icon={BookOpenIcon}
             color="secondary"
           />
@@ -215,7 +243,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "Rz7WtH",
               description: "Title for community experience section",
             })}
-            itemCount={user.communityExperiences?.length}
+            itemCount={communityExperiences?.length}
             icon={UsersIcon}
             color="tertiary"
           />
@@ -225,7 +253,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "wTFUPE",
               description: "Title for personal experience section",
             })}
-            itemCount={user.personalExperiences?.length}
+            itemCount={personalExperiences?.length}
             icon={LightBulbIcon}
             color="quaternary"
           />
@@ -235,7 +263,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "+ikQY0",
               description: "Title for award section",
             })}
-            itemCount={user.awardExperiences?.length}
+            itemCount={awardExperiences?.length}
             icon={StarIcon}
             color="quinary"
           />

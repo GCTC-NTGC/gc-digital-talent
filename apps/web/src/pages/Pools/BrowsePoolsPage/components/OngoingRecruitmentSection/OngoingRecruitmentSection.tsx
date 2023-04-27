@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { Select } from "@gc-digital-talent/forms";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -957,9 +958,9 @@ const OngoingRecruitmentSection = ({
       </p>
       <p>
         {intl.formatMessage({
-          id: "BWvfeG",
+          id: "45mj+u",
           defaultMessage:
-            "We also offer passive recruitment buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and resume to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
+            "We also offer passive recruitment buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}
@@ -975,8 +976,8 @@ const OngoingRecruitmentSection = ({
               description: "A label for a quick filter input.",
             })}
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a job stream...",
-              id: "cmFeXj",
+              defaultMessage: "Select a job stream",
+              id: "dJXjhw",
               description:
                 "Placeholder for stream filter in browse opportunities form.",
             })}
@@ -1018,9 +1019,9 @@ const OngoingRecruitmentSection = ({
         <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
-              <Accordion.Trigger
+              <StandardAccordionHeader
                 subtitle={stream.summary}
-                headerAs="h3"
+                headingAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
                     <Pill color="green" mode="outline">
@@ -1037,7 +1038,7 @@ const OngoingRecruitmentSection = ({
                 }
               >
                 {stream.title}
-              </Accordion.Trigger>
+              </StandardAccordionHeader>
               <Accordion.Content>
                 <div
                   data-h2-display="base(grid)"

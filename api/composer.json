@@ -18,7 +18,7 @@
     "lcobucci/jwt": "^5.0.0",
     "lcobucci/clock": "^3.0.0",
     "mll-lab/graphql-php-scalars": "^5.1",
-    "mll-lab/laravel-graphiql": "^1.2",
+    "mll-lab/laravel-graphiql": "^2.0",
     "nuwave/lighthouse": "^5.8",
     "santigarcor/laratrust": "^8.0",
     "web-token/jwt-core": "^3.1"
