@@ -36,7 +36,7 @@ const Display = ({
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("minority"))}
           </li>
-        )}{" "}
+        )}
         {hasDisability && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("disability"))}
