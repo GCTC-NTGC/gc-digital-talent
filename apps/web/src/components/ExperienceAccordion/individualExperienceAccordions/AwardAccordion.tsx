@@ -1,15 +1,14 @@
 import React from "react";
-import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { AwardExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 
 export const AwardContent = ({
   title,
@@ -88,37 +87,25 @@ const AwardAccordion = ({
   ...rest
 }: AwardAccordionProps) => {
   const intl = useIntl();
-  const { id, title, awardedDate, issuedBy, skills } = rest;
+  const { id, title, awardedDate } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({
           endDate: undefined,
           startDate: awardedDate,
           intl,
         })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
-                },
-                { skillsLength: skills?.length },
-              )
-        }
-        Icon={StarIcon}
+        category={intl.formatMessage({
+          defaultMessage: "Award",
+          id: "+ikQY0",
+          description: "Title for award section",
+        })}
       >
-        {title || ""} - {issuedBy || ""}
-      </StandardAccordionHeader>
+        <span data-h2-font-weight="base(700)">{title || ""}</span>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
         <AwardContent {...rest} />
         {editUrl && (

@@ -1,14 +1,13 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { WorkExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 
 export const WorkContent = ({
   role,
@@ -72,40 +71,28 @@ const WorkAccordion = ({
   ...rest
 }: WorkAccordionProps) => {
   const intl = useIntl();
-  const { id, role, organization, startDate, endDate, skills } = rest;
+  const { id, role, organization, startDate, endDate } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({ endDate, startDate, intl })}
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
-                },
-                { skillsLength: skills?.length },
-              )
-        }
-        Icon={BriefCaseIcon}
+        category={intl.formatMessage({
+          defaultMessage: "Work experience",
+          id: "giUfys",
+          description: "Title for work experience section",
+        })}
       >
         {intl.formatMessage(
           {
-            defaultMessage: "{role} at {organization}",
-            id: "wTAdQe",
+            defaultMessage: "<strong>{role}</strong> at {organization}",
+            id: "JYWwCE",
             description: "Role at organization",
           },
           { role, organization },
         )}
-      </StandardAccordionHeader>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
         <WorkContent {...rest} />
         {editUrl && (

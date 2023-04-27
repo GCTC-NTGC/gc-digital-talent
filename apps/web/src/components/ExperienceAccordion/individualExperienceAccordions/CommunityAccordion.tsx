@@ -1,14 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { CommunityExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 
 export const CommunityContent = ({
   title,
@@ -72,40 +71,28 @@ const CommunityAccordion = ({
   ...rest
 }: CommunityAccordionProps) => {
   const intl = useIntl();
-  const { id, endDate, startDate, skills, title, organization } = rest;
+  const { id, endDate, startDate, title, organization } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
+      <ExperienceAccordionHeader
         headingAs={headingLevel}
-        subtitle={getDateRange({ endDate, startDate, intl })}
-        Icon={UserGroupIcon}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
-                },
-                { skillsLength: skills?.length },
-              )
-        }
+        dateRange={getDateRange({ endDate, startDate, intl })}
+        category={intl.formatMessage({
+          defaultMessage: "Volunteer and community experience",
+          id: "Rz7WtH",
+          description: "Title for community experience section",
+        })}
       >
         {intl.formatMessage(
           {
-            defaultMessage: "{title} at {organization}",
-            id: "vV0SDz",
+            defaultMessage: "<strong>{title}</strong> at {organization}",
+            id: "g7kOzy",
             description: "Title at organization",
           },
           { title, organization },
         )}
-      </StandardAccordionHeader>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
         <CommunityContent {...rest} />
         {editUrl && (

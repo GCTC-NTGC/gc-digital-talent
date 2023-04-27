@@ -1,14 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PersonalExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 
 export const PersonalContent = ({
   details,
@@ -60,33 +59,21 @@ const PersonalAccordion = ({
   ...rest
 }: PersonalAccordionProps) => {
   const intl = useIntl();
-  const { id, title, startDate, endDate, skills } = rest;
+  const { id, title, startDate, endDate } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({ endDate, startDate, intl })}
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
-                },
-                { skillsLength: skills?.length },
-              )
-        }
-        Icon={LightBulbIcon}
+        category={intl.formatMessage({
+          defaultMessage: "Personal experience",
+          id: "wTFUPE",
+          description: "Title for personal experience section",
+        })}
       >
-        {title || ""}
-      </StandardAccordionHeader>
+        <span data-h2-font-weight="base(700)">{title || ""}</span>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
         <PersonalContent {...rest} />
         {editUrl && (

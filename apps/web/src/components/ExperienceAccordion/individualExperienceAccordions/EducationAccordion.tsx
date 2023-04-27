@@ -1,15 +1,14 @@
 import React from "react";
-import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { EducationExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 
 export const EducationContent = ({
   areaOfStudy,
@@ -90,40 +89,28 @@ const EducationAccordion = ({
   ...rest
 }: EducationAccordionProps) => {
   const intl = useIntl();
-  const { id, areaOfStudy, institution, startDate, endDate, skills } = rest;
+  const { id, areaOfStudy, institution, startDate, endDate } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({ endDate, startDate, intl })}
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
-                },
-                { skillsLength: skills?.length },
-              )
-        }
-        Icon={BookOpenIcon}
+        category={intl.formatMessage({
+          defaultMessage: "Education experience",
+          id: "u6LIbY",
+          description: "Title for education experience section",
+        })}
       >
         {intl.formatMessage(
           {
-            defaultMessage: "{areaOfStudy} at {institution}",
-            id: "UrsGGK",
+            defaultMessage: "<strong>{areaOfStudy}</strong> at {institution}",
+            id: "yGFdWK",
             description: "Study at institution",
           },
           { areaOfStudy, institution },
         )}
-      </StandardAccordionHeader>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
         <EducationContent {...rest} />
         {editUrl && (
