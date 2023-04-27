@@ -117,9 +117,10 @@ const EssentialSkillsSection = ({
             <p data-h2-margin="base(x1, 0)">
               <Submit
                 text={intl.formatMessage({
-                  defaultMessage: "Save asset skills",
-                  id: "j4G/wv",
-                  description: "Text on a button to save the pool asset skills",
+                  defaultMessage: "Save essential skills",
+                  id: "2asU3k",
+                  description:
+                    "Text on a button to save the pool essential skills",
                 })}
                 color="cta"
                 mode="solid"
