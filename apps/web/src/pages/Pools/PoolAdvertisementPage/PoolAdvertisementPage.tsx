@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import {
   BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
-  PhoneIcon,
-  LightBulbIcon,
+  ClipboardDocumentCheckIcon,
   CheckCircleIcon,
-  CpuChipIcon,
   CloudIcon,
+  CpuChipIcon,
+  LightBulbIcon,
+  PhoneIcon,
 } from "@heroicons/react/24/outline";
 
 import {
@@ -202,8 +203,8 @@ export const PoolAdvertisementPoster = ({
   const links = [
     {
       label: intl.formatMessage({
-        defaultMessage: "Browse opportunities",
-        id: "NSuNSA",
+        defaultMessage: "Browse jobs",
+        id: "gC74ro",
         description: "Breadcrumb title for the browse pools page.",
       }),
       url: paths.browsePools(),
@@ -586,7 +587,7 @@ export const PoolAdvertisementPoster = ({
                 data-h2-align-items="base(center) p-tablet(stretch)"
               >
                 <Card
-                  color="ts-secondary"
+                  color="secondary"
                   style={{ width: "100%" }}
                   title={intl.formatMessage({
                     defaultMessage: "Combination Experience",
@@ -654,7 +655,7 @@ export const PoolAdvertisementPoster = ({
                 </div>
                 <Card
                   style={{ width: "100%" }}
-                  color="ts-secondary"
+                  color="secondary"
                   title={intl.formatMessage({
                     defaultMessage: "2-Year Post-secondary Education",
                     id: "U6IroF",
@@ -780,7 +781,7 @@ export const PoolAdvertisementPoster = ({
                   },
                 )}
               </Text>
-              <IconTitle icon={PhoneIcon}>
+              <IconTitle icon={ClipboardDocumentCheckIcon}>
                 {intl.formatMessage({
                   defaultMessage: "Hiring Policies",
                   id: "isfAkZ",

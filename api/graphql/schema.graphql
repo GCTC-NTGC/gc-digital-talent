@@ -341,9 +341,6 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates")
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  status: PoolStatus
-    @rename(attribute: "pool_status")
-    @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
     @rename(attribute: "advertisement_status")
   stream: PoolStream
@@ -351,11 +348,6 @@ type Pool {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
   screeningQuestions: [ScreeningQuestion] @hasMany
-}
-
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
 }
 
 enum PoolStream {
@@ -640,9 +632,11 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: [Classification]
+  expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
+  qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
@@ -856,7 +850,7 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+    @scope(name: "expectedClassifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -885,8 +879,8 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+  expectedClassifications: [ClassificationFilterInput]  # Filters applicants based on the classifications they've expressed interest in.
+    @scope(name: "expectedClassifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -894,6 +888,9 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration] @scope
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  qualifiedClassifications: [ClassificationFilterInput]
+    @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
 }
 
 input PoolCandidateSearchInput {
@@ -1346,7 +1343,6 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
@@ -1374,7 +1370,6 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus @rename(attribute: "pool_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -1447,6 +1442,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
 }
 
 input ApplicantFilterBelongsTo {

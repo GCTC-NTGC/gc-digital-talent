@@ -20,7 +20,7 @@ import {
   objectsToSortedOptions,
   FieldLabels,
 } from "@gc-digital-talent/forms";
-import { empty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ExternalLink } from "@gc-digital-talent/ui";
 
@@ -308,7 +308,7 @@ export const GovernmentInfoFormFields = ({
       resetDirtyField("govEmployeeType");
       if (!isPlaced) {
         resetDirtyField("currentClassificationGroup");
-        if (groupSelection === "Choose Department") {
+        if (empty(groupSelection)) {
           resetDirtyField("currentClassificationLevel");
         }
       }
@@ -424,8 +424,8 @@ export const GovernmentInfoFormFields = ({
                 label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Group",
-                  id: "u4v1RB",
+                  defaultMessage: "Select a group",
+                  id: "9Upe1V",
                   description: "Null selection for form.",
                 })}
                 rules={{
@@ -434,7 +434,7 @@ export const GovernmentInfoFormFields = ({
                 options={groupOptions}
               />
             </div>
-            {groupSelection !== "Choose Department" && (
+            {notEmpty(groupSelection) && (
               <div style={{ width: "100%" }}>
                 <Select
                   id="currentClassificationLevel"
@@ -444,8 +444,8 @@ export const GovernmentInfoFormFields = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   nullSelection={intl.formatMessage({
-                    defaultMessage: "Choose Level",
-                    id: "e/ez/m",
+                    defaultMessage: "Select a level",
+                    id: "/ImWz4",
                     description: "Null selection for form.",
                   })}
                   options={levelOptions}
@@ -552,10 +552,10 @@ const GovernmentInfoForm = ({
     ? [
         {
           label: intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "mq4G8h",
+            defaultMessage: "My applications",
+            id: "bdDvMZ",
             description:
-              "'My Applications' breadcrumb from applicant profile wrapper.",
+              "My applications breadcrumb from applicant profile wrapper.",
           }),
           url: paths.applications(application.user.id),
         },

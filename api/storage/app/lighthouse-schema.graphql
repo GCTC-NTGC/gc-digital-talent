@@ -71,6 +71,8 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
+  qualifiedClassifications: [Classification]
+  qualifiedStreams: [PoolStream]
   pools: [Pool]
 }
 
@@ -88,6 +90,8 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+  qualifiedClassifications: [ClassificationFilterInput]
+  qualifiedStreams: [PoolStream]
 }
 
 enum ApplicationStep {
@@ -247,6 +251,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream]
 }
 
 input CreateClassificationInput {
@@ -305,7 +311,6 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
-  status: PoolStatus = NOT_TAKING_APPLICATIONS
   processNumber: String
   publishingGroup: PublishingGroup
 }
@@ -805,7 +810,6 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
-  status: PoolStatus @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
   stream: PoolStream
   processNumber: String
@@ -962,11 +966,6 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
-}
-
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
 }
 
 enum PoolStream {
@@ -1387,7 +1386,6 @@ input UpdatePoolInput {
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
-  status: PoolStatus
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
