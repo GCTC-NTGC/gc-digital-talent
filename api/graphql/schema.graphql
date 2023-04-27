@@ -347,6 +347,7 @@ type Pool {
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
   screeningQuestions: [ScreeningQuestion] @hasMany
 }
 
