@@ -6,10 +6,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Applicant } from "~/api/generated";
+import type { ExperiencePaths } from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 import ExperienceSection from "../ExperienceSection";
-
-import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion";
 
 export type PathFunc = (path: void | string, id: void | string) => string;
 

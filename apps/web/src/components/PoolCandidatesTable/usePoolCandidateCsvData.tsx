@@ -30,7 +30,7 @@ import {
   PositionDuration,
   PoolAdvertisement,
 } from "~/api/generated";
-import labels from "~/components/UserProfile/ExperienceAccordion/labels";
+import labels from "~/components/ExperienceAccordion/labels";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],

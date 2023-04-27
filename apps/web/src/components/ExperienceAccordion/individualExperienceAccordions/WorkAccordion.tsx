@@ -1,53 +1,37 @@
 import React from "react";
-import StarIcon from "@heroicons/react/24/solid/StarIcon";
+import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { getAwardedTo, getAwardedScope } from "@gc-digital-talent/i18n";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
-import { AwardExperience } from "~/api/generated";
+import { WorkExperience } from "~/api/generated";
+import { getDateRange } from "~/utils/accordionUtils";
 
 import SkillList from "../SkillList";
 
-import { getDateRange } from "../../accordionUtils";
-
-export const AwardContent = ({
-  title,
-  issuedBy,
+export const WorkContent = ({
+  role,
+  organization,
   details,
-  awardedTo,
-  awardedScope,
+  division,
   skills,
-}: AwardExperience) => {
+}: WorkExperience) => {
   const intl = useIntl();
+
   return (
     <>
       <p>
         {intl.formatMessage(
           {
-            defaultMessage: "{title} issued by {issuedBy}",
-            id: "4BpFoX",
-            description: "The award title is issued by some group",
+            defaultMessage: "{role} at {division}",
+            id: "6RiVQA",
+            description: "Role at division",
           },
-          { title, issuedBy },
+          { role, division },
         )}
       </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Awarded to: ",
-          id: "3JL02L",
-          description: "The award was given to",
-        })}{" "}
-        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Scope: ",
-          id: "FAOzjP",
-          description: "The scope of the award given",
-        })}{" "}
-        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
-      </p>
+      <p>{organization}</p>
       <hr
         data-h2-background-color="base(gray.lighter)"
         data-h2-height="base(1px)"
@@ -77,28 +61,24 @@ export const AwardContent = ({
   );
 };
 
-interface AwardAccordionProps extends AwardExperience {
+type WorkAccordionProps = WorkExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-}
+};
 
-const AwardAccordion = ({
+const WorkAccordion = ({
   editUrl,
-  headingLevel = "h2",
+  headingLevel,
   ...rest
-}: AwardAccordionProps) => {
+}: WorkAccordionProps) => {
   const intl = useIntl();
-  const { id, title, awardedDate, issuedBy, skills } = rest;
+  const { id, role, organization, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
-      <Accordion.Trigger
-        subtitle={getDateRange({
-          endDate: undefined,
-          startDate: awardedDate,
-          intl,
-        })}
-        headerAs={headingLevel}
+      <StandardAccordionHeader
+        subtitle={getDateRange({ endDate, startDate, intl })}
+        headingAs={headingLevel}
         context={
           skills?.length === 1
             ? intl.formatMessage({
@@ -115,12 +95,19 @@ const AwardAccordion = ({
                 { skillsLength: skills?.length },
               )
         }
-        Icon={StarIcon}
+        Icon={BriefCaseIcon}
       >
-        {title || ""} - {issuedBy || ""}
-      </Accordion.Trigger>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{role} at {organization}",
+            id: "wTAdQe",
+            description: "Role at organization",
+          },
+          { role, organization },
+        )}
+      </StandardAccordionHeader>
       <Accordion.Content>
-        <AwardContent {...rest} />
+        <WorkContent {...rest} />
         {editUrl && (
           <div>
             <hr
@@ -144,4 +131,4 @@ const AwardAccordion = ({
   );
 };
 
-export default AwardAccordion;
+export default WorkAccordion;

@@ -19,10 +19,9 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
-
 import ExperienceAccordion, {
   ExperiencePaths,
-} from "./ExperienceAccordion/ExperienceAccordion";
+} from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 const ExperienceByType = ({
   title,

@@ -11,8 +11,8 @@ import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import { Maybe, Skill } from "~/api/generated";
+import { getDateRange } from "~/utils/accordionUtils";
 
-import { getDateRange } from "../accordionUtils";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
