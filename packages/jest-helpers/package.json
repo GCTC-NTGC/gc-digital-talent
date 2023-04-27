@@ -24,7 +24,7 @@
     "react-router-dom": "^6.10.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.46",
+    "@swc/core": "^1.3.55",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.5.0",
     "@types/react": "^18.0.31",
