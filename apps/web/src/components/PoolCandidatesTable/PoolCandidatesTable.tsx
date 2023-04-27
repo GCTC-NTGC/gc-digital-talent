@@ -589,17 +589,6 @@ const PoolCandidatesTable = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Email",
-          id: "BSVnmg",
-          description:
-            "Title displayed for the Pool Candidates table Email column.",
-        }),
-        id: "email",
-        accessor: ({ user }) => user?.email,
-        sortColumnName: "EMAIL",
-      },
-      {
-        label: intl.formatMessage({
           defaultMessage: "Preferred Communication Language",
           id: "eN8J/9",
           description:
@@ -609,6 +598,17 @@ const PoolCandidatesTable = ({
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Email",
+          id: "BSVnmg",
+          description:
+            "Title displayed for the Pool Candidates table Email column.",
+        }),
+        id: "email",
+        accessor: ({ user }) => user?.email,
+        sortColumnName: "EMAIL",
       },
       {
         label: intl.formatMessage({
