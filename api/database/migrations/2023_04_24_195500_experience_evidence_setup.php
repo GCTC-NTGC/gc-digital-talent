@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('pool_candidate_education_requirement_experience', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('pool_candidate_id')->nullable(false);
-            $table->foreign('pool_candidate_id', 'pool_candidate_foreign')->references('id')->on('pool_candidates');
+            $table->foreign('pool_candidate_id', 'pool_candidate_education_requirement_experience_foreign')->references('id')->on('pool_candidates');
             $table->uuid('experience_id')->nullable(false);
             $table->string('experience_type')->nullable(false);
             $table->unique(['pool_candidate_id', 'experience_id', 'experience_type']);
