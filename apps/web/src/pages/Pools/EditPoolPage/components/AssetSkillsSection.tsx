@@ -76,6 +76,12 @@ const AssetSkillsSection = ({
         sync: selectedSkills.map((skill) => skill.id),
       },
     });
+    methods.reset(
+      { currentAssetSkills: selectedSkills.map(({ id }) => ({ id })) },
+      {
+        keepDirty: false,
+      },
+    );
   };
 
   // disabled unless status is draft
