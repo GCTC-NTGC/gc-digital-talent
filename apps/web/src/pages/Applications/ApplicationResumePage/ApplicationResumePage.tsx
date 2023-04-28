@@ -1,12 +1,25 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { StarIcon } from "@heroicons/react/20/solid";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
-import { Applicant, ApplicationStep } from "@gc-digital-talent/graphql";
+import {
+  Accordion,
+  Button,
+  Heading,
+  Link,
+  Separator,
+  Well,
+} from "@gc-digital-talent/ui";
+import {
+  Applicant,
+  ApplicationStep,
+  useUpdateApplicationMutation,
+} from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { toast } from "@gc-digital-talent/toast";
 import { Select } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -14,13 +27,18 @@ import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { resumeIsIncomplete } from "~/validators/profile";
 import { ExperienceType } from "~/types/experience";
 
-import { deriveExperienceType } from "~/utils/experienceUtils";
+import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
+type SortOptions = "date_desc" | "type_asc";
+
 type FormValues = {
-  sortExperiencesBy: string;
+  sortExperiencesBy: SortOptions;
 };
+
+type PageAction = "continue" | "cancel";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -148,20 +166,71 @@ function formatExperienceCount(
 const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const pageInfo = getPageInfo({ intl, paths, application });
   const instructionsPath = paths.applicationResumeIntro(application.id);
   const nextStep = paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
+  const [, executeMutation] = useUpdateApplicationMutation();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const methods = useForm<FormValues>();
   const { watch } = methods;
   const watchSortExperiencesBy = watch("sortExperiencesBy");
 
-  const experiences = application.user.experiences ?? [];
+  const experiences = application.user.experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
+
   const experiencesByType = groupBy(experiences.filter(notEmpty), (e) => {
     return deriveExperienceType(e);
   });
+
+  switch (watchSortExperiencesBy) {
+    case "date_desc":
+      experiences.sort((a, b) => compareByDate(a, b));
+      break;
+    case "type_asc":
+      experiences.sort((a, b) => {
+        const typeA = deriveExperienceType(a) ?? "";
+        const typeB = deriveExperienceType(b) ?? "";
+        return typeA > typeB ? 1 : -1;
+      });
+      break;
+    default:
+    // no op
+  }
+
+  const saveAndNavigate = async (pageAction: PageAction) => {
+    executeMutation({
+      id: application.id,
+      application: {
+        insertSubmittedStep: ApplicationStep.ReviewYourResume,
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully updated your résumé!",
+              id: "VJm1GR",
+              description:
+                "Message displayed to users when saving résumé is successful.",
+            }),
+          );
+          navigate(pageAction === "continue" ? nextStep : cancelPath);
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: adding experience failed",
+            id: "moKAQP",
+            description:
+              "Message displayed to user after experience fails to be created.",
+          }),
+        );
+      });
+  };
 
   return (
     <>
@@ -298,7 +367,17 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
         </Button>
       </div>
       {hasSomeExperience ? (
-        JSON.stringify(application.user.experiences)
+        <Accordion.Root type="multiple">
+          {experiences.map((experience) => {
+            return (
+              <ExperienceAccordion
+                key={experience.id}
+                experience={experience}
+                headingLevel="h3"
+              />
+            );
+          })}
+        </Accordion.Root>
       ) : (
         <Well>
           <p data-h2-text-align="base(center)">
@@ -310,11 +389,12 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
           </p>
         </Well>
       )}
+
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-margin="base(x2, 0)"
         decorative
+        data-h2-background="base(black.light)"
+        data-h2-margin="base(x2, 0)"
       />
       <div
         data-h2-display="base(flex)"
@@ -323,25 +403,24 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Link type="button" color="primary" mode="solid" href={nextStep}>
+        <Button mode="solid" onClick={() => saveAndNavigate("continue")}>
           {intl.formatMessage({
             defaultMessage: "I’m happy with my résumé",
             id: "Km89qF",
             description: "Link text to continue the application process",
           })}
-        </Link>
-        <Link
-          type="button"
+        </Button>
+        <Button
           mode="inline"
           color="secondary"
-          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
+          onClick={() => saveAndNavigate("cancel")}
         >
           {intl.formatMessage({
             defaultMessage: "Save and quit for now",
             id: "U86N4g",
             description: "Action button to save and exit an application",
           })}
-        </Link>
+        </Button>
       </div>
     </>
   );

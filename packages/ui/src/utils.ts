@@ -1,6 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-// expected to have more than one function
-
 import { HeadingRank } from "./types";
 
 /**

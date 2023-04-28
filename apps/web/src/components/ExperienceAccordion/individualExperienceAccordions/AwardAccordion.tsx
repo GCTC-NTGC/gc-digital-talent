@@ -10,7 +10,7 @@ import {
 import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { AwardExperience } from "~/api/generated";
-import { getDateRange } from "~/utils/accordionUtils";
+import { formattedDate } from "~/utils/accordionUtils";
 
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";
@@ -137,11 +137,7 @@ const AwardAccordion = ({
   return (
     <Accordion.Item value={id}>
       <ExperienceAccordionHeader
-        dateRange={getDateRange({
-          endDate: undefined,
-          startDate: awardedDate,
-          intl,
-        })}
+        dateRange={awardedDate ? formattedDate(awardedDate, intl) : undefined}
         headingAs={headingLevel}
         category={intl.formatMessage({
           defaultMessage: "Awards and recognition",
