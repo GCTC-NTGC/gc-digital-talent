@@ -317,10 +317,10 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           // if groups identical then sort by level
           // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
           if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
+            return 1;
           }
           if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
+            return -1;
           }
           return 0;
         },
