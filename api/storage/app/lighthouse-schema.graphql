@@ -121,7 +121,6 @@ type AwardExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
-  poolCandidates: [PoolCandidate]
 }
 
 input AwardExperienceHasMany {
@@ -219,7 +218,6 @@ type CommunityExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
-  poolCandidates: [PoolCandidate]
 }
 
 input CommunityExperienceHasMany {
@@ -437,7 +435,6 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
-  poolCandidates: [PoolCandidate]
 }
 
 input EducationExperienceHasMany {
@@ -789,7 +786,6 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
-  poolCandidates: [PoolCandidate]
 }
 
 input PersonalExperienceHasMany {
@@ -1710,7 +1706,6 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
-  poolCandidates: [PoolCandidate]
 }
 
 input WorkExperienceHasMany {
