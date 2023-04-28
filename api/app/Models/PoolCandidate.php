@@ -86,7 +86,7 @@ class PoolCandidate extends Model
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    // minimum criteria fulfilled by what experience
+    // education_requirement_option fulfilled by what experience models
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
