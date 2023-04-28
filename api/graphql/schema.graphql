@@ -484,7 +484,7 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
-    @rename(attribute: "minimum_criteria") # associated experiences to fulfill this called educationRequirementExperiences
+    @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: [AwardExperience] @belongsToMany
   communityExperiencesCriteria: [CommunityExperience] @belongsToMany
@@ -1706,7 +1706,7 @@ input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-    @rename(attribute: "minimum_criteria")
+    @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany

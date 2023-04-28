@@ -45,7 +45,7 @@ class PoolCandidateFactory extends Factory
                 0,
                 $this->faker->numberBetween(0, count(ApiEnums::applicationSteps()) - 1)
             ),
-            'minimum_criteria' => ApiEnums::poolCandidateCriteria()[array_rand(ApiEnums::poolCandidateCriteria())],
+            'education_requirement_option' => ApiEnums::poolCandidateCriteria()[array_rand(ApiEnums::poolCandidateCriteria())],
         ];
     }
 

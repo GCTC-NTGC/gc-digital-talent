@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->string('minimum_criteria')->nullable(true)->default(null);
+            $table->string('education_requirement_option')->nullable(true)->default(null);
         });
     }
 
@@ -34,7 +34,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('pool_candidate_minimum_criteria_experience');
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->dropColumn('minimum_criteria');
+            $table->dropColumn('education_requirement_option');
         });
     }
 };

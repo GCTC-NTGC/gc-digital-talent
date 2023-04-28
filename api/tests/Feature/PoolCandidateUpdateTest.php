@@ -199,7 +199,7 @@ class PoolCandidateUpdateTest extends TestCase
         $communityExperienceIds = CommunityExperience::all()->pluck('id')->toArray();
         $educationExperienceIds = EducationExperience::all()->pluck('id')->toArray();
         $this->poolCandidate->submitted_at = null;
-        $this->poolCandidate->minimum_criteria = null;
+        $this->poolCandidate->education_requirement_option = null;
         $this->poolCandidate->save();
 
         // assert educationRequirementOption updated and that an education experience is successfully connected
