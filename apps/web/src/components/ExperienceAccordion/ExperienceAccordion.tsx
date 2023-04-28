@@ -31,13 +31,17 @@ export interface ExperiencePaths {
 
 export interface AccordionProps {
   experience: AnyExperience;
+  // use if you need a different edit path for each type (deprecated)
   editPaths?: ExperiencePaths;
+  // use when you have one path for every type
+  editPath?: string;
   headingLevel?: HeadingRank;
 }
 
 const ExperienceAccordion = ({
   experience,
   editPaths,
+  editPath,
   headingLevel = "h2",
 }: AccordionProps) => {
   const intl = useIntl();
@@ -45,7 +49,7 @@ const ExperienceAccordion = ({
   // experience type is required with 5 possibilities, build different accordion around which type it is
 
   if (isAwardExperience(experience)) {
-    const editUrl = editPaths ? editPaths.awardUrl(experience.id) : undefined;
+    const editUrl = editPath ?? editPaths?.awardUrl(experience.id);
     return AwardAccordion({
       ...experience,
       editUrl,
@@ -53,9 +57,7 @@ const ExperienceAccordion = ({
     });
   }
   if (isCommunityExperience(experience)) {
-    const editUrl = editPaths
-      ? editPaths.communityUrl(experience.id)
-      : undefined;
+    const editUrl = editPath ?? editPaths?.communityUrl(experience.id);
     return CommunityAccordion({
       ...experience,
       editUrl,
@@ -63,9 +65,7 @@ const ExperienceAccordion = ({
     });
   }
   if (isEducationExperience(experience)) {
-    const editUrl = editPaths
-      ? editPaths.educationUrl(experience.id)
-      : undefined;
+    const editUrl = editPath ?? editPaths?.educationUrl(experience.id);
     return EducationAccordion({
       ...experience,
       editUrl,
@@ -73,9 +73,7 @@ const ExperienceAccordion = ({
     });
   }
   if (isPersonalExperience(experience)) {
-    const editUrl = editPaths
-      ? editPaths.personalUrl(experience.id)
-      : undefined;
+    const editUrl = editPath ?? editPaths?.personalUrl(experience.id);
     return PersonalAccordion({
       ...experience,
       editUrl,
@@ -83,7 +81,7 @@ const ExperienceAccordion = ({
     });
   }
   if (isWorkExperience(experience)) {
-    const editUrl = editPaths ? editPaths.workUrl(experience.id) : undefined;
+    const editUrl = editPath ?? editPaths?.workUrl(experience.id);
     return WorkAccordion({
       ...experience,
       editUrl,
@@ -92,9 +90,10 @@ const ExperienceAccordion = ({
   }
 
   // not one of the 5 experience types
+  const editUrl = editPath;
   return (
     <Accordion.Item value="none">
-      <ExperienceAccordionHeader headingAs={headingLevel}>
+      <ExperienceAccordionHeader headingAs={headingLevel} editUrl={editUrl}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",

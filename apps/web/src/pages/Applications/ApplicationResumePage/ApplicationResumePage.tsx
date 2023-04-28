@@ -358,13 +358,17 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
           </form>
         </FormProvider>
 
-        <Button color="secondary">
+        <Link
+          color="secondary"
+          href={paths.applicationResumeAdd(application.id)}
+          type="button"
+        >
           {intl.formatMessage({
             defaultMessage: "Add a new experience",
             id: "p5nWIk",
             description: "A button to add a new experience to your resume",
           })}
-        </Button>
+        </Link>
       </div>
       {hasSomeExperience ? (
         <Accordion.Root type="multiple">
@@ -374,6 +378,10 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 key={experience.id}
                 experience={experience}
                 headingLevel="h3"
+                editPath={paths.applicationResumeEdit(
+                  application.id,
+                  experience.id,
+                )}
               />
             );
           })}
