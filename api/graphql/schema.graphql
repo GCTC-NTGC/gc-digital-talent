@@ -486,12 +486,6 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  # experiences for meeting minimum criteria
-  educationRequirementAwardExperiences: [AwardExperience] @belongsToMany
-  educationRequirementCommunityExperiences: [CommunityExperience] @belongsToMany
-  educationRequirementEducationExperiences: [EducationExperience] @belongsToMany
-  educationRequirementPersonalExperiences: [PersonalExperience] @belongsToMany
-  educationRequirementWorkExperiences: [WorkExperience] @belongsToMany
   educationRequirementExperiences: [Experience] # collection of experiences associated with educationRequirementOption
 }
 

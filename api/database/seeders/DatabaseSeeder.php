@@ -184,11 +184,11 @@ class DatabaseSeeder extends Seeder
             $educationRequirementOption = $poolCandidate->education_requirement_option;
             $user = $poolCandidate->user;
 
-            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
                 $educationExperience = $user->educationExperiences()->first();
                 $educationExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $educationExperience->save();
-            } else if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            } else if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
                 $workExperience = $user->workExperiences()->first();
                 $workExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $workExperience->save();

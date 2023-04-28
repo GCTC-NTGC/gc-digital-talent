@@ -174,7 +174,7 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
     }
 
-    public function testExperienceCriteria(): void
+    public function testEducationRequirementExperience(): void
     {
         $updateApplication =
             /** @lang GraphQL */
@@ -183,10 +183,7 @@ class PoolCandidateUpdateTest extends TestCase
                 updateApplication(id: $id, application: $application) {
                     id
                     educationRequirementOption
-                    educationRequirementCommunityExperiences {
-                        id
-                    }
-                    educationRequirementEducationExperiences {
+                    educationRequirementExperiences {
                         id
                     }
                 }
@@ -214,9 +211,7 @@ class PoolCandidateUpdateTest extends TestCase
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
         $response->assertJsonFragment([
-            'educationRequirementEducationExperiences' => [
-                ['id' => $educationExperienceIds[0]]
-            ]
+            ['id' => $educationExperienceIds[0]]
         ]);
 
         // assert educationRequirementOption updated again, education experience was disconnected, and 3 community experiences synced
@@ -233,10 +228,13 @@ class PoolCandidateUpdateTest extends TestCase
             ]
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
-        $response->assertJsonFragment([
-            'educationRequirementEducationExperiences' => [],
+        $response->assertJsonMissing([
+            ['id' => $educationExperienceIds[0]]
         ]);
-        $communityExperiencesAttached = $response->json('data.updateApplication.educationRequirementCommunityExperiences');
-        assertEquals(3, count($communityExperiencesAttached));
+        $response->assertJsonFragment(['id' => $communityExperienceIds[0]]);
+        $response->assertJsonFragment(['id' => $communityExperienceIds[1]]);
+        $response->assertJsonFragment(['id' => $communityExperienceIds[2]]);
+        $experiencesAttached = $response->json('data.updateApplication.educationRequirementExperiences');
+        assertEquals(3, count($experiencesAttached));
     }
 }

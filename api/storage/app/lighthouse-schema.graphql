@@ -887,11 +887,6 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
-  educationRequirementAwardExperiences: [AwardExperience]
-  educationRequirementCommunityExperiences: [CommunityExperience]
-  educationRequirementEducationExperiences: [EducationExperience]
-  educationRequirementPersonalExperiences: [PersonalExperience]
-  educationRequirementWorkExperiences: [WorkExperience]
   educationRequirementExperiences: [Experience]
 }
 
