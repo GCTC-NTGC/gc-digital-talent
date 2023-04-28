@@ -1102,6 +1102,12 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitEducationRequirement(): void
     {
+        // short-circuit test off feature flag
+        $flagBoolean = config('feature.application_revamp');
+        if (!$flagBoolean) {
+            $this->markTestSkipped('application_revamp is OFF');
+        }
+
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
