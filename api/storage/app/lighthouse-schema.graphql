@@ -885,7 +885,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
-  minimumCriteria: EducationRequirementOption
+  educationRequirementOption: EducationRequirementOption
   awardExperiencesCriteria: [AwardExperience]
   communityExperiencesCriteria: [CommunityExperience]
   educationExperiencesCriteria: [EducationExperience]
@@ -1345,7 +1345,7 @@ scalar UUID
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
-  minimumCriteria: EducationRequirementOption
+  educationRequirementOption: EducationRequirementOption
   awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
   educationExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany

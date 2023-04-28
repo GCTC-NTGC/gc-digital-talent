@@ -181,14 +181,14 @@ class DatabaseSeeder extends Seeder
 
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
-            $minimumCriteria = $poolCandidate->minimum_criteria;
+            $educationRequirementOption = $poolCandidate->minimum_criteria;
             $user = $poolCandidate->user;
 
-            if ($minimumCriteria === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
                 $educationExperience = $user->educationExperiences()->first();
                 $educationExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $educationExperience->save();
-            } else if ($minimumCriteria === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            } else if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
                 $workExperience = $user->workExperiences()->first();
                 $workExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $workExperience->save();

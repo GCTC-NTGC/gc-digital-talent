@@ -483,7 +483,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
-  minimumCriteria: EducationRequirementOption
+  educationRequirementOption: EducationRequirementOption
     @rename(attribute: "minimum_criteria") # associated experiences to fulfill this called educationRequirementExperiences
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: [AwardExperience] @belongsToMany
@@ -491,7 +491,7 @@ type PoolCandidate {
   educationExperiencesCriteria: [EducationExperience] @belongsToMany
   personalExperiencesCriteria: [PersonalExperience] @belongsToMany
   workExperiencesCriteria: [WorkExperience] @belongsToMany
-  educationRequirementExperiences: [Experience] # collection of experiences associated with minimumCriteria
+  educationRequirementExperiences: [Experience] # collection of experiences associated with educationRequirementOption
 }
 
 enum LanguageAbility {
@@ -1705,7 +1705,7 @@ input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
-  minimumCriteria: EducationRequirementOption
+  educationRequirementOption: EducationRequirementOption
     @rename(attribute: "minimum_criteria")
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany

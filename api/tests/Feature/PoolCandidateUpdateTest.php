@@ -182,7 +182,7 @@ class PoolCandidateUpdateTest extends TestCase
             mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
                 updateApplication(id: $id, application: $application) {
                     id
-                    minimumCriteria
+                    educationRequirementOption
                     communityExperiencesCriteria {
                         id
                     }
@@ -202,28 +202,28 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->minimum_criteria = null;
         $this->poolCandidate->save();
 
-        // assert minimumCriteria updated and that an education experience is successfully connected
+        // assert educationRequirementOption updated and that an education experience is successfully connected
         $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
-                'minimumCriteria' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
+                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
                 'educationExperiencesCriteria' => [
                     'connect' => [$educationExperienceIds[0]],
                 ],
             ]
         ]);
-        $response->assertJsonFragment(['minimumCriteria' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
+        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
         $response->assertJsonFragment([
             'educationExperiencesCriteria' => [
                 ['id' => $educationExperienceIds[0]]
             ]
         ]);
 
-        // assert minimumCriteria updated again, education experience was disconnected, and 3 community experiences synced
+        // assert educationRequirementOption updated again, education experience was disconnected, and 3 community experiences synced
         $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
-                'minimumCriteria' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
                 'communityExperiencesCriteria' => [
                     'sync' => $communityExperienceIds,
                 ],
@@ -232,7 +232,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ]
         ]);
-        $response->assertJsonFragment(['minimumCriteria' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
+        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
         $response->assertJsonFragment([
             'educationExperiencesCriteria' => [],
         ]);
