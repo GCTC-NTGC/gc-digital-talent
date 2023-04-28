@@ -486,7 +486,12 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  educationRequirementExperiences: [Experience] # collection of experiences associated with educationRequirementOption
+  educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
+    @with(relation: "educationRequirementAwardExperiences")
+    @with(relation: "educationRequirementCommunityExperiences")
+    @with(relation: "educationRequirementEducationExperiences")
+    @with(relation: "educationRequirementPersonalExperiences")
+    @with(relation: "educationRequirementWorkExperiences")
 }
 
 enum LanguageAbility {
