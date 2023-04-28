@@ -515,8 +515,8 @@ class ApiEnums
         ];
     }
 
-    const APPLICATION_CRITERIA_APPLIED_WORK_OPTION = 'APPLIED_WORK_OPTION';
-    const APPLICATION_CRITERIA_EDUCATION_OPTION = 'EDUCATION_OPTION';
+    const EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK = 'APPLIED_WORK';
+    const EDUCATION_REQUIREMENT_OPTION_EDUCATION = 'EDUCATION';
 
     /**
      * A collection of enums for application criteria
@@ -526,8 +526,8 @@ class ApiEnums
     public static function poolCandidateCriteria(): array
     {
         return [
-            self::APPLICATION_CRITERIA_APPLIED_WORK_OPTION,
-            self::APPLICATION_CRITERIA_EDUCATION_OPTION,
+            self::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+            self::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ];
     }
 }

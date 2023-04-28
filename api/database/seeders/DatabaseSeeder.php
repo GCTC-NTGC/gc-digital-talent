@@ -184,11 +184,11 @@ class DatabaseSeeder extends Seeder
             $minimumCriteria = $poolCandidate->minimum_criteria;
             $user = $poolCandidate->user;
 
-            if ($minimumCriteria === ApiEnums::APPLICATION_CRITERIA_EDUCATION_OPTION) {
+            if ($minimumCriteria === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
                 $educationExperience = $user->educationExperiences()->first();
                 $educationExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $educationExperience->save();
-            } else if ($minimumCriteria === ApiEnums::APPLICATION_CRITERIA_APPLIED_WORK_OPTION) {
+            } else if ($minimumCriteria === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
                 $workExperience = $user->workExperiences()->first();
                 $workExperience->poolCandidates()->sync([$poolCandidate->id]);
                 $workExperience->save();
