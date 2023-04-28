@@ -172,8 +172,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLang"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "0UY4v5",
+              defaultMessage: "Select a language",
+              id: "uup5F2",
               description:
                 "Placeholder displayed on the user form preferred communication language field.",
             })}
@@ -195,8 +195,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "fGAMy/",
+              defaultMessage: "Select a language",
+              id: "0SEvhI",
               description:
                 "Placeholder displayed on the user form preferred spoken interview language field.",
             })}
@@ -218,8 +218,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "F4Flho",
+              defaultMessage: "Select a language",
+              id: "98lXOH",
               description:
                 "Placeholder displayed on the user form preferred written exam language  field.",
             })}
@@ -258,8 +258,8 @@ export const UpdateUserForm = ({
                 description: "Label displayed on the user form roles field.",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "Select zero or more roles...",
-                id: "Cw8pyL",
+                defaultMessage: "Select zero or more roles",
+                id: "SQqD4j",
                 description:
                   "Placeholder displayed on the user form roles field.",
               })}
@@ -324,7 +324,7 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "legacyRoles",
-          "roles",
+          "roleAssignmentsInput",
         ]),
       },
     }).then((result) => {

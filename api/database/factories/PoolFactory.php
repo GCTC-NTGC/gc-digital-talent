@@ -39,7 +39,6 @@ class PoolFactory extends Factory
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
-            'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
             'closing_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),

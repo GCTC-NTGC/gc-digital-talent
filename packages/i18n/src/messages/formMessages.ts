@@ -98,6 +98,24 @@ const formMessages = defineMessages({
     description:
       "Message announced to assistive technology when a repeatable field has been removed",
   },
+  defaultPlaceholder: {
+    defaultMessage: "Select",
+    id: "plwOsC",
+    description:
+      "Default placeholder shown when Select field has nothing actively selected.",
+  },
+  loading: {
+    defaultMessage: "Loading...",
+    id: "ylHC90",
+    description:
+      "Message shown in options dropdown when Select field is loading options.",
+  },
+  noOptions: {
+    defaultMessage: "No options",
+    id: "lsFH+y",
+    description:
+      "Message shown in options dropdown when Select field has no options.",
+  },
 });
 
 export default formMessages;

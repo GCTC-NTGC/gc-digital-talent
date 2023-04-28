@@ -202,8 +202,8 @@ export const UpdateSkillFamilyForm = ({
                   "Label displayed on the skill family form category field.",
               })}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a category...",
-                id: "rna1rM",
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
                 description:
                   "Placeholder displayed on the skill family form category field.",
               })}
@@ -226,8 +226,8 @@ export const UpdateSkillFamilyForm = ({
                     "Label displayed on the skill family form skills field.",
                 })}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skills...",
-                  id: "7Cx7lp",
+                  defaultMessage: "Select one or more skills",
+                  id: "GhszAa",
                   description:
                     "Placeholder displayed on the skill family form skills field.",
                 })}

@@ -14,8 +14,10 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class User
@@ -65,11 +67,11 @@ use Carbon\Carbon;
  * @property string $preferred_language_for_exam
  */
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, LaratrustUser
 {
 
     use Authorizable;
-    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
@@ -159,6 +161,9 @@ class User extends Model implements Authenticatable
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
     {
+        // TODO: replace logging with real logic in #6286
+        Log::debug("getIsProfileCompleteAttribute called, the application revamp flag is " . json_encode(config('feature.application_revamp')));
+
         if (
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
@@ -399,7 +404,57 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeQualifiedClassifications($query, $classifications);
+        });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified streams.
+     * If $streams is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $streams
+     * @return Builder
+     */
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        $query->whereHas('poolCandidates', function ($query) use ($streams) {
+            PoolCandidate::scopeQualifiedStreams($query, $streams);
+        });
+        return $query;
+    }
+
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only return applicants who have expressed interest in any of $classifications.
+     * Applicants have been able to record this interest in various ways, so this scope may consider three fields on
+     * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -719,14 +774,14 @@ RAWSQL2;
         return $this->$functionName($roleIdObjects, $teamIdObject);
     }
 
-    public function setRolesAttribute($roleAssignmentHasMany)
+    public function setRoleAssignmentsInputAttribute($roleAssignmentHasMany)
     {
         if (array_key_exists('attach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');
         }
 
         if (array_key_exists('detach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'removeRoles');
         }
 
         if (array_key_exists('sync', $roleAssignmentHasMany)) {

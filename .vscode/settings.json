@@ -71,5 +71,8 @@
   ],
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "files.associations": {
+    "**/public/config.ejs": "plaintext"
   }
 }

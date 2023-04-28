@@ -3,10 +3,15 @@ import { useIntl } from "react-intl";
 import { SparklesIcon } from "@heroicons/react/20/solid";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  ApplicationStep,
+  PoolAdvertisement,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -47,7 +52,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ReviewYourResume,
       ApplicationStep.EducationRequirements,
     ],
+    introUrl: paths.applicationSkillsIntro(application.id),
     stepSubmitted: ApplicationStep.SkillRequirements,
+    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
+      return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
+    },
   };
 };
 

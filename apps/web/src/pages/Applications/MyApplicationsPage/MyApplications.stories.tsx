@@ -12,7 +12,7 @@ const mockApplications = fakePoolCandidates(50);
 
 export default {
   component: MyApplications,
-  title: "Pages/My Applications",
+  title: "Pages/My applications",
   args: {
     userId: "1",
     applications: mockApplications,

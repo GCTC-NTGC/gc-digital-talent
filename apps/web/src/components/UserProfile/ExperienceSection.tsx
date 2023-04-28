@@ -14,10 +14,10 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
-
 import ExperienceAccordion, {
   ExperiencePaths,
-} from "./ExperienceAccordion/ExperienceAccordion";
+} from "~/components/ExperienceAccordion/ExperienceAccordion";
+
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 

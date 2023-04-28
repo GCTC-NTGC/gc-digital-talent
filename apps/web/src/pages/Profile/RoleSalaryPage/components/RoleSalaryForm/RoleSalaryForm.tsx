@@ -131,10 +131,10 @@ const RoleSalaryForm = ({
     ? [
         {
           label: intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "mq4G8h",
+            defaultMessage: "My applications",
+            id: "bdDvMZ",
             description:
-              "'My Applications' breadcrumb from applicant profile wrapper.",
+              "My applications breadcrumb from applicant profile wrapper.",
           }),
           url: paths.applications(application.user.id),
         },
