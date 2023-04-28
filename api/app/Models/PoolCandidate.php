@@ -92,7 +92,7 @@ class PoolCandidate extends Model
         return $this->morphedByMany(
             AwardExperience::class,
             'experience',
-            'pool_candidate_minimum_criteria_experience'
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
@@ -101,7 +101,7 @@ class PoolCandidate extends Model
         return $this->morphedByMany(
             CommunityExperience::class,
             'experience',
-            'pool_candidate_minimum_criteria_experience'
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
@@ -110,7 +110,7 @@ class PoolCandidate extends Model
         return $this->morphedByMany(
             EducationExperience::class,
             'experience',
-            'pool_candidate_minimum_criteria_experience'
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
@@ -119,7 +119,7 @@ class PoolCandidate extends Model
         return $this->morphedByMany(
             PersonalExperience::class,
             'experience',
-            'pool_candidate_minimum_criteria_experience'
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
@@ -128,7 +128,7 @@ class PoolCandidate extends Model
         return $this->morphedByMany(
             WorkExperience::class,
             'experience',
-            'pool_candidate_minimum_criteria_experience'
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
