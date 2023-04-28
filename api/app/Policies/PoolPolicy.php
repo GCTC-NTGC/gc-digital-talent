@@ -32,7 +32,7 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Pool $pool)
+    public function view(?User $user, Pool $pool)
     {
         // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
 
