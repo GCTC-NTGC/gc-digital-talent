@@ -16,8 +16,8 @@
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@swc/core": "^1.3.46",
-    "eslint": "^8.38.0",
+    "@swc/core": "^1.3.55",
+    "eslint": "^8.39.0",
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "tsup": "^6.7.0",
