@@ -484,14 +484,14 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   minimumCriteria: ApplicationMinimumExperience
-    @rename(attribute: "minimum_criteria") # associated experiences to fulfill this called minimumCriteriaExperiences
+    @rename(attribute: "minimum_criteria") # associated experiences to fulfill this called educationRequirementExperiences
   # experiences for meeting minimum criteria
   awardExperiencesCriteria: [AwardExperience] @belongsToMany
   communityExperiencesCriteria: [CommunityExperience] @belongsToMany
   educationExperiencesCriteria: [EducationExperience] @belongsToMany
   personalExperiencesCriteria: [PersonalExperience] @belongsToMany
   workExperiencesCriteria: [WorkExperience] @belongsToMany
-  minimumCriteriaExperiences: [Experience] # collection of experiences associated with minimumCriteria
+  educationRequirementExperiences: [Experience] # collection of experiences associated with minimumCriteria
 }
 
 enum LanguageAbility {

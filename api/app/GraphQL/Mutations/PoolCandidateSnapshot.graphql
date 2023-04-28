@@ -97,7 +97,7 @@ query getProfile($userId: UUID!) {
       }
       id
       minimumCriteria
-      minimumCriteriaExperiences {
+      educationRequirementExperiences {
         ...experience
       }
     }
