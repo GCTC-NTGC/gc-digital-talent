@@ -260,7 +260,15 @@ class PoolTest extends TestCase
                 id
             }
         }
-        ')->assertGraphQLErrorMessage('This action is unauthorized.');
+        ')->assertJson([
+            "data" => [
+                "pools" => [
+                    [
+                        "id" => $publishedPool->id,
+                    ],
+                ]
+            ]
+        ]);
     }
 
     public function testListPoolsReturnsOnlyPublishedAsGuest(): void
