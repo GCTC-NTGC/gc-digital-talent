@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { Select } from "@gc-digital-talent/forms";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -1018,9 +1019,9 @@ const OngoingRecruitmentSection = ({
         <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
-              <Accordion.Trigger
+              <StandardAccordionHeader
                 subtitle={stream.summary}
-                headerAs="h3"
+                headingAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
                     <Pill color="green" mode="outline">
@@ -1037,7 +1038,7 @@ const OngoingRecruitmentSection = ({
                 }
               >
                 {stream.title}
-              </Accordion.Trigger>
+              </StandardAccordionHeader>
               <Accordion.Content>
                 <div
                   data-h2-display="base(grid)"

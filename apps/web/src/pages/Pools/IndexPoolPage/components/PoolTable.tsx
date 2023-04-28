@@ -396,10 +396,23 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
+        id: "createdDate",
         accessor: ({ createdDate }) =>
           createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
         Cell: ({ row: { original: searchRequest } }: PoolCell) =>
           dateCell(searchRequest.createdDate, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        id: "updatedDate",
+        accessor: ({ updatedDate }) =>
+          updatedDate ? parseDateTimeUtc(updatedDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.updatedDate, intl),
       },
     ],
     [intl, paths, locale],
@@ -408,13 +421,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: [
-        "id",
-        "description",
-        "createdDate",
-        "ownerEmail",
-        "ownerName",
-      ],
+      hiddenCols: ["id", "createdDate", "ownerEmail", "ownerName"],
       initialSortBy: [
         {
           id: "createdDate",
