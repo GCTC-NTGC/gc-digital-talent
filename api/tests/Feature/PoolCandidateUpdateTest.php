@@ -205,7 +205,7 @@ class PoolCandidateUpdateTest extends TestCase
             'application' => [
                 'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
                 'educationRequirementEducationExperiences' => [
-                    'connect' => [$educationExperienceIds[0]],
+                    'sync' => [$educationExperienceIds[0]],
                 ],
             ]
         ]);
@@ -223,7 +223,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'sync' => $communityExperienceIds,
                 ],
                 'educationRequirementEducationExperiences' => [
-                    'disconnect' => [$educationExperienceIds[0]],
+                    'sync' => [],
                 ],
             ]
         ]);

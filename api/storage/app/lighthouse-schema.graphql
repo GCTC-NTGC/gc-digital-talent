@@ -1358,10 +1358,7 @@ input UpdateDepartmentInput {
 }
 
 input UpdateEducationExperiencesRequirementBelongsToMany {
-  connect: [ID!]
   sync: [ID!]
-  syncWithoutDetaching: [ID!]
-  disconnect: [ID!]
 }
 
 input UpdateExperienceSkills {
