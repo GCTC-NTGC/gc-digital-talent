@@ -47,11 +47,11 @@ class StoreApplicationSnapshot
             'poolCandidates',
             'poolCandidates.pool',
             'poolCandidates.pool.classifications',
-            'poolCandidates.awardExperiencesCriteria.skills',
-            'poolCandidates.communityExperiencesCriteria.skills',
-            'poolCandidates.educationExperiencesCriteria.skills',
-            'poolCandidates.personalExperiencesCriteria.skills',
-            'poolCandidates.workExperiencesCriteria.skills',
+            'poolCandidates.educationRequirementAwardExperiences.skills',
+            'poolCandidates.educationRequirementCommunityExperiences.skills',
+            'poolCandidates.educationRequirementEducationExperiences.skills',
+            'poolCandidates.educationRequirementPersonalExperiences.skills',
+            'poolCandidates.educationRequirementWorkExperiences.skills',
         ])->findOrFail($poolCandidate->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

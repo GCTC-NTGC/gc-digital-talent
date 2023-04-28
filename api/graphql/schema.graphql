@@ -486,11 +486,11 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   # experiences for meeting minimum criteria
-  awardExperiencesCriteria: [AwardExperience] @belongsToMany
-  communityExperiencesCriteria: [CommunityExperience] @belongsToMany
-  educationExperiencesCriteria: [EducationExperience] @belongsToMany
-  personalExperiencesCriteria: [PersonalExperience] @belongsToMany
-  workExperiencesCriteria: [WorkExperience] @belongsToMany
+  educationRequirementAwardExperiences: [AwardExperience] @belongsToMany
+  educationRequirementCommunityExperiences: [CommunityExperience] @belongsToMany
+  educationRequirementEducationExperiences: [EducationExperience] @belongsToMany
+  educationRequirementPersonalExperiences: [PersonalExperience] @belongsToMany
+  educationRequirementWorkExperiences: [WorkExperience] @belongsToMany
   educationRequirementExperiences: [Experience] # collection of experiences associated with educationRequirementOption
 }
 
@@ -1694,7 +1694,7 @@ input UpdateScreeningQuestionResponsesHasMany {
   delete: [ID!]
 }
 
-input UpdateExperiencesCriteriaBelongsToMany {
+input UpdateEducationExperiencesRequirementBelongsToMany {
   connect: [ID!]
   sync: [ID!]
   syncWithoutDetaching: [ID!]
@@ -1708,11 +1708,11 @@ input UpdateApplicationInput {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
-  awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  educationExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  personalExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  workExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 type Mutation {

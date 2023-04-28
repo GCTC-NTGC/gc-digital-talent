@@ -183,10 +183,10 @@ class PoolCandidateUpdateTest extends TestCase
                 updateApplication(id: $id, application: $application) {
                     id
                     educationRequirementOption
-                    communityExperiencesCriteria {
+                    educationRequirementCommunityExperiences {
                         id
                     }
-                    educationExperiencesCriteria {
+                    educationRequirementEducationExperiences {
                         id
                     }
                 }
@@ -207,14 +207,14 @@ class PoolCandidateUpdateTest extends TestCase
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
-                'educationExperiencesCriteria' => [
+                'educationRequirementEducationExperiences' => [
                     'connect' => [$educationExperienceIds[0]],
                 ],
             ]
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
         $response->assertJsonFragment([
-            'educationExperiencesCriteria' => [
+            'educationRequirementEducationExperiences' => [
                 ['id' => $educationExperienceIds[0]]
             ]
         ]);
@@ -224,19 +224,19 @@ class PoolCandidateUpdateTest extends TestCase
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
-                'communityExperiencesCriteria' => [
+                'educationRequirementCommunityExperiences' => [
                     'sync' => $communityExperienceIds,
                 ],
-                'educationExperiencesCriteria' => [
+                'educationRequirementEducationExperiences' => [
                     'disconnect' => [$educationExperienceIds[0]],
                 ],
             ]
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
         $response->assertJsonFragment([
-            'educationExperiencesCriteria' => [],
+            'educationRequirementEducationExperiences' => [],
         ]);
-        $communityExperiencesAttached = $response->json('data.updateApplication.communityExperiencesCriteria');
+        $communityExperiencesAttached = $response->json('data.updateApplication.educationRequirementCommunityExperiences');
         assertEquals(3, count($communityExperiencesAttached));
     }
 }

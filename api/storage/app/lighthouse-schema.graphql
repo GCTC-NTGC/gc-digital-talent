@@ -886,11 +886,11 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
-  awardExperiencesCriteria: [AwardExperience]
-  communityExperiencesCriteria: [CommunityExperience]
-  educationExperiencesCriteria: [EducationExperience]
-  personalExperiencesCriteria: [PersonalExperience]
-  workExperiencesCriteria: [WorkExperience]
+  educationRequirementAwardExperiences: [AwardExperience]
+  educationRequirementCommunityExperiences: [CommunityExperience]
+  educationRequirementEducationExperiences: [EducationExperience]
+  educationRequirementPersonalExperiences: [PersonalExperience]
+  educationRequirementWorkExperiences: [WorkExperience]
   educationRequirementExperiences: [Experience]
 }
 
@@ -1346,11 +1346,11 @@ input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-  awardExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  communityExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  educationExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  personalExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
-  workExperiencesCriteria: UpdateExperiencesCriteriaBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 input UpdateClassificationInput {
@@ -1365,16 +1365,16 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input UpdateExperienceSkills {
-  connect: [ConnectExperienceSkills!]
-  sync: [ConnectExperienceSkills!]
-}
-
-input UpdateExperiencesCriteriaBelongsToMany {
+input UpdateEducationExperiencesRequirementBelongsToMany {
   connect: [ID!]
   sync: [ID!]
   syncWithoutDetaching: [ID!]
   disconnect: [ID!]
+}
+
+input UpdateExperienceSkills {
+  connect: [ConnectExperienceSkills!]
+  sync: [ConnectExperienceSkills!]
 }
 
 input UpdatePoolAdvertisementInput {

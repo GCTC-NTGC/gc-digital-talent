@@ -87,7 +87,7 @@ class PoolCandidate extends Model
     }
 
     // minimum criteria fulfilled by what experience
-    public function awardExperiencesCriteria(): BelongsToMany
+    public function educationRequirementAwardExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
             AwardExperience::class,
@@ -96,7 +96,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function communityExperiencesCriteria(): BelongsToMany
+    public function educationRequirementCommunityExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
             CommunityExperience::class,
@@ -105,7 +105,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function educationExperiencesCriteria(): BelongsToMany
+    public function educationRequirementEducationExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
             EducationExperience::class,
@@ -114,7 +114,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function personalExperiencesCriteria(): BelongsToMany
+    public function educationRequirementPersonalExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
             PersonalExperience::class,
@@ -123,7 +123,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
-    public function workExperiencesCriteria(): BelongsToMany
+    public function educationRequirementWorkExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
             WorkExperience::class,
@@ -135,11 +135,11 @@ class PoolCandidate extends Model
     public function getEducationRequirementExperiencesAttribute()
     {
         $collection = collect();
-        $collection = $collection->merge($this->awardExperiencesCriteria);
-        $collection = $collection->merge($this->communityExperiencesCriteria);
-        $collection = $collection->merge($this->educationExperiencesCriteria);
-        $collection = $collection->merge($this->personalExperiencesCriteria);
-        $collection = $collection->merge($this->workExperiencesCriteria);
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
         return $collection;
     }
 
