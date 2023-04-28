@@ -289,7 +289,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
-        sortType: (rowA, rowB, id, desc) => {
+        sortType: (rowA, rowB) => {
           // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
