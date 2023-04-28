@@ -21,25 +21,17 @@ export function getDateRange({
   intl: IntlShape;
 }): string {
   if (!startDate) return "";
-  const d1 = formattedDate(startDate, intl);
+
+  const formattedStartDate = formattedDate(startDate, intl);
   if (!endDate)
     return intl.formatMessage(
       {
-        defaultMessage: "Since: {d1}",
-        id: "Zm9Hnf",
-        description: "Since",
+        defaultMessage: "{date} - Present",
+        id: "9OBHdP",
+        description: "A date range that goes to the present day",
       },
-      { d1 },
+      { date: formattedStartDate },
     );
-  const d2 = formattedDate(endDate, intl);
-  return endDate
-    ? `${d1} - ${d2}`
-    : intl.formatMessage(
-        {
-          defaultMessage: "Since: {d1}",
-          id: "Zm9Hnf",
-          description: "Since",
-        },
-        { d1 },
-      );
+  const formattedEndDate = formattedDate(endDate, intl);
+  return `${formattedStartDate} - ${formattedEndDate}`;
 }

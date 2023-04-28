@@ -4,7 +4,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { AnyExperience } from "~/types/experience";
 import {
@@ -20,6 +19,7 @@ import CommunityAccordion from "./individualExperienceAccordions/CommunityAccord
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
 import PersonalAccordion from "./individualExperienceAccordions/PersonalAccordion";
 import WorkAccordion from "./individualExperienceAccordions/WorkAccordion";
+import { ExperienceAccordionHeader } from "./ExperienceAccordionHeader";
 
 export interface ExperiencePaths {
   awardUrl: (id: string) => string;
@@ -94,13 +94,13 @@ const ExperienceAccordion = ({
   // not one of the 5 experience types
   return (
     <Accordion.Item value="none">
-      <StandardAccordionHeader headingAs={headingLevel}>
+      <ExperienceAccordionHeader headingAs={headingLevel}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",
           description: "Title for unknown experiences",
         })}
-      </StandardAccordionHeader>
+      </ExperienceAccordionHeader>
     </Accordion.Item>
   );
 };

@@ -1,79 +1,122 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { getEducationStatus, getEducationType } from "@gc-digital-talent/i18n";
+import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
+import {
+  commonMessages,
+  getEducationStatus,
+  getEducationType,
+} from "@gc-digital-talent/i18n";
 
 import { EducationExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
-import SkillList from "../SkillList";
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
+import ContentSection from "../ExperienceAccordionContentSection";
+import SkillSection from "../SkillSection";
+
+interface EducationContentProps
+  extends Pick<
+    EducationExperience,
+    "areaOfStudy" | "details" | "status" | "thesisTitle" | "skills"
+  > {
+  headingLevel?: HeadingRank;
+}
 
 export const EducationContent = ({
   areaOfStudy,
-  institution,
   details,
-  type,
   status,
   thesisTitle,
   skills,
-}: EducationExperience) => {
+  headingLevel,
+}: EducationContentProps) => {
   const intl = useIntl();
-
   return (
     <>
-      <p>
-        {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-        {status ? intl.formatMessage(getEducationStatus(status)) : ""}
-      </p>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{areaOfStudy} at {institution}",
-            id: "UrsGGK",
-            description: "Study at institution",
-          },
-          { areaOfStudy, institution },
-        )}
-      </p>
-      <p>
-        {thesisTitle
-          ? intl.formatMessage(
-              {
-                defaultMessage: "Thesis: {thesisTitle}",
-                id: "omDlZN",
-                description: "Thesis, if applicable",
-              },
-              { thesisTitle },
-            )
-          : ""}
-      </p>
-      <hr
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(row)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-margin-right="base(x1)"
+      >
+        <ContentSection
+          title={intl.formatMessage({
+            defaultMessage: "Area of study",
+            id: "nzw1ry",
+            description:
+              "Label displayed on education form for area of study input",
+          })}
+          headingLevel={headingLevel}
+        >
+          {areaOfStudy}
+        </ContentSection>
+
+        <ContentSection
+          title={intl.formatMessage({
+            defaultMessage: "Status",
+            id: "OQhL7A",
+            description: "Label displayed on Education form for status input",
+          })}
+          headingLevel={headingLevel}
+        >
+          {intl.formatMessage(
+            status ? getEducationStatus(status) : commonMessages.notAvailable,
+          )}
+        </ContentSection>
+
+        <ContentSection
+          title={intl.formatMessage({
+            defaultMessage: "Thesis title",
+            id: "E9I34y",
+            description:
+              "Label displayed on education form for thesis title input",
+          })}
+          headingLevel={headingLevel}
+        >
+          {intl.formatMessage(
+            thesisTitle
+              ? getEducationType(thesisTitle)
+              : commonMessages.notAvailable,
+          )}
+        </ContentSection>
+      </div>
+
+      <Separator
+        orientation="horizontal"
+        decorative
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
       />
-      <SkillList skills={skills} />
-      <hr
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
-      </p>
+
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Tasks and responsibilities",
+          id: "jDvu8u",
+          description: "Heading for the tasks section of the experience form",
+        })}
+        headingLevel={headingLevel}
+      >
+        {details}
+      </ContentSection>
+
+      {skills?.map((skill) => {
+        return (
+          <div key={skill.id}>
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base(gray.lighter)"
+            />
+
+            <SkillSection
+              name={skill.name}
+              record={skill.experienceSkillRecord}
+              headingLevel={headingLevel}
+            />
+          </div>
+        );
+      })}
     </>
   );
 };
@@ -90,6 +133,7 @@ const EducationAccordion = ({
 }: EducationAccordionProps) => {
   const intl = useIntl();
   const { id, areaOfStudy, institution, startDate, endDate } = rest;
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   return (
     <Accordion.Item value={id}>
@@ -97,10 +141,11 @@ const EducationAccordion = ({
         dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
         category={intl.formatMessage({
-          defaultMessage: "Education experience",
-          id: "u6LIbY",
+          defaultMessage: "Education and certificates",
+          id: "PFoM2I",
           description: "Title for education experience section",
         })}
+        editUrl={editUrl}
       >
         {intl.formatMessage(
           {
@@ -112,25 +157,7 @@ const EducationAccordion = ({
         )}
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <EducationContent {...rest} />
-        {editUrl && (
-          <div>
-            <hr
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-height="base(1px)"
-              data-h2-width="base(100%)"
-              data-h2-border="base(none)"
-              data-h2-margin="base(x1, 0)"
-            />
-            <Link href={editUrl} color="primary" mode="outline" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                id: "phbDSx",
-                description: "Edit Experience button label",
-              })}
-            </Link>
-          </div>
-        )}
+        <EducationContent headingLevel={contentHeadingLevel} {...rest} />
       </Accordion.Content>
     </Accordion.Item>
   );

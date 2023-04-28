@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 
 import Accordion from "@gc-digital-talent/ui/src/components/Accordion";
 import { AccordionHeaderProps } from "@gc-digital-talent/ui/src/components/Accordion/Accordion";
@@ -7,16 +8,17 @@ import { Link, Separator } from "@gc-digital-talent/ui";
 export interface ExperienceAccordionHeaderProps extends AccordionHeaderProps {
   category?: React.ReactNode;
   dateRange?: React.ReactNode;
-  editLink?: string;
+  editUrl?: string;
 }
 
 export const ExperienceAccordionHeader = ({
   category,
   dateRange,
-  editLink,
+  editUrl,
   children,
   ...rest
 }: ExperienceAccordionHeaderProps) => {
+  const intl = useIntl();
   return (
     <Accordion.Header
       data-h2-flex-grow="base(1)"
@@ -63,7 +65,7 @@ export const ExperienceAccordionHeader = ({
           </div>
         </div>
       </Accordion.Trigger>
-      {editLink ? (
+      {editUrl ? (
         <>
           <Separator
             orientation="vertical"
@@ -79,12 +81,16 @@ export const ExperienceAccordionHeader = ({
             data-h2-justify-content="base(center)"
           >
             <Link
-              href={editLink}
+              href={editUrl}
               data-h2-font-size="base(h6, 1)"
               data-h2-color="base(primary.darker)"
               data-h2-font-weight="base(700)"
             >
-              Edit
+              {intl.formatMessage({
+                defaultMessage: "Edit",
+                id: "MdWZY5",
+                description: "Edit experience link label",
+              })}
             </Link>
           </div>
         </>

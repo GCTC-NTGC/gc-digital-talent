@@ -1,61 +1,76 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { WorkExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
-import SkillList from "../SkillList";
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
+import ContentSection from "../ExperienceAccordionContentSection";
+import SkillSection from "../SkillSection";
+
+interface WorkContentProps
+  extends Pick<WorkExperience, "details" | "division" | "skills"> {
+  headingLevel?: HeadingRank;
+}
 
 export const WorkContent = ({
-  role,
-  organization,
   details,
   division,
   skills,
-}: WorkExperience) => {
+  headingLevel,
+}: WorkContentProps) => {
   const intl = useIntl();
-
   return (
     <>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{role} at {division}",
-            id: "6RiVQA",
-            description: "Role at division",
-          },
-          { role, division },
-        )}
-      </p>
-      <p>{organization}</p>
-      <hr
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Team, group, or division",
+          id: "qn77WI",
+          description:
+            "Label displayed on Work Experience form for team/group/division input",
+        })}
+        headingLevel={headingLevel}
+      >
+        {division}
+      </ContentSection>
+
+      <Separator
+        orientation="horizontal"
+        decorative
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
       />
-      <SkillList skills={skills} />
-      <hr
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
-      </p>
+
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Tasks and responsibilities",
+          id: "jDvu8u",
+          description: "Heading for the tasks section of the experience form",
+        })}
+        headingLevel={headingLevel}
+      >
+        {details}
+      </ContentSection>
+
+      {skills?.map((skill) => {
+        return (
+          <div key={skill.id}>
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base(gray.lighter)"
+            />
+
+            <SkillSection
+              name={skill.name}
+              record={skill.experienceSkillRecord}
+              headingLevel={headingLevel}
+            />
+          </div>
+        );
+      })}
     </>
   );
 };
@@ -67,11 +82,12 @@ type WorkAccordionProps = WorkExperience & {
 
 const WorkAccordion = ({
   editUrl,
-  headingLevel,
+  headingLevel = "h2",
   ...rest
 }: WorkAccordionProps) => {
   const intl = useIntl();
   const { id, role, organization, startDate, endDate } = rest;
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   return (
     <Accordion.Item value={id}>
@@ -83,6 +99,7 @@ const WorkAccordion = ({
           id: "giUfys",
           description: "Title for work experience section",
         })}
+        editUrl={editUrl}
       >
         {intl.formatMessage(
           {
@@ -94,25 +111,7 @@ const WorkAccordion = ({
         )}
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <WorkContent {...rest} />
-        {editUrl && (
-          <div>
-            <hr
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-height="base(1px)"
-              data-h2-width="base(100%)"
-              data-h2-border="base(none)"
-              data-h2-margin="base(x1, 0)"
-            />
-            <Link href={editUrl} color="primary" mode="outline" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                id: "phbDSx",
-                description: "Edit Experience button label",
-              })}
-            </Link>
-          </div>
-        )}
+        <WorkContent headingLevel={contentHeadingLevel} {...rest} />
       </Accordion.Content>
     </Accordion.Item>
   );
