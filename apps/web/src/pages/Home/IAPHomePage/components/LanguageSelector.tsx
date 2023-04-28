@@ -12,35 +12,11 @@ const LanguageSelector = () => {
 
   const localeMap = new Map([
     [
-      "crg",
-      intl.formatMessage({
-        id: "zAl7ZH",
-        defaultMessage: "Michif",
-        description: "Name of Michif language",
-      }),
-    ],
-    [
-      "crk",
-      intl.formatMessage({
-        id: "TEt9Ua",
-        defaultMessage: "Plains Cree",
-        description: "Name of Plains Cree language",
-      }),
-    ],
-    [
-      "ojw",
-      intl.formatMessage({
-        id: "HtllH6",
-        defaultMessage: "Western Ojibway",
-        description: "Name of Western Ojibway language",
-      }),
-    ],
-    [
       "mic",
       intl.formatMessage({
-        id: "qxe/hN",
-        defaultMessage: "Mikmaq",
-        description: "Name of Mikmaq language",
+        id: "nAgrVL",
+        defaultMessage: "Mi'kmaq",
+        description: "Name of Mi'kmaq language",
       }),
     ],
   ]);
@@ -67,7 +43,7 @@ const LanguageSelector = () => {
     <div
       data-h2-background-color="base(secondary)"
       data-h2-color="base(white)"
-      data-h2-padding="base(x.5, 0)"
+      data-h2-padding="base(x.5)"
     >
       <div
         data-h2-align-items="base(center)"
