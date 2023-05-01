@@ -561,6 +561,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test skills
     // creates a three users various skills and filter for the skills on two of them
+    // filtering is OR using User::scopeSkillsIntersectional
     public function testSkills()
     {
         $pool = Pool::factory()->create($this->poolData());
@@ -574,7 +575,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         $users[0]->awardExperiences()->sole()->skills()->sync([
             $skills[0]->id,
-            $skills[1]->id
         ]);
         $users[1]->awardExperiences()->sole()->skills()->sync([
             $skills[0]->id,
@@ -585,6 +585,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             $skills[2]->id
         ]);
 
+        // ensure 2 candidates returned despite two skills being passed in
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -598,8 +599,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'skills' => [
-                        ['id' => $skills[0]->id],
-                        ['id' => $skills[1]->id]
+                        ['id' => $skills[1]->id],
+                        ['id' => $skills[2]->id]
                     ]
                 ]
             ]
