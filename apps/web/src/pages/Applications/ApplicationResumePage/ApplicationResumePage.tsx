@@ -409,8 +409,8 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
               min: {
                 value: 1,
                 message: intl.formatMessage({
-                  defaultMessage: "Please add at least one experience",
-                  id: "FM72FW",
+                  defaultMessage: "Please add at least one experience.",
+                  id: "gyZV/3",
                   description: "Error message if there are no experiences",
                 }),
               },

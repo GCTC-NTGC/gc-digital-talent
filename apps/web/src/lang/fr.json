@@ -7623,5 +7623,77 @@
   "yGFdWK": {
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution"
+  },
+  "9OBHdP": {
+    "defaultMessage": "{date} - Aujourd’hui",
+    "description": "A date range that goes to the present day"
+  },
+  "C6kQXh": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience} =1 {1 expérience} other {# expériences}}",
+    "description": "list a number of unknown experiences"
+  },
+  "ImwOeT": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} =1 {1 expérience professionnelle} other {# expériences professionnelles}}",
+    "description": "list a number of work experiences"
+  },
+  "LfhuFi": {
+    "defaultMessage": "Comment j’ai utilisé “{skillName}” dans ce rôle",
+    "description": "Title for section on how a skill was used in the role"
+  },
+  "NGEgVN": {
+    "defaultMessage": "Organisation émettrice",
+    "description": "Label displayed on award form for organization section"
+  },
+  "Q3yncO": {
+    "defaultMessage": "Votre curriculum vitæ comprend actuellement :",
+    "description": "Title for list of experiences"
+  },
+  "TmWbke": {
+    "defaultMessage": "<strong>{title}</strong> avec {organization}",
+    "description": "Title with organization"
+  },
+  "V6wB0a": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
+    "description": "list a number of community experiences"
+  },
+  "VJm1GR": {
+    "defaultMessage": "Mise à jour réussie de votre curriculum vitae",
+    "description": "Message displayed to users when saving résumé is successful."
+  },
+  "VRxiNC": {
+    "defaultMessage": "Instructions de révision",
+    "description": "A link back to the instructions for this section"
+  },
+  "XuYilo": {
+    "defaultMessage": "Classez vos expériences par ordre de",
+    "description": "Label for experience sort dropdown"
+  },
+  "inyUex": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
+    "description": "list a number of award experiences"
+  },
+  "m7tUAm": {
+    "defaultMessage": "Type",
+    "description": "Sort experiences by type ascending"
+  },
+  "narnyP": {
+    "defaultMessage": "Date (la plus récente d’abord)",
+    "description": "Sort experiences by date descending"
+  },
+  "q++unL": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
+    "description": "list a number of personal experiences"
+  },
+  "qFij+H": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} =1 {1 expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
+    "description": "list a number of community experiences"
+  },
+  "szVmh/": {
+    "defaultMessage": "Description de l’apprentissage",
+    "description": "Label displayed on Personal Experience form for learning description section"
+  },
+  "xuAFzV": {
+    "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
+    "description": "Null state messages for resume list"
   }
 }
