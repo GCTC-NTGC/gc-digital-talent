@@ -75,11 +75,7 @@ export const EducationContent = ({
           })}
           headingLevel={headingLevel}
         >
-          {intl.formatMessage(
-            thesisTitle
-              ? getEducationType(thesisTitle)
-              : commonMessages.notAvailable,
-          )}
+          {thesisTitle}
         </ContentSection>
       </div>
 
