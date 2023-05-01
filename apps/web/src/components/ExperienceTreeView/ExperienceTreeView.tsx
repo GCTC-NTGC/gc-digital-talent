@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 import { Skill } from "~/api/generated";
-import ExperienceAccordion from "../UserProfile/ExperienceAccordion/ExperienceAccordion";
+import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 interface ExperienceTreeViewProps {
   skill: Skill;

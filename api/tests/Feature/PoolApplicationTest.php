@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -490,6 +491,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         $submitArgs = [
             'id' => $newPoolCandidate->id,
@@ -567,6 +570,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert empty signature submission errors
         $this->actingAs($this->applicantUser, "api")
@@ -641,6 +646,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert user cannot submit application with missing essential skills
         $this->actingAs($this->applicantUser, "api")
@@ -700,6 +707,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
         $this->actingAs($this->applicantUser, "api")
@@ -728,6 +737,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert status
         $this->actingAs($this->applicantUser, "api")
@@ -1099,6 +1110,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert can't suspend a DRAFT
         $this->actingAs($this->applicantUser, "api")
@@ -1146,5 +1159,68 @@ class PoolApplicationTest extends TestCase
                 $this->suspendMutationDocument,
                 ['id' => $newPoolCandidate->id, 'isSuspended' => false]
             )->assertJsonFragment(['suspendedAt' => null]);
+    }
+
+    public function testApplicationSubmitEducationRequirement(): void
+    {
+        // short-circuit test off feature flag
+        $flagBoolean = config('feature.application_revamp');
+        if (!$flagBoolean) {
+            $this->markTestSkipped('application_revamp is OFF');
+        }
+
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'education_requirement_option' => null,
+        ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+
+        // assert can't submit with incomplete education requirement
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
+            ]);
+
+        $newPoolCandidate->education_requirement_option = ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION;
+        $newPoolCandidate->save();
+
+        // assert still can't submit since requirement is only partially complete
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
+            ]);
+
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+
+        // assert submit now successful
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "signature" => 'sign',
+            ]);
     }
 }

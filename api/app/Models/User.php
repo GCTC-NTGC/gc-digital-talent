@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class User

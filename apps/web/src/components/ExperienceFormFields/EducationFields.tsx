@@ -34,8 +34,8 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.educationType}
             name="educationType"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one",
-              id: "jmUyRm",
+              defaultMessage: "Select an option",
+              id: "gIXZ1i",
               description:
                 "Null selection for select education type in the education form.",
             })}
@@ -150,8 +150,8 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.educationStatus}
             name="educationStatus"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one",
-              id: "UouZPP",
+              defaultMessage: "Select an option",
+              id: "0iSfwq",
               description:
                 "Null selection for select status in the education form.",
             })}

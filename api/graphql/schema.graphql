@@ -341,21 +341,14 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates")
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  status: PoolStatus
-    @rename(attribute: "pool_status")
-    @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
     @rename(attribute: "advertisement_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
+  updatedDate: DateTime @rename(attribute: "updated_at")
   screeningQuestions: [ScreeningQuestion] @hasMany
-}
-
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
 }
 
 enum PoolStream {
@@ -455,6 +448,11 @@ enum ApplicationStep {
   REVIEW_AND_SUBMIT
 }
 
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
+}
+
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
@@ -486,6 +484,14 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  educationRequirementOption: EducationRequirementOption
+    @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
+  educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
+    @with(relation: "educationRequirementAwardExperiences")
+    @with(relation: "educationRequirementCommunityExperiences")
+    @with(relation: "educationRequirementEducationExperiences")
+    @with(relation: "educationRequirementPersonalExperiences")
+    @with(relation: "educationRequirementWorkExperiences")
 }
 
 enum LanguageAbility {
@@ -1351,7 +1357,6 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
@@ -1379,7 +1384,6 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus @rename(attribute: "pool_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -1684,10 +1688,23 @@ input UpdateScreeningQuestionResponsesHasMany {
   update: [UpdateScreeningQuestionResponseInput!]
   delete: [ID!]
 }
+
+input UpdateEducationExperiencesRequirementBelongsToMany {
+  sync: [ID!]
+}
+
 input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  educationRequirementOption: EducationRequirementOption
+    @rename(attribute: "education_requirement_option")
+  # experiences for meeting minimum criteria
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 type Mutation {

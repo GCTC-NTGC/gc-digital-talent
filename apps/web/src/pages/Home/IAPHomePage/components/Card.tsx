@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card = ({ title, Icon, children }: CardProps) => (
   <div data-h2-text-align="base(center)">
-    {Icon && <Icon data-h2-width="base(x4)" />}
+    {Icon && <Icon data-h2-width="base(x4)" aria-hidden="true" />}
     <Heading
       as="h4"
       color="white"
