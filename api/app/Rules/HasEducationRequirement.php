@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\PoolCandidate;
+use Database\Helpers\ApiEnums;
 
 class HasEducationRequirement implements Rule
 {
@@ -47,6 +48,6 @@ class HasEducationRequirement implements Rule
      */
     public function message()
     {
-        return 'EducationRequirementIncomplete';
+        return ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE;
     }
 }

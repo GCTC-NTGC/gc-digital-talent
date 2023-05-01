@@ -1130,7 +1130,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                "id" => ['EducationRequirementIncomplete']
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
             ]);
 
         $newPoolCandidate->education_requirement_option = ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION;
@@ -1145,7 +1145,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                "id" => ['EducationRequirementIncomplete']
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
             ]);
 
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
