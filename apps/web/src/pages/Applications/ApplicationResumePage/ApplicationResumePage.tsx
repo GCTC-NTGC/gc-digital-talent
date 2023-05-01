@@ -20,7 +20,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
-import { Select } from "@gc-digital-talent/forms";
+import { Input, Select } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
@@ -33,12 +33,13 @@ import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAcco
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 type SortOptions = "date_desc" | "type_asc";
+type PageAction = "continue" | "cancel";
 
 type FormValues = {
   sortExperiencesBy: SortOptions;
+  action: PageAction;
+  experienceCount: number;
 };
-
-type PageAction = "continue" | "cancel";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -175,8 +176,9 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { watch } = methods;
+  const { watch, register, setValue } = methods;
   const watchSortExperiencesBy = watch("sortExperiencesBy");
+  const actionProps = register("action");
 
   const experiences = application.user.experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
@@ -200,7 +202,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
     // no op
   }
 
-  const saveAndNavigate = async (pageAction: PageAction) => {
+  const handleSubmit = async (formValues: FormValues) => {
     executeMutation({
       id: application.id,
       application: {
@@ -217,7 +219,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving résumé is successful.",
             }),
           );
-          navigate(pageAction === "continue" ? nextStep : cancelPath);
+          navigate(formValues.action === "continue" ? nextStep : cancelPath);
         }
       })
       .catch(() => {
@@ -318,14 +320,14 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
         </>
       )}
 
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(flex-start) p-tablet(center)"
-      >
-        <FormProvider {...methods}>
-          <form>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-align-items="base(flex-start) p-tablet(center)"
+          >
             <Select
               id="sortExperiencesBy"
               label={intl.formatMessage({
@@ -355,82 +357,122 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
               hideOptional
               trackUnsaved={false}
             />
-          </form>
-        </FormProvider>
 
-        <Link
-          color="secondary"
-          href={paths.applicationResumeAdd(application.id)}
-          type="button"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Add a new experience",
-            id: "p5nWIk",
-            description: "A button to add a new experience to your resume",
-          })}
-        </Link>
-      </div>
-      {hasSomeExperience ? (
-        <Accordion.Root type="multiple">
-          {experiences.map((experience) => {
-            return (
-              <ExperienceAccordion
-                key={experience.id}
-                experience={experience}
-                headingLevel="h3"
-                editPath={paths.applicationResumeEdit(
-                  application.id,
-                  experience.id,
-                )}
-                showSkills={false}
-              />
-            );
-          })}
-        </Accordion.Root>
-      ) : (
-        <Well>
-          <p data-h2-text-align="base(center)">
-            {intl.formatMessage({
-              defaultMessage: "You don’t have any resume experiences yet.",
-              id: "xuAFzV",
-              description: "Null state messages for resume list",
-            })}
-          </p>
-        </Well>
-      )}
+            <Link
+              color="secondary"
+              href={paths.applicationResumeAdd(application.id)}
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Add a new experience",
+                id: "p5nWIk",
+                description: "A button to add a new experience to your resume",
+              })}
+            </Link>
+          </div>
 
-      <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background="base(black.light)"
-        data-h2-margin="base(x2, 0)"
-      />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
-        <Button mode="solid" onClick={() => saveAndNavigate("continue")}>
-          {intl.formatMessage({
-            defaultMessage: "I’m happy with my résumé",
-            id: "Km89qF",
-            description: "Link text to continue the application process",
-          })}
-        </Button>
-        <Button
-          mode="inline"
-          color="secondary"
-          onClick={() => saveAndNavigate("cancel")}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
-        </Button>
-      </div>
+          {/* <input
+            id="experienceCount"
+            type="hidden"
+            value={experiences.length}
+            {...register("experienceCount", { required: true, min: 1 })}
+          /> */}
+          {hasSomeExperience ? (
+            <Accordion.Root type="multiple">
+              {experiences.map((experience) => {
+                return (
+                  <ExperienceAccordion
+                    key={experience.id}
+                    experience={experience}
+                    headingLevel="h3"
+                    editPath={paths.applicationResumeEdit(
+                      application.id,
+                      experience.id,
+                    )}
+                    showSkills={false}
+                  />
+                );
+              })}
+            </Accordion.Root>
+          ) : (
+            <Well>
+              <p data-h2-text-align="base(center)">
+                {intl.formatMessage({
+                  defaultMessage: "You don’t have any resume experiences yet.",
+                  id: "xuAFzV",
+                  description: "Null state messages for resume list",
+                })}
+              </p>
+            </Well>
+          )}
+          <Input
+            id="experienceCount"
+            name="experienceCount"
+            label=""
+            hideOptional
+            type="number"
+            hidden
+            rules={{
+              min: {
+                value: 1,
+                message: intl.formatMessage({
+                  defaultMessage: "Please add at least one experience",
+                  id: "FM72FW",
+                  description: "Error message if there are no experiences",
+                }),
+              },
+            }}
+          />
+
+          <Separator
+            orientation="horizontal"
+            decorative
+            data-h2-background="base(black.light)"
+            data-h2-margin="base(0, 0, x2, 0)"
+          />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x.25, x.5)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-align-items="base(flex-start) l-tablet(center)"
+          >
+            <Button
+              type="submit"
+              mode="solid"
+              value="continue"
+              {...actionProps}
+              onClick={() => {
+                setValue("action", "continue");
+                setValue("experienceCount", experiences.length);
+              }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "I’m happy with my résumé",
+                id: "Km89qF",
+                description: "Link text to continue the application process",
+              })}
+            </Button>
+            <Button
+              type="submit"
+              mode="inline"
+              color="secondary"
+              value="cancel"
+              {...actionProps}
+              onClick={() => {
+                setValue("action", "cancel");
+                setValue("experienceCount", experiences.length);
+              }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save and quit for now",
+                id: "U86N4g",
+                description: "Action button to save and exit an application",
+              })}
+            </Button>
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };
