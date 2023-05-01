@@ -161,9 +161,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
     {
-        // TODO: replace logging with real logic in #6286
-        Log::debug("getIsProfileCompleteAttribute called, the application revamp flag is " . json_encode(config('feature.application_revamp')));
-
         if (
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
