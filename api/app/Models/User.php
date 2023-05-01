@@ -359,7 +359,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $query;
     }
-    public static function scopeSkills(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -398,6 +398,14 @@ class User extends Model implements Authenticatable, LaratrustUser
                 ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
                 ->whereColumn('aggregate_experiences.user_id', 'users.id');
         });
+        return $query;
+    }
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
         return $query;
     }
 

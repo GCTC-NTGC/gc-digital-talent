@@ -78,7 +78,7 @@ final class CountPoolCandidatesByPool
 
             // skills
             if (array_key_exists('skills', $filters)) {
-                User::scopeSkills($userQuery, $filters['skills']);
+                User::scopeSkillsIntersectional($userQuery, $filters['skills']);
             }
         });
 
