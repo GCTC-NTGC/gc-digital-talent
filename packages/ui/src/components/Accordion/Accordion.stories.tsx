@@ -1,16 +1,20 @@
 import React from "react";
-import type { StoryFn, Meta } from "@storybook/react";
-import {
-  AcademicCapIcon,
-  Cog8ToothIcon,
-  GlobeAmericasIcon,
-} from "@heroicons/react/24/solid";
+import type { StoryFn } from "@storybook/react";
+import { AcademicCapIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { faker } from "@faker-js/faker";
 
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
+import Link from "../Link";
+import Separator from "../Separator";
+import { StandardHeader } from "./StandardHeader";
 
 const { Item, Trigger, Content, Root } = Accordion;
+
+const Text = () => {
+  faker.seed(0);
+  return <p>{faker.lorem.sentences(5)}</p>;
+};
 
 export default {
   component: Accordion.Root,
@@ -26,36 +30,111 @@ export default {
       page: AccordionDocs,
     },
   },
-} as Meta<typeof Accordion.Root>;
+};
 
 const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <Accordion.Trigger Icon={AcademicCapIcon} subtitle="Subtitle">
+        <StandardHeader Icon={AcademicCapIcon} subtitle="Subtitle">
           Accordion One
-        </Accordion.Trigger>
+        </StandardHeader>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="two">
-        <Accordion.Trigger Icon={Cog8ToothIcon} subtitle="Subtitle">
+        <StandardHeader Icon={Cog8ToothIcon} subtitle="Subtitle">
           Accordion Two
-        </Accordion.Trigger>
+        </StandardHeader>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Trigger Icon={GlobeAmericasIcon} subtitle="Subtitle">
-          Accordion Three
-        </Accordion.Trigger>
+        <Accordion.Header headingAs="h3">
+          <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        </Accordion.Header>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
   );
 };
 
-const Text = () => {
-  faker.seed(0);
-  return <p>{faker.lorem.sentences(5)}</p>;
+const TemplateWithCustomHeader: StoryFn<typeof Accordion.Root> = ({
+  children,
+  ...rest
+}) => {
+  return (
+    <Accordion.Root {...rest}>
+      <Accordion.Item value="one">
+        <Accordion.Header
+          data-h2-flex-grow="base(1)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(row)"
+          data-h2-gap="base(x.5 0)"
+        >
+          <Accordion.Trigger>
+            <div
+              data-h2-flex-grow="base(1)"
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(row)"
+              data-h2-gap="base(x.5 0)"
+            >
+              <div
+                data-h2-flex-grow="base(1)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x.5 0)"
+              >
+                <span
+                  data-h2-display="base(block)"
+                  data-h2-font-size="base(h6, 1)"
+                >
+                  <span data-h2-font-weight="base(700)">Custom</span>
+                  {" Title"}
+                </span>
+                <span
+                  className="Accordion__Subtitle"
+                  data-h2-display="base(block)"
+                  data-h2-font-size="base(copy)"
+                  data-h2-margin="base(x.25 0 0 0)"
+                >
+                  <span data-h2-color="base(primary)">Example</span>
+                  <span
+                    data-h2-margin="base(0 x.5)"
+                    data-h2-color="base(gray.lighter)"
+                  >
+                    |
+                  </span>
+                  <span>Date Range</span>
+                </span>
+              </div>
+            </div>
+          </Accordion.Trigger>
+          <Separator
+            orientation="vertical"
+            decorative
+            data-h2-background-color="base(gray.50)"
+            data-h2-margin="base(x1, 0)"
+            data-h2-height="base(unset)"
+          />
+          <div
+            data-h2-margin="base(x1)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-justify-content="base(center)"
+          >
+            <Link
+              href="/"
+              data-h2-font-size="base(h6, 1)"
+              data-h2-color="base(primary.darker)"
+              data-h2-font-weight="base(700)"
+            >
+              Edit
+            </Link>
+          </div>
+        </Accordion.Header>
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
+  );
 };
 
 export const Default = Template.bind({});
@@ -90,9 +169,9 @@ Nested.args = {
       <Text />
       <Accordion.Root type="single" collapsible mode="simple">
         <Accordion.Item value="two">
-          <Accordion.Trigger Icon={AcademicCapIcon} subtitle="Subtitle">
-            Accordion Two
-          </Accordion.Trigger>
+          <Accordion.Header>
+            <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+          </Accordion.Header>
           <Accordion.Content>
             <Text />
           </Accordion.Content>
@@ -100,4 +179,11 @@ Nested.args = {
       </Accordion.Root>
     </>
   ),
+};
+
+export const WithEditLink = TemplateWithCustomHeader.bind({});
+WithEditLink.args = {
+  type: "single",
+  collapsible: true,
+  children: <Text />,
 };

@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
             EducationExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
                     $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
@@ -166,7 +166,7 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
             WorkExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
                     $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
@@ -177,6 +177,20 @@ class DatabaseSeeder extends Seeder
                     ];
                     $model->skills()->sync($data);
                 })->create();
+        });
+
+        // attach either a work or education experience to a pool candidate to meet minimum criteria
+        PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
+            $educationRequirementOption = $poolCandidate->education_requirement_option;
+            $user = $poolCandidate->user;
+
+            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+                $educationExperience = $user->educationExperiences()->first();
+                $poolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+            } else if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+                $workExperience = $user->workExperiences()->first();
+                $poolCandidate->educationRequirementWorkExperiences()->sync([$workExperience->id]);
+            }
         });
 
         // Create some SearchRequests with old filters, some with new.
@@ -203,6 +217,8 @@ class DatabaseSeeder extends Seeder
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();
+        Pool::truncate();
+        Team::truncate();
     }
 
     private function seedPoolCandidate(User $user, Pool $pool)

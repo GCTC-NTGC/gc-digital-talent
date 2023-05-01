@@ -18,3 +18,13 @@ Cypress.Commands.add("getDCM", () => {
     cy.wrap(dcmId);
   });
 });
+
+Cypress.Commands.add("getTeams", () => {
+  cy.graphqlRequest({
+    operationName: "allTeams",
+    query: getGqlString(AllTeamsDocument),
+    variables: {},
+  }).then((data) => {
+    cy.wrap(data.teams);
+  });
+});

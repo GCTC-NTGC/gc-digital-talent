@@ -202,7 +202,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function userStatuses() : array
+    public static function userStatuses(): array
     {
         return [
             self::USER_STATUS_ACTIVELY_LOOKING,
@@ -512,6 +512,22 @@ class ApiEnums
             self::APPLICATION_STEP_SKILL_REQUIREMENTS,
             self::APPLICATION_STEP_SCREENING_QUESTIONS,
             self::APPLICATION_STEP_REVIEW_AND_SUBMIT,
+        ];
+    }
+
+    const EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK = 'APPLIED_WORK';
+    const EDUCATION_REQUIREMENT_OPTION_EDUCATION = 'EDUCATION';
+
+    /**
+     * A collection of enums for application criteria
+     *
+     * @return string[]
+     */
+    public static function poolCandidateCriteria(): array
+    {
+        return [
+            self::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+            self::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ];
     }
 }

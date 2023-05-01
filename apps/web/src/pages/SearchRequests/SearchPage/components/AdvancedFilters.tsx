@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
@@ -177,7 +178,7 @@ const AdvancedFilters = () => {
         }}
       >
         <Accordion.Item value="educationRequirement">
-          <Accordion.Trigger
+          <StandardAccordionHeader
             subtitle={getFieldLabel(
               educationRequirement,
               educationRequirementOptions,
@@ -190,7 +191,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for education requirement filter of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("educationRequirement")}
           >
@@ -220,7 +221,7 @@ const AdvancedFilters = () => {
           </AnimatedContent>
         </Accordion.Item>
         <Accordion.Item value="employmentDuration">
-          <Accordion.Trigger
+          <StandardAccordionHeader
             subtitle={getFieldLabel(
               employmentDuration,
               employmentDurationOptions,
@@ -233,7 +234,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for employment duration section of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("employmentDuration")}
           >
@@ -258,7 +259,7 @@ const AdvancedFilters = () => {
           </AnimatedContent>
         </Accordion.Item>
         <Accordion.Item value="operationalRequirements">
-          <Accordion.Trigger
+          <StandardAccordionHeader
             subtitle={getFieldLabel(
               operationalRequirements,
               operationalRequirementOptionsShort,
@@ -272,7 +273,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for operational requirements section of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("operationalRequirements")}
           >

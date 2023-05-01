@@ -12,18 +12,18 @@ describe("Talentsearch Direct Intake Page", () => {
       ["/en/browse/pools"].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.wait("@gqlbrowsePoolAdvertisementsQuery");
-        cy.findByRole("heading", { name: /browse i t jobs/i })
+        cy.findByRole("heading", { name: /browse jobs/i })
           .should("exist")
           .and("be.visible");
-      })
-    })
+      });
+    });
 
     it("has no accessibility errors", () => {
-      cy.visit('/en/browse/pools');
+      cy.visit("/en/browse/pools");
       cy.wait("@gqlbrowsePoolAdvertisementsQuery");
       cy.injectAxe();
-      cy.findByRole("heading", { name: /browse i t jobs/i }).should('exist');
-      cy.checkA11y()
-    })
+      cy.findByRole("heading", { name: /browse jobs/i }).should("exist");
+      cy.checkA11y();
+    });
   });
 });

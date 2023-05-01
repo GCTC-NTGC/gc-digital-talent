@@ -237,10 +237,6 @@
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
   },
-  "/xV8Hg": {
-    "defaultMessage": "N'accepte pas de demandes",
-    "description": "Pool Status described as not taking applications."
-  },
   "1X8RC4": {
     "defaultMessage": "Ontario",
     "description": "Ontario selection for province or territory input"
@@ -272,10 +268,6 @@
   "CUi1Ti": {
     "defaultMessage": "Colombie-Britannique",
     "description": "British Columbia selection for province or territory input"
-  },
-  "CWRRy1": {
-    "defaultMessage": "Accepte les demandes",
-    "description": "Pool Status described as taking applications."
   },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",

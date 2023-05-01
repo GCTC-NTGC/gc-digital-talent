@@ -52,6 +52,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.ReviewYourResume,
       ApplicationStep.EducationRequirements,
     ],
+    introUrl: paths.applicationSkillsIntro(application.id),
     stepSubmitted: ApplicationStep.SkillRequirements,
     hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
       return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
