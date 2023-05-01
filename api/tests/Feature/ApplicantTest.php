@@ -799,7 +799,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuerySkills(): void
+    public function testCountApplicantsQuerySkillsAdditive(): void
     {
         // recycle skills testing //
         $user = User::All()->first();
@@ -887,7 +887,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'skills' => [],
+                    'skillsAdditive' => [],
                 ]
             ]
         )->assertJson([
@@ -909,7 +909,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'skills' => [
+                    'skillsAdditive' => [
                         ['id' => $skill1['id']],
                     ]
                 ]
@@ -933,7 +933,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'skills' => [
+                    'skillsAdditive' => [
                         ['id' => $skill1['id']],
                         ['id' => $skill2['id']],
                     ],
@@ -958,7 +958,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'skills' => [
+                    'skillsAdditive' => [
                         ['id' => $skill3['id']],
                     ],
                 ]

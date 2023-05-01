@@ -1785,7 +1785,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterBySkills(): void
+    public function testFilterBySkillsAdditive(): void
     {
         // Create initial data set
         Skill::factory()->count(20)->create();
@@ -1920,7 +1920,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [
+                        'skillsAdditive' => [
                             ['id' => $skill1['id']]
                         ]
                     ]
@@ -1951,7 +1951,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [
+                        'skillsAdditive' => [
                             ['id' => $skill1['id']],
                             ['id' => $skill2['id']]
                         ]
@@ -1983,7 +1983,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [
+                        'skillsAdditive' => [
                             ['id' => $skill3['id']]
                         ]
                     ]
