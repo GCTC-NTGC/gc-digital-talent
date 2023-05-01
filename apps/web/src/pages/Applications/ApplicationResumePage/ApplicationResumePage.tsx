@@ -164,7 +164,7 @@ function formatExperienceCount(
   }
 }
 
-const ApplicationResume = ({ application }: ApplicationPageProps) => {
+export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -370,13 +370,6 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
               })}
             </Link>
           </div>
-
-          {/* <input
-            id="experienceCount"
-            type="hidden"
-            value={experiences.length}
-            {...register("experienceCount", { required: true, min: 1 })}
-          /> */}
           {hasSomeExperience ? (
             <Accordion.Root type="multiple">
               {experiences.map((experience) => {
@@ -477,7 +470,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationResumePage = () => (
+export const ApplicationResumePage = () => (
   <ApplicationApi PageComponent={ApplicationResume} />
 );
 
