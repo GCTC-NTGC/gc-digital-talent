@@ -5770,8 +5770,8 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
-  "6RiVQA": {
-    "defaultMessage": "{role} au sein de la {division}",
+  "JYWwCE": {
+    "defaultMessage": "<strong>{role}</strong> au sein de la {division}",
     "description": "Role at division"
   },
   "8cRL8r": {
@@ -5789,10 +5789,6 @@
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
-  },
-  "A2KwTw": {
-    "defaultMessage": "1 compétence",
-    "description": "Pluralization for one skill"
   },
   "AF8g2I": {
     "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
@@ -5829,10 +5825,6 @@
   "Nc4sjC": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Title of the Government Information link section"
-  },
-  "OvJwG6": {
-    "defaultMessage": "Renseignements supplémentaires : {details}",
-    "description": "Additional information if provided"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",
@@ -5877,10 +5869,6 @@
   "XqFhIa": {
     "defaultMessage": "Modifier les compétences et l'expérience",
     "description": "Text on link to update a users skills and experiences."
-  },
-  "Zm9Hnf": {
-    "defaultMessage": "Depuis : {d1}",
-    "description": "Since"
   },
   "azOv8A": {
     "defaultMessage": "Téléphone :",
@@ -5934,10 +5922,6 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "l27ekQ": {
-    "defaultMessage": "{skillsLength} Compétences",
-    "description": "Pluralization for zero or multiple skills"
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -5965,10 +5949,6 @@
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",
     "description": "Options for how many rows to show on admin table"
-  },
-  "phbDSx": {
-    "defaultMessage": "Modifier l'expérience",
-    "description": "Edit Experience button label"
   },
   "q3Gl23": {
     "defaultMessage": "Niveau de la langue seconde :",
@@ -6105,10 +6085,6 @@
   "QXYMUG": {
     "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
     "description": "Message displayed when a skill has no definition"
-  },
-  "c4r/Zv": {
-    "defaultMessage": "Aucune compétence n’a été liée à cette expérience jusqu’à présent.",
-    "description": "A message explaining that the experience has no associated skills"
   },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
@@ -7591,5 +7567,61 @@
   "6q29tj": {
     "defaultMessage": "En cas d'interruption du travail, les services de référence de cette plateforme seront touchés. Veuillez noter que votre demande sera traitée lorsque les services reprendront. Merci de votre patience.",
     "description": "Content for the PSAC strike notice."
+  },
+  "+AUFyC": {
+    "defaultMessage": "Apprentissage personnel",
+    "description": "Title for personal learning section"
+  },
+  "19hs6x": {
+    "defaultMessage": "La création de votre CV est un peu différente sur cette plateforme. Tout d’abord, tout travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser sur d’autres demandes ultérieurement.",
+    "description": "Application step to begin working on résumé, paragraph one"
+  },
+  "9zHQV0": {
+    "defaultMessage": "Créez votre CV",
+    "description": "Title for resume page when there are no experiences yet"
+  },
+  "E9I34y": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
+  },
+  "Km89qF": {
+    "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
+    "description": "Link text to continue the application process"
+  },
+  "MdWZY5": {
+    "defaultMessage": "Modifier",
+    "description": "Edit experience link label"
+  },
+  "Ne8kuI": {
+    "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le bouton « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to continue working on résumé, paragraph one"
+  },
+  "TEwoWv": {
+    "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le bouton « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to begin working on résumé, paragraph two"
+  },
+  "YJS2CB": {
+    "defaultMessage": "Décerné à",
+    "description": "The award was given to"
+  },
+  "gEBoM0": {
+    "defaultMessage": "Projet/produit",
+    "description": "Label displayed on Community Experience form for Project / product section"
+  },
+  "jhhCKX": {
+    "defaultMessage": "Portée du prix",
+    "description": "Label displayed on award form for scope section"
+  },
+  "p5nWIk": {
+    "defaultMessage": "Ajouter une nouvelle expérience",
+    "description": "A button to add a new experience to your resume"
+  },
+  "qn77WI": {
+    "defaultMessage": "Équipe, groupe ou division",
+    "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "yGFdWK": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
+    "description": "Study at institution"
   }
 }
