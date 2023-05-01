@@ -1,11 +1,14 @@
 import type { IntlShape } from "react-intl";
 
-import { formatDate } from "@gc-digital-talent/date-helpers";
+import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
 import { Maybe, Scalars } from "~/api/generated";
 
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   return formatDate({
-    date: new Date(date),
+    date: formDateStringToDate(date),
     formatString: "MMMM RRRR",
     intl,
   });
