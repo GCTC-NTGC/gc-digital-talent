@@ -36,6 +36,7 @@ export interface AccordionProps {
   // use when you have one path for every type
   editPath?: string;
   headingLevel?: HeadingRank;
+  showSkills?: boolean;
 }
 
 const ExperienceAccordion = ({
@@ -43,6 +44,7 @@ const ExperienceAccordion = ({
   editPaths,
   editPath,
   headingLevel = "h2",
+  showSkills = true,
 }: AccordionProps) => {
   const intl = useIntl();
 
@@ -54,6 +56,7 @@ const ExperienceAccordion = ({
       ...experience,
       editUrl,
       headingLevel,
+      showSkills,
     });
   }
   if (isCommunityExperience(experience)) {
@@ -62,6 +65,7 @@ const ExperienceAccordion = ({
       ...experience,
       editUrl,
       headingLevel,
+      showSkills,
     });
   }
   if (isEducationExperience(experience)) {
@@ -70,6 +74,7 @@ const ExperienceAccordion = ({
       ...experience,
       editUrl,
       headingLevel,
+      showSkills,
     });
   }
   if (isPersonalExperience(experience)) {
@@ -78,6 +83,7 @@ const ExperienceAccordion = ({
       ...experience,
       editUrl,
       headingLevel,
+      showSkills,
     });
   }
   if (isWorkExperience(experience)) {
@@ -86,6 +92,7 @@ const ExperienceAccordion = ({
       ...experience,
       editUrl,
       headingLevel,
+      showSkills,
     });
   }
 

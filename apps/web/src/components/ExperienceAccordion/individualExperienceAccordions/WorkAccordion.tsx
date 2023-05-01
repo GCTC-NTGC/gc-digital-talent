@@ -14,6 +14,7 @@ import SkillSection from "../SkillSection";
 interface WorkContentProps
   extends Pick<WorkExperience, "details" | "division" | "skills"> {
   headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
 }
 
 export const WorkContent = ({
@@ -21,6 +22,7 @@ export const WorkContent = ({
   division,
   skills,
   headingLevel,
+  showSkills = true,
 }: WorkContentProps) => {
   const intl = useIntl();
   return (
@@ -54,23 +56,24 @@ export const WorkContent = ({
         {details}
       </ContentSection>
 
-      {skills?.map((skill) => {
-        return (
-          <div key={skill.id}>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-            />
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
 
-            <SkillSection
-              name={skill.name}
-              record={skill.experienceSkillRecord}
-              headingLevel={headingLevel}
-            />
-          </div>
-        );
-      })}
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -78,11 +81,13 @@ export const WorkContent = ({
 type WorkAccordionProps = WorkExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const WorkAccordion = ({
   editUrl,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: WorkAccordionProps) => {
   const intl = useIntl();
@@ -111,7 +116,11 @@ const WorkAccordion = ({
         )}
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <WorkContent headingLevel={contentHeadingLevel} {...rest} />
+        <WorkContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

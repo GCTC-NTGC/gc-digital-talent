@@ -382,6 +382,7 @@ const ApplicationResume = ({ application }: ApplicationPageProps) => {
                   application.id,
                   experience.id,
                 )}
+                showSkills={false}
               />
             );
           })}

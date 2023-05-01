@@ -14,6 +14,7 @@ import SkillSection from "../SkillSection";
 interface CommunityContentProps
   extends Pick<CommunityExperience, "details" | "project" | "skills"> {
   headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
 }
 
 export const CommunityContent = ({
@@ -21,6 +22,7 @@ export const CommunityContent = ({
   project,
   skills,
   headingLevel,
+  showSkills = true,
 }: CommunityContentProps) => {
   const intl = useIntl();
 
@@ -55,23 +57,24 @@ export const CommunityContent = ({
         {details}
       </ContentSection>
 
-      {skills?.map((skill) => {
-        return (
-          <div key={skill.id}>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-            />
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
 
-            <SkillSection
-              name={skill.name}
-              record={skill.experienceSkillRecord}
-              headingLevel={headingLevel}
-            />
-          </div>
-        );
-      })}
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -79,11 +82,13 @@ export const CommunityContent = ({
 type CommunityAccordionProps = CommunityExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const CommunityAccordion = ({
   editUrl,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: CommunityAccordionProps) => {
   const intl = useIntl();
@@ -112,7 +117,11 @@ const CommunityAccordion = ({
         )}
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <CommunityContent headingLevel={contentHeadingLevel} {...rest} />
+        <CommunityContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

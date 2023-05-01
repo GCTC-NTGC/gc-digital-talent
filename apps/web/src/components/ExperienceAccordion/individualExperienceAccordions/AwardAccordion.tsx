@@ -22,6 +22,7 @@ interface AwardContentProps
     "issuedBy" | "details" | "awardedTo" | "awardedScope" | "skills"
   > {
   headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
 }
 
 export const AwardContent = ({
@@ -31,6 +32,7 @@ export const AwardContent = ({
   awardedScope,
   skills,
   headingLevel,
+  showSkills = true,
 }: AwardContentProps) => {
   const intl = useIntl();
   return (
@@ -99,23 +101,24 @@ export const AwardContent = ({
         {details}
       </ContentSection>
 
-      {skills?.map((skill) => {
-        return (
-          <div key={skill.id}>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-            />
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
 
-            <SkillSection
-              name={skill.name}
-              record={skill.experienceSkillRecord}
-              headingLevel={headingLevel}
-            />
-          </div>
-        );
-      })}
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -123,11 +126,13 @@ export const AwardContent = ({
 interface AwardAccordionProps extends AwardExperience {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  showSkills?: boolean; // show or hide the skills block
 }
 
 const AwardAccordion = ({
   editUrl,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: AwardAccordionProps) => {
   const intl = useIntl();
@@ -149,7 +154,11 @@ const AwardAccordion = ({
         <span data-h2-font-weight="base(700)">{title || ""}</span>
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <AwardContent headingLevel={contentHeadingLevel} {...rest} />
+        <AwardContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

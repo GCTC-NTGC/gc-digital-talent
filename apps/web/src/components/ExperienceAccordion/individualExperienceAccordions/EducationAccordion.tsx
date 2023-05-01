@@ -3,11 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
 import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
-import {
-  commonMessages,
-  getEducationStatus,
-  getEducationType,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getEducationStatus } from "@gc-digital-talent/i18n";
 
 import { EducationExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
@@ -22,6 +18,7 @@ interface EducationContentProps
     "areaOfStudy" | "details" | "status" | "thesisTitle" | "skills"
   > {
   headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
 }
 
 export const EducationContent = ({
@@ -31,6 +28,7 @@ export const EducationContent = ({
   thesisTitle,
   skills,
   headingLevel,
+  showSkills = true,
 }: EducationContentProps) => {
   const intl = useIntl();
   return (
@@ -96,23 +94,24 @@ export const EducationContent = ({
         {details}
       </ContentSection>
 
-      {skills?.map((skill) => {
-        return (
-          <div key={skill.id}>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-            />
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
 
-            <SkillSection
-              name={skill.name}
-              record={skill.experienceSkillRecord}
-              headingLevel={headingLevel}
-            />
-          </div>
-        );
-      })}
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -120,11 +119,13 @@ export const EducationContent = ({
 type EducationAccordionProps = EducationExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const EducationAccordion = ({
   editUrl,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: EducationAccordionProps) => {
   const intl = useIntl();
@@ -153,7 +154,11 @@ const EducationAccordion = ({
         )}
       </ExperienceAccordionHeader>
       <Accordion.Content>
-        <EducationContent headingLevel={contentHeadingLevel} {...rest} />
+        <EducationContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );
