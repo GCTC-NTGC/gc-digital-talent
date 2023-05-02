@@ -437,7 +437,7 @@ function classificationToInput(c: Classification): ClassificationFilterInput {
 type MappingType = {
   [Property in keyof Omit<
     ApplicantFilterInput,
-    "email" | "name" | "generalSearch"
+    "email" | "name" | "generalSearch" | "skillsIntersectional"
   >]: (x: ApplicantFilter[Property]) => ApplicantFilterInput[Property];
 };
 
