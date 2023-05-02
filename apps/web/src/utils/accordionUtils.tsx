@@ -1,15 +1,24 @@
 import type { IntlShape } from "react-intl";
 
 import {
+  DATE_FORMAT_STRING,
   formatDate,
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
 import { Maybe, Scalars } from "~/api/generated";
 
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
+  let dateString = date;
+
+  // fix what comes out of the snapshots
+  if (dateString.length === "yyyy-MM-ddT00:00:00.000000Z".length)
+    dateString = date.substring(0, DATE_FORMAT_STRING.length);
+
+  const parsedDate = formDateStringToDate(dateString);
+
   return formatDate({
-    date: formDateStringToDate(date),
-    formatString: "MMMM RRRR",
+    date: parsedDate,
+    formatString: "MMMM yyyy",
     intl,
   });
 }
