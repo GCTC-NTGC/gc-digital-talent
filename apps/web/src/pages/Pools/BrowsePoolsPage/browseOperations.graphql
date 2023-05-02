@@ -1,5 +1,5 @@
-query browsePoolAdvertisements {
-  publishedPoolAdvertisements {
+query browsePoolAdvertisements($closingDate: DateTime) {
+  publishedPoolAdvertisements(closingDate: $closingDate) {
     id
     name {
       en

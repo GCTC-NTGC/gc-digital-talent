@@ -30,6 +30,8 @@ import flourishBottomLight from "~/assets/img/browse_bottom_light.png";
 import flourishTopDark from "~/assets/img/browse_top_dark.png";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
 
+import { DATETIME_FORMAT_STRING } from "@gc-digital-talent/date-helpers";
+import { format } from "date-fns";
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
@@ -319,7 +321,15 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
 };
 
 const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
+  // get UTC time, in the appropriate format, from client
+  // https://stackoverflow.com/a/11964609
+  const now = new Date();
+  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const formattedNowUTC = format(nowUTC, DATETIME_FORMAT_STRING);
+
+  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
+    variables: { closingDate: formattedNowUTC }, // pass current dateTime into query argument
+  });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>
