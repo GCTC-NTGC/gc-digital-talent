@@ -1785,7 +1785,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterBySkillsAdditive(): void
+    public function testFilterBySkillsIntersectional(): void
     {
         // Create initial data set
         Skill::factory()->count(20)->create();
@@ -1920,7 +1920,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skillsAdditive' => [
+                        'skillsIntersectional' => [
                             ['id' => $skill1['id']]
                         ]
                     ]
@@ -1951,7 +1951,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skillsAdditive' => [
+                        'skillsIntersectional' => [
                             ['id' => $skill1['id']],
                             ['id' => $skill2['id']]
                         ]
@@ -1983,7 +1983,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skillsAdditive' => [
+                        'skillsIntersectional' => [
                             ['id' => $skill3['id']]
                         ]
                     ]

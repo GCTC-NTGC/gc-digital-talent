@@ -561,7 +561,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test skills
     // creates a three users various skills and filter for the skills on two of them
-    // filtering is OR using User::scopeSkillsIntersectional
+    // filtering is OR using User::scopeSkillsAdditive
     public function testSkills()
     {
         $pool = Pool::factory()->create($this->poolData());

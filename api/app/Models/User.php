@@ -363,7 +363,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Skills filtering
      */
-    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -404,7 +404,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $query;
     }
-    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
