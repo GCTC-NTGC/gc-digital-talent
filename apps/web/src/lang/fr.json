@@ -7591,5 +7591,9 @@
   "6q29tj": {
     "defaultMessage": "En cas d'interruption du travail, les services de référence de cette plateforme seront touchés. Veuillez noter que votre demande sera traitée lorsque les services reprendront. Merci de votre patience.",
     "description": "Content for the PSAC strike notice."
+  },
+  "Yh/4po": {
+    "defaultMessage": "Rétablir la recherche",
+    "description": "Button text to reset search field on tables"
   }
 }
