@@ -45,6 +45,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-viewport",
+    "storybook-addon-intl",
   ],
   framework: {
     name: "@storybook/react-webpack5",

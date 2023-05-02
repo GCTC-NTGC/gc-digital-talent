@@ -28,7 +28,7 @@
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.16",
+    "@heroicons/react": "2.0.16",
     "@radix-ui/react-accordion": "^1.1.1",
     "@radix-ui/react-alert-dialog": "^1.0.3",
     "@radix-ui/react-collapsible": "^1.0.1",
@@ -47,7 +47,7 @@
     "react-focus-lock": "^2.9.4",
     "react-remove-scroll": "^2.5.5",
     "react-router-dom": "^6.10.0",
-    "urql": "^3.0.4"
+    "urql": "3.0.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
