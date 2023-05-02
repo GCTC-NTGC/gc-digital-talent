@@ -131,6 +131,14 @@ const EducationAccordion = ({
   const intl = useIntl();
   const { id, areaOfStudy, institution, startDate, endDate } = rest;
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const headerTitle = intl.formatMessage(
+    {
+      defaultMessage: "<strong>{areaOfStudy}</strong> at {institution}",
+      id: "yGFdWK",
+      description: "Study at institution",
+    },
+    { areaOfStudy, institution },
+  );
 
   return (
     <Accordion.Item value={id}>
@@ -142,16 +150,19 @@ const EducationAccordion = ({
           id: "PFoM2I",
           description: "Title for education experience section",
         })}
-        editUrl={editUrl}
-      >
-        {intl.formatMessage(
+        editLinkUrl={editUrl}
+        editLinkLabel={intl.formatMessage(
           {
-            defaultMessage: "<strong>{areaOfStudy}</strong> at {institution}",
-            id: "yGFdWK",
-            description: "Study at institution",
+            defaultMessage: "Edit<hidden> {context}</hidden>",
+            id: "eLpCfR",
+            description: "Edit experience link label with context",
           },
-          { areaOfStudy, institution },
+          {
+            context: headerTitle,
+          },
         )}
+      >
+        {headerTitle}
       </ExperienceAccordionHeader>
       <Accordion.Content>
         <EducationContent

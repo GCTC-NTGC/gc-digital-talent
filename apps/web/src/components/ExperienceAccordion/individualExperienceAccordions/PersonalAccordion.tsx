@@ -105,7 +105,17 @@ const PersonalAccordion = ({
           id: "+AUFyC",
           description: "Title for personal learning section",
         })}
-        editUrl={editUrl}
+        editLinkUrl={editUrl}
+        editLinkLabel={intl.formatMessage(
+          {
+            defaultMessage: "Edit<hidden> {context}</hidden>",
+            id: "eLpCfR",
+            description: "Edit experience link label with context",
+          },
+          {
+            context: title,
+          },
+        )}
       >
         <span data-h2-font-weight="base(700)">{title || ""}</span>
       </ExperienceAccordionHeader>

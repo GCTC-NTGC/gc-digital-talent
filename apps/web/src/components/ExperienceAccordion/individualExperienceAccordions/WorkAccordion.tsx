@@ -93,6 +93,14 @@ const WorkAccordion = ({
   const intl = useIntl();
   const { id, role, organization, startDate, endDate } = rest;
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const headerTitle = intl.formatMessage(
+    {
+      defaultMessage: "<strong>{role}</strong> at {organization}",
+      id: "JYWwCE",
+      description: "Role at organization",
+    },
+    { role, organization },
+  );
 
   return (
     <Accordion.Item value={id}>
@@ -104,16 +112,19 @@ const WorkAccordion = ({
           id: "giUfys",
           description: "Title for work experience section",
         })}
-        editUrl={editUrl}
-      >
-        {intl.formatMessage(
+        editLinkUrl={editUrl}
+        editLinkLabel={intl.formatMessage(
           {
-            defaultMessage: "<strong>{role}</strong> at {organization}",
-            id: "JYWwCE",
-            description: "Role at organization",
+            defaultMessage: "Edit<hidden> {context}</hidden>",
+            id: "eLpCfR",
+            description: "Edit experience link label with context",
           },
-          { role, organization },
+          {
+            context: headerTitle,
+          },
         )}
+      >
+        {headerTitle}
       </ExperienceAccordionHeader>
       <Accordion.Content>
         <WorkContent

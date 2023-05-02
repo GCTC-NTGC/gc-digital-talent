@@ -100,7 +100,7 @@ const ExperienceAccordion = ({
   const editUrl = editPath;
   return (
     <Accordion.Item value="none">
-      <ExperienceAccordionHeader headingAs={headingLevel} editUrl={editUrl}>
+      <ExperienceAccordionHeader headingAs={headingLevel} editLinkUrl={editUrl}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",

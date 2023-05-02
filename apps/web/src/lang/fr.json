@@ -7592,6 +7592,10 @@
     "defaultMessage": "Modifier",
     "description": "Edit experience link label"
   },
+  "eLpCfR": {
+    "defaultMessage": "Modifier<hidden> {context}</hidden>",
+    "description": "Edit experience link label with context"
+  },
   "Ne8kuI": {
     "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le bouton « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on résumé, paragraph one"

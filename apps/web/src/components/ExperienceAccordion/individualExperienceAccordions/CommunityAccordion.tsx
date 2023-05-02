@@ -94,6 +94,14 @@ const CommunityAccordion = ({
   const intl = useIntl();
   const { id, endDate, startDate, title, organization } = rest;
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const headerTitle = intl.formatMessage(
+    {
+      defaultMessage: "<strong>{title}</strong> with {organization}",
+      id: "TmWbke",
+      description: "Title with organization",
+    },
+    { title, organization },
+  );
 
   return (
     <Accordion.Item value={id}>
@@ -105,16 +113,19 @@ const CommunityAccordion = ({
           id: "Uy5Dg2",
           description: "Title for community experience section",
         })}
-        editUrl={editUrl}
-      >
-        {intl.formatMessage(
+        editLinkUrl={editUrl}
+        editLinkLabel={intl.formatMessage(
           {
-            defaultMessage: "<strong>{title}</strong> with {organization}",
-            id: "TmWbke",
-            description: "Title with organization",
+            defaultMessage: "Edit<hidden> {context}</hidden>",
+            id: "eLpCfR",
+            description: "Edit experience link label with context",
           },
-          { title, organization },
+          {
+            context: headerTitle,
+          },
         )}
+      >
+        {headerTitle}
       </ExperienceAccordionHeader>
       <Accordion.Content>
         <CommunityContent
