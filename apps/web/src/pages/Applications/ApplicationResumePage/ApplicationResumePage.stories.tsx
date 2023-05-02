@@ -1,15 +1,35 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakeExperiences,
+  fakePoolCandidates,
+} from "@gc-digital-talent/fake-data";
 
 import { ApplicationResume } from "./ApplicationResumePage";
 import { ApplicationPageProps } from "../ApplicationApi";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
+const fakeUser = fakePoolCandidate.user;
 
-const defaultProps: ApplicationPageProps = {
-  application: fakePoolCandidate,
+const noExperiencesProps: ApplicationPageProps = {
+  application: {
+    ...fakePoolCandidate,
+    user: {
+      ...fakeUser,
+      experiences: [],
+    },
+  },
+};
+
+const hasExperiencesProps: ApplicationPageProps = {
+  application: {
+    ...fakePoolCandidate,
+    user: {
+      ...fakeUser,
+      experiences: fakeExperiences(5),
+    },
+  },
 };
 
 export default {
@@ -21,5 +41,8 @@ const Template: ComponentStory<typeof ApplicationResume> = (props) => (
   <ApplicationResume {...props} />
 );
 
-export const Default = Template.bind({});
-Default.args = defaultProps;
+export const NoExperiences = Template.bind({});
+NoExperiences.args = noExperiencesProps;
+
+export const HasExperiences = Template.bind({});
+HasExperiences.args = hasExperiencesProps;
