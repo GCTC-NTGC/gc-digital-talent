@@ -7695,5 +7695,9 @@
   "xuAFzV": {
     "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
     "description": "Null state messages for resume list"
+  },
+  "gyZV/3": {
+    "defaultMessage": "Veuillez ajouter au moins une expérience.",
+    "description": "Error message if there are no experiences"
   }
 }
