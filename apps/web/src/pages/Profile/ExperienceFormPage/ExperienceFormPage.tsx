@@ -298,8 +298,8 @@ export const ExperienceForm = ({
                 <span>
                   <TrashIcon style={{ width: "0.9rem" }} />{" "}
                   {intl.formatMessage({
-                    defaultMessage: "Delete experience from My Profile",
-                    id: "uqoN4k",
+                    defaultMessage: "Delete experience from my profile",
+                    id: "zzr/9B",
                     description: "Label on button for delete this experience",
                   })}
                 </span>
