@@ -1,13 +1,13 @@
 import React from "react";
 import { HeadingRank } from "@gc-digital-talent/ui";
 
-export interface ExperienceAccordionContentSectionProps {
+interface ExperienceAccordionContentSectionProps {
   title: string;
   children: React.ReactNode;
   headingLevel?: HeadingRank;
 }
 
-export const ExperienceAccordionContentSection = ({
+const ExperienceAccordionContentSection = ({
   title,
   children,
   headingLevel = "h3",
