@@ -270,8 +270,8 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "This step allows you to edit any résumé information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your résumé yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” button.",
-              id: "Ne8kuI",
+                "This step allows you to edit any résumé information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your résumé yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
+              id: "YbH6ZO",
               description:
                 "Application step to continue working on résumé, paragraph one",
             })}
@@ -311,8 +311,8 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Building your résumé consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your résumé using the “<strong>Add a new experience</strong>” button.",
-              id: "TEwoWv",
+                "Building your résumé consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your résumé using the “<strong>Add a new experience</strong>” link.",
+              id: "9Fzy0s",
               description:
                 "Application step to begin working on résumé, paragraph two",
             })}
@@ -359,14 +359,15 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
             />
 
             <Link
+              type="button"
+              mode="inline"
               color="secondary"
               href={paths.applicationResumeAdd(application.id)}
-              type="button"
             >
               {intl.formatMessage({
                 defaultMessage: "Add a new experience",
-                id: "p5nWIk",
-                description: "A button to add a new experience to your resume",
+                id: "ON4+Yr",
+                description: "A link to add a new experience to your resume",
               })}
             </Link>
           </div>

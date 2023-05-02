@@ -7584,12 +7584,12 @@
     "defaultMessage": "Modifier<hidden> {context}</hidden>",
     "description": "Edit experience link label with context"
   },
-  "Ne8kuI": {
-    "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le bouton « <strong>Ajouter une nouvelle expérience</strong> ».",
+  "YbH6ZO": {
+    "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on résumé, paragraph one"
   },
-  "TEwoWv": {
-    "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le bouton « <strong>Ajouter une nouvelle expérience</strong> ».",
+  "9Fzy0s": {
+    "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on résumé, paragraph two"
   },
   "YJS2CB": {
@@ -7604,9 +7604,9 @@
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on award form for scope section"
   },
-  "p5nWIk": {
+  "ON4+Yr": {
     "defaultMessage": "Ajouter une nouvelle expérience",
-    "description": "A button to add a new experience to your resume"
+    "description": "A link to add a new experience to your resume"
   },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
