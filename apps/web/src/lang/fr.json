@@ -7691,5 +7691,9 @@
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
+  },
+  "Yh/4po": {
+    "defaultMessage": "Rétablir la recherche",
+    "description": "Button text to reset search field on tables"
   }
 }
