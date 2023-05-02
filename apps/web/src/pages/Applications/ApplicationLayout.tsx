@@ -151,7 +151,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
 const ApplicationLayout = () => {
   const { applicationId } = useParams();
-  const [{ data, fetching, error, stale }] = useGetApplicationQuery({
+  const [{ data, fetching, error }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
       id: applicationId || "",
@@ -161,7 +161,7 @@ const ApplicationLayout = () => {
   const application = data?.poolCandidate;
 
   return (
-    <Pending fetching={fetching || stale} error={error}>
+    <Pending fetching={fetching} error={error}>
       {application?.poolAdvertisement ? (
         <ApplicationPageWrapper application={application} />
       ) : (

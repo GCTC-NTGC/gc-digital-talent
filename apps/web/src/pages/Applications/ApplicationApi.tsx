@@ -15,8 +15,7 @@ interface ApplicationApiProps {
 
 const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {
   const { applicationId } = useParams();
-  const [{ data, fetching, error, stale }] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
+  const [{ data, fetching, error }] = useGetApplicationQuery({
     variables: {
       id: applicationId || "",
     },
@@ -25,7 +24,7 @@ const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {
   const application = data?.poolCandidate;
 
   return (
-    <Pending fetching={fetching || stale} error={error}>
+    <Pending fetching={fetching} error={error}>
       {application?.poolAdvertisement ? (
         <PageComponent application={application} />
       ) : (
