@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
@@ -30,6 +31,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
+ * @property string $education_requirement_option
  */
 
 class PoolCandidate extends Model
@@ -82,6 +84,63 @@ class PoolCandidate extends Model
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
+    }
+
+    // education_requirement_option fulfilled by what experience models
+    public function educationRequirementAwardExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementCommunityExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementEducationExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementPersonalExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementWorkExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function getEducationRequirementExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
+        return $collection;
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder

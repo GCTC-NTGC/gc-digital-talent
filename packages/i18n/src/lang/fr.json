@@ -1081,6 +1081,10 @@
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
+  "V3+fXY": {
+    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
+    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
   "H8eisr": {
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
