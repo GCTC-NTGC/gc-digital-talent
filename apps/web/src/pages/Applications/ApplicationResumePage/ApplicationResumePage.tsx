@@ -116,8 +116,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 education and certificate experiences} =1 {1 education and certificate experience} other {# education and certificate experiences}}",
-          id: "qFij+H",
+            "{experienceCount, plural, =0 {0 community participation experiences} =1 {1 community participation experience} other {# community participation experiences}}",
+          id: "V6wB0a",
           description: "list a number of community experiences",
         },
         {
@@ -128,9 +128,9 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 community participation experiences} =1 {1 community participation experience} other {# community participation experiences}}",
-          id: "V6wB0a",
-          description: "list a number of community experiences",
+            "{experienceCount, plural, =0 {0 education and certificate experiences} =1 {1 education and certificate experience} other {# education and certificate experiences}}",
+          id: "0fexP+",
+          description: "list a number of education experiences",
         },
         {
           experienceCount,

@@ -7684,9 +7684,9 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
     "description": "list a number of personal experiences"
   },
-  "qFij+H": {
+  "0fexP+": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} =1 {1 expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
-    "description": "list a number of community experiences"
+    "description": "list a number of education experiences"
   },
   "szVmh/": {
     "defaultMessage": "Description de l’apprentissage",
