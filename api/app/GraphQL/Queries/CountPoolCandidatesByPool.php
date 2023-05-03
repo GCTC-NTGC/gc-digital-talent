@@ -73,12 +73,12 @@ final class CountPoolCandidatesByPool
 
             // expectedClassifications
             if (array_key_exists('expectedClassifications', $filters)) {
-                User::scopeClassifications($userQuery, $filters['expectedClassifications']);
+                User::scopeExpectedClassifications($userQuery, $filters['expectedClassifications']);
             }
 
             // skills
             if (array_key_exists('skills', $filters)) {
-                User::scopeSkills($userQuery, $filters['skills']);
+                User::scopeSkillsAdditive($userQuery, $filters['skills']);
             }
         });
 

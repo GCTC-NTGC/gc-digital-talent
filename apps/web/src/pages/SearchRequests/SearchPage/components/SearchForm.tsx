@@ -221,7 +221,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ? classificationMap.get(values.classification)
           : undefined;
         return {
-          expectedClassifications: [selectedClassification],
+          qualifiedClassifications: [selectedClassification],
           skills: values.skills
             ? values.skills
                 .filter((id) => !!id)
@@ -254,6 +254,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             ? durationSelectionToEnum(values.employmentDuration)
             : null,
           locationPreferences: values.locationPreferences || [],
+          qualifiedStreams: values.stream ? [values.stream] : undefined,
           pools: pools
             ? pools
                 .filter(notEmpty)

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class User
@@ -358,13 +359,17 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $query;
     }
-    public static function scopeSkills(Builder $query, ?array $skills): Builder
+
+    /**
+     * Skills filtering
+     */
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
         }
 
-        // skills act as an AND filter. The query should only return candidates with ALL of the skills.
+        // skills AND filtering. The query should only return candidates with ALL of the skills.
         $query->whereExists(function ($query) use ($skills) {
             $query->select(DB::raw('null'))
                 ->from(function ($query) {
@@ -399,8 +404,103 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $query;
     }
+    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
 
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+        // skills OR filtering. The query should return candidates with ANY of the skills.
+        $query->whereExists(function ($query) use ($skills) {
+            $query->select(DB::raw('null'))
+                ->from(function ($query) {
+                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
+                        ->from('experience_skill')
+                        ->joinSub(function ($query) {
+                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
+                                ->from('award_experiences')
+                                ->unionAll(function ($query) {
+                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
+                                        ->from('community_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
+                                        ->from('education_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
+                                        ->from('personal_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
+                                        ->from('work_experiences');
+                                });
+                        }, 'experiences', function ($join) {
+                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
+                        })
+                        ->groupBy('experiences.user_id');
+                }, "aggregate_experiences")
+                ->where(function ($query) use ($skills) {
+                    foreach ($skills as $key => $value) {
+                        $query->orWhereJsonContains('aggregate_experiences.user_skills_grouped', $value);
+                    }
+                })
+                ->whereColumn('aggregate_experiences.user_id', 'users.id');
+        });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeQualifiedClassifications($query, $classifications);
+        });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified streams.
+     * If $streams is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $streams
+     * @return Builder
+     */
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        $query->whereHas('poolCandidates', function ($query) use ($streams) {
+            PoolCandidate::scopeQualifiedStreams($query, $streams);
+        });
+        return $query;
+    }
+
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only return applicants who have expressed interest in any of $classifications.
+     * Applicants have been able to record this interest in various ways, so this scope may consider three fields on
+     * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {

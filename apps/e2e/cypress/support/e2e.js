@@ -14,15 +14,17 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import 'cypress-axe'
-import "./commands";
-import "./userCommands";
-import "./poolAdvertisementCommands";
+import "cypress-axe";
+import "./applicationCommands";
 import "./classificationCommands";
+import "./commands";
+import "./departmentCommands";
+import "./genericJobTitleCommands";
+import "./poolAdvertisementCommands";
+import "./searchRequestCommands";
 import "./skillCommands";
 import "./teamsCommands";
-import "./genericJobTitleCommands";
-import "./applicationCommands";
+import "./userCommands";
 
 before(() => {
   cy.log(
@@ -40,7 +42,7 @@ before(() => {
 // require('./commands')
 
 require("cypress-terminal-report/src/installLogsCollector")();
-require('cy-verify-downloads').addCustomCommand();
+require("cy-verify-downloads").addCustomCommand();
 
 Cypress.on("uncaught:exception", () => {
   return false;

@@ -15,10 +15,12 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
       {...(isCurrent
         ? {
             "data-h2-font-weight": "base(700)",
-            "data-h2-text-decoration": "base(none)",
+            "data-h2-text-decoration": "base(none) base:hover(underline)",
             "aria-current": "page",
           }
-        : {})}
+        : {
+            "data-h2-text-decoration": "base:hover(none)",
+          })}
     >
       {children}
     </Link>

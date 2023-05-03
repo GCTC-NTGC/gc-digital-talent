@@ -3,7 +3,6 @@
  */
 
 import React from "react";
-import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import { faker } from "@faker-js/faker";
 import { screen, fireEvent } from "@testing-library/react";
 
@@ -29,17 +28,13 @@ const Text = () => <p>{faker.lorem.sentences(5)}</p>;
 const DefaultChildren = () => (
   <>
     <Accordion.Item value="one">
-      <Accordion.Trigger Icon={AcademicCapIcon} subtitle="Subtitle">
-        Accordion One
-      </Accordion.Trigger>
+      <Accordion.Trigger>Accordion One</Accordion.Trigger>
       <Accordion.Content>
         <Text />
       </Accordion.Content>
     </Accordion.Item>{" "}
     <Accordion.Item value="two">
-      <Accordion.Trigger Icon={AcademicCapIcon} subtitle="Subtitle">
-        Accordion Two
-      </Accordion.Trigger>
+      <Accordion.Trigger>Accordion Two</Accordion.Trigger>
       <Accordion.Content>
         <Text />
       </Accordion.Content>

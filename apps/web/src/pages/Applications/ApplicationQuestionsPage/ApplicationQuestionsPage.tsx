@@ -64,6 +64,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
       ApplicationStep.EducationRequirements,
       ApplicationStep.SkillRequirements,
     ],
+    introUrl: paths.applicationQuestionsIntro(application.id),
     stepSubmitted: ApplicationStep.ScreeningQuestions,
     hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
       return screeningQuestionsSectionHasMissingResponses(
