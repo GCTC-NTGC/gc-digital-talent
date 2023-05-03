@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -325,10 +325,10 @@ const BrowsePoolsApi = () => {
   // https://stackoverflow.com/a/11964609
   const now = new Date();
   const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-  const formattedNowUTC = format(nowUTC, DATETIME_FORMAT_STRING);
+  const formattedNowUTCRef = useRef(format(nowUTC, DATETIME_FORMAT_STRING)); // prevent infinite re-render
 
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
-    variables: { closingDate: formattedNowUTC }, // pass current dateTime into query argument
+    variables: { closingDate: formattedNowUTCRef.current }, // pass current dateTime into query argument
   });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
