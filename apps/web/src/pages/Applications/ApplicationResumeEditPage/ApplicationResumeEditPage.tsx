@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { StarIcon } from "@heroicons/react/20/solid";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";

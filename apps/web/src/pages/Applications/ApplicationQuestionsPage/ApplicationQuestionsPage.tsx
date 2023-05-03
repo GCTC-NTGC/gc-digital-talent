@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
 import {

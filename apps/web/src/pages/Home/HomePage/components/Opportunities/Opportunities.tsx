@@ -1,7 +1,7 @@
 // Vendor dependencies
 import React from "react";
 import { useIntl } from "react-intl";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 // Local assets
 import { Heading, CardFlat } from "@gc-digital-talent/ui";

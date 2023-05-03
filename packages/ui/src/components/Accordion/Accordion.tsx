@@ -2,7 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
 import React from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank } from "../../types";

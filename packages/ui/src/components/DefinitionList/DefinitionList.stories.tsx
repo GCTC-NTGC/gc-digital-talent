@@ -1,12 +1,10 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  AcademicCapIcon,
-  BackspaceIcon,
-  CakeIcon,
-  DevicePhoneMobileIcon,
-  EnvelopeIcon,
-} from "@heroicons/react/24/solid";
+import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
+import BackspaceIcon from "@heroicons/react/24/solid/BackspaceIcon";
+import CakeIcon from "@heroicons/react/24/solid/CakeIcon";
+import DevicePhoneMobileIcon from "@heroicons/react/24/solid/DevicePhoneMobileIcon";
+import EnvelopeIcon from "@heroicons/react/24/solid/EnvelopeIcon";
 import { faker } from "@faker-js/faker";
 
 import DefinitionList from "./DefinitionList";

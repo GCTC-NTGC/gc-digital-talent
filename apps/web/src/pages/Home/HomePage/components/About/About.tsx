@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { NewspaperIcon } from "@heroicons/react/24/outline";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";

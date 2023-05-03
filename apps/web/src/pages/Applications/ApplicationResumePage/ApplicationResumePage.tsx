@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
-import { StarIcon } from "@heroicons/react/20/solid";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 

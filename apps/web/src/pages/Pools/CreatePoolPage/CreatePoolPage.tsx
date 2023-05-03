@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";

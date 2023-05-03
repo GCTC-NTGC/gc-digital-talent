@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ToastContainer, Slide, CloseButtonProps } from "react-toastify";
 
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import closeButtonStyles from "./styles";
 

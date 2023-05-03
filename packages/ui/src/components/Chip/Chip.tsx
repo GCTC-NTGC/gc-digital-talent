@@ -1,5 +1,5 @@
 import React from "react";
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";

@@ -5,7 +5,8 @@ import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import {
   useTable,
   useGlobalFilter,

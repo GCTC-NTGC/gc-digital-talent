@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router";
 import { OperationContext } from "urql";
-import { UserIcon } from "@heroicons/react/24/outline";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { Scalars, useUserQuery } from "@gc-digital-talent/graphql";
 
 import PageHeader from "~/components/PageHeader";

@@ -1,5 +1,5 @@
 import React from "react";
-import { TicketIcon } from "@heroicons/react/24/outline";
+import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
 import { useIntl } from "react-intl";
 
 import PageHeader from "~/components/PageHeader";

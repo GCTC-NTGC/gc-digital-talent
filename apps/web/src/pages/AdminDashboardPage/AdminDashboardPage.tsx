@@ -1,16 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  BoltIcon,
-  HomeIcon,
-  BuildingOfficeIcon,
-  BuildingOffice2Icon,
-  TicketIcon,
-  UserGroupIcon,
-  UserIcon,
-  Squares2X2Icon,
-  PuzzlePieceIcon,
-} from "@heroicons/react/24/outline";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
+import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 
 import { Heading, Pending } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";

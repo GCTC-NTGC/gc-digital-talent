@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { DropdownMenu, Button, Separator } from "@gc-digital-talent/ui";
 

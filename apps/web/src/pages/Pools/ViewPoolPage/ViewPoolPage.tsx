@@ -2,12 +2,9 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  CheckIcon,
-  ClipboardIcon,
-  ArrowTopRightOnSquareIcon,
-} from "@heroicons/react/24/outline";
-
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
+import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import {
   Pending,
   Chip,

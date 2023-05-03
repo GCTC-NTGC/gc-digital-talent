@@ -1,16 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import {
-  BoltIcon,
-  BriefcaseIcon as BriefcaseIconOutline,
-  ClipboardDocumentCheckIcon,
-  CheckCircleIcon,
-  CloudIcon,
-  CpuChipIcon,
-  LightBulbIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import BriefcaseIconOutline from "@heroicons/react/24/outline/BriefcaseIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import PhoneIcon from "@heroicons/react/24/outline/PhoneIcon";
 
 import {
   Button,

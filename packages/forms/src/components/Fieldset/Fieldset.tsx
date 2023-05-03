@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
