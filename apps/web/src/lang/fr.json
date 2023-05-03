@@ -7695,5 +7695,29 @@
   "Yh/4po": {
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
+  },
+  "/sBGov": {
+    "defaultMessage": "Question {number}",
+    "description": "Heading for a specific screening question"
+  },
+  "CfNtWn": {
+    "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
+    "description": "Message displayed to users when there are no screening questions for a process"
+  },
+  "VcpIlx": {
+    "defaultMessage": "Vérifier les instructions",
+    "description": "Link text to return to an introduction page on an application"
+  },
+  "kJUKrT": {
+    "defaultMessage": "Mise à jour réussie des réponses aux questions filtres!",
+    "description": "Message displayed to users when saving screening question responses is successful."
+  },
+  "tMnjyJ": {
+    "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
+    "description": "Notice that application can be saved and returned to at a later time."
+  },
+  "uPnk4X": {
+    "defaultMessage": "Examinons ma candidature",
+    "description": "Button text to submit screening questions and continue to application review"
   }
 }
