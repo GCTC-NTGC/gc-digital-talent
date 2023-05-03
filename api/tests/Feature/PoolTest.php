@@ -237,7 +237,7 @@ class PoolTest extends TestCase
         ]);
         $timeNow = Carbon::now()->toDateTimeString();
 
-        // assert no argument passed in for closingDate returns 5 published pool
+        // assert no argument passed in for closingDate returns 5 published pools
         $response = $this->actingAs($this->adminUser, "api")
             ->graphQL(
                 /** @lang GraphQL */
