@@ -1,0 +1,374 @@
+{
+  "+JIfBy": {
+    "defaultMessage": "Ta’n teken lukwaqnkisna agency na apprentis lukwetew?",
+    "description": "Learn more dialog question nine heading"
+  },
+  "+cn9MN": {
+    "defaultMessage": "Majuinu’k ta’n iknmujik ta’n koqowey telukwet ta’n kisi tla’sitew ta’n elukwatk wejiaq wikuwaq nuta’q adequate internet asite’tasik wjit apoqnmuksin elukwet.",
+    "description": "IAP Requirement list item six"
+  },
+  "+do6jV": {
+    "defaultMessage": "Ankapte’n ta’n teli asite’tasik Criteria",
+    "description": "Button text for program eligibility criteria"
+  },
+  "/5tYua": {
+    "defaultMessage": "Ika’te’n ki’l ta’n koqowey ewikasik",
+    "description": "How it works, step 2 heading"
+  },
+  "/7NWbF": {
+    "defaultMessage": "Wela’lin wjit ki’l ta’n menuweken wula Program. Ninen menaqate’tmek wjit nutman wjit ki’l apajiw!",
+    "description": "Third paragraph for apply now dialog"
+  },
+  "/ar49+": {
+    "defaultMessage": "Suwa’te’n ta’n kesatmin wjit kinu’tmasin pemiaq ta’n te’sik wula program, kitk wjit-wula-lukwaqn aqq wejiaq ta’n online kisi kinu’tmut progam",
+    "description": "IAP Requirement list item five"
+  },
+  "v9mTgX": {
+    "defaultMessage": "Apukjik, na online wi’katikn etliaq tetew wjit wen ketu’ suwa’toq. Na misoqo, kinu menuwekeyek ki’l l’kitmin ki’l resume’ aqq elt cover letter wjit: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
+    "description": "Learn more dialog question eleven paragraph one"
+  },
+  "27FjxB": {
+    "defaultMessage": "Ala’te’n ta’n kesatmin aqq ta’n menuweken information technology (IT), wjit ta’n kesatk aqq ketu’tlukwet pemiaq wjit nekm, ketu tlukwet, witan, kisna ta’n nekm mimajuwaqn teli pma’toq wejiet.",
+    "description": "IAP Requirement list item four"
+  },
+  "436DA5": {
+    "defaultMessage": "Nekwek",
+    "description": "Talent portal strategy item 2 heading"
+  },
+  "4p0QdF": {
+    "defaultMessage": "Kikjuk",
+    "description": "Button text used to close an open modal"
+  },
+  "6l9YH+": {
+    "defaultMessage": "Applicant nuta’q wulteskn ta’n wije’tik wula koqowey nuta’q:",
+    "description": "Heading for the applicant requirements dialog"
+  },
+  "81iywD": {
+    "defaultMessage": "Ki’l ika’luksitis wjit knuwa’tiken wjit koqowey ki’l ika’tu’n",
+    "description": "How it works, step 3 content sentence 1"
+  },
+  "84rSVg": {
+    "defaultMessage": "Asite’te’n ta’n nikwek wjit mekenujik ta’n nemitasik wejiaq ta’n eliaq piluwey ta’n pema’tasik me’ na’qek tla’sin",
+    "description": "Talent portal strategy item 2 content"
+  },
+  "8PhWBd": {
+    "defaultMessage": "Tuwa’te’n",
+    "description": "Talent portal strategy item 4 heading"
+  },
+  "BSSYnh": {
+    "defaultMessage": "Nike’ ninen menuwaqlulnek kjijitn ta’n tujiw, teluwejik ta’n tla’sitew pemitasik wjit ta’n asite’tk majuinu’k l’nuwultijik ta’n ketu’ wiaqpit wula IT Apprenticeship Program wjit kisi suwa’tu’n online.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "CY+493": {
+    "defaultMessage": "Me’ kina’masi",
+    "description": "Button text to learn more about the program"
+  },
+  "CZGta2": {
+    "defaultMessage": "Net etek ta’n telawtik wjit wesuwa’tasik wula program?",
+    "description": "Learn more dialog question ten heading"
+  },
+  "CqLV19": {
+    "defaultMessage": "Wjit wula Program",
+    "description": "Program information section title"
+  },
+  "DBczOG": {
+    "defaultMessage": "Ta’n tla’tiketis",
+    "description": "Heading for strategy for the indigenous talent portal"
+  },
+  "DgMIfz": {
+    "defaultMessage": "Tepaqtek wula IT Apprenticeship program wjit ki'l?",
+    "description": "Application box heading part one"
+  },
+  "DvmNR7": {
+    "defaultMessage": "Suwa’te’n nike’",
+    "description": "Button text to apply for program"
+  },
+  "Dzyk1q": {
+    "defaultMessage": "Ta’n mawita’jik wjit IT Apprentice Program wjit L’nu’k majuinu’k, na L’nu’k Talent Portal poqjiaq ta’n ankaptasik wjit IT aqq Technology talent, ta’n kisa’tew:",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "iKpxPY": {
+    "defaultMessage": "Ke tliwula’tike aqq l’kite’n ki’l resume aqq cover letter teluwek ta’n ki’l kesatmn wjit IT aqq koqowey wjit kesatmn ki’l elien wula program wjit: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Na ta’n wen naspit pipanimultew na’tami 3-5 na’kwekl elukutimk",
+    "description": "First paragraph for apply now dialog"
+  },
+  "GnmmgR": {
+    "defaultMessage": "Wjit ta’n piskwa’tasik, na te’sijik maliaptmi’tij pipanimultew ki’l na’tami 3-5 na’kwekl elukutimk.",
+    "description": "How it works, step 3 content sentence 2"
+  },
+  "Ilot3b": {
+    "defaultMessage": "Net tala’sik te’s majuinu kaqikisa’toq",
+    "description": "Learn more dialog question three heading"
+  },
+  "KdXvmY": {
+    "defaultMessage": "Talkis kjijitis koqowey wjit wula program wjit ni’n?",
+    "description": "Learn more dialog question seven heading"
+  },
+  "L9yjr3": {
+    "defaultMessage": "Kina’masi wjit ta’n Kaplno’l wjit Kanata IT Apprenticeship Program wjit L’nu’k majuinu’k",
+    "description": "Heading for the Learn more dialog"
+  },
+  "LGSw+f": {
+    "defaultMessage": "Msi̴t Apprentices na tepkisa’sitew wejiaq mnaqaj mekenuj peer toqiluwatu’tij koqowey aqq ta’n apoqnmuwa’tijik.  Apprentices elt nuta’q wen tliman suwa’tn wula l’nuwey Apprenticeship Network, ta’n koqowey pukwelk etek ta’n eliaq piluwey l’nu’k elukutijik ta’n Kaplno’l Kanata, aqq ta’n piluwey l’nu’k apprentice ta’n ki’s eyk wula program.",
+    "description": "Learn more dialog question two paragraph two"
+  },
+  "MgLLHd": {
+    "defaultMessage": "Meski’k ta’n teli mnuweke’tij",
+    "description": "Talent portal strategy item 1 heading"
+  },
+  "NaF4Iu": {
+    "defaultMessage": "Suwa’te’n Kiskuk!",
+    "description": "Application box heading part two"
+  },
+  "O0z6Ym": {
+    "defaultMessage": "Wen net wjit wula program?",
+    "description": "Heading for section about who the program is for"
+  },
+  "OcIvN1": {
+    "defaultMessage": "Wjit ta’n wela’sik kaqikisa’tasik wula program, net menuweke’tij ta’n apprentice ankaptasin wjit wula Kaplno’l Kanata.",
+    "description": "Learn more dialog question three paragraph one"
+  },
+  "PvH5lJ": {
+    "defaultMessage": "Ta’n koqowey nutmayek",
+    "description": "Heading for the quotes sections"
+  },
+  "QkZ7Oy": {
+    "defaultMessage": "Talkisi suwa’tew wen ta’n tujiw ketu’auwa’toq apprentice?",
+    "description": "Learn more dialog question eleven heading"
+  },
+  "Qt9Q8k": {
+    "defaultMessage": "Tali pijiaq wula program?",
+    "description": "Learn more dialog question two heading"
+  },
+  "S/PXt/": {
+    "defaultMessage": "Ta’n koqowey etek ta’n mawiki’k ta’n lukwaqn aqq agencies pemiaq Kaplno’l Kanata. Wula na program na kisa’tew ta’n weltesk apprentice’s ta’n kisitasik ta’n mawi wula’sik ta’n mawi ksatmi’tij.",
+    "description": "Learn more dialog question nine paragraph one"
+  },
+  "SnnuD+": {
+    "defaultMessage": "Ninen pipanimultisnen wjit l’tmin ta’n klo’tasitew wjit piskwa’tasik ki’l ta’n piskwa’tu’n.",
+    "description": "How it works, step 2 content sentence 2"
+  },
+  "U8bLT7": {
+    "defaultMessage": "Talkis lukwetew",
+    "description": "heading for how the indigenous talent portal will work"
+  },
+  "UDHGGA": {
+    "defaultMessage": "Apukjik, applicantaq kisi suwa’tew ta’n tujiw e’wk online, ta’n kisa’toq e’wk ta’n tetew wula website. Wula na kwilmek ta’n elukwatmek:",
+    "description": "Description of how the indigenous talent portal will work"
+  },
+  "UQlyXu": {
+    "defaultMessage": "Apprentice na kisa’toq kitk wjit ta’n-elukwet ekinu’tmiasit aqq online ekinu’tmut newte’ kisna me’ koqowey technology te’s tett.  Apprentices na telte’tasik lukwatn ta’n wen kesatk aqq ketu’ tlukwet wjit technoly wejiaq ta’n ketu’ ankaptik, kinu’tmasit, aqq ekinu’tmasij piluey telukwet na kisa’toq te’s course wula program.  Te’s tela’sik, na apprentice na’tami ne’w na’kwekl te’s a’kntie’we’l elukwatk te’s kpitnk elukwet ekina’masij, ta’n tujiw na’newey na’kwek na kisa’tu’tij na’kwek aqq menaqaj kisa’toq tliaqn online ekinu’tmut wen aqq etliaq wen ekinu’tmut piluwey ta’n tetew.",
+    "description": "Learn more dialog question eight paragraph one"
+  },
+  "WDRWcu": {
+    "defaultMessage": "Amuj pa net ni’n eluksi Ottawa kisna ta’n tett eltiaq wjit wula program?",
+    "description": "Learn more dialog question six heading"
+  },
+  "XS21o1": {
+    "defaultMessage": "Ki’l telte’tmin! Ta’n elukutijik wjit Kaplno’l wjit Kanata, msi̴t apprentices kisi suwa’tew wjit maja’sin, kesnukwaj mu kisi I’muk, aqq wikma wjit na’tukoqowey wjit najita’jik. Ta’n tujiw pemiaq 6 tepknusutuwe’l, apprentices na elt kisi ala’toq ta’n medical aqq dental insurance ta’n apankitk aqq elt wikmawa, elt ankuwa’sik elt wjit ketu’ liej federal public service pension ta’n tla’sitew.",
+    "description": "Learn more dialog question five paragraph one"
+  },
+  "Xhfkfg": {
+    "defaultMessage": "Ika’tasik ta’n Menuwaqtasik wjit L’nu’k Talent wjit IT",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "YGM/D5": {
+    "defaultMessage": "Wula program na pasik 24 tepknusutewe’l telipijiaq, ta’n apoqnmuwek wjit apprentice’s teli pijiaq program.",
+    "description": "Learn more dialog question two paragraph one"
+  },
+  "b09U1u": {
+    "defaultMessage": "Ta’n tujiw kisa’timn program aqq mesnimin cerrtification, kis lukwetis msi̴t tamiow.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "cNXORI": {
+    "defaultMessage": "Na’tami nuta’q tuwije’in 16 te’sipuna’n",
+    "description": "IAP Requirement list item three"
+  },
+  "cYq1Dp": {
+    "defaultMessage": "Apprentices ta’n wiaqpit wula program teluwatijik, ”piluwa’toq mimajuwaqn ta’n tiju kisa’timin wula porgram“ wen kisi ala’tn kelu’k pemiaq technology”, aqq ta’n “etek mu naqa’tuk wjit wen kisa’tn wula program.”",
+    "description": "Third paragraph about the program"
+  },
+  "ce892L": {
+    "defaultMessage": "Suwa’te’n nike’",
+    "description": "Heading for the apply now dialog"
+  },
+  "dDHy5d": {
+    "defaultMessage": "Apprentice majukwatk 24-tepknusutewey kisitasik program wiaqtek ta’n wiaqtek lukwaqn ekinu’tmasit aqq wen teli kinu’tmut.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "dgG8md": {
+    "defaultMessage": "Koqowey kina’masuti nuta’q ta’n etek- elt ni’n kisi suwa’tis ta’n tujiw mu wesknmu college diploma kisna university degree?",
+    "description": "Learn more dialog question twelve heading"
+  },
+  "fF4Ex+": {
+    "defaultMessage": "Na L’nu’k Talent Portal el’tasik wjit L’nu’k wutan, wjiaq wjit L’nu’k wutanl.",
+    "description": "Talent portal information sentence 1"
+  },
+  "fvsYkj": {
+    "defaultMessage": "Koqowey ni’n kisi kina’masi wjit wula apprenticeship?",
+    "description": "What applicants will learn sections heading"
+  },
+  "hSmKjD": {
+    "defaultMessage": "Amuj! Ki’l na ta’n te’sik wesuwa’tu’n elukwatu’n apankitasik. Apprentice wen mesntew apankitut aqq wejapesit ta’n tujiw elukwukowaj Kaplno’l wjit Kanata. Apprentices na japesitew na’tami te’sik $29.99 aqq $33.00 te’s hour poqtamkiaq, wjit ta’n te’sik akaptasik ta’n tujiw mekenut wjit lukwen aqq wjit mawa’tn kisa’matultijik ika’tasik ta’n tujiw wen mekenut lukwen.  Apprenticies net kisi lukwetew wen iapju, wjit msi̴t te’sik wula 37.5 hours te’s e’kntie’we’l.",
+    "description": "Learn more dialog question four paragraph one"
+  },
+  "hdBTPI": {
+    "defaultMessage": "Msi̴t nuta’q computer equipment (laptop, mouse, mataqte’kn) aqq ta’n ekinu’tmut material na ika’tasitew na mu-awtinuk. Ta’n tujiw majuinu lukwej wikuwaq, na ta’n telawtik internet kisi suwa’toq na wen suwa’tew apprentisce.",
+    "description": "Learn more dialog question ten paragraph one"
+  },
+  "jA4kuU": {
+    "defaultMessage": "Net apprentice wen apankitutew?",
+    "description": "Learn more dialog question four heading"
+  },
+  "lIHNov": {
+    "defaultMessage": "Ankapte’n",
+    "description": "Talent portal strategy item 3 heading"
+  },
+  "loDwKe": {
+    "defaultMessage": "Wjit wula L’nu’k Talent Portal",
+    "description": "Talent Portal information heading"
+  },
+  "mfBsJY": {
+    "defaultMessage": "Koqowey net apprentice amuj elukwatk wjit wula program?",
+    "description": "Learn more dialog question eight heading"
+  },
+  "osGGIt": {
+    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k + L’nuwey Talent Portal",
+    "description": "heading for indigenous talent portal section"
+  },
+  "p19YJ2": {
+    "defaultMessage": "Suwa’te’n kiskuk wjit poqjiaq ki’l ta’n teliaq wjit telukwen ta’n koqowey wjit Technology.",
+    "description": "Application box content"
+  },
+  "p2sBh3": {
+    "defaultMessage": "Wen kisi suwa’tew wjit wula kisi tlukwet apprentice wjit naspit KAplno’l Kanata IT Apprenticeship Program wjit l’nu’k majuinu’k.",
+    "description": "Learn more dialog question one heading"
+  },
+  "pWoAv0": {
+    "defaultMessage": "Na IT Apprenticeship Program wjit l’nu’k na Kaplno’l wjit Kanata initiative pasik wjit ‘nu’k, Inuit, aqq Métis majuinu’k. Na pemiaq awti wjit lukwaqn wjit federal public ta’n kesatmi’tij wjit Information Technology (IT).",
+    "description": "First paragraph about the program"
+  },
+  "pkFLpT": {
+    "defaultMessage": "Ta’n tujiw ki’l me’ ketu’ lukwatu’n aqq kesatmin aqq ta’n tujiw ki’l-kisiankaptmin wjit l’nu’wey, na wula program wjit ki’l.",
+    "description": "Learn more dialog question seven paragraph one"
+  },
+  "q5FQbu": {
+    "defaultMessage": "Wejku’waq Apukjik!",
+    "description": "Heading for a coming soon section"
+  },
+  "rQ61eh": {
+    "defaultMessage": "Asitete’n wjit ewikasik te’sik aqq ankapte’n ta’n teluwa’tijik wjit wesuwa’tu’tij aqq kisa’toq wela’sik ta’n kisa’tasik",
+    "description": "Talent portal strategy item 3 content"
+  },
+  "rz21yp": {
+    "defaultMessage": "Net to’q apprentices asite’tasitew koqowey wen japesin?",
+    "description": "Learn more dialog question five heading"
+  },
+  "sycoGU": {
+    "defaultMessage": "Mu nuta’nuk. Pukwelkik apprentice ta’n etekl kisi tla’sitew ta’n elukwet wejiaq wikuwaq, pasik tekal internet wen etlukwet.  Eykl net ta’n koqowey ta’n etek-ta’n kutey nuta’q. Ninen na mikite’tmek ta’n telukutiet wjit kekmanaq aqq wutann, aqq ninen menuwekeyek wen suwa’tn ninen wikmaq kaqal, aqq elt wen kikjuk I’min wutan toqo tepow i’min. Tlowistuwatis net ta’n kisi ika’lisk wjit ki’l ta’n koqowey/preference aqq ninen tepaqtek lukwaqn ta’n we’jitu’n ta’nwla’sitew.",
+    "description": "Learn more dialog question six paragraph one"
+  },
+  "wHWE3M": {
+    "defaultMessage": "Wula na plateform eltasik wjit wen ta’n elukwet kisisuwa’toq wjit L’nu’k ta’n nemitasik aqq ika’toq ta’n te’sik wen nata’lukwet, koqowey kisite’tk, aqq kisa’toq aqq kesatk telukwej.",
+    "description": "Talent portal information sentence 2"
+  },
+  "wgIThY": {
+    "defaultMessage": "Weskunmin High School diploma kisna kutey (GED)",
+    "description": "IAP Requirement list item two"
+  },
+  "wqwPhL": {
+    "defaultMessage": "Ta’n ketmamite’tmin aqq pasik nekmowey ankaptmin wjit majuinu kisa’toq, katu wjit ta’n ekina’masij te’sik, na Program ejkla’toq newte’ ajki’k mu asite’tasinuk ta’n etek pekisitoq lukwaqn wjit wula digital economy. Wula Program na kisitasik wejiaq, ta’n toqa’tasik, aqq wjit l’nu’k majuinu’k pemiaq Kanata. Ta’n kisitoq wiaqtekn wula preferences aqq ta’n nuta’q wjit l’nu’k ekina’masultijik ta’n tujiw nemitasik nuta’q wjit wutan.",
+    "description": "Second paragraph about the program"
+  },
+  "yZMQ6j": {
+    "defaultMessage": "Ninen ketu’ kinu’tmasultiek ta’n ki’l aqq ki’l kesatmin/telukwen ta’n koqowey etek IT!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "zlYw3Z": {
+    "defaultMessage": "PIskwa’te’n Ki’l Profile wjit ki’l Wi’katikn piskwa’tu’n",
+    "description": "How it works, step 3 heading"
+  },
+  "1B4niz": {
+    "defaultMessage": "Na wula program eltasikip wjit klusa’sin wjit ila’matultinew aqq l’tmnew ta’n iliankaptasik wejiaq ta’n nemitasik rights aqq toq-lukuti’tijik wjit l’nu’k majuinu’k.",
+    "description": "How it works, step 1 content paragraph 1"
+  },
+  "jyQi0m": {
+    "defaultMessage": "Ta’n tujiw l’nu’k, Inuk, kisna Méti, aqq ki’l ta’n tujiw wikin Kanata, na ki’l kisi suwa’tis wula apprentice wula program.",
+    "description": "Learn more dialog question on paragraph one"
+  },
+  "nzcwrW": {
+    "defaultMessage": "Apprentices na taqilukwatew ta’n wikma’jl wjit kisa’toq ta’n wikma’jk jijaqamijk pemiaq aqq ankaptasik lukwaqn, aqq ika’tu’tij ta’n wen tekweyaj ta’n ika’toq ta’n ki’s wejiet counsel aqq ela’lij pemiaq course wula program.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "pPOGwF": {
+    "defaultMessage": "Net L’nu’k (status kisna mu status ), Inuit, kisna Metis",
+    "description": "IAP Requirement list item one"
+  },
+  "49UIne": {
+    "defaultMessage": "Kaplno’l wjit Kanata IT apprentice",
+    "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "Ta’n mawi tekle’j asite’tasik na nuta’q GED kisna high scholl diploma. Na collage kisna university kina’masuti mu nuta’nuk.",
+    "description": "Learn more dialog question twelve paragraph one"
+  },
+  "khChKa": {
+    "defaultMessage": "Wula program na wjit L’nu’k, Inuit, aqq Metis majuinu’k. Technology ta’n tujiw ki’l l’nuwin, aqq Inuk, kisna Metis, aqq ta’n tujiw ksatmin technology, na wula program wjit ki’l!",
+    "description": "First paragraph about who the program is for"
+  },
+  "1pFMSH": {
+    "defaultMessage": "Kaqikisa’toq ta’n L’nu’k majuinu’k Self-Declaration Wi’katikn",
+    "description": "How it works, step 1 heading"
+  },
+  "uJ1rk3": {
+    "defaultMessage": "Etekl ne’siskl distinct groups wjit l’nu’k ta’n etek Kanata Constitution. Ki’l pipanimuksitis wjit tluwen teken L’nu’k eymu’tijik ta’n ki’l tley via l’nu’k majuinu’k Self-Declaration wi’katikn.",
+    "description": "How it works, step 1 content paragraph 2"
+  },
+  "0i34ZZ": {
+    "defaultMessage": "Jinu'kwalsi kisi tuwa'tn wula program ta'n poqjiaq 2023.",
+    "description": "Talent portal strategy item 4 content"
+  },
+  "qZvV7b": {
+    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k. Suwa’te’n kiskuk wjit poqjilukwatn ki’l IT career wutawti.",
+    "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "pBJzgi": {
+    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey. ",
+    "description": "Detailed message saying the page was not found."
+  },
+  "404R1N": {
+    "defaultMessage": "“Wula program na kisi piluwa’toq mimajuwaqn wjit wen kutey ni’n aqq ni’n nemitu wjit <b>atelk eliaq me’ elmiaq wutawti</b>.",
+    "description": "testimonial number one"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Ikanteske’n wjit elien ikant",
+    "description": "Assistive technology skip link"
+  },
+  "TFeQL2": {
+    "defaultMessage": "Wikuwow",
+    "description": "Link to the homepage for indigenous apprenticeship program."
+  },
+  "gKyog2": {
+    "defaultMessage": "Oops, teltek kutey  ki’l kisi ika’tu’n wula wi’katikn ki’l ewikasik ta’n teluwek mu sama’tasin tujiw ankaptasin.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Meskeyi, mu ki’l asite’tasiwun ankaptmin wula ta’n ewikasik.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "1FM1VL": {
+    "defaultMessage": "Ta’n tujiw mu kisita’suwun wjit wula program tepaqtek wjit ki’l, <mailLink>ke tliwula’tike</mailLink> aqq pipanimitisnen aqq na’tuwan wl’ta’sitew kisis apoqmask ta’n koqowey keut’ pipanikesin.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "Oh1/Gc": {
+    "defaultMessage": " Suwa’te’n nike’ wjit poqjilukwatn ki’l IT career wutawti.",
+    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+  },
+  "C5tUG2": {
+    "defaultMessage": "L’nu’k Apprenticeship Program ewikasik",
+    "description": "Title tag for Indigenous Apprenticeship Program site"
+  }
+}

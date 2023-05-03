@@ -5,7 +5,10 @@ import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  StandardHeader as StandardAccordionHeader,
+  StandardHeaderProps,
+} from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
@@ -160,9 +163,24 @@ const AdvancedFilters = () => {
     }),
   );
 
+  const accordionTitleProps: StandardHeaderProps = {
+    headingAs: "h4",
+    titleProps: {
+      "data-h2-font-size": "base(copy, 1)",
+    },
+    subtitleProps: {
+      "data-h2-font-size": "base(caption, 1)",
+    },
+  };
+
   return (
     <>
-      <Heading level="h3" size="h6" data-h2-font-weight="base(700)">
+      <Heading
+        level="h3"
+        size="h6"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Advanced filters",
           id: "eozWFc",
@@ -179,6 +197,7 @@ const AdvancedFilters = () => {
       >
         <Accordion.Item value="educationRequirement">
           <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               educationRequirement,
               educationRequirementOptions,
@@ -222,6 +241,7 @@ const AdvancedFilters = () => {
         </Accordion.Item>
         <Accordion.Item value="employmentDuration">
           <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               employmentDuration,
               employmentDurationOptions,
@@ -260,6 +280,7 @@ const AdvancedFilters = () => {
         </Accordion.Item>
         <Accordion.Item value="operationalRequirements">
           <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               operationalRequirements,
               operationalRequirementOptionsShort,

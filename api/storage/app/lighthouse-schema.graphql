@@ -90,6 +90,7 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+  skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
 }
@@ -451,6 +452,11 @@ input EducationExperienceInput {
   status: EducationStatus
   details: String
   skills: UpdateExperienceSkills
+}
+
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
 }
 
 enum EducationStatus {
@@ -877,6 +883,8 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementExperiences: [Experience]
 }
 
 type PoolCandidateFilter {
@@ -1330,6 +1338,12 @@ scalar UUID
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 input UpdateClassificationInput {
@@ -1342,6 +1356,10 @@ input UpdateClassificationInput {
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
+}
+
+input UpdateEducationExperiencesRequirementBelongsToMany {
+  sync: [ID!]
 }
 
 input UpdateExperienceSkills {

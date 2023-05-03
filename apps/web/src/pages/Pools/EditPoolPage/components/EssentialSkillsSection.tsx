@@ -1,14 +1,17 @@
 import * as React from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
 import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
 
 import SkillPicker from "~/components/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
+  Scalars,
   Skill,
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
@@ -20,6 +23,12 @@ export type EssentialSkillsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
   "essentialSkills"
 >;
+
+type FormValues = {
+  currentEssentialSkills: {
+    id: Scalars["ID"];
+  }[];
+};
 
 interface EssentialSkillsSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -36,12 +45,28 @@ const EssentialSkillsSection = ({
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
+  const defaultSkills = poolAdvertisement.essentialSkills
+    ? poolAdvertisement.essentialSkills
+    : [];
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      currentEssentialSkills: defaultSkills.map(({ id }) => ({ id })),
+    },
+  });
+  const { fields } = useFieldArray({
+    name: "currentEssentialSkills",
+    control: methods.control,
+  });
 
-  const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
-    poolAdvertisement.essentialSkills ? poolAdvertisement.essentialSkills : [],
-  );
+  const [selectedSkills, setSelectedSkills] =
+    useState<Array<Skill>>(defaultSkills);
 
   const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) => {
+    methods.setValue(
+      "currentEssentialSkills",
+      changedSelectedSkills.map(({ id }) => ({ id })),
+      { shouldDirty: true, shouldTouch: true },
+    );
     setSelectedSkills(changedSelectedSkills);
   };
 
@@ -51,6 +76,12 @@ const EssentialSkillsSection = ({
         sync: selectedSkills.map((skill) => skill.id),
       },
     });
+    methods.reset(
+      { currentEssentialSkills: selectedSkills.map(({ id }) => ({ id })) },
+      {
+        keepDirty: false,
+      },
+    );
   };
 
   // disabled unless status is draft
@@ -78,16 +109,32 @@ const EssentialSkillsSection = ({
             selectedSkills={selectedSkills}
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
-            handleSave={handleSave}
             headingLevel="h3"
-            submitButtonText={intl.formatMessage({
-              defaultMessage: "Save essential skills",
-              id: "2asU3k",
-              description: "Text on a button to save the pool essential skills",
-            })}
-            isSubmitting={isSubmitting}
             skillType="essential"
           />
+          <FormProvider {...methods}>
+            {fields.map((field, index) => (
+              <input
+                key={field.id}
+                type="hidden"
+                {...methods.register(`currentEssentialSkills.${index}.id`)}
+              />
+            ))}
+            <p data-h2-margin="base(x1, 0)">
+              <Submit
+                text={intl.formatMessage({
+                  defaultMessage: "Save essential skills",
+                  id: "2asU3k",
+                  description:
+                    "Text on a button to save the pool essential skills",
+                })}
+                color="cta"
+                mode="solid"
+                isSubmitting={isSubmitting}
+                onClick={methods.handleSubmit(handleSave)}
+              />
+            </p>
+          </FormProvider>
         </>
       ) : (
         <Chips>

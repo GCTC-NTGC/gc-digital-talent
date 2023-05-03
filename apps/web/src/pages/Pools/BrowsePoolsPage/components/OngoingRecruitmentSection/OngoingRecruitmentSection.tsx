@@ -950,17 +950,17 @@ const OngoingRecruitmentSection = ({
       </Heading>
       <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">
         {intl.formatMessage({
-          id: "2czUAZ",
+          id: "Uzx5dR",
           defaultMessage:
-            "Not seeing an active recruitment that matches your skillset? No problem, we still want to hear from you.",
+            "Not seeing an active recruitment process that matches your skillset? No problem, we still want to hear from you.",
           description: "summary for section with ongoing pool advertisements",
         })}
       </p>
       <p>
         {intl.formatMessage({
-          id: "45mj+u",
+          id: "MyDw3F",
           defaultMessage:
-            "We also offer passive recruitment buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
+            "We also offer passive recruitment process buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}

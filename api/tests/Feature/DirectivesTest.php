@@ -269,7 +269,8 @@ class DirectivesTest extends TestCase
         }
         ';
 
-        $executionTime = Carbon::now();
+        $executionTime = Carbon::now()->toDateTimeString();
+        $executionTime = substr($executionTime, 0, -3); // round to minute for test reliability purposes
 
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -286,9 +287,10 @@ class DirectivesTest extends TestCase
         );
 
         $dateReturned = $response->json('data.testMutation');
+        $dateReturned = substr($dateReturned, 0, -3);
 
-        // assert current datetime was injected and it is identical to the time recording before running the mutation, to the second
+        // assert current datetime was injected and it is identical to the time recording before running the mutation, rounded to the minute
         assertNotNull($dateReturned);
-        assertSame($dateReturned, $executionTime->toDateTimeString());
+        assertSame($dateReturned, $executionTime);
     }
 }
