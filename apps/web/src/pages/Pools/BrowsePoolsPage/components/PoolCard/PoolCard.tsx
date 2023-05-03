@@ -213,8 +213,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               >
                 {intl.formatMessage(
                   {
-                    id: "cUmFnk",
-                    defaultMessage: "Apply to this recruitment ({name})",
+                    id: "YxqhQt",
+                    defaultMessage:
+                      "Apply to this recruitment process ({name})",
                     description:
                       "Message on link that say to apply to a recruitment advertisement",
                   },
