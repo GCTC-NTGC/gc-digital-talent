@@ -392,9 +392,9 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
             <Well>
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
-                  defaultMessage: "You don’t have any resume experiences yet.",
-                  id: "xuAFzV",
-                  description: "Null state messages for resume list",
+                  defaultMessage: "You don’t have any résumé experiences yet.",
+                  id: "K9vqwA",
+                  description: "Null state messages for résumé list",
                 })}
               </p>
             </Well>
