@@ -8007,5 +8007,25 @@
   "q/OZDK": {
     "defaultMessage": "Juste un petit conseil!",
     "description": "Heading for profile review page error summary"
+  },
+  "7CjXox": {
+    "defaultMessage": "Communication générale : {language}",
+    "description": "General communication preference label"
+  },
+  "EZX/44": {
+    "defaultMessage": "Examens écrits : {language}",
+    "description": "Written exams preference label"
+  },
+  "FkPxBO": {
+    "defaultMessage": "Entrevues orales : {language}",
+    "description": "Spoken interviews preference label"
+  },
+  "KZk48E": {
+    "defaultMessage": "Sauvegarder et poursuivre",
+    "description": "Button text to save an application step and continue to the next one"
+  },
+  "jlyzU4": {
+    "defaultMessage": "Langues de préférence",
+    "description": "Contact languages preference label"
   }
 }
