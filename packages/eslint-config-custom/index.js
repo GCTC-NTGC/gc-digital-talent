@@ -132,6 +132,30 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
     "react/function-component-definition": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        name: "lodash",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
+        name: "@heroicons/react/24/outline",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/24/solid",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/20/outline",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/20/solid",
+        message: "Please import the individual icons, not the entire set.",
+      },
+    ],
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],
