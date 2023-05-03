@@ -7795,5 +7795,8 @@
   "uPnk4X": {
     "defaultMessage": "Examinons ma candidature",
     "description": "Button text to submit screening questions and continue to application review"
+  },
+  "3BU43Q": {
+    "defaultMessage": "Réponse à la question {number}"
   }
 }
