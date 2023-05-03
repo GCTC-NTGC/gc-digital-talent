@@ -68,6 +68,7 @@ query allPools {
     processNumber
     publishingGroup
     createdDate
+    updatedDate
     team {
       id
       name

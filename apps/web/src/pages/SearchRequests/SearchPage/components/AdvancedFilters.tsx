@@ -5,6 +5,10 @@ import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
+import {
+  StandardHeader as StandardAccordionHeader,
+  StandardHeaderProps,
+} from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
@@ -159,9 +163,24 @@ const AdvancedFilters = () => {
     }),
   );
 
+  const accordionTitleProps: StandardHeaderProps = {
+    headingAs: "h4",
+    titleProps: {
+      "data-h2-font-size": "base(copy, 1)",
+    },
+    subtitleProps: {
+      "data-h2-font-size": "base(caption, 1)",
+    },
+  };
+
   return (
     <>
-      <Heading level="h3" size="h6" data-h2-font-weight="base(700)">
+      <Heading
+        level="h3"
+        size="h6"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Advanced filters",
           id: "eozWFc",
@@ -177,7 +196,8 @@ const AdvancedFilters = () => {
         }}
       >
         <Accordion.Item value="educationRequirement">
-          <Accordion.Trigger
+          <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               educationRequirement,
               educationRequirementOptions,
@@ -190,7 +210,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for education requirement filter of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("educationRequirement")}
           >
@@ -220,7 +240,8 @@ const AdvancedFilters = () => {
           </AnimatedContent>
         </Accordion.Item>
         <Accordion.Item value="employmentDuration">
-          <Accordion.Trigger
+          <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               employmentDuration,
               employmentDurationOptions,
@@ -233,7 +254,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for employment duration section of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("employmentDuration")}
           >
@@ -258,7 +279,8 @@ const AdvancedFilters = () => {
           </AnimatedContent>
         </Accordion.Item>
         <Accordion.Item value="operationalRequirements">
-          <Accordion.Trigger
+          <StandardAccordionHeader
+            {...accordionTitleProps}
             subtitle={getFieldLabel(
               operationalRequirements,
               operationalRequirementOptionsShort,
@@ -272,7 +294,7 @@ const AdvancedFilters = () => {
               description:
                 "Heading for operational requirements section of the search form.",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <AnimatedContent
             isOpen={currentAdvancedFilters.includes("operationalRequirements")}
           >

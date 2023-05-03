@@ -3,10 +3,24 @@ import { useIntl } from "react-intl";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  ApplicationStep,
+  PoolAdvertisement,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import {
+  aboutSectionHasEmptyRequiredFields,
+  diversityEquityInclusionSectionHasEmptyRequiredFields,
+  governmentInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasUnsatisfiedRequirements,
+  roleSalarySectionHasEmptyRequiredFields,
+  workLocationSectionHasEmptyRequiredFields,
+  workPreferencesSectionHasEmptyRequiredFields,
+} from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -43,6 +57,21 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome],
     stepSubmitted: ApplicationStep.ReviewYourProfile,
+    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
+      const hasEmptyRequiredFields =
+        aboutSectionHasEmptyRequiredFields(applicant) ||
+        workLocationSectionHasEmptyRequiredFields(applicant) ||
+        diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
+        governmentInformationSectionHasEmptyRequiredFields(applicant) ||
+        languageInformationSectionHasEmptyRequiredFields(applicant) ||
+        workPreferencesSectionHasEmptyRequiredFields(applicant) ||
+        roleSalarySectionHasEmptyRequiredFields(applicant) ||
+        languageInformationSectionHasUnsatisfiedRequirements(
+          applicant,
+          poolAdvertisement,
+        );
+      return hasEmptyRequiredFields;
+    },
   };
 };
 

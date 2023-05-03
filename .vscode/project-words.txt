@@ -46,7 +46,7 @@ lightnavy
 lightpurple
 Métis
 Michif
-Mikmaq
+Mi'kmaq
 noninteractive
 nuage
 Nuwave
@@ -54,6 +54,7 @@ OCIO
 Ojibway
 personalisation
 pgsql
+psac
 Queueable
 recruitmentimit
 recruitments

@@ -176,6 +176,7 @@ const Hero = ({
           />
         ) : (
           <BackgroundGraphic
+            aria-hidden="true"
             data-h2-display="base(block) base:iap(none)"
             data-h2-position="base(absolute)"
             data-h2-location="base(0, 0, auto, auto)"
@@ -190,7 +191,7 @@ const Hero = ({
         <>
           <Flourish />
           <div
-            data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+            data-h2-container="base(center, large, x1) p-tablet(center, medium, x2)"
             data-h2-position="base(relative)"
             data-h2-margin="base(-x5, auto, 0, auto)"
             data-h2-z-index="base(4)"

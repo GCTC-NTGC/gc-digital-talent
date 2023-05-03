@@ -152,8 +152,8 @@ export const ExperienceForm = ({
     crumbs = [
       {
         label: intl.formatMessage({
-          defaultMessage: "My Applications",
-          id: "q04FCp",
+          defaultMessage: "My applications",
+          id: "jSYDwZ",
           description: "Link text for breadcrumb to user applications page.",
         }),
         url: paths.applications(userId),
@@ -298,8 +298,8 @@ export const ExperienceForm = ({
                 <span>
                   <TrashIcon style={{ width: "0.9rem" }} />{" "}
                   {intl.formatMessage({
-                    defaultMessage: "Delete experience from My Profile",
-                    id: "uqoN4k",
+                    defaultMessage: "Delete experience from my profile",
+                    id: "zzr/9B",
                     description: "Label on button for delete this experience",
                   })}
                 </span>

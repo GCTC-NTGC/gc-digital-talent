@@ -18,12 +18,14 @@ import {
   commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
 import {
+  PoolStream,
   WorkRegion,
   EducationType,
   JobLookingStatus,
@@ -75,6 +77,10 @@ export default function useFilterOptions(enableEducationType = false) {
         value: `${group}-${level}`,
         label: `${group}-0${level}`,
       })),
+    stream: enumToOptions(PoolStream).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolStream(value)),
+    })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),

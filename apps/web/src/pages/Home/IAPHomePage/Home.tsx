@@ -7,6 +7,7 @@ import useQuote from "~/hooks/useQuote";
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
 import logoEn from "~/assets/img/iap-logo-en.svg";
 import logoFr from "~/assets/img/iap-logo-fr.svg";
+import logoMic from "~/assets/img/iap-logo-mic.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -24,7 +25,7 @@ import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
 import { ApplyDialog, RequirementDialog } from "./components/Dialog";
 import Heading from "./components/Heading";
-// import LanguageSelector from "./components/LanguageSelector";
+import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
 
@@ -48,8 +49,15 @@ const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
   let logoImg = logoEn;
-  if (intl.locale === "fr") {
-    logoImg = logoFr;
+  switch (intl.locale) {
+    case "fr":
+      logoImg = logoFr;
+      break;
+    case "mic":
+      logoImg = logoMic;
+      break;
+    default:
+      logoImg = logoEn;
   }
   /**
    * Language swapping is a little rough here,
@@ -63,8 +71,7 @@ const Home = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* TODO: Uncomment in #4617 */}
-      {/* <LanguageSelector /> */}
+      <LanguageSelector />
       {/* Hero */}
       <div
         data-h2-width="base(100%)"

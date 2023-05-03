@@ -18,38 +18,33 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { Applicant } from "~/api/generated";
 
-import AboutSection, {
-  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as aboutSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/AboutSection";
-import LanguageInformationSection, {
-  hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
-import GovernmentInformationSection, {
-  hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as governmentInformationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
-import WorkLocationSection, {
-  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as workLocationSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/WorkLocationSection";
-import WorkPreferencesSection, {
-  hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as workPreferencesSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/WorkPreferencesSection";
-import DiversityEquityInclusionSection, {
-  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import RoleSalarySection, {
-  hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
-  hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
-} from "~/components/UserProfile/ProfileSections/RoleSalarySection";
+import {
+  aboutSectionHasEmptyRequiredFields,
+  aboutSectionHasEmptyOptionalFields,
+  diversityEquityInclusionSectionHasEmptyRequiredFields,
+  diversityEquityInclusionSectionHasEmptyOptionalFields,
+  governmentInformationSectionHasEmptyRequiredFields,
+  governmentInformationSectionHasEmptyOptionalFields,
+  languageInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasEmptyOptionalFields,
+  roleSalarySectionHasEmptyRequiredFields,
+  roleSalarySectionHasEmptyOptionalFields,
+  workLocationSectionHasEmptyRequiredFields,
+  workLocationSectionHasEmptyOptionalFields,
+  workPreferencesSectionHasEmptyRequiredFields,
+  workPreferencesSectionHasEmptyOptionalFields,
+} from "~/validators/profile";
 
 import ExperienceSection from "./ExperienceSection";
 import { StatusItem } from "../InfoItem";
 import { Status } from "../InfoItem/StatusItem";
+import AboutSection from "./ProfileSections/AboutSection";
+import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
+import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
+import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
+import RoleSalarySection from "./ProfileSections/RoleSalarySection";
+import WorkLocationSection from "./ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 
 interface SectionControl {
   isVisible: boolean;
@@ -179,6 +174,7 @@ const UserProfile = ({
           {showSection("about") && (
             <TableOfContents.AnchorLink id="about-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "About Me",
                   id: "4sJvia",
@@ -194,6 +190,7 @@ const UserProfile = ({
           {showSection("employmentEquity") && (
             <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Diversity, equity and inclusion",
                   id: "e2R6fy",
@@ -210,6 +207,7 @@ const UserProfile = ({
           {showSection("language") && (
             <TableOfContents.AnchorLink id="language-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Language Information",
                   id: "B9x0ZV",
@@ -225,6 +223,7 @@ const UserProfile = ({
           {showSection("government") && (
             <TableOfContents.AnchorLink id="government-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Government Information",
                   id: "Nc4sjC",
@@ -241,6 +240,7 @@ const UserProfile = ({
           {showSection("workLocation") && (
             <TableOfContents.AnchorLink id="work-location-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Work Location",
                   id: "9WxeNz",
@@ -256,6 +256,7 @@ const UserProfile = ({
           {showSection("workPreferences") && (
             <TableOfContents.AnchorLink id="work-preferences-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Work Preferences",
                   id: "0DzlCc",
@@ -271,6 +272,7 @@ const UserProfile = ({
           {showSection("roleSalary") && (
             <TableOfContents.AnchorLink id="role-and-salary-section">
               <StatusItem
+                asListItem={false}
                 title={intl.formatMessage({
                   defaultMessage: "Role and salary expectations",
                   id: "95OYVk",

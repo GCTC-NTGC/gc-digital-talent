@@ -94,12 +94,11 @@ const Opportunities = () => {
               })}
               links={[
                 {
-                  href: paths.allPools(),
+                  href: paths.browsePools(),
                   label: intl.formatMessage(
                     {
-                      defaultMessage:
-                        "Browse <abbreviation>IT</abbreviation> jobs",
-                      id: "0mAZsV",
+                      defaultMessage: "Browse jobs",
+                      id: "dkHB8N",
                       description:
                         "Link text for IT jobs in government call to action",
                     },

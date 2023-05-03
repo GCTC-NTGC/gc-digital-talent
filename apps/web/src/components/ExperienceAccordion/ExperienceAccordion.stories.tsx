@@ -14,14 +14,17 @@ const theId = "blank";
 
 export default {
   component: ExperienceAccordion,
-  title: "Components/Experience Accordion",
+  title: "Components/User Profile/Experience Accordion",
   args: {},
 } as Meta;
 
-const AccordionTemplate: Story<AccordionProps> = (args) => {
+const AccordionTemplate: Story<AccordionProps> = ({
+  experience,
+  editPaths,
+}) => {
   return (
-    <Accordion.Root type="single">
-      <ExperienceAccordion {...args} />
+    <Accordion.Root type="single" collapsible defaultValue={experience.id}>
+      <ExperienceAccordion experience={experience} editPaths={editPaths} />
     </Accordion.Root>
   );
 };

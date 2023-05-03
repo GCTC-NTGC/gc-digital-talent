@@ -107,12 +107,12 @@ describe("GovernmentInfoForm", () => {
 
     expect(
       screen.getByRole("option", {
-        name: /choose group/i,
+        name: /Select a group/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("option", {
-        name: /choose level/i,
+        name: /Select a level/i,
       }),
     ).toBeInTheDocument();
 

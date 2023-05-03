@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import Hero from "~/components/Hero/Hero";
+import StrikeNotice from "~/components/StrikeNotice/StrikeNotice";
 import { ApplicantFilterInput } from "~/api/generated";
 import { SimpleClassification } from "~/types/pool";
 import { FormValues as SearchFormValues } from "~/types/searchRequest";
@@ -37,6 +38,7 @@ const RequestPage = () => {
           description: "Main heading displayed at the top of request page.",
         })}
       >
+        <StrikeNotice />
         <div
           data-h2-background-color="base(white)"
           data-h2-radius="base(rounded)"

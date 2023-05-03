@@ -4,10 +4,16 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\Skill;
+use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
 
 class PoolCandidateUpdateTest extends TestCase
 {
@@ -50,7 +56,7 @@ class PoolCandidateUpdateTest extends TestCase
             'sub' => 'pool-operator-user@test.com',
         ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->poolOperatorUser->attachRole("pool_operator", $this->team);
+        $this->poolOperatorUser->addRole("pool_operator", $this->team);
 
         $this->requestResponderUser = User::factory()->create([
             'email' => 'request-responder-user@test.com',
@@ -166,5 +172,69 @@ class PoolCandidateUpdateTest extends TestCase
                     ['message' => "This action is unauthorized."]
                 ]
             ]);
+    }
+
+    public function testEducationRequirementExperience(): void
+    {
+        $updateApplication =
+            /** @lang GraphQL */
+            '
+            mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
+                updateApplication(id: $id, application: $application) {
+                    id
+                    educationRequirementOption
+                    educationRequirementExperiences {
+                        id
+                    }
+                }
+            }
+        ';
+
+        Skill::factory()->count(5)->create();
+        EducationExperience::factory()->count(3)->create(['user_id' => $this->poolCandidate->user_id]);
+        CommunityExperience::factory()->count(3)->create(['user_id' => $this->poolCandidate->user_id]);
+        $communityExperienceIds = CommunityExperience::all()->pluck('id')->toArray();
+        $educationExperienceIds = EducationExperience::all()->pluck('id')->toArray();
+        $this->poolCandidate->submitted_at = null;
+        $this->poolCandidate->education_requirement_option = null;
+        $this->poolCandidate->save();
+
+        // assert educationRequirementOption updated and that an education experience is successfully connected
+        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+            'id' => $this->poolCandidate->id,
+            'application' => [
+                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
+                'educationRequirementEducationExperiences' => [
+                    'sync' => [$educationExperienceIds[0]],
+                ],
+            ]
+        ]);
+        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
+        $response->assertJsonFragment([
+            ['id' => $educationExperienceIds[0]]
+        ]);
+
+        // assert educationRequirementOption updated again, education experience was disconnected, and 3 community experiences synced
+        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+            'id' => $this->poolCandidate->id,
+            'application' => [
+                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+                'educationRequirementCommunityExperiences' => [
+                    'sync' => $communityExperienceIds,
+                ],
+                'educationRequirementEducationExperiences' => [
+                    'sync' => [],
+                ],
+            ]
+        ]);
+        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
+        $response->assertJsonMissing([
+            ['id' => $educationExperienceIds[0]]
+        ]);
+        $response->assertJsonFragment(['id' => $communityExperienceIds[0]]);
+        $response->assertJsonFragment(['id' => $communityExperienceIds[1]]);
+        $response->assertJsonFragment(['id' => $communityExperienceIds[2]]);
+        $experiencesAttached = $response->json('data.updateApplication.educationRequirementExperiences');
+        assertEquals(3, count($experiencesAttached));
     }
 }

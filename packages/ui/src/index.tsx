@@ -3,6 +3,7 @@ import { Color, HeadingRank } from "./types";
 import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
+import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, {
   IconButton,
@@ -113,6 +114,8 @@ export {
   Accordion,
   Alert,
   AlertDialog,
+  Announcer,
+  useAnnouncer,
   Breadcrumbs,
   Button,
   IconButton,

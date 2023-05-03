@@ -92,11 +92,11 @@ const Hero = ({ defaultImage }: HeroProps) => {
           <CallToActionLink
             color="quaternary"
             Icon={JobIcon}
-            href={paths.allPools()}
+            href={paths.browsePools()}
           >
             {intl.formatMessage({
-              defaultMessage: "Looking for a job?",
-              id: "Tk2HJy",
+              defaultMessage: "Browse jobs",
+              id: "SUlb9U",
               description: "Link text for applicant call to action",
             })}
           </CallToActionLink>
@@ -106,8 +106,8 @@ const Hero = ({ defaultImage }: HeroProps) => {
             href={paths.search()}
           >
             {intl.formatMessage({
-              defaultMessage: "Looking to hire?",
-              id: "1wFFIx",
+              defaultMessage: "Find talent",
+              id: "sbEk4X",
               description: "Link text for hiring manager call to action",
             })}
           </CallToActionLink>

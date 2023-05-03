@@ -89,8 +89,8 @@ export const ExperienceAndSkills = ({
     ? [
         {
           label: intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "q04FCp",
+            defaultMessage: "My applications",
+            id: "jSYDwZ",
             description: "Link text for breadcrumb to user applications page.",
           }),
           url: paths.applications(applicantId),

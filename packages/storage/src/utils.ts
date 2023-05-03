@@ -5,7 +5,6 @@ export function getFromStorage<T>(
   key: string,
   defaultValue: T,
 ): T {
-  // TODO: Is it worth allowing store to be undefined? And why catch and hide errors here?
   if (store === undefined) {
     return defaultValue;
   }
@@ -21,23 +20,12 @@ export function getFromStorage<T>(
   }
 }
 
-export function setInStorage<T>(
-  store: Storage | undefined,
-  key: string,
-  value: T,
-): void {
-  if (store) {
-    store.setItem(key, JSON.stringify(value));
-  }
+export function setInStorage<T>(store: Storage, key: string, value: T): void {
+  store.setItem(key, JSON.stringify(value));
 }
 
-export function removeFromStorage(
-  store: Storage | undefined,
-  key: string,
-): void {
-  if (store) {
-    store.removeItem(key);
-  }
+export function removeFromStorage(store: Storage, key: string): void {
+  store.removeItem(key);
 }
 
 /** Sync state to local storage so that it persists through a page refresh. Usage is similar to useState except we pass in a local storage key so that we can default to that value on page load instead of the specified initial value.

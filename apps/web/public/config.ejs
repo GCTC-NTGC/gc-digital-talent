@@ -16,6 +16,7 @@ const data = new Map([
     ["FEATURE_ONGOING_RECRUITMENTS", filterUnusable("$FEATURE_ONGOING_RECRUITMENTS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_ONGOING_RECRUITMENTS %>"],
     ["FEATURE_APPLICANT_DASHBOARD", filterUnusable("$FEATURE_APPLICANT_DASHBOARD") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICANT_DASHBOARD %>"],
     ["FEATURE_APPLICATION_REVAMP", filterUnusable("$FEATURE_APPLICATION_REVAMP") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICATION_REVAMP %>"],
+    ["FEATURE_PSAC_STRIKE", filterUnusable("$FEATURE_PSAC_STRIKE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_PSAC_STRIKE %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],

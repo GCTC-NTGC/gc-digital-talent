@@ -69,6 +69,10 @@ query getPoolAdvertisement($id: UUID!) {
         en
         fr
       }
+      description {
+        en
+        fr
+      }
       families {
         id
         key
@@ -87,6 +91,10 @@ query getPoolAdvertisement($id: UUID!) {
       id
       key
       name {
+        en
+        fr
+      }
+      description {
         en
         fr
       }
@@ -111,6 +119,13 @@ query getPoolAdvertisement($id: UUID!) {
     }
     stream
     processNumber
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
   }
 }
 

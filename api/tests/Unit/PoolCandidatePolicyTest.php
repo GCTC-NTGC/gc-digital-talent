@@ -53,7 +53,7 @@ class PoolCandidatePolicyTest extends TestCase
             'sub' => 'pool-operator-user@test.com',
         ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->poolOperatorUser->attachRole("pool_operator", $this->team);
+        $this->poolOperatorUser->addRole("pool_operator", $this->team);
 
         $this->requestResponderUser = User::factory()->create([
             'email' => 'request-responder-user@test.com',

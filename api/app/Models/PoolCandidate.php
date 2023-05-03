@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
@@ -30,6 +31,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
+ * @property string $education_requirement_option
  */
 
 class PoolCandidate extends Model
@@ -84,7 +86,132 @@ class PoolCandidate extends Model
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    public function scopeClassifications(Builder $query, ?array $classifications): Builder
+    // education_requirement_option fulfilled by what experience models
+    public function educationRequirementAwardExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementCommunityExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementEducationExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementPersonalExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementWorkExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function getEducationRequirementExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
+        return $collection;
+    }
+
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        // Ensure the PoolCandidates are qualified and available.
+        $query->where(function ($query) {
+            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+        })
+            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+            })
+            // Now scope for valid pools, according to streams
+            ->whereHas('pool', function ($query) use ($streams) {
+                $query->whereIn('stream', $streams);
+            });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        // Ensure the PoolCandidates are qualified and available.
+        $query->where(function ($query) {
+            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
+        })
+            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->where(function ($query) {
+                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+            })
+            // Now ensure the PoolCandidate is in a pool with the right classification
+            ->whereHas('pool', function ($query) use ($classifications) {
+                $query->whereHas('classifications', function ($query) use ($classifications) {
+                    $query->where(function ($query) use ($classifications) {
+                        foreach ($classifications as $classification) {
+                            $query->orWhere(function ($query) use ($classification) {
+                                $query->where('group', $classification['group'])->where('level', $classification['level']);
+                            });
+                        }
+                    });
+                });
+            });
+
+        return $query;
+    }
+
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only include applicants who have expressed interest in any of $classifications.
+     *
+     * @param Builder $query
+     * @param array|null $classifications
+     * @return Builder
+     */
+    public function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -94,7 +221,7 @@ class PoolCandidate extends Model
         // pointing to the classification scope on the User model
         // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
         $query->whereHas('user', function ($query) use ($classifications) {
-            User::scopeClassifications($query, $classifications);
+            User::scopeExpectedClassifications($query, $classifications);
         });
         return $query;
     }
@@ -154,7 +281,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($equity) {
             User::scopeEquity($query, $equity);
         });
@@ -168,7 +294,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($search) {
             User::scopeGeneralSearch($query, $search);
         });
@@ -182,7 +307,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($name) {
             User::scopeName($query, $name);
         });
@@ -196,7 +320,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($email) {
             User::scopeEmail($query, $email);
         });
@@ -231,7 +354,6 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        // mirroring the logic of scopeClassifications to access a pivot thru USER
         $query->whereHas('user', function ($query) use ($hasDiploma) {
             User::scopeHasDiploma($query, $hasDiploma);
         });
@@ -394,7 +516,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeSkills(Builder $query, ?array $skills): Builder
+    public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -402,7 +524,21 @@ class PoolCandidate extends Model
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
-            User::scopeSkills($userQuery, $skills);
+            User::scopeSkillsAdditive($userQuery, $skills);
+        });
+
+        return $query;
+    }
+
+    public function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
+        // call the skillFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
+            User::scopeSkillsIntersectional($userQuery, $skills);
         });
 
         return $query;

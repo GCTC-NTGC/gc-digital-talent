@@ -78,6 +78,15 @@ export const emphasize = (text: React.ReactNode) => (
   <strong data-h2-font-weight="base(700)">{text}</strong>
 );
 
+/**
+ * Adds a soft hyphen.
+ * This is meant to mark a hyphenation opportunity, which only becomes
+ * visible as a hyphen at the end of a line after formatting.
+ *
+ *
+ */
+export const softHyphen = () => <>&shy;</>;
+
 export default {
   strong,
   hidden,
@@ -87,4 +96,5 @@ export default {
   gray,
   underline,
   emphasize,
+  softHyphen,
 };

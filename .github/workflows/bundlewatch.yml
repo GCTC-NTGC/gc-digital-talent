@@ -24,7 +24,7 @@ jobs:
   runner:
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.3.0"
+      NPM_VERSION: "8.11.0"
       # Used to write status check on PRs within upstream repo.
       # Note: Will not work for PRs from forks.
       BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
