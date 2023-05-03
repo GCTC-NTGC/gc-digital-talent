@@ -7695,5 +7695,33 @@
   "Yh/4po": {
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
+  },
+  "/uOExm": {
+    "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
+    "description": "An application confirmation number"
+  },
+  "PIzMYn": {
+    "defaultMessage": "* Nota : Votre numéro de confirmation se trouve également sur votre tableau de bord.",
+    "description": "Note that the application confirmation number is available on the dashboard"
+  },
+  "ZTnze/": {
+    "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
+    "description": "Link text to the ongoing recruitments section on the browse page"
+  },
+  "lE92J0": {
+    "defaultMessage": "Nous vous contacterons si votre candidature correspond aux critères définis par les occasions d’emploi En attendant, consultez les ressources suivantes pour en savoir sur la suite des événements.",
+    "description": "Description of review process and next steps for the applicant."
+  },
+  "nFO3Ai": {
+    "defaultMessage": "Mettez à jour votre profil et vos coordonnées pour vous assurer de recevoir les notifications.",
+    "description": "Link text to users profile to update contact information"
+  },
+  "otUMji": {
+    "defaultMessage": "Trouvez et remplissez le formulaire d’autorisation de sécurité",
+    "description": "Link text for government of canada security clearance forms"
+  },
+  "pKY4PC": {
+    "defaultMessage": "Accéder à mon tableau de bord",
+    "description": "Link text to navigate to the applicant dashboard"
   }
 }
