@@ -7752,10 +7752,6 @@
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
   },
-  "EfvPEG": {
-    "defaultMessage": "Communications générales",
-    "description": "General communication preference label"
-  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -7775,10 +7771,6 @@
   "Kg8PlJ": {
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
-  },
-  "LkYvx3": {
-    "defaultMessage": "Examens écrits",
-    "description": "Written exams language preference label"
   },
   "LqCaFZ": {
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
@@ -7908,10 +7900,6 @@
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
   },
-  "wajUxx": {
-    "defaultMessage": "Préférences linguistiques pour les entrevues",
-    "description": "Spoken interviews language preference label"
-  },
   "xzSXz9": {
     "defaultMessage": "Type d’emploi",
     "description": "Employment type label"
@@ -7923,5 +7911,25 @@
   "zF0F6w": {
     "defaultMessage": "Niveau de connaissance de la langue seconde (compréhension, écrit, oral.)",
     "description": "Second language level (Comprehension, Written, Verbal) label"
+  },
+  "CPHTk9": {
+    "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
+    "description": "Error message when a user does not meet a pools language requirements"
+  },
+  "Mcpbc1": {
+    "defaultMessage": "Nous avons trouvé quelques erreurs sur la page. Vous pouvez accéder directement à la section concernée en utilisant les liens suivants, qui vous indiqueront ce qui ne va pas.",
+    "description": "Descriptive text indicating there are errors in one or more forms and how to fix them"
+  },
+  "SUUqzt": {
+    "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
+    "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
+  },
+  "kf5Td+": {
+    "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
+    "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
+  },
+  "q/OZDK": {
+    "defaultMessage": "Juste un petit conseil!",
+    "description": "Heading for profile review page error summary"
   }
 }

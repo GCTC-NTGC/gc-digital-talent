@@ -16,6 +16,7 @@ import {
   getGovEmployeeType,
   useLocale,
 } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Classification, Department, GovEmployeeType } from "~/api/generated";
 
@@ -190,8 +191,8 @@ const FormFields = ({
                 label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Group",
-                  id: "u4v1RB",
+                  defaultMessage: "Select a group",
+                  id: "9Upe1V",
                   description: "Null selection for form.",
                 })}
                 rules={{
@@ -200,7 +201,7 @@ const FormFields = ({
                 options={groupOptions}
               />
             </div>
-            {groupSelection !== "Choose Department" && (
+            {notEmpty(groupSelection) && (
               <div style={{ width: "100%" }}>
                 <Select
                   id="currentClassificationLevel"
@@ -210,8 +211,8 @@ const FormFields = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   nullSelection={intl.formatMessage({
-                    defaultMessage: "Choose Level",
-                    id: "e/ez/m",
+                    defaultMessage: "Select a level",
+                    id: "/ImWz4",
                     description: "Null selection for form.",
                   })}
                   options={levelOptions}
