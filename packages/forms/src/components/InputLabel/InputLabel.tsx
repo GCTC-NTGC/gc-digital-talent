@@ -64,6 +64,7 @@ const InputLabel = ({
         className={`InputLabel${fillLabel ? " InputLabel--fill" : ""}`}
         {...labelStyles}
         htmlFor={inputId}
+        id={`${inputId}-label`}
       >
         {label}
       </label>

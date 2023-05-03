@@ -206,8 +206,13 @@ query GetApplication($id: UUID!) {
     submittedSteps
     screeningQuestionResponses {
       id
+      answer
       screeningQuestion {
         id
+        question {
+          en
+          fr
+        }
       }
     }
     signature

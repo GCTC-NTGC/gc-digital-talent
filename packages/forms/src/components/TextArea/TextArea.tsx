@@ -23,6 +23,8 @@ export interface TextAreaProps
   whitespaceTrim?: boolean;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** Add additional labels by passing space separated IDs */
+  labelledBy?: string;
   /** Hide the optional label if this field is not required */
   hideOptional?: boolean;
   /** ID of a field description (help text) */
@@ -34,6 +36,7 @@ const TextArea = ({
   context,
   label,
   name,
+  labelledBy,
   rules = {},
   children,
   trackUnsaved = true,
@@ -88,6 +91,9 @@ const TextArea = ({
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
           data-h2-min-height="base(x6)"
+          {...(labelledBy && {
+            "aria-labelledby": `${labelledBy} ${id}-label`,
+          })}
           {...stateStyles}
           style={{ width: "100%", resize: "vertical" }}
           id={id}
