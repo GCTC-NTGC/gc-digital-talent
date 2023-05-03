@@ -1354,6 +1354,10 @@
     "defaultMessage": "Chargement...",
     "description": "Message shown in options dropdown when Select field is loading options."
   },
+  "LBqw5w": {
+    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
+    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
