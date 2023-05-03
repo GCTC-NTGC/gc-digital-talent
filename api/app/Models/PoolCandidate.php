@@ -516,7 +516,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeSkills(Builder $query, ?array $skills): Builder
+    public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -524,7 +524,21 @@ class PoolCandidate extends Model
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
-            User::scopeSkills($userQuery, $skills);
+            User::scopeSkillsAdditive($userQuery, $skills);
+        });
+
+        return $query;
+    }
+
+    public function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
+        // call the skillFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
+            User::scopeSkillsIntersectional($userQuery, $skills);
         });
 
         return $query;

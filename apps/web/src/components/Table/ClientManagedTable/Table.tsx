@@ -166,7 +166,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, hiddenColumns, sortBy },
+    state: { pageIndex, pageSize, hiddenColumns, sortBy, globalFilter },
     gotoPage,
     setPageSize,
     page,
@@ -255,7 +255,10 @@ function Table<T extends Record<string, unknown>>({
               <div data-h2-flex-grid="base(center, x.5)">
                 {search && (
                   <div data-h2-flex-item="base(content)">
-                    <SearchForm onChange={setGlobalFilter} />
+                    <SearchForm
+                      onChange={setGlobalFilter}
+                      value={globalFilter}
+                    />
                   </div>
                 )}
                 {filterColumns && (

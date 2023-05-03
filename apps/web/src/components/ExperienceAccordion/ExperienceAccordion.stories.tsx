@@ -18,10 +18,13 @@ export default {
   args: {},
 } as Meta;
 
-const AccordionTemplate: Story<AccordionProps> = (args) => {
+const AccordionTemplate: Story<AccordionProps> = ({
+  experience,
+  editPaths,
+}) => {
   return (
-    <Accordion.Root type="single" collapsible>
-      <ExperienceAccordion {...args} />
+    <Accordion.Root type="single" collapsible defaultValue={experience.id}>
+      <ExperienceAccordion experience={experience} editPaths={editPaths} />
     </Accordion.Root>
   );
 };

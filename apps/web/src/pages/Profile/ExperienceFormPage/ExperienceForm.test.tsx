@@ -343,7 +343,7 @@ it("delete should not render when edit is false", async () => {
     edit: false,
   });
 
-  expect(screen.queryByText("Delete experience from My Profile")).toBeFalsy();
+  expect(screen.queryByText("Delete experience from my profile")).toBeFalsy();
 });
 
 it("delete should render when edit is true and be called properly", async () => {
@@ -359,7 +359,7 @@ it("delete should render when edit is true and be called properly", async () => 
   });
 
   // get and open Dialog Component
-  const deleteButton = screen.getByText("Delete experience from My Profile");
+  const deleteButton = screen.getByText("Delete experience from my profile");
   expect(deleteButton).toBeTruthy();
   await act(() => {
     deleteButton.click();

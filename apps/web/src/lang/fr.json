@@ -1461,7 +1461,7 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Button text to submit employment equity form."
   },
-  "tlsomU": {
+  "+lKz3l": {
     "defaultMessage": "Mon profil",
     "description": "Breadcrumb from applicant profile wrapper."
   },
@@ -1481,7 +1481,7 @@
     "defaultMessage": "Ces quatre groupes sont les « femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles. »",
     "description": "List of the employment equity categories"
   },
-  "uqoN4k": {
+  "zzr/9B": {
     "defaultMessage": "Supprimer l'expérience de mon profil",
     "description": "Label on button for delete this experience"
   },
@@ -2285,7 +2285,7 @@
     "defaultMessage": "Je cherche à...",
     "description": "Support form subject field label"
   },
-  "cUmFnk": {
+  "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
   },
@@ -2657,16 +2657,16 @@
     "defaultMessage": "Continuer ma candidature",
     "description": "Link text to continue an existing application"
   },
-  "2czUAZ": {
-    "defaultMessage": "Vous ne voyez pas de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
+  "Uzx5dR": {
+    "defaultMessage": "Vous ne voyez pas de processus de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
     "description": "summary for section with ongoing pool advertisements"
   },
   "7KJGSu": {
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "45mj+u": {
-    "defaultMessage": "Nous proposons également des lots de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.",
+  "MyDw3F": {
+    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
   },
   "BxJSsB": {
@@ -5770,8 +5770,8 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
-  "6RiVQA": {
-    "defaultMessage": "{role} au sein de la {division}",
+  "JYWwCE": {
+    "defaultMessage": "<strong>{role}</strong> au sein de la {division}",
     "description": "Role at division"
   },
   "8cRL8r": {
@@ -5789,10 +5789,6 @@
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
-  },
-  "A2KwTw": {
-    "defaultMessage": "1 compétence",
-    "description": "Pluralization for one skill"
   },
   "AF8g2I": {
     "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
@@ -5829,10 +5825,6 @@
   "Nc4sjC": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Title of the Government Information link section"
-  },
-  "OvJwG6": {
-    "defaultMessage": "Renseignements supplémentaires : {details}",
-    "description": "Additional information if provided"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",
@@ -5877,10 +5869,6 @@
   "XqFhIa": {
     "defaultMessage": "Modifier les compétences et l'expérience",
     "description": "Text on link to update a users skills and experiences."
-  },
-  "Zm9Hnf": {
-    "defaultMessage": "Depuis : {d1}",
-    "description": "Since"
   },
   "azOv8A": {
     "defaultMessage": "Téléphone :",
@@ -5934,10 +5922,6 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "l27ekQ": {
-    "defaultMessage": "{skillsLength} Compétences",
-    "description": "Pluralization for zero or multiple skills"
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -5965,10 +5949,6 @@
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",
     "description": "Options for how many rows to show on admin table"
-  },
-  "phbDSx": {
-    "defaultMessage": "Modifier l'expérience",
-    "description": "Edit Experience button label"
   },
   "q3Gl23": {
     "defaultMessage": "Niveau de la langue seconde :",
@@ -6105,10 +6085,6 @@
   "QXYMUG": {
     "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
     "description": "Message displayed when a skill has no definition"
-  },
-  "c4r/Zv": {
-    "defaultMessage": "Aucune compétence n’a été liée à cette expérience jusqu’à présent.",
-    "description": "A message explaining that the experience has no associated skills"
   },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
@@ -7579,6 +7555,146 @@
   "6q29tj": {
     "defaultMessage": "En cas d'interruption du travail, les services de référence de cette plateforme seront touchés. Veuillez noter que votre demande sera traitée lorsque les services reprendront. Merci de votre patience.",
     "description": "Content for the PSAC strike notice."
+  },
+  "+AUFyC": {
+    "defaultMessage": "Apprentissage personnel",
+    "description": "Title for personal learning section"
+  },
+  "19hs6x": {
+    "defaultMessage": "La création de votre CV est un peu différente sur cette plateforme. Tout d’abord, tout travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser sur d’autres demandes ultérieurement.",
+    "description": "Application step to begin working on résumé, paragraph one"
+  },
+  "9zHQV0": {
+    "defaultMessage": "Créez votre CV",
+    "description": "Title for resume page when there are no experiences yet"
+  },
+  "E9I34y": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
+  },
+  "Km89qF": {
+    "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
+    "description": "Link text to continue the application process"
+  },
+  "MdWZY5": {
+    "defaultMessage": "Modifier",
+    "description": "Edit experience link label"
+  },
+  "eLpCfR": {
+    "defaultMessage": "Modifier<hidden> {context}</hidden>",
+    "description": "Edit experience link label with context"
+  },
+  "YbH6ZO": {
+    "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to continue working on résumé, paragraph one"
+  },
+  "9Fzy0s": {
+    "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to begin working on résumé, paragraph two"
+  },
+  "YJS2CB": {
+    "defaultMessage": "Décerné à",
+    "description": "The award was given to"
+  },
+  "gEBoM0": {
+    "defaultMessage": "Projet/produit",
+    "description": "Label displayed on Community Experience form for Project / product section"
+  },
+  "jhhCKX": {
+    "defaultMessage": "Portée du prix",
+    "description": "Label displayed on award form for scope section"
+  },
+  "ON4+Yr": {
+    "defaultMessage": "Ajouter une nouvelle expérience",
+    "description": "A link to add a new experience to your resume"
+  },
+  "qn77WI": {
+    "defaultMessage": "Équipe, groupe ou division",
+    "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "yGFdWK": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
+    "description": "Study at institution"
+  },
+  "9OBHdP": {
+    "defaultMessage": "{date} - Aujourd’hui",
+    "description": "A date range that goes to the present day"
+  },
+  "C6kQXh": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience} =1 {1 expérience} other {# expériences}}",
+    "description": "list a number of unknown experiences"
+  },
+  "ImwOeT": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} =1 {1 expérience professionnelle} other {# expériences professionnelles}}",
+    "description": "list a number of work experiences"
+  },
+  "LfhuFi": {
+    "defaultMessage": "Comment j’ai utilisé “{skillName}” dans ce rôle",
+    "description": "Title for section on how a skill was used in the role"
+  },
+  "NGEgVN": {
+    "defaultMessage": "Organisation émettrice",
+    "description": "Label displayed on award form for organization section"
+  },
+  "Q3yncO": {
+    "defaultMessage": "Votre curriculum vitæ comprend actuellement :",
+    "description": "Title for list of experiences"
+  },
+  "TmWbke": {
+    "defaultMessage": "<strong>{title}</strong> avec {organization}",
+    "description": "Title with organization"
+  },
+  "V6wB0a": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
+    "description": "list a number of community experiences"
+  },
+  "VJm1GR": {
+    "defaultMessage": "Mise à jour réussie de votre curriculum vitae",
+    "description": "Message displayed to users when saving résumé is successful."
+  },
+  "VRxiNC": {
+    "defaultMessage": "Instructions de révision",
+    "description": "A link back to the instructions for this section"
+  },
+  "XuYilo": {
+    "defaultMessage": "Classez vos expériences par ordre de",
+    "description": "Label for experience sort dropdown"
+  },
+  "inyUex": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
+    "description": "list a number of award experiences"
+  },
+  "m7tUAm": {
+    "defaultMessage": "Type",
+    "description": "Sort experiences by type ascending"
+  },
+  "narnyP": {
+    "defaultMessage": "Date (la plus récente d’abord)",
+    "description": "Sort experiences by date descending"
+  },
+  "q++unL": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
+    "description": "list a number of personal experiences"
+  },
+  "0fexP+": {
+    "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} =1 {1 expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
+    "description": "list a number of education experiences"
+  },
+  "szVmh/": {
+    "defaultMessage": "Description de l’apprentissage",
+    "description": "Label displayed on Personal Experience form for learning description section"
+  },
+  "K9vqwA": {
+    "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
+    "description": "Null state messages for résumé list"
+  },
+  "gyZV/3": {
+    "defaultMessage": "Veuillez ajouter au moins une expérience.",
+    "description": "Error message if there are no experiences"
+  },
+  "Yh/4po": {
+    "defaultMessage": "Rétablir la recherche",
+    "description": "Button text to reset search field on tables"
   },
   "+gl4rv": {
     "defaultMessage": "Langues des possibilités d’emploi ",
