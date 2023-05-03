@@ -799,7 +799,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuerySkills(): void
+    public function testCountApplicantsQuerySkillsIntersectional(): void
     {
         // recycle skills testing //
         $user = User::All()->first();
@@ -887,6 +887,150 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
+                    'skillsIntersectional' => [],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 7
+            ]
+        ]);
+
+        // Assert one skill
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skillsIntersectional' => [
+                        ['id' => $skill1['id']],
+                    ]
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 6
+            ]
+        ]);
+
+        // Assert two skills
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skillsIntersectional' => [
+                        ['id' => $skill1['id']],
+                        ['id' => $skill2['id']],
+                    ],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 4
+            ]
+        ]);
+
+        // Assert unused skill
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skillsIntersectional' => [
+                        ['id' => $skill3['id']],
+                    ],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 0
+            ]
+        ]);
+    }
+
+    public function testCountApplicantsQuerySkillsAdditive(): void
+    {
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $skill3 = Skill::factory()->create();
+
+        PoolCandidate::factory()->count(1)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'user_id' => User::factory([])
+        ]);
+
+        PoolCandidate::factory()->count(2)->sequence(fn () => [
+            'pool_id' => $pool1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
+                AwardExperience::factory()
+                    ->for($user)
+                    ->afterCreating(function ($model) use ($skill1) {
+                        $model->skills()->sync([$skill1['id']]);
+                    })->create();
+            })->create()
+        ])->create();
+
+        PoolCandidate::factory()->count(4)->sequence(fn () => [
+            'pool_id' => $pool1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
+                CommunityExperience::factory()
+                    ->for($user)
+                    ->afterCreating(function ($model) use ($skill1) {
+                        $model->skills()->sync([$skill1['id']]);
+                    })->create();
+                PersonalExperience::factory()
+                    ->for($user)
+                    ->afterCreating(function ($model) use ($skill2) {
+                        $model->skills()->sync([$skill2['id']]);
+                    })->create();
+            })->create()
+        ])->create();
+
+        // Assert empty skills array
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
                     'skills' => [],
                 ]
             ]
@@ -920,7 +1064,7 @@ class ApplicantTest extends TestCase
             ]
         ]);
 
-        // Assert two skills
+        // Assert two skills, returns 4 candidates despite them not possessing $skill3
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -934,8 +1078,8 @@ class ApplicantTest extends TestCase
                         ['id' => $pool1['id']]
                     ],
                     'skills' => [
-                        ['id' => $skill1['id']],
                         ['id' => $skill2['id']],
+                        ['id' => $skill3['id']],
                     ],
                 ]
             ]
@@ -1044,16 +1188,18 @@ class ApplicantTest extends TestCase
         // Assert candidate one returns 10
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateOne->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateOne->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 10,
@@ -1064,16 +1210,18 @@ class ApplicantTest extends TestCase
         // Assert candidate two returns 20
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateTwo->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateTwo->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 20,
@@ -1084,16 +1232,18 @@ class ApplicantTest extends TestCase
         // Assert candidate three returns 30
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateThree->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateThree->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 30,
@@ -1104,16 +1254,18 @@ class ApplicantTest extends TestCase
         // Assert candidate four returns 40
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query applicant($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
             }
-            ', [
-                'id' => $candidateFour->id,
-            ])->assertJson([
+            ',
+                [
+                    'id' => $candidateFour->id,
+                ]
+            )->assertJson([
                 "data" => [
                     "applicant" => [
                         "priorityWeight" => 40,
@@ -1463,8 +1615,8 @@ class ApplicantTest extends TestCase
         // Assert the order is correct
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1477,7 +1629,8 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            ')->assertJson([
+            '
+            )->assertJson([
                 "data" => [
                     "poolCandidatesPaginated" => [
                         "data" => [
@@ -1493,8 +1646,8 @@ class ApplicantTest extends TestCase
         // Assert that DRAFT is not retrieved
         $this->actingAs($this->adminUser, "api")
             ->graphQL(
-            /** @lang GraphQL */
-            '
+                /** @lang GraphQL */
+                '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
                     { column: "status_weight", order: ASC }
@@ -1507,7 +1660,8 @@ class ApplicantTest extends TestCase
                     }
                 }
             }
-            ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
+            '
+            )->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
 
     public function testNullFilterEqualsUndefinedPoolCandidate()

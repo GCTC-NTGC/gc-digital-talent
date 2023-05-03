@@ -176,6 +176,7 @@ const Hero = ({
           />
         ) : (
           <BackgroundGraphic
+            aria-hidden="true"
             data-h2-display="base(block) base:iap(none)"
             data-h2-position="base(absolute)"
             data-h2-location="base(0, 0, auto, auto)"

@@ -41,7 +41,6 @@ class PoolSeederUat extends Seeder
                 //     'en' => '',
                 //     'fr' => ''
                 // ], // TODO: Replace with real world text.
-                'pool_status' => ApiEnums::POOL_STATUS_NOT_TAKING_APPLICATIONS,
                 'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
             ]
         );

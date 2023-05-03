@@ -1,13 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
 import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
 
 import {
   AdvertisementStatus,
   PoolAdvertisement,
+  Scalars,
   Skill,
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
@@ -20,6 +23,12 @@ export type AssetSkillsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
   "nonessentialSkills"
 >;
+
+type FormValues = {
+  currentAssetSkills: {
+    id: Scalars["ID"];
+  }[];
+};
 
 interface AssetSkillsSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -36,15 +45,30 @@ const AssetSkillsSection = ({
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
+  const defaultSkills = poolAdvertisement.nonessentialSkills
+    ? poolAdvertisement.nonessentialSkills
+    : [];
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      currentAssetSkills: defaultSkills.map(({ id }) => ({ id })),
+    },
+  });
+  const { fields } = useFieldArray({
+    name: "currentAssetSkills",
+    control: methods.control,
+  });
 
-  const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
-    poolAdvertisement.nonessentialSkills
-      ? poolAdvertisement.nonessentialSkills
-      : [],
-  );
+  const [selectedSkills, setSelectedSkills] =
+    useState<Array<Skill>>(defaultSkills);
 
-  const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) =>
+  const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) => {
+    methods.setValue(
+      "currentAssetSkills",
+      changedSelectedSkills.map(({ id }) => ({ id })),
+      { shouldDirty: true, shouldTouch: true },
+    );
     setSelectedSkills(changedSelectedSkills);
+  };
 
   const handleSave = () => {
     onSave({
@@ -52,6 +76,12 @@ const AssetSkillsSection = ({
         sync: selectedSkills.map((skill) => skill.id),
       },
     });
+    methods.reset(
+      { currentAssetSkills: selectedSkills.map(({ id }) => ({ id })) },
+      {
+        keepDirty: false,
+      },
+    );
   };
 
   // disabled unless status is draft
@@ -65,7 +95,6 @@ const AssetSkillsSection = ({
       </TableOfContents.Heading>
       {!formDisabled ? (
         <>
-          {" "}
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
@@ -79,16 +108,31 @@ const AssetSkillsSection = ({
             selectedSkills={selectedSkills}
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
-            handleSave={handleSave}
             headingLevel="h3"
-            submitButtonText={intl.formatMessage({
-              defaultMessage: "Save asset skills",
-              id: "j4G/wv",
-              description: "Text on a button to save the pool asset skills",
-            })}
-            isSubmitting={isSubmitting}
             skillType="asset"
           />
+          <FormProvider {...methods}>
+            {fields.map((field, index) => (
+              <input
+                key={field.id}
+                type="hidden"
+                {...methods.register(`currentAssetSkills.${index}.id`)}
+              />
+            ))}
+            <p data-h2-margin="base(x1, 0)">
+              <Submit
+                text={intl.formatMessage({
+                  defaultMessage: "Save asset skills",
+                  id: "j4G/wv",
+                  description: "Text on a button to save the pool asset skills",
+                })}
+                color="cta"
+                mode="solid"
+                isSubmitting={isSubmitting}
+                onClick={methods.handleSubmit(handleSave)}
+              />
+            </p>
+          </FormProvider>
         </>
       ) : (
         <Chips>

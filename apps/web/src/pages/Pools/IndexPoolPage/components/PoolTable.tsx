@@ -289,7 +289,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
-        sortType: (rowA, rowB, id, desc) => {
+        sortType: (rowA, rowB) => {
           // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
@@ -315,12 +315,11 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             return -1;
           }
           // if groups identical then sort by level
-          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
           if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
+            return 1;
           }
           if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
+            return -1;
           }
           return 0;
         },
@@ -396,10 +395,23 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
+        id: "createdDate",
         accessor: ({ createdDate }) =>
           createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
         Cell: ({ row: { original: searchRequest } }: PoolCell) =>
           dateCell(searchRequest.createdDate, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        id: "updatedDate",
+        accessor: ({ updatedDate }) =>
+          updatedDate ? parseDateTimeUtc(updatedDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.updatedDate, intl),
       },
     ],
     [intl, paths, locale],
@@ -408,13 +420,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: [
-        "id",
-        "description",
-        "createdDate",
-        "ownerEmail",
-        "ownerName",
-      ],
+      hiddenCols: ["id", "createdDate", "ownerEmail", "ownerName"],
       initialSortBy: [
         {
           id: "createdDate",

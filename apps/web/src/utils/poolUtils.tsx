@@ -14,7 +14,8 @@ import {
 } from "~/api/generated";
 
 import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { wrapAbbr } from "./nameUtils";
 
 /**
@@ -50,15 +51,21 @@ export const isAdvertisementVisible = (
   roleAssignments: Maybe<RoleAssignment>[],
   status?: Maybe<AdvertisementStatus>,
 ) => {
-  let visible =
-    roleAssignments
-      .map((a) => a?.role?.name)
-      .includes(ROLE_NAME.PlatformAdmin) ?? false;
   if (status !== AdvertisementStatus.Draft) {
-    visible = true;
+    return true;
   }
-
-  return visible;
+  const allowedRoles: RoleName[] = [
+    ROLE_NAME.PlatformAdmin,
+    ROLE_NAME.PoolOperator,
+  ];
+  return (
+    roleAssignments.filter(notEmpty).some((assignment) => {
+      return (
+        assignment.role?.name &&
+        allowedRoles.includes(assignment.role.name as RoleName)
+      );
+    }) ?? false
+  );
 };
 
 /**

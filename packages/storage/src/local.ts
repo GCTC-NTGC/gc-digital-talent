@@ -13,15 +13,15 @@ import {
  * @returns
  */
 export function getFromLocalStorage<T>(key: string, defaultValue: T): T {
-  return getFromStorage(window?.localStorage, key, defaultValue);
+  return getFromStorage(window.localStorage, key, defaultValue);
 }
 
 export function setInLocalStorage<T>(key: string, value: T): void {
-  return setInStorage(window?.localStorage, key, value);
+  return setInStorage(window.localStorage, key, value);
 }
 
 export function removeFromLocalStorage(key: string): void {
-  return removeFromStorage(window?.localStorage, key);
+  return removeFromStorage(window.localStorage, key);
 }
 
 /** Sync state to local storage so that it persists through a page refresh. Usage is similar to useState except we pass in a local storage key so that we can default to that value on page load instead of the specified initial value.
@@ -30,5 +30,5 @@ export function removeFromLocalStorage(key: string): void {
  * @param  {T} initialValue
  */
 export function useLocalStorage<T>(key: string, initialValue: T) {
-  return useStorage(window?.localStorage, key, initialValue);
+  return useStorage(window.localStorage, key, initialValue);
 }

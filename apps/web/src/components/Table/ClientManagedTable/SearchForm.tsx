@@ -1,27 +1,40 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useAsyncDebounce } from "react-table";
 
+import ResetButton from "../ResetButton";
+
 export interface SearchFormProps {
   onChange: (val: string | undefined) => void;
+  value: string;
 }
 
-const SearchForm = ({ onChange }: SearchFormProps) => {
+const SearchForm = ({ onChange, value }: SearchFormProps) => {
   const intl = useIntl();
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     onChange(e.target.value);
   };
 
+  const handleReset = () => {
+    onChange("");
+    if (searchRef.current) {
+      searchRef.current.value = "";
+      searchRef.current.focus();
+    }
+  };
+
   const debouncedHandleChange = useAsyncDebounce(handleChange, 200);
 
   return (
-    <div data-h2-display="base(flex)">
+    <div data-h2-position="base(relative)" data-h2-display="base(flex)">
       <input
         name="search"
         id="tableSearch"
         type="text"
+        ref={searchRef}
         onChange={debouncedHandleChange}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
@@ -39,6 +52,16 @@ const SearchForm = ({ onChange }: SearchFormProps) => {
         data-h2-padding="base(x.5, x1)"
         data-h2-radius="base(s)"
       />
+      {value && (
+        <div
+          data-h2-position="base(absolute)"
+          data-h2-location="base(x.25, x.25, x.25, auto)"
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(stretch)"
+        >
+          <ResetButton onClick={handleReset} />
+        </div>
+      )}
     </div>
   );
 };
