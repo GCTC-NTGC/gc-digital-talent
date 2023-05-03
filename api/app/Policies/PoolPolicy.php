@@ -34,8 +34,12 @@ class PoolPolicy
      */
     public function view(?User $user, Pool $pool)
     {
-        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
+        // If not logged in, we still want to allow access to return published pools.
+        if (!$user) {
+            return true;
+        }
 
+        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
         }
