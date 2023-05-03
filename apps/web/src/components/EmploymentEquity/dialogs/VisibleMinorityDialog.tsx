@@ -9,7 +9,7 @@ import {
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 
-import type { EquityDialogProps } from "../../types";
+import type { EquityDialogProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
