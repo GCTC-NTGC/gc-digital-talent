@@ -289,7 +289,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
-        sortType: (rowA, rowB, id, desc) => {
+        sortType: (rowA, rowB) => {
           // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
@@ -315,12 +315,11 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             return -1;
           }
           // if groups identical then sort by level
-          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
           if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
+            return 1;
           }
           if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
+            return -1;
           }
           return 0;
         },
