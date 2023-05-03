@@ -7723,5 +7723,53 @@
   "pKY4PC": {
     "defaultMessage": "Accéder à mon tableau de bord",
     "description": "Link text to navigate to the applicant dashboard"
+  },
+  "0moSLr": {
+    "defaultMessage": "Question {number} (EN)",
+    "description": "Heading for displaying a screening question English"
+  },
+  "7GHJGT": {
+    "defaultMessage": "Les modifications apportées aux questions filtres n’ont pas été enregistrées. N’oubliez pas de sauvegarder les modifications!",
+    "description": "Message displayed when items have been moved and not saved"
+  },
+  "P3WkJv": {
+    "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
+    "description": "Helper message indicating max screening questions allowed"
+  },
+  "c+QwbR": {
+    "defaultMessage": "Questions filtres",
+    "description": "Subtitle for the pool screening questions"
+  },
+  "cag7TH": {
+    "defaultMessage": "Question {number} (FR)",
+    "description": "Heading for displaying a screening question French"
+  },
+  "fNYEBT": {
+    "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
+    "description": "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions"
+  },
+  "izt28e": {
+    "defaultMessage": "Vous n’avez pas de question.",
+    "description": "Message that appears when there are no screening messages for a pool"
+  },
+  "lTkp5g": {
+    "defaultMessage": "Sauvegarder les questions filtres",
+    "description": "Text on a button to save the pool screening questions"
+  },
+  "qs09PP": {
+    "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
+    "description": "Message displayed when a user adds the maximum number of questions"
+  },
+  "s+ObMR": {
+    "defaultMessage": "Question filtre {index}",
+    "description": "Legend for screening question fieldset"
+  },
+  "vDqzWG": {
+    "defaultMessage": "Ajoutez des questions en utilisant le bouton suivant.",
+    "description": "Instructions on how to add a question when there are none"
+  },
+  "vf7/Xq": {
+    "defaultMessage": "Ajoutez une question filtre",
+    "description": "Button text to add a new screening question"
   }
 }

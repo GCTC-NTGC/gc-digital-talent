@@ -86,6 +86,13 @@ query getEditPoolData($poolId: UUID!) {
     stream
     processNumber
     publishingGroup
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
   }
 
   # all classifications to populate form dropdown
