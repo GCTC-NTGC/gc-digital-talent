@@ -45,6 +45,9 @@ import EssentialSkillsSection, {
 import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
+import ScreeningQuestions, {
+  type ScreeningQuestionsSubmitData,
+} from "./components/ScreeningQuestions";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
 
@@ -55,7 +58,8 @@ export type PoolSubmitData =
   | OtherRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
-  | YourImpactSubmitData;
+  | YourImpactSubmitData
+  | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
@@ -140,6 +144,14 @@ export const EditPoolForm = ({
         description: "Sub title for the pool other requirements",
       }),
     },
+    screeningQuestions: {
+      id: "screening-questions",
+      title: intl.formatMessage({
+        defaultMessage: "Screening questions",
+        id: "c+QwbR",
+        description: "Subtitle for the pool screening questions",
+      }),
+    },
     status: {
       id: "status",
       title: intl.formatMessage({
@@ -184,6 +196,11 @@ export const EditPoolForm = ({
               id={sectionMetadata.otherRequirements.id}
             >
               {sectionMetadata.otherRequirements.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink
+              id={sectionMetadata.screeningQuestions.id}
+            >
+              {sectionMetadata.screeningQuestions.title}
             </TableOfContents.AnchorLink>
             <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
               {sectionMetadata.status.title}
@@ -241,6 +258,11 @@ export const EditPoolForm = ({
             <OtherRequirementsSection
               poolAdvertisement={poolAdvertisement}
               sectionMetadata={sectionMetadata.otherRequirements}
+              onSave={onSave}
+            />
+            <ScreeningQuestions
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.screeningQuestions}
               onSave={onSave}
             />
             <StatusSection
