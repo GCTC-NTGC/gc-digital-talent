@@ -140,6 +140,16 @@ module.exports = {
           "Please import the individual function, not the entire library.",
       },
       {
+        name: "date-fns",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
+        name: "date-fns-tz",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
         name: "@heroicons/react/24/outline",
         message: "Please import the individual icons, not the entire set.",
       },
