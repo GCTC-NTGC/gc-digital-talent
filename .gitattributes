@@ -1,4 +1,4 @@
-admin/src/hydrogen/**/* linguist-documentation
+tc-report/**/* linguist-vendored
 
 # Declare files that must keep LF endings, even on Windows.
 *.sh text eol=lf

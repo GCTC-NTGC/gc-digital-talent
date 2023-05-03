@@ -68,8 +68,8 @@ const sampleSkill2: Skill = {
 };
 
 const staticDates = {
-  start: new Date("October 24, 1992").toDateString(),
-  end: new Date("October 23, 1993").toDateString(),
+  start: "1992-10-24",
+  end: "1993-10-23",
 };
 
 // 5 generators to generate experiences of a certain type

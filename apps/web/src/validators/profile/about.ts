@@ -1,4 +1,5 @@
 import { Applicant } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 
 type PartialApplicant = Pick<
   Applicant,
@@ -35,7 +36,7 @@ export function hasAllEmptyFields({
     !currentCity &&
     !currentProvince &&
     !citizenship &&
-    armedForcesStatus === null
+    empty(armedForcesStatus)
   );
 }
 
@@ -62,7 +63,7 @@ export function hasEmptyRequiredFields({
     !currentCity ||
     !currentProvince ||
     !citizenship ||
-    armedForcesStatus === null
+    empty(armedForcesStatus)
   );
 }
 

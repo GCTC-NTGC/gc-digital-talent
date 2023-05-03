@@ -34,6 +34,8 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   isUnsaved?: boolean;
   /** Strip basic styles to present a flat fieldset */
   flat?: boolean;
+  /** ID of a field description (help text) */
+  describedBy?: string;
 }
 
 const Fieldset = ({
@@ -49,6 +51,7 @@ const Fieldset = ({
   isUnsaved,
   flat = false,
   trackUnsaved = true,
+  describedBy,
   ...rest
 }: FieldsetProps) => {
   const [contextIsActive, setContextIsActive] = useState(false);
@@ -57,6 +60,7 @@ const Fieldset = ({
   const stateStyles = useFieldStateStyles(name ?? "", !trackUnsaved);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: name,
+    describedBy,
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,
