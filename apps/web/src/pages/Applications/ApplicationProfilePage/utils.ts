@@ -1,10 +1,8 @@
 import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
-import {
-  PencilSquareIcon,
-  ExclamationCircleIcon,
-  CheckCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import { HeadingProps } from "@gc-digital-talent/ui";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";

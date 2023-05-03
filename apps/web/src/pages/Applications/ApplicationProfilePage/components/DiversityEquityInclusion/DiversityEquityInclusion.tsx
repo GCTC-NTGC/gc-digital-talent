@@ -1,5 +1,5 @@
 import React from "react";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useIntl } from "react-intl";
 
 import { Heading, ToggleSection, Well } from "@gc-digital-talent/ui";

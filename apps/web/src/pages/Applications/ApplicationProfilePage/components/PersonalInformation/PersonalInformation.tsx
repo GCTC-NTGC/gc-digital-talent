@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { UserIcon } from "@heroicons/react/24/outline";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
