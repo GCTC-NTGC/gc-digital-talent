@@ -175,8 +175,10 @@ const ApplicationProfilePage = () => {
       data: applicationData,
       fetching: applicationFetching,
       error: applicationError,
+      stale: applicationStale,
     },
   ] = useGetApplicationQuery({
+    requestPolicy: "cache-first",
     variables: {
       id: applicationId || "",
     },
@@ -188,7 +190,7 @@ const ApplicationProfilePage = () => {
 
   return (
     <Pending
-      fetching={applicationFetching || userFetching}
+      fetching={applicationFetching || applicationStale || userFetching}
       error={applicationError || userError}
     >
       {application?.poolAdvertisement && userData?.me ? (
