@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@microsoft/applicationinsights-react-js": "^3.4.1",
-    "@microsoft/applicationinsights-web": "^2.8.11",
+    "@microsoft/applicationinsights-web": "^3.0.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
