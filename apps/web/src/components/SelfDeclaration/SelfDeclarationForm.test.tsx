@@ -31,10 +31,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should not display communities if not Indigenous", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockCallback,
-      });
+    await renderSelfDeclarationForm({
+      onSubmit: mockCallback,
     });
 
     await act(async () => {
@@ -63,10 +61,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display communities if Indigenous", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockCallback,
-      });
+    await renderSelfDeclarationForm({
+      onSubmit: mockCallback,
     });
 
     await act(async () => {
@@ -95,10 +91,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display status field if Indigenous and First Nations", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockCallback,
-      });
+    await renderSelfDeclarationForm({
+      onSubmit: mockCallback,
     });
 
     await act(async () => {
