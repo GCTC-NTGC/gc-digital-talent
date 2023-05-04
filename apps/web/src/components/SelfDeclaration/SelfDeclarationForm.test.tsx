@@ -122,29 +122,25 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display alert if community selected with other", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockCallback,
-      });
+    await renderSelfDeclarationForm({
+      onSubmit: mockCallback,
     });
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i affirm that/i }),
-      );
+    fireEvent.click(
+      await screen.getByRole("radio", { name: /i affirm that/i }),
+    );
 
-      fireEvent.click(
-        await screen.findByRole("checkbox", {
-          name: /i am inuk/i,
-        }),
-      );
+    fireEvent.click(
+      await screen.findByRole("checkbox", {
+        name: /i am inuk/i,
+      }),
+    );
 
-      fireEvent.click(
-        await screen.findByRole("checkbox", {
-          name: /i don't see my community/i,
-        }),
-      );
-    });
+    fireEvent.click(
+      await screen.findByRole("checkbox", {
+        name: /i don't see my community/i,
+      }),
+    );
 
     expect(
       await within(await screen.findByRole("alert")).findByRole("heading", {
@@ -155,48 +151,43 @@ describe("SelfDeclarationForm", () => {
 
   it("should submit with all required fields", async () => {
     const mockSave = jest.fn();
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockSave,
-      });
+
+    renderSelfDeclarationForm({
+      onSubmit: mockSave,
     });
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i affirm that/i }),
-      );
+    fireEvent.click(
+      await screen.getByRole("radio", { name: /i affirm that/i }),
+    );
 
-      fireEvent.click(
-        await screen.findByRole("checkbox", {
-          name: /i am first nations/i,
-        }),
-      );
+    fireEvent.click(
+      await screen.findByRole("checkbox", {
+        name: /i am first nations/i,
+      }),
+    );
 
-      fireEvent.click(
-        await screen.findByRole("radio", {
-          name: /i am status first nations/i,
-        }),
-      );
+    fireEvent.click(
+      await screen.findByRole("radio", {
+        name: /i am status first nations/i,
+      }),
+    );
 
-      fireEvent.change(
-        await screen.findByRole("textbox", {
-          name: /signature/i,
-        }),
-        {
-          target: {
-            value: "test",
-          },
+    fireEvent.change(
+      await screen.findByRole("textbox", {
+        name: /signature/i,
+      }),
+      {
+        target: {
+          value: "test",
         },
-      );
-    });
+      },
+    );
 
     const saveBtn = await screen.findByRole("button", {
       name: /sign and continue/i,
     });
 
-    act(() => {
-      fireEvent.submit(saveBtn);
-    });
+    fireEvent.submit(saveBtn);
 
     await waitFor(() => {
       expect(mockSave).toHaveBeenCalled();
@@ -205,31 +196,26 @@ describe("SelfDeclarationForm", () => {
 
   it("should fail submission without required fields", async () => {
     const mockSave = jest.fn();
-    await act(async () => {
-      renderSelfDeclarationForm({
-        onSubmit: mockSave,
-      });
+
+    renderSelfDeclarationForm({
+      onSubmit: mockSave,
     });
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i affirm that/i }),
-      );
+    fireEvent.click(
+      await screen.getByRole("radio", { name: /i affirm that/i }),
+    );
 
-      fireEvent.click(
-        await screen.findByRole("checkbox", {
-          name: /i am first nations/i,
-        }),
-      );
-    });
+    fireEvent.click(
+      await screen.findByRole("checkbox", {
+        name: /i am first nations/i,
+      }),
+    );
 
     const saveBtn = await screen.findByRole("button", {
       name: /sign and continue/i,
     });
 
-    act(() => {
-      fireEvent.submit(saveBtn);
-    });
+    fireEvent.submit(saveBtn);
 
     await waitFor(() => {
       expect(mockSave).not.toHaveBeenCalled();
