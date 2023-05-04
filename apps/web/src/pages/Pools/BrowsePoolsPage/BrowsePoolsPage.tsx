@@ -31,7 +31,7 @@ import flourishTopDark from "~/assets/img/browse_top_dark.png";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
 
 import { DATETIME_FORMAT_STRING } from "@gc-digital-talent/date-helpers";
-import { format } from "date-fns";
+import format from "date-fns/format";
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
