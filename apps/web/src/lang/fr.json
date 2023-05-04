@@ -7576,10 +7576,6 @@
     "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
     "description": "Link text to continue the application process"
   },
-  "MdWZY5": {
-    "defaultMessage": "Modifier",
-    "description": "Edit experience link label"
-  },
   "eLpCfR": {
     "defaultMessage": "Modifier<hidden> {context}</hidden>",
     "description": "Edit experience link label with context"
@@ -8054,5 +8050,49 @@
   },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
+  },
+  "1/Q9jX": {
+    "defaultMessage": "Comment décrire au mieux une expérience professionnelle",
+    "description": "Title for instructions on how to describe a skill"
+  },
+  "3hYwWo": {
+    "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
+    "description": "Heading for the skill experience details section"
+  },
+  "BqeIyx": {
+    "defaultMessage": "Compétences comportementales facultatives",
+    "description": "Heading for optional behavioural skills section"
+  },
+  "LazN9T": {
+    "defaultMessage": "Toutes les compétences suivantes sont facultativement bénéfiques pour le rôle, et leur démonstration pourrait vous être bénéfique lorsqu’elles sont envisagées.",
+    "description": "Instructions on  optional skills for a pool advertisement"
+  },
+  "OCrKtT": {
+    "defaultMessage": "Compétences techniques requises",
+    "description": "Heading for required technical skills section"
+  },
+  "R1yINv": {
+    "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
+    "description": "Instructions on how to describe a skill"
+  },
+  "dkYHTv": {
+    "defaultMessage": "Choisissez l’expérience que vous souhaitez ajouter",
+    "description": "Heading for the experience selection"
+  },
+  "fA79sM": {
+    "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
+    "description": "Information regarding required behavioural skills"
+  },
+  "oeZv71": {
+    "defaultMessage": "Veuillez vous assurer de fournir au moins une expérience de CV pour chaque compétence requise, ainsi qu’une description concise de la raison pour laquelle cette expérience met en évidence vos capacités dans cette compétence.",
+    "description": "Instructions on requiring information for skills"
+  },
+  "slEfHC": {
+    "defaultMessage": "Relions maintenant vos expériences aux compétences essentielles pour ce rôle. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et de formation minimales, si vous devez ajouter ou modifier une expérience de CV, vous pouvez le faire en revenant à l’étape de CV dans la demande.",
+    "description": "Lead in paragraph for adding experiences to a users skills"
+  },
+  "zv4Vyd": {
+    "defaultMessage": "Compétences comportementales requises",
+    "description": "Heading for required behavioural skills section"
   }
 }
