@@ -11,6 +11,8 @@ export type DescriptionIds = Record<InputDescription, string>;
 export type UseInputDescribedByArgs = {
   /** Unique identifier for the input */
   id: string;
+  /** Existing description */
+  describedBy?: string;
   /** Determines if each description type is visible or not */
   show: {
     error?: InputFieldError;
@@ -47,12 +49,17 @@ type UseInputDescribedBy = (
 const useInputDescribedBy: UseInputDescribedBy = ({
   show: { error, context, unsaved },
   id,
+  describedBy,
 }) => {
   const contextId = `context-${id}`;
   const errorId = `error-${id}`;
   const unsavedId = `unsaved-${id}`;
 
   const ariaDescribedByArray = [];
+
+  if (describedBy) {
+    ariaDescribedByArray.push(describedBy);
+  }
 
   if (error) {
     ariaDescribedByArray.push(errorId);

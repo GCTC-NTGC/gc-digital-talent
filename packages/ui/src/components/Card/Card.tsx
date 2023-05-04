@@ -6,6 +6,7 @@ export type Color =
   | "tertiary"
   | "quaternary"
   | "quinary"
+  | "white"
   | "ts-primary"
   | "ia-primary"
   | "ts-secondary"
@@ -14,6 +15,7 @@ export type Color =
 export interface CardProps {
   title: string;
   color?: Color;
+  bold?: boolean;
   children: React.ReactNode;
 }
 
@@ -43,6 +45,10 @@ const colorMap = {
     "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
+  white: {
+    "data-h2-background-color": "base(white)",
+    "data-h2-color": "base:all(black)",
+  },
   "ts-primary": {
     "data-h2-background-color": "base(primary)",
     "data-h2-color": "base(white)",
@@ -64,6 +70,7 @@ const colorMap = {
 const Card = ({
   title,
   color = "primary",
+  bold,
   children,
   ...rest
 }: CardProps & React.HTMLProps<HTMLDivElement>) => {
@@ -83,6 +90,7 @@ const Card = ({
         data-h2-font-size="base(h5, 1)"
         data-h2-padding="base(x1)"
         data-h2-margin="base(0)"
+        {...(bold && { "data-h2-font-weight": "base(700)" })}
         {...colorMap[color]}
       >
         {title}

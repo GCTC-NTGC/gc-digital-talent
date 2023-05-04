@@ -101,10 +101,10 @@ const WorkLocationForm = ({
     ? [
         {
           label: intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "mq4G8h",
+            defaultMessage: "My applications",
+            id: "bdDvMZ",
             description:
-              "'My Applications' breadcrumb from applicant profile wrapper.",
+              "My applications breadcrumb from applicant profile wrapper.",
           }),
           url: paths.applications(application.user.id),
         },
@@ -121,10 +121,10 @@ const WorkLocationForm = ({
         },
         {
           label: intl.formatMessage({
-            defaultMessage: "Work Location Preference",
-            id: "c/Qp8R",
+            defaultMessage: "Work location",
+            id: "5fF50z",
             description:
-              "Display Text for the current page in Work Location Preference Form Page",
+              "Display Text for the current page in Work location Form Page",
           }),
           url: `${paths.workLocation(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
@@ -154,10 +154,10 @@ const WorkLocationForm = ({
           : [
               {
                 label: intl.formatMessage({
-                  defaultMessage: "Work Location Preference",
-                  id: "c/Qp8R",
+                  defaultMessage: "Work location",
+                  id: "5fF50z",
                   description:
-                    "Display Text for the current page in Work Location Preference Form Page",
+                    "Display Text for the current page in Work location Form Page",
                 }),
                 url: paths.workLocation(initialData.id),
               },

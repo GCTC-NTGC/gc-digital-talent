@@ -12,9 +12,10 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
+import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
+import { EquityKeys } from "~/components/EmploymentEquity/types";
 
-import EquityOptions from "./EquityOptions";
-import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
+import type { EmploymentEquityUpdateHandler } from "../../types";
 
 export interface EmploymentEquityFormProps {
   user: User;
@@ -43,10 +44,10 @@ const EmploymentEquityForm = ({
     ? [
         {
           label: intl.formatMessage({
-            defaultMessage: "My Applications",
-            id: "mq4G8h",
+            defaultMessage: "My applications",
+            id: "bdDvMZ",
             description:
-              "'My Applications' breadcrumb from applicant profile wrapper.",
+              "My applications breadcrumb from applicant profile wrapper.",
           }),
           url: paths.applications(application.user.id),
         },

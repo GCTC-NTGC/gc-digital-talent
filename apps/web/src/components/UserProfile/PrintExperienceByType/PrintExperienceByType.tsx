@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  BookOpenIcon,
-  BriefcaseIcon,
-  LightBulbIcon,
-  StarIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/solid";
+import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
+import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/24/solid/StarIcon";
+import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 
 import { AwardExperience, Experience } from "~/api/generated";
 import {
@@ -16,7 +14,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
+} from "~/utils/experienceUtils";
 import ExperienceType from "./ExperienceType";
 
 interface PrintExperienceByTypeProps {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 import { useAuthorization } from "@gc-digital-talent/auth/";
 
 import useRoutes from "~/hooks/useRoutes";

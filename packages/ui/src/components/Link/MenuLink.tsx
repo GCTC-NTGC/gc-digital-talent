@@ -1,33 +1,12 @@
 import React from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
-
-import useCommonLinkStyles from "./useCommonLinkStyles";
 import { LinkProps } from "./Link";
 
 export type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
 
-const MenuLink = ({
-  color = "primary",
-  weight,
-  disabled,
-  mode = "solid",
-  block = false,
-  type = "link",
-  children,
-  ...rest
-}: MenuLinkProps) => {
-  const styles = useCommonLinkStyles({
-    color,
-    mode,
-    block,
-    disabled,
-    type,
-    weight,
-  });
-
+const MenuLink = ({ children, ...rest }: MenuLinkProps) => {
   return (
     <NavLink
-      {...styles}
       {...rest}
       data-h2-background-color="base(transparent)"
       data-h2-color="base(black) base:hover(primary)"

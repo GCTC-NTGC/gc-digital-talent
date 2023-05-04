@@ -321,9 +321,10 @@ type UserPublicProfile {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: PoolAdvertisement! @belongsTo(relation: "pool")
-  question: LocalizedString!
+  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+  question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
 }
 
 type Pool {
@@ -340,21 +341,16 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates")
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  status: PoolStatus
-    @rename(attribute: "pool_status")
-    @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
     @rename(attribute: "advertisement_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
-  screeningQuestions: [ScreeningQuestion] @hasMany
-}
-
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
+  updatedDate: DateTime @rename(attribute: "updated_at")
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum PoolStream {
@@ -394,7 +390,9 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  screeningQuestions: [ScreeningQuestion] @hasMany
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum AdvertisementStatus {
@@ -454,6 +452,18 @@ enum ApplicationStep {
   REVIEW_AND_SUBMIT
 }
 
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
+}
+
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion @belongsTo
+  poolCandidate: PoolCandidate @belongsTo
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
@@ -477,6 +487,15 @@ type PoolCandidate {
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  educationRequirementOption: EducationRequirementOption
+    @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
+  educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
+    @with(relation: "educationRequirementAwardExperiences")
+    @with(relation: "educationRequirementCommunityExperiences")
+    @with(relation: "educationRequirementEducationExperiences")
+    @with(relation: "educationRequirementPersonalExperiences")
+    @with(relation: "educationRequirementWorkExperiences")
 }
 
 enum LanguageAbility {
@@ -631,9 +650,11 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: [Classification]
+  expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
+  qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
 }
 
@@ -847,7 +868,7 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   equity: EquitySelectionsInput @scope
   expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+    @scope(name: "expectedClassifications")
   email: String @scope
   generalSearch: String @scope
   hasDiploma: Boolean @scope
@@ -876,15 +897,20 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "classifications")
+  expectedClassifications: [ClassificationFilterInput]  # Filters applicants based on the classifications they've expressed interest in.
+    @scope(name: "expectedClassifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   positionDuration: [PositionDuration] @scope
-  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  skills: [IdInput] @scope(name: "skillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
+  skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
+  qualifiedClassifications: [ClassificationFilterInput]
+    @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
 }
 
 input PoolCandidateSearchInput {
@@ -1216,7 +1242,7 @@ input UpdateUserAsAdminInput
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
 
-  roles: RoleAssignmentHasMany
+  roleAssignmentsInput: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput
@@ -1337,7 +1363,6 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
@@ -1365,7 +1390,6 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  status: PoolStatus @rename(attribute: "pool_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -1438,6 +1462,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
 }
 
 input ApplicantFilterBelongsTo {
@@ -1649,9 +1675,42 @@ input RoleAssignmentHasMany {
   detach: RolesInput
   sync: RolesInput
 }
+input ScreeningResponseBelongsTo {
+  connect: ID!
+}
+
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
+}
+
+input UpdateEducationExperiencesRequirementBelongsToMany {
+  sync: [ID!]
+}
+
 input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  educationRequirementOption: EducationRequirementOption
+    @rename(attribute: "education_requirement_option")
+  # experiences for meeting minimum criteria
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 type Mutation {
@@ -1873,7 +1932,10 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
     @can(ability: "submit", find: "id")
-  updateApplication(id: ID!, application: UpdateApplicationInput! @spread): PoolCandidate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput! @spread
+  ): PoolCandidate
     @update(model: "PoolCandidate")
     @guard
     @can(ability: "update", find: "id", model: "PoolCandidate")

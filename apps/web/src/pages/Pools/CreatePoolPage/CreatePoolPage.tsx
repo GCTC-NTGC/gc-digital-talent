@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
@@ -140,8 +140,8 @@ export const CreatePoolForm = ({
               })}
               name="classification"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification...",
-                id: "7aG86f",
+                defaultMessage: "Select a classification",
+                id: "tD99Wf",
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
@@ -160,8 +160,8 @@ export const CreatePoolForm = ({
               })}
               name="team"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team...",
-                id: "hr/i9h",
+                defaultMessage: "Select a team",
+                id: "COJ3St",
                 description: "Placeholder displayed for team selection input.",
               })}
               options={teamOptions}

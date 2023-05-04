@@ -7,6 +7,7 @@ import { ExperienceType } from "~/types/experience";
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
+  const applicantUrl = path.join(baseUrl, "applicant");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
     applicationId ? `?applicationId=${applicationId}` : "";
@@ -150,8 +151,7 @@ const getRoutes = (lang: Locales) => {
     iap: () => path.join(baseUrl, "indigenous-it-apprentice"),
 
     // Pools
-    browse: () => path.join(baseUrl, "browse"),
-    allPools: () => path.join(baseUrl, "browse", "pools"),
+    browsePools: () => path.join(baseUrl, "browse", "pools"),
     pool: (poolId: string) => path.join(baseUrl, "browse", "pools", poolId),
     createApplication: (poolId: string) =>
       path.join(baseUrl, "browse", "pools", poolId, "create-application"),
@@ -256,6 +256,9 @@ const getRoutes = (lang: Locales) => {
       createExperienceUrl("personal", userId, applicationId),
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
+
+    // Applicant Dashboard
+    dashboard: () => path.join(applicantUrl, "dashboard"),
 
     /**
      * Deprecated

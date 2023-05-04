@@ -4,6 +4,7 @@ export type FeatureFlags = {
   ongoingRecruitments: boolean;
   applicantDashboard: boolean;
   applicationRevamp: boolean;
+  psacStrike: boolean;
 };
 
 const useFeatureFlags = (): FeatureFlags => {

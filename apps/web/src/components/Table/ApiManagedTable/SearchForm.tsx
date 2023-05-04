@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
 import type { SearchColumn, SearchState } from "./helpers";
+import ResetButton from "../ResetButton";
 
 export interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
@@ -15,6 +17,7 @@ export interface SearchFormProps {
 
 const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
   const intl = useIntl();
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
   const initialColumn =
     initialData?.type && searchBy
@@ -37,6 +40,15 @@ const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
     },
     [column, onChange],
   );
+
+  const handleReset = () => {
+    setSearchTerm("");
+    onChange("", column?.value);
+    if (searchRef.current) {
+      searchRef.current.value = "";
+      searchRef.current.focus();
+    }
+  };
 
   const debouncedChangeHandler = React.useMemo(
     () => debounce(handleChange, 300),
@@ -97,35 +109,48 @@ const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       ) : null}
-      <input
-        name="search"
-        id="tableSearch"
-        type="text"
-        onChange={debouncedChangeHandler}
-        defaultValue={initialData?.term}
-        aria-label={intl.formatMessage({
-          defaultMessage: "Search Table",
-          id: "chFoB8",
-          description: "Label for search field on admin tables.",
-        })}
-        placeholder={intl.formatMessage({
-          defaultMessage: "Start writing here...",
-          id: "3F6QqF",
-          description:
-            "Placeholder displayed on the Global Filter form Search field.",
-        })}
-        data-h2-border="base(1px solid secondary)"
-        data-h2-background-color="base(white)"
-        data-h2-padding="base(x.25, x.5)"
-        data-h2-margin-left="base(0)"
-        {...(showDropdown
-          ? {
-              "data-h2-radius": "base(0, s, s, 0)",
-            }
-          : {
-              "data-h2-radius": "base(s)",
-            })}
-      />
+      <div data-h2-position="base(relative)" data-h2-display="base(flex)">
+        <input
+          name="search"
+          id="tableSearch"
+          type="text"
+          ref={searchRef}
+          onChange={debouncedChangeHandler}
+          defaultValue={initialData?.term}
+          aria-label={intl.formatMessage({
+            defaultMessage: "Search Table",
+            id: "chFoB8",
+            description: "Label for search field on admin tables.",
+          })}
+          placeholder={intl.formatMessage({
+            defaultMessage: "Start writing here...",
+            id: "3F6QqF",
+            description:
+              "Placeholder displayed on the Global Filter form Search field.",
+          })}
+          data-h2-border="base(1px solid secondary)"
+          data-h2-background-color="base(white)"
+          data-h2-padding="base(x.25, x.5)"
+          data-h2-margin-left="base(0)"
+          {...(showDropdown
+            ? {
+                "data-h2-radius": "base(0, s, s, 0)",
+              }
+            : {
+                "data-h2-radius": "base(s)",
+              })}
+        />
+        {searchTerm && (
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-location="base(x.25, x.25, x.25, auto)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(stretch)"
+          >
+            <ResetButton onClick={handleReset} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

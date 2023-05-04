@@ -1,7 +1,8 @@
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {

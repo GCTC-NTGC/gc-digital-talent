@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -35,6 +35,17 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
+import {
+  useExperienceMutations,
+  useDeleteExperienceMutation,
+} from "~/hooks/useExperienceMutations";
+import type {
+  ExperienceType,
+  AllExperienceFormValues,
+  ExperienceFormValues,
+  ExperienceDetailsSubmissionData,
+  ExperienceMutationResponse,
+} from "~/types/experience";
 import AwardFormFields from "./components/AwardFormFields/AwardFormFields";
 import CommunityFormFields from "./components/CommunityFormFields/CommunityFormFields";
 import EducationFormFields from "./components/EducationFormFields/EducationFormFields";
@@ -43,22 +54,10 @@ import WorkFormFields from "./components/WorkFormFields/WorkFormFields";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
-import type {
-  ExperienceType,
-  AllFormValues,
-  FormValues,
-  ExperienceDetailsSubmissionData,
-  ExperienceMutationResponse,
-  ExperienceQueryData,
-} from "./types";
-
 import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
-import {
-  useExperienceMutations,
-  useDeleteExperienceMutation,
-} from "./mutations";
 import getExperienceFormLabels from "./labels";
+import { ExperienceQueryData } from "./types";
 
 export interface ExperienceFormProps {
   userId: string;
@@ -153,8 +152,8 @@ export const ExperienceForm = ({
     crumbs = [
       {
         label: intl.formatMessage({
-          defaultMessage: "My Applications",
-          id: "q04FCp",
+          defaultMessage: "My applications",
+          id: "jSYDwZ",
           description: "Link text for breadcrumb to user applications page.",
         }),
         url: paths.applications(userId),
@@ -191,9 +190,9 @@ export const ExperienceForm = ({
     ? queryResultToDefaultValues(experienceType, newExperience)
     : undefined;
 
-  const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
-    formValues,
-  ) => {
+  const handleSubmit: SubmitHandler<
+    ExperienceFormValues<AllExperienceFormValues>
+  > = async (formValues) => {
     const data = formValuesToSubmitData(
       experienceType,
       formValues,
@@ -299,8 +298,8 @@ export const ExperienceForm = ({
                 <span>
                   <TrashIcon style={{ width: "0.9rem" }} />{" "}
                   {intl.formatMessage({
-                    defaultMessage: "Delete experience from My Profile",
-                    id: "uqoN4k",
+                    defaultMessage: "Delete experience from my profile",
+                    id: "zzr/9B",
                     description: "Label on button for delete this experience",
                   })}
                 </span>
@@ -405,9 +404,9 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       edit
         ? intl.formatMessage({
             defaultMessage: "Successfully updated experience!",
-            id: "jrjPWp",
+            id: "4438xW",
             description:
-              "Success message displayed after updating experience on profile",
+              "Success message displayed after updating an experience",
           })
         : intl.formatMessage({
             defaultMessage: "Successfully added experience!",

@@ -39,20 +39,13 @@ else
 fi
 
 # Laravel database migrations
-# Unfortunately, no useful exit codes from artisan :-(
 MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force --no-ansi)
-# https://unix.stackexchange.com/a/649781
-OCCURRENCES_WORD_MIGRATING=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migrating:' | wc -l)
-OCCURRENCES_WORD_MIGRATED=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migrated:' | wc -l)
+MIGRATION_STATUS=$?
 
-if echo "$MIGRATION_STDOUT"| grep -q 'Exception' ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration probably *failed* with an exception. $MENTION\" } }"
-elif [ "$MIGRATION_STDOUT" == 'Nothing to migrate.' ] ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration *successful* with the _nothing to migrate_ message.\" } }"
-elif [ "$OCCURRENCES_WORD_MIGRATING" == "$OCCURRENCES_WORD_MIGRATED" ] ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration appeared *successful* for $OCCURRENCES_WORD_MIGRATING migrations.\" } }"
+if [ $MIGRATION_STATUS -eq 0 ]; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *failed*. $MENTION\" } }"
 fi
 
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
@@ -64,6 +57,13 @@ if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/i
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config copy for Nginx *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
+fi
+
+# Environment config variable substitutions
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for web *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for web *failed*. $MENTION\" } }"
 fi
 
 # Add a source context block

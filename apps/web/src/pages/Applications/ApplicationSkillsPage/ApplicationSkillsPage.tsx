@@ -1,11 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { SparklesIcon } from "@heroicons/react/20/solid";
+import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
+import {
+  Applicant,
+  ApplicationStep,
+  PoolAdvertisement,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetApplicationPageInfo = ({
@@ -39,6 +45,17 @@ export const getPageInfo: GetApplicationPageInfo = ({
     ],
     link: {
       url: path,
+    },
+    prerequisites: [
+      ApplicationStep.Welcome,
+      ApplicationStep.ReviewYourProfile,
+      ApplicationStep.ReviewYourResume,
+      ApplicationStep.EducationRequirements,
+    ],
+    introUrl: paths.applicationSkillsIntro(application.id),
+    stepSubmitted: ApplicationStep.SkillRequirements,
+    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
+      return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
     },
   };
 };

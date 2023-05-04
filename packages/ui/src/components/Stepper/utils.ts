@@ -1,4 +1,6 @@
-import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/20/solid";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import FlagIcon from "@heroicons/react/20/solid/FlagIcon";
+import MapPinIcon from "@heroicons/react/20/solid/MapPinIcon";
 import { MessageDescriptor } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -10,6 +12,7 @@ export const getIconFromState = (state: StepState, defaultIcon: IconType) => {
     ["active", MapPinIcon],
     ["completed", CheckIcon],
     ["disabled", defaultIcon],
+    ["default", defaultIcon],
     ["error", FlagIcon],
   ]);
 
@@ -64,6 +67,20 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
   ],
   [
     "disabled",
+    {
+      "data-h2-background-color": `
+        base:children[.Step__Flair](gray.light)
+        base:focus-visible:children[.Step__Flair](focus)
+      `,
+      "data-h2-color": `
+        base(black)
+        base:hover:children[.Step__Text](primary)
+      `,
+      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
+    },
+  ],
+  [
+    "default",
     {
       "data-h2-background-color": `
         base:children[.Step__Flair](gray.light)

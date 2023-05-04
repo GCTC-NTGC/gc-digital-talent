@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -37,7 +37,7 @@ const RemoveTeamRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onRemoveRoles({
-      roles: {
+      roleAssignmentsInput: {
         detach: {
           roles: roles.map((r) => r.id),
           team: team.id,

@@ -10,19 +10,20 @@ import {
 } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { wrapAbbr } from "~/utils/nameUtils";
 
 const LoggedOutPage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
+  const { applicantDashboard } = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "See you next time!",
@@ -55,17 +56,12 @@ const LoggedOutPage = () => {
             })}
           </Alert.Title>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Remember, to sign back in, you'll need to use your <abbreviation>GC</abbreviation> Key username and password. We hope to see you soon!",
-                id: "ocCSfi",
-                description: "Message displayed to a user after logging out.",
-              },
-              {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "A6H4EY",
+              description: "Message displayed to a user after logging out",
+            })}
           </p>
         </Alert.Root>
         <h2 data-h2-margin="base(x3, 0, x1, 0)">
@@ -100,7 +96,7 @@ const LoggedOutPage = () => {
               </TileLink>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={paths.allPools()} color="primary">
+              <TileLink href={paths.browsePools()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
                   id: "FtlwFY",
@@ -148,7 +144,9 @@ const LoggedOutPage = () => {
                 mode="outline"
                 color="primary"
                 type="button"
-                href={paths.myProfile()}
+                href={
+                  applicantDashboard ? paths.dashboard() : paths.myProfile()
+                }
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",

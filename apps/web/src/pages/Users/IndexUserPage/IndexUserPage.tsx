@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { UserIcon } from "@heroicons/react/24/outline";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { LockClosedIcon } from "@heroicons/react/24/solid";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
@@ -34,6 +34,7 @@ import {
   Maybe,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  PoolStream,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -74,9 +75,10 @@ function transformPoolCandidateSearchInputToFormValues(
 ): FormValues {
   return {
     classifications:
-      input?.applicantFilter?.expectedClassifications
+      input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
+    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -271,7 +273,7 @@ const provinceAccessor = (
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["preferredLang", "candidacyStatus"],
+  hiddenColumnIds: ["candidacyStatus"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -415,10 +417,11 @@ const PoolCandidatesTable = ({
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
-        expectedClassifications: data.classifications.map((classification) => {
+        qualifiedClassifications: data.classifications.map((classification) => {
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
+        qualifiedStreams: data.stream as PoolStream[],
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
             return stringToEnumOperational(requirement);
@@ -586,17 +589,6 @@ const PoolCandidatesTable = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Email",
-          id: "BSVnmg",
-          description:
-            "Title displayed for the Pool Candidates table Email column.",
-        }),
-        id: "email",
-        accessor: ({ user }) => user?.email,
-        sortColumnName: "EMAIL",
-      },
-      {
-        label: intl.formatMessage({
           defaultMessage: "Preferred Communication Language",
           id: "eN8J/9",
           description:
@@ -606,6 +598,17 @@ const PoolCandidatesTable = ({
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Email",
+          id: "BSVnmg",
+          description:
+            "Title displayed for the Pool Candidates table Email column.",
+        }),
+        id: "email",
+        accessor: ({ user }) => user?.email,
+        sortColumnName: "EMAIL",
       },
       {
         label: intl.formatMessage({

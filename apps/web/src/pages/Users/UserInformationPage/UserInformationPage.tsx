@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import {
-  CalculatorIcon,
-  InformationCircleIcon,
-  PencilSquareIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";

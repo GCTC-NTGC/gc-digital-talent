@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+import ArrowSmallRightIcon from "@heroicons/react/24/solid/ArrowSmallRightIcon";
 
 import { Pending, ThrowNotFound, Well, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";

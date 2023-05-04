@@ -3,6 +3,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getAwardedScope,
@@ -25,9 +26,8 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "~/types/experience";
-
-import { getDateRange, formattedDate } from "../accordionUtils";
+} from "~/utils/experienceUtils";
+import { getDateRange, formattedDate } from "~/utils/accordionUtils";
 
 export interface SkillAccordionProps {
   skill: Skill;
@@ -362,8 +362,8 @@ const SkillAccordion = ({
   }
   return (
     <Accordion.Item value={skill.id}>
-      <Accordion.Trigger
-        headerAs={headingLevel}
+      <StandardAccordionHeader
+        headingAs={headingLevel}
         context={
           experiences?.length === 1
             ? intl.formatMessage({
@@ -382,7 +382,7 @@ const SkillAccordion = ({
         }
       >
         {name[locale]}
-      </Accordion.Trigger>
+      </StandardAccordionHeader>
       <Accordion.Content>{renderDetail()}</Accordion.Content>
     </Accordion.Item>
   );

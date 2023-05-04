@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";

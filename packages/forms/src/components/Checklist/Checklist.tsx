@@ -17,7 +17,7 @@ export interface ChecklistProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the checklist fieldset. */
-  legend: string;
+  legend: React.ReactNode;
   /** The name of this form control.
    * The form's value at this key should be of type Array<string|number>. */
   name: string;

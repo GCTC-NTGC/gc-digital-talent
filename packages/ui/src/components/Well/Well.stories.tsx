@@ -21,9 +21,24 @@ export default {
 const Template: Story = (args) => {
   const { content } = args;
   return (
-    <Well>
-      <p>{content}</p>
-    </Well>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1, 0)"
+    >
+      <Well>
+        <p>Default: {content}</p>
+      </Well>
+      <Well color="success">
+        <p>Success: {content}</p>
+      </Well>
+      <Well color="warning">
+        <p>Warning: {content}</p>
+      </Well>
+      <Well color="error">
+        <p>Error: {content}</p>
+      </Well>
+    </div>
   );
 };
 

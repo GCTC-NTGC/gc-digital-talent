@@ -1,10 +1,8 @@
 import React from "react";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
-import {
-  XMarkIcon,
-  ChevronDownIcon,
-  ArrowPathIcon,
-} from "@heroicons/react/24/solid";
+import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";

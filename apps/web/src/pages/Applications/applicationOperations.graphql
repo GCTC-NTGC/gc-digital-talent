@@ -1,36 +1,22 @@
-query GetBasicApplicationInfo($id: UUID!) {
-  poolCandidate(id: $id) {
+query GetProfileFormOptions {
+  departments {
     id
-    user {
-      id
-      firstName
-      lastName
+    departmentNumber
+    name {
+      en
+      fr
     }
-    poolAdvertisement {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
     }
+    group
+    level
+    minSalary
+    maxSalary
   }
 }
 
@@ -60,6 +46,7 @@ query GetApplication($id: UUID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
+      armedForcesStatus
       hasPriorityEntitlement
       priorityNumber
       isProfileComplete
@@ -207,7 +194,28 @@ query GetApplication($id: UUID!) {
       nonessentialSkills {
         ...poolAdvertisementSkills
       }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
     }
+
+    submittedSteps
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
+    signature
   }
 }
 
@@ -215,6 +223,10 @@ fragment poolAdvertisementSkills on Skill {
   id
   key
   name {
+    en
+    fr
+  }
+  description {
     en
     fr
   }
@@ -230,5 +242,11 @@ fragment poolAdvertisementSkills on Skill {
       fr
     }
     category
+  }
+}
+
+mutation UpdateApplication($id: ID!, $application: UpdateApplicationInput!) {
+  updateApplication(id: $id, application: $application) {
+    id
   }
 }

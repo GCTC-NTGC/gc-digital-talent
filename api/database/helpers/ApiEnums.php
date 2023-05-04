@@ -202,7 +202,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function userStatuses() : array
+    public static function userStatuses(): array
     {
         return [
             self::USER_STATUS_ACTIVELY_LOOKING,
@@ -411,7 +411,9 @@ class ApiEnums
     const POOL_CANDIDATE_PROFILE_INCOMPLETE = 'PROFILE_INCOMPLETE';
     const POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS = 'MISSING_ESSENTIAL_SKILLS';
     const POOL_CANDIDATE_MISSING_LANGUAGE_REQUIREMENTS = 'MISSING_LANGUAGE_REQUIREMENTS';
+    const POOL_CANDIDATE_MISSING_QUESTION_RESPONSE = 'MISSING_QUESTION_RESPONSE';
     const POOL_CANDIDATE_SIGNATURE_REQUIRED = 'SIGNATURE_REQUIRED';
+    const POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE = 'EDUCATION_REQUIREMENT_INCOMPLETE';
 
     public static function poolCandidateErrors(): array
     {
@@ -422,7 +424,9 @@ class ApiEnums
             self::POOL_CANDIDATE_PROFILE_INCOMPLETE,
             self::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
             self::POOL_CANDIDATE_MISSING_LANGUAGE_REQUIREMENTS,
-            self::POOL_CANDIDATE_SIGNATURE_REQUIRED
+            self::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+            self::POOL_CANDIDATE_SIGNATURE_REQUIRED,
+            self::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE,
         ];
     }
 
@@ -512,6 +516,22 @@ class ApiEnums
             self::APPLICATION_STEP_SKILL_REQUIREMENTS,
             self::APPLICATION_STEP_SCREENING_QUESTIONS,
             self::APPLICATION_STEP_REVIEW_AND_SUBMIT,
+        ];
+    }
+
+    const EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK = 'APPLIED_WORK';
+    const EDUCATION_REQUIREMENT_OPTION_EDUCATION = 'EDUCATION';
+
+    /**
+     * A collection of enums for application criteria
+     *
+     * @return string[]
+     */
+    public static function poolCandidateCriteria(): array
+    {
+        return [
+            self::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+            self::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ];
     }
 }

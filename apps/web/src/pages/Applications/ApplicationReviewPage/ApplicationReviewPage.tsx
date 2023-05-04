@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { RocketLaunchIcon } from "@heroicons/react/20/solid";
+import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
@@ -43,6 +44,18 @@ export const getPageInfo: GetApplicationPageInfo = ({
         id: "QDcEYJ",
         description: "Link text for the application review page",
       }),
+    },
+    prerequisites: [
+      ApplicationStep.Welcome,
+      ApplicationStep.ReviewYourProfile,
+      ApplicationStep.ReviewYourResume,
+      ApplicationStep.EducationRequirements,
+      ApplicationStep.SkillRequirements,
+      ApplicationStep.ScreeningQuestions,
+    ],
+    stepSubmitted: ApplicationStep.ReviewAndSubmit,
+    hasError: () => {
+      return !application.signature;
     },
   };
 };

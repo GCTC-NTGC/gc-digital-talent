@@ -160,8 +160,8 @@ const PoolNameSection = ({
                 })}
                 name="stream"
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a stream/job title...",
-                  id: "vgOfaa",
+                  defaultMessage: "Select a stream/job title",
+                  id: "fR6xVv",
                   description:
                     "Placeholder displayed on the pool form classification field.",
                 })}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -75,8 +75,8 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
             description: "Label for the team departments input",
           })}
           placeholder={intl.formatMessage({
-            defaultMessage: "Select one or more departments...",
-            id: "IrvQbY",
+            defaultMessage: "Select one or more departments",
+            id: "F7nP5o",
             description: "Placeholder text for the team departments input",
           })}
           rules={{

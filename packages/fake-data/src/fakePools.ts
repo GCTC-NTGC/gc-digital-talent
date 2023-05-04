@@ -6,7 +6,6 @@ import {
   Pool,
   User,
   UserPublicProfile,
-  PoolStatus,
   PoolStream,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
@@ -45,7 +44,6 @@ const generatePool = (
       en: `EN ${faker.lorem.paragraph()}`,
       fr: `FR ${faker.lorem.paragraph()}`,
     },
-    status: faker.helpers.arrayElement<PoolStatus>(Object.values(PoolStatus)),
     stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
     publishingGroup: faker.helpers.maybe(() =>

@@ -1,12 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { BasicForm } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Applicant,
+  ApplicationStep,
+  PoolAdvertisement,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
+import { useUpdateApplicationMutation } from "~/api/generated";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
+import { FormValues } from "./types";
+import AnswerInput from "./components/AnswerInput";
+import FormActions from "./components/FormActions";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -40,15 +57,154 @@ export const getPageInfo: GetApplicationPageInfo = ({
     link: {
       url: path,
     },
+    prerequisites: [
+      ApplicationStep.Welcome,
+      ApplicationStep.ReviewYourProfile,
+      ApplicationStep.ReviewYourResume,
+      ApplicationStep.EducationRequirements,
+      ApplicationStep.SkillRequirements,
+    ],
+    introUrl: paths.applicationQuestionsIntro(application.id),
+    stepSubmitted: ApplicationStep.ScreeningQuestions,
+    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
+      return screeningQuestionsSectionHasMissingResponses(
+        application,
+        poolAdvertisement,
+      );
+    },
   };
 };
 
 const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
+  const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({ intl, paths, application });
+  const [, executeMutation] = useUpdateApplicationMutation();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
-  return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
+  const screeningQuestions =
+    application.poolAdvertisement?.screeningQuestions?.filter(notEmpty) || [];
+  const screeningQuestionResponses =
+    application.screeningQuestionResponses?.filter(notEmpty) || [];
+  const handleSubmit = async (formValues: FormValues) => {
+    const data = formValuesToSubmitData(formValues, screeningQuestionResponses);
+    executeMutation({
+      id: application.id,
+      application: {
+        ...data,
+        insertSubmittedStep: ApplicationStep.ScreeningQuestions,
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Successfully updated screening question responses!",
+              id: "kJUKrT",
+              description:
+                "Message displayed to users when saving screening question responses is successful.",
+            }),
+          );
+          navigate(
+            formValues.action === "continue"
+              ? paths.applicationReview(application.id)
+              : cancelPath,
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: adding experience failed",
+            id: "moKAQP",
+            description:
+              "Message displayed to user after experience fails to be created.",
+          }),
+        );
+      });
+  };
+
+  return (
+    <>
+      <div
+        data-h2-display="p-tablet(flex)"
+        data-h2-align-items="p-tablet(flex-end)"
+        data-h2-justify-content="p-tablet(space-between)"
+        data-h2-margin-bottom="base(x1)"
+      >
+        <Heading data-h2-margin="base(0)" data-h2-line-height="base(1)">
+          {pageInfo.title}
+        </Heading>
+        <Link
+          mode="inline"
+          type="button"
+          color="secondary"
+          href={paths.applicationQuestionsIntro(application.id)}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Review instructions",
+            id: "VcpIlx",
+            description:
+              "Link text to return to an introduction page on an application",
+          })}
+        </Link>
+      </div>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            'Don\'t forget to take a break if you need to! Using the "Save and quit for now" button, you can record your progress and return to questions you might be stuck on later.',
+          id: "tMnjyJ",
+          description:
+            "Notice that application can be saved and returned to at a later time.",
+        })}
+      </p>
+      <BasicForm
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(
+            screeningQuestions,
+            screeningQuestionResponses,
+          ),
+        }}
+      >
+        {screeningQuestions.length ? (
+          screeningQuestions.map((question, index) => (
+            <React.Fragment key={question.id}>
+              <Heading level="h3" size="h4">
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Question {number}",
+                    id: "/sBGov",
+                    description: "Heading for a specific screening question",
+                  },
+                  { number: index + 1 },
+                )}
+              </Heading>
+              <input type="hidden" name={`answers.${index}.id`} />
+              <input type="hidden" name={`answers.${index}.questionId`} />
+              <AnswerInput index={index} question={question} />
+            </React.Fragment>
+          ))
+        ) : (
+          <Well>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This process has no screening questions. You may continue on to the next step.",
+                id: "CfNtWn",
+                description:
+                  "Message displayed to users when there are no screening questions for a process",
+              })}
+            </p>
+          </Well>
+        )}
+        <FormActions />
+      </BasicForm>
+    </>
+  );
 };
 
 const ApplicationQuestionsPage = () => (

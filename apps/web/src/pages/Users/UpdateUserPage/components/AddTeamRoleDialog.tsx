@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
@@ -63,7 +63,7 @@ const AddTeamRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
-      roles: {
+      roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,
           team: formValues.team,
@@ -148,8 +148,8 @@ const AddTeamRoleDialog = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select team...",
-                  id: "ZdOvlC",
+                  defaultMessage: "Select team",
+                  id: "5C8xs4",
                   description: "Placeholder text for team selection input",
                 })}
                 options={teamOptions ?? []}
@@ -165,8 +165,8 @@ const AddTeamRoleDialog = ({
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select role...",
-                  id: "x7vMC8",
+                  defaultMessage: "Select role",
+                  id: "mTsq+x",
                   description: "Placeholder text for role selection input",
                 })}
                 options={roleOptions}

@@ -85,7 +85,7 @@ const CreateApplication = () => {
 
   if (!hasRequiredData) {
     if (!poolId) {
-      redirectPath = paths.allPools();
+      redirectPath = paths.browsePools();
     }
     handleError();
   }

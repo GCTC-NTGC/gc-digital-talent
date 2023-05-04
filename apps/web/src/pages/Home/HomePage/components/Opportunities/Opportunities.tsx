@@ -1,7 +1,7 @@
 // Vendor dependencies
 import React from "react";
 import { useIntl } from "react-intl";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 // Local assets
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
@@ -94,12 +94,11 @@ const Opportunities = () => {
               })}
               links={[
                 {
-                  href: paths.allPools(),
+                  href: paths.browsePools(),
                   label: intl.formatMessage(
                     {
-                      defaultMessage:
-                        "Browse <abbreviation>IT</abbreviation> jobs",
-                      id: "0mAZsV",
+                      defaultMessage: "Browse jobs",
+                      id: "dkHB8N",
                       description:
                         "Link text for IT jobs in government call to action",
                     },
