@@ -10,7 +10,7 @@ import {
   ExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import { commonMessages, getAwardedTo } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   AwardExperience,
   CommunityExperience,
