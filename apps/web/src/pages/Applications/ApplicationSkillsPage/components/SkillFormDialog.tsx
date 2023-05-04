@@ -34,8 +34,7 @@ interface SkillFormDialogProps {
   onOpenChange: (newOpen: boolean) => void;
   skill?: Skill;
   experience?: Experience;
-  experiences: Experience[];
-  existingExperiences: Experience[];
+  availableExperiences: Experience[];
 }
 
 const SkillFormDialog = ({
@@ -43,16 +42,9 @@ const SkillFormDialog = ({
   onOpenChange,
   skill,
   experience,
-  experiences,
-  existingExperiences,
+  availableExperiences,
 }: SkillFormDialogProps) => {
   const intl = useIntl();
-  const availableExperiences = experiences.filter(
-    (exp) =>
-      !existingExperiences.find(
-        (existingExperience) => existingExperience.id === exp.id,
-      ),
-  );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

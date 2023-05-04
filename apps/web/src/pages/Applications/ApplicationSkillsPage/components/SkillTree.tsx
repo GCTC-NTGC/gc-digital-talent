@@ -28,8 +28,14 @@ const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
   const intl = useIntl();
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
 
-  const skillExperiences = getExperienceSkills(experiences, skill);
   const title = getLocalizedName(skill.name, intl);
+  const skillExperiences = getExperienceSkills(experiences, skill);
+  const availableExperiences = experiences.filter(
+    (exp) =>
+      !skillExperiences.find(
+        (existingExperience) => existingExperience.id === exp.id,
+      ),
+  );
 
   return (
     <>
@@ -52,16 +58,14 @@ const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
           <>
             {skillExperiences.map((experience) => (
               <TreeView.Item key={experience.id}>
-                <Accordion.Root
-                  type="single"
-                  collapsible
-                  data-h2-margin="base(-x.5 0)"
-                >
-                  <ExperienceAccordion
-                    experience={experience}
-                    headingLevel="h5"
-                  />
-                </Accordion.Root>
+                <div data-h2-margin="base(-x.5, 0)">
+                  <Accordion.Root type="single" collapsible>
+                    <ExperienceAccordion
+                      experience={experience}
+                      headingLevel="h5"
+                    />
+                  </Accordion.Root>
+                </div>
               </TreeView.Item>
             ))}
           </>
@@ -80,32 +84,33 @@ const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
             </Well>
           </TreeView.Item>
         )}
-        <TreeView.Item>
-          <Button
-            type="button"
-            color="secondary"
-            mode="solid"
-            onClick={() => setIsFormOpen(true)}
-          >
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Connect a résumé experience<hidden> to {skillName}</hidden>",
-                id: "NgHjK8",
-                description:
-                  "Button text to open form to connect an experience to a skill",
-              },
-              { skillName: title },
-            )}
-          </Button>
-        </TreeView.Item>
+        {availableExperiences.length > 0 ? (
+          <TreeView.Item>
+            <Button
+              type="button"
+              color="secondary"
+              mode="solid"
+              onClick={() => setIsFormOpen(true)}
+            >
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Connect a résumé experience<hidden> to {skillName}</hidden>",
+                  id: "NgHjK8",
+                  description:
+                    "Button text to open form to connect an experience to a skill",
+                },
+                { skillName: title },
+              )}
+            </Button>
+          </TreeView.Item>
+        ) : null}
       </TreeView.Root>
       <SkillFormDialog
         open={isFormOpen}
         onOpenChange={setIsFormOpen}
         skill={skill}
-        existingExperiences={skillExperiences}
-        experiences={experiences}
+        availableExperiences={availableExperiences}
       />
     </>
   );
