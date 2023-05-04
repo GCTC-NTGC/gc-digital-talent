@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  FolderOpenIcon,
-  LockClosedIcon,
-  PencilIcon,
-  MegaphoneIcon,
-} from "@heroicons/react/24/outline";
+import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
 

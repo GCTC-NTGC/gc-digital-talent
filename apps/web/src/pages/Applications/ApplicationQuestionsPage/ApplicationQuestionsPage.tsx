@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";

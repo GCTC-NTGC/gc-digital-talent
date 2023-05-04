@@ -1,14 +1,13 @@
 import React, { HTMLAttributes } from "react";
-import {
-  ChatBubbleLeftRightIcon,
-  CurrencyDollarIcon,
-  InformationCircleIcon,
-  BuildingLibraryIcon,
-  LightBulbIcon,
-  BoltIcon,
-  MapPinIcon,
-  HandThumbUpIcon,
-} from "@heroicons/react/24/outline";
+import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
+
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";

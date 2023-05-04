@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { RocketLaunchIcon } from "@heroicons/react/20/solid";
+import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, ExternalLink, Link } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";

@@ -1,6 +1,7 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { AcademicCapIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
+import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
+import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
 
 import AccordionDocs from "./Accordion.docs.mdx";

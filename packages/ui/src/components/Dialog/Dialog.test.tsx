@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { faker } from "@faker-js/faker";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";

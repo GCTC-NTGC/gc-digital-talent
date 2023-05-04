@@ -1,9 +1,12 @@
+/* eslint-disable import/no-duplicates */
+// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { ComponentMeta, ComponentStory, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { isAfter, parseISO } from "date-fns";
+import isAfter from "date-fns/isAfter";
+import parseISO from "date-fns/parseISO";
 
 import {
   formatDate,

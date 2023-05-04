@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 

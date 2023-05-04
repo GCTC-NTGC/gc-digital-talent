@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useForm, useWatch } from "react-hook-form";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, Well } from "@gc-digital-talent/ui";
 import {

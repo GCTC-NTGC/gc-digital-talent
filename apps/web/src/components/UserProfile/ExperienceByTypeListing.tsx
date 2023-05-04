@@ -1,11 +1,9 @@
 import * as React from "react";
-import {
-  BookOpenIcon,
-  BriefcaseIcon,
-  LightBulbIcon,
-  StarIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/solid";
+import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
+import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/24/solid/StarIcon";
+import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";

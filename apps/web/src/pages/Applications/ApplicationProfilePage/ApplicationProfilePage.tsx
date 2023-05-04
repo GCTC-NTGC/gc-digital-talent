@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useIntl } from "react-intl";
-import { UserCircleIcon } from "@heroicons/react/20/solid";
+import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 
 import {
   Heading,

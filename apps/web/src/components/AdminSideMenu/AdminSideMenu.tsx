@@ -1,16 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  AcademicCapIcon,
-  HomeIcon,
-  BuildingOfficeIcon,
-  BuildingOffice2Icon,
-  TagIcon,
-  TicketIcon,
-  UserGroupIcon,
-  UserIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/24/outline";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
+import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";

@@ -1,5 +1,5 @@
 import React from "react";
-import { CpuChipIcon } from "@heroicons/react/24/outline";
+import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";

@@ -1,11 +1,9 @@
 import React from "react";
 import { IntlShape } from "react-intl";
-import {
-  CheckCircleIcon,
-  EyeIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import EyeIcon from "@heroicons/react/24/outline/EyeIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
