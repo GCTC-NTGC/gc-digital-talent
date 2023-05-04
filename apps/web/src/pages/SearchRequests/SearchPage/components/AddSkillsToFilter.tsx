@@ -73,23 +73,25 @@ const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
         onUpdateSelectedSkills={handleChange}
         selectedSkills={addedSkills}
       />
-      <span
-        data-h2-display="base(block)"
-        data-h2-margin="base(x.5, 0, 0, 0)"
-        data-h2-border="base(1px solid primary.darker)"
-        data-h2-radius="base(input)"
-        data-h2-background-color="base(primary.lightest)"
-        data-h2-padding="base(x.75)"
-        data-h2-color="base(primary.darker)"
-        data-h2-font-size="base(caption)"
-      >
-        {intl.formatMessage({
-          defaultMessage:
-            "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
-          id: "kLGIuJ",
-          description: "Context for skills selection filter in search form.",
-        })}
-      </span>
+      {addedSkills && addedSkills.length > 0 && (
+        <span
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.5, 0, 0, 0)"
+          data-h2-border="base(1px solid primary.darker)"
+          data-h2-radius="base(input)"
+          data-h2-background-color="base(primary.lightest)"
+          data-h2-padding="base(x.75)"
+          data-h2-color="base(primary.darker)"
+          data-h2-font-size="base(caption)"
+        >
+          {intl.formatMessage({
+            defaultMessage:
+              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
+            id: "kLGIuJ",
+            description: "Context for skills selection filter in search form.",
+          })}
+        </span>
+      )}
     </div>
   );
 };
