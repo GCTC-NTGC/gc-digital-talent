@@ -9,8 +9,8 @@ RUN apt-get update \
   && apt-get install -y git
 
 # install node from official image
-COPY --from=node:16.16.0 /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node:16.16.0 /usr/local/bin/node /usr/local/bin/
+COPY --from=node:18.16.0 /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node:18.16.0 /usr/local/bin/node /usr/local/bin/
 RUN cd /usr/local/bin \
   && ln -s ../lib/node_modules/npm/bin/npm-cli.js npm \
   && ln -s ../lib/node_modules/npm/bin/npx-cli.js npx \

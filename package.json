@@ -4,7 +4,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "engines": {
-    "node": "16.16.0",
+    "node": "18.16.0",
     "npm": ">=8.0.0"
   },
   "packageManager": "npm@8.0.0",
