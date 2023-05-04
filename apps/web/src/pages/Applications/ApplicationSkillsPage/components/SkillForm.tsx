@@ -56,10 +56,13 @@ const getSkillArgs = (
   };
 };
 
+type FormAction = "connect" | "remove";
+
 type FormValues = {
   experience?: Scalars["ID"];
   skill?: Scalars["ID"];
   details?: string;
+  action?: FormAction;
 };
 
 interface SkillFormProps {
@@ -77,6 +80,8 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
+  const { register, setValue } = methods;
+  const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
     (exp) => exp.id === selectedExperienceId,
@@ -98,6 +103,7 @@ const SkillForm = ({
               formValues.skill,
               selectedExperience,
               formValues.details,
+              formValues.action === "remove",
             ),
           }
         : {},
@@ -264,12 +270,42 @@ const SkillForm = ({
               })}
             </Button>
           </Dialog.Close>
-          <Button type="submit" mode="solid" color="primary">
-            {intl.formatMessage({
-              defaultMessage: "Add this experience",
-              id: "W+T8Mm",
-              description: "Button to submit the link experience to skill form",
-            })}
+          {defaultValues.experience && (
+            <Button
+              type="submit"
+              mode="inline"
+              color="red"
+              {...actionProps}
+              onClick={() => setValue("action", "remove")}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Remove this experience",
+                id: "1G1iMu",
+                description:
+                  "Button to remove the link between experience and skill",
+              })}
+            </Button>
+          )}
+          <Button
+            type="submit"
+            mode="solid"
+            color="primary"
+            {...actionProps}
+            onClick={() => setValue("action", "connect")}
+          >
+            {defaultValues.experience
+              ? intl.formatMessage({
+                  defaultMessage: "Update this experience",
+                  id: "AANjDd",
+                  description:
+                    "Button to submit the link experience to skill form",
+                })
+              : intl.formatMessage({
+                  defaultMessage: "Add this experience",
+                  id: "W+T8Mm",
+                  description:
+                    "Button to submit the link experience to skill form",
+                })}
           </Button>
         </Dialog.Footer>
       </form>
