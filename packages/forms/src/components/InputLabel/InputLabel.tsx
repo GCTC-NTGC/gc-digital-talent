@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -64,6 +65,7 @@ const InputLabel = ({
         className={`InputLabel${fillLabel ? " InputLabel--fill" : ""}`}
         {...labelStyles}
         htmlFor={inputId}
+        id={`${inputId}-label`}
       >
         {label}
       </label>

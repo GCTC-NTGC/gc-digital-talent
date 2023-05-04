@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Link, Dialog } from "@gc-digital-talent/ui";

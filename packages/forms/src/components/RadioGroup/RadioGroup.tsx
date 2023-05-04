@@ -35,6 +35,8 @@ export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
   hideLegend?: boolean;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
+  /** ID of a field description (help text) */
+  describedBy?: string;
 }
 
 /**
@@ -54,6 +56,7 @@ const RadioGroup = ({
   columns = 1,
   hideLegend,
   trackUnsaved = true,
+  describedBy,
   ...rest
 }: RadioGroupProps) => {
   const {
@@ -83,6 +86,7 @@ const RadioGroup = ({
       hideLegend={hideLegend}
       trackUnsaved={trackUnsaved}
       isUnsaved={isUnsaved}
+      describedBy={describedBy}
       {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">

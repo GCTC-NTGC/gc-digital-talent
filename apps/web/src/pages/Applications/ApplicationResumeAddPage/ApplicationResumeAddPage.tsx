@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  StarIcon,
-  BriefcaseIcon,
-  BookOpenIcon,
-  UserGroupIcon,
-  LightBulbIcon,
-} from "@heroicons/react/20/solid";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
+import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
+import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
+import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";

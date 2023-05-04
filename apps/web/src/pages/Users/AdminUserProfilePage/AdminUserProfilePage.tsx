@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { PrinterIcon } from "@heroicons/react/24/outline";
+import PrinterIcon from "@heroicons/react/24/outline/PrinterIcon";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 

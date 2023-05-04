@@ -1,10 +1,8 @@
 import React from "react";
-import {
-  CheckCircleIcon,
-  EyeIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import EyeIcon from "@heroicons/react/24/outline/EyeIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { toast as toastify, ToastOptions } from "react-toastify";
 
 import ToastMessage from "./components/ToastMessage/ToastMessage";

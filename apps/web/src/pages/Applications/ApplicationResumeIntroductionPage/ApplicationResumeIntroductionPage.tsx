@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { StarIcon } from "@heroicons/react/20/solid";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";

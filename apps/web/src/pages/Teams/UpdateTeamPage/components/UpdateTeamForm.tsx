@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
+import kebabCase from "lodash/kebabCase";
 
 import {
   BasicForm,
@@ -26,7 +27,6 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import { kebabCase } from "lodash";
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 import DescriptionWordCounter, {
   TEXT_AREA_MAX_WORDS,

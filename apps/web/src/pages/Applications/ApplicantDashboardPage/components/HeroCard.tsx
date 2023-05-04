@@ -1,5 +1,5 @@
 import { Link } from "@gc-digital-talent/ui";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
+import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import * as React from "react";
 
 export type Color =

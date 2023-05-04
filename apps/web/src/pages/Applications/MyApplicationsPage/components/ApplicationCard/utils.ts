@@ -1,4 +1,4 @@
-import { isPast } from "date-fns";
+import isPast from "date-fns/isPast";
 import { IntlShape } from "react-intl";
 
 import {

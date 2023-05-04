@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, SubmitHandler } from "react-hook-form";
-import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
+import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVerticalIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {

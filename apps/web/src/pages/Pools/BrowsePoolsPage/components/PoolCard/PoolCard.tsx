@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  CurrencyDollarIcon,
-  BoltIcon,
-  CalendarDaysIcon,
-} from "@heroicons/react/24/outline";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 
 import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -213,8 +211,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               >
                 {intl.formatMessage(
                   {
-                    id: "cUmFnk",
-                    defaultMessage: "Apply to this recruitment ({name})",
+                    id: "YxqhQt",
+                    defaultMessage:
+                      "Apply to this recruitment process ({name})",
                     description:
                       "Message on link that say to apply to a recruitment advertisement",
                   },

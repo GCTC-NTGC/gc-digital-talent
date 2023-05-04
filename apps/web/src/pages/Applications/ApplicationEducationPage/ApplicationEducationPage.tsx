@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { PresentationChartBarIcon } from "@heroicons/react/20/solid";
+import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";

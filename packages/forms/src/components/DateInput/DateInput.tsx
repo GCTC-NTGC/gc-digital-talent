@@ -1,8 +1,12 @@
+/* eslint-disable import/no-duplicates */
+// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
 import omit from "lodash/omit";
-import { isAfter, isBefore, isValid } from "date-fns";
+import isAfter from "date-fns/isAfter";
+import isBefore from "date-fns/isBefore";
+import isValid from "date-fns/isValid";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 
 import { errorMessages } from "@gc-digital-talent/i18n";

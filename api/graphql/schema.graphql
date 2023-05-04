@@ -348,7 +348,9 @@ type Pool {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
-  screeningQuestions: [ScreeningQuestion] @hasMany
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum PoolStream {
@@ -388,7 +390,9 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  screeningQuestions: [ScreeningQuestion] @hasMany
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
 }
 
 enum AdvertisementStatus {
@@ -900,8 +904,10 @@ input ApplicantFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   positionDuration: [PositionDuration] @scope
-  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  skills: [IdInput] @scope @pluck(key: "id") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  skills: [IdInput] @scope(name: "skillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
+  skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.

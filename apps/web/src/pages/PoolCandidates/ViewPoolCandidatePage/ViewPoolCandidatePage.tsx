@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import ArrowLeftCircleIcon from "@heroicons/react/24/solid/ArrowLeftCircleIcon";
 
 import {
   NotFound,

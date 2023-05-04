@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
+import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 

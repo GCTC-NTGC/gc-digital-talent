@@ -3,35 +3,30 @@ import { useIntl } from "react-intl";
 
 import { Button } from "@gc-digital-talent/ui";
 
-import {
-  DisabilityDialog,
-  VisibleMinorityDialog,
-  WomanDialog,
-} from "../dialogs";
+import { IndigenousCommunity } from "~/api/generated";
+import { IndigenousDialog } from "./dialogs";
 
-import { EquityDialogProps } from "../../types";
+import { IndigenousDialogProps } from "./types";
 
-type EquityGroup = "woman" | "minority" | "disability";
+type EquityGroup = "indigenous";
 
 interface EquityOptionProps {
-  isAdded: boolean;
+  indigenousCommunities: Array<IndigenousCommunity>;
   option: EquityGroup;
   // Note: Just defining the func signature
-  onSave: (value: boolean) => void;
+  onSave: (indigenousCommunities: Array<IndigenousCommunity>) => void;
   title: React.ReactNode;
 }
 
 const dialogMap: Record<
   EquityGroup,
-  (props: EquityDialogProps) => JSX.Element
+  (props: IndigenousDialogProps) => JSX.Element
 > = {
-  disability: DisabilityDialog,
-  minority: VisibleMinorityDialog,
-  woman: WomanDialog,
+  indigenous: IndigenousDialog,
 };
 
 const EquityOption = ({
-  isAdded,
+  indigenousCommunities,
   option,
   onSave,
   title,
@@ -41,10 +36,10 @@ const EquityOption = ({
 
   const removeText = intl.formatMessage(
     {
-      defaultMessage: "Remove <hidden>{title} </hidden>from profile",
-      id: "OQ+K+X",
+      defaultMessage: "Edit <hidden>{title}</hidden>",
+      id: "s7QD5B",
       description:
-        "Text label for button to remove employment equity category from profile.",
+        "Text label for button to edit employment equity category from profile.",
     },
     {
       title,
@@ -63,6 +58,8 @@ const EquityOption = ({
     },
   );
 
+  const isAdded = indigenousCommunities && indigenousCommunities.length > 0;
+
   return (
     <div
       data-h2-margin="base(x.25, 0, 0, 0)"
@@ -78,7 +75,7 @@ const EquityOption = ({
       <div data-h2-flex-grid="base(center, x1)">
         <span data-h2-flex-item="base(fill)">{title}</span>
         <span data-h2-flex-item="base(content)">
-          <Dialog isAdded={isAdded} onSave={onSave}>
+          <Dialog indigenousCommunities={indigenousCommunities} onSave={onSave}>
             <Button
               type="button"
               mode="inline"

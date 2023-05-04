@@ -427,7 +427,8 @@ class ApplicantFilterTest extends TestCase
                 'fr' => 'Test Pool FR'
             ],
             'published_at' => config('constants.past_date'),
-            'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES]);
+            'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES
+        ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
@@ -461,13 +462,13 @@ class ApplicantFilterTest extends TestCase
             $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
         );
         $filter->qualifiedClassifications()->saveMany(
-            $pool->classifications->unique());
+            $pool->classifications->unique()
+        );
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;
         $filter->save();
-
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
@@ -528,6 +529,7 @@ class ApplicantFilterTest extends TestCase
                             isVisibleMinority
                         }
                         languageAbility
+                        locationPreferences
                         operationalRequirements
                         positionDuration
                         qualifiedStreams

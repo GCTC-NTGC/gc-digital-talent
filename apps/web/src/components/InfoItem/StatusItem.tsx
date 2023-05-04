@@ -1,9 +1,7 @@
 import * as React from "react";
 
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/solid";
+import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { BaseInfoItem } from "./BaseInfoItem";

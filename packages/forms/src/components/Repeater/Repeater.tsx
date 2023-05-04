@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
+import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
@@ -44,6 +42,8 @@ export interface RepeaterFieldsetProps {
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: true) */
   hideLegend?: boolean;
+  /** Disables deleting, moving and editing fields */
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
@@ -55,6 +55,7 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
+  disabled,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const { announce } = useAnnouncer();
@@ -138,7 +139,7 @@ const Fieldset = ({
           data-h2-overflow="base(hidden)"
         >
           <ActionButton
-            disabled={index <= 0}
+            disabled={disabled || index <= 0}
             onClick={decrement}
             aria-label={intl.formatMessage(formMessages.repeaterMove, {
               from: position,
@@ -156,7 +157,7 @@ const Fieldset = ({
             {index + 1}
           </span>
           <ActionButton
-            disabled={index === total - 1}
+            disabled={disabled || index === total - 1}
             onClick={increment}
             aria-label={intl.formatMessage(formMessages.repeaterMove, {
               from: position,
@@ -167,10 +168,11 @@ const Fieldset = ({
           </ActionButton>
         </div>
         <ActionButton
+          disabled={disabled}
           onClick={handleRemove}
           data-h2-shadow="base(medium)"
           data-h2-radius="base(rounded)"
-          data-h2-color="base(error) base:focus(black)"
+          data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
           aria-label={intl.formatMessage(formMessages.repeaterRemove, {
             index: position,
           })}
@@ -182,7 +184,7 @@ const Fieldset = ({
   );
 };
 
-export interface RepeaterProps {
+export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText: React.ReactNode;
@@ -203,12 +205,14 @@ const Root = ({
   addButtonProps,
   children,
   showAdd = true,
+  ...rest
 }: RepeaterProps) => {
   return (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.5, 0)"
+      {...rest}
     >
       {children}
       {showAdd && (

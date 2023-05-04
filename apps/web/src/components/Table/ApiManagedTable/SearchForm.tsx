@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 

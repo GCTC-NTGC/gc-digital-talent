@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { LockClosedIcon } from "@heroicons/react/24/solid";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
