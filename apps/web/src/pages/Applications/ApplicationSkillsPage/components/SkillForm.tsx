@@ -128,6 +128,7 @@ const SkillForm = ({
         <Select
           id="experience"
           name="experience"
+          disabled={!!defaultValues.experience}
           label={intl.formatMessage({
             defaultMessage: "Select a type of experience to add",
             id: "plC0m5",

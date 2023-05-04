@@ -33,15 +33,31 @@ const SkillTree = ({
 }: SkillTreeProps) => {
   const intl = useIntl();
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
+  const [currentExperience, setCurrentExperience] =
+    React.useState<Experience | null>(null);
 
   const title = getLocalizedName(skill.name, intl);
   const skillExperiences = getExperienceSkills(experiences, skill);
   const availableExperiences = experiences.filter(
     (exp) =>
       !skillExperiences.find(
-        (existingExperience) => existingExperience.id === exp.id,
+        (existingExperience) =>
+          existingExperience.id === exp.id && exp.id !== currentExperience?.id,
       ),
   );
+
+  const handleExperienceEdit = (experience: Experience) => {
+    setCurrentExperience(experience);
+    setIsFormOpen(true);
+  };
+
+  const handleFormOpenChange = (newIsFormOpen: boolean) => {
+    setIsFormOpen(newIsFormOpen);
+    // reset current experience when we close the form
+    if (!newIsFormOpen) {
+      setCurrentExperience(null);
+    }
+  };
 
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
@@ -85,6 +101,7 @@ const SkillTree = ({
                     <ExperienceAccordion
                       experience={experience}
                       headingLevel="h5"
+                      onEditClick={() => handleExperienceEdit(experience)}
                     />
                   </Accordion.Root>
                 </div>
@@ -118,9 +135,10 @@ const SkillTree = ({
       </TreeView.Root>
       <SkillFormDialog
         open={isFormOpen}
-        onOpenChange={setIsFormOpen}
+        onOpenChange={handleFormOpenChange}
         skill={skill}
         availableExperiences={availableExperiences}
+        experience={currentExperience || undefined}
       />
     </>
   );
