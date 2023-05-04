@@ -25,18 +25,34 @@ const getSkillArgs = (
   skillId: Scalars["ID"],
   experience?: Experience,
   details?: string,
+  remove?: boolean,
 ) => {
-  const isExisting = experience?.skills?.some(
+  const isExisting = experience?.skills?.find(
     (experienceSkill) => experienceSkill.id === skillId,
   );
 
+  if (!isExisting && !remove) {
+    return {
+      connect: [
+        {
+          id: skillId,
+          details,
+        },
+      ],
+    };
+  }
+
+  const newExperienceSkills = experience?.skills
+    ?.filter((experienceSkill) =>
+      remove ? experienceSkill.id !== skillId : true,
+    )
+    ?.map(({ id, experienceSkillRecord }) => ({
+      id,
+      details: id !== skillId ? experienceSkillRecord?.details : details,
+    }));
+
   return {
-    [isExisting ? "sync" : "connect"]: [
-      {
-        id: skillId,
-        details,
-      },
-    ],
+    sync: newExperienceSkills,
   };
 };
 
