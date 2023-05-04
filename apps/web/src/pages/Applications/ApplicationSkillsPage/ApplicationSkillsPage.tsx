@@ -1,30 +1,38 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
-import {
-  Accordion,
-  StandardAccordionHeader,
-  Heading,
-  Link,
-} from "@gc-digital-talent/ui";
+import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { Input } from "@gc-digital-talent/forms";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
+import applicationMessages from "~/messages/applicationMessages";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import { categorizeSkill } from "~/utils/skillUtils";
-import { SkillCategory } from "~/api/generated";
+import {
+  SkillCategory,
+  useUpdateApplicationMutation,
+  Applicant,
+  ApplicationStep,
+  PoolAdvertisement,
+} from "~/api/generated";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
+
+type PageAction = "continue" | "cancel";
+
+type FormValues = {
+  action: PageAction;
+  skillsMissingExperiences: number;
+};
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -75,6 +83,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
 const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const pageInfo = getPageInfo({ intl, paths, application });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const experiences = application.user?.experiences?.filter(notEmpty) || [];
@@ -84,6 +93,26 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const categorizedOptionalSkills = categorizeSkill(
     application.poolAdvertisement?.nonessentialSkills,
   );
+  const { applicantDashboard } = useFeatureFlags();
+  const [, executeMutation] = useUpdateApplicationMutation();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const nextStep = paths.applicationQuestionsIntro(application.id);
+
+  const skillsMissingExperiences = categorizedEssentialSkills[
+    SkillCategory.Technical
+  ]
+    ?.filter((essentialSkill) => {
+      return !application.user.experiences?.some((experience) => {
+        return experience?.skills?.some(
+          (skill) => skill.id === essentialSkill.id,
+        );
+      });
+    })
+    .filter(notEmpty);
+
+  const methods = useForm<FormValues>();
+  const { register, setValue } = methods;
+  const actionProps = register("action");
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -91,6 +120,38 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     id: "LazN9T",
     description: "Instructions on  optional skills for a pool advertisement",
   });
+
+  const handleSubmit = async (formValues: FormValues) => {
+    executeMutation({
+      id: application.id,
+      application: {
+        insertSubmittedStep: ApplicationStep.SkillRequirements,
+      },
+    })
+      .then((res) => {
+        if (!res.error) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully updated your skills!",
+              id: "j7nWu/",
+              description:
+                "Message displayed to users when saving skills is successful.",
+            }),
+          );
+          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: adding skill details failed",
+            id: "1Qw7ZV",
+            description:
+              "Message displayed to user after skill details fails to be created.",
+          }),
+        );
+      });
+  };
 
   return (
     <>
@@ -210,6 +271,74 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
           />
         </>
       ) : null}
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <Input
+            id="skillsMissingExperiences"
+            name="skillsMissingExperiences"
+            label=""
+            hideOptional
+            type="number"
+            hidden
+            rules={{
+              max: {
+                value: 0,
+                message: intl.formatMessage({
+                  defaultMessage:
+                    "Please connect at least one résumé experience to each required technical skill.",
+                  id: "4YUt61",
+                  description: "Error message if there are no experiences",
+                }),
+              },
+            }}
+          />
+          <Separator
+            orientation="horizontal"
+            decorative
+            data-h2-background="base(black.light)"
+            data-h2-margin="base(0, 0, x2, 0)"
+          />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x.25, x.5)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-align-items="base(flex-start) l-tablet(center)"
+          >
+            <Button
+              type="submit"
+              mode="solid"
+              value="continue"
+              {...actionProps}
+              onClick={() => {
+                setValue("action", "continue");
+                setValue(
+                  "skillsMissingExperiences",
+                  skillsMissingExperiences?.length || 0,
+                );
+              }}
+            >
+              {intl.formatMessage(applicationMessages.saveContinue)}
+            </Button>
+            <Button
+              type="submit"
+              mode="inline"
+              color="secondary"
+              value="cancel"
+              {...actionProps}
+              onClick={() => {
+                setValue("action", "cancel");
+                setValue(
+                  "skillsMissingExperiences",
+                  skillsMissingExperiences?.length || 0,
+                );
+              }}
+            >
+              {intl.formatMessage(applicationMessages.saveQuit)}
+            </Button>
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };
