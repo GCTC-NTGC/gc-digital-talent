@@ -2,7 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  StandardAccordionHeader,
+  Heading,
+  Link,
+} from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   Applicant,
@@ -16,8 +21,10 @@ import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import { categorizeSkill } from "~/utils/skillUtils";
 import { SkillCategory } from "~/api/generated";
 
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -74,6 +81,16 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const categorizedEssentialSkills = categorizeSkill(
     application.poolAdvertisement?.essentialSkills,
   );
+  const categorizedOptionalSkills = categorizeSkill(
+    application.poolAdvertisement?.nonessentialSkills,
+  );
+
+  const optionalDisclaimer = intl.formatMessage({
+    defaultMessage:
+      "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
+    id: "LazN9T",
+    description: "Instructions on  optional skills for a pool advertisement",
+  });
 
   return (
     <>
@@ -129,9 +146,68 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
                 key={requiredTechnicalSkill.id}
                 skill={requiredTechnicalSkill}
                 experiences={experiences}
+                showDisclaimer
               />
             ),
           )}
+        </>
+      ) : null}
+      {categorizedOptionalSkills[SkillCategory.Technical]?.length ? (
+        <>
+          <Heading level="h3" size="h5">
+            {intl.formatMessage({
+              defaultMessage: "Options technical skills",
+              id: "csLwyM",
+              description: "Heading for optional technical skills section",
+            })}
+          </Heading>
+          <p>{optionalDisclaimer}</p>
+          {categorizedOptionalSkills[SkillCategory.Technical].map(
+            (optionalTechnicalSkill) => (
+              <SkillTree
+                key={optionalTechnicalSkill.id}
+                skill={optionalTechnicalSkill}
+                experiences={experiences}
+              />
+            ),
+          )}
+        </>
+      ) : null}
+      {categorizedEssentialSkills[SkillCategory.Behavioural]?.length ? (
+        <>
+          <Heading level="h3" size="h5">
+            {intl.formatMessage({
+              defaultMessage: "Required behavioural skills",
+              id: "zv4Vyd",
+              description: "Heading for required behavioural skills section",
+            })}
+          </Heading>
+          <p data-h2-margin-bottom="base(x1)">
+            {intl.formatMessage({
+              defaultMessage:
+                "The following skills are required for this role, but aren't required as a part of this application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
+              id: "fA79sM",
+              description: "Information regarding required behavioural skills",
+            })}
+          </p>
+          <SkillDescriptionAccordion
+            skills={categorizedEssentialSkills[SkillCategory.Behavioural]}
+          />
+        </>
+      ) : null}
+      {categorizedOptionalSkills[SkillCategory.Behavioural]?.length ? (
+        <>
+          <Heading level="h3" size="h5">
+            {intl.formatMessage({
+              defaultMessage: "Optional behavioural skills",
+              id: "BqeIyx",
+              description: "Heading for optional behavioural skills section",
+            })}
+          </Heading>
+          <p data-h2-margin-bottom="base(x1)">{optionalDisclaimer}</p>
+          <SkillDescriptionAccordion
+            skills={categorizedOptionalSkills[SkillCategory.Behavioural]}
+          />
         </>
       ) : null}
     </>

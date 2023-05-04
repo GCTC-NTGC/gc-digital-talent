@@ -22,9 +22,15 @@ interface SkillTreeProps {
   skill: Skill;
   experiences: Experience[];
   headingAs?: HeadingLevel;
+  showDisclaimer?: boolean;
 }
 
-const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
+const SkillTree = ({
+  skill,
+  experiences,
+  headingAs,
+  showDisclaimer = false,
+}: SkillTreeProps) => {
   const intl = useIntl();
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
 
@@ -36,6 +42,22 @@ const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
         (existingExperience) => existingExperience.id === exp.id,
       ),
   );
+
+  const disclaimer = showDisclaimer ? (
+    <TreeView.Item>
+      <Well color="warning">
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This required skill must have at least 1 résumé experience associated with it.",
+            id: "x8tCSM",
+            description:
+              "Message that appears when a required skill has no experiences linked to it",
+          })}
+        </p>
+      </Well>
+    </TreeView.Item>
+  ) : null;
 
   return (
     <>
@@ -70,19 +92,7 @@ const SkillTree = ({ skill, experiences, headingAs }: SkillTreeProps) => {
             ))}
           </>
         ) : (
-          <TreeView.Item>
-            <Well color="warning">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This required skill must have at least 1 résumé experience associated with it.",
-                  id: "x8tCSM",
-                  description:
-                    "Message that appears when a required skill has no experiences linked to it",
-                })}
-              </p>
-            </Well>
-          </TreeView.Item>
+          disclaimer
         )}
         {availableExperiences.length > 0 ? (
           <TreeView.Item>
