@@ -1576,6 +1576,11 @@ export const publishingGroups = defineMessages({
     id: "Mixlw/",
     description: "The publishing group called Executive Jobs",
   },
+  [PublishingGroup.Iap]: {
+    defaultMessage: "IAP",
+    id: "7ObbNV",
+    description: "The publishing group called IAP",
+  },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",
     id: "C8nrGM",

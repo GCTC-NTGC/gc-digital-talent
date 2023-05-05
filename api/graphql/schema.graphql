@@ -436,6 +436,7 @@ enum PoolAdvertisementLanguage {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS
