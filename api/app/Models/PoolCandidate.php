@@ -150,13 +150,22 @@ class PoolCandidate extends Model
      */
     public function getSkillCountAttribute()
     {
+        $this->load([
+            'pool.essentialSkills',
+            'pool.nonessentialSkills',
+            'user.awardExperiences.skills',
+            'user.communityExperiences.skills',
+            'user.educationExperiences.skills',
+            'user.personalExperiences.skills',
+            'user.workExperiences.skills',
+        ]);
         $skillIds = collect();
-        $skillIds = $skillIds->merge($this->pool->essentialSkills()->get()->pluck('id'));
-        $skillIds = $skillIds->merge($this->pool->nonessentialSkills()->get()->pluck('id'));
+        $skillIds = $skillIds->merge($this->pool->essentialSkills->pluck('id'));
+        $skillIds = $skillIds->merge($this->pool->nonessentialSkills->pluck('id'));
 
         $count = 0;
         foreach ($this->user->experiences as $experience) {
-            $skillCount = $experience->skills->whereIn('experience_skill_pivot.skill_id', $skillIds)->count();
+            $skillCount = $experience->skills()->whereIn('skill_id', $skillIds)->count();
             if ($skillCount) {
                 $count += $skillCount;
             }
