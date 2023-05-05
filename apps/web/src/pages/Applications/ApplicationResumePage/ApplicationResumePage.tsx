@@ -23,8 +23,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import { resumeIsIncomplete } from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/poolCandidate";
+
 import { ExperienceType } from "~/types/experience";
 
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
@@ -41,11 +41,7 @@ type FormValues = {
   experienceCount: number;
 };
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationResume(application.id);
   return {
     title: intl.formatMessage({
@@ -71,13 +67,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
     ],
     link: {
       url: path,
-    },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    introUrl: paths.applicationResumeIntro(application.id),
-    stepSubmitted: ApplicationStep.ReviewYourResume,
-    hasError: (applicant: Applicant) => {
-      const isIncomplete = resumeIsIncomplete(applicant);
-      return isIncomplete;
     },
   };
 };

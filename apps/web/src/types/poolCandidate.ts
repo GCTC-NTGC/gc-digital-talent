@@ -10,42 +10,35 @@ import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
 
-export type GetApplicationPageInfoArgs = {
+export type GetApplicationStepInfoArgs = {
   application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
   resourceId?: Scalars["ID"];
   intl: IntlShape;
 };
 
-export type ApplicationPageInfo = PageNavInfo & {
-  omitFromStepper?: boolean;
+export type ApplicationStepInfo = {
+  // the enum in the API that represents this step
+  applicationStep?: ApplicationStep;
+  // a page to introduce the step
+  introductionPage?: PageNavInfo;
+  // the main page for the step
+  mainPage: PageNavInfo;
+  // other pages that are part of the step
+  auxiliaryPages?: Array<PageNavInfo>;
+  // should this step show in stepper navigation
+  showInStepper: boolean;
   // Which application steps should be submitted before you can use this page?
   prerequisites: Array<ApplicationStep>;
-  // Introduction page URL, if it exists
-  introUrl?: string;
-  // Which application step does this page submit?
-  stepSubmitted: ApplicationStep | null;
-  // Is the applicant valid as far as this page is concerned?
-  hasError:
-    | ((applicant: Applicant, poolAdvertisement: PoolAdvertisement) => boolean)
-    | null;
+  // Is the applicant valid as far as this step is concerned?
+  hasError?: (
+    applicant: Applicant,
+    poolAdvertisement: PoolAdvertisement,
+  ) => boolean;
 };
 
-export type GetApplicationPageInfo = (
-  args: GetApplicationPageInfoArgs,
-) => ApplicationPageInfo;
+export type GetApplicationStepInfo = (
+  args: GetApplicationStepInfoArgs,
+) => ApplicationStepInfo;
 
-export type ApplicationPageNavKey =
-  | "welcome"
-  | "profile"
-  | "resume-intro"
-  | "resume-add"
-  | "resume-edit"
-  | "resume"
-  | "education"
-  | "skills-intro"
-  | "skills"
-  | "questions-intro"
-  | "questions"
-  | "review"
-  | "success";
+export type GetPageNavInfo = (args: GetApplicationStepInfoArgs) => PageNavInfo;

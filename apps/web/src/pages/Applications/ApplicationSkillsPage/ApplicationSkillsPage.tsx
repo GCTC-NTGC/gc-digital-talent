@@ -12,7 +12,7 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetApplicationPageInfo, GetPageNavInfo } from "~/types/poolCandidate";
 import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
@@ -38,11 +38,7 @@ type FormValues = {
   skillsMissingExperiences: number;
 };
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationSkills(application.id);
   return {
     title: intl.formatMessage({
@@ -69,17 +65,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
     ],
     link: {
       url: path,
-    },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-    ],
-    introUrl: paths.applicationSkillsIntro(application.id),
-    stepSubmitted: ApplicationStep.SkillRequirements,
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
     },
   };
 };

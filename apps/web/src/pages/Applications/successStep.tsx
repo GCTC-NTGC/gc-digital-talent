@@ -1,0 +1,30 @@
+import { ApplicationStep } from "@gc-digital-talent/graphql";
+
+import {
+  ApplicationStepInfo,
+  GetApplicationStepInfo,
+} from "~/types/poolCandidate";
+
+import { getPageInfo as successPageInfo } from "./ApplicationSuccessPage/ApplicationSuccessPage";
+
+const getStepInfo: GetApplicationStepInfo = ({
+  application,
+  paths,
+  intl,
+}): ApplicationStepInfo => {
+  return {
+    mainPage: successPageInfo({ paths, intl, application }),
+    showInStepper: false,
+    prerequisites: [
+      ApplicationStep.Welcome,
+      ApplicationStep.ReviewYourProfile,
+      ApplicationStep.ReviewYourResume,
+      ApplicationStep.EducationRequirements,
+      ApplicationStep.SkillRequirements,
+      ApplicationStep.ScreeningQuestions,
+      ApplicationStep.ReviewAndSubmit,
+    ],
+  };
+};
+
+export default getStepInfo;

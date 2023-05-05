@@ -7,14 +7,10 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationSkillsIntro(application.id);
   return {
     title: intl.formatMessage({

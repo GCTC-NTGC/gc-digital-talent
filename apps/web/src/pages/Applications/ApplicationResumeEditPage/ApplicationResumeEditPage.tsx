@@ -7,7 +7,7 @@ import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import { AnyExperience } from "~/types/experience";
 import {
   useGetApplicationQuery,
@@ -17,7 +17,7 @@ import {
 import { ApplicationPageProps } from "../ApplicationApi";
 import EditExperienceForm from "./components/ExperienceEditForm";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   resourceId,

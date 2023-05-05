@@ -9,23 +9,11 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { Applicant } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import {
-  aboutSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasUnsatisfiedRequirements,
-  workLocationSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyRequiredFields,
-} from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/poolCandidate";
+
 import {
   User,
   useGetApplicationQuery,
@@ -43,12 +31,9 @@ import { SectionProps } from "./types";
 import ErrorSummary from "./components/ErrorSummary";
 import ProfileFormProvider from "./components/ProfileFormContext";
 import StepNavigation from "./components/StepNavigation";
+import { stepHasError } from "../profileStep";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationProfile(application.id);
   return {
     title: intl.formatMessage({
@@ -75,22 +60,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
     ],
     link: {
       url: path,
-    },
-    prerequisites: [ApplicationStep.Welcome],
-    stepSubmitted: ApplicationStep.ReviewYourProfile,
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      const hasEmptyRequiredFields =
-        aboutSectionHasEmptyRequiredFields(applicant) ||
-        workLocationSectionHasEmptyRequiredFields(applicant) ||
-        diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
-        governmentInformationSectionHasEmptyRequiredFields(applicant) ||
-        languageInformationSectionHasEmptyRequiredFields(applicant) ||
-        workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-        languageInformationSectionHasUnsatisfiedRequirements(
-          applicant,
-          poolAdvertisement,
-        );
-      return hasEmptyRequiredFields;
     },
   };
 };
@@ -157,10 +126,7 @@ export const ApplicationProfile = ({
         user={user}
         isValid={
           (application?.poolAdvertisement &&
-            !pageInfo?.hasError?.(
-              user as Applicant,
-              application?.poolAdvertisement,
-            )) ??
+            stepHasError(user as Applicant, application?.poolAdvertisement)) ??
           false
         }
       />

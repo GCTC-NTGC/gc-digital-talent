@@ -3,17 +3,12 @@ import { useIntl } from "react-intl";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationEducation(application.id);
   return {
     title: intl.formatMessage({
@@ -47,13 +42,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application education page",
       }),
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-    ],
-    stepSubmitted: ApplicationStep.EducationRequirements,
-    hasError: null,
   };
 };
 

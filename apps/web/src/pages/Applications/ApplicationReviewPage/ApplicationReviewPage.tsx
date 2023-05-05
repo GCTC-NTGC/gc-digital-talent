@@ -3,17 +3,12 @@ import { useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationReview(application.id);
   return {
     title: intl.formatMessage({
@@ -44,18 +39,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         id: "QDcEYJ",
         description: "Link text for the application review page",
       }),
-    },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-      ApplicationStep.SkillRequirements,
-      ApplicationStep.ScreeningQuestions,
-    ],
-    stepSubmitted: ApplicationStep.ReviewAndSubmit,
-    hasError: () => {
-      return !application.signature;
     },
   };
 };

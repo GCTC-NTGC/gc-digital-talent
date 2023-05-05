@@ -5,20 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 
-import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   return {
     title: intl.formatMessage(
       {
@@ -55,9 +51,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application welcome page",
       }),
     },
-    prerequisites: [],
-    stepSubmitted: ApplicationStep.Welcome,
-    hasError: null,
   };
 };
 

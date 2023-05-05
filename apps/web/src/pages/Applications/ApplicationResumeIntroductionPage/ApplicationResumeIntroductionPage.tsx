@@ -6,15 +6,11 @@ import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/poolCandidate";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
-export const getPageInfo: GetApplicationPageInfo = ({
-  application,
-  paths,
-  intl,
-}) => {
+export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationResumeIntro(application.id);
   return {
     title: intl.formatMessage({
