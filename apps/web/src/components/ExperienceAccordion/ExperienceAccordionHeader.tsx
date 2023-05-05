@@ -42,7 +42,12 @@ export const ExperienceAccordionHeader = ({
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x.5 0)"
           >
-            <span data-h2-display="base(block)" data-h2-font-size="base(h6, 1)">
+            <span
+              data-h2-color="base(black) base:hover(primary)"
+              data-h2-text-decoration="base(underline)"
+              data-h2-display="base(block)"
+              data-h2-font-size="base(h6)"
+            >
               {children}
             </span>
             <div
@@ -69,33 +74,21 @@ export const ExperienceAccordionHeader = ({
       </Accordion.Trigger>
       {editLinkUrl ? (
         <>
-          <Separator
-            orientation="vertical"
-            decorative
-            data-h2-background-color="base(gray.50)"
-            data-h2-margin="base(x1, 0)"
-            data-h2-height="base(unset)"
-          />
-          <div
-            data-h2-margin="base(x1)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-justify-content="base(center)"
+          <Link
+            href={editLinkUrl}
+            data-h2-font-size="base(copy)"
+            data-h2-color="base(primary.darker) base:hover(primary)"
+            data-h2-font-weight="base(700)"
+            data-h2-display="base(block)"
+            data-h2-padding="base(x1, x2)"
           >
-            <Link
-              href={editLinkUrl}
-              data-h2-font-size="base(h6, 1)"
-              data-h2-color="base(primary.darker)"
-              data-h2-font-weight="base(700)"
-            >
-              {editLinkLabel ||
-                intl.formatMessage({
-                  defaultMessage: "Edit",
-                  id: "MdWZY5",
-                  description: "Edit experience link label",
-                })}
-            </Link>
-          </div>
+            {editLinkLabel ||
+              intl.formatMessage({
+                defaultMessage: "Edit",
+                id: "MdWZY5",
+                description: "Edit experience link label",
+              })}
+          </Link>
         </>
       ) : null}
     </Accordion.Header>

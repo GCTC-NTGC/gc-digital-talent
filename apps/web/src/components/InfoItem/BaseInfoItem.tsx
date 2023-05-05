@@ -1,10 +1,13 @@
 import * as React from "react";
 import Link from "@gc-digital-talent/ui/src/components/Link";
 
-export type TextColor = "default" | "error" | "success";
+export type TextColor = "default" | "subtitle" | "error" | "success";
 const textColorMap: Record<TextColor, Record<string, string>> = {
   default: {
     "data-h2-color": "base(black) base:hover(primary)",
+  },
+  subtitle: {
+    "data-h2-color": "base(black)",
   },
   error: {
     "data-h2-color": "base(error.darker) base:hover(error.darkest)",
@@ -70,7 +73,7 @@ export const BaseInfoItem = ({
   title,
   titleColor = "default",
   subTitle,
-  subTitleColor = "default",
+  subTitleColor = "subtitle",
   icon,
   iconColor = "success",
   titleHref,
