@@ -61,8 +61,8 @@ const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
   };
 
   const allTableMsg = intl.formatMessage({
-    defaultMessage: "All table",
-    id: "IMdFJM",
+    defaultMessage: "All columns",
+    id: "BBH/2J",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });
