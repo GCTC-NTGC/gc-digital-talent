@@ -953,7 +953,6 @@ type Query {
     @can(ability: "view", query: true)
   poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
-    @guard
     @can(ability: "view", resolved: true)
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
