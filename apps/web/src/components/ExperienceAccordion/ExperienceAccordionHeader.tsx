@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import Accordion from "@gc-digital-talent/ui/src/components/Accordion";
 import { AccordionHeaderProps } from "@gc-digital-talent/ui/src/components/Accordion/Accordion";
-import { Link, Separator } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 export interface ExperienceAccordionHeaderProps extends AccordionHeaderProps {
   category?: React.ReactNode;
@@ -73,23 +73,21 @@ export const ExperienceAccordionHeader = ({
         </div>
       </Accordion.Trigger>
       {editLinkUrl ? (
-        <>
-          <Link
-            href={editLinkUrl}
-            data-h2-font-size="base(copy)"
-            data-h2-color="base(primary.darker) base:hover(primary)"
-            data-h2-font-weight="base(700)"
-            data-h2-display="base(block)"
-            data-h2-padding="base(x1, x2)"
-          >
-            {editLinkLabel ||
-              intl.formatMessage({
-                defaultMessage: "Edit",
-                id: "MdWZY5",
-                description: "Edit experience link label",
-              })}
-          </Link>
-        </>
+        <Link
+          href={editLinkUrl}
+          data-h2-font-size="base(copy)"
+          data-h2-color="base(primary.darker) base:hover(primary)"
+          data-h2-font-weight="base(700)"
+          data-h2-display="base(block)"
+          data-h2-padding="base(x1, x2)"
+        >
+          {editLinkLabel ||
+            intl.formatMessage({
+              defaultMessage: "Edit",
+              id: "MdWZY5",
+              description: "Edit experience link label",
+            })}
+        </Link>
       ) : null}
     </Accordion.Header>
   );
