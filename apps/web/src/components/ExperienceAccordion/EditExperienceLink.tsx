@@ -20,7 +20,9 @@ const EditExperienceLink = ({
   };
 
   if (!!onEditClick && !!editUrl) {
-    throw new Error("Please only pass either onEditClick editUrl, not both.");
+    throw new Error(
+      "Please only pass either onEditClick or editUrl, not both.",
+    );
   }
 
   if (!!onEditClick && !editUrl) {
