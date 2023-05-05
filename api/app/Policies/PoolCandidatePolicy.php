@@ -28,8 +28,12 @@ class PoolCandidatePolicy
      * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, PoolCandidate $poolCandidate)
+    public function view(?User $user, PoolCandidate $poolCandidate)
     {
+        // Allow empty response for anonymous users.
+        if (!$user) {
+            return true;
+        }
 
         // If the user owns the application, we do not care about status
         if ($user->id === $poolCandidate->user_id && $user?->isAbleTo("view-own-application")) {
