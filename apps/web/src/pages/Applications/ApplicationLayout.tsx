@@ -157,6 +157,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
                       ? step.hasError?.(
                           application.user,
                           application.poolAdvertisement,
+                          application,
                         )
                       : false,
                   };

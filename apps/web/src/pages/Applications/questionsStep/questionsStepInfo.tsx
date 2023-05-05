@@ -1,17 +1,13 @@
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import {
   ApplicationStepInfo,
   GetApplicationStepInfo,
 } from "~/types/poolCandidate";
-import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
 
-import { getPageInfo as questionsPageInfo } from "./ApplicationQuestionsPage/ApplicationQuestionsPage";
-import { getPageInfo as questionsIntroductionPageInfo } from "./ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
+import { getPageInfo as questionsPageInfo } from "../ApplicationQuestionsPage/ApplicationQuestionsPage";
+import { getPageInfo as questionsIntroductionPageInfo } from "../ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
+import stepHasError from "./questionsStepValidation";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,
@@ -34,12 +30,7 @@ const getStepInfo: GetApplicationStepInfo = ({
       ApplicationStep.EducationRequirements,
       ApplicationStep.SkillRequirements,
     ],
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      return screeningQuestionsSectionHasMissingResponses(
-        application,
-        poolAdvertisement,
-      );
-    },
+    hasError: stepHasError,
   };
 };
 

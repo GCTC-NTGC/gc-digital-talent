@@ -1,13 +1,5 @@
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { Applicant, PoolAdvertisement } from "@gc-digital-talent/graphql";
 
-import {
-  ApplicationStepInfo,
-  GetApplicationStepInfo,
-} from "~/types/poolCandidate";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
@@ -18,9 +10,7 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
-import { getPageInfo as profilePageInfo } from "./ApplicationProfilePage/ApplicationProfilePage";
-
-export const stepHasError = (
+const stepHasError = (
   applicant: Applicant,
   poolAdvertisement: PoolAdvertisement,
 ) => {
@@ -38,16 +28,4 @@ export const stepHasError = (
   return hasEmptyRequiredFields;
 };
 
-export const getStepInfo: GetApplicationStepInfo = ({
-  application,
-  paths,
-  intl,
-}): ApplicationStepInfo => {
-  return {
-    applicationStep: ApplicationStep.ReviewYourProfile,
-    mainPage: profilePageInfo({ paths, intl, application }),
-    showInStepper: true,
-    prerequisites: [ApplicationStep.Welcome],
-    hasError: stepHasError,
-  };
-};
+export default stepHasError;

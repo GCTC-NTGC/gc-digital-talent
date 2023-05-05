@@ -1,17 +1,13 @@
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import {
   ApplicationStepInfo,
   GetApplicationStepInfo,
 } from "~/types/poolCandidate";
-import { skillRequirementsIsIncomplete } from "~/validators/profile";
 
-import { getPageInfo as skillsIntroductionPageInfo } from "./ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
-import { getPageInfo as skillsPageInfo } from "./ApplicationSkillsPage/ApplicationSkillsPage";
+import { getPageInfo as skillsIntroductionPageInfo } from "../ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
+import { getPageInfo as skillsPageInfo } from "../ApplicationSkillsPage/ApplicationSkillsPage";
+import stepHasError from "./skillsStepValidation";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,
@@ -29,9 +25,7 @@ const getStepInfo: GetApplicationStepInfo = ({
       ApplicationStep.ReviewYourResume,
       ApplicationStep.EducationRequirements,
     ],
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
-    },
+    hasError: stepHasError,
   };
 };
 

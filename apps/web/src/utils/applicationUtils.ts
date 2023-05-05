@@ -9,14 +9,14 @@ import {
 } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/poolCandidate";
 
-import welcomeStepInfo from "~/pages/Applications/welcomeStep";
-import resumeStepInfo from "~/pages/Applications/resumeStep";
-import skillsStepInfo from "~/pages/Applications/skillsStep";
-import reviewStepInfo from "~/pages/Applications/reviewStep";
-import successPageInfo from "~/pages/Applications/successStep";
-import questionsStepInfo from "~/pages/Applications/questionsStep";
-import { getStepInfo as profileStepInfo } from "~/pages/Applications/profileStep";
-import educationStepInfo from "~/pages/Applications/educationStep";
+import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
+import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
+import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
+import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
+import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
+import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
+import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
+import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;

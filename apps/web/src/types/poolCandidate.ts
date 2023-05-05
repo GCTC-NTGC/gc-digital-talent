@@ -34,6 +34,7 @@ export type ApplicationStepInfo = {
   hasError?: (
     applicant: Applicant,
     poolAdvertisement: PoolAdvertisement,
+    application: Omit<PoolCandidate, "pool">,
   ) => boolean;
 };
 

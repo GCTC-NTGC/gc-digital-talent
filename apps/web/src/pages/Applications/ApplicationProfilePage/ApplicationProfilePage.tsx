@@ -31,7 +31,7 @@ import { SectionProps } from "./types";
 import ErrorSummary from "./components/ErrorSummary";
 import ProfileFormProvider from "./components/ProfileFormContext";
 import StepNavigation from "./components/StepNavigation";
-import { stepHasError } from "../profileStep";
+import stepHasError from "../profileStep/profileStepValidation";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationProfile(application.id);

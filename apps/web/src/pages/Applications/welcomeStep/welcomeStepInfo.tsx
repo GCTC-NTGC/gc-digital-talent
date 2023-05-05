@@ -5,7 +5,7 @@ import {
   GetApplicationStepInfo,
 } from "~/types/poolCandidate";
 
-import { getPageInfo as welcomePageInfo } from "./ApplicationWelcomePage/ApplicationWelcomePage";
+import { getPageInfo as welcomePageInfo } from "../ApplicationWelcomePage/ApplicationWelcomePage";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,

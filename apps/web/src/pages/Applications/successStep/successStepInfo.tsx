@@ -5,7 +5,7 @@ import {
   GetApplicationStepInfo,
 } from "~/types/poolCandidate";
 
-import { getPageInfo as reviewPageInfo } from "./ApplicationReviewPage/ApplicationReviewPage";
+import { getPageInfo as successPageInfo } from "../ApplicationSuccessPage/ApplicationSuccessPage";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,
@@ -13,9 +13,8 @@ const getStepInfo: GetApplicationStepInfo = ({
   intl,
 }): ApplicationStepInfo => {
   return {
-    applicationStep: ApplicationStep.ReviewAndSubmit,
-    mainPage: reviewPageInfo({ paths, intl, application }),
-    showInStepper: true,
+    mainPage: successPageInfo({ paths, intl, application }),
+    showInStepper: false,
     prerequisites: [
       ApplicationStep.Welcome,
       ApplicationStep.ReviewYourProfile,
@@ -23,10 +22,8 @@ const getStepInfo: GetApplicationStepInfo = ({
       ApplicationStep.EducationRequirements,
       ApplicationStep.SkillRequirements,
       ApplicationStep.ScreeningQuestions,
+      ApplicationStep.ReviewAndSubmit,
     ],
-    hasError: () => {
-      return !application.signature;
-    },
   };
 };
 
