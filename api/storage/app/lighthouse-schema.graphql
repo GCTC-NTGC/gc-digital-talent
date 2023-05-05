@@ -871,9 +871,9 @@ type PoolCandidate {
   pool: Pool!
   poolAdvertisement: PoolAdvertisement
   user: Applicant!
+  skillCount: Int
   cmoIdentifier: ID
   expiryDate: Date
-  skillCount: Int
   status: PoolCandidateStatus
   statusWeight: Int
   notes: String

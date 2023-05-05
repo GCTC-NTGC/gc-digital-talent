@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -148,31 +150,28 @@ class PoolCandidate extends Model
      * Number of skills the user has claimed that match
      * the essential and nonessential skills for the pool
      */
-    public function getSkillCountAttribute()
-    {
-        $this->load([
-            'pool.essentialSkills',
-            'pool.nonessentialSkills',
-            'user.awardExperiences.skills',
-            'user.communityExperiences.skills',
-            'user.educationExperiences.skills',
-            'user.personalExperiences.skills',
-            'user.workExperiences.skills',
-        ]);
-        $skillIds = collect();
-        $skillIds = $skillIds->merge($this->pool->essentialSkills->pluck('id'));
-        $skillIds = $skillIds->merge($this->pool->nonessentialSkills->pluck('id'));
+    // public function getSkillCountAttribute()
+    // {
+    //     $this->load([
+    //         'pool.essentialSkills',
+    //         'pool.nonessentialSkills',
+    //         'user.awardExperiences.skills',
+    //         'user.communityExperiences.skills',
+    //         'user.educationExperiences.skills',
+    //         'user.personalExperiences.skills',
+    //         'user.workExperiences.skills',
+    //     ]);
+    //     $skillIds = collect();
+    //     $skillIds = $skillIds->merge($this->pool->essentialSkills->pluck('id'));
+    //     $skillIds = $skillIds->merge($this->pool->nonessentialSkills->pluck('id'));
 
-        $count = 0;
-        foreach ($this->user->experiences as $experience) {
-            $skillCount = $experience->skills()->whereIn('skill_id', $skillIds)->count();
-            if ($skillCount) {
-                $count += $skillCount;
-            }
-        }
+    //     $count = 0;
+    //     $skillCount = $this->user->experiences->whereHas('skills', function(Builder $query) use($skillIds) {
+    //         $query->whereIn('skill_id', $skillIds);
+    //     })->count();
 
-        return $count;
-    }
+    //     return $skillCount;
+    // }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
     {
@@ -549,6 +548,31 @@ class PoolCandidate extends Model
 
     public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
+
+        // Added as temporary example
+        $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', $skills)
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select(DB::raw('count(*) as skill_count'))
+                ->where(function (Builder $query) {
+                    $query->orWhereHas('awardExperiences', function (Builder $query) {
+                        $query->whereColumn('user_id', 'users.id');
+                    })
+                        ->orWhereHas('educationExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('communityExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('personalExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('workExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        });
+                })
+        ]);
+
         if (empty($skills)) {
             return $query;
         }

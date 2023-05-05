@@ -471,12 +471,12 @@ type PoolCandidate {
     @belongsTo(relation: "pool")
     @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
+  skillCount: Int @rename(attribute: "skill_count")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
-  skillCount: Int @rename(attribute: "skill_count")
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
