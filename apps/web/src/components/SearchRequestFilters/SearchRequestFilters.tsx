@@ -526,6 +526,21 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
+                defaultMessage: "Pool Requested",
+                id: "rz8uPO",
+                description:
+                  "Title for the pool block in the manager info section of the single search request view.",
+              })}
+              content={
+                pools
+                  ? pools.map((pool) =>
+                      getFullPoolAdvertisementTitleHtml(intl, pool),
+                    )
+                  : null
+              }
+            />
+            <FilterBlock
+              title={intl.formatMessage({
                 defaultMessage: "Group and level",
                 id: "Rn5e/i",
                 description:
