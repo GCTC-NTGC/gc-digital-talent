@@ -15,6 +15,7 @@ import {
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
@@ -255,6 +256,21 @@ const ApplicantFilters = ({
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Pool Requested",
+              id: "rz8uPO",
+              description:
+                "Title for the pool block in the manager info section of the single search request view.",
+            })}
+            content={
+              applicantFilter
+                ? applicantFilter?.pools?.map((pool) =>
+                    getFullPoolAdvertisementTitleHtml(intl, pool),
+                  )
+                : null
+            }
+          />
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
