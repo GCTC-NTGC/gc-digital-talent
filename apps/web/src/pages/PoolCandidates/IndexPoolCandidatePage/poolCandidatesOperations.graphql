@@ -78,6 +78,7 @@ fragment poolCandidateTable on PoolCandidate {
     positionDuration
     priorityWeight
   }
+  skillCount
   cmoIdentifier
   expiryDate
   status

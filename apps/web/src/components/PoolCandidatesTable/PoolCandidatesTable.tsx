@@ -601,6 +601,15 @@ const PoolCandidatesTable = ({
       },
       {
         label: intl.formatMessage({
+          defaultMessage: "Number of skills matched",
+          id: "0dQ62G",
+          description: "Title displayed on the candidate skill count column.",
+        }),
+        id: "skillCount",
+        accessor: ({ skillCount }) => skillCount,
+      },
+      {
+        label: intl.formatMessage({
           defaultMessage: "Email",
           id: "BSVnmg",
           description:
