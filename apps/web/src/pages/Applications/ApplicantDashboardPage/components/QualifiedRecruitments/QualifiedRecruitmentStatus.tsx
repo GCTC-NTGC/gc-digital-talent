@@ -1,9 +1,7 @@
 import * as React from "react";
-import {
-  ExclamationCircleIcon,
-  CheckCircleIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/solid";
+import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
+import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useIntl } from "react-intl";
 import { PoolCandidate } from "~/api/generated";
 import {

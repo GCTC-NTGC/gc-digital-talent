@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -298,8 +298,8 @@ export const ExperienceForm = ({
                 <span>
                   <TrashIcon style={{ width: "0.9rem" }} />{" "}
                   {intl.formatMessage({
-                    defaultMessage: "Delete experience from My Profile",
-                    id: "uqoN4k",
+                    defaultMessage: "Delete experience from my profile",
+                    id: "zzr/9B",
                     description: "Label on button for delete this experience",
                   })}
                 </span>

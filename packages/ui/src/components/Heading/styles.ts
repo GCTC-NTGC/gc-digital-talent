@@ -45,6 +45,15 @@ export const iconStyles: Record<Color, Record<string, string>> = {
   purple: {
     "data-h2-color": "base:children[svg](primary)",
   },
+  error: {
+    "data-h2-color": "base:children[svg](error)",
+  },
+  warning: {
+    "data-h2-color": "base:children[svg](warning)",
+  },
+  success: {
+    "data-h2-color": "base:children[svg](success)",
+  },
 };
 
 export const iconSize: Record<HeadingLevel, Record<string, string>> = {

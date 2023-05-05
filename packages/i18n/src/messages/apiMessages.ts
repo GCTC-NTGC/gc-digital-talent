@@ -203,6 +203,12 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Message displayed when user attempts to apply to a pool without a signature",
     },
+    EDUCATION_REQUIREMENT_INCOMPLETE: {
+      defaultMessage: "Education requirement is incomplete",
+      id: "V3+fXY",
+      description:
+        "Message displayed when user attempts to apply to a pool with incomplete education requirement",
+    },
     RATE_LIMIT: {
       defaultMessage: "Too many requests, please wait a minute and try again.",
       id: "SUYPIt",
@@ -215,6 +221,12 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "7p6mDv",
       description:
         "Message displayed when user attempts an action they are not allowed to do.",
+    },
+    MISSING_QUESTION_RESPONSE: {
+      defaultMessage: "You must answer all screening questions",
+      id: "LBqw5w",
+      description:
+        "Message displayed when user attempts to apply to a pool without answering all screening questions",
     },
   },
 );

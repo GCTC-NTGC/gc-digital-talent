@@ -1,3 +1,7 @@
+# aliased image used in build
+FROM node:18.16.0 as node
+
+# base
 FROM ubuntu:22.04
 
 # install apt packages
@@ -9,8 +13,10 @@ RUN apt-get update \
   && apt-get install -y git
 
 # install node from official image
-COPY --from=node:16.16.0 /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node:16.16.0 /usr/local/bin/node /usr/local/bin/
+# https://gist.github.com/BretFisher/da34530726ff8076b83b583e527e91ed
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
 RUN cd /usr/local/bin \
   && ln -s ../lib/node_modules/npm/bin/npm-cli.js npm \
   && ln -s ../lib/node_modules/npm/bin/npx-cli.js npx \
