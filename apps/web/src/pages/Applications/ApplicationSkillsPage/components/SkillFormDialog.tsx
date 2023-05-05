@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import { Experience, Scalars } from "~/api/generated";
@@ -56,9 +56,7 @@ const SkillFormDialog = ({
               id: "KnvA3d",
             },
             {
-              skillName: skill
-                ? getLocalizedName(skill.name, intl)
-                : intl.formatMessage(commonMessages.notAvailable),
+              skillName: getLocalizedName(skill?.name, intl),
             },
           )}
         </Dialog.Header>
