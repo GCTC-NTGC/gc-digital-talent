@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class PoolCandidate
@@ -141,6 +142,27 @@ class PoolCandidate extends Model
         $collection = $collection->merge($this->educationRequirementPersonalExperiences);
         $collection = $collection->merge($this->educationRequirementWorkExperiences);
         return $collection;
+    }
+
+    /**
+     * Number of skills the user has claimed that match
+     * the essential and nonessential skills for the pool
+     */
+    public function getSkillCountAttribute()
+    {
+        $skillIds = collect();
+        $skillIds = $skillIds->merge($this->pool->essentialSkills()->get()->pluck('id'));
+        $skillIds = $skillIds->merge($this->pool->nonessentialSkills()->get()->pluck('id'));
+
+        $count = 0;
+        foreach ($this->user->experiences as $experience) {
+            $skillCount = $experience->skills->whereIn('experience_skill_pivot.skill_id', $skillIds)->count();
+            if ($skillCount) {
+                $count += $skillCount;
+            }
+        }
+
+        return $count;
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder

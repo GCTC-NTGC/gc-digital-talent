@@ -476,6 +476,7 @@ type PoolCandidate {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
+  skillCount: Int @rename(attribute: "skill_count")
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
