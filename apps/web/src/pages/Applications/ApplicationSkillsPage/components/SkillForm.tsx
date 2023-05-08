@@ -42,11 +42,24 @@ const getSkillArgs = (
     };
   }
 
-  if (isExisting && remove) {
+  // Disconnect if we are removing
+  if (remove) {
     return {
       disconnect: [skillId],
     };
   }
+
+  // Massage data for an update to single experienceSkillRecord
+  const newExperienceSkills = experience?.skills?.map(
+    ({ id, experienceSkillRecord }) => ({
+      id,
+      details: id !== skillId ? experienceSkillRecord?.details : details,
+    }),
+  );
+
+  return {
+    sync: newExperienceSkills,
+  };
 };
 
 type FormAction = "connect" | "remove";
