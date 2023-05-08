@@ -1,5 +1,7 @@
 import { IntlShape } from "react-intl";
 
+import { StepType } from "@gc-digital-talent/ui";
+
 import useRoutes from "~/hooks/useRoutes";
 import {
   ApplicationStep,
@@ -8,7 +10,6 @@ import {
   PoolCandidate,
 } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
-
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
 import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
@@ -56,7 +57,7 @@ export const missingPrerequisites = (
   );
 };
 
-export function getNextNonSubmittedStep(
+export function getNextStepToSubmit(
   steps: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
 ): ApplicationStepInfo {
@@ -76,11 +77,11 @@ export function getNextNonSubmittedStep(
 }
 
 // check if the current page should be disabled and figure out where to return the user to
-export function checkForDisabledPage(
+export function isOnDisabledPage(
   currentPageUrl: string | undefined,
   steps: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
-): { isOnDisabledPage: boolean; urlToReturnTo?: string } {
+): boolean {
   const currentStep = steps.find(
     (step) =>
       step.mainPage.link.url === currentPageUrl ||
@@ -95,18 +96,34 @@ export function checkForDisabledPage(
     submittedSteps,
   );
 
-  if (pageMissingPrerequisites && pageMissingPrerequisites.length > 0) {
-    // go back to the first missing page
-    const firstMissingPrerequisite = pageMissingPrerequisites[0];
-    const stepForFirstMissingPrerequisite = steps.find((p) => {
-      return p.applicationStep === firstMissingPrerequisite;
-    });
-    return {
-      isOnDisabledPage: true,
-      urlToReturnTo: stepForFirstMissingPrerequisite?.mainPage.link.url,
-    };
-  }
+  return !!(pageMissingPrerequisites && pageMissingPrerequisites.length > 0);
+}
 
-  // yay, nothing missing!
-  return { isOnDisabledPage: false };
+export function applicationStepsToStepperArgs(
+  applicationSteps: Array<ApplicationStepInfo>,
+  application: Omit<PoolCandidate, "pool">,
+): StepType[] {
+  return applicationSteps
+    .filter((step) => step.showInStepper)
+    .map((step) => {
+      return {
+        href: step.mainPage.link.url,
+        icon: step.mainPage.icon,
+        label: step.mainPage.link.label || step.mainPage.title,
+        completed:
+          step.applicationStep &&
+          application.submittedSteps?.includes(step.applicationStep),
+        disabled: !!missingPrerequisites(
+          step.prerequisites,
+          application.submittedSteps,
+        )?.length,
+        error: application.poolAdvertisement
+          ? step.hasError?.(
+              application.user,
+              application.poolAdvertisement,
+              application,
+            )
+          : false,
+      };
+    });
 }

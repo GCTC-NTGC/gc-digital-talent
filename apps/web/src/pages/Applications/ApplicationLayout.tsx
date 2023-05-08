@@ -24,10 +24,10 @@ import {
 } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
-  checkForDisabledPage,
+  applicationStepsToStepperArgs,
   getApplicationSteps,
-  getNextNonSubmittedStep,
-  missingPrerequisites,
+  getNextStepToSubmit,
+  isOnDisabledPage,
 } from "~/utils/applicationUtils";
 
 import { ApplicationPageProps } from "./ApplicationApi";
@@ -76,6 +76,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
         (auxPage) => auxPage.link.url === currentPage?.link?.url,
       ),
   );
+  const nextStepToSubmit = getNextStepToSubmit(
+    steps,
+    application.submittedSteps,
+  );
+  const followingStep =
+    currentStepIndex < steps.length - 1 ? steps[currentStepIndex + 1] : null;
 
   const crumbs = useBreadcrumbs([
     {
@@ -98,23 +104,21 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     ...currentCrumbs,
   ]);
 
-  const { isOnDisabledPage, urlToReturnTo } = checkForDisabledPage(
+  const userIsOnDisabledPage = isOnDisabledPage(
     currentPage?.link.url,
     steps,
     application.submittedSteps,
   );
 
-  const nextStep = getNextNonSubmittedStep(steps, application.submittedSteps);
-
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step
   React.useEffect(() => {
     if (empty(currentPage)) {
-      navigate(nextStep.mainPage.link.url, {
+      navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
       });
     }
-  }, [currentPage, navigate, nextStep]);
+  }, [currentPage, navigate, nextStepToSubmit]);
 
   return (
     <>
@@ -137,36 +141,14 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={steps
-                .filter((step) => step.showInStepper)
-                .map((step) => {
-                  return {
-                    href: step.mainPage.link.url,
-                    icon: step.mainPage.icon,
-                    label: step.mainPage.link.label || step.mainPage.title,
-                    completed:
-                      step.applicationStep &&
-                      application.submittedSteps?.includes(
-                        step.applicationStep,
-                      ),
-                    disabled: !!missingPrerequisites(
-                      step.prerequisites,
-                      application.submittedSteps,
-                    )?.length,
-                    error: application.poolAdvertisement
-                      ? step.hasError?.(
-                          application.user,
-                          application.poolAdvertisement,
-                          application,
-                        )
-                      : false,
-                  };
-                })}
+              steps={applicationStepsToStepperArgs(steps, application)}
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
-            {isOnDisabledPage ? (
-              <StepDisabledPage returnUrl={urlToReturnTo} />
+            {userIsOnDisabledPage ? (
+              <StepDisabledPage
+                returnUrl={nextStepToSubmit.mainPage.link.url}
+              />
             ) : (
               <Outlet />
             )}

@@ -19,12 +19,7 @@ const useCurrentPage = <K>(
 ): PageNavInfo | undefined => {
   const { pathname } = useLocation();
 
-  let pageArray;
-  if (Array.isArray(pages)) {
-    pageArray = pages;
-  } else {
-    pageArray = Array.from(pages.values());
-  }
+  const pageArray = Array.isArray(pages) ? pages : Array.from(pages.values());
 
   const currentPage = pageArray.find((page) => page.link.url === pathname);
 
