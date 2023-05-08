@@ -196,8 +196,8 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Please ensure that you provide at least 1 résumé experience for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
-              id: "oeZv71",
+                "Please ensure that you provide <strong>at least 1 résumé experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
+              id: "TbqFOI",
               description: "Instructions on requiring information for skills",
             })}
           </p>
@@ -217,8 +217,8 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
         <>
           <Heading level="h3" size="h5">
             {intl.formatMessage({
-              defaultMessage: "Options technical skills",
-              id: "csLwyM",
+              defaultMessage: "Optional technical skills",
+              id: "OZe0NZ",
               description: "Heading for optional technical skills section",
             })}
           </Heading>

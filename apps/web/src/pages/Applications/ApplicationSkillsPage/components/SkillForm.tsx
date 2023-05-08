@@ -113,12 +113,19 @@ const SkillForm = ({
         .then((res) => {
           if (res.data) {
             toast.success(
-              intl.formatMessage({
-                defaultMessage: "Successfully linked experience!",
-                id: "SEdLz1",
-                description:
-                  "Success message displayed after linking an experience to a skill",
-              }),
+              formValues.action === "remove"
+                ? intl.formatMessage({
+                    defaultMessage: "Successfully unlinked experience!",
+                    id: "FpDMGu",
+                    description:
+                      "Success message displayed after unlinking an experience to a skill",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Successfully linked experience!",
+                    id: "SEdLz1",
+                    description:
+                      "Success message displayed after linking an experience to a skill",
+                  }),
             );
             onSuccess();
           }
@@ -152,8 +159,8 @@ const SkillForm = ({
           name="experience"
           disabled={!!defaultValues.experience}
           label={intl.formatMessage({
-            defaultMessage: "Select a type of experience to add",
-            id: "plC0m5",
+            defaultMessage: "Select an experience",
+            id: "ODZmvO",
             description: "Label for the experience select input",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -218,8 +225,8 @@ const SkillForm = ({
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Where there any special techniques or approaches that you used?",
-                      id: "TYMqgB",
+                        "Were there any special techniques or approaches that you used?",
+                      id: "e9fSNq",
                       description: "Question 3 for clarifying skill details",
                     })}
                   </li>
