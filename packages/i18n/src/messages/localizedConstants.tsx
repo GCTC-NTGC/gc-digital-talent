@@ -1578,8 +1578,9 @@ export const publishingGroups = defineMessages({
   },
   [PublishingGroup.Iap]: {
     defaultMessage: "IAP",
-    id: "7ObbNV",
-    description: "The publishing group called IAP",
+    id: "LWsmvv",
+    description:
+      "The publishing group called Indigenous Apprenticeship Program",
   },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",
