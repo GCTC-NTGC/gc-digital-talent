@@ -32,6 +32,7 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
+import ApplicationContext from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -120,8 +121,15 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     setTheme("iap", mode);
   }
 
+  const applicationContext = React.useMemo(
+    () => ({
+      isIAP: publishingGroup === PublishingGroup.Iap,
+    }),
+    [publishingGroup],
+  );
+
   return (
-    <>
+    <ApplicationContext.Provider value={applicationContext}>
       <SEO title={intl.formatMessage(pageTitle, { poolName })} />
       <Hero
         title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
@@ -153,7 +161,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-    </>
+    </ApplicationContext.Provider>
   );
 };
 
