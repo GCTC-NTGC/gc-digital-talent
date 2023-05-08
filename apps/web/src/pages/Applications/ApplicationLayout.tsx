@@ -117,9 +117,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     }
   }, [currentPage, navigate, nextStepUrl]);
 
-  if (publishingGroup === PublishingGroup.Iap) {
-    setTheme("iap", mode);
-  }
+  React.useEffect(() => {
+    if (publishingGroup === PublishingGroup.Iap) {
+      setTheme("iap", mode);
+    }
+  }, [mode, publishingGroup, setTheme]);
 
   const applicationContext = React.useMemo(
     () => ({
