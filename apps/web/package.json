@@ -41,7 +41,7 @@
     "@gc-digital-talent/theme": "*",
     "@gc-digital-talent/toast": "*",
     "@gc-digital-talent/ui": "*",
-    "@heroicons/react": "^2.0.16",
+    "@heroicons/react": "2.0.16",
     "@microsoft/applicationinsights-react-js": "^3.4.1",
     "@microsoft/applicationinsights-web": "^2.8.11",
     "date-fns": "^2.29.3",
@@ -58,7 +58,7 @@
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.2",
-    "urql": "^3.0.4"
+    "urql": "3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
