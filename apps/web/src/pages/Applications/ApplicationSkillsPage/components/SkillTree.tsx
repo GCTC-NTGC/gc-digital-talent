@@ -18,6 +18,15 @@ import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAcco
 
 import SkillFormDialog from "./SkillFormDialog";
 
+const filterExperienceSkills = (experience: Experience, skill: Skill) => {
+  return {
+    ...experience,
+    skills: experience.skills?.filter(
+      (experienceSkill) => experienceSkill.id === skill.id,
+    ),
+  };
+};
+
 interface SkillTreeProps {
   skill: Skill;
   experiences: Experience[];
@@ -99,7 +108,7 @@ const SkillTree = ({
                 <div data-h2-margin="base(-x.5, 0)">
                   <Accordion.Root type="single" collapsible>
                     <ExperienceAccordion
-                      experience={experience}
+                      experience={filterExperienceSkills(experience, skill)}
                       headingLevel="h5"
                       onEditClick={() => handleExperienceEdit(experience)}
                     />
