@@ -3,7 +3,7 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { format } from "date-fns";
+import format from "date-fns/format";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { DATE_FORMAT_STRING } from "@gc-digital-talent/date-helpers";

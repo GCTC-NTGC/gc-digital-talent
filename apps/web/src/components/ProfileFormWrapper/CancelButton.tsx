@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import ArrowLeftCircleIcon from "@heroicons/react/24/outline/ArrowLeftCircleIcon";
 
 import { Link } from "@gc-digital-talent/ui";
 

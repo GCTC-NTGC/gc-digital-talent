@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { SparklesIcon } from "@heroicons/react/20/solid";
+import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";

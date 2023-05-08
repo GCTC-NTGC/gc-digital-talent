@@ -3,11 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
-import {
-  ClipboardDocumentCheckIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
+import ArrowSmallRightIcon from "@heroicons/react/24/outline/ArrowSmallRightIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/24/solid/ClipboardDocumentCheckIcon";
+import UserIcon from "@heroicons/react/24/solid/UserIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {

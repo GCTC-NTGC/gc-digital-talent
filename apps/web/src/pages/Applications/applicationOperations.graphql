@@ -1,3 +1,25 @@
+query GetProfileFormOptions {
+  departments {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+}
+
 query GetApplication($id: UUID!) {
   poolCandidate(id: $id) {
     id
@@ -24,6 +46,7 @@ query GetApplication($id: UUID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
+      armedForcesStatus
       hasPriorityEntitlement
       priorityNumber
       isProfileComplete
@@ -183,8 +206,13 @@ query GetApplication($id: UUID!) {
     submittedSteps
     screeningQuestionResponses {
       id
+      answer
       screeningQuestion {
         id
+        question {
+          en
+          fr
+        }
       }
     }
     signature

@@ -1,7 +1,11 @@
+/* eslint-disable import/no-duplicates */
+// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import * as React from "react";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
-import { isFuture, isPast, parseISO } from "date-fns";
+import isFuture from "date-fns/isFuture";
+import isPast from "date-fns/isPast";
+import parseISO from "date-fns/parseISO";
 
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";

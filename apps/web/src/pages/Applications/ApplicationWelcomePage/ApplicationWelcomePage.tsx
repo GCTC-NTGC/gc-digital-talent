@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { HeartIcon } from "@heroicons/react/24/solid";
+import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";

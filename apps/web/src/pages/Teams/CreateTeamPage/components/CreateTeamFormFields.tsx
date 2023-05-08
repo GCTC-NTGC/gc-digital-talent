@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";

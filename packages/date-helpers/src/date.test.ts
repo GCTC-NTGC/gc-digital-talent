@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { toDate } from "date-fns-tz";
+import toDate from "date-fns-tz/toDate";
 import { createIntl, createIntlCache } from "react-intl";
 
 import {

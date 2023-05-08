@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { AcademicCapIcon } from "@heroicons/react/24/outline";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";

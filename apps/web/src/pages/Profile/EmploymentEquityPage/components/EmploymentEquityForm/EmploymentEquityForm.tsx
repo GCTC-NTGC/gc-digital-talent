@@ -12,9 +12,10 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
+import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
+import { EquityKeys } from "~/components/EmploymentEquity/types";
 
-import EquityOptions from "./EquityOptions";
-import type { EmploymentEquityUpdateHandler, EquityKeys } from "../../types";
+import type { EmploymentEquityUpdateHandler } from "../../types";
 
 export interface EmploymentEquityFormProps {
   user: User;

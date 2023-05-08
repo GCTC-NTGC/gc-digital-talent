@@ -1,11 +1,9 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import type { StoryFn, Meta } from "@storybook/react";
-import {
-  AcademicCapIcon,
-  BanknotesIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import BanknotesIcon from "@heroicons/react/24/outline/BanknotesIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import ToggleGroupDocs from "./ToggleGroup.docs.mdx";
 import ToggleGroup from "./ToggleGroup";

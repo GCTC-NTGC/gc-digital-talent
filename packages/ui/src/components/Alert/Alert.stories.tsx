@@ -1,5 +1,5 @@
 import React from "react";
-import { BellIcon } from "@heroicons/react/24/outline";
+import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";

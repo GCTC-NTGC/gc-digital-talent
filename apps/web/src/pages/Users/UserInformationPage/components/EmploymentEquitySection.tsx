@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 
 import { Well } from "@gc-digital-talent/ui";
 

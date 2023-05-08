@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";

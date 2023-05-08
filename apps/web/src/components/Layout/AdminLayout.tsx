@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";

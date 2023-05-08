@@ -18,11 +18,12 @@ import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
 import { IndigenousCommunity } from "~/api/generated";
 
+import { IndigenousDialogProps } from "../types";
+
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
-import { IndigenousDialogProps } from "../../types";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;

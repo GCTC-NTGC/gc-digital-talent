@@ -5,7 +5,8 @@ import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import {
   useTable,
   useGlobalFilter,
@@ -166,7 +167,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, hiddenColumns, sortBy },
+    state: { pageIndex, pageSize, hiddenColumns, sortBy, globalFilter },
     gotoPage,
     setPageSize,
     page,
@@ -255,7 +256,10 @@ function Table<T extends Record<string, unknown>>({
               <div data-h2-flex-grid="base(center, x.5)">
                 {search && (
                   <div data-h2-flex-item="base(content)">
-                    <SearchForm onChange={setGlobalFilter} />
+                    <SearchForm
+                      onChange={setGlobalFilter}
+                      value={globalFilter}
+                    />
                   </div>
                 )}
                 {filterColumns && (
