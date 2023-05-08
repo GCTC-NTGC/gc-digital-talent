@@ -13,6 +13,7 @@ import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   return {
@@ -64,7 +65,9 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application.poolAdvertisement,
   );
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
-  const nextStepPath = paths.applicationProfile(application.id);
+  const { followingPageUrl } = useApplicationContext();
+  const nextStepPath =
+    followingPageUrl ?? paths.applicationProfile(application.id);
 
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete

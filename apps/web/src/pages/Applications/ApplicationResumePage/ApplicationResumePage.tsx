@@ -29,6 +29,7 @@ import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
 type SortOptions = "date_desc" | "type_asc";
 type PageAction = "continue" | "cancel";
@@ -155,9 +156,11 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const { followingPageUrl } = useApplicationContext();
   const pageInfo = getPageInfo({ intl, paths, application });
   const instructionsPath = paths.applicationResumeIntro(application.id);
-  const nextStep = paths.applicationEducation(application.id);
+  const nextStep =
+    followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();

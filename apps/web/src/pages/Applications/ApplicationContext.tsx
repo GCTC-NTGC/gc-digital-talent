@@ -4,6 +4,7 @@ import { PoolCandidate, PublishingGroup } from "../../api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
+  followingPageUrl?: string;
 }
 
 const defaultContext: ApplicationContextState = {
