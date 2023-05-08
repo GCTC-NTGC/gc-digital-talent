@@ -84,7 +84,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   };
 };
 
-const ApplicationSkills = ({ application }: ApplicationPageProps) => {
+export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
