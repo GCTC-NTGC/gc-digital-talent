@@ -470,7 +470,7 @@
   ".ellipsis": {
     "defaultMessage": "... "
   },
-  "09x+E7": {
+  "2dkgQe": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
   },
@@ -1561,8 +1561,8 @@
     "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "bbso+7": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
+  "oyFGYC": {
+    "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
     "description": "Message for total estimated matching candidates in pool"
   },
   "shwFSK": {

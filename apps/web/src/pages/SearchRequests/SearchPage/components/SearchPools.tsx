@@ -45,10 +45,10 @@ const SearchPools = ({
         {intl.formatMessage(
           {
             defaultMessage: `{candidateCount, plural,
-              one {There is <strong><testId>{candidateCount}</testId></strong> matching candidate in this pool}
-              other {There are <strong><testId>{candidateCount}</testId></strong> matching candidates in this pool}
+              one {There is <strong><testId>{candidateCount}</testId></strong> matching candidate in this pool.}
+              other {There are <strong><testId>{candidateCount}</testId></strong> matching candidates in this pool.}
             }`,
-            id: "bbso+7",
+            id: "oyFGYC",
             description:
               "Message for total estimated matching candidates in pool",
           },
