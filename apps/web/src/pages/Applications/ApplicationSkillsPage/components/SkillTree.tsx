@@ -86,7 +86,7 @@ const SkillTree = ({
 
   return (
     <>
-      <TreeView.Root data-h2-margin="base(x2 0)">
+      <TreeView.Root data-h2-margin="base(x2, 0)">
         <TreeView.Head>
           <CardBasic>
             <Heading
