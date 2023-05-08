@@ -8,7 +8,6 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 import { empty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -22,7 +21,7 @@ import {
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
 } from "~/utils/poolUtils";
-import { PublishingGroup, useGetApplicationQuery } from "~/api/generated";
+import { useGetApplicationQuery } from "~/api/generated";
 import {
   checkForDisabledPage,
   deriveSteps,
@@ -32,14 +31,13 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
-import ApplicationContext from "./ApplicationContext";
+import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams();
-  const { setTheme, mode } = useTheme();
   const pages = getApplicationPages({
     intl,
     paths,
@@ -105,8 +103,6 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application.submittedSteps,
   );
 
-  const publishingGroup = application.poolAdvertisement?.publishingGroup;
-
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step
   React.useEffect(() => {
@@ -117,21 +113,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     }
   }, [currentPage, navigate, nextStepUrl]);
 
-  React.useEffect(() => {
-    if (publishingGroup === PublishingGroup.Iap) {
-      setTheme("iap", mode);
-    }
-  }, [mode, publishingGroup, setTheme]);
-
-  const applicationContext = React.useMemo(
-    () => ({
-      isIAP: publishingGroup === PublishingGroup.Iap,
-    }),
-    [publishingGroup],
-  );
-
   return (
-    <ApplicationContext.Provider value={applicationContext}>
+    <>
       <SEO title={intl.formatMessage(pageTitle, { poolName })} />
       <Hero
         title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
@@ -163,7 +146,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-    </ApplicationContext.Provider>
+    </>
   );
 };
 
@@ -181,7 +164,9 @@ const ApplicationLayout = () => {
   return (
     <Pending fetching={fetching || stale} error={error}>
       {application?.poolAdvertisement ? (
-        <ApplicationPageWrapper application={application} />
+        <ApplicationContextProvider application={application}>
+          <ApplicationPageWrapper application={application} />
+        </ApplicationContextProvider>
       ) : (
         <ThrowNotFound />
       )}
