@@ -549,33 +549,11 @@ class PoolCandidate extends Model
     public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
 
-        // Added as temporary example
-        $query->addSelect([
-            'skill_count' => Skill::whereIn('skills.id', $skills)
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select(DB::raw('count(*) as skill_count'))
-                ->where(function (Builder $query) {
-                    $query->orWhereHas('awardExperiences', function (Builder $query) {
-                        $query->whereColumn('user_id', 'users.id');
-                    })
-                        ->orWhereHas('educationExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('communityExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('personalExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('workExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        });
-                })
-        ]);
-
         if (empty($skills)) {
             return $query;
         }
+
+        $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
@@ -590,6 +568,8 @@ class PoolCandidate extends Model
         if (empty($skills)) {
             return $query;
         }
+
+        $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
@@ -648,5 +628,32 @@ class PoolCandidate extends Model
         $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
 
         $this->submitted_steps = $submittedSteps->values()->all();
+    }
+
+    private function addSkillCountSelect(Builder $query, ?array $skills): Builder
+    {
+        return $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', $skills)
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select(DB::raw('count(*) as skill_count'))
+                ->where(function (Builder $query) {
+                    $query->orWhereHas('awardExperiences', function (Builder $query) {
+                        $query->whereColumn('user_id', 'users.id');
+                    })
+                        ->orWhereHas('educationExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('communityExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('personalExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('workExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        });
+                })
+
+        ]);
     }
 }
