@@ -416,7 +416,7 @@ type Department {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
   disconnect: Boolean
 }
 
