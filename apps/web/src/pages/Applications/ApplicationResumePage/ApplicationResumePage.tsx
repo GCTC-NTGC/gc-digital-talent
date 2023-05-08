@@ -23,7 +23,7 @@ import { Input, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";

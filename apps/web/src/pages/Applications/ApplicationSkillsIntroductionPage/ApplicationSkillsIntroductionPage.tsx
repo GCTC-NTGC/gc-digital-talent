@@ -3,11 +3,10 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
@@ -25,7 +24,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
       description: "Subtitle for the application skills page",
     }),
     icon: SparklesIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: path,
@@ -40,14 +38,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     link: {
       url: path,
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-    ],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 

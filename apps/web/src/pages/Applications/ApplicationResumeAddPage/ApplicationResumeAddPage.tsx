@@ -8,10 +8,9 @@ import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import AddExperienceForm from "./components/AddExperienceForm";
@@ -31,7 +30,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
       description: "Subtitle for the application résumé page",
     }),
     icon: StarIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: paths.applicationResume(application.id),
@@ -54,9 +52,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     link: {
       url: path,
     },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 

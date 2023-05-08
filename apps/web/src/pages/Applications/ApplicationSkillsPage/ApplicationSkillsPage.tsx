@@ -12,7 +12,6 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import { GetApplicationPageInfo, GetPageNavInfo } from "~/types/poolCandidate";
 import { skillRequirementsIsIncomplete } from "~/validators/profile";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
@@ -23,6 +22,8 @@ import {
   PoolAdvertisement,
 } from "~/api/generated";
 import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
+import { GetApplicationPageInfo, GetPageNavInfo } from "~/types/poolCandidate";
 
 import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";

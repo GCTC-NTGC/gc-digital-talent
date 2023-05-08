@@ -11,7 +11,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { useUpdateApplicationMutation } from "~/api/generated";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";

@@ -5,7 +5,7 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 

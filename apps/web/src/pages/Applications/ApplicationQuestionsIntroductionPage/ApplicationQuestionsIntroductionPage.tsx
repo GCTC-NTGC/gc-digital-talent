@@ -3,10 +3,9 @@ import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
@@ -25,7 +24,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
       description: "Subtitle for the application screening questions page",
     }),
     icon: PencilSquareIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: path,
@@ -40,15 +38,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     link: {
       url: path,
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-      ApplicationStep.SkillRequirements,
-    ],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 

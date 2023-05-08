@@ -4,10 +4,9 @@ import { useParams } from "react-router-dom";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/pages";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
 import {
   useGetApplicationQuery,
@@ -36,7 +35,6 @@ export const getPageInfo: GetPageNavInfo = ({
       description: "Subtitle for the application résumé page",
     }),
     icon: StarIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: paths.applicationResume(application.id),
@@ -59,9 +57,6 @@ export const getPageInfo: GetPageNavInfo = ({
     link: {
       url: path,
     },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 
