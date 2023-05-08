@@ -1411,6 +1411,7 @@ input PoolBelongsToMany {
 
 input DepartmentBelongsTo {
   connect: ID!
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {

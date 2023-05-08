@@ -417,6 +417,7 @@ type Department {
 
 input DepartmentBelongsTo {
   connect: ID!
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
