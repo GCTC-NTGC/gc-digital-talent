@@ -542,10 +542,6 @@
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Main heading displayed at the top of request page."
   },
-  "OezjH3": {
-    "defaultMessage": "Recherche",
-    "description": "Label displayed on the Search menu item."
-  },
   "OjhS6t": {
     "defaultMessage": "Nom complet...",
     "description": "Placeholder for full name input in the request form."
