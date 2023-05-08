@@ -9,6 +9,7 @@ import {
   LanguageAbility,
   PositionDuration,
   Skill,
+  PoolStream,
 } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
@@ -48,6 +49,10 @@ const generateApplicantFilters = (
       Object.values(PositionDuration),
     ),
     skills,
+    qualifiedStreams: faker.helpers.arrayElements<PoolStream>(
+      Object.values(PoolStream),
+      1,
+    ),
   };
 };
 
