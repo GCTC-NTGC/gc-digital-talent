@@ -460,8 +460,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               name="employmentEquity"
               context={intl.formatMessage({
                 defaultMessage:
-                  "<strong>Note:</strong> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
-                id: "GIPciq",
+                  "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected EE groups",
+                id: "UXsUvN",
                 description:
                   "Context for employment equity filter in search form.",
               })}
@@ -511,6 +511,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             <MultiSelectField
               id="locationPreferences"
               name="locationPreferences"
+              context={intl.formatMessage({
+                defaultMessage:
+                  "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected regions",
+                id: "7mb9oA",
+                description:
+                  "Context for the work region/location preferences filter in the search form.",
+              })}
               label={intl.formatMessage({
                 defaultMessage: "Region",
                 id: "F+WFWB",

@@ -68,29 +68,30 @@ const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
             "Describing the purpose of the skill filters on the Search page.",
         })}
       </p>
-      {/* <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Find candidates with the right skills for the job. Use the following tabs to find skills that are necessary for the job and select them to use them as filters for matching candidates.",
-          id: "+cy2GO",
-          description:
-            "Describing how to use the skill filters on search page, paragraph one.",
-        })}
-      </p>
-      <p data-h2-margin="base(x.5, 0, x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            " Why are there a limited number of skills? It’s important that applicants and managers are pulling from the same list of skills in order to create matches.",
-          id: "BQ7cf/",
-          description:
-            "Describing how to use the skill filters on search page, paragraph two.",
-        })}
-      </p> */}
       <SkillPicker
         skills={allSkills || []}
         onUpdateSelectedSkills={handleChange}
         selectedSkills={addedSkills}
       />
+      {addedSkills && addedSkills.length > 0 && (
+        <span
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.5, 0, 0, 0)"
+          data-h2-border="base(1px solid primary.darker)"
+          data-h2-radius="base(input)"
+          data-h2-background-color="base(primary.lightest)"
+          data-h2-padding="base(x.75)"
+          data-h2-color="base(primary.darker)"
+          data-h2-font-size="base(caption)"
+        >
+          {intl.formatMessage({
+            defaultMessage:
+              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
+            id: "kLGIuJ",
+            description: "Context for skills selection filter in search form.",
+          })}
+        </span>
+      )}
     </div>
   );
 };
