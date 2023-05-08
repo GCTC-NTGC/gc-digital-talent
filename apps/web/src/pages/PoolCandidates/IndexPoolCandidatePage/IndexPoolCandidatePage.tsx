@@ -10,6 +10,7 @@ import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -19,6 +20,8 @@ export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
+
+  const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: {
@@ -30,17 +33,13 @@ export const IndexPoolCandidatePage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     ...(poolId
@@ -68,14 +67,7 @@ export const IndexPoolCandidatePage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        <SEO
-          title={intl.formatMessage({
-            id: "EHVt0j",
-            defaultMessage: "Pool Candidates",
-            description:
-              "Title displayed above the Pool Candidate Table component.",
-          })}
-        />
+        <SEO title={pageTitle} />
         <p data-h2-margin="base(x1, 0)">
           {intl.formatMessage({
             defaultMessage:
@@ -90,6 +82,7 @@ export const IndexPoolCandidatePage = () => {
             applicantFilter: { pools: [{ id: poolId || "" }] },
           }}
           currentPool={data?.poolAdvertisement}
+          title={pageTitle}
         />
       </Pending>
     </AdminContentWrapper>

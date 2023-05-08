@@ -166,10 +166,10 @@ export const UpdateSearchRequestForm = ({
                 data-h2-margin="base(x1, x1, 0, 0)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Back to All Requests",
-                  id: "s6HoFU",
+                  defaultMessage: "Back to requests",
+                  id: "O8nHiQ",
                   description:
-                    "Button label displayed on the search request form which returns the user back to all requests.",
+                    "Button label displayed on the search request form which returns the user back to requests.",
                 })}
               </Button>
               <Submit

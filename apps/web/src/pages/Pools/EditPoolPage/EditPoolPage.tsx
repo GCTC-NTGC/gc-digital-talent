@@ -23,6 +23,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 import PoolNameSection, {
   type PoolNameSubmitData,
 } from "./components/PoolNameSection";
@@ -321,17 +322,13 @@ export const EditPoolPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     {

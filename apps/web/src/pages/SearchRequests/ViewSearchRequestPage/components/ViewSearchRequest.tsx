@@ -20,6 +20,7 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
@@ -225,10 +226,12 @@ const ManagerInfo = ({
 
 interface SingleSearchRequestProps {
   searchRequest: PoolCandidateSearchRequest;
+  title: string;
 }
 
 export const ViewSearchRequest = ({
   searchRequest,
+  title,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -307,7 +310,15 @@ export const ViewSearchRequest = ({
           })}
         </Heading>
         {abstractFilter ? (
-          <SingleSearchRequestTableApi filter={abstractFilter} />
+          <SingleSearchRequestTableApi
+            filter={abstractFilter}
+            title={intl.formatMessage({
+              defaultMessage: "Candidate Results",
+              id: "Duswz0",
+              description:
+                "Heading for the candidate results section of the single search request view.",
+            })}
+          />
         ) : (
           <>
             {intl.formatMessage({
@@ -325,8 +336,10 @@ export const ViewSearchRequest = ({
 
 const ViewSearchRequestApi = ({
   searchRequestId,
+  title,
 }: {
   searchRequestId: string;
+  title: string;
 }) => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -339,18 +352,13 @@ const ViewSearchRequestApi = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Requests",
-        id: "y0j4oU",
-        description:
-          "Breadcrumb title for the search requests table page link.",
-      }),
+      label: intl.formatMessage(adminMessages.requests),
       url: routes.searchRequestTable(),
     },
     {
@@ -370,6 +378,7 @@ const ViewSearchRequestApi = ({
         {searchRequestData?.poolCandidateSearchRequest ? (
           <ViewSearchRequest
             searchRequest={searchRequestData?.poolCandidateSearchRequest}
+            title={title}
           />
         ) : (
           <NotFound

@@ -16,12 +16,13 @@ export default {
 } as ComponentMeta<typeof ViewSearchRequest>;
 
 const Template: ComponentStory<typeof ViewSearchRequest> = (args) => {
-  const { searchRequest } = args;
+  const { searchRequest, title } = args;
 
-  return <ViewSearchRequest searchRequest={searchRequest} />;
+  return <ViewSearchRequest searchRequest={searchRequest} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   searchRequest: mockSearchRequests[0],
+  title: "Request",
 };

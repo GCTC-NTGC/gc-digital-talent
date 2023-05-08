@@ -29,6 +29,7 @@ import {
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
+import adminMessages from "~/messages/adminMessages";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
@@ -495,6 +496,7 @@ const SingleSearchRequestTableApi = ({
 }: {
   filter: AbstractFilter;
 }) => {
+  const intl = useIntl();
   const isLegacyFilter = isPoolCandidateFilter(filter);
 
   const poolCandidateFilterInput = isLegacyFilter
@@ -515,7 +517,10 @@ const SingleSearchRequestTableApi = ({
       />
     </Pending>
   ) : (
-    <PoolCandidatesTable initialFilterInput={applicantFilterInput} />
+    <PoolCandidatesTable
+      initialFilterInput={applicantFilterInput}
+      title={intl.formatMessage(adminMessages.poolsCandidates)}
+    />
   );
 };
 
