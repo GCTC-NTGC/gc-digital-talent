@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BreadcrumbsProps } from "@gc-digital-talent/ui";
+import { GetApplicationStepInfoArgs } from "./applicationStep";
 
 type PageNavLink = {
   label?: React.ReactNode;
@@ -16,3 +17,5 @@ export type PageNavInfo = {
 };
 
 export type PageNavMap<K> = Map<K, PageNavInfo>;
+
+export type GetPageNavInfo = (args: GetApplicationStepInfoArgs) => PageNavInfo;

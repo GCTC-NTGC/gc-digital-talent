@@ -22,6 +22,7 @@ import {
   ApplicationStep,
   PoolAdvertisement,
 } from "~/api/generated";
+import { GetPageNavInfo } from "~/types/pages";
 
 import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";

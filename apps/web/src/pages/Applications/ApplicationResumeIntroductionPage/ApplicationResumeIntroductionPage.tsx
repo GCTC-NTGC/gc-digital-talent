@@ -4,10 +4,11 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/poolCandidate";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { GetPageNavInfo } from "~/types/pages";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {

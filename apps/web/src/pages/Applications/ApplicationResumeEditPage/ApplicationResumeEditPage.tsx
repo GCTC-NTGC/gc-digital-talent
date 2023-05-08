@@ -7,7 +7,7 @@ import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/pages";
 import { AnyExperience } from "~/types/experience";
 import {
   useGetApplicationQuery,

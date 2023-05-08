@@ -5,7 +5,8 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/pages";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {

@@ -41,5 +41,3 @@ export type ApplicationStepInfo = {
 export type GetApplicationStepInfo = (
   args: GetApplicationStepInfoArgs,
 ) => ApplicationStepInfo;
-
-export type GetPageNavInfo = (args: GetApplicationStepInfoArgs) => PageNavInfo;

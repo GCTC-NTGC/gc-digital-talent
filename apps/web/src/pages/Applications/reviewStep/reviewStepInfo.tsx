@@ -3,7 +3,7 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 import {
   ApplicationStepInfo,
   GetApplicationStepInfo,
-} from "~/types/poolCandidate";
+} from "~/types/applicationStep";
 
 import { getPageInfo as reviewPageInfo } from "../ApplicationReviewPage/ApplicationReviewPage";
 import stepHasError from "./reviewStepValidation";

@@ -7,7 +7,7 @@ import {
   PoolAdvertisement,
   PoolCandidate,
 } from "~/api/generated";
-import { ApplicationStepInfo } from "~/types/poolCandidate";
+import { ApplicationStepInfo } from "~/types/applicationStep";
 
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";

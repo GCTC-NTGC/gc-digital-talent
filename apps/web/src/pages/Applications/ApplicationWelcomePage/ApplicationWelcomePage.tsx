@@ -8,7 +8,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/pages";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 

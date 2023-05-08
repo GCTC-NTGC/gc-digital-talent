@@ -14,22 +14,20 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import {
-  Applicant,
   ApplicationStep,
   useUpdateApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/poolCandidate";
-
+import { GetPageNavInfo } from "~/types/pages";
 import { ExperienceType } from "~/types/experience";
-
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 type SortOptions = "date_desc" | "type_asc";
