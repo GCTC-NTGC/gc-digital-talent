@@ -373,6 +373,13 @@ const PoolCandidatesTable = ({
         },
       };
     }
+    if (sortingRule?.column.sortColumnName === "SKILL_COUNT") {
+      return {
+        column: "skill_count",
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      };
+    }
     // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
     // default tertiary sort is submitted_at,
     return {
@@ -606,6 +613,7 @@ const PoolCandidatesTable = ({
           description: "Title displayed on the candidate skill count column.",
         }),
         id: "skillCount",
+        sortColumnName: "SKILL_COUNT",
         accessor: ({ skillCount }) => skillCount,
       },
       {
