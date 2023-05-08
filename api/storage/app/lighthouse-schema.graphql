@@ -1364,6 +1364,7 @@ input UpdateEducationExperiencesRequirementBelongsToMany {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
 

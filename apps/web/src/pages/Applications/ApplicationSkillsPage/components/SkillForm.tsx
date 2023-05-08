@@ -42,18 +42,11 @@ const getSkillArgs = (
     };
   }
 
-  const newExperienceSkills = experience?.skills
-    ?.filter((experienceSkill) =>
-      remove ? experienceSkill.id !== skillId : true,
-    )
-    ?.map(({ id, experienceSkillRecord }) => ({
-      id,
-      details: id !== skillId ? experienceSkillRecord?.details : details,
-    }));
-
-  return {
-    sync: newExperienceSkills,
-  };
+  if (isExisting && remove) {
+    return {
+      disconnect: [skillId],
+    };
+  }
 };
 
 type FormAction = "connect" | "remove";
