@@ -27,6 +27,10 @@ import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 
+const resumeLink = (children: React.ReactNode, href: string) => (
+  <Link href={href}>{children}</Link>
+);
+
 type PageAction = "continue" | "cancel";
 
 type FormValues = {
@@ -176,13 +180,19 @@ const ApplicationSkills = ({ application }: ApplicationPageProps) => {
         </Link>
       </div>
       <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a resume experience, you can do so by returning to the resume step in the application.",
-          id: "slEfHC",
-          description:
-            "Lead in paragraph for adding experiences to a users skills",
-        })}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a résumé experience, you can do so by returning to the <resumeLink>résumé step</resumeLink> in the application.",
+            id: "pHTwBd",
+            description:
+              "Lead in paragraph for adding experiences to a users skills",
+          },
+          {
+            resumeLink: (chunks: React.ReactNode) =>
+              resumeLink(chunks, paths.applicationResume(application.id)),
+          },
+        )}
       </p>
       {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
         <>
