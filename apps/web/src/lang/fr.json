@@ -8062,5 +8062,9 @@
   },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
+  },
+  "rEk5Hj": {
+    "defaultMessage": "Trouvez des talents",
+    "description": "Label displayed on the Find talent menu item."
   }
 }
