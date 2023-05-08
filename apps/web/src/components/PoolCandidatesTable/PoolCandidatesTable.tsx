@@ -373,7 +373,11 @@ const PoolCandidatesTable = ({
         },
       };
     }
-    if (sortingRule?.column.sortColumnName === "SKILL_COUNT") {
+    if (
+      sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
+      applicantFilterInput?.applicantFilter?.skills &&
+      applicantFilterInput.applicantFilter.skills.length > 0
+    ) {
       return {
         column: "skill_count",
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -387,7 +391,7 @@ const PoolCandidatesTable = ({
       order: SortOrder.Asc,
       user: undefined,
     };
-  }, [sortingRule]);
+  }, [sortingRule, applicantFilterInput]);
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
