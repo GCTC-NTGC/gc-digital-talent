@@ -208,7 +208,8 @@ const employmentEquityAccessor = (user: Applicant, intl: IntlShape) =>
 
 export const SingleSearchRequestTable = ({
   searchPoolCandidates,
-}: SearchPoolCandidatesQuery) => {
+  title,
+}: SearchPoolCandidatesQuery & { title: string }) => {
   const intl = useIntl();
 
   const columns = useMemo<ColumnsOf<Data>>(
@@ -364,7 +365,7 @@ export const SingleSearchRequestTable = ({
     [searchPoolCandidates],
   );
 
-  return <Table data={memoizedData} columns={columns} />;
+  return <Table data={memoizedData} columns={columns} title={title} />;
 };
 
 export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
@@ -493,8 +494,10 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
 
 const SingleSearchRequestTableApi = ({
   filter,
+  title,
 }: {
   filter: AbstractFilter;
+  title: string;
 }) => {
   const intl = useIntl();
   const isLegacyFilter = isPoolCandidateFilter(filter);
@@ -514,6 +517,7 @@ const SingleSearchRequestTableApi = ({
     <Pending fetching={legacyResult.fetching} error={legacyResult.error}>
       <SingleSearchRequestTable
         searchPoolCandidates={legacyResult.data?.searchPoolCandidates ?? []}
+        title={title}
       />
     </Pending>
   ) : (

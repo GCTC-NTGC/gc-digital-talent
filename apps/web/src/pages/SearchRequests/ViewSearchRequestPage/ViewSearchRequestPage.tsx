@@ -32,10 +32,7 @@ export const SingleSearchRequestPage = () => {
         </header>
       </div>
 
-      <ViewSearchRequestApi
-        searchRequestId={searchRequestId || ""}
-        title={pageTitle}
-      />
+      <ViewSearchRequestApi searchRequestId={searchRequestId || ""} />
     </>
   );
 };

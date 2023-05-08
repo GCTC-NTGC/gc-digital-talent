@@ -226,12 +226,10 @@ const ManagerInfo = ({
 
 interface SingleSearchRequestProps {
   searchRequest: PoolCandidateSearchRequest;
-  title: string;
 }
 
 export const ViewSearchRequest = ({
   searchRequest,
-  title,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -336,10 +334,8 @@ export const ViewSearchRequest = ({
 
 const ViewSearchRequestApi = ({
   searchRequestId,
-  title,
 }: {
   searchRequestId: string;
-  title: string;
 }) => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -378,7 +374,6 @@ const ViewSearchRequestApi = ({
         {searchRequestData?.poolCandidateSearchRequest ? (
           <ViewSearchRequest
             searchRequest={searchRequestData?.poolCandidateSearchRequest}
-            title={title}
           />
         ) : (
           <NotFound
