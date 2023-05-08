@@ -37,6 +37,7 @@ export const getFormLinks = ({
       "data-h2-padding": "base(x.5, x1)",
       download: true,
       external: true,
+      naturalKey: `${formName}EN${files.en}`,
     },
     {
       label: intl.formatMessage(
@@ -52,6 +53,7 @@ export const getFormLinks = ({
       "data-h2-padding": "base(x.5, x1)",
       download: true,
       external: true,
+      naturalKey: `${formName}FR${files.fr}`,
     },
   ];
 
@@ -86,6 +88,7 @@ export const getGenericLinks = ({
       mode: intl.locale === "en" ? "solid" : "inline",
       "data-h2-padding": "base(x.5, x1)",
       download: true,
+      naturalKey: `${labels.en}${files.en}`,
     },
     {
       children: labels.fr,
@@ -93,6 +96,7 @@ export const getGenericLinks = ({
       mode: intl.locale === "en" ? "inline" : "solid",
       "data-h2-padding": "base(x.5, x1)",
       download: true,
+      naturalKey: `${labels.fr}${files.fr}`,
     },
   ];
 

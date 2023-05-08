@@ -65,7 +65,11 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
           data-h2-gap="base(x.25)"
         >
           {links.map((link) => (
-            <CardFlatLink key={link.href} color={color} {...link} />
+            <CardFlatLink
+              key={link.naturalKey ?? link.href}
+              color={color}
+              {...link}
+            />
           ))}
         </div>
       ) : null}

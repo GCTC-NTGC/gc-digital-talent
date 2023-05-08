@@ -14,6 +14,8 @@ export interface ExternalLinkProps
       "color" | "href" | "type"
     > {
   newTab?: boolean;
+  // mock files don't have unique hrefs
+  naturalKey?: string;
 }
 
 const ExternalLink = ({
@@ -25,6 +27,9 @@ const ExternalLink = ({
   disabled,
   type,
   weight,
+  // this prop isn't actually used for anything other than stabilizing React lists
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  naturalKey,
   ...rest
 }: ExternalLinkProps) => {
   const intl = useIntl();
