@@ -579,7 +579,7 @@
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
   "dlRmxI": {
-    "defaultMessage": "Les gestionnaires peuvent demander des candidats par groupe d’équité en matière d’emploi pour combler les écarts actuels et futurs de représentation au sein de l’effectif. (Les catégories reflètent les données sur l’équité en matière d’emploi définies en vertu de la Loi sur l’emploi dans la fonction publique et recueillies dans le cadre du processus de demande de la CFP. Par souci d’uniformité, cette plateforme reflète la terminologie des catégories de la CFP.)",
+    "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
     "description": "Message describing the employment equity filter in the search form."
   },
   "Zzd/sJ": {
