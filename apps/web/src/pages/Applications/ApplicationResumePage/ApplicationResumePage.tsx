@@ -23,6 +23,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
+import applicationMessages from "~/messages/applicationMessages";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { resumeIsIncomplete } from "~/validators/profile";
 import { ExperienceType } from "~/types/experience";
@@ -441,11 +442,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 setValue("experienceCount", experiences.length);
               }}
             >
-              {intl.formatMessage({
-                defaultMessage: "I’m happy with my résumé",
-                id: "Km89qF",
-                description: "Link text to continue the application process",
-              })}
+              {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
             <Button
               type="submit"
@@ -458,11 +455,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 setValue("experienceCount", experiences.length);
               }}
             >
-              {intl.formatMessage({
-                defaultMessage: "Save and quit for now",
-                id: "U86N4g",
-                description: "Action button to save and exit an application",
-              })}
+              {intl.formatMessage(applicationMessages.saveQuit)}
             </Button>
           </div>
         </form>
