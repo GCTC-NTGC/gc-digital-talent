@@ -94,7 +94,7 @@ describe("Admin Workflow Tests", () => {
     searchForUser("Applicant", "applicant@test.com");
 
     // show hidden telephone column
-    cy.findByRole("button", { name: /Columns/i }).click();
+    cy.findByRole("button", { name: /^Columns$/i }).click();
     cy.findByRole("checkbox", { name: /Telephone/i }).click();
     cy.findByRole("dialog", { ariaLabel: /table columns/i }).type("{esc}");
 

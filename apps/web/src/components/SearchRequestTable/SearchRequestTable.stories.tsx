@@ -16,10 +16,11 @@ export default {
 } as ComponentMeta<typeof SearchRequestTable>;
 
 const Template: ComponentStory<typeof SearchRequestTable> = (args) => {
-  const { poolCandidateSearchRequests } = args;
+  const { poolCandidateSearchRequests, title } = args;
   return (
     <SearchRequestTable
       poolCandidateSearchRequests={poolCandidateSearchRequests}
+      title={title}
     />
   );
 };
@@ -27,4 +28,5 @@ const Template: ComponentStory<typeof SearchRequestTable> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   poolCandidateSearchRequests: mockSearchRequests,
+  title: "Requests",
 };

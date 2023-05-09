@@ -17,9 +17,13 @@ type DepartmentCell = Cell<Department>;
 
 interface DepartmentTableProps {
   departments: Array<Department>;
+  title: string;
 }
 
-export const DepartmentTable = ({ departments }: DepartmentTableProps) => {
+export const DepartmentTable = ({
+  departments,
+  title,
+}: DepartmentTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -76,11 +80,12 @@ export const DepartmentTable = ({ departments }: DepartmentTableProps) => {
           description: "Heading displayed above the Create Department form.",
         }),
       }}
+      title={title}
     />
   );
 };
 
-const DepartmentTableApi = () => {
+const DepartmentTableApi = ({ title }: { title: string }) => {
   const [result] = useDepartmentsQuery();
   const { data, fetching, error } = result;
 
@@ -88,7 +93,7 @@ const DepartmentTableApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DepartmentTable departments={departments || []} />
+      <DepartmentTable departments={departments || []} title={title} />
     </Pending>
   );
 };

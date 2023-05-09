@@ -2877,10 +2877,6 @@
     "defaultMessage": "Utilisateur {userId} introuvable.",
     "description": "Message displayed for user not found."
   },
-  "154pGu": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Label displayed on the Users menu item."
-  },
   "1bNptz": {
     "defaultMessage": "Identifiant du candidat",
     "description": "Title displayed on the single search request table id column."
@@ -2893,17 +2889,9 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
-  "3F6QqF": {
-    "defaultMessage": "Commencer à écrire ici...",
-    "description": "Placeholder displayed on the Global Filter form Search field."
-  },
   "3b6cy/": {
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
-  },
-  "457hEW": {
-    "defaultMessage": "Ministères",
-    "description": "Heading displayed above the Department Table component."
   },
   "4boO/6": {
     "defaultMessage": "Nom (anglais)",
@@ -2993,8 +2981,8 @@
     "defaultMessage": "Nom",
     "description": "Title displayed for the Classification table Name column."
   },
-  "HkC8XB": {
-    "defaultMessage": "Afficher la demande",
+  "WYJnLs": {
+    "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
   },
   "hmacO5": {
@@ -3004,10 +2992,6 @@
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
-  },
-  "IfWj5I": {
-    "defaultMessage": "Toutes les demandes",
-    "description": "Heading displayed above the search request component."
   },
   "JtgX1e": {
     "defaultMessage": "Autochtone",
@@ -3040,10 +3024,6 @@
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
-  },
-  "QftM3f": {
-    "defaultMessage": "Demandes",
-    "description": "Label displayed on the requests menu item."
   },
   "RIYFZu": {
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
@@ -3236,9 +3216,9 @@
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
-  "s6HoFU": {
-    "defaultMessage": "Retour à toutes les demandes",
-    "description": "Button label displayed on the search request form which returns the user back to all requests."
+  "O8nHiQ": {
+    "defaultMessage": "Retour à demandes",
+    "description": "Button label displayed on the search request form which returns the user back to requests."
   },
   "sZHcsV": {
     "defaultMessage": "Courriel",
@@ -3255,10 +3235,6 @@
   "uAmdiU": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
-  },
-  "wCBE9S": {
-    "defaultMessage": "Bassins",
-    "description": "Label displayed on the Pools menu item."
   },
   "wZ91g+": {
     "defaultMessage": "Création du bassin réussie!",
@@ -3336,14 +3312,6 @@
     "defaultMessage": "Sélectionnez zéro rôle ou plus",
     "description": "Placeholder displayed on the user form roles field."
   },
-  "Dbqtm6": {
-    "defaultMessage": "Compétences",
-    "description": "Heading displayed above the Skill Table component."
-  },
-  "F2Rs/C": {
-    "defaultMessage": " Compétences",
-    "description": "Label displayed on the skill family form skills field."
-  },
   "GQskY1": {
     "defaultMessage": "Mettre à jour une famille de compétences",
     "description": "Title displayed on the update a skillFamily form."
@@ -3359,10 +3327,6 @@
   "JxVREd": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
-  },
-  "KB+xr6": {
-    "defaultMessage": " Familles de compétences",
-    "description": "Title displayed for the skill table Skill Families column."
   },
   "KZR3ad": {
     "defaultMessage": "Catégorie",
@@ -3536,10 +3500,6 @@
     "defaultMessage": "Courriel :",
     "description": "Display text for the email field on users"
   },
-  "3fAkvM": {
-    "defaultMessage": "Bassins",
-    "description": "Breadcrumb title for the pools page link."
-  },
   "4AubyK": {
     "defaultMessage": "Notes",
     "description": "Title of the 'Notes' section of the view-user page"
@@ -3555,10 +3515,6 @@
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
-  },
-  "4fOu5j": {
-    "defaultMessage": "Familles de compétences",
-    "description": "Label displayed on the skill families menu item."
   },
   "6EOrWk": {
     "defaultMessage": "Accueil",
@@ -3608,10 +3564,6 @@
     "defaultMessage": "Emplacement actuel :",
     "description": "Display text for the current location field on users"
   },
-  "DUK/pz": {
-    "defaultMessage": "Accueil",
-    "description": "Breadcrumb title for the home page link."
-  },
   "EdUZaX": {
     "defaultMessage": "Candidats",
     "description": "Header for the View Candidates column of the Pools table"
@@ -3639,10 +3591,6 @@
   "GZqEuI": {
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
     "description": "Toast for failed add user to pool on view-user page"
-  },
-  "HQOsq2": {
-    "defaultMessage": "Ministères",
-    "description": "Label displayed on the departments menu item."
   },
   "HrXZ6X": {
     "defaultMessage": "Autochtone",
@@ -3692,10 +3640,6 @@
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
   },
-  "UC+4MX": {
-    "defaultMessage": "Compétences",
-    "description": "Label displayed on the skills menu item."
-  },
   "V89Ryn": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Preferences content section"
@@ -3712,10 +3656,6 @@
     "defaultMessage": "Sélectionnez un bassin",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
   },
-  "ZDmkKD": {
-    "defaultMessage": "Tableau de bord",
-    "description": "Label displayed on the dashboard menu item."
-  },
   "ZNne50": {
     "defaultMessage": "Enregistrer les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
@@ -3723,10 +3663,6 @@
   "Zbk4zf": {
     "defaultMessage": "Choisir un statut :",
     "description": "Third section of text on the change candidate status dialog"
-  },
-  "aJVlIF": {
-    "defaultMessage": "Bassins",
-    "description": "Label displayed on the pools field of the add user to pool dialog"
   },
   "6R9N+h": {
     "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
@@ -3751,10 +3687,6 @@
   "gKyog2": {
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
-  },
-  "gk7uJQ": {
-    "defaultMessage": "Classifications",
-    "description": "Label displayed on the classifications menu item."
   },
   "gvomlw": {
     "defaultMessage": "Changer la date",
@@ -4035,8 +3967,8 @@
     "defaultMessage": "Supprimer",
     "description": "Text on a button to delete the pool"
   },
-  "IMdFJM": {
-    "defaultMessage": "Toutes les tableaux",
+  "BBH/2J": {
+    "defaultMessage": "Toutes les colonnes",
     "description": "Text in table search form column dropdown when no column is selected."
   },
   "IcDAU1": {
@@ -4162,10 +4094,6 @@
   "cQE6qE": {
     "defaultMessage": "Rédiger l'introduction de cette offre d'emploi...",
     "description": "Placeholder message for the French - Your Impact textarea in the edit pool page."
-  },
-  "chFoB8": {
-    "defaultMessage": "Tableau de recherche",
-    "description": "Label for search field on admin tables."
   },
   "cy5aj8": {
     "defaultMessage": "État",
@@ -4418,10 +4346,6 @@
     "defaultMessage": "Erreur : la mise à jour du bassin a échoué",
     "description": "Message displayed to user after pool fails to get updated."
   },
-  "3IAJad": {
-    "defaultMessage": "Compétences",
-    "description": "CSV Header, Skills column"
-  },
   "3OfvwW": {
     "defaultMessage": "Emplacement : Option à distance",
     "description": "Label for a pool advertisement that has remote option."
@@ -4437,9 +4361,6 @@
   "5R2iR2": {
     "defaultMessage": "Niveau verbal",
     "description": "CSV Header, Verbal Level column"
-  },
-  "5TVKj1": {
-    "defaultMessage": "Classifications"
   },
   "5iNcHS": {
     "defaultMessage": "Candidature",
@@ -4512,10 +4433,6 @@
   "DwTEsB": {
     "defaultMessage": "Type d'employé",
     "description": "CSV Header, Employee Type column"
-  },
-  "EHVt0j": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Title displayed above the Pool Candidate Table component."
   },
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
@@ -4753,9 +4670,6 @@
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
   },
-  "mjyHeP": {
-    "defaultMessage": "Bassins"
-  },
   "nPUAz5": {
     "defaultMessage": "Bassin mis à jour!",
     "description": "Message displayed to user after pool is updated"
@@ -4895,10 +4809,6 @@
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
   },
-  "+4Zmyc": {
-    "defaultMessage": "Demandes de talent",
-    "description": "Page title for the search request index page"
-  },
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
     "description": "Page title for the edit skill page."
@@ -4923,10 +4833,6 @@
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Page title for the department edit page"
   },
-  "Kr9mHX": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Page title for the user index page"
-  },
   "OCmMDP": {
     "defaultMessage": "Modifier - classification",
     "description": "Page title for the edit classification page"
@@ -4934,10 +4840,6 @@
   "PRrRRN": {
     "defaultMessage": "Créer un ministère",
     "description": "Page title for the department creation page"
-  },
-  "SnytBx": {
-    "defaultMessage": "Bassins",
-    "description": "Page title for the pools index page"
   },
   "azdo5+": {
     "defaultMessage": "Modifier - famille",
@@ -4947,17 +4849,9 @@
     "defaultMessage": "Modifier - bassin",
     "description": "Page title for the edit pool page"
   },
-  "hUIqiV": {
-    "defaultMessage": "Familles de compétence",
-    "description": "Page title for the skill family index page"
-  },
   "vINfxJ": {
     "defaultMessage": "Annonce du bassin",
     "description": "Page title for the individual pool page"
-  },
-  "xJm72U": {
-    "defaultMessage": "Classifications",
-    "description": "Page title for the classification index page"
   },
   "zwYuly": {
     "defaultMessage": "Créer un bassin",
@@ -5371,10 +5265,6 @@
     "defaultMessage": "Ministère",
     "description": "Title displayed for the teams table department column."
   },
-  "GJsuQg": {
-    "defaultMessage": "Équipes",
-    "description": "Label displayed on the teams menu item."
-  },
   "GtrrJ3": {
     "defaultMessage": "Créer une équipe ",
     "description": "Link text to create a new team in the admin portal"
@@ -5402,10 +5292,6 @@
   "i4TGiO": {
     "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
     "description": "Descriptive text about the list of teams in the admin portal."
-  },
-  "lOiNyG": {
-    "defaultMessage": "Équipes",
-    "description": "Page title for the teams index page"
   },
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
@@ -6402,10 +6288,6 @@
     "defaultMessage": "Sélectionnez un ou plusieurs ministères",
     "description": "Placeholder text for the team departments input"
   },
-  "ytHvhD": {
-    "defaultMessage": "Ministères",
-    "description": "Label for the team departments input"
-  },
   "WX6NnA": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Button text for the create team form submit button"
@@ -6722,37 +6604,9 @@
     "defaultMessage": "Profil",
     "description": "User profile breadcrumb text"
   },
-  "Ig9HmP": {
-    "defaultMessage": "Ministères",
-    "description": "Breadcrumb title for the departments page link."
-  },
   "OgeWgx": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Breadcrumb title for the create new pool page link."
-  },
-  "P+KWP7": {
-    "defaultMessage": "Équipes",
-    "description": "Breadcrumb title for the teams page link."
-  },
-  "Y7eGtg": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Breadcrumb title for the users page link."
-  },
-  "kyMlnN": {
-    "defaultMessage": "Classifications",
-    "description": "Breadcrumb title for the classifications page link."
-  },
-  "y0j4oU": {
-    "defaultMessage": "Demandes",
-    "description": "Breadcrumb title for the search requests table page link."
-  },
-  "yeXUjo": {
-    "defaultMessage": "Familles de compétences",
-    "description": "Breadcrumb title for the skill families page link."
-  },
-  "ynjzua": {
-    "defaultMessage": "Compétences",
-    "description": "Breadcrumb title for the skills page link."
   },
   "zzf16k": {
     "defaultMessage": "Candidats",
@@ -8058,6 +7912,50 @@
   },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
+  },
+  "+d/NdU": {
+    "defaultMessage": "Ministères",
+    "description": "Title for departments"
+  },
+  "/7RNZm": {
+    "defaultMessage": "Chercher les {title}",
+    "description": "Label for search input"
+  },
+  "/UKT+/": {
+    "defaultMessage": "Compétences",
+    "description": "Title for skills"
+  },
+  "0E9hiS": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Title for skill families"
+  },
+  "ArwIQV": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Title for dashboard"
+  },
+  "EjhuA1": {
+    "defaultMessage": "Demandes",
+    "description": "Title for requests"
+  },
+  "F//l5D": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Title for users"
+  },
+  "Myfw+L": {
+    "defaultMessage": "Bassins",
+    "description": "Title for pools"
+  },
+  "NWEmsp": {
+    "defaultMessage": "Équipes",
+    "description": "Title for teams"
+  },
+  "kvpRgN": {
+    "defaultMessage": "Classifications",
+    "description": "Title for classifications"
+  },
+  "zfi91j": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Title for pool candidates"
   },
   "1/Q9jX": {
     "defaultMessage": "Comment décrire au mieux une expérience professionnelle",

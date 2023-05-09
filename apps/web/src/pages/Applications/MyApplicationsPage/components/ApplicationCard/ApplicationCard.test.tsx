@@ -4,6 +4,8 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+import { Provider as GraphqlProvider } from "urql";
+import { pipe, fromValue, delay } from "wonka";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -13,6 +15,12 @@ import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
 
 const mockApplication = fakePoolCandidates()[0];
 
+const mockClient = {
+  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} as any;
+
 const defaultProps = {
   application: mockApplication,
   onDelete: jest.fn(),
@@ -20,7 +28,11 @@ const defaultProps = {
 };
 
 const renderApplicationCard = (props: ApplicationCardProps) =>
-  renderWithProviders(<ApplicationCard {...props} />);
+  renderWithProviders(
+    <GraphqlProvider value={mockClient}>
+      <ApplicationCard {...props} />
+    </GraphqlProvider>,
+  );
 
 describe("ApplicationCard", () => {
   it("should have no accessibility errors", async () => {

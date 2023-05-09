@@ -14,8 +14,8 @@ import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import adminMenuMessages from "~/messages/adminMenuMessages";
 import { checkRole } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import LoginOrLogout from "./LoginOrLogout";
 
@@ -47,63 +47,67 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
         ROLE_NAME.RequestResponder,
         ROLE_NAME.PlatformAdmin,
       ],
-      text: intl.formatMessage(adminMenuMessages.dashboard),
+      text: intl.formatMessage({
+        defaultMessage: "Dashboard",
+        id: "ArwIQV",
+        description: "Title for dashboard",
+      }),
     },
     {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
       roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.pools),
+      text: intl.formatMessage(adminMessages.pools),
     },
     {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.users),
+      text: intl.formatMessage(adminMessages.users),
     },
     {
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
       roles: [ROLE_NAME.RequestResponder],
-      text: intl.formatMessage(adminMenuMessages.requests),
+      text: intl.formatMessage(adminMessages.requests),
     },
     {
       key: "classifications",
       href: paths.classificationTable(),
       icon: TagIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.classifications),
+      text: intl.formatMessage(adminMessages.classifications),
     },
     {
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
       roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.teams),
+      text: intl.formatMessage(adminMessages.teams),
     },
     {
       key: "departments",
       href: paths.departmentTable(),
       icon: BuildingOfficeIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.departments),
+      text: intl.formatMessage(adminMessages.departments),
     },
     {
       key: "skill-families",
       href: paths.skillFamilyTable(),
       icon: UserGroupIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.skillFamilies),
+      text: intl.formatMessage(adminMessages.skillFamilies),
     },
     {
       key: "skills",
       href: paths.skillTable(),
       icon: AcademicCapIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMenuMessages.skills),
+      text: intl.formatMessage(adminMessages.skills),
     },
   ];
 
