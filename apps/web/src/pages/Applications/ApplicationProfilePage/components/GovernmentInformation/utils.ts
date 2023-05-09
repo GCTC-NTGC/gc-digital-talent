@@ -50,9 +50,9 @@ export const formValuesToSubmitData = (
     return {
       isGovEmployee: false,
       govEmployeeType: null,
-      department: null,
+      department: { disconnect: true },
       currentClassification: {
-        connect: null,
+        disconnect: true,
       },
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
