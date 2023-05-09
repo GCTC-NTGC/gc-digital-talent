@@ -11,6 +11,7 @@ import {
   RecordWithId,
   SortingRule,
 } from "./helpers";
+import tableMessages from "../tableMessages";
 
 export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
@@ -153,25 +154,37 @@ function BasicTable<T extends RecordWithId>({
           </tr>
         </thead>
         <tbody data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)">
-          {data.map((datum) => {
-            return (
-              <tr key={JSON.stringify(datum) /* 🤷 */}>
-                {columns
-                  .filter((column) => !hiddenColumnIds.includes(column.id))
-                  .map((column) => {
-                    return (
-                      <td
-                        key={column.id}
-                        data-h2-padding="base(x.5, x1)"
-                        data-h2-text-align="base(left)"
-                      >
-                        {column.accessor(datum)}
-                      </td>
-                    );
-                  })}
-              </tr>
-            );
-          })}
+          {data.length ? (
+            data.map((datum) => {
+              return (
+                <tr key={JSON.stringify(datum) /* 🤷 */}>
+                  {columns
+                    .filter((column) => !hiddenColumnIds.includes(column.id))
+                    .map((column) => {
+                      return (
+                        <td
+                          key={column.id}
+                          data-h2-padding="base(x.5, x1)"
+                          data-h2-text-align="base(left)"
+                        >
+                          {column.accessor(datum)}
+                        </td>
+                      );
+                    })}
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td
+                colSpan={columns.length}
+                data-h2-padding="base(x1)"
+                data-h2-text-align="base(center)"
+              >
+                {intl.formatMessage(tableMessages.noItems)}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

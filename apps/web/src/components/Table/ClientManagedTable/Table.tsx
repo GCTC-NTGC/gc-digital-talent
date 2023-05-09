@@ -24,6 +24,7 @@ import Pagination from "~/components/Pagination";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";
+import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -415,24 +416,36 @@ function Table<T extends Record<string, unknown>>({
               data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)"
               {...getTableBodyProps()}
             >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          data-h2-padding="base(x.5, x1)"
-                          data-h2-text-align="base(left)"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+              {rows.length ? (
+                page.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            data-h2-padding="base(x.5, x1)"
+                            data-h2-text-align="base(left)"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan={columns.length}
+                    data-h2-padding="base(x1)"
+                    data-h2-text-align="base(center)"
+                  >
+                    {intl.formatMessage(tableMessages.noItems)}
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
