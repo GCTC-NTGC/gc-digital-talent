@@ -10,7 +10,12 @@ import {
   StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
-import { Select, TextArea } from "@gc-digital-talent/forms";
+import {
+  Select,
+  TextArea,
+  WordCounter,
+  countNumberOfWords,
+} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -20,6 +25,8 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+
+const TEXT_AREA_MAX_WORDS = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"],
@@ -86,7 +93,7 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { register, setValue } = methods;
+  const { register, setValue, watch } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
@@ -99,6 +106,7 @@ const SkillForm = ({
     "update",
     experienceType,
   );
+  const detailsValue = watch("details");
 
   const handleSubmit = (formValues: FormValues) => {
     const args = getMutationArgs(
@@ -261,17 +269,37 @@ const SkillForm = ({
             </p>
           </Well>
         ) : (
-          <TextArea
-            id="details"
-            name="details"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            rows={3}
-            label={intl.formatMessage({
-              defaultMessage: "Describe how you used this skill",
-              id: "L7PqXn",
-              description: "Label for skill experience details input",
-            })}
-          />
+          <>
+            <TextArea
+              id="details"
+              name="details"
+              rows={3}
+              label={intl.formatMessage({
+                defaultMessage: "Describe how you used this skill",
+                id: "L7PqXn",
+                description: "Label for skill experience details input",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                validate: {
+                  wordCount: (value: string) =>
+                    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+                    intl.formatMessage(errorMessages.overWordLimit, {
+                      value: TEXT_AREA_MAX_WORDS,
+                    }),
+                },
+              }}
+            />
+            <div
+              data-h2-margin="base(-x.5, 0, 0, 0)"
+              data-h2-text-align="base(right)"
+            >
+              <WordCounter
+                text={detailsValue || ""}
+                wordLimit={TEXT_AREA_MAX_WORDS}
+              />
+            </div>
+          </>
         )}
         <Dialog.Footer>
           <Dialog.Close>
