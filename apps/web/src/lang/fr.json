@@ -8064,7 +8064,7 @@
     "defaultMessage": "Réponse à la question {number}"
   },
   "0dQ62G": {
-    "defaultMessage": "Number of skills matched",
+    "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
   }
 }
