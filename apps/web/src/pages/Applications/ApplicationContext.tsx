@@ -39,7 +39,9 @@ const ApplicationContextProvider = ({
 
   React.useEffect(() => {
     const themeCheck = setTimeout(() => {
-      if (application.poolAdvertisement?.publishingGroup) {
+      if (
+        application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap
+      ) {
         setKey("iap");
       }
     }, 10);
