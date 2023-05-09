@@ -4,6 +4,7 @@ import { Team } from "~/api/generated";
 
 import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import adminMessages from "~/messages/adminMessages";
 
 interface ViewTeamProps {
   team: Team;
@@ -71,12 +72,7 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p data-h2-margin-bottom="base(x.25)">
-            {intl.formatMessage({
-              defaultMessage: "Departments",
-              id: "457hEW",
-              description:
-                "Heading displayed above the Department Table component.",
-            })}
+            {intl.formatMessage(adminMessages.departments)}
           </p>
           {departmentsPillsArray}
         </div>

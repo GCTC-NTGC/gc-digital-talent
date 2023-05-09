@@ -7,17 +7,14 @@ import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader/PageHeader";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
+import adminMessages from "~/messages/adminMessages";
 import TeamTableApi from "./components/TeamTable/TeamTable";
 
 const IndexTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Teams",
-    id: "lOiNyG",
-    description: "Page title for the teams index page",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.teams);
 
   const navigationCrumbs = [
     {
@@ -29,11 +26,7 @@ const IndexTeamPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "P+KWP7",
-        description: "Breadcrumb title for the teams page link.",
-      }),
+      label: intl.formatMessage(adminMessages.teams),
       url: routes.teamTable(),
     },
   ];
@@ -51,7 +44,7 @@ const IndexTeamPage = () => {
             "Descriptive text about the list of teams in the admin portal.",
         })}
       </p>
-      <TeamTableApi />
+      <TeamTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };

@@ -39,10 +39,16 @@ export default {
 const Template: ComponentStory<typeof PoolCandidatesTable> = (args) => {
   const { initialFilterInput } = args;
 
-  return <PoolCandidatesTable initialFilterInput={initialFilterInput} />;
+  return (
+    <PoolCandidatesTable
+      initialFilterInput={initialFilterInput}
+      title="Pool Candidates"
+    />
+  );
 };
 
 export const Default = Template.bind({});
 Default.args = {
+  title: "Pool Candidates",
   initialFilterInput: { applicantFilter: { pools: [{ id: "123" }] } },
 };

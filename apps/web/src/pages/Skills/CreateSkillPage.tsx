@@ -26,6 +26,7 @@ import {
   useAllSkillFamiliesQuery,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -304,11 +305,7 @@ const CreateSkillPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "ynjzua",
-        description: "Breadcrumb title for the skills page link.",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
       url: routes.skillTable(),
     },
     {

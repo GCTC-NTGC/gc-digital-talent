@@ -214,7 +214,7 @@ const defaultState = {
   },
 };
 
-const UserTable = () => {
+const UserTable = ({ title }: { title: string }) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pathname } = useLocation();
@@ -572,11 +572,13 @@ const UserTable = () => {
             initialFilters={initialFilters}
           />
         }
+        title={title}
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>
           <BasicTable
             labelledBy="user-table-heading"
+            title={title}
             data={filteredData}
             columns={columns}
             onSortingRuleChange={handleSortingRuleChange}

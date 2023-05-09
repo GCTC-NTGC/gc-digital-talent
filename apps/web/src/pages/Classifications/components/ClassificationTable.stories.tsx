@@ -16,11 +16,14 @@ export default {
 } as ComponentMeta<typeof ClassificationTable>;
 
 const Template: ComponentStory<typeof ClassificationTable> = (args) => {
-  const { classifications } = args;
-  return <ClassificationTable classifications={classifications} />;
+  const { classifications, title } = args;
+  return (
+    <ClassificationTable classifications={classifications} title={title} />
+  );
 };
 
 export const Default = Template.bind({});
 Default.args = {
   classifications: mockClassifications,
+  title: "Classifications",
 };

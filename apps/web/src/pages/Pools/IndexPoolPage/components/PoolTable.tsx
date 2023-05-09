@@ -179,9 +179,10 @@ const roleAssignmentsToPools = (
 
 interface PoolTableProps {
   pools: Pool[];
+  title: string;
 }
 
-export const PoolTable = ({ pools }: PoolTableProps) => {
+export const PoolTable = ({ pools, title }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -445,30 +446,31 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
       }}
       initialSortBy={initialSortBy}
+      title={title}
     />
   );
 };
 
-export const PoolOperatorTableApi = () => {
+export const PoolOperatorTableApi = ({ title }: { title: string }) => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} />
+      <PoolTable pools={poolsArray ?? []} title={title} />
     </Pending>
   );
 };
 
-export const PoolAdminTableApi = () => {
+export const PoolAdminTableApi = ({ title }: { title: string }) => {
   const [result] = useAllPoolsQuery();
   const { data, fetching, error } = result;
   const pools = unpackMaybes(data?.pools);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools} />
+      <PoolTable pools={pools} title={title} />
     </Pending>
   );
 };
