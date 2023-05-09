@@ -8181,5 +8181,13 @@
   "e9fSNq": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question 3 for clarifying skill details"
+  },
+  "TbqFOI": {
+    "defaultMessage": "Veillez à fournir <strong>au moins une expérience dans votre CV </strong> pour chacune des compétences exigées, de même qu’une brève description de la raison pour laquelle cette expérience vient mettre en valeur vos capacités par rapport à cette compétence.",
+    "description": "Instructions on requiring information for skills"
+  },
+  "pHTwBd": {
+    "defaultMessage": "Maintenant, relions vos expériences aux compétences qui sont critiques pour ce rôle. Il s’agit de l’étape la plus importante du processus de dotation. Tout comme dans le cas de l’expérience minimum et l’étape ayant trait à la scolarité, si vous avez besoin d’ajouter quoi que ce soit ou de modifier une expérience dans votre CV, vous pouvez le faire en retournant à <resumeLink>l’étape du CV </resumeLink> de la demande.",
+    "description": "Lead in paragraph for adding experiences to a users skills"
   }
 }
