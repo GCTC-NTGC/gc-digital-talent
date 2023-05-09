@@ -8091,16 +8091,95 @@
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
   },
-  "oeZv71": {
-    "defaultMessage": "Veuillez vous assurer de fournir au moins une expérience de CV pour chaque compétence requise, ainsi qu’une description concise de la raison pour laquelle cette expérience met en évidence vos capacités dans cette compétence.",
-    "description": "Instructions on requiring information for skills"
-  },
-  "slEfHC": {
-    "defaultMessage": "Relions maintenant vos expériences aux compétences essentielles pour ce rôle. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et de formation minimales, si vous devez ajouter ou modifier une expérience de CV, vous pouvez le faire en revenant à l’étape de CV dans la demande.",
-    "description": "Lead in paragraph for adding experiences to a users skills"
-  },
   "zv4Vyd": {
     "defaultMessage": "Compétences comportementales requises",
     "description": "Heading for required behavioural skills section"
+  },
+  "1G1iMu": {
+    "defaultMessage": "Supprimer cette expérience",
+    "description": "Button to remove the link between experience and skill"
+  },
+  "1Qw7ZV": {
+    "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
+    "description": "Message displayed to user after skill details fails to be created."
+  },
+  "3sXEjF": {
+    "defaultMessage": "Quelles tâches ou activités avez-vous effectuées en rapport avec cette compétence?",
+    "description": "Question 2 for clarifying skill details"
+  },
+  "4YUt61": {
+    "defaultMessage": "Veuillez établir un lien entre au moins une des expériences figurant sur votre CV et les compétences techniques demandées.",
+    "description": "Error message if there are no experiences"
+  },
+  "AANjDd": {
+    "defaultMessage": "Mettre à jour l’expérience",
+    "description": "Button to submit the link experience to skill form"
+  },
+  "CYkH6C": {
+    "defaultMessage": "Veuillez choisir une expérience pour continuer.",
+    "description": "Message displayed when a use has not selected an experience"
+  },
+  "KnvA3d": {
+    "defaultMessage": "Établir un lien entre une expérience et {skillName}"
+  },
+  "L7PqXn": {
+    "defaultMessage": "Décrivez comment vous avez utilisé cette compétence",
+    "description": "Label for skill experience details input"
+  },
+  "NgHjK8": {
+    "defaultMessage": " Établir un lien entre une expérience figurant sur votre CV <hidden> et {skillName}</hidden>",
+    "description": "Button text to open form to connect an experience to a skill"
+  },
+  "SEdLz1": {
+    "defaultMessage": "Lien établi avec l’expérience!",
+    "description": "Success message displayed after linking an experience to a skill"
+  },
+  "VAcukn": {
+    "defaultMessage": "{title} au sein de {organization}",
+    "description": "Title with organization"
+  },
+  "W+T8Mm": {
+    "defaultMessage": "Ajouter cette expérience",
+    "description": "Button to submit the link experience to skill form"
+  },
+  "WP7NTc": {
+    "defaultMessage": "Choisir une expérience",
+    "description": "Placeholder for selecting an experience"
+  },
+  "a3epXH": {
+    "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
+    "description": "Message displayed to user after experience fails to be linked to a skill."
+  },
+  "j7nWu/": {
+    "defaultMessage": "Vous avez réussi à mettre à jour vos compétences!",
+    "description": "Message displayed to users when saving skills is successful."
+  },
+  "mQHftn": {
+    "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
+    "description": "Question 4 for clarifying skill details"
+  },
+  "pV+oii": {
+    "defaultMessage": "Qu’avez-vous accompli, créé ou livré grâce à cette compétence?",
+    "description": "Question 1 for clarifying skill details"
+  },
+  "x8tCSM": {
+    "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
+    "description": "Message that appears when a required skill has no experiences linked to it"
+  },
+  "FpDMGu": {
+    "defaultMessage": "Lien établi avec l’expérience!",
+    "description": "Success message displayed after unlinking an experience to a skill"
+  },
+  "ODZmvO": {
+    "defaultMessage": "Choisissez un type d’expérience à ajouter",
+    "description": "Label for the experience select input"
+  },
+  "OZe0NZ": {
+    "defaultMessage": "Options des compétences techniques",
+    "description": "Heading for optional technical skills section"
+  },
+  "e9fSNq": {
+    "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
+    "description": "Question 3 for clarifying skill details"
   }
 }
