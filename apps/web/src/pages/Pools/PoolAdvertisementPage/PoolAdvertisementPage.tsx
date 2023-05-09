@@ -40,16 +40,14 @@ import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstant
 import ClassificationDefinition from "./components/ClassificationDefinition";
 import LightSeparator from "./components/LightSeparator";
 import ApplicationLink from "./components/ApplicationLink";
+import Text from "./components/Text";
+import EducationRequirements from "./components/EducationRequirements";
 
 type SectionContent = {
   id: string;
   linkText?: string;
   title: string;
 };
-
-const Text = ({ children }: { children: React.ReactNode }) => (
-  <p data-h2-margin="base(0, 0, x.5, 0)">{children}</p>
-);
 
 const anchorTag = (chunks: React.ReactNode) => (
   <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
@@ -332,7 +330,7 @@ export const PoolAdvertisementPoster = ({
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
                 {poolAdvertisement.yourImpact && (
-                  <p>{poolAdvertisement.yourImpact[locale]}</p>
+                  <Text>{poolAdvertisement.yourImpact[locale]}</Text>
                 )}
                 {poolAdvertisement.keyTasks && (
                   <>
@@ -344,7 +342,7 @@ export const PoolAdvertisementPoster = ({
                           "Title for key tasks on a pool advertisement.",
                       })}
                     </Heading>
-                    <p>{poolAdvertisement.keyTasks[locale]}</p>
+                    <Text>{poolAdvertisement.keyTasks[locale]}</Text>
                   </>
                 )}
               </TableOfContents.Section>
@@ -361,6 +359,19 @@ export const PoolAdvertisementPoster = ({
                     "Title for minimum experience or education section of a pool advertisement",
                 })}
               </Heading>
+              <Text>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{title} roles require a minimum amount of experience or a relevant degree.",
+                    id: "LnISTX",
+                    description:
+                      "Descriptive text about experience or education requirements of a pool advertisement",
+                  },
+                  { title: fullTitle },
+                )}
+              </Text>
+              <EducationRequirements />
               <Heading level="h3" size="h4">
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
