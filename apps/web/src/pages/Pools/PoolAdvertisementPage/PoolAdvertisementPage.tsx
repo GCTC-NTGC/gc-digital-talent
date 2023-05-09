@@ -1,24 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import BriefcaseIconOutline from "@heroicons/react/24/outline/BriefcaseIcon";
-import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
-import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
-import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import PhoneIcon from "@heroicons/react/24/outline/PhoneIcon";
 
 import {
-  Button,
   ThrowNotFound,
   Pending,
-  Card,
-  Link,
   Accordion,
   TableOfContents,
-  Separator,
   Heading,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
@@ -33,7 +21,6 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import {
   AdvertisementStatus,
   Scalars,
-  SkillCategory,
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
 } from "~/api/generated";
@@ -50,9 +37,9 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
-import PoolInfoCard from "./components/PoolInfoCard";
 import ClassificationDefinition from "./components/ClassificationDefinition";
-import LightSeparator from "./components/LightSepator";
+import LightSeparator from "./components/LightSeparator";
+import ApplicationLink from "./components/ApplicationLink";
 
 type SectionContent = {
   id: string;
@@ -60,91 +47,9 @@ type SectionContent = {
   title: string;
 };
 
-interface ApplyButtonProps {
-  poolId: Scalars["ID"];
-}
-
-const ApplyButton = ({ poolId }: ApplyButtonProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      type="button"
-      mode="solid"
-      color="primary"
-      href={paths.createApplication(poolId)}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Apply for this process",
-        id: "W2YIEA",
-        description: "Link text to apply for a pool advertisement",
-      })}
-    </Link>
-  );
-};
-
-interface ContinueButtonProps {
-  applicationId: Scalars["ID"];
-}
-
-const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      type="button"
-      mode="solid"
-      color="primary"
-      href={paths.reviewApplication(applicationId)}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Continue my application",
-        id: "ugosop",
-        description: "Link text to continue an existing application",
-      })}
-    </Link>
-  );
-};
-
-const AlreadyAppliedButton = () => {
-  const intl = useIntl();
-  return (
-    <Button type="button" color="primary" mode="solid" disabled>
-      {intl.formatMessage({
-        defaultMessage: "You have already applied to this.",
-        id: "mwEGU+",
-        description:
-          "Disabled button when a user already applied to a pool opportunity",
-      })}
-    </Button>
-  );
-};
-
 const Text = ({ children }: { children: React.ReactNode }) => (
   <p data-h2-margin="base(0, 0, x.5, 0)">{children}</p>
 );
-interface IconTitleProps {
-  children: React.ReactNode;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
-}
-
-const IconTitle = ({ children, icon }: IconTitleProps) => {
-  const Icon = icon;
-
-  return (
-    <h3
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-font-size="base(h4, 1)"
-      data-h2-margin="base(x2, 0, x1, 0)"
-    >
-      <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
-      <span>{children}</span>
-    </h3>
-  );
-};
 
 const anchorTag = (chunks: React.ReactNode) => (
   <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
@@ -179,9 +84,6 @@ export const PoolAdvertisementPoster = ({
     });
   }
   const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
-  const canApply =
-    poolAdvertisement.advertisementStatus &&
-    poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
 
   const showImpactTasks = !!(
     poolAdvertisement.keyTasks || poolAdvertisement.yourImpact
@@ -204,14 +106,19 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  let applyBtn = <ApplyButton poolId={poolAdvertisement.id} />;
-  if (applicationId) {
-    applyBtn = !hasApplied ? (
-      <ContinueButton applicationId={applicationId} />
-    ) : (
-      <AlreadyAppliedButton />
-    );
-  }
+  const applyBtn = (
+    <ApplicationLink
+      poolId={poolAdvertisement.id}
+      applicationId={applicationId}
+      hasApplied={hasApplied}
+      canApply={
+        !!(
+          poolAdvertisement?.advertisementStatus ===
+          AdvertisementStatus.Published
+        )
+      }
+    />
+  );
 
   const links = useBreadcrumbs([
     {
