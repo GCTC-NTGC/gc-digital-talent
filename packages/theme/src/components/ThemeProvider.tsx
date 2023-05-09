@@ -1,18 +1,23 @@
 import React from "react";
+
+import { useLocalStorage } from "@gc-digital-talent/storage";
+
 import {
   ThemeMode,
-  SetModeFunc,
   ThemeKey,
-  SetThemeKeyFunc,
   SetThemeFunc,
+  SetThemeKeyFunc,
+  SetThemeModeFunc,
+  Theme,
+  ThemeOverride,
 } from "../types";
 
 export interface ThemeState {
   mode: ThemeMode;
   key: ThemeKey;
   isPref: boolean;
-  setMode: SetModeFunc;
-  setThemeKey: SetThemeKeyFunc;
+  setMode: SetThemeModeFunc;
+  setKey: SetThemeKeyFunc;
   setTheme: SetThemeFunc;
 }
 
@@ -23,7 +28,7 @@ export const defaultThemeState = {
   setMode: () => {
     // PASS
   },
-  setThemeKey: () => {
+  setKey: () => {
     // PASS
   },
   setTheme: () => {
@@ -32,6 +37,16 @@ export const defaultThemeState = {
 };
 
 export const ThemeContext = React.createContext<ThemeState>(defaultThemeState);
+
+const defaultTheme: Theme = {
+  key: "default",
+  mode: "pref",
+};
+
+const getDefaultTheme = (override?: ThemeOverride): Theme => ({
+  mode: override?.mode || defaultTheme.mode,
+  key: override?.key || defaultTheme.key,
+});
 
 export interface ThemeProviderProps {
   children: React.ReactNode;
@@ -47,97 +62,58 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
-  const currentTheme = localStorage.theme ? JSON.parse(localStorage.theme) : {};
-  const [isPref, setPref] = React.useState<boolean>(!localStorage.theme);
-  const [key, setKey] = React.useState<ThemeKey>(
-    currentTheme?.key || "default",
+  const [theme, setTheme] = useLocalStorage<Theme>(
+    "theme",
+    getDefaultTheme(override),
   );
-  const [mode, setMode] = React.useState<ThemeMode>(
-    currentTheme?.mode || "pref",
-  );
+  const { key, mode } = theme;
 
-  const setDOMTheme = React.useCallback(
-    (newKey: ThemeKey, newMode: ThemeMode) => {
-      setMode(newMode);
-      setKey(newKey);
-      const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
-      let themeString: string | undefined = "";
-      // TO DO: Add mode back once dark mode is done
-      if (newMode && newKey) {
-        // themeString = `${newKey} ${newMode}`;
-        themeString = newKey;
-      } else if (newKey) {
-        themeString = newKey;
-      } else if (newMode) {
-        // themeString = newMode;
-      } else {
-        themeString = undefined;
-      }
-
-      hydrogen.forEach((item) => {
-        if (item instanceof HTMLElement) {
-          //  NOTE: We are setting DOM attrs here so it should be fine
-          // eslint-disable-next-line no-param-reassign
-          item.dataset.h2 = themeString;
-        }
+  const setKey = React.useCallback(
+    (newKey: ThemeKey) => {
+      setTheme({
+        mode,
+        key: newKey,
       });
     },
-    [themeSelector],
+    [setTheme, mode],
   );
 
-  const setCurrentMode = React.useCallback(
+  const setMode = React.useCallback(
     (newMode: ThemeMode) => {
-      setPref(newMode === "pref");
-      if (newMode !== "pref") {
-        localStorage.setItem(
-          "theme",
-          JSON.stringify({
-            key,
-            mode: newMode,
-          }),
-        );
-        setDOMTheme(key, newMode);
-      } else {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        localStorage.removeItem("theme");
-        setDOMTheme(key, prefersDark ? "dark" : "light");
-      }
+      setTheme({
+        key,
+        mode: newMode,
+      });
     },
-    [setDOMTheme, setPref, key],
-  );
-
-  const setCurrentKey = React.useCallback(
-    (newKey: ThemeKey) => {
-      setDOMTheme(newKey, mode);
-      localStorage.setItem(
-        "theme",
-        JSON.stringify({
-          mode,
-          key: newKey,
-        }),
-      );
-    },
-    [mode, setDOMTheme],
-  );
-
-  const setTheme = React.useCallback(
-    (newKey: ThemeKey, newMode: ThemeMode) => {
-      setDOMTheme(newKey, newMode);
-      localStorage.setItem(
-        "theme",
-        JSON.stringify({
-          mode: newMode,
-          key: newKey,
-        }),
-      );
-    },
-    [setDOMTheme],
+    [setTheme, key],
   );
 
   React.useEffect(() => {
-    const isSet = localStorage.theme !== undefined;
+    const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
+    let themeString: string | undefined = "";
+    // TO DO: Add mode back once dark mode is done
+    if (mode && key) {
+      // themeString = `${key} ${mode}`;
+      themeString = key;
+    } else if (key) {
+      themeString = key;
+    } else if (mode) {
+      // themeString = mode;
+    } else {
+      themeString = undefined;
+    }
+
+    hydrogen.forEach((item) => {
+      if (item instanceof HTMLElement) {
+        //  NOTE: We are setting DOM attrs here so it should be fine
+        // eslint-disable-next-line no-param-reassign
+        item.dataset.h2 = themeString;
+      }
+    });
+  }, [key, mode, themeSelector]);
+
+  React.useEffect(() => {
+    const isSet = key || (mode && mode !== "pref");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
@@ -149,9 +125,10 @@ const ThemeProvider = ({
 
     function testDark() {
       if (isDark) {
-        setCurrentMode("dark");
-      } else {
-        setCurrentMode("pref");
+        setTheme({
+          key,
+          mode: "dark",
+        });
       }
     }
 
@@ -167,34 +144,22 @@ const ThemeProvider = ({
       lightMatcher.removeEventListener("change", testDark);
       window.removeEventListener("load", testDark);
     };
-  }, [setCurrentMode]);
+  }, [key, mode, setTheme]);
 
-  React.useEffect(() => {
-    if (override?.mode) {
-      setCurrentMode(override.mode);
-    }
-  }, [override?.mode, setCurrentMode]);
-
-  React.useEffect(() => {
-    if (override?.key) {
-      setCurrentKey(override.key);
-    }
-  }, [override?.key, setCurrentKey]);
-
-  const theme = React.useMemo(
+  const state = React.useMemo(
     () => ({
       mode,
       key,
-      setMode: setCurrentMode,
-      setThemeKey: setCurrentKey,
       setTheme,
-      isPref,
+      setMode,
+      setKey,
+      isPref: !mode || mode === "pref",
     }),
-    [mode, key, setCurrentMode, setCurrentKey, isPref, setTheme],
+    [mode, key, setTheme, setMode, setKey],
   );
 
   return (
-    <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={state}>{children}</ThemeContext.Provider>
   );
 };
 

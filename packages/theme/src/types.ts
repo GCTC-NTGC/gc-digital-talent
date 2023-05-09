@@ -1,5 +1,15 @@
 export type ThemeKey = "default" | "admin" | "iap";
 export type SetThemeKeyFunc = (newThemeKey: ThemeKey) => void;
 export type ThemeMode = "dark" | "light" | "pref";
-export type SetModeFunc = (newMode: ThemeMode) => void;
-export type SetThemeFunc = (newKey: ThemeKey, newMode: ThemeMode) => void;
+export type SetThemeModeFunc = (newThemeMode: ThemeMode) => void;
+export type SetThemeFunc = (value: Theme | ((val: Theme) => Theme)) => void;
+
+export type Theme = {
+  key: ThemeKey;
+  mode: ThemeMode;
+};
+
+export type ThemeOverride = {
+  key?: ThemeKey;
+  mode?: ThemeMode;
+};

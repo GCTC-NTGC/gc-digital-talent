@@ -7,11 +7,11 @@ type UseLayoutTheme = (layoutKey: ThemeKey) => void;
 
 const useLayoutTheme: UseLayoutTheme = (layoutKey) => {
   const { pathname } = useLocation();
-  const { setTheme, key, mode } = useTheme();
+  const { setKey, key } = useTheme();
 
   useEffect(() => {
     if (key !== layoutKey) {
-      setTheme(layoutKey, mode);
+      setKey(layoutKey);
     }
     // Note: Check on every navigation
     // eslint-disable-next-line react-hooks/exhaustive-deps

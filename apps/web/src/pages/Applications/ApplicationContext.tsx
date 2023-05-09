@@ -28,7 +28,7 @@ const ApplicationContextProvider = ({
   application,
   children,
 }: ApplicationContextProviderProps) => {
-  const { setTheme, mode } = useTheme();
+  const { setKey } = useTheme();
   const state = React.useMemo(
     () => ({
       isIAP:
@@ -37,9 +37,17 @@ const ApplicationContextProvider = ({
     [application],
   );
 
-  if (application.poolAdvertisement?.publishingGroup) {
-    setTheme("iap", mode);
-  }
+  React.useEffect(() => {
+    const themeCheck = setTimeout(() => {
+      if (application.poolAdvertisement?.publishingGroup) {
+        setKey("iap");
+      }
+    }, 10);
+
+    return () => {
+      clearTimeout(themeCheck);
+    };
+  }, [setKey, application]);
 
   return (
     <ApplicationContext.Provider value={state}>
