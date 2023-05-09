@@ -26,8 +26,6 @@ export interface LinkProps
   block?: boolean;
   type?: "button" | "link";
   weight?: "bold";
-  // mock files don't have unique hrefs
-  naturalKey?: string;
 }
 
 const Link = ({
@@ -39,9 +37,6 @@ const Link = ({
   block = false,
   type = "link",
   children,
-  // this prop isn't actually used for anything other than stabilizing React lists
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  naturalKey,
   ...rest
 }: LinkProps): React.ReactElement => {
   const url = sanitizeUrl(href);

@@ -69,6 +69,9 @@ interface GetGenericLinksArgs {
   intl: IntlShape;
 }
 
+// add a natural key since mocked files do not have unique hrefs
+type GenericLinkType = ExternalLinkProps & { naturalKey?: string };
+
 /**
  * Gets English and French link props and reverses
  * them so the active language is the first item
@@ -81,7 +84,7 @@ export const getGenericLinks = ({
   files,
   intl,
 }: GetGenericLinksArgs) => {
-  const links: Array<ExternalLinkProps> = [
+  const links: Array<GenericLinkType> = [
     {
       children: labels.en,
       href: files.en,

@@ -11,6 +11,8 @@ export interface CardFlatProps {
   links?: Array<
     Omit<CardFlatLinkProps, "color"> & {
       [key: `data-${string}`]: unknown;
+      // add a natural key since mocked files do not have unique hrefs
+      naturalKey?: string;
     }
   >;
 }
