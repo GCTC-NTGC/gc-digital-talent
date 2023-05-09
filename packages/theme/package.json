@@ -21,6 +21,7 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@gc-digital-talent/storage": "*",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
