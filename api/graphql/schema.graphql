@@ -1249,7 +1249,7 @@ input UpdateUserAsUserInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
   # Personal info
-  email: Email
+  email: Email @lowerCase
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
