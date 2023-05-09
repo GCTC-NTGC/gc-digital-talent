@@ -9,6 +9,7 @@ interface ApplicationContextState {
 
 const defaultContext: ApplicationContextState = {
   isIAP: false,
+  followingPageUrl: undefined,
 };
 
 const ApplicationContext =
@@ -22,11 +23,13 @@ export const useApplicationContext = () => {
 
 interface ApplicationContextProviderProps {
   application: Omit<PoolCandidate, "pool">;
+  followingPageUrl?: string;
   children: React.ReactNode;
 }
 
 const ApplicationContextProvider = ({
   application,
+  followingPageUrl,
   children,
 }: ApplicationContextProviderProps) => {
   const { setKey } = useTheme();
@@ -34,8 +37,9 @@ const ApplicationContextProvider = ({
     () => ({
       isIAP:
         application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap,
+      followingPageUrl,
     }),
-    [application],
+    [application, followingPageUrl],
   );
 
   React.useEffect(() => {

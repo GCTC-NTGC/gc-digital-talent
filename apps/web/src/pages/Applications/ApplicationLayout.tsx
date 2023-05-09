@@ -120,21 +120,14 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     }
   }, [currentPage, navigate, nextStepToSubmit]);
 
-  const applicationContext = React.useMemo(
-    () => ({
-      isIAP: publishingGroup === PublishingGroup.Iap,
-      followingPageUrl:
-        followingStep?.introductionPage?.link.url ??
-        followingStep?.mainPage.link.url,
-    }),
-    [
-      followingStep?.introductionPage?.link.url,
-      followingStep?.mainPage.link.url,
-    ],
-  );
-
   return (
-    <ApplicationContextProvider application={application}>
+    <ApplicationContextProvider
+      application={application}
+      followingPageUrl={
+        followingStep?.introductionPage?.link.url ??
+        followingStep?.mainPage.link.url
+      }
+    >
       <SEO title={intl.formatMessage(pageTitle, { poolName })} />
       <Hero
         title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
