@@ -186,7 +186,10 @@ export type ExperienceDetailsSubmissionData = {
   title?: string;
   type?: EducationType;
   skills?: {
-    sync: ({ id: string; details: Maybe<string> } | undefined)[] | undefined;
+    sync?: ({ id: string; details: Maybe<string> } | undefined)[] | undefined;
+    connect?:
+      | ({ id: string; details: Maybe<string> } | undefined)[]
+      | undefined;
   };
 };
 
