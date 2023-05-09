@@ -232,15 +232,6 @@ export const SingleSearchRequestTable = ({
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Number of skills matched",
-          id: "GnaY0Y",
-          description:
-            "Title displayed on the single search request table candidate skill count column",
-        }),
-        accessor: "skillCount",
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Group and Level",
           id: "MmFgbF",
           description:

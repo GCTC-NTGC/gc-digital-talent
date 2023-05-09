@@ -78,7 +78,6 @@ fragment poolCandidateTable on PoolCandidate {
     positionDuration
     priorityWeight
   }
-  skillCount
   cmoIdentifier
   expiryDate
   status
@@ -315,7 +314,11 @@ query GetPoolCandidatesPaginated(
     ]
   ) {
     data {
-      ...poolCandidateTable
+      id
+      poolCandidate {
+        ...poolCandidateTable
+      }
+      skillCount
     }
     paginatorInfo {
       count

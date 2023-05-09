@@ -1,7 +1,6 @@
 query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
   searchPoolCandidates(where: $poolCandidateFilter) {
     id
-    skillCount
     user {
       id
       email
