@@ -33,12 +33,15 @@ export default {
 } as ComponentMeta<typeof TeamTable>;
 
 const Template: ComponentStory<typeof TeamTable> = (args) => {
-  const { teams, myRolesAndTeams } = args;
-  return <TeamTable teams={teams} myRolesAndTeams={myRolesAndTeams} />;
+  const { teams, myRolesAndTeams, title } = args;
+  return (
+    <TeamTable teams={teams} myRolesAndTeams={myRolesAndTeams} title={title} />
+  );
 };
 
 export const Default = Template.bind({});
 Default.args = {
   teams: mockTeams,
   myRolesAndTeams: mockRolesAndTeams,
+  title: "Teams",
 };

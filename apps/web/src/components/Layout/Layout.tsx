@@ -9,7 +9,6 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -19,6 +18,7 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -45,12 +45,8 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { setTheme } = useTheme();
   const { applicantDashboard } = useFeatureFlags();
-
-  React.useEffect(() => {
-    setTheme("default", "light");
-  }, [setTheme]);
+  useLayoutTheme("default");
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();

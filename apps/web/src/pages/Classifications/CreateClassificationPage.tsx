@@ -16,6 +16,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -217,11 +218,7 @@ const CreateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Classifications",
-        id: "kyMlnN",
-        description: "Breadcrumb title for the classifications page link.",
-      }),
+      label: intl.formatMessage(adminMessages.classifications),
       url: routes.classificationTable(),
     },
     {

@@ -416,7 +416,8 @@ type Department {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
@@ -1015,6 +1016,7 @@ enum ProvinceOrTerritory {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS

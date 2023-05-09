@@ -1361,5 +1361,9 @@
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
+  },
+  "LWsmvv": {
+    "defaultMessage": "PAPA",
+    "description": "The publishing group called Indigenous Apprenticeship Program"
   }
 }
