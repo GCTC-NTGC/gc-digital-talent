@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class PoolCandidate
@@ -145,33 +143,6 @@ class PoolCandidate extends Model
         $collection = $collection->merge($this->educationRequirementWorkExperiences);
         return $collection;
     }
-
-    /**
-     * Number of skills the user has claimed that match
-     * the essential and nonessential skills for the pool
-     */
-    // public function getSkillCountAttribute()
-    // {
-    //     $this->load([
-    //         'pool.essentialSkills',
-    //         'pool.nonessentialSkills',
-    //         'user.awardExperiences.skills',
-    //         'user.communityExperiences.skills',
-    //         'user.educationExperiences.skills',
-    //         'user.personalExperiences.skills',
-    //         'user.workExperiences.skills',
-    //     ]);
-    //     $skillIds = collect();
-    //     $skillIds = $skillIds->merge($this->pool->essentialSkills->pluck('id'));
-    //     $skillIds = $skillIds->merge($this->pool->nonessentialSkills->pluck('id'));
-
-    //     $count = 0;
-    //     $skillCount = $this->user->experiences->whereHas('skills', function(Builder $query) use($skillIds) {
-    //         $query->whereIn('skill_id', $skillIds);
-    //     })->count();
-
-    //     return $skillCount;
-    // }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
     {
