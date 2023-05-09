@@ -113,17 +113,16 @@ const ThemeProvider = ({
   }, [key, mode, themeSelector]);
 
   React.useEffect(() => {
-    const isSet = key || (mode && mode !== "pref");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const isSetDark = localStorage.theme === "dark";
-    const isSetLight = localStorage.theme === "light";
-
-    const isDark =
-      (prefersDark && (!isSet || !isSetLight)) || (isSet && isSetDark);
-
     function testDark() {
+      const isSet = key || (mode && mode !== "pref");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const isSetDark = localStorage.theme === "dark";
+      const isSetLight = localStorage.theme === "light";
+
+      const isDark =
+        (prefersDark && (!isSet || !isSetLight)) || (isSet && isSetDark);
       if (isDark) {
         setTheme({
           key,
@@ -147,8 +146,15 @@ const ThemeProvider = ({
   }, [key, mode, setTheme]);
 
   React.useEffect(() => {
-    setTheme(getDefaultTheme(override));
-  }, [setTheme, override]);
+    if (
+      override?.key &&
+      override.key !== key &&
+      override?.mode &&
+      override.mode !== mode
+    ) {
+      setTheme(getDefaultTheme(override));
+    }
+  }, [setTheme, override, mode, key]);
 
   const state = React.useMemo(
     () => ({
