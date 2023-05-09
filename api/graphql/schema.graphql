@@ -471,7 +471,6 @@ type PoolCandidate {
     @belongsTo(relation: "pool")
     @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
-  skillCount: Int @rename(attribute: "skill_count")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -497,6 +496,12 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+}
+
+type PoolCandidateWithSkillCount {
+  id: ID! @self(key: "id")
+  poolCandidate: PoolCandidate! @self
+  skillCount: Int @rename(attribute: "skill_count")
 }
 
 enum LanguageAbility {
@@ -995,8 +1000,13 @@ type Query {
           }
         ]
       )
-  ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+  ): [PoolCandidateWithSkillCount]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["notDraft"]
+      model: "App\\Models\\PoolCandidate"
+    )
     @guard
     @can(ability: "view", resolved: true)
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.

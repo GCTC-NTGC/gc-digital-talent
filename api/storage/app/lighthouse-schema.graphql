@@ -871,7 +871,6 @@ type PoolCandidate {
   pool: Pool!
   poolAdvertisement: PoolAdvertisement
   user: Applicant!
-  skillCount: Int
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
@@ -916,15 +915,6 @@ input PoolCandidateFilterInput {
   pools: [IdInput]
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
-}
-
-"""A paginated list of PoolCandidate items."""
-type PoolCandidatePaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of PoolCandidate items."""
-  data: [PoolCandidate!]!
 }
 
 input PoolCandidateSearchInput {
@@ -976,6 +966,21 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+type PoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidate!
+  skillCount: Int
+}
+
+"""A paginated list of PoolCandidateWithSkillCount items."""
+type PoolCandidateWithSkillCountPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateWithSkillCount items."""
+  data: [PoolCandidateWithSkillCount!]!
 }
 
 enum PoolStream {
@@ -1079,7 +1084,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): PoolCandidatePaginator
+  ): PoolCandidateWithSkillCountPaginator
 }
 
 """Order by clause for Query.poolCandidatesPaginated.orderBy."""
