@@ -8171,7 +8171,7 @@
     "description": "Success message displayed after unlinking an experience to a skill"
   },
   "ODZmvO": {
-    "defaultMessage": "Choisissez un type d’expérience à ajouter",
+    "defaultMessage": "Sélectionnez une expérience",
     "description": "Label for the experience select input"
   },
   "OZe0NZ": {
