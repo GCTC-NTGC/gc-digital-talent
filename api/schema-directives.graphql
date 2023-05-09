@@ -53,6 +53,12 @@ directive @injectNow(
   name: String!
 ) repeatable on FIELD_DEFINITION
 
+# Directive class: App\GraphQL\Directives\LowerCaseDirective
+"""
+Shift an input string to lowercase
+"""
+directive @lowerCase on INPUT_FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\PluckDirective
 """
 Transforms an input field before resolving.
