@@ -146,6 +146,10 @@ const ThemeProvider = ({
     };
   }, [key, mode, setTheme]);
 
+  React.useEffect(() => {
+    setTheme(getDefaultTheme(override));
+  }, [setTheme, override]);
+
   const state = React.useMemo(
     () => ({
       mode,
