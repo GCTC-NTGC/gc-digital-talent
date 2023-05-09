@@ -38,6 +38,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -766,17 +767,13 @@ const ViewPoolPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     ...(poolId
