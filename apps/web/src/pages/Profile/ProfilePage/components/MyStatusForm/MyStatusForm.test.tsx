@@ -161,6 +161,6 @@ describe("MyStatusForm tests", () => {
         })
         .click();
     });
-    // expect(onClick).toHaveBeenCalledTimes(3);
+    expect(onClick).toHaveBeenCalledTimes(3);
   });
 });
