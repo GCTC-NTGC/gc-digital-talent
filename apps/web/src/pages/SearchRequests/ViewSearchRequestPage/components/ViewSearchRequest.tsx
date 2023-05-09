@@ -10,7 +10,6 @@ import {
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
@@ -38,15 +37,7 @@ const ManagerInfo = ({
     status,
     requestedDate,
     doneDate,
-    poolCandidateFilter,
-    applicantFilter,
   } = searchRequest;
-
-  const nonApplicableMessage = intl.formatMessage({
-    defaultMessage: "N/A",
-    id: "i9AjuX",
-    description: "Text shown when the filter was not selected",
-  });
 
   return (
     <>
@@ -128,28 +119,6 @@ const ManagerInfo = ({
                 data-h2-padding="base(0, x1, 0, 0)"
                 data-h2-height="base(100%)"
               >
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Pool Requested",
-                    id: "rz8uPO",
-                    description:
-                      "Title for the pool block in the manager info section of the single search request view.",
-                  })}
-                  content={
-                    applicantFilter
-                      ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitleHtml(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
-                        )
-                      : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitleHtml(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
-                        )
-                  }
-                />
-
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Status",

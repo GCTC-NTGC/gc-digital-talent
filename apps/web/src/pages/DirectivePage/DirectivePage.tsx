@@ -370,7 +370,7 @@ const DirectivePage = () => {
                   >
                     {guidanceLinks.map((guidanceLink) => (
                       <ExternalLink
-                        key={guidanceLink.href}
+                        key={guidanceLink.naturalKey ?? guidanceLink.href}
                         type="button"
                         color="primary"
                         {...guidanceLink}
