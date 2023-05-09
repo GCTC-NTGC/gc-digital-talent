@@ -24,7 +24,3 @@ A set of assumptions which, when tested, verify that the debt tests were properl
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}
