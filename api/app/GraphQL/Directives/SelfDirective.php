@@ -5,7 +5,6 @@ namespace App\GraphQL\Directives;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
-use Illuminate\Support\Facades\Log;
 
 final class SelfDirective extends BaseDirective implements FieldResolver
 {
