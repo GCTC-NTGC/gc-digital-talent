@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useId } from "react";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
@@ -54,7 +54,8 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
   const methods = useForm();
 
-  const inputId = "tableSearch";
+  const staticId = useId();
+  const inputId = `table-search-${staticId}`;
   const inputLabel = intl.formatMessage(
     {
       defaultMessage: "Search {title}",

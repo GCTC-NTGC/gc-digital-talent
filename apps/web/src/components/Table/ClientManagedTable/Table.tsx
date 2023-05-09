@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { ReactElement } from "react";
+import React, { ReactElement, useId } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
@@ -245,7 +245,8 @@ function Table<T extends Record<string, unknown>>({
     hiddenCols,
   ]);
 
-  const inputId = "tableSearch";
+  const staticId = useId();
+  const inputId = `table-search-${staticId}`;
   const inputLabel = intl.formatMessage(
     {
       defaultMessage: "Search {title}",
