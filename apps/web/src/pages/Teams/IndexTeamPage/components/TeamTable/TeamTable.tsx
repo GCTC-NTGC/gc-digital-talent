@@ -23,6 +23,7 @@ import { RoleAssignment } from "@gc-digital-talent/graphql";
 export interface TeamTableProps {
   teams: Array<Team>;
   myRolesAndTeams: Array<MyRoleTeam>;
+  title: string;
 }
 
 type TeamCell = Cell<Team>;
@@ -124,7 +125,11 @@ const myRolesCell = (
   return rolesPillsArray.length > 0 ? <span>{rolesPillsArray}</span> : null;
 };
 
-export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
+export const TeamTable = ({
+  teams,
+  myRolesAndTeams,
+  title,
+}: TeamTableProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
@@ -221,11 +226,12 @@ export const TeamTable = ({ teams, myRolesAndTeams }: TeamTableProps) => {
         }),
       }}
       initialSortBy={initialSortBy}
+      title={title}
     />
   );
 };
 
-const TeamTableApi = () => {
+const TeamTableApi = ({ title }: { title: string }) => {
   const [{ data: dataTeam, fetching: fetchingTeam, error: errorTeam }] =
     useListTeamsQuery();
   const [{ data: dataMe, fetching: fetchingMe, error: errorMe }] =
@@ -242,7 +248,11 @@ const TeamTableApi = () => {
 
   return (
     <Pending fetching={isFetching} error={errorTeam || errorMe}>
-      <TeamTable teams={teams || []} myRolesAndTeams={myRolesAndTeams} />
+      <TeamTable
+        teams={teams || []}
+        myRolesAndTeams={myRolesAndTeams}
+        title={title}
+      />
     </Pending>
   );
 };

@@ -292,11 +292,13 @@ const defaultState = {
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
+  title,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<
     Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
   >;
+  title: string;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -777,6 +779,7 @@ const PoolCandidatesTable = ({
         <Pending fetching={fetching} error={error} inline>
           <BasicTable
             labelledBy="pool-candidate-table-heading"
+            title={title}
             data={filteredData}
             columns={columns}
             onSortingRuleChange={handleSortingRuleChange}
