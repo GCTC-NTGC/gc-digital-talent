@@ -1004,7 +1004,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft"]
+      scopes: ["notDraft", "withSkillCount"]
       model: "App\\Models\\PoolCandidate"
     )
     @guard

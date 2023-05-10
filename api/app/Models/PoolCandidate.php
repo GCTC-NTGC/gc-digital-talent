@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 /**
@@ -599,6 +600,20 @@ class PoolCandidate extends Model
         $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
 
         $this->submitted_steps = $submittedSteps->values()->all();
+    }
+
+    public function scopeWithSkillCount(Builder $query)
+    {
+        // Checks if the query already has a skill_count select and if it does, it skips adding it again
+        $skillCountAppearances = substr_count($query->getQuery()->toSql(), 'skill_count');
+        if ($skillCountAppearances === 0 || $skillCountAppearances === 2) {
+            return $query;
+        }
+
+        return $query->addSelect([
+            "skill_count" =>  Skill::whereIn('skills.id', [])
+                ->select(DB::raw('null as skill_count'))
+        ]);
     }
 
     private function addSkillCountSelect(Builder $query, ?array $skills): Builder
