@@ -604,8 +604,10 @@ class PoolCandidate extends Model
     public function scopeWithSkillCount(Builder $query)
     {
         // Checks if the query already has a skill_count select and if it does, it skips adding it again
-        $skillCountAppearances = substr_count($query->getQuery()->toSql(), 'skill_count');
-        if ($skillCountAppearances === 0 || $skillCountAppearances === 2) {
+        $currentSql = $query->getQuery()->toSql();
+        $skillCountAppearances = substr_count($currentSql, 'skill_count');
+        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
+        if ($orderedBySkillCount && $skillCountAppearances === 2) {
             return $query;
         }
 
@@ -620,7 +622,7 @@ class PoolCandidate extends Model
         return $query->addSelect([
             'skill_count' => Skill::whereIn('skills.id', $skills)
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select(DB::raw('count(*) as skill_count'))
+                ->select(DB::raw('count(*) as skills'))
                 ->where(function (Builder $query) {
                     $query->orWhereHas('awardExperiences', function (Builder $query) {
                         $query->whereColumn('user_id', 'users.id');
