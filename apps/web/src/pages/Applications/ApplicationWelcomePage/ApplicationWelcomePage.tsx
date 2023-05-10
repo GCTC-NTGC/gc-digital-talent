@@ -13,6 +13,8 @@ import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import applicationWelcomeMessages from "./applicationWelcomeMessages";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -66,6 +68,9 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const pageInfo = getPageInfo({ intl, paths, application });
+  const welcomeMessages = applicationWelcomeMessages(
+    application.poolAdvertisement?.publishingGroup,
+  );
   const poolName = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
@@ -96,6 +101,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     return false;
   };
 
+  // const isPublishedByIAP = application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap;
   return (
     <>
       <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
@@ -113,13 +119,22 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         )}
       </p>
       <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "The GC Digital Talent platform is a skills-based hiring system. This means that your application will put a heavier focus on your skills and how you've used them in past experiences to help us get a stronger understanding of your fit.",
-          id: "u/DBSl",
-          description:
-            "Description of how the skills-based hiring platform assess candidates.",
-        })}
+        {intl.formatMessage(welcomeMessages.description)}
+        {/* {isPublishedByIAP
+          ? intl.formatMessage({
+              defaultMessage:
+                "The Program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
+              id: "eyI7JA",
+              description:
+                "Description of how the skills-based hiring platform assess candidates.",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "The GC Digital Talent platform is a skills-based hiring system. This means that your application will put a heavier focus on your skills and how you've used them in past experiences to help us get a stronger understanding of your fit.",
+              id: "u/DBSl",
+              description:
+                "Description of how the skills-based hiring platform assess candidates.",
+            })} */}
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
