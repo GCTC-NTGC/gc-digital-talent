@@ -499,7 +499,7 @@ type PoolCandidate {
 }
 
 type PoolCandidateWithSkillCount {
-  id: ID! @self(key: "id")
+  id: ID!
   poolCandidate: PoolCandidate! @self
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }

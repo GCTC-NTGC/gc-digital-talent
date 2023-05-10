@@ -22,12 +22,7 @@ type User {
     profile: Applicant @self
 }
 """
-directive @self(
-    """
-    The key to use from the parent.
-    """
-    key: String on FIELD_DEFINITION
-) on FIELD_DEFINITION
+directive @self on FIELD_DEFINITION
 GRAPHQL;
     }
 
@@ -43,10 +38,6 @@ GRAPHQL;
     public function resolveField(FieldValue $fieldValue)
     {
         $fieldValue->setResolver(function ($root, array $args) {
-            $key = $this->directiveArgValue('key');
-            if ($key) {
-                return $root->{$key};
-            }
             return $root;
         });
 
