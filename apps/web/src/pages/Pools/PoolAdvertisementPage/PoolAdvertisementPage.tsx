@@ -120,17 +120,16 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
+  const canApply = !!(
+    poolAdvertisement?.advertisementStatus === AdvertisementStatus.Published
+  );
+
   const applyBtn = (
     <ApplicationLink
       poolId={poolAdvertisement.id}
       applicationId={applicationId}
       hasApplied={hasApplied}
-      canApply={
-        !!(
-          poolAdvertisement?.advertisementStatus ===
-          AdvertisementStatus.Published
-        )
-      }
+      canApply={canApply}
     />
   );
 
@@ -258,9 +257,11 @@ export const PoolAdvertisementPoster = ({
             <TableOfContents.AnchorLink id={sections.hiringPolicies.id}>
               {sections.hiringPolicies.title}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.apply.id}>
-              {sections.apply.title}
-            </TableOfContents.AnchorLink>
+            {canApply && (
+              <TableOfContents.AnchorLink id={sections.apply.id}>
+                {sections.apply.title}
+              </TableOfContents.AnchorLink>
+            )}
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.summary.id}>
@@ -680,24 +681,26 @@ export const PoolAdvertisementPoster = ({
                 })}
               </Text>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections.apply.id}>
-              <TableOfContents.Heading>
-                {sections.apply.title}
-              </TableOfContents.Heading>
-              <Text>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we'd love to hear from you! This platform allows you to submit an application using the existing information in your profile and you'll be able to update that information in the next step.",
-                    id: "Io6+0T",
-                    description:
-                      "Lead-in text to the apply call to action at the end of a pool advertisement",
-                  },
-                  { title: fullTitle },
-                )}
-              </Text>
-              {applyBtn}
-            </TableOfContents.Section>
+            {canApply && (
+              <TableOfContents.Section id={sections.apply.id}>
+                <TableOfContents.Heading>
+                  {sections.apply.title}
+                </TableOfContents.Heading>
+                <Text>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we'd love to hear from you! This platform allows you to submit an application using the existing information in your profile and you'll be able to update that information in the next step.",
+                      id: "Io6+0T",
+                      description:
+                        "Lead-in text to the apply call to action at the end of a pool advertisement",
+                    },
+                    { title: fullTitle },
+                  )}
+                </Text>
+                {applyBtn}
+              </TableOfContents.Section>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
