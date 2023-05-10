@@ -542,10 +542,6 @@
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Main heading displayed at the top of request page."
   },
-  "OezjH3": {
-    "defaultMessage": "Recherche",
-    "description": "Label displayed on the Search menu item."
-  },
   "OjhS6t": {
     "defaultMessage": "Nom complet...",
     "description": "Placeholder for full name input in the request form."
@@ -8087,5 +8083,9 @@
   "pHTwBd": {
     "defaultMessage": "Maintenant, relions vos expériences aux compétences qui sont critiques pour ce rôle. Il s’agit de l’étape la plus importante du processus de dotation. Tout comme dans le cas de l’expérience minimum et l’étape ayant trait à la scolarité, si vous avez besoin d’ajouter quoi que ce soit ou de modifier une expérience dans votre CV, vous pouvez le faire en retournant à <resumeLink>l’étape du CV </resumeLink> de la demande.",
     "description": "Lead in paragraph for adding experiences to a users skills"
+  },
+  "NohOkF": {
+    "defaultMessage": "Trouvez des talents",
+    "description": "Label displayed on the Find talent menu item."
   }
 }
