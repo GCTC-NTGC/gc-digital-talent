@@ -1,4 +1,4 @@
-import { Client, getOperationName, Provider as GraphqlProvider } from "urql";
+import { Client, Provider as GraphqlProvider } from "urql";
 import { fromValue, pipe, delay } from "wonka";
 import { useParameter } from "@storybook/addons";
 import { StoryContext, StoryFn } from "@storybook/react";
@@ -45,7 +45,13 @@ export default function MockGraphqlDecorator(
   const mockClient = {
     // Allow custom responses to GraphQL queries.
     executeQuery: ({ query }) => {
-      const operationName = getOperationName(query);
+      let operationName: string | undefined;
+      for (const node of query.definitions) {
+        if (node.kind === "OperationDefinition") {
+          operationName = node.name ? node.name.value : undefined;
+          break;
+        }
+      }
       const response = operationName && responseData[operationName];
       const mergedConfig = merge(defaultConfig, config);
 
