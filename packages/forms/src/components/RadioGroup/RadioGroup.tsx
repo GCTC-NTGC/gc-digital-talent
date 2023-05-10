@@ -6,7 +6,11 @@ import useFieldState from "../../hooks/useFieldState";
 import Fieldset from "../Fieldset";
 import InputWrapper from "../InputWrapper";
 
-export type Radio = { value: string | number; label: string | React.ReactNode };
+export type Radio = {
+  value: string | number;
+  label: string | React.ReactNode;
+  contentBelow?: React.ReactNode;
+};
 
 export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
@@ -90,7 +94,7 @@ const RadioGroup = ({
       {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
-        {items.map(({ value, label }) => {
+        {items.map(({ value, label, contentBelow }) => {
           const id = `${idPrefix}-${value}`;
           return (
             <div {...columnValue} key={id}>
@@ -115,6 +119,7 @@ const RadioGroup = ({
                   defaultChecked={defaultSelected === value}
                 />
               </InputWrapper>
+              {contentBelow && contentBelow}
             </div>
           );
         })}
