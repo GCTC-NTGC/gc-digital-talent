@@ -2,6 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import {
   ThrowNotFound,
@@ -22,6 +27,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
 
 import {
   AdvertisementStatus,
@@ -42,12 +51,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
-import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import ClassificationDefinition from "./components/ClassificationDefinition";
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
@@ -575,6 +578,57 @@ export const PoolAdvertisementPoster = ({
               <TableOfContents.Heading>
                 {sections.locationLangSecurity.title}
               </TableOfContents.Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "These opportunities have the following requirements:",
+                  id: "t9Zy30",
+                  description:
+                    "Lead-in text for other requirements on a pool advertisement",
+                })}
+              </Text>
+              <DataRow
+                Icon={MapPinIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Location:",
+                  id: "H7M6Yv",
+                  description:
+                    "Label for pool advertisement location requirement",
+                })}
+                value={
+                  poolAdvertisement.isRemote
+                    ? intl.formatMessage({
+                        defaultMessage: "Remove optional",
+                        id: "14pmF7",
+                        description:
+                          "Location requirement when a pool advertisement is remote",
+                      })
+                    : getLocalizedName(
+                        poolAdvertisement.advertisementLocation,
+                        intl,
+                      )
+                }
+              />
+              <DataRow
+                Icon={ChatBubbleLeftRightIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Language:",
+                  id: "6eA/CF",
+                  description:
+                    "Label for pool advertisement language requirement",
+                })}
+                value={languageRequirement}
+              />
+              <DataRow
+                Icon={LockClosedIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Security clearance:",
+                  id: "mmCU6z",
+                  description:
+                    "Label for pool advertisement security clearance requirement",
+                })}
+                value={securityClearance}
+              />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.contact.id}>
               <TableOfContents.Heading>
