@@ -41,8 +41,8 @@ export const employmentEquityGroups = defineMessages({
     description: "Group for when someone indicates they are a woman",
   },
   indigenous: {
-    defaultMessage: "Indigenous Identity",
-    id: "mFKg18",
+    defaultMessage: "Indigenous identity",
+    id: "ghhKNZ",
     description: "Group for when someone indicates they are indigenous",
   },
   minority: {

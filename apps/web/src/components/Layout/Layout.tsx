@@ -61,9 +61,9 @@ const Layout = () => {
     </MenuLink>,
     <MenuLink key="search" to={paths.search()}>
       {intl.formatMessage({
-        defaultMessage: "Search",
-        id: "OezjH3",
-        description: "Label displayed on the Search menu item.",
+        defaultMessage: "Find talent",
+        id: "NohOkF",
+        description: "Label displayed on the Find talent menu item.",
       })}
     </MenuLink>,
     <MenuLink key="browseJobs" to={paths.browsePools()}>
