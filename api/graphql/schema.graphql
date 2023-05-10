@@ -1008,7 +1008,7 @@ type Query {
       model: "App\\Models\\PoolCandidate"
     )
     @guard
-    @can(ability: "view", resolved: true)
+    @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
     @deprecated(reason: "Replaced by countApplicants")
