@@ -10,6 +10,7 @@ import {
   ExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   AwardExperience,
   CommunityExperience,
@@ -502,4 +503,58 @@ export const queryResultToDefaultValues = (
     details: experience.details || "",
     ...unsharedValues,
   };
+};
+
+/**
+ * Get the name of any experience type
+ *
+ * @param AnyExperience experience
+ * @return string|React.ReactNode
+ */
+export const getExperienceName = (
+  experience: AnyExperience,
+  intl: IntlShape,
+) => {
+  if (isAwardExperience(experience) || isPersonalExperience(experience)) {
+    return experience.title;
+  }
+
+  if (isCommunityExperience(experience)) {
+    const { title, organization } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{title} with {organization}",
+        id: "VAcukn",
+        description: "Title with organization",
+      },
+      { title, organization },
+    );
+  }
+
+  if (isEducationExperience(experience)) {
+    const { areaOfStudy, institution } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{areaOfStudy} at {institution}",
+        id: "UrsGGK",
+        description: "Study at institution",
+      },
+      { areaOfStudy, institution },
+    );
+  }
+
+  if (isWorkExperience(experience)) {
+    const { role, organization } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{role} at {organization}",
+        id: "wTAdQe",
+        description: "Role at organization",
+      },
+      { role, organization },
+    );
+  }
+
+  // We should never get here but just in case we do, return no provided
+  return intl.formatMessage(commonMessages.notProvided);
 };
