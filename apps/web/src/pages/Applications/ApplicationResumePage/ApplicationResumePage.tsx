@@ -26,6 +26,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { resumeIsIncomplete } from "~/validators/profile";
 import { ExperienceType } from "~/types/experience";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -458,11 +459,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 setValue("experienceCount", experiences.length);
               }}
             >
-              {intl.formatMessage({
-                defaultMessage: "Save and quit for now",
-                id: "U86N4g",
-                description: "Action button to save and exit an application",
-              })}
+              {intl.formatMessage(applicationMessages.saveQuit)}
             </Button>
           </div>
         </form>

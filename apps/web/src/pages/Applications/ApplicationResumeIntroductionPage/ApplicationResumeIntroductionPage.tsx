@@ -4,6 +4,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import applicationMessages from "~/messages/applicationMessages";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
@@ -114,11 +115,7 @@ const ApplicationResumeIntroduction = ({
           color="secondary"
           href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
+          {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
       </div>
     </>

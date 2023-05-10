@@ -2,6 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
+import applicationMessages from "~/messages/applicationMessages";
+
 import { Button, Separator } from "@gc-digital-talent/ui";
 
 const FormActions = () => {
@@ -46,11 +48,7 @@ const FormActions = () => {
           {...actionProps}
           onClick={() => setValue("action", "cancel")}
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
+          {intl.formatMessage(applicationMessages.saveQuit)}
         </Button>
       </div>
     </>
