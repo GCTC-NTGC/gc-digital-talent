@@ -31,6 +31,7 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
+import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -163,7 +164,9 @@ const ApplicationLayout = () => {
   return (
     <Pending fetching={fetching || stale} error={error}>
       {application?.poolAdvertisement ? (
-        <ApplicationPageWrapper application={application} />
+        <ApplicationContextProvider application={application}>
+          <ApplicationPageWrapper application={application} />
+        </ApplicationContextProvider>
       ) : (
         <ThrowNotFound />
       )}

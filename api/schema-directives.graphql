@@ -72,6 +72,16 @@ directive @pluck(
     key: String!
 ) on INPUT_FIELD_DEFINITION
 
+# Directive class: App\GraphQL\Directives\SelfDirective
+"""
+The field will be resolved to the same value as its parent.
+For example, useful in the following situation:
+type User {
+    profile: Applicant @self
+}
+"""
+directive @self on FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Testing\MockDirective
 """
 Allows you to easily hook up a resolver for an endpoint.
@@ -1313,26 +1323,6 @@ directive @in(
   """
   key: String
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Schema\Directives\InjectDirective
-"""
-Inject a value from the context object into the arguments.
-"""
-directive @inject(
-  """
-  A path to the property of the context that will be injected.
-  If the value is nested within the context, you may use dot notation
-  to get it, e.g. "user.id".
-  """
-  context: String!
-
-  """
-  The target name of the argument into which the value is injected.
-  You can use dot notation to set the value at arbitrary depth
-  within the incoming argument.
-  """
-  name: String!
-) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\InterfaceDirective
 """

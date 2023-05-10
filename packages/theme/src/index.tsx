@@ -1,6 +1,12 @@
 import ThemeProvider from "./components/ThemeProvider";
 import useTheme from "./hooks/useTheme";
-import type { ThemeMode, SetModeFunc } from "./types";
+import type {
+  ThemeMode,
+  SetThemeModeFunc,
+  ThemeKey,
+  SetThemeKeyFunc,
+  Theme,
+} from "./types";
 
 export { ThemeProvider, useTheme };
-export type { ThemeMode, SetModeFunc };
+export type { Theme, ThemeMode, SetThemeModeFunc, ThemeKey, SetThemeKeyFunc };

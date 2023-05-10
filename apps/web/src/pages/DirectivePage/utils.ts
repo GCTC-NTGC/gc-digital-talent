@@ -37,6 +37,7 @@ export const getFormLinks = ({
       "data-h2-padding": "base(x.5, x1)",
       download: true,
       external: true,
+      naturalKey: `${formName}EN${files.en}`,
     },
     {
       label: intl.formatMessage(
@@ -52,6 +53,7 @@ export const getFormLinks = ({
       "data-h2-padding": "base(x.5, x1)",
       download: true,
       external: true,
+      naturalKey: `${formName}FR${files.fr}`,
     },
   ];
 
@@ -67,6 +69,9 @@ interface GetGenericLinksArgs {
   intl: IntlShape;
 }
 
+// add a natural key since mocked files do not have unique hrefs
+type GenericLinkType = ExternalLinkProps & { naturalKey?: string };
+
 /**
  * Gets English and French link props and reverses
  * them so the active language is the first item
@@ -79,13 +84,14 @@ export const getGenericLinks = ({
   files,
   intl,
 }: GetGenericLinksArgs) => {
-  const links: Array<ExternalLinkProps> = [
+  const links: Array<GenericLinkType> = [
     {
       children: labels.en,
       href: files.en,
       mode: intl.locale === "en" ? "solid" : "inline",
       "data-h2-padding": "base(x.5, x1)",
       download: true,
+      naturalKey: `${labels.en}${files.en}`,
     },
     {
       children: labels.fr,
@@ -93,6 +99,7 @@ export const getGenericLinks = ({
       mode: intl.locale === "en" ? "inline" : "solid",
       "data-h2-padding": "base(x.5, x1)",
       download: true,
+      naturalKey: `${labels.fr}${files.fr}`,
     },
   ];
 

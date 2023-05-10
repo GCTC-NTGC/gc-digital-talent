@@ -625,7 +625,7 @@
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
   },
-  "mFKg18": {
+  "ghhKNZ": {
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
@@ -1361,5 +1361,9 @@
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
+  },
+  "LWsmvv": {
+    "defaultMessage": "PAPA",
+    "description": "The publishing group called Indigenous Apprenticeship Program"
   }
 }

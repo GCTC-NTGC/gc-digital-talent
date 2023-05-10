@@ -444,8 +444,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Categories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminology.)",
-              id: "Za/qCZ",
+                "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",
+              id: "dlRmxI",
               description:
                 "Message describing the employment equity filter in the search form.",
             })}

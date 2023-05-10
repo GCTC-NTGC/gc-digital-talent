@@ -3,9 +3,9 @@ import { Color } from "./types";
 export const stylesMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
-      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](primary) base:hover:children[div:first-child](primary.lightest)",
+      "base:children[>div:not(:first-child)](foreground) base:focus-visible:children[>div:not(:first-child)](focus) base:children[div:first-child](primary.light) base:hover:children[div:first-child](primary.lightest)",
     "data-h2-border":
-      "base:children[div:first-child](3px solid primary) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
+      "base:children[div:first-child](3px solid primary.light) base:children[div:not(:first-child)](3px solid foreground) base:focus-visible:children[div:not(:first-child)](3px solid focus)",
     "data-h2-color":
       "base(black) base:children[>div:first-child]:admin(white) base:children[>div:first-child]:admin:hover(black)",
   },
