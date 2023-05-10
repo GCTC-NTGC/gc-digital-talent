@@ -1,8 +1,7 @@
 import { Maybe, PublishingGroup } from "@gc-digital-talent/graphql";
 import { defineMessages } from "react-intl";
 
-/* TODO: This method forces the object key names to match.
-This process only works if all the publishing groups have a similar structure. */
+//TODO: This process only works if all the publishing groups messages have the same key names.
 const applicationWelcomeMessages = (
   publishingGroup: Maybe<PublishingGroup>,
 ) => {

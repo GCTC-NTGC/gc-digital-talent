@@ -120,6 +120,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(welcomeMessages.description)}
+        {/* Method 2 below: */}
         {/* {isPublishedByIAP
           ? intl.formatMessage({
               defaultMessage:
