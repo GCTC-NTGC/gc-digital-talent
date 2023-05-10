@@ -1033,7 +1033,7 @@ type Query {
   pool(id: UUID!): Pool
   poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
-  publishedPoolAdvertisements(closingDate: DateTime): [PoolAdvertisement!]!
+  publishedPoolAdvertisements(closingAfter: DateTime): [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate

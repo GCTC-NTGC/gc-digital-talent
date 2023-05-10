@@ -328,7 +328,7 @@ const BrowsePoolsApi = () => {
   const formattedNowUTCRef = useRef(format(nowUTC, DATETIME_FORMAT_STRING)); // prevent infinite re-render
 
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
-    variables: { closingDate: formattedNowUTCRef.current }, // pass current dateTime into query argument
+    variables: { closingAfter: formattedNowUTCRef.current }, // pass current dateTime into query argument
   });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(

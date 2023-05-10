@@ -259,7 +259,7 @@ class PoolTest extends TestCase
                 /** @lang GraphQL */
                 '
         query browsePools ($date: DateTime) {
-            publishedPoolAdvertisements(closingDate: $date) {
+            publishedPoolAdvertisements(closingAfter: $date) {
                 id
             }
         }

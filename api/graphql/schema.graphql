@@ -961,7 +961,7 @@ type Query {
     @all(model: "Pool")
     @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements(
-    closingDate: DateTime @where(key: "closing_date", operator: ">")
+    closingAfter: DateTime @where(key: "closing_date", operator: ">")
   ): [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
