@@ -178,14 +178,16 @@ export const TeamRoleTable = ({
     });
   }, [user.roleAssignments]);
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Team based roles",
+    id: "eZHoNJ",
+    description: "Heading for updating a users team roles",
+  });
+
   return (
     <>
       <Heading level="h3" size="h4">
-        {intl.formatMessage({
-          defaultMessage: "Team based roles",
-          id: "eZHoNJ",
-          description: "Heading for updating a users team roles",
-        })}
+        {pageTitle}
       </Heading>
       <Table
         data={data}
@@ -197,6 +199,7 @@ export const TeamRoleTable = ({
             onAddRoles={handleEditRoles}
           />
         }
+        title={pageTitle}
       />
     </>
   );

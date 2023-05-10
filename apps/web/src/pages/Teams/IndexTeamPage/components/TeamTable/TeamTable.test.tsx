@@ -96,6 +96,7 @@ describe("TeamTable", () => {
     renderTeamsTable({
       teams: mockTeams,
       myRolesAndTeams: transformedRoleAssignment,
+      title: "Teams",
     });
 
     // find an expected team name in the table

@@ -20,6 +20,7 @@ import {
   useUpdateDepartmentMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -169,11 +170,7 @@ const UpdateDepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Departments",
-        id: "Ig9HmP",
-        description: "Breadcrumb title for the departments page link.",
-      }),
+      label: intl.formatMessage(adminMessages.departments),
       url: routes.departmentTable(),
     },
     ...(departmentId

@@ -83,14 +83,16 @@ export const IndividualRoleTable = ({
     return onUpdateUser(user.id, values);
   };
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Individual roles",
+    id: "Yg2TIH",
+    description: "Heading for updating a users individual roles",
+  });
+
   return (
     <>
       <Heading level="h3" size="h4">
-        {intl.formatMessage({
-          defaultMessage: "Individual roles",
-          id: "Yg2TIH",
-          description: "Heading for updating a users individual roles",
-        })}
+        {pageTitle}
       </Heading>
       <Table
         data={data}
@@ -102,6 +104,7 @@ export const IndividualRoleTable = ({
             onAddRoles={handleAddRoles}
           />
         }
+        title={pageTitle}
       />
     </>
   );

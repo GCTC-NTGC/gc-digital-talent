@@ -7,33 +7,26 @@ import PageHeader from "~/components/PageHeader";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import UserTable from "./components/UserTable";
 
 export const IndexUserPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Users",
-    id: "Kr9mHX",
-    description: "Page title for the user index page",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.users);
 
   const navigationCrumbs = [
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "Y7eGtg",
-        description: "Breadcrumb title for the users page link.",
-      }),
+      label: intl.formatMessage(adminMessages.users),
       url: routes.userTable(),
     },
   ];
@@ -51,7 +44,7 @@ export const IndexUserPage = () => {
             "Descriptive text about the list of users in the admin portal.",
         })}
       </p>
-      <UserTable />
+      <UserTable title={pageTitle} />
     </AdminContentWrapper>
   );
 };

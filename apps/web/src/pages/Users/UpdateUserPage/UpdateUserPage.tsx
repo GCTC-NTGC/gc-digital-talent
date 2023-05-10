@@ -39,6 +39,7 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
 import { TeamRoleTable } from "./components/TeamRoleTable";
 
@@ -340,17 +341,13 @@ const UpdateUserPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "Y7eGtg",
-        description: "Breadcrumb title for the users page link.",
-      }),
+      label: intl.formatMessage(adminMessages.users),
       url: routes.userTable(),
     },
     ...(userId

@@ -25,10 +25,12 @@ type ClassificationCell = Cell<Classification>;
 
 interface ClassificationTableProps {
   classifications: GetClassificationsQuery["classifications"];
+  title: string;
 }
 
 export const ClassificationTable = ({
   classifications,
+  title,
 }: ClassificationTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -128,6 +130,7 @@ export const ClassificationTable = ({
             "Heading displayed above the Create Classification form.",
         }),
       }}
+      title={title}
     />
   );
 };
@@ -137,7 +140,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const ClassificationTableApi = () => {
+const ClassificationTableApi = ({ title }: { title: string }) => {
   const [result] = useGetClassificationsQuery({
     context,
   });
@@ -145,7 +148,10 @@ const ClassificationTableApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <ClassificationTable classifications={data?.classifications ?? []} />
+      <ClassificationTable
+        classifications={data?.classifications ?? []}
+        title={title}
+      />
     </Pending>
   );
 };
