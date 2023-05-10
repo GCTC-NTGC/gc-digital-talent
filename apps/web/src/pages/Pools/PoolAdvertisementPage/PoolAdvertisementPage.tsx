@@ -42,6 +42,7 @@ import LightSeparator from "./components/LightSeparator";
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
 import EducationRequirements from "./components/EducationRequirements";
+import SkillAccordion from "./components/SkillAccordion";
 
 type SectionContent = {
   id: string;
@@ -389,6 +390,114 @@ export const PoolAdvertisementPoster = ({
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
               </Text>
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Required technical skills",
+                  id: "9V8bnL",
+                  description:
+                    "Title for required technical skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The following skills are required for this role, but aren't required as a part of your application.",
+                  id: "SiQPEi",
+                  description:
+                    "Descriptive text about how required technical skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={essentialSkills.TECHNICAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No required technical skills are being considered for this role.",
+                  id: "AFuhfl",
+                  description:
+                    "Message displayed when a pool advertisement has no required technical skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Optional technical skills",
+                  id: "CzrCfC",
+                  description:
+                    "Title for optional technical skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
+                  id: "ry5NUs",
+                  description:
+                    "Descriptive text about how optional technical skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={nonEssentialSkills.TECHNICAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No optional technical skills are being considered for this role.",
+                  id: "8XIYUA",
+                  description:
+                    "Message displayed when a pool advertisement has no optional technical skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Required behavioural skills",
+                  id: "t9HxQm",
+                  description:
+                    "Title for required behavioural skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The following skills are required for this role, but aren't required as a part of your application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
+                  id: "v8LEMv",
+                  description:
+                    "Descriptive text about how required behavioural skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={essentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No required behavioural skills are being considered for this role.",
+                  id: "E+AYNX",
+                  description:
+                    "Message displayed when a pool advertisement has no required behavioural skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Optional behavioural skills",
+                  id: "LeVJmQ",
+                  description:
+                    "Title for optional behavioural skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
+                  id: "iXdeVu",
+                  description:
+                    "Descriptive text about how optional behavioural skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={nonEssentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No optional behavioural skills are being considered for this role.",
+                  id: "KRkZS6",
+                  description:
+                    "Message displayed when a pool advertisement has no optional behavioural skills",
+                })}
+              />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.locationLangSecurity.id}>
               <TableOfContents.Heading>
