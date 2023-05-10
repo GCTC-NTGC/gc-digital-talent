@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 
 import {
   ThrowNotFound,
@@ -8,12 +9,16 @@ import {
   Accordion,
   TableOfContents,
   Heading,
+  Pill,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,
   getSecurityClearance,
+  localizeSalaryRange,
+  commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -37,12 +42,18 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
+import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import ClassificationDefinition from "./components/ClassificationDefinition";
-import LightSeparator from "./components/LightSeparator";
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
 import EducationRequirements from "./components/EducationRequirements";
 import SkillAccordion from "./components/SkillAccordion";
+import DataRow from "./components/DataRow";
 
 type SectionContent = {
   id: string;
@@ -68,6 +79,7 @@ export const PoolAdvertisementPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]
@@ -323,7 +335,67 @@ export const PoolAdvertisementPoster = ({
                   </Accordion.Item>
                 )}
               </Accordion.Root>
-              <LightSeparator />
+              <div data-h2-margin-bottom="base(x3)">
+                <DataRow
+                  Icon={CurrencyDollarIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Salary range:",
+                    id: "ls7b2p",
+                    description: "Label for pool advertisement salary range",
+                  })}
+                  value={
+                    localizeSalaryRange(
+                      classification?.minSalary,
+                      classification?.maxSalary,
+                      locale,
+                    ) || notAvailable
+                  }
+                />
+                <DataRow
+                  Icon={CalendarDaysIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Apply before:",
+                    id: "NSois3",
+                    description: "Label for pool advertisement closing date",
+                  })}
+                  value={
+                    poolAdvertisement.closingDate
+                      ? relativeClosingDate({
+                          closingDate: parseDateTimeUtc(
+                            poolAdvertisement.closingDate,
+                          ),
+                          intl,
+                        })
+                      : notAvailable
+                  }
+                />
+                <DataRow
+                  Icon={BoltIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Required skills:",
+                    id: "iSaTbE",
+                    description:
+                      "Label for pool advertisement's required skills",
+                  })}
+                  value={
+                    poolAdvertisement?.essentialSkills?.length ? (
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-gap="base(x.15)"
+                        data-h2-flex-wrap="base(wrap)"
+                      >
+                        {poolAdvertisement.essentialSkills.map((skill) => (
+                          <Pill color="secondary" mode="outline" key={skill.id}>
+                            {getLocalizedName(skill.name, intl)}
+                          </Pill>
+                        ))}
+                      </div>
+                    ) : (
+                      notAvailable
+                    )
+                  }
+                />
+              </div>
             </TableOfContents.Section>
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
