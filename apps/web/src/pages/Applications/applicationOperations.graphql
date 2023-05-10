@@ -170,6 +170,7 @@ query GetApplication($id: UUID!) {
       }
       stream
       closingDate
+      publishingGroup
       advertisementLanguage
       classifications {
         id

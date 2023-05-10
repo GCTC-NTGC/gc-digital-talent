@@ -436,6 +436,7 @@ enum PoolAdvertisementLanguage {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS
@@ -1410,7 +1411,8 @@ input PoolBelongsToMany {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
@@ -1585,6 +1587,7 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
 
