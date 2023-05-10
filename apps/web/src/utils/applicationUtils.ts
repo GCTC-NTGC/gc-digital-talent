@@ -34,6 +34,7 @@ export const getApplicationSteps = ({
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   const pages = new Array<ApplicationStepInfo>();
   pages.push(welcomeStepInfo({ paths, intl, application }));
+  // TODO: IAP self declaration optionally here
   pages.push(profileStepInfo({ paths, intl, application }));
   pages.push(resumeStepInfo({ paths, intl, application }));
   pages.push(educationStepInfo({ paths, intl, application }));
@@ -82,6 +83,7 @@ export function isOnDisabledPage(
   steps: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
 ): boolean {
+  // where are we right now?
   const currentStep = steps.find(
     (step) =>
       step.mainPage.link.url === currentPageUrl ||
@@ -91,8 +93,17 @@ export function isOnDisabledPage(
       ),
   );
 
+  // figure out the application step enum values for this flow (may or may not include conditional steps)
+  const stepsInThisFlow = steps.map((step) => step.applicationStep);
+
+  // what are the prerequisites included in this set of steps?
+  const prerequisitesFromThisFlow = currentStep?.prerequisites.filter(
+    (preReqStep) => stepsInThisFlow.includes(preReqStep),
+  );
+
+  // what prerequisites from this flow are missing?
   const pageMissingPrerequisites = missingPrerequisites(
-    currentStep?.prerequisites,
+    prerequisitesFromThisFlow,
     submittedSteps,
   );
 

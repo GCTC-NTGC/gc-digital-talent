@@ -126,7 +126,7 @@ export const ApplicationProfile = ({
         user={user}
         isValid={
           (application?.poolAdvertisement &&
-            stepHasError(user as Applicant, application?.poolAdvertisement)) ??
+            !stepHasError(user as Applicant, application.poolAdvertisement)) ??
           false
         }
       />
