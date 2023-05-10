@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -11,6 +11,7 @@ import {
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -30,8 +31,6 @@ import flourishBottomLight from "~/assets/img/browse_bottom_light.png";
 import flourishTopDark from "~/assets/img/browse_top_dark.png";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
 
-import { DATETIME_FORMAT_STRING } from "@gc-digital-talent/date-helpers";
-import format from "date-fns/format";
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
@@ -320,15 +319,11 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   );
 };
 
-const BrowsePoolsApi = () => {
-  // get UTC time, in the appropriate format, from client
-  // https://stackoverflow.com/a/11964609
-  const now = new Date();
-  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-  const formattedNowUTCRef = useRef(format(nowUTC, DATETIME_FORMAT_STRING)); // prevent infinite re-render
+const now = nowUTCDateTime();
 
+const BrowsePoolsApi = () => {
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
-    variables: { closingAfter: formattedNowUTCRef.current }, // pass current dateTime into query argument
+    variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
