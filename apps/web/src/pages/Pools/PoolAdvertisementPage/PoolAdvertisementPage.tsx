@@ -288,30 +288,32 @@ export const PoolAdvertisementPoster = ({
                     })}
                   </StandardAccordionHeader>
                   <Accordion.Content>
-                    <Text>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                        id: "kH4Jsf",
-                        description:
-                          "Description of pool recruitment, paragraph one",
-                      })}
-                    </Text>
-                    <Text>
-                      {intl.formatMessage(
-                        {
+                    <div data-h2-margin-top="base(x1)">
+                      <Text>
+                        {intl.formatMessage({
                           defaultMessage:
-                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                          id: "LlgRM8",
+                            "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                          id: "kH4Jsf",
                           description:
-                            "Description of pool recruitment, paragraph two",
-                        },
-                        {
-                          abbreviation: (text: React.ReactNode) =>
-                            wrapAbbr(text, intl),
-                        },
-                      )}
-                    </Text>
+                            "Description of pool recruitment, paragraph one",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                            id: "LlgRM8",
+                            description:
+                              "Description of pool recruitment, paragraph two",
+                          },
+                          {
+                            abbreviation: (text: React.ReactNode) =>
+                              wrapAbbr(text, intl),
+                          },
+                        )}
+                      </Text>
+                    </div>
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericTitle?.key && (
@@ -334,7 +336,9 @@ export const PoolAdvertisementPoster = ({
                       )}
                     </StandardAccordionHeader>
                     <Accordion.Content>
-                      <ClassificationDefinition name={genericTitle.key} />
+                      <div data-h2-margin-top="base(x1)">
+                        <ClassificationDefinition name={genericTitle.key} />
+                      </div>
                     </Accordion.Content>
                   </Accordion.Item>
                 )}
