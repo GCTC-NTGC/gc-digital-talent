@@ -15,6 +15,7 @@ class PoolTest extends TestCase
     use RefreshesSchemaCache;
 
     protected $adminUser;
+    protected $guestUser;
     protected $baseUser;
 
     protected function setUp(): void
@@ -34,10 +35,11 @@ class PoolTest extends TestCase
             "platform_admin"
         ]);
 
+        $this->guestUser = User::factory()->create();
+        $this->guestUser->syncRoles(["guest"]);
+
         $this->baseUser = User::factory()->create();
-        $this->baseUser->syncRoles([
-            "base_user",
-        ]);
+        $this->baseUser->syncRoles(["base_user"]);
     }
 
     public function testPoolAdvertisementAccessor(): void
@@ -235,15 +237,9 @@ class PoolTest extends TestCase
                 id
             }
         }
-        ')->assertJson([
-            "data" => [
-                "pools" => [
-                    [
-                        "id" => $publishedPool->id,
-                    ],
-                ]
-            ]
-        ]);
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
     }
 
     public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
@@ -265,15 +261,9 @@ class PoolTest extends TestCase
                 id
             }
         }
-        ')->assertJson([
-            "data" => [
-                "pools" => [
-                    [
-                        "id" => $publishedPool->id,
-                    ],
-                ]
-            ]
-        ]);
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
     }
 
     public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
@@ -286,10 +276,8 @@ class PoolTest extends TestCase
             'published_at' => null,
         ]);
 
-        $guestUser = User::factory()->create();
-        $guestUser->syncRoles(["guest"]);
         // Assert query will return only the published pool as guest role user
-        $this->actingAs($guestUser, "api")->graphQL(
+        $this->actingAs($this->guestUser, "api")->graphQL(
         /** @lang GraphQL */
         '
         query browsePools {
@@ -297,15 +285,9 @@ class PoolTest extends TestCase
                 id
             }
         }
-        ')->assertJson([
-            "data" => [
-                "pools" => [
-                    [
-                        "id" => $publishedPool->id,
-                    ],
-                ]
-            ]
-        ]);
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
     }
 
     // This error is not desired behavior, but is expected due to current implementation.
