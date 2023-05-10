@@ -16,7 +16,6 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 use Database\Helpers\UuidHelpers;
-use Illuminate\Support\Facades\Log;
 
 class PoolCandidateTest extends TestCase
 {
@@ -1266,6 +1265,11 @@ class PoolCandidateTest extends TestCase
             }
         ';
 
+        $orderBy =  [
+            'column' => 'skill_count',
+            'order' => 'ASC'
+        ];
+
         $skills = Skill::factory()->count(10)->create();
         $skillSubset = [$skills[0]->id, $skills[1]->id, $skills[2]->id];
         $missingSkills = Skill::whereNotIn('id', $skillSubset)
@@ -1293,7 +1297,6 @@ class PoolCandidateTest extends TestCase
         $personal->skills()->sync([$skills[2]->id]);
         $user->personalExperiences()->save($personal);
 
-        Log::debug($missingSkills);
 
         PoolCandidate::factory()->create([
             'user_id' => $user->id,
@@ -1306,10 +1309,7 @@ class PoolCandidateTest extends TestCase
         // Assert skill count matches the number of skills in the subset
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => [
-                    'column' => 'skill_count',
-                    'order' => 'ASC'
-                ],
+                'orderBy' => $orderBy,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
@@ -1322,10 +1322,7 @@ class PoolCandidateTest extends TestCase
         // Assert no skill count when no overlapping
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => [
-                    'column' => 'skill_count',
-                    'order' => 'ASC'
-                ],
+                'orderBy' => $orderBy,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
@@ -1335,13 +1332,16 @@ class PoolCandidateTest extends TestCase
                 ]
             ])->assertJsonFragment(['data' => []]);
 
+        // Assert no skill count when no skills requested
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($query, [
+                'orderBy' => $orderBy,
+            ])->assertJsonFragment(['skillCount' => null]);
+
         // Assert skill count only matches one skill overlapping
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => [
-                    'column' => 'skill_count',
-                    'order' => 'ASC'
-                ],
+                'orderBy' => $orderBy,
                 'where' => [
                     'applicantFilter' => [
                         'skills' =>
