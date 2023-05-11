@@ -1601,29 +1601,9 @@
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
   },
-  "U6IroF": {
-    "defaultMessage": "Études postsecondaires de deux ans",
-    "description": "Title for pool applicant education requirements"
-  },
-  "0FjYi+": {
-    "defaultMessage": "Pour être admis dans ce processus, vous devrez faire preuve de capacités dans ces compétences au cours du processus d'évaluation",
-    "description": "Explanation of a pools required transferrable skills"
-  },
-  "0I8W8B": {
-    "defaultMessage": "Compétences transférables",
-    "description": "Title for transferrable skills on a pool advertisement"
-  },
-  "18dDgn": {
-    "defaultMessage": "À propos de ce processus",
-    "description": "Title for the about section of a pool advertisement"
-  },
   "2K8q04": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
     "description": "Opening sentence asking if accommodations are needed"
-  },
-  "7o+Vzu": {
-    "defaultMessage": "Expérience combinée",
-    "description": "Title for pool applicant experience requirements"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -1649,10 +1629,6 @@
     "defaultMessage": "Autre expérience liée au domaine",
     "description": "pool experience requirement, other"
   },
-  "HYm817": {
-    "defaultMessage": "Emplacement : {location}",
-    "description": "Pool advertisement location requirement, English"
-  },
   "IF1xj8": {
     "defaultMessage": "La préférence sera donnée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
     "description": "First hiring policy for pool advertisement"
@@ -1665,21 +1641,9 @@
     "defaultMessage": "Veuillez communiquer avec l'équipe du bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
     "description": "Description of what to do when accommodations are needed"
   },
-  "Kl5OX1": {
-    "defaultMessage": "Votre impact",
-    "description": "Title for a pool advertisements impact section."
-  },
   "gC74ro": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
-  },
-  "STLaIq": {
-    "defaultMessage": "Utile",
-    "description": "Title for the optional skills section of a pool advertisement"
-  },
-  "U+ApNl": {
-    "defaultMessage": "La date limite des candidatures est passée.",
-    "description": "Message displayed when the pool advertisement has expired."
   },
   "VwVtqr": {
     "defaultMessage": "Durée de l'emploi",
@@ -1688,14 +1652,6 @@
   "W2YIEA": {
     "defaultMessage": "Postulez pour ce processus",
     "description": "Link text to apply for a pool advertisement"
-  },
-  "W6dFND": {
-    "defaultMessage": "Contact et mesures d’adaptation",
-    "description": "Title for contact information on pool advertisement"
-  },
-  "WkX8Ge": {
-    "defaultMessage": "Requis",
-    "description": "Title for the required skills section of a pool advertisement"
   },
   "XzUzZz": {
     "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
@@ -1713,10 +1669,6 @@
     "defaultMessage": "Que sont les recrutements en bassin?",
     "description": "Title for accordion describing pool recruitments"
   },
-  "cHJFcW": {
-    "defaultMessage": "Autres exigences",
-    "description": "Title for other pool requirements"
-  },
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
@@ -1728,14 +1680,6 @@
   "iN2H6J": {
     "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
     "description": "Message describing the employment duration filter in the search form."
-  },
-  "iP8EMf": {
-    "defaultMessage": "Exigences",
-    "description": "Title for the requirements section of a pool advertisement"
-  },
-  "isfAkZ": {
-    "defaultMessage": "Politiques d'embauche",
-    "description": "Title for hiring information on pool advertisement"
   },
   "kH4Jsf": {
     "defaultMessage": "Lorsque vous postulez à ce processus, vous ne postulez pas pour un poste en particulier. Ce processus a pour but de créer et de maintenir un répertoire pour doter divers postes de même niveau dans différents ministères et organismes du gouvernement du Canada.",
@@ -1749,21 +1693,9 @@
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
   },
-  "mNWpoy": {
-    "defaultMessage": "Détails supplémentaires",
-    "description": "Title for the details section of a pool advertisement"
-  },
-  "mbtf3h": {
-    "defaultMessage": "Pour être admis dans ce processus, vous devrez soumettre suffisamment d’informations pour vérifier votre expérience dans <strong>toutes ces compétences (Exigences - Professionnelles)</strong> avec votre candidature",
-    "description": "Explanation of a pools required occupational skills"
-  },
   "ojN4Si": {
     "defaultMessage": "Date de clôture :",
     "description": "Label for pool advertisement closing date"
-  },
-  "owzveI": {
-    "defaultMessage": "Expérience et formation",
-    "description": "Title for experience and education pool requirements"
   },
   "qNL/Rp": {
     "defaultMessage": "Apprentissage pendant l'emploi",
@@ -1772,26 +1704,6 @@
   "r9FSaq": {
     "defaultMessage": "Réussite de deux ans d'études postsecondaires en informatique, en technologie de l'information, en gestion de l'information ou dans une autre spécialité pertinente pour ce poste",
     "description": "post secondary education experience for pool advertisement"
-  },
-  "s60QyR": {
-    "defaultMessage": "2 ans ou plus d'expérience combinée dans un domaine connexe, y compris l'un des éléments suivants :",
-    "description": "lead in to list of experience required for a pool applicant"
-  },
-  "uv2lY0": {
-    "defaultMessage": "Votre travail",
-    "description": "Title for a pool advertisements key tasks section."
-  },
-  "yu4yB8": {
-    "defaultMessage": "Pour renforcer votre candidature, prenez en compte ces compétences que de nombreux responsables d'embauche recherchent",
-    "description": "Explanation of a pools optional transferrable skills"
-  },
-  "zeC2K0": {
-    "defaultMessage": "Compétences professionnelles",
-    "description": "Title for occupational skills on a pool advertisement"
-  },
-  "SuqyvD": {
-    "defaultMessage": "Si ce processus semble vous convenir, postulez dès maintenant!",
-    "description": "Message displayed when the pool advertisement can be applied to."
   },
   "Wnw+oz": {
     "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
@@ -1872,10 +1784,6 @@
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
-  },
-  "rakdZh": {
-    "defaultMessage": "Emplacement : Option à distance",
-    "description": "Pool advertisement location requirement, Remote option"
   },
   "w1Lego": {
     "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
@@ -2405,10 +2313,6 @@
     "defaultMessage": "Posez une question",
     "description": "Support form subject field question option label"
   },
-  "mwEGU+": {
-    "defaultMessage": "Vous avez déjà postulé pour cela.",
-    "description": "Disabled button when a user already applied to a pool opportunity"
-  },
   "nYA+Tj": {
     "defaultMessage": "Nous embauchons des talents autochtones dans le domaine de la technologie",
     "description": "Title for the Indigenous tech talent feature item"
@@ -2656,10 +2560,6 @@
   "eFvsOG": {
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
-  },
-  "ugosop": {
-    "defaultMessage": "Continuer ma candidature",
-    "description": "Link text to continue an existing application"
   },
   "Uzx5dR": {
     "defaultMessage": "Vous ne voyez pas de processus de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
