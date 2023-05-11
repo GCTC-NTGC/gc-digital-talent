@@ -11,6 +11,7 @@ import {
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -318,8 +319,12 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   );
 };
 
+const now = nowUTCDateTime();
+
 const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
+  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
+    variables: { closingAfter: now }, // pass current dateTime into query argument
+  });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>
