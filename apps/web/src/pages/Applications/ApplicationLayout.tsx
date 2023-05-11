@@ -38,10 +38,12 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const { experienceId } = useParams();
   const steps = getApplicationSteps({
     intl,
     paths,
     application,
+    experienceId,
     poolAdvertisement: application.poolAdvertisement,
   });
 

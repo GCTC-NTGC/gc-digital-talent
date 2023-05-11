@@ -14,6 +14,7 @@ import stepHasError from "./resumeStepValidation";
 const getStepInfo: GetApplicationStepInfo = ({
   application,
   paths,
+  resourceId,
   intl,
   stepOrdinal,
 }): ApplicationStepInfo => {
@@ -28,7 +29,7 @@ const getStepInfo: GetApplicationStepInfo = ({
     }),
     auxiliaryPages: [
       resumeAddPageInfo({ paths, intl, application, stepOrdinal }),
-      resumeEditPageInfo({ paths, intl, application, stepOrdinal }),
+      resumeEditPageInfo({ paths, intl, application, stepOrdinal, resourceId }),
     ],
     showInStepper: true,
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],

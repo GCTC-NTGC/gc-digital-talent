@@ -23,6 +23,7 @@ type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
   application: Omit<PoolCandidate, "pool">;
+  experienceId?: string;
   poolAdvertisement: Maybe<PoolAdvertisement>;
 };
 
@@ -31,6 +32,7 @@ export const getApplicationSteps = ({
   paths,
   intl,
   application,
+  experienceId,
   poolAdvertisement,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   // build the order of step functions to call
@@ -50,7 +52,13 @@ export const getApplicationSteps = ({
 
   // call the functions with their dynamic ordinal
   const stepInfos = stepInfoFunctions.map((func, index) =>
-    func({ paths, intl, application, stepOrdinal: index + 1 }),
+    func({
+      paths,
+      intl,
+      application,
+      resourceId: experienceId,
+      stepOrdinal: index + 1,
+    }),
   );
 
   return stepInfos;
