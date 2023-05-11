@@ -4,10 +4,14 @@ import { useIntl } from "react-intl";
 
 import { Heading, ToggleSection, Well } from "@gc-digital-talent/ui";
 
+import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { hasAllEmptyFields } from "~/validators/profile/diversityEquityInclusion";
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/profile/diversityEquityInclusion";
 
 import { SectionProps } from "../../types";
 import { getSectionIcon, getSectionTitle } from "../../utils";
@@ -24,10 +28,12 @@ const DiversityEquityInclusion = ({
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const isNull = hasAllEmptyFields(user);
   const title = getSectionTitle("dei");
+  const { isIAP } = useApplicationContext();
+  const isComplete = !hasEmptyRequiredFields(user, isIAP); // no empty required fields so false returns, means complete is true
   const icon = getSectionIcon({
     isEditing,
     error: false,
-    completed: true, // Optional so always "completed"
+    completed: isComplete,
     fallback: UserCircleIcon,
   });
 
@@ -60,6 +66,19 @@ const DiversityEquityInclusion = ({
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
+      {isIAP && !isComplete && (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This opportunity is reserved for Indigenous candidates",
+              id: "AkDP3z",
+              description:
+                "Error message displayed when a users equity information does not match an opportunity",
+            })}
+          </p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}

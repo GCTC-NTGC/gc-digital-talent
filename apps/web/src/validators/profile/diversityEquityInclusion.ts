@@ -19,10 +19,17 @@ export function anyCriteriaSelected({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
-  // no required fields for this section
-  return false;
+export function hasEmptyRequiredFields(
+  applicant: PartialApplicant,
+  isIAP = false,
+): boolean {
+  if (!isIAP) {
+    return false;
+  }
+  return !(
+    applicant.indigenousCommunities &&
+    applicant.indigenousCommunities.length > 0
+  );
 }
 
 export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
