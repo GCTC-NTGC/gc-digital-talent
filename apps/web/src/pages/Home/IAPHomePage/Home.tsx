@@ -5,9 +5,6 @@ import { motion } from "framer-motion";
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
-import logoEn from "~/assets/img/iap-logo-en.svg";
-import logoFr from "~/assets/img/iap-logo-fr.svg";
-import logoMic from "~/assets/img/iap-logo-mic.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -19,6 +16,9 @@ import sash from "~/assets/img/sash.jpg";
 import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
+import logoMic from "~/assets/img/iap-logo-mic.svg";
+import logoFr from "~/assets/img/iap-logo-fr.svg";
+import logoEn from "~/assets/img/iap-logo-en.svg";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
@@ -97,7 +97,7 @@ const Home = () => {
           alt=""
         />
         <div
-          className="hero-logo"
+          data-h2-transform="p-tablet(translate(-50%, 0))"
           data-h2-background-color="base(primary.darker) p-tablet(transparent)"
           data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
@@ -119,7 +119,7 @@ const Home = () => {
           </h1>
         </div>
         <div
-          className="hero-cta"
+          data-h2-transform="p-tablet(translate(-50%, 0))"
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
