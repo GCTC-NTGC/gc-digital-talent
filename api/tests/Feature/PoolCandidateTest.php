@@ -1278,35 +1278,38 @@ class PoolCandidateTest extends TestCase
             ->pluck('id')
             ->toArray();
 
-        $user = User::factory()->create();
+        $users = User::factory()->count(2)->create();
         $award = AwardExperience::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $users[0]->id,
         ]);
         $award->skills()->sync([$skills[0]->id]);
-        $user->awardExperiences()->save($award);
+        $users[0]->awardExperiences()->save($award);
 
         $education = EducationExperience::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $users[0]->id,
         ]);
         $education->skills()->sync([$skills[1]->id]);
-        $user->educationExperiences()->save($education);
+        $users[0]->educationExperiences()->save($education);
 
         $personal = PersonalExperience::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $users[1]->id,
         ]);
         $personal->skills()->sync([$skills[2]->id]);
-        $user->personalExperiences()->save($personal);
+        $users[1]->personalExperiences()->save($personal);
 
 
-        PoolCandidate::factory()->create([
-            'user_id' => $user->id,
-            'expiry_date' => date("Y-m-d"),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+        $userOneCandidate = PoolCandidate::factory()->create([
+            'user_id' => $users[0]->id,
+            'pool_id' => $this->pool->id,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $userTwoCandidate = PoolCandidate::factory()->create([
+            'user_id' => $users[1]->id,
             'pool_id' => $this->pool->id,
             'submitted_at' => config('constants.past_date'),
         ]);
 
-        // Assert skill count matches the number of skills in the subset
+        // Assert skill count matches the number of skills in the subset adn orders by skill count
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
                 'orderBy' => $orderBy,
@@ -1317,7 +1320,23 @@ class PoolCandidateTest extends TestCase
                         }, $skillSubset)
                     ]
                 ]
-            ])->assertJsonFragment(['skillCount' => 3]);
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $userTwoCandidate->id,
+                                'skillCount' => 1
+                            ],
+                            [
+                                'id' => $userOneCandidate->id,
+                                'skillCount' => 2
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
 
         // Assert no skill count when no overlapping
         $this->actingAs($this->teamUser, "api")
@@ -1330,7 +1349,13 @@ class PoolCandidateTest extends TestCase
                         }, $missingSkills)
                     ]
                 ]
-            ])->assertJsonFragment(['data' => []]);
+            ])->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => []
+                    ]
+                ]
+            ]);
 
         // Assert no skill count when no skills requested
         $this->actingAs($this->teamUser, "api")
@@ -1338,7 +1363,7 @@ class PoolCandidateTest extends TestCase
                 'orderBy' => $orderBy,
             ])->assertJsonFragment(['skillCount' => null]);
 
-        // Assert skill count only matches one skill overlapping
+        // Assert skill count only matches one skill overlapping (user two does not exist in the subset)
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
                 'orderBy' => $orderBy,
@@ -1353,6 +1378,17 @@ class PoolCandidateTest extends TestCase
                         ],
                     ]
                 ]
-            ])->assertJsonFragment(['skillCount' => 1]);
+            ])->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $userOneCandidate->id,
+                                'skillCount' => 1
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
     }
 }
