@@ -204,15 +204,6 @@ const SearchRequestFilters =
             />
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Type of opportunity",
-                id: "ZuSEII",
-                description:
-                  "Title for type of opportunity section on summary of filters section",
-              })}
-              content=""
-            />
-            <FilterBlock
-              title={intl.formatMessage({
                 defaultMessage:
                   "Conditions of employment / Operational requirements",
                 id: "cMsRgt",

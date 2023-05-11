@@ -5584,10 +5584,6 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
-  "ZuSEII": {
-    "defaultMessage": "Type de possibilité d’emploi",
-    "description": "Title for type of opportunity section on summary of filters section"
-  },
   "cMsRgt": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"

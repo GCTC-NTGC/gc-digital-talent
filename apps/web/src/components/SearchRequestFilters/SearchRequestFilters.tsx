@@ -563,14 +563,6 @@ const SearchRequestFilters = ({
               })}
               content={educationLevel}
             />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Type of opportunity",
-                id: "ZuSEII",
-                description:
-                  "Title for type of opportunity section on summary of filters section",
-              })}
-            />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <div>
