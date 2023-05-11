@@ -20,7 +20,7 @@
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.16",
+    "@heroicons/react": "^2.0.18",
     "react-dom": "^18.2.0",
     "react-toastify": "^9.1.2"
   },
