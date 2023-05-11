@@ -18,7 +18,7 @@ const getStepInfo: GetApplicationStepInfo = ({
   stepOrdinal,
 }): ApplicationStepInfo => {
   return {
-    applicationStep: ApplicationStep.ReviewYourProfile,
+    applicationStep: ApplicationStep.ReviewYourResume,
     mainPage: resumePageInfo({ paths, intl, application, stepOrdinal }),
     introductionPage: resumeIntroductionPageInfo({
       paths,
