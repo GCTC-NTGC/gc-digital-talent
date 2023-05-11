@@ -15,6 +15,7 @@ import {
   TableOfContents,
   Heading,
   Pill,
+  ExternalLink,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
@@ -623,6 +624,22 @@ export const PoolAdvertisementPoster = ({
                     "Label for pool advertisement language requirement",
                 })}
                 value={languageRequirement}
+                suffix={
+                  <ExternalLink
+                    newTab
+                    href={
+                      locale === "fr"
+                        ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+                        : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+                    }
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Learn more about language testing",
+                      id: "Swde4t",
+                      description: "Link text for language testing information",
+                    })}
+                  </ExternalLink>
+                }
               />
               <DataRow
                 Icon={LockClosedIcon}
@@ -633,6 +650,23 @@ export const PoolAdvertisementPoster = ({
                     "Label for pool advertisement security clearance requirement",
                 })}
                 value={securityClearance}
+                suffix={
+                  <ExternalLink
+                    newTab
+                    href={
+                      locale === "fr"
+                        ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
+                        : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
+                    }
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Learn more about security clearances",
+                      id: "WlMSeh",
+                      description:
+                        "Link text for security clearance information",
+                    })}
+                  </ExternalLink>
+                }
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.contact.id}>
