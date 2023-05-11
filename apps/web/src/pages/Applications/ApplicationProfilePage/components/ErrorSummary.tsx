@@ -8,6 +8,7 @@ import { hasEmptyRequiredFields as hasEmptyPersonalRequiredFields } from "~/vali
 import { hasEmptyRequiredFields as hasEmptyGovernmentRequiredFields } from "~/validators/profile/governmentInformation";
 import { hasEmptyRequiredFields as hasEmptyWorkPrefRequiredFields } from "~/validators/profile/workPreferences";
 import { hasEmptyRequiredFields as hasEmptyWorkLocRequiredFields } from "~/validators/profile/workLocation";
+import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import {
   hasEmptyRequiredFields as hasEmptyLanguageRequiredFields,
   hasUnsatisfiedRequirements,
@@ -15,6 +16,7 @@ import {
 
 import { sectionTitles } from "../utils";
 import { SectionKey } from "../types";
+import { useApplicationContext } from "../../ApplicationContext";
 
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
@@ -27,9 +29,10 @@ interface ErrorSummaryProps {
 
 const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
   const intl = useIntl();
+  const { isIAP } = useApplicationContext();
   const errors: Record<SectionKey, boolean> = {
     personal: hasEmptyPersonalRequiredFields(user),
-    dei: false, // No errors possible here
+    dei: hasEmptyDEIRequiredFields(user, isIAP),
     work:
       hasEmptyWorkLocRequiredFields(user) ||
       hasEmptyWorkPrefRequiredFields(user),
