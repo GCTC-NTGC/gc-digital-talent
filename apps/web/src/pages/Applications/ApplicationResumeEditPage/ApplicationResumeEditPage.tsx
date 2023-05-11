@@ -112,6 +112,7 @@ const ApplicationResumeEditPage = () => {
     variables: {
       id: applicationId || "",
     },
+    requestPolicy: "cache-first",
   });
   const [
     {
