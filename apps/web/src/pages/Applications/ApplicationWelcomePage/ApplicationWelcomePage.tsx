@@ -15,6 +15,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import applicationWelcomeMessages from "./applicationWelcomeMessages";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
+import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetApplicationPageInfo = ({
   application,
@@ -67,6 +68,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const { isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({ intl, paths, application });
   const welcomeMessages = applicationWelcomeMessages(
     application.poolAdvertisement?.publishingGroup,
@@ -101,7 +103,6 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     return false;
   };
 
-  // const isPublishedByIAP = application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap;
   return (
     <>
       <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
@@ -119,9 +120,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         )}
       </p>
       <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage(welcomeMessages.description)}
-        {/* Method 2 below: */}
-        {/* {isPublishedByIAP
+        {isIAP
           ? intl.formatMessage({
               defaultMessage:
                 "The Program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
@@ -135,7 +134,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
               id: "u/DBSl",
               description:
                 "Description of how the skills-based hiring platform assess candidates.",
-            })} */}
+            })}
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
