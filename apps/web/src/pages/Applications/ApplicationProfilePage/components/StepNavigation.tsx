@@ -18,7 +18,9 @@ import {
   ApplicationStep,
 } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import { useProfileFormContext } from "./ProfileFormContext";
+import { useApplicationContext } from "../../ApplicationContext";
 
 type ProfileActionFormValues = {
   action: "continue" | "quit";
@@ -50,6 +52,7 @@ const StepNavigation = ({
   });
   const { setValue, register } = methods;
   const actionProps = register("action");
+  const { isIAP } = useApplicationContext();
 
   const checkDirtySections = () => {
     if (dirtySections.length) {
@@ -137,6 +140,18 @@ const StepNavigation = ({
             },
             { requirements },
           ),
+        );
+      }
+      const completeDEI = !hasEmptyDEIRequiredFields(user, isIAP);
+      if (!completeDEI) {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage:
+              "This opportunity is reserved for Indigenous candidates",
+            id: "AkDP3z",
+            description:
+              "Error message displayed when a users equity information does not match an opportunity",
+          }),
         );
       }
     }
