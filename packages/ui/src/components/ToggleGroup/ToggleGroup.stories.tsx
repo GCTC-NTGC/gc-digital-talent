@@ -28,7 +28,7 @@ const messages = defineMessages({
 
 export default {
   component: ToggleGroup.Root,
-  name: "Components/ToggleGroup",
+  title: "Components/ToggleGroup",
   args: {
     type: "single",
   },
