@@ -119,7 +119,14 @@ const RadioGroup = ({
                   defaultChecked={defaultSelected === value}
                 />
               </InputWrapper>
-              {contentBelow && contentBelow}
+              {contentBelow && (
+                <div
+                  id={`${idPrefix}-content-below`}
+                  aria-describedby={describedBy}
+                >
+                  {contentBelow}
+                </div>
+              )}
             </div>
           );
         })}
