@@ -34,11 +34,9 @@ import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAcco
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 
 type SortOptions = "date_desc" | "type_asc";
-type PageAction = "continue" | "cancel";
 
 type FormValues = {
   sortExperiencesBy: SortOptions;
-  action: PageAction;
   experienceCount: number;
 };
 
@@ -177,9 +175,8 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { watch, register, setValue } = methods;
+  const { watch, setValue } = methods;
   const watchSortExperiencesBy = watch("sortExperiencesBy");
-  const actionProps = register("action");
 
   const experiences = application.user.experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
@@ -203,7 +200,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
     // no op
   }
 
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = async () => {
     executeMutation({
       id: application.id,
       application: {
@@ -220,7 +217,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving résumé is successful.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+          navigate(nextStep);
         }
       })
       .catch(() => {
@@ -436,27 +433,15 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
               type="submit"
               mode="solid"
               value="continue"
-              {...actionProps}
               onClick={() => {
-                setValue("action", "continue");
                 setValue("experienceCount", experiences.length);
               }}
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Button
-              type="submit"
-              mode="inline"
-              color="secondary"
-              value="cancel"
-              {...actionProps}
-              onClick={() => {
-                setValue("action", "cancel");
-                setValue("experienceCount", experiences.length);
-              }}
-            >
+            <Link weight="bold" color="secondary" href={cancelPath}>
               {intl.formatMessage(applicationMessages.saveQuit)}
-            </Button>
+            </Link>
           </div>
         </form>
       </FormProvider>
