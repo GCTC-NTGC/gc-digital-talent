@@ -150,10 +150,10 @@ const StepNavigation = ({
         toast.error(
           intl.formatMessage({
             defaultMessage:
-              "This opportunity is reserved for Indigenous candidates",
-            id: "AkDP3z",
+              "This opportunity is reserved for Indigenous candidates.",
+            id: "+M9Pwt",
             description:
-              "Error message displayed when a users equity information does not match an opportunity",
+              "Error message displayed when a user's equity information does not match an opportunity",
           }),
         );
       }
