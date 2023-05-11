@@ -41,6 +41,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams();
+  const { isIAP } = useApplicationContext();
   const steps = getApplicationSteps({
     intl,
     paths,
@@ -152,7 +153,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={applicationStepsToStepperArgs(steps, application)}
+              steps={applicationStepsToStepperArgs(steps, application, isIAP)}
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
