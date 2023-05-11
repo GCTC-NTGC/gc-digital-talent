@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
+import { authExchange } from "@urql/exchange-auth";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   Client,
   CombinedError,
@@ -16,8 +18,6 @@ import { useAuthentication } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 
-import { authExchange } from "@urql/exchange-auth";
-import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   buildRateLimitErrorMessageNode,
   buildValidationErrorMessageNode,
