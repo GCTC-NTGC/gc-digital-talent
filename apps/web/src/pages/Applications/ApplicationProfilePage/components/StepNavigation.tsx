@@ -30,12 +30,14 @@ interface StepNavigationProps {
   application: Omit<PoolCandidate, "pool">;
   user: User;
   isValid?: boolean;
+  isIAP: boolean;
 }
 
 const StepNavigation = ({
   application,
   user,
   isValid,
+  isIAP,
 }: StepNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -54,7 +56,6 @@ const StepNavigation = ({
   });
   const { setValue, register } = methods;
   const actionProps = register("action");
-  const { isIAP } = useApplicationContext();
 
   const checkDirtySections = () => {
     if (dirtySections.length) {

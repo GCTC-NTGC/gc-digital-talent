@@ -1,4 +1,8 @@
-import { Applicant, PoolAdvertisement } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  PoolAdvertisement,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -13,11 +17,13 @@ import {
 const stepHasError = (
   applicant: Applicant,
   poolAdvertisement: PoolAdvertisement,
+  application: Omit<PoolCandidate, "pool">, // exists to type match hasError to stepHasError
+  isIAP?: boolean,
 ) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(applicant) ||
     workLocationSectionHasEmptyRequiredFields(applicant) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields(applicant, isIAP) ||
     governmentInformationSectionHasEmptyRequiredFields(applicant) ||
     languageInformationSectionHasEmptyRequiredFields(applicant) ||
     workPreferencesSectionHasEmptyRequiredFields(applicant) ||

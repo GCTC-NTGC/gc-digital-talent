@@ -36,6 +36,7 @@ export type ApplicationStepInfo = {
     applicant: Applicant,
     poolAdvertisement: PoolAdvertisement,
     application: Omit<PoolCandidate, "pool">,
+    isIAP?: boolean,
   ) => boolean;
 };
 

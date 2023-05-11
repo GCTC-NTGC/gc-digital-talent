@@ -16,7 +16,6 @@ import {
 
 import { sectionTitles } from "../utils";
 import { SectionKey } from "../types";
-import { useApplicationContext } from "../../ApplicationContext";
 
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
@@ -25,11 +24,11 @@ type Entries<T> = {
 interface ErrorSummaryProps {
   user: User;
   application: Omit<PoolCandidate, "pool">;
+  isIAP: boolean;
 }
 
-const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
+const ErrorSummary = ({ user, application, isIAP }: ErrorSummaryProps) => {
   const intl = useIntl();
-  const { isIAP } = useApplicationContext();
   const errors: Record<SectionKey, boolean> = {
     personal: hasEmptyPersonalRequiredFields(user),
     dei: hasEmptyDEIRequiredFields(user, isIAP),

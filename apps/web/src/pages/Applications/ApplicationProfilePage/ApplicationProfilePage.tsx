@@ -87,6 +87,7 @@ export const ApplicationProfile = ({
   });
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
+  const { isIAP } = useApplicationContext();
 
   const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
     return executeUpdateMutation({
@@ -118,7 +119,7 @@ export const ApplicationProfile = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1, 0)"
       >
-        <ErrorSummary user={user} application={application} />
+        <ErrorSummary user={user} application={application} isIAP />
         <PersonalInformation {...sectionProps} />
         <WorkPreferences {...sectionProps} />
         <DiversityEquityInclusion {...sectionProps} />
@@ -136,9 +137,15 @@ export const ApplicationProfile = ({
         user={user}
         isValid={
           (application?.poolAdvertisement &&
-            !stepHasError(user as Applicant, application.poolAdvertisement)) ??
+            !stepHasError(
+              user as Applicant,
+              application.poolAdvertisement,
+              application,
+              isIAP,
+            )) ??
           false
         }
+        isIAP
       />
     </ProfileFormProvider>
   );
