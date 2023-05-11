@@ -13,7 +13,6 @@ import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
-import applicationWelcomeMessages from "./applicationWelcomeMessages";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -70,9 +69,6 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const navigate = useNavigate();
   const { isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({ intl, paths, application });
-  const welcomeMessages = applicationWelcomeMessages(
-    application.poolAdvertisement?.publishingGroup,
-  );
   const poolName = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
