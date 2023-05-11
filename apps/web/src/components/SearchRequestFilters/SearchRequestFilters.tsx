@@ -517,8 +517,6 @@ const SearchRequestFilters = ({
         id: "0/8x/z",
       });
 
-  const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
-
   return (
     <section data-h2-radius="base(s)">
       <div>
@@ -572,7 +570,6 @@ const SearchRequestFilters = ({
                 description:
                   "Title for type of opportunity section on summary of filters section",
               })}
-              content={typeOfOpportunity}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

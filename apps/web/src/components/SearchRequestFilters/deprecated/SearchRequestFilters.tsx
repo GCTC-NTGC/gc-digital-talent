@@ -179,7 +179,6 @@ const SearchRequestFilters =
           defaultMessage: "Any language",
           id: "0/8x/z",
         });
-    const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
     return (
       <section data-h2-flex-grid="base(flex-start, x2, x.5)">
@@ -210,7 +209,7 @@ const SearchRequestFilters =
                 description:
                   "Title for type of opportunity section on summary of filters section",
               })}
-              content={typeOfOpportunity}
+              content=""
             />
             <FilterBlock
               title={intl.formatMessage({
