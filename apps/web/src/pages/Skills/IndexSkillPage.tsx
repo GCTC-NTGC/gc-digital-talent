@@ -7,17 +7,14 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import SkillTableApi from "./components/SkillTable";
 
 export const IndexSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Skills",
-    id: "Dbqtm6",
-    description: "Heading displayed above the Skill Table component.",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.skills);
 
   const navigationCrumbs = [
     {
@@ -29,11 +26,7 @@ export const IndexSkillPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "ynjzua",
-        description: "Breadcrumb title for the skills page link.",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
       url: routes.skillTable(),
     },
   ];
@@ -42,7 +35,7 @@ export const IndexSkillPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={AcademicCapIcon}>{pageTitle}</PageHeader>
-      <SkillTableApi />
+      <SkillTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };

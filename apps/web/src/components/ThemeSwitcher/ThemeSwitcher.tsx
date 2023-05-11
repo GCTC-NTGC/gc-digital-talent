@@ -9,7 +9,7 @@ import { useTheme, ThemeMode } from "@gc-digital-talent/theme";
 
 const ThemeSwitcher = () => {
   const intl = useIntl();
-  const { isPref, mode, setMode } = useTheme();
+  const { mode, setMode, isPref } = useTheme();
 
   const groupLabel = intl.formatMessage({
     defaultMessage: "Theme colour mode switcher",

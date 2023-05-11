@@ -17,10 +17,10 @@ import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useMeQuery } from "~/api/generated";
-import adminMenuMessages from "~/messages/adminMenuMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 import LinkWell from "./components/LinkWell";
 
@@ -109,7 +109,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage(adminMenuMessages.pools),
+                label: intl.formatMessage(adminMessages.pools),
                 href: adminRoutes.poolTable(),
                 icon: Squares2X2Icon,
               },
@@ -134,7 +134,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage(adminMenuMessages.requests),
+                label: intl.formatMessage(adminMessages.requests),
                 href: adminRoutes.searchRequestTable(),
                 icon: TicketIcon,
               },
@@ -150,12 +150,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             })}
             links={[
               {
-                label: intl.formatMessage(adminMenuMessages.users),
+                label: intl.formatMessage(adminMessages.users),
                 href: adminRoutes.userTable(),
                 icon: UserIcon,
               },
               {
-                label: intl.formatMessage(adminMenuMessages.teams),
+                label: intl.formatMessage(adminMessages.teams),
                 href: adminRoutes.teamTable(),
                 icon: BuildingOffice2Icon,
               },
@@ -169,12 +169,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 icon: BuildingOfficeIcon,
               },
               {
-                label: intl.formatMessage(adminMenuMessages.skills),
+                label: intl.formatMessage(adminMessages.skills),
                 href: adminRoutes.skillTable(),
                 icon: BoltIcon,
               },
               {
-                label: intl.formatMessage(adminMenuMessages.skillFamilies),
+                label: intl.formatMessage(adminMessages.skillFamilies),
                 href: adminRoutes.skillFamilyTable(),
                 icon: UserGroupIcon,
               },

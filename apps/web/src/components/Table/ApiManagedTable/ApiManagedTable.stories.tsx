@@ -148,6 +148,7 @@ const Template: StoryFn<ApiManageTableProps> = (args) => {
       />
       <BasicTable
         labelledBy="heading"
+        title="Heading"
         columns={columns}
         data={paginatedUsers}
         onSortingRuleChange={(newSortingRule) => {

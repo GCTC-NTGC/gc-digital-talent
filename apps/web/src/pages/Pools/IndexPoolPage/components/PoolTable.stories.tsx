@@ -28,11 +28,12 @@ export default {
 } as ComponentMeta<typeof PoolTable>;
 
 const Template: ComponentStory<typeof PoolTable> = (args) => {
-  const { pools } = args;
-  return <PoolTable pools={pools} />;
+  const { pools, title } = args;
+  return <PoolTable pools={pools} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   pools: mockPoolsWithTeam,
+  title: "Pools",
 };
