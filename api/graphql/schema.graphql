@@ -499,6 +499,12 @@ type PoolCandidate {
     @with(relation: "educationRequirementWorkExperiences")
 }
 
+type PoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidate! @self
+  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
+}
+
 enum LanguageAbility {
   ENGLISH
   FRENCH
@@ -960,7 +966,9 @@ type Query {
   poolAdvertisements: [PoolAdvertisement]!
     @all(model: "Pool")
     @can(ability: "viewAny", model: "Pool")
-  publishedPoolAdvertisements: [PoolAdvertisement!]!
+  publishedPoolAdvertisements(
+    closingAfter: DateTime @where(key: "closing_date", operator: ">")
+  ): [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
@@ -995,10 +1003,15 @@ type Query {
           }
         ]
       )
-  ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+  ): [PoolCandidateWithSkillCount]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["notDraft", "withSkillCount"]
+      model: "App\\Models\\PoolCandidate"
+    )
     @guard
-    @can(ability: "view", resolved: true)
+    @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
     @deprecated(reason: "Replaced by countApplicants")

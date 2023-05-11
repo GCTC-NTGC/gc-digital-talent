@@ -14,24 +14,26 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import {
-  Applicant,
   ApplicationStep,
   useUpdateApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import { resumeIsIncomplete } from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceType } from "~/types/experience";
-
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import applicationMessages from "~/messages/applicationMessages";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -40,10 +42,11 @@ type FormValues = {
   experienceCount: number;
 };
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationResume(application.id);
   return {
@@ -61,22 +64,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
     link: {
       url: path,
-    },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    introUrl: paths.applicationResumeIntro(application.id),
-    stepSubmitted: ApplicationStep.ReviewYourResume,
-    hasError: (applicant: Applicant) => {
-      const isIncomplete = resumeIsIncomplete(applicant);
-      return isIncomplete;
     },
   };
 };
@@ -167,9 +161,16 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const instructionsPath = paths.applicationResumeIntro(application.id);
-  const nextStep = paths.applicationEducation(application.id);
+  const nextStep =
+    followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
