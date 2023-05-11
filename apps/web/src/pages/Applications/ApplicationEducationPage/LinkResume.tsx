@@ -17,7 +17,8 @@ import Checklist, {
   Checkbox,
 } from "@gc-digital-talent/forms/src/components/Checklist";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Alert, Heading } from "@gc-digital-talent/ui";
+import { Alert, Heading, Well } from "@gc-digital-talent/ui";
+import { useNavigate } from "react-router-dom";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
@@ -70,14 +71,18 @@ const ExperienceChecklist = ({ items }: { items: Checkbox[] }) => {
 interface LinkResumeProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
+  previousStepPath: string;
 }
 
 const LinkResume = ({
   experiences,
   watchEducationRequirement,
+  previousStepPath,
 }: LinkResumeProps) => {
   const intl = useIntl();
-
+  const previousStepLink = (chunks: React.ReactNode) => (
+    <a href={previousStepPath}>{chunks}</a>
+  );
   const experienceItems = experiences.reduce(
     (
       checklistItems: {
@@ -161,7 +166,7 @@ const LinkResume = ({
     },
   );
 
-  const checkListSection = () => {
+  const checkListSection = (): React.ReactNode => {
     switch (watchEducationRequirement) {
       // If "I meet the applied work experience" option is selected, checkboxes are displayed for every experience.
       case EducationRequirementOption.AppliedWork:
@@ -182,27 +187,86 @@ const LinkResume = ({
                 </li>
               ))}
             </ul>
-            <ExperienceChecklist items={experienceItems.allExperiences} />
+            {experienceItems.allExperiences.length === 0 ? (
+              <Well>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't added any experiences to your résumé yet.",
+                    id: "3M3jg8",
+                    description:
+                      "Alert message informing user to add experience in application education page.",
+                  })}
+                </p>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "You can add experiences <link>when creating a new résumé experience in the previous step.</link>",
+                      id: "3M3jg8",
+                      description:
+                        "Secondary alert message informing user to add experience in application education page.",
+                    },
+                    {
+                      link: previousStepLink,
+                    },
+                  )}
+                </p>
+              </Well>
+            ) : (
+              <ExperienceChecklist items={experienceItems.allExperiences} />
+            )}
           </>
         );
       // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
       case EducationRequirementOption.Education:
         return (
-          <ExperienceChecklist items={experienceItems.educationExperiences} />
+          <>
+            {experienceItems.educationExperiences.length === 0 ? (
+              <Well>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't added any education experiences to your résumé yet.",
+                    id: "3M3jg8",
+                    description:
+                      "Alert message informing user to add experience in application education page.",
+                  })}
+                </p>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option <link>when creating a new résumé experience in the previous step.</link>`,
+                      id: "3M3jg8",
+                      description:
+                        "Secondary alert message informing user to add experience in application education page.",
+                    },
+                    {
+                      link: previousStepLink,
+                    },
+                  )}
+                </p>
+              </Well>
+            ) : (
+              <ExperienceChecklist
+                items={experienceItems.educationExperiences}
+              />
+            )}
+          </>
         );
-      // Otherwise, show null state (need to approve design with designers)
+      // Otherwise, show null state
       default:
         return (
-          <Alert.Root type="warning" data-h2-margin="base(0, 0)">
-            <Alert.Title>
+          <Well>
+            <p data-h2-text-align="base(center)">
               {intl.formatMessage({
-                defaultMessage: "Select which criteria you meet above.",
+                defaultMessage: "Please select an option to continue.",
                 id: "3M3jg8",
                 description:
                   "Alert message informing user to select an option first in application education page.",
               })}
-            </Alert.Title>
-          </Alert.Root>
+            </p>
+          </Well>
         );
     }
   };

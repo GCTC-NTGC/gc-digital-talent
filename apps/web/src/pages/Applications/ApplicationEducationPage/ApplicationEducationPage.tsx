@@ -131,6 +131,7 @@ const ApplicationEducation = ({ application }: ApplicationPageProps) => {
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // Remove once feature flag has been turned on.
   const nextStep = paths.applicationSkillsIntro(application.id);
+  const previousStep = paths.applicationResume(application.id);
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
   const pageInfo = getPageInfo({ intl, paths, application });
 
@@ -371,6 +372,7 @@ const ApplicationEducation = ({ application }: ApplicationPageProps) => {
           <LinkResume
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
+            previousStepPath={previousStep}
           />
           <Separator
             orientation="horizontal"
