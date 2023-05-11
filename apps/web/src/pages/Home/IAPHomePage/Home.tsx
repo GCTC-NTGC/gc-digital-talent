@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
+import logoImg from "~/assets/img/iap-logo.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -16,9 +17,6 @@ import sash from "~/assets/img/sash.jpg";
 import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
-import logoMic from "~/assets/img/iap-logo-mic.svg";
-import logoFr from "~/assets/img/iap-logo-fr.svg";
-import logoEn from "~/assets/img/iap-logo-en.svg";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
@@ -48,17 +46,7 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
-  let logoImg = logoEn;
-  switch (intl.locale) {
-    case "fr":
-      logoImg = logoFr;
-      break;
-    case "mic":
-      logoImg = logoMic;
-      break;
-    default:
-      logoImg = logoEn;
-  }
+
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
@@ -72,7 +60,6 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <LanguageSelector />
-      {/* Hero */}
       <div
         data-h2-width="base(100%)"
         data-h2-position="base(relative)"
@@ -103,23 +90,51 @@ const Home = () => {
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
           data-h2-location="p-tablet(5%, auto, auto, 50%)"
-          data-h2-width="base(100%) p-tablet(40vw)"
+          data-h2-width="base(100%) p-tablet(80vw) l-tablet(45vw)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-align-items="base(center) p-tablet(flex-start)"
+          data-h2-justify-content="base(center)"
+          data-h2-gap="base(x.7)"
         >
-          <h1>
-            <img data-h2-width="base(100%)" src={logoImg} alt="" />
-            <span data-h2-visually-hidden="base(invisible)">
+          <img
+            data-h2-width="base(40%) p-tablet(20%)"
+            data-h2-flex-shrink="base(0)"
+            src={logoImg}
+            alt=""
+          />
+          <div
+            data-h2-text-align="base(center) p-tablet(left)"
+            data-h2-flex-grow="base(0)"
+            data-h2-color="base(white)"
+          >
+            <h1
+              data-h2-font-size="base(h6) p-tablet(h4) l-tablet(h3)"
+              data-h2-font-weight="base(bold)"
+            >
               {intl.formatMessage({
                 defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
-                id: "qZvV7b",
+                  "IT Apprenticeship Program for Indigenous Peoples",
+                id: "Hu04cP",
                 description:
                   "Homepage title for Indigenous Apprenticeship Program",
               })}
+            </h1>
+            <span
+              data-h2-font-size="base(caption, 1)"
+              data-h2-font-weight="base(bold)"
+            >
+              {intl.formatMessage({
+                defaultMessage:
+                  "Apply today to get started on your IT career journey.",
+                id: "z5Gcsn",
+                description:
+                  "Homepage subtitle for Indigenous Apprenticeship Program",
+              })}
             </span>
-          </h1>
+          </div>
         </div>
         <div
-          data-h2-transform="p-tablet(translate(-50%, 0))"
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
