@@ -9,32 +9,19 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { Applicant } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import {
-  aboutSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasUnsatisfiedRequirements,
-  workLocationSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyRequiredFields,
-} from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import {
   User,
   useGetApplicationQuery,
   useGetMeQuery,
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
-import { useApplicationContext } from "../ApplicationContext";
 import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "./components/WorkPreferences/WorkPreferences";
 import DiversityEquityInclusion from "./components/DiversityEquityInclusion/DiversityEquityInclusion";
@@ -44,11 +31,14 @@ import { SectionProps } from "./types";
 import ErrorSummary from "./components/ErrorSummary";
 import ProfileFormProvider from "./components/ProfileFormContext";
 import StepNavigation from "./components/StepNavigation";
+import stepHasError from "../profileStep/profileStepValidation";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationProfile(application.id);
   return {
@@ -67,38 +57,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 2",
-          id: "IGR8Dw",
-          description: "Breadcrumb link text for the application profile page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
     link: {
       url: path,
-    },
-    prerequisites: [ApplicationStep.Welcome],
-    stepSubmitted: ApplicationStep.ReviewYourProfile,
-    hasError: (
-      applicant: Applicant,
-      poolAdvertisement: PoolAdvertisement,
-      isIAP?: boolean,
-    ) => {
-      const hasEmptyRequiredFields =
-        aboutSectionHasEmptyRequiredFields(applicant) ||
-        workLocationSectionHasEmptyRequiredFields(applicant) ||
-        diversityEquityInclusionSectionHasEmptyRequiredFields(
-          applicant,
-          isIAP,
-        ) ||
-        governmentInformationSectionHasEmptyRequiredFields(applicant) ||
-        languageInformationSectionHasEmptyRequiredFields(applicant) ||
-        workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-        languageInformationSectionHasUnsatisfiedRequirements(
-          applicant,
-          poolAdvertisement,
-        );
-      return hasEmptyRequiredFields;
     },
   };
 };
@@ -113,8 +78,13 @@ export const ApplicationProfile = ({
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { isIAP } = useApplicationContext();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 
@@ -166,11 +136,7 @@ export const ApplicationProfile = ({
         user={user}
         isValid={
           (application?.poolAdvertisement &&
-            !pageInfo?.hasError?.(
-              user as Applicant,
-              application?.poolAdvertisement,
-              isIAP,
-            )) ??
+            !stepHasError(user as Applicant, application.poolAdvertisement)) ??
           false
         }
       />
