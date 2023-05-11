@@ -189,10 +189,13 @@ const LinkResume = ({
             </ul>
             {experienceItems.allExperiences.length === 0 ? (
               <Well>
-                <p data-h2-text-align="base(center)">
+                <p
+                  data-h2-text-align="base(center)"
+                  data-h2-margin-bottom="base(x1)"
+                >
                   {intl.formatMessage({
                     defaultMessage:
-                      "It looks like you haven't added any experiences to your résumé yet.",
+                      "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
                     id: "3M3jg8",
                     description:
                       "Alert message informing user to add experience in application education page.",
@@ -202,7 +205,7 @@ const LinkResume = ({
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "You can add experiences <link>when creating a new résumé experience in the previous step.</link>",
+                        "You can add experiences when <link>creating a new résumé experience in the previous step.</link>",
                       id: "3M3jg8",
                       description:
                         "Secondary alert message informing user to add experience in application education page.",
@@ -224,10 +227,13 @@ const LinkResume = ({
           <>
             {experienceItems.educationExperiences.length === 0 ? (
               <Well>
-                <p data-h2-text-align="base(center)">
+                <p
+                  data-h2-text-align="base(center)"
+                  data-h2-margin-bottom="base(x1)"
+                >
                   {intl.formatMessage({
                     defaultMessage:
-                      "It looks like you haven't added any education experiences to your résumé yet.",
+                      "<strong>It looks like you haven't added any education experiences to your résumé yet.</strong>",
                     id: "3M3jg8",
                     description:
                       "Alert message informing user to add experience in application education page.",
@@ -236,7 +242,7 @@ const LinkResume = ({
                 <p data-h2-text-align="base(center)">
                   {intl.formatMessage(
                     {
-                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option <link>when creating a new résumé experience in the previous step.</link>`,
+                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new résumé experience in the previous step.</link>`,
                       id: "3M3jg8",
                       description:
                         "Secondary alert message informing user to add experience in application education page.",
