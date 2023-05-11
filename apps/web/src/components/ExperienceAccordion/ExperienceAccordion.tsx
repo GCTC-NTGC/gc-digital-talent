@@ -35,6 +35,8 @@ export interface AccordionProps {
   editPaths?: ExperiencePaths;
   // use when you have one path for every type
   editPath?: string;
+  // If the edit button is a button, pass the onClick function
+  onEditClick?: () => void;
   headingLevel?: HeadingRank;
   showSkills?: boolean;
 }
@@ -43,6 +45,7 @@ const ExperienceAccordion = ({
   experience,
   editPaths,
   editPath,
+  onEditClick,
   headingLevel = "h2",
   showSkills = true,
 }: AccordionProps) => {
@@ -55,6 +58,7 @@ const ExperienceAccordion = ({
     return AwardAccordion({
       ...experience,
       editUrl,
+      onEditClick,
       headingLevel,
       showSkills,
     });
@@ -64,6 +68,7 @@ const ExperienceAccordion = ({
     return CommunityAccordion({
       ...experience,
       editUrl,
+      onEditClick,
       headingLevel,
       showSkills,
     });
@@ -73,6 +78,7 @@ const ExperienceAccordion = ({
     return EducationAccordion({
       ...experience,
       editUrl,
+      onEditClick,
       headingLevel,
       showSkills,
     });
@@ -82,6 +88,7 @@ const ExperienceAccordion = ({
     return PersonalAccordion({
       ...experience,
       editUrl,
+      onEditClick,
       headingLevel,
       showSkills,
     });
@@ -91,16 +98,16 @@ const ExperienceAccordion = ({
     return WorkAccordion({
       ...experience,
       editUrl,
+      onEditClick,
       headingLevel,
       showSkills,
     });
   }
 
   // not one of the 5 experience types
-  const editUrl = editPath;
   return (
     <Accordion.Item value="none">
-      <ExperienceAccordionHeader headingAs={headingLevel} editLinkUrl={editUrl}>
+      <ExperienceAccordionHeader headingAs={headingLevel}>
         {intl.formatMessage({
           defaultMessage: "Unknown Experience",
           id: "U/Lv8i",

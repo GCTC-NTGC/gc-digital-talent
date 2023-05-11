@@ -169,4 +169,25 @@ export const differentiateMissingSkills = (
   return [skills, details];
 };
 
+/**
+ * Get Experience Skills
+ *
+ * Filters an array of experiences to get
+ * only the ones associated with a specific skill
+ *
+ * @param experiences Experience[]  List of experiences to be filtered
+ * @param skill Skill The skill to be used to filter experiences on
+ * @returns Experience[]  New array of experiences
+ */
+export const getExperienceSkills = (
+  experiences: Experience[],
+  skill: Skill,
+): Experience[] => {
+  return experiences.filter((experience) =>
+    experience.skills?.some(
+      (experienceSkill) => experienceSkill.id === skill.id,
+    ),
+  );
+};
+
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

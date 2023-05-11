@@ -49,10 +49,12 @@ type SearchRequestCell = Cell<PoolCandidateSearchRequest>;
 
 interface SearchRequestTableProps {
   poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
+  title: string;
 }
 
 export const SearchRequestTable = ({
   poolCandidateSearchRequests,
+  title,
 }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -156,11 +158,16 @@ export const SearchRequestTable = ({
   );
 
   return (
-    <Table data={memoizedData} columns={columns} hiddenCols={["id", "email"]} />
+    <Table
+      data={memoizedData}
+      columns={columns}
+      hiddenCols={["id", "email"]}
+      title={title}
+    />
   );
 };
 
-const SearchRequestTableApi = () => {
+const SearchRequestTableApi = ({ title }: { title: string }) => {
   const [result] = useGetPoolCandidateSearchRequestsQuery();
   const { data, fetching, error } = result;
 
@@ -168,6 +175,7 @@ const SearchRequestTableApi = () => {
     <Pending fetching={fetching} error={error}>
       <SearchRequestTable
         poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
+        title={title}
       />
     </Pending>
   );

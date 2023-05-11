@@ -42,7 +42,7 @@ class PoolSeeder extends Seeder
                 ],
                 'key' => 'indigenous_apprenticeship',
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
-                'publishing_group' => ApiEnums::PUBLISHING_GROUP_OTHER,
+                'publishing_group' => ApiEnums::PUBLISHING_GROUP_IAP,
             ],
         ];
 
