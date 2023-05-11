@@ -35,7 +35,7 @@
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
-    "react-select": "^5.7.2",
+    "react-select": "^5.7.3",
     "urql": "^3.0.4"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "@types/lodash": "4.14.194",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.0.10",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
