@@ -15,6 +15,7 @@ export type GetApplicationPageInfoArgs = {
   paths: ReturnType<typeof useRoutes>;
   resourceId?: Scalars["ID"];
   intl: IntlShape;
+  isIAP?: boolean; // application context, is it IAP?
 };
 
 export type ApplicationPageInfo = PageNavInfo & {

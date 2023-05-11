@@ -34,6 +34,7 @@ import {
 } from "~/api/generated";
 
 import { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "./components/WorkPreferences/WorkPreferences";
 import DiversityEquityInclusion from "./components/DiversityEquityInclusion/DiversityEquityInclusion";
@@ -48,6 +49,7 @@ export const getPageInfo: GetApplicationPageInfo = ({
   application,
   paths,
   intl,
+  isIAP = false,
 }) => {
   const path = paths.applicationProfile(application.id);
   return {
@@ -82,7 +84,10 @@ export const getPageInfo: GetApplicationPageInfo = ({
       const hasEmptyRequiredFields =
         aboutSectionHasEmptyRequiredFields(applicant) ||
         workLocationSectionHasEmptyRequiredFields(applicant) ||
-        diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
+        diversityEquityInclusionSectionHasEmptyRequiredFields(
+          applicant,
+          isIAP,
+        ) ||
         governmentInformationSectionHasEmptyRequiredFields(applicant) ||
         languageInformationSectionHasEmptyRequiredFields(applicant) ||
         workPreferencesSectionHasEmptyRequiredFields(applicant) ||
@@ -105,7 +110,8 @@ export const ApplicationProfile = ({
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { isIAP } = useApplicationContext();
+  const pageInfo = getPageInfo({ intl, paths, application, isIAP });
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 
