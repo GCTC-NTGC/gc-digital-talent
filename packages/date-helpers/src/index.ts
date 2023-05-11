@@ -167,3 +167,16 @@ export const convertDateTimeToDate = (
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
   toDate(d, { timeZone: "UTC" });
+
+/**
+ * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
+ * @returns string of formatted date
+ */
+export const nowUTCDateTime = (): string => {
+  // get UTC time, in the appropriate format, from client
+  // https://stackoverflow.com/a/11964609
+  const now = new Date();
+  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const formattedNowUTC = format(nowUTC, DATETIME_FORMAT_STRING);
+  return formattedNowUTC;
+};

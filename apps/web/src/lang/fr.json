@@ -8087,5 +8087,9 @@
   "NohOkF": {
     "defaultMessage": "Trouvez des talents",
     "description": "Label displayed on the Find talent menu item."
+  },
+  "0dQ62G": {
+    "defaultMessage": "Nombre de compétences appariées",
+    "description": "Title displayed on the candidate skill count column."
   }
 }
