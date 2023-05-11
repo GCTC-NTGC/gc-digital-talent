@@ -67,6 +67,34 @@ const ClientProvider = ({
     authRef.current = authContext;
   }, [authContext]);
 
+  const { accessToken, refreshToken, idToken, logout, refreshTokenSet } =
+    authRef.current;
+
+  const refreshAuth = React.useCallback(async () => {
+    /**
+     * Logout the user and return null AuthState
+     *
+     * @returns null
+     */
+    const logoutNullState = () => {
+      const currentLocation = window.location.pathname; // Can't use react-router hooks because we may not be inside the Router context.
+      logout(currentLocation); // After logging out, try to return to the page the user was on.
+    };
+
+    // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
+    // let's try to use a refresh token to get new tokens
+    if (refreshToken) {
+      const refreshedAuthState = await refreshTokenSet();
+      if (refreshedAuthState) {
+        return;
+      }
+
+      logoutNullState();
+    }
+
+    logoutNullState();
+  }, [refreshToken, logout, refreshTokenSet]);
+
   const internalClient = useMemo(() => {
     return (
       client ??
@@ -120,14 +148,6 @@ const ClientProvider = ({
           }),
           cacheExchange,
           authExchange(async (utils) => {
-            const {
-              accessToken,
-              refreshToken,
-              idToken,
-              logout,
-              refreshTokenSet,
-            } = authRef.current;
-
             return {
               addAuthToOperation(operation) {
                 if (accessToken) {
@@ -151,37 +171,14 @@ const ClientProvider = ({
                       )
                   : false;
               },
-              async refreshAuth() {
-                /**
-                 * Logout the user and return null AuthState
-                 *
-                 * @returns null
-                 */
-                const logoutNullState = () => {
-                  const currentLocation = window.location.pathname; // Can't use react-router hooks because we may not be inside the Router context.
-                  logout(currentLocation); // After logging out, try to return to the page the user was on.
-                };
-
-                // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
-                // let's try to use a refresh token to get new tokens
-                if (refreshToken) {
-                  const refreshedAuthState = await refreshTokenSet();
-                  if (refreshedAuthState) {
-                    return;
-                  }
-
-                  logoutNullState();
-                }
-
-                logoutNullState();
-              },
+              refreshAuth,
             };
           }),
           fetchExchange,
         ],
       })
     );
-  }, [client, intl, logger, authRef]);
+  }, [accessToken, client, idToken, intl, logger, refreshAuth, refreshToken]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
