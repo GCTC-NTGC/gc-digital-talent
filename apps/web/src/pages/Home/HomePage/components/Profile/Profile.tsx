@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import CallToAction from "~/components/CallToAction/CallToAction";
+import CallToActionLink from "~/components/CallToAction/CallToActionLink";
+import { ProfileIcon } from "~/components/CallToAction/Icons";
 
 import profileHeroImg from "~/assets/img/hero-profile.jpg";
 
@@ -76,18 +77,17 @@ const Profile = () => {
             data-h2-gap="base(x1)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
           >
-            <CallToAction
-              type="link"
-              context="profile"
-              content={{
-                path: paths.myProfile(),
-                label: intl.formatMessage({
-                  defaultMessage: "Create a profile",
-                  id: "7hUWc+",
-                  description: "Link text for users to create a profile",
-                }),
-              }}
-            />
+            <CallToActionLink
+              color="quinary"
+              href={paths.myProfile()}
+              Icon={ProfileIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create a profile",
+                id: "7hUWc+",
+                description: "Link text for users to create a profile",
+              })}
+            </CallToActionLink>
           </div>
         </div>
       </div>

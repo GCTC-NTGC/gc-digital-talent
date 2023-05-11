@@ -12,8 +12,10 @@ import {
   getOperationalRequirement,
   getWorkRegion,
   getLocale,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
@@ -129,15 +131,7 @@ const ApplicantFilters = ({
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
   );
 
-  const pools = applicantFilter?.pools?.filter(notEmpty);
-  const classifications: Classification[] =
-    pools?.reduce(
-      (previousValue: Classification[], currentValue: Maybe<Pool>) => {
-        const cls = currentValue?.classifications?.filter(notEmpty) || [];
-        return [...previousValue, ...cls];
-      },
-      [],
-    ) || [];
+  const classifications = applicantFilter?.qualifiedClassifications || [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
@@ -257,10 +251,26 @@ const ApplicantFilters = ({
   const workLocations: string[] | undefined = workLocationIds.map((id) =>
     intl.formatMessage(getWorkRegion(id)),
   );
+
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Pool Requested",
+              id: "rz8uPO",
+              description:
+                "Title for the pool block in the manager info section of the single search request view.",
+            })}
+            content={
+              applicantFilter
+                ? applicantFilter?.pools?.map((pool) =>
+                    getFullPoolAdvertisementTitleHtml(intl, pool),
+                  )
+                : null
+            }
+          />
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -272,6 +282,18 @@ const ApplicantFilters = ({
               classificationsFromBrowserHistory ||
                 classificationsFromApplicantFilter,
             )}
+          />
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Stream",
+              id: "Ua/X9Q",
+              description: "Title for stream on summary of filters section",
+            })}
+            content={
+              applicantFilter?.qualifiedStreams?.map((stream) => {
+                return intl.formatMessage(getPoolStream(stream as string));
+              }) ?? []
+            }
           />
           <FilterBlock
             title={intl.formatMessage(
@@ -388,7 +410,6 @@ const SearchRequestFilters = ({
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
-
   // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
     return (
@@ -411,6 +432,15 @@ const SearchRequestFilters = ({
           classification?.level
         }`,
     );
+
+  const pools: Pool[] | undefined = poolCandidateFilter
+    ? poolCandidateFilter?.pools?.filter(notEmpty)
+    : [];
+
+  const streams = pools?.map((pool) =>
+    pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : "",
+  );
+
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
@@ -496,12 +526,35 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
+                defaultMessage: "Pool Requested",
+                id: "rz8uPO",
+                description:
+                  "Title for the pool block in the manager info section of the single search request view.",
+              })}
+              content={
+                pools
+                  ? pools.map((pool) =>
+                      getFullPoolAdvertisementTitleHtml(intl, pool),
+                    )
+                  : null
+              }
+            />
+            <FilterBlock
+              title={intl.formatMessage({
                 defaultMessage: "Group and level",
                 id: "Rn5e/i",
                 description:
                   "Title for group and level on summary of filters section",
               })}
               content={classifications}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Stream",
+                id: "Ua/X9Q",
+                description: "Title for stream on summary of filters section",
+              })}
+              content={streams}
             />
             <FilterBlock
               title={intl.formatMessage({

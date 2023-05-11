@@ -4,7 +4,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "engines": {
-    "node": "16.16.0",
+    "node": "18.16.0",
     "npm": ">=8.0.0"
   },
   "packageManager": "npm@8.0.0",
@@ -33,10 +33,10 @@
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
-    "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=@gc-digital-talent/web",
-    "build-storybook": "MERGE_STORYBOOKS=true npm run build-storybook --workspace=@gc-digital-talent/web",
+    "storybook": "npm run storybook --workspace=@gc-digital-talent/web",
+    "build-storybook": "npm run build-storybook --workspace=@gc-digital-talent/web",
     "test": "turbo run test",
-    "watch": "turbo run watch --parallel",
+    "watch": "turbo run watch --concurrency=30",
     "watch:project": "turbo run watch",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
     "e2e:open": "npm run e2e:open",
@@ -45,10 +45,11 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "3.2.2",
+    "@graphql-codegen/cli": "3.3.1",
     "@hydrogen-css/hydrogen": "2.0.1",
     "eslint-config-custom": "*",
-    "prettier": "^2.8.6",
-    "turbo": "^1.8.5"
+    "jest-fail-on-console": "^3.1.1",
+    "prettier": "^2.8.7",
+    "turbo": "^1.9.3"
   }
 }

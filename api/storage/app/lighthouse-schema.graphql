@@ -71,6 +71,8 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
+  qualifiedClassifications: [Classification]
+  qualifiedStreams: [PoolStream]
   pools: [Pool]
 }
 
@@ -88,6 +90,19 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+  skillsIntersectional: [IdInput]
+  qualifiedClassifications: [ClassificationFilterInput]
+  qualifiedStreams: [PoolStream]
+}
+
+enum ApplicationStep {
+  WELCOME
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
 }
 
 enum ArmedForcesStatus {
@@ -225,11 +240,6 @@ input ConnectExperienceSkills {
   details: String
 }
 
-input ConnectOrCreateBelongsTo {
-  connect: ID
-  create: CreateUserInput
-}
-
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -242,6 +252,8 @@ input CreateApplicantFilterInput {
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
+  qualifiedClassifications: ClassificationBelongsToMany
+  qualifiedStreams: [PoolStream]
 }
 
 input CreateClassificationInput {
@@ -263,7 +275,7 @@ input CreatePoolAdvertisementInput {
 
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: ConnectOrCreateBelongsTo!
+  user: UserBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
@@ -300,9 +312,18 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
-  status: PoolStatus = NOT_TAKING_APPLICATIONS
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input CreateScreeningQuestionInput {
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
 }
 
 input CreateSkillFamilyInput {
@@ -395,7 +416,8 @@ type Department {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
@@ -431,6 +453,11 @@ input EducationExperienceInput {
   status: EducationStatus
   details: String
   skills: UpdateExperienceSkills
+}
+
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
 }
 
 enum EducationStatus {
@@ -640,6 +667,7 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
+  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -789,12 +817,13 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
-  status: PoolStatus @deprecated(reason: "Replaced by advertisementStatus")
   advertisementStatus: AdvertisementStatus
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
   createdDate: DateTime
+  updatedDate: DateTime
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type PoolAdvertisement {
@@ -819,6 +848,7 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  screeningQuestions: [ScreeningQuestion]
 }
 
 enum PoolAdvertisementLanguage {
@@ -852,6 +882,10 @@ type PoolCandidate {
   suspendedAt: DateTime
   profileSnapshot: JSON
   signature: String
+  submittedSteps: [ApplicationStep!]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementExperiences: [Experience]
 }
 
 type PoolCandidateFilter {
@@ -882,15 +916,6 @@ input PoolCandidateFilterInput {
   pools: [IdInput]
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
-}
-
-"""A paginated list of PoolCandidate items."""
-type PoolCandidatePaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of PoolCandidate items."""
-  data: [PoolCandidate!]!
 }
 
 input PoolCandidateSearchInput {
@@ -944,9 +969,19 @@ enum PoolCandidateStatus {
   REMOVED
 }
 
-enum PoolStatus {
-  TAKING_APPLICATIONS
-  NOT_TAKING_APPLICATIONS
+type PoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidate!
+  skillCount: Int
+}
+
+"""A paginated list of PoolCandidateWithSkillCount items."""
+type PoolCandidateWithSkillCountPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateWithSkillCount items."""
+  data: [PoolCandidateWithSkillCount!]!
 }
 
 enum PoolStream {
@@ -987,6 +1022,7 @@ enum ProvinceOrTerritory {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS
@@ -1003,7 +1039,7 @@ type Query {
   pool(id: UUID!): Pool
   poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
-  publishedPoolAdvertisements: [PoolAdvertisement!]!
+  publishedPoolAdvertisements(closingAfter: DateTime): [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -1050,7 +1086,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): PoolCandidatePaginator
+  ): PoolCandidateWithSkillCountPaginator
 }
 
 """Order by clause for Query.poolCandidatesPaginated.orderBy."""
@@ -1172,6 +1208,25 @@ enum SalaryRange {
   _100K_PLUS
 }
 
+type ScreeningQuestion {
+  id: ID!
+  poolAdvertisement: PoolAdvertisement
+  question: LocalizedString
+  sortOrder: Int
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+}
+
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion
+  poolCandidate: PoolCandidate
+}
+
+input ScreeningResponseBelongsTo {
+  connect: ID!
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
@@ -1288,6 +1343,17 @@ enum Trashed {
 """128 bit universally unique identifier (UUID)"""
 scalar UUID
 
+input UpdateApplicationInput {
+  insertSubmittedStep: ApplicationStep
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1300,8 +1366,13 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input UpdateEducationExperiencesRequirementBelongsToMany {
+  sync: [ID!]
+}
+
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
 
@@ -1320,6 +1391,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1342,10 +1414,32 @@ input UpdatePoolInput {
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
-  status: PoolStatus
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+}
+
+input UpdateScreeningQuestionInput {
+  id: ID!
+  question: LocalizedStringInput
+  sortOrder: Int
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
+}
+
+input UpdateScreeningQuestionsHasMany {
+  create: [CreateScreeningQuestionInput!]
+  update: [UpdateScreeningQuestionInput!]
+  delete: [ID!]
 }
 
 input UpdateSkillFamilyInput {
@@ -1419,7 +1513,7 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roles: RoleAssignmentHasMany
+  roleAssignmentsInput: RoleAssignmentHasMany
 }
 
 input UpdateUserAsUserInput {

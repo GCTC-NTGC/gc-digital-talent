@@ -11,8 +11,20 @@ Cypress.Commands.add("getDCM", () => {
     variables: {},
   }).then((data) => {
     const teams = data.teams;
-    const dcm = teams.filter((team) => team.name === "digital-community-management");
+    const dcm = teams.filter(
+      (team) => team.name === "digital-community-management",
+    );
     const dcmId = dcm[0]["id"];
     cy.wrap(dcmId);
+  });
+});
+
+Cypress.Commands.add("getTeams", () => {
+  cy.graphqlRequest({
+    operationName: "allTeams",
+    query: getGqlString(AllTeamsDocument),
+    variables: {},
+  }).then((data) => {
+    cy.wrap(data.teams);
   });
 });

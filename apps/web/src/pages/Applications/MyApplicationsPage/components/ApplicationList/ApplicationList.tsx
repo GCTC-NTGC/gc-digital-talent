@@ -2,17 +2,18 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
-import { PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import ApplicationCard from "../ApplicationCard/ApplicationCard";
 import ApplicationGroup from "./ApplicationGroup";
 
 import { groupApplicationsByStatus } from "./utils";
+import { Application } from "../../../ApplicantDashboardPage/types";
 
 interface ApplicationListProps {
-  applications: Array<PoolCandidate>;
+  applications: Array<Application>;
 }
 
 const ApplicationList = ({ applications }: ApplicationListProps) => {
@@ -70,13 +71,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
       </ul>
       <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="drafts">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Draft applications",
               id: "5isFkb",
               description: "Title for the draft applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {drafts.length ? (
               <ApplicationGroup>
@@ -90,7 +91,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
+                  data-h2-font-size="base(h6)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -102,8 +103,11 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in draft applications section when there are no drafts.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)" data-h2-font-weight="base(700)">
-                  <Link data-h2-color="base(primary)" href={paths.browse()}>
+                <p data-h2-font-weight="base(700)">
+                  <Link
+                    data-h2-color="base(primary)"
+                    href={paths.browsePools()}
+                  >
                     {intl.formatMessage({
                       defaultMessage:
                         "Check our available opportunities to start an application.",
@@ -118,13 +122,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="submitted">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Submitted applications",
               id: "acCyP9",
               description: "Title for the submitted applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {submitted.length ? (
               <ApplicationGroup>
@@ -138,7 +142,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
+                  data-h2-font-size="base(h6)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -150,7 +154,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in submitted applications section when there are no submitted applications.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Applications in this section will allow you to track their progress.",
@@ -164,13 +168,13 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="historical">
-          <Accordion.Trigger headerAs="h3">
+          <StandardAccordionHeader headingAs="h3">
             {intl.formatMessage({
               defaultMessage: "Application history",
               id: "MTSArs",
               description: "Title for the historical applications section",
             })}
-          </Accordion.Trigger>
+          </StandardAccordionHeader>
           <Accordion.Content>
             {historical.length ? (
               <ApplicationGroup>
@@ -184,7 +188,6 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
             ) : (
               <Well data-h2-text-align="base(center)">
                 <p
-                  data-h2-font-size="base(h5)"
                   data-h2-font-weight="base(700)"
                   data-h2-margin="base(0, 0, x.25, 0)"
                 >
@@ -196,7 +199,7 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in historical applications section when there are no historical applications.",
                   })}
                 </p>
-                <p data-h2-font-size="base(h6)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "This section will include applications that have missed the submission deadline as well as applications that have been fully assessed.",

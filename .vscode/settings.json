@@ -11,14 +11,11 @@
   "workbench.settings.useSplitJSON": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.workingDirectories": [
-    "apps",
-    "packages"
-  ],
+  "eslint.workingDirectories": ["apps", "packages"],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },
@@ -72,4 +69,10 @@
     "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g",
     "/\"[A-Za-z0-9+\\/]{6}\\\": {/g"
   ],
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "files.associations": {
+    "**/public/config.ejs": "plaintext"
+  }
 }

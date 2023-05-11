@@ -1,21 +1,26 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { DropdownMenu, Button, Separator } from "@gc-digital-talent/ui";
-
-const localeMap = new Map([
-  ["crg", "Michif"],
-  ["crk", "Plains Cree"],
-  ["ojw", "Western Ojibway"],
-  ["mic", "Mikmaq"],
-]);
 
 const LanguageSelector = () => {
   const intl = useIntl();
   const [searchParams, setSearchParams] = useSearchParams();
   const locale = searchParams.get("locale");
+
+  const localeMap = new Map([
+    [
+      "mic",
+      intl.formatMessage({
+        id: "nAgrVL",
+        defaultMessage: "Mi'kmaq",
+        description: "Name of Mi'kmaq language",
+      }),
+    ],
+  ]);
 
   const currentLocale = localeMap.get(locale || "");
 
@@ -39,7 +44,7 @@ const LanguageSelector = () => {
     <div
       data-h2-background-color="base(secondary)"
       data-h2-color="base(white)"
-      data-h2-padding="base(x.5, 0)"
+      data-h2-padding="base(x.5)"
     >
       <div
         data-h2-align-items="base(center)"

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\GraphQL\Mutations;
+
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;

@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  HomeIcon,
-  ArrowRightOnRectangleIcon,
-} from "@heroicons/react/24/outline";
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnRectangleIcon";
 
 import { CardLink, Loading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";

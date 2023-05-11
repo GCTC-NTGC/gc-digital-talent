@@ -9,7 +9,7 @@ import {
   Separator,
   ScrollArea,
 } from "@gc-digital-talent/ui";
-import { InputLabel, Submit } from "@gc-digital-talent/forms";
+import { InputLabel } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Scalars, Skill, SkillFamily } from "~/api/generated";
@@ -37,9 +37,6 @@ export interface SkillPickerProps {
   selectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
   headingLevel?: HeadingRank;
-  handleSave?: () => void;
-  submitButtonText?: string;
-  isSubmitting?: boolean;
   skillType?: string;
 }
 
@@ -48,9 +45,6 @@ const SkillPicker = ({
   onUpdateSelectedSkills,
   selectedSkills = [],
   headingLevel = "h4",
-  handleSave,
-  submitButtonText,
-  isSubmitting,
   skillType,
 }: SkillPickerProps) => {
   const intl = useIntl();
@@ -60,7 +54,7 @@ const SkillPicker = ({
     mode: "onChange",
     defaultValues,
   });
-  const { watch, handleSubmit } = methods;
+  const { watch } = methods;
   const staticId = useId();
   const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
   const queryInputId = `query-${skillType || staticId}`;
@@ -281,17 +275,6 @@ const SkillPicker = ({
             description:
               "Text that appears after skill picker when no skills are selected",
           })}
-        </p>
-      )}
-      {submitButtonText && handleSave && (
-        <p data-h2-margin="base(x1, 0)">
-          <Submit
-            text={submitButtonText}
-            color="cta"
-            mode="solid"
-            isSubmitting={isSubmitting}
-            onClick={handleSubmit(handleSave)}
-          />
         </p>
       )}
     </FormProvider>

@@ -1,7 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 import { MultiSelectField } from "@gc-digital-talent/forms";
@@ -57,7 +57,7 @@ const AddIndividualRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
-      roles: {
+      roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,
         },
@@ -128,8 +128,8 @@ const AddIndividualRoleDialog = ({
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select roles...",
-                  id: "eW7I5E",
+                  defaultMessage: "Select roles",
+                  id: "Cn73yN",
                   description: "Placeholder text for role selection input",
                 })}
                 options={roleOptions}

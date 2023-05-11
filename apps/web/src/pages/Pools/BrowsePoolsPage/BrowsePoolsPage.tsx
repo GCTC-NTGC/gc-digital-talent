@@ -11,6 +11,7 @@ import {
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -53,21 +54,16 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const paths = useRoutes();
   const featureFlags = useFeatureFlags();
 
-  const title = intl.formatMessage(
-    {
-      defaultMessage: "Browse <abbreviation>IT</abbreviation> jobs",
-      id: "tM1de5",
-      description: "Page title for the direct intake browse pools page.",
-    },
-    {
-      abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-    },
-  );
+  const title = intl.formatMessage({
+    defaultMessage: "Browse jobs",
+    id: "8EFvJf",
+    description: "Page title for the direct intake browse pools page.",
+  });
 
   const crumbs = useBreadcrumbs([
     {
       label: title,
-      url: paths.allPools(),
+      url: paths.browsePools(),
     },
   ]);
 
@@ -92,8 +88,8 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
     <>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Browse opportunities",
-          id: "1To4Kg",
+          defaultMessage: "Browse jobs",
+          id: "ApyEMy",
           description: "Title for the browse pools page",
         })}
       />
@@ -234,7 +230,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
             data-h2-gap="base(x2) p-tablet(x3)"
           >
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage(
                 {
                   defaultMessage:
@@ -247,18 +243,20 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
                   abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
                 },
               )}
-              link={{
-                href: `${paths.home()}/indigenous-it-apprentice`,
-                mode: "outline",
-                external: true,
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-                  description:
-                    "Link text to go to IAP homepage on Browse IT jobs page",
-                  id: "07BM9O",
-                }),
-              }}
+              links={[
+                {
+                  href: `${paths.home()}/indigenous-it-apprentice`,
+                  mode: "outline",
+                  external: true,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                    description:
+                      "Link text to go to IAP homepage on Browse IT jobs page",
+                    id: "07BM9O",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -277,23 +275,25 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="purple"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Hire talent for your team",
                 id: "jTN0bg",
                 description:
                   "Title for to go to the search page on Browse IT jobs page",
               })}
-              link={{
-                href: paths.search(),
-                mode: "outline",
-                label: intl.formatMessage({
-                  defaultMessage: "Visit the talent search page",
-                  id: "BhfG7a",
-                  description:
-                    "Link text to go to the search page on browse IT jobs page",
-                }),
-              }}
+              links={[
+                {
+                  href: paths.search(),
+                  mode: "outline",
+                  label: intl.formatMessage({
+                    defaultMessage: "Find talent",
+                    id: "7waBmC",
+                    description:
+                      "Link text to go to the search page on browse jobs page",
+                  }),
+                },
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -319,8 +319,12 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   );
 };
 
+const now = nowUTCDateTime();
+
 const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
+  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
+    variables: { closingAfter: now }, // pass current dateTime into query argument
+  });
 
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>

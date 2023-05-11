@@ -11,13 +11,13 @@ import {
   Applicant,
   ExperienceSkillRecord,
   Skill,
-  LocalizedString,
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,
   EducationType,
   EducationStatus,
 } from "@gc-digital-talent/graphql";
+import { getStaticSkills } from "./fakeSkills";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
@@ -27,49 +27,15 @@ const sampleApp: Applicant = {
 };
 
 // skills in detail comes from `skills.experienceSkillRecords.details`
-const theSkillString1: LocalizedString = {
-  en: "The first Skill Name",
-  fr: "La première Compétence",
-};
-
-const theSkillDescription1: LocalizedString = {
-  en: "The first Skill Description",
-  fr: "Le premier Descriptif",
-};
-
 const theExperienceSkillRecord: ExperienceSkillRecord = {
   details: "The skill in detail",
 };
 
-const sampleSkill1: Skill = {
-  id: faker.datatype.uuid(),
-  key: faker.random.word(),
-  description: theSkillDescription1,
-  name: theSkillString1,
-  experienceSkillRecord: theExperienceSkillRecord,
-};
-
-const theSkillString2: LocalizedString = {
-  en: "The second Skill",
-  fr: "La deuxième Compétence",
-};
-
-const theSkillDescription2: LocalizedString = {
-  en: "The second Description",
-  fr: "La deuxième Descriptif",
-};
-
-const sampleSkill2: Skill = {
-  id: faker.datatype.uuid(),
-  key: faker.random.word(),
-  description: theSkillDescription2,
-  name: theSkillString2,
-  experienceSkillRecord: theExperienceSkillRecord,
-};
+const skills = getStaticSkills();
 
 const staticDates = {
-  start: new Date("October 24, 1992").toDateString(),
-  end: new Date("October 23, 1993").toDateString(),
+  start: "1992-10-24",
+  end: "1993-10-23",
 };
 
 // 5 generators to generate experiences of a certain type
@@ -81,7 +47,10 @@ const generateAward = (): AwardExperience => {
     __typename: "AwardExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    skills: [],
+    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
+      ...skill,
+      experienceSkillRecord: theExperienceSkillRecord,
+    })),
     details: `experience details ${faker.random.words()}`,
     title: `experience title ${faker.lorem.word()}`,
     awardedTo: faker.helpers.arrayElement<AwardedTo>([
@@ -113,7 +82,10 @@ const generateCommunity = (): CommunityExperience => {
     __typename: "CommunityExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    skills: [sampleSkill1],
+    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
+      ...skill,
+      experienceSkillRecord: theExperienceSkillRecord,
+    })),
     details: `experience details ${faker.random.words()}`,
     title: `experience title ${faker.lorem.word()}`,
     organization: faker.company.name(),
@@ -132,7 +104,10 @@ const generateEducation = (): EducationExperience => {
     __typename: "EducationExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    skills: [sampleSkill1, sampleSkill2],
+    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
+      ...skill,
+      experienceSkillRecord: theExperienceSkillRecord,
+    })),
     details: `experience details ${faker.random.words()}`,
     areaOfStudy: faker.music.genre(),
     type: faker.helpers.arrayElement<EducationType>([
@@ -168,7 +143,10 @@ const generatePersonal = (): PersonalExperience => {
     __typename: "PersonalExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    skills: [sampleSkill1],
+    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
+      ...skill,
+      experienceSkillRecord: theExperienceSkillRecord,
+    })),
     details: `experience details ${faker.random.words()}`,
     title: faker.name.jobTitle(),
     startDate: staticDates.start,
@@ -186,7 +164,10 @@ const generateWork = (): WorkExperience => {
     __typename: "WorkExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    skills: [sampleSkill1, sampleSkill2],
+    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
+      ...skill,
+      experienceSkillRecord: theExperienceSkillRecord,
+    })),
     details: `experience details ${faker.random.words()}`,
     organization: faker.company.name(),
     role: faker.name.jobTitle(),

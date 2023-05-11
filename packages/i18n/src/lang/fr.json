@@ -237,10 +237,6 @@
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
   },
-  "/xV8Hg": {
-    "defaultMessage": "N'accepte pas de demandes",
-    "description": "Pool Status described as not taking applications."
-  },
   "1X8RC4": {
     "defaultMessage": "Ontario",
     "description": "Ontario selection for province or territory input"
@@ -272,10 +268,6 @@
   "CUi1Ti": {
     "defaultMessage": "Colombie-Britannique",
     "description": "British Columbia selection for province or territory input"
-  },
-  "CWRRy1": {
-    "defaultMessage": "Accepte les demandes",
-    "description": "Pool Status described as taking applications."
   },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
@@ -633,7 +625,7 @@
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
   },
-  "mFKg18": {
+  "ghhKNZ": {
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
@@ -1089,6 +1081,10 @@
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
+  "V3+fXY": {
+    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
+    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
   "H8eisr": {
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
@@ -1234,8 +1230,8 @@
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
   },
-  "cbKlUG": {
-    "defaultMessage": "Sélectionnez un mois...",
+  "5hXz/z": {
+    "defaultMessage": "Sélectionnez un mois",
     "description": "Placeholder for a month select field"
   },
   "fAj9+G": {
@@ -1321,5 +1317,53 @@
   "Srs7a4": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Assistive technology skip link"
+  },
+  "7p6mDv": {
+    "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
+    "description": "Message displayed when user attempts an action they are not allowed to do."
+  },
+  "fMcKtJ": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Text to cancel changes to a form"
+  },
+  "2G+fJt": {
+    "defaultMessage": "L’article {index} a été supprimé.",
+    "description": "Message announced to assistive technology when a repeatable field has been removed"
+  },
+  "NVMKe5": {
+    "defaultMessage": "Modifier la séquence de {from} à {to}",
+    "description": "Button text for moving an item from one position to another"
+  },
+  "PAXoFY": {
+    "defaultMessage": "L’article a été déplacé de {from} à {to}.",
+    "description": "Message announced to assistive technology when a repeatable field has moved position"
+  },
+  "T/97gk": {
+    "defaultMessage": "Supprimer l’article {index}",
+    "description": "Button text to remove an item from repeatable fields"
+  },
+  "lsFH+y": {
+    "defaultMessage": "Aucune option",
+    "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "plwOsC": {
+    "defaultMessage": "Sélectionnez",
+    "description": "Default placeholder shown when Select field has nothing actively selected."
+  },
+  "ylHC90": {
+    "defaultMessage": "Chargement...",
+    "description": "Message shown in options dropdown when Select field is loading options."
+  },
+  "LBqw5w": {
+    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
+    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  },
+  "tpVujp": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message displayed when a user has not provided some form of information"
+  },
+  "LWsmvv": {
+    "defaultMessage": "PAPA",
+    "description": "The publishing group called Indigenous Apprenticeship Program"
   }
 }

@@ -21,7 +21,7 @@ class NotifyTest extends TestCase
         $this->templates = config('notify.templates');
 
         $apiKey = config('notify.client.apiKey');
-        if(!$apiKey) {
+        if (!$apiKey) {
             $this->markTestSkipped("API key not found");
         }
     }
@@ -159,5 +159,4 @@ class NotifyTest extends TestCase
         $this->assertStringContainsStringIgnoringCase($this->bulkName, $json['original_file_name']);
         $this->assertEquals(3, $json['notification_count']);
     }
-
 }

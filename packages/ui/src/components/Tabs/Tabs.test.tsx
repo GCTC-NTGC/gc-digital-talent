@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
@@ -70,9 +70,12 @@ describe("Tabs", () => {
   });
 
   it("should change panel when tab clicked", async () => {
-    renderTabs({
-      defaultValue: "one",
+    await act(async () => {
+      renderTabs({
+        defaultValue: "one",
+      });
     });
+
     expect(
       await screen.queryByRole("tabpanel", { name: /one/i }),
     ).toBeInTheDocument();
@@ -80,7 +83,9 @@ describe("Tabs", () => {
       await screen.queryByRole("tabpanel", { name: /two/i }),
     ).not.toBeInTheDocument();
 
-    await user.click(await screen.getByRole("tab", { name: /two/i }));
+    await act(async () => {
+      await user.click(screen.getByRole("tab", { name: /two/i }));
+    });
 
     expect(
       await screen.queryByRole("tabpanel", { name: /two/i }),

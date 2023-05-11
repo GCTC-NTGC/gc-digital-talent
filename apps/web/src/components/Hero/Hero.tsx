@@ -40,6 +40,7 @@ export interface HeroProps {
   crumbs?: BreadcrumbsProps["crumbs"];
   children?: React.ReactNode;
   centered?: boolean;
+  linkSlot?: React.ReactNode;
 }
 
 const Hero = ({
@@ -48,6 +49,7 @@ const Hero = ({
   subtitle,
   crumbs,
   children,
+  linkSlot,
   centered = false,
 }: HeroProps) => {
   const headingRef = React.useRef<HeadingRef>(null);
@@ -131,12 +133,7 @@ const Hero = ({
           data-h2-layer="base(3, relative)"
         >
           <div data-h2-color="base(white)" {...textAlignment}>
-            <Heading
-              ref={headingRef}
-              level="h1"
-              size="h2"
-              data-h2-margin="base(0)"
-            >
+            <Heading ref={headingRef} level="h1" data-h2-margin="base(0)">
               {title}
             </Heading>
             {subtitle && (
@@ -147,6 +144,18 @@ const Hero = ({
               >
                 {subtitle}
               </p>
+            )}
+            {linkSlot && (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(flex-start)"
+                data-h2-margin="base(x1.5, 0, 0, 0)"
+                data-h2-gap="base(x1)"
+                data-h2-justify-content="base(center) p-tablet(flex-start)"
+                data-h2-flex-wrap="base(wrap) p-tablet(initial)"
+              >
+                {linkSlot}
+              </div>
             )}
           </div>
         </div>
@@ -162,6 +171,7 @@ const Hero = ({
           />
         ) : (
           <BackgroundGraphic
+            aria-hidden="true"
             data-h2-display="base(block) base:iap(none)"
             data-h2-position="base(absolute)"
             data-h2-location="base(0, 0, auto, auto)"
@@ -176,7 +186,7 @@ const Hero = ({
         <>
           <Flourish />
           <div
-            data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+            data-h2-container="base(center, large, x1) p-tablet(center, medium, x2)"
             data-h2-position="base(relative)"
             data-h2-margin="base(-x5, auto, 0, auto)"
             data-h2-z-index="base(4)"

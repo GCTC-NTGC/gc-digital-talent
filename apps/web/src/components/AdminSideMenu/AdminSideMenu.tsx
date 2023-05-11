@@ -1,22 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  AcademicCapIcon,
-  HomeIcon,
-  BuildingOfficeIcon,
-  BuildingOffice2Icon,
-  TagIcon,
-  TicketIcon,
-  UserGroupIcon,
-  UserIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/24/outline";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
+import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import { checkRole } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
+
 import LoginOrLogout from "./LoginOrLogout";
 
 export interface AdminSideMenuProps {
@@ -24,31 +24,6 @@ export interface AdminSideMenuProps {
   onToggle: () => void;
   onDismiss: () => void;
 }
-
-/**
- * Check to see if user contains one or more roles
- *
- * @param checkRoles              Roles to check for
- * @param userRoleAssignments     Users current role assignments
- * @returns boolean
- */
-const checkRole = (
-  checkRoles: RoleName[] | null,
-  userRoleAssignments: Maybe<RoleAssignment[]>,
-): boolean => {
-  if (!checkRoles) {
-    return true;
-  }
-  const visible = checkRoles.reduce((prev, curr) => {
-    if (userRoleAssignments?.map((a) => a.role?.name)?.includes(curr)) {
-      return true;
-    }
-
-    return prev;
-  }, false);
-
-  return visible;
-};
 
 const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
   const intl = useIntl();
@@ -74,97 +49,65 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
       ],
       text: intl.formatMessage({
         defaultMessage: "Dashboard",
-        id: "ZDmkKD",
-        description: "Label displayed on the dashboard menu item.",
+        id: "ArwIQV",
+        description: "Title for dashboard",
       }),
     },
     {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator],
-      text: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "wCBE9S",
-        description: "Label displayed on the Pools menu item.",
-      }),
+      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      text: intl.formatMessage(adminMessages.pools),
     },
     {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "154pGu",
-        description: "Label displayed on the Users menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.users),
     },
     {
       key: "requests",
       href: paths.searchRequestTable(),
       icon: TicketIcon,
       roles: [ROLE_NAME.RequestResponder],
-      text: intl.formatMessage({
-        defaultMessage: "Requests",
-        id: "QftM3f",
-        description: "Label displayed on the requests menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.requests),
     },
     {
       key: "classifications",
       href: paths.classificationTable(),
       icon: TagIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Classifications",
-        id: "gk7uJQ",
-        description: "Label displayed on the classifications menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.classifications),
     },
     {
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
       roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "GJsuQg",
-        description: "Label displayed on the teams menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.teams),
     },
     {
       key: "departments",
       href: paths.departmentTable(),
       icon: BuildingOfficeIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Departments",
-        id: "HQOsq2",
-        description: "Label displayed on the departments menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.departments),
     },
     {
       key: "skill-families",
       href: paths.skillFamilyTable(),
       icon: UserGroupIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Skill Families",
-        id: "4fOu5j",
-        description: "Label displayed on the skill families menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.skillFamilies),
     },
     {
       key: "skills",
       href: paths.skillTable(),
       icon: AcademicCapIcon,
       roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "UC+4MX",
-        description: "Label displayed on the skills menu item.",
-      }),
+      text: intl.formatMessage(adminMessages.skills),
     },
   ];
 

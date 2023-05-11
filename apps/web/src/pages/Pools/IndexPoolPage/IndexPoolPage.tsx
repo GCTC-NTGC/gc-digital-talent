@@ -1,23 +1,28 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import { useAuthorization } from "@gc-digital-talent/auth/";
 
 import useRoutes from "~/hooks/useRoutes";
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import PoolTableApi from "./components/PoolTable";
+import { checkRole } from "~/utils/teamUtils";
+import { Pending } from "@gc-digital-talent/ui";
+import adminMessages from "~/messages/adminMessages";
+import {
+  PoolOperatorTableApi,
+  PoolAdminTableApi,
+} from "./components/PoolTable";
 
 export const PoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const { roleAssignments, isLoaded } = useAuthorization();
+  const isAdmin = checkRole(["platform_admin"], roleAssignments);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Pools",
-    id: "SnytBx",
-    description: "Page title for the pools index page",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.pools);
 
   const navigationCrumbs = [
     {
@@ -29,11 +34,7 @@ export const PoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
   ];
@@ -42,7 +43,13 @@ export const PoolPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
-      <PoolTableApi />
+      <Pending fetching={!isLoaded}>
+        {isAdmin ? (
+          <PoolAdminTableApi title={pageTitle} />
+        ) : (
+          <PoolOperatorTableApi title={pageTitle} />
+        )}
+      </Pending>
     </AdminContentWrapper>
   );
 };

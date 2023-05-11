@@ -30,7 +30,8 @@ import {
   PositionDuration,
   PoolAdvertisement,
 } from "~/api/generated";
-import labels from "~/components/UserProfile/ExperienceAccordion/labels";
+import labels from "~/components/ExperienceAccordion/labels";
+import adminMessages from "~/messages/adminMessages";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -371,11 +372,7 @@ const usePoolCandidateCsvData = (
     },
     {
       key: "skills",
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "3IAJad",
-        description: "CSV Header, Skills column",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
     },
     ...essentialSkillHeaders,
     ...nonEssentialSkillHeaders,

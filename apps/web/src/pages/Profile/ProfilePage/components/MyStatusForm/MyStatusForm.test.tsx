@@ -135,8 +135,9 @@ describe("MyStatusForm tests", () => {
       initialData: mockEmptyData,
       handleMyStatus: onClick,
     });
-    await act(() => {
-      screen
+
+    await act(async () => {
+      await screen
         .getByRole("radio", {
           name: /Actively looking -/i,
         })
@@ -144,8 +145,8 @@ describe("MyStatusForm tests", () => {
     });
     expect(onClick).toHaveBeenCalledTimes(1);
 
-    await act(() => {
-      screen
+    await act(async () => {
+      await screen
         .getByRole("radio", {
           name: /Open to opportunities - /i,
         })
@@ -153,8 +154,8 @@ describe("MyStatusForm tests", () => {
     });
     expect(onClick).toHaveBeenCalledTimes(2);
 
-    await act(() => {
-      screen
+    await act(async () => {
+      await screen
         .getByRole("radio", {
           name: /Inactive - I /i,
         })

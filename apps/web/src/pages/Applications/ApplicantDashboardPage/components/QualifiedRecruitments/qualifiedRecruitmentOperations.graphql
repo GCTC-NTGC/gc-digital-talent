@@ -1,0 +1,5 @@
+mutation changeApplicationSuspendedAt($id: ID!, $isSuspended: Boolean!) {
+  changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
+    id
+  }
+}

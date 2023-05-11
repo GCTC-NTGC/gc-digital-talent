@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
+import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 

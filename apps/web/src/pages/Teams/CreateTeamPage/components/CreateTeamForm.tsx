@@ -2,7 +2,7 @@ import * as React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 
 import { Link } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";

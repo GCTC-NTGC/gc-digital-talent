@@ -52,17 +52,17 @@ class TeamsTest extends TestCase
     $this->poolOperator1 = User::factory()->create([
       'email' => 'poolOperator1@test.com',
       'sub' => 'poolOperator1@test.com',
-    ])->syncRoles([ "guest", "base_user" ]);
+    ])->syncRoles(["guest", "base_user"]);
 
     $this->poolOperator2 = User::factory()->create([
       'email' => 'poolOperator2@test.com',
       'sub' => 'poolOperator2@test.com',
-    ])->syncRoles([ "guest", "base_user" ]);
+    ])->syncRoles(["guest", "base_user"]);
 
     $this->poolOperator3 = User::factory()->create([
       'email' => 'poolOperator3@test.com',
       'sub' => 'poolOperator3@test.com',
-    ])->syncRoles([ "guest", "base_user" ]);
+    ])->syncRoles(["guest", "base_user"]);
 
 
     // Create teams
@@ -77,15 +77,17 @@ class TeamsTest extends TestCase
     ]);
 
     // Attach pool operator users to teams.
-    $this->poolOperator1->attachRole("pool_operator", $this->team1);
-    $this->poolOperator2->attachRole("pool_operator", $this->team2);
+    $this->poolOperator1->addRole("pool_operator", $this->team1);
+    $this->poolOperator2->addRole("pool_operator", $this->team2);
   }
 
   public function testAllTeamsQuery(): void
   {
     // Assert all teams query contains expected results
     $query = $this->actingAs($this->admin, "api")
-      ->graphQL(/** @lang Graphql */ '
+      ->graphQL(
+        /** @lang GraphQL */
+        '
       query teams {
           teams {
               id
@@ -95,7 +97,8 @@ class TeamsTest extends TestCase
               }
           }
       }
-    ');
+    '
+      );
     $data = $query->original['data'];
 
     // assert the teams returned is an array of exactly three items
@@ -130,11 +133,12 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> null,
-          ]
+        'team' => [
+          'name' => null,
+        ]
       ]
-    )->assertJsonFragment([
+    )->assertJsonFragment(
+      [
         "message" => "Variable \"\$team\" got invalid value {\"name\":null}; Expected non-nullable type String! not to be null at value.name."
       ]
     );
@@ -162,25 +166,26 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> 'team one',
-            'displayName' => [
-              'en' => 'en',
-              'fr' => 'fr',
-            ],
-            'description' => [
-              'en' => 'en',
-              'fr' => 'fr',
-            ],
-            'contactEmail' => 'test@test.com',
-            'departments' => [
-              "sync" => [$departmentId],
-            ],
-          ]
+        'team' => [
+          'name' => 'team one',
+          'displayName' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'description' => [
+            'en' => 'en',
+            'fr' => 'fr',
+          ],
+          'contactEmail' => 'test@test.com',
+          'departments' => [
+            "sync" => [$departmentId],
+          ],
+        ]
       ]
-    )->assertJson([
-      'data' => [
-        'createTeam' => [
+    )->assertJson(
+      [
+        'data' => [
+          'createTeam' => [
             'name' => 'team one',
             'displayName' => [
               'en' => 'en',
@@ -196,8 +201,8 @@ class TeamsTest extends TestCase
                 'id' => $departmentId,
               ]
             ],
+          ]
         ]
-    ]
       ]
     );
 
@@ -212,11 +217,12 @@ class TeamsTest extends TestCase
       }
     ',
       [
-          'team' => [
-            'name'=> 'team one',
-          ]
+        'team' => [
+          'name' => 'team one',
+        ]
       ]
-    )->assertJsonFragment([
+    )->assertJsonFragment(
+      [
         "createTeam" => null,
       ]
     );
@@ -252,7 +258,7 @@ class TeamsTest extends TestCase
       [
         'id' => $this->team1->id,
         'team' => [
-          'name'=> 'new_team_name',
+          'name' => 'new_team_name',
           'displayName' => [
             'en' => 'New Team Name EN',
             'fr' => 'New Team Name FR',
@@ -270,7 +276,7 @@ class TeamsTest extends TestCase
     )->assertJson([
       'data' => [
         'updateTeam' => [
-          'name'=> 'new_team_name',
+          'name' => 'new_team_name',
           'displayName' => [
             'en' => 'New Team Name EN',
             'fr' => 'New Team Name FR',
@@ -303,7 +309,7 @@ class TeamsTest extends TestCase
           }
       }
       ',
-      [ 'id' => $this->toBeDeletedUUID, ]
+      ['id' => $this->toBeDeletedUUID,]
     )->assertJson([
       'data' => [
         'deleteTeam' => [
@@ -315,10 +321,12 @@ class TeamsTest extends TestCase
 
   public function testViewTeamMembers(): void
   {
-    $this->poolOperator1->attachRole("pool_operator", $this->team1);
-    $this->poolOperator2->attachRole("pool_operator", $this->team1);
-    $this->poolOperator3->attachRole("pool_operator", $this->team2);
-    $viewAnyTeamMembers = /** @lang Graphql */ '
+    $this->poolOperator1->addRole("pool_operator", $this->team1);
+    $this->poolOperator2->addRole("pool_operator", $this->team1);
+    $this->poolOperator3->addRole("pool_operator", $this->team2);
+    $viewAnyTeamMembers =
+      /** @lang GraphQL */
+      '
         query team($id: UUID!) {
           team(id: $id) {
               id
@@ -332,15 +340,15 @@ class TeamsTest extends TestCase
         }
     ';
 
-    $variables = [ 'id' => $this->team1->id ];
+    $variables = ['id' => $this->team1->id];
 
     // Assert user with role admin can query any team members, regardless of being on the team.
     $query = $this->actingAs($this->admin, "api")
-                  ->graphQL($viewAnyTeamMembers, $variables)
-                  ->assertJsonFragment([
-                    'id' => $this->poolOperator1->id,
-                    'id' => $this->poolOperator2->id
-                  ]);
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertJsonFragment([
+        'id' => $this->poolOperator1->id,
+        'id' => $this->poolOperator2->id
+      ]);
 
     // assert pool operator three is not present in the response
     $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
@@ -352,11 +360,11 @@ class TeamsTest extends TestCase
 
     // Assert pool operator can view team members of their team
     $query = $this->actingAs($this->poolOperator1, "api")
-                  ->graphQL($viewAnyTeamMembers, $variables)
-                  ->assertJsonFragment([
-                    'id' => $this->poolOperator1->id,
-                    'id' => $this->poolOperator2->id,
-                  ]);
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertJsonFragment([
+        'id' => $this->poolOperator1->id,
+        'id' => $this->poolOperator2->id,
+      ]);
 
     // assert pool operator three is not present in the response
     $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
@@ -368,7 +376,7 @@ class TeamsTest extends TestCase
 
     // Assert pool operator cannot view team members of a team they're not attached too.
     $query = $this->actingAs($this->poolOperator3, "api")
-                  ->graphQL($viewAnyTeamMembers, $variables)
-                  ->assertGraphQLErrorMessage('This action is unauthorized.');
+      ->graphQL($viewAnyTeamMembers, $variables)
+      ->assertGraphQLErrorMessage('This action is unauthorized.');
   }
 }

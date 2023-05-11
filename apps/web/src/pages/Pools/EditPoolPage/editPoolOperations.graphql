@@ -86,6 +86,13 @@ query getEditPoolData($poolId: UUID!) {
     stream
     processNumber
     publishingGroup
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
   }
 
   # all classifications to populate form dropdown
@@ -147,10 +154,7 @@ mutation publishPoolAdvertisement($id: ID!) {
   }
 }
 
-mutation changePoolClosingDate(
-  $id: ID!
-  $closingDate: DateTime!
-) {
+mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
   changePoolClosingDate(id: $id, newClosingDate: $closingDate) {
     id
   }

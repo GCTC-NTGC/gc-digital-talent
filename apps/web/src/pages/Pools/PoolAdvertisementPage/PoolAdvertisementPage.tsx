@@ -1,15 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import {
-  BoltIcon,
-  BriefcaseIcon as BriefcaseIconOutline,
-  PhoneIcon,
-  LightBulbIcon,
-  CheckCircleIcon,
-  CpuChipIcon,
-  CloudIcon,
-} from "@heroicons/react/24/outline";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import BriefcaseIconOutline from "@heroicons/react/24/outline/BriefcaseIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import PhoneIcon from "@heroicons/react/24/outline/PhoneIcon";
 
 import {
   Button,
@@ -20,6 +19,7 @@ import {
   Accordion,
   TableOfContents,
 } from "@gc-digital-talent/ui";
+import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,
@@ -202,11 +202,11 @@ export const PoolAdvertisementPoster = ({
   const links = [
     {
       label: intl.formatMessage({
-        defaultMessage: "Browse opportunities",
-        id: "NSuNSA",
+        defaultMessage: "Browse jobs",
+        id: "gC74ro",
         description: "Breadcrumb title for the browse pools page.",
       }),
-      url: paths.allPools(),
+      url: paths.browsePools(),
     },
     {
       label: fullTitle,
@@ -328,44 +328,46 @@ export const PoolAdvertisementPoster = ({
               </TableOfContents.Heading>
               <Accordion.Root type="single" collapsible>
                 <Accordion.Item value="when">
-                  <Accordion.Trigger>
+                  <StandardAccordionHeader>
                     {intl.formatMessage({
                       defaultMessage: "What are pool recruitments?",
                       id: "KYFarS",
                       description:
                         "Title for accordion describing pool recruitments",
                     })}
-                  </Accordion.Trigger>
+                  </StandardAccordionHeader>
                   <Accordion.Content>
-                    <Text>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                        id: "kH4Jsf",
-                        description:
-                          "Description of pool recruitment, paragraph one",
-                      })}
-                    </Text>
-                    <Text>
-                      {intl.formatMessage(
-                        {
+                    <div data-h2-margin-top="base(x1)">
+                      <Text>
+                        {intl.formatMessage({
                           defaultMessage:
-                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                          id: "LlgRM8",
+                            "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                          id: "kH4Jsf",
                           description:
-                            "Description of pool recruitment, paragraph two",
-                        },
-                        {
-                          abbreviation: (text: React.ReactNode) =>
-                            wrapAbbr(text, intl),
-                        },
-                      )}
-                    </Text>
+                            "Description of pool recruitment, paragraph one",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                            id: "LlgRM8",
+                            description:
+                              "Description of pool recruitment, paragraph two",
+                          },
+                          {
+                            abbreviation: (text: React.ReactNode) =>
+                              wrapAbbr(text, intl),
+                          },
+                        )}
+                      </Text>
+                    </div>
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericTitle?.key && (
                   <Accordion.Item value="what">
-                    <Accordion.Trigger>
+                    <StandardAccordionHeader>
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -381,9 +383,11 @@ export const PoolAdvertisementPoster = ({
                             : ``,
                         },
                       )}
-                    </Accordion.Trigger>
+                    </StandardAccordionHeader>
                     <Accordion.Content>
-                      <ClassificationDefinition name={genericTitle.key} />
+                      <div data-h2-margin-top="base(x1)">
+                        <ClassificationDefinition name={genericTitle.key} />
+                      </div>
                     </Accordion.Content>
                   </Accordion.Item>
                 )}
@@ -441,13 +445,17 @@ export const PoolAdvertisementPoster = ({
                   <Accordion.Root type="multiple">
                     {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                       <Accordion.Item value={skill.id} key={skill.id}>
-                        <Accordion.Trigger>
+                        <StandardAccordionHeader>
                           {skill.name[locale] || ""}
-                        </Accordion.Trigger>
+                        </StandardAccordionHeader>
                         <Accordion.Content>
-                          <Text>
-                            {skill.description ? skill.description[locale] : ""}
-                          </Text>
+                          <div data-h2-margin-top="base(x1)">
+                            <Text>
+                              {skill.description
+                                ? skill.description[locale]
+                                : ""}
+                            </Text>
+                          </div>
                         </Accordion.Content>
                       </Accordion.Item>
                     ))}
@@ -477,15 +485,17 @@ export const PoolAdvertisementPoster = ({
                     {essentialSkills[SkillCategory.Behavioural]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionHeader>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),
@@ -521,15 +531,17 @@ export const PoolAdvertisementPoster = ({
                     {nonEssentialSkills[SkillCategory.Technical]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionHeader>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),
@@ -551,15 +563,17 @@ export const PoolAdvertisementPoster = ({
                     {nonEssentialSkills[SkillCategory.Behavioural]?.map(
                       (skill) => (
                         <Accordion.Item value={skill.id} key={skill.id}>
-                          <Accordion.Trigger>
+                          <StandardAccordionHeader>
                             {skill.name[locale] || ""}
-                          </Accordion.Trigger>
+                          </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),
@@ -586,7 +600,7 @@ export const PoolAdvertisementPoster = ({
                 data-h2-align-items="base(center) p-tablet(stretch)"
               >
                 <Card
-                  color="ts-secondary"
+                  color="secondary"
                   style={{ width: "100%" }}
                   title={intl.formatMessage({
                     defaultMessage: "Combination Experience",
@@ -654,7 +668,7 @@ export const PoolAdvertisementPoster = ({
                 </div>
                 <Card
                   style={{ width: "100%" }}
-                  color="ts-secondary"
+                  color="secondary"
                   title={intl.formatMessage({
                     defaultMessage: "2-Year Post-secondary Education",
                     id: "U6IroF",
@@ -780,7 +794,7 @@ export const PoolAdvertisementPoster = ({
                   },
                 )}
               </Text>
-              <IconTitle icon={PhoneIcon}>
+              <IconTitle icon={ClipboardDocumentCheckIcon}>
                 {intl.formatMessage({
                   defaultMessage: "Hiring Policies",
                   id: "isfAkZ",

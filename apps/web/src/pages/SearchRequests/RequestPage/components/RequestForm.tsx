@@ -53,9 +53,10 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
-    expectedClassifications?: {
+    qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
+    qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
@@ -76,6 +77,7 @@ export interface RequestFormProps {
   departments: Department[];
   skills: Skill[];
   classifications: Classification[];
+  pools: Pool[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
@@ -91,6 +93,7 @@ export const RequestForm = ({
   departments,
   skills,
   classifications,
+  pools,
   applicantFilter,
   candidateCount,
   selectedClassifications,
@@ -131,6 +134,7 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
+          qualifiedStreams: applicantFilter?.qualifiedStreams,
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
@@ -144,20 +148,21 @@ export const RequestForm = ({
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          expectedClassifications: {
-            sync: applicantFilter?.expectedClassifications
-              ? applicantFilter.expectedClassifications
+          qualifiedClassifications: {
+            sync: applicantFilter?.qualifiedClassifications
+              ? applicantFilter.qualifiedClassifications
                   .filter(notEmpty)
-                  .map((expectedClassification) => {
+                  .map((qualifiedClassification) => {
                     const cl = classifications.find((classification) => {
                       return (
                         classification.group ===
-                          expectedClassification?.group &&
-                        classification.level === expectedClassification.level
+                          qualifiedClassification?.group &&
+                        classification.level === qualifiedClassification.level
                       );
                     });
-                    return cl?.id ?? "";
+                    return cl?.id;
                   })
+                  .filter(notEmpty)
               : [],
           },
         },
@@ -205,13 +210,14 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications:
-      applicantFilter?.expectedClassifications?.map(
-        (expectedClassification) => {
+    expectedClassifications: undefined,
+    qualifiedClassifications:
+      applicantFilter?.qualifiedClassifications?.map(
+        (qualifiedClassification) => {
           return classifications.find((classification) => {
             return (
-              classification.group === expectedClassification?.group &&
-              classification.level === expectedClassification.level
+              classification.group === qualifiedClassification?.group &&
+              classification.level === qualifiedClassification.level
             );
           });
         },
@@ -222,6 +228,11 @@ export const RequestForm = ({
           return skill && skillId && skill.id === skillId.id;
         });
       }) ?? [],
+    pools: applicantFilter?.pools?.map((poolId) => {
+      return pools.find((pool) => {
+        return pool && poolId && pool.id === poolId.id;
+      });
+    }),
   };
 
   return (
@@ -280,8 +291,8 @@ export const RequestForm = ({
                     "Label for department select input in the request form",
                 })}
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a department...",
-                  id: "WE/Nu+",
+                  defaultMessage: "Select a department",
+                  id: "y827h2",
                   description:
                     "Null selection for department select input in the request form.",
                 })}
@@ -470,6 +481,7 @@ const RequestFormApi = ({
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
+  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
@@ -496,6 +508,7 @@ const RequestFormApi = ({
           classifications={classifications}
           departments={departments}
           skills={skills}
+          pools={pools}
           applicantFilter={applicantFilter}
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}

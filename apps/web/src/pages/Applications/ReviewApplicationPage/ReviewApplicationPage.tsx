@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+import ArrowSmallRightIcon from "@heroicons/react/24/solid/ArrowSmallRightIcon";
 
 import { Pending, ThrowNotFound, Well, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -21,11 +21,11 @@ import {
   PoolAdvertisement,
   Scalars,
   SkillCategory,
-  useGetReviewApplicationPageDataQuery,
 } from "~/api/generated";
 import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 import { categorizeSkill, getMissingSkills } from "~/utils/skillUtils";
 import { flattenExperienceSkills } from "~/types/experience";
+import { useGetApplicationQuery } from "@gc-digital-talent/graphql";
 
 interface ReviewApplicationProps {
   applicant: Applicant;
@@ -290,7 +290,7 @@ type RouteParams = {
 
 const ReviewApplicationPage = () => {
   const { poolCandidateId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useGetReviewApplicationPageDataQuery({
+  const [{ data, fetching, error }] = useGetApplicationQuery({
     variables: { id: poolCandidateId || "" },
     pause: !poolCandidateId,
   });

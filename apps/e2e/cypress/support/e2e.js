@@ -14,30 +14,36 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-import './userCommands'
-import './poolAdvertisementCommands'
-import './classificationCommands'
-import './skillCommands'
-import './teamsCommands'
-import './genericJobTitleCommands'
-import './applicationCommands'
+import "cypress-axe";
+import "./applicationCommands";
+import "./classificationCommands";
+import "./commands";
+import "./departmentCommands";
+import "./genericJobTitleCommands";
+import "./poolAdvertisementCommands";
+import "./searchRequestCommands";
+import "./skillCommands";
+import "./teamsCommands";
+import "./userCommands";
 
 before(() => {
-  cy.log('Need to run something before each test file? Add it to `cypress/support/e2e.js`')
+  cy.log(
+    "Need to run something before each test file? Add it to `cypress/support/e2e.js`",
+  );
 
   /* Tips
    * - Using `before()` and `beforeEach()` is helpful, as they act the same as
    *   within a spec file.  They allow Cypress commands here to run in the
    *   context of a Cypress test.
    */
-})
+});
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-require('cypress-terminal-report/src/installLogsCollector')()
+require("cypress-terminal-report/src/installLogsCollector")();
+require("cy-verify-downloads").addCustomCommand();
 
-Cypress.on('uncaught:exception', () => {
+Cypress.on("uncaught:exception", () => {
   return false;
 });

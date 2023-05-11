@@ -18,12 +18,14 @@ import {
   commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
 import {
+  PoolStream,
   WorkRegion,
   EducationType,
   JobLookingStatus,
@@ -44,9 +46,6 @@ const context: Partial<OperationContext> = {
 export default function useFilterOptions(enableEducationType = false) {
   const intl = useIntl();
   const { locale } = useLocale();
-  // TODO: Implement way to return `fetching` states from hook, so that can pass
-  // to react-select's `isLoading` prop on <Select />.
-  // See: https://react-select.com/props#select-props
   const [filterRes] = useGetFilterDataQuery({
     context,
   });
@@ -78,6 +77,10 @@ export default function useFilterOptions(enableEducationType = false) {
         value: `${group}-${level}`,
         label: `${group}-0${level}`,
       })),
+    stream: enumToOptions(PoolStream).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolStream(value)),
+    })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
@@ -105,7 +108,6 @@ export default function useFilterOptions(enableEducationType = false) {
     })),
     skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
-      // TODO: Must name and translations be optional in types?
       label: name[locale] || intl.formatMessage(commonMessages.nameNotLoaded),
     })),
     equity: [

@@ -39,7 +39,9 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
+import { TeamRoleTable } from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -171,8 +173,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLang"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "0UY4v5",
+              defaultMessage: "Select a language",
+              id: "uup5F2",
               description:
                 "Placeholder displayed on the user form preferred communication language field.",
             })}
@@ -194,8 +196,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "fGAMy/",
+              defaultMessage: "Select a language",
+              id: "0SEvhI",
               description:
                 "Placeholder displayed on the user form preferred spoken interview language field.",
             })}
@@ -217,8 +219,8 @@ export const UpdateUserForm = ({
             })}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a language...",
-              id: "F4Flho",
+              defaultMessage: "Select a language",
+              id: "98lXOH",
               description:
                 "Placeholder displayed on the user form preferred written exam language  field.",
             })}
@@ -257,8 +259,8 @@ export const UpdateUserForm = ({
                 description: "Label displayed on the user form roles field.",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "Select zero or more roles...",
-                id: "Cw8pyL",
+                defaultMessage: "Select zero or more roles",
+                id: "SQqD4j",
                 description:
                   "Placeholder displayed on the user form roles field.",
               })}
@@ -311,7 +313,9 @@ const UpdateUserPage = () => {
       id,
       user: {
         id,
-        email: emptyToNull(data.email),
+        // Do not include email in the request if it is not part of form data
+        // to prevent accidentally setting it to null
+        email: data.email !== undefined ? emptyToNull(data.email) : undefined,
         ...pick(data, [
           "firstName",
           "lastName",
@@ -321,7 +325,7 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "legacyRoles",
-          "roles",
+          "roleAssignmentsInput",
         ]),
       },
     }).then((result) => {
@@ -337,17 +341,13 @@ const UpdateUserPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "Y7eGtg",
-        description: "Breadcrumb title for the users page link.",
-      }),
+      label: intl.formatMessage(adminMessages.users),
       url: routes.userTable(),
     },
     ...(userId
@@ -401,6 +401,11 @@ const UpdateUserPage = () => {
               })}
             </Heading>
             <UserRoleTable
+              user={userData.user}
+              availableRoles={availableRoles || []}
+              onUpdateUser={handleUpdateUser}
+            />
+            <TeamRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}

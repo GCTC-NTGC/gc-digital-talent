@@ -10,7 +10,6 @@ import {
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
@@ -20,6 +19,7 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
@@ -38,15 +38,7 @@ const ManagerInfo = ({
     status,
     requestedDate,
     doneDate,
-    poolCandidateFilter,
-    applicantFilter,
   } = searchRequest;
-
-  const nonApplicableMessage = intl.formatMessage({
-    defaultMessage: "N/A",
-    id: "i9AjuX",
-    description: "Text shown when the filter was not selected",
-  });
 
   return (
     <>
@@ -128,28 +120,6 @@ const ManagerInfo = ({
                 data-h2-padding="base(0, x1, 0, 0)"
                 data-h2-height="base(100%)"
               >
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Pool Requested",
-                    id: "rz8uPO",
-                    description:
-                      "Title for the pool block in the manager info section of the single search request view.",
-                  })}
-                  content={
-                    applicantFilter
-                      ? applicantFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitleHtml(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
-                        )
-                      : poolCandidateFilter?.pools?.map((pool) =>
-                          getFullPoolAdvertisementTitleHtml(intl, pool, {
-                            defaultTitle: nonApplicableMessage,
-                          }),
-                        )
-                  }
-                />
-
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Status",
@@ -307,7 +277,15 @@ export const ViewSearchRequest = ({
           })}
         </Heading>
         {abstractFilter ? (
-          <SingleSearchRequestTableApi filter={abstractFilter} />
+          <SingleSearchRequestTableApi
+            filter={abstractFilter}
+            title={intl.formatMessage({
+              defaultMessage: "Candidate Results",
+              id: "Duswz0",
+              description:
+                "Heading for the candidate results section of the single search request view.",
+            })}
+          />
         ) : (
           <>
             {intl.formatMessage({
@@ -339,18 +317,13 @@ const ViewSearchRequestApi = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Requests",
-        id: "y0j4oU",
-        description:
-          "Breadcrumb title for the search requests table page link.",
-      }),
+      label: intl.formatMessage(adminMessages.requests),
       url: routes.searchRequestTable(),
     },
     {

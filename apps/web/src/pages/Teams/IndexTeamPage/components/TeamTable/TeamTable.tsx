@@ -1,23 +1,64 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { Pending, Link } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { Pending, Link, Pill } from "@gc-digital-talent/ui";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { Maybe, Team, useListTeamsQuery } from "~/api/generated";
+import {
+  LocalizedString,
+  Maybe,
+  Team,
+  useListTeamsQuery,
+  useMeRoleAssignmentsQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   ColumnsOf,
   tableActionsAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
-interface TeamTableProps {
+export interface TeamTableProps {
   teams: Array<Team>;
+  myRolesAndTeams: Array<MyRoleTeam>;
+  title: string;
 }
 
 type TeamCell = Cell<Team>;
+
+export type MyRoleTeam = {
+  teamId: string;
+  roleName: LocalizedString;
+};
+
+// given an array of RoleAssignments
+// generate an array of MyRoleTeam objects for team-based roles, filtering out individual roles and empty
+// the returned array functions like a map
+export const roleAssignmentsToRoleTeamArray = (
+  roleAssignments: RoleAssignment[],
+): MyRoleTeam[] => {
+  let collection: Array<MyRoleTeam> = [];
+
+  roleAssignments.forEach((roleAssignment) => {
+    if (
+      roleAssignment?.role &&
+      roleAssignment.role.isTeamBased &&
+      roleAssignment?.team &&
+      roleAssignment.role.displayName
+    ) {
+      const newTeam: MyRoleTeam = {
+        teamId: roleAssignment.team.id,
+        roleName: roleAssignment.role.displayName,
+      };
+
+      collection = [newTeam, ...collection];
+    }
+  });
+
+  return collection;
+};
 
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
   <Link href={url} type="link">
@@ -45,7 +86,50 @@ const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
   );
 };
 
-export const TeamTable = ({ teams }: TeamTableProps) => {
+const myRolesAccessor = (
+  teamId: string,
+  myRoleTeams: MyRoleTeam[],
+  intl: IntlShape,
+) => {
+  // pull out roles associated with the (row's) team id passed in for generating searchable string
+  const teamFiltered = myRoleTeams.filter(
+    (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
+  );
+  const accessorString = teamFiltered
+    .map((roleTeam) => getLocalizedName(roleTeam.roleName, intl))
+    .join(", ");
+
+  return accessorString;
+};
+
+const myRolesCell = (
+  teamId: string,
+  myRoleTeams: MyRoleTeam[],
+  intl: IntlShape,
+) => {
+  // pull out roles associated with the (row's) team id passed in for generating UI elements
+  const teamFiltered = myRoleTeams.filter(
+    (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
+  );
+
+  const rolesPillsArray = teamFiltered.map((roleTeam) => (
+    <Pill
+      color="primary"
+      mode="outline"
+      key={`${teamId}-${roleTeam.roleName.en}`}
+    >
+      {getLocalizedName(roleTeam.roleName, intl)}
+    </Pill>
+  ));
+
+  return rolesPillsArray.length > 0 ? <span>{rolesPillsArray}</span> : null;
+};
+
+export const TeamTable = ({
+  teams,
+  myRolesAndTeams,
+  title,
+}: TeamTableProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
@@ -78,6 +162,18 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "My Roles",
+          id: "+agJAH",
+          description:
+            "Label displayed for the table's My Roles column header.",
+        }),
+        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, intl),
+        Cell: ({ row }: TeamCell) =>
+          myRolesCell(row.original.id, myRolesAndTeams, intl),
+        id: "myRoles",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Department",
           id: "BDo1aH",
           description: "Title displayed for the teams table department column.",
@@ -102,7 +198,7 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         Cell: ({ value }: TeamCell) => emailLinkAccessor(value, intl),
       },
     ],
-    [paths, intl, locale],
+    [paths, intl, locale, myRolesAndTeams],
   );
 
   const data = useMemo(() => teams.filter(notEmpty), [teams]);
@@ -110,8 +206,8 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
     return {
       initialSortBy: [
         {
-          id: "teamName",
-          desc: false,
+          id: "myRoles",
+          desc: true,
         },
       ],
     };
@@ -130,18 +226,33 @@ export const TeamTable = ({ teams }: TeamTableProps) => {
         }),
       }}
       initialSortBy={initialSortBy}
+      title={title}
     />
   );
 };
 
-const TeamTableApi = () => {
-  const [{ data, fetching, error }] = useListTeamsQuery();
+const TeamTableApi = ({ title }: { title: string }) => {
+  const [{ data: dataTeam, fetching: fetchingTeam, error: errorTeam }] =
+    useListTeamsQuery();
+  const [{ data: dataMe, fetching: fetchingMe, error: errorMe }] =
+    useMeRoleAssignmentsQuery();
 
-  const teams = data?.teams.filter(notEmpty);
+  const isFetching = fetchingTeam || fetchingMe;
+
+  const teams = dataTeam?.teams.filter(notEmpty);
+
+  let myRolesAndTeams: MyRoleTeam[] = [];
+  if (dataMe?.me?.roleAssignments) {
+    myRolesAndTeams = roleAssignmentsToRoleTeamArray(dataMe.me.roleAssignments);
+  }
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <TeamTable teams={teams || []} />
+    <Pending fetching={isFetching} error={errorTeam || errorMe}>
+      <TeamTable
+        teams={teams || []}
+        myRolesAndTeams={myRolesAndTeams}
+        title={title}
+      />
     </Pending>
   );
 };

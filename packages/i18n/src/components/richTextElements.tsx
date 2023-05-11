@@ -67,6 +67,26 @@ export const underline = (text: React.ReactNode) => (
   <span data-h2-text-decoration="base(underline)">{text}</span>
 );
 
+/**
+ * Wraps text in a strong tag and increases font weight.
+ * This is meant for words that are important and need emphasizing.
+ *
+ *
+ * @param text text to wrap.
+ */
+export const emphasize = (text: React.ReactNode) => (
+  <strong data-h2-font-weight="base(700)">{text}</strong>
+);
+
+/**
+ * Adds a soft hyphen.
+ * This is meant to mark a hyphenation opportunity, which only becomes
+ * visible as a hyphen at the end of a line after formatting.
+ *
+ *
+ */
+export const softHyphen = () => <>&shy;</>;
+
 export default {
   strong,
   hidden,
@@ -75,4 +95,6 @@ export default {
   red,
   gray,
   underline,
+  emphasize,
+  softHyphen,
 };

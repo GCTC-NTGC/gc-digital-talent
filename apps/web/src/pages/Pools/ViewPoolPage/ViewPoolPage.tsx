@@ -2,12 +2,9 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  CheckIcon,
-  ClipboardIcon,
-  ArrowTopRightOnSquareIcon,
-} from "@heroicons/react/24/outline";
-
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
+import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import {
   Pending,
   Chip,
@@ -40,6 +37,8 @@ import {
   PoolAdvertisement,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -97,6 +96,8 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const securityClearance = pool.securityClearance
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
+
+  const screeningQuestions = pool?.screeningQuestions?.filter(notEmpty) || [];
 
   const relativeToAbsoluteURL = (path: string): string => {
     const { host, protocol } = window.location;
@@ -639,6 +640,96 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               </>
             )}
           </ul>
+          <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
+            {intl.formatMessage({
+              defaultMessage: "Screening questions",
+              id: "c+QwbR",
+              description: "Subtitle for the pool screening questions",
+            })}
+          </h2>
+          {screeningQuestions.length ? (
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5, 0)"
+            >
+              {screeningQuestions.map((screeningQuestion, index) => (
+                <div
+                  key={screeningQuestion.id}
+                  data-h2-background="base(background)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(flex-start)"
+                  data-h2-gap="base(0, x.25)"
+                >
+                  <div
+                    data-h2-flex-grow="base(1)"
+                    data-h2-padding="base(x1)"
+                    data-h2-shadow="base(medium)"
+                    data-h2-radius="base(rounded)"
+                  >
+                    <div
+                      data-h2-display="base(grid)"
+                      data-h2-grid-template-columns="base(1fr 1fr)"
+                      data-h2-gap="base(0, x.5)"
+                    >
+                      <div>
+                        <h3
+                          data-h2-font-size="base(copy)"
+                          data-h2-font-weight="base(700)"
+                        >
+                          {intl.formatMessage(
+                            {
+                              defaultMessage: "Question {number} (EN)",
+                              id: "0moSLr",
+                              description:
+                                "Heading for displaying a screening question English",
+                            },
+                            { number: index + 1 },
+                          )}
+                        </h3>
+                        <p data-h2-margin="base(x.5, 0, 0, 0)">
+                          {screeningQuestion.question?.en}
+                        </p>
+                      </div>
+                      <div>
+                        <h3
+                          data-h2-font-size="base(copy)"
+                          data-h2-font-weight="base(700)"
+                        >
+                          {intl.formatMessage(
+                            {
+                              defaultMessage: "Question {number} (FR)",
+                              id: "cag7TH",
+                              description:
+                                "Heading for displaying a screening question French",
+                            },
+                            { number: index + 1 },
+                          )}
+                        </h3>
+                        <p data-h2-margin="base(x.5, 0, 0, 0)">
+                          {screeningQuestion.question?.fr}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    data-h2-radius="base(rounded)"
+                    data-h2-shadow="base(medium)"
+                    data-h2-overflow="base(hidden)"
+                    data-h2-padding="base(x.25, x.5)"
+                  >
+                    <span
+                      aria-hidden="true"
+                      data-h2-text-align="base(center)"
+                      data-h2-font-weight="base(700)"
+                    >
+                      {index + 1}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </FormProvider>
         <p data-h2-margin="base(x2, 0, 0, 0)">
           <Link
@@ -676,17 +767,13 @@ const ViewPoolPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     ...(poolId

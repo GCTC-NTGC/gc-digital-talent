@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
@@ -38,7 +39,6 @@ class PoolFactory extends Factory
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
-            'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
             'closing_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
@@ -60,10 +60,19 @@ class PoolFactory extends Factory
             $pool->essentialSkills()->saveMany($skills->slice(0, 5));
             $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));
 
-            if(isset($pool->published_at)) {
+            if (isset($pool->published_at)) {
                 $pool->stream = $this->faker->randomElement(ApiEnums::poolStreams());
                 $pool->save();
             }
+
+            ScreeningQuestion::factory()
+                ->count(3)
+                ->sequence(
+                    ['sort_order' => 1],
+                    ['sort_order' => 2],
+                    ['sort_order' => 3],
+                )
+                ->create(['pool_id' => $pool->id]);
         });
     }
 }

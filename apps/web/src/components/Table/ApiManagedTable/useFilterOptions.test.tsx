@@ -82,7 +82,7 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [13, 3];
+      const [countSimple, countAsync] = [14, 3];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -111,13 +111,6 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.classifications).toBeUndefined();
       expect(result.current.optionsData.pools).toBeUndefined();
       expect(result.current.optionsData.skills).toBeUndefined();
-    });
-
-    it.skip("performs 3 API client queries", () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const result = renderHookWithProviders({});
-      // TODO: Refactor to access function mock and check if Urql client is being called appropriately.
-      // expect(mockClient.executeQuery).toBeCalledTimes(3);
     });
 
     it("generates appropriate number of options after response: classifications", async () => {

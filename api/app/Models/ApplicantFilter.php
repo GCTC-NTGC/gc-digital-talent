@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $operational_requirements
+ * @property array $qualified_streams
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -39,11 +40,16 @@ class ApplicantFilter extends Model
         'location_preferences' => 'array',
         'operational_requirements' => 'array',
         'position_duration' => 'array',
+        'qualified_streams' => 'array',
     ];
 
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
+    }
+    public function qualifiedClassifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
     public function skills(): BelongsToMany
     {
@@ -58,10 +64,10 @@ class ApplicantFilter extends Model
     public function getEquityAttribute()
     {
         return [
-            "is_woman"=>$this->is_woman,
-            "has_disability"=>$this->has_disability,
-            "is_indigenous"=>$this->is_indigenous,
-            "is_visible_minority"=>$this->is_visible_minority
+            "is_woman" => $this->is_woman,
+            "has_disability" => $this->has_disability,
+            "is_indigenous" => $this->is_indigenous,
+            "is_visible_minority" => $this->is_visible_minority
         ];
     }
 

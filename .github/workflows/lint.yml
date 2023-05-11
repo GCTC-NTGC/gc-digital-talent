@@ -2,7 +2,7 @@ name: Lint
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - .github/workflows/*lint*.yml
       - apps/**
@@ -16,16 +16,16 @@ jobs:
     name: Run linters
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.3.0"
+      NPM_VERSION: "8.11.0"
 
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: './.nvmrc'
-          cache: 'npm'
-          cache-dependency-path: './package-lock.json'
+          node-version-file: "./.nvmrc"
+          cache: "npm"
+          cache-dependency-path: "./package-lock.json"
 
       - name: Upgrade npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
@@ -33,7 +33,6 @@ jobs:
       - name: "Install dependencies: workspace"
         working-directory: ./
         run: npm install
-
 
       - name: "Setup: all workspaces"
         working-directory: ./

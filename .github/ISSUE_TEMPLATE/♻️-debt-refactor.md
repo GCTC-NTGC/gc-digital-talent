@@ -1,9 +1,9 @@
 ---
 name: "♻️ Debt/Refactor"
 about: Something that needs to be improved or removed (without affecting expected functionality)
-title: "♻️ Debt/Refactor"
+title: "♻️ "
 labels: debt
-assignees: ''
+assignees: ""
 ---
 
 ## ♻️ Debt/Refactor
@@ -28,7 +28,3 @@ A set of assumptions which, when tested, verify that the debt was addressed and 
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}

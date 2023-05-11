@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { ReactElement } from "react";
+import React, { ReactElement, useId } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import {
   useTable,
   useGlobalFilter,
@@ -166,7 +167,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, hiddenColumns, sortBy },
+    state: { pageIndex, pageSize, hiddenColumns, sortBy, globalFilter },
     gotoPage,
     setPageSize,
     page,
@@ -244,18 +245,42 @@ function Table<T extends Record<string, unknown>>({
     hiddenCols,
   ]);
 
+  const staticId = useId();
+  const inputId = `table-search-${staticId}`;
+  const inputLabel = intl.formatMessage(
+    {
+      defaultMessage: "Search {title}",
+      id: "/7RNZm",
+      description: "Label for search input",
+    },
+    {
+      title: title?.toLowerCase(),
+    },
+  );
+
   return (
     <div>
       {/* Table header */}
       {(filterColumns || search || addBtn) && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
-          <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
+          <p>
+            {title && (
+              <label data-h2-font-weight="base(700)" htmlFor={inputId}>
+                {inputLabel}
+              </label>
+            )}
+          </p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, x.5)">
                 {search && (
                   <div data-h2-flex-item="base(content)">
-                    <SearchForm onChange={setGlobalFilter} />
+                    <SearchForm
+                      onChange={setGlobalFilter}
+                      value={globalFilter}
+                      inputId={inputId}
+                      inputLabel={inputLabel}
+                    />
                   </div>
                 )}
                 {filterColumns && (
@@ -373,6 +398,8 @@ function Table<T extends Record<string, unknown>>({
           >
             <caption>
               <span data-h2-visually-hidden="base(invisible)">
+                {title}
+                <br />
                 {intl.formatMessage({
                   defaultMessage: "Column headers with buttons are sortable",
                   id: "/bwX1a",

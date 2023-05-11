@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import ArrowLeftCircleIcon from "@heroicons/react/24/solid/ArrowLeftCircleIcon";
 
 import {
   NotFound,
@@ -27,6 +27,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 
 export interface ViewPoolCandidateProps {
@@ -243,17 +244,13 @@ export const ViewPoolCandidatePage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     ...(data?.poolCandidate?.pool.id

@@ -33,6 +33,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -256,8 +257,8 @@ export const UpdateSkillForm = ({
                     "Label displayed on the skill form families field.",
                 })}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more families...",
-                  id: "9bz9jA",
+                  defaultMessage: "Select one or more families",
+                  id: "wORNl0",
                   description:
                     "Placeholder displayed on the skill form families field.",
                 })}
@@ -311,11 +312,7 @@ export const UpdateSkill = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "ynjzua",
-        description: "Breadcrumb title for the skills page link.",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
       url: routes.skillTable(),
     },
     ...(skillId

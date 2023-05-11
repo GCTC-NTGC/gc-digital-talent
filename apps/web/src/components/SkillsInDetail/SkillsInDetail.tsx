@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useForm, useWatch } from "react-hook-form";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, Well } from "@gc-digital-talent/ui";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
-import type { FormSkills } from "~/pages/Profile/ExperienceFormPage/types";
+import type { FormSkills } from "~/types/experience";
 
 type FormValues = {
   skills: { [id: string]: { details: string } };

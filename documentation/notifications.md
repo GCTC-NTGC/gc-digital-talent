@@ -16,7 +16,6 @@ You can find configuration in the `config/notify.php` file. It is required to ha
 
 When sending a notification, we need to pass a template ID to the API. In order to make this a more pleasant experience, we have setup this config file to store a map of template IDs to make them more identifiable for developers. This is done by using an associative array where the key is the human readable identifier and the value is the ID from GC Notify.
 
-
 ### Using Templates
 
 You can access these templates from the Laravel config like any other configuration value.
@@ -42,7 +41,6 @@ $emailTemplate = $replyTo['admin'];
 // Getting a single sender
 $adminReplyTo = config('notify.replyTo.admin')';
 ```
-
 
 ## Sending Notifications
 
@@ -113,27 +111,28 @@ $response = Notify::sendEmail(
  * @param Carbon\Carbon $scheduleFor (optional)
  * @param string $replyTo (optional) ID for a reply to email address
  */
- $response = Notify::sendBulkEmail( 
-  'BULK_EMAIL', 
-  [ 
-    [ 
-      'email' => 'email+1@domain.com', 
-      'personalisation' => [ 
+ $response = Notify::sendBulkEmail(
+  'BULK_EMAIL',
+  [
+    [
+      'email' => 'email+1@domain.com',
+      'personalisation' => [
         'name' => 'Test User 1'
-      ], 
-    ], 
-    [ 
-      'email' => 'email+2@domain.com', 
-      'personalisation' => [ 
+      ],
+    ],
+    [
+      'email' => 'email+2@domain.com',
+      'personalisation' => [
         'name' => 'Test User 2'
-      ], 
-    ], 
-  ], 
+      ],
+    ],
+  ],
   $templateId,
   new Carbon\Carbon::now()->addDays(5),
   'replyto@email.com'
- ); 
+ );
 ```
+
 ## Single SMS
 
 ```php
@@ -179,24 +178,24 @@ $response = Notify::sendSms(
  * @param Carbon\Carbon $scheduleFor (optional)
  * @param string $replyTo (optional) ID for a reply to email address
  */
-$response = Notify::sendBulkSms( 
-  'BULK_SMS', 
-  [ 
-    [ 
-      'phone_number' => '+5555555555', 
-      'personalisation' => [ 
+$response = Notify::sendBulkSms(
+  'BULK_SMS',
+  [
+    [
+      'phone_number' => '+5555555555',
+      'personalisation' => [
         'name' => 'Test User 1'
-      ], 
-    ], 
-    [ 
-      'phone_number' => '+4444444444', 
-      'personalisation' => [ 
+      ],
+    ],
+    [
+      'phone_number' => '+4444444444',
+      'personalisation' => [
         'name' => 'Test User 2'
-      ], 
-    ], 
-  ], 
+      ],
+    ],
+  ],
   $templateId,
   new Carbon\Carbon::now()->addDays(5),
   'replyto@email.com'
- ); 
+ );
 ```

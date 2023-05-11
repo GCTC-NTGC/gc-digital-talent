@@ -20,7 +20,7 @@ jobs:
     if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: '8.3.0'
+      NPM_VERSION: "8.11.0"
     steps:
       - uses: actions/checkout@v3
         with:
@@ -29,7 +29,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version-file: './.nvmrc'
+          node-version-file: "./.nvmrc"
           cache: npm
           cache-dependency-path: |
             ./package-lock.json
@@ -55,8 +55,6 @@ jobs:
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1
-        env:
-          MERGE_STORYBOOKS: true
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.

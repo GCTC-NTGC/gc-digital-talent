@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
-// import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import {
   useAuthentication,
   useAuthorization,
   ROLE_NAME,
+  hasRole,
 } from "@gc-digital-talent/auth";
-import { useTheme } from "@gc-digital-talent/theme";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
@@ -18,6 +18,7 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -44,11 +45,8 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { setTheme } = useTheme();
-
-  React.useEffect(() => {
-    setTheme("default", "light");
-  }, [setTheme]);
+  const { applicantDashboard } = useFeatureFlags();
+  useLayoutTheme("default");
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -63,21 +61,40 @@ const Layout = () => {
     </MenuLink>,
     <MenuLink key="search" to={paths.search()}>
       {intl.formatMessage({
-        defaultMessage: "Search",
-        id: "OezjH3",
-        description: "Label displayed on the Search menu item.",
+        defaultMessage: "Find talent",
+        id: "NohOkF",
+        description: "Label displayed on the Find talent menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="browseOpportunities" to={paths.allPools()}>
+    <MenuLink key="browseJobs" to={paths.browsePools()}>
       {intl.formatMessage({
-        defaultMessage: "Browse opportunities",
-        id: "SXvOXV",
+        defaultMessage: "Browse jobs",
+        id: "7GrHDl",
         description: "Label displayed on the browse pools menu item.",
       })}
     </MenuLink>,
   ];
 
-  if (loggedIn && user?.id) {
+  let authLinks = [
+    <MenuLink key="login-info" to={paths.login()}>
+      {intl.formatMessage({
+        defaultMessage: "Login",
+        id: "md7Klw",
+        description: "Label displayed on the login link menu item.",
+      })}
+    </MenuLink>,
+    <MenuLink key="register" to={paths.register()}>
+      {intl.formatMessage({
+        defaultMessage: "Register",
+        id: "LMGaDQ",
+        description: "Label displayed on the register link menu item.",
+      })}
+    </MenuLink>,
+  ];
+
+  if (loggedIn && user) {
+    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
+
     menuItems = [
       ...menuItems,
       <MenuLink key="myApplications" to={paths.applications(user.id)}>
@@ -96,7 +113,6 @@ const Layout = () => {
         })}
       </MenuLink>,
     ];
-    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
     if (
       [
         ROLE_NAME.PoolOperator,
@@ -117,26 +133,6 @@ const Layout = () => {
         </MenuLink>,
       ];
     }
-  }
-
-  let authLinks = [
-    <MenuLink key="login-info" to={paths.login()}>
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
-    </MenuLink>,
-    <MenuLink key="register" to={paths.register()}>
-      {intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
-    </MenuLink>,
-  ];
-
-  if (loggedIn) {
     authLinks = [
       <LogoutConfirmation key="logout">
         <LogoutButton>
@@ -148,6 +144,23 @@ const Layout = () => {
         </LogoutButton>
       </LogoutConfirmation>,
     ];
+
+    if (
+      applicantDashboard &&
+      hasRole(ROLE_NAME.Applicant, user.roleAssignments)
+    ) {
+      authLinks = [
+        <MenuLink key="dashboard" to={paths.dashboard()}>
+          {intl.formatMessage({
+            defaultMessage: "My dashboard",
+            id: "LRZeax",
+            description:
+              "Label displayed on the applicant dashboard menu item.",
+          })}
+        </MenuLink>,
+        ...authLinks,
+      ];
+    }
   }
 
   return (

@@ -1,9 +1,9 @@
 ---
 name: "🧪 Tests"
 about: Updates/additions to the existing tests (Unit, e2e, etc.)
-title: "🧪 Tests"
+title: "🧪 "
 labels: tests
-assignees: ''
+assignees: ""
 ---
 
 ## 🧪 Tests
@@ -24,7 +24,3 @@ A set of assumptions which, when tested, verify that the debt tests were properl
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}

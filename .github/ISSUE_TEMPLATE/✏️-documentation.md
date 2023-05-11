@@ -1,9 +1,9 @@
 ---
 name: "✏️ Documentation"
 about: Updates or addition to the documentation
-title: "✏️ Documentation"
+title: "✏️ "
 labels: documentation
-assignees: ''
+assignees: ""
 ---
 
 ## ✏️ Documentation

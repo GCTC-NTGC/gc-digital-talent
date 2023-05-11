@@ -1,7 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
@@ -52,7 +52,7 @@ const EditTeamMemberDialog = ({
     await executeMutation({
       id: formValues.user,
       user: {
-        roles: {
+        roleAssignmentsInput: {
           sync: {
             roles: formValues.roles,
             team: formValues.team,
@@ -170,8 +170,8 @@ const EditTeamMemberDialog = ({
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select roles...",
-                  id: "eW7I5E",
+                  defaultMessage: "Select roles",
+                  id: "Cn73yN",
                   description: "Placeholder text for role selection input",
                 })}
                 options={roleOptions}

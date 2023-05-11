@@ -22,7 +22,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.intercept("POST", "/graphql", function (req) {
       aliasQuery(req, "browsePoolAdvertisements");
       aliasQuery(req, "getPoolAdvertisement");
-      aliasQuery(req, "getReviewApplicationPageData");
+      aliasQuery(req, "GetApplication");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
 
@@ -91,14 +91,14 @@ describe("Submit Application Workflow Tests", () => {
     });
 
     cy.get("@testUser").then((testUser) => {
-      addRolesToUser(testUser.id, ['guest', 'base_user', 'applicant']);
+      addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
     });
 
     // fetch the dcmId for its team from database, needed for pool creation
     let dcmId;
     cy.getDCM().then((dcm) => {
       dcmId = dcm;
-    })
+    });
 
     cy.getMe()
       .its("id")
@@ -143,7 +143,7 @@ describe("Submit Application Workflow Tests", () => {
 
     // Browse pools page - placeholder so it could change
     cy.wait("@gqlbrowsePoolAdvertisementsQuery");
-    cy.findByRole("heading", { name: /browse i t jobs/i })
+    cy.findByRole("heading", { name: /browse jobs/i })
       .should("exist")
       .and("be.visible");
     cy.get("@testPoolAdvertisementId").then((testPoolAdvertisementId) => {
@@ -161,7 +161,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlcreateApplicationMutation");
 
     // Review my profile page
-    cy.wait("@gqlgetReviewApplicationPageDataQuery");
+    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /My application profile/i })
       .should("exist")
       .and("be.visible");

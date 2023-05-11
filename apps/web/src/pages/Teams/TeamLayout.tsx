@@ -1,11 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams, Outlet } from "react-router-dom";
-import {
-  UserGroupIcon,
-  Cog8ToothIcon,
-  ClipboardDocumentListIcon,
-} from "@heroicons/react/24/outline";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";

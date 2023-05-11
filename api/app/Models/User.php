@@ -14,8 +14,10 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class User
@@ -65,11 +67,11 @@ use Carbon\Carbon;
  * @property string $preferred_language_for_exam
  */
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, LaratrustUser
 {
 
     use Authorizable;
-    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
@@ -253,7 +255,7 @@ class User extends Model implements Authenticatable
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                                     $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                                    ->orWhereNull('expiry_date');
+                                        ->orWhereNull('expiry_date');
                                 } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                                     $query->whereDate('expiry_date', '<', date("Y-m-d"));
                                 }
@@ -272,7 +274,7 @@ class User extends Model implements Authenticatable
                             return $query;
                         };
                     };
-                    foreach($poolFilters as $index => $filter) {
+                    foreach ($poolFilters as $index => $filter) {
                         if ($index == 0) {
                             $query->where($makePoolFilterClause($filter));
                         } else {
@@ -357,13 +359,17 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public static function scopeSkills(Builder $query, ?array $skills): Builder
+
+    /**
+     * Skills filtering
+     */
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
         }
 
-        // skills act as an AND filter. The query should only return candidates with ALL of the skills.
+        // skills AND filtering. The query should only return candidates with ALL of the skills.
         $query->whereExists(function ($query) use ($skills) {
             $query->select(DB::raw('null'))
                 ->from(function ($query) {
@@ -398,8 +404,103 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
+    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
 
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+        // skills OR filtering. The query should return candidates with ANY of the skills.
+        $query->whereExists(function ($query) use ($skills) {
+            $query->select(DB::raw('null'))
+                ->from(function ($query) {
+                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
+                        ->from('experience_skill')
+                        ->joinSub(function ($query) {
+                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
+                                ->from('award_experiences')
+                                ->unionAll(function ($query) {
+                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
+                                        ->from('community_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
+                                        ->from('education_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
+                                        ->from('personal_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
+                                        ->from('work_experiences');
+                                });
+                        }, 'experiences', function ($join) {
+                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
+                        })
+                        ->groupBy('experiences.user_id');
+                }, "aggregate_experiences")
+                ->where(function ($query) use ($skills) {
+                    foreach ($skills as $key => $value) {
+                        $query->orWhereJsonContains('aggregate_experiences.user_skills_grouped', $value);
+                    }
+                })
+                ->whereColumn('aggregate_experiences.user_id', 'users.id');
+        });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeQualifiedClassifications($query, $classifications);
+        });
+        return $query;
+    }
+
+    /**
+     * Scopes the query to only return users who are available in a pool with one of the specified streams.
+     * If $streams is empty, this scope will be ignored.
+     *
+     * @param Builder $query
+     * @param array|null $streams
+     * @return Builder
+     */
+    public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        $query->whereHas('poolCandidates', function ($query) use ($streams) {
+            PoolCandidate::scopeQualifiedStreams($query, $streams);
+        });
+        return $query;
+    }
+
+    /**
+     * scopeExpectedClassifications
+     *
+     * Scopes the query to only return applicants who have expressed interest in any of $classifications.
+     * Applicants have been able to record this interest in various ways, so this scope may consider three fields on
+     * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
+     *
+     * @param Builder $query
+     * @param array|null $classifications Each classification is an object with a group and a level field.
+     * @return Builder
+     */
+    public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -539,7 +640,7 @@ RAWSQL2;
         return $query;
     }
 
-    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration): Builder
     {
         if (empty($positionDuration)) {
             return $query;
@@ -640,7 +741,8 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
-    public function getWouldAcceptTemporaryAttribute() {
+    public function getWouldAcceptTemporaryAttribute()
+    {
         $positionDuration = $this->position_duration;
 
         if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
@@ -655,7 +757,8 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of to be deprecated isIndigenous field */
-    public function getIsIndigenousAttribute() {
+    public function getIsIndigenousAttribute()
+    {
         $indigenousCommunities = $this->indigenous_communities;
 
         if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
@@ -670,9 +773,10 @@ RAWSQL2;
     }
 
     /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
-    public function getLanguageAbilityAttribute($languageAbility = null) {
+    public function getLanguageAbilityAttribute($languageAbility = null)
+    {
         // if the field exists, say for migration purposes, must stop accessor overriding
-        if($languageAbility !== null){
+        if ($languageAbility !== null) {
             return $languageAbility;
         }
 
@@ -680,23 +784,23 @@ RAWSQL2;
         $lookingForFrench = $this->looking_for_french;
         $lookingForBilingual = $this->looking_for_bilingual;
 
-            // only english case
-            if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
-                return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
-            }
+        // only english case
+        if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+            return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+        }
 
-            // only french case
-            if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
-               return ApiEnums::LANGUAGE_ABILITY_FRENCH;
-            }
+        // only french case
+        if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+            return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+        }
 
-            // bilingual case just depends on the one field being true
-            // or ignore the field if english and french are both true
-            if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-                return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
-            }
+        // bilingual case just depends on the one field being true
+        // or ignore the field if english and french are both true
+        if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
+            return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+        }
 
-            // in all other cases the field stays null, so cases where all fields tested are false/null for instance
+        // in all other cases the field stays null, so cases where all fields tested are false/null for instance
     }
 
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
@@ -716,17 +820,17 @@ RAWSQL2;
         return $this->$functionName($roleIdObjects, $teamIdObject);
     }
 
-    public function setRolesAttribute($roleAssignmentHasMany)
+    public function setRoleAssignmentsInputAttribute($roleAssignmentHasMany)
     {
-        if(array_key_exists('attach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'attachRoles');
+        if (array_key_exists('attach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');
         }
 
-        if(array_key_exists('detach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'detachRoles');
+        if (array_key_exists('detach', $roleAssignmentHasMany)) {
+            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'removeRoles');
         }
 
-        if(array_key_exists('sync', $roleAssignmentHasMany)) {
+        if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
     }

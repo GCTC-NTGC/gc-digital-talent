@@ -26,6 +26,8 @@ class ApplicantFilterTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
 
+    protected $adminUser;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -36,18 +38,16 @@ class ApplicantFilterTest extends TestCase
 
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
-        $newUser = User::create([
+        $this->adminUser = User::factory()->create([
             'email' => 'admin@test.com',
             'sub' => 'admin@test.com',
         ]);
-        $newUser->legacy_roles = ['ADMIN'];
-        $newUser->syncRoles([
+        $this->adminUser->syncRoles([
             "guest",
             "base_user",
             "request_responder",
-            "platform_admin",
+            "platform_admin"
         ]);
-        $newUser->save();
     }
 
     /**
@@ -78,6 +78,13 @@ class ApplicantFilterTest extends TestCase
             })->toArray(),
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
+            'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($classification) {
+                return [
+                    'group' => $classification->group,
+                    'level' => $classification->level,
+                ];
+            })->toArray(),
+            'qualifiedStreams' => $filter->qualified_streams,
         ];
     }
 
@@ -93,7 +100,9 @@ class ApplicantFilterTest extends TestCase
         $input['pools'] = [
             'sync' => $filter->pools->pluck('id')->toArray()
         ];
-
+        $input['qualifiedClassifications'] = [
+            'sync' => $filter->qualifiedClassifications->pluck('id')->toArray()
+        ];
         return $input;
     }
 
@@ -106,7 +115,7 @@ class ApplicantFilterTest extends TestCase
     {
         $filters = ApplicantFilter::factory()->count(2)->create();
 
-        $response = $this->graphQL(
+        $response = $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
             query {
@@ -143,6 +152,7 @@ class ApplicantFilterTest extends TestCase
                         'operationalRequirements' => $filters[0]->operational_requirements,
                         'locationPreferences' => $filters[0]->location_preferences,
                         'positionDuration' => $filters[0]->position_duration,
+
                     ],
                     [
                         'id' => $filters[1]->id,
@@ -172,7 +182,7 @@ class ApplicantFilterTest extends TestCase
     {
         $filters = ApplicantFilter::factory()->count(3)->create();
 
-        $response = $this->graphQL(
+        $response = $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
             query ($id: ID!) {
@@ -255,7 +265,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(PoolSeeder::class);
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
-        $response = $this->graphQL(
+        $response = $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
             query {
@@ -283,6 +293,14 @@ class ApplicantFilterTest extends TestCase
                         }
                         key
                     }
+                    qualifiedStreams
+                    qualifiedClassifications {
+                        id
+                        name {
+                            en
+                            fr
+                        }
+                    }
                 }
             }
         '
@@ -290,10 +308,10 @@ class ApplicantFilterTest extends TestCase
         // Assert that each relationship collection has the right size.
         foreach ($response->json('data.applicantFilters') as $filter) {
             $this->assertCount($filters->find($filter['id'])->classifications->count(), $filter['expectedClassifications']);
+            $this->assertCount($filters->find($filter['id'])->qualifiedClassifications->count(), $filter['qualifiedClassifications']);
             $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
-
         // Assert that the content of at least one item in each collection is correct.
         $response->assertJson([
             'data' => [
@@ -304,6 +322,12 @@ class ApplicantFilterTest extends TestCase
                             [
                                 'id' => $filters[0]->classifications->first()->id,
                                 'name' => $filters[0]->classifications->first()->name,
+                            ],
+                        ],
+                        'qualifiedClassifications' => [
+                            [
+                                'id' => $filters[0]->qualifiedClassifications->first()->id,
+                                'name' => $filters[0]->qualifiedClassifications->first()->name,
                             ],
                         ],
                         'skills' => [
@@ -344,7 +368,7 @@ class ApplicantFilterTest extends TestCase
             'applicant_filter_id' => null,
         ]);
         $response = $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
                 createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
@@ -382,7 +406,6 @@ class ApplicantFilterTest extends TestCase
                 ],
             ],
         ]);
-
     }
 
     /**
@@ -396,8 +419,16 @@ class ApplicantFilterTest extends TestCase
         $this->seed(GenericJobTitleSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $pool = Pool::factory()->create();
+        $this->seed(PoolSeeder::class);
 
+        $pool = Pool::factory()->create([
+            'name' => [
+                'en' => 'Test Pool EN',
+                'fr' => 'Test Pool FR'
+            ],
+            'published_at' => config('constants.past_date'),
+            'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES
+        ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
@@ -409,11 +440,9 @@ class ApplicantFilterTest extends TestCase
         $filterLanguage = null; // run through fields and assign the enum for the first one that is true
         if ($candidate->looking_for_english) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
-        }
-        elseif ($candidate->looking_for_french) {
+        } elseif ($candidate->looking_for_french) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
-        }
-        elseif ($candidate->looking_for_bilingual) {
+        } elseif ($candidate->looking_for_bilingual) {
             $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
         }
         $filter = ApplicantFilter::factory()->create(
@@ -432,12 +461,16 @@ class ApplicantFilterTest extends TestCase
         $filter->classifications()->saveMany(
             $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
         );
+        $filter->qualifiedClassifications()->saveMany(
+            $pool->classifications->unique()
+        );
         $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
-
+        $filter->qualified_streams = $pool->stream;
+        $filter->save();
         $response = $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -459,7 +492,7 @@ class ApplicantFilterTest extends TestCase
             'applicant_filter_id' => null,
         ]);
         $response = $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
                 createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
@@ -482,8 +515,8 @@ class ApplicantFilterTest extends TestCase
             ]
         );
         $requestId = $response->json('data.createPoolCandidateSearchRequest.id');
-        $response = $this->graphQL(
-            /** @lang Graphql */
+        $response = $this->actingAs($this->adminUser, "api")->graphQL(
+            /** @lang GraphQL */
             '
             query poolCandidateSearchRequest($id: ID!) {
                 poolCandidateSearchRequest(id: $id) {
@@ -496,9 +529,15 @@ class ApplicantFilterTest extends TestCase
                             isVisibleMinority
                         }
                         languageAbility
+                        locationPreferences
                         operationalRequirements
                         positionDuration
+                        qualifiedStreams
                         expectedClassifications {
+                            group
+                            level
+                        }
+                        qualifiedClassifications {
                             group
                             level
                         }
@@ -520,7 +559,7 @@ class ApplicantFilterTest extends TestCase
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(
-            /** @lang Graphql */
+            /** @lang GraphQL */
             '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)

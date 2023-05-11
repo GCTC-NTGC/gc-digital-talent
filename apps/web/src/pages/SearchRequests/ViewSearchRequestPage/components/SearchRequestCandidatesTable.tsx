@@ -29,6 +29,7 @@ import {
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
+import adminMessages from "~/messages/adminMessages";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
@@ -207,7 +208,8 @@ const employmentEquityAccessor = (user: Applicant, intl: IntlShape) =>
 
 export const SingleSearchRequestTable = ({
   searchPoolCandidates,
-}: SearchPoolCandidatesQuery) => {
+  title,
+}: SearchPoolCandidatesQuery & { title: string }) => {
   const intl = useIntl();
 
   const columns = useMemo<ColumnsOf<Data>>(
@@ -363,7 +365,7 @@ export const SingleSearchRequestTable = ({
     [searchPoolCandidates],
   );
 
-  return <Table data={memoizedData} columns={columns} />;
+  return <Table data={memoizedData} columns={columns} title={title} />;
 };
 
 export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
@@ -437,7 +439,7 @@ function classificationToInput(c: Classification): ClassificationFilterInput {
 type MappingType = {
   [Property in keyof Omit<
     ApplicantFilterInput,
-    "email" | "name" | "generalSearch"
+    "email" | "name" | "generalSearch" | "skillsIntersectional"
   >]: (x: ApplicantFilter[Property]) => ApplicantFilterInput[Property];
 };
 
@@ -448,6 +450,8 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
+    qualifiedClassifications: (classifications) =>
+      classifications?.filter(notEmpty).map(classificationToInput),
     expectedClassifications: (classifications) =>
       classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
@@ -457,6 +461,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
+    qualifiedStreams: identity,
   };
 
   const emptyFilter: ApplicantFilterInput = {};
@@ -489,9 +494,12 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
 
 const SingleSearchRequestTableApi = ({
   filter,
+  title,
 }: {
   filter: AbstractFilter;
+  title: string;
 }) => {
+  const intl = useIntl();
   const isLegacyFilter = isPoolCandidateFilter(filter);
 
   const poolCandidateFilterInput = isLegacyFilter
@@ -509,10 +517,14 @@ const SingleSearchRequestTableApi = ({
     <Pending fetching={legacyResult.fetching} error={legacyResult.error}>
       <SingleSearchRequestTable
         searchPoolCandidates={legacyResult.data?.searchPoolCandidates ?? []}
+        title={title}
       />
     </Pending>
   ) : (
-    <PoolCandidatesTable initialFilterInput={applicantFilterInput} />
+    <PoolCandidatesTable
+      initialFilterInput={applicantFilterInput}
+      title={intl.formatMessage(adminMessages.poolsCandidates)}
+    />
   );
 };
 

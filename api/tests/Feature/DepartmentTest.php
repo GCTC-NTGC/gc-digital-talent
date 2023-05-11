@@ -46,7 +46,7 @@ class DepartmentTest extends TestCase
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->attachRole("platform_admin");
+        $this->adminUser->addRole("platform_admin");
 
         $this->department = Department::factory()->create();
         $this->toBeDeleted = Department::factory()->create();
@@ -61,7 +61,7 @@ class DepartmentTest extends TestCase
     {
         $this->actingAs($this->baseUser, 'api')
             ->graphQL('query { departments { id } }')
-            ->assertJsonFragment([ 'id' => $this->department->id ]);
+            ->assertJsonFragment(['id' => $this->department->id]);
     }
 
     /**
@@ -72,10 +72,11 @@ class DepartmentTest extends TestCase
     public function test_view_department()
     {
 
-        $variables = [ 'id' => $this->department->id ];
+        $variables = ['id' => $this->department->id];
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query Get($id: UUID!) {
                 department(id: $id) {
                     id
@@ -106,8 +107,9 @@ class DepartmentTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation UpdateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
                 updateDepartment(id: $id, department: $department) {
                     id
@@ -120,12 +122,12 @@ class DepartmentTest extends TestCase
         ';
 
         $this->actingAs($this->baseUser, 'api')
-            ->graphQL($mutation, $variables )
+            ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->actingAs($this->adminUser, 'api')
-            ->graphQL($mutation, $variables )
-            ->assertJsonFragment([ 'id' => $this->department->id, 'name' => $variables['department']['name'] ]);
+            ->graphQL($mutation, $variables)
+            ->assertJsonFragment(['id' => $this->department->id, 'name' => $variables['department']['name']]);
     }
 
     /**
@@ -145,8 +147,9 @@ class DepartmentTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation Create($department: CreateDepartmentInput!) {
                 createDepartment(department: $department) {
                     id
@@ -164,8 +167,7 @@ class DepartmentTest extends TestCase
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['name' => $variables['department']['name'] ]);
-
+            ->assertJsonFragment(['name' => $variables['department']['name']]);
     }
 
     /**
@@ -175,10 +177,11 @@ class DepartmentTest extends TestCase
      */
     public function test_delete_department()
     {
-        $variables = [ 'id' => $this->toBeDeleted->id ];
+        $variables = ['id' => $this->toBeDeleted->id];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation Delete($id: ID!) {
                 deleteDepartment(id: $id) {
                     id
@@ -192,6 +195,6 @@ class DepartmentTest extends TestCase
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['id' => $this->toBeDeleted->id ]);
+            ->assertJsonFragment(['id' => $this->toBeDeleted->id]);
     }
 }

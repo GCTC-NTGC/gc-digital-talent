@@ -38,7 +38,7 @@ module.exports = {
     "tsconfig.json",
     "CssStub.js",
     ".turbo",
-    "dist/**"
+    "dist/**",
   ],
   plugins: [
     "react",
@@ -47,7 +47,7 @@ module.exports = {
     "@typescript-eslint",
     "formatjs",
     "jsx-a11y",
-    "turbo"
+    "turbo",
   ],
   rules: {
     "formatjs/no-id": "off",
@@ -124,8 +124,7 @@ module.exports = {
         types: {
           "React.FunctionComponent":
             "https://github.com/facebook/create-react-app/pull/8177",
-          "React.FC":
-            "https://github.com/facebook/create-react-app/pull/8177"
+          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
         },
       },
     ],
@@ -133,16 +132,50 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
     "react/function-component-definition": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        name: "lodash",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
+        name: "date-fns",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
+        name: "date-fns-tz",
+        message:
+          "Please import the individual function, not the entire library.",
+      },
+      {
+        name: "@heroicons/react/24/outline",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/24/solid",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/20/outline",
+        message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "@heroicons/react/20/solid",
+        message: "Please import the individual icons, not the entire set.",
+      },
+    ],
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
-        project: [__dirname]
+        project: [__dirname],
       },
-    }
+    },
   },
 };

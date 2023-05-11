@@ -26,6 +26,7 @@ import {
   useAllSkillFamiliesQuery,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -262,8 +263,8 @@ export const CreateSkillForm = ({
                     "Label displayed on the skill form skill families field.",
                 })}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skill families...",
-                  id: "brucUP",
+                  defaultMessage: "Select one or more skill families",
+                  id: "GNhFh2",
                   description:
                     "Placeholder displayed on the skill form skill families field.",
                 })}
@@ -304,11 +305,7 @@ const CreateSkillPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "ynjzua",
-        description: "Breadcrumb title for the skills page link.",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
       url: routes.skillTable(),
     },
     {

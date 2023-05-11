@@ -51,21 +51,21 @@ class PoolPolicyTest extends TestCase
         ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser->syncRoles($baseRoles);
-        $this->poolOperatorUser->attachRole("pool_operator", $this->team);
+        $this->poolOperatorUser->addRole("pool_operator", $this->team);
 
         $this->requestResponderUser = User::factory()->create([
             'email' => 'request-responder-user@test.com',
             'sub' => 'request-responder-user@test.com',
         ]);
         $this->requestResponderUser->syncRoles($baseRoles);
-        $this->requestResponderUser->attachRole("request_responder");
+        $this->requestResponderUser->addRole("request_responder");
 
         $this->adminUser = User::factory()->create([
             'email' => 'platform-admin-user@test.com',
             'sub' => 'platform-admin-user@test.com',
         ]);
         $this->adminUser->syncRoles($baseRoles);
-        $this->adminUser->attachRole("platform_admin");
+        $this->adminUser->addRole("platform_admin");
 
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->poolOperatorUser->id,
@@ -116,6 +116,11 @@ class PoolPolicyTest extends TestCase
      */
     public function testView()
     {
+        $this->teamPool->published_at = null;
+        $this->teamPool->save();
+        $this->unOwnedPool->published_at = null;
+        $this->unOwnedPool->save();
+
         $this->assertTrue($this->poolOperatorUser->can('view', $this->teamPool));
         $this->assertTrue($this->adminUser->can('view', $this->teamPool));
 
@@ -124,6 +129,20 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->requestResponderUser->can('view', $this->teamPool));
         // Pool operator cannot view other teams pools
         $this->assertFalse($this->poolOperatorUser->can('view', $this->unOwnedPool));
+
+        // Note: We now allow everyone to view published pools
+        $this->teamPool->published_at = config('constants.past_date');
+        $this->teamPool->save();
+        $this->unOwnedPool->published_at = config('constants.past_date');
+        $this->unOwnedPool->save();
+
+        $this->assertTrue($this->guestUser->can('view', $this->teamPool));
+        $this->assertTrue($this->applicantUser->can('view', $this->teamPool));
+        $this->assertTrue($this->poolOperatorUser->can('view', $this->teamPool));
+        // Pool operator can view other teams pools if they are published
+        $this->assertTrue($this->poolOperatorUser->can('view', $this->unOwnedPool));
+        $this->assertTrue($this->requestResponderUser->can('view', $this->teamPool));
+        $this->assertTrue($this->adminUser->can('view', $this->teamPool));
     }
 
     /**

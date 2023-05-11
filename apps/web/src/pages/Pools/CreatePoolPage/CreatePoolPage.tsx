@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
@@ -23,6 +23,7 @@ import {
   Team,
 } from "~/api/generated";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -140,8 +141,8 @@ export const CreatePoolForm = ({
               })}
               name="classification"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification...",
-                id: "7aG86f",
+                defaultMessage: "Select a classification",
+                id: "tD99Wf",
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
@@ -160,8 +161,8 @@ export const CreatePoolForm = ({
               })}
               name="team"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team...",
-                id: "hr/i9h",
+                defaultMessage: "Select a team",
+                id: "COJ3St",
                 description: "Placeholder displayed for team selection input.",
               })}
               options={teamOptions}
@@ -254,11 +255,7 @@ const CreatePoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     {

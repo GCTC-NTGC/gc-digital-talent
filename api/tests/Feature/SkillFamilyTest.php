@@ -46,7 +46,7 @@ class SkillFamilyTest extends TestCase
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->attachRole("platform_admin");
+        $this->adminUser->addRole("platform_admin");
 
         $this->uuid = $this->faker->UUID();
 
@@ -56,29 +56,29 @@ class SkillFamilyTest extends TestCase
     }
 
     /**
-     * Test base user can view any
+     * Test guest user can view any
      *
      * @return void
      */
     public function test_view_any_skill_family()
     {
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL('query { skillFamilies { id } }')
-            ->assertJsonFragment([ 'id' => $this->uuid ]);
+        $this->graphQL('query { skillFamilies { id } }')
+            ->assertJsonFragment(['id' => $this->uuid]);
     }
 
     /**
-     * Test base user can view any
+     * Test guest user can view one
      *
      * @return void
      */
     public function test_view_skill_family()
     {
 
-        $variables = [ 'id' => $this->uuid ];
+        $variables = ['id' => $this->uuid];
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query Get($id: UUID!) {
                 skillFamily(id: $id) {
                     id
@@ -86,8 +86,7 @@ class SkillFamilyTest extends TestCase
             }
         ';
 
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL($query, $variables)
+        $this->graphQL($query, $variables)
             ->assertJsonFragment($variables);
     }
 
@@ -109,8 +108,9 @@ class SkillFamilyTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation UpdateSkillFamily($id: ID!, $skillFamily: UpdateSkillFamilyInput!) {
                 updateSkillFamily(id: $id, skillFamily: $skillFamily) {
                     id
@@ -123,12 +123,12 @@ class SkillFamilyTest extends TestCase
         ';
 
         $this->actingAs($this->baseUser, 'api')
-            ->graphQL($mutation, $variables )
+            ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->actingAs($this->adminUser, 'api')
-            ->graphQL($mutation, $variables )
-            ->assertJsonFragment([ 'id' => $this->uuid, 'name' => $variables['skillFamily']['name'] ]);
+            ->graphQL($mutation, $variables)
+            ->assertJsonFragment(['id' => $this->uuid, 'name' => $variables['skillFamily']['name']]);
     }
 
     /**
@@ -149,8 +149,9 @@ class SkillFamilyTest extends TestCase
             ]
         ];
 
-        $mutation = /** @lang GraphQL */
-        '
+        $mutation =
+            /** @lang GraphQL */
+            '
             mutation Create($skillFamily: CreateSkillFamilyInput!) {
                 createSkillFamily(skillFamily: $skillFamily) {
                     id
@@ -168,7 +169,6 @@ class SkillFamilyTest extends TestCase
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['name' => $variables['skillFamily']['name'] ]);
-
+            ->assertJsonFragment(['name' => $variables['skillFamily']['name']]);
     }
 }

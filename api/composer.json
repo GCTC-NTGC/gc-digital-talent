@@ -1,70 +1,73 @@
 {
-    "name": "gc-digital-talent/api",
-    "type": "project",
-    "description": "The GC Digital Talent API.",
-    "keywords": ["canada", "talent", "api"],
-    "license": "AGPL-3.0",
-    "require": {
-        "php": "^8.1",
-        "doctrine/dbal": "^3.1",
-        "guzzlehttp/guzzle": "^7.4",
-        "laravel/framework": "^10.0",
-        "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.6",
-        "lcobucci/jwt": "^5.0.0",
-        "lcobucci/clock": "^3.0.0",
-        "mll-lab/graphql-php-scalars": "^5.1",
-        "mll-lab/laravel-graphiql": "^1.2",
-        "nuwave/lighthouse": "^5.8",
-        "santigarcor/laratrust": "^7.1",
-        "web-token/jwt-core": "^3.1"
-    },
-    "require-dev": {
-        "spatie/laravel-ignition": "^2.0",
-        "fakerphp/faker": "^1.9.1",
-        "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "Database\\Helpers\\": "database/helpers/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true,
-        "platform": {
-            "php": "8.1.9"
-        },
-        "allow-plugins": {
-            "composer/package-versions-deprecated": true
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-update-cmd": [
-            "php artisan lighthouse:ide-helper"
-        ]
+  "name": "gc-digital-talent/api",
+  "type": "project",
+  "description": "The GC Digital Talent API.",
+  "keywords": [
+    "canada",
+    "talent",
+    "api"
+  ],
+  "license": "AGPL-3.0",
+  "require": {
+    "php": "^8.1",
+    "doctrine/dbal": "^3.1",
+    "guzzlehttp/guzzle": "^7.4",
+    "laravel/framework": "^10.0",
+    "laravel/sanctum": "^3.2",
+    "laravel/tinker": "^2.6",
+    "lcobucci/jwt": "^5.0.0",
+    "lcobucci/clock": "^3.0.0",
+    "mll-lab/graphql-php-scalars": "^5.1",
+    "mll-lab/laravel-graphiql": "^2.0",
+    "nuwave/lighthouse": "^5.8",
+    "santigarcor/laratrust": "^8.0",
+    "web-token/jwt-core": "^3.1"
+  },
+  "require-dev": {
+    "spatie/laravel-ignition": "^2.0",
+    "fakerphp/faker": "^1.9.1",
+    "laravel/sail": "^1.0.1",
+    "mockery/mockery": "^1.4.4",
+    "nunomaduro/collision": "^7.0",
+    "phpunit/phpunit": "^10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/",
+      "Database\\Helpers\\": "database/helpers/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.1.9"
+    },
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-update-cmd": [
+      "php artisan lighthouse:ide-helper"
+    ]
+  }
 }

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
@@ -30,8 +30,8 @@ class PoolCandidateFactory extends Factory
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
-                                                            $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
-                                                            ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
+                $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
+                ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory([
                 'published_at' => config('constants.past_date'),
@@ -40,6 +40,12 @@ class PoolCandidateFactory extends Factory
             'submitted_at' => null,
             'suspended_at' => null,
             'signature' => null,
+            'submitted_steps' => array_slice(
+                ApiEnums::applicationSteps(),
+                0,
+                $this->faker->numberBetween(0, count(ApiEnums::applicationSteps()) - 1)
+            ),
+            'education_requirement_option' => ApiEnums::poolCandidateCriteria()[array_rand(ApiEnums::poolCandidateCriteria())],
         ];
     }
 
@@ -52,13 +58,25 @@ class PoolCandidateFactory extends Factory
             $candidateId = $poolCandidate->id;
             $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
             $candidateStatus = $results[0]->pool_candidate_status;
-            if ($candidateStatus !='DRAFT' && $candidateStatus != 'DRAFT_EXPIRED'){
+            if ($candidateStatus != 'DRAFT' && $candidateStatus != 'DRAFT_EXPIRED') {
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
-                                'submitted_at' => $submittedDate,
-                                'signature' => $fakeSignature,
-                                ]);
+                    'submitted_at' => $submittedDate,
+                    'signature' => $fakeSignature,
+                ]);
+            }
+
+            // if the attached pool has screening questions, generate responses
+            $screeningQuestionsIdArray = $poolCandidate->pool->screeningQuestions()->pluck('id')->toArray();
+            if (isset($screeningQuestionsIdArray) && count($screeningQuestionsIdArray) > 0) {
+                for ($i = 0; $i < count($screeningQuestionsIdArray); $i++) {
+                    ScreeningQuestionResponse::create([
+                        'pool_candidate_id' => $candidateId,
+                        'screening_question_id' => $screeningQuestionsIdArray[$i],
+                        'answer' => $this->faker->paragraph(),
+                    ]);
+                }
             }
         });
     }
@@ -74,6 +92,7 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+                'submitted_steps' => ApiEnums::applicationSteps(),
             ];
         });
     }
@@ -89,7 +108,8 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'suspended_at' => $this->faker->dateTimeBetween('-3 months', 'now')
+                'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
+                'submitted_steps' => ApiEnums::applicationSteps(),
             ];
         });
     }

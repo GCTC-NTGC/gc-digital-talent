@@ -17,7 +17,6 @@ import {
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
   JobLookingStatus,
-  PoolStatus,
   GovEmployeeType,
   AdvertisementStatus,
   PoolAdvertisementLanguage,
@@ -42,8 +41,8 @@ export const employmentEquityGroups = defineMessages({
     description: "Group for when someone indicates they are a woman",
   },
   indigenous: {
-    defaultMessage: "Indigenous Identity",
-    id: "mFKg18",
+    defaultMessage: "Indigenous identity",
+    id: "ghhKNZ",
     description: "Group for when someone indicates they are indigenous",
   },
   minority: {
@@ -1337,28 +1336,6 @@ export const getProvinceOrTerritory = (
     `Invalid province or territory '${provinceOrTerritoryId}'`,
   );
 
-export const poolStatus = defineMessages({
-  [PoolStatus.NotTakingApplications]: {
-    defaultMessage: "Not taking applications",
-    id: "/xV8Hg",
-    description: "Pool Status described as not taking applications.",
-  },
-  [PoolStatus.TakingApplications]: {
-    defaultMessage: "Taking applications",
-    id: "CWRRy1",
-    description: "Pool Status described as taking applications.",
-  },
-});
-
-export const getPoolStatus = (
-  poolStatusId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    poolStatus,
-    poolStatusId,
-    `Invalid Pool Status '${poolStatusId}'`,
-  );
-
 export const poolStream = defineMessages({
   [PoolStream.BusinessAdvisoryServices]: {
     defaultMessage: "Business Line Advisory Services",
@@ -1598,6 +1575,12 @@ export const publishingGroups = defineMessages({
     defaultMessage: "Executive Jobs",
     id: "Mixlw/",
     description: "The publishing group called Executive Jobs",
+  },
+  [PublishingGroup.Iap]: {
+    defaultMessage: "IAP",
+    id: "LWsmvv",
+    description:
+      "The publishing group called Indigenous Apprenticeship Program",
   },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",

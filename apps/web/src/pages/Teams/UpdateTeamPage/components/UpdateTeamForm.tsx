@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
+import kebabCase from "lodash/kebabCase";
 
 import {
   BasicForm,
@@ -26,7 +27,6 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import { kebabCase } from "lodash";
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 import DescriptionWordCounter, {
   TEXT_AREA_MAX_WORDS,
@@ -44,7 +44,7 @@ type FormValues = {
 const dataToFormValues = (data: Team): FormValues => {
   const { departments, displayName, description, ...rest } = data;
   return {
-    ...omit(rest, ["id", "__typename"]),
+    ...omit(rest, ["id", "__typename", "roleAssignments"]),
     displayName: omit(displayName, "__typename"),
     description: omit(description, "__typename"),
     departments: unpackIds(departments),
@@ -61,7 +61,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
   };
 };
 
-interface UpdateTeamFormProps {
+export interface UpdateTeamFormProps {
   team: Team;
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
   onSubmit: (

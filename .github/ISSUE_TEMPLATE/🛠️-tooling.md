@@ -1,9 +1,9 @@
 ---
 name: "🛠️ Tooling"
 about: Updates to the CI pipeline
-title: "🛠️ Tooling"
+title: "🛠️ "
 labels: tooling
-assignees: ''
+assignees: ""
 ---
 
 ## 🛠️ Tooling
@@ -24,7 +24,3 @@ A set of assumptions which, when tested, verify that the debt tooling was proper
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}

@@ -3,92 +3,6 @@ query getUserId {
     id
   }
 }
-
-query getApplication($id: UUID!) {
-  poolCandidate(id: $id) {
-    id
-    user {
-      id
-    }
-    poolAdvertisement {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        families {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        families {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-        }
-      }
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      advertisementLanguage
-    }
-  }
-}
-
 query getSkills {
   skills {
     id
@@ -127,6 +41,9 @@ query getMyExperiences {
     experiences {
       id
       details
+      applicant {
+        id
+      }
       skills {
         id
         key

@@ -4,10 +4,10 @@ import isChromatic from "chromatic/isChromatic";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 
 export const themeKey = {
-  name: "Theme",
   description: "Global theme for components",
   defaultValue: "fallback",
   toolbar: {
+    title: "Theme",
     icon: "circlehollow",
     // Array of plain string values or MenuItem shape (see below)
     items: [
@@ -33,10 +33,10 @@ export const themeKey = {
 };
 
 export const themeMode = {
-  name: "Theme Mode",
   description: "Global theme mode for components",
   defaultValue: "pref",
   toolbar: {
+    title: "Theme Mode",
     icon: "circlehollow",
     // Array of plain string values or MenuItem shape (see below)
     items: [
@@ -81,8 +81,8 @@ const ThemeDecorator = (
   const showDark = hasDarkMode && isChromatic();
   const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
 
-  if(key === "fallback") {
-    key = parameters.themeKey || "default"
+  if (key === "fallback") {
+    key = parameters.themeKey || "default";
   }
 
   return showDark ? (

@@ -1,43 +1,44 @@
 import React from "react";
-import omit from "lodash/omit";
 
 import Heading from "../../Heading";
-import type { Color } from "../../Button";
-import Link, { ExternalLink, type LinkProps } from "../../Link";
+import { CardColor } from "./types";
+import CardFlatLink, { CardFlatLinkProps } from "./CardFlatLink";
 
-type CardColor = Extract<Color, "yellow" | "red" | "blue" | "black" | "purple">;
-
-interface CardFlatLinkProps extends Pick<LinkProps, "href" | "mode"> {
-  label: React.ReactNode;
-  external?: boolean;
-}
 export interface CardFlatProps {
   color: CardColor;
   title: React.ReactNode;
   children?: React.ReactNode;
-  link?: CardFlatLinkProps;
+  links?: Array<
+    Omit<CardFlatLinkProps, "color"> & {
+      [key: `data-${string}`]: unknown;
+      // add a natural key since mocked files do not have unique hrefs
+      naturalKey?: string;
+    }
+  >;
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {
-  yellow: {
-    "data-h2-border-left": "base(x.25 solid quaternary)",
+  primary: {
+    "data-h2-border-left": "base(x.25 solid primary)",
   },
-  red: {
+  secondary: {
+    "data-h2-border-left": "base(x.25 solid secondary)",
+  },
+  tertiary: {
     "data-h2-border-left": "base(x.25 solid tertiary)",
   },
-  blue: {
-    "data-h2-border-left": "base(x.25 solid secondary)",
+  quaternary: {
+    "data-h2-border-left": "base(x.25 solid quaternary)",
+  },
+  quinary: {
+    "data-h2-border-left": "base(x.25 solid quinary)",
   },
   black: {
     "data-h2-border-left": "base(x.25 solid black)",
   },
-  purple: {
-    "data-h2-border-left": "base(x.25 solid primary)",
-  },
 };
 
-const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
-  const LinkEl = link?.external ? ExternalLink : Link;
+const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
   return (
     <div
       {...colorMap[color]}
@@ -58,19 +59,22 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
           {children}
         </div>
       )}
-      {link && (
-        <div data-h2-margin-top="base(x1)">
-          <LinkEl
-            color={color}
-            type="button"
-            weight="bold"
-            mode="solid"
-            {...omit(link, "label", "external")}
-          >
-            {link.label}
-          </LinkEl>
+      {links && links.length > 0 ? (
+        <div
+          data-h2-margin-top="base(x1)"
+          data-h2-display="base(flex)"
+          data-h2-flex-wrap="base(wrap)"
+          data-h2-gap="base(x.25)"
+        >
+          {links.map((link) => (
+            <CardFlatLink
+              key={link.naturalKey ?? link.href}
+              color={color}
+              {...link}
+            />
+          ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { NewspaperIcon } from "@heroicons/react/24/outline";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
@@ -47,20 +47,23 @@ const About = () => {
                   description:
                     "Title for the Office of the Chief Information Officer",
                 })}
-                link={{
-                  external: true,
-                  href:
-                    locale === "en"
-                      ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
-                      : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeante-principale-information.html",
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
-                    id: "NjHXGh",
-                    description:
-                      "Link text for the Office of the Chief Information Officer",
-                  }),
-                }}
+                links={[
+                  {
+                    external: true,
+                    mode: "solid",
+                    href:
+                      locale === "en"
+                        ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
+                        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeante-principale-information.html",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
+                      id: "NjHXGh",
+                      description:
+                        "Link text for the Office of the Chief Information Officer",
+                    }),
+                  },
+                ]}
               >
                 <p>
                   {intl.formatMessage(
@@ -85,19 +88,22 @@ const About = () => {
                   id: "JRlnNk",
                   description: "Title for the Digital Community Management",
                 })}
-                link={{
-                  external: true,
-                  href:
-                    locale === "en"
-                      ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
-                      : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Learn more<hidden> about Digital Community Management</hidden>",
-                    id: "VBsMcq",
-                    description: "Link text for Digital Community Management",
-                  }),
-                }}
+                links={[
+                  {
+                    external: true,
+                    mode: "solid",
+                    href:
+                      locale === "en"
+                        ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
+                        : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about Digital Community Management</hidden>",
+                      id: "VBsMcq",
+                      description: "Link text for Digital Community Management",
+                    }),
+                  },
+                ]}
               >
                 <p>
                   {intl.formatMessage(
@@ -122,17 +128,20 @@ const About = () => {
                   id: "kHypfJ",
                   description: "Title for how the platform was created",
                 })}
-                link={{
-                  href: `/${locale}/talent-cloud/report`,
-                  external: true,
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Learn more<hidden> about how the platform was created</hidden>",
-                    id: "jDv8lx",
-                    description:
-                      "Link text to learn more about the platform creation",
-                  }),
-                }}
+                links={[
+                  {
+                    href: `/${locale}/talent-cloud/report`,
+                    external: true,
+                    mode: "solid",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about how the platform was created</hidden>",
+                      id: "jDv8lx",
+                      description:
+                        "Link text to learn more about the platform creation",
+                    }),
+                  },
+                ]}
               >
                 <p>
                   {intl.formatMessage(

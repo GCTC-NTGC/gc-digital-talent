@@ -30,6 +30,7 @@ FRESHDESK
 Gatineau
 gctalent
 headlessui
+Helpdesk
 heroicons
 INDIGENOUSAPPRENTICESHIP
 Inuk
@@ -45,7 +46,7 @@ lightnavy
 lightpurple
 Métis
 Michif
-Mikmaq
+Mi'kmaq
 noninteractive
 nuage
 Nuwave
@@ -53,11 +54,12 @@ OCIO
 Ojibway
 personalisation
 pgsql
+psac
 Queueable
 recruitmentimit
 recruitments
 recrutementgiti
-resumé
+résumé
 rolepermission
 skillset
 subcomponents

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, SubmitHandler } from "react-hook-form";
-import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
+import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVerticalIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
@@ -14,12 +14,14 @@ import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOption
 import { ButtonIcon } from "~/components/Table/ClientManagedTable/tableComponents";
 
 import "./PoolCandidateFilterDialog.css";
+import adminMessages from "~/messages/adminMessages";
 
 type Option = { value: string; label: string };
 
 export type FormValues = {
   languageAbility: Option["value"][];
   classifications: Option["value"][];
+  stream: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
   hasDiploma: Option["value"][];
@@ -130,10 +132,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
-                  label={formatMessage({
-                    defaultMessage: "Pools",
-                    id: "mjyHeP",
-                  })}
+                  label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
                 />
@@ -152,12 +151,19 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
-                  label={formatMessage({
-                    defaultMessage: "Classifications",
-                    id: "5TVKj1",
-                  })}
+                  label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+                <MultiSelectField
+                  id="stream"
+                  label={formatMessage({
+                    defaultMessage: "Streams",
+                    id: "GwbTAz",
+                  })}
+                  options={optionsData.stream}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

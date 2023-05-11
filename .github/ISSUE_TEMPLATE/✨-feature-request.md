@@ -1,9 +1,9 @@
 ---
 name: "✨ Feature Request"
 about: A new feature or change to existing functionality
-title: "✨ Feature Request"
+title: "✨ "
 labels: feature
-assignees: ''
+assignees: ""
 ---
 
 ## ✨ Feature
@@ -36,7 +36,3 @@ A set of assumptions which, when tested, verify that the feature was properly im
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}

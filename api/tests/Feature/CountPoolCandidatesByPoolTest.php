@@ -30,16 +30,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
     }
 
-    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true) {
+    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true)
+    {
         return [
             'pool_id' => $pool,
             'user_id' => $user,
             'pool_candidate_status' => $available ? ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE : ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date') ,
+            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
 
-    public function poolData(?bool $published = true) {
+    public function poolData(?bool $published = true)
+    {
         return [
             'published_at' => $published ? config('constants.past_date') : null,
         ];
@@ -559,6 +561,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test skills
     // creates a three users various skills and filter for the skills on two of them
+    // filtering is OR using User::scopeSkillsAdditive
     public function testSkills()
     {
         $pool = Pool::factory()->create($this->poolData());
@@ -572,7 +575,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         $users[0]->awardExperiences()->sole()->skills()->sync([
             $skills[0]->id,
-            $skills[1]->id
         ]);
         $users[1]->awardExperiences()->sole()->skills()->sync([
             $skills[0]->id,
@@ -583,6 +585,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             $skills[2]->id
         ]);
 
+        // ensure 2 candidates returned despite two skills being passed in
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -596,8 +599,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'skills' => [
-                        ['id' => $skills[0]->id],
-                        ['id' => $skills[1]->id]
+                        ['id' => $skills[1]->id],
+                        ['id' => $skills[2]->id]
                     ]
                 ]
             ]

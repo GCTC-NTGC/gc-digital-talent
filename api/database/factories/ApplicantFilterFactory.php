@@ -76,16 +76,19 @@ class ApplicantFilterFactory extends Factory
                 $this->faker->numberBetween($minCount, 2)
             )->get();
             $filter->classifications()->saveMany($classifications);
-
             $skills = Skill::inRandomOrder()->limit(
                 $this->faker->numberBetween($minCount, 2)
             )->get();
             $filter->skills()->saveMany($skills);
 
-            $pools = Pool::inRandomOrder()->limit(
+            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);
+            $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
+            $streams = $pools->flatMap(fn ($pool) => $pool->stream);
+            $filter->qualified_streams = $streams;
+            $filter->save();
         });
     }
 }

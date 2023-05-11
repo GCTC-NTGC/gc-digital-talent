@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import uniqBy from "lodash/uniqBy";
 
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -8,22 +9,25 @@ import {
   getPoolStream,
   getLocale,
   commonMessages,
+  getLocalizedName,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { FromArray } from "~/types/utility";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
   Maybe,
   Pool,
   Scalars,
-  GetMePoolsQuery,
   useGetMePoolsQuery,
   RoleAssignment,
+  LocalizedString,
+  useAllPoolsQuery,
+  Team,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -31,13 +35,7 @@ import Table, {
   Cell,
 } from "~/components/Table/ClientManagedTable";
 
-type Data = NonNullable<
-  FromArray<
-    NonNullable<
-      FromArray<NonNullable<GetMePoolsQuery["me"]>["roleAssignments"]>["team"]
-    >["pools"]
-  >
->;
+type Data = Pool;
 type PoolCell = Cell<Pool>;
 
 // callbacks extracted to separate function to stabilize memoized component
@@ -72,6 +70,27 @@ function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
       {getFullPoolAdvertisementTitleHtml(intl, pool)}
     </Link>
   );
+}
+
+function viewTeamLinkAccessor(
+  url: Maybe<string>,
+  displayName: Maybe<LocalizedString>,
+  intl: IntlShape,
+) {
+  return url ? (
+    <Link href={url} type="link">
+      {intl.formatMessage(
+        {
+          defaultMessage: "<hidden>View team: </hidden>{teamName}",
+          id: "ActH9H",
+          description: "Text for a link to the Team table",
+        },
+        {
+          teamName: getLocalizedName(displayName, intl),
+        },
+      )}
+    </Link>
+  ) : null;
 }
 
 function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
@@ -134,30 +153,36 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   );
 };
 
+interface PoolWithTeam extends Pool {
+  team: NonNullable<Pool["team"]>;
+}
+
 // roles assignments to teams to pools array
 const roleAssignmentsToPools = (
   roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Pool[] => {
+): PoolWithTeam[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
   const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => team?.pools);
-  const filteredFlattenedPools = unpackMaybes(flattenedPools);
 
-  // clear out any duplicate pools that may have accumulated
-  // https://stackoverflow.com/a/56757215
-  const poolsArray = filteredFlattenedPools.filter(
-    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
-  );
+  const addTeamToPool =
+    (team: Team) =>
+    (pool: Pool): PoolWithTeam => ({ ...pool, team });
+
+  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
+    return unpackMaybes(team.pools).map(addTeamToPool(team));
+  });
+  const poolsArray = uniqBy(flattenedPools, "id");
   return poolsArray;
 };
 
 interface PoolTableProps {
   pools: Pool[];
+  title: string;
 }
 
-export const PoolTable = ({ pools }: PoolTableProps) => {
+export const PoolTable = ({ pools, title }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -193,6 +218,21 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         },
         Cell: ({ row }: PoolCell) =>
           viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Publishing group",
+          id: "rYgaTA",
+          description:
+            "Title displayed for the Pool table publishing group column.",
+        }),
+        accessor: (d) => {
+          return intl.formatMessage(
+            d.publishingGroup
+              ? getPublishingGroup(d.publishingGroup)
+              : commonMessages.notFound,
+          );
+        },
       },
       {
         Header: intl.formatMessage({
@@ -250,7 +290,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
-        sortType: (rowA, rowB, id, desc) => {
+        sortType: (rowA, rowB) => {
           // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
@@ -276,15 +316,29 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             return -1;
           }
           // if groups identical then sort by level
-          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
           if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
+            return 1;
           }
           if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
+            return -1;
           }
           return 0;
         },
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Team",
+          id: "fCXZ4R",
+          description: "Title displayed for the Pool table Team column",
+        }),
+        accessor: (d) => `Team ${d.team?.id ? d.team.id : ""}`,
+        Cell: ({ row }: PoolCell) =>
+          viewTeamLinkAccessor(
+            paths.teamView(row.original.team?.id ? row.original.team?.id : ""),
+            row.original.team?.displayName,
+            intl,
+          ),
+        id: "team",
       },
       {
         Header: intl.formatMessage({
@@ -342,10 +396,23 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
+        id: "createdDate",
         accessor: ({ createdDate }) =>
           createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
         Cell: ({ row: { original: searchRequest } }: PoolCell) =>
           dateCell(searchRequest.createdDate, intl),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Updated",
+          id: "R2sSy9",
+          description: "Title displayed for the User table Date Updated column",
+        }),
+        id: "updatedDate",
+        accessor: ({ updatedDate }) =>
+          updatedDate ? parseDateTimeUtc(updatedDate).valueOf() : null,
+        Cell: ({ row: { original: searchRequest } }: PoolCell) =>
+          dateCell(searchRequest.updatedDate, intl),
       },
     ],
     [intl, paths, locale],
@@ -354,7 +421,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
   const { hiddenCols, initialSortBy } = useMemo(() => {
     return {
-      hiddenCols: ["id", "description", "createdDate", "ownerEmail"],
+      hiddenCols: ["id", "createdDate", "ownerEmail", "ownerName"],
       initialSortBy: [
         {
           id: "createdDate",
@@ -379,20 +446,31 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
       }}
       initialSortBy={initialSortBy}
+      title={title}
     />
   );
 };
 
-const PoolTableApi = () => {
+export const PoolOperatorTableApi = ({ title }: { title: string }) => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} />
+      <PoolTable pools={poolsArray ?? []} title={title} />
     </Pending>
   );
 };
 
-export default PoolTableApi;
+export const PoolAdminTableApi = ({ title }: { title: string }) => {
+  const [result] = useAllPoolsQuery();
+  const { data, fetching, error } = result;
+  const pools = unpackMaybes(data?.pools);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={pools} title={title} />
+    </Pending>
+  );
+};

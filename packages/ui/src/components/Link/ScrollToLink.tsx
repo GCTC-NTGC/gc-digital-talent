@@ -1,8 +1,12 @@
 import React from "react";
 import { useLocation, Link, LinkProps } from "react-router-dom";
 
+type ClickEvent =
+  | React.MouseEvent<HTMLAnchorElement | undefined>
+  | React.KeyboardEvent<HTMLAnchorElement | undefined>;
+
 export type ScrollLinkClickFunc = (
-  e: React.MouseEvent<HTMLAnchorElement | undefined>,
+  e: ClickEvent,
   section: HTMLElement | null,
 ) => void;
 
@@ -44,7 +48,7 @@ const ScrollToLink = ({
     setTargetSection(section);
   }, [to]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement | undefined>) => {
+  const handleClick = (e: ClickEvent) => {
     scrollToSection(targetSection);
     if (onScrollTo) {
       onScrollTo(e, targetSection);

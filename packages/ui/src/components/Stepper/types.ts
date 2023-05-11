@@ -1,6 +1,11 @@
 import React from "react";
 
-export type StepState = "active" | "completed" | "disabled" | "error";
+export type StepState =
+  | "active"
+  | "completed"
+  | "disabled"
+  | "error"
+  | "default";
 
 export type IconType = React.ForwardRefExoticComponent<
   React.SVGProps<SVGSVGElement>
@@ -9,7 +14,8 @@ export type IconType = React.ForwardRefExoticComponent<
 export type StepType = {
   href: string;
   icon: IconType;
-  label: string;
-  completed?: boolean;
-  error?: boolean;
+  label: React.ReactNode;
+  completed?: boolean | null;
+  disabled?: boolean | null;
+  error?: boolean | null;
 };

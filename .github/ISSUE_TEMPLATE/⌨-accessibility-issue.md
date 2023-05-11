@@ -1,30 +1,47 @@
 ---
 name: "⌨ Accessibility Issue"
 about: An accessibility related issue template.
-title: "⌨ Accessibility Issue"
+title: "⌨ "
 labels: accessibility
-assignees: ''
-
+assignees: ""
 ---
 
-## ❌ Current behaviour (issue)
-Overview of current behaviour.
+## ⌨ Accessibility Issue
 
-**WCAG 2.1 Criteria:**
+Describe the issue you encountered.
 
-### How to reproduce
-1. Environment (prod or UA?)
-2. Which browser and/or Assistive Technology?
-3. Step-by-step instructions explaining how to reproduce the problem.
+### WCAG 2.1 Criteria
 
-## ✔ Expected behaviour (fix)
-Overview of expected behaviour.
+List any relevant criteria that is failing.
 
-### Acceptance Criteria
-A set of assumptions which, when tested, verify that the accessibility requirement was met.
-- [ ] Criteria
+## 🦋 Expected Behaviour
+
+What should be happening?
+
+## 🕵️ Details
+
+Add any additional details that could assist with troubleshooting/fixing the issue.
+
+- **Operating System**: Name and version (if possible).
+- **Browser**: Name and version (if possible).
+- **Assistive Technology**: Name and version (if possible).
+
+## 📋 Steps to Reproduce
+
+1. ...
+2. ...
+
+## 📸 Screenshot
+
+Add a screenshot (if possible).
+
+## 🙋‍♀️ Proposed Solution
+
+(optional) Do you have a proposed solution?
+
+## ✅ Acceptance Criteria
+
+A set of assumptions which, when tested, verify that the issue was addressed.
+
+- [ ] Criteria 1
 - [ ] Criteria 2
-
-## Additional information (optional)
-1. How does it impact users?
-2. Related issues, suggestions how to fix

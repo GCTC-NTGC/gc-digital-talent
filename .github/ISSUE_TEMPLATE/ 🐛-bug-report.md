@@ -1,9 +1,9 @@
 ---
 name: "🐛 Bug Report"
 about: Report a bug to fix errors or improve UX
-title: "🐛 Bug Report"
+title: "🐛 "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 ## 🐛 Bug
@@ -40,7 +40,3 @@ A set of assumptions which, when tested, verify that the bug was addressed.
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Blocked by {issue numbers}

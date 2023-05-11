@@ -37,6 +37,7 @@ import {
   Scalars,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -202,8 +203,8 @@ export const UpdateSkillFamilyForm = ({
                   "Label displayed on the skill family form category field.",
               })}
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select a category...",
-                id: "rna1rM",
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
                 description:
                   "Placeholder displayed on the skill family form category field.",
               })}
@@ -219,15 +220,10 @@ export const UpdateSkillFamilyForm = ({
               <MultiSelectField
                 id="skills"
                 name="skills"
-                label={intl.formatMessage({
-                  defaultMessage: "Skills",
-                  id: "F2Rs/C",
-                  description:
-                    "Label displayed on the skill family form skills field.",
-                })}
+                label={intl.formatMessage(adminMessages.skills)}
                 placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skills...",
-                  id: "7Cx7lp",
+                  defaultMessage: "Select one or more skills",
+                  id: "GhszAa",
                   description:
                     "Placeholder displayed on the skill family form skills field.",
                 })}
@@ -289,11 +285,7 @@ const UpdateSkillFamilyPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill families",
-        id: "yeXUjo",
-        description: "Breadcrumb title for the skill families page link.",
-      }),
+      label: intl.formatMessage(adminMessages.skillFamilies),
       url: routes.skillFamilyTable(),
     },
     ...(skillFamilyId

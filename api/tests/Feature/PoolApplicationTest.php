@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestion;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Team;
@@ -18,6 +21,9 @@ use Database\Seeders\SkillSeeder;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
 
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
+
 class PoolApplicationTest extends TestCase
 {
     use RefreshDatabase;
@@ -25,13 +31,13 @@ class PoolApplicationTest extends TestCase
     use RefreshesSchemaCache;
     use WithFaker;
 
-    protected $guestUser;
     protected $applicantUser;
     protected $teamUser;
     protected $responderUser;
     protected $uuid;
     protected $toBeDeleted;
 
+    protected $unauthenticatedMessage = 'Unauthenticated.';
     protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $queryDocument =
@@ -78,6 +84,16 @@ class PoolApplicationTest extends TestCase
         }
     ';
 
+    protected $suspendMutationDocument =
+    /** @lang GraphQL */
+    '
+        mutation suspendApplication($id: ID!, $isSuspended: Boolean!) {
+            changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
+                suspendedAt
+            }
+        }
+    ';
+
     protected $submitMutationDocument =
     /** @lang GraphQL */
     '
@@ -103,14 +119,6 @@ class PoolApplicationTest extends TestCase
 
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
-
-        $this->guestUser = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guestUser->syncRoles([
-            "guest",
-        ]);
 
         $this->applicantUser = User::factory()->create([
             'email' => 'applicant-user@test.com',
@@ -147,7 +155,7 @@ class PoolApplicationTest extends TestCase
             "base_user",
             "applicant"
         ]);
-        $this->teamUser->attachRole("pool_operator",  $team);
+        $this->teamUser->addRole("pool_operator",  $team);
     }
 
     public function testApplicationCreation(): void
@@ -179,8 +187,7 @@ class PoolApplicationTest extends TestCase
         ];
 
         // Guest users cannot create applications
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->createMutationDocument, $variables)
+        $this->graphQL($this->createMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert creating a pool application succeeds
@@ -275,9 +282,8 @@ class PoolApplicationTest extends TestCase
         ]);
 
         // This user does not own the application so cannot archive
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->graphQL($this->archiveMutationDocument, ["id" => $archivableApplication->id])
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
 
         // Request responders may not archive applications they do not own
         $this->actingAs($this->responderUser, "api")
@@ -485,6 +491,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         $submitArgs = [
             'id' => $newPoolCandidate->id,
@@ -492,9 +500,8 @@ class PoolApplicationTest extends TestCase
         ];
 
         // Assert users who do not own the pool candidate cannot submit
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->submitMutationDocument,  $submitArgs)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
 
         $this->actingAs($this->teamUser, "api")
             ->graphQL($this->submitMutationDocument,  $submitArgs)
@@ -563,6 +570,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert empty signature submission errors
         $this->actingAs($this->applicantUser, "api")
@@ -637,6 +646,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert user cannot submit application with missing essential skills
         $this->actingAs($this->applicantUser, "api")
@@ -696,6 +707,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
         $this->actingAs($this->applicantUser, "api")
@@ -724,6 +737,8 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert status
         $this->actingAs($this->applicantUser, "api")
@@ -767,6 +782,65 @@ class PoolApplicationTest extends TestCase
             );
     }
 
+    public function testApplicationSubmitScreeningQuestions(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' =>  Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        ScreeningQuestion::where('pool_id', $newPool->id)->delete();
+        $screeningQuestion = ScreeningQuestion::factory()->create([
+            'pool_id' => $newPool
+        ]);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+        // Remove any responses created by factory
+        ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
+
+        $submitArgs = [
+            'id' => $newPoolCandidate->id,
+            'sig' => 'SIGNED',
+        ];
+
+        // assert cannot submit with no question
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
+                'errors' => [[
+                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+                ]]
+            ]);
+
+        // Respond to the question
+        ScreeningQuestionResponse::create([
+            'pool_candidate_id' => $newPoolCandidate->id,
+            'screening_question_id' => $screeningQuestion->id,
+            'answer' => 'answer'
+        ]);
+        // assert successful submission after responding to question
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL($this->submitMutationDocument,  $submitArgs)
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->has(
+                    'data',
+                    fn ($json) =>
+                    $json->has(
+                        'submitApplication',
+                        fn ($json) =>
+                        $json->has('signature')
+                            ->has("status")
+                            ->has('submittedAt')
+                            ->whereType('submittedAt', 'string')
+                    )
+                )
+            );
+    }
+
     public function testApplicationDeletion(): void
     {
         $newPool = Pool::factory()->create([]);
@@ -781,6 +855,12 @@ class PoolApplicationTest extends TestCase
 
         $variables = ['id' => $newPoolCandidate->id];
 
+        // Assert guests cannot delete application
+        // Do this first because actingAs seems to keep querying as the user
+        // until called again with a different user
+        $this->graphQL($this->deleteMutationDocument, $variables)
+            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
+
         // Assert candidate exists
         $this->actingAs($this->applicantUser, "api")
             ->graphQL($this->queryDocument, $variables)
@@ -793,10 +873,6 @@ class PoolApplicationTest extends TestCase
             ]);
 
         // Assert non-owners cannot delete application
-        $this->actingAs($this->guestUser, "api")
-            ->graphQL($this->deleteMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
         $this->actingAs($this->teamUser, "api")
             ->graphQL($this->deleteMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
@@ -1020,5 +1096,131 @@ class PoolApplicationTest extends TestCase
                 $this->deleteMutationDocument,
                 ['id' => $candidateFourteen->id]
             )->assertJson($result);
+    }
+
+    public function testApplicationSuspension(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+
+        // assert can't suspend a DRAFT
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            )->assertJsonFragment(['message' => 'The application must be submitted.']);
+
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            ]);
+
+        $this->travelTo(Carbon::now()->addMinute()); // to test timestamp related things, gaps in time are required
+
+        // assert suspend successfully happens after application is submitted
+        $response = $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            );
+        $suspendedDate = $response->json('data.changeApplicationSuspendedAt.suspendedAt');
+        assertNotNull($suspendedDate);
+
+        $this->travelTo(Carbon::now()->addMinute());
+
+        // assert re-suspend does not error and matches the date string above
+        $response2 = $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => true]
+            );
+        $suspendedDate2 = $response2->json('data.changeApplicationSuspendedAt.suspendedAt');
+        assertEquals($suspendedDate, $suspendedDate2);
+
+        // assert un-suspend works
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->suspendMutationDocument,
+                ['id' => $newPoolCandidate->id, 'isSuspended' => false]
+            )->assertJsonFragment(['suspendedAt' => null]);
+    }
+
+    public function testApplicationSubmitEducationRequirement(): void
+    {
+        // short-circuit test off feature flag
+        $flagBoolean = config('feature.application_revamp');
+        if (!$flagBoolean) {
+            $this->markTestSkipped('application_revamp is OFF');
+        }
+
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'education_requirement_option' => null,
+        ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+
+        // assert can't submit with incomplete education requirement
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
+            ]);
+
+        $newPoolCandidate->education_requirement_option = ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION;
+        $newPoolCandidate->save();
+
+        // assert still can't submit since requirement is only partially complete
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "id" => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE]
+            ]);
+
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+
+        // assert submit now successful
+        $this->actingAs($this->applicantUser, "api")
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                "signature" => 'sign',
+            ]);
     }
 }

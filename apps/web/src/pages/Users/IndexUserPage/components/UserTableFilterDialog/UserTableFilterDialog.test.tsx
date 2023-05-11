@@ -41,6 +41,7 @@ const emptyFormValues = {
   priorityWeight: [],
   expiryStatus: [],
   suspendedStatus: [],
+  stream: [],
 };
 
 interface ProvidersProps {
@@ -165,8 +166,6 @@ describe("UserTableFilterDialog", () => {
         selectFilterOption(/availability/i);
         selectFilterOption(/profile complete/i);
         selectFilterOption(/government employee/i);
-
-        // TODO: Async filters.
         selectFilterOption(/classifications/i);
         selectFilterOption(/pools/i);
         selectFilterOption(/skill filter/i);
@@ -175,7 +174,7 @@ describe("UserTableFilterDialog", () => {
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(16);
+        expect(Object.keys(activeFilter)).toHaveLength(17);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
