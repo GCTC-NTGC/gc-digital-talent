@@ -15,14 +15,20 @@ const getStepInfo: GetApplicationStepInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.ReviewYourProfile,
-    mainPage: resumePageInfo({ paths, intl, application }),
-    introductionPage: resumeIntroductionPageInfo({ paths, intl, application }),
+    mainPage: resumePageInfo({ paths, intl, application, stepOrdinal }),
+    introductionPage: resumeIntroductionPageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+    }),
     auxiliaryPages: [
-      resumeAddPageInfo({ paths, intl, application }),
-      resumeEditPageInfo({ paths, intl, application }),
+      resumeAddPageInfo({ paths, intl, application, stepOrdinal }),
+      resumeEditPageInfo({ paths, intl, application, stepOrdinal }),
     ],
     showInStepper: true,
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],

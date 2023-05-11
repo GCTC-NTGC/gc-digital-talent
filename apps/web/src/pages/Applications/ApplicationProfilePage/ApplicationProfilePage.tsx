@@ -13,13 +13,13 @@ import { Applicant } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-
 import {
   User,
   useGetApplicationQuery,
   useGetMeQuery,
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
@@ -32,8 +32,14 @@ import ErrorSummary from "./components/ErrorSummary";
 import ProfileFormProvider from "./components/ProfileFormContext";
 import StepNavigation from "./components/StepNavigation";
 import stepHasError from "../profileStep/profileStepValidation";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationProfile(application.id);
   return {
     title: intl.formatMessage({
@@ -51,10 +57,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 2",
-          id: "IGR8Dw",
-          description: "Breadcrumb link text for the application profile page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -74,7 +78,13 @@ export const ApplicationProfile = ({
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 

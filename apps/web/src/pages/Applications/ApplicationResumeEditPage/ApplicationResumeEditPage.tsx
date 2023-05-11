@@ -12,15 +12,18 @@ import {
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
 } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import EditExperienceForm from "./components/ExperienceEditForm";
+import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   resourceId,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationResumeEdit(application.id, resourceId ?? "");
   return {
@@ -38,10 +41,8 @@ export const getPageInfo: GetPageNavInfo = ({
     crumbs: [
       {
         url: paths.applicationResume(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
       {
@@ -71,11 +72,13 @@ const ApplicationResumeEdit = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { experienceId } = useParams();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     resourceId: experienceId,
+    stepOrdinal: currentStepOrdinal,
   });
 
   return (

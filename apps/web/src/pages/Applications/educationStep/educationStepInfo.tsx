@@ -11,10 +11,11 @@ const getStepInfo: GetApplicationStepInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.EducationRequirements,
-    mainPage: educationPageInfo({ paths, intl, application }),
+    mainPage: educationPageInfo({ paths, intl, application, stepOrdinal }),
     showInStepper: true,
     prerequisites: [
       ApplicationStep.Welcome,

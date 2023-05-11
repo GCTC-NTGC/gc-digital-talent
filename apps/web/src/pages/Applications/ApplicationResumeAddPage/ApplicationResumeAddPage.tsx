@@ -11,12 +11,19 @@ import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import AddExperienceForm from "./components/AddExperienceForm";
 import { experienceTypeTitles } from "./messages";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationResumeAdd(application.id);
   return {
     title: intl.formatMessage({
@@ -33,10 +40,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: paths.applicationResume(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
       {
@@ -58,7 +63,13 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return (
     <>

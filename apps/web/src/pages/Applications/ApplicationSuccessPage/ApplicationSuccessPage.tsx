@@ -9,6 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { useLocale } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationSuccess(application.id);
@@ -46,7 +47,13 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const { locale } = useLocale();
   const { applicantDashboard } = useFeatureFlags();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return (
     <Alert.Root type="success" live={false}>

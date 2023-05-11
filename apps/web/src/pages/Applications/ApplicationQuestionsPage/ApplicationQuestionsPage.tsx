@@ -13,14 +13,21 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { useUpdateApplicationMutation } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationQuestions(application.id);
   return {
     title: intl.formatMessage({
@@ -37,11 +44,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 6",
-          id: "wWnEgP",
-          description:
-            "Breadcrumb link text for the application screening questions page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -56,7 +60,13 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 

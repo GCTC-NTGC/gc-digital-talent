@@ -6,10 +6,17 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationReview(application.id);
   return {
     title: intl.formatMessage({
@@ -26,10 +33,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 7",
-          id: "b5m9Ja",
-          description: "Breadcrumb link text for the application review page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -47,7 +52,13 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };

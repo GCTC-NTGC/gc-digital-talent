@@ -127,6 +127,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
         followingStep?.introductionPage?.link.url ??
         followingStep?.mainPage.link.url
       }
+      currentStepOrdinal={currentStepIndex + 1}
     >
       <SEO title={intl.formatMessage(pageTitle, { poolName })} />
       <Hero

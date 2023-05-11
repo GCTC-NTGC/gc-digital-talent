@@ -27,6 +27,7 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -40,7 +41,12 @@ type FormValues = {
   experienceCount: number;
 };
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationResume(application.id);
   return {
     title: intl.formatMessage({
@@ -57,10 +63,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -156,8 +160,13 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl } = useApplicationContext();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const instructionsPath = paths.applicationResumeIntro(application.id);
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);

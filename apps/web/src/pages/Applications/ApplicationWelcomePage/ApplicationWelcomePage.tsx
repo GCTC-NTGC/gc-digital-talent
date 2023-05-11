@@ -11,11 +11,17 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   return {
     title: intl.formatMessage(
       {
@@ -37,10 +43,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: paths.applicationWelcome(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 1",
-          id: "n6ON28",
-          description: "Breadcrumb link text for the application welcome page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -59,13 +63,18 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const poolName = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
   );
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
-  const { followingPageUrl } = useApplicationContext();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);
 

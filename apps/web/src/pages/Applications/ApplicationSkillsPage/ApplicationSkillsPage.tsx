@@ -36,7 +36,12 @@ type FormValues = {
   skillsMissingExperiences: number;
 };
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationSkills(application.id);
   return {
     title: intl.formatMessage({
@@ -54,10 +59,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 5",
-          id: "/tscgU",
-          description: "Breadcrumb link text for the application skills page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -71,7 +74,13 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const experiences = application.user?.experiences?.filter(notEmpty) || [];
   const categorizedEssentialSkills = categorizeSkill(

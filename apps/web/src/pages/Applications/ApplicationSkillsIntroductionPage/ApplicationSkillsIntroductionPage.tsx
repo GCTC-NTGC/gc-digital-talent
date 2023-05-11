@@ -7,9 +7,17 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import applicationMessages from "~/messages/applicationMessages";
 
-export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
+
+export const getPageInfo: GetPageNavInfo = ({
+  application,
+  paths,
+  intl,
+  stepOrdinal,
+}) => {
   const path = paths.applicationSkillsIntro(application.id);
   return {
     title: intl.formatMessage({
@@ -27,11 +35,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 5 (Intro)",
-          id: "NlfaES",
-          description:
-            "Breadcrumb link text for the application skills introduction page",
+        label: intl.formatMessage(applicationMessages.numberedStepIntro, {
+          stepOrdinal,
         }),
       },
     ],
@@ -46,7 +51,13 @@ const ApplicationSkillsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const { applicantDashboard } = useFeatureFlags();
 
   return (

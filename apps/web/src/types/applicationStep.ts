@@ -15,6 +15,7 @@ export type GetApplicationStepInfoArgs = {
   paths: ReturnType<typeof useRoutes>;
   resourceId?: Scalars["ID"];
   intl: IntlShape;
+  stepOrdinal?: number;
 };
 
 export type ApplicationStepInfo = {

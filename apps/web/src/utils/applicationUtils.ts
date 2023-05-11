@@ -26,52 +26,76 @@ type GetApplicationPagesArgs = {
   poolAdvertisement: Maybe<PoolAdvertisement>;
 };
 
+// Dynamically build the list of application steps for this application
 export const getApplicationSteps = ({
   paths,
   intl,
   application,
   poolAdvertisement,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
-  const pages = new Array<ApplicationStepInfo>();
-  pages.push(welcomeStepInfo({ paths, intl, application }));
-  // TODO: IAP self declaration optionally here
-  pages.push(profileStepInfo({ paths, intl, application }));
-  pages.push(resumeStepInfo({ paths, intl, application }));
-  pages.push(educationStepInfo({ paths, intl, application }));
-  pages.push(skillsStepInfo({ paths, intl, application }));
-  if (poolAdvertisement?.screeningQuestions?.length) {
-    pages.push(questionsStepInfo({ paths, intl, application }));
-  }
-  pages.push(reviewStepInfo({ paths, intl, application }));
-  pages.push(successPageInfo({ paths, intl, application }));
+  // build the order of step functions to call
+  const stepInfoFunctions = [
+    welcomeStepInfo,
+    // TODO: IAP self declaration optionally here
+    profileStepInfo,
+    resumeStepInfo,
+    educationStepInfo,
+    skillsStepInfo,
+    ...(poolAdvertisement?.screeningQuestions?.length
+      ? [questionsStepInfo]
+      : []),
+    reviewStepInfo,
+    successPageInfo,
+  ];
 
-  return pages;
+  // call the functions with their dynamic ordinal
+  const stepInfos = stepInfoFunctions.map((func, index) =>
+    func({ paths, intl, application, stepOrdinal: index + 1 }),
+  );
+
+  return stepInfos;
 };
 
-export const missingPrerequisites = (
+// Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
+export const missingPrerequisitesFromThisApplication = (
+  stepsInfosInApplication: Array<ApplicationStepInfo>,
   prerequisiteSteps: Maybe<Array<ApplicationStep>>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
 ): Maybe<Array<ApplicationStep>> => {
-  return prerequisiteSteps?.filter(
+  // figure out the application step enum values for this flow (may or may not include conditional steps)
+  const stepsInThisApplication = stepsInfosInApplication.map(
+    (step) => step.applicationStep,
+  );
+
+  // what are the prerequisites included in this set of steps?
+  const prerequisiteStepsForThisApplication = prerequisiteSteps?.filter((s) =>
+    stepsInThisApplication.includes(s),
+  );
+
+  // find which steps are not yet submitted
+  return prerequisiteStepsForThisApplication?.filter(
     (currentPagePrerequisite) =>
       !submittedSteps?.includes(currentPagePrerequisite),
   );
 };
 
+// What step should we go to, to resume the application
 export function getNextStepToSubmit(
-  steps: Array<ApplicationStepInfo>,
+  stepsInThisApplication: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
 ): ApplicationStepInfo {
-  let nextStep = steps[0];
+  let nextStep = stepsInThisApplication[0];
 
   if (submittedSteps && submittedSteps.length > 0) {
-    const nonSubmittedStep = steps.find((step) => {
+    const nonSubmittedStep = stepsInThisApplication.find((step) => {
       return (
         step.applicationStep && !submittedSteps?.includes(step.applicationStep)
       );
     });
 
-    nextStep = nonSubmittedStep || steps[steps.length - 1];
+    nextStep =
+      nonSubmittedStep ||
+      stepsInThisApplication[stepsInThisApplication.length - 1];
   }
 
   return nextStep;
@@ -93,17 +117,10 @@ export function isOnDisabledPage(
       ),
   );
 
-  // figure out the application step enum values for this flow (may or may not include conditional steps)
-  const stepsInThisFlow = steps.map((step) => step.applicationStep);
-
-  // what are the prerequisites included in this set of steps?
-  const prerequisitesFromThisFlow = currentStep?.prerequisites.filter(
-    (preReqStep) => stepsInThisFlow.includes(preReqStep),
-  );
-
-  // what prerequisites from this flow are missing?
-  const pageMissingPrerequisites = missingPrerequisites(
-    prerequisitesFromThisFlow,
+  // are there missing prerequisites to the page we're on?
+  const pageMissingPrerequisites = missingPrerequisitesFromThisApplication(
+    steps,
+    currentStep?.prerequisites,
     submittedSteps,
   );
 
@@ -124,7 +141,8 @@ export function applicationStepsToStepperArgs(
         completed:
           step.applicationStep &&
           application.submittedSteps?.includes(step.applicationStep),
-        disabled: !!missingPrerequisites(
+        disabled: !!missingPrerequisitesFromThisApplication(
+          applicationSteps,
           step.prerequisites,
           application.submittedSteps,
         )?.length,

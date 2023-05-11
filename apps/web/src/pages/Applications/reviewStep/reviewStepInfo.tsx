@@ -12,10 +12,11 @@ const getStepInfo: GetApplicationStepInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.ReviewAndSubmit,
-    mainPage: reviewPageInfo({ paths, intl, application }),
+    mainPage: reviewPageInfo({ paths, intl, application, stepOrdinal }),
     showInStepper: true,
     prerequisites: [
       ApplicationStep.Welcome,

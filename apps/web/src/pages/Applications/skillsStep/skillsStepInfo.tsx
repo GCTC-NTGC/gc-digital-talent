@@ -13,11 +13,17 @@ const getStepInfo: GetApplicationStepInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.SkillRequirements,
-    mainPage: skillsPageInfo({ paths, intl, application }),
-    introductionPage: skillsIntroductionPageInfo({ paths, intl, application }),
+    mainPage: skillsPageInfo({ paths, intl, application, stepOrdinal }),
+    introductionPage: skillsIntroductionPageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+    }),
     showInStepper: true,
     prerequisites: [
       ApplicationStep.Welcome,
