@@ -31,13 +31,16 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
-import ApplicationContextProvider from "./ApplicationContext";
+import ApplicationContextProvider, {
+  useApplicationContext,
+} from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams();
+  const { isIAP } = useApplicationContext();
   const pages = getApplicationPages({
     intl,
     paths,
@@ -66,6 +69,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application.submittedSteps,
     application.user,
     application.poolAdvertisement,
+    isIAP,
   );
   const currentStep = steps?.findIndex((step) =>
     currentPage?.link.url.includes(step.href),

@@ -49,7 +49,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
   application,
   paths,
   intl,
-  isIAP = false,
 }) => {
   const path = paths.applicationProfile(application.id);
   return {
@@ -80,7 +79,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
     },
     prerequisites: [ApplicationStep.Welcome],
     stepSubmitted: ApplicationStep.ReviewYourProfile,
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
+    hasError: (
+      applicant: Applicant,
+      poolAdvertisement: PoolAdvertisement,
+      isIAP?: boolean,
+    ) => {
       const hasEmptyRequiredFields =
         aboutSectionHasEmptyRequiredFields(applicant) ||
         workLocationSectionHasEmptyRequiredFields(applicant) ||
@@ -111,7 +114,7 @@ export const ApplicationProfile = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { isIAP } = useApplicationContext();
-  const pageInfo = getPageInfo({ intl, paths, application, isIAP });
+  const pageInfo = getPageInfo({ intl, paths, application });
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 
@@ -166,6 +169,7 @@ export const ApplicationProfile = ({
             !pageInfo?.hasError?.(
               user as Applicant,
               application?.poolAdvertisement,
+              isIAP,
             )) ??
           false
         }

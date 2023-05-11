@@ -28,7 +28,11 @@ export type ApplicationPageInfo = PageNavInfo & {
   stepSubmitted: ApplicationStep | null;
   // Is the applicant valid as far as this page is concerned?
   hasError:
-    | ((applicant: Applicant, poolAdvertisement: PoolAdvertisement) => boolean)
+    | ((
+        applicant: Applicant,
+        poolAdvertisement: PoolAdvertisement,
+        isIAP?: boolean,
+      ) => boolean)
     | null;
 };
 

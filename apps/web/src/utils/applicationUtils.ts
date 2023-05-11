@@ -90,6 +90,7 @@ export const deriveSteps = (
   submittedSteps: Maybe<Array<ApplicationStep>>,
   applicant: Applicant,
   poolAdvertisement: Maybe<PoolAdvertisement>,
+  isIAP: boolean,
 ): Maybe<Array<StepType>> => {
   const steps = Array.from(pages.values())
     .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
@@ -102,7 +103,7 @@ export const deriveSteps = (
       disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
         ?.length,
       error: poolAdvertisement
-        ? page?.hasError?.(applicant, poolAdvertisement)
+        ? page?.hasError?.(applicant, poolAdvertisement, isIAP)
         : false,
     }));
 
