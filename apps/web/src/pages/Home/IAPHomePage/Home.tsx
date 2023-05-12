@@ -37,8 +37,6 @@ import {
   Triangle,
 } from "./components/Svg";
 
-import "./home.css";
-
 const mailLink = (chunks: React.ReactNode) => (
   <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
 );
