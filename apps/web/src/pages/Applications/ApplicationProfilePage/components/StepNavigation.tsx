@@ -148,13 +148,7 @@ const StepNavigation = ({
       const completeDEI = !hasEmptyDEIRequiredFields(user, isIAP);
       if (!completeDEI) {
         toast.error(
-          intl.formatMessage({
-            defaultMessage:
-              "This opportunity is reserved for Indigenous candidates.",
-            id: "+M9Pwt",
-            description:
-              "Error message displayed when a user's equity information does not match an opportunity",
-          }),
+          intl.formatMessage(applicationMessages.reservedForIndigenous),
         );
       }
     }

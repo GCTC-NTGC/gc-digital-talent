@@ -13,6 +13,7 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/diversityEquityInclusion";
 
+import applicationMessages from "~/messages/applicationMessages";
 import { SectionProps } from "../../types";
 import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
@@ -68,15 +69,7 @@ const DiversityEquityInclusion = ({
       </ToggleSection.Header>
       {isIAP && !isComplete && (
         <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This opportunity is reserved for Indigenous candidates.",
-              id: "+M9Pwt",
-              description:
-                "Error message displayed when a user's equity information does not match an opportunity",
-            })}
-          </p>
+          <p>{intl.formatMessage(applicationMessages.reservedForIndigenous)}</p>
         </Well>
       )}
       <ToggleSection.Content>
