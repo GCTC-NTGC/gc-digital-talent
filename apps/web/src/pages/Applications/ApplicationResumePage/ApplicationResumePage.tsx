@@ -187,7 +187,7 @@ export const ApplicationResume = ({
 
   const methods = useForm<FormValues>();
   const { watch, register, setValue } = methods;
-  const watchSortExperiencesBy = watch("sortExperiencesBy");
+  const watchSortExperiencesBy = watch("sortExperiencesBy", "date_desc"); // default first option in the <Select>
   const actionProps = register("action");
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
@@ -383,7 +383,7 @@ export const ApplicationResume = ({
           </div>
           {hasSomeExperience ? (
             <Accordion.Root type="multiple">
-              {experiences.map((experience) => {
+              {nonEmptyExperiences.map((experience) => {
                 return (
                   <ExperienceAccordion
                     key={experience.id}
