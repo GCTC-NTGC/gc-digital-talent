@@ -13,6 +13,7 @@ import {
   getPoolCandidateStatus,
   getProvinceOrTerritory,
   getLocale,
+  getEducationRequirementOption,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -36,7 +37,10 @@ import adminMessages from "~/messages/adminMessages";
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
   poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+    Pick<
+      PoolAdvertisement,
+      "essentialSkills" | "nonessentialSkills" | "screeningQuestions"
+    >
   >,
 ) => {
   const intl = useIntl();
@@ -371,6 +375,14 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
+      key: "educationRequirementOption",
+      label: intl.formatMessage({
+        defaultMessage: "Education Requirement",
+        id: "eVuqmU",
+        description: "CSV Header, Education Requirement column",
+      }),
+    },
+    {
       key: "skills",
       label: intl.formatMessage(adminMessages.skills),
     },
@@ -386,9 +398,14 @@ const usePoolCandidateCsvData = (
         submittedAt,
         archivedAt,
         expiryDate,
+        educationRequirementOption,
         user,
         poolAdvertisement: poolAd,
       }) => {
+        console.log(
+          getEducationRequirementOption(educationRequirementOption || ""),
+        );
+
         const poolAdvertisementSkills =
           poolAd?.essentialSkills && poolAd?.nonessentialSkills
             ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
@@ -485,6 +502,11 @@ const usePoolCandidateCsvData = (
             user.expectedGenericJobTitles,
             intl,
           ),
+          educationRequirementOption: educationRequirementOption
+            ? intl.formatMessage(
+                getEducationRequirementOption(educationRequirementOption),
+              )
+            : "",
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,

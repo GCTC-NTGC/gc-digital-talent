@@ -30,6 +30,7 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
   Maybe,
+  EducationRequirementOption,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -282,6 +283,28 @@ export const getEducationRequirement = (
     educationRequirements,
     educationRequirementId,
     `Invalid Education Requirement '${educationRequirementId}'`,
+  );
+
+export const educationRequirementOptions = defineMessages({
+  [EducationRequirementOption.AppliedWork]: {
+    defaultMessage: "Applied work experience",
+    description: "Option for education requirement, applied work experience",
+    id: "4S30lt",
+  },
+  [EducationRequirementOption.Education]: {
+    defaultMessage: "2-year post-secondary",
+    description: "Option for education requirement, 2-year post-secondary",
+    id: "TiIkSF",
+  },
+});
+
+export const getEducationRequirementOption = (
+  educationRequirementOptionId: string,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationRequirementOptions,
+    educationRequirementOptionId,
+    `Invalid Education Requirement Option '${educationRequirementOptionId}'`,
   );
 
 export const EmploymentDuration = {
