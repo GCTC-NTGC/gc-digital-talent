@@ -14,6 +14,7 @@ import {
   getProvinceOrTerritory,
   getLocale,
   getEducationRequirementOption,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -25,6 +26,7 @@ import {
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
+  getScreeningQuestionResponses,
 } from "~/utils/csvUtils";
 import {
   Maybe,
@@ -34,6 +36,7 @@ import {
 } from "~/api/generated";
 import labels from "~/components/ExperienceAccordion/labels";
 import adminMessages from "~/messages/adminMessages";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -76,6 +79,15 @@ const usePoolCandidateCsvData = (
           ),
         };
       })
+    : [];
+
+  const screeningQuestionHeaders = poolAdvertisement?.screeningQuestions
+    ? poolAdvertisement.screeningQuestions
+        .filter(notEmpty)
+        .map((screeningQuestion) => ({
+          key: screeningQuestion.id,
+          label: getLocalizedName(screeningQuestion.question, intl),
+        }))
     : [];
 
   const headers: DownloadCsvProps["headers"] = [
@@ -391,6 +403,7 @@ const usePoolCandidateCsvData = (
         description: "CSV Header, Education Requirement Experiences column",
       }),
     },
+    ...screeningQuestionHeaders,
     {
       key: "skills",
       label: intl.formatMessage(adminMessages.skills),
@@ -409,6 +422,7 @@ const usePoolCandidateCsvData = (
         expiryDate,
         educationRequirementOption,
         educationRequirementExperiences,
+        screeningQuestionResponses,
         user,
         poolAdvertisement: poolAd,
       }) => {
@@ -517,6 +531,7 @@ const usePoolCandidateCsvData = (
             educationRequirementExperiences,
             intl,
           ),
+          ...getScreeningQuestionResponses(screeningQuestionResponses),
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,

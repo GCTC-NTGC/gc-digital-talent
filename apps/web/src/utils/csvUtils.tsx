@@ -6,6 +6,7 @@ import {
   Skill,
   Maybe,
   Experience,
+  ScreeningQuestionResponse,
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
@@ -30,7 +31,6 @@ import {
   isWorkExperience,
   getExperienceName,
 } from "~/utils/experienceUtils";
-import { AnyExperience } from "../types/experience";
 
 /**
  * Converts a possible boolean
@@ -385,4 +385,25 @@ export const getExperienceTitles = (
     .map((experience) => getExperienceName(experience, intl));
 
   return titles?.join(", ") || "";
+};
+
+/**
+ * Converts screening question responses to column data
+ *
+ * @param screeningQuestionResponses[]
+ */
+export const getScreeningQuestionResponses = (
+  responses: Maybe<Maybe<ScreeningQuestionResponse>[]>,
+) => {
+  let data: Record<string, string> = {};
+
+  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+    data = {
+      ...data,
+      // Note: API sends Maybe with everything, but this should never be null or undefined
+      [screeningQuestion?.id || id]: answer ?? "",
+    };
+  });
+
+  return data;
 };
