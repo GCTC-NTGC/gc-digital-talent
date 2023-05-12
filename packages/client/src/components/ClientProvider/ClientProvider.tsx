@@ -58,17 +58,9 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const authContext = useAuthentication();
+  const { accessToken, refreshToken, logout, refreshTokenSet, idToken } =
+    useAuthentication();
   const logger = useLogger();
-  // Create a mutable object to hold the auth state
-  const authRef = useRef(authContext);
-  // Keep the contents of that mutable object up to date
-  useEffect(() => {
-    authRef.current = authContext;
-  }, [authContext]);
-
-  const { accessToken, refreshToken, logout, refreshTokenSet } =
-    authRef.current;
 
   const refreshAuth = React.useCallback(async () => {
     /**
@@ -88,15 +80,12 @@ const ClientProvider = ({
       if (refreshedAuthState) {
         return;
       }
-
-      logoutNullState();
     }
 
     logoutNullState();
   }, [refreshToken, logout, refreshTokenSet]);
 
   const internalClient = useMemo(() => {
-    const { accessToken, refreshToken, idToken } = authRef.current;
     return (
       client ??
       createClient({
@@ -175,7 +164,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, accessToken, authRef.current]);
+  }, [client, intl, logger, accessToken]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
