@@ -23,9 +23,6 @@ import { Input, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import applicationMessages from "~/messages/applicationMessages";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import { resumeIsIncomplete } from "~/validators/profile";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
@@ -440,7 +437,12 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link weight="bold" color="secondary" href={cancelPath}>
+            <Link
+              type="button"
+              mode="inline"
+              color="secondary"
+              href={cancelPath}
+            >
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>
