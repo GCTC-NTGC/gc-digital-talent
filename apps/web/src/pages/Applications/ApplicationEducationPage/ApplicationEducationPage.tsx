@@ -14,7 +14,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -31,6 +30,8 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
+import { useApplicationContext } from "../ApplicationContext";
+import { GetPageNavInfo } from "~/types/applicationStep";
 
 const appliedWorkListMessages = defineMessages({
   onTheJob: {
@@ -77,10 +78,11 @@ type FormValues = {
   action: PageAction;
 };
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationEducation(application.id);
   return {
@@ -99,11 +101,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 4",
-          id: "w7F00q",
-          description:
-            "Breadcrumb link text for the application education page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -115,13 +114,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application education page",
       }),
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-    ],
-    stepSubmitted: ApplicationStep.EducationRequirements,
-    hasError: null,
   };
 };
 
@@ -129,11 +121,18 @@ const ApplicationEducation = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags(); // Remove once feature flag has been turned on.
-  const nextStep = paths.applicationSkillsIntro(application.id);
+  const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
+  const nextStep =
+    followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationResume(application.id);
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
-  const pageInfo = getPageInfo({ intl, paths, application });
 
   const methods = useForm<FormValues>({
     defaultValues: {

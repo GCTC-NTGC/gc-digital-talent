@@ -3,17 +3,19 @@ import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
-import applicationMessages from "~/messages/applicationMessages";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
+
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationQuestionsIntro(application.id);
   return {
@@ -29,30 +31,17 @@ export const getPageInfo: GetApplicationPageInfo = ({
       description: "Subtitle for the application screening questions page",
     }),
     icon: PencilSquareIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 6 (Intro)",
-          id: "9MUsDL",
-          description:
-            "Breadcrumb link text for the application screening questions introduction page",
+        label: intl.formatMessage(applicationMessages.numberedStepIntro, {
+          stepOrdinal,
         }),
       },
     ],
     link: {
       url: path,
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-      ApplicationStep.SkillRequirements,
-    ],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 
@@ -61,7 +50,13 @@ const ApplicationQuestionsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return (
     <>
