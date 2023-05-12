@@ -24,13 +24,14 @@ const DiversityEquityInclusion = ({
   user,
   onUpdate,
   isUpdating,
+  poolAdvertisement,
 }: SectionProps) => {
   const intl = useIntl();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const isNull = hasAllEmptyFields(user);
   const title = getSectionTitle("dei");
   const { isIAP } = useApplicationContext();
-  const isComplete = !hasEmptyRequiredFields(user, isIAP); // no empty required fields so false returns, means complete is true
+  const isComplete = !hasEmptyRequiredFields(user, poolAdvertisement); // no empty required fields so false returns, means complete is true
   const icon = getSectionIcon({
     isEditing,
     error: false,

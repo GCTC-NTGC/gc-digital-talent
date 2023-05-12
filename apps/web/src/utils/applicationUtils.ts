@@ -138,7 +138,6 @@ export function isOnDisabledPage(
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
   application: Omit<PoolCandidate, "pool">,
-  isIAP: boolean,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -160,7 +159,6 @@ export function applicationStepsToStepperArgs(
               application.user,
               application.poolAdvertisement,
               application,
-              isIAP,
             )
           : false,
       };

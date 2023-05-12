@@ -30,14 +30,12 @@ interface StepNavigationProps {
   application: Omit<PoolCandidate, "pool">;
   user: User;
   isValid?: boolean;
-  isIAP: boolean;
 }
 
 const StepNavigation = ({
   application,
   user,
   isValid,
-  isIAP,
 }: StepNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -145,7 +143,10 @@ const StepNavigation = ({
           ),
         );
       }
-      const completeDEI = !hasEmptyDEIRequiredFields(user, isIAP);
+      const completeDEI = !hasEmptyDEIRequiredFields(
+        user,
+        application?.poolAdvertisement,
+      );
       if (!completeDEI) {
         toast.error(
           intl.formatMessage(applicationMessages.reservedForIndigenous),

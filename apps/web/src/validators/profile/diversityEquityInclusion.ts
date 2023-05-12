@@ -1,4 +1,9 @@
-import { Applicant } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  Maybe,
+  PoolAdvertisement,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 type PartialApplicant = Pick<
   Applicant,
@@ -21,9 +26,9 @@ export function anyCriteriaSelected({
 
 export function hasEmptyRequiredFields(
   applicant: PartialApplicant,
-  isIAP = false,
+  poolAdvertisement?: Maybe<PoolAdvertisement>,
 ): boolean {
-  if (!isIAP) {
+  if (!(poolAdvertisement?.publishingGroup === PublishingGroup.Iap)) {
     return false;
   }
   return !(

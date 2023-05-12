@@ -24,14 +24,13 @@ type Entries<T> = {
 interface ErrorSummaryProps {
   user: User;
   application: Omit<PoolCandidate, "pool">;
-  isIAP: boolean;
 }
 
-const ErrorSummary = ({ user, application, isIAP }: ErrorSummaryProps) => {
+const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
   const intl = useIntl();
   const errors: Record<SectionKey, boolean> = {
     personal: hasEmptyPersonalRequiredFields(user),
-    dei: hasEmptyDEIRequiredFields(user, isIAP),
+    dei: hasEmptyDEIRequiredFields(user, application.poolAdvertisement),
     work:
       hasEmptyWorkLocRequiredFields(user) ||
       hasEmptyWorkPrefRequiredFields(user),

@@ -32,16 +32,13 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
-import ApplicationContextProvider, {
-  useApplicationContext,
-} from "./ApplicationContext";
+import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams();
-  const { isIAP } = useApplicationContext();
   const steps = getApplicationSteps({
     intl,
     paths,
@@ -153,7 +150,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={applicationStepsToStepperArgs(steps, application, isIAP)}
+              steps={applicationStepsToStepperArgs(steps, application)}
             />
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
