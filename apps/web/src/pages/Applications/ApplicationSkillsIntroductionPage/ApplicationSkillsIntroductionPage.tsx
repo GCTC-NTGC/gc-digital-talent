@@ -5,7 +5,6 @@ import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import applicationMessages from "~/messages/applicationMessages";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
