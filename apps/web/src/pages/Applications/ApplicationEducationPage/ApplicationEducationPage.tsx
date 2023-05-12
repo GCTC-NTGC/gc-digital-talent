@@ -28,10 +28,10 @@ import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
-import { GetPageNavInfo } from "~/types/applicationStep";
 
 const appliedWorkListMessages = defineMessages({
   onTheJob: {

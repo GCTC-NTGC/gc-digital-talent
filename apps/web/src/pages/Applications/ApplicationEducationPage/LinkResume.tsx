@@ -17,8 +17,7 @@ import Checklist, {
   Checkbox,
 } from "@gc-digital-talent/forms/src/components/Checklist";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Alert, Heading, Well } from "@gc-digital-talent/ui";
-import { useNavigate } from "react-router-dom";
+import { Heading, Well } from "@gc-digital-talent/ui";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
