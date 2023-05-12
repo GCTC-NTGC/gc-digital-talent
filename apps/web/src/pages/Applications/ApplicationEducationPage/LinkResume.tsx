@@ -196,7 +196,7 @@ const LinkResume = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
-                    id: "3M3jg8",
+                    id: "lb2jFJ",
                     description:
                       "Alert message informing user to add experience in application education page.",
                   })}
@@ -206,7 +206,7 @@ const LinkResume = ({
                     {
                       defaultMessage:
                         "You can add experiences when <link>creating a new résumé experience in the previous step.</link>",
-                      id: "3M3jg8",
+                      id: "d2s3n5",
                       description:
                         "Secondary alert message informing user to add experience in application education page.",
                     },
@@ -224,7 +224,7 @@ const LinkResume = ({
       // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
       case EducationRequirementOption.Education:
         return (
-          <>
+          <div>
             {experienceItems.educationExperiences.length === 0 ? (
               <Well>
                 <p
@@ -234,18 +234,18 @@ const LinkResume = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "<strong>It looks like you haven't added any education experiences to your résumé yet.</strong>",
-                    id: "3M3jg8",
+                    id: "GXC9N4",
                     description:
-                      "Alert message informing user to add experience in application education page.",
+                      "Alert message informing user to add education experience in application education page.",
                   })}
                 </p>
                 <p data-h2-text-align="base(center)">
                   {intl.formatMessage(
                     {
                       defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new résumé experience in the previous step.</link>`,
-                      id: "3M3jg8",
+                      id: "sHKNfX",
                       description:
-                        "Secondary alert message informing user to add experience in application education page.",
+                        "Secondary alert message informing user to add education experience in application education page.",
                     },
                     {
                       link: previousStepLink,
@@ -258,7 +258,7 @@ const LinkResume = ({
                 items={experienceItems.educationExperiences}
               />
             )}
-          </>
+          </div>
         );
       // Otherwise, show null state
       default:
@@ -267,7 +267,7 @@ const LinkResume = ({
             <p data-h2-text-align="base(center)">
               {intl.formatMessage({
                 defaultMessage: "Please select an option to continue.",
-                id: "3M3jg8",
+                id: "cT6KeA",
                 description:
                   "Alert message informing user to select an option first in application education page.",
               })}
