@@ -5,6 +5,7 @@ import {
   GovEmployeeType,
   Skill,
   Maybe,
+  Experience,
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
@@ -27,7 +28,9 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  getExperienceName,
 } from "~/utils/experienceUtils";
+import { AnyExperience } from "../types/experience";
 
 /**
  * Converts a possible boolean
@@ -363,4 +366,23 @@ export const skillKeyAndJustifications = (
   }, {});
 
   return keyAndJustifications;
+};
+
+/**
+ * Converts experiences to comma separated list of titles
+ *
+ * @param experiences Maybe<Maybe<Experience>[]>
+ * @param intl react-intl object
+ *
+ * @returns string
+ */
+export const getExperienceTitles = (
+  experiences: Maybe<Maybe<Experience>[]>,
+  intl: IntlShape,
+) => {
+  const titles = experiences
+    ?.filter(notEmpty)
+    .map((experience) => getExperienceName(experience, intl));
+
+  return titles?.join(", ") || "";
 };

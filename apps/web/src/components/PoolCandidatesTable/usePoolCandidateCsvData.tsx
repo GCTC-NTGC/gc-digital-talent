@@ -24,6 +24,7 @@ import {
   getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
+  getExperienceTitles,
 } from "~/utils/csvUtils";
 import {
   Maybe,
@@ -383,6 +384,14 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
+      key: "educationRequirementExperiences",
+      label: intl.formatMessage({
+        defaultMessage: "Education Requirement Experiences",
+        id: "VldclB",
+        description: "CSV Header, Education Requirement Experiences column",
+      }),
+    },
+    {
       key: "skills",
       label: intl.formatMessage(adminMessages.skills),
     },
@@ -399,13 +408,10 @@ const usePoolCandidateCsvData = (
         archivedAt,
         expiryDate,
         educationRequirementOption,
+        educationRequirementExperiences,
         user,
         poolAdvertisement: poolAd,
       }) => {
-        console.log(
-          getEducationRequirementOption(educationRequirementOption || ""),
-        );
-
         const poolAdvertisementSkills =
           poolAd?.essentialSkills && poolAd?.nonessentialSkills
             ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
@@ -507,6 +513,10 @@ const usePoolCandidateCsvData = (
                 getEducationRequirementOption(educationRequirementOption),
               )
             : "",
+          educationRequirementExperiences: getExperienceTitles(
+            educationRequirementExperiences,
+            intl,
+          ),
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,
