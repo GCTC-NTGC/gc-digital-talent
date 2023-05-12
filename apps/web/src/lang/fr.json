@@ -7862,10 +7862,6 @@
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
     "description": "Notice that application can be saved and returned to at a later time."
   },
-  "uPnk4X": {
-    "defaultMessage": "Examinons ma candidature",
-    "description": "Button text to submit screening questions and continue to application review"
-  },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
   },
