@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { Button, ExternalLink, Link } from "@gc-digital-talent/ui";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import { Pool } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
+import { intlFormat } from "date-fns/esm";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -15,7 +17,10 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  pool: Pick<
+    Pool,
+    "id" | "owner" | "name" | "description" | "classifications" | "team"
+  >;
   handleSubmit: (
     candidateCount: number,
     poolId: string,
@@ -32,6 +37,7 @@ const SearchPools = ({
   const locale = getLocale(intl);
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
+  const paths = useRoutes();
 
   return (
     <article
@@ -58,20 +64,33 @@ const SearchPools = ({
           },
         )}
       </p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
+        {" "}
+        <ExternalLink
+          mode="inline"
+          type="button"
+          color="secondary"
+          href={paths.pool(pool.id || "")}
+          newTab
+        >
+          {intl.formatMessage({
+            defaultMessage: " View the job poster for this recruitment process",
+            id: "UvdxsU",
+            description:
+              "Link message that shows the job poster for the recruitment process.",
+          })}
+        </ExternalLink>
+      </p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Pool Owner: {name}",
-            id: "o+a0IN",
+            defaultMessage: "Process run by {team} at department",
+            id: "pY1MbZ",
             description: "Text showing the owner of the HR pool.",
           },
           {
-            name: pool?.owner
-              ? getFullNameHtml(
-                  pool?.owner.firstName,
-                  pool?.owner.lastName,
-                  intl,
-                )
+            team: pool?.team
+              ? getLocalizedName(pool.team.displayName, intl)
               : intl.formatMessage({
                   defaultMessage: "N/A",
                   id: "AauSuA",
