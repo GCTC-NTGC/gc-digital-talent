@@ -67,7 +67,7 @@ const ClientProvider = ({
     authRef.current = authContext;
   }, [authContext]);
 
-  const { accessToken, refreshToken, idToken, logout, refreshTokenSet } =
+  const { accessToken, refreshToken, logout, refreshTokenSet } =
     authRef.current;
 
   const refreshAuth = React.useCallback(async () => {
@@ -96,6 +96,7 @@ const ClientProvider = ({
   }, [refreshToken, logout, refreshTokenSet]);
 
   const internalClient = useMemo(() => {
+    const { accessToken, refreshToken, idToken } = authRef.current;
     return (
       client ??
       createClient({
@@ -158,11 +159,7 @@ const ClientProvider = ({
                 return operation;
               },
               willAuthError: () =>
-                willAuthError({
-                  accessToken,
-                  refreshToken,
-                  idToken,
-                }),
+                willAuthError({ accessToken, refreshToken, idToken }),
               didAuthError(error) {
                 return error && error.response
                   ? error.response.status === 401 ||
@@ -178,7 +175,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [accessToken, client, idToken, intl, logger, refreshAuth, refreshToken]);
+  }, [client, intl, logger, accessToken, authRef.current]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
