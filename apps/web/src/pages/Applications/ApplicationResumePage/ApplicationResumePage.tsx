@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
@@ -10,13 +10,11 @@ import {
   Button,
   Heading,
   Link,
+  Pending,
   Separator,
+  ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import {
-  ApplicationStep,
-  useUpdateApplicationMutation,
-} from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
@@ -24,12 +22,18 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceType } from "~/types/experience";
+import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 import applicationMessages from "~/messages/applicationMessages";
+import {
+  ApplicationStep,
+  useGetApplicationQuery,
+  useGetMyExperiencesQuery,
+  useUpdateApplicationMutation,
+} from "~/api/generated";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 type SortOptions = "date_desc" | "type_asc";
@@ -156,7 +160,14 @@ function formatExperienceCount(
   }
 }
 
-export const ApplicationResume = ({ application }: ApplicationPageProps) => {
+interface ApplicationResumeProps extends ApplicationPageProps {
+  experiences: Array<ExperienceForDate>;
+}
+
+export const ApplicationResume = ({
+  application,
+  experiences,
+}: ApplicationResumeProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -179,19 +190,19 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const watchSortExperiencesBy = watch("sortExperiencesBy");
   const actionProps = register("action");
 
-  const experiences = application.user.experiences?.filter(notEmpty) ?? [];
+  const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
 
-  const experiencesByType = groupBy(experiences.filter(notEmpty), (e) => {
+  const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
   });
 
   switch (watchSortExperiencesBy) {
     case "date_desc":
-      experiences.sort((a, b) => compareByDate(a, b));
+      nonEmptyExperiences.sort((a, b) => compareByDate(a, b));
       break;
     case "type_asc":
-      experiences.sort((a, b) => {
+      nonEmptyExperiences.sort((a, b) => {
         const typeA = deriveExperienceType(a) ?? "";
         const typeB = deriveExperienceType(b) ?? "";
         return typeA > typeB ? 1 : -1;
@@ -466,8 +477,46 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   );
 };
 
-export const ApplicationResumePage = () => (
-  <ApplicationApi PageComponent={ApplicationResume} />
-);
+const ApplicationResumePage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+    requestPolicy: "cache-first",
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
+
+  const application = applicationData?.poolCandidate;
+  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application?.poolAdvertisement ? (
+        <ApplicationResume
+          application={application}
+          experiences={experiences}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationResumePage;
