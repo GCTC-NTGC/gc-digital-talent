@@ -17,6 +17,7 @@ export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;
+  title: string;
   onSortingRuleChange: (newSortingRule?: SortingRule<T>) => void;
   sortingRule?: SortingRule<T>;
   hiddenColumnIds: Array<IdType<T>>;
@@ -26,6 +27,7 @@ function BasicTable<T extends RecordWithId>({
   columns,
   data,
   labelledBy,
+  title,
   onSortingRuleChange,
   sortingRule,
   hiddenColumnIds,
@@ -94,6 +96,8 @@ function BasicTable<T extends RecordWithId>({
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <caption>
           <span data-h2-visually-hidden="base(invisible)">
+            {title}
+            <br />
             {intl.formatMessage({
               defaultMessage: "Column headers with buttons are sortable",
               id: "/bwX1a",

@@ -10,6 +10,7 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { checkRole } from "~/utils/teamUtils";
 import { Pending } from "@gc-digital-talent/ui";
+import adminMessages from "~/messages/adminMessages";
 import {
   PoolOperatorTableApi,
   PoolAdminTableApi,
@@ -21,11 +22,7 @@ export const PoolPage = () => {
   const { roleAssignments, isLoaded } = useAuthorization();
   const isAdmin = checkRole(["platform_admin"], roleAssignments);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Pools",
-    id: "SnytBx",
-    description: "Page title for the pools index page",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.pools);
 
   const navigationCrumbs = [
     {
@@ -37,11 +34,7 @@ export const PoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
   ];
@@ -51,7 +44,11 @@ export const PoolPage = () => {
       <SEO title={pageTitle} />
       <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
       <Pending fetching={!isLoaded}>
-        {isAdmin ? <PoolAdminTableApi /> : <PoolOperatorTableApi />}
+        {isAdmin ? (
+          <PoolAdminTableApi title={pageTitle} />
+        ) : (
+          <PoolOperatorTableApi title={pageTitle} />
+        )}
       </Pending>
     </AdminContentWrapper>
   );

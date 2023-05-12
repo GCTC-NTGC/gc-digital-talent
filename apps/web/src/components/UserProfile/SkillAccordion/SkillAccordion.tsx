@@ -345,7 +345,7 @@ const SkillAccordion = ({
     if (experiences != null && experiences.length > 0) {
       return (
         <>
-          <p data-h2-font-weight="base(700)">
+          <p data-h2-margin-top="base(x1)" data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage:
                 "This skill has the following related experiences:",

@@ -19,6 +19,7 @@ import {
 } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import { useProfileFormContext } from "./ProfileFormContext";
+import { useApplicationContext } from "../../ApplicationContext";
 
 type ProfileActionFormValues = {
   action: "continue" | "quit";
@@ -42,7 +43,9 @@ const StepNavigation = ({
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
-  const nextStepPath = paths.applicationResumeIntro(application.id);
+  const { followingPageUrl } = useApplicationContext();
+  const nextStepPath =
+    followingPageUrl ?? paths.applicationResumeIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
     defaultValues: {
       action: "continue",

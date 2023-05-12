@@ -23,6 +23,7 @@ import {
   Team,
 } from "~/api/generated";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
+import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -254,11 +255,7 @@ const CreatePoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     {

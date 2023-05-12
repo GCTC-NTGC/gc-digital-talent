@@ -24,6 +24,7 @@ import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
+import adminMessages from "~/messages/adminMessages";
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
@@ -180,6 +181,7 @@ const TeamMembers = ({
             availableUsers={availableUsers}
           />
         }
+        title={pageTitle}
       />
     </>
   );
@@ -220,11 +222,7 @@ const TeamMembersPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "P+KWP7",
-        description: "Breadcrumb title for the teams page link.",
-      }),
+      label: intl.formatMessage(adminMessages.teams),
       url: routes.teamTable(),
     },
     ...(teamId

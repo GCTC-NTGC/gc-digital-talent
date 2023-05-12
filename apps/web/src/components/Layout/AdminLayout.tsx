@@ -10,12 +10,11 @@ import {
   SkipLink,
   SideMenuContentWrapper,
 } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
-
 import SEO, { Favicon } from "~/components/SEO/SEO";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 
@@ -49,11 +48,7 @@ const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) => (
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const { setTheme } = useTheme();
-
-  React.useEffect(() => {
-    setTheme("admin", "light");
-  }, [setTheme]);
+  useLayoutTheme("admin");
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
