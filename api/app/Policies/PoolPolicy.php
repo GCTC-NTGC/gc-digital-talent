@@ -34,13 +34,24 @@ class PoolPolicy
      */
     public function view(?User $user, Pool $pool)
     {
-        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
+        // Anyone (even unauthenticated) can see published pools.
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
         }
 
+        // Otherwise, unauthenticated users shouldn't have access (draft).
+        if (is_null($user)) {
+            return false;
+        }
+
+        // If user has elevated admin, can view all advertisements.
+        if ($user->isAbleTo("view-any-pool")) {
+            return true;
+        }
+
+        // Load team only when needed to check if team owns draft.
         $pool->loadMissing('team');
-        return $user->isAbleTo("view-any-pool") || $user->isAbleTo("view-team-pool", $pool->team);
+        return $user->isAbleTo("view-team-pool", $pool->team);
     }
 
     /**
