@@ -7390,10 +7390,6 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
-  "Km89qF": {
-    "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
-    "description": "Link text to continue the application process"
-  },
   "eLpCfR": {
     "defaultMessage": "Modifier<hidden> {context}</hidden>",
     "description": "Edit experience link label with context"
