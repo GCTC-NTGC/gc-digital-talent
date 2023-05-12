@@ -270,7 +270,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <RadiatingCircles
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(110%)"
                     data-h2-location="base(-x2, -x12, auto, auto)"
@@ -361,7 +360,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <Triangle
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(secondary)"
@@ -552,14 +550,12 @@ const Home = () => {
           data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
-            className=""
             data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
           />
           <ThickCircle
-            className=""
             data-h2-position="base(absolute)"
             data-h2-location="base(auto, -10%, x35, auto)"
             data-h2-width="base(35%)"
@@ -810,7 +806,6 @@ const Home = () => {
                 style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
                 <Triangle
-                  className=""
                   data-h2-width="base(100%)"
                   data-h2-color="base(secondary.light)"
                 />
