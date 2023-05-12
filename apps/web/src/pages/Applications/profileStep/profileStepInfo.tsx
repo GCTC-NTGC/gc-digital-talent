@@ -18,7 +18,7 @@ const getStepInfo: GetApplicationStepInfo = ({
     applicationStep: ApplicationStep.ReviewYourProfile,
     mainPage: profilePageInfo({ paths, intl, application, stepOrdinal }),
     showInStepper: true,
-    prerequisites: [ApplicationStep.Welcome],
+    prerequisites: [ApplicationStep.Welcome, ApplicationStep.SelfDeclaration],
     hasError: stepHasError,
   };
 };
