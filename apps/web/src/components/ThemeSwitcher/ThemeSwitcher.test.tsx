@@ -21,9 +21,7 @@ const renderThemeSwitcher = () => {
 describe("ThemeSwitcher", () => {
   // Spy on local storage methods to allow for testing them
   jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
-  jest.spyOn(Object.getPrototypeOf(window.localStorage), "removeItem");
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
-  Object.setPrototypeOf(window.localStorage.removeItem, jest.fn());
 
   it("should have no accessibility errors", async () => {
     await act(async () => {
@@ -77,8 +75,6 @@ describe("ThemeSwitcher", () => {
         name: /allow your browser preferences to dictate/i,
       }),
     );
-
-    expect(window.localStorage.removeItem).toHaveBeenCalledWith("theme");
 
     expect(
       await screen.getByRole("radio", {

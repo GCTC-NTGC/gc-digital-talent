@@ -7,48 +7,34 @@ import SEO from "~/components/SEO/SEO";
 import SearchRequestTableApi from "~/components/SearchRequestTable/SearchRequestTable";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import adminMessages from "~/messages/adminMessages";
 
 export const IndexSearchRequestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
+  const pageTitle = intl.formatMessage(adminMessages.requests);
+
   const navigationCrumbs = [
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Requests",
-        id: "y0j4oU",
-        description:
-          "Breadcrumb title for the search requests table page link.",
-      }),
+      label: intl.formatMessage(adminMessages.requests),
       url: routes.searchRequestTable(),
     },
   ];
 
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Talent requests",
-          id: "+4Zmyc",
-          description: "Page title for the search request index page",
-        })}
-      />
-      <PageHeader icon={TicketIcon}>
-        {intl.formatMessage({
-          defaultMessage: "All Requests",
-          id: "IfWj5I",
-          description: "Heading displayed above the search request component.",
-        })}
-      </PageHeader>
-      <SearchRequestTableApi />
+      <SEO title={pageTitle} />
+      <PageHeader icon={TicketIcon}>{pageTitle}</PageHeader>
+      <SearchRequestTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };

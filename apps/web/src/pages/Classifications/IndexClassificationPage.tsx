@@ -7,17 +7,14 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import ClassificationTableApi from "./components/ClassificationTable";
 
 export const IndexClassificationPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Classifications",
-    id: "xJm72U",
-    description: "Page title for the classification index page",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.classifications);
 
   const navigationCrumbs = [
     {
@@ -29,11 +26,7 @@ export const IndexClassificationPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Classifications",
-        id: "kyMlnN",
-        description: "Breadcrumb title for the classifications page link.",
-      }),
+      label: intl.formatMessage(adminMessages.classifications),
       url: routes.classificationTable(),
     },
   ];
@@ -42,7 +35,7 @@ export const IndexClassificationPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={TagIcon}>{pageTitle}</PageHeader>
-      <ClassificationTableApi />
+      <ClassificationTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };

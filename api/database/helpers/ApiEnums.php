@@ -387,6 +387,7 @@ class ApiEnums
     /**
      * Publishing Groups
      */
+    const PUBLISHING_GROUP_IAP = 'IAP';
     const PUBLISHING_GROUP_IT_JOBS = 'IT_JOBS';
     const PUBLISHING_GROUP_IT_JOBS_ONGOING = 'IT_JOBS_ONGOING';
     const PUBLISHING_GROUP_EXECUTIVE_JOBS = 'EXECUTIVE_JOBS';
@@ -395,6 +396,7 @@ class ApiEnums
     public static function publishingGroups(): array
     {
         return [
+            self::PUBLISHING_GROUP_IAP,
             self::PUBLISHING_GROUP_IT_JOBS,
             self::PUBLISHING_GROUP_IT_JOBS_ONGOING,
             self::PUBLISHING_GROUP_EXECUTIVE_JOBS,
