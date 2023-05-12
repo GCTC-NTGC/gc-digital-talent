@@ -7865,6 +7865,10 @@
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
   },
+  "cIqhQK": {
+    "defaultMessage": "Il n'y a aucun élément à afficher.",
+    "description": "Message when there is no data to display in a table"
+  },
   "+d/NdU": {
     "defaultMessage": "Ministères",
     "description": "Title for departments"
