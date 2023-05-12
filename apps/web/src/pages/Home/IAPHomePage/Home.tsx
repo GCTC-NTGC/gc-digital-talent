@@ -88,7 +88,7 @@ const Home = () => {
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-order="base(1) p-tablet(2)"
           data-h2-location="p-tablet(5%, auto, auto, 50%)"
-          data-h2-width="base(100%) p-tablet(80vw) l-tablet(45vw)"
+          data-h2-width="base(100%) p-tablet(40em) l-tablet(55em)"
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
           data-h2-align-items="base(center) p-tablet(flex-start)"
@@ -96,7 +96,7 @@ const Home = () => {
           data-h2-gap="base(x.7)"
         >
           <img
-            data-h2-width="base(40%) p-tablet(20%)"
+            data-h2-width="base(150px)"
             data-h2-flex-shrink="base(0)"
             src={logoImg}
             alt=""
@@ -107,7 +107,7 @@ const Home = () => {
             data-h2-color="base(white)"
           >
             <h1
-              data-h2-font-size="base(h6) p-tablet(h4) l-tablet(h3)"
+              data-h2-font-size="base(h6) p-tablet(h5) l-tablet(h3)"
               data-h2-font-weight="base(bold)"
             >
               {intl.formatMessage({
