@@ -6,7 +6,7 @@ import Switch from "./Switch";
 
 export default {
   component: Switch.Root,
-  name: "Components/Switch",
+  title: "Components/Switch",
   subComponents: [Switch.Root, Switch.Thumb],
   parameters: {
     docs: {

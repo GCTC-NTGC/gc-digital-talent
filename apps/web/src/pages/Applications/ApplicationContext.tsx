@@ -4,10 +4,14 @@ import { PoolCandidate, PublishingGroup } from "../../api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
+  followingPageUrl?: string;
+  currentStepOrdinal?: number;
 }
 
 const defaultContext: ApplicationContextState = {
   isIAP: false,
+  followingPageUrl: undefined,
+  currentStepOrdinal: undefined,
 };
 
 const ApplicationContext =
@@ -21,11 +25,15 @@ export const useApplicationContext = () => {
 
 interface ApplicationContextProviderProps {
   application: Omit<PoolCandidate, "pool">;
+  followingPageUrl?: string;
+  currentStepOrdinal?: number;
   children: React.ReactNode;
 }
 
 const ApplicationContextProvider = ({
   application,
+  followingPageUrl,
+  currentStepOrdinal,
   children,
 }: ApplicationContextProviderProps) => {
   const { setKey } = useTheme();
@@ -33,8 +41,10 @@ const ApplicationContextProvider = ({
     () => ({
       isIAP:
         application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap,
+      followingPageUrl,
+      currentStepOrdinal,
     }),
-    [application],
+    [application, followingPageUrl, currentStepOrdinal],
   );
 
   React.useEffect(() => {
