@@ -50,7 +50,7 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAdvertisement(User $user = null, Pool $pool)
+    public function viewAdvertisement(?User $user, Pool $pool)
     {
         // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
@@ -71,7 +71,7 @@ class PoolPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyPublishedAdvertisement(User $user = null)
+    public function viewAnyPublishedAdvertisement(?User $user)
     {
         return true;
     }
