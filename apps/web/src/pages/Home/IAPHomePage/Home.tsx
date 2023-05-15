@@ -64,14 +64,6 @@ const Home = () => {
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
       >
-        {/* <div
-          data-h2-background="base(linear-gradient(#46032c, transparent))"
-          data-h2-height="base(x2)"
-          data-h2-order="base(2)"
-          data-h2-display="base(block) p-tablet(none)"
-          data-h2-layer="base(2, relative)"
-          data-h2-width="base(100%)"
-        /> */}
         <img
           data-h2-display="base(block)"
           data-h2-layer="base(1, relative)"
