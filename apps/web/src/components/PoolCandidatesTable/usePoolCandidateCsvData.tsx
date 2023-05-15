@@ -84,9 +84,19 @@ const usePoolCandidateCsvData = (
   const screeningQuestionHeaders = poolAdvertisement?.screeningQuestions
     ? poolAdvertisement.screeningQuestions
         .filter(notEmpty)
-        .map((screeningQuestion) => ({
+        .map((screeningQuestion, index) => ({
           key: screeningQuestion.id,
-          label: getLocalizedName(screeningQuestion.question, intl),
+          label: intl.formatMessage(
+            {
+              defaultMessage: "Screening question {index}: {question}",
+              id: "5nlauT",
+              description: "CSV Header, Screening question column. ",
+            },
+            {
+              index: screeningQuestion.sortOrder || index + 1,
+              question: getLocalizedName(screeningQuestion.question, intl),
+            },
+          ),
         }))
     : [];
 
