@@ -1,12 +1,13 @@
 import React from "react";
 
 import Accordion, { AccordionHeaderProps } from "./Accordion";
+import { IconType } from "../../types";
 
 type TitleProps = React.HTMLAttributes<HTMLSpanElement> & {
   [data: string]: string;
 };
 export interface StandardHeaderProps extends AccordionHeaderProps {
-  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  Icon?: IconType;
   context?: React.ReactNode;
   subtitle?: React.ReactNode;
   titleProps?: TitleProps;
