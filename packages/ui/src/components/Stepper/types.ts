@@ -1,15 +1,13 @@
 import React from "react";
 
+import { IconType } from "../../types";
+
 export type StepState =
   | "active"
   | "completed"
   | "disabled"
   | "error"
   | "default";
-
-export type IconType = React.ForwardRefExoticComponent<
-  React.SVGProps<SVGSVGElement>
->;
 
 export type StepType = {
   href: string;

@@ -1,6 +1,6 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { AcademicCapIcon } from "@heroicons/react/24/solid";
+import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 
 import { action } from "@storybook/addon-actions";
 import ToggleSection from "./ToggleSection";

@@ -10,6 +10,7 @@ import { getDateRange } from "~/utils/accordionUtils";
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";
 import SkillSection from "../SkillSection";
+import EditExperienceLink from "../EditExperienceLink";
 
 interface WorkContentProps
   extends Pick<WorkExperience, "details" | "division" | "skills"> {
@@ -81,11 +82,13 @@ export const WorkContent = ({
 type WorkAccordionProps = WorkExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  onEditClick?: () => void; // Callback function if edit is a button
   showSkills?: boolean; // show or hide the skills block
 };
 
 const WorkAccordion = ({
   editUrl,
+  onEditClick,
   headingLevel = "h2",
   showSkills = true,
   ...rest
@@ -112,17 +115,22 @@ const WorkAccordion = ({
           id: "giUfys",
           description: "Title for work experience section",
         })}
-        editLinkUrl={editUrl}
-        editLinkLabel={intl.formatMessage(
-          {
-            defaultMessage: "Edit<hidden> {context}</hidden>",
-            id: "eLpCfR",
-            description: "Edit experience link label with context",
-          },
-          {
-            context: headerTitle,
-          },
-        )}
+        actions={
+          editUrl || onEditClick ? (
+            <EditExperienceLink editUrl={editUrl} onEditClick={onEditClick}>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Edit<hidden> {context}</hidden>",
+                  id: "eLpCfR",
+                  description: "Edit experience link label with context",
+                },
+                {
+                  context: headerTitle,
+                },
+              )}
+            </EditExperienceLink>
+          ) : undefined
+        }
       >
         {headerTitle}
       </ExperienceAccordionHeader>

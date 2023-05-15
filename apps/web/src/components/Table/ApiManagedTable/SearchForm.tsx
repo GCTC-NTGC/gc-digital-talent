@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
@@ -12,9 +13,17 @@ export interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
   searchBy?: Array<SearchColumn>;
   initialData?: SearchState;
+  inputId: string;
+  inputLabel: string;
 }
 
-const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
+const SearchForm = ({
+  onChange,
+  searchBy,
+  initialData,
+  inputId,
+  inputLabel,
+}: SearchFormProps) => {
   const intl = useIntl();
   const searchRef = useRef<HTMLInputElement | null>(null);
 
@@ -60,8 +69,8 @@ const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
   };
 
   const allTableMsg = intl.formatMessage({
-    defaultMessage: "All table",
-    id: "IMdFJM",
+    defaultMessage: "All columns",
+    id: "BBH/2J",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });
@@ -111,22 +120,12 @@ const SearchForm = ({ onChange, searchBy, initialData }: SearchFormProps) => {
       <div data-h2-position="base(relative)" data-h2-display="base(flex)">
         <input
           name="search"
-          id="tableSearch"
+          id={inputId}
           type="text"
           ref={searchRef}
           onChange={debouncedChangeHandler}
           defaultValue={initialData?.term}
-          aria-label={intl.formatMessage({
-            defaultMessage: "Search Table",
-            id: "chFoB8",
-            description: "Label for search field on admin tables.",
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Start writing here...",
-            id: "3F6QqF",
-            description:
-              "Placeholder displayed on the Global Filter form Search field.",
-          })}
+          aria-label={inputLabel}
           data-h2-border="base(1px solid secondary)"
           data-h2-background-color="base(white)"
           data-h2-padding="base(x.25, x.5)"

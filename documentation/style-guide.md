@@ -33,9 +33,9 @@ Try to follow Functional Programming principles.
   - Adding an item to an object: `const newObj = {...oldObj, newProp: "new value"}`
   - "Updating" a value in an object: `const newObj = {...oldObj, existingProp: "new value"}`
 
-# Typescript
+# TypeScript
 
-Most of the frontend application is written in Typescript. Take advantage of the type checking to ensure correctness.
+Most of the frontend application is written in TypeScript. Take advantage of the type checking to ensure correctness.
 
 ## External Guides
 

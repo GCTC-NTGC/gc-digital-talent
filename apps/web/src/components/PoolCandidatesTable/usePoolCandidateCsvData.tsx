@@ -13,6 +13,8 @@ import {
   getPoolCandidateStatus,
   getProvinceOrTerritory,
   getLocale,
+  getEducationRequirementOption,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -23,6 +25,8 @@ import {
   getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
+  getExperienceTitles,
+  getScreeningQuestionResponses,
 } from "~/utils/csvUtils";
 import {
   Maybe,
@@ -31,11 +35,16 @@ import {
   PoolAdvertisement,
 } from "~/api/generated";
 import labels from "~/components/ExperienceAccordion/labels";
+import adminMessages from "~/messages/adminMessages";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
   poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
+    Pick<
+      PoolAdvertisement,
+      "essentialSkills" | "nonessentialSkills" | "screeningQuestions"
+    >
   >,
 ) => {
   const intl = useIntl();
@@ -70,6 +79,25 @@ const usePoolCandidateCsvData = (
           ),
         };
       })
+    : [];
+
+  const screeningQuestionHeaders = poolAdvertisement?.screeningQuestions
+    ? poolAdvertisement.screeningQuestions
+        .filter(notEmpty)
+        .map((screeningQuestion, index) => ({
+          key: screeningQuestion.id,
+          label: intl.formatMessage(
+            {
+              defaultMessage: "Screening question {index}: {question}",
+              id: "5nlauT",
+              description: "CSV Header, Screening question column. ",
+            },
+            {
+              index: screeningQuestion.sortOrder || index + 1,
+              question: getLocalizedName(screeningQuestion.question, intl),
+            },
+          ),
+        }))
     : [];
 
   const headers: DownloadCsvProps["headers"] = [
@@ -370,12 +398,25 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "skills",
+      key: "educationRequirementOption",
       label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "3IAJad",
-        description: "CSV Header, Skills column",
+        defaultMessage: "Education Requirement",
+        id: "eVuqmU",
+        description: "CSV Header, Education Requirement column",
       }),
+    },
+    {
+      key: "educationRequirementExperiences",
+      label: intl.formatMessage({
+        defaultMessage: "Education Requirement Experiences",
+        id: "VldclB",
+        description: "CSV Header, Education Requirement Experiences column",
+      }),
+    },
+    ...screeningQuestionHeaders,
+    {
+      key: "skills",
+      label: intl.formatMessage(adminMessages.skills),
     },
     ...essentialSkillHeaders,
     ...nonEssentialSkillHeaders,
@@ -389,6 +430,9 @@ const usePoolCandidateCsvData = (
         submittedAt,
         archivedAt,
         expiryDate,
+        educationRequirementOption,
+        educationRequirementExperiences,
+        screeningQuestionResponses,
         user,
         poolAdvertisement: poolAd,
       }) => {
@@ -488,6 +532,16 @@ const usePoolCandidateCsvData = (
             user.expectedGenericJobTitles,
             intl,
           ),
+          educationRequirementOption: educationRequirementOption
+            ? intl.formatMessage(
+                getEducationRequirementOption(educationRequirementOption),
+              )
+            : "",
+          educationRequirementExperiences: getExperienceTitles(
+            educationRequirementExperiences,
+            intl,
+          ),
+          ...getScreeningQuestionResponses(screeningQuestionResponses),
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,

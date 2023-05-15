@@ -1,23 +1,26 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { HeartIcon } from "@heroicons/react/24/solid";
+import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
-import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   return {
     title: intl.formatMessage(
@@ -40,10 +43,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: paths.applicationWelcome(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 1",
-          id: "n6ON28",
-          description: "Breadcrumb link text for the application welcome page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -55,9 +56,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application welcome page",
       }),
     },
-    prerequisites: [],
-    stepSubmitted: ApplicationStep.Welcome,
-    hasError: null,
   };
 };
 
@@ -65,13 +63,20 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const poolName = getFullPoolAdvertisementTitleHtml(
     intl,
     application.poolAdvertisement,
   );
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
-  const nextStepPath = paths.applicationProfile(application.id);
+  const nextStepPath =
+    followingPageUrl ?? paths.applicationProfile(application.id);
 
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete

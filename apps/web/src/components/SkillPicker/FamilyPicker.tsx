@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu, ScrollArea } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";

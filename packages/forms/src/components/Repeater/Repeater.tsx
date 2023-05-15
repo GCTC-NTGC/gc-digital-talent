@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
+import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";

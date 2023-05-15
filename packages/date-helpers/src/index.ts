@@ -1,10 +1,13 @@
+/* eslint-disable import/no-duplicates */
+// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import type { IntlShape } from "react-intl";
-// Note: ignore to stop merging date-fns imports
-// eslint-disable-next-line import/no-duplicates
-import { add, format, parse, parseISO } from "date-fns";
-// eslint-disable-next-line import/no-duplicates
-import { fr } from "date-fns/locale";
-import { formatInTimeZone, toDate } from "date-fns-tz";
+import add from "date-fns/add";
+import format from "date-fns/format";
+import parse from "date-fns/parse";
+import parseISO from "date-fns/parseISO";
+import fr from "date-fns/locale/fr";
+import formatInTimeZone from "date-fns-tz/formatInTimeZone";
+import toDate from "date-fns-tz/toDate";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -164,3 +167,16 @@ export const convertDateTimeToDate = (
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
   toDate(d, { timeZone: "UTC" });
+
+/**
+ * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
+ * @returns string of formatted date
+ */
+export const nowUTCDateTime = (): string => {
+  // get UTC time, in the appropriate format, from client
+  // https://stackoverflow.com/a/11964609
+  const now = new Date();
+  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const formattedNowUTC = format(nowUTC, DATETIME_FORMAT_STRING);
+  return formattedNowUTC;
+};

@@ -2,12 +2,9 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  CheckIcon,
-  ClipboardIcon,
-  ArrowTopRightOnSquareIcon,
-} from "@heroicons/react/24/outline";
-
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
+import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import {
   Pending,
   Chip,
@@ -41,6 +38,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {
   pool: PoolAdvertisement;
@@ -769,17 +767,13 @@ const ViewPoolPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Pools",
-        id: "3fAkvM",
-        description: "Breadcrumb title for the pools page link.",
-      }),
+      label: intl.formatMessage(adminMessages.pools),
       url: routes.poolTable(),
     },
     ...(poolId

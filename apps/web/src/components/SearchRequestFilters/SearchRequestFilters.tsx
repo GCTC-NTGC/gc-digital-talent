@@ -15,6 +15,7 @@ import {
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 
+import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
@@ -255,6 +256,21 @@ const ApplicantFilters = ({
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Pool Requested",
+              id: "rz8uPO",
+              description:
+                "Title for the pool block in the manager info section of the single search request view.",
+            })}
+            content={
+              applicantFilter
+                ? applicantFilter?.pools?.map((pool) =>
+                    getFullPoolAdvertisementTitleHtml(intl, pool),
+                  )
+                : null
+            }
+          />
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -501,13 +517,26 @@ const SearchRequestFilters = ({
         id: "0/8x/z",
       });
 
-  const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
-
   return (
     <section data-h2-radius="base(s)">
       <div>
         <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(flex-start, x2, 0)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Pool Requested",
+                id: "rz8uPO",
+                description:
+                  "Title for the pool block in the manager info section of the single search request view.",
+              })}
+              content={
+                pools
+                  ? pools.map((pool) =>
+                      getFullPoolAdvertisementTitleHtml(intl, pool),
+                    )
+                  : null
+              }
+            />
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Group and level",
@@ -533,15 +562,6 @@ const SearchRequestFilters = ({
                   "Title for education level on summary of filters section",
               })}
               content={educationLevel}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Type of opportunity",
-                id: "ZuSEII",
-                description:
-                  "Title for type of opportunity section on summary of filters section",
-              })}
-              content={typeOfOpportunity}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

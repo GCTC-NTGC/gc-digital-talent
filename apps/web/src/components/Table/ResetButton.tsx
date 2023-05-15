@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 
 const ResetButton = (
   props: Omit<React.HTMLProps<HTMLButtonElement>, "children">,

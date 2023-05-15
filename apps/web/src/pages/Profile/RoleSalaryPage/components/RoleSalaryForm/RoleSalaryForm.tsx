@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
 import { BasicForm, Checklist, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";

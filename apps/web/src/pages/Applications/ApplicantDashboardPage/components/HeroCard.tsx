@@ -1,5 +1,5 @@
 import { Link } from "@gc-digital-talent/ui";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
+import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import * as React from "react";
 
 export type Color =
@@ -57,7 +57,7 @@ export const HeroCard = ({
     <Wrapper
       data-h2-background-color="base:all(white)"
       data-h2-radius="base(s)"
-      data-h2-shadow="base(s)"
+      data-h2-shadow="base(m)"
       data-h2-flex-grow="base(1)"
       aria-label={title}
     >
@@ -73,6 +73,7 @@ export const HeroCard = ({
           href={href}
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
+          data-h2-color="base(black) base:hover(black)"
         >
           <span
             data-h2-flex-grid="base(center, 0, 0)"

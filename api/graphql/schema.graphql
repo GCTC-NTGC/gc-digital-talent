@@ -436,6 +436,7 @@ enum PoolAdvertisementLanguage {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS
@@ -496,6 +497,12 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+}
+
+type PoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidate! @self
+  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
 enum LanguageAbility {
@@ -959,7 +966,9 @@ type Query {
   poolAdvertisements: [PoolAdvertisement]!
     @all(model: "Pool")
     @can(ability: "viewAny", model: "Pool")
-  publishedPoolAdvertisements: [PoolAdvertisement!]!
+  publishedPoolAdvertisements(
+    closingAfter: DateTime @where(key: "closing_date", operator: ">")
+  ): [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
     @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
@@ -994,10 +1003,15 @@ type Query {
           }
         ]
       )
-  ): [PoolCandidate]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+  ): [PoolCandidateWithSkillCount]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["notDraft", "withSkillCount"]
+      model: "App\\Models\\PoolCandidate"
+    )
     @guard
-    @can(ability: "view", resolved: true)
+    @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
   # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
     @deprecated(reason: "Replaced by countApplicants")
@@ -1104,6 +1118,7 @@ input CreateUserInput {
   firstName: String! @rename(attribute: "first_name")
   lastName: String! @rename(attribute: "last_name")
   email: Email
+    @lowerCase
     @rules(
       apply: ["sometimes", "nullable", "unique:users,email"]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
@@ -1178,7 +1193,7 @@ input UpdateUserAsAdminInput
   legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
 
   # Personal info
-  email: Email
+  email: Email @lowerCase
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -1249,7 +1264,7 @@ input UpdateUserAsUserInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
   # Personal info
-  email: Email
+  email: Email @lowerCase
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -1410,7 +1425,8 @@ input PoolBelongsToMany {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
@@ -1585,6 +1601,7 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
 

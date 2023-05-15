@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CalendarIcon } from "@heroicons/react/24/outline";
+import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
 import {
   parseDateTimeUtc,

@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { IntlShape } from "react-intl";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   AwardExperience,
   CommunityExperience,
@@ -357,10 +358,30 @@ export const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
   e.__typename === "WorkExperience";
 
 export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
-  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
-  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
-  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
-  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
+  // fit AwardExperience to startDate - endDate format
+  const e1Adjusted = e1;
+  const e2Adjusted = e2;
+  if (e1.__typename === "AwardExperience") {
+    e1Adjusted.startDate = e1.awardedDate;
+    e1Adjusted.endDate = e1.awardedDate;
+  }
+  if (e2.__typename === "AwardExperience") {
+    e2Adjusted.startDate = e2.awardedDate;
+    e2Adjusted.endDate = e2.awardedDate;
+  }
+
+  const e1EndDate = e1Adjusted.endDate
+    ? new Date(e1Adjusted.endDate).getTime()
+    : null;
+  const e2EndDate = e2Adjusted.endDate
+    ? new Date(e2Adjusted.endDate).getTime()
+    : null;
+  const e1StartDate = e1Adjusted.startDate
+    ? new Date(e1Adjusted.startDate).getTime()
+    : -1;
+  const e2StartDate = e2Adjusted.startDate
+    ? new Date(e2Adjusted.startDate).getTime()
+    : -1;
 
   // All items with no end date should be at the top and sorted by most recent start date.
   if (!e1EndDate && !e2EndDate) {
@@ -540,4 +561,58 @@ export const queryResultToDefaultValues = (
     details: experience.details || "",
     ...unsharedValues,
   };
+};
+
+/**
+ * Get the name of any experience type
+ *
+ * @param AnyExperience experience
+ * @return string|React.ReactNode
+ */
+export const getExperienceName = (
+  experience: AnyExperience,
+  intl: IntlShape,
+) => {
+  if (isAwardExperience(experience) || isPersonalExperience(experience)) {
+    return experience.title;
+  }
+
+  if (isCommunityExperience(experience)) {
+    const { title, organization } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{title} with {organization}",
+        id: "VAcukn",
+        description: "Title with organization",
+      },
+      { title, organization },
+    );
+  }
+
+  if (isEducationExperience(experience)) {
+    const { areaOfStudy, institution } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{areaOfStudy} at {institution}",
+        id: "UrsGGK",
+        description: "Study at institution",
+      },
+      { areaOfStudy, institution },
+    );
+  }
+
+  if (isWorkExperience(experience)) {
+    const { role, organization } = experience;
+    return intl.formatMessage(
+      {
+        defaultMessage: "{role} at {organization}",
+        id: "wTAdQe",
+        description: "Role at organization",
+      },
+      { role, organization },
+    );
+  }
+
+  // We should never get here but just in case we do, return no provided
+  return intl.formatMessage(commonMessages.notProvided);
 };

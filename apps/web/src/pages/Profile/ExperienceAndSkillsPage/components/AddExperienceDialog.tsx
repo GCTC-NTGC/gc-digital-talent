@@ -1,16 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
-import {
-  BookOpenIcon,
-  BriefcaseIcon,
-  LightBulbIcon,
-  StarIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/outline";
-import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
+import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
+import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
-import { Dialog, IconButton, Link } from "@gc-digital-talent/ui";
+import { Dialog, IconButton, IconType, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -21,7 +20,7 @@ type AddExperienceDialogProps = {
 };
 
 interface ExperienceSection {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   title: string;
   description: string;
   buttonText: string;

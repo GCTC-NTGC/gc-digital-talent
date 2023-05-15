@@ -1,6 +1,8 @@
 import * as React from "react";
-
 import { useIntl } from "react-intl";
+
+import { IconType } from "@gc-digital-talent/ui";
+
 import {
   BaseInfoItemIconColor,
   BaseInfoItem,
@@ -74,7 +76,7 @@ export const HeroCardProfileItem = ({
 export interface HeroCardExperienceItemProps {
   sectionName: string;
   itemCount?: number;
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
   color?: BaseInfoItemIconColor;
 }
 

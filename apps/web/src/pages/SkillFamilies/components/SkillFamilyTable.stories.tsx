@@ -16,11 +16,12 @@ export default {
 } as ComponentMeta<typeof SkillFamilyTable>;
 
 const Template: ComponentStory<typeof SkillFamilyTable> = (args) => {
-  const { skillFamilies } = args;
-  return <SkillFamilyTable skillFamilies={skillFamilies} />;
+  const { skillFamilies, title } = args;
+  return <SkillFamilyTable skillFamilies={skillFamilies} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   skillFamilies: mockSkillFamilies,
+  title: "Skill families",
 };

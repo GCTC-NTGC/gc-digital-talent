@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 
 import {
   Chip,

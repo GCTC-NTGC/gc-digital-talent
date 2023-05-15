@@ -1,6 +1,6 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
 import Button from "../Button";
 

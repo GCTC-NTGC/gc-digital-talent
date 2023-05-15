@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
 import { Link, Button } from "@gc-digital-talent/ui";
 

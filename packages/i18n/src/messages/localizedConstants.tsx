@@ -30,6 +30,7 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
   Maybe,
+  EducationRequirementOption,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -41,8 +42,8 @@ export const employmentEquityGroups = defineMessages({
     description: "Group for when someone indicates they are a woman",
   },
   indigenous: {
-    defaultMessage: "Indigenous Identity",
-    id: "mFKg18",
+    defaultMessage: "Indigenous identity",
+    id: "ghhKNZ",
     description: "Group for when someone indicates they are indigenous",
   },
   minority: {
@@ -282,6 +283,28 @@ export const getEducationRequirement = (
     educationRequirements,
     educationRequirementId,
     `Invalid Education Requirement '${educationRequirementId}'`,
+  );
+
+export const educationRequirementOptions = defineMessages({
+  [EducationRequirementOption.AppliedWork]: {
+    defaultMessage: "Applied work experience",
+    description: "Option for education requirement, applied work experience",
+    id: "4S30lt",
+  },
+  [EducationRequirementOption.Education]: {
+    defaultMessage: "2-year post-secondary",
+    description: "Option for education requirement, 2-year post-secondary",
+    id: "TiIkSF",
+  },
+});
+
+export const getEducationRequirementOption = (
+  educationRequirementOptionId: string,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationRequirementOptions,
+    educationRequirementOptionId,
+    `Invalid Education Requirement Option '${educationRequirementOptionId}'`,
   );
 
 export const EmploymentDuration = {
@@ -1575,6 +1598,12 @@ export const publishingGroups = defineMessages({
     defaultMessage: "Executive Jobs",
     id: "Mixlw/",
     description: "The publishing group called Executive Jobs",
+  },
+  [PublishingGroup.Iap]: {
+    defaultMessage: "IAP",
+    id: "LWsmvv",
+    description:
+      "The publishing group called Indigenous Apprenticeship Program",
   },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",

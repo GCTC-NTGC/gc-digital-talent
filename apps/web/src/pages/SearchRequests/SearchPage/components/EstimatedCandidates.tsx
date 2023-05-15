@@ -93,8 +93,8 @@ const EstimatedCandidates = ({
               data-h2-font-weight="base(700)"
             >
               {intl.formatMessage({
-                defaultMessage: "Estimated Candidates",
-                id: "09x+E7",
+                defaultMessage: "Estimated candidates",
+                id: "2dkgQe",
                 description:
                   "Heading for total estimated candidates box next to search form.",
               })}

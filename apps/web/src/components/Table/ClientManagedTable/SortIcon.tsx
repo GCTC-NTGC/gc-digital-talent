@@ -1,5 +1,6 @@
 import React from "react";
-import { BarsArrowUpIcon, BarsArrowDownIcon } from "@heroicons/react/24/solid";
+import BarsArrowUpIcon from "@heroicons/react/24/solid/BarsArrowUpIcon";
+import BarsArrowDownIcon from "@heroicons/react/24/solid/BarsArrowDownIcon";
 
 interface SortIconProps {
   isSortedDesc?: boolean;

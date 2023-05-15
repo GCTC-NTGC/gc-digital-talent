@@ -1,27 +1,29 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import { StarIcon } from "@heroicons/react/20/solid";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
 import {
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
 } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import EditExperienceForm from "./components/ExperienceEditForm";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   resourceId,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationResumeEdit(application.id, resourceId ?? "");
   return {
@@ -36,14 +38,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
       description: "Subtitle for the application résumé page",
     }),
     icon: StarIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: paths.applicationResume(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
       {
@@ -59,9 +58,6 @@ export const getPageInfo: GetApplicationPageInfo = ({
     link: {
       url: path,
     },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 
@@ -76,11 +72,13 @@ const ApplicationResumeEdit = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { experienceId } = useParams();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     resourceId: experienceId,
+    stepOrdinal: currentStepOrdinal,
   });
 
   return (
@@ -114,6 +112,7 @@ const ApplicationResumeEditPage = () => {
     variables: {
       id: applicationId || "",
     },
+    requestPolicy: "cache-first",
   });
   const [
     {

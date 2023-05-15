@@ -14,7 +14,11 @@ const CardFlatLink = ({ external, color, ...link }: CardFlatLinkProps) => {
   const LinkEl = external ? ExternalLink : Link;
 
   return (
-    <LinkEl color={color} type="button" {...omit(link, "label", "external")}>
+    <LinkEl
+      color={color}
+      type="button"
+      {...omit(link, "label", "external", "naturalKey")}
+    >
       {link.label}
     </LinkEl>
   );

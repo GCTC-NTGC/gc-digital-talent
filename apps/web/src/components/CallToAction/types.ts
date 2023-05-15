@@ -1,5 +1,7 @@
 import React from "react";
 
+import { IconType, IconProps } from "@gc-digital-talent/ui";
+
 export type Color =
   | "primary"
   | "secondary"
@@ -8,6 +10,6 @@ export type Color =
   | "quinary";
 
 export type CallToActionProps<T> = React.HTMLProps<T> & {
-  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  Icon: IconType | ((props: IconProps) => JSX.Element);
   color: Color;
 };

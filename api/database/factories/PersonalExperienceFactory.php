@@ -21,11 +21,13 @@ class PersonalExperienceFactory extends Factory
      */
     public function definition()
     {
+        $startDate = $this->faker->date();
+
         return [
             'title' => $this->faker->jobTitle(),
             'description' => $this->faker->text(),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->boolean() ? $this->faker->date() : null,
+            'start_date' => $startDate,
+            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
             'details' => $this->faker->text(),
         ];
     }

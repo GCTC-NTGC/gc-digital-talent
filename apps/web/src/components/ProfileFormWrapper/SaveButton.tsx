@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
+import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 import { useIntl } from "react-intl";
 
 import { Submit } from "@gc-digital-talent/forms";

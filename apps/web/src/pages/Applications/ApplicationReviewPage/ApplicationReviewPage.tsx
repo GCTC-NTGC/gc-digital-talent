@@ -1,18 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { RocketLaunchIcon } from "@heroicons/react/20/solid";
+import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
+
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationReview(application.id);
   return {
@@ -30,10 +33,8 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 7",
-          id: "b5m9Ja",
-          description: "Breadcrumb link text for the application review page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
@@ -45,25 +46,19 @@ export const getPageInfo: GetApplicationPageInfo = ({
         description: "Link text for the application review page",
       }),
     },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-      ApplicationStep.SkillRequirements,
-      ApplicationStep.ScreeningQuestions,
-    ],
-    stepSubmitted: ApplicationStep.ReviewAndSubmit,
-    hasError: () => {
-      return !application.signature;
-    },
   };
 };
 
 const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>;
 };

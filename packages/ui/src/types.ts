@@ -9,6 +9,16 @@ export type Color =
   | "yellow"
   | "red"
   | "blue"
-  | "purple";
+  | "purple"
+  | "success"
+  | "warning"
+  | "error";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+  title?: string;
+  titleId?: string;
+} & React.RefAttributes<SVGSVGElement>;
+
+export type IconType = React.ForwardRefExoticComponent<IconProps>;

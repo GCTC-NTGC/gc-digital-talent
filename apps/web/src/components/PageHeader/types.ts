@@ -1,8 +1,6 @@
 import React from "react";
 
-export type IconType = React.ForwardRefExoticComponent<
-  React.SVGProps<SVGSVGElement>
->;
+import { IconType } from "@gc-digital-talent/ui";
 
 type PageNavLink = {
   label?: React.ReactNode;
@@ -10,7 +8,7 @@ type PageNavLink = {
 };
 
 export type PageNavInfo = {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   title: string;
   link: PageNavLink;
 };

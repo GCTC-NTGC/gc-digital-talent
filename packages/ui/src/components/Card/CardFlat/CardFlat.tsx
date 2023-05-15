@@ -11,6 +11,8 @@ export interface CardFlatProps {
   links?: Array<
     Omit<CardFlatLinkProps, "color"> & {
       [key: `data-${string}`]: unknown;
+      // add a natural key since mocked files do not have unique hrefs
+      naturalKey?: string;
     }
   >;
 }
@@ -65,7 +67,11 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
           data-h2-gap="base(x.25)"
         >
           {links.map((link) => (
-            <CardFlatLink key={link.href} color={color} {...link} />
+            <CardFlatLink
+              key={link.naturalKey ?? link.href}
+              color={color}
+              {...link}
+            />
           ))}
         </div>
       ) : null}

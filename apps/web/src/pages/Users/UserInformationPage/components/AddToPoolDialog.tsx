@@ -23,6 +23,7 @@ import {
   PoolCandidate,
   useCreatePoolCandidateMutation,
 } from "~/api/generated";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   pools: Array<Pool["id"]>;
@@ -200,12 +201,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                 <MultiSelectField
                   id="addToPoolDialog-pools"
                   name="pools"
-                  label={intl.formatMessage({
-                    defaultMessage: "Pools",
-                    id: "aJVlIF",
-                    description:
-                      "Label displayed on the pools field of the add user to pool dialog",
-                  })}
+                  label={intl.formatMessage(adminMessages.pools)}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select a pool",
                     id: "Rm4SuQ",

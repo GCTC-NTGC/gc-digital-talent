@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  MapIcon,
-  ChartPieIcon,
-  NewspaperIcon,
-  MagnifyingGlassCircleIcon,
-  BookmarkSquareIcon,
-} from "@heroicons/react/24/outline";
+import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
 import {
   Heading,
@@ -372,7 +370,7 @@ const DirectivePage = () => {
                   >
                     {guidanceLinks.map((guidanceLink) => (
                       <ExternalLink
-                        key={guidanceLink.href}
+                        key={guidanceLink.naturalKey ?? guidanceLink.href}
                         type="button"
                         color="primary"
                         {...guidanceLink}

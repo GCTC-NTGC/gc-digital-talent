@@ -1,6 +1,7 @@
-import { Color, HeadingRank } from "./types";
+import { Color, HeadingRank, IconType, IconProps } from "./types";
 
 import Accordion from "./components/Accordion";
+import StandardAccordionHeader from "./components/Accordion/StandardHeader";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -11,7 +12,9 @@ import Button, {
   type IconButtonProps,
 } from "./components/Button";
 import Card, {
+  CardBasic,
   CardFlat,
+  type CardBasicProps,
   type CardFlatProps,
   type CardProps,
 } from "./components/Card";
@@ -22,7 +25,11 @@ import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
-import Heading, { HeadingProps, HeadingRef } from "./components/Heading";
+import Heading, {
+  HeadingProps,
+  HeadingLevel,
+  HeadingRef,
+} from "./components/Heading";
 import Link, {
   DownloadCsv,
   ExternalLink,
@@ -69,6 +76,7 @@ import TableOfContents, {
 import Tabs from "./components/Tabs";
 import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
+import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 
@@ -81,13 +89,17 @@ export type {
   IconButtonProps,
   CardFlatProps,
   CardProps,
+  CardBasicProps,
   CardLinkProps,
   ChipProps,
   HeadingProps,
+  HeadingLevel,
   HeadingRef,
   ExternalLinkProps,
   DownloadCsvProps,
   LinkProps,
+  IconProps,
+  IconType,
   IconLinkProps,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
@@ -112,6 +124,7 @@ export type {
 
 export {
   Accordion,
+  StandardAccordionHeader,
   Alert,
   AlertDialog,
   Announcer,
@@ -120,6 +133,7 @@ export {
   Button,
   IconButton,
   Card,
+  CardBasic,
   CardFlat,
   CardLink,
   Chips,
@@ -155,6 +169,7 @@ export {
   Tabs,
   TileLink,
   ToggleGroup,
+  ToggleSection,
   TreeView,
   Well,
 };

@@ -1,8 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CheckIcon, MinusIcon } from "@heroicons/react/24/outline";
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
 
 import { formMessages } from "@gc-digital-talent/i18n";
+import { IconType } from "@gc-digital-talent/ui";
 
 import "./check-button.css";
 
@@ -47,9 +49,7 @@ const CheckButton = ({
     onToggle();
   };
 
-  let Icon:
-    | string
-    | React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>> = "span";
+  let Icon: string | IconType = "span";
   if (indeterminate) {
     Icon = MinusIcon;
   }

@@ -2,7 +2,7 @@
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";

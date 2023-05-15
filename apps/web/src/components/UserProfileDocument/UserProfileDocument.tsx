@@ -1,16 +1,15 @@
 import React, { HTMLAttributes } from "react";
-import {
-  ChatBubbleLeftRightIcon,
-  CurrencyDollarIcon,
-  InformationCircleIcon,
-  BuildingLibraryIcon,
-  LightBulbIcon,
-  BoltIcon,
-  MapPinIcon,
-  HandThumbUpIcon,
-} from "@heroicons/react/24/outline";
+import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import { useIntl } from "react-intl";
 
+import { IconType } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
@@ -32,7 +31,7 @@ const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
 
 export interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 }
 
 const Heading = ({
