@@ -164,7 +164,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, accessToken]);
+  }, [client, intl, logger, refreshAuth, accessToken, refreshToken, idToken]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
