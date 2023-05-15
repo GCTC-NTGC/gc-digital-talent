@@ -1,5 +1,7 @@
 import React from "react";
 
+import { IconType } from "../../types";
+
 export type Color =
   | "primary"
   | "secondary"
@@ -34,7 +36,7 @@ type GenericHTMLProps = React.DetailedHTMLProps<
 
 export interface ItemProps {
   title: React.ReactNode;
-  Icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  Icon?: IconType;
   children: React.ReactNode;
   color?: Color;
   titleProps?: GenericHTMLProps;

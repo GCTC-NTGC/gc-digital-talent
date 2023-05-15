@@ -7,8 +7,12 @@ import { Heading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { hasAllEmptyFields } from "~/validators/profile/diversityEquityInclusion";
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/profile/diversityEquityInclusion";
 
+import applicationMessages from "~/messages/applicationMessages";
 import { SectionProps } from "../../types";
 import { getSectionIcon, getSectionTitle } from "../../utils";
 import SectionTrigger from "../SectionTrigger";
@@ -19,15 +23,17 @@ const DiversityEquityInclusion = ({
   user,
   onUpdate,
   isUpdating,
+  poolAdvertisement,
 }: SectionProps) => {
   const intl = useIntl();
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const isNull = hasAllEmptyFields(user);
   const title = getSectionTitle("dei");
+  const isComplete = !hasEmptyRequiredFields(user, poolAdvertisement); // no empty required fields so false returns, means complete is true
   const icon = getSectionIcon({
     isEditing,
     error: false,
-    completed: true, // Optional so always "completed"
+    completed: isComplete,
     fallback: UserCircleIcon,
   });
 
@@ -60,6 +66,11 @@ const DiversityEquityInclusion = ({
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
+      {!isComplete && (
+        <Well color="error">
+          <p>{intl.formatMessage(applicationMessages.reservedForIndigenous)}</p>
+        </Well>
+      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? <NullDisplay /> : <Display user={user} />}

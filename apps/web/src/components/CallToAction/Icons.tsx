@@ -1,6 +1,6 @@
 import React from "react";
 
-type IconProps = React.SVGProps<SVGSVGElement>;
+import { IconProps } from "@gc-digital-talent/ui";
 
 export const HireIcon = (props: IconProps) => (
   <svg

@@ -1,10 +1,14 @@
 import * as React from "react";
-import Link from "@gc-digital-talent/ui/src/components/Link";
 
-export type TextColor = "default" | "error" | "success";
+import { Link, IconType } from "@gc-digital-talent/ui";
+
+export type TextColor = "default" | "subtitle" | "error" | "success";
 const textColorMap: Record<TextColor, Record<string, string>> = {
   default: {
     "data-h2-color": "base(black) base:hover(primary)",
+  },
+  subtitle: {
+    "data-h2-color": "base(black)",
   },
   error: {
     "data-h2-color": "base(error.darker) base:hover(error.darkest)",
@@ -59,7 +63,7 @@ export interface BaseInfoItemProps {
   titleColor?: TextColor;
   subTitle?: string;
   subTitleColor?: TextColor;
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
   iconColor?: IconColor;
   titleHref?: string;
   hiddenContextPrefix?: string;
@@ -70,7 +74,7 @@ export const BaseInfoItem = ({
   title,
   titleColor = "default",
   subTitle,
-  subTitleColor = "default",
+  subTitleColor = "subtitle",
   icon,
   iconColor = "success",
   titleHref,

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Separator } from "@gc-digital-talent/ui";
+import { IconType, Separator } from "@gc-digital-talent/ui";
 
 interface DataRowProps {
-  Icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  Icon: IconType;
   label: string;
   value: React.ReactNode;
   suffix?: React.ReactNode;

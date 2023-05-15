@@ -23,6 +23,13 @@ const messages = defineMessages({
     description:
       "Breadcrumb link text for a numbered application step introduction page",
   },
+  reservedForIndigenous: {
+    defaultMessage:
+      "This opportunity is intended for Indigenous candidates only.",
+    id: "/fvZtZ",
+    description:
+      "Error message displayed when a user's equity information does not match an opportunity",
+  },
 });
 
 export default messages;
