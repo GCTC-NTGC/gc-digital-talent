@@ -2,8 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
-import applicationMessages from "~/messages/applicationMessages";
-
 import { Button, Separator } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
