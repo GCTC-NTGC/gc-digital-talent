@@ -14,8 +14,8 @@ import {
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 
-import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
-import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
+import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
+import { CommunityList } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/CommunitySelection";
 
 import {
   apiValuesToFormValues,
