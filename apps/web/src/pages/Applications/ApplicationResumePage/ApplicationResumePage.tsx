@@ -37,11 +37,9 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 type SortOptions = "date_desc" | "type_asc";
-type PageAction = "continue" | "cancel";
 
 type FormValues = {
   sortExperiencesBy: SortOptions;
-  action: PageAction;
   experienceCount: number;
 };
 
@@ -186,9 +184,8 @@ export const ApplicationResume = ({
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { watch, register, setValue } = methods;
+  const { watch, setValue } = methods;
   const watchSortExperiencesBy = watch("sortExperiencesBy", "date_desc"); // default first option in the <Select>
-  const actionProps = register("action");
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
@@ -212,7 +209,7 @@ export const ApplicationResume = ({
     // no op
   }
 
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = async () => {
     executeMutation({
       id: application.id,
       application: {
@@ -229,7 +226,7 @@ export const ApplicationResume = ({
                 "Message displayed to users when saving résumé is successful.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+          navigate(nextStep);
         }
       })
       .catch(() => {
@@ -445,35 +442,20 @@ export const ApplicationResume = ({
               type="submit"
               mode="solid"
               value="continue"
-              {...actionProps}
               onClick={() => {
-                setValue("action", "continue");
                 setValue("experienceCount", experiences.length);
               }}
             >
-              {intl.formatMessage({
-                defaultMessage: "I’m happy with my résumé",
-                id: "Km89qF",
-                description: "Link text to continue the application process",
-              })}
+              {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Button
-              type="submit"
+            <Link
+              type="button"
               mode="inline"
               color="secondary"
-              value="cancel"
-              {...actionProps}
-              onClick={() => {
-                setValue("action", "cancel");
-                setValue("experienceCount", experiences.length);
-              }}
+              href={cancelPath}
             >
-              {intl.formatMessage({
-                defaultMessage: "Save and quit for now",
-                id: "U86N4g",
-                description: "Action button to save and exit an application",
-              })}
-            </Button>
+              {intl.formatMessage(applicationMessages.saveQuit)}
+            </Link>
           </div>
         </form>
       </FormProvider>

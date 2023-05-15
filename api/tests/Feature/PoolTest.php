@@ -18,6 +18,8 @@ class PoolTest extends TestCase
     use RefreshesSchemaCache;
 
     protected $adminUser;
+    protected $guestUser;
+    protected $baseUser;
 
     protected function setUp(): void
     {
@@ -35,6 +37,12 @@ class PoolTest extends TestCase
             "base_user",
             "platform_admin"
         ]);
+
+        $this->guestUser = User::factory()->create();
+        $this->guestUser->syncRoles(["guest"]);
+
+        $this->baseUser = User::factory()->create();
+        $this->baseUser->syncRoles(["base_user"]);
     }
 
     public function testPoolAdvertisementAccessor(): void
@@ -219,6 +227,102 @@ class PoolTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsAnon(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as anonymous user
+        $this->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as base role user
+        $this->actingAs($this->baseUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as guest role user
+        $this->actingAs($this->guestUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    // This error is not desired behavior, but is expected due to current implementation.
+    public function testListPoolsReturnsAuthErrorAsNoRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        $noRoleUser = User::factory()->create();
+        // Assert query will return only the published pool as guest user
+        $this->actingAs($noRoleUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     // test filtering closing_date on publishedPoolAdvertisements

@@ -29,10 +29,7 @@ const resumeLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
-type PageAction = "continue" | "cancel";
-
 type FormValues = {
-  action: PageAction;
   skillsMissingExperiences: number;
 };
 
@@ -109,8 +106,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     .filter(notEmpty);
 
   const methods = useForm<FormValues>();
-  const { register, setValue } = methods;
-  const actionProps = register("action");
+  const { setValue } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -119,7 +115,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     description: "Instructions on  optional skills for a pool advertisement",
   });
 
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = async () => {
     executeMutation({
       id: application.id,
       application: {
@@ -136,7 +132,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving skills is successful.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+          navigate(nextStep);
         }
       })
       .catch(() => {
@@ -313,9 +309,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
               type="submit"
               mode="solid"
               value="continue"
-              {...actionProps}
               onClick={() => {
-                setValue("action", "continue");
                 setValue(
                   "skillsMissingExperiences",
                   skillsMissingExperiences?.length || 0,
@@ -324,22 +318,14 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Button
-              type="submit"
+            <Link
+              type="button"
               mode="inline"
               color="secondary"
-              value="cancel"
-              {...actionProps}
-              onClick={() => {
-                setValue("action", "cancel");
-                setValue(
-                  "skillsMissingExperiences",
-                  skillsMissingExperiences?.length || 0,
-                );
-              }}
+              href={cancelPath}
             >
               {intl.formatMessage(applicationMessages.saveQuit)}
-            </Button>
+            </Link>
           </div>
         </form>
       </FormProvider>

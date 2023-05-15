@@ -97,6 +97,7 @@ const useCommonLinkStyles = ({
         ...(color
           ? { ...linkColorMap[color] }
           : { "data-h2-color": "base:hover(primary)" }),
+        ...weightStyle,
         "data-h2-text-decoration": "base(underline) base:hover(none)",
       };
 };
