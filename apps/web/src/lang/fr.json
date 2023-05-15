@@ -8055,5 +8055,13 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "VldclB": {
+    "defaultMessage": "Expériences relatives aux exigences pédagogiques",
+    "description": "CSV Header, Education Requirement Experiences column"
+  },
+  "eVuqmU": {
+    "defaultMessage": "Exigences pédagogiques",
+    "description": "CSV Header, Education Requirement column"
   }
 }
