@@ -11,6 +11,7 @@ import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { IconType } from "@gc-digital-talent/ui";
 
 import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "~/components/UserProfile/ProfileSections/GovernmentInformationSection";
@@ -32,7 +33,7 @@ const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
 
 export interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 }
 
 const Heading = ({

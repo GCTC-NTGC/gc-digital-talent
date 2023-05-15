@@ -12,36 +12,32 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import { skillRequirementsIsIncomplete } from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   SkillCategory,
   useUpdateApplicationMutation,
-  Applicant,
   ApplicationStep,
-  PoolAdvertisement,
 } from "~/api/generated";
 
 import SkillTree from "./components/SkillTree";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
+import { useApplicationContext } from "../ApplicationContext";
 
 const resumeLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
-type PageAction = "continue" | "cancel";
-
 type FormValues = {
-  action: PageAction;
   skillsMissingExperiences: number;
 };
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationSkills(application.id);
   return {
@@ -60,26 +56,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 5",
-          id: "/tscgU",
-          description: "Breadcrumb link text for the application skills page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
     link: {
       url: path,
-    },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-    ],
-    introUrl: paths.applicationSkillsIntro(application.id),
-    stepSubmitted: ApplicationStep.SkillRequirements,
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      return skillRequirementsIsIncomplete(applicant, poolAdvertisement);
     },
   };
 };
@@ -88,7 +71,13 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const experiences = application.user?.experiences?.filter(notEmpty) || [];
   const categorizedEssentialSkills = categorizeSkill(
@@ -99,8 +88,10 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   );
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
+  const { followingPageUrl } = useApplicationContext();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
-  const nextStep = paths.applicationQuestionsIntro(application.id);
+  const nextStep =
+    followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 
   const skillsMissingExperiences = categorizedEssentialSkills[
     SkillCategory.Technical
@@ -115,8 +106,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     .filter(notEmpty);
 
   const methods = useForm<FormValues>();
-  const { register, setValue } = methods;
-  const actionProps = register("action");
+  const { setValue } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -125,7 +115,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     description: "Instructions on  optional skills for a pool advertisement",
   });
 
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = async () => {
     executeMutation({
       id: application.id,
       application: {
@@ -142,7 +132,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving skills is successful.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+          navigate(nextStep);
         }
       })
       .catch(() => {
@@ -211,7 +201,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
               description: "Instructions on requiring information for skills",
             })}
           </p>
-          {categorizedEssentialSkills[SkillCategory.Technical].map(
+          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
             (requiredTechnicalSkill) => (
               <SkillTree
                 key={requiredTechnicalSkill.id}
@@ -233,7 +223,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             })}
           </Heading>
           <p>{optionalDisclaimer}</p>
-          {categorizedOptionalSkills[SkillCategory.Technical].map(
+          {categorizedOptionalSkills[SkillCategory.Technical]?.map(
             (optionalTechnicalSkill) => (
               <SkillTree
                 key={optionalTechnicalSkill.id}
@@ -262,7 +252,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             })}
           </p>
           <SkillDescriptionAccordion
-            skills={categorizedEssentialSkills[SkillCategory.Behavioural]}
+            skills={categorizedEssentialSkills[SkillCategory.Behavioural] ?? []}
           />
         </>
       ) : null}
@@ -277,7 +267,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
           </Heading>
           <p data-h2-margin-bottom="base(x1)">{optionalDisclaimer}</p>
           <SkillDescriptionAccordion
-            skills={categorizedOptionalSkills[SkillCategory.Behavioural]}
+            skills={categorizedOptionalSkills[SkillCategory.Behavioural] ?? []}
           />
         </>
       ) : null}
@@ -319,9 +309,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
               type="submit"
               mode="solid"
               value="continue"
-              {...actionProps}
               onClick={() => {
-                setValue("action", "continue");
                 setValue(
                   "skillsMissingExperiences",
                   skillsMissingExperiences?.length || 0,
@@ -330,22 +318,14 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Button
-              type="submit"
+            <Link
+              type="button"
               mode="inline"
               color="secondary"
-              value="cancel"
-              {...actionProps}
-              onClick={() => {
-                setValue("action", "cancel");
-                setValue(
-                  "skillsMissingExperiences",
-                  skillsMissingExperiences?.length || 0,
-                );
-              }}
+              href={cancelPath}
             >
               {intl.formatMessage(applicationMessages.saveQuit)}
-            </Button>
+            </Link>
           </div>
         </form>
       </FormProvider>
