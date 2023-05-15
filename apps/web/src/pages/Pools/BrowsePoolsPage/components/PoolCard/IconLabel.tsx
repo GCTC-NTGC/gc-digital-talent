@@ -1,8 +1,10 @@
 import React from "react";
 
+import { IconType } from "@gc-digital-talent/ui";
+
 interface IconLabelProps {
   label: React.ReactNode;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   children?: React.ReactNode;
 }
 

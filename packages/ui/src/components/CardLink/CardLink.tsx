@@ -3,6 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
+import { IconType } from "../../types";
 import "./cardLink.css";
 
 export type Color =
@@ -19,7 +20,7 @@ export interface CardLinkProps {
   href: string;
   label: string;
   color?: Color;
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
   className?: string;
   external?: boolean;
   children?: React.ReactNode;

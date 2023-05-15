@@ -9,6 +9,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import { useIntl } from "react-intl";
 
+import { IconType } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
@@ -30,7 +31,7 @@ const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
 
 export interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 }
 
 const Heading = ({

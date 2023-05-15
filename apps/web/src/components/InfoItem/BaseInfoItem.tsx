@@ -1,5 +1,6 @@
 import * as React from "react";
-import Link from "@gc-digital-talent/ui/src/components/Link";
+
+import { Link, IconType } from "@gc-digital-talent/ui";
 
 export type TextColor = "default" | "error" | "success";
 const textColorMap: Record<TextColor, Record<string, string>> = {
@@ -59,7 +60,7 @@ export interface BaseInfoItemProps {
   titleColor?: TextColor;
   subTitle?: string;
   subTitleColor?: TextColor;
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
   iconColor?: IconColor;
   titleHref?: string;
   hiddenContextPrefix?: string;
