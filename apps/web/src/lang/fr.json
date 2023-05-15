@@ -5013,9 +5013,13 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "qZvV7b": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+  "Hu04cP": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones",
     "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "z5Gcsn": {
+    "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",

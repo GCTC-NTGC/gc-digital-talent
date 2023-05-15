@@ -1,10 +1,6 @@
 import React from "react";
 
-interface TriangleProps {
-  className: string;
-}
-
-const Triangle = (props: TriangleProps) => (
+const Triangle = (props: React.HTMLProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
