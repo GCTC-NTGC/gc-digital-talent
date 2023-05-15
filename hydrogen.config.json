@@ -67,15 +67,15 @@
       "typography": [
         {
           "size": "100%",
-          "line_height": "1.4",
+          "line_height": "1.5",
           "query_key": "base",
-          "type_scale": "1.2"
+          "type_scale": "1.15"
         },
         {
           "size": "112.5%",
-          "line_height": "1.4",
+          "line_height": "1.5",
           "query_key": "desktop",
-          "type_scale": "1.25"
+          "type_scale": "1.2"
         }
       ],
       "colors": [

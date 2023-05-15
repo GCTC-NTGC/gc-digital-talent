@@ -77,6 +77,7 @@ export interface RequestFormProps {
   departments: Department[];
   skills: Skill[];
   classifications: Classification[];
+  pools: Pool[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
@@ -92,6 +93,7 @@ export const RequestForm = ({
   departments,
   skills,
   classifications,
+  pools,
   applicantFilter,
   candidateCount,
   selectedClassifications,
@@ -226,6 +228,11 @@ export const RequestForm = ({
           return skill && skillId && skill.id === skillId.id;
         });
       }) ?? [],
+    pools: applicantFilter?.pools?.map((poolId) => {
+      return pools.find((pool) => {
+        return pool && poolId && pool.id === poolId.id;
+      });
+    }),
   };
 
   return (
@@ -474,6 +481,7 @@ const RequestFormApi = ({
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
+  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
@@ -500,6 +508,7 @@ const RequestFormApi = ({
           classifications={classifications}
           departments={departments}
           skills={skills}
+          pools={pools}
           applicantFilter={applicantFilter}
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}

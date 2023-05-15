@@ -11,11 +11,13 @@ import {
   RecordWithId,
   SortingRule,
 } from "./helpers";
+import tableMessages from "../tableMessages";
 
 export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;
+  title: string;
   onSortingRuleChange: (newSortingRule?: SortingRule<T>) => void;
   sortingRule?: SortingRule<T>;
   hiddenColumnIds: Array<IdType<T>>;
@@ -25,6 +27,7 @@ function BasicTable<T extends RecordWithId>({
   columns,
   data,
   labelledBy,
+  title,
   onSortingRuleChange,
   sortingRule,
   hiddenColumnIds,
@@ -93,6 +96,8 @@ function BasicTable<T extends RecordWithId>({
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <caption>
           <span data-h2-visually-hidden="base(invisible)">
+            {title}
+            <br />
             {intl.formatMessage({
               defaultMessage: "Column headers with buttons are sortable",
               id: "/bwX1a",
@@ -153,25 +158,37 @@ function BasicTable<T extends RecordWithId>({
           </tr>
         </thead>
         <tbody data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)">
-          {data.map((datum) => {
-            return (
-              <tr key={JSON.stringify(datum) /* 🤷 */}>
-                {columns
-                  .filter((column) => !hiddenColumnIds.includes(column.id))
-                  .map((column) => {
-                    return (
-                      <td
-                        key={column.id}
-                        data-h2-padding="base(x.5, x1)"
-                        data-h2-text-align="base(left)"
-                      >
-                        {column.accessor(datum)}
-                      </td>
-                    );
-                  })}
-              </tr>
-            );
-          })}
+          {data.length ? (
+            data.map((datum) => {
+              return (
+                <tr key={JSON.stringify(datum) /* 🤷 */}>
+                  {columns
+                    .filter((column) => !hiddenColumnIds.includes(column.id))
+                    .map((column) => {
+                      return (
+                        <td
+                          key={column.id}
+                          data-h2-padding="base(x.5, x1)"
+                          data-h2-text-align="base(left)"
+                        >
+                          {column.accessor(datum)}
+                        </td>
+                      );
+                    })}
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td
+                colSpan={columns.length}
+                data-h2-padding="base(x1)"
+                data-h2-text-align="base(center)"
+              >
+                {intl.formatMessage(tableMessages.noItems)}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

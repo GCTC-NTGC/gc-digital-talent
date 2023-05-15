@@ -314,7 +314,11 @@ query GetPoolCandidatesPaginated(
     ]
   ) {
     data {
-      ...poolCandidateTable
+      id
+      poolCandidate {
+        ...poolCandidateTable
+      }
+      skillCount
     }
     paginatorInfo {
       count

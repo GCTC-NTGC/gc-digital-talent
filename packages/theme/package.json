@@ -21,13 +21,14 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@gc-digital-talent/storage": "*",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@swc/core": "^1.3.56",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.0.10",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "jest-presets": "*",

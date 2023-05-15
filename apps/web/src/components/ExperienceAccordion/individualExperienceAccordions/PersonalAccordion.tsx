@@ -10,6 +10,7 @@ import { getDateRange } from "~/utils/accordionUtils";
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";
 import SkillSection from "../SkillSection";
+import EditExperienceLink from "../EditExperienceLink";
 
 interface PersonalContentProps
   extends Pick<PersonalExperience, "details" | "description" | "skills"> {
@@ -82,11 +83,13 @@ export const PersonalContent = ({
 type PersonalAccordionProps = PersonalExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  onEditClick?: () => void; // Callback function if edit is a button
   showSkills?: boolean; // show or hide the skills block
 };
 
 const PersonalAccordion = ({
   editUrl,
+  onEditClick,
   headingLevel = "h2",
   showSkills = true,
   ...rest
@@ -105,17 +108,22 @@ const PersonalAccordion = ({
           id: "+AUFyC",
           description: "Title for personal learning section",
         })}
-        editLinkUrl={editUrl}
-        editLinkLabel={intl.formatMessage(
-          {
-            defaultMessage: "Edit<hidden> {context}</hidden>",
-            id: "eLpCfR",
-            description: "Edit experience link label with context",
-          },
-          {
-            context: title,
-          },
-        )}
+        actions={
+          editUrl || onEditClick ? (
+            <EditExperienceLink editUrl={editUrl} onEditClick={onEditClick}>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Edit<hidden> {context}</hidden>",
+                  id: "eLpCfR",
+                  description: "Edit experience link label with context",
+                },
+                {
+                  context: title,
+                },
+              )}
+            </EditExperienceLink>
+          ) : undefined
+        }
       >
         <span data-h2-font-weight="base(700)">{title || ""}</span>
       </ExperienceAccordionHeader>

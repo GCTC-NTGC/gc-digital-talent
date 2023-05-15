@@ -21,6 +21,7 @@ import {
 } from "~/utils/csvUtils";
 
 import { Applicant, PositionDuration } from "~/api/generated";
+import adminMessages from "~/messages/adminMessages";
 
 const useUserCsvData = (applicants: Applicant[]) => {
   const intl = useIntl();
@@ -229,11 +230,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
     },
     {
       key: "skills",
-      label: intl.formatMessage({
-        defaultMessage: "Skills",
-        id: "3IAJad",
-        description: "CSV Header, Skills column",
-      }),
+      label: intl.formatMessage(adminMessages.skills),
     },
   ];
 

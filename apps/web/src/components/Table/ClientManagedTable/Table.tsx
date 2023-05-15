@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { ReactElement } from "react";
+import React, { ReactElement, useId } from "react";
 import isEqual from "lodash/isEqual";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
@@ -24,6 +24,7 @@ import Pagination from "~/components/Pagination";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";
+import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -245,12 +246,31 @@ function Table<T extends Record<string, unknown>>({
     hiddenCols,
   ]);
 
+  const staticId = useId();
+  const inputId = `table-search-${staticId}`;
+  const inputLabel = intl.formatMessage(
+    {
+      defaultMessage: "Search {title}",
+      id: "/7RNZm",
+      description: "Label for search input",
+    },
+    {
+      title: title?.toLowerCase(),
+    },
+  );
+
   return (
     <div>
       {/* Table header */}
       {(filterColumns || search || addBtn) && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
-          <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
+          <p>
+            {title && (
+              <label data-h2-font-weight="base(700)" htmlFor={inputId}>
+                {inputLabel}
+              </label>
+            )}
+          </p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, x.5)">
@@ -259,6 +279,8 @@ function Table<T extends Record<string, unknown>>({
                     <SearchForm
                       onChange={setGlobalFilter}
                       value={globalFilter}
+                      inputId={inputId}
+                      inputLabel={inputLabel}
                     />
                   </div>
                 )}
@@ -377,6 +399,8 @@ function Table<T extends Record<string, unknown>>({
           >
             <caption>
               <span data-h2-visually-hidden="base(invisible)">
+                {title}
+                <br />
                 {intl.formatMessage({
                   defaultMessage: "Column headers with buttons are sortable",
                   id: "/bwX1a",
@@ -415,24 +439,36 @@ function Table<T extends Record<string, unknown>>({
               data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)"
               {...getTableBodyProps()}
             >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          data-h2-padding="base(x.5, x1)"
-                          data-h2-text-align="base(left)"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+              {rows.length ? (
+                page.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            data-h2-padding="base(x.5, x1)"
+                            data-h2-text-align="base(left)"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan={columns.length}
+                    data-h2-padding="base(x1)"
+                    data-h2-text-align="base(center)"
+                  >
+                    {intl.formatMessage(tableMessages.noItems)}
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

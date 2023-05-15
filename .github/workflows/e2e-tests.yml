@@ -62,7 +62,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v5.6.2
+        uses: cypress-io/github-action@v5.7.2
         with:
           spec: "**/*.cy.js"
           browser: chrome
@@ -70,6 +70,7 @@ jobs:
           project: ./apps/e2e
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"
+          config: video=false
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
@@ -79,14 +80,6 @@ jobs:
         with:
           name: cypress-screenshots
           path: apps/e2e/cypress/screenshots
-
-      # Test run video was always captured, so this action uses "always()" condition
-      - name: Save video artifacts
-        uses: actions/upload-artifact@v3.1.2
-        if: always()
-        with:
-          name: cypress-videos
-          path: apps/e2e/cypress/videos
 
       - name: Check status of containers
         if: failure()

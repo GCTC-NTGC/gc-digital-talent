@@ -8,19 +8,21 @@ import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
+import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import AddExperienceForm from "./components/AddExperienceForm";
 import { experienceTypeTitles } from "./messages";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationResumeAdd(application.id);
   return {
@@ -35,14 +37,11 @@ export const getPageInfo: GetApplicationPageInfo = ({
       description: "Subtitle for the application résumé page",
     }),
     icon: StarIcon,
-    omitFromStepper: true,
     crumbs: [
       {
         url: paths.applicationResume(application.id),
-        label: intl.formatMessage({
-          defaultMessage: "Step 3",
-          id: "khjfel",
-          description: "Breadcrumb link text for the application résumé page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
       {
@@ -58,16 +57,19 @@ export const getPageInfo: GetApplicationPageInfo = ({
     link: {
       url: path,
     },
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
-    stepSubmitted: null,
-    hasError: null,
   };
 };
 
 const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
 
   return (
     <>
@@ -93,7 +95,7 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
             })}
           </StandardAccordionHeader>
           <Accordion.Content>
-            <p>
+            <p data-h2-margin-top="base(x1)">
               {intl.formatMessage({
                 defaultMessage:
                   "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your résumé:",

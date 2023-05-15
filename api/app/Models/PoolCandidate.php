@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 /**
@@ -518,9 +519,12 @@ class PoolCandidate extends Model
 
     public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
     {
+
         if (empty($skills)) {
             return $query;
         }
+
+        $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
@@ -535,6 +539,8 @@ class PoolCandidate extends Model
         if (empty($skills)) {
             return $query;
         }
+
+        $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
@@ -593,5 +599,48 @@ class PoolCandidate extends Model
         $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
 
         $this->submitted_steps = $submittedSteps->values()->all();
+    }
+
+    public function scopeWithSkillCount(Builder $query)
+    {
+        // Checks if the query already has a skill_count select and if it does, it skips adding it again
+        $currentSql = $query->getQuery()->toSql();
+        $skillCountAppearances = substr_count($currentSql, 'skill_count');
+        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
+        if ($orderedBySkillCount && $skillCountAppearances === 2) {
+            return $query;
+        }
+
+        return $query->addSelect([
+            "skill_count" =>  Skill::whereIn('skills.id', [])
+                ->select(DB::raw('null as skill_count'))
+        ]);
+    }
+
+    private function addSkillCountSelect(Builder $query, ?array $skills): Builder
+    {
+        return $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', $skills)
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select(DB::raw('count(*) as skills'))
+                ->where(function (Builder $query) {
+                    $query->orWhereHas('awardExperiences', function (Builder $query) {
+                        $query->whereColumn('user_id', 'users.id');
+                    })
+                        ->orWhereHas('educationExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('communityExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('personalExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('workExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        });
+                })
+
+        ]);
     }
 }

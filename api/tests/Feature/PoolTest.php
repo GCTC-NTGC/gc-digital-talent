@@ -7,6 +7,9 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Carbon\Carbon;
+
+use function PHPUnit\Framework\assertSame;
 
 class PoolTest extends TestCase
 {
@@ -15,6 +18,8 @@ class PoolTest extends TestCase
     use RefreshesSchemaCache;
 
     protected $adminUser;
+    protected $guestUser;
+    protected $baseUser;
 
     protected function setUp(): void
     {
@@ -32,6 +37,12 @@ class PoolTest extends TestCase
             "base_user",
             "platform_admin"
         ]);
+
+        $this->guestUser = User::factory()->create();
+        $this->guestUser->syncRoles(["guest"]);
+
+        $this->baseUser = User::factory()->create();
+        $this->baseUser->syncRoles(["base_user"]);
     }
 
     public function testPoolAdvertisementAccessor(): void
@@ -60,14 +71,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 1 will return accessor as published
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
@@ -77,14 +89,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 2 will return accessor as closed
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
@@ -94,14 +107,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 3 will return accessor as draft
         $this->actingAs($this->adminUser, "api")->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
@@ -111,14 +125,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 4 will return accessor as draft
         $this->actingAs($this->adminUser, "api")->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
@@ -146,14 +161,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 1 will still be published
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
@@ -163,14 +179,15 @@ class PoolTest extends TestCase
 
         // Assert query with pool 2 will return as closed
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
             }
         }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "poolAdvertisement" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
@@ -193,14 +210,15 @@ class PoolTest extends TestCase
 
         // Assert query will return only the published pool
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query browsePools {
             publishedPoolAdvertisements {
               id
             }
           }
-    ')->assertJson([
+    '
+        )->assertJson([
             "data" => [
                 "publishedPoolAdvertisements" => [
                     [
@@ -209,5 +227,151 @@ class PoolTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsAnon(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as anonymous user
+        $this->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as base role user
+        $this->actingAs($this->baseUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as guest role user
+        $this->actingAs($this->guestUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    // This error is not desired behavior, but is expected due to current implementation.
+    public function testListPoolsReturnsAuthErrorAsNoRoleUser(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+
+        $draftPool = Pool::factory()->create([
+            'published_at' => null,
+        ]);
+
+        $noRoleUser = User::factory()->create();
+        // Assert query will return only the published pool as guest user
+        $this->actingAs($noRoleUser, "api")->graphQL(
+        /** @lang GraphQL */
+        '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        ')->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    // test filtering closing_date on publishedPoolAdvertisements
+    public function testPoolAdvertisementQueryClosingDate(): void
+    {
+        Pool::factory()->create([
+            'published_at' => null,
+        ]);
+        Pool::factory()->count(2)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.far_future_date'),
+        ]);
+        Pool::factory()->count(3)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.past_date'),
+        ]);
+        $timeNow = Carbon::now()->toDateTimeString();
+
+        // assert no argument passed in for closingDate returns 5 published pools
+        $response = $this->actingAs($this->adminUser, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+        query browsePools  {
+            publishedPoolAdvertisements {
+                id
+            }
+        }
+        ',
+                []
+            );
+        $responseCount = count($response->json('data.publishedPoolAdvertisements'));
+        assertSame(5, $responseCount);
+
+        // assert time argument passed in filters out unpublished and closed pools
+        $response2 = $this->actingAs($this->adminUser, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+        query browsePools ($date: DateTime) {
+            publishedPoolAdvertisements(closingAfter: $date) {
+                id
+            }
+        }
+        ',
+                ['date' => $timeNow]
+            );
+
+        $response2Count = count($response2->json('data.publishedPoolAdvertisements'));
+        assertSame(2, $response2Count);
     }
 }

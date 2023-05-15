@@ -10,6 +10,7 @@ import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
+import adminMessages from "~/messages/adminMessages";
 import ViewTeam from "./components/ViewTeam";
 
 type RouteParams = {
@@ -62,11 +63,7 @@ const ViewTeamPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "P+KWP7",
-        description: "Breadcrumb title for the teams page link.",
-      }),
+      label: intl.formatMessage(adminMessages.teams),
       url: routes.teamTable(),
     },
     ...(teamId

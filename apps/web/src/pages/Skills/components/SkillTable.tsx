@@ -13,6 +13,7 @@ import Table, {
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
+import adminMessages from "~/messages/adminMessages";
 
 const skillFamiliesCell = (
   skillFamilies: Maybe<Maybe<SkillFamily>[]>,
@@ -31,9 +32,10 @@ type SkillCell = Cell<Skill>;
 
 interface SkillTableProps {
   skills: Array<Skill>;
+  title: string;
 }
 
-export const SkillTable = ({ skills }: SkillTableProps) => {
+export const SkillTable = ({ skills, title }: SkillTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -84,12 +86,7 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
         },
       },
       {
-        Header: intl.formatMessage({
-          defaultMessage: "Skill Families",
-          id: "KB+xr6",
-          description:
-            "Title displayed for the skill table Skill Families column.",
-        }),
+        Header: intl.formatMessage(adminMessages.skillFamilies),
         Cell: ({ row: { original: skill } }: SkillCell) =>
           skillFamiliesCell(skill.families, locale),
         accessor: (skill) =>
@@ -133,6 +130,7 @@ export const SkillTable = ({ skills }: SkillTableProps) => {
           description: "Heading displayed above the Create Skill form.",
         }),
       }}
+      title={title}
     />
   );
 };
@@ -142,7 +140,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const SkillTableApi = () => {
+const SkillTableApi = ({ title }: { title: string }) => {
   const [result] = useAllSkillsQuery({
     context,
   });
@@ -152,7 +150,7 @@ const SkillTableApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillTable skills={skills || []} />
+      <SkillTable skills={skills || []} title={title} />
     </Pending>
   );
 };

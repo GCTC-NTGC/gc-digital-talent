@@ -293,4 +293,34 @@ class DirectivesTest extends TestCase
         assertNotNull($dateReturned);
         assertSame($dateReturned, $executionTime);
     }
+
+    public function testLowerCase(): void
+    {
+        // testing Lighthouse with PHPUnit https://lighthouse-php.com/master/testing/extensions.html
+        $this->mockResolver(function ($root, array $args): string {
+            return $args['bar'];
+        });
+
+        $this->schema =
+            /** @lang GraphQL */
+            '
+        type Query {
+            foo(bar: String @lowerCase): String @mock
+        }
+        ';
+
+        // assert input string is set to lowercase
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+        {
+            foo(bar: "UPPERCASE")
+        }
+        '
+        )->assertExactJson([
+            'data' => [
+                'foo' => 'uppercase',
+            ],
+        ]);
+    }
 }

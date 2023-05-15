@@ -7,16 +7,13 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 
+import adminMessages from "~/messages/adminMessages";
 import DepartmentTableApi from "./components/DepartmentTable";
 
 export const DepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Departments",
-    id: "457hEW",
-    description: "Heading displayed above the Department Table component.",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.departments);
 
   const navigationCrumbs = [
     {
@@ -28,11 +25,7 @@ export const DepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Departments",
-        id: "Ig9HmP",
-        description: "Breadcrumb title for the departments page link.",
-      }),
+      label: intl.formatMessage(adminMessages.departments),
       url: routes.departmentTable(),
     },
   ];
@@ -41,7 +34,7 @@ export const DepartmentPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={BuildingOfficeIcon}>{pageTitle}</PageHeader>
-      <DepartmentTableApi />
+      <DepartmentTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };
