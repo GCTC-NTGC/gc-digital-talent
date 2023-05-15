@@ -6,6 +6,8 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { Button, Separator } from "@gc-digital-talent/ui";
 
+import applicationMessages from "~/messages/applicationMessages";
+
 const FormActions = () => {
   const intl = useIntl();
   const { register, setValue } = useFormContext();
@@ -33,12 +35,7 @@ const FormActions = () => {
           {...actionProps}
           onClick={() => setValue("action", "continue")}
         >
-          {intl.formatMessage({
-            defaultMessage: "Let's review my application",
-            id: "uPnk4X",
-            description:
-              "Button text to submit screening questions and continue to application review",
-          })}
+          {intl.formatMessage(applicationMessages.saveContinue)}
         </Button>
         <Button
           type="submit"
