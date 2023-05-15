@@ -3,7 +3,8 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import { HeadingProps } from "@gc-digital-talent/ui";
+
+import { HeadingProps, IconType } from "@gc-digital-talent/ui";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -12,10 +13,6 @@ import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
 import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
 import { getLabels as getLangLabels } from "./components/LanguageProfile/utils";
 import { SectionKey } from "./types";
-
-export type IconType = React.ForwardRefExoticComponent<
-  React.SVGProps<SVGSVGElement>
->;
 
 interface GetSectionIconArgs {
   isEditing: boolean;

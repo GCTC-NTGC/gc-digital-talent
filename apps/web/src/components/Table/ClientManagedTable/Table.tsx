@@ -16,7 +16,7 @@ import {
   HeaderGroup,
 } from "react-table";
 
-import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { Button, Dialog, IconType, Link } from "@gc-digital-talent/ui";
 import { Fieldset } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
@@ -77,11 +77,7 @@ const IndeterminateCheckbox = ({
   );
 };
 
-const ButtonIcon = ({
-  icon,
-}: {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
-}) => {
+const ButtonIcon = ({ icon }: { icon: IconType }) => {
   const Icon = icon;
 
   return (

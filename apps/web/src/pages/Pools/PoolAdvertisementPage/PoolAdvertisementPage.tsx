@@ -18,6 +18,7 @@ import {
   Link,
   Accordion,
   TableOfContents,
+  IconType,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
@@ -117,7 +118,7 @@ const Text = ({ children }: { children: React.ReactNode }) => (
 );
 interface IconTitleProps {
   children: React.ReactNode;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
 }
 
 const IconTitle = ({ children, icon }: IconTitleProps) => {

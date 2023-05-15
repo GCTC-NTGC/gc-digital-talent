@@ -2,9 +2,10 @@ import React from "react";
 
 import Link from "./Link";
 import type { LinkProps } from "./Link";
+import { IconType } from "../../types";
 
 export interface IconLinkProps extends LinkProps {
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 }
 
 const IconLink = ({ icon, children, block, ...rest }: IconLinkProps) => {
