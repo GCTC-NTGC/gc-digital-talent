@@ -4,7 +4,7 @@ import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
 
 export interface FormValues {
-  isIndigenous: boolean;
+  isIndigenous: "yes" | "no" | null;
   communities: Array<FormCommunity>;
   isStatusFirstNations: "yes" | "no" | null;
 }
@@ -37,7 +37,7 @@ export function apiCommunitiesToFormValues(
 
   // assemble object from pre-computed values
   return {
-    isIndigenous: apiCommunities.length > 0,
+    isIndigenous: apiCommunities.length > 0 ? "yes" : "no",
     communities: formCommunities,
     isStatusFirstNations,
   };

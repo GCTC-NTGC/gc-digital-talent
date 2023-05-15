@@ -2,13 +2,28 @@ import React from "react";
 import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-import { Button, Heading, Separator } from "@gc-digital-talent/ui";
-import { Input, RadioGroup, Submit } from "@gc-digital-talent/forms";
+import {
+  Button,
+  Heading,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
+import {
+  Input,
+  RadioGroup,
+  Submit,
+  unpackMaybes,
+} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ApplicationStep,
+  IndigenousCommunity,
+  Maybe,
+  useGetApplicationQuery,
+  useGetMeQuery,
   useUpdateApplicationMutation,
   useUpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
@@ -24,12 +39,13 @@ import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/Verif
 import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
+  apiCommunitiesToFormValues,
   formValuesToApiCommunities,
   type FormValues as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
 
 import { useFeatureFlags } from "@gc-digital-talent/env";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
@@ -94,10 +110,15 @@ export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-type ApplicationSelfDeclarationProps = ApplicationPageProps;
+type ApplicationSelfDeclarationProps = ApplicationPageProps & {
+  indigenousCommunities: IndigenousCommunity[];
+  signature: string | null;
+};
 
 const ApplicationSelfDeclaration = ({
   application,
+  indigenousCommunities: initialIndigenousCommunities,
+  signature: initialSignature,
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -115,7 +136,13 @@ const ApplicationSelfDeclaration = ({
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
   const nextStep = followingPageUrl ?? paths.applicationProfile(application.id);
 
-  const methods = useForm<FormValues>();
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      ...apiCommunitiesToFormValues(initialIndigenousCommunities),
+      isIndigenous: initialIndigenousCommunities.length > 0 ? "yes" : "no",
+      signature: initialSignature ?? undefined,
+    },
+  });
   const { watch, register, setValue } = methods;
   const actionProps = register("action");
   const [isIndigenousValue, communitiesValue] = watch([
@@ -358,8 +385,44 @@ const ApplicationSelfDeclaration = ({
   );
 };
 
-const ApplicationSelfDeclarationPage = () => (
-  <ApplicationApi PageComponent={ApplicationSelfDeclaration} />
-);
+const ApplicationSelfDeclarationPage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+      stale: applicationStale,
+    },
+  ] = useGetApplicationQuery({
+    requestPolicy: "cache-first",
+    variables: {
+      id: applicationId || "",
+    },
+  });
+  const [{ data: userData, fetching: userFetching, error: userError }] =
+    useGetMeQuery();
+
+  const application = applicationData?.poolCandidate;
+  const resolvedIndigenousCommunities = unpackMaybes(
+    userData?.me?.indigenousCommunities,
+  );
+  return (
+    <Pending
+      fetching={applicationFetching || applicationStale || userFetching}
+      error={applicationError || userError}
+    >
+      {application?.poolAdvertisement && userData?.me ? (
+        <ApplicationSelfDeclaration
+          application={application}
+          indigenousCommunities={resolvedIndigenousCommunities}
+          signature={userData.me.indigenousDeclarationSignature ?? null}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationSelfDeclarationPage;
