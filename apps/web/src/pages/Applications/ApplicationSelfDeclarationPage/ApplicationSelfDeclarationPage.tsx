@@ -1,32 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Button, Heading, Separator } from "@gc-digital-talent/ui";
+import { Input, RadioGroup, Submit } from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import {
-  apiValuesToFormValues,
-  FormValues,
-  formValuesToApiValues,
-} from "~/utils/indigenousDeclaration";
-import {
-  IndigenousCommunity,
-  useGetApplicationQuery,
-  useGetMeQuery,
-} from "@gc-digital-talent/graphql";
-import AddToProfile from "~/components/EmploymentEquity/dialogs/AddToProfile";
-import { Checkbox, Fieldset, unpackMaybes } from "@gc-digital-talent/forms";
-import { getEmploymentEquityStatement } from "@gc-digital-talent/i18n";
-import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
-import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
-import { useParams } from "react-router";
+import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
+import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
+import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
+import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
+import { wrapAbbr } from "~/utils/nameUtils";
+
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import HelpLink from "./SelfDeclaration/HelpLink";
+import CommunitySelection from "./SelfDeclaration/CommunitySelection";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -66,44 +61,100 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const makeLink = (text: React.ReactNode, url: string) => (
-  <a href={url}>{text}</a>
+const whyLink = (chunks: React.ReactNode) => (
+  <SelfDeclarationDialog>{chunks}</SelfDeclarationDialog>
 );
 
-interface ApplicationSelfDeclarationProps extends ApplicationPageProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+const verificationLink = (chunks: React.ReactNode) => (
+  <VerificationDialog>{chunks}</VerificationDialog>
+);
+
+const definitionLink = (chunks: React.ReactNode) => (
+  <DefinitionDialog>{chunks}</DefinitionDialog>
+);
+
+type PageAction = "continue" | "cancel";
+type FormValues = {
+  isIndigenous?: "yes" | "no";
+  communities?: string[];
+  action: PageAction;
+};
+
+export interface SelfDeclarationFormProps {
+  onSubmit: (data: FormValues) => void;
 }
+
+type ApplicationSelfDeclarationProps = ApplicationPageProps;
 
 const ApplicationSelfDeclaration = ({
   application,
-  indigenousCommunities,
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const methods = useForm<FormValues>({
-    defaultValues: apiValuesToFormValues(indigenousCommunities),
-  });
-  const { handleSubmit } = methods;
+  const { applicantDashboard } = useFeatureFlags();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
-  const onSave = (_: IndigenousCommunity[]) => {};
+  const methods = useForm<FormValues>();
+  const { watch, register, setValue } = methods;
 
-  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(formValuesToApiValues(data));
+  const actionProps = register("action");
+
+  const [isIndigenousValue, communitiesValue] = watch([
+    "isIndigenous",
+    "communities",
+  ]);
+
+  const isIndigenous = isIndigenousValue === "yes";
+  const hasCommunities = communitiesValue && communitiesValue.length > 0;
+
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    console.log(formValues);
+    // executeMutation({
+    //   id: application.id,
+    //   application: {
+    //     insertSubmittedStep: ApplicationStep.ReviewYourResume,
+    //   },
+    // })
+    //   .then((res) => {
+    //     if (!res.error) {
+    //       toast.success(
+    //         intl.formatMessage({
+    //           defaultMessage: "Successfully updated your résumé!",
+    //           id: "VJm1GR",
+    //           description:
+    //             "Message displayed to users when saving résumé is successful.",
+    //         }),
+    //       );
+    //       navigate(formValues.action === "continue" ? nextStep : cancelPath);
+    //     }
+    //   })
+    //   .catch(() => {
+    //     toast.error(
+    //       intl.formatMessage({
+    //         defaultMessage: "Error: adding experience failed",
+    //         id: "moKAQP",
+    //         description:
+    //           "Message displayed to user after experience fails to be created.",
+    //       }),
+    //     );
+    //   });
   };
 
   const labels = getSelfDeclarationLabels(intl);
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
-      <p>
+      <Heading data-h2-margin-top="base(0)" data-h2-margin-bottom="base(x1)">
+        {pageInfo.title}
+      </Heading>
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the Program!",
@@ -112,102 +163,178 @@ const ApplicationSelfDeclaration = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(submitHandler)}>
-          <AddToProfile />
-          <div data-h2-margin="base(x1, 0, x1.5, 0)">
-            <Fieldset
-              legend={intl.formatMessage({
-                defaultMessage: "Self-Declaration",
-                id: "dYS0MA",
-                description: "Form label for a self-declaration input",
-              })}
-              name="isIndigenous"
-              hideOptional
-              trackUnsaved={false}
-            >
-              <Checkbox
-                id="isIndigenous"
-                name="isIndigenous"
-                label={intl.formatMessage(
-                  getEmploymentEquityStatement("indigenous"),
-                )}
-                trackUnsaved={false}
-              />
-            </Fieldset>
-            <CommunitySelection labels={labels} />
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <RadioGroup
+            idPrefix="isIndigenous"
+            id="isIndigenous"
+            name="isIndigenous"
+            legend={labels.isIndigenous}
+            trackUnsaved={false}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={[
+              {
+                value: "yes",
+                label: intl.formatMessage({
+                  defaultMessage:
+                    '"I affirm that I am First Nations, Inuk (Inuit), or a Métis person"',
+                  id: "7STO48",
+                  description:
+                    "Text for the option to self-declare as Indigenous",
+                }),
+              },
+              {
+                value: "no",
+                label: intl.formatMessage({
+                  defaultMessage:
+                    '"I am not a member of an Indigenous group and I would like to see other opportunities available to me"',
+                  id: "BwEf/S",
+                  description:
+                    "Text for the option to self-declare as not an Indigenous person",
+                }),
+              },
+            ]}
+          />
+          <CommunitySelection labels={labels} />
+
+          <div data-h2-max-width="base(48rem)">
+            {isIndigenous && hasCommunities ? (
+              <>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
+                    id: "Dz9xib",
+                    description:
+                      "Disclaimer displayed before signing the Indigenous self-declaration form",
+                  })}
+                </p>
+                <Input
+                  type="text"
+                  id="signature"
+                  name="signature"
+                  label={labels.signature}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(x.25, x.5)"
+                  data-h2-flex-wrap="base(wrap)"
+                  data-h2-flex-direction="base(column) l-tablet(row)"
+                  data-h2-align-items="base(flex-start) l-tablet(center)"
+                >
+                  <Button
+                    type="submit"
+                    mode="solid"
+                    value="continue"
+                    {...actionProps}
+                    onClick={() => {
+                      setValue("action", "continue");
+                      // setValue("experienceCount", experiences.length);
+                    }}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Sign and continue",
+                      id: "7rSh+m",
+                      description:
+                        "Button text to submit the Indigenous self-declaration form.",
+                    })}
+                  </Button>
+                  <Button
+                    type="submit"
+                    mode="inline"
+                    color="secondary"
+                    value="cancel"
+                    {...actionProps}
+                    onClick={() => {
+                      setValue("action", "cancel");
+                      // setValue("experienceCount", experiences.length);
+                    }}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Save and quit for now",
+                      id: "U86N4g",
+                      description:
+                        "Action button to save and exit an application",
+                    })}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "This program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
+                    id: "v0EVPQ",
+                    description:
+                      "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)" data-h2-font-weight="base(700)">
+                  {intl.formatMessage({
+                    defaultMessage: "Not a member of an Indigenous group?",
+                    id: "Xe90FW",
+                    description:
+                      "Lead in text for button to submit form and navigate to a different page when no Indigenous",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  <Submit
+                    color="ia-primary"
+                    mode="solid"
+                    text={intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Explore <abbreviation>IT</abbreviation> opportunities within the federal government",
+                        id: "j3WBqJ",
+                        description:
+                          "Button text to submit the Indigenous self-declaration form when not Indigenous.",
+                      },
+                      {
+                        abbreviation: (text: React.ReactNode) =>
+                          wrapAbbr(text, intl),
+                      },
+                    )}
+                  />
+                </p>
+              </>
+            )}
           </div>
+          <Separator
+            orientation="horizontal"
+            decorative
+            data-h2-background-color="base(secondary)"
+            data-h2-margin="base(x2, 0)"
+          />
+          <HelpLink />
+          <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "See <whyLink>why we are asking you to self declare</whyLink>, <verificationLink>how this will be verified</verificationLink> and the term <definitionLink>Indigenous as defined for this program</definitionLink>.",
+                id: "AMboRG",
+                description:
+                  "Links to more information on the self-declaration process and definition of Indigenous",
+              },
+              {
+                whyLink,
+                verificationLink,
+                definitionLink,
+              },
+            )}
+          </p>
         </form>
       </FormProvider>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "If you are unsure about providing your information, or if you have any questions regarding the IT Apprenticeship Program for Indigenous Peoples, please <contactUsLink>contact us</contactUsLink> and we would be happy to meet with you.",
-            id: "0HsSBa",
-            description: "Application self-declaration intro paragraph 2",
-          },
-          {
-            contactUsLink: (text: React.ReactNode) =>
-              makeLink(text, "mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"),
-          },
-        )}
-      </p>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Click here to see <whyAskLink>why we are asking you to self declare</whyAskLink>, <howVerifyLink>how this will be verified</howVerifyLink>, and the term <defineIndigenousLink>Indigenous as defined for this program</defineIndigenousLink>.",
-            id: "o3xrfO",
-            description: "Application self-declaration intro paragraph 3",
-          },
-          {
-            whyAskLink: null,
-            howVerifyLink: null,
-            defineIndigenousLink: null,
-          },
-        )}
-      </p>
     </>
   );
 };
 
-const ApplicationSelfDeclarationPage = () => {
-  const { applicationId } = useParams();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
-    variables: {
-      id: applicationId || "",
-    },
-  });
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useGetMeQuery();
-
-  const application = applicationData?.poolCandidate;
-  const resolvedIndigenousCommunities = unpackMaybes(
-    userData?.me?.indigenousCommunities,
-  );
-  return (
-    <Pending
-      fetching={applicationFetching || applicationStale || userFetching}
-      error={applicationError || userError}
-    >
-      {application?.poolAdvertisement && userData?.me ? (
-        <ApplicationSelfDeclaration
-          application={application}
-          indigenousCommunities={resolvedIndigenousCommunities}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
+const ApplicationSelfDeclarationPage = () => (
+  <ApplicationApi PageComponent={ApplicationSelfDeclaration} />
+);
 
 export default ApplicationSelfDeclarationPage;
