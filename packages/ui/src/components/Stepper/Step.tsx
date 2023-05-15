@@ -2,8 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
-import { StepState, IconType } from "./types";
+import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
+import { IconType } from "../../types";
 
 interface StepLinkProps {
   children: React.ReactNode;

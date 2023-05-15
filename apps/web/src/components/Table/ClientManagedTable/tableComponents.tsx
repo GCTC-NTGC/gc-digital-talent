@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IconType } from "@gc-digital-talent/ui";
+
 export const IndeterminateCheckbox = ({
   indeterminate,
   labelText,
@@ -42,11 +44,7 @@ export const Spacer = ({ children }: { children?: React.ReactNode }) => (
   </div>
 );
 
-export const ButtonIcon = ({
-  icon,
-}: {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
-}) => {
+export const ButtonIcon = ({ icon }: { icon: IconType }) => {
   const Icon = icon;
 
   return (

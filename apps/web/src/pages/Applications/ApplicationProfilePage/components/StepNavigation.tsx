@@ -18,6 +18,7 @@ import {
   ApplicationStep,
 } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import { useProfileFormContext } from "./ProfileFormContext";
 import { useApplicationContext } from "../../ApplicationContext";
 
@@ -141,6 +142,15 @@ const StepNavigation = ({
             },
             { requirements },
           ),
+        );
+      }
+      const completeDEI = !hasEmptyDEIRequiredFields(
+        user,
+        application?.poolAdvertisement,
+      );
+      if (!completeDEI) {
+        toast.error(
+          intl.formatMessage(applicationMessages.reservedForIndigenous),
         );
       }
     }
