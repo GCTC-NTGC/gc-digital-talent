@@ -90,6 +90,7 @@ input ApplicantFilterInput {
   positionDuration: [PositionDuration]
   pools: [IdInput]
   skills: [IdInput]
+  skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
 }
@@ -415,7 +416,8 @@ type Department {
 }
 
 input DepartmentBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
@@ -451,6 +453,11 @@ input EducationExperienceInput {
   status: EducationStatus
   details: String
   skills: UpdateExperienceSkills
+}
+
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
 }
 
 enum EducationStatus {
@@ -877,6 +884,8 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   screeningQuestionResponses: [ScreeningQuestionResponse]
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementExperiences: [Experience]
 }
 
 type PoolCandidateFilter {
@@ -907,15 +916,6 @@ input PoolCandidateFilterInput {
   pools: [IdInput]
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
-}
-
-"""A paginated list of PoolCandidate items."""
-type PoolCandidatePaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of PoolCandidate items."""
-  data: [PoolCandidate!]!
 }
 
 input PoolCandidateSearchInput {
@@ -969,6 +969,21 @@ enum PoolCandidateStatus {
   REMOVED
 }
 
+type PoolCandidateWithSkillCount {
+  id: ID!
+  poolCandidate: PoolCandidate!
+  skillCount: Int
+}
+
+"""A paginated list of PoolCandidateWithSkillCount items."""
+type PoolCandidateWithSkillCountPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateWithSkillCount items."""
+  data: [PoolCandidateWithSkillCount!]!
+}
+
 enum PoolStream {
   BUSINESS_ADVISORY_SERVICES
   DATABASE_MANAGEMENT
@@ -1007,6 +1022,7 @@ enum ProvinceOrTerritory {
 }
 
 enum PublishingGroup {
+  IAP
   IT_JOBS
   IT_JOBS_ONGOING
   EXECUTIVE_JOBS
@@ -1023,7 +1039,7 @@ type Query {
   pool(id: UUID!): Pool
   poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
-  publishedPoolAdvertisements: [PoolAdvertisement!]!
+  publishedPoolAdvertisements(closingAfter: DateTime): [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -1070,7 +1086,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): PoolCandidatePaginator
+  ): PoolCandidateWithSkillCountPaginator
 }
 
 """Order by clause for Query.poolCandidatesPaginated.orderBy."""
@@ -1330,6 +1346,12 @@ scalar UUID
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  educationRequirementOption: EducationRequirementOption
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
 input UpdateClassificationInput {
@@ -1344,8 +1366,13 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input UpdateEducationExperiencesRequirementBelongsToMany {
+  sync: [ID!]
+}
+
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
 

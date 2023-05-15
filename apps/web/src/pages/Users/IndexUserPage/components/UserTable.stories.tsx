@@ -23,24 +23,23 @@ export default {
   title: "Tables/User Table",
   parameters: {
     themeKey: "admin",
+    apiResponses: {
+      AllUsersPaginated: {
+        data: {
+          usersPaginated: {
+            data: [...userData.slice(0, 4)],
+            paginatorInfo: mockPaginatorInfo,
+          },
+        },
+      },
+      ...UserTableFilterDialogMeta.parameters?.apiResponses,
+    },
   },
 } as ComponentMeta<typeof UserTable>;
 
-const Template: ComponentStory<typeof UserTable> = () => {
-  return <UserTable />;
+const Template: ComponentStory<typeof UserTable> = ({ title }) => {
+  return <UserTable title={title} />;
 };
 
 export const Default = Template.bind({});
-Default.args = {
-  apiResponses: {
-    AllUsersPaginated: {
-      data: {
-        usersPaginated: {
-          data: [...userData.slice(0, 4)],
-          paginatorInfo: mockPaginatorInfo,
-        },
-      },
-    },
-    ...UserTableFilterDialogMeta.parameters?.apiResponses,
-  },
-};
+Default.args = { title: "Users" };

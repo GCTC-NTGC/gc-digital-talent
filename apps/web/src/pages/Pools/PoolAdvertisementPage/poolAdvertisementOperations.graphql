@@ -119,6 +119,13 @@ query getPoolAdvertisement($id: UUID!) {
     }
     stream
     processNumber
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
   }
 }
 

@@ -48,7 +48,7 @@ const composeId = (name: string, contentId?: string) => {
   return id;
 };
 
-interface RootProps {
+interface RootProps extends React.HTMLProps<HTMLDivElement> {
   /** Sets the section to be 'open' by default */
   defaultOpen?: boolean;
   /** Controllable open state */
@@ -63,7 +63,10 @@ interface RootProps {
  * and provides context to those components
  */
 const Root = React.forwardRef<HTMLDivElement, RootProps>(
-  ({ defaultOpen, open: openProp, onOpenChange, children }, forwardedRef) => {
+  (
+    { defaultOpen, open: openProp, onOpenChange, children, ...rest },
+    forwardedRef,
+  ) => {
     const [open = false, setOpen] = useControllableState<boolean>({
       controlledProp: openProp,
       defaultValue: defaultOpen,
@@ -86,6 +89,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       >
         <div
           ref={forwardedRef}
+          {...rest}
           data-state={open ? "open" : "closed"}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
@@ -267,7 +271,7 @@ const Header = React.forwardRef<HTMLHeadingElement, HeaderProps>(
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(center) l-tablet(flex-end)"
+        data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
       >
         <Heading

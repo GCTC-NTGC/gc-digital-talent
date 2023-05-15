@@ -1,60 +1,34 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeDepartments } from "@gc-digital-talent/fake-data";
 import {
-  CreatePoolCandidateSearchRequestInput,
-  OperationalRequirement,
-  PoolCandidateFilter,
-  WorkRegion,
-} from "~/api/generated";
+  fakeApplicantFilters,
+  fakeClassifications,
+  fakeDepartments,
+  fakePools,
+  fakeSkills,
+} from "@gc-digital-talent/fake-data";
+import { CreatePoolCandidateSearchRequestInput } from "~/api/generated";
 import { RequestForm, RequestFormProps } from "./RequestForm";
 
-const poolCandidateFilter: PoolCandidateFilter = {
-  id: "9ef184ad-1752-411e-a022-7f7989f6bf27",
-  classifications: [
-    {
-      id: "90689420-553d-4a3b-999a-fb94b1baaa69",
-      group: "IT",
-      level: 4,
-    },
-    {
-      id: "bcfa88b3-ed22-4879-8642-e7dd003e91b4",
-      group: "IT",
-      level: 5,
-    },
-    {
-      id: "7b0d9293-e811-413c-b0df-346e55f3fdd0",
-      group: "EC",
-      level: 1,
-    },
-  ],
-  hasDiploma: false,
-  equity: {
-    hasDisability: false,
-    isIndigenous: false,
-    isVisibleMinority: false,
-    isWoman: false,
-  },
-  languageAbility: null,
-  operationalRequirements: [
-    OperationalRequirement.DriversLicense,
-    OperationalRequirement.OnCall,
-  ],
-  workRegions: [WorkRegion.Ontario, WorkRegion.Quebec],
-  pools: [
-    {
-      id: "acf045c9-6daf-4a59-aeb3-ab62acb0418e",
-    },
-  ],
-};
+const classifications = fakeClassifications();
+const pools = fakePools();
+const skills = fakeSkills();
+
+const applicantFilter = fakeApplicantFilters()[0];
+applicantFilter.skills = [skills[0], skills[1]];
+applicantFilter.pools = [pools[0]];
+applicantFilter.qualifiedClassifications = [classifications[0]];
 
 export default {
   component: RequestForm,
   title: "Forms/Request Form",
   args: {
     departments: fakeDepartments(),
-    poolCandidateFilter,
+    applicantFilter,
+    classifications,
+    pools,
+    skills,
     candidateCount: 10,
     handleCreatePoolCandidateSearchRequest: async (
       data: CreatePoolCandidateSearchRequestInput,

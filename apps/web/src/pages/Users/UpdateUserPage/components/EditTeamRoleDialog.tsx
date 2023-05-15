@@ -1,7 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField } from "@gc-digital-talent/forms";

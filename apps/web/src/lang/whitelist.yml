@@ -12,12 +12,9 @@
 - XSo129 # 'Description' Title displayed for the Skill Family table Description column.
 - hlcd+5 # 'Résultats du tableau'
 - 4AubyK # Notes (Title of the 'Notes' section of the view-user page)
-- gk7uJQ # Classifications (Label displayed on the classifications menu item.)
 - Hqt/ej # 'Archive' 'Heading for the archive pool dialog'
 - P8NuMo # 'Archive' 'Text on a button to archive the pool'
 - jPlK9k # 'Classification' 'Label displayed on the edit pool form classification field.'
-- 5TVKj1 # Classifications
-- xJm72U # 'Classifications' title tag
 - TDTE1c # 'Action' Title displayed for the search request table edit column.
 - ev6HnY # 'Notes' CSV Header, Notes column
 - npC3bT # 'Notes' Title for admin editing a pool candidates notes
@@ -28,8 +25,12 @@
 - gpcHeU # Canada.ca
 - m1eQrS # Canada.ca
 - S8ra2P # Actions
-- kyMlnN # 'Classifications' - Breadcrumb title for the classifications page link.
 - I0VGC0 # 'Placement' - 'User placement breadcrumb text'
 - 9Aa5c0 # 'Notes - {poolName}' Label for the notes field for a specific pool
 - zAl7ZH # 'Michif' Name of Michif language
+- m7tUAm # 'Type' - "Sort experiences by type ascending"
 - nAgrVL # 'Mi'kmaq' Name of Mi'kmaq language
+- 0moSLr # 'Question {number} (EN)'
+- cag7TH # 'Question {number} (FR)'
+- /sBGov # 'Question {number}' - Question is same, number is untranslated
+- kvpRgN # 'Classifications' - Title for classifications

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { LockClosedIcon } from "@heroicons/react/24/solid";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
@@ -23,7 +23,7 @@ import {
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
-  PoolCandidatePaginator,
+  PoolCandidateWithSkillCountPaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
@@ -35,6 +35,7 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
   PoolStream,
+  PoolCandidateWithSkillCount,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -68,7 +69,9 @@ import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
 
-type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
+type Data = NonNullable<
+  FromArray<PoolCandidateWithSkillCountPaginator["data"]>
+>;
 
 function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
@@ -292,11 +295,13 @@ const defaultState = {
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
+  title,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<
     Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
   >;
+  title: string;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -336,7 +341,9 @@ const PoolCandidatesTable = ({
     filters: applicantFilterInput,
   } = tableState;
 
-  const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
+  const [selectedRows, setSelectedRows] = useState<
+    PoolCandidateWithSkillCount[]
+  >([]);
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -373,6 +380,17 @@ const PoolCandidatesTable = ({
         },
       };
     }
+    if (
+      sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
+      applicantFilterInput?.applicantFilter?.skills &&
+      applicantFilterInput.applicantFilter.skills.length > 0
+    ) {
+      return {
+        column: "skill_count",
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      };
+    }
     // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
     // default tertiary sort is submitted_at,
     return {
@@ -380,7 +398,7 @@ const PoolCandidatesTable = ({
       order: SortOrder.Asc,
       user: undefined,
     };
-  }, [sortingRule]);
+  }, [sortingRule, applicantFilterInput]);
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
@@ -495,7 +513,7 @@ const PoolCandidatesTable = ({
         selectedRows,
         filteredData.length,
         (candidate: Data) =>
-          `${candidate.user.firstName} ${candidate.user.lastName}`,
+          `${candidate.poolCandidate.user.firstName} ${candidate.poolCandidate.user.lastName}`,
         (event) =>
           handleRowSelectedChange(
             filteredData,
@@ -527,7 +545,7 @@ const PoolCandidatesTable = ({
           </span>
         ),
         id: "status",
-        accessor: (d) => statusAccessor(d.status, intl),
+        accessor: (d) => statusAccessor(d.poolCandidate.status, intl),
       },
       {
         label: intl.formatMessage({
@@ -552,7 +570,8 @@ const PoolCandidatesTable = ({
           </span>
         ),
         id: "priority",
-        accessor: ({ user }) => priorityAccessor(user.priorityWeight, intl),
+        accessor: ({ poolCandidate: { user } }) =>
+          priorityAccessor(user.priorityWeight, intl),
       },
       {
         label: intl.formatMessage({
@@ -561,7 +580,8 @@ const PoolCandidatesTable = ({
           id: "/LGiVB",
         }),
         id: "candidacyStatus",
-        accessor: (d) => candidacyStatusAccessor(d.suspendedAt, intl),
+        accessor: ({ poolCandidate: { suspendedAt } }) =>
+          candidacyStatusAccessor(suspendedAt, intl),
         sortColumnName: "suspended_at",
       },
       {
@@ -572,8 +592,8 @@ const PoolCandidatesTable = ({
             "Title displayed for the Pool Candidates table View column.",
         }),
         id: "view",
-        accessor: (d) => {
-          return viewAccessor(d, paths, intl);
+        accessor: ({ poolCandidate }) => {
+          return viewAccessor(poolCandidate, paths, intl);
         },
       },
       {
@@ -584,7 +604,8 @@ const PoolCandidatesTable = ({
             "Title displayed on the Pool Candidates table name column.",
         }),
         id: "candidateName",
-        accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+        accessor: ({ poolCandidate: { user } }) =>
+          `${user?.firstName} ${user?.lastName}`,
         sortColumnName: "FIRST_NAME",
       },
       {
@@ -595,9 +616,19 @@ const PoolCandidatesTable = ({
             "Title displayed on the Pool Candidates table Preferred Communication Language column.",
         }),
         id: "preferredLang",
-        accessor: ({ user }) =>
+        accessor: ({ poolCandidate: { user } }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
         sortColumnName: "PREFERRED_LANG",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Number of skills matched",
+          id: "0dQ62G",
+          description: "Title displayed on the candidate skill count column.",
+        }),
+        id: "skillCount",
+        sortColumnName: "SKILL_COUNT",
+        accessor: ({ skillCount }) => skillCount,
       },
       {
         label: intl.formatMessage({
@@ -607,7 +638,7 @@ const PoolCandidatesTable = ({
             "Title displayed for the Pool Candidates table Email column.",
         }),
         id: "email",
-        accessor: ({ user }) => user?.email,
+        accessor: ({ poolCandidate: { user } }) => user?.email,
         sortColumnName: "EMAIL",
       },
       {
@@ -618,7 +649,7 @@ const PoolCandidatesTable = ({
             "Title displayed on the Pool Candidates table Current Location column.",
         }),
         id: "currentLocation",
-        accessor: ({ user }) =>
+        accessor: ({ poolCandidate: { user } }) =>
           `${user?.currentCity}, ${provinceAccessor(
             user?.currentProvince,
             intl,
@@ -633,7 +664,7 @@ const PoolCandidatesTable = ({
             "Title displayed on the Pool Candidates table Date Received column.",
         }),
         id: "dateReceived",
-        accessor: (d) => d.submittedAt,
+        accessor: ({ poolCandidate: { submittedAt } }) => submittedAt,
         sortColumnName: "submitted_at",
       },
     ],
@@ -777,6 +808,7 @@ const PoolCandidatesTable = ({
         <Pending fetching={fetching} error={error} inline>
           <BasicTable
             labelledBy="pool-candidate-table-heading"
+            title={title}
             data={filteredData}
             columns={columns}
             onSortingRuleChange={handleSortingRuleChange}

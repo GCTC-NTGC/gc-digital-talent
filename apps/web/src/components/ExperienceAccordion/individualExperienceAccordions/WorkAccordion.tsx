@@ -1,62 +1,80 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { WorkExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
-import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
+import ContentSection from "../ExperienceAccordionContentSection";
+import SkillSection from "../SkillSection";
+import EditExperienceLink from "../EditExperienceLink";
+
+interface WorkContentProps
+  extends Pick<WorkExperience, "details" | "division" | "skills"> {
+  headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
+}
 
 export const WorkContent = ({
-  role,
-  organization,
   details,
   division,
   skills,
-}: WorkExperience) => {
+  headingLevel,
+  showSkills = true,
+}: WorkContentProps) => {
   const intl = useIntl();
-
   return (
     <>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{role} at {division}",
-            id: "6RiVQA",
-            description: "Role at division",
-          },
-          { role, division },
-        )}
-      </p>
-      <p>{organization}</p>
-      <hr
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Team, group, or division",
+          id: "qn77WI",
+          description:
+            "Label displayed on Work Experience form for team/group/division input",
+        })}
+        headingLevel={headingLevel}
+      >
+        {division}
+      </ContentSection>
+
+      <Separator
+        orientation="horizontal"
+        decorative
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
       />
-      <SkillList skills={skills} />
-      <hr
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
-      </p>
+
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Tasks and responsibilities",
+          id: "jDvu8u",
+          description: "Heading for the tasks section of the experience form",
+        })}
+        headingLevel={headingLevel}
+      >
+        {details}
+      </ContentSection>
+
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
+
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -64,68 +82,64 @@ export const WorkContent = ({
 type WorkAccordionProps = WorkExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  onEditClick?: () => void; // Callback function if edit is a button
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const WorkAccordion = ({
   editUrl,
-  headingLevel,
+  onEditClick,
+  headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: WorkAccordionProps) => {
   const intl = useIntl();
-  const { id, role, organization, startDate, endDate, skills } = rest;
+  const { id, role, organization, startDate, endDate } = rest;
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const headerTitle = intl.formatMessage(
+    {
+      defaultMessage: "<strong>{role}</strong> at {organization}",
+      id: "JYWwCE",
+      description: "Role at organization",
+    },
+    { role, organization },
+  );
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({ endDate, startDate, intl })}
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
+        category={intl.formatMessage({
+          defaultMessage: "Work experience",
+          id: "giUfys",
+          description: "Title for work experience section",
+        })}
+        actions={
+          editUrl || onEditClick ? (
+            <EditExperienceLink editUrl={editUrl} onEditClick={onEditClick}>
+              {intl.formatMessage(
                 {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
+                  defaultMessage: "Edit<hidden> {context}</hidden>",
+                  id: "eLpCfR",
+                  description: "Edit experience link label with context",
                 },
-                { skillsLength: skills?.length },
-              )
+                {
+                  context: headerTitle,
+                },
+              )}
+            </EditExperienceLink>
+          ) : undefined
         }
-        Icon={BriefCaseIcon}
       >
-        {intl.formatMessage(
-          {
-            defaultMessage: "{role} at {organization}",
-            id: "wTAdQe",
-            description: "Role at organization",
-          },
-          { role, organization },
-        )}
-      </StandardAccordionHeader>
+        {headerTitle}
+      </ExperienceAccordionHeader>
       <Accordion.Content>
-        <WorkContent {...rest} />
-        {editUrl && (
-          <div>
-            <hr
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-height="base(1px)"
-              data-h2-width="base(100%)"
-              data-h2-border="base(none)"
-              data-h2-margin="base(x1, 0)"
-            />
-            <Link href={editUrl} color="primary" mode="outline" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                id: "phbDSx",
-                description: "Edit Experience button label",
-              })}
-            </Link>
-          </div>
-        )}
+        <WorkContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

@@ -45,6 +45,7 @@ const Input = ({
   hideOptional,
   whitespaceTrim = true,
   trackUnsaved = true,
+  hidden,
   ...rest
 }: InputProps) => {
   const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
@@ -88,6 +89,7 @@ const Input = ({
         trackUnsaved={trackUnsaved}
         onContextToggle={setContextVisible}
         descriptionIds={descriptionIds}
+        hidden={hidden}
       >
         <input
           data-h2-padding="base(x.25, x.5)"
@@ -106,6 +108,7 @@ const Input = ({
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           aria-describedby={ariaDescribedBy}
+          hidden={hidden}
           {...rest}
         />
       </InputWrapper>

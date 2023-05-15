@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import MagnifyingGlassIcon from "@heroicons/react/24/solid/MagnifyingGlassIcon";
 import SideMenu from "./SideMenu";
 import type { SideMenuProps } from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";

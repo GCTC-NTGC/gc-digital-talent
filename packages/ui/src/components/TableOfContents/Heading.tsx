@@ -1,13 +1,14 @@
 import React, { HTMLAttributes } from "react";
 
 import Heading, { type HeadingLevel } from "../Heading";
+import { IconType } from "../../types";
 
 import "./heading.css";
 
 export interface HeadingProps {
   as?: HeadingLevel;
   size?: HeadingLevel;
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 }
 
 const TOCHeading = ({

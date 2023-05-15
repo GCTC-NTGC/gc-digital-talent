@@ -625,7 +625,7 @@
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
   },
-  "mFKg18": {
+  "ghhKNZ": {
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
@@ -1081,6 +1081,10 @@
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
+  "V3+fXY": {
+    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
+    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
   "H8eisr": {
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
@@ -1349,5 +1353,25 @@
   "ylHC90": {
     "defaultMessage": "Chargement...",
     "description": "Message shown in options dropdown when Select field is loading options."
+  },
+  "LBqw5w": {
+    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
+    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  },
+  "tpVujp": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message displayed when a user has not provided some form of information"
+  },
+  "LWsmvv": {
+    "defaultMessage": "PAPA",
+    "description": "The publishing group called Indigenous Apprenticeship Program"
+  },
+  "4S30lt": {
+    "defaultMessage": "Expérience de travail appliquée",
+    "description": "Option for education requirement, applied work experience"
+  },
+  "TiIkSF": {
+    "defaultMessage": "Deux années post-secondaire",
+    "description": "Option for education requirement, 2-year post-secondary"
   }
 }

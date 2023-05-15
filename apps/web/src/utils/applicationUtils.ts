@@ -4,159 +4,163 @@ import { StepType } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
-  Applicant,
   ApplicationStep,
   Maybe,
   PoolAdvertisement,
   PoolCandidate,
 } from "~/api/generated";
-import {
-  ApplicationPageInfo,
-  ApplicationPageNavKey,
-} from "~/types/poolCandidate";
-
-import { getPageInfo as welcomePageInfo } from "~/pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage";
-import { getPageInfo as profilePageInfo } from "~/pages/Applications/ApplicationProfilePage/ApplicationProfilePage";
-import { getPageInfo as resumeIntroductionPageInfo } from "~/pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage";
-import { getPageInfo as resumeAddPageInfo } from "~/pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage";
-import { getPageInfo as resumeEditPageInfo } from "~/pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage";
-import { getPageInfo as resumePageInfo } from "~/pages/Applications/ApplicationResumePage/ApplicationResumePage";
-import { getPageInfo as educationPageInfo } from "~/pages/Applications/ApplicationEducationPage/ApplicationEducationPage";
-import { getPageInfo as skillsIntroductionPageInfo } from "~/pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage";
-import { getPageInfo as skillsPageInfo } from "~/pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage";
-import { getPageInfo as questionsIntroductionPageInfo } from "~/pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
-import { getPageInfo as questionsPageInfo } from "~/pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage";
-import { getPageInfo as reviewPageInfo } from "~/pages/Applications/ApplicationReviewPage/ApplicationReviewPage";
-import { getPageInfo as successPageInfo } from "~/pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage";
+import { ApplicationStepInfo } from "~/types/applicationStep";
+import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
+import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
+import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
+import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
+import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
+import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
+import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
+import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
   application: Omit<PoolCandidate, "pool">;
   experienceId?: string;
+  poolAdvertisement: Maybe<PoolAdvertisement>;
 };
 
-// NOTE: Expected to grow
-// eslint-disable-next-line import/prefer-default-export
-export const getApplicationPages = ({
+// Dynamically build the list of application steps for this application
+export const getApplicationSteps = ({
   paths,
   intl,
   application,
   experienceId,
-}: GetApplicationPagesArgs): Map<
-  ApplicationPageNavKey,
-  ApplicationPageInfo
-> => {
-  return new Map<ApplicationPageNavKey, ApplicationPageInfo>([
-    ["welcome", welcomePageInfo({ paths, intl, application })],
-    ["profile", profilePageInfo({ paths, intl, application })],
-    ["resume", resumePageInfo({ paths, intl, application })],
-    ["resume-intro", resumeIntroductionPageInfo({ paths, intl, application })],
-    ["resume-add", resumeAddPageInfo({ paths, intl, application })],
-    [
-      "resume-edit",
-      resumeEditPageInfo({
-        paths,
-        intl,
-        application,
-        resourceId: experienceId,
-      }),
-    ],
-    ["education", educationPageInfo({ paths, intl, application })],
-    ["skills", skillsPageInfo({ paths, intl, application })],
-    ["skills-intro", skillsIntroductionPageInfo({ paths, intl, application })],
-    ["questions", questionsPageInfo({ paths, intl, application })],
-    [
-      "questions-intro",
-      questionsIntroductionPageInfo({ paths, intl, application }),
-    ],
-    ["review", reviewPageInfo({ paths, intl, application })],
-    ["success", successPageInfo({ paths, intl, application })],
-  ]);
+  poolAdvertisement,
+}: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
+  // build the order of step functions to call
+  const stepInfoFunctions = [
+    welcomeStepInfo,
+    // TODO: IAP self declaration optionally here
+    profileStepInfo,
+    resumeStepInfo,
+    educationStepInfo,
+    skillsStepInfo,
+    ...(poolAdvertisement?.screeningQuestions?.length
+      ? [questionsStepInfo]
+      : []),
+    reviewStepInfo,
+    successPageInfo,
+  ];
+
+  // call the functions with their dynamic ordinal
+  const stepInfos = stepInfoFunctions.map((func, index) =>
+    func({
+      paths,
+      intl,
+      application,
+      resourceId: experienceId,
+      stepOrdinal: index + 1,
+    }),
+  );
+
+  return stepInfos;
 };
 
-const missingPrerequisites = (
+// Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
+export const missingPrerequisitesFromThisApplication = (
+  stepsInfosInApplication: Array<ApplicationStepInfo>,
   prerequisiteSteps: Maybe<Array<ApplicationStep>>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
 ): Maybe<Array<ApplicationStep>> => {
-  return prerequisiteSteps?.filter(
+  // figure out the application step enum values for this flow (may or may not include conditional steps)
+  const stepsInThisApplication = stepsInfosInApplication.map(
+    (step) => step.applicationStep,
+  );
+
+  // what are the prerequisites included in this set of steps?
+  const prerequisiteStepsForThisApplication = prerequisiteSteps?.filter((s) =>
+    stepsInThisApplication.includes(s),
+  );
+
+  // find which steps are not yet submitted
+  return prerequisiteStepsForThisApplication?.filter(
     (currentPagePrerequisite) =>
       !submittedSteps?.includes(currentPagePrerequisite),
   );
 };
 
-export const deriveSteps = (
-  pages: Map<ApplicationPageNavKey, ApplicationPageInfo>,
-  submittedSteps: Maybe<Array<ApplicationStep>>,
-  applicant: Applicant,
-  poolAdvertisement: Maybe<PoolAdvertisement>,
-): Maybe<Array<StepType>> => {
-  const steps = Array.from(pages.values())
-    .filter((page) => !page.omitFromStepper) // Hide some pages from stepper
-    .map((page) => ({
-      label: page.link.label || page.title,
-      href: page.link.url,
-      icon: page.icon,
-      completed:
-        page.stepSubmitted && submittedSteps?.includes(page.stepSubmitted),
-      disabled: !!missingPrerequisites(page.prerequisites, submittedSteps)
-        ?.length,
-      error: poolAdvertisement
-        ? page?.hasError?.(applicant, poolAdvertisement)
-        : false,
-    }));
-
-  steps.pop(); // We do not want to show final step in the stepper
-
-  return steps;
-};
-
-export function getNextNonSubmittedStep(
-  pages: Map<ApplicationPageNavKey, ApplicationPageInfo>,
+// What step should we go to, to resume the application
+export function getNextStepToSubmit(
+  stepsInThisApplication: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
-): string {
-  const pagesArray = Array.from(pages.values());
-  let nextStep = pagesArray[0];
+): ApplicationStepInfo {
+  let nextStep = stepsInThisApplication[0];
 
   if (submittedSteps && submittedSteps.length > 0) {
-    const nonSubmittedStep = pagesArray.find((p) => {
-      return p.stepSubmitted && !submittedSteps?.includes(p.stepSubmitted);
+    const nonSubmittedStep = stepsInThisApplication.find((step) => {
+      return (
+        step.applicationStep && !submittedSteps?.includes(step.applicationStep)
+      );
     });
 
-    nextStep = nonSubmittedStep || pagesArray[pagesArray.length - 1];
+    nextStep =
+      nonSubmittedStep ||
+      stepsInThisApplication[stepsInThisApplication.length - 1];
   }
 
-  return nextStep.introUrl || nextStep.link.url;
+  return nextStep;
 }
 
 // check if the current page should be disabled and figure out where to return the user to
-export function checkForDisabledPage(
+export function isOnDisabledPage(
   currentPageUrl: string | undefined,
-  pages: Map<ApplicationPageNavKey, ApplicationPageInfo>,
+  steps: Array<ApplicationStepInfo>,
   submittedSteps: Maybe<ApplicationStep[]>,
-): { isOnDisabledPage: boolean; urlToReturnTo?: string } {
-  // copied from useCurrentPage, but I need the full ApplicationPageInfo
-  const pagesArray = Array.from(pages.values());
-  const currentPageInfo = pagesArray.find(
-    (page) => page.link.url === currentPageUrl,
+): boolean {
+  // where are we right now?
+  const currentStep = steps.find(
+    (step) =>
+      step.mainPage.link.url === currentPageUrl ||
+      step.introductionPage?.link.url === currentPageUrl ||
+      step.auxiliaryPages?.some(
+        (auxPage) => auxPage.link.url === currentPageUrl,
+      ),
   );
-  const pageMissingPrerequisites = missingPrerequisites(
-    currentPageInfo?.prerequisites,
+
+  // are there missing prerequisites to the page we're on?
+  const pageMissingPrerequisites = missingPrerequisitesFromThisApplication(
+    steps,
+    currentStep?.prerequisites,
     submittedSteps,
   );
 
-  if (pageMissingPrerequisites && pageMissingPrerequisites.length > 0) {
-    // go back to the first missing page
-    const firstMissingPrerequisite = pageMissingPrerequisites[0];
-    const pageForFirstMissingPrerequisite = pagesArray.find((p) => {
-      return p.stepSubmitted === firstMissingPrerequisite;
-    });
-    return {
-      isOnDisabledPage: true,
-      urlToReturnTo: pageForFirstMissingPrerequisite?.link.url,
-    };
-  }
+  return !!(pageMissingPrerequisites && pageMissingPrerequisites.length > 0);
+}
 
-  // yay, nothing missing!
-  return { isOnDisabledPage: false };
+export function applicationStepsToStepperArgs(
+  applicationSteps: Array<ApplicationStepInfo>,
+  application: Omit<PoolCandidate, "pool">,
+): StepType[] {
+  return applicationSteps
+    .filter((step) => step.showInStepper)
+    .map((step) => {
+      return {
+        href: step.mainPage.link.url,
+        icon: step.mainPage.icon,
+        label: step.mainPage.link.label || step.mainPage.title,
+        completed:
+          step.applicationStep &&
+          application.submittedSteps?.includes(step.applicationStep),
+        disabled: !!missingPrerequisitesFromThisApplication(
+          applicationSteps,
+          step.prerequisites,
+          application.submittedSteps,
+        )?.length,
+        error: application.poolAdvertisement
+          ? step.hasError?.(
+              application.user,
+              application.poolAdvertisement,
+              application,
+            )
+          : false,
+      };
+    });
 }

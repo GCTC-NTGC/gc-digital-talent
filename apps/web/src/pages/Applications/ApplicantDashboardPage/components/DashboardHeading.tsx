@@ -1,12 +1,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  BriefcaseIcon,
-  BookOpenIcon,
-  UsersIcon,
-  LightBulbIcon,
-  StarIcon,
-} from "@heroicons/react/24/solid";
+import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
+import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
+import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
+import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/24/solid/StarIcon";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -103,9 +101,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       })}
     >
       <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(space-evenly)"
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(100%) l-tablet(repeat(2, minmax(0, 1fr)))"
         data-h2-gap="base(x1)"
       >
         <HeroCard

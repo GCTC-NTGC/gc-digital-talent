@@ -1,6 +1,7 @@
 import React from "react";
-import { CpuChipIcon } from "@heroicons/react/24/outline";
+import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
@@ -88,9 +89,26 @@ const OngoingRecruitmentSection = ({
 }: OngoingRecruitmentSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { hash } = useLocation();
   const methods = useForm<FormValues>({
     mode: "onChange",
   });
+
+  /**
+   * Scroll to this section if there is a hash and ID that matches
+   */
+  React.useEffect(() => {
+    if (hash) {
+      const target = document.getElementById(hash.substring(1));
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({
+            block: "start",
+          });
+        }, 10);
+      }
+    }
+  }, [hash]);
 
   const quickFilterStream = methods.watch("quickFilter");
   const { user, isLoaded } = useAuthorization();
@@ -938,6 +956,7 @@ const OngoingRecruitmentSection = ({
     <>
       <Heading
         level="h2"
+        id="ongoingRecruitments"
         Icon={CpuChipIcon}
         color="purple"
         data-h2-margin="base(0, 0, x1, 0)"
@@ -950,17 +969,17 @@ const OngoingRecruitmentSection = ({
       </Heading>
       <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">
         {intl.formatMessage({
-          id: "2czUAZ",
+          id: "Uzx5dR",
           defaultMessage:
-            "Not seeing an active recruitment that matches your skillset? No problem, we still want to hear from you.",
+            "Not seeing an active recruitment process that matches your skillset? No problem, we still want to hear from you.",
           description: "summary for section with ongoing pool advertisements",
         })}
       </p>
       <p>
         {intl.formatMessage({
-          id: "45mj+u",
+          id: "MyDw3F",
           defaultMessage:
-            "We also offer passive recruitment buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
+            "We also offer passive recruitment process buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}

@@ -1,50 +1,81 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
-import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { PersonalExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
-import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
+import ContentSection from "../ExperienceAccordionContentSection";
+import SkillSection from "../SkillSection";
+import EditExperienceLink from "../EditExperienceLink";
+
+interface PersonalContentProps
+  extends Pick<PersonalExperience, "details" | "description" | "skills"> {
+  headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
+}
 
 export const PersonalContent = ({
   details,
   description,
   skills,
-}: PersonalExperience) => {
+  headingLevel,
+  showSkills = true,
+}: PersonalContentProps) => {
   const intl = useIntl();
 
   return (
     <>
-      <p>{description}</p>
-      <hr
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Learning description",
+          id: "szVmh/",
+          description:
+            "Label displayed on Personal Experience form for learning description section",
+        })}
+        headingLevel={headingLevel}
+      >
+        {description}
+      </ContentSection>
+
+      <Separator
+        orientation="horizontal"
+        decorative
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
       />
-      <SkillList skills={skills} />
-      <hr
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
-      </p>
+
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Tasks and responsibilities",
+          id: "jDvu8u",
+          description: "Heading for the tasks section of the experience form",
+        })}
+        headingLevel={headingLevel}
+      >
+        {details}
+      </ContentSection>
+
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
+
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -52,61 +83,56 @@ export const PersonalContent = ({
 type PersonalAccordionProps = PersonalExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  onEditClick?: () => void; // Callback function if edit is a button
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const PersonalAccordion = ({
   editUrl,
+  onEditClick,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: PersonalAccordionProps) => {
   const intl = useIntl();
-  const { id, title, startDate, endDate, skills } = rest;
+  const { id, title, startDate, endDate } = rest;
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
-        subtitle={getDateRange({ endDate, startDate, intl })}
+      <ExperienceAccordionHeader
+        dateRange={getDateRange({ endDate, startDate, intl })}
         headingAs={headingLevel}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
+        category={intl.formatMessage({
+          defaultMessage: "Personal learning",
+          id: "+AUFyC",
+          description: "Title for personal learning section",
+        })}
+        actions={
+          editUrl || onEditClick ? (
+            <EditExperienceLink editUrl={editUrl} onEditClick={onEditClick}>
+              {intl.formatMessage(
                 {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
+                  defaultMessage: "Edit<hidden> {context}</hidden>",
+                  id: "eLpCfR",
+                  description: "Edit experience link label with context",
                 },
-                { skillsLength: skills?.length },
-              )
+                {
+                  context: title,
+                },
+              )}
+            </EditExperienceLink>
+          ) : undefined
         }
-        Icon={LightBulbIcon}
       >
-        {title || ""}
-      </StandardAccordionHeader>
+        <span data-h2-font-weight="base(700)">{title || ""}</span>
+      </ExperienceAccordionHeader>
       <Accordion.Content>
-        <PersonalContent {...rest} />
-        {editUrl && (
-          <div>
-            <hr
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-height="base(1px)"
-              data-h2-width="base(100%)"
-              data-h2-border="base(none)"
-              data-h2-margin="base(x1, 0)"
-            />
-            <Link href={editUrl} color="primary" mode="outline" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                id: "phbDSx",
-                description: "Edit Experience button label",
-              })}
-            </Link>
-          </div>
-        )}
+        <PersonalContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

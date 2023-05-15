@@ -18,6 +18,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
+import adminMessages from "~/messages/adminMessages";
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
 const EditTeamPage = () => {
@@ -70,11 +71,7 @@ const EditTeamPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Teams",
-        id: "P+KWP7",
-        description: "Breadcrumb title for the teams page link.",
-      }),
+      label: intl.formatMessage(adminMessages.teams),
       url: routes.teamTable(),
     },
     ...(teamId

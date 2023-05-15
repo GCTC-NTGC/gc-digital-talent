@@ -1,11 +1,17 @@
 import React from "react";
 
 import Accordion, { AccordionHeaderProps } from "./Accordion";
+import { IconType } from "../../types";
 
+type TitleProps = React.HTMLAttributes<HTMLSpanElement> & {
+  [data: string]: string;
+};
 export interface StandardHeaderProps extends AccordionHeaderProps {
-  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  Icon?: IconType;
   context?: React.ReactNode;
   subtitle?: React.ReactNode;
+  titleProps?: TitleProps;
+  subtitleProps?: TitleProps;
 }
 
 export const StandardHeader = ({
@@ -13,6 +19,8 @@ export const StandardHeader = ({
   context,
   subtitle,
   children,
+  titleProps,
+  subtitleProps,
   ...rest
 }: StandardHeaderProps) => {
   return (
@@ -25,9 +33,12 @@ export const StandardHeader = ({
           data-h2-gap="base(x.5 0)"
         >
           <span
+            data-h2-color="base(black) base:hover(primary)"
             data-h2-display="base(block)"
             data-h2-font-size="base(h6, 1)"
             data-h2-font-weight="base(700)"
+            data-h2-text-decoration="base(underline)"
+            {...titleProps}
           >
             {children}
           </span>
@@ -37,6 +48,7 @@ export const StandardHeader = ({
               data-h2-display="base(block)"
               data-h2-font-size="base(copy)"
               data-h2-margin="base(x.25, 0, 0, 0)"
+              {...subtitleProps}
             >
               {subtitle}
             </span>

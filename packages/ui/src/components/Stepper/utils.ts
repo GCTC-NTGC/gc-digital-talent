@@ -1,9 +1,12 @@
-import { CheckIcon, FlagIcon, MapPinIcon } from "@heroicons/react/20/solid";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import FlagIcon from "@heroicons/react/20/solid/FlagIcon";
+import MapPinIcon from "@heroicons/react/20/solid/MapPinIcon";
 import { MessageDescriptor } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { IconType, StepState } from "./types";
+import { StepState } from "./types";
+import { IconType } from "../../types";
 
 export const getIconFromState = (state: StepState, defaultIcon: IconType) => {
   const iconMap = new Map<StepState, IconType>([

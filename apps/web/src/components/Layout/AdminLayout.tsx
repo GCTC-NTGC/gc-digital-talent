@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -10,12 +10,11 @@ import {
   SkipLink,
   SideMenuContentWrapper,
 } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
-
 import SEO, { Favicon } from "~/components/SEO/SEO";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 
@@ -49,11 +48,7 @@ const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) => (
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const { setTheme } = useTheme();
-
-  React.useEffect(() => {
-    setTheme("admin", "light");
-  }, [setTheme]);
+  useLayoutTheme("admin");
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(

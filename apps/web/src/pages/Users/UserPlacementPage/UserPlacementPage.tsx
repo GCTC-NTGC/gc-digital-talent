@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router";
 import { OperationContext } from "urql";
-import { UserIcon } from "@heroicons/react/24/outline";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { Scalars, useUserQuery } from "@gc-digital-talent/graphql";
 
 import PageHeader from "~/components/PageHeader";
@@ -10,6 +10,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Role"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -33,17 +34,13 @@ const UserPlacementPage = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Home",
-        id: "DUK/pz",
-        description: "Breadcrumb title for the home page link.",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
       }),
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Users",
-        id: "Y7eGtg",
-        description: "Breadcrumb title for the users page link.",
-      }),
+      label: intl.formatMessage(adminMessages.users),
       url: routes.userTable(),
     },
     ...(userId

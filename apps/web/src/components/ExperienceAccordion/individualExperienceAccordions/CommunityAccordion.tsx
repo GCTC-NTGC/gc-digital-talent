@@ -1,62 +1,81 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 
-import { Accordion, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { CommunityExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/accordionUtils";
 
-import SkillList from "../SkillList";
+import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
+import ContentSection from "../ExperienceAccordionContentSection";
+import SkillSection from "../SkillSection";
+import EditExperienceLink from "../EditExperienceLink";
+
+interface CommunityContentProps
+  extends Pick<CommunityExperience, "details" | "project" | "skills"> {
+  headingLevel?: HeadingRank;
+  showSkills?: boolean; // show or hide the skills block
+}
 
 export const CommunityContent = ({
-  title,
-  organization,
   details,
   project,
   skills,
-}: CommunityExperience) => {
+  headingLevel,
+  showSkills = true,
+}: CommunityContentProps) => {
   const intl = useIntl();
 
   return (
     <>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{title} at {organization}",
-            id: "vV0SDz",
-            description: "Title at organization",
-          },
-          { title, organization },
-        )}
-      </p>
-      <p>{project}</p>
-      <hr
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Project / product",
+          id: "gEBoM0",
+          description:
+            "Label displayed on Community Experience form for Project / product section",
+        })}
+        headingLevel={headingLevel}
+      >
+        {project}
+      </ContentSection>
+
+      <Separator
+        orientation="horizontal"
+        decorative
         data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
       />
-      <SkillList skills={skills} />
-      <hr
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
-      </p>
+
+      <ContentSection
+        title={intl.formatMessage({
+          defaultMessage: "Tasks and responsibilities",
+          id: "jDvu8u",
+          description: "Heading for the tasks section of the experience form",
+        })}
+        headingLevel={headingLevel}
+      >
+        {details}
+      </ContentSection>
+
+      {showSkills &&
+        skills?.map((skill) => {
+          return (
+            <div key={skill.id}>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+              />
+
+              <SkillSection
+                name={skill.name}
+                record={skill.experienceSkillRecord}
+                headingLevel={headingLevel}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };
@@ -64,68 +83,64 @@ export const CommunityContent = ({
 type CommunityAccordionProps = CommunityExperience & {
   headingLevel?: HeadingRank;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  onEditClick?: () => void; // Callback function if edit is a button
+  showSkills?: boolean; // show or hide the skills block
 };
 
 const CommunityAccordion = ({
   editUrl,
+  onEditClick,
   headingLevel = "h2",
+  showSkills = true,
   ...rest
 }: CommunityAccordionProps) => {
   const intl = useIntl();
-  const { id, endDate, startDate, skills, title, organization } = rest;
+  const { id, endDate, startDate, title, organization } = rest;
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const headerTitle = intl.formatMessage(
+    {
+      defaultMessage: "<strong>{title}</strong> with {organization}",
+      id: "TmWbke",
+      description: "Title with organization",
+    },
+    { title, organization },
+  );
 
   return (
     <Accordion.Item value={id}>
-      <StandardAccordionHeader
+      <ExperienceAccordionHeader
         headingAs={headingLevel}
-        subtitle={getDateRange({ endDate, startDate, intl })}
-        Icon={UserGroupIcon}
-        context={
-          skills?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Skill",
-                id: "A2KwTw",
-                description: "Pluralization for one skill",
-              })
-            : intl.formatMessage(
+        dateRange={getDateRange({ endDate, startDate, intl })}
+        category={intl.formatMessage({
+          defaultMessage: "Community participation",
+          id: "Uy5Dg2",
+          description: "Title for community experience section",
+        })}
+        actions={
+          editUrl || onEditClick ? (
+            <EditExperienceLink editUrl={editUrl} onEditClick={onEditClick}>
+              {intl.formatMessage(
                 {
-                  defaultMessage: "{skillsLength} Skills",
-                  id: "l27ekQ",
-                  description: "Pluralization for zero or multiple skills",
+                  defaultMessage: "Edit<hidden> {context}</hidden>",
+                  id: "eLpCfR",
+                  description: "Edit experience link label with context",
                 },
-                { skillsLength: skills?.length },
-              )
+                {
+                  context: title,
+                },
+              )}
+            </EditExperienceLink>
+          ) : undefined
         }
       >
-        {intl.formatMessage(
-          {
-            defaultMessage: "{title} at {organization}",
-            id: "vV0SDz",
-            description: "Title at organization",
-          },
-          { title, organization },
-        )}
-      </StandardAccordionHeader>
+        {headerTitle}
+      </ExperienceAccordionHeader>
       <Accordion.Content>
-        <CommunityContent {...rest} />
-        {editUrl && (
-          <div>
-            <hr
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-height="base(1px)"
-              data-h2-width="base(100%)"
-              data-h2-border="base(none)"
-              data-h2-margin="base(x1, 0)"
-            />
-            <Link href={editUrl} color="primary" mode="outline" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                id: "phbDSx",
-                description: "Edit Experience button label",
-              })}
-            </Link>
-          </div>
-        )}
+        <CommunityContent
+          headingLevel={contentHeadingLevel}
+          showSkills={showSkills}
+          {...rest}
+        />
       </Accordion.Content>
     </Accordion.Item>
   );

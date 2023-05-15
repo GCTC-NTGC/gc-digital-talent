@@ -5,7 +5,6 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
@@ -15,6 +14,7 @@ import Header from "~/components/Header";
 import Footer from "~/components/Footer";
 
 import useRoutes from "~/hooks/useRoutes";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import * as crgMessages from "~/lang/crgCompiled.json";
 import * as crkMessages from "~/lang/crkCompiled.json";
@@ -32,11 +32,7 @@ const Layout = () => {
   const intl = useIntl();
   const location = useLocation();
   const paths = useRoutes();
-  const { setTheme } = useTheme();
-
-  React.useEffect(() => {
-    setTheme("iap", "light");
-  }, [setTheme]);
+  useLayoutTheme("iap");
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",

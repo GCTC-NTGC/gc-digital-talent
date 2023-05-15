@@ -179,9 +179,10 @@ const roleAssignmentsToPools = (
 
 interface PoolTableProps {
   pools: Pool[];
+  title: string;
 }
 
-export const PoolTable = ({ pools }: PoolTableProps) => {
+export const PoolTable = ({ pools, title }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -289,7 +290,7 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
-        sortType: (rowA, rowB, id, desc) => {
+        sortType: (rowA, rowB) => {
           // passing in sortType to override default sort
           const rowAGroup =
             rowA.original.classifications && rowA.original.classifications[0]
@@ -315,12 +316,11 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
             return -1;
           }
           // if groups identical then sort by level
-          // level sorting adjusted to always be ascending regardless of whether group sort is A-Z or Z-A
           if (rowALevel > rowBLevel) {
-            return desc ? -1 : 1;
+            return 1;
           }
           if (rowALevel < rowBLevel) {
-            return desc ? 1 : -1;
+            return -1;
           }
           return 0;
         },
@@ -446,30 +446,31 @@ export const PoolTable = ({ pools }: PoolTableProps) => {
         }),
       }}
       initialSortBy={initialSortBy}
+      title={title}
     />
   );
 };
 
-export const PoolOperatorTableApi = () => {
+export const PoolOperatorTableApi = ({ title }: { title: string }) => {
   const [result] = useGetMePoolsQuery();
   const { data, fetching, error } = result;
   const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} />
+      <PoolTable pools={poolsArray ?? []} title={title} />
     </Pending>
   );
 };
 
-export const PoolAdminTableApi = () => {
+export const PoolAdminTableApi = ({ title }: { title: string }) => {
   const [result] = useAllPoolsQuery();
   const { data, fetching, error } = result;
   const pools = unpackMaybes(data?.pools);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools} />
+      <PoolTable pools={pools} title={title} />
     </Pending>
   );
 };

@@ -14,11 +14,11 @@ const cardStyles: AccordionStyles = {
     "base:selectors[>.Accordion__Item .Accordion__Separator](1px)",
   "data-h2-margin": `
     base:selectors[>.Accordion__Item](x.5, 0)
-    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](-x.25 0 x.5 0)
+    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](0)
   `,
   "data-h2-padding": `
     base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x1 x1.5)
-    base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3)
+    base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3.5)
   `,
   "data-h2-radius":
     "base:selectors[>.Accordion__Item](0px, rounded, rounded, 0px)",

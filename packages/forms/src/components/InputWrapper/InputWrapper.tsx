@@ -25,6 +25,7 @@ export interface InputWrapperProps {
   trackUnsaved?: boolean;
   descriptionIds?: DescriptionIds;
   onContextToggle?: (visible: boolean) => void;
+  hidden?: boolean;
 }
 
 const InputWrapper = ({
@@ -43,6 +44,7 @@ const InputWrapper = ({
   descriptionIds,
   fillLabel = false,
   trackUnsaved = true,
+  hidden = false,
   ...rest
 }: InputWrapperProps) => {
   const [contextVisible, setContextVisible] = useState(false);
@@ -69,17 +71,19 @@ const InputWrapper = ({
         data-h2-align-items="base(flex-start)"
         {...rest}
       >
-        <InputLabel
-          inputId={inputId}
-          label={label}
-          labelSize={fontSize}
-          fillLabel={fillLabel}
-          required={required}
-          contextIsVisible={context !== undefined && context !== ""}
-          contextToggleHandler={handleContextToggle}
-          hideOptional={hideOptional}
-          hideBottomMargin={hideBottomMargin}
-        />
+        {!hidden && (
+          <InputLabel
+            inputId={inputId}
+            label={label}
+            labelSize={fontSize}
+            fillLabel={fillLabel}
+            required={required}
+            contextIsVisible={context !== undefined && context !== ""}
+            contextToggleHandler={handleContextToggle}
+            hideOptional={hideOptional}
+            hideBottomMargin={hideBottomMargin}
+          />
+        )}
         {error && errorPosition === "top" && (
           <div
             data-h2-display="base(block)"

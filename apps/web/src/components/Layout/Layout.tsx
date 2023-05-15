@@ -3,14 +3,12 @@ import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
-// import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import {
   useAuthentication,
   useAuthorization,
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -20,6 +18,7 @@ import Footer from "~/components/Footer";
 import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode;
@@ -46,12 +45,8 @@ export const LogoutButton = React.forwardRef<
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { setTheme } = useTheme();
   const { applicantDashboard } = useFeatureFlags();
-
-  React.useEffect(() => {
-    setTheme("default", "light");
-  }, [setTheme]);
+  useLayoutTheme("default");
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -66,9 +61,9 @@ const Layout = () => {
     </MenuLink>,
     <MenuLink key="search" to={paths.search()}>
       {intl.formatMessage({
-        defaultMessage: "Search",
-        id: "OezjH3",
-        description: "Label displayed on the Search menu item.",
+        defaultMessage: "Find talent",
+        id: "NohOkF",
+        description: "Label displayed on the Find talent menu item.",
       })}
     </MenuLink>,
     <MenuLink key="browseJobs" to={paths.browsePools()}>

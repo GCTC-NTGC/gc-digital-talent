@@ -1,6 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useId } from "react";
 import { useIntl } from "react-intl";
-import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Link, Dialog } from "@gc-digital-talent/ui";
@@ -53,12 +54,31 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
   const methods = useForm();
 
+  const staticId = useId();
+  const inputId = `table-search-${staticId}`;
+  const inputLabel = intl.formatMessage(
+    {
+      defaultMessage: "Search {title}",
+      id: "/7RNZm",
+      description: "Label for search input",
+    },
+    {
+      title: title?.toLowerCase(),
+    },
+  );
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {filter && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
-          <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
+          <p>
+            {title && (
+              <label data-h2-font-weight="base(700)" htmlFor={inputId}>
+                {inputLabel}
+              </label>
+            )}
+          </p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, x.5)">
@@ -67,6 +87,8 @@ function TableHeader<T extends Record<string, unknown>>({
                     onChange={onSearchChange}
                     searchBy={searchBy}
                     initialData={initialSearchState}
+                    inputId={inputId}
+                    inputLabel={inputLabel}
                   />
                 </div>
                 <div data-h2-flex-item="base(content)">{filterComponent}</div>

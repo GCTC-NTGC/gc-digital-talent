@@ -10,7 +10,7 @@ import getExperienceFormLabels from "../../labels";
 
 export default {
   component: EducationFormFields,
-  title: "Forms/Experience Form/Community Fields",
+  title: "Forms/Experience Form/Education Fields",
 } as Meta;
 
 const TemplateEducationFormFields: Story = () => {

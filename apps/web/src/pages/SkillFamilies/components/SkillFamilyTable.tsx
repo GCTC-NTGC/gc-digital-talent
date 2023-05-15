@@ -27,9 +27,13 @@ type SkillFamilyCell = Cell<SkillFamily>;
 
 interface SkillFamilyTableProps {
   skillFamilies: Array<SkillFamily>;
+  title: string;
 }
 
-export const SkillFamilyTable = ({ skillFamilies }: SkillFamilyTableProps) => {
+export const SkillFamilyTable = ({
+  skillFamilies,
+  title,
+}: SkillFamilyTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -105,11 +109,12 @@ export const SkillFamilyTable = ({ skillFamilies }: SkillFamilyTableProps) => {
           description: "Heading displayed above the Create Skill Family form.",
         }),
       }}
+      title={title}
     />
   );
 };
 
-const SkillFamilyTableApi = () => {
+const SkillFamilyTableApi = ({ title }: { title: string }) => {
   const [result] = useAllSkillFamiliesQuery();
   const { data, fetching, error } = result;
 
@@ -117,7 +122,7 @@ const SkillFamilyTableApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillFamilyTable skillFamilies={skillFamilies || []} />
+      <SkillFamilyTable skillFamilies={skillFamilies || []} title={title} />
     </Pending>
   );
 };

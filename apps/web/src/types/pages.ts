@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BreadcrumbsProps } from "@gc-digital-talent/ui";
+import { BreadcrumbsProps, IconType } from "@gc-digital-talent/ui";
 
 type PageNavLink = {
   label?: React.ReactNode;
@@ -8,7 +8,7 @@ type PageNavLink = {
 };
 
 export type PageNavInfo = {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   title: string;
   subtitle?: string;
   link: PageNavLink;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -9,6 +9,7 @@ import { Maybe } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Department } from "~/api/generated";
+import adminMessages from "~/messages/adminMessages";
 
 interface CreateTeamFormFieldsProps {
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
@@ -69,11 +70,7 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
         <MultiSelectField
           id="departments"
           name="departments"
-          label={intl.formatMessage({
-            defaultMessage: "Departments",
-            id: "ytHvhD",
-            description: "Label for the team departments input",
-          })}
+          label={intl.formatMessage(adminMessages.departments)}
           placeholder={intl.formatMessage({
             defaultMessage: "Select one or more departments",
             id: "F7nP5o",

@@ -5,6 +5,8 @@ import {
   GovEmployeeType,
   Skill,
   Maybe,
+  Experience,
+  ScreeningQuestionResponse,
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
@@ -27,6 +29,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  getExperienceName,
 } from "~/utils/experienceUtils";
 
 /**
@@ -363,4 +366,44 @@ export const skillKeyAndJustifications = (
   }, {});
 
   return keyAndJustifications;
+};
+
+/**
+ * Converts experiences to comma separated list of titles
+ *
+ * @param experiences Maybe<Maybe<Experience>[]>
+ * @param intl react-intl object
+ *
+ * @returns string
+ */
+export const getExperienceTitles = (
+  experiences: Maybe<Maybe<Experience>[]>,
+  intl: IntlShape,
+) => {
+  const titles = experiences
+    ?.filter(notEmpty)
+    .map((experience) => getExperienceName(experience, intl));
+
+  return titles?.join(", ") || "";
+};
+
+/**
+ * Converts screening question responses to column data
+ *
+ * @param screeningQuestionResponses[]
+ */
+export const getScreeningQuestionResponses = (
+  responses: Maybe<Maybe<ScreeningQuestionResponse>[]>,
+) => {
+  let data: Record<string, string> = {};
+
+  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+    data = {
+      ...data,
+      // Note: API sends Maybe with everything, but this should never be null or undefined
+      [screeningQuestion?.id || id]: answer ?? "",
+    };
+  });
+
+  return data;
 };

@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 /**
@@ -30,6 +32,7 @@ use Carbon\Carbon;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
+ * @property string $education_requirement_option
  */
 
 class PoolCandidate extends Model
@@ -82,6 +85,63 @@ class PoolCandidate extends Model
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
+    }
+
+    // education_requirement_option fulfilled by what experience models
+    public function educationRequirementAwardExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementCommunityExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementEducationExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementPersonalExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function educationRequirementWorkExperiences(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'pool_candidate_education_requirement_experience'
+        )
+            ->withTimestamps();
+    }
+    public function getEducationRequirementExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
+        return $collection;
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -457,15 +517,34 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeSkills(Builder $query, ?array $skills): Builder
+    public function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    {
+
+        if (empty($skills)) {
+            return $query;
+        }
+
+        $query = $this->addSkillCountSelect($query, $skills);
+
+        // call the skillFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
+            User::scopeSkillsAdditive($userQuery, $skills);
+        });
+
+        return $query;
+    }
+
+    public function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
         }
 
+        $query = $this->addSkillCountSelect($query, $skills);
+
         // call the skillFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($skills) {
-            User::scopeSkills($userQuery, $skills);
+            User::scopeSkillsIntersectional($userQuery, $skills);
         });
 
         return $query;
@@ -520,5 +599,48 @@ class PoolCandidate extends Model
         $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
 
         $this->submitted_steps = $submittedSteps->values()->all();
+    }
+
+    public function scopeWithSkillCount(Builder $query)
+    {
+        // Checks if the query already has a skill_count select and if it does, it skips adding it again
+        $currentSql = $query->getQuery()->toSql();
+        $skillCountAppearances = substr_count($currentSql, 'skill_count');
+        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
+        if ($orderedBySkillCount && $skillCountAppearances === 2) {
+            return $query;
+        }
+
+        return $query->addSelect([
+            "skill_count" =>  Skill::whereIn('skills.id', [])
+                ->select(DB::raw('null as skill_count'))
+        ]);
+    }
+
+    private function addSkillCountSelect(Builder $query, ?array $skills): Builder
+    {
+        return $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', $skills)
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select(DB::raw('count(*) as skills'))
+                ->where(function (Builder $query) {
+                    $query->orWhereHas('awardExperiences', function (Builder $query) {
+                        $query->whereColumn('user_id', 'users.id');
+                    })
+                        ->orWhereHas('educationExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('communityExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('personalExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        })
+                        ->orWhereHas('workExperiences', function (Builder $query) {
+                            $query->whereColumn('user_id', 'users.id');
+                        });
+                })
+
+        ]);
     }
 }

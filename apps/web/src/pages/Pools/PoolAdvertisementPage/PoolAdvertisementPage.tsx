@@ -1,16 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import {
-  BoltIcon,
-  BriefcaseIcon as BriefcaseIconOutline,
-  ClipboardDocumentCheckIcon,
-  CheckCircleIcon,
-  CloudIcon,
-  CpuChipIcon,
-  LightBulbIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import BriefcaseIconOutline from "@heroicons/react/24/outline/BriefcaseIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import PhoneIcon from "@heroicons/react/24/outline/PhoneIcon";
 
 import {
   Button,
@@ -20,6 +18,7 @@ import {
   Link,
   Accordion,
   TableOfContents,
+  IconType,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
@@ -119,7 +118,7 @@ const Text = ({ children }: { children: React.ReactNode }) => (
 );
 interface IconTitleProps {
   children: React.ReactNode;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
 }
 
 const IconTitle = ({ children, icon }: IconTitleProps) => {
@@ -339,30 +338,32 @@ export const PoolAdvertisementPoster = ({
                     })}
                   </StandardAccordionHeader>
                   <Accordion.Content>
-                    <Text>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                        id: "kH4Jsf",
-                        description:
-                          "Description of pool recruitment, paragraph one",
-                      })}
-                    </Text>
-                    <Text>
-                      {intl.formatMessage(
-                        {
+                    <div data-h2-margin-top="base(x1)">
+                      <Text>
+                        {intl.formatMessage({
                           defaultMessage:
-                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                          id: "LlgRM8",
+                            "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                          id: "kH4Jsf",
                           description:
-                            "Description of pool recruitment, paragraph two",
-                        },
-                        {
-                          abbreviation: (text: React.ReactNode) =>
-                            wrapAbbr(text, intl),
-                        },
-                      )}
-                    </Text>
+                            "Description of pool recruitment, paragraph one",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                            id: "LlgRM8",
+                            description:
+                              "Description of pool recruitment, paragraph two",
+                          },
+                          {
+                            abbreviation: (text: React.ReactNode) =>
+                              wrapAbbr(text, intl),
+                          },
+                        )}
+                      </Text>
+                    </div>
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericTitle?.key && (
@@ -385,7 +386,9 @@ export const PoolAdvertisementPoster = ({
                       )}
                     </StandardAccordionHeader>
                     <Accordion.Content>
-                      <ClassificationDefinition name={genericTitle.key} />
+                      <div data-h2-margin-top="base(x1)">
+                        <ClassificationDefinition name={genericTitle.key} />
+                      </div>
                     </Accordion.Content>
                   </Accordion.Item>
                 )}
@@ -447,9 +450,13 @@ export const PoolAdvertisementPoster = ({
                           {skill.name[locale] || ""}
                         </StandardAccordionHeader>
                         <Accordion.Content>
-                          <Text>
-                            {skill.description ? skill.description[locale] : ""}
-                          </Text>
+                          <div data-h2-margin-top="base(x1)">
+                            <Text>
+                              {skill.description
+                                ? skill.description[locale]
+                                : ""}
+                            </Text>
+                          </div>
                         </Accordion.Content>
                       </Accordion.Item>
                     ))}
@@ -483,11 +490,13 @@ export const PoolAdvertisementPoster = ({
                             {skill.name[locale] || ""}
                           </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),
@@ -527,11 +536,13 @@ export const PoolAdvertisementPoster = ({
                             {skill.name[locale] || ""}
                           </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),
@@ -557,11 +568,13 @@ export const PoolAdvertisementPoster = ({
                             {skill.name[locale] || ""}
                           </StandardAccordionHeader>
                           <Accordion.Content>
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
+                            <div data-h2-margin-top="base(x1)">
+                              <Text>
+                                {skill.description
+                                  ? skill.description[locale]
+                                  : ""}
+                              </Text>
+                            </div>
                           </Accordion.Content>
                         </Accordion.Item>
                       ),

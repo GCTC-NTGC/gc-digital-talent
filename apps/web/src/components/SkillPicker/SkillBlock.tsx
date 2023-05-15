@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 
 import { Button, Collapsible } from "@gc-digital-talent/ui";
 import { useLocale, getLocalizedName } from "@gc-digital-talent/i18n";
