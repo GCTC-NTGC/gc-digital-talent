@@ -327,9 +327,13 @@
     "defaultMessage": "Itayimoowin chi-mawchistahk Paminikaywin weeput ishpee 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "qZvV7b": {
-    "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond. Natouta anoush chi-mawchistayin toon IT nouvrazh.",
+  "Hu04cP": {
+    "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond",
     "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "z5Gcsn": {
+    "defaultMessage": "Natouta anoush chi-mawchistayin toon IT nouvrazh.",
+    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
   },
   "pBJzgi": {
     "defaultMessage": "Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",

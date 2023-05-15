@@ -327,9 +327,13 @@
     "defaultMessage": "Giga-maajitoomin anokiiwin ani-ziigwang 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "qZvV7b": {
-    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg. Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
+  "Hu04cP": {
+    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg",
     "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "z5Gcsn": {
+    "defaultMessage": "Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
+    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
   },
   "pBJzgi": {
     "defaultMessage": "Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
