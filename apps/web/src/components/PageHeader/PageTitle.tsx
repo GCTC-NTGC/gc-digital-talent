@@ -1,8 +1,6 @@
 import React from "react";
 
-import { Heading } from "@gc-digital-talent/ui";
-
-import { IconType } from "./types";
+import { Heading, IconType } from "@gc-digital-talent/ui";
 
 export interface PageTitleProps
   extends Omit<React.HTMLProps<HTMLHeadingElement>, "size" | "color" | "ref"> {

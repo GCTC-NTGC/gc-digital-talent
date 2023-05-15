@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 
+import { IconType } from "@gc-digital-talent/ui";
 import { FieldLabels } from "@gc-digital-talent/forms";
 
 import { useProfileFormContext } from "../components/ProfileFormContext";
 import { SectionKey } from "../types";
 import {
-  IconType,
   SectionIcon,
   getSectionIcon,
   getSectionLabels,

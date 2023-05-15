@@ -10,7 +10,7 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
-import { SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
+import { IconType, SideMenu, SideMenuItem } from "@gc-digital-talent/ui";
 import { useAuthorization, RoleName, ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -34,7 +34,7 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
   const menuItems: {
     key: string;
     href: string;
-    icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+    icon: IconType;
     roles: RoleName[];
     text: string;
   }[] = [

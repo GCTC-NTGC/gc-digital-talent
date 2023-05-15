@@ -7386,10 +7386,6 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
-  "Km89qF": {
-    "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
-    "description": "Link text to continue the application process"
-  },
   "eLpCfR": {
     "defaultMessage": "Modifier<hidden> {context}</hidden>",
     "description": "Edit experience link label with context"
@@ -7818,6 +7814,10 @@
     "defaultMessage": "Juste un petit conseil!",
     "description": "Heading for profile review page error summary"
   },
+  "/fvZtZ": {
+    "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
+    "description": "Error message displayed when a user's equity information does not match an opportunity"
+  },
   "7CjXox": {
     "defaultMessage": "Communication générale : {language}",
     "description": "General communication preference label"
@@ -7857,10 +7857,6 @@
   "tMnjyJ": {
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
     "description": "Notice that application can be saved and returned to at a later time."
-  },
-  "uPnk4X": {
-    "defaultMessage": "Examinons ma candidature",
-    "description": "Button text to submit screening questions and continue to application review"
   },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
@@ -8063,5 +8059,17 @@
   "AnIVCJ": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
     "description": "Description of review process and next steps for the indigenous apprenticeship applicant."
+  },
+  "VldclB": {
+    "defaultMessage": "Expériences relatives aux exigences pédagogiques",
+    "description": "CSV Header, Education Requirement Experiences column"
+  },
+  "eVuqmU": {
+    "defaultMessage": "Exigences pédagogiques",
+    "description": "CSV Header, Education Requirement column"
+  },
+  "5nlauT": {
+    "defaultMessage": "Question filtre {index} : {question}",
+    "description": "CSV Header, Screening question column. "
   }
 }
