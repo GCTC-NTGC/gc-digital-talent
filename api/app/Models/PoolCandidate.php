@@ -604,10 +604,12 @@ class PoolCandidate extends Model
     public function scopeWithSkillCount(Builder $query)
     {
         // Checks if the query already has a skill_count select and if it does, it skips adding it again
-        $currentSql = $query->getQuery()->toSql();
+        $currentSql = strtolower($query->getQuery()->toSql());
         $skillCountAppearances = substr_count($currentSql, 'skill_count');
-        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
-        if ($orderedBySkillCount && $skillCountAppearances === 2) {
+        $orderedBySkillCountAsc = str_contains($currentSql, '"skill_count" asc');
+        $orderedBySkillCountDesc = str_contains($currentSql, '"skill_count" desc');
+        $orderedBySkillCount = $orderedBySkillCountAsc || $orderedBySkillCountDesc;
+        if ((($orderedBySkillCount) && $skillCountAppearances === 2) || !($orderedBySkillCount && $skillCountAppearances === 1)) {
             return $query;
         }
 
