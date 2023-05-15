@@ -5,12 +5,7 @@ import { motion } from "framer-motion";
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
-import logoEn from "~/assets/img/iap-logo-en.svg";
-import logoFr from "~/assets/img/iap-logo-fr.svg";
-import logoCrg from "~/assets/img/iap-logo-crg.svg";
-import logoCrk from "~/assets/img/iap-logo-crk.svg";
-import logoMic from "~/assets/img/iap-logo-mic.svg";
-import logoOjw from "~/assets/img/iap-logo-ojw.svg";
+import logoImg from "~/assets/img/iap-logo.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -42,8 +37,6 @@ import {
   Triangle,
 } from "./components/Svg";
 
-import "./home.css";
-
 const mailLink = (chunks: React.ReactNode) => (
   <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
 );
@@ -51,26 +44,6 @@ const mailLink = (chunks: React.ReactNode) => (
 const Home = () => {
   const intl = useIntl();
   const quote = useQuote();
-  let logoImg = logoEn;
-  switch (intl.locale) {
-    case "fr":
-      logoImg = logoFr;
-      break;
-    case "crg":
-      logoImg = logoCrg;
-      break;
-    case "crk":
-      logoImg = logoCrk;
-      break;
-    case "mic":
-      logoImg = logoMic;
-      break;
-    case "ojw":
-      logoImg = logoOjw;
-      break;
-    default:
-      logoImg = logoEn;
-  }
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
@@ -84,54 +57,77 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <LanguageSelector />
-      {/* Hero */}
       <div
         data-h2-width="base(100%)"
         data-h2-position="base(relative)"
-        data-h2-display="base(flex) p-tablet(block)"
+        data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
       >
-        <div
-          data-h2-background="base(primary-transparent-linear)"
-          data-h2-height="base(x2)"
-          data-h2-order="base(2)"
-          data-h2-display="base(block) p-tablet(none)"
-          data-h2-layer="base(2, relative)"
-          data-h2-width="base(100%)"
-        />
         <img
           data-h2-display="base(block)"
           data-h2-layer="base(1, relative)"
-          data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
-          data-h2-order="base(2) p-tablet(1)"
+          data-h2-order="base(2)"
           src={iapHeroImg}
           alt=""
         />
         <div
-          className="hero-logo"
-          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
-          data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
-          data-h2-order="base(1) p-tablet(2)"
-          data-h2-location="p-tablet(5%, auto, auto, 50%)"
-          data-h2-width="base(100%) p-tablet(40vw)"
+          data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
+          data-h2-layer="base(2, relative)"
+          data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
+          data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
+          data-h2-height="laptop(0)"
+          data-h2-overflow="laptop(visible)"
+          data-h2-width="base(100%)"
         >
-          <h1>
-            <img data-h2-width="base(100%)" src={logoImg} alt="" />
-            <span data-h2-visually-hidden="base(invisible)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
-                id: "qZvV7b",
-                description:
-                  "Homepage title for Indigenous Apprenticeship Program",
-              })}
-            </span>
-          </h1>
+          <div
+            data-h2-align-items="p-tablet(center)"
+            data-h2-display="p-tablet(flex)"
+            data-h2-gap="p-tablet(x1)"
+            data-h2-max-width="base(x23) laptop(x28)"
+            data-h2-margin="base(0 auto)"
+            data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
+          >
+            <img
+              src={logoImg}
+              alt=""
+              data-h2-display="base(block)"
+              data-h2-margin="base(0, auto, x.5, auto)"
+              data-h2-width="base(x4) laptop(x7)"
+            />
+            <div
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-color="base(white)"
+            >
+              <h1
+                data-h2-font-size="base(h3, 1.2)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "IT Apprenticeship Program for Indigenous Peoples",
+                  id: "Hu04cP",
+                  description:
+                    "Homepage title for Indigenous Apprenticeship Program",
+                })}
+              </h1>
+              <p
+                data-h2-font-size="base(caption)"
+                data-h2-font-weight="base(bold)"
+                data-h2-margin-top="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Apply today to get started on your IT career journey.",
+                  id: "z5Gcsn",
+                  description:
+                    "Homepage subtitle for Indigenous Apprenticeship Program",
+                })}
+              </p>
+            </div>
+          </div>
         </div>
         <div
-          className="hero-cta"
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
@@ -269,7 +265,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <RadiatingCircles
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(110%)"
                     data-h2-location="base(-x2, -x12, auto, auto)"
@@ -360,7 +355,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <Triangle
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(secondary)"
@@ -551,14 +545,12 @@ const Home = () => {
           data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
-            className=""
             data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
           />
           <ThickCircle
-            className=""
             data-h2-position="base(absolute)"
             data-h2-location="base(auto, -10%, x35, auto)"
             data-h2-width="base(35%)"
@@ -809,7 +801,6 @@ const Home = () => {
                 style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
                 <Triangle
-                  className=""
                   data-h2-width="base(100%)"
                   data-h2-color="base(secondary.light)"
                 />
