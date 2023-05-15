@@ -156,8 +156,12 @@ class Pool extends Model
 
     public function scopeAuthorizedToView(Builder $query)
     {
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
+        $user = Auth::user();
+
+        if (!$user) {
+            return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        }
+
         if (!$user->isAbleTo("view-any-pool")) {
             $query->where(function (Builder $query) use ($user) {
 

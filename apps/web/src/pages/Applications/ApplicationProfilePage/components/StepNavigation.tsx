@@ -92,6 +92,7 @@ const StepNavigation = ({
     if (!hasDirtySections) {
       if (values.action === "quit") {
         navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+        return true;
       }
 
       if (isValid) {
