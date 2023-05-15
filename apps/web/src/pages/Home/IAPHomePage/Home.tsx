@@ -61,75 +61,79 @@ const Home = () => {
       <div
         data-h2-width="base(100%)"
         data-h2-position="base(relative)"
-        data-h2-display="base(flex) p-tablet(block)"
+        data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
       >
-        <div
-          data-h2-background="base(primary-transparent-linear)"
+        {/* <div
+          data-h2-background="base(linear-gradient(#46032c, transparent))"
           data-h2-height="base(x2)"
           data-h2-order="base(2)"
           data-h2-display="base(block) p-tablet(none)"
           data-h2-layer="base(2, relative)"
           data-h2-width="base(100%)"
-        />
+        /> */}
         <img
           data-h2-display="base(block)"
           data-h2-layer="base(1, relative)"
-          data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
-          data-h2-order="base(2) p-tablet(1)"
+          data-h2-order="base(2)"
           src={iapHeroImg}
           alt=""
         />
         <div
-          data-h2-transform="p-tablet(translate(-50%, 0))"
-          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
-          data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
-          data-h2-order="base(1) p-tablet(2)"
-          data-h2-location="p-tablet(5%, auto, auto, 50%)"
-          data-h2-width="base(100%) p-tablet(40em) l-tablet(55em)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-align-items="base(center) p-tablet(flex-start)"
-          data-h2-justify-content="base(center)"
-          data-h2-gap="base(x.7)"
+          data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
+          data-h2-layer="base(2, relative)"
+          data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
+          data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
+          data-h2-height="laptop(0)"
+          data-h2-overflow="laptop(visible)"
+          data-h2-width="base(100%)"
         >
-          <img
-            data-h2-width="base(150px)"
-            data-h2-flex-shrink="base(0)"
-            src={logoImg}
-            alt=""
-          />
           <div
-            data-h2-text-align="base(center) p-tablet(left)"
-            data-h2-flex-grow="base(0)"
-            data-h2-color="base(white)"
+            data-h2-align-items="p-tablet(center)"
+            data-h2-display="p-tablet(flex)"
+            data-h2-gap="p-tablet(x1)"
+            data-h2-max-width="base(x23) laptop(x28)"
+            data-h2-margin="base(0 auto)"
+            data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
           >
-            <h1
-              data-h2-font-size="base(h6) p-tablet(h5) l-tablet(h3)"
-              data-h2-font-weight="base(bold)"
+            <img
+              src={logoImg}
+              alt=""
+              data-h2-display="base(block)"
+              data-h2-margin="base(0, auto, x.5, auto)"
+              data-h2-width="base(x4) laptop(x7)"
+            />
+            <div
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-color="base(white)"
             >
-              {intl.formatMessage({
-                defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples",
-                id: "Hu04cP",
-                description:
-                  "Homepage title for Indigenous Apprenticeship Program",
-              })}
-            </h1>
-            <span
-              data-h2-font-size="base(caption, 1)"
-              data-h2-font-weight="base(bold)"
-            >
-              {intl.formatMessage({
-                defaultMessage:
-                  "Apply today to get started on your IT career journey.",
-                id: "z5Gcsn",
-                description:
-                  "Homepage subtitle for Indigenous Apprenticeship Program",
-              })}
-            </span>
+              <h1
+                data-h2-font-size="base(h3, 1.2)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "IT Apprenticeship Program for Indigenous Peoples",
+                  id: "Hu04cP",
+                  description:
+                    "Homepage title for Indigenous Apprenticeship Program",
+                })}
+              </h1>
+              <p
+                data-h2-font-size="base(caption)"
+                data-h2-font-weight="base(bold)"
+                data-h2-margin-top="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Apply today to get started on your IT career journey.",
+                  id: "z5Gcsn",
+                  description:
+                    "Homepage subtitle for Indigenous Apprenticeship Program",
+                })}
+              </p>
+            </div>
           </div>
         </div>
         <div
