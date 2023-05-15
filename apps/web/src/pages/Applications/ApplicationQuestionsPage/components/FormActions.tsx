@@ -4,6 +4,8 @@ import { useFormContext } from "react-hook-form";
 
 import { Button, Separator } from "@gc-digital-talent/ui";
 
+import applicationMessages from "~/messages/applicationMessages";
+
 const FormActions = () => {
   const intl = useIntl();
   const { register, setValue } = useFormContext();
@@ -31,12 +33,7 @@ const FormActions = () => {
           {...actionProps}
           onClick={() => setValue("action", "continue")}
         >
-          {intl.formatMessage({
-            defaultMessage: "Let's review my application",
-            id: "uPnk4X",
-            description:
-              "Button text to submit screening questions and continue to application review",
-          })}
+          {intl.formatMessage(applicationMessages.saveContinue)}
         </Button>
         <Button
           type="submit"
@@ -46,11 +43,7 @@ const FormActions = () => {
           {...actionProps}
           onClick={() => setValue("action", "cancel")}
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
+          {intl.formatMessage(applicationMessages.saveQuit)}
         </Button>
       </div>
     </>
