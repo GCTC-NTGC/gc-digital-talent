@@ -4,13 +4,12 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, ExternalLink, Link } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useLocale } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import { is } from "date-fns/locale";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationSuccess(application.id);
@@ -77,7 +76,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           ? intl.formatMessage({
               defaultMessage:
                 "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
-              id: "lE92J0",
+              id: "AnIVCJ",
               description:
                 "Description of review process and next steps for the indigenous apprenticeship applicant.",
             })
