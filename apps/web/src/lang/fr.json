@@ -5584,10 +5584,6 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
-  "ZuSEII": {
-    "defaultMessage": "Type de possibilité d’emploi",
-    "description": "Title for type of opportunity section on summary of filters section"
-  },
   "cMsRgt": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
@@ -6986,45 +6982,13 @@
     "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
     "description": "Subtitle for the application success page"
   },
-  "/tscgU": {
-    "defaultMessage": "Étape 5",
-    "description": "Breadcrumb link text for the application skills page"
-  },
-  "9MUsDL": {
-    "defaultMessage": "Étape 6 (Intro)",
-    "description": "Breadcrumb link text for the application screening questions introduction page"
-  },
-  "G06TVY": {
-    "defaultMessage": "Étape 3 (Intro)",
-    "description": "Breadcrumb link text for the application résumé introduction page"
-  },
-  "IGR8Dw": {
-    "defaultMessage": "Étape 2",
-    "description": "Breadcrumb link text for the application profile page"
-  },
-  "NlfaES": {
-    "defaultMessage": "Étape 5 (Intro)",
-    "description": "Breadcrumb link text for the application skills introduction page"
-  },
-  "b5m9Ja": {
-    "defaultMessage": "Étape 7",
-    "description": "Breadcrumb link text for the application review page"
-  },
   "dlJCeM": {
     "defaultMessage": "Exigences en matière d’éducation",
     "description": "Link text for the application education page"
   },
-  "khjfel": {
-    "defaultMessage": "Étape 3",
-    "description": "Breadcrumb link text for the application résumé page"
-  },
   "WtX9b3": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb link text for the browse pools page"
-  },
-  "n6ON28": {
-    "defaultMessage": "Étape 1",
-    "description": "Breadcrumb link text for the application welcome page"
   },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
@@ -7033,14 +6997,6 @@
   "ttq9CR": {
     "defaultMessage": "Bienvenue, {name}",
     "description": "Page title for the application welcome page"
-  },
-  "w7F00q": {
-    "defaultMessage": "Étape 4",
-    "description": "Breadcrumb link text for the application education page"
-  },
-  "wWnEgP": {
-    "defaultMessage": "Étape 6",
-    "description": "Breadcrumb link text for the application screening questions page"
   },
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
@@ -7909,6 +7865,10 @@
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
   },
+  "cIqhQK": {
+    "defaultMessage": "Il n'y a aucun élément à afficher.",
+    "description": "Message when there is no data to display in a table"
+  },
   "+d/NdU": {
     "defaultMessage": "Ministères",
     "description": "Title for departments"
@@ -8083,6 +8043,14 @@
   "pHTwBd": {
     "defaultMessage": "Maintenant, relions vos expériences aux compétences qui sont critiques pour ce rôle. Il s’agit de l’étape la plus importante du processus de dotation. Tout comme dans le cas de l’expérience minimum et l’étape ayant trait à la scolarité, si vous avez besoin d’ajouter quoi que ce soit ou de modifier une expérience dans votre CV, vous pouvez le faire en retournant à <resumeLink>l’étape du CV </resumeLink> de la demande.",
     "description": "Lead in paragraph for adding experiences to a users skills"
+  },
+  "a2ymC3": {
+    "defaultMessage": "Étape {stepOrdinal}",
+    "description": "Breadcrumb link text for a numbered application step"
+  },
+  "h8BHov": {
+    "defaultMessage": "Étape {stepOrdinal} (Intro)",
+    "description": "Breadcrumb link text for a numbered application step introduction page"
   },
   "NohOkF": {
     "defaultMessage": "Trouvez des talents",

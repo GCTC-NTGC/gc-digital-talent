@@ -8,27 +8,25 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetApplicationPageInfo } from "~/types/poolCandidate";
-import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
+import { GetPageNavInfo } from "~/types/applicationStep";
 import { useUpdateApplicationMutation } from "~/api/generated";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
+import { useApplicationContext } from "../ApplicationContext";
 
-export const getPageInfo: GetApplicationPageInfo = ({
+export const getPageInfo: GetPageNavInfo = ({
   application,
   paths,
   intl,
+  stepOrdinal,
 }) => {
   const path = paths.applicationQuestions(application.id);
   return {
@@ -46,31 +44,13 @@ export const getPageInfo: GetApplicationPageInfo = ({
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage({
-          defaultMessage: "Step 6",
-          id: "wWnEgP",
-          description:
-            "Breadcrumb link text for the application screening questions page",
+        label: intl.formatMessage(applicationMessages.numberedStep, {
+          stepOrdinal,
         }),
       },
     ],
     link: {
       url: path,
-    },
-    prerequisites: [
-      ApplicationStep.Welcome,
-      ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
-      ApplicationStep.EducationRequirements,
-      ApplicationStep.SkillRequirements,
-    ],
-    introUrl: paths.applicationQuestionsIntro(application.id),
-    stepSubmitted: ApplicationStep.ScreeningQuestions,
-    hasError: (applicant: Applicant, poolAdvertisement: PoolAdvertisement) => {
-      return screeningQuestionsSectionHasMissingResponses(
-        application,
-        poolAdvertisement,
-      );
     },
   };
 };
@@ -80,7 +60,13 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags();
-  const pageInfo = getPageInfo({ intl, paths, application });
+  const { currentStepOrdinal } = useApplicationContext();
+  const pageInfo = getPageInfo({
+    intl,
+    paths,
+    application,
+    stepOrdinal: currentStepOrdinal,
+  });
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
