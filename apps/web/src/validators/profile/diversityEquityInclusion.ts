@@ -1,4 +1,9 @@
-import { Applicant } from "@gc-digital-talent/graphql";
+import {
+  Applicant,
+  Maybe,
+  PoolAdvertisement,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 type PartialApplicant = Pick<
   Applicant,
@@ -19,10 +24,17 @@ export function anyCriteriaSelected({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyRequiredFields(applicant: PartialApplicant): boolean {
-  // no required fields for this section
-  return false;
+export function hasEmptyRequiredFields(
+  applicant: PartialApplicant,
+  poolAdvertisement?: Maybe<PoolAdvertisement>,
+): boolean {
+  if (!(poolAdvertisement?.publishingGroup === PublishingGroup.Iap)) {
+    return false;
+  }
+  return !(
+    applicant.indigenousCommunities &&
+    applicant.indigenousCommunities.length > 0
+  );
 }
 
 export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {

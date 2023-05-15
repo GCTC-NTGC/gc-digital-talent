@@ -32,9 +32,11 @@ export const StandardHeader = ({
           data-h2-gap="base(x.5 0)"
         >
           <span
+            data-h2-color="base(black) base:hover(primary)"
             data-h2-display="base(block)"
             data-h2-font-size="base(h6, 1)"
             data-h2-font-weight="base(700)"
+            data-h2-text-decoration="base(underline)"
             {...titleProps}
           >
             {children}

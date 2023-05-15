@@ -5584,10 +5584,6 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
-  "ZuSEII": {
-    "defaultMessage": "Type de possibilité d’emploi",
-    "description": "Title for type of opportunity section on summary of filters section"
-  },
   "cMsRgt": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
@@ -7390,10 +7386,6 @@
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
   },
-  "Km89qF": {
-    "defaultMessage": "Je suis satisfait des renseignements dans mon CV",
-    "description": "Link text to continue the application process"
-  },
   "eLpCfR": {
     "defaultMessage": "Modifier<hidden> {context}</hidden>",
     "description": "Edit experience link label with context"
@@ -7822,6 +7814,10 @@
     "defaultMessage": "Juste un petit conseil!",
     "description": "Heading for profile review page error summary"
   },
+  "/fvZtZ": {
+    "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
+    "description": "Error message displayed when a user's equity information does not match an opportunity"
+  },
   "7CjXox": {
     "defaultMessage": "Communication générale : {language}",
     "description": "General communication preference label"
@@ -7862,12 +7858,12 @@
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
     "description": "Notice that application can be saved and returned to at a later time."
   },
-  "uPnk4X": {
-    "defaultMessage": "Examinons ma candidature",
-    "description": "Button text to submit screening questions and continue to application review"
-  },
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
+  },
+  "cIqhQK": {
+    "defaultMessage": "Il n'y a aucun élément à afficher.",
+    "description": "Message when there is no data to display in a table"
   },
   "+d/NdU": {
     "defaultMessage": "Ministères",

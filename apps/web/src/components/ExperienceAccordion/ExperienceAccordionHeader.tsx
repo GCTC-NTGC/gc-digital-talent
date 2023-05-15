@@ -2,7 +2,6 @@ import React from "react";
 
 import Accordion from "@gc-digital-talent/ui/src/components/Accordion";
 import { AccordionHeaderProps } from "@gc-digital-talent/ui/src/components/Accordion/Accordion";
-import { Separator } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 export interface ExperienceAccordionHeaderProps extends AccordionHeaderProps {
@@ -61,23 +60,14 @@ export const ExperienceAccordionHeader = ({
       </div>
     </Accordion.Trigger>
     {notEmpty(actions) ? (
-      <>
-        <Separator
-          orientation="vertical"
-          decorative
-          data-h2-background-color="base(gray.50)"
-          data-h2-margin="base(x1, 0)"
-          data-h2-height="base(unset)"
-        />
-        <div
-          data-h2-margin="base(x1)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-justify-content="base(center)"
-        >
-          {actions}
-        </div>
-      </>
+      <div
+        data-h2-margin="base(x1)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-justify-content="base(center)"
+      >
+        {actions}
+      </div>
     ) : null}
   </Accordion.Header>
 );
