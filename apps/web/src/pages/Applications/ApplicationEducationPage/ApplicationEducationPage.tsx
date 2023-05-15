@@ -1,15 +1,23 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { defineMessages, useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 import uniqueId from "lodash/uniqueId";
 
-import { Button, Heading, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
+  useGetApplicationQuery,
+  useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -29,7 +37,8 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ExperienceForDate } from "~/types/experience";
+import { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -117,7 +126,14 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationEducation = ({ application }: ApplicationPageProps) => {
+interface ApplicationEducationProps extends ApplicationPageProps {
+  experiences: Array<ExperienceForDate>;
+}
+
+const ApplicationEducation = ({
+  application,
+  experiences,
+}: ApplicationEducationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -155,7 +171,6 @@ const ApplicationEducation = ({ application }: ApplicationPageProps) => {
   const actionProps = register("action");
 
   const [, executeMutation] = useUpdateApplicationMutation();
-  const experiences = application.user.experiences?.filter(notEmpty) ?? [];
   const handleSubmit = (formValues: FormValues) => {
     const emptyEducationRequirementExperiences: EducationRequirementExperiences =
       {
@@ -416,8 +431,46 @@ const ApplicationEducation = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationEducationPage = () => (
-  <ApplicationApi PageComponent={ApplicationEducation} />
-);
+const ApplicationEducationPage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+    requestPolicy: "cache-first",
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
+
+  const application = applicationData?.poolCandidate;
+  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application?.poolAdvertisement ? (
+        <ApplicationEducation
+          application={application}
+          experiences={experiences}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationEducationPage;
