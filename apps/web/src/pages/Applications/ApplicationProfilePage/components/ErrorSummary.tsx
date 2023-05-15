@@ -8,6 +8,7 @@ import { hasEmptyRequiredFields as hasEmptyPersonalRequiredFields } from "~/vali
 import { hasEmptyRequiredFields as hasEmptyGovernmentRequiredFields } from "~/validators/profile/governmentInformation";
 import { hasEmptyRequiredFields as hasEmptyWorkPrefRequiredFields } from "~/validators/profile/workPreferences";
 import { hasEmptyRequiredFields as hasEmptyWorkLocRequiredFields } from "~/validators/profile/workLocation";
+import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import {
   hasEmptyRequiredFields as hasEmptyLanguageRequiredFields,
   hasUnsatisfiedRequirements,
@@ -29,7 +30,7 @@ const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
   const intl = useIntl();
   const errors: Record<SectionKey, boolean> = {
     personal: hasEmptyPersonalRequiredFields(user),
-    dei: false, // No errors possible here
+    dei: hasEmptyDEIRequiredFields(user, application.poolAdvertisement),
     work:
       hasEmptyWorkLocRequiredFields(user) ||
       hasEmptyWorkPrefRequiredFields(user),
