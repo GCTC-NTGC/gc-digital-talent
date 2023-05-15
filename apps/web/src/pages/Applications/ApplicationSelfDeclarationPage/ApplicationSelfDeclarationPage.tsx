@@ -2,10 +2,17 @@ import React from "react";
 import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { Button, Heading, Separator } from "@gc-digital-talent/ui";
 import { Input, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import {
+  ApplicationStep,
+  useUpdateApplicationMutation,
+  useUpdateUserAsUserMutation,
+} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -16,6 +23,10 @@ import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/Se
 import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
 import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
 import { wrapAbbr } from "~/utils/nameUtils";
+import {
+  formValuesToApiCommunities,
+  type FormValues as IndigenousFormValues,
+} from "~/utils/indigenousDeclaration";
 
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
@@ -74,9 +85,8 @@ const definitionLink = (chunks: React.ReactNode) => (
 );
 
 type PageAction = "continue" | "cancel";
-type FormValues = {
-  isIndigenous?: "yes" | "no";
-  communities?: string[];
+type FormValues = IndigenousFormValues & {
+  signature: string;
   action: PageAction;
 };
 
@@ -91,6 +101,7 @@ const ApplicationSelfDeclaration = ({
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -99,52 +110,66 @@ const ApplicationSelfDeclaration = ({
     stepOrdinal: currentStepOrdinal,
   });
   const { applicantDashboard } = useFeatureFlags();
+  const [, executeUserMutation] = useUpdateUserAsUserMutation();
+  const [, executeApplicationMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const nextStep = followingPageUrl ?? paths.applicationProfile(application.id);
 
   const methods = useForm<FormValues>();
   const { watch, register, setValue } = methods;
-
   const actionProps = register("action");
-
   const [isIndigenousValue, communitiesValue] = watch([
     "isIndigenous",
     "communities",
   ]);
 
-  const isIndigenous = isIndigenousValue === "yes";
+  const isIndigenous = isIndigenousValue;
   const hasCommunities = communitiesValue && communitiesValue.length > 0;
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    console.log(formValues);
-    // executeMutation({
-    //   id: application.id,
-    //   application: {
-    //     insertSubmittedStep: ApplicationStep.ReviewYourResume,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (!res.error) {
-    //       toast.success(
-    //         intl.formatMessage({
-    //           defaultMessage: "Successfully updated your résumé!",
-    //           id: "VJm1GR",
-    //           description:
-    //             "Message displayed to users when saving résumé is successful.",
-    //         }),
-    //       );
-    //       navigate(formValues.action === "continue" ? nextStep : cancelPath);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error(
-    //       intl.formatMessage({
-    //         defaultMessage: "Error: adding experience failed",
-    //         id: "moKAQP",
-    //         description:
-    //           "Message displayed to user after experience fails to be created.",
-    //       }),
-    //     );
-    //   });
+    // 1) update the user with the indigenous fields
+    executeUserMutation({
+      id: application.user.id,
+      user: {
+        indigenousDeclarationSignature: formValues.signature,
+        indigenousCommunities: formValuesToApiCommunities(formValues),
+      },
+    })
+      .then((result) => {
+        if (result.error) throw new Error("Update user failed");
+
+        // 2) update the application with the submitted step
+        return executeApplicationMutation({
+          id: application.id,
+          application: {
+            insertSubmittedStep: ApplicationStep.SelfDeclaration,
+          },
+        });
+      })
+      .then((result) => {
+        if (result.error) throw new Error("Update application failed");
+
+        // 3) toast and navigate
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your profile",
+            id: "Ob5DQD",
+            description:
+              "Message displayed to users when saving profile is successful.",
+          }),
+        );
+        navigate(formValues.action === "continue" ? nextStep : cancelPath);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating profile failed",
+            id: "9WxhLe",
+            description:
+              "Message displayed to user after profile fails to be updated.",
+          }),
+        );
+      });
   };
 
   const labels = getSelfDeclarationLabels(intl);

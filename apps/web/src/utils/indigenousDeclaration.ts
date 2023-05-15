@@ -9,7 +9,7 @@ export interface FormValues {
   isStatusFirstNations: "yes" | "no" | null;
 }
 
-export function apiValuesToFormValues(
+export function apiCommunitiesToFormValues(
   apiCommunities: Array<IndigenousCommunity>,
 ): FormValues {
   // array of form communities that will be built and returned
@@ -43,7 +43,7 @@ export function apiValuesToFormValues(
   };
 }
 
-export function formValuesToApiValues(
+export function formValuesToApiCommunities(
   formValues: FormValues,
 ): Array<IndigenousCommunity> {
   // short-circuit if isIndigenous is not checked

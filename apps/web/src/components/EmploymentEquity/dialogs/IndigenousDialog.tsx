@@ -18,9 +18,9 @@ import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDe
 import { CommunityList } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/CommunitySelection";
 
 import {
-  apiValuesToFormValues,
+  apiCommunitiesToFormValues,
   FormValues,
-  formValuesToApiValues,
+  formValuesToApiCommunities,
 } from "~/utils/indigenousDeclaration";
 import { IndigenousDialogProps } from "../types";
 
@@ -50,12 +50,12 @@ const IndigenousDialog = ({
 }: IndigenousDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
-    defaultValues: apiValuesToFormValues(indigenousCommunities),
+    defaultValues: apiCommunitiesToFormValues(indigenousCommunities),
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(formValuesToApiValues(data));
+    onSave(formValuesToApiCommunities(data));
   };
 
   const labels = getSelfDeclarationLabels(intl);
