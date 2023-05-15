@@ -13,7 +13,6 @@ import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetApplicationPageInfo = ({
