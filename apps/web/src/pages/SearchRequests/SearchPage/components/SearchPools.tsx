@@ -8,6 +8,7 @@ import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
 import { PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { insertBetween } from "@gc-digital-talent/helpers";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -17,13 +18,7 @@ export interface SearchPoolsProps {
   candidateCount: number;
   pool: Pick<
     PoolAdvertisement,
-    | "id"
-    | "owner"
-    | "name"
-    | "description"
-    | "classifications"
-    | "team"
-    | "essentialSkills"
+    "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
   >;
   handleSubmit: (
     candidateCount: number,
@@ -38,7 +33,6 @@ const SearchPools = ({
   handleSubmit,
 }: SearchPoolsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
   const paths = useRoutes();
@@ -86,7 +80,6 @@ const SearchPools = ({
         )}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
-        {" "}
         <ExternalLink
           mode="inline"
           type="button"
@@ -96,7 +89,7 @@ const SearchPools = ({
         >
           {intl.formatMessage({
             defaultMessage: "View the job poster for this recruitment process",
-            id: "UvdxsU",
+            id: "2Ljgvn",
             description:
               "Link message that shows the job poster for the recruitment process.",
           })}
@@ -106,7 +99,7 @@ const SearchPools = ({
         {intl.formatMessage({
           defaultMessage:
             "These essential skills were assessed during the process:",
-          id: "NFoOcU",
+          id: "VN6uCI",
           description:
             "Text showing the essentials skills assessed during the process",
         })}
@@ -128,12 +121,15 @@ const SearchPools = ({
                   description: "Text showing the team of the HR pool.",
                 }),
             departments: departmentsArray
-              ? departmentsArray.join(
+              ? insertBetween(
                   intl.formatMessage({
-                    defaultMessage: " and ",
-                    id: "1LUj1M",
+                    defaultMessage: "and",
+                    id: "MdazMc",
+                    description:
+                      "Text for showing separator between departments in a list.",
                   }),
-                )
+                  departmentsArray,
+                ).join(" ")
               : intl.formatMessage({
                   defaultMessage: "Treasury Board of Canada Secretariat",
                   id: "gOaObR",
@@ -143,7 +139,6 @@ const SearchPools = ({
         )}
       </p>
 
-      <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
         color="secondary"
         mode="outline"

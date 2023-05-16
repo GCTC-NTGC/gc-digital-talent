@@ -641,10 +641,6 @@
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "o+a0IN": {
-    "defaultMessage": "Propriétaire du bassin : {name}",
-    "description": "Text showing the owner of the HR pool."
-  },
   "RGzfes": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
     "description": "Message describing the work language ability filter in the search form."
