@@ -19,8 +19,6 @@ import {
   IndigenousCommunity,
   useGetApplicationQuery,
   useGetMeQuery,
-  useUpdateApplicationMutation,
-  useUpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -38,6 +36,7 @@ import {
   formValuesToApiCommunities,
   type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
+import { useUpdateUserAndApplicationMutation } from "~/api/generated";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -351,8 +350,7 @@ const ApplicationSelfDeclarationPage = () => {
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
   const { applicantDashboard } = useFeatureFlags();
-  const [, executeUserMutation] = useUpdateUserAsUserMutation();
-  const [, executeApplicationMutation] = useUpdateApplicationMutation();
+  const [, executeMutation] = useUpdateUserAndApplicationMutation();
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
   const nextStep = followingPageUrl ?? cancelPath;
 
@@ -362,29 +360,21 @@ const ApplicationSelfDeclarationPage = () => {
   );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    // 1) update the user with the indigenous fields
-    executeUserMutation({
-      id: userData?.me?.id || "",
-      user: {
+    // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
+    executeMutation({
+      userId: userData?.me?.id || "",
+      userInput: {
         indigenousDeclarationSignature: formValues.signature,
         indigenousCommunities: formValuesToApiCommunities(formValues),
       },
+      applicationId: applicationId || "",
+      applicationInput: {
+        insertSubmittedStep: ApplicationStep.SelfDeclaration,
+      },
     })
       .then((result) => {
-        if (result.error) throw new Error("Update user failed");
+        if (result.error) throw new Error("Update user and application failed");
 
-        // 2) update the application with the submitted step
-        return executeApplicationMutation({
-          id: applicationId || "",
-          application: {
-            insertSubmittedStep: ApplicationStep.SelfDeclaration,
-          },
-        });
-      })
-      .then((result) => {
-        if (result.error) throw new Error("Update application failed");
-
-        // 3) toast and navigate
         toast.success(
           intl.formatMessage({
             defaultMessage: "Successfully updated your profile",
