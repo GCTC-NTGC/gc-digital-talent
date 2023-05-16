@@ -16,7 +16,6 @@ import {
 
 import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
 import { CommunityList } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/CommunitySelection";
-
 import {
   apiCommunitiesToFormValuesWithBoolean as apiCommunitiesToFormValues,
   FormValuesWithBoolean as FormValues,

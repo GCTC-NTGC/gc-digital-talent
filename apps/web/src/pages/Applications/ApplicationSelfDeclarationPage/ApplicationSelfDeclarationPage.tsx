@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import {
   Button,
   Heading,
+  Link,
   Pending,
   Separator,
   ThrowNotFound,
@@ -27,11 +28,11 @@ import {
   useUpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
-
 import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
 import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
 import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
@@ -43,7 +44,6 @@ import {
   type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
 
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
@@ -123,7 +123,6 @@ export const ApplicationSelfDeclaration = ({
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -131,11 +130,9 @@ export const ApplicationSelfDeclaration = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-
   const methods = useForm<FormValues>({
     defaultValues: {
       ...apiCommunitiesToFormValues(initialIndigenousCommunities),
-      isIndigenous: initialIndigenousCommunities.length > 0 ? "yes" : "no",
       signature: initialSignature ?? undefined,
     },
   });
@@ -146,7 +143,7 @@ export const ApplicationSelfDeclaration = ({
     "communities",
   ]);
 
-  const isIndigenous = isIndigenousValue;
+  const isIndigenous = isIndigenousValue === "yes";
   const hasCommunities = communitiesValue && communitiesValue.length > 0;
 
   const labels = getSelfDeclarationLabels(intl);
@@ -235,7 +232,6 @@ export const ApplicationSelfDeclaration = ({
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "continue");
-                      // setValue("experienceCount", experiences.length);
                     }}
                   >
                     {intl.formatMessage({
@@ -253,7 +249,6 @@ export const ApplicationSelfDeclaration = ({
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "cancel");
-                      // setValue("experienceCount", experiences.length);
                     }}
                   >
                     {intl.formatMessage({
@@ -285,10 +280,13 @@ export const ApplicationSelfDeclaration = ({
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0)">
-                  <Submit
-                    color="ia-primary"
+                  <Link
+                    type="button"
+                    color="primary"
                     mode="solid"
-                    text={intl.formatMessage(
+                    href={paths.browsePools()}
+                  >
+                    {intl.formatMessage(
                       {
                         defaultMessage:
                           "Explore <abbreviation>IT</abbreviation> opportunities within the federal government",
@@ -301,7 +299,7 @@ export const ApplicationSelfDeclaration = ({
                           wrapAbbr(text, intl),
                       },
                     )}
-                  />
+                  </Link>
                 </p>
               </>
             )}
