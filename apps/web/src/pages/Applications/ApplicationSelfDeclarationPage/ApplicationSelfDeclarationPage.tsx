@@ -385,10 +385,10 @@ const ApplicationSelfDeclarationPage = () => {
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Successfully updated your profile",
-            id: "Ob5DQD",
+            defaultMessage: "Successfully updated your self-declaration",
+            id: "F/WYCH",
             description:
-              "Message displayed to users when saving profile is successful.",
+              "Message displayed to users when saving self-declaration is successful.",
           }),
         );
         navigate(formValues.action === "continue" ? nextStep : cancelPath);
@@ -396,10 +396,10 @@ const ApplicationSelfDeclarationPage = () => {
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: updating profile failed",
-            id: "9WxhLe",
+            defaultMessage: "Error: updating your self-declaration failed",
+            id: "Ps929U",
             description:
-              "Message displayed to user after profile fails to be updated.",
+              "Message displayed to user after self-declaration fails to be updated.",
           }),
         );
       });
