@@ -165,7 +165,7 @@ const ApplicationReview = ({
             id: "hX7Z1l",
           })}
         </p>
-        <ol>
+        <ul>
           <li>
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
@@ -193,7 +193,7 @@ const ApplicationReview = ({
               })}
             </p>
           </li>
-        </ol>
+        </ul>
       </div>
       <ReviewSection
         title={intl.formatMessage({
