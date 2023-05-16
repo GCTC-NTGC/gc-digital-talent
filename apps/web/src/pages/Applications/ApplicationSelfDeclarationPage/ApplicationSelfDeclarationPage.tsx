@@ -38,9 +38,9 @@ import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/Verif
 import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
-  apiCommunitiesToFormValues,
+  apiCommunitiesToFormValuesWithYesNo as apiCommunitiesToFormValues,
   formValuesToApiCommunities,
-  type FormValues as IndigenousFormValues,
+  type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
 
 import { useFeatureFlags } from "@gc-digital-talent/env";

@@ -18,8 +18,8 @@ import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDe
 import { CommunityList } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/CommunitySelection";
 
 import {
-  apiCommunitiesToFormValues,
-  FormValues,
+  apiCommunitiesToFormValuesWithBoolean as apiCommunitiesToFormValues,
+  FormValuesWithBoolean as FormValues,
   formValuesToApiCommunities,
 } from "~/utils/indigenousDeclaration";
 import { IndigenousDialogProps } from "../types";

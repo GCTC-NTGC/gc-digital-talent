@@ -3,15 +3,24 @@ import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 // constrained list of community form values to avoid typos
 type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
 
-export interface FormValues {
-  isIndigenous: "yes" | "no" | null;
+interface FormCommunityFields {
   communities: Array<FormCommunity>;
   isStatusFirstNations: "yes" | "no" | null;
 }
 
-export function apiCommunitiesToFormValues(
+// for use with forms with a radio button, like the application self-declaration
+export interface FormValuesWithYesNo extends FormCommunityFields {
+  isIndigenous: "yes" | "no" | null;
+}
+
+// for use with forms with a checkbox, like the profile dialog
+export interface FormValuesWithBoolean extends FormCommunityFields {
+  isIndigenous: boolean;
+}
+
+function apiCommunitiesToFormCommunityFields(
   apiCommunities: Array<IndigenousCommunity>,
-): FormValues {
+): FormCommunityFields {
   // array of form communities that will be built and returned
   const formCommunities: Array<FormCommunity> = [];
 
@@ -28,7 +37,7 @@ export function apiCommunitiesToFormValues(
     formCommunities.push("other");
 
   // Figure out if isStatusFirstNations should be yes/no/null
-  let isStatusFirstNations: FormValues["isStatusFirstNations"];
+  let isStatusFirstNations: FormCommunityFields["isStatusFirstNations"];
   if (apiCommunities.includes(IndigenousCommunity.StatusFirstNations))
     isStatusFirstNations = "yes";
   else if (apiCommunities.includes(IndigenousCommunity.NonStatusFirstNations))
@@ -37,17 +46,43 @@ export function apiCommunitiesToFormValues(
 
   // assemble object from pre-computed values
   return {
-    isIndigenous: apiCommunities.length > 0 ? "yes" : "no",
     communities: formCommunities,
     isStatusFirstNations,
   };
 }
 
+export function apiCommunitiesToFormValuesWithYesNo(
+  apiCommunities: Array<IndigenousCommunity>,
+): FormValuesWithYesNo {
+  // assemble object from pre-computed values
+  return {
+    ...apiCommunitiesToFormCommunityFields(apiCommunities),
+    isIndigenous: apiCommunities.length > 0 ? "yes" : "no",
+  };
+}
+
+export function apiCommunitiesToFormValuesWithBoolean(
+  apiCommunities: Array<IndigenousCommunity>,
+): FormValuesWithBoolean {
+  // assemble object from pre-computed values
+  return {
+    ...apiCommunitiesToFormCommunityFields(apiCommunities),
+    isIndigenous: apiCommunities.length > 0,
+  };
+}
+
 export function formValuesToApiCommunities(
-  formValues: FormValues,
+  formValues: FormValuesWithYesNo | FormValuesWithBoolean,
 ): Array<IndigenousCommunity> {
   // short-circuit if isIndigenous is not checked
-  if (!formValues.isIndigenous) return [];
+  let normalizedIsIndigenous: boolean;
+  if (typeof formValues.isIndigenous === "string") {
+    normalizedIsIndigenous = formValues.isIndigenous === "yes";
+  } else {
+    normalizedIsIndigenous = formValues.isIndigenous ?? false;
+  }
+
+  if (!normalizedIsIndigenous) return [];
 
   // array of API communities that will be built and returned
   const apiCommunities: Array<IndigenousCommunity> = [];
