@@ -114,8 +114,8 @@ const EducationRequirements = () => {
         <Text>
           {intl.formatMessage({
             defaultMessage:
-              "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
-            id: "r9FSaq",
+              "Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.",
+            id: "RlYe/i",
             description:
               "post secondary education experience for pool advertisement",
           })}

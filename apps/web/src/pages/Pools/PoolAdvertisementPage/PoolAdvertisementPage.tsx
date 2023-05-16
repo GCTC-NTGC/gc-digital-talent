@@ -482,8 +482,8 @@ export const PoolAdvertisementPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The following skills are required for this role, but aren't required as a part of your application.",
-                  id: "SiQPEi",
+                    "The following skills are essential to this role and must be demonstrated as a part of your application.",
+                  id: "Ewa83p",
                   description:
                     "Descriptive text about how required technical skills are used in the application process",
                 })}
