@@ -124,8 +124,8 @@ const ApplicationReview = ({
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: Error: submitting application failed",
-            id: "Uysn1m",
+            defaultMessage: "Error: submitting application failed",
+            id: "1lFWN/",
           }),
         );
       });
