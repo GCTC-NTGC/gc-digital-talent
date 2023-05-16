@@ -1,15 +1,12 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, ExternalLink, Link, Pill } from "@gc-digital-talent/ui";
+import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
-import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { intlFormat } from "date-fns/esm";
 import { PoolAdvertisement } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
