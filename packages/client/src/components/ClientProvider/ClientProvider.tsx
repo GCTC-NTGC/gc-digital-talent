@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { AuthUtilities, authExchange } from "@urql/exchange-auth";
+import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   Client,
