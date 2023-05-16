@@ -277,15 +277,30 @@ const ApplicationReview = ({
               </TreeView.Item>
             ))
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
-                  id: "I2G8Le",
-                })}
-              </p>
-            </Well>
+            <div>
+              {application.educationRequirementOption === null ||
+              application.educationRequirementOption === undefined ? (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "<strong>It looks like you haven't selected an education requirement yet.</strong>",
+                      id: "1xrO7B",
+                    })}
+                  </p>
+                </Well>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
+                      id: "I2G8Le",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </div>
           )}
         </TreeView.Root>
       </ReviewSection>
