@@ -4913,9 +4913,13 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "qZvV7b": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones. Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+  "Hu04cP": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones",
     "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "z5Gcsn": {
+    "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
+    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -7955,6 +7959,22 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "AnIVCJ": {
+    "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
+    "description": "Description of review process and next steps for the indigenous apprenticeship applicant."
+  },
+  "VldclB": {
+    "defaultMessage": "Expériences relatives aux exigences pédagogiques",
+    "description": "CSV Header, Education Requirement Experiences column"
+  },
+  "eVuqmU": {
+    "defaultMessage": "Exigences pédagogiques",
+    "description": "CSV Header, Education Requirement column"
+  },
+  "5nlauT": {
+    "defaultMessage": "Question filtre {index} : {question}",
+    "description": "CSV Header, Screening question column. "
   },
   "14pmF7": {
     "defaultMessage": "Retirer « facultatif »",
