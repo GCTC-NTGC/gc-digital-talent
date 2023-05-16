@@ -95,7 +95,7 @@ const SearchPools = ({
           newTab
         >
           {intl.formatMessage({
-            defaultMessage: " View the job poster for this recruitment process",
+            defaultMessage: "View the job poster for this recruitment process",
             id: "UvdxsU",
             description:
               "Link message that shows the job poster for the recruitment process.",
