@@ -172,121 +172,149 @@ const ApplicationEducation = ({
 
   const [, executeMutation] = useUpdateApplicationMutation();
   const handleSubmit = (formValues: FormValues) => {
-    const emptyEducationRequirementExperiences: EducationRequirementExperiences =
-      {
-        educationRequirementAwardExperiences: { sync: [] },
-        educationRequirementCommunityExperiences: { sync: [] },
-        educationRequirementEducationExperiences: { sync: [] },
-        educationRequirementPersonalExperiences: { sync: [] },
-        educationRequirementWorkExperiences: { sync: [] },
-      };
-
     const includesExperience = (id: string) =>
       formValues.educationRequirementExperiences.includes(id);
 
-    // Gets all experiences by type that have been selected by the applicant.
-    const allExperiences = experiences.reduce(
-      (
-        accumulator: EducationRequirementExperiences,
-        experience: Experience,
-      ) => {
-        return {
-          ...accumulator,
-          ...(isAwardExperience(experience) &&
-            includesExperience(experience.id) && {
-              educationRequirementAwardExperiences: {
-                sync: [
-                  ...accumulator.educationRequirementAwardExperiences.sync,
-                  experience.id,
-                ],
-              },
-            }),
-          ...(isCommunityExperience(experience) &&
-            includesExperience(experience.id) && {
-              educationRequirementCommunityExperiences: {
-                sync: [
-                  ...accumulator.educationRequirementCommunityExperiences.sync,
-                  experience.id,
-                ],
-              },
-            }),
-          ...(isEducationExperience(experience) &&
-            includesExperience(experience.id) && {
-              educationRequirementEducationExperiences: {
-                sync: [
-                  ...accumulator.educationRequirementEducationExperiences.sync,
-                  experience.id,
-                ],
-              },
-            }),
-          ...(isPersonalExperience(experience) &&
-            includesExperience(experience.id) && {
-              educationRequirementPersonalExperiences: {
-                sync: [
-                  ...accumulator.educationRequirementPersonalExperiences.sync,
-                  experience.id,
-                ],
-              },
-            }),
-          ...(isWorkExperience(experience) &&
-            includesExperience(experience.id) && {
-              educationRequirementWorkExperiences: {
-                sync: [
-                  ...accumulator.educationRequirementWorkExperiences.sync,
-                  experience.id,
-                ],
-              },
-            }),
+    const isValid =
+      formValues.educationRequirement &&
+      formValues.educationRequirementExperiences &&
+      ((formValues.educationRequirement ===
+        EducationRequirementOption.AppliedWork &&
+        formValues.educationRequirementExperiences.length > 0) ||
+        (formValues.educationRequirement ===
+          EducationRequirementOption.Education &&
+          experiences.filter(
+            (experience) =>
+              isEducationExperience(experience as ExperienceForDate) &&
+              includesExperience(experience.id),
+          ).length > 0));
+
+    if (isValid) {
+      const emptyEducationRequirementExperiences: EducationRequirementExperiences =
+        {
+          educationRequirementAwardExperiences: { sync: [] },
+          educationRequirementCommunityExperiences: { sync: [] },
+          educationRequirementEducationExperiences: { sync: [] },
+          educationRequirementPersonalExperiences: { sync: [] },
+          educationRequirementWorkExperiences: { sync: [] },
         };
-      },
-      emptyEducationRequirementExperiences,
-    );
 
-    // Only save education experiences IF the applicant selects "I meet the post-secondary option".
-    // Otherwise, save all experiences.
-    const educationRequirementExperiences =
-      formValues.educationRequirement === EducationRequirementOption.Education
-        ? {
-            ...emptyEducationRequirementExperiences,
-            educationRequirementEducationExperiences:
-              allExperiences.educationRequirementEducationExperiences,
+      // Gets all experiences by type that have been selected by the applicant.
+      const allExperiences = experiences.reduce(
+        (
+          accumulator: EducationRequirementExperiences,
+          experience: Experience,
+        ) => {
+          return {
+            ...accumulator,
+            ...(isAwardExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementAwardExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementAwardExperiences.sync,
+                    experience.id,
+                  ],
+                },
+              }),
+            ...(isCommunityExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementCommunityExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementCommunityExperiences
+                      .sync,
+                    experience.id,
+                  ],
+                },
+              }),
+            ...(isEducationExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementEducationExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementEducationExperiences
+                      .sync,
+                    experience.id,
+                  ],
+                },
+              }),
+            ...(isPersonalExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementPersonalExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementPersonalExperiences.sync,
+                    experience.id,
+                  ],
+                },
+              }),
+            ...(isWorkExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementWorkExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementWorkExperiences.sync,
+                    experience.id,
+                  ],
+                },
+              }),
+          };
+        },
+        emptyEducationRequirementExperiences,
+      );
+
+      // Only save education experiences IF the applicant selects "I meet the post-secondary option".
+      // Otherwise, save all experiences.
+      const educationRequirementExperiences =
+        formValues.educationRequirement === EducationRequirementOption.Education
+          ? {
+              ...emptyEducationRequirementExperiences,
+              educationRequirementEducationExperiences:
+                allExperiences.educationRequirementEducationExperiences,
+            }
+          : allExperiences;
+
+      executeMutation({
+        id: application.id,
+        application: {
+          educationRequirementOption: formValues.educationRequirement,
+          ...educationRequirementExperiences,
+          ...(formValues.action === "continue" && {
+            insertSubmittedStep: ApplicationStep.EducationRequirements,
+          }),
+        },
+      })
+        .then((res) => {
+          if (!res.error) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "Successfully updated your education requirement!",
+                id: "QYlwuE",
+                description:
+                  "Message displayed to users when saving education requirement is successful.",
+              }),
+            );
+            navigate(formValues.action === "continue" ? nextStep : cancelPath);
           }
-        : allExperiences;
-
-    executeMutation({
-      id: application.id,
-      application: {
-        educationRequirementOption: formValues.educationRequirement,
-        ...educationRequirementExperiences,
-        ...(formValues.action === "continue" && {
-          insertSubmittedStep: ApplicationStep.EducationRequirements,
-        }),
-      },
-    })
-      .then((res) => {
-        if (!res.error) {
-          toast.success(
+        })
+        .catch(() => {
+          toast.error(
             intl.formatMessage({
-              defaultMessage:
-                "Successfully updated your education requirement!",
-              id: "QYlwuE",
+              defaultMessage: "Error: updating education requirement failed",
+              id: "ZCUy93",
               description:
-                "Message displayed to users when saving education requirement is successful.",
+                "Message displayed to user after education requirement fails to be updated.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating education requirement failed",
-            id: "ZCUy93",
-            description:
-              "Message displayed to user after education requirement fails to be updated.",
-          }),
-        );
-      });
+        });
+    } else {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage:
+            "It looks like you haven't added any education experiences to your résumé yet.",
+          id: "Td1lSw",
+          description:
+            "Alert message informing user to add education experience in application education page.",
+        }),
+      );
+    }
   };
 
   const educationRequirementOptions: Radio[] = [
@@ -438,6 +466,7 @@ const ApplicationEducationPage = () => {
       data: applicationData,
       fetching: applicationFetching,
       error: applicationError,
+      stale: applicationStale,
     },
   ] = useGetApplicationQuery({
     variables: {
@@ -458,7 +487,7 @@ const ApplicationEducationPage = () => {
 
   return (
     <Pending
-      fetching={applicationFetching || experienceFetching}
+      fetching={applicationFetching || experienceFetching || applicationStale}
       error={applicationError || experienceError}
     >
       {application?.poolAdvertisement ? (

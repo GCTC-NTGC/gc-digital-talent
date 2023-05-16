@@ -6,6 +6,7 @@ import {
 } from "~/types/applicationStep";
 
 import { getPageInfo as educationPageInfo } from "../ApplicationEducationPage/ApplicationEducationPage";
+import stepHasError from "./educationStepValidation";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,
@@ -22,6 +23,7 @@ const getStepInfo: GetApplicationStepInfo = ({
       ApplicationStep.ReviewYourProfile,
       ApplicationStep.ReviewYourResume,
     ],
+    hasError: stepHasError,
   };
 };
 
