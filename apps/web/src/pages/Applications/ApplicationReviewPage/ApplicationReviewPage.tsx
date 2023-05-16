@@ -310,19 +310,20 @@ const ApplicationReview = ({
           id: "MP+5bd",
         })}
         path={editPaths.skills}
-        data-h2-margin-bottom="base(x1)"
       >
-        {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-          (requiredTechnicalSkill) => (
-            <SkillTree
-              key={requiredTechnicalSkill.id}
-              skill={requiredTechnicalSkill}
-              experiences={experiences}
-              showDisclaimer
-              hideConnectButton
-            />
-          ),
-        )}
+        <div data-h2-margin-top="base(-x2)">
+          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+            (requiredTechnicalSkill) => (
+              <SkillTree
+                key={requiredTechnicalSkill.id}
+                skill={requiredTechnicalSkill}
+                experiences={experiences}
+                showDisclaimer
+                hideConnectButton
+              />
+            ),
+          )}
+        </div>
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
@@ -331,7 +332,6 @@ const ApplicationReview = ({
             id: "/7P3+F",
           })}
           path={editPaths.screeningQuestions}
-          data-h2-margin-bottom="base(x1)"
         >
           {screeningQuestionResponses.length > 0 ? (
             <div>
@@ -373,7 +373,7 @@ const ApplicationReview = ({
       )}
 
       <section data-h2-margin-bottom="base(x3)">
-        <Heading level="h4" data-h2-margin="base(0, 0, x1, 0)">
+        <Heading level="h3" data-h2-margin="base(0, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
             id: "+sWqVY",

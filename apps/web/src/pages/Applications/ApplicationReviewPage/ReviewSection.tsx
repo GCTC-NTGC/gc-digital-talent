@@ -8,12 +8,7 @@ interface ReviewSectionProps {
   children: React.ReactNode;
 }
 
-const ReviewSection = ({
-  title,
-  path,
-  children,
-  ...rest
-}: ReviewSectionProps) => {
+const ReviewSection = ({ title, path, children }: ReviewSectionProps) => {
   const intl = useIntl();
   return (
     <section data-h2-margin-bottom="base(x3)">
@@ -21,7 +16,6 @@ const ReviewSection = ({
         data-h2-display="base(flex)"
         data-h2-justify-content="base(space-between)"
         data-h2-align-items="base(center)"
-        {...rest}
       >
         <Heading level="h3" data-h2-margin-top="base(0)">
           {title}
