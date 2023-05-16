@@ -24,12 +24,28 @@ query CountApplicantsAndCountPoolCandidatesByPool(
         group
         level
       }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
       team {
         id
         name
         displayName {
           en
           fr
+        }
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
         }
       }
     }

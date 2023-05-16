@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, ExternalLink, Link } from "@gc-digital-talent/ui";
+import { Button, ExternalLink, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -10,6 +10,7 @@ import { SimpleClassification } from "~/types/pool";
 import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { intlFormat } from "date-fns/esm";
+import { PoolAdvertisement } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -18,8 +19,14 @@ const testId = (text: React.ReactNode) => (
 export interface SearchPoolsProps {
   candidateCount: number;
   pool: Pick<
-    Pool,
-    "id" | "owner" | "name" | "description" | "classifications" | "team"
+    PoolAdvertisement,
+    | "id"
+    | "owner"
+    | "name"
+    | "description"
+    | "classifications"
+    | "team"
+    | "essentialSkills"
   >;
   handleSubmit: (
     candidateCount: number,
@@ -38,6 +45,23 @@ const SearchPools = ({
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
   const paths = useRoutes();
+  const team = pool?.team;
+  const departmentsArray =
+    team?.departments && team?.departments.length > 0
+      ? team.departments.map((department) => {
+          return getLocalizedName(department?.name, intl);
+        })
+      : null;
+  const skillsArray =
+    pool?.essentialSkills && pool?.essentialSkills.length > 0
+      ? pool.essentialSkills.map((skill) => {
+          return (
+            <Pill key={skill.id} color="primary" mode="outline">
+              {getLocalizedName(skill?.name, intl)}
+            </Pill>
+          );
+        })
+      : null;
 
   return (
     <article
@@ -82,10 +106,20 @@ const SearchPools = ({
         </ExternalLink>
       </p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "These essentials skills were assessed during the process:",
+          id: "NFoOcU",
+          description:
+            "Text showing the essentials skills assessed during the process",
+        })}
+      </p>
+      <p>{skillsArray}</p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Process run by {team} at department",
-            id: "pY1MbZ",
+            defaultMessage: "Process run by {team} at {departments}",
+            id: "sXLDU4",
             description: "Text showing the owner of the HR pool.",
           },
           {
@@ -96,9 +130,11 @@ const SearchPools = ({
                   id: "AauSuA",
                   description: "Not available message.",
                 }),
+            departments: departmentsArray?.flat().join(" and "),
           },
         )}
       </p>
+
       <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
         color="secondary"
