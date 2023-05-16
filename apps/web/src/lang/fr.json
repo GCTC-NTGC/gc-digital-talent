@@ -1673,8 +1673,8 @@
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
   },
-  "gpuTAV": {
-    "defaultMessage": "Que signifie {classification}{genericTitle}?",
+  "aSJ4ET": {
+    "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
   },
   "iN2H6J": {

@@ -58,6 +58,7 @@ import Text from "./components/Text";
 import EducationRequirements from "./components/EducationRequirements";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
+import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 
 type SectionContent = {
   id: string;
@@ -88,9 +89,8 @@ export const PoolAdvertisementPoster = ({
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]
     : null;
-  const genericTitle = classification?.genericJobTitles?.length
-    ? classification.genericJobTitles[0]
-    : null;
+  const genericJobTitles =
+    classification?.genericJobTitles?.filter(notEmpty) || [];
   let classificationSuffix = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationSuffix = formatClassificationString({
@@ -317,32 +317,17 @@ export const PoolAdvertisementPoster = ({
                     </div>
                   </Accordion.Content>
                 </Accordion.Item>
-                {genericTitle?.key && (
-                  <Accordion.Item value="what">
-                    <StandardAccordionHeader>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "What does {classification}{genericTitle} mean?",
-                          id: "gpuTAV",
-                          description:
-                            "Title for description of a pool advertisements classification group/level",
-                        },
-                        {
-                          classification: classificationSuffix,
-                          genericTitle: genericTitle?.name
-                            ? ` ${genericTitle.name[locale]}`
-                            : ``,
-                        },
-                      )}
-                    </StandardAccordionHeader>
-                    <Accordion.Content>
-                      <div data-h2-margin-top="base(x1)">
-                        <ClassificationDefinition name={genericTitle.key} />
-                      </div>
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
+                {genericJobTitles.length ? (
+                  <>
+                    {genericJobTitles.map((genericJobTitle) => (
+                      <GenericJobTitleAccordion
+                        key={genericJobTitle.id}
+                        suffix={classificationSuffix}
+                        genericJobTitle={genericJobTitle}
+                      />
+                    ))}
+                  </>
+                ) : null}
               </Accordion.Root>
               <div data-h2-margin-bottom="base(x3)">
                 <DataRow
