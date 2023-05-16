@@ -12,12 +12,7 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  Input,
-  RadioGroup,
-  Submit,
-  unpackMaybes,
-} from "@gc-digital-talent/forms";
+import { Input, RadioGroup, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ApplicationStep,
