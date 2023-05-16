@@ -419,8 +419,8 @@ const ApplicationReview = ({
                 <Input
                   id="signature"
                   label={intl.formatMessage({
-                    defaultMessage: "Please type your name",
-                    id: "DmeN52",
+                    defaultMessage: "Your full name",
+                    id: "QlSMW5",
                     description:
                       "Label displayed for signature input in sign and submit page.",
                   })}
