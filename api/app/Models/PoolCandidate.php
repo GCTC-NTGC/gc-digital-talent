@@ -15,7 +15,6 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 /**
