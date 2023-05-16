@@ -264,7 +264,7 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)" data-h2-font-weight="base(700)">
+                <p data-h2-margin="base(x1, 0)">
                   {intl.formatMessage({
                     defaultMessage: "Not a member of an Indigenous group?",
                     id: "Xe90FW",
