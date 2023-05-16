@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router";
 import {
   Button,
   Heading,
-  Link,
   Pending,
   Separator,
   ThrowNotFound,
@@ -93,7 +92,7 @@ const definitionLink = (chunks: React.ReactNode) => (
   <DefinitionDialog>{chunks}</DefinitionDialog>
 );
 
-type PageAction = "continue" | "cancel";
+type PageAction = "continue" | "cancel" | "explore";
 type FormValues = IndigenousFormValues & {
   signature: string;
   action: PageAction;
@@ -274,11 +273,15 @@ export const ApplicationSelfDeclaration = ({
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0)">
-                  <Link
-                    type="button"
-                    color="primary"
+                  {/* Form must have a submit button to satisfy https://www.w3.org/TR/2016/NOTE-WCAG20-TECHS-20161007/H32 */}
+                  <Button
+                    type="submit"
                     mode="solid"
-                    href={paths.browsePools()}
+                    value="explore"
+                    {...actionProps}
+                    onClick={() => {
+                      setValue("action", "explore");
+                    }}
                   >
                     {intl.formatMessage(
                       {
@@ -293,7 +296,7 @@ export const ApplicationSelfDeclaration = ({
                           wrapAbbr(text, intl),
                       },
                     )}
-                  </Link>
+                  </Button>
                 </p>
               </>
             )}
@@ -360,6 +363,11 @@ const ApplicationSelfDeclarationPage = () => {
   );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    // not indigenous - explore other opportunities
+    if (formValues.action === "explore") {
+      navigate(paths.browsePools());
+      return;
+    }
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
       userId: userData?.me?.id || "",
