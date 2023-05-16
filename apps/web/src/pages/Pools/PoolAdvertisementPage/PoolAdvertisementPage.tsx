@@ -588,8 +588,8 @@ export const PoolAdvertisementPoster = ({
                 value={
                   poolAdvertisement.isRemote
                     ? intl.formatMessage({
-                        defaultMessage: "Remove optional",
-                        id: "14pmF7",
+                        defaultMessage: "Remote optional",
+                        id: "NKbfoW",
                         description:
                           "Location requirement when a pool advertisement is remote",
                       })
