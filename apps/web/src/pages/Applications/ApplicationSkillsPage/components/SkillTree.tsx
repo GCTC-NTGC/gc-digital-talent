@@ -31,6 +31,7 @@ interface SkillTreeProps {
   skill: Skill;
   experiences: Experience[];
   headingAs?: HeadingLevel;
+  hideConnectButton?: boolean;
   showDisclaimer?: boolean;
 }
 
@@ -38,6 +39,7 @@ const SkillTree = ({
   skill,
   experiences,
   headingAs,
+  hideConnectButton = false,
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
@@ -120,7 +122,7 @@ const SkillTree = ({
         ) : (
           disclaimer
         )}
-        {availableExperiences.length > 0 ? (
+        {!hideConnectButton && availableExperiences.length > 0 ? (
           <TreeView.Item>
             <Button
               type="button"
