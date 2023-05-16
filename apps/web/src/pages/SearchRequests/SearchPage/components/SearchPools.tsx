@@ -105,7 +105,7 @@ const SearchPools = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "These essentials skills were assessed during the process:",
+            "These essential skills were assessed during the process:",
           id: "NFoOcU",
           description:
             "Text showing the essentials skills assessed during the process",
