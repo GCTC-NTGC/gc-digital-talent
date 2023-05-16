@@ -234,8 +234,8 @@ const ApplicationReview = ({
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
-                  id: "I2G8Le",
+                    "It looks like you haven't added any experiences to your résumé yet.",
+                  id: "bOLaWz",
                 })}
               </p>
             </Well>
@@ -284,8 +284,8 @@ const ApplicationReview = ({
                   <p data-h2-text-align="base(center)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "<strong>It looks like you haven't selected an education requirement yet.</strong>",
-                      id: "1xrO7B",
+                        "It looks like you haven't selected an education requirement yet.",
+                      id: "lZXCYx",
                     })}
                   </p>
                 </Well>
@@ -294,8 +294,8 @@ const ApplicationReview = ({
                   <p data-h2-text-align="base(center)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
-                      id: "I2G8Le",
+                        "It looks like you haven't added any experiences to your résumé yet.",
+                      id: "bOLaWz",
                     })}
                   </p>
                 </Well>
@@ -363,8 +363,8 @@ const ApplicationReview = ({
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>It looks like you haven't answered any screening questions yet.</strong>",
-                  id: "Zx7wZQ",
+                    "It looks like you haven't answered any screening questions yet.",
+                  id: "+ojoEd",
                 })}
               </p>
             </Well>
