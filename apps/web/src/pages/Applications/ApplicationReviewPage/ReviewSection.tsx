@@ -23,7 +23,7 @@ const ReviewSection = ({
         data-h2-align-items="base(center)"
         {...rest}
       >
-        <Heading level="h4" data-h2-margin-top="base(0)">
+        <Heading level="h3" data-h2-margin-top="base(0)">
           {title}
         </Heading>
         <Link type="button" mode="inline" color="secondary" href={path}>
