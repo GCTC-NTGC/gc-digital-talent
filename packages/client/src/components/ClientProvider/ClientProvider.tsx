@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { authExchange } from "@urql/exchange-auth";
+import { AuthUtilities, authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   Client,
@@ -85,6 +85,10 @@ const ClientProvider = ({
     logoutNullState();
   }, [refreshToken, logout, refreshTokenSet]);
 
+  const willAuthErrorStable = React.useCallback(() => {
+    return willAuthError({ accessToken, refreshToken, idToken });
+  }, [accessToken, idToken, refreshToken]);
+
   const internalClient = useMemo(() => {
     return (
       client ??
@@ -139,7 +143,7 @@ const ClientProvider = ({
           cacheExchange,
           authExchange(async (utils) => {
             return {
-              addAuthToOperation(operation) {
+              addAuthToOperation: (operation) => {
                 if (accessToken) {
                   return utils.appendHeaders(operation, {
                     Authorization: `Bearer ${accessToken}`,
@@ -147,8 +151,7 @@ const ClientProvider = ({
                 }
                 return operation;
               },
-              willAuthError: () =>
-                willAuthError({ accessToken, refreshToken, idToken }),
+              willAuthError: willAuthErrorStable,
               didAuthError(error) {
                 return error && error.response
                   ? error.response.status === 401 ||
@@ -164,7 +167,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, refreshAuth, accessToken, refreshToken, idToken]);
+  }, [client, intl, logger, willAuthErrorStable, refreshAuth, accessToken]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
