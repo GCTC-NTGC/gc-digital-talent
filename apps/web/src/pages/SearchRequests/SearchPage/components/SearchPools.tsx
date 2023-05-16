@@ -119,18 +119,29 @@ const SearchPools = ({
         {intl.formatMessage(
           {
             defaultMessage: "Process run by {team} at {departments}",
-            id: "sXLDU4",
-            description: "Text showing the owner of the HR pool.",
+            id: "6yDdnk",
+            description: "Text showing the team and department of the HR pool.",
           },
           {
             team: pool?.team
               ? getLocalizedName(pool.team.displayName, intl)
               : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  id: "AauSuA",
-                  description: "Not available message.",
+                  defaultMessage: "Digital Community Management Team",
+                  id: "gfO156",
+                  description: "Text showing the team of the HR pool.",
                 }),
-            departments: departmentsArray?.flat().join(" and "),
+            departments: departmentsArray
+              ? departmentsArray.join(
+                  intl.formatMessage({
+                    defaultMessage: " and ",
+                    id: "1LUj1M",
+                  }),
+                )
+              : intl.formatMessage({
+                  defaultMessage: "Treasury Board of Canada Secretariat",
+                  id: "gOaObR",
+                  description: "Text showing the department of the HR pool.",
+                }),
           },
         )}
       </p>
