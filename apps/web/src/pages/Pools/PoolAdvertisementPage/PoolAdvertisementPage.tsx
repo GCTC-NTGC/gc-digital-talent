@@ -52,7 +52,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
-import ClassificationDefinition from "./components/ClassificationDefinition";
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
 import EducationRequirements from "./components/EducationRequirements";
