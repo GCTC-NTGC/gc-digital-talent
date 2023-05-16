@@ -6,6 +6,7 @@ import {
 } from "~/types/applicationStep";
 
 import { getPageInfo as selfDeclarationPageInfo } from "../ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage";
+import stepHasError from "./selfDeclarationStepValidation";
 
 const getStepInfo: GetApplicationStepInfo = ({
   application,
@@ -23,6 +24,7 @@ const getStepInfo: GetApplicationStepInfo = ({
     }),
     showInStepper: true,
     prerequisites: [ApplicationStep.Welcome],
+    hasError: stepHasError,
   };
 };
 
