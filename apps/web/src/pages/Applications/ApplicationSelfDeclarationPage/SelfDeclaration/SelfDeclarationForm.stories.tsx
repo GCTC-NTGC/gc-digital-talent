@@ -2,21 +2,30 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import { widthOf, heightOf } from "storybook-helpers";
 
-import SelfDeclarationForm from "./SelfDeclarationForm";
+import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
+
+const mockApplication = fakePoolCandidates(1)[0];
 
 export default {
-  component: SelfDeclarationForm,
-  title: "Forms/Self-Declaration Form",
+  component: ApplicationSelfDeclaration,
+  title: "Application Revamp/Self-Declaration",
   parameters: {
     themeKey: "iap",
   },
-} as ComponentMeta<typeof SelfDeclarationForm>;
+} as ComponentMeta<typeof ApplicationSelfDeclaration>;
 
-const Template: ComponentStory<typeof SelfDeclarationForm> = () => (
-  <SelfDeclarationForm onSubmit={(values) => action("onSubmit")(values)} />
+const Template: ComponentStory<typeof ApplicationSelfDeclaration> = () => (
+  <ApplicationSelfDeclaration
+    onSubmit={(values) => action("onSubmit")(values)}
+    application={mockApplication}
+    indigenousCommunities={[IndigenousCommunity.Inuit]}
+    signature="Lorem Ipsum"
+  />
 );
 
 const VIEWPORTS = [

@@ -21,7 +21,6 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ApplicationStep,
   IndigenousCommunity,
-  Maybe,
   useGetApplicationQuery,
   useGetMeQuery,
   useUpdateApplicationMutation,
@@ -110,31 +109,28 @@ export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-type ApplicationSelfDeclarationProps = ApplicationPageProps & {
+export type ApplicationSelfDeclarationProps = ApplicationPageProps & {
   indigenousCommunities: IndigenousCommunity[];
   signature: string | null;
+  onSubmit: SubmitHandler<FormValues>;
 };
 
-const ApplicationSelfDeclaration = ({
+export const ApplicationSelfDeclaration = ({
   application,
   indigenousCommunities: initialIndigenousCommunities,
   signature: initialSignature,
+  onSubmit,
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const { applicantDashboard } = useFeatureFlags();
-  const [, executeUserMutation] = useUpdateUserAsUserMutation();
-  const [, executeApplicationMutation] = useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
-  const nextStep = followingPageUrl ?? paths.applicationProfile(application.id);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -153,52 +149,6 @@ const ApplicationSelfDeclaration = ({
   const isIndigenous = isIndigenousValue;
   const hasCommunities = communitiesValue && communitiesValue.length > 0;
 
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    // 1) update the user with the indigenous fields
-    executeUserMutation({
-      id: application.user.id,
-      user: {
-        indigenousDeclarationSignature: formValues.signature,
-        indigenousCommunities: formValuesToApiCommunities(formValues),
-      },
-    })
-      .then((result) => {
-        if (result.error) throw new Error("Update user failed");
-
-        // 2) update the application with the submitted step
-        return executeApplicationMutation({
-          id: application.id,
-          application: {
-            insertSubmittedStep: ApplicationStep.SelfDeclaration,
-          },
-        });
-      })
-      .then((result) => {
-        if (result.error) throw new Error("Update application failed");
-
-        // 3) toast and navigate
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Successfully updated your profile",
-            id: "Ob5DQD",
-            description:
-              "Message displayed to users when saving profile is successful.",
-          }),
-        );
-        navigate(formValues.action === "continue" ? nextStep : cancelPath);
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating profile failed",
-            id: "9WxhLe",
-            description:
-              "Message displayed to user after profile fails to be updated.",
-          }),
-        );
-      });
-  };
-
   const labels = getSelfDeclarationLabels(intl);
 
   return (
@@ -215,7 +165,7 @@ const ApplicationSelfDeclaration = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <RadioGroup
             idPrefix="isIndigenous"
             id="isIndigenous"
@@ -386,6 +336,8 @@ const ApplicationSelfDeclaration = ({
 };
 
 const ApplicationSelfDeclarationPage = () => {
+  const intl = useIntl();
+  const paths = useRoutes();
   const { applicationId } = useParams();
   const [
     {
@@ -403,10 +355,65 @@ const ApplicationSelfDeclarationPage = () => {
   const [{ data: userData, fetching: userFetching, error: userError }] =
     useGetMeQuery();
 
+  const navigate = useNavigate();
+  const { followingPageUrl } = useApplicationContext();
+  const { applicantDashboard } = useFeatureFlags();
+  const [, executeUserMutation] = useUpdateUserAsUserMutation();
+  const [, executeApplicationMutation] = useUpdateApplicationMutation();
+  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const nextStep = followingPageUrl ?? cancelPath;
+
   const application = applicationData?.poolCandidate;
   const resolvedIndigenousCommunities = unpackMaybes(
     userData?.me?.indigenousCommunities,
   );
+
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    // 1) update the user with the indigenous fields
+    executeUserMutation({
+      id: userData?.me?.id || "",
+      user: {
+        indigenousDeclarationSignature: formValues.signature,
+        indigenousCommunities: formValuesToApiCommunities(formValues),
+      },
+    })
+      .then((result) => {
+        if (result.error) throw new Error("Update user failed");
+
+        // 2) update the application with the submitted step
+        return executeApplicationMutation({
+          id: applicationId || "",
+          application: {
+            insertSubmittedStep: ApplicationStep.SelfDeclaration,
+          },
+        });
+      })
+      .then((result) => {
+        if (result.error) throw new Error("Update application failed");
+
+        // 3) toast and navigate
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your profile",
+            id: "Ob5DQD",
+            description:
+              "Message displayed to users when saving profile is successful.",
+          }),
+        );
+        navigate(formValues.action === "continue" ? nextStep : cancelPath);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating profile failed",
+            id: "9WxhLe",
+            description:
+              "Message displayed to user after profile fails to be updated.",
+          }),
+        );
+      });
+  };
+
   return (
     <Pending
       fetching={applicationFetching || applicationStale || userFetching}
@@ -417,6 +424,7 @@ const ApplicationSelfDeclarationPage = () => {
           application={application}
           indigenousCommunities={resolvedIndigenousCommunities}
           signature={userData.me.indigenousDeclarationSignature ?? null}
+          onSubmit={handleSubmit}
         />
       ) : (
         <ThrowNotFound />
