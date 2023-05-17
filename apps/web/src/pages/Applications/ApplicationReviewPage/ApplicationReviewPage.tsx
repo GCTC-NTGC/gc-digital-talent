@@ -201,6 +201,10 @@ const ApplicationReview = ({
           id: "IYAKcM",
         })}
         path={editPaths.resume}
+        editLinkAriaLabel={intl.formatMessage({
+          defaultMessage: "Edit your resume",
+          id: "uTCa2Y",
+        })}
       >
         <TreeView.Root>
           <TreeView.Head>
@@ -248,6 +252,10 @@ const ApplicationReview = ({
           id: "Ye8Uif",
         })}
         path={editPaths.education}
+        editLinkAriaLabel={intl.formatMessage({
+          defaultMessage: "Edit education requirements",
+          id: "9KkNpy",
+        })}
       >
         <TreeView.Root>
           <TreeView.Head>
@@ -310,6 +318,10 @@ const ApplicationReview = ({
           id: "MP+5bd",
         })}
         path={editPaths.skills}
+        editLinkAriaLabel={intl.formatMessage({
+          defaultMessage: "Edit skill requirements",
+          id: "svskw3",
+        })}
       >
         <div data-h2-margin-top="base(-x2)">
           {categorizedEssentialSkills[SkillCategory.Technical]?.map(
@@ -332,6 +344,10 @@ const ApplicationReview = ({
             id: "/7P3+F",
           })}
           path={editPaths.screeningQuestions}
+          editLinkAriaLabel={intl.formatMessage({
+            defaultMessage: "Edit screening questions",
+            id: "sNOjXZ",
+          })}
         >
           {screeningQuestionResponses.length > 0 ? (
             <div>

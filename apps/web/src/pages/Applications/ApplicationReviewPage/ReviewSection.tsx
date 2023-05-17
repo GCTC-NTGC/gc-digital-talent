@@ -5,10 +5,16 @@ import { useIntl } from "react-intl";
 interface ReviewSectionProps {
   title: string;
   path: string;
+  editLinkAriaLabel: string;
   children: React.ReactNode;
 }
 
-const ReviewSection = ({ title, path, children }: ReviewSectionProps) => {
+const ReviewSection = ({
+  title,
+  path,
+  editLinkAriaLabel,
+  children,
+}: ReviewSectionProps) => {
   const intl = useIntl();
   return (
     <section data-h2-margin-bottom="base(x3)">
@@ -20,7 +26,13 @@ const ReviewSection = ({ title, path, children }: ReviewSectionProps) => {
         <Heading level="h3" data-h2-margin-top="base(0)">
           {title}
         </Heading>
-        <Link type="button" mode="inline" color="secondary" href={path}>
+        <Link
+          type="button"
+          mode="inline"
+          color="secondary"
+          href={path}
+          aria-label={editLinkAriaLabel}
+        >
           {intl.formatMessage({
             defaultMessage: "Edit this section",
             id: "mu6uvE",
