@@ -32,6 +32,7 @@ interface SkillTreeProps {
   experiences: Experience[];
   headingAs?: HeadingLevel;
   hideConnectButton?: boolean;
+  hideEdit?: boolean;
   showDisclaimer?: boolean;
 }
 
@@ -40,6 +41,7 @@ const SkillTree = ({
   experiences,
   headingAs,
   hideConnectButton = false,
+  hideEdit = false,
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
@@ -112,7 +114,11 @@ const SkillTree = ({
                     <ExperienceAccordion
                       experience={filterExperienceSkills(experience, skill)}
                       headingLevel="h5"
-                      onEditClick={() => handleExperienceEdit(experience)}
+                      onEditClick={
+                        !hideEdit
+                          ? () => handleExperienceEdit(experience)
+                          : undefined
+                      }
                     />
                   </Accordion.Root>
                 </div>

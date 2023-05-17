@@ -332,6 +332,7 @@ const ApplicationReview = ({
                 experiences={experiences}
                 showDisclaimer
                 hideConnectButton
+                hideEdit
               />
             ),
           )}
