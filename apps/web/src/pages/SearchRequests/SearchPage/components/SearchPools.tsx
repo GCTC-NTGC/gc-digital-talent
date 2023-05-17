@@ -110,7 +110,7 @@ const SearchPools = ({
           {
             defaultMessage: "Process run by: {team} at {departments}",
             id: "6yDdnk",
-            description: "Text showing the team and department of the HR pool.",
+            description: "Team and department of pool",
           },
           {
             team: pool?.team
