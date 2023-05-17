@@ -122,7 +122,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         {isIAP
           ? intl.formatMessage({
               defaultMessage:
-                "The Program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
+                "The program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
               id: "eyI7JA",
               description:
                 "Description of how the skills-based hiring platform assess candidates.",
