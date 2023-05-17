@@ -15,7 +15,7 @@ import {
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
-import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
