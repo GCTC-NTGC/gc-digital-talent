@@ -38,7 +38,7 @@ class PoolSeeder extends Seeder
             [
                 'name' => [
                     'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                    'fr' => 'Programme d’apprentissage en TI pour les peuples autochtones'
+                    'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones'
                 ],
                 'key' => 'indigenous_apprenticeship',
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
