@@ -1,10 +1,6 @@
 import React from "react";
 
-interface RadiatingCircleProps {
-  className: string; // Note: Not sure why we need this, but here it is
-}
-
-const RadiatingCircle = (props: RadiatingCircleProps) => (
+const RadiatingCircle = (props: React.HTMLProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
