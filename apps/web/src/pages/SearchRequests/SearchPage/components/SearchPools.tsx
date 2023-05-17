@@ -109,7 +109,7 @@ const SearchPools = ({
         {intl.formatMessage(
           {
             defaultMessage: "Process run by: {team} at {departments}",
-            id: "6yDdnk",
+            id: "GKKj6G",
             description: "Team and department of pool",
           },
           {
