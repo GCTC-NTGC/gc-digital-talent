@@ -208,8 +208,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Below is your résumé as it will be presented to hiring managers for these positions.",
-                  id: "cbx+9J",
+                    "This section summarizes your résumé as it will be seen by hiring managers for these positions.",
+                  id: "zAsBK0",
                 })}
               </p>
             </Card>
