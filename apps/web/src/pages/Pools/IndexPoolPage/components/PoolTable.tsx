@@ -123,11 +123,11 @@ const classificationsCell = (
     ? filteredClassifications.map((classification) => {
         return (
           <Pill
-            key={`${classification?.group}-${classification?.level}`}
+            key={`${classification?.group}-0${classification?.level}`}
             color="primary"
             mode="outline"
           >
-            {classification?.group}&#8209;{classification?.level}
+            {`${classification?.group}-0${classification?.level}`}
           </Pill>
         );
       })
