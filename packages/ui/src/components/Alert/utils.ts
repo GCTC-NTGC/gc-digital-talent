@@ -8,6 +8,7 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { AlertType } from "./types";
+import { IconType } from "../../types";
 
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
@@ -66,10 +67,7 @@ export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   },
 };
 
-export const iconMap: Record<
-  AlertType,
-  React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>
-> = {
+export const iconMap: Record<AlertType, IconType> = {
   success: CheckCircleIcon,
   info: EyeIcon,
   warning: ExclamationCircleIcon,

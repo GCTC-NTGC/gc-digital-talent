@@ -104,8 +104,8 @@ const QualifiedRecruitments = ({
           })}
         </p>
         <ul
-          data-h2-margin="base(x1, 0, 0, 0)"
-          data-h2-padding="base(0, 0, x2, x1)"
+          data-h2-padding="base(x.5, 0, x1, x1)"
+          data-h2-margin-top="base:children[li](x.5)"
         >
           <li>
             <p>

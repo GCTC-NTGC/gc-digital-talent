@@ -21,12 +21,14 @@ class EducationExperienceFactory extends Factory
      */
     public function definition()
     {
+        $startDate = $this->faker->date();
+
         return [
             'institution' => $this->faker->company(),
             'area_of_study' => $this->faker->jobTitle(),
             'thesis_title' => $this->faker->bs(),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->boolean() ? $this->faker->date() : null,
+            'start_date' => $startDate,
+            'end_date' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate) : null,
             'type' => $this->faker->randomElement(
                 [
                     'DIPLOMA',
