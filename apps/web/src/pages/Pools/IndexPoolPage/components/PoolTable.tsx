@@ -117,25 +117,20 @@ const classificationsCell = (
   classifications: Maybe<Maybe<Classification>[]>,
 ): JSX.Element | null => {
   const filteredClassifications = classifications
-    ? classifications.filter((classification) => !!classification)
-    : null;
-  const pillsArray = filteredClassifications
-    ? filteredClassifications.map((classification) => {
-        return (
-          <Pill
-            key={`${classification?.group}-0${classification?.level}`}
-            color="primary"
-            mode="outline"
-          >
-            {`${classification?.group}-0${classification?.level}`}
-          </Pill>
-        );
-      })
-    : null;
-  if (pillsArray) {
-    return <span>{pillsArray}</span>;
-  }
-  return null;
+    ? classifications.filter(notEmpty)
+    : [];
+  const pillsArray = filteredClassifications.map((classification) => {
+    return (
+      <Pill
+        key={`${classification.group}-0${classification.level}`}
+        color="primary"
+        mode="outline"
+      >
+        {`${classification.group}-0${classification.level}`}
+      </Pill>
+    );
+  });
+  return pillsArray.length > 0 ? <span>{pillsArray}</span> : null;
 };
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
@@ -273,7 +268,10 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
             "Title displayed for the Pool table Group and Level column.",
         }),
         accessor: ({ classifications }) =>
-          classifications?.map((c) => `${c?.group}-0${c?.level}`)?.join(", "),
+          classifications
+            ?.filter(notEmpty)
+            ?.map((c) => `${c.group}-0${c.level}`)
+            ?.join(", "),
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
