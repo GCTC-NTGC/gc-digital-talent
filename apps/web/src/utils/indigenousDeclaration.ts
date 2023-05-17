@@ -52,12 +52,15 @@ function apiCommunitiesToFormCommunityFields(
 }
 
 export function apiCommunitiesToFormValuesWithYesNo(
-  apiCommunities: Array<IndigenousCommunity>,
+  apiCommunities: Array<IndigenousCommunity> | undefined,
 ): FormValuesWithYesNo {
+  let isIndigenous: FormValuesWithYesNo["isIndigenous"];
+  if (apiCommunities === undefined) isIndigenous = null;
+  else isIndigenous = apiCommunities.length > 0 ? "yes" : "no";
   // assemble object from pre-computed values
   return {
-    ...apiCommunitiesToFormCommunityFields(apiCommunities),
-    isIndigenous: apiCommunities.length > 0 ? "yes" : "no",
+    ...apiCommunitiesToFormCommunityFields(apiCommunities ?? []),
+    isIndigenous,
   };
 }
 

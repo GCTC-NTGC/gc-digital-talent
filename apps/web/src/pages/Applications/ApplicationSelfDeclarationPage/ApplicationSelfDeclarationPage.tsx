@@ -11,7 +11,7 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { Input, RadioGroup, unpackMaybes } from "@gc-digital-talent/forms";
+import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ApplicationStep,
@@ -21,6 +21,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -103,7 +104,7 @@ export interface SelfDeclarationFormProps {
 }
 
 export type ApplicationSelfDeclarationProps = ApplicationPageProps & {
-  indigenousCommunities: IndigenousCommunity[];
+  indigenousCommunities: IndigenousCommunity[] | undefined;
   signature: string | null;
   onSubmit: SubmitHandler<FormValues>;
 };
@@ -358,10 +359,8 @@ const ApplicationSelfDeclarationPage = () => {
   const nextStep = followingPageUrl ?? cancelPath;
 
   const application = applicationData?.poolCandidate;
-  const resolvedIndigenousCommunities = unpackMaybes(
-    userData?.me?.indigenousCommunities,
-  );
-
+  const resolvedIndigenousCommunities =
+    userData?.me?.indigenousCommunities?.filter(notEmpty);
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
