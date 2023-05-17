@@ -327,13 +327,13 @@
     "defaultMessage": "Jinu'kwalsi kisi tuwa'tn wula program ta'n poqjiaq 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "Hu04cP": {
+  "gj0bQO": {
     "defaultMessage": "IT Apprenticeship Program wjit L’nu’k",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "z5Gcsn": {
+  "nn9B4R": {
     "defaultMessage": "Suwa’te’n kiskuk wjit poqjilukwatn ki’l IT career wutawti.",
-    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "pBJzgi": {
     "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey.",
@@ -351,9 +351,9 @@
     "defaultMessage": "Ikanteske’n wjit elien ikant",
     "description": "Assistive technology skip link"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Wikuwow",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Oops, teltek kutey  ki’l kisi ika’tu’n wula wi’katikn ki’l ewikasik ta’n teluwek mu sama’tasin tujiw ankaptasin.",
@@ -367,12 +367,12 @@
     "defaultMessage": "Ta’n tujiw mu kisita’suwun wjit wula program tepaqtek wjit ki’l, <mailLink>ke tliwula’tike</mailLink> aqq pipanimitisnen aqq na’tuwan wl’ta’sitew kisis apoqmask ta’n koqowey keut’ pipanikesin.",
     "description": "Second paragraph about who the program is for"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": " Suwa’te’n nike’ wjit poqjilukwatn ki’l IT career wutawti.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "L’nu’k Apprenticeship Program ewikasik",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   }
 }
