@@ -272,21 +272,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           description:
             "Title displayed for the Pool table Group and Level column.",
         }),
-        accessor: (d) => {
-          let classificationsString = "";
-          if (d.classifications && d.classifications.length > 0) {
-            d.classifications.forEach((classification) => {
-              if (classification) {
-                const groupLevelString = wrapAbbr(
-                  `${classification?.group}-0${classification?.level}`,
-                  intl,
-                );
-                classificationsString += groupLevelString;
-              }
-            });
-          }
-          return classificationsString;
-        },
+        accessor: ({ classifications }) =>
+          classifications?.map((c) => `${c?.group}-0${c?.level}`)?.join(", "),
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
@@ -331,7 +318,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "fCXZ4R",
           description: "Title displayed for the Pool table Team column",
         }),
-        accessor: (d) => `Team ${d.team?.id ? d.team.id : ""}`,
+        accessor: (d) => getLocalizedName(d.team?.displayName, intl),
         Cell: ({ row }: PoolCell) =>
           viewTeamLinkAccessor(
             paths.teamView(row.original.team?.id ? row.original.team?.id : ""),
