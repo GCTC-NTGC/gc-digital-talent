@@ -32,7 +32,6 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   AdvertisementStatus,
