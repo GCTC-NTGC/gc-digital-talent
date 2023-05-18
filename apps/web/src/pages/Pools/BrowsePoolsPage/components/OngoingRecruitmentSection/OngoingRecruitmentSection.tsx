@@ -1038,28 +1038,29 @@ const OngoingRecruitmentSection = ({
             {" "}
             <div data-h2-padding="base(x.5, x1, x.5, x.5)">
               <DropdownMenu.RadioGroup value={quickFilterStream}>
-                <DropdownMenu.RadioItem
-                  value="ALL"
-                  onSelect={() => {
-                    setQuickFilterStream("ALL");
-                  }}
-                >
-                  <DropdownMenu.ItemIndicator>
-                    <CheckIcon />
-                  </DropdownMenu.ItemIndicator>
-                  <span>
-                    {intl.formatMessage({
-                      defaultMessage: "All",
-                      id: "qQtJDw",
-                      description: "All statuses",
-                    })}
-                  </span>
-                </DropdownMenu.RadioItem>
+                <React.Fragment key="ALL">
+                  <DropdownMenu.RadioItem
+                    value="ALL"
+                    onSelect={() => {
+                      setQuickFilterStream("ALL");
+                    }}
+                  >
+                    <DropdownMenu.ItemIndicator>
+                      <CheckIcon />
+                    </DropdownMenu.ItemIndicator>
+                    <span>
+                      {intl.formatMessage({
+                        defaultMessage: "All",
+                        id: "qQtJDw",
+                        description: "All statuses",
+                      })}
+                    </span>
+                  </DropdownMenu.RadioItem>
+                </React.Fragment>
                 {options.map((option, index) => (
-                  <>
+                  <React.Fragment key={option.value}>
                     <DropdownMenu.RadioItem
                       value={option.value}
-                      key={option.value}
                       onSelect={() => {
                         setQuickFilterStream(option.value);
                       }}
@@ -1071,7 +1072,7 @@ const OngoingRecruitmentSection = ({
                     </DropdownMenu.RadioItem>
 
                     {index + 1 < options.length && <DropdownMenu.Separator />}
-                  </>
+                  </React.Fragment>
                 ))}
               </DropdownMenu.RadioGroup>
             </div>
