@@ -627,8 +627,8 @@ export const candidateExpiryFilterStatuses = defineMessages({
   },
   [CandidateExpiryFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateExpiryFilter.Expired]: {
     defaultMessage: "Expired",
@@ -654,8 +654,8 @@ export const candidateSuspendedFilterStatuses = defineMessages({
   },
   [CandidateSuspendedFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateSuspendedFilter.Suspended]: {
     defaultMessage: "Suspended",

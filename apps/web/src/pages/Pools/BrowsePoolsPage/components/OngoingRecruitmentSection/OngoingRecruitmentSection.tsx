@@ -1023,8 +1023,8 @@ const OngoingRecruitmentSection = ({
                 {quickFilterStream === "ALL"
                   ? intl.formatMessage({
                       defaultMessage: "All",
-                      id: "qQtJDw",
-                      description: "All statuses",
+                      id: "XnvXtO",
+                      description: "All",
                     })
                   : intl.formatMessage(getPoolStream(quickFilterStream))}
               </span>
@@ -1035,7 +1035,6 @@ const OngoingRecruitmentSection = ({
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content data-h2-padding="base(0)">
-            {" "}
             <div data-h2-padding="base(x.5, x1, x.5, x.5)">
               <DropdownMenu.RadioGroup value={quickFilterStream}>
                 <React.Fragment key="ALL">
@@ -1051,8 +1050,8 @@ const OngoingRecruitmentSection = ({
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "All",
-                        id: "qQtJDw",
-                        description: "All statuses",
+                        id: "XnvXtO",
+                        description: "All",
                       })}
                     </span>
                   </DropdownMenu.RadioItem>
