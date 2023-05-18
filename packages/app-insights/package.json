@@ -31,7 +31,7 @@
     "eslint": "^8.40.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.1",
     "tsconfig": "*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2"
