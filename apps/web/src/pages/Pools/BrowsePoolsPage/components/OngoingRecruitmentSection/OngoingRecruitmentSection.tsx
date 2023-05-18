@@ -2,14 +2,20 @@ import React from "react";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { FormProvider, useForm } from "react-hook-form";
 
-import { Accordion, Link, Pill, Heading } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Link,
+  Pill,
+  Heading,
+  DropdownMenu,
+  Button,
+} from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
-import { Select } from "@gc-digital-talent/forms";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getPoolStream } from "@gc-digital-talent/i18n";
 
 import {
   PoolStream,
@@ -20,6 +26,8 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component
@@ -64,10 +72,6 @@ const selectPoolForSection = (
   );
 };
 
-type FormValues = {
-  quickFilter: PoolStream | undefined;
-};
-
 // Stream is recommended if any of the classifications match condition.
 // Every essential skill in the classification is present in the user's skills.
 const streamIsRecommended = (
@@ -90,9 +94,6 @@ const OngoingRecruitmentSection = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { hash } = useLocation();
-  const methods = useForm<FormValues>({
-    mode: "onChange",
-  });
 
   /**
    * Scroll to this section if there is a hash and ID that matches
@@ -110,7 +111,11 @@ const OngoingRecruitmentSection = ({
     }
   }, [hash]);
 
-  const quickFilterStream = methods.watch("quickFilter");
+  // is either a PoolStream or has a value of "ALL" which is the default and matches with no filtering
+  const [quickFilterStream, setQuickFilterStream] = React.useState<
+    PoolStream | "ALL"
+  >("ALL");
+
   const { user, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
     pause: !isLoaded || !user,
@@ -940,10 +945,19 @@ const OngoingRecruitmentSection = ({
       ),
   );
 
-  // if a quick filter is selected, only show the filtered stream
-  const streamsToShow = quickFilterStream
-    ? streamsWithAvailablePools.filter((s) => s.key === quickFilterStream)
-    : streamsWithAvailablePools;
+  // stream options for the <Dropdown>
+  const options = [
+    ...streamsWithAvailablePools.map((stream) => ({
+      value: stream.key,
+      label: stream.label,
+    })),
+  ];
+
+  // if the quick filter is not "ALL", only show the filtered stream
+  const streamsToShow =
+    quickFilterStream !== "ALL"
+      ? streamsWithAvailablePools.filter((s) => s.key === quickFilterStream)
+      : streamsWithAvailablePools;
 
   // sort list so that recommended streams come first
   streamsToShow.sort((s1, s2) => {
@@ -984,35 +998,89 @@ const OngoingRecruitmentSection = ({
             "instructions for section with ongoing pool advertisements",
         })}
       </p>
+      <p data-h2-margin="base(x1, 0, x.25, 0)">
+        {intl.formatMessage({
+          defaultMessage: "Select a job stream",
+          id: "dJXjhw",
+          description:
+            "Placeholder for stream filter in browse opportunities form.",
+        })}
+      </p>
       <div data-h2-display="base(flex)">
-        <FormProvider {...methods}>
-          <Select
-            id="quickFilter"
-            name="quickFilter"
-            label={intl.formatMessage({
-              defaultMessage: "Quick filter",
-              id: "8NB+Ay",
-              description: "A label for a quick filter input.",
-            })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a job stream",
-              id: "dJXjhw",
-              description:
-                "Placeholder for stream filter in browse opportunities form.",
-            })}
-            options={[
-              ...streamsWithAvailablePools.map((stream) => ({
-                value: stream.key,
-                label: stream.label,
-              })),
-            ]}
-            trackUnsaved={false}
-          />
-        </FormProvider>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button
+              color="primary"
+              mode="outline"
+              data-h2-align-items="base(center)"
+              data-h2-display="base(flex)"
+              data-h2-flex-shrink="base(0)"
+              data-h2-gap="base(0, x.25)"
+              data-h2-radius="base(input, 0px, 0px, input)"
+              data-h2-margin-right="base(0)"
+            >
+              <span>
+                {quickFilterStream === "ALL"
+                  ? intl.formatMessage({
+                      defaultMessage: "All",
+                      id: "qQtJDw",
+                      description: "All statuses",
+                    })
+                  : intl.formatMessage(getPoolStream(quickFilterStream))}
+              </span>
+              <ChevronDownIcon
+                data-h2-height="base(1em)"
+                data-h2-width="base(1em)"
+              />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content data-h2-padding="base(0)">
+            {" "}
+            <div data-h2-padding="base(x.5, x1, x.5, x.5)">
+              <DropdownMenu.RadioGroup value={quickFilterStream}>
+                <DropdownMenu.RadioItem
+                  value="ALL"
+                  onSelect={() => {
+                    setQuickFilterStream("ALL");
+                  }}
+                >
+                  <DropdownMenu.ItemIndicator>
+                    <CheckIcon />
+                  </DropdownMenu.ItemIndicator>
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "All",
+                      id: "qQtJDw",
+                      description: "All statuses",
+                    })}
+                  </span>
+                </DropdownMenu.RadioItem>
+                {options.map((option, index) => (
+                  <>
+                    <DropdownMenu.RadioItem
+                      value={option.value}
+                      key={option.value}
+                      onSelect={() => {
+                        setQuickFilterStream(option.value);
+                      }}
+                    >
+                      <DropdownMenu.ItemIndicator>
+                        <CheckIcon />
+                      </DropdownMenu.ItemIndicator>
+                      {option.label}
+                    </DropdownMenu.RadioItem>
+
+                    {index + 1 < options.length && <DropdownMenu.Separator />}
+                  </>
+                ))}
+              </DropdownMenu.RadioGroup>
+            </div>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
 
       <p aria-live="polite" data-h2-visually-hidden="base(invisible)">
-        {quickFilterStream
+        {quickFilterStream !== "ALL"
           ? intl.formatMessage(
               {
                 defaultMessage:
