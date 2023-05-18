@@ -8068,6 +8068,10 @@
     "defaultMessage": "Exigences pédagogiques",
     "description": "CSV Header, Education Requirement column"
   },
+  "qQtJDw": {
+    "defaultMessage": "Tous",
+    "description": "All statuses"
+  },
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
