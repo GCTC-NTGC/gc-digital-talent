@@ -1412,7 +1412,12 @@ input UpdatePoolInput {
 }
 
 input CreateDepartmentInput {
-  departmentNumber: Int! @rename(attribute: "department_number")
+  departmentNumber: Int!
+    @rename(attribute: "department_number")
+    @rules(
+      apply: ["unique:departments,department_number"]
+      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
+    )
   name: LocalizedStringInput
 }
 
