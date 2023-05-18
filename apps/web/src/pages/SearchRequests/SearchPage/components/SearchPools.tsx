@@ -39,19 +39,9 @@ const SearchPools = ({
   const team = pool?.team;
   const departmentsArray =
     team?.departments && team?.departments.length > 0
-      ? team.departments.map((department) => {
-          return getLocalizedName(department?.name, intl);
-        })
-      : null;
-  const skillsArray =
-    pool?.essentialSkills && pool?.essentialSkills.length > 0
-      ? pool.essentialSkills.map((skill) => {
-          return (
-            <Pill key={skill.id} color="primary" mode="outline">
-              {getLocalizedName(skill?.name, intl)}
-            </Pill>
-          );
-        })
+      ? team.departments.map((department) =>
+          getLocalizedName(department?.name, intl),
+        )
       : null;
 
   return (
@@ -104,7 +94,15 @@ const SearchPools = ({
             "Text showing the essentials skills assessed during the process",
         })}
       </p>
-      <p>{skillsArray}</p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        {pool?.essentialSkills && pool?.essentialSkills.length > 0
+          ? pool.essentialSkills.map((skill) => (
+              <Pill key={skill.id} color="secondary" mode="outline">
+                {getLocalizedName(skill?.name, intl)}
+              </Pill>
+            ))
+          : null}
+      </p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage(
           {
@@ -117,8 +115,8 @@ const SearchPools = ({
               ? getLocalizedName(pool.team.displayName, intl)
               : intl.formatMessage({
                   defaultMessage: "Digital Community Management Team",
-                  id: "gfO156",
-                  description: "Text showing the team of the HR pool.",
+                  id: "S82O61",
+                  description: "Default team for pool",
                 }),
             departments: departmentsArray
               ? insertBetween(
@@ -132,8 +130,8 @@ const SearchPools = ({
                 ).join(" ")
               : intl.formatMessage({
                   defaultMessage: "Treasury Board of Canada Secretariat",
-                  id: "gOaObR",
-                  description: "Text showing the department of the HR pool.",
+                  id: "SZ2DsZ",
+                  description: "Default department for pool",
                 }),
           },
         )}
@@ -147,8 +145,8 @@ const SearchPools = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}
