@@ -25,6 +25,10 @@ server {
         alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
     }
 
+    location = /restricted.html {
+        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+    }
+
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
