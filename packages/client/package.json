@@ -33,14 +33,14 @@
     "jwt-decode": "^3.1.2",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.1",
+    "react-intl": "^6.4.2",
     "urql": "^3.0.4"
   },
   "devDependencies": {
     "@swc/core": "^1.3.56",
     "@types/jest": "^29.5.1",
     "@types/lodash": "4.14.194",
-    "@types/react": "^18.2.0",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "eslint": "^8.40.0",
     "eslint-config-custom": "*",
