@@ -2729,10 +2729,6 @@
     "defaultMessage": "La liste n’est pas filtrée. ",
     "description": "Announcement that the job stream filter is not active."
   },
-  "8NB+Ay": {
-    "defaultMessage": "Filtre rapide. ",
-    "description": "A label for a quick filter input."
-  },
   "SypvZP": {
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
