@@ -104,7 +104,7 @@ query getAllApplicantExperiencesAndPoolSkills(
   applicant(id: $applicantId) {
     ...applicantExperiences
   }
-  poolAdvertisement(id: $poolAdvertisementId) {
+  pool(id: $poolAdvertisementId) {
     essentialSkills {
       ...poolAdvertisementSkills
     }
@@ -116,7 +116,7 @@ query getAllApplicantExperiencesAndPoolSkills(
 
 query GetApplicationDetails($id: UUID!) {
   poolCandidate(id: $id) {
-    poolAdvertisement {
+    pool {
       id
       name {
         en

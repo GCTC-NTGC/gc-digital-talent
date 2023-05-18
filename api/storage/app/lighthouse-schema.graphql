@@ -169,7 +169,7 @@ enum CandidateExpiryFilter {
 }
 
 type CandidateSearchPoolResult {
-  pool: PoolAdvertisement!
+  pool: Pool!
   candidateCount: Int!
 }
 
@@ -655,14 +655,14 @@ type Mutation {
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(pool: CreatePoolInput!): Pool
-  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
-  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
-  publishPoolAdvertisement(id: ID!): PoolAdvertisement
-  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): PoolAdvertisement
-  closePoolAdvertisement(id: ID!): PoolAdvertisement
+  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): Pool
+  publishPoolAdvertisement(id: ID!): Pool
+  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
+  closePoolAdvertisement(id: ID!): Pool
   deletePool(id: ID!): Pool
-  deletePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePoolAdvertisement(id: ID!): Pool
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
@@ -818,26 +818,6 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
-  advertisementStatus: AdvertisementStatus
-  stream: PoolStream
-  processNumber: String
-  publishingGroup: PublishingGroup
-  createdDate: DateTime
-  updatedDate: DateTime
-  screeningQuestions: [ScreeningQuestion]
-}
-
-type PoolAdvertisement {
-  id: ID!
-  key: KeyString
-  owner: UserPublicProfile
-  team: Team
-  closingDate: DateTime
-  publishedAt: DateTime
-  name: LocalizedString
-  description: LocalizedString
-  classifications: [Classification]
-  keyTasks: LocalizedString
   yourImpact: LocalizedString
   isRemote: Boolean
   advertisementLocation: LocalizedString
@@ -849,7 +829,11 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  createdDate: DateTime
+  updatedDate: DateTime
   screeningQuestions: [ScreeningQuestion]
+  closingDate: DateTime
+  publishedAt: DateTime
 }
 
 enum PoolAdvertisementLanguage {
@@ -871,7 +855,6 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool!
-  poolAdvertisement: PoolAdvertisement
   user: Applicant!
   cmoIdentifier: ID
   expiryDate: Date
@@ -1038,9 +1021,8 @@ type Query {
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
-  poolAdvertisement(id: UUID!): PoolAdvertisement
-  poolAdvertisements: [PoolAdvertisement]!
-  publishedPoolAdvertisements(closingAfter: DateTime): [PoolAdvertisement!]!
+  poolAdvertisements: [Pool]!
+  publishedPoolAdvertisements(closingAfter: DateTime): [Pool!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -1211,7 +1193,7 @@ enum SalaryRange {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: PoolAdvertisement
+  poolAdvertisement: Pool
   question: LocalizedString
   sortOrder: Int
   screeningQuestionResponses: [ScreeningQuestionResponse]

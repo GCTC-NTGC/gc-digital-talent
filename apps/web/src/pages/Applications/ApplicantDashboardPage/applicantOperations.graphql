@@ -4,7 +4,7 @@ fragment application on PoolCandidate {
   archivedAt
   submittedAt
   suspendedAt
-  poolAdvertisement {
+  pool {
     id
     closingDate
     name {

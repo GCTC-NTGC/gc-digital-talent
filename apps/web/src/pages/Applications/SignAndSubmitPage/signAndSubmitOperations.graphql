@@ -40,7 +40,7 @@ query getApplicationData($id: UUID!) {
       isProfileComplete
       ...applicantExperiences
     }
-    poolAdvertisement {
+    pool {
       id
       name {
         en

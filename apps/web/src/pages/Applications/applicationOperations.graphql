@@ -162,7 +162,7 @@ query GetApplication($id: UUID!) {
         }
       }
     }
-    poolAdvertisement {
+    pool {
       id
       name {
         en
