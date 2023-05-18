@@ -8,7 +8,6 @@ import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
 import { PoolAdvertisement } from "@gc-digital-talent/graphql";
-import { insertBetween } from "@gc-digital-talent/helpers";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -85,7 +84,7 @@ const SearchPools = ({
           })}
         </ExternalLink>
       </p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "These essential skills were assessed during the process:",
@@ -94,16 +93,23 @@ const SearchPools = ({
             "Text showing the essentials skills assessed during the process",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
+      <p
+        data-h2-margin="base(x1, 0, 0, 0)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-gap="base(x.25, x.125)"
+      >
         {pool?.essentialSkills && pool?.essentialSkills.length > 0
           ? pool.essentialSkills.map((skill) => (
-              <Pill key={skill.id} color="secondary" mode="outline">
-                {getLocalizedName(skill?.name, intl)}
-              </Pill>
+              <span key={skill.id} data-h2-margin="base(x,x, x,x )">
+                <Pill key={skill.id} color="secondary" mode="outline">
+                  {getLocalizedName(skill?.name, intl)}
+                </Pill>
+              </span>
             ))
           : null}
       </p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {
             defaultMessage: "Process run by: {team} at {departments}",
@@ -119,15 +125,7 @@ const SearchPools = ({
                   description: "Default team for pool",
                 }),
             departments: departmentsArray
-              ? insertBetween(
-                  intl.formatMessage({
-                    defaultMessage: "and",
-                    id: "MdazMc",
-                    description:
-                      "Text for showing separator between departments in a list.",
-                  }),
-                  departmentsArray,
-                ).join(" ")
+              ? departmentsArray.join(", ")
               : intl.formatMessage({
                   defaultMessage: "Treasury Board of Canada Secretariat",
                   id: "SZ2DsZ",
