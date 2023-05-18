@@ -28,6 +28,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   AdvertisementStatus,
@@ -82,14 +83,13 @@ interface ContinueButtonProps {
 const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { applicationRevamp } = useFeatureFlags();
+  const href = applicationRevamp
+    ? paths.application(applicationId)
+    : paths.reviewApplication(applicationId);
 
   return (
-    <Link
-      type="button"
-      mode="solid"
-      color="primary"
-      href={paths.reviewApplication(applicationId)}
-    >
+    <Link type="button" mode="solid" color="primary" href={href}>
       {intl.formatMessage({
         defaultMessage: "Continue my application",
         id: "ugosop",
