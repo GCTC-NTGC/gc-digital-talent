@@ -90,9 +90,9 @@ export const PoolAdvertisementPoster = ({
     : null;
   const genericJobTitles =
     classification?.genericJobTitles?.filter(notEmpty) || [];
-  let classificationSuffix = ""; // type wrangling the complex type into a string
+  let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
-    classificationSuffix = formatClassificationString({
+    classificationString = formatClassificationString({
       group: classification?.group,
       level: classification?.level,
     });
@@ -321,7 +321,7 @@ export const PoolAdvertisementPoster = ({
                     {genericJobTitles.map((genericJobTitle) => (
                       <GenericJobTitleAccordion
                         key={genericJobTitle.id}
-                        suffix={classificationSuffix}
+                        classification={classificationString}
                         genericJobTitle={genericJobTitle}
                       />
                     ))}

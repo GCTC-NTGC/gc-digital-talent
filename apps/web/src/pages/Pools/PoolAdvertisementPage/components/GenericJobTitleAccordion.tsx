@@ -8,12 +8,12 @@ import ClassificationDefinition from "./ClassificationDefinition";
 
 interface GenericJobTitleAccordionProps {
   genericJobTitle: GenericJobTitle;
-  suffix: string;
+  classification: string;
 }
 
 const GenericJobTitleAccordion = ({
   genericJobTitle,
-  suffix,
+  classification,
 }: GenericJobTitleAccordionProps) => {
   const intl = useIntl();
 
@@ -28,7 +28,7 @@ const GenericJobTitleAccordion = ({
               "Title for description of a pool advertisements classification group/level",
           },
           {
-            classification: suffix,
+            classification,
             genericTitle: getLocalizedName(genericJobTitle.name, intl),
           },
         )}
