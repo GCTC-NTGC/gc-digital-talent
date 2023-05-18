@@ -355,9 +355,9 @@
     "defaultMessage": "Signer et continuer",
     "description": "Button text to submit the Indigenous self-declaration form."
   },
-  "0rL2ds": {
+  "w1aZlG": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
-    "description": "Text describing the self-declaration form and its importance"
+    "description": "Application self-declaration intro paragraph 1"
   },
   "AMboRG": {
     "defaultMessage": "Voir <whyLink>Raison pour lesquelles nous vous demandons de déclarer votre statut</whyLink>, <verificationLink>Mode de vérification</verificationLink> Le terme <definitionLink>autochtone comme il est défini pour ce programme</definitionLink>.",
@@ -427,9 +427,9 @@
     "defaultMessage": "Inuk",
     "description": "Label for Inuk community"
   },
-  "pKACZK": {
+  "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
-    "description": "Title for the indigenous self-declaration form"
+    "description": "Page title for the self-declaration page"
   },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
@@ -8075,5 +8075,21 @@
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
+  },
+  "F/WYCH": {
+    "defaultMessage": "Mise à jour de votre autodéclaration réussie",
+    "description": "Message displayed to users when saving self-declaration is successful."
+  },
+  "Ps929U": {
+    "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
+    "description": "Message displayed to user after self-declaration fails to be updated."
+  },
+  "fLohdl": {
+    "defaultMessage": "Autodéclaration",
+    "description": "Link text for the self-declaration page"
+  },
+  "gQl1LT": {
+    "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
+    "description": "Subtitle for the self-declaration page"
   }
 }

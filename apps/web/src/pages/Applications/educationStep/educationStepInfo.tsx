@@ -19,6 +19,7 @@ const getStepInfo: GetApplicationStepInfo = ({
     showInStepper: true,
     prerequisites: [
       ApplicationStep.Welcome,
+      ApplicationStep.SelfDeclaration,
       ApplicationStep.ReviewYourProfile,
       ApplicationStep.ReviewYourResume,
     ],
