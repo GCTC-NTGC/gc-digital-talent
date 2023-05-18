@@ -327,13 +327,13 @@
     "defaultMessage": "Itayimoowin chi-mawchistahk Paminikaywin weeput ishpee 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "Hu04cP": {
+  "gj0bQO": {
     "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "z5Gcsn": {
+  "nn9B4R": {
     "defaultMessage": "Natouta anoush chi-mawchistayin toon IT nouvrazh.",
-    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "pBJzgi": {
     "defaultMessage": "Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
@@ -351,9 +351,9 @@
     "defaultMessage": "Shawpouhtay ishi li promyee mawachistowina",
     "description": "Assistive technology skip link"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Keewee",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Yow, ayshinakwun etakoushineeyn daw la paezh namoo kipakitinikawin chi-wawpastmaen.",
@@ -367,12 +367,12 @@
     "defaultMessage": "Keeshpin namoo wiya ki-kayschinahoun ooma Paminikaywin nahiyokouhk poor kiya, madoon <mailLink>kawschitininawn</mailLink> pi aen chim mambr chi-miyeustam kaw-nakishkawish chi-nashkoumiwayt tee kesyoon kaw-ayawyin.",
     "description": "Second paragraph about who the program is for"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": "Natouta shaymawnk chi-mawchistayin toon IT nouvrazh.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "Indigene Nakachistowin Paminikaywin",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   }
 }

@@ -327,13 +327,13 @@
     "defaultMessage": "Giga-maajitoomin anokiiwin ani-ziigwang 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "Hu04cP": {
+  "gj0bQO": {
     "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "z5Gcsn": {
+  "nn9B4R": {
     "defaultMessage": "Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
-    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "pBJzgi": {
     "defaultMessage": "Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
@@ -351,9 +351,9 @@
     "defaultMessage": "Izhaan ge-onji-gikendaman",
     "description": "Assistive technology skip link"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Endaawin",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Hay’aa, gigii-wanibidoon ge-gii-izhaasiwanban.",
@@ -367,12 +367,12 @@
     "defaultMessage": "Giishpin inendaman inendanziwan wii-aabajitoosiwan, <mailLink>wiindamawishinaam</mailLink> gaye niwiiji’aagonaanig da-minwendamoog ji-wiiji’ikwaa gegoo ezhi-gagwedweyan.",
     "description": "Second paragraph about who the program is for"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": "Noongom igo maajitaan waa-anokaadaman giniigaaniiming.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin izhichigewin",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   }
 }

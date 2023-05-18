@@ -327,13 +327,13 @@
     "defaultMessage": "nantaw ka machihtawak wîpac ispayiki 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "Hu04cP": {
+  "gj0bQO": {
     "defaultMessage": "IT Kiskinwahamâkan Pimipayihtâwin kiki Nêhiyawak",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "z5Gcsn": {
+  "nn9B4R": {
     "defaultMessage": "Natota anohc ta-mâcihtâyin IT atoskêwin.",
-    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "pBJzgi": {
     "defaultMessage": "Nimihtâtên, namôy niki miskênân pâskinikêwin ka-natonamin.",
@@ -351,9 +351,9 @@
     "defaultMessage": "Sâpohtê isi kihci mawacihcikêwin",
     "description": "Assistive technology skip link"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Kîwê",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Yâw, ki-takosinin isi pâskinikêwin êka pakitinikâtêw ta-wâpahtamin.",
@@ -367,12 +367,12 @@
     "defaultMessage": "Kîspin êka ki-kêhcinahon ôma Pimipayihtâwin nahiyikohk kiki kiya <mailLink>pê-kâhcitininân</mailLink> mîna nîsôhkamâkêw ta-miywêyihtam ta-nakiskâs mîna ta-naskomow ki-kakwêcihkêmona ka-ayâyin.",
     "description": "Second paragraph about who the program is for"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": "Natota sêmâk ta-mâcihtâyin IT atoskêwin.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "Nêhiyaw Kiskinwahamâkan Pimipayihtâwin",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "IT Kiskinwahamâkan Pimipayihtâwin kiki Nêhiyawak",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   }
 }
