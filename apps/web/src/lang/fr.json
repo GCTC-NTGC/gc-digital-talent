@@ -8075,5 +8075,21 @@
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
+  },
+  "F/WYCH": {
+    "defaultMessage": "Mise à jour de votre autodéclaration réussie",
+    "description": "Message displayed to users when saving self-declaration is successful."
+  },
+  "Ps929U": {
+    "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
+    "description": "Message displayed to user after self-declaration fails to be updated."
+  },
+  "fLohdl": {
+    "defaultMessage": "Autodéclaration",
+    "description": "Link text for the self-declaration page"
+  },
+  "gQl1LT": {
+    "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
+    "description": "Subtitle for the self-declaration page"
   }
 }
