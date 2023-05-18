@@ -107,9 +107,9 @@ const Home = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "IT Apprenticeship Program for Indigenous Peoples",
-                  id: "Hu04cP",
+                  id: "gj0bQO",
                   description:
-                    "Homepage title for Indigenous Apprenticeship Program",
+                    "Homepage title for IT Apprenticeship Program for Indigenous Peoples",
                 })}
               </h1>
               <p
@@ -120,9 +120,9 @@ const Home = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Apply today to get started on your IT career journey.",
-                  id: "z5Gcsn",
+                  id: "nn9B4R",
                   description:
-                    "Homepage subtitle for Indigenous Apprenticeship Program",
+                    "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples",
                 })}
               </p>
             </div>
