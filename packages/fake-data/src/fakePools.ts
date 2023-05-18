@@ -61,8 +61,8 @@ export default (): Pool[] => {
   return [
     generatePool("CMO", "CMO", users, classifications),
     generatePool(
-      "Indigenous Apprenticeship Program",
-      "Indigenous Apprenticeship Program FR",
+      "IT Apprenticeship Program for Indigenous Peoples",
+      "Programme d’apprentissage en TI pour les personnes autochtones",
       users,
       classifications,
     ),

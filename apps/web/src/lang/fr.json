@@ -131,9 +131,9 @@
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Accueil",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "U8bLT7": {
     "defaultMessage": "Comment cela fonctionnera-t-il?",
@@ -295,13 +295,13 @@
     "defaultMessage": "Vise à lancer le programme au début de 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "Programme d’apprentissage destiné aux Autochtones",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   },
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
@@ -2065,9 +2065,9 @@
     "defaultMessage": "Vous souhaitez être pris en considération pour les perspectives d’emploi adressées aux groupes sous-représentés.",
     "description": "Instruction on when to fill out equity information, item two"
   },
-  "XR37x0": {
-    "defaultMessage": "Programme d’apprentissage destiné aux Autochtones",
-    "description": "Heading for the Indigenous Apprenticeship Program on home page"
+  "4N/PxH": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page"
   },
   "YZyNUJ": {
     "defaultMessage": "Signature",
@@ -2193,9 +2193,9 @@
     "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
   },
-  "w3Kkk2": {
-    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
-    "description": "Link text to apply for the Indigenous Apprenticeship Program"
+  "Ew/GPP": {
+    "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
+    "description": "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples"
   },
   "bKRX6C": {
     "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du <abbreviation>GC</abbreviation> a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du <abbreviation>GC</abbreviation> jusqu’à la plateforme d’aujourd’hui.",
@@ -2365,9 +2365,9 @@
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
   },
-  "dIIccA": {
-    "defaultMessage": "J’ai découvert le Programme d’apprentissage pour les peuples autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
-    "description": "Body of email for info on Indigenous Apprenticeship Program"
+  "02aheT": {
+    "defaultMessage": "J’ai découvert le Programme d’apprentissage en TI pour les personnes autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
+    "description": "Body of email for info on IT Apprenticeship Program for Indigenous Peoples"
   },
   "fVAMSw": {
     "defaultMessage": "Soumettez des commentaires",
@@ -2377,9 +2377,9 @@
     "defaultMessage": "D’autres offres seront bientôt affichées!",
     "description": "Heading for message about upcoming opportunities"
   },
-  "gG5eAt": {
+  "71f/uH": {
     "defaultMessage": "Communiquez avec le Programme d’apprentissage",
-    "description": "Link text to email about the Indigenous Apprenticeship Program"
+    "description": "Link text to email about the IT Apprenticeship Program for Indigenous Peoples"
   },
   "C7sYnb": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettront aux gestionnaires qui embauchent de vous trouver facilement. Cette page donne un aperçu de nos processus de recrutement ouverts. Revenez-y et consultez cette page fréquemment!",
@@ -2417,9 +2417,9 @@
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
   },
-  "p/dXxz": {
+  "E4PMGL": {
     "defaultMessage": "Je souhaite embaucher des stagiaires autochtones en TI pour mon équipe",
-    "description": "Subject of email for info on Indigenous Apprenticeship Program"
+    "description": "Subject of email for info on IT Apprenticeship Program for Indigenous Peoples"
   },
   "qLYONf": {
     "defaultMessage": "Préparez-vous en créant un profil",
@@ -2461,8 +2461,8 @@
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
     "description": "Skills selected and then a number in parentheses"
   },
-  "07BM9O": {
-    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
+  "NSHPIJ": {
+    "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
   },
   "1UYQaC": {
@@ -5013,24 +5013,24 @@
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
-  "Hu04cP": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+  "gj0bQO": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "z5Gcsn": {
+  "nn9B4R": {
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
-    "description": "Homepage subtitle for Indigenous Apprenticeship Program"
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
   },
   "Dzyk1q": {
-    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
+    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
   },
   "p2sBh3": {
-    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
   "AlRcyu": {
@@ -5054,16 +5054,16 @@
     "description": "Checkbox label for Level IT-04 manager selection"
   },
   "L9yjr3": {
-    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
   "SPECr8": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
-  "FtJRWS": {
+  "szt3yx": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des <abbreviation>TI</abbreviation> dans l’ensemble du gouvernement.",
-    "description": "Description for the Indigenous Apprenticeship Program on home page"
+    "description": "Description for the IT Apprenticeship Program for Indigenous Peoples on home page"
   },
   "GtZyhK": {
     "defaultMessage": "Technicien (<abbreviation>TI-01</abbreviation>)",
@@ -5093,9 +5093,9 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
     "description": "Checkbox label for Level IT-03 leader selection"
   },
-  "LOvD2e": {
+  "Q0G/5L": {
     "defaultMessage": "Vous recherchez des talents en <abbreviation>TI</abbreviation> de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
-    "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
+    "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
   },
   "LlgRM8": {
     "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",

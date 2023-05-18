@@ -129,20 +129,21 @@ const Opportunities = () => {
             <CardFlat
               color="secondary"
               title={intl.formatMessage({
-                defaultMessage: "Indigenous Apprenticeship Program",
-                id: "XR37x0",
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples",
+                id: "4N/PxH",
                 description:
-                  "Heading for the Indigenous Apprenticeship Program on home page",
+                  "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
               })}
               links={[
                 {
                   href: `/${locale}/indigenous-it-apprentice`,
                   label: intl.formatMessage({
                     defaultMessage:
-                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                      "Apply<hidden> to the IT Apprenticeship Program for Indigenous Peoples</hidden> now",
                     description:
-                      "Link text to apply for the Indigenous Apprenticeship Program",
-                    id: "w3Kkk2",
+                      "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples",
+                    id: "Ew/GPP",
                   }),
                 },
               ]}
@@ -152,9 +153,9 @@ const Opportunities = () => {
                   {
                     defaultMessage:
                       "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development <abbreviation>IT</abbreviation> opportunities across government.",
-                    id: "FtJRWS",
+                    id: "szt3yx",
                     description:
-                      "Description for the Indigenous Apprenticeship Program on home page",
+                      "Description for the IT Apprenticeship Program for Indigenous Peoples on home page",
                   },
                   {
                     abbreviation: (text: React.ReactNode) =>

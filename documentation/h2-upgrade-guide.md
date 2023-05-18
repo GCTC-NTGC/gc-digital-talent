@@ -70,7 +70,7 @@ You can choose to ignore these additions, but they might be nice for you to know
 - I've consolidated the color configurations, but this means that the colors have been renamed for consistency and reuse
   - all colors now use generic functional names (e.g. `primary`, `secondary`, `black`, `white`, `gray`, etc.)
   - Digital Talent brand colors are now prefixed with `dt-`, e.g. `dt-primary`
-  - Indigenous Apprenticeship Program colors are now prefixed with `ia-`, e.g. `ia-primary`
+  - IT Apprenticeship Program for Indigenous Peoples colors are now prefixed with `ia-`, e.g. `ia-primary`
   - if you need to access a light or dark version of a particular color, you can now use the modifier syntax to do so
     - for example, `light-purple` would now be `primary.light`
     - this also means you can set your own modifiers in `hydrogen.config.json` if new color variations are added

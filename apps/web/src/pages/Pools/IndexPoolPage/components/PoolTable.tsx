@@ -15,7 +15,7 @@ import {
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
-import { getFullNameHtml, wrapAbbr } from "~/utils/nameUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -117,25 +117,20 @@ const classificationsCell = (
   classifications: Maybe<Maybe<Classification>[]>,
 ): JSX.Element | null => {
   const filteredClassifications = classifications
-    ? classifications.filter((classification) => !!classification)
-    : null;
-  const pillsArray = filteredClassifications
-    ? filteredClassifications.map((classification) => {
-        return (
-          <Pill
-            key={`${classification?.group}-${classification?.level}`}
-            color="primary"
-            mode="outline"
-          >
-            {classification?.group}&#8209;{classification?.level}
-          </Pill>
-        );
-      })
-    : null;
-  if (pillsArray) {
-    return <span>{pillsArray}</span>;
-  }
-  return null;
+    ? classifications.filter(notEmpty)
+    : [];
+  const pillsArray = filteredClassifications.map((classification) => {
+    return (
+      <Pill
+        key={`${classification.group}-0${classification.level}`}
+        color="primary"
+        mode="outline"
+      >
+        {`${classification.group}-0${classification.level}`}
+      </Pill>
+    );
+  });
+  return pillsArray.length > 0 ? <span>{pillsArray}</span> : null;
 };
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
@@ -272,21 +267,11 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           description:
             "Title displayed for the Pool table Group and Level column.",
         }),
-        accessor: (d) => {
-          let classificationsString = "";
-          if (d.classifications && d.classifications.length > 0) {
-            d.classifications.forEach((classification) => {
-              if (classification) {
-                const groupLevelString = wrapAbbr(
-                  `${classification?.group}-0${classification?.level}`,
-                  intl,
-                );
-                classificationsString += groupLevelString;
-              }
-            });
-          }
-          return classificationsString;
-        },
+        accessor: ({ classifications }) =>
+          classifications
+            ?.filter(notEmpty)
+            ?.map((c) => `${c.group}-0${c.level}`)
+            ?.join(", "),
         Cell: ({ row }: PoolCell) => {
           return classificationsCell(row.original.classifications);
         },
@@ -331,7 +316,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "fCXZ4R",
           description: "Title displayed for the Pool table Team column",
         }),
-        accessor: (d) => `Team ${d.team?.id ? d.team.id : ""}`,
+        accessor: (d) => getLocalizedName(d.team?.displayName, intl),
         Cell: ({ row }: PoolCell) =>
           viewTeamLinkAccessor(
             paths.teamView(row.original.team?.id ? row.original.team?.id : ""),

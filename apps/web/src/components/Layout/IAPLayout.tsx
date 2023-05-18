@@ -55,17 +55,18 @@ const Layout = () => {
           <Favicon project="iap" />
           <SEO
             title={intl.formatMessage({
-              defaultMessage: "Indigenous Apprenticeship Program",
-              id: "C5tUG2",
+              defaultMessage:
+                "IT Apprenticeship Program for Indigenous Peoples",
+              id: "oMpO+C",
               description:
-                "Title tag for Indigenous Apprenticeship Program site",
+                "Title tag for IT Apprenticeship Program for Indigenous Peoples site",
             })}
             description={intl.formatMessage({
               defaultMessage:
                 "Apply now to get started on your IT career journey.",
-              id: "Oh1/Gc",
+              id: "Z9W+O2",
               description:
-                "Meta tag description for Indigenous Apprenticeship Program site",
+                "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site",
             })}
           />
           <SkipLink />
@@ -83,9 +84,9 @@ const Layout = () => {
                   <MenuLink key="home" to={paths.iap()}>
                     {intl.formatMessage({
                       defaultMessage: "Home",
-                      id: "TFeQL2",
+                      id: "M1JKQs",
                       description:
-                        "Link to the homepage for indigenous apprenticeship program.",
+                        "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples.",
                     })}
                   </MenuLink>,
                 ]}
