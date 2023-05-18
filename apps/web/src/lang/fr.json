@@ -1701,10 +1701,6 @@
     "defaultMessage": "Apprentissage pendant l'emploi",
     "description": "pool experience requirement, on job learning"
   },
-  "r9FSaq": {
-    "defaultMessage": "Réussite de deux ans d'études postsecondaires en informatique, en technologie de l'information, en gestion de l'information ou dans une autre spécialité pertinente pour ce poste",
-    "description": "post secondary education experience for pool advertisement"
-  },
   "Wnw+oz": {
     "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
     "description": "An email address to contact for help"
@@ -8052,10 +8048,6 @@
     "defaultMessage": "Présenter une demande avant :",
     "description": "Label for pool advertisement closing date"
   },
-  "SiQPEi": {
-    "defaultMessage": "Les compétences suivantes sont requises pour ce poste, mais ne sont pas requises dans le cadre de votre candidature.",
-    "description": "Descriptive text about how required technical skills are used in the application process"
-  },
   "Swde4t": {
     "defaultMessage": "En apprendre davantage sur les tests de langue",
     "description": "Link text for language testing information"
@@ -8135,5 +8127,13 @@
   "v8LEMv": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce poste, mais ne sont pas requises dans le cadre de votre candidature. <strong>Elles seront examinées au cours du processus d’évaluation si votre candidature est acceptée.</strong>.",
     "description": "Descriptive text about how required behavioural skills are used in the application process"
+  },
+  "Ewa83p": {
+    "defaultMessage": "Les compétences suivantes sont essentielles à ce rôle et doivent être évidentes dans le cadre de votre demande.",
+    "description": "Descriptive text about how required technical skills are used in the application process"
+  },
+  "RlYe/i": {
+    "defaultMessage": "Le passage réussi de deux années d’éducation postsecondaire en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à ce poste.",
+    "description": "post secondary education experience for pool advertisement"
   }
 }
