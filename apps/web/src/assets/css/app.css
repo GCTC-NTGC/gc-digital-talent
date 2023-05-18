@@ -19,6 +19,14 @@ button:not(disabled) {
   cursor: pointer;
 }
 
+abbr {
+  text-decoration: underline inherit dotted;
+}
+
+abbr:hover {
+  cursor: help;
+}
+
 [data-h2] table {
   width: 100%;
   border-collapse: collapse;
