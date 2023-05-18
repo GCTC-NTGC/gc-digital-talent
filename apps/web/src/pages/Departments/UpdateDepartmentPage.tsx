@@ -152,7 +152,12 @@ const UpdateDepartmentPage = () => {
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>
     executeMutation({
       id,
-      department: pick(data, ["departmentName", "name.en", "name.fr"]),
+      department: pick(data, [
+        "departmentName",
+        "name.en",
+        "name.fr",
+        "departmentNumber",
+      ]),
     }).then((result) => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
