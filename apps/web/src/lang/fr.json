@@ -7331,7 +7331,7 @@
     "description": "list a number of work experiences"
   },
   "LfhuFi": {
-    "defaultMessage": "Comment j’ai utilisé “{skillName}” dans ce rôle",
+    "defaultMessage": "Comment j’ai utilisé «{skillName}» dans ce rôle",
     "description": "Title for section on how a skill was used in the role"
   },
   "NGEgVN": {
