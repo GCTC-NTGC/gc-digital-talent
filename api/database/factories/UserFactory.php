@@ -222,10 +222,16 @@ class UserFactory extends Factory
      *      `User::factory()->withRoles(['base_user', 'applicant']);`
      *      `User::factory()->withRoles(['poo_operator'], 'team_name');`
      */
-    public function withRoles(array $roles, string $team = null)
+    public function withRoles(array $roles, string|array $team = null)
     {
         return $this->afterCreating(function (User $user) use ($roles, $team) {
-            $user->addRoles($roles, $team);
+            if (is_array($team)) {
+                foreach ($team as $singleTeam) {
+                    $user->addRoles($roles, $singleTeam);
+                }
+            } else {
+                $user->addRoles($roles, $team);
+            }
         });
     }
 }
