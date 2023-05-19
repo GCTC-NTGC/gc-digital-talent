@@ -309,7 +309,6 @@ input CreatePoolInput {
   team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
@@ -813,7 +812,6 @@ type Pool {
   team: Team
   name: LocalizedString
   key: KeyString
-  description: LocalizedString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
@@ -1411,7 +1409,6 @@ input UpdatePoolInput {
   owner: UserBelongsTo
   team: TeamBelongsTo
   name: LocalizedStringInput
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput

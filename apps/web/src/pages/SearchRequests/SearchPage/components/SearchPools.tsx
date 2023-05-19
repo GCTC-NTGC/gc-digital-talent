@@ -15,7 +15,7 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  pool: Pick<Pool, "id" | "owner" | "name" | "classifications">;
   handleSubmit: (
     candidateCount: number,
     poolId: string,
@@ -80,7 +80,6 @@ const SearchPools = ({
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
         color="secondary"
         mode="outline"
