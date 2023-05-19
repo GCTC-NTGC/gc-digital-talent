@@ -1,15 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  fakePoolAdvertisements,
-  fakeUsers,
-} from "@gc-digital-talent/fake-data";
+import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
 
-import {
-  Applicant,
-  PoolAdvertisement,
-  PoolAdvertisementLanguage,
-} from "~/api/generated";
+import { Applicant, Pool, PoolAdvertisementLanguage } from "~/api/generated";
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
 type MissingLanguageRequirementsComponent = typeof MissingLanguageRequirements;
@@ -20,8 +13,8 @@ const unilingualApplicant: Applicant = {
   lookingForFrench: false,
   lookingForBilingual: false,
 };
-const bilingualPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisements(1)[0],
+const bilingualPoolAdvertisement: Pool = {
+  ...fakePools(1)[0],
   advertisementLanguage: PoolAdvertisementLanguage.BilingualAdvanced,
 };
 

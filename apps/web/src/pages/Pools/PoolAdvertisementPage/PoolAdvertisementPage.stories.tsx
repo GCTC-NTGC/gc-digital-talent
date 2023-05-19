@@ -1,9 +1,9 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
+import { fakePools } from "@gc-digital-talent/fake-data";
 import { PoolAdvertisementPoster } from "./PoolAdvertisementPage";
 
-const fakeAdvertisement = fakePoolAdvertisements()[0];
+const fakeAdvertisement = fakePools(1)[0];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nullAdvertisement: any = {};
 Object.keys(fakeAdvertisement).forEach((key) => {

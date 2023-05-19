@@ -5,7 +5,7 @@ import {
   fakeSkillFamilies,
   fakeClassifications,
   fakeSkills,
-  fakePoolAdvertisements,
+  fakePools,
 } from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
@@ -17,7 +17,7 @@ import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
-const poolAdvertisement = fakePoolAdvertisements(1, skills, classifications)[0];
+const poolAdvertisement = fakePools(1, skills, classifications)[0];
 
 export default {
   component: EditPoolForm,

@@ -3,13 +3,13 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 import { widthOf, heightOf } from "storybook-helpers";
-import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
+import { fakePools } from "@gc-digital-talent/fake-data";
 
 import { AdvertisementStatus, PublishingGroup } from "~/api/generated";
 
 import { BrowsePools } from "./BrowsePoolsPage";
 
-const mockAdvertisements = fakePoolAdvertisements(3).map((advert) => ({
+const mockAdvertisements = fakePools(3).map((advert) => ({
   ...advert,
   publishingGroup: PublishingGroup.ItJobs,
   advertisementStatus: AdvertisementStatus.Published,

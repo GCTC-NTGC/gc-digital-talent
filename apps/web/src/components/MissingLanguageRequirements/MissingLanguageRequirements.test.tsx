@@ -5,16 +5,9 @@
 import React from "react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import {
-  Applicant,
-  PoolAdvertisement,
-  PoolAdvertisementLanguage,
-} from "~/api/generated";
+import { Applicant, Pool, PoolAdvertisementLanguage } from "~/api/generated";
 
-import {
-  fakeUsers,
-  fakePoolAdvertisements,
-} from "@gc-digital-talent/fake-data";
+import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,
@@ -34,17 +27,17 @@ const bilingualApplicant: Applicant = {
   lookingForBilingual: true,
 };
 
-const fakePoolAdvertisement = fakePoolAdvertisements(1)[0];
-const unilingualPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
+const fakePool = fakePools(1)[0];
+const unilingualPoolAdvertisement: Pool = {
+  ...fakePool,
   advertisementLanguage: PoolAdvertisementLanguage.English,
 };
-const bilingualIntermediatePoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
+const bilingualIntermediatePoolAdvertisement: Pool = {
+  ...fakePool,
   advertisementLanguage: PoolAdvertisementLanguage.BilingualIntermediate,
 };
-const bilingualAdvancedPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
+const bilingualAdvancedPoolAdvertisement: Pool = {
+  ...fakePool,
   advertisementLanguage: PoolAdvertisementLanguage.BilingualAdvanced,
 };
 
