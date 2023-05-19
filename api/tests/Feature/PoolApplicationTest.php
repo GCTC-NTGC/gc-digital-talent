@@ -120,42 +120,45 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        $this->applicantUser = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicantUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
+        $this->applicantUser = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant"
+            ])
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
         // Add generic job title for submission
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
-        $this->responderUser = User::factory()->create([
-            'email' => 'request-responder-user@test.com',
-            'sub' => 'request-responder-user@test.com',
-        ]);
-        $this->responderUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant",
-            "request_responder"
-        ]);
+        $this->responderUser = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant",
+                "request_responder"
+            ])
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
         $team = Team::factory()->create([
             'name' => "pool-application-test-team",
         ]);
-        $this->teamUser = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->teamUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->teamUser->addRole("pool_operator",  $team);
+        $this->teamUser = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant"
+            ])
+            ->withRoles(["pool_operator"], $team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
     }
 
     public function testApplicationCreation(): void

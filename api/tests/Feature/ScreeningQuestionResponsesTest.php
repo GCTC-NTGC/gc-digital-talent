@@ -51,16 +51,17 @@ class ScreeningQuestionResponsesTest extends TestCase
             'team_id' => $this->team->id,
             'published_at' => null,
         ]);
-        $this->teamUser = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->teamUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->teamUser->addRole("pool_operator", $this->team);
+        $this->teamUser = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant"
+            ])
+            ->withRoles(["pool_operator"], $this->team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
         $this->questionId = $this->pool->screeningQuestions()->pluck('id')->toArray()[0];
     }
 

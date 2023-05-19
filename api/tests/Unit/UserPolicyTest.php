@@ -30,65 +30,70 @@ class UserPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->guest = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guest->syncRoles([
-            "guest",
-        ]);
+        $this->guest = User::factory()
+            ->withRoles(["guest"])
+            ->create([
+                'email' => 'guest-user@test.com',
+                'sub' => 'guest-user@test.com',
+            ]);
 
-        $this->applicant = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicant->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->otherApplicant = User::factory()->create([
-            'email' => 'other-applicant-user@test.com',
-            'sub' => 'other-applicant-user@test.com',
-        ]);
-        $this->otherApplicant->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
+        $this->applicant = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant"
+            ])
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
 
-        $this->requestResponder = User::factory()->create([
-            'email' => 'request-responder@test.com',
-            'sub' => 'request-responder@test.com',
-        ]);
-        $this->requestResponder->syncRoles([
-            "guest",
-            "base_user",
-            "request_responder"
-        ]);
+        $this->otherApplicant = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "applicant"
+            ])
+            ->create([
+                'email' => 'other-applicant-user@test.com',
+                'sub' => 'other-applicant-user@test.com',
+            ]);
 
-        $this->poolOperator = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->poolOperator->syncRoles([
-            "guest",
-            "base_user",
-        ]);
+        $this->requestResponder = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "request_responder"
+            ])
+            ->create([
+                'email' => 'request-responder@test.com',
+                'sub' => 'request-responder@test.com',
+            ]);
+
         $this->team = Team::factory()->create([
             'name' => 'test-team'
         ]);
-        $this->poolOperator->addRole("pool_operator", $this->team);
+        $this->poolOperator = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+            ])
+            ->withRoles(["pool_operator"], $this->team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
 
-        $this->platformAdmin = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
-        $this->platformAdmin->syncRoles([
-            "guest",
-            "base_user",
-            "platform_admin"
-        ]);
+        $this->platformAdmin = User::factory()
+            ->withRoles([
+                "guest",
+                "base_user",
+                "platform_admin"
+            ])
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**

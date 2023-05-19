@@ -33,39 +33,48 @@ class PoolPolicyTest extends TestCase
 
         $baseRoles = ["guest", "base_user", "applicant"];
 
-        $this->guestUser = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guestUser->syncRoles(["guest"]);
+        $this->guestUser = User::factory()
+            ->withRoles(["guest"])
+            ->create([
+                'email' => 'guest-user@test.com',
+                'sub' => 'guest-user@test.com',
+            ]);
 
-        $this->applicantUser = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicantUser->syncRoles($baseRoles);
+        $this->applicantUser = User::factory()
+            ->withRoles($baseRoles)
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
 
-        $this->poolOperatorUser = User::factory()->create([
-            'email' => 'pool-operator-user@test.com',
-            'sub' => 'pool-operator-user@test.com',
-        ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->poolOperatorUser->syncRoles($baseRoles);
-        $this->poolOperatorUser->addRole("pool_operator", $this->team);
+        $this->poolOperatorUser = User::factory()
+            ->withRoles($baseRoles)
+            ->withRoles(["pool_operator"], $this->team->name)
+            ->create([
+                'email' => 'pool-operator-user@test.com',
+                'sub' => 'pool-operator-user@test.com',
+            ]);
 
-        $this->requestResponderUser = User::factory()->create([
-            'email' => 'request-responder-user@test.com',
-            'sub' => 'request-responder-user@test.com',
-        ]);
-        $this->requestResponderUser->syncRoles($baseRoles);
-        $this->requestResponderUser->addRole("request_responder");
+        $this->requestResponderUser = User::factory()
+            ->withRoles([
+                ...$baseRoles,
+                "request_responder",
+            ])
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'platform-admin-user@test.com',
-            'sub' => 'platform-admin-user@test.com',
-        ]);
-        $this->adminUser->syncRoles($baseRoles);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser = User::factory()
+            ->withRoles([
+                ...$baseRoles,
+                "platform_admin",
+            ])
+            ->create([
+                'email' => 'platform-admin-user@test.com',
+                'sub' => 'platform-admin-user@test.com',
+            ]);
 
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->poolOperatorUser->id,

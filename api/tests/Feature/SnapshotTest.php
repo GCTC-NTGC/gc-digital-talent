@@ -42,7 +42,9 @@ class SnapshotTest extends TestCase
     public function testCreateSnapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
-        $user = User::factory()->create()->syncRoles(["base_user", "applicant"]);
+        $user = User::factory()
+            ->withRoles(["base_user", "applicant"])
+            ->create();
 
         $poolCandidate = PoolCandidate::factory()->create([
             "user_id" => $user->id,
