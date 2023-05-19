@@ -20,7 +20,8 @@ button:not(disabled) {
 }
 
 abbr {
-  text-decoration: underline inherit dotted;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
 }
 
 abbr:hover {
