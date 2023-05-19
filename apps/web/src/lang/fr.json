@@ -7950,7 +7950,7 @@
   },
   "GKKj6G": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
-    "description": "Text showing the team and department of the HR pool."
+    "description": "Team and department of pool"
   },
   "2Ljgvn": {
     "defaultMessage": "Consulter l’avis d’emploi pour ce processus de recrutement",
