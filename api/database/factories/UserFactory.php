@@ -209,4 +209,23 @@ class UserFactory extends Factory
             );
         });
     }
+
+    /**
+     * Attach roles to a user after creation.
+     *
+     * @param array $roles Array of the roles to attach
+     * @param string $team Name of the team to attach the roles to
+     *
+     * @return $this
+     *
+     * Usage:
+     *      `User::factory()->withRoles(['base_user', 'applicant']);`
+     *      `User::factory()->withRoles(['poo_operator'], 'team_name');`
+     */
+    public function withRoles(array $roles, string $team = null)
+    {
+        return $this->afterCreating(function (User $user) use ($roles, $team) {
+            $user->addRoles($roles, $team);
+        });
+    }
 }
