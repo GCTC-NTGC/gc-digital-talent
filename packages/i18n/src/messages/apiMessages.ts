@@ -42,6 +42,14 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the given skill family key is already in use.",
     },
 
+    // department validation
+    DepartmentNumberInUse: {
+      defaultMessage: "This department number is already in use",
+      id: "xH10Pp",
+      description:
+        "Error message that the input department number is already in use.",
+    },
+
     // application validation
     AlreadyArchived: {
       defaultMessage: "Application is already archived.",

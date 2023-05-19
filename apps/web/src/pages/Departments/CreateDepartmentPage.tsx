@@ -88,6 +88,7 @@ export const CreateDepartmentForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              min="0"
             />
             <Input
               id="name_en"
