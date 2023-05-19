@@ -833,7 +833,6 @@ type PoolAdvertisement {
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
-  description: LocalizedString
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
