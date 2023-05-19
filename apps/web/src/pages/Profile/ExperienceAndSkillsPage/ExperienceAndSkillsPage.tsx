@@ -31,10 +31,8 @@ const ExperienceAndSkillsApi = ({
     variables: { id: applicationId || "" },
   });
   const missingSkills = {
-    requiredSkills:
-      data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
-    optionalSkills:
-      data?.poolCandidate?.poolAdvertisement?.nonessentialSkills || [],
+    requiredSkills: data?.poolCandidate?.pool.essentialSkills || [],
+    optionalSkills: data?.poolCandidate?.pool.nonessentialSkills || [],
   };
   const experiencesOnlyRelevantSkills = experiences.map((experience) => {
     return {
@@ -53,10 +51,10 @@ const ExperienceAndSkillsApi = ({
   });
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate?.poolAdvertisement ? (
+      {data?.poolCandidate ? (
         <ExperienceAndSkills
           applicantId={applicantId}
-          poolAdvertisement={data.poolCandidate.poolAdvertisement}
+          poolAdvertisement={data.poolCandidate.pool}
           missingSkills={missingSkills}
           experiences={experiencesOnlyRelevantSkills}
         />

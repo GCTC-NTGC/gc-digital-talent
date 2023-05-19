@@ -39,10 +39,7 @@ const EmploymentEquityFormApi = ({
           user={user}
           onUpdate={onUpdate}
           isMutating={isMutating}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
         />
       ) : (
         <EmploymentEquityForm

@@ -44,17 +44,13 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     paths,
     application,
     experienceId,
-    poolAdvertisement: application.poolAdvertisement,
   });
 
   const poolNameHtml = getFullPoolAdvertisementTitleHtml(
     intl,
-    application.poolAdvertisement,
+    application.pool,
   );
-  const poolName = getFullPoolAdvertisementTitleLabel(
-    intl,
-    application.poolAdvertisement,
-  );
+  const poolName = getFullPoolAdvertisementTitleLabel(intl, application.pool);
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
@@ -95,13 +91,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }),
     },
     {
-      url: application.poolAdvertisement?.id
-        ? paths.pool(application.poolAdvertisement.id)
-        : "#",
-      label: getFullPoolAdvertisementTitleHtml(
-        intl,
-        application.poolAdvertisement,
-      ),
+      url: paths.pool(application.pool.id),
+      label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
     },
     ...currentCrumbs,
   ]);
@@ -181,7 +172,7 @@ const ApplicationLayout = () => {
 
   return (
     <Pending fetching={fetching || stale} error={error}>
-      {application?.poolAdvertisement ? (
+      {application ? (
         <ApplicationContextProvider application={application}>
           <ApplicationPageWrapper application={application} />
         </ApplicationContextProvider>

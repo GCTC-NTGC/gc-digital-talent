@@ -11,7 +11,7 @@ import {
   HeadingRank,
 } from "@gc-digital-talent/ui";
 
-import { Applicant, PoolAdvertisement } from "~/api/generated";
+import { Applicant, Pool } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
@@ -77,7 +77,7 @@ const MissingLanguageRequirementsBlock = ({
 
 export interface MissingLanguageRequirementsProps {
   applicant?: Applicant;
-  poolAdvertisement?: PoolAdvertisement | null;
+  poolAdvertisement?: Pool | null;
   headingLevel?: HeadingRank;
 }
 

@@ -409,7 +409,7 @@ const ApplicationSelfDeclarationPage = () => {
       fetching={applicationFetching || applicationStale || userFetching}
       error={applicationError || userError}
     >
-      {application?.poolAdvertisement && userData?.me ? (
+      {application && userData?.me ? (
         <ApplicationSelfDeclaration
           application={application}
           indigenousCommunities={resolvedIndigenousCommunities}

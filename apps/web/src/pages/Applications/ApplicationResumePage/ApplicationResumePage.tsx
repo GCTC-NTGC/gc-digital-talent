@@ -493,7 +493,7 @@ const ApplicationResumePage = () => {
       fetching={applicationFetching || experienceFetching}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application ? (
         <ApplicationResume
           application={application}
           experiences={experiences}

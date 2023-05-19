@@ -21,7 +21,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  PoolAdvertisement,
+  Pool,
   Scalars,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
@@ -225,7 +225,7 @@ export interface SignAndSubmitFormProps {
   applicationId: string;
   poolAdvertisementId: string;
   userId: string;
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   jobTitle: React.ReactNode;
   handleSubmitApplication: (
     id: string,
@@ -373,11 +373,8 @@ const SignAndSubmitPage = () => {
     variables: { id: poolCandidateId || "" },
   });
 
-  const jobTitle = data?.poolCandidate?.poolAdvertisement
-    ? getFullPoolAdvertisementTitleHtml(
-        intl,
-        data.poolCandidate.poolAdvertisement,
-      )
+  const jobTitle = data?.poolCandidate
+    ? getFullPoolAdvertisementTitleHtml(intl, data.poolCandidate.pool)
     : intl.formatMessage({
         defaultMessage: "Error, job title not found.",
         id: "oDyHaL",
@@ -395,12 +392,12 @@ const SignAndSubmitPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data.poolCandidate.poolAdvertisement ? (
+      {data?.poolCandidate ? (
         <SignAndSubmitForm
           applicationId={data.poolCandidate.id}
-          poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
+          poolAdvertisementId={data.poolCandidate.pool.id}
           userId={data.poolCandidate.user.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
+          closingDate={data.poolCandidate.pool.closingDate}
           jobTitle={jobTitle}
           handleSubmitApplication={handleSubmitApplication}
         />

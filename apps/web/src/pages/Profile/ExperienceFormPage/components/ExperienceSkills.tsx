@@ -8,14 +8,14 @@ import { Separator } from "@gc-digital-talent/ui";
 import SkillPicker from "~/components/SkillPicker";
 import SkillBlock from "~/components/SkillPicker/SkillBlock";
 import { categorizeSkill } from "~/utils/skillUtils";
-import { PoolAdvertisement, Skill, SkillCategory } from "~/api/generated";
+import { Pool, Skill, SkillCategory } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "~/types/experience";
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
-  poolAdvertisement?: PoolAdvertisement;
+  poolAdvertisement?: Pool;
 }
 
 const ExperienceSkills = ({

@@ -8,8 +8,8 @@ import {
   Maybe,
   PoolCandidate,
   Scalars,
+  Pool,
   PoolStream,
-  PoolAdvertisement,
   Classification,
 } from "~/api/generated";
 
@@ -140,9 +140,7 @@ export const formattedPoolPosterTitle = ({
 
 export const fullPoolAdvertisementTitle = (
   intl: IntlShape,
-  poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "name" | "classifications" | "stream">
-  >,
+  poolAdvertisement: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
   options?: { defaultTitle?: string },
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
@@ -177,17 +175,13 @@ export const fullPoolAdvertisementTitle = (
 
 export const getFullPoolAdvertisementTitleHtml = (
   intl: IntlShape,
-  poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "name" | "classifications" | "stream">
-  >,
+  poolAdvertisement: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
   options?: { defaultTitle?: string },
 ): React.ReactNode =>
   fullPoolAdvertisementTitle(intl, poolAdvertisement, options).html;
 
 export const getFullPoolAdvertisementTitleLabel = (
   intl: IntlShape,
-  poolAdvertisement: Maybe<
-    Pick<PoolAdvertisement, "name" | "classifications" | "stream">
-  >,
+  poolAdvertisement: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
   options?: { defaultTitle?: string },
 ): string => fullPoolAdvertisementTitle(intl, poolAdvertisement, options).label;

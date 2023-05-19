@@ -1,8 +1,4 @@
-import {
-  Applicant,
-  ApplicationStep,
-  PoolAdvertisement,
-} from "@gc-digital-talent/graphql";
+import { Applicant, ApplicationStep, Pool } from "@gc-digital-talent/graphql";
 import { IntlShape } from "react-intl";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
@@ -34,7 +30,7 @@ export type ApplicationStepInfo = {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     applicant: Applicant,
-    poolAdvertisement: PoolAdvertisement,
+    poolAdvertisement: Pool,
     application: Omit<PoolCandidate, "pool">,
   ) => boolean;
 };

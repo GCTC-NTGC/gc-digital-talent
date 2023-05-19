@@ -16,12 +16,7 @@ import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Applicant,
-  PoolAdvertisement,
-  Scalars,
-  SkillCategory,
-} from "~/api/generated";
+import { Applicant, Pool, Scalars, SkillCategory } from "~/api/generated";
 import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 import { categorizeSkill, getMissingSkills } from "~/utils/skillUtils";
 import { flattenExperienceSkills } from "~/types/experience";
@@ -29,9 +24,9 @@ import { useGetApplicationQuery } from "@gc-digital-talent/graphql";
 
 interface ReviewApplicationProps {
   applicant: Applicant;
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   applicationId: string;
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
 }
 
 export const ReviewApplication = ({
@@ -301,12 +296,12 @@ const ReviewApplicationPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data?.poolCandidate?.poolAdvertisement?.id ? (
+      {data?.poolCandidate ? (
         <ReviewApplication
-          poolAdvertisement={data.poolCandidate.poolAdvertisement}
+          poolAdvertisement={data.poolCandidate.pool}
           applicant={data.poolCandidate.user as Applicant}
           applicationId={data.poolCandidate.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
+          closingDate={data.poolCandidate.pool.closingDate}
         />
       ) : (
         <ApplicationNotFound />

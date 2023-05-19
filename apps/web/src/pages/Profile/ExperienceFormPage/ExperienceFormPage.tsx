@@ -21,7 +21,7 @@ import { categorizeSkill } from "~/utils/skillUtils";
 import {
   Maybe,
   SkillCategory,
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Skill,
   useGetApplicationQuery,
@@ -65,7 +65,7 @@ export interface ExperienceFormProps {
   applicationId?: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
-  poolAdvertisement?: PoolAdvertisement;
+  poolAdvertisement?: Pool;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
   deleteExperience: () => void;
@@ -518,9 +518,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       {skillsData && found ? (
         <ExperienceForm
           userId={userId || ""}
-          poolAdvertisement={
-            applicationData?.poolCandidate?.poolAdvertisement || undefined
-          }
+          poolAdvertisement={applicationData?.poolCandidate?.pool || undefined}
           experienceId={experienceId || ""}
           applicationId={applicationId || undefined}
           experience={experience as ExperienceQueryData}
