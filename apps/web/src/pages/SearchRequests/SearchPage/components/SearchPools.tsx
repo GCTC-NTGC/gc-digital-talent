@@ -101,7 +101,7 @@ const SearchPools = ({
       >
         {pool?.essentialSkills && pool?.essentialSkills.length > 0
           ? pool.essentialSkills.map((skill) => (
-              <span key={skill.id} data-h2-margin="base(x,x, x,x )">
+              <span key={skill.id}>
                 <Pill key={skill.id} color="secondary" mode="outline">
                   {getLocalizedName(skill?.name, intl)}
                 </Pill>
