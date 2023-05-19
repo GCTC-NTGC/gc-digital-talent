@@ -13,7 +13,7 @@ import {
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import QualifiedRecruitmentStatus from "./QualifiedRecruitmentStatus";
 
-export type Application = Omit<PoolCandidate, "pool" | "user">;
+export type Application = Omit<PoolCandidate, "user">;
 
 export interface QualifiedRecruitmentCardProps {
   application: Application;
@@ -28,15 +28,15 @@ const QualifiedRecruitmentCard = ({
   const locale = getLocale(intl);
 
   // Essential Skills
-  const skills = application.poolAdvertisement?.essentialSkills
-    ? application.poolAdvertisement?.essentialSkills
+  const skills = application.pool.essentialSkills
+    ? application.pool.essentialSkills
     : [];
 
   // Conditionals for qualified recruitment card actions
   const applicationIsDraft = isDraft(application.status);
   const recruitmentIsExpired = isExpired(
     application.status,
-    application.poolAdvertisement?.closingDate,
+    application.pool.closingDate,
   );
   const isApplicantPlaced = isPlaced(application.status);
   return (
@@ -58,12 +58,7 @@ const QualifiedRecruitmentCard = ({
           data-h2-margin="base(0, 0, x1, 0)"
           data-h2-flex-grow="base(1)"
         >
-          {application.poolAdvertisement
-            ? getFullPoolAdvertisementTitleHtml(
-                intl,
-                application.poolAdvertisement,
-              )
-            : ""}
+          {getFullPoolAdvertisementTitleHtml(intl, application.pool)}
         </Heading>
       </div>
       <div data-h2-margin="base(0, 0, x1, 0)">
@@ -108,8 +103,8 @@ const QualifiedRecruitmentCard = ({
           data-h2-gap="base(x1)"
         >
           <ApplicationActions.SeeAdvertisementAction
-            show={notEmpty(application.poolAdvertisement)}
-            advertisement={application.poolAdvertisement}
+            show={notEmpty(application.pool)}
+            advertisement={application.pool}
           />
           <ApplicationActions.ViewAction
             show={!applicationIsDraft}

@@ -14,7 +14,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import {
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Classification,
   useGetEditPoolDataQuery,
@@ -63,7 +63,7 @@ export type PoolSubmitData =
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => void;
@@ -332,7 +332,7 @@ export const EditPoolPage = () => {
       url: routes.poolTable(),
     },
     {
-      label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+      label: getLocalizedName(data?.pool?.name, intl),
       url: routes.poolView(poolId),
     },
     {
@@ -348,10 +348,10 @@ export const EditPoolPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolAdvertisement ? (
+        {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>
             <EditPoolForm
-              poolAdvertisement={data.poolAdvertisement}
+              poolAdvertisement={data.pool}
               classifications={data.classifications.filter(notEmpty)}
               skills={data.skills.filter(notEmpty)}
               onSave={(saveData) => mutations.update(poolId, saveData)}

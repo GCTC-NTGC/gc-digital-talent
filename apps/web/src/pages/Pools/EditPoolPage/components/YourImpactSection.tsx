@@ -14,7 +14,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   AdvertisementStatus,
   LocalizedString,
-  PoolAdvertisement,
+  Pool,
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -33,7 +33,7 @@ export type YourImpactSubmitData = Pick<
 >;
 
 interface YourImpactSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: YourImpactSubmitData) => void;
 }
@@ -49,7 +49,7 @@ const YourImpactSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     yourImpactEn: initialData.yourImpact?.en ?? "",
     yourImpactFr: initialData.yourImpact?.fr ?? "",
   });

@@ -9,7 +9,7 @@ import { Submit } from "@gc-digital-talent/forms";
 
 import {
   AdvertisementStatus,
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Skill,
   UpdatePoolAdvertisementInput,
@@ -31,7 +31,7 @@ type FormValues = {
 };
 
 interface AssetSkillsSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   skills: Array<Skill>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: AssetSkillsSubmitData) => void;

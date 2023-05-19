@@ -24,7 +24,7 @@ import {
 } from "./utils";
 import useMutations from "./useMutations";
 
-export type Application = Omit<PoolCandidate, "pool" | "user">;
+export type Application = Omit<PoolCandidate, "user">;
 
 export interface ApplicationCardProps {
   application: Application;
@@ -50,13 +50,10 @@ const ApplicationCard = ({
   const applicationCanBeDeleted = canBeDeleted(application.status);
   const recruitmentIsExpired = isExpired(
     application.status,
-    application.poolAdvertisement?.closingDate,
+    application.pool.closingDate,
   );
   const submittedAt = formatSubmittedAt(application.submittedAt, intl);
-  const closingDate = formatClosingDate(
-    application.poolAdvertisement?.closingDate,
-    intl,
-  );
+  const closingDate = formatClosingDate(application.pool.closingDate, intl);
   const status = getPoolCandidateStatusLabel(application.status);
 
   return (
@@ -77,12 +74,7 @@ const ApplicationCard = ({
           data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
-          {application.poolAdvertisement
-            ? getFullPoolAdvertisementTitleHtml(
-                intl,
-                application.poolAdvertisement,
-              )
-            : ""}
+          {getFullPoolAdvertisementTitleHtml(intl, application.pool)}
         </Heading>
         <p data-h2-font-size="base(0.8rem)" data-h2-text-align="base(right)">
           {intl.formatMessage(
@@ -130,8 +122,8 @@ const ApplicationCard = ({
           data-h2-gap="base(x1)"
         >
           <ApplicationActions.SeeAdvertisementAction
-            show={notEmpty(application.poolAdvertisement)}
-            advertisement={application.poolAdvertisement}
+            show={notEmpty(application.pool)}
+            advertisement={application.pool}
           />
           <ApplicationActions.ViewAction
             show={!applicationIsDraft}

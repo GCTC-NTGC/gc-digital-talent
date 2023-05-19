@@ -12,7 +12,7 @@ import {
 import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
 import {
   AdvertisementStatus,
-  PoolAdvertisement,
+  Pool,
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -21,7 +21,7 @@ import Spacer from "~/components/Spacer/Spacer";
 import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["closingDate"];
+  endDate?: Pool["closingDate"];
 };
 
 export type ClosingDateSubmitData = Pick<
@@ -29,7 +29,7 @@ export type ClosingDateSubmitData = Pick<
   "closingDate"
 >;
 interface ClosingDateSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: ClosingDateSubmitData) => void;
 }
@@ -42,7 +42,7 @@ const ClosingDateSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
+  const dataToFormValues = (initialData: Pool): FormValues => {
     const closingDateInPacific = initialData.closingDate
       ? convertDateTimeToDate(
           convertDateTimeZone(initialData.closingDate, "UTC", "Canada/Pacific"),

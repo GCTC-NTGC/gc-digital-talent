@@ -18,7 +18,7 @@ import Hero from "~/components/Hero";
 import {
   AdvertisementStatus,
   PublishingGroup,
-  PoolAdvertisement,
+  Pool,
   useBrowsePoolAdvertisementsQuery,
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -44,7 +44,7 @@ const getFlourishStyles = (isTop: boolean) => ({
 });
 
 export interface BrowsePoolsProps {
-  poolAdvertisements: PoolAdvertisement[];
+  poolAdvertisements: Pool[];
 }
 
 export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
@@ -329,7 +329,7 @@ const BrowsePoolsApi = () => {
   const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>
       typeof poolAdvertisement !== undefined && !!poolAdvertisement,
-  ) as PoolAdvertisement[];
+  ) as Pool[];
 
   return (
     <Pending fetching={fetching} error={error}>

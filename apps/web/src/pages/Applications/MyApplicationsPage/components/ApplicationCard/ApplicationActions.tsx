@@ -19,7 +19,7 @@ export interface ContinueActionProps extends ActionProps {
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
 
   if (!show) {
     return null;
@@ -40,7 +40,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+            name: getFullPoolAdvertisementTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -54,7 +54,7 @@ export interface ViewActionProps extends ActionProps {
 const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
 
   if (!show) {
     return null;
@@ -74,7 +74,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          name: getFullPoolAdvertisementTitleHtml(intl, pool),
         },
       )}
     </Link>
@@ -82,7 +82,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
 };
 
 export interface SeeAdvertisementActionProps extends ActionProps {
-  advertisement: Application["poolAdvertisement"];
+  advertisement: Application["pool"];
 }
 
 const SeeAdvertisementAction = ({
@@ -149,10 +149,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolAdvertisementTitleHtml(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -235,10 +232,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolAdvertisementTitleHtml(intl, application.pool);
 
   return (
     <AlertDialog.Root>

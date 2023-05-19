@@ -28,12 +28,7 @@ import {
   getExperienceTitles,
   getScreeningQuestionResponses,
 } from "~/utils/csvUtils";
-import {
-  Maybe,
-  PoolCandidate,
-  PositionDuration,
-  PoolAdvertisement,
-} from "~/api/generated";
+import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import labels from "~/components/ExperienceAccordion/labels";
 import adminMessages from "~/messages/adminMessages";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -41,10 +36,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
   poolAdvertisement: Maybe<
-    Pick<
-      PoolAdvertisement,
-      "essentialSkills" | "nonessentialSkills" | "screeningQuestions"
-    >
+    Pick<Pool, "essentialSkills" | "nonessentialSkills" | "screeningQuestions">
   >,
 ) => {
   const intl = useIntl();
@@ -434,10 +426,10 @@ const usePoolCandidateCsvData = (
         educationRequirementExperiences,
         screeningQuestionResponses,
         user,
-        poolAdvertisement: poolAd,
+        pool: poolAd,
       }) => {
         const poolAdvertisementSkills =
-          poolAd?.essentialSkills && poolAd?.nonessentialSkills
+          poolAd.essentialSkills && poolAd.nonessentialSkills
             ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
             : [];
         return {

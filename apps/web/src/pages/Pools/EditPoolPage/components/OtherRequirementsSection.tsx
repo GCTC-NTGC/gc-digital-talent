@@ -21,7 +21,7 @@ import {
   AdvertisementStatus,
   LocalizedString,
   Maybe,
-  PoolAdvertisement,
+  Pool,
   PoolAdvertisementLanguage,
   PublishingGroup,
   SecurityStatus,
@@ -38,8 +38,8 @@ enum LocationOption {
 }
 
 type FormValues = {
-  languageRequirement: PoolAdvertisement["advertisementLanguage"];
-  securityRequirement: PoolAdvertisement["securityClearance"];
+  languageRequirement: Pool["advertisementLanguage"];
+  securityRequirement: Pool["securityClearance"];
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
   specificLocationFr?: LocalizedString["fr"];
@@ -56,7 +56,7 @@ export type OtherRequirementsSubmitData = Pick<
 >;
 
 interface OtherRequirementsSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: OtherRequirementsSubmitData) => void;
 }
@@ -77,7 +77,7 @@ const OtherRequirementsSection = ({
     return LocationOption.SpecificLocation;
   };
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
     locationOption: getLocationOption(initialData.isRemote),

@@ -10,7 +10,7 @@ import { Submit } from "@gc-digital-talent/forms";
 import SkillPicker from "~/components/SkillPicker";
 import {
   AdvertisementStatus,
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Skill,
   UpdatePoolAdvertisementInput,
@@ -31,7 +31,7 @@ type FormValues = {
 };
 
 interface EssentialSkillsSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   skills: Array<Skill>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: EssentialSkillsSubmitData) => void;

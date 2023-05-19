@@ -14,7 +14,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   AdvertisementStatus,
   LocalizedString,
-  PoolAdvertisement,
+  Pool,
   UpdatePoolAdvertisementInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -33,7 +33,7 @@ export type WorkTasksSubmitData = Pick<
 >;
 
 interface WorkTasksSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: WorkTasksSubmitData) => void;
 }
@@ -49,7 +49,7 @@ const WorkTasksSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     YourWorkEn: initialData.keyTasks?.en ?? "",
     YourWorkFr: initialData.keyTasks?.fr ?? "",
   });

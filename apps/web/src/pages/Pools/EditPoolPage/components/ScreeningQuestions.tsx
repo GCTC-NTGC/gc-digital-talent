@@ -24,7 +24,7 @@ import {
   CreateScreeningQuestionInput,
   UpdateScreeningQuestionInput,
   LocalizedString,
-  PoolAdvertisement,
+  Pool,
   Scalars,
   AdvertisementStatus,
   UpdatePoolAdvertisementInput,
@@ -110,7 +110,7 @@ const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
 };
 
 interface ScreeningQuestionsProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: ScreeningQuestionsSubmitData) => void;
 }
@@ -123,7 +123,7 @@ const ScreeningQuestions = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
       initialData?.screeningQuestions
         ?.filter(notEmpty)

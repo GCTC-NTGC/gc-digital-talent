@@ -18,7 +18,7 @@ import {
   Classification,
   LocalizedString,
   Maybe,
-  PoolAdvertisement,
+  Pool,
   PoolStream,
   Scalars,
   UpdatePoolAdvertisementInput,
@@ -42,7 +42,7 @@ export type PoolNameSubmitData = Pick<
 >;
 
 interface PoolNameSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   classifications: Array<Maybe<Classification>>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: PoolNameSubmitData) => void;
@@ -67,7 +67,7 @@ const PoolNameSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
     stream: initialData.stream ?? undefined,
     specificTitleEn: initialData.name?.en ?? "",
