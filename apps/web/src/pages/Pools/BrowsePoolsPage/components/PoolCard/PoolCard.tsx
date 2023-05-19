@@ -122,9 +122,6 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-grid-template-columns="base(repeat(2, minmax(0, 1fr)))"
           data-h2-grid-template-rows="base(2fr)"
         >
-          {pool.description && pool.description[locale] && (
-            <p>{pool.description[locale]}</p>
-          )}
           <div
             data-h2-grid-column="base(2)"
             data-h2-grid-row="base(1/3)"

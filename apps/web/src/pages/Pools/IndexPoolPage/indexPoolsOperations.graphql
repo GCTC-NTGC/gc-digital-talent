@@ -21,10 +21,6 @@ query getMePools {
             en
             fr
           }
-          description {
-            en
-            fr
-          }
           classifications {
             id
             group
@@ -51,10 +47,6 @@ query allPools {
       lastName
     }
     name {
-      en
-      fr
-    }
-    description {
       en
       fr
     }
