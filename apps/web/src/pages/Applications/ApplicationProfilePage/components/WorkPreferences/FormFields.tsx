@@ -95,12 +95,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
         label={labels.locationExemptions}
         name="locationExemptions"
         describedBy="location-exemption-description"
-        placeholder={intl.formatMessage({
-          defaultMessage: "Optionally, add a city or village here...",
-          id: "OH5tTS",
-          description:
-            "Location Exemptions field placeholder for work location preference form",
-        })}
       />
       <div
         id="location-exemption-description"
