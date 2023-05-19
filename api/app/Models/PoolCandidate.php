@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Str;
 
 /**
  * Class PoolCandidate
@@ -604,10 +606,17 @@ class PoolCandidate extends Model
     public function scopeWithSkillCount(Builder $query)
     {
         // Checks if the query already has a skill_count select and if it does, it skips adding it again
-        $currentSql = $query->getQuery()->toSql();
-        $skillCountAppearances = substr_count($currentSql, 'skill_count');
-        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
-        if ($orderedBySkillCount && $skillCountAppearances === 2) {
+        $columns = $query->getQuery()->columns;
+        $normalizedColumns = array_map(function ($column) {
+            // Massage the column name to be a string and only return the column name
+            return $column instanceof Expression
+                ? Str::afterLast($column->getValue(DB::getQueryGrammar()), 'as ')
+                : Str::afterLast($column, 'as ');
+        }, $columns ?? []);
+
+        // Check if our array of columns contains the skill_count column
+        // If it does, we do not need to add it again
+        if (in_array('"skill_count"', $normalizedColumns)) {
             return $query;
         }
 

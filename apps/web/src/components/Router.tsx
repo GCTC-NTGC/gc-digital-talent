@@ -276,6 +276,14 @@ const ApplicationWelcomePage = React.lazy(() =>
       ),
   ),
 );
+const ApplicationSelfDeclarationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSelfDeclarationPage" */ "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
+      ),
+  ),
+);
 const ApplicationProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1071,6 +1079,10 @@ const createRoute = (
                         {
                           path: "welcome",
                           element: <ApplicationWelcomePage />,
+                        },
+                        {
+                          path: "self-declaration",
+                          element: <ApplicationSelfDeclarationPage />,
                         },
                         {
                           path: "profile",
