@@ -8255,5 +8255,9 @@
   "yJnGeT": {
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
+  },
+  "Td1lSw": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
+    "description": "Alert message informing user to add education experience in application education page."
   }
 }
